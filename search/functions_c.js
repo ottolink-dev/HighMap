@@ -15,13 +15,14 @@ var searchData=
   ['noise_5fswiss_12',['noise_swiss',['../namespacehmap.html#aefda227a016f94d25e0f33624e50921a',1,'hmap']]],
   ['noisefunction_13',['noisefunction',['../classhmap_1_1NoiseFunction.html#a9006470ba58666184760b40b3478ea68',1,'hmap::NoiseFunction::NoiseFunction(glm::vec2 kw, std::uint32_t seed)'],['../classhmap_1_1NoiseFunction.html#abe0bafe2cca2f6ca2679afbdc54691bb',1,'hmap::NoiseFunction::NoiseFunction(glm::vec2 kw)'],['../classhmap_1_1NoiseFunction.html#a9823b1c76555631d442f52a3d768c162',1,'hmap::NoiseFunction::NoiseFunction()']]],
   ['non_5fparametric_5fsampling_14',['non_parametric_sampling',['../namespacehmap.html#afd029dcbec994bb60252eb7e126a4fb7',1,'hmap']]],
-  ['normal_5fdisplacement_15',['normal_displacement',['../namespacehmap_1_1gpu.html#a638d2358ff4ea4cb6a4f24106aa3c94d',1,'hmap::gpu::normal_displacement()'],['../namespacehmap.html#aafd7a642dabfbcf2ab2981b229a30e15',1,'hmap::normal_displacement(Array &amp;array, float amount=0.1f, int ir=0, bool reverse=false)'],['../namespacehmap.html#a8994656d85a1b9dd0f2c99a3fd45ceb1',1,'hmap::normal_displacement(Array &amp;array, const Array *p_mask, float amount=0.1f, int ir=0, bool reverse=false)'],['../namespacehmap_1_1gpu.html#a9aa4af458740db48fdcd55cc90238ce2',1,'hmap::gpu::normal_displacement()']]],
-  ['normal_5fmap_16',['normal_map',['../namespacehmap.html#aef53e65fc9b8bc74c342367b0034cfa7',1,'hmap']]],
-  ['normal_5fmap_5fto_5fheightmap_17',['normal_map_to_heightmap',['../namespacehmap.html#a26a0e82cf03ec259e3efae1ea84286db',1,'hmap']]],
-  ['normal_5fmap_5fto_5fheightmap_5fpoisson_18',['normal_map_to_heightmap_poisson',['../namespacehmap.html#a58b2e7cdca93719d3e1fca73fd68421c',1,'hmap']]],
+  ['normal_5fdisplacement_15',['normal_displacement',['../namespacehmap_1_1gpu.html#a638d2358ff4ea4cb6a4f24106aa3c94d',1,'hmap::gpu::normal_displacement(Array &amp;array, const Array *p_mask, float amount=0.1f, int ir=0, bool reverse=false)'],['../namespacehmap_1_1gpu.html#a9aa4af458740db48fdcd55cc90238ce2',1,'hmap::gpu::normal_displacement(Array &amp;array, float amount=0.1f, int ir=0, bool reverse=false)'],['../namespacehmap.html#a8994656d85a1b9dd0f2c99a3fd45ceb1',1,'hmap::normal_displacement(Array &amp;array, const Array *p_mask, float amount=0.1f, int ir=0, bool reverse=false)'],['../namespacehmap.html#aafd7a642dabfbcf2ab2981b229a30e15',1,'hmap::normal_displacement(Array &amp;array, float amount=0.1f, int ir=0, bool reverse=false)']]],
+  ['normal_5fmap_16',['normal_map',['../namespacehmap.html#ad3bbab242472aca5e8ee8005e97957e0',1,'hmap']]],
+  ['normal_5fmap_5fto_5fheightmap_17',['normal_map_to_heightmap',['../namespacehmap.html#ad2ec6856745659f0bef18b2fa61e4eff',1,'hmap']]],
+  ['normal_5fmap_5fto_5fheightmap_5fpoisson_18',['normal_map_to_heightmap_poisson',['../namespacehmap.html#a8776cc91b81a545c90b2a1623f011887',1,'hmap']]],
   ['normalization_5fcoeff_19',['normalization_coeff',['../classhmap_1_1Array.html#ac368e46495976f11a552ce2a50d5cc6e',1,'hmap::Array']]],
-  ['normalize_20',['normalize',['../classhmap_1_1Array.html#ab55ee6021288a467f7d782b09e888f25',1,'hmap::Array::normalize()'],['../namespacehmap.html#a27faed8c5c8f89f271b6882c8a7cc81b',1,'hmap::normalize(Array &amp;array, NormalizationMethod method)']]],
+  ['normalize_20',['normalize',['../namespacehmap.html#a27faed8c5c8f89f271b6882c8a7cc81b',1,'hmap::normalize()'],['../classhmap_1_1Array.html#ab55ee6021288a467f7d782b09e888f25',1,'hmap::Array::normalize()']]],
   ['normalized_21',['normalized',['../namespacehmap.html#a3d6212896d8cd828bd5bd827d24a0344',1,'hmap']]],
   ['normalized_5fdistance_5fto_5fedges_22',['normalized_distance_to_edges',['../classhmap_1_1CoordFrame.html#af1f76997d4d33cc1cc1e63ffb1ca3ebd',1,'hmap::CoordFrame']]],
-  ['normalized_5fshape_5ffactor_23',['normalized_shape_factor',['../classhmap_1_1CoordFrame.html#ab1c8fa8ed0244f4a54759253b629255c',1,'hmap::CoordFrame']]]
+  ['normalized_5fshape_5ffactor_23',['normalized_shape_factor',['../classhmap_1_1CoordFrame.html#ab1c8fa8ed0244f4a54759253b629255c',1,'hmap::CoordFrame']]],
+  ['num_5fchannels_24',['num_channels',['../classhmap_1_1Texture.html#a3d94e8bea60fdb4d2cd505f67f60e2c4',1,'hmap::Texture']]]
 ];

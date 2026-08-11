@@ -53,7 +53,7 @@ var searchData=
   ['log10_50',['log10',['../namespacehmap.html#a75475b6109023ce0ad64f6f9f7c4c525',1,'hmap']]],
   ['log_5fopenmp_5finfo_51',['log_openmp_info',['../namespacehmap.html#afaefd4e8848d0155162b24a1a67f9479',1,'hmap']]],
   ['logspace_52',['logspace',['../namespacehmap.html#a72951e6ba82ab8726d1b5d2f491226b2',1,'hmap']]],
-  ['lorentzian_53',['lorentzian',['../namespacehmap.html#a4b6f135c6e81d313ca54ae1efac5f2c9adca1c57725ab84b424723316de5ba3dc',1,'hmap::LORENTZIAN'],['../namespacehmap.html#a921bc84c2e2cf76a022da0ffaaf60802',1,'hmap::lorentzian(glm::ivec2 shape, float footprint_threshold=0.1f)']]],
+  ['lorentzian_53',['lorentzian',['../namespacehmap.html#a921bc84c2e2cf76a022da0ffaaf60802',1,'hmap::lorentzian(glm::ivec2 shape, float footprint_threshold=0.1f)'],['../namespacehmap.html#a4b6f135c6e81d313ca54ae1efac5f2c9adca1c57725ab84b424723316de5ba3dc',1,'hmap::LORENTZIAN']]],
   ['lorentzian_5fcompact_54',['lorentzian_compact',['../namespacehmap.html#a0cfa024afb9246aaa89ec6b2e69501c3',1,'hmap']]],
   ['low_5fpass_5ffilter_5ffunction_55',['low_pass_filter_function',['../classhmap_1_1PyramidDecomposition.html#ab7684296d0993168de59ca6938d30cd2',1,'hmap::PyramidDecomposition']]],
   ['low_5fpass_5fhigh_5forder_56',['low_pass_high_order',['../namespacehmap.html#a81842482472ceecc660913388219bb77',1,'hmap']]],
@@ -63,5 +63,5 @@ var searchData=
   ['lru_5ftile_5fstorage_2ecpp_60',['lru_tile_storage.cpp',['../lru__tile__storage_8cpp.html',1,'']]],
   ['lrutileentry_61',['LruTileEntry',['../structhmap_1_1LruTileEntry.html',1,'hmap']]],
   ['lrutilestorage_62',['lrutilestorage',['../classhmap_1_1LruTileStorage.html#a18948b97db31797b0fe45c58d2da883b',1,'hmap::LruTileStorage::LruTileStorage()'],['../classhmap_1_1LruTileStorage.html',1,'hmap::LruTileStorage']]],
-  ['luminance_63',['luminance',['../namespacehmap.html#a051c3f6f1ceda0feaf3c36c97bd7fef9',1,'hmap']]]
+  ['luminance_63',['luminance',['../namespacehmap.html#a051c3f6f1ceda0feaf3c36c97bd7fef9',1,'hmap::luminance(VirtualArray &amp;out, VirtualTexture &amp;tex, const ComputeMode &amp;cm)'],['../namespacehmap.html#af57ba0aebe498d0b79b91159d7e600b5',1,'hmap::luminance(const Texture &amp;tex)']]]
 ];

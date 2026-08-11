@@ -16,7 +16,7 @@ var searchData=
   ['color_5fmatch_5fmask_2ecpp_13',['color_match_mask.cpp',['../color__match__mask_8cpp.html',1,'']]],
   ['colorize_2ecpp_14',['colorize.cpp',['../colorize_8cpp.html',1,'']]],
   ['colorize_2ehpp_15',['colorize.hpp',['../colorize_8hpp.html',1,'']]],
-  ['colorize_5fvirtual_5farray_2ecpp_16',['colorize_virtual_array.cpp',['../colorize__virtual__array_8cpp.html',1,'']]],
+  ['colorize_5fvirtual_5ftexture_2ecpp_16',['colorize_virtual_texture.cpp',['../colorize__virtual__texture_8cpp.html',1,'']]],
   ['colormaps_2ehpp_17',['colormaps.hpp',['../colormaps_8hpp.html',1,'']]],
   ['compare_2ecpp_18',['compare.cpp',['../compare_8cpp.html',1,'']]],
   ['cone_2ecpp_19',['cone.cpp',['../cone_8cpp.html',1,'']]],

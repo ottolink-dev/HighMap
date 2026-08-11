@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="ex_mixbox_8cpp-example" kind="example">
+    <compoundname>ex_mixbox.cpp</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This example shows the visual differences between linear, square-root, and physical pigment-based (Mixbox) color blending.</para>
+<para>Output results: <image type="html" name="ex_mixbox_linear.png">Linear Blending</image>
+ <image type="html" name="ex_mixbox_sqrt.png">Square-root Average Blending</image>
+ <image type="html" name="ex_mixbox_mixbox.png">Mixbox Blending</image>
+ <programlisting filename="ex_mixbox.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{512,<sp/>128};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Define<sp/>two<sp/>classic<sp/>pigment<sp/>colors:<sp/>Ultramarine<sp/>Blue<sp/>and<sp/>Cadmium<sp/>Yellow</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Ultramarine<sp/>Blue:<sp/>RGB<sp/>(25,<sp/>0,<sp/>89)<sp/>-&gt;<sp/>normalized:<sp/>(0.098f,<sp/>0.0f,<sp/>0.349f)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Cadmium<sp/>Yellow:<sp/>RGB<sp/>(254,<sp/>236,<sp/>0)<sp/>-&gt;<sp/>normalized:<sp/>(0.996f,<sp/>0.925f,<sp/>0.0f)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec3<sp/>blue(0.098f,<sp/>0.0f,<sp/>0.349f);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec3<sp/>yellow(0.996f,<sp/>0.925f,<sp/>0.0f);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>base<sp/>texture<sp/>1<sp/>(Blue)<sp/>with<sp/>100%<sp/>opacity</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">hmap::Texture</ref><sp/>tex1(shape,<sp/>4);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>tex1[0]<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape,<sp/>blue.x);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>tex1[1]<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape,<sp/>blue.y);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>tex1[2]<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape,<sp/>blue.z);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>tex1[3]<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape,<sp/>1.0f);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>base<sp/>texture<sp/>2<sp/>(Yellow)<sp/>with<sp/>a<sp/>horizontal<sp/>gradient<sp/>in<sp/>the<sp/>alpha</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>channel</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">hmap::Texture</ref><sp/>tex2(shape,<sp/>4);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>tex2[0]<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape,<sp/>yellow.x);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>tex2[1]<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape,<sp/>yellow.y);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>tex2[2]<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape,<sp/>yellow.z);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>alpha(shape);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>shape.y;<sp/>++j)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>shape.x;<sp/>++i)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>alpha(i,<sp/>j)<sp/>=<sp/>float(i)<sp/>/<sp/>float(shape.x<sp/>-<sp/>1);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>tex2[3]<sp/>=<sp/>alpha;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Mix<sp/>using<sp/>the<sp/>three<sp/>different<sp/>methods</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">hmap::Texture</ref><sp/>blended_linear<sp/>=<sp/><ref refid="namespacehmap_1ad5894053c042e2076fbbc7003bf69451" kindref="member">hmap::mix</ref>(tex1,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tex2,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ad3b2ee0d951dd1116cc489ab96600c0fadb442265791dc4c41e19aa2d350bd15d" kindref="member">hmap::MixMethod::MM_LINEAR</ref>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">hmap::Texture</ref><sp/>blended_sqrt<sp/>=<sp/><ref refid="namespacehmap_1ad5894053c042e2076fbbc7003bf69451" kindref="member">hmap::mix</ref>(tex1,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tex2,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9" kindref="member">hmap::MixMethod::MM_SQRT_AVG</ref>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">hmap::Texture</ref><sp/>blended_mixbox<sp/>=<sp/><ref refid="namespacehmap_1ad5894053c042e2076fbbc7003bf69451" kindref="member">hmap::mix</ref>(tex1,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tex2,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ad3b2ee0d951dd1116cc489ab96600c0fa1f0467ead0c69d25b41b6838f330902e" kindref="member">hmap::MixMethod::MM_MIXBOX</ref>);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Save<sp/>the<sp/>blended<sp/>gradients</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>blended_linear.<ref refid="classhmap_1_1Texture_1a8459decef6432076cc6f307d8719f012" kindref="member">to_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_mixbox_linear.png&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>blended_sqrt.<ref refid="classhmap_1_1Texture_1a8459decef6432076cc6f307d8719f012" kindref="member">to_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_mixbox_sqrt.png&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>blended_mixbox.<ref refid="classhmap_1_1Texture_1a8459decef6432076cc6f307d8719f012" kindref="member">to_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_mixbox_mixbox.png&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+    <location file="HighMap/include/highmap/colorize.hpp"/>
+  </compounddef>
+</doxygen>

@@ -77,7 +77,8 @@ var NAVTREE =
         [ "All", "globals.html", "globals_dup" ],
         [ "Functions", "globals_func.html", "globals_func" ]
       ] ]
-    ] ]
+    ] ],
+    [ "Examples", "examples.html", "examples" ]
   ] ]
 ];
 
@@ -88,26 +89,26 @@ var NAVTREEINDEX =
 "classhmap_1_1Cloud.html#adc675e8b2769a94b4c23bf7e69348f84",
 "classhmap_1_1FbmJordanFunction.html#ae414da2792a0bac7b5fba61d2ecef892",
 "classhmap_1_1Path.html#a0121bc7300b5a436eea60d3915103458",
-"classhmap_1_1Tensor.html#a61599497cbeaddf588b012eff837ad52",
-"classhmap_1_1WaveSquareFunction.html#af82dce648585f265eb2f3c9e50520e90",
-"core_8cpp.html#af23a6099bd3307b408f17d2346ab3d3f",
-"erosion_8hpp.html#a67fee4e11fb0b003d0ebb091e85533fe",
-"filters_8hpp.html#a558c273680de2328f37e5df7ee598813",
-"functions_s.html",
-"index.html#autotoc_md17",
-"local__metrics__wrapper_8cpp.html#a13719c4aafe9ffaabd767afe5a8bd44d",
-"namespacehmap.html#a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894",
-"namespacehmap.html#a4c42905cbb910cb4017ef3e026a31d59",
-"namespacehmap.html#a9b7b17b540fbec1501ba0e996897c1e5",
-"namespacehmap.html#acf8376b5e40b4373986c9a6b41c02429",
-"namespacehmap_1_1gpu.html#a54906b55a1c4e4efe938a780c1fb348e",
-"noise_8cpp.html#a428e34a1fe0dc66ba3d76d7c9eda348d",
-"primitives_2random_8hpp.html",
-"selector_8cpp.html#a5c54b11ce530d2b0cfc75de360e25ebf",
-"structhmap_1_1NanoflannPointCloudAdaptor.html#a073bf9163309e6ffacc0b2acedc0328c",
-"structhmap_1_1VirtualArray.html#aeff83280c1e81978b24909637bf728a1",
-"test__path__sample__at_8cpp.html#a0303a86bdff92e4275a44741c3b2d182",
-"vectors_8hpp.html#a8be122241fa42b0f6a7ef67106391780"
+"classhmap_1_1TerrainTriMesh.html#a33b6043ea3e799f78bbc3417ae6b854e",
+"classhmap_1_1WaveSineFunction.html#a092bf348107917e0362e104b4adb5dc7",
+"convolve_8hpp.html",
+"dump__visual__check_8cpp.html",
+"filters_8hpp.html#a14eb6b7d304484c8cbb231b672851491",
+"functions_f.html",
+"hydrology_2hydrology_8hpp.html#a78419f7981186b40c4a2d04456e4e63f",
+"local__metrics_8hpp.html#ab0737b29664736928a86f0755493895fa5a6dccee984676ced1eb1ac2a546761e",
+"namespacehmap.html#a01f3be1fd053428ea67030e3736d15ca",
+"namespacehmap.html#a44e4240c5e7a9cfd46de3c27562ed201",
+"namespacehmap.html#a8e3756915e28aa80cec2190043cc8c2fa1d0f88509ad557940f07cd8c5d721820",
+"namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a320107cf3138d908a78d3c6d97705717",
+"namespacehmap_1_1gpu.html#a1afc69c95369f96477e049d657a15b3b",
+"namespacemembers_func.html",
+"points_8cpp.html#ae6135d0c9d4716e3edbd06bb67f26fb2",
+"recurve_8cpp.html#ad8482d5a5c0650c20ffe1dc86b5f8a61",
+"structhmap_1_1KDTreeContext.html",
+"structhmap_1_1VirtualArray.html#a7753aef78b80e55ac2114ec8970ba765",
+"test__math_8cpp.html#a47c71b23149059256155a7a14073d221",
+"transform_8hpp.html#ad2d28babba03ed11cf115ab08009de64"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -7,7 +7,7 @@ var searchData=
   ['damp_5fscale_4',['damp_scale',['../classhmap_1_1FbmJordanFunction.html#a6d47676cc66bda619a526f361ace79bc',1,'hmap::FbmJordanFunction']]],
   ['data_20structure_5',['Basic principle and data structure',['../index.html#autotoc_md5',1,'']]],
   ['data_20structure_20for_20building_20heightmaps_6',['&quot;Array&quot; - Elementary Data Structure for Building Heightmaps',['../index.html#autotoc_md6',1,'']]],
-  ['decasteljau_7',['decasteljau',['../namespacehmap.html#aa78bf111867e13c63d8bd2ec005ad6c8a29d7faf9b49a89c11c9bc3e3f2190e23',1,'hmap::DECASTELJAU'],['../namespacehmap.html#af9b55527f8d0f1c01d110b3144ee7d91',1,'hmap::decasteljau(const Path &amp;path, int edge_divisions=10, Path::EdgeDivisionMode edm=Path::EdgeDivisionMode::EDM_PER_EDGE)']]],
+  ['decasteljau_7',['decasteljau',['../namespacehmap.html#af9b55527f8d0f1c01d110b3144ee7d91',1,'hmap::decasteljau(const Path &amp;path, int edge_divisions=10, Path::EdgeDivisionMode edm=Path::EdgeDivisionMode::EDM_PER_EDGE)'],['../namespacehmap.html#aa78bf111867e13c63d8bd2ec005ad6c8a29d7faf9b49a89c11c9bc3e3f2190e23',1,'hmap::DECASTELJAU']]],
   ['decimate_5fvw_8',['decimate_vw',['../namespacehmap.html#a862fef5e0387bea9358648fc7aa5680b',1,'hmap']]],
   ['decompose_9',['decompose',['../classhmap_1_1PyramidDecomposition.html#a620e9d62b2613f30c23b3d87b766d0bc',1,'hmap::PyramidDecomposition']]],
   ['degree_10',['degree',['../classhmap_1_1ChebyshevEvaluator.html#aeba72e393615e9bd94f7b257153ad9a1',1,'hmap::ChebyshevEvaluator']]],

@@ -1,0 +1,102 @@
+\doxysection{texture.\+hpp}
+\hypertarget{texture_8hpp_source}{}\label{texture_8hpp_source}\index{HighMap/include/highmap/texture.hpp@{HighMap/include/highmap/texture.hpp}}
+\mbox{\hyperlink{texture_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Copyright\ (c)\ 2026\ Otto\ Link.\ Distributed\ under\ the\ terms\ of\ the\ GNU\ General}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ Public\ License.\ The\ full\ license\ is\ in\ the\ file\ LICENSE,\ distributed\ with}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ this\ software.\ */}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <opencv2/core.hpp>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{algebra_8hpp}{highmap/algebra.hpp}}"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{array_8hpp}{highmap/array.hpp}}"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1Texture}{Texture}}}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ \ \ glm::ivec2\ \mbox{\hyperlink{classhmap_1_1Texture_ad84007785575c1d7eca558afed9785cf}{shape}}\ =\ glm::ivec2(0,\ 0);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00047\ \ \ std::vector<Array>\ \mbox{\hyperlink{classhmap_1_1Texture_aa47eecec5ca81b281c39164e5a4b562f}{channels}};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{classhmap_1_1Texture_a649f727ad9179105abf080f3c041268a}{Texture}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00060\ \ \ \mbox{\hyperlink{classhmap_1_1Texture_a649f727ad9179105abf080f3c041268a}{Texture}}(glm::ivec2\ \mbox{\hyperlink{classhmap_1_1Texture_ad84007785575c1d7eca558afed9785cf}{shape}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classhmap_1_1Texture_a3d94e8bea60fdb4d2cd505f67f60e2c4}{num\_channels}});}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{classhmap_1_1Texture_a649f727ad9179105abf080f3c041268a}{Texture}}(glm::ivec2\ \mbox{\hyperlink{classhmap_1_1Texture_ad84007785575c1d7eca558afed9785cf}{shape}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classhmap_1_1Texture_a3d94e8bea60fdb4d2cd505f67f60e2c4}{num\_channels}},\ \textcolor{keywordtype}{float}\ fill\_value);}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classhmap_1_1Texture_a649f727ad9179105abf080f3c041268a}{Texture}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&array);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00082\ \ \ \mbox{\hyperlink{classhmap_1_1Texture_a649f727ad9179105abf080f3c041268a}{Texture}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&r,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&g,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&b);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00087\ \ \ \mbox{\hyperlink{classhmap_1_1Texture_a649f727ad9179105abf080f3c041268a}{Texture}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&r,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&g,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&b,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&a);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classhmap_1_1Texture_a649f727ad9179105abf080f3c041268a}{Texture}}(\textcolor{keyword}{const}\ std::vector<Array>\ \&\mbox{\hyperlink{classhmap_1_1Texture_aa47eecec5ca81b281c39164e5a4b562f}{channels}});}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classhmap_1_1Texture_a649f727ad9179105abf080f3c041268a}{Texture}}(\textcolor{keyword}{const}\ std::string\ \&fname,\ \textcolor{keywordtype}{bool}\ flip\_j\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classhmap_1_1Texture_a3d94e8bea60fdb4d2cd505f67f60e2c4}{num\_channels}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00106\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{classhmap_1_1Texture_aa47eecec5ca81b281c39164e5a4b562f}{channels}}.size());}
+\DoxyCodeLine{00108\ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00113\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&\mbox{\hyperlink{classhmap_1_1Texture_a5e8d228882d1f989a7e630c2d400f364}{operator[]}}(\textcolor{keywordtype}{size\_t}\ idx)}
+\DoxyCodeLine{00114\ \ \ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Texture_aa47eecec5ca81b281c39164e5a4b562f}{channels}}[idx];}
+\DoxyCodeLine{00116\ \ \ \}}
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&\mbox{\hyperlink{classhmap_1_1Texture_a7e68630c4908e71e9cfb91e3e891d472}{operator[]}}(\textcolor{keywordtype}{size\_t}\ idx)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00118\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Texture_aa47eecec5ca81b281c39164e5a4b562f}{channels}}[idx];}
+\DoxyCodeLine{00120\ \ \ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00125\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&\mbox{\hyperlink{classhmap_1_1Texture_ad7f67eaa2de1d4b138d79f15f6ff283e}{channel}}(\textcolor{keywordtype}{size\_t}\ idx)}
+\DoxyCodeLine{00126\ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Texture_aa47eecec5ca81b281c39164e5a4b562f}{channels}}[idx];}
+\DoxyCodeLine{00128\ \ \ \}}
+\DoxyCodeLine{00129\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&\mbox{\hyperlink{classhmap_1_1Texture_a907ddf6d54e316a96bc75598f7dd16e4}{channel}}(\textcolor{keywordtype}{size\_t}\ idx)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00130\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Texture_aa47eecec5ca81b281c39164e5a4b562f}{channels}}[idx];}
+\DoxyCodeLine{00132\ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{float}\ \&\mbox{\hyperlink{classhmap_1_1Texture_a762179c98db93ae9fba519cdb47abd34}{operator()}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j,\ \textcolor{keywordtype}{int}\ c)}
+\DoxyCodeLine{00138\ \ \ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Texture_aa47eecec5ca81b281c39164e5a4b562f}{channels}}[c](i,\ j);}
+\DoxyCodeLine{00140\ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\mbox{\hyperlink{classhmap_1_1Texture_aa6a9a50b9d7135cc6d22302e2bf3a102}{operator()}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j,\ \textcolor{keywordtype}{int}\ c)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00146\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Texture_aa47eecec5ca81b281c39164e5a4b562f}{channels}}[c](i,\ j);}
+\DoxyCodeLine{00148\ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00153\ \ \ glm::vec3\ \mbox{\hyperlink{classhmap_1_1Texture_a5454cbbe9d86f4ccb736502bc775e33d}{get\_pixel3}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00158\ \ \ glm::vec4\ \mbox{\hyperlink{classhmap_1_1Texture_acd4d81876db435e5cb80787df9201479}{get\_pixel4}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Texture_ad365293739f8d3e1db8bc6c6321a53d1}{set\_pixel}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j,\ \textcolor{keyword}{const}\ glm::vec3\ \&color);}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Texture_ad365293739f8d3e1db8bc6c6321a53d1}{set\_pixel}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j,\ \textcolor{keyword}{const}\ glm::vec4\ \&color);}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00173\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1Texture_a85b55025bed0bf39d40426964a609692}{max}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1Texture_a088a66adf2c1770d3d00585c1c708bc9}{min}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Texture_a9778d2fd3b28c79252617f43a85bd60f}{remap}}(\textcolor{keywordtype}{float}\ vmin\ =\ 0.f,\ \textcolor{keywordtype}{float}\ vmax\ =\ 1.f);}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00188\ \ \ \mbox{\hyperlink{classhmap_1_1Texture}{Texture}}\ \mbox{\hyperlink{classhmap_1_1Texture_a8d6e6aba938934dd88a569475585e768}{resample\_to\_shape}}(glm::ivec2\ new\_shape\_xy)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00193\ \ \ cv::Mat\ \mbox{\hyperlink{classhmap_1_1Texture_a0ded9de3bc7ee46e5d7fd6c09582c433}{to\_cv\_mat}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00198\ \ \ std::vector<uint8\_t>\ \mbox{\hyperlink{classhmap_1_1Texture_a755ac2f60209a9eee3d57534accc880e}{to\_img\_8bit}}(\textcolor{keywordtype}{bool}\ flip\_y\ =\ \textcolor{keyword}{false})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Texture_a8459decef6432076cc6f307d8719f012}{to\_png}}(\textcolor{keyword}{const}\ std::string\ \&fname,\ \textcolor{keywordtype}{int}\ depth\ =\ CV\_8U)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00204\ \};}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+
+\end{DoxyCode}

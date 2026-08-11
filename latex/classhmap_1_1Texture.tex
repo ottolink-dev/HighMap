@@ -1,0 +1,409 @@
+\doxysection{hmap\+::Texture Class Reference}
+\hypertarget{classhmap_1_1Texture}{}\label{classhmap_1_1Texture}\index{hmap::Texture@{hmap::Texture}}
+
+
+A class to represent a multi-\/channel texture using planar \doxylink{classhmap_1_1Array}{hmap\+::\+Array} storage.  
+
+
+
+
+{\ttfamily \#include $<$texture.\+hpp$>$}
+
+
+
+Collaboration diagram for hmap\+::Texture\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classhmap_1_1Texture__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classhmap_1_1Texture_a649f727ad9179105abf080f3c041268a}{Texture}} ()=default
+\begin{DoxyCompactList}\small\item\em Construct an empty \doxylink{classhmap_1_1Texture}{Texture} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Texture_ae8d74de374796b37947edd323d18fd8f}{Texture}} (glm\+::ivec2 \mbox{\hyperlink{classhmap_1_1Texture_ad84007785575c1d7eca558afed9785cf}{shape}}, int \mbox{\hyperlink{classhmap_1_1Texture_a3d94e8bea60fdb4d2cd505f67f60e2c4}{num\+\_\+channels}})
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classhmap_1_1Texture}{Texture} object with shape and channel count. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Texture_a7a16744f5dc3c95639142662390a74f6}{Texture}} (glm\+::ivec2 \mbox{\hyperlink{classhmap_1_1Texture_ad84007785575c1d7eca558afed9785cf}{shape}}, int \mbox{\hyperlink{classhmap_1_1Texture_a3d94e8bea60fdb4d2cd505f67f60e2c4}{num\+\_\+channels}}, float fill\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classhmap_1_1Texture}{Texture} object with shape, channel count and fill value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Texture_a15525ba0f255ea4fdecadd930321cdea}{Texture}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Construct a single-\/channel \doxylink{classhmap_1_1Texture}{Texture} from an \doxylink{classhmap_1_1Array}{Array}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Texture_ad74db1445dd8b2c0199bbadde6c51ce8}{Texture}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&r, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&g, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&b)
+\begin{DoxyCompactList}\small\item\em Construct a 3-\/channel \doxylink{classhmap_1_1Texture}{Texture} from three Arrays. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Texture_a1d19a3058884b5b558ffe5935f332fa1}{Texture}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&r, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&g, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&b, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&a)
+\begin{DoxyCompactList}\small\item\em Construct a 4-\/channel \doxylink{classhmap_1_1Texture}{Texture} from four Arrays. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Texture_ad7e34921e905d4597e667ee46698edbd}{Texture}} (const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Array}{Array}} $>$ \&\mbox{\hyperlink{classhmap_1_1Texture_aa47eecec5ca81b281c39164e5a4b562f}{channels}})
+\begin{DoxyCompactList}\small\item\em Construct a \doxylink{classhmap_1_1Texture}{Texture} from a list of Arrays. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Texture_aef0d682fe80479076a61381c628be028}{Texture}} (const std\+::string \&fname, bool flip\+\_\+j=false)
+\begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{classhmap_1_1Texture}{Texture} object from an image file. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classhmap_1_1Texture_a3d94e8bea60fdb4d2cd505f67f60e2c4}{num\+\_\+channels}} () const
+\begin{DoxyCompactList}\small\item\em Get the number of channels. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \& \mbox{\hyperlink{classhmap_1_1Texture_a5e8d228882d1f989a7e630c2d400f364}{operator\mbox{[}$\,$\mbox{]}}} (size\+\_\+t idx)
+\begin{DoxyCompactList}\small\item\em Access channel \doxylink{classhmap_1_1Array}{Array} by index. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \& \mbox{\hyperlink{classhmap_1_1Texture_a7e68630c4908e71e9cfb91e3e891d472}{operator\mbox{[}$\,$\mbox{]}}} (size\+\_\+t idx) const
+\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \& \mbox{\hyperlink{classhmap_1_1Texture_ad7f67eaa2de1d4b138d79f15f6ff283e}{channel}} (size\+\_\+t idx)
+\begin{DoxyCompactList}\small\item\em Access channel \doxylink{classhmap_1_1Array}{Array} by index. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \& \mbox{\hyperlink{classhmap_1_1Texture_a907ddf6d54e316a96bc75598f7dd16e4}{channel}} (size\+\_\+t idx) const
+\item 
+float \& \mbox{\hyperlink{classhmap_1_1Texture_a762179c98db93ae9fba519cdb47abd34}{operator()}} (int i, int j, int c)
+\begin{DoxyCompactList}\small\item\em Access element at (i, j) in channel c. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{classhmap_1_1Texture_aa6a9a50b9d7135cc6d22302e2bf3a102}{operator()}} (int i, int j, int c) const
+\begin{DoxyCompactList}\small\item\em Access element at (i, j) in channel c (const). \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{classhmap_1_1Texture_a5454cbbe9d86f4ccb736502bc775e33d}{get\+\_\+pixel3}} (int i, int j) const
+\begin{DoxyCompactList}\small\item\em Read 3-\/channel color at (i, j) as glm\+::vec3. \end{DoxyCompactList}\item 
+glm\+::vec4 \mbox{\hyperlink{classhmap_1_1Texture_acd4d81876db435e5cb80787df9201479}{get\+\_\+pixel4}} (int i, int j) const
+\begin{DoxyCompactList}\small\item\em Read 4-\/channel color at (i, j) as glm\+::vec4. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Texture_ad365293739f8d3e1db8bc6c6321a53d1}{set\+\_\+pixel}} (int i, int j, const glm\+::vec3 \&color)
+\begin{DoxyCompactList}\small\item\em Write 3-\/channel color at (i, j) from glm\+::vec3. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Texture_a8b1a7812cf2936646b1369252c5bad8e}{set\+\_\+pixel}} (int i, int j, const glm\+::vec4 \&color)
+\begin{DoxyCompactList}\small\item\em Write 4-\/channel color at (i, j) from glm\+::vec4. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1Texture_a85b55025bed0bf39d40426964a609692}{max}} () const
+\begin{DoxyCompactList}\small\item\em Find the maximum value in all channels. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1Texture_a088a66adf2c1770d3d00585c1c708bc9}{min}} () const
+\begin{DoxyCompactList}\small\item\em Find the minimum value in all channels. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Texture_a9778d2fd3b28c79252617f43a85bd60f}{remap}} (float vmin=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float vmax=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Remap the texture values to a new range. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \mbox{\hyperlink{classhmap_1_1Texture_a8d6e6aba938934dd88a569475585e768}{resample\+\_\+to\+\_\+shape}} (glm\+::ivec2 new\+\_\+shape\+\_\+xy) const
+\begin{DoxyCompactList}\small\item\em Resamples the texture to a new 2D shape (x, y). \end{DoxyCompactList}\item 
+cv\+::\+Mat \mbox{\hyperlink{classhmap_1_1Texture_a0ded9de3bc7ee46e5d7fd6c09582c433}{to\+\_\+cv\+\_\+mat}} () const
+\begin{DoxyCompactList}\small\item\em Convert the texture to an Open\+CV matrix. \end{DoxyCompactList}\item 
+std\+::vector$<$ uint8\+\_\+t $>$ \mbox{\hyperlink{classhmap_1_1Texture_a755ac2f60209a9eee3d57534accc880e}{to\+\_\+img\+\_\+8bit}} (bool flip\+\_\+y=false) const
+\begin{DoxyCompactList}\small\item\em Convert the texture to an 8-\/bit image represented as a vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Texture_a8459decef6432076cc6f307d8719f012}{to\+\_\+png}} (const std\+::string \&fname, int depth=CV\+\_\+8U) const
+\begin{DoxyCompactList}\small\item\em Saves the \doxylink{classhmap_1_1Texture}{Texture} as an image file (e.\+g. PNG). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+glm\+::ivec2 \mbox{\hyperlink{classhmap_1_1Texture_ad84007785575c1d7eca558afed9785cf}{shape}} = glm\+::ivec2(0, 0)
+\begin{DoxyCompactList}\small\item\em Shape of the texture in 2D space (x, y). \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Array}{Array}} $>$ \mbox{\hyperlink{classhmap_1_1Texture_aa47eecec5ca81b281c39164e5a4b562f}{channels}}
+\begin{DoxyCompactList}\small\item\em Vector of planar \doxylink{classhmap_1_1Array}{Array} channels. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class to represent a multi-\/channel texture using planar \doxylink{classhmap_1_1Array}{hmap\+::\+Array} storage. 
+
+The {\ttfamily \doxylink{classhmap_1_1Texture}{Texture}} class represents a multi-\/channel image/texture. Each channel is stored as a separate {\ttfamily \doxylink{classhmap_1_1Array}{Array}} object, allowing direct use of {\ttfamily \doxylink{classhmap_1_1Array}{Array}} functions and operators on individual channels without copying. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{ex_mixbox_8cpp-example}{ex\+\_\+mixbox.\+cpp}}.\end{Desc}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classhmap_1_1Texture_a649f727ad9179105abf080f3c041268a}\label{classhmap_1_1Texture_a649f727ad9179105abf080f3c041268a} 
+\index{hmap::Texture@{hmap::Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
+{\footnotesize\ttfamily hmap\+::\+Texture\+::\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Construct an empty \doxylink{classhmap_1_1Texture}{Texture} object. 
+
+\Hypertarget{classhmap_1_1Texture_ae8d74de374796b37947edd323d18fd8f}\label{classhmap_1_1Texture_ae8d74de374796b37947edd323d18fd8f} 
+\index{hmap::Texture@{hmap::Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
+{\footnotesize\ttfamily hmap\+::\+Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{glm\+::ivec2}]{shape,  }\item[{int}]{num\+\_\+channels }\end{DoxyParamCaption})}
+
+
+
+Construct a new \doxylink{classhmap_1_1Texture}{Texture} object with shape and channel count. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em shape} & 2D shape of the texture. \\
+\hline
+{\em num\+\_\+channels} & Number of channels. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1Texture_a7a16744f5dc3c95639142662390a74f6}\label{classhmap_1_1Texture_a7a16744f5dc3c95639142662390a74f6} 
+\index{hmap::Texture@{hmap::Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
+{\footnotesize\ttfamily hmap\+::\+Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{glm\+::ivec2}]{shape,  }\item[{int}]{num\+\_\+channels,  }\item[{float}]{fill\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Construct a new \doxylink{classhmap_1_1Texture}{Texture} object with shape, channel count and fill value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em shape} & 2D shape of the texture. \\
+\hline
+{\em num\+\_\+channels} & Number of channels. \\
+\hline
+{\em fill\+\_\+value} & The value to fill all channels with. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1Texture_a15525ba0f255ea4fdecadd930321cdea}\label{classhmap_1_1Texture_a15525ba0f255ea4fdecadd930321cdea} 
+\index{hmap::Texture@{hmap::Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
+{\footnotesize\ttfamily hmap\+::\+Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construct a single-\/channel \doxylink{classhmap_1_1Texture}{Texture} from an \doxylink{classhmap_1_1Array}{Array}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & The single channel \doxylink{classhmap_1_1Array}{Array}. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1Texture_ad74db1445dd8b2c0199bbadde6c51ce8}\label{classhmap_1_1Texture_ad74db1445dd8b2c0199bbadde6c51ce8} 
+\index{hmap::Texture@{hmap::Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
+{\footnotesize\ttfamily hmap\+::\+Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{r,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{g,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{b }\end{DoxyParamCaption})}
+
+
+
+Construct a 3-\/channel \doxylink{classhmap_1_1Texture}{Texture} from three Arrays. 
+
+\Hypertarget{classhmap_1_1Texture_a1d19a3058884b5b558ffe5935f332fa1}\label{classhmap_1_1Texture_a1d19a3058884b5b558ffe5935f332fa1} 
+\index{hmap::Texture@{hmap::Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
+{\footnotesize\ttfamily hmap\+::\+Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{r,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{g,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{b,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{a }\end{DoxyParamCaption})}
+
+
+
+Construct a 4-\/channel \doxylink{classhmap_1_1Texture}{Texture} from four Arrays. 
+
+\Hypertarget{classhmap_1_1Texture_ad7e34921e905d4597e667ee46698edbd}\label{classhmap_1_1Texture_ad7e34921e905d4597e667ee46698edbd} 
+\index{hmap::Texture@{hmap::Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
+{\footnotesize\ttfamily hmap\+::\+Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Array}{Array}} $>$ \&}]{channels }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construct a \doxylink{classhmap_1_1Texture}{Texture} from a list of Arrays. 
+
+\Hypertarget{classhmap_1_1Texture_aef0d682fe80479076a61381c628be028}\label{classhmap_1_1Texture_aef0d682fe80479076a61381c628be028} 
+\index{hmap::Texture@{hmap::Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
+{\footnotesize\ttfamily hmap\+::\+Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname,  }\item[{bool}]{flip\+\_\+j = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a new \doxylink{classhmap_1_1Texture}{Texture} object from an image file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fname} & The name of the file to load the texture from. \\
+\hline
+{\em flip\+\_\+j} & If true, flip the image vertically on load. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classhmap_1_1Texture_a3d94e8bea60fdb4d2cd505f67f60e2c4}\label{classhmap_1_1Texture_a3d94e8bea60fdb4d2cd505f67f60e2c4} 
+\index{hmap::Texture@{hmap::Texture}!num\_channels@{num\_channels}}
+\index{num\_channels@{num\_channels}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{num\_channels()}{num\_channels()}}
+{\footnotesize\ttfamily int hmap\+::\+Texture\+::num\+\_\+channels (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the number of channels. 
+
+\Hypertarget{classhmap_1_1Texture_a5e8d228882d1f989a7e630c2d400f364}\label{classhmap_1_1Texture_a5e8d228882d1f989a7e630c2d400f364} 
+\index{hmap::Texture@{hmap::Texture}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} \& hmap\+::\+Texture\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access channel \doxylink{classhmap_1_1Array}{Array} by index. 
+
+\Hypertarget{classhmap_1_1Texture_a7e68630c4908e71e9cfb91e3e891d472}\label{classhmap_1_1Texture_a7e68630c4908e71e9cfb91e3e891d472} 
+\index{hmap::Texture@{hmap::Texture}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \& hmap\+::\+Texture\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{idx }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classhmap_1_1Texture_ad7f67eaa2de1d4b138d79f15f6ff283e}\label{classhmap_1_1Texture_ad7f67eaa2de1d4b138d79f15f6ff283e} 
+\index{hmap::Texture@{hmap::Texture}!channel@{channel}}
+\index{channel@{channel}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{channel()}{channel()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} \& hmap\+::\+Texture\+::channel (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access channel \doxylink{classhmap_1_1Array}{Array} by index. 
+
+\Hypertarget{classhmap_1_1Texture_a907ddf6d54e316a96bc75598f7dd16e4}\label{classhmap_1_1Texture_a907ddf6d54e316a96bc75598f7dd16e4} 
+\index{hmap::Texture@{hmap::Texture}!channel@{channel}}
+\index{channel@{channel}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{channel()}{channel()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \& hmap\+::\+Texture\+::channel (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{idx }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classhmap_1_1Texture_a762179c98db93ae9fba519cdb47abd34}\label{classhmap_1_1Texture_a762179c98db93ae9fba519cdb47abd34} 
+\index{hmap::Texture@{hmap::Texture}!operator()@{operator()}}
+\index{operator()@{operator()}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily float \& hmap\+::\+Texture\+::operator() (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j,  }\item[{int}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access element at (i, j) in channel c. 
+
+\Hypertarget{classhmap_1_1Texture_aa6a9a50b9d7135cc6d22302e2bf3a102}\label{classhmap_1_1Texture_aa6a9a50b9d7135cc6d22302e2bf3a102} 
+\index{hmap::Texture@{hmap::Texture}!operator()@{operator()}}
+\index{operator()@{operator()}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const float \& hmap\+::\+Texture\+::operator() (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j,  }\item[{int}]{c }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access element at (i, j) in channel c (const). 
+
+\Hypertarget{classhmap_1_1Texture_a5454cbbe9d86f4ccb736502bc775e33d}\label{classhmap_1_1Texture_a5454cbbe9d86f4ccb736502bc775e33d} 
+\index{hmap::Texture@{hmap::Texture}!get\_pixel3@{get\_pixel3}}
+\index{get\_pixel3@{get\_pixel3}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{get\_pixel3()}{get\_pixel3()}}
+{\footnotesize\ttfamily glm\+::vec3 hmap\+::\+Texture\+::get\+\_\+pixel3 (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption}) const}
+
+
+
+Read 3-\/channel color at (i, j) as glm\+::vec3. 
+
+\Hypertarget{classhmap_1_1Texture_acd4d81876db435e5cb80787df9201479}\label{classhmap_1_1Texture_acd4d81876db435e5cb80787df9201479} 
+\index{hmap::Texture@{hmap::Texture}!get\_pixel4@{get\_pixel4}}
+\index{get\_pixel4@{get\_pixel4}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{get\_pixel4()}{get\_pixel4()}}
+{\footnotesize\ttfamily glm\+::vec4 hmap\+::\+Texture\+::get\+\_\+pixel4 (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption}) const}
+
+
+
+Read 4-\/channel color at (i, j) as glm\+::vec4. 
+
+\Hypertarget{classhmap_1_1Texture_ad365293739f8d3e1db8bc6c6321a53d1}\label{classhmap_1_1Texture_ad365293739f8d3e1db8bc6c6321a53d1} 
+\index{hmap::Texture@{hmap::Texture}!set\_pixel@{set\_pixel}}
+\index{set\_pixel@{set\_pixel}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{set\_pixel()}{set\_pixel()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void hmap\+::\+Texture\+::set\+\_\+pixel (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j,  }\item[{const glm\+::vec3 \&}]{color }\end{DoxyParamCaption})}
+
+
+
+Write 3-\/channel color at (i, j) from glm\+::vec3. 
+
+\Hypertarget{classhmap_1_1Texture_a8b1a7812cf2936646b1369252c5bad8e}\label{classhmap_1_1Texture_a8b1a7812cf2936646b1369252c5bad8e} 
+\index{hmap::Texture@{hmap::Texture}!set\_pixel@{set\_pixel}}
+\index{set\_pixel@{set\_pixel}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{set\_pixel()}{set\_pixel()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void hmap\+::\+Texture\+::set\+\_\+pixel (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j,  }\item[{const glm\+::vec4 \&}]{color }\end{DoxyParamCaption})}
+
+
+
+Write 4-\/channel color at (i, j) from glm\+::vec4. 
+
+\Hypertarget{classhmap_1_1Texture_a85b55025bed0bf39d40426964a609692}\label{classhmap_1_1Texture_a85b55025bed0bf39d40426964a609692} 
+\index{hmap::Texture@{hmap::Texture}!max@{max}}
+\index{max@{max}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{max()}{max()}}
+{\footnotesize\ttfamily float hmap\+::\+Texture\+::max (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Find the maximum value in all channels. 
+
+\Hypertarget{classhmap_1_1Texture_a088a66adf2c1770d3d00585c1c708bc9}\label{classhmap_1_1Texture_a088a66adf2c1770d3d00585c1c708bc9} 
+\index{hmap::Texture@{hmap::Texture}!min@{min}}
+\index{min@{min}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{min()}{min()}}
+{\footnotesize\ttfamily float hmap\+::\+Texture\+::min (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Find the minimum value in all channels. 
+
+\Hypertarget{classhmap_1_1Texture_a9778d2fd3b28c79252617f43a85bd60f}\label{classhmap_1_1Texture_a9778d2fd3b28c79252617f43a85bd60f} 
+\index{hmap::Texture@{hmap::Texture}!remap@{remap}}
+\index{remap@{remap}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{remap()}{remap()}}
+{\footnotesize\ttfamily void hmap\+::\+Texture\+::remap (\begin{DoxyParamCaption}\item[{float}]{vmin = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{vmax = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+
+
+
+Remap the texture values to a new range. 
+
+\Hypertarget{classhmap_1_1Texture_a8d6e6aba938934dd88a569475585e768}\label{classhmap_1_1Texture_a8d6e6aba938934dd88a569475585e768} 
+\index{hmap::Texture@{hmap::Texture}!resample\_to\_shape@{resample\_to\_shape}}
+\index{resample\_to\_shape@{resample\_to\_shape}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{resample\_to\_shape()}{resample\_to\_shape()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} hmap\+::\+Texture\+::resample\+\_\+to\+\_\+shape (\begin{DoxyParamCaption}\item[{glm\+::ivec2}]{new\+\_\+shape\+\_\+xy }\end{DoxyParamCaption}) const}
+
+
+
+Resamples the texture to a new 2D shape (x, y). 
+
+\Hypertarget{classhmap_1_1Texture_a0ded9de3bc7ee46e5d7fd6c09582c433}\label{classhmap_1_1Texture_a0ded9de3bc7ee46e5d7fd6c09582c433} 
+\index{hmap::Texture@{hmap::Texture}!to\_cv\_mat@{to\_cv\_mat}}
+\index{to\_cv\_mat@{to\_cv\_mat}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{to\_cv\_mat()}{to\_cv\_mat()}}
+{\footnotesize\ttfamily cv\+::\+Mat hmap\+::\+Texture\+::to\+\_\+cv\+\_\+mat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Convert the texture to an Open\+CV matrix. 
+
+\Hypertarget{classhmap_1_1Texture_a755ac2f60209a9eee3d57534accc880e}\label{classhmap_1_1Texture_a755ac2f60209a9eee3d57534accc880e} 
+\index{hmap::Texture@{hmap::Texture}!to\_img\_8bit@{to\_img\_8bit}}
+\index{to\_img\_8bit@{to\_img\_8bit}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{to\_img\_8bit()}{to\_img\_8bit()}}
+{\footnotesize\ttfamily std\+::vector$<$ uint8\+\_\+t $>$ hmap\+::\+Texture\+::to\+\_\+img\+\_\+8bit (\begin{DoxyParamCaption}\item[{bool}]{flip\+\_\+y = {\ttfamily false} }\end{DoxyParamCaption}) const}
+
+
+
+Convert the texture to an 8-\/bit image represented as a vector. 
+
+\Hypertarget{classhmap_1_1Texture_a8459decef6432076cc6f307d8719f012}\label{classhmap_1_1Texture_a8459decef6432076cc6f307d8719f012} 
+\index{hmap::Texture@{hmap::Texture}!to\_png@{to\_png}}
+\index{to\_png@{to\_png}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{to\_png()}{to\_png()}}
+{\footnotesize\ttfamily void hmap\+::\+Texture\+::to\+\_\+png (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname,  }\item[{int}]{depth = {\ttfamily CV\+\_\+8U} }\end{DoxyParamCaption}) const}
+
+
+
+Saves the \doxylink{classhmap_1_1Texture}{Texture} as an image file (e.\+g. PNG). 
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{ex_mixbox_8cpp-example}{ex\+\_\+mixbox.\+cpp}}.\end{Desc}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classhmap_1_1Texture_ad84007785575c1d7eca558afed9785cf}\label{classhmap_1_1Texture_ad84007785575c1d7eca558afed9785cf} 
+\index{hmap::Texture@{hmap::Texture}!shape@{shape}}
+\index{shape@{shape}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{shape}{shape}}
+{\footnotesize\ttfamily glm\+::ivec2 hmap\+::\+Texture\+::shape = glm\+::ivec2(0, 0)}
+
+
+
+Shape of the texture in 2D space (x, y). 
+
+\Hypertarget{classhmap_1_1Texture_aa47eecec5ca81b281c39164e5a4b562f}\label{classhmap_1_1Texture_aa47eecec5ca81b281c39164e5a4b562f} 
+\index{hmap::Texture@{hmap::Texture}!channels@{channels}}
+\index{channels@{channels}!hmap::Texture@{hmap::Texture}}
+\doxysubsubsection{\texorpdfstring{channels}{channels}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classhmap_1_1Array}{Array}}$>$ hmap\+::\+Texture\+::channels}
+
+
+
+Vector of planar \doxylink{classhmap_1_1Array}{Array} channels. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+High\+Map/include/highmap/\mbox{\hyperlink{texture_8hpp}{texture.\+hpp}}\item 
+High\+Map/src/tensor/\mbox{\hyperlink{texture_8cpp}{texture.\+cpp}}\end{DoxyCompactItemize}

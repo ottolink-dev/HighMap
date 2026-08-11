@@ -34,5 +34,6 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_skeleton.cpp", "test__skeleton_8cpp.html", "test__skeleton_8cpp" ],
     [ "test_smooth_cpulse.cpp", "test__smooth__cpulse_8cpp.html", "test__smooth__cpulse_8cpp" ],
     [ "test_splines.cpp", "test__splines_8cpp.html", "test__splines_8cpp" ],
+    [ "test_texture.cpp", "test__texture_8cpp.html", "test__texture_8cpp" ],
     [ "test_variance.cpp", "test__variance_8cpp.html", "test__variance_8cpp" ]
 ];
