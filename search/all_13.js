@@ -46,7 +46,7 @@ var searchData=
   ['reconstruction_5fby_5fdilation_43',['reconstruction_by_dilation',['../namespacehmap.html#a5b01ee5f465847e08cde67a9533590e3',1,'hmap::reconstruction_by_dilation()'],['../namespacehmap_1_1gpu.html#a4b010c9a58ba75a27467385a368f70ce',1,'hmap::gpu::reconstruction_by_dilation()']]],
   ['reconstruction_5fby_5ferosion_44',['reconstruction_by_erosion',['../namespacehmap.html#a2ac3034879fe68a7cc67d2d452a60c1a',1,'hmap::reconstruction_by_erosion()'],['../namespacehmap_1_1gpu.html#ad1813ae47f33d026b0c3e6f7e370b5c8',1,'hmap::gpu::reconstruction_by_erosion()']]],
   ['recorder_45',['recorder',['../structhmap_1_1Recorder.html',1,'hmap::Recorder'],['../structhmap_1_1Recorder.html#a91405999f103db680d9c0445a5e8c807',1,'hmap::Recorder::Recorder()']]],
-  ['rectangle_46',['rectangle',['../namespacehmap.html#adafc477ac182ce40ebf2cee1c84cb936',1,'hmap']]],
+  ['rectangle_46',['rectangle',['../namespacehmap.html#aa7a5c39d07988b3dc0aaba918618ed93',1,'hmap']]],
   ['rectanglefunction_47',['rectanglefunction',['../classhmap_1_1RectangleFunction.html',1,'hmap::RectangleFunction'],['../classhmap_1_1RectangleFunction.html#aa59e5ca6cb37e340760797082cbada86',1,'hmap::RectangleFunction::RectangleFunction()']]],
   ['recurve_48',['recurve',['../namespacehmap.html#a9cb00fb8280178099a8d430f761c62bd',1,'hmap::recurve(Array &amp;array, const std::vector&lt; float &gt; &amp;t, const std::vector&lt; float &gt; &amp;v)'],['../namespacehmap.html#a9dc604a3fcfa918857f3488977d2a45f',1,'hmap::recurve(Array &amp;array, const std::vector&lt; float &gt; &amp;t, const std::vector&lt; float &gt; &amp;v, const Array *p_mask)']]],
   ['recurve_2ecpp_49',['recurve.cpp',['../recurve_8cpp.html',1,'']]],

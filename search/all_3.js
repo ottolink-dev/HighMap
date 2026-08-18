@@ -23,7 +23,7 @@ var searchData=
   ['bilateral_5ffilter_2ecpp_20',['bilateral_filter.cpp',['../bilateral__filter_8cpp.html',1,'']]],
   ['bilinear_5finterp_21',['bilinear_interp',['../namespacehmap.html#ae91029283452ab6d8276e3745a476b48',1,'hmap']]],
   ['binary_20file_22',['binary file',['../index.html#autotoc_md14',1,'Numpy binary file'],['../index.html#autotoc_md15',1,'Raw binary file']]],
-  ['biquad_5fpulse_23',['biquad_pulse',['../namespacehmap.html#a2b69f27ab2ce6c9bdd87cdc630a0a1d5',1,'hmap']]],
+  ['biquad_5fpulse_23',['biquad_pulse',['../namespacehmap.html#a02c2283ef2c4fedf45dcbed47a86f853',1,'hmap']]],
   ['biquad_5fpulse_5fx_24',['biquad_pulse_x',['../namespacehmap.html#a05f15dbf656e6f7ae36542c48a7d2980',1,'hmap']]],
   ['biquad_5fpulse_5fy_25',['biquad_pulse_y',['../namespacehmap.html#aeffedc90714bfcfed6a5f18d780b1094',1,'hmap']]],
   ['biquadfunction_26',['biquadfunction',['../classhmap_1_1BiquadFunction.html',1,'hmap::BiquadFunction'],['../classhmap_1_1BiquadFunction.html#a833dc567076ad412bbe56c72d5e2b154',1,'hmap::BiquadFunction::BiquadFunction()']]],
@@ -54,7 +54,7 @@ var searchData=
   ['building_20heightmaps_51',['&quot;Array&quot; - Elementary Data Structure for Building Heightmaps',['../index.html#autotoc_md6',1,'']]],
   ['bulkify_52',['bulkify',['../namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3',1,'hmap']]],
   ['bulkify_2ecpp_53',['bulkify.cpp',['../bulkify_8cpp.html',1,'']]],
-  ['bump_54',['bump',['../namespacehmap.html#a205eb3757eb00bd7c92504c01b9d3638',1,'hmap']]],
+  ['bump_54',['bump',['../namespacehmap.html#a32035fe3ef18a31240ace195c721ecd7',1,'hmap']]],
   ['bump_5florentzian_55',['bump_lorentzian',['../namespacehmap.html#a4af0bde798f0266db4dfe24e1134a506',1,'hmap']]],
   ['bumpfunction_56',['bumpfunction',['../classhmap_1_1BumpFunction.html#a80e2476cc674ff1e15c5135829484c68',1,'hmap::BumpFunction::BumpFunction()'],['../classhmap_1_1BumpFunction.html',1,'hmap::BumpFunction']]]
 ];

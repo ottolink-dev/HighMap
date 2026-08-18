@@ -173,7 +173,7 @@ var NAVTREEINDEX0 =
 "chebyshev_8hpp.html":[5,0,1,0,0,5,1],
 "chebyshev_8hpp_source.html":[5,0,1,0,0,5,1],
 "checkerboard_8cpp.html":[5,0,1,1,30,1,1],
-"checkerboard_8cpp.html#a4f43bf6bd355a50b42a9d079193f4582":[5,0,1,1,30,1,1,0],
+"checkerboard_8cpp.html#aa0f7e467755bc8f3b7109e0137be4242":[5,0,1,1,30,1,1,0],
 "citelist.html":[2],
 "classes.html":[4,1],
 "classhmap_1_1Array.html":[3,0,0,1],

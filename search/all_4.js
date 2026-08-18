@@ -22,7 +22,7 @@ var searchData=
   ['chebyshev_19',['CHEBYSHEV',['../namespacehmap.html#a670f50d6c08ecd639d42db9c75a5273aa2a9fc119d00df5ec5de1c13a006921f2',1,'hmap']]],
   ['chebyshev_2ehpp_20',['chebyshev.hpp',['../chebyshev_8hpp.html',1,'']]],
   ['chebyshevevaluator_21',['chebyshevevaluator',['../classhmap_1_1ChebyshevEvaluator.html',1,'hmap::ChebyshevEvaluator'],['../classhmap_1_1ChebyshevEvaluator.html#a2482d9b29d85d9ffab33f7076511d3fa',1,'hmap::ChebyshevEvaluator::ChebyshevEvaluator()=default'],['../classhmap_1_1ChebyshevEvaluator.html#ae1577567c5d4d67e8a1a246fb61bf061',1,'hmap::ChebyshevEvaluator::ChebyshevEvaluator(std::vector&lt; value_type &gt; coefficients)']]],
-  ['checkerboard_22',['checkerboard',['../namespacehmap.html#a4f43bf6bd355a50b42a9d079193f4582',1,'hmap']]],
+  ['checkerboard_22',['checkerboard',['../namespacehmap.html#aa0f7e467755bc8f3b7109e0137be4242',1,'hmap']]],
   ['checkerboard_2ecpp_23',['checkerboard.cpp',['../checkerboard_8cpp.html',1,'']]],
   ['children_24',['children',['../classhmap_1_1DrainageBasinCellBased.html#ab881041e84158253cc375d9661162472',1,'hmap::DrainageBasinCellBased']]],
   ['chop_25',['chop',['../namespacehmap.html#abc5d54d0d76a86f083db977837c28d69',1,'hmap']]],

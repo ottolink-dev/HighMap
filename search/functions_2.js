@@ -12,7 +12,7 @@ var searchData=
   ['channels_9',['channels',['../classhmap_1_1VirtualTexture.html#a3cde7b31158124e72d7fb81847b9f565',1,'hmap::VirtualTexture']]],
   ['channels_5fptr_10',['channels_ptr',['../classhmap_1_1VirtualTexture.html#a3b33275bb42a9303292c0c38e19c4830',1,'hmap::VirtualTexture::channels_ptr()'],['../classhmap_1_1VirtualTexture.html#ab64d331cec6f1ea671aeff0a161be25f',1,'hmap::VirtualTexture::channels_ptr() const']]],
   ['chebyshevevaluator_11',['chebyshevevaluator',['../classhmap_1_1ChebyshevEvaluator.html#ae1577567c5d4d67e8a1a246fb61bf061',1,'hmap::ChebyshevEvaluator::ChebyshevEvaluator(std::vector&lt; value_type &gt; coefficients)'],['../classhmap_1_1ChebyshevEvaluator.html#a2482d9b29d85d9ffab33f7076511d3fa',1,'hmap::ChebyshevEvaluator::ChebyshevEvaluator()=default']]],
-  ['checkerboard_12',['checkerboard',['../namespacehmap.html#a4f43bf6bd355a50b42a9d079193f4582',1,'hmap']]],
+  ['checkerboard_12',['checkerboard',['../namespacehmap.html#aa0f7e467755bc8f3b7109e0137be4242',1,'hmap']]],
   ['chop_13',['chop',['../namespacehmap.html#abc5d54d0d76a86f083db977837c28d69',1,'hmap']]],
   ['chop_5fmax_5fsmooth_14',['chop_max_smooth',['../namespacehmap.html#a0583ee2dca09a21193cb1e1830ce90bf',1,'hmap']]],
   ['clamp_15',['clamp',['../structhmap_1_1TerrainTriMesh_1_1BoundingBox.html#a4e07cb0e3758539b1356d0b6276da46b',1,'hmap::TerrainTriMesh::BoundingBox::clamp()'],['../namespacehmap.html#ae6dfd87b0368629657c3138dbf24cbc4',1,'hmap::clamp(Array &amp;array, float vmin=0.f, float vmax=1.f)'],['../namespacehmap.html#acd070bc49683535711ab36b5ec65c434',1,'hmap::clamp(Array &amp;array, float vmax, ClampMode mode)']]],
