@@ -96,7 +96,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="tests/src/test_interpolate_array_empty_source.cpp" line="73" column="1" bodyfile="tests/src/test_interpolate_array_empty_source.cpp" bodystart="73" bodyend="87"/>
+        <location file="tests/src/test_interpolate_array_empty_source.cpp" line="73" column="1" bodyfile="tests/src/test_interpolate_array_empty_source.cpp" bodystart="73" bodyend="89"/>
       </memberdef>
       <memberdef kind="function" id="test__interpolate__array__empty__source_8cpp_1a84e51077609a21aa0f931396c9185c97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -115,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="tests/src/test_interpolate_array_empty_source.cpp" line="89" column="1" bodyfile="tests/src/test_interpolate_array_empty_source.cpp" bodystart="89" bodyend="102"/>
+        <location file="tests/src/test_interpolate_array_empty_source.cpp" line="91" column="1" bodyfile="tests/src/test_interpolate_array_empty_source.cpp" bodystart="91" bodyend="104"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -132,10 +132,10 @@
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/>-1),<sp/>whose<sp/>precondition<sp/>(lo<sp/>&lt;=<sp/>hi)<sp/>is<sp/>violated<sp/>and<sp/>which<sp/>in<sp/>practice<sp/>yields</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/>-1,<sp/>so<sp/>source(-1,<sp/>-1)<sp/>reads<sp/>before<sp/>the<sp/>buffer<sp/>and<sp/>segfaults.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Reached<sp/>from<sp/>Hesiod<sp/>by<sp/>opening<sp/>any<sp/>project<sp/>whose<sp/>Brush<sp/>node<sp/>deserialized<sp/>to<sp/>an</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">//<sp/>empty<sp/>array<sp/>(otto-link/Hesiod#658):<sp/>Array::resample_to_shape_bilinear<sp/>on<sp/>a<sp/>0x0</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>source.<sp/>An<sp/>empty<sp/>source<sp/>has<sp/>no<sp/>meaningful<sp/>interpolation,<sp/>so<sp/>the<sp/>contract<sp/>is<sp/>to</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>leave<sp/>the<sp/>target<sp/>at<sp/>its<sp/>zero-filled<sp/>initial<sp/>state.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Reached<sp/>from<sp/>Hesiod<sp/>by<sp/>opening<sp/>any<sp/>project<sp/>whose<sp/>Brush<sp/>node<sp/>deserialized<sp/>to</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">//<sp/>an<sp/>empty<sp/>array<sp/>(otto-link/Hesiod#658):<sp/>Array::resample_to_shape_bilinear<sp/>on<sp/>a</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0<sp/>source.<sp/>An<sp/>empty<sp/>source<sp/>has<sp/>no<sp/>meaningful<sp/>interpolation,<sp/>so<sp/>the<sp/>contract</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>is<sp/>to<sp/>leave<sp/>the<sp/>target<sp/>at<sp/>its<sp/>zero-filled<sp/>initial<sp/>state.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">namespace</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal">{</highlight></codeline>
@@ -200,31 +200,33 @@
 <codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>path<sp/>Hesiod&apos;s<sp/>Brush<sp/>node<sp/>actually<sp/>took</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>source;</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>out_bilinear<sp/>=<sp/>source.<ref refid="classhmap_1_1Array_1ab274cf96754e95d4703cf78ec4e39397" kindref="member">resample_to_shape_bilinear</ref>(glm::ivec2(32,<sp/>32));</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/>EXPECT_EQ(out_bilinear.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x,<sp/>32);</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/>EXPECT_EQ(out_bilinear.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y,<sp/>32);</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/>expect_all_zero(out_bilinear);</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>out_nearest<sp/>=<sp/>source.<ref refid="classhmap_1_1Array_1aead9df3c2a79ee8bc479b04ca314743e" kindref="member">resample_to_shape_nearest</ref>(glm::ivec2(32,<sp/>32));</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/>EXPECT_EQ(out_nearest.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x,<sp/>32);</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/>EXPECT_EQ(out_nearest.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y,<sp/>32);</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/>expect_all_zero(out_nearest);</highlight></codeline>
-<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><ref refid="test__interpolate__array__empty__source_8cpp_1aaaa8d3b6cc0c0557189fe394767d45bc" kindref="member">TEST</ref>(InterpolateArrayEmptySource,<sp/>NonEmptySourceStillInterpolates)</highlight></codeline>
-<codeline lineno="90"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>guard<sp/>must<sp/>not<sp/>short-circuit<sp/>the<sp/>normal<sp/>path</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>source(glm::ivec2(2,<sp/>2));</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/>source(0,<sp/>0)<sp/>=<sp/>0.f;</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/>source(1,<sp/>0)<sp/>=<sp/>1.f;</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/>source(0,<sp/>1)<sp/>=<sp/>1.f;</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/>source(1,<sp/>1)<sp/>=<sp/>2.f;</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>target(glm::ivec2(8,<sp/>8));</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a28a6744fc26597330ca8eb9bbc4cd68e" kindref="member">hmap::interpolate_array_bilinear</ref>(source,<sp/>target);</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/>EXPECT_GT(target.max(),<sp/>0.f);</highlight></codeline>
-<codeline lineno="102"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>out_bilinear<sp/>=<sp/>source.<ref refid="classhmap_1_1Array_1ab274cf96754e95d4703cf78ec4e39397" kindref="member">resample_to_shape_bilinear</ref>(</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>glm::ivec2(32,<sp/>32));</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>EXPECT_EQ(out_bilinear.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x,<sp/>32);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>EXPECT_EQ(out_bilinear.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y,<sp/>32);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>expect_all_zero(out_bilinear);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>out_nearest<sp/>=<sp/>source.<ref refid="classhmap_1_1Array_1aead9df3c2a79ee8bc479b04ca314743e" kindref="member">resample_to_shape_nearest</ref>(</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>glm::ivec2(32,<sp/>32));</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>EXPECT_EQ(out_nearest.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x,<sp/>32);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/>EXPECT_EQ(out_nearest.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y,<sp/>32);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>expect_all_zero(out_nearest);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><ref refid="test__interpolate__array__empty__source_8cpp_1aaaa8d3b6cc0c0557189fe394767d45bc" kindref="member">TEST</ref>(InterpolateArrayEmptySource,<sp/>NonEmptySourceStillInterpolates)</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>guard<sp/>must<sp/>not<sp/>short-circuit<sp/>the<sp/>normal<sp/>path</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>source(glm::ivec2(2,<sp/>2));</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>source(0,<sp/>0)<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/>source(1,<sp/>0)<sp/>=<sp/>1.f;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>source(0,<sp/>1)<sp/>=<sp/>1.f;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>source(1,<sp/>1)<sp/>=<sp/>2.f;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>target(glm::ivec2(8,<sp/>8));</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a28a6744fc26597330ca8eb9bbc4cd68e" kindref="member">hmap::interpolate_array_bilinear</ref>(source,<sp/>target);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>EXPECT_GT(target.max(),<sp/>0.f);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_interpolate_array_empty_source.cpp"/>
   </compounddef>

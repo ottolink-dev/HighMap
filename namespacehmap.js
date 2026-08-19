@@ -1056,6 +1056,7 @@ var namespacehmap =
     [ "convert_texture_channels", "namespacehmap.html#af66b37de86e8de6261ab902110b118a0", null ],
     [ "colorize", "namespacehmap.html#a6f991e3bdf7c5c4bed631f2b7fb4f072", null ],
     [ "colorize", "namespacehmap.html#a221887dae102efd3756a1a8559eadeee", null ],
+    [ "colorize_bivariate", "namespacehmap.html#a973e9eeaf1bc68c61a860bcff379461b", null ],
     [ "luminance", "namespacehmap.html#a051c3f6f1ceda0feaf3c36c97bd7fef9", null ],
     [ "mix", "namespacehmap.html#a14c2ff528ad95764b5b2c5330087fac4", null ],
     [ "mix", "namespacehmap.html#aa0a65dc38f8ea42c2e9d36c6fd80cfc9", null ],

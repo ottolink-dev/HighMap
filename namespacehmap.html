@@ -2766,6 +2766,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a221887dae102efd3756a1a8559eadeee" id="r_a221887dae102efd3756a1a8559eadeee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a221887dae102efd3756a1a8559eadeee">colorize</a> (<a class="el" href="classhmap_1_1VirtualTexture.html">VirtualTexture</a> &amp;out, <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;level, const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;cm, float vmin, float vmax, const std::vector&lt; float &gt; &amp;positions, const std::vector&lt; glm::vec3 &gt; &amp;colormap_colors, <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> *p_alpha=nullptr, bool reverse=false, <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> *p_noise=nullptr)</td></tr>
 <tr class="memdesc:a221887dae102efd3756a1a8559eadeee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colorize a scalar field into a <a class="el" href="classhmap_1_1VirtualTexture.html">VirtualTexture</a> using a custom colormap.  <br /></td></tr>
 <tr class="separator:a221887dae102efd3756a1a8559eadeee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a973e9eeaf1bc68c61a860bcff379461b" id="r_a973e9eeaf1bc68c61a860bcff379461b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a973e9eeaf1bc68c61a860bcff379461b">colorize_bivariate</a> (<a class="el" href="classhmap_1_1VirtualTexture.html">VirtualTexture</a> &amp;out, <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;a1, <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;a2, const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;cm, glm::vec2 range1, glm::vec2 range2, const std::vector&lt; float &gt; &amp;positions1, const std::vector&lt; float &gt; &amp;positions2, const std::vector&lt; glm::vec3 &gt; &amp;colormap_colors1, const std::vector&lt; glm::vec3 &gt; &amp;colormap_colors2, <a class="el" href="namespacehmap.html#ad3b2ee0d951dd1116cc489ab96600c0f">MixMethod</a> method=<a class="el" href="namespacehmap.html#ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9">MM_SQRT_AVG</a>, bool reverse1=false, bool reverse2=false, <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> *p_noise1=nullptr, <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> *p_noise2=nullptr)</td></tr>
+<tr class="memdesc:a973e9eeaf1bc68c61a860bcff379461b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colorize two scalar fields into a <a class="el" href="classhmap_1_1VirtualTexture.html">VirtualTexture</a> using two custom colormaps and a color mixing method.  <br /></td></tr>
+<tr class="separator:a973e9eeaf1bc68c61a860bcff379461b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a051c3f6f1ceda0feaf3c36c97bd7fef9" id="r_a051c3f6f1ceda0feaf3c36c97bd7fef9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a051c3f6f1ceda0feaf3c36c97bd7fef9">luminance</a> (<a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;out, <a class="el" href="classhmap_1_1VirtualTexture.html">VirtualTexture</a> &amp;tex, const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;cm)</td></tr>
 <tr class="memdesc:a051c3f6f1ceda0feaf3c36c97bd7fef9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute luminance from a <a class="el" href="classhmap_1_1VirtualTexture.html">VirtualTexture</a>.  <br /></td></tr>
 <tr class="separator:a051c3f6f1ceda0feaf3c36c97bd7fef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -7526,7 +7529,7 @@ template&lt;typename Fn &gt; </div>
 </div>
 </div>
 <a id="a0681ba921814f774569408374886c66c" name="a0681ba921814f774569408374886c66c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0681ba921814f774569408374886c66c">&#9670;&#160;</a></span>colorize_bivariate()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0681ba921814f774569408374886c66c">&#9670;&#160;</a></span>colorize_bivariate() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -53293,6 +53296,134 @@ The resulting order is not guaranteed to be preserved. </dd></dl>
 <div class="line">  <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 </div><!-- fragment --> 
+</div>
+</div>
+<a id="a973e9eeaf1bc68c61a860bcff379461b" name="a973e9eeaf1bc68c61a860bcff379461b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a973e9eeaf1bc68c61a860bcff379461b">&#9670;&#160;</a></span>colorize_bivariate() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::colorize_bivariate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1VirtualTexture.html">VirtualTexture</a> &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;&#160;</td>
+          <td class="paramname"><em>a1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;&#160;</td>
+          <td class="paramname"><em>a2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;&#160;</td>
+          <td class="paramname"><em>cm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec2&#160;</td>
+          <td class="paramname"><em>range1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec2&#160;</td>
+          <td class="paramname"><em>range2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>positions1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>positions2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; glm::vec3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>colormap_colors1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; glm::vec3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>colormap_colors2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacehmap.html#ad3b2ee0d951dd1116cc489ab96600c0f">MixMethod</a>&#160;</td>
+          <td class="paramname"><em>method</em> = <code><a class="el" href="namespacehmap.html#ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9">MM_SQRT_AVG</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>reverse1</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>reverse2</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> *&#160;</td>
+          <td class="paramname"><em>p_noise1</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> *&#160;</td>
+          <td class="paramname"><em>p_noise2</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Colorize two scalar fields into a <a class="el" href="classhmap_1_1VirtualTexture.html">VirtualTexture</a> using two custom colormaps and a color mixing method. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">out</td><td>Output virtual texture. </td></tr>
+    <tr><td class="paramname">a1</td><td>First input scalar field. </td></tr>
+    <tr><td class="paramname">a2</td><td>Second input scalar field. </td></tr>
+    <tr><td class="paramname">cm</td><td>Compute mode (CPU/GPU). </td></tr>
+    <tr><td class="paramname">range1</td><td>Lower and upper bounds for normalization of the first field. </td></tr>
+    <tr><td class="paramname">range2</td><td>Lower and upper bounds for normalization of the second field. </td></tr>
+    <tr><td class="paramname">positions1</td><td>Normalized color positions for the first colormap. </td></tr>
+    <tr><td class="paramname">positions2</td><td>Normalized color positions for the second colormap. </td></tr>
+    <tr><td class="paramname">colormap_colors1</td><td>RGB colors for the first colormap. </td></tr>
+    <tr><td class="paramname">colormap_colors2</td><td>RGB colors for the second colormap. </td></tr>
+    <tr><td class="paramname">method</td><td>Method used to mix the two resulting colors. </td></tr>
+    <tr><td class="paramname">reverse1</td><td>Reverse the first colormap mapping. </td></tr>
+    <tr><td class="paramname">reverse2</td><td>Reverse the second colormap mapping. </td></tr>
+    <tr><td class="paramname">p_noise1</td><td>Optional noise added to the first scalar field before normalization. </td></tr>
+    <tr><td class="paramname">p_noise2</td><td>Optional noise added to the second scalar field before normalization. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a051c3f6f1ceda0feaf3c36c97bd7fef9" name="a051c3f6f1ceda0feaf3c36c97bd7fef9"></a>

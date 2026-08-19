@@ -44471,7 +44471,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/functions/primitives.cpp" line="358" column="7" bodyfile="HighMap/src/primitives/functions/primitives.cpp" bodystart="358" bodyend="399" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="43" declcolumn="7"/>
+        <location file="HighMap/src/primitives/functions/primitives.cpp" line="358" column="7" bodyfile="HighMap/src/primitives/functions/primitives.cpp" bodystart="358" bodyend="393" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="43" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9b7b17b540fbec1501ba0e996897c1e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -59176,6 +59176,208 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </inbodydescription>
         <location file="HighMap/src/virtual_array/colorize_virtual_texture.cpp" line="53" column="6" bodyfile="HighMap/src/virtual_array/colorize_virtual_texture.cpp" bodystart="53" bodyend="147" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="158" declcolumn="6"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a973e9eeaf1bc68c61a860bcff379461b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::colorize_bivariate</definition>
+        <argsstring>(VirtualTexture &amp;out, VirtualArray &amp;a1, VirtualArray &amp;a2, const ComputeMode &amp;cm, glm::vec2 range1, glm::vec2 range2, const std::vector&lt; float &gt; &amp;positions1, const std::vector&lt; float &gt; &amp;positions2, const std::vector&lt; glm::vec3 &gt; &amp;colormap_colors1, const std::vector&lt; glm::vec3 &gt; &amp;colormap_colors2, MixMethod method=MM_SQRT_AVG, bool reverse1=false, bool reverse2=false, VirtualArray *p_noise1=nullptr, VirtualArray *p_noise2=nullptr)</argsstring>
+        <name>colorize_bivariate</name>
+        <qualifiedname>hmap::colorize_bivariate</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref> &amp;</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>a1</declname>
+        </param>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>a2</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+        </param>
+        <param>
+          <type>glm::vec2</type>
+          <declname>range1</declname>
+        </param>
+        <param>
+          <type>glm::vec2</type>
+          <declname>range2</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>positions1</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>positions2</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; glm::vec3 &gt; &amp;</type>
+          <declname>colormap_colors1</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; glm::vec3 &gt; &amp;</type>
+          <declname>colormap_colors2</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1ad3b2ee0d951dd1116cc489ab96600c0f" kindref="member">MixMethod</ref></type>
+          <declname>method</declname>
+          <defval><ref refid="namespacehmap_1ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9" kindref="member">MM_SQRT_AVG</ref></defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>reverse1</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>reverse2</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> *</type>
+          <declname>p_noise1</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> *</type>
+          <declname>p_noise2</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Colorize two scalar fields into a <ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref> using two custom colormaps and a color mixing method. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output virtual texture. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>a1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>First input scalar field. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>a2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Second input scalar field. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Compute mode (CPU/GPU). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>range1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower and upper bounds for normalization of the first field. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>range2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower and upper bounds for normalization of the second field. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>positions1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Normalized color positions for the first colormap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>positions2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Normalized color positions for the second colormap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>colormap_colors1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>RGB colors for the first colormap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>colormap_colors2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>RGB colors for the second colormap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>method</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Method used to mix the two resulting colors. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reverse1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reverse the first colormap mapping. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reverse2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reverse the second colormap mapping. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_noise1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional noise added to the first scalar field before normalization. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_noise2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional noise added to the second scalar field before normalization. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/virtual_array/colorize_virtual_texture.cpp" line="149" column="6" bodyfile="HighMap/src/virtual_array/colorize_virtual_texture.cpp" bodystart="149" bodyend="295" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="192" declcolumn="6"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a051c3f6f1ceda0feaf3c36c97bd7fef9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::luminance</definition>
@@ -59228,7 +59430,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/virtual_array/colorize_virtual_texture.cpp" line="149" column="6" bodyfile="HighMap/src/virtual_array/colorize_virtual_texture.cpp" bodystart="149" bodyend="173" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="179" declcolumn="6"/>
+        <location file="HighMap/src/virtual_array/colorize_virtual_texture.cpp" line="297" column="6" bodyfile="HighMap/src/virtual_array/colorize_virtual_texture.cpp" bodystart="297" bodyend="321" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="218" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a14c2ff528ad95764b5b2c5330087fac4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -59515,7 +59717,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/virtual_array/colorize_virtual_texture.cpp" line="175" column="6" bodyfile="HighMap/src/virtual_array/colorize_virtual_texture.cpp" bodystart="175" bodyend="224" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="192" declcolumn="6"/>
+        <location file="HighMap/src/virtual_array/colorize_virtual_texture.cpp" line="323" column="6" bodyfile="HighMap/src/virtual_array/colorize_virtual_texture.cpp" bodystart="323" bodyend="372" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="231" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa0a65dc38f8ea42c2e9d36c6fd80cfc9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -59581,7 +59783,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/virtual_array/colorize_virtual_texture.cpp" line="226" column="6" bodyfile="HighMap/src/virtual_array/colorize_virtual_texture.cpp" bodystart="226" bodyend="237" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="205" declcolumn="6"/>
+        <location file="HighMap/src/virtual_array/colorize_virtual_texture.cpp" line="374" column="6" bodyfile="HighMap/src/virtual_array/colorize_virtual_texture.cpp" bodystart="374" bodyend="385" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="244" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a034df9fe48c4e9a2bead1da021ffd437" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -59670,7 +59872,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/virtual_array/colorize_virtual_texture.cpp" line="239" column="6" bodyfile="HighMap/src/virtual_array/colorize_virtual_texture.cpp" bodystart="239" bodyend="357" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="220" declcolumn="6"/>
+        <location file="HighMap/src/virtual_array/colorize_virtual_texture.cpp" line="387" column="6" bodyfile="HighMap/src/virtual_array/colorize_virtual_texture.cpp" bodystart="387" bodyend="505" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="259" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -59701,7 +59903,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/virtual_array/virtual_texture.hpp" line="228" column="6" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="228" declcolumn="6"/>
+        <location file="HighMap/include/highmap/virtual_array/virtual_texture.hpp" line="267" column="6" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="267" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a6bbca26bba2f2faac320f59df0ae8d8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -59732,7 +59934,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/virtual_array/virtual_texture.hpp" line="231" column="6" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="231" declcolumn="6"/>
+        <location file="HighMap/include/highmap/virtual_array/virtual_texture.hpp" line="270" column="6" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="270" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aac1a15042e8fae93d9caed60c2318fcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
