@@ -1,0 +1,2 @@
+add_executable(ex_path_to_png ex_path_to_png.cpp)
+target_link_libraries(ex_path_to_png highmap)

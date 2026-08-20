@@ -93,6 +93,10 @@ public:
 
 private:
   std::unordered_map<TileKey, Array, TileKeyHash> tiles;
+  // tiles can be lazily created from concurrent distributed_tile_loop()
+  // workers, the map needs protection against data races; mutable so that
+  // clone() can lock from a const context
+  mutable std::mutex mutex;
 };
 
 // =====================================

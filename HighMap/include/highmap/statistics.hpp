@@ -34,7 +34,7 @@ enum NormalizationMethod : int
  * @return                  Length scale in grid cells.
  *
  * **Example**
- * @include ex_cautocorr_length_scale.cpp
+ * @include ex_autocorr_length_scale.cpp
  *
  * See unit tests: @ref test_autocorr_length_scale.cpp
  */

@@ -1,0 +1,2 @@
+add_executable(ex_phemisphere_field ex_phemisphere_field.cpp)
+target_link_libraries(ex_phemisphere_field highmap)

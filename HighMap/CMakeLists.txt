@@ -39,8 +39,12 @@ target_link_libraries(
   nn-c::nn-c
   NoiseLib
   terrain-descriptors
-  OpenMP::OpenMP_CXX
   ${OpenCV_LIBS}
   point_sampler
   clwrapper
   ${OpenCL_LIBRARIES})
+
+# OpenMP is optional on macOS (see root CMakeLists)
+if(OpenMP_CXX_FOUND)
+  target_link_libraries(${PROJECT_NAME} OpenMP::OpenMP_CXX)
+endif()

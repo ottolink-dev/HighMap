@@ -55,8 +55,8 @@ float splitmix64_to_unit_float(unsigned int seed, size_t k);
  * mantissa precision of a `float`, providing a deterministic pseudo-random
  * uniform distribution.
  *
- * @param h 64-bit hash value.
- * @return Uniform floating-point value in the range [0, 1).
+ * @param  h 64-bit hash value.
+ * @return   Uniform floating-point value in the range [0, 1).
  */
 float uniform01(uint64_t h);
 

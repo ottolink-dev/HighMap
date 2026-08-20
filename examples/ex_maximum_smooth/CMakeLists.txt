@@ -1,0 +1,2 @@
+add_executable(ex_maximum_smooth ex_maximum_smooth.cpp)
+target_link_libraries(ex_maximum_smooth highmap)

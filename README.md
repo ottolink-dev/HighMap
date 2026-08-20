@@ -60,6 +60,27 @@ vcpkg install libpng glm opencl assimp opencv[openexr]
 
 You should then be able to build the sources using Visual Studio.
 
+#### macOS
+
+Install the dependencies using [Homebrew](https://brew.sh):
+``` bash
+brew install gsl assimp glm opencv libomp spdlog opencl-headers opencl-clhpp-headers
+```
+
+Then build as on Linux:
+``` bash
+mkdir build && cd build
+cmake ..
+make
+```
+
+>[!NOTE]
+> Apple Clang does not bundle OpenMP, the `libomp` package provides it. If
+> `libomp` is missing the library still builds, but the few OpenMP-based
+> kernels (flow accumulation, drainage basins, local metrics) run
+> single-threaded. Apple Silicon builds are tuned with `-mcpu=apple-m1`.
+
+
 ### CMake Integration
 
 To integrate HighMap into your CMake-based project, follow these steps:

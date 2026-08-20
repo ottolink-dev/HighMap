@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <limits>
 #include <memory>
+#include <mutex>
 #include <utility>
 
 #include "highmap/array.hpp"
@@ -17,11 +18,21 @@ namespace hmap
 
 std::unique_ptr<TileStorage> RamTileStorage::clone() const
 {
-  return std::make_unique<RamTileStorage>(*this);
+  // std::mutex is not copyable: copy the tiles manually under the lock
+  auto clone = std::make_unique<RamTileStorage>();
+
+  const std::lock_guard<std::mutex> lock(this->mutex);
+  clone->tiles = this->tiles;
+
+  return clone;
 }
 
 Array &RamTileStorage::get_tile(const TileRegion &region)
 {
+  // concurrent workers (VA_DISTRIBUTED mode) may request/insert tiles at
+  // the same time: guard the lazy creation path
+  const std::lock_guard<std::mutex> lock(this->mutex);
+
   auto it = tiles.find(region.key);
   if (it != tiles.end()) return it->second;
 

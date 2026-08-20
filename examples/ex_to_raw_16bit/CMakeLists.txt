@@ -1,0 +1,2 @@
+add_executable(ex_to_raw_16bit ex_to_raw_16bit.cpp)
+target_link_libraries(ex_to_raw_16bit highmap)

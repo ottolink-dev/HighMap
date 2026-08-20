@@ -1,0 +1,2 @@
+add_executable(ex_gradient_norm_filtered ex_gradient_norm_filtered.cpp)
+target_link_libraries(ex_gradient_norm_filtered highmap)

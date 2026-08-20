@@ -1,0 +1,2 @@
+add_executable(ex_path_bezier ex_path_bezier.cpp)
+target_link_libraries(ex_path_bezier highmap)

@@ -1,0 +1,2 @@
+add_executable(ex_path_to_array ex_path_to_array.cpp)
+target_link_libraries(ex_path_to_array highmap)

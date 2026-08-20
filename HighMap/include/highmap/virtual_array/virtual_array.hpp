@@ -8,6 +8,7 @@
  * @copyright Copyright (c) 2025
  */
 #pragma once
+#include <atomic>
 #include <future>
 #include <thread>
 

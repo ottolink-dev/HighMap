@@ -35,10 +35,10 @@ namespace hmap
  * @param array Input array to be flipped horizontally.
  *
  * **Example**
- * @include flip_lr.cpp
+ * @include ex_flip_ud.cpp
  *
  * **Result**
- * @image html flip_lr.png
+ * @image html ex_flip_ud.png
  */
 void flip_lr(Array &array);
 
@@ -51,10 +51,10 @@ void flip_lr(Array &array);
  * @param array Input array to be flipped vertically.
  *
  * **Example**
- * @include flip_ud.cpp
+ * @include ex_flip_ud.cpp
  *
  * **Result**
- * @image html flip_ud.png
+ * @image html ex_flip_ud.png
  */
 void flip_ud(Array &array);
 
@@ -127,6 +127,7 @@ void rot90(Array &array);
  *
  * @param array        Input array to be rotated.
  * @param angle        Rotation angle in degrees.
+ * @param zoom_in      If true, zoom in after rotation (default is true).
  * @param zero_padding If true, use zero-padding to fill the borders; otherwise,
  *                     use symmetry (default is false).
  *

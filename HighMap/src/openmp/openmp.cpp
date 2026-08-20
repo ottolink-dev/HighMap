@@ -16,6 +16,7 @@ namespace hmap
 bool init_openmp(int num_threads)
 {
 #ifdef _OPENMP
+  if (num_threads <= 0) num_threads = omp_get_num_procs();
   omp_set_num_threads(num_threads);
   log_openmp_info();
   return true;

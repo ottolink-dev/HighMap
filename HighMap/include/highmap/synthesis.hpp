@@ -51,10 +51,10 @@ namespace hmap
  * @return                 Array Resulting synthesized heightmap.
  *
  * **Example**
- * @include non_parametric_sampling.cpp
+ * @include ex_non_parametric_sampling.cpp
  *
  * **Result**
- * @image html non_parametric_sampling.png
+ * @image html ex_non_parametric_sampling.png
  */
 Array non_parametric_sampling(const Array  &array,
                               glm::ivec2    patch_shape,

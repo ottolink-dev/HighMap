@@ -1,0 +1,2 @@
+add_executable(ex_maximum_smooth_scalar ex_maximum_smooth_scalar.cpp)
+target_link_libraries(ex_maximum_smooth_scalar highmap)

@@ -2,6 +2,9 @@
    Public License. The full license is in the file LICENSE, distributed with
    this software. */
 #pragma once
+#if defined(__APPLE__)
+#include <sys/sysctl.h>
+#endif
 
 struct TileAccess
 {
@@ -184,6 +187,25 @@ void sequential_tile_loop(const VirtualArray &ref_va,
     }
 }
 
+/// Return a sensible default worker count for tile-parallel computations.
+///
+/// On Apple Silicon (heterogeneous P/E cores) the pool is sized after the
+/// performance cores: long per-tile tasks scheduled on efficiency cores
+/// become stragglers that delay the whole batch. Other platforms fall back
+/// to the full hardware concurrency.
+inline int recommended_thread_count()
+{
+#if defined(__APPLE__)
+  int    nperf = 0;
+  size_t len = sizeof(nperf);
+  if (sysctlbyname("hw.perflevel0.physicalcpu", &nperf, &len, nullptr, 0) ==
+          0 &&
+      nperf > 0)
+    return nperf;
+#endif
+  return int(std::thread::hardware_concurrency());
+}
+
 template <typename RegionDispatcher>
 void distributed_tile_loop(const VirtualArray &ref_va,
                            RegionDispatcher  &&dispatcher,
@@ -193,17 +215,23 @@ void distributed_tile_loop(const VirtualArray &ref_va,
   const int ny = ceil_div(ref_va.shape.y, ref_va.tile_shape.y);
   const int ntasks = nx * ny;
 
-  if (nthreads <= 0) nthreads = std::thread::hardware_concurrency();
+  if (nthreads <= 0) nthreads = recommended_thread_count();
 
   nthreads = std::min(nthreads, ntasks);
 
-  std::vector<std::future<void>> futures;
-  futures.reserve(nthreads);
+  // dynamic scheduling: workers pull the next tile through a shared atomic
+  // counter. This balances uneven per-tile costs (data-dependent erosion)
+  // and keeps heterogeneous cores (e.g. Apple Silicon P/E clusters) busy
+  // until the last task, unlike the previous static strided partitioning
+  std::atomic<int> next_task{0};
 
-  auto worker = [&](int thread_id)
+  auto worker = [&]()
   {
-    for (int k = thread_id; k < ntasks; k += nthreads)
+    while (true)
     {
+      const int k = next_task.fetch_add(1, std::memory_order_relaxed);
+      if (k >= ntasks) break;
+
       const int ty = k / nx;
       const int tx = k % nx;
 
@@ -212,10 +240,11 @@ void distributed_tile_loop(const VirtualArray &ref_va,
     }
   };
 
+  std::vector<std::future<void>> futures;
+  futures.reserve(nthreads);
+
   for (int t = 0; t < nthreads; ++t)
-  {
-    futures.emplace_back(std::async(std::launch::async, worker, t));
-  }
+    futures.emplace_back(std::async(std::launch::async, worker));
 
   for (auto &f : futures)
     f.get();

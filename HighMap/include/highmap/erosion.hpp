@@ -849,33 +849,33 @@ void hydraulic_particle(Array        &z,
                         float         angle_bias = 30.f);
 
 /**
- * @brief Particle-based hydraulic erosion with flow-field coupling
- * (McDonald's model): persistent per-cell discharge and momentum fields,
- * exponentially filtered across iterations, couple particles through the
- * mean local flow, producing coherent drainage networks; a bank-stability
- * debris flow runs in the same solver loop against a separate sediment
- * layer. Clean-room port of erosiv/soillib (LGPL-3, Nicholas McDonald),
+ * @brief Particle-based hydraulic erosion with flow-field coupling (McDonald's
+ * model): persistent per-cell discharge and momentum fields, exponentially
+ * filtered across iterations, couple particles through the mean local flow,
+ * producing coherent drainage networks; a bank-stability debris flow runs in
+ * the same solver loop against a separate sediment layer. Clean-room port of
+ * erosiv/soillib (LGPL-3, Nicholas McDonald),
  * https://github.com/erosiv/soillib.
  *
- * Parameters are physical: the terrain is interpreted as a
- * world_extent_km x world_extent_km domain with height range z_scale_km.
- * This makes behavior consistent across resolutions.
+ * Parameters are physical: the terrain is interpreted as a world_extent_km x
+ * world_extent_km domain with height range z_scale_km. This makes behavior
+ * consistent across resolutions.
  *
- * @warning Single-resolution runs numerically diverge at high resolutions
- * (>= 1024^2) beyond a few hundred steps with default parameters — use
+ * @warning Single-resolution runs numerically diverge at high resolutions (>=
+ * 1024^2) beyond a few hundred steps with default parameters — use
  * hydraulic_mcdonald_multiscale for high-resolution terrain.
  *
- * Results are reproducible up to atomic scheduling order (particles read
- * fields that other particles concurrently modify via atomic adds — a
- * property shared with the reference implementation).
+ * Results are reproducible up to atomic scheduling order (particles read fields
+ * that other particles concurrently modify via atomic adds — a property shared
+ * with the reference implementation).
  *
- * @param z               Input/output heightmap. In: bedrock. Out: bedrock
- *                        plus sediment (total surface).
+ * @param z               Input/output heightmap. In: bedrock. Out: bedrock plus
+ *                        sediment (total surface).
  * @param steps           Number of erosion iterations.
  * @param seed            Random seed number.
  * @param p_sediment_map  Optional output: final sediment layer.
- * @param p_discharge_map Optional output: water discharge field (usable as
- *                        a river / water mask).
+ * @param p_discharge_map Optional output: water discharge field (usable as a
+ *                        river / water mask).
  * @param world_extent_km Physical domain edge length [km].
  * @param z_scale_km      Physical height range of z's [0, 1] span [km].
  * @param samples         Particles per iteration.
@@ -927,11 +927,11 @@ void hydraulic_mcdonald(Array        &z,
 
 /**
  * @brief Multiscale driver for hydraulic_mcdonald: erodes on a halving
- * resolution ladder derived from z.shape (coarsest first), resampling the
- * full model state (bedrock, sediment, discharge, momentum) between levels.
- * The numerically stable route to high-resolution erosion with this model.
- * {512, 256, 128} on a 1024^2 input runs 256^2 (512 steps), 512^2 (256),
- * then 1024^2 (128). See hydraulic_mcdonald for the model and parameters.
+ * resolution ladder derived from z.shape (coarsest first), resampling the full
+ * model state (bedrock, sediment, discharge, momentum) between levels. The
+ * numerically stable route to high-resolution erosion with this model.
+ * {512, 256, 128} on a 1024^2 input runs 256^2 (512 steps), 512^2 (256), then
+ * 1024^2 (128). See hydraulic_mcdonald for the model and parameters.
  *
  * **Example**
  * @include ex_hydraulic_mcdonald.cpp

@@ -25,8 +25,9 @@ namespace hmap
  * @note If the input file has no extension, the suffix is added directly to the
  * filename.
  *
- * @example
- * @code std::filesystem::path path = "example.txt";
+ * **Example**
+ * @code{.cpp}
+ * std::filesystem::path path = "example.txt";
  * std::filesystem::path new_path = add_filename_suffix(path, "_backup");
  * std::cout << new_path; // Outputs "example_backup.txt"
  * @endcode
@@ -62,8 +63,11 @@ std::filesystem::path make_unique_temp_dir(const std::string &prefix);
  * @return        A new string padded with leading zeros to reach the specified
  *                length.
  *
- * @example zfill("42", 5); // returns "00042"
+ * **Example**
+ * @code{.cpp}
+ * zfill("42", 5); // returns "00042"
  * zfill("12345", 5); // returns "12345"
+ * @endcode
  */
 std::string zfill(const std::string &str, int n_zero);
 

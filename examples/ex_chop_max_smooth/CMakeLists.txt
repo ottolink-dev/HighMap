@@ -1,0 +1,2 @@
+add_executable(ex_chop_max_smooth ex_chop_max_smooth.cpp)
+target_link_libraries(ex_chop_max_smooth highmap)
