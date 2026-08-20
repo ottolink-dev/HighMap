@@ -102,7 +102,7 @@ var searchData=
   ['format_5fraw_2ecpp_99',['format_raw.cpp',['../format__raw_8cpp.html',1,'']]],
   ['formats_20png_20tiff_20exr_100',['Image formats (png, tiff, exr...)',['../index.html#autotoc_md13',1,'']]],
   ['fractal_20layering_20etc_101',['Generate classical coherent noises (Perlin, Simplex, fractal layering, etc...)',['../index.html#autotoc_md8',1,'']]],
-  ['fractalize_102',['fractalize',['../namespacehmap.html#a8d1bf20961ae3f8b342b341f4f541ccc',1,'hmap']]],
+  ['fractalize_102',['fractalize',['../namespacehmap.html#a4b8d2696326fca08bf5143c6b492b9d1',1,'hmap']]],
   ['from_5farray_103',['from_array',['../structhmap_1_1VirtualArray.html#ab685dda55aa7c9797d2a77e5d75d66c4',1,'hmap::VirtualArray']]],
   ['from_5farray_5fbicubic_104',['from_array_bicubic',['../structhmap_1_1VirtualArray.html#a7753aef78b80e55ac2114ec8970ba765',1,'hmap::VirtualArray']]],
   ['from_5farray_5fbilinear_105',['from_array_bilinear',['../structhmap_1_1VirtualArray.html#a6b79aa001d876e725effb0e5659ffc44',1,'hmap::VirtualArray']]],

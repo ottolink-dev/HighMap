@@ -23680,7 +23680,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,<sp/>seed,<sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>-0.1f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a8d1bf20961ae3f8b342b341f4f541ccc" kindref="member">hmap::fractalize</ref>(path,<sp/>1,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a4b8d2696326fca08bf5143c6b492b9d1" kindref="member">hmap::fractalize</ref>(path,<sp/>1,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ntarget<sp/>=<sp/>15;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -23710,10 +23710,10 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </inbodydescription>
         <location file="HighMap/src/geometry/path_functions.cpp" line="213" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="213" bodyend="244" declfile="HighMap/include/highmap/geometry/path.hpp" declline="603" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a8d1bf20961ae3f8b342b341f4f541ccc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a4b8d2696326fca08bf5143c6b492b9d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
         <definition>Path hmap::fractalize</definition>
-        <argsstring>(const Path &amp;path, int iterations, std::uint32_t seed, float sigma=0.2f, int orientation=0, float persistence=1.f, Array *p_control_field=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(const Path &amp;path, int iterations, std::uint32_t seed, float sigma=0.2f, int orientation=0, float persistence=1.f, Array *p_control_field=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, bool bounded=false)</argsstring>
         <name>fractalize</name>
         <qualifiedname>hmap::fractalize</qualifiedname>
         <param>
@@ -23752,6 +23752,11 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
           <type>glm::vec4</type>
           <declname>bbox</declname>
           <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bounded</declname>
+          <defval>false</defval>
         </param>
         <briefdescription>
 <para>Applies fractalization to the path by adding points and randomly displacing their positions. </para>
@@ -23819,7 +23824,15 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <parametername>bbox</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Bounding box that defines the valid area for the control field&apos;s influence.</para>
+<para>Bounding box that defines the valid area for the control field&apos;s influence. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounded</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, clamps each newly displaced midpoint to the bounding box defined by the initial edge it belongs to. Defaults to false.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -23849,20 +23862,35 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma<sp/>=<sp/>0.3f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1a84e0832a3c3a4c9e1f9bcefdc6d32cd0" kindref="member">resample_uniform</ref>();<sp/></highlight><highlight class="comment">//<sp/>to<sp/>ensure<sp/>a<sp/>&quot;uniform&quot;<sp/>output</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>fractalize,<sp/>with<sp/>and<sp/>without<sp/>control<sp/>function</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>pn<sp/>=<sp/>path;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>pc<sp/>=<sp/>path;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>pn<sp/>=<sp/><ref refid="namespacehmap_1a8d1bf20961ae3f8b342b341f4f541ccc" kindref="member">hmap::fractalize</ref>(pn,<sp/>iterations,<sp/>seed,<sp/>sigma);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z3<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>pn.<ref refid="classhmap_1_1Path_1a4d1e1e63fea24bf8f23bc3343f8b746e" kindref="member">to_array</ref>(z3,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>fractalize,<sp/>standard,<sp/>bounded,<sp/>and<sp/>with<sp/>control<sp/>function</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>orientation<sp/>=<sp/>0;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>persistence<sp/>=<sp/>1.f;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>1.<sp/>Standard<sp/>unbounded<sp/>fractalize</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>pn<sp/>=<sp/>path;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>pn<sp/>=<sp/><ref refid="namespacehmap_1a4b8d2696326fca08bf5143c6b492b9d1" kindref="member">hmap::fractalize</ref>(pn,<sp/>iterations,<sp/>seed,<sp/>sigma);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z3<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>pn.<ref refid="classhmap_1_1Path_1a4d1e1e63fea24bf8f23bc3343f8b746e" kindref="member">to_array</ref>(z3,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>2.<sp/>Bounded<sp/>fractalize</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>pb<sp/>=<sp/>path;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>pb<sp/>=<sp/><ref refid="namespacehmap_1a4b8d2696326fca08bf5143c6b492b9d1" kindref="member">hmap::fractalize</ref>(pb,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iterations,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2.f<sp/>*<sp/>sigma,<sp/></highlight><highlight class="comment">//<sp/>push<sp/>amplitude</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>orientation,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>persistence,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z5<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>pb.<ref refid="classhmap_1_1Path_1a4d1e1e63fea24bf8f23bc3343f8b746e" kindref="member">to_array</ref>(z5,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>3.<sp/>Control<sp/>function<sp/>modulated<sp/>fractalize<sp/>(closed<sp/>path)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>pc<sp/>=<sp/>path;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>pc.<ref refid="classhmap_1_1Path_1aeb2890d2ffbbf4291baf255c621095de" kindref="member">set_closed</ref>(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>pc<sp/>=<sp/><ref refid="namespacehmap_1a8d1bf20961ae3f8b342b341f4f541ccc" kindref="member">hmap::fractalize</ref>(pc,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>pc<sp/>=<sp/><ref refid="namespacehmap_1a4b8d2696326fca08bf5143c6b492b9d1" kindref="member">hmap::fractalize</ref>(pc,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iterations,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sigma,</highlight></codeline>
@@ -23874,7 +23902,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z4<sp/>=<sp/>pc.<ref refid="classhmap_1_1Path_1a4d1e1e63fea24bf8f23bc3343f8b746e" kindref="member">to_array</ref>(shape,<sp/>bbox);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_path_fractalize.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z1,<sp/>z_control,<sp/>z3,<sp/>z4},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z1,<sp/>z3,<sp/>z5,<sp/>z_control,<sp/>z4},</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143" kindref="member">hmap::Cmap::INFERNO</ref>);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
@@ -23883,7 +23911,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="246" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="246" bodyend="305" declfile="HighMap/include/highmap/geometry/path.hpp" declline="637" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="246" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="246" bodyend="343" declfile="HighMap/include/highmap/geometry/path.hpp" declline="640" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a73e4db2185a62fe2cf6bed305bafeb1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
@@ -23948,7 +23976,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,<sp/>seed,<sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>-0.1f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a8d1bf20961ae3f8b342b341f4f541ccc" kindref="member">hmap::fractalize</ref>(path,<sp/>2,<sp/>seed,<sp/>0.2f);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a4b8d2696326fca08bf5143c6b492b9d1" kindref="member">hmap::fractalize</ref>(path,<sp/>2,<sp/>seed,<sp/>0.2f);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1afe00587a87fc52524487b197818404f0" kindref="member">resample_interp</ref>(200);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/>path.<ref refid="classhmap_1_1Path_1a4d1e1e63fea24bf8f23bc3343f8b746e" kindref="member">to_array</ref>(shape,<sp/>bbox);</highlight></codeline>
@@ -23987,7 +24015,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="307" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="307" bodyend="335" declfile="HighMap/include/highmap/geometry/path.hpp" declline="664" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="345" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="345" bodyend="373" declfile="HighMap/include/highmap/geometry/path.hpp" declline="668" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a46a5e09cd5db9de358dd50a590215294" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
@@ -24132,7 +24160,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="337" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="337" bodyend="402" declfile="HighMap/include/highmap/geometry/path.hpp" declline="694" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="375" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="375" bodyend="440" declfile="HighMap/include/highmap/geometry/path.hpp" declline="698" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2e33d478424b6f4d2bd05ccaeabd0846" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -24215,7 +24243,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="404" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="404" bodyend="455" declfile="HighMap/include/highmap/geometry/path.hpp" declline="716" declcolumn="7"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="442" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="442" bodyend="493" declfile="HighMap/include/highmap/geometry/path.hpp" declline="720" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a650c6eaf8bd10356a77c7c1f9ef9af3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
@@ -24263,7 +24291,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="457" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="457" bodyend="492" declfile="HighMap/include/highmap/geometry/path.hpp" declline="738" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="495" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="495" bodyend="530" declfile="HighMap/include/highmap/geometry/path.hpp" declline="742" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ad81052648d6008d2b7b4a5a36a2d7830" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
@@ -24339,7 +24367,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,<sp/>seed,<sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>-0.1f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a8d1bf20961ae3f8b342b341f4f541ccc" kindref="member">hmap::fractalize</ref>(path,<sp/>4,<sp/>seed,<sp/>0.2f);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a4b8d2696326fca08bf5143c6b492b9d1" kindref="member">hmap::fractalize</ref>(path,<sp/>4,<sp/>seed,<sp/>0.2f);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1a649a385315a3230c058d032b2171424a" kindref="member">resample_by_spacing</ref>(0.05f);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/>path.<ref refid="classhmap_1_1Path_1a4d1e1e63fea24bf8f23bc3343f8b746e" kindref="member">to_array</ref>(shape,<sp/>bbox);</highlight></codeline>
@@ -24364,7 +24392,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="494" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="494" bodyend="584" declfile="HighMap/include/highmap/geometry/path.hpp" declline="775" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="532" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="532" bodyend="622" declfile="HighMap/include/highmap/geometry/path.hpp" declline="779" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5944fc905be512784a9caceb527703d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -24431,7 +24459,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_verification.cpp" line="18" column="6" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="18" bodyend="42" declfile="HighMap/include/highmap/geometry/path.hpp" declline="795" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_verification.cpp" line="18" column="6" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="18" bodyend="42" declfile="HighMap/include/highmap/geometry/path.hpp" declline="799" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aba24d09d6f4a3eab8c1522536088f39e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>float</type>
@@ -24472,7 +24500,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_verification.cpp" line="44" column="7" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="44" bodyend="60" declfile="HighMap/include/highmap/geometry/path.hpp" declline="806" declcolumn="7"/>
+        <location file="HighMap/src/geometry/path_verification.cpp" line="44" column="7" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="44" bodyend="60" declfile="HighMap/include/highmap/geometry/path.hpp" declline="810" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1adb224131a9c75491b105b67801e0fe20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -24518,7 +24546,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_verification.cpp" line="62" column="6" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="62" bodyend="71" declfile="HighMap/include/highmap/geometry/path.hpp" declline="817" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_verification.cpp" line="62" column="6" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="62" bodyend="71" declfile="HighMap/include/highmap/geometry/path.hpp" declline="821" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>float</type>
@@ -30084,7 +30112,7 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>0.2f,<sp/>-0.2f,<sp/>0.2f,<sp/>-0.2f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a8d1bf20961ae3f8b342b341f4f541ccc" kindref="member">hmap::fractalize</ref>(path,<sp/>8,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a4b8d2696326fca08bf5143c6b492b9d1" kindref="member">hmap::fractalize</ref>(path,<sp/>8,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Cloud_1a5ac84550aceffbb9053c3b58490e7126" kindref="member">set_values_from_array</ref>(<ref refid="namespacehmap_1a0f94056bb01fb9798ce72d3c4b1be4d2" kindref="member">noise</ref>,<sp/>bbox);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>zp<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape);</highlight></codeline>

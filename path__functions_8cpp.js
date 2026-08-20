@@ -7,7 +7,7 @@ var path__functions_8cpp =
     [ "catmullrom", "path__functions_8cpp.html#a9b14eb25556ef745f1e606bbe8d41dcb", null ],
     [ "decasteljau", "path__functions_8cpp.html#af9b55527f8d0f1c01d110b3144ee7d91", null ],
     [ "decimate_vw", "path__functions_8cpp.html#a862fef5e0387bea9358648fc7aa5680b", null ],
-    [ "fractalize", "path__functions_8cpp.html#a8d1bf20961ae3f8b342b341f4f541ccc", null ],
+    [ "fractalize", "path__functions_8cpp.html#a4b8d2696326fca08bf5143c6b492b9d1", null ],
     [ "inflate", "path__functions_8cpp.html#a73e4db2185a62fe2cf6bed305bafeb1f", null ],
     [ "meanderize", "path__functions_8cpp.html#a46a5e09cd5db9de358dd50a590215294", null ],
     [ "path_sdf_to_array", "path__functions_8cpp.html#a2e33d478424b6f4d2bd05ccaeabd0846", null ],
