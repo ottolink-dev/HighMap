@@ -1,0 +1,56 @@
+\doxysection{tensor.\+hpp}
+\hypertarget{tensor_8hpp_source}{}\label{tensor_8hpp_source}\index{HighMap/include/highmap/tensor.hpp@{HighMap/include/highmap/tensor.hpp}}
+\mbox{\hyperlink{tensor_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Copyright\ (c)\ 2023\ Otto\ Link.\ Distributed\ under\ the\ terms\ of\ the\ GNU\ General}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ Public\ License.\ The\ full\ license\ is\ in\ the\ file\ LICENSE,\ distributed\ with}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ this\ software.\ */}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <opencv2/core.hpp>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{algebra_8hpp}{highmap/algebra.hpp}}"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{array_8hpp}{highmap/array.hpp}}"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1Tensor}{Tensor}}}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ \ \ glm::ivec3\ \mbox{\hyperlink{classhmap_1_1Tensor_a2c0d8332e59109e6b18047319fe9ef3b}{shape}}\ =\ glm::ivec3(0,\ 0,\ 0);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00047\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1Tensor_acf16755884baf3252e48e6989846d91f}{vector}};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{classhmap_1_1Tensor}{Tensor}}(glm::ivec3\ \mbox{\hyperlink{classhmap_1_1Tensor_a2c0d8332e59109e6b18047319fe9ef3b}{shape}});}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{classhmap_1_1Tensor}{Tensor}}(glm::ivec2\ shape\_xy,\ \textcolor{keywordtype}{int}\ shape\_z);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00069\ \ \ \mbox{\hyperlink{classhmap_1_1Tensor}{Tensor}}(\textcolor{keyword}{const}\ std::string\ \&fname,\ \textcolor{keywordtype}{bool}\ flip\_j\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{float}\ \&\mbox{\hyperlink{classhmap_1_1Tensor_a936e719c02f701ce86798533bdacba6d}{operator()}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j,\ \textcolor{keywordtype}{int}\ k);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&\mbox{\hyperlink{classhmap_1_1Tensor_a936e719c02f701ce86798533bdacba6d}{operator()}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j,\ \textcolor{keywordtype}{int}\ k)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \mbox{\hyperlink{classhmap_1_1Tensor_a59e7ac9122e705d05f6e8b00a26ef738}{get\_slice}}(\textcolor{keywordtype}{int}\ k)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1Tensor_a61599497cbeaddf588b012eff837ad52}{max}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1Tensor_a4be64dae294cbe5d822ecb0717dad1bb}{min}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Tensor_a00ae31f5e6fa479a7f6a18444e4777cc}{remap}}(\textcolor{keywordtype}{float}\ vmin\ =\ 0.f,\ \textcolor{keywordtype}{float}\ vmax\ =\ 1.f);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00130\ \ \ \mbox{\hyperlink{classhmap_1_1Tensor}{Tensor}}\ \mbox{\hyperlink{classhmap_1_1Tensor_aa08c7b7edfa63f80eb44acb0ce4cc114}{resample\_to\_shape\_xy}}(glm::ivec2\ new\_shape\_xy);}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Tensor_aaf3d0e4ca2dcb231210a4b4745777c7b}{set\_slice}}(\textcolor{keywordtype}{int}\ k,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&slice);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00145\ \ \ cv::Mat\ \mbox{\hyperlink{classhmap_1_1Tensor_ac267c454e16d1445696ffa5ad2b32cb6}{to\_cv\_mat}}();}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00152\ \ \ std::vector<uint8\_t>\ \mbox{\hyperlink{classhmap_1_1Tensor_a637626689237e2131ba547a81cf7aaaf}{to\_img\_8bit}}(\textcolor{keywordtype}{bool}\ flip\_y\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Tensor_afe46210c8fa2c76229cc4099d63f237e}{to\_png}}(\textcolor{keyword}{const}\ std::string\ \&fname,\ \textcolor{keywordtype}{int}\ depth\ =\ CV\_8U);}
+\DoxyCodeLine{00167\ \};}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+
+\end{DoxyCode}

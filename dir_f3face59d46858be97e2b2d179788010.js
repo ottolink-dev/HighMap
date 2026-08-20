@@ -1,6 +1,5 @@
 var dir_f3face59d46858be97e2b2d179788010 =
 [
-    [ "colorize_virtual_texture.cpp", "colorize__virtual__texture_8cpp.html", "colorize__virtual__texture_8cpp" ],
     [ "convert_texture_channels.cpp", "convert__texture__channels_8cpp.html", "convert__texture__channels_8cpp" ],
     [ "disk_lru_storage.cpp", "disk__lru__storage_8cpp.html", null ],
     [ "disk_sequential_storage.cpp", "disk__sequential__storage_8cpp.html", null ],

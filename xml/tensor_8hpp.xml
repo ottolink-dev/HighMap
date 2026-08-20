@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="tensor_8hpp" kind="file" language="C++">
+    <compoundname>tensor.hpp</compoundname>
+    <innerclass refid="classhmap_1_1Tensor" prot="public">hmap::Tensor</innerclass>
+    <innernamespace refid="namespacehmap">hmap</innernamespace>
+    <briefdescription>
+<para>Header file for the Tensor class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Otto Link (<ulink url="mailto:otto.link.bv@gmail.com">otto.link.bv@gmail.com</ulink>) </para>
+</simplesect>
+This file contains the definition of the <computeroutput>Tensor</computeroutput> class, which is used for representing and manipulating multi-dimensional arrays of floating-point values. The class provides methods for accessing elements, performing basic mathematical operations, and exporting data to image formats.</para>
+<para><simplesect kind="copyright"><para>Copyright (c) 2023 Otto Link </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>Otto<sp/>Link.<sp/>Distributed<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>GNU<sp/>General</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/><sp/><sp/>Public<sp/>License.<sp/>The<sp/>full<sp/>license<sp/>is<sp/>in<sp/>the<sp/>file<sp/>LICENSE,<sp/>distributed<sp/>with</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/><sp/><sp/>this<sp/>software.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;opencv2/core.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="algebra_8hpp" kindref="compound">highmap/algebra.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="array_8hpp" kindref="compound">highmap/array.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="classhmap_1_1Tensor" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classhmap_1_1Tensor" kindref="compound">Tensor</ref></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="42" refid="classhmap_1_1Tensor_1a2c0d8332e59109e6b18047319fe9ef3b" refkind="member"><highlight class="normal"><sp/><sp/>glm::ivec3<sp/><ref refid="classhmap_1_1Tensor_1a2c0d8332e59109e6b18047319fe9ef3b" kindref="member">shape</ref><sp/>=<sp/>glm::ivec3(0,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="classhmap_1_1Tensor_1acf16755884baf3252e48e6989846d91f" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><ref refid="classhmap_1_1Tensor_1acf16755884baf3252e48e6989846d91f" kindref="member">vector</ref>;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Tensor" kindref="compound">Tensor</ref>(glm::ivec3<sp/><ref refid="classhmap_1_1Tensor_1a2c0d8332e59109e6b18047319fe9ef3b" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Tensor" kindref="compound">Tensor</ref>(glm::ivec2<sp/>shape_xy,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>shape_z);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Tensor" kindref="compound">Tensor</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;fname,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>flip_j<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>&amp;<ref refid="classhmap_1_1Tensor_1a936e719c02f701ce86798533bdacba6d" kindref="member">operator()</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>&amp;<ref refid="classhmap_1_1Tensor_1a936e719c02f701ce86798533bdacba6d" kindref="member">operator()</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><ref refid="classhmap_1_1Tensor_1a59e7ac9122e705d05f6e8b00a26ef738" kindref="member">get_slice</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Tensor_1a61599497cbeaddf588b012eff837ad52" kindref="member">max</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Tensor_1a4be64dae294cbe5d822ecb0717dad1bb" kindref="member">min</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Tensor_1a00ae31f5e6fa479a7f6a18444e4777cc" kindref="member">remap</ref>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>vmin<sp/>=<sp/>0.f,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>vmax<sp/>=<sp/>1.f);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Tensor" kindref="compound">Tensor</ref><sp/><ref refid="classhmap_1_1Tensor_1aa08c7b7edfa63f80eb44acb0ce4cc114" kindref="member">resample_to_shape_xy</ref>(glm::ivec2<sp/>new_shape_xy);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Tensor_1aaf3d0e4ca2dcb231210a4b4745777c7b" kindref="member">set_slice</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>&amp;slice);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/>cv::Mat<sp/><ref refid="classhmap_1_1Tensor_1ac267c454e16d1445696ffa5ad2b32cb6" kindref="member">to_cv_mat</ref>();</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/>std::vector&lt;uint8_t&gt;<sp/><ref refid="classhmap_1_1Tensor_1a637626689237e2131ba547a81cf7aaaf" kindref="member">to_img_8bit</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>flip_y<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Tensor_1afe46210c8fa2c76229cc4099d63f237e" kindref="member">to_png</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;fname,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>depth<sp/>=<sp/>CV_8U);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="HighMap/include/highmap/tensor.hpp"/>
+  </compounddef>
+</doxygen>

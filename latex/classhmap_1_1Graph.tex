@@ -602,15 +602,15 @@ This method computes the signed distance function for the graph, which measures 
 \DoxyCodeLine{\ \ glm::ivec2\ \ \ \ shape\ =\ \{256,\ 256\};}
 \DoxyCodeLine{\ \ std::uint32\_t\ seed\ =\ 1;}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{noise}}\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ shape,\ \{2,\ 2\},\ seed);}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(\mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{noise}},\ 0.f,\ 0.2f);}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespacehmap_aab4e1fed5b362634652df32f832ce3f7}{noise}}\ =\ \mbox{\hyperlink{namespacehmap_a7f5b2e16a974bbfad06fbae44c8b3465}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ shape,\ \{2,\ 2\},\ seed);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(\mbox{\hyperlink{namespacehmap_aab4e1fed5b362634652df32f832ce3f7}{noise}},\ 0.f,\ 0.2f);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ glm::vec4\ \ \ bbox\ =\ \{0.f,\ 1.f,\ 0.f,\ 1.f\};}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ cloud\ =\ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}(5,\ seed,\ \mbox{\hyperlink{namespacehmap_adc5300323fa35e021fd83b8b048ef3b1}{hmap::adjust}}(bbox,\ -\/0.1f));}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z0\ =\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_a36e47d4857108c56193755e32374184d}{to\_array}}(shape,\ bbox);}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z1\ =\ \mbox{\hyperlink{namespacehmap_aad6694d36e91a15ded7373064d15b88c}{hmap::cloud\_sdf\_to\_array}}(cloud,\ shape,\ bbox);}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z2\ =\ \mbox{\hyperlink{namespacehmap_aad6694d36e91a15ded7373064d15b88c}{hmap::cloud\_sdf\_to\_array}}(cloud,\ shape,\ bbox,\ \&\mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{noise}},\ \&\mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{noise}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z2\ =\ \mbox{\hyperlink{namespacehmap_aad6694d36e91a15ded7373064d15b88c}{hmap::cloud\_sdf\_to\_array}}(cloud,\ shape,\ bbox,\ \&\mbox{\hyperlink{namespacehmap_aab4e1fed5b362634652df32f832ce3f7}{noise}},\ \&\mbox{\hyperlink{namespacehmap_aab4e1fed5b362634652df32f832ce3f7}{noise}});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_cloud\_sdf.png"{}},\ \{z0,\ z1,\ z2\},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced}{hmap::Cmap::JET}});}
 \DoxyCodeLine{\}}

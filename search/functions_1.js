@@ -11,7 +11,7 @@ var searchData=
   ['bezier_5fround_8',['bezier_round',['../namespacehmap.html#a3beb0c80491a827b346e9e69cadf4228',1,'hmap']]],
   ['bilateral_5ffilter_9',['bilateral_filter',['../namespacehmap_1_1gpu.html#ad6240ccabf3a0f858698dc0b77ab619e',1,'hmap::gpu::bilateral_filter(const Array &amp;array, const Array &amp;kernel2d, const Array &amp;kernel1d, float kernel1d_value_scaling)'],['../namespacehmap_1_1gpu.html#a0cd7116e5c346fe9534e25b53d5e054a',1,'hmap::gpu::bilateral_filter(const Array &amp;array, int ir, float kernel1d_value_scaling)']]],
   ['bilinear_5finterp_10',['bilinear_interp',['../namespacehmap.html#ae91029283452ab6d8276e3745a476b48',1,'hmap']]],
-  ['biquad_5fpulse_11',['biquad_pulse',['../namespacehmap.html#a02c2283ef2c4fedf45dcbed47a86f853',1,'hmap']]],
+  ['biquad_5fpulse_11',['biquad_pulse',['../namespacehmap.html#a2b69f27ab2ce6c9bdd87cdc630a0a1d5',1,'hmap']]],
   ['biquad_5fpulse_5fx_12',['biquad_pulse_x',['../namespacehmap.html#a05f15dbf656e6f7ae36542c48a7d2980',1,'hmap']]],
   ['biquad_5fpulse_5fy_13',['biquad_pulse_y',['../namespacehmap.html#aeffedc90714bfcfed6a5f18d780b1094',1,'hmap']]],
   ['biquadfunction_14',['BiquadFunction',['../classhmap_1_1BiquadFunction.html#a833dc567076ad412bbe56c72d5e2b154',1,'hmap::BiquadFunction']]],
@@ -27,7 +27,7 @@ var searchData=
   ['bspline_24',['bspline',['../namespacehmap.html#a281c9db00eef9735e8eea7bbf50f3e34',1,'hmap']]],
   ['build_25',['build',['../classhmap_1_1NaturalNeighborInterpolator.html#a9404f1043455692be64d35116a00742c',1,'hmap::NaturalNeighborInterpolator']]],
   ['bulkify_26',['bulkify',['../namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3',1,'hmap']]],
-  ['bump_27',['bump',['../namespacehmap.html#a32035fe3ef18a31240ace195c721ecd7',1,'hmap']]],
+  ['bump_27',['bump',['../namespacehmap.html#a205eb3757eb00bd7c92504c01b9d3638',1,'hmap']]],
   ['bump_5florentzian_28',['bump_lorentzian',['../namespacehmap.html#a4af0bde798f0266db4dfe24e1134a506',1,'hmap']]],
   ['bumpfunction_29',['BumpFunction',['../classhmap_1_1BumpFunction.html#a80e2476cc674ff1e15c5135829484c68',1,'hmap::BumpFunction']]]
 ];

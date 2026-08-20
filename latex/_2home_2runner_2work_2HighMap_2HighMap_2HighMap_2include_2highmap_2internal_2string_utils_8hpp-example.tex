@@ -1,0 +1,49 @@
+\doxysection{/home/runner/work/\+High\+Map/\+High\+Map/\+High\+Map/include/highmap/internal/string\+\_\+utils.\+hpp}
+\hypertarget{_2home_2runner_2work_2HighMap_2HighMap_2HighMap_2include_2highmap_2internal_2string_utils_8hpp-example}{}\label{_2home_2runner_2work_2HighMap_2HighMap_2HighMap_2include_2highmap_2internal_2string_utils_8hpp-example}Adds a suffix to the filename of a given file path.
+
+Adds a suffix to the filename of a given file path.\+This function appends a given suffix to the stem (base name without extension) of a file while preserving the original directory and file extension.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+\_\+path} & The original file path. \\
+\hline
+{\em suffix} & The suffix to append to the filename. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A new std\+::filesystem\+::path with the modified filename.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+If the input file has no extension, the suffix is added directly to the filename.
+\end{DoxyNote}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ std::filesystem::path\ path\ =\ \textcolor{stringliteral}{"{}example.txt"{}};}
+\DoxyCodeLine{std::filesystem::path\ new\_path\ =\ \mbox{\hyperlink{namespacehmap_a67eae4546cbed6a804eaddcde9350e1c}{add\_filename\_suffix}}(path,\ \textcolor{stringliteral}{"{}\_backup"{}});}
+\DoxyCodeLine{std::cout\ <<\ new\_path;\ \textcolor{comment}{//\ Outputs\ "{}example\_backup.txt"{}}}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <filesystem>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{std::filesystem::path\ \mbox{\hyperlink{namespacehmap_a67eae4546cbed6a804eaddcde9350e1c}{add\_filename\_suffix}}(}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ std::filesystem::path\ \&file\_path,}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ std::string\ \ \ \ \ \ \ \ \ \ \ \&suffix);}
+\DoxyCodeLine{}
+\DoxyCodeLine{std::filesystem::path\ \mbox{\hyperlink{namespacehmap_a0a506d871b395e49e6175499dfa1e903}{make\_unique\_temp\_dir}}(\textcolor{keyword}{const}\ std::string\ \&prefix);}
+\DoxyCodeLine{}
+\DoxyCodeLine{std::string\ \mbox{\hyperlink{namespacehmap_a3f38b7faedc76835a0a902eb48e3d94b}{zfill}}(\textcolor{keyword}{const}\ std::string\ \&str,\ \textcolor{keywordtype}{int}\ n\_zero);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}\ \textcolor{comment}{//\ namespace\ hmap}}
+
+\end{DoxyCodeInclude}
+ 

@@ -17,14 +17,14 @@
 <codeline lineno="7"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="array_8hpp" kindref="compound">highmap/array.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="gradient_8hpp" kindref="compound">highmap/gradient.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="texture_8hpp" kindref="compound">highmap/texture.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="tensor_8hpp" kindref="compound">highmap/tensor.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref></highlight></codeline>
 <codeline lineno="13"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal">Texture<sp/><ref refid="namespacehmap_1ad3bbab242472aca5e8ee8005e97957e0" kindref="member">normal_map</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">Tensor<sp/><ref refid="namespacehmap_1aef53e65fc9b8bc74c342367b0034cfa7" kindref="member">normal_map</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array)</highlight></codeline>
 <codeline lineno="16"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/>Texture<sp/>nmap<sp/>=<sp/>Texture(array.shape,<sp/>3);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>Tensor<sp/>nmap<sp/>=<sp/>Tensor(array.shape,<sp/>3);</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"></highlight></codeline>
 <codeline lineno="19"><highlight class="normal"><sp/><sp/>Array<sp/>dx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(array)<sp/>*<sp/>array.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x;</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/>Array<sp/>dy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(array)<sp/>*<sp/>array.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y;</highlight></codeline>
@@ -42,7 +42,7 @@
 <codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>nmap;</highlight></codeline>
 <codeline lineno="33"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1ad2ec6856745659f0bef18b2fa61e4eff" kindref="member">normal_map_to_heightmap</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Texture<sp/>&amp;nmap)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a26a0e82cf03ec259e3efae1ea84286db" kindref="member">normal_map_to_heightmap</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Tensor<sp/>&amp;nmap)</highlight></codeline>
 <codeline lineno="36"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape(nmap.shape.x,<sp/>nmap.shape.y);</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/>z1(shape);</highlight></codeline>
@@ -75,9 +75,9 @@
 <codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>z1<sp/>+<sp/>z2;</highlight></codeline>
 <codeline lineno="66"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a8776cc91b81a545c90b2a1623f011887" kindref="member">normal_map_to_heightmap_poisson</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Texture<sp/>&amp;nmap,</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iterations,</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>omega)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a58b2e7cdca93719d3e1fca73fd68421c" kindref="member">normal_map_to_heightmap_poisson</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Tensor<sp/>&amp;nmap,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iterations,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>omega)</highlight></codeline>
 <codeline lineno="71"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape(nmap.shape.x,<sp/>nmap.shape.y);</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/>z1(shape);</highlight></codeline>
