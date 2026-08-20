@@ -226,7 +226,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abed9b04c8138125196946f7453e4aea9" id="r_abed9b04c8138125196946f7453e4aea9"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1Path.html#abed9b04c8138125196946f7453e4aea9">sample_at</a> (float t, const std::vector&lt; float &gt; *p_arc=nullptr, glm::vec2 *p_tangent=nullptr) const</td></tr>
 <tr class="memdesc:abed9b04c8138125196946f7453e4aea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample the path using normalized arc-length parameterization.  <br /></td></tr>
 <tr class="separator:abed9b04c8138125196946f7453e4aea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9816b231362dd1ca5208a839626f1f68" id="r_a9816b231362dd1ca5208a839626f1f68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1Path.html#a9816b231362dd1ca5208a839626f1f68">subsample</a> (int <a class="el" href="namespacehmap.html#a80b6038177b2ab3984cb18bd90f568fa">step</a>)</td></tr>
+<tr class="memitem:a9816b231362dd1ca5208a839626f1f68" id="r_a9816b231362dd1ca5208a839626f1f68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1Path.html#a9816b231362dd1ca5208a839626f1f68">subsample</a> (int <a class="el" href="namespacehmap.html#afedc080c1f8ff7cc785671291f1ad25c">step</a>)</td></tr>
 <tr class="memdesc:a9816b231362dd1ca5208a839626f1f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subsample the path by keeping only every n-th point.  <br /></td></tr>
 <tr class="separator:a9816b231362dd1ca5208a839626f1f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d1e1e63fea24bf8f23bc3343f8b746e" id="r_a4d1e1e63fea24bf8f23bc3343f8b746e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1Path.html#a4d1e1e63fea24bf8f23bc3343f8b746e">to_array</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}, bool filled=false) const</td></tr>
@@ -1432,7 +1432,20 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Project path points to an array. </p>
 <p>This method projects the points of the path onto a 2D array, filling the array based on the path's points. Optionally, the contour of the path can be filled using flood fill if the <code>filled</code> parameter is set to true.</p>
-<p><b>Example</b> </p><div class="fragment"></div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+<p><b>Example</b> </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="highmap_8hpp.html">highmap.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
+<div class="line">{</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a> path;</div>
+<div class="line">  path.<a class="code hl_function" href="classhmap_1_1Cloud.html#ab1149531131111567d9f8760162d90ff">add_point</a>({10.f, 10.f});</div>
+<div class="line">  path.<a class="code hl_function" href="classhmap_1_1Cloud.html#ab1149531131111567d9f8760162d90ff">add_point</a>({240.f, 240.f});</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z({256, 256}, 0.f);</div>
+<div class="line">  path.<a class="code hl_function" href="classhmap_1_1Path.html#a4d1e1e63fea24bf8f23bc3343f8b746e">to_array</a>(z);</div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasshmap_1_1Cloud_html_ab1149531131111567d9f8760162d90ff"><div class="ttname"><a href="classhmap_1_1Cloud.html#ab1149531131111567d9f8760162d90ff">hmap::Cloud::add_point</a></div><div class="ttdeci">void add_point(const Point &amp;p)</div><div class="ttdoc">Add a new point to the cloud.</div><div class="ttdef"><b>Definition</b> cloud.cpp:97</div></div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">array</td><td>The array to which the path points will be projected. </td></tr>
     <tr><td class="paramname">bbox</td><td>Bounding box defining the domain of the array. </td></tr>
@@ -1543,7 +1556,19 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Export path as PNG image file. </p>
 <p>This method generates a PNG image representing the path and saves it to the specified file. The resolution of the image can be adjusted using the <code>shape</code> parameter.</p>
-<p><b>Example</b> </p><div class="fragment"></div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+<p><b>Example</b> </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="highmap_8hpp.html">highmap.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
+<div class="line">{</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a> path;</div>
+<div class="line">  path.<a class="code hl_function" href="classhmap_1_1Cloud.html#ab1149531131111567d9f8760162d90ff">add_point</a>({10.f, 10.f});</div>
+<div class="line">  path.<a class="code hl_function" href="classhmap_1_1Cloud.html#ab1149531131111567d9f8760162d90ff">add_point</a>({240.f, 240.f});</div>
+<div class="line"> </div>
+<div class="line">  path.<a class="code hl_function" href="classhmap_1_1Path.html#aaf9111fdcae15cc51cfcd5faffb38f23">to_png</a>(<span class="stringliteral">&quot;ex_path_to_png_output.png&quot;</span>);</div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasshmap_1_1Path_html_aaf9111fdcae15cc51cfcd5faffb38f23"><div class="ttname"><a href="classhmap_1_1Path.html#aaf9111fdcae15cc51cfcd5faffb38f23">hmap::Path::to_png</a></div><div class="ttdeci">void to_png(std::string fname, glm::ivec2 shape={512, 512})</div><div class="ttdoc">Export path as PNG image file.</div><div class="ttdef"><b>Definition</b> path.cpp:474</div></div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fname</td><td>The filename for the output PNG image. </td></tr>
     <tr><td class="paramname">shape</td><td>Resolution of the image, specified as width and height. Default is {512, 512}. </td></tr>

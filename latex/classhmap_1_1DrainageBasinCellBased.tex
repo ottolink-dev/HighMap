@@ -2,6 +2,11 @@
 \hypertarget{classhmap_1_1DrainageBasinCellBased}{}\label{classhmap_1_1DrainageBasinCellBased}\index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 
 
+Represents a cell-\/based hydrology drainage basin network on a 2D heightmap grid.  
+
+
+
+
 {\ttfamily \#include $<$drainage\+\_\+basin\+\_\+cell\+\_\+based.\+hpp$>$}
 
 
@@ -18,59 +23,64 @@ Collaboration diagram for hmap\+::Drainage\+Basin\+Cell\+Based\+:
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_aeb36d7eba63e150534906f2e924e7be8}{Drainage\+Basin\+Cell\+Based}} ()=default
-\item 
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ad1d5250d216d7353f421056326daa86e}{Drainage\+Basin\+Cell\+Based}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z\+\_\+)
-\item 
+\begin{DoxyCompactList}\small\item\em Construct a new cell-\/based drainage basin using a heightmap. \end{DoxyCompactList}\item 
 const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \& \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ad0043f7fb33846400b0d4cf3b6040864}{get\+\_\+z}} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Get the underlying heightmap array. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_a1e9f6c5c336799e2072e60737e200c06}{compute\+\_\+receivers}} (unsigned int seed=0, float noise\+\_\+strength=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
-\item 
+\begin{DoxyCompactList}\small\item\em Compute flow receivers using standard D8, with optional noise. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_a803b4ddeebc535ae0d84153dbd173077}{compute\+\_\+receivers\+\_\+priority\+\_\+flood}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Compute flow receivers using the priority flood routing algorithm. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_a016b44f32bfa7b4efba7b0e2972559d5}{update\+\_\+stream\+\_\+tree}} (unsigned int seed, float noise\+\_\+strength)
-\item 
+\begin{DoxyCompactList}\small\item\em Update the stream tree stochastically. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_a7724732019dbdd0f1c990c70abfe5cb7}{update\+\_\+stream\+\_\+tree}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Update the stream tree deterministically. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ad06fd0817a6e10df178faabc42114f82}{update\+\_\+traversals}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Update cached traversal orders for upstream/downstream computations. \end{DoxyCompactList}\item 
 std\+::vector$<$ glm\+::ivec2 $>$ \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_a517f9509d3e56b99362ba1daf1416c52}{get\+\_\+outlets}} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Get the outlets of the basin. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ace4e6f0f22a79f022cea7a3aa55c14da}{set\+\_\+outlets}} (const std\+::vector$<$ glm\+::ivec2 $>$ \&outlet\+\_\+indices)
-\item 
+\begin{DoxyCompactList}\small\item\em Set the outlets of the basin. \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::vector$<$ glm\+::ivec2 $>$ $>$ \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_a7a5c0a12851f2172d30f98f7deca7dff}{compute\+\_\+upstream\+\_\+traversals}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Compute upstream traversal orders for the entire grid. \end{DoxyCompactList}\item 
 std\+::pair$<$ \mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$ glm\+::ivec2 $>$, bool $>$ \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_afa5c311e6fa51fdcf97fe43565f4baf7}{find\+\_\+subroots}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Find subroots of the flow network. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_abea71a506ab514fd66095492fffbc38c}{remove\+\_\+lakes}} (const \mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$ glm\+::ivec2 $>$ \&subroot)
-\item 
+\begin{DoxyCompactList}\small\item\em Remove lakes by draining local depressions. \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::vector$<$ glm\+::ivec2 $>$ $>$ \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_a2f17611d6bebf2bafb7e4cf7b55a2326}{get\+\_\+main\+\_\+channels}} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Get the main channel paths of the flow network. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_a8c2fd86212124f8c3c02c6824706e39b}{compute\+\_\+response\+\_\+times}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&area\+\_\+acc, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&erodibility, float m\+\_\+exp) const
-\item 
+\begin{DoxyCompactList}\small\item\em Compute response times of the basin cells. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ad007ada3b51c9f0f98e2509c8b7afec8}{update\+\_\+elevations}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&response\+\_\+times, float uplift\+\_\+rate, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&max\+\_\+slope)
-\item 
+\begin{DoxyCompactList}\small\item\em Update elevations based on response times and uplift. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_a9e828a65ed3c3995aa235ee269eb6e7f}{accumulate\+\_\+area\+\_\+by\+\_\+outlet}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&acc) const
-\item 
+\begin{DoxyCompactList}\small\item\em Accumulate contributing area down the network by outlet. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ac9fa3176b0f4a388c4ca269efb26c328}{flow\+\_\+breach}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Perform flow breaching to resolve depressions. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_a89f0fe7b521edf3d390096710fa60291}{z}}
-\item 
+\begin{DoxyCompactList}\small\item\em The heightmap array. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$ int $>$ \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ac10b3c435244b5560587cf2785a05c7e}{outlets\+\_\+mask}}
-\item 
+\begin{DoxyCompactList}\small\item\em Mask indicating outlet cells. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$ glm\+::ivec2 $>$ \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_a6ec9232c7f0ea270f48d9659dacbf055}{receivers}}
-\item 
+\begin{DoxyCompactList}\small\item\em Grid of receiver coordinates. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$ std\+::vector$<$ glm\+::ivec2 $>$ $>$ \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ab881041e84158253cc375d9661162472}{children}}
-\item 
+\begin{DoxyCompactList}\small\item\em Grid of children coordinates. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$ glm\+::ivec2 $>$ \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_af086db7261ccb7e0f08cffb7b1e9a1a5}{roots}}
-\item 
+\begin{DoxyCompactList}\small\item\em Grid of basin root. \end{DoxyCompactList}\item 
 std\+::unordered\+\_\+map$<$ glm\+::ivec2, std\+::vector$<$ glm\+::ivec2 $>$, \mbox{\hyperlink{structhmap_1_1IVec2Hash}{IVec2\+Hash}} $>$ \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_a468cf312e08a4057cab4d69440dc5521}{traversals}}
 \item 
 const glm\+::ivec2 \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ad576fdd4931b25ab57bec6eeca32204b}{null\+\_\+cell}} = glm\+::ivec2(-\/1, -\/1)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Constant representing an. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Represents a cell-\/based hydrology drainage basin network on a 2D heightmap grid. 
+
+This class implements hydrological flow network computations (receivers, outlets, main channels, upstream traversals) on a regular grid represented by a 2D \doxylink{classhmap_1_1Array}{Array}. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_aeb36d7eba63e150534906f2e924e7be8}\label{classhmap_1_1DrainageBasinCellBased_aeb36d7eba63e150534906f2e924e7be8} 
@@ -78,6 +88,10 @@ const glm\+::ivec2 \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ad576fdd
 \index{DrainageBasinCellBased@{DrainageBasinCellBased}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{DrainageBasinCellBased()}{DrainageBasinCellBased()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily hmap\+::\+Drainage\+Basin\+Cell\+Based\+::\+Drainage\+Basin\+Cell\+Based (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Default constructor. 
 
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_ad1d5250d216d7353f421056326daa86e}\label{classhmap_1_1DrainageBasinCellBased_ad1d5250d216d7353f421056326daa86e} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!DrainageBasinCellBased@{DrainageBasinCellBased}}
@@ -87,6 +101,15 @@ const glm\+::ivec2 \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ad576fdd
 
 
 
+Construct a new cell-\/based drainage basin using a heightmap. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em z\+\_\+} & The input heightmap array. \\
+\hline
+\end{DoxyParams}
+
+
 \doxysubsection{Member Function Documentation}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_ad0043f7fb33846400b0d4cf3b6040864}\label{classhmap_1_1DrainageBasinCellBased_ad0043f7fb33846400b0d4cf3b6040864} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!get\_z@{get\_z}}
@@ -94,17 +117,39 @@ const glm\+::ivec2 \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ad576fdd
 \doxysubsubsection{\texorpdfstring{get\_z()}{get\_z()}}
 {\footnotesize\ttfamily const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \& hmap\+::\+Drainage\+Basin\+Cell\+Based\+::get\+\_\+z (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Get the underlying heightmap array. 
+
+\begin{DoxyReturn}{Returns}
+A const reference to the heightmap \doxylink{classhmap_1_1Array}{Array}. 
+\end{DoxyReturn}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_a1e9f6c5c336799e2072e60737e200c06}\label{classhmap_1_1DrainageBasinCellBased_a1e9f6c5c336799e2072e60737e200c06} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!compute\_receivers@{compute\_receivers}}
 \index{compute\_receivers@{compute\_receivers}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{compute\_receivers()}{compute\_receivers()}}
 {\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+Cell\+Based\+::compute\+\_\+receivers (\begin{DoxyParamCaption}\item[{unsigned int}]{seed = {\ttfamily 0},  }\item[{float}]{noise\+\_\+strength = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
 
+
+
+Compute flow receivers using standard D8, with optional noise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em seed} & Seed for random generation. \\
+\hline
+{\em noise\+\_\+strength} & Strength of elevation noise added for stochastic flow paths. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_a803b4ddeebc535ae0d84153dbd173077}\label{classhmap_1_1DrainageBasinCellBased_a803b4ddeebc535ae0d84153dbd173077} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!compute\_receivers\_priority\_flood@{compute\_receivers\_priority\_flood}}
 \index{compute\_receivers\_priority\_flood@{compute\_receivers\_priority\_flood}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{compute\_receivers\_priority\_flood()}{compute\_receivers\_priority\_flood()}}
 {\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+Cell\+Based\+::compute\+\_\+receivers\+\_\+priority\+\_\+flood (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Compute flow receivers using the priority flood routing algorithm. 
 
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_a016b44f32bfa7b4efba7b0e2972559d5}\label{classhmap_1_1DrainageBasinCellBased_a016b44f32bfa7b4efba7b0e2972559d5} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!update\_stream\_tree@{update\_stream\_tree}}
@@ -112,11 +157,26 @@ const glm\+::ivec2 \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ad576fdd
 \doxysubsubsection{\texorpdfstring{update\_stream\_tree()}{update\_stream\_tree()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+Cell\+Based\+::update\+\_\+stream\+\_\+tree (\begin{DoxyParamCaption}\item[{unsigned int}]{seed,  }\item[{float}]{noise\+\_\+strength }\end{DoxyParamCaption})}
 
+
+
+Update the stream tree stochastically. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em seed} & Seed for random generation. \\
+\hline
+{\em noise\+\_\+strength} & Strength of noise. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_a7724732019dbdd0f1c990c70abfe5cb7}\label{classhmap_1_1DrainageBasinCellBased_a7724732019dbdd0f1c990c70abfe5cb7} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!update\_stream\_tree@{update\_stream\_tree}}
 \index{update\_stream\_tree@{update\_stream\_tree}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{update\_stream\_tree()}{update\_stream\_tree()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+Cell\+Based\+::update\+\_\+stream\+\_\+tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Update the stream tree deterministically. 
 
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_ad06fd0817a6e10df178faabc42114f82}\label{classhmap_1_1DrainageBasinCellBased_ad06fd0817a6e10df178faabc42114f82} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!update\_traversals@{update\_traversals}}
@@ -124,65 +184,160 @@ const glm\+::ivec2 \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ad576fdd
 \doxysubsubsection{\texorpdfstring{update\_traversals()}{update\_traversals()}}
 {\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+Cell\+Based\+::update\+\_\+traversals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Update cached traversal orders for upstream/downstream computations. 
+
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_a517f9509d3e56b99362ba1daf1416c52}\label{classhmap_1_1DrainageBasinCellBased_a517f9509d3e56b99362ba1daf1416c52} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!get\_outlets@{get\_outlets}}
 \index{get\_outlets@{get\_outlets}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{get\_outlets()}{get\_outlets()}}
 {\footnotesize\ttfamily std\+::vector$<$ glm\+::ivec2 $>$ hmap\+::\+Drainage\+Basin\+Cell\+Based\+::get\+\_\+outlets (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Get the outlets of the basin. 
+
+\begin{DoxyReturn}{Returns}
+A vector of 2D grid coordinates of the outlets. 
+\end{DoxyReturn}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_ace4e6f0f22a79f022cea7a3aa55c14da}\label{classhmap_1_1DrainageBasinCellBased_ace4e6f0f22a79f022cea7a3aa55c14da} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!set\_outlets@{set\_outlets}}
 \index{set\_outlets@{set\_outlets}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{set\_outlets()}{set\_outlets()}}
 {\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+Cell\+Based\+::set\+\_\+outlets (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ glm\+::ivec2 $>$ \&}]{outlet\+\_\+indices }\end{DoxyParamCaption})}
 
+
+
+Set the outlets of the basin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em outlet\+\_\+indices} & Vector of outlet 2D coordinates. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_a7a5c0a12851f2172d30f98f7deca7dff}\label{classhmap_1_1DrainageBasinCellBased_a7a5c0a12851f2172d30f98f7deca7dff} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!compute\_upstream\_traversals@{compute\_upstream\_traversals}}
 \index{compute\_upstream\_traversals@{compute\_upstream\_traversals}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{compute\_upstream\_traversals()}{compute\_upstream\_traversals()}}
 {\footnotesize\ttfamily std\+::vector$<$ std\+::vector$<$ glm\+::ivec2 $>$ $>$ hmap\+::\+Drainage\+Basin\+Cell\+Based\+::compute\+\_\+upstream\+\_\+traversals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Compute upstream traversal orders for the entire grid. 
+
+\begin{DoxyReturn}{Returns}
+A vector of paths, each represented as a vector of 2D coordinates. 
+\end{DoxyReturn}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_afa5c311e6fa51fdcf97fe43565f4baf7}\label{classhmap_1_1DrainageBasinCellBased_afa5c311e6fa51fdcf97fe43565f4baf7} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!find\_subroots@{find\_subroots}}
 \index{find\_subroots@{find\_subroots}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{find\_subroots()}{find\_subroots()}}
 {\footnotesize\ttfamily std\+::pair$<$ \mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$ glm\+::ivec2 $>$, bool $>$ hmap\+::\+Drainage\+Basin\+Cell\+Based\+::find\+\_\+subroots (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Find subroots of the flow network. 
+
+\begin{DoxyReturn}{Returns}
+A pair containing a matrix of subroots and a boolean status. 
+\end{DoxyReturn}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_abea71a506ab514fd66095492fffbc38c}\label{classhmap_1_1DrainageBasinCellBased_abea71a506ab514fd66095492fffbc38c} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!remove\_lakes@{remove\_lakes}}
 \index{remove\_lakes@{remove\_lakes}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{remove\_lakes()}{remove\_lakes()}}
 {\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+Cell\+Based\+::remove\+\_\+lakes (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$ glm\+::ivec2 $>$ \&}]{subroot }\end{DoxyParamCaption})}
 
+
+
+Remove lakes by draining local depressions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em subroot} & Matrix representing subroots. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_a2f17611d6bebf2bafb7e4cf7b55a2326}\label{classhmap_1_1DrainageBasinCellBased_a2f17611d6bebf2bafb7e4cf7b55a2326} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!get\_main\_channels@{get\_main\_channels}}
 \index{get\_main\_channels@{get\_main\_channels}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{get\_main\_channels()}{get\_main\_channels()}}
 {\footnotesize\ttfamily std\+::vector$<$ std\+::vector$<$ glm\+::ivec2 $>$ $>$ hmap\+::\+Drainage\+Basin\+Cell\+Based\+::get\+\_\+main\+\_\+channels (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Get the main channel paths of the flow network. 
+
+\begin{DoxyReturn}{Returns}
+A vector of main channels, each represented as a vector of 2D grid coordinates. 
+\end{DoxyReturn}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_a8c2fd86212124f8c3c02c6824706e39b}\label{classhmap_1_1DrainageBasinCellBased_a8c2fd86212124f8c3c02c6824706e39b} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!compute\_response\_times@{compute\_response\_times}}
 \index{compute\_response\_times@{compute\_response\_times}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{compute\_response\_times()}{compute\_response\_times()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::\+Drainage\+Basin\+Cell\+Based\+::compute\+\_\+response\+\_\+times (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{area\+\_\+acc,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{erodibility,  }\item[{float}]{m\+\_\+exp }\end{DoxyParamCaption}) const}
 
+
+
+Compute response times of the basin cells. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em area\+\_\+acc} & Accumulated area array. \\
+\hline
+{\em erodibility} & Erodibility coefficient array. \\
+\hline
+{\em m\+\_\+exp} & Erodibility exponent. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An \doxylink{classhmap_1_1Array}{Array} of response times. 
+\end{DoxyReturn}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_ad007ada3b51c9f0f98e2509c8b7afec8}\label{classhmap_1_1DrainageBasinCellBased_ad007ada3b51c9f0f98e2509c8b7afec8} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!update\_elevations@{update\_elevations}}
 \index{update\_elevations@{update\_elevations}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{update\_elevations()}{update\_elevations()}}
 {\footnotesize\ttfamily float hmap\+::\+Drainage\+Basin\+Cell\+Based\+::update\+\_\+elevations (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{response\+\_\+times,  }\item[{float}]{uplift\+\_\+rate,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{max\+\_\+slope }\end{DoxyParamCaption})}
 
+
+
+Update elevations based on response times and uplift. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em response\+\_\+times} & \doxylink{classhmap_1_1Array}{Array} of cell response times. \\
+\hline
+{\em uplift\+\_\+rate} & Rate of tectonic uplift. \\
+\hline
+{\em max\+\_\+slope} & Maximum allowed slope array. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The maximum change in elevation. 
+\end{DoxyReturn}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_a9e828a65ed3c3995aa235ee269eb6e7f}\label{classhmap_1_1DrainageBasinCellBased_a9e828a65ed3c3995aa235ee269eb6e7f} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!accumulate\_area\_by\_outlet@{accumulate\_area\_by\_outlet}}
 \index{accumulate\_area\_by\_outlet@{accumulate\_area\_by\_outlet}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{accumulate\_area\_by\_outlet()}{accumulate\_area\_by\_outlet()}}
 {\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+Cell\+Based\+::accumulate\+\_\+area\+\_\+by\+\_\+outlet (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{acc }\end{DoxyParamCaption}) const}
 
+
+
+Accumulate contributing area down the network by outlet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em acc} & Output accumulated area array. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_ac9fa3176b0f4a388c4ca269efb26c328}\label{classhmap_1_1DrainageBasinCellBased_ac9fa3176b0f4a388c4ca269efb26c328} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!flow\_breach@{flow\_breach}}
 \index{flow\_breach@{flow\_breach}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{flow\_breach()}{flow\_breach()}}
 {\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+Cell\+Based\+::flow\+\_\+breach (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Perform flow breaching to resolve depressions. 
 
 
 
@@ -193,11 +348,19 @@ const glm\+::ivec2 \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ad576fdd
 \doxysubsubsection{\texorpdfstring{z}{z}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::\+Drainage\+Basin\+Cell\+Based\+::z}
 
+
+
+The heightmap array. 
+
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_ac10b3c435244b5560587cf2785a05c7e}\label{classhmap_1_1DrainageBasinCellBased_ac10b3c435244b5560587cf2785a05c7e} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!outlets\_mask@{outlets\_mask}}
 \index{outlets\_mask@{outlets\_mask}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{outlets\_mask}{outlets\_mask}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$int$>$ hmap\+::\+Drainage\+Basin\+Cell\+Based\+::outlets\+\_\+mask}
+
+
+
+Mask indicating outlet cells. 
 
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_a6ec9232c7f0ea270f48d9659dacbf055}\label{classhmap_1_1DrainageBasinCellBased_a6ec9232c7f0ea270f48d9659dacbf055} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!receivers@{receivers}}
@@ -205,17 +368,29 @@ const glm\+::ivec2 \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ad576fdd
 \doxysubsubsection{\texorpdfstring{receivers}{receivers}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$glm\+::ivec2$>$ hmap\+::\+Drainage\+Basin\+Cell\+Based\+::receivers}
 
+
+
+Grid of receiver coordinates. 
+
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_ab881041e84158253cc375d9661162472}\label{classhmap_1_1DrainageBasinCellBased_ab881041e84158253cc375d9661162472} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!children@{children}}
 \index{children@{children}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{children}{children}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$std\+::vector$<$glm\+::ivec2$>$ $>$ hmap\+::\+Drainage\+Basin\+Cell\+Based\+::children}
 
+
+
+Grid of children coordinates. 
+
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_af086db7261ccb7e0f08cffb7b1e9a1a5}\label{classhmap_1_1DrainageBasinCellBased_af086db7261ccb7e0f08cffb7b1e9a1a5} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!roots@{roots}}
 \index{roots@{roots}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{roots}{roots}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$glm\+::ivec2$>$ hmap\+::\+Drainage\+Basin\+Cell\+Based\+::roots}
+
+
+
+Grid of basin root. 
 
 \Hypertarget{classhmap_1_1DrainageBasinCellBased_a468cf312e08a4057cab4d69440dc5521}\label{classhmap_1_1DrainageBasinCellBased_a468cf312e08a4057cab4d69440dc5521} 
 \index{hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}!traversals@{traversals}}
@@ -228,6 +403,10 @@ const glm\+::ivec2 \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased_ad576fdd
 \index{null\_cell@{null\_cell}!hmap::DrainageBasinCellBased@{hmap::DrainageBasinCellBased}}
 \doxysubsubsection{\texorpdfstring{null\_cell}{null\_cell}}
 {\footnotesize\ttfamily const glm\+::ivec2 hmap\+::\+Drainage\+Basin\+Cell\+Based\+::null\+\_\+cell = glm\+::ivec2(-\/1, -\/1)}
+
+
+
+Constant representing an. 
 
 
 

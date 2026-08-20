@@ -1,6 +1,11 @@
 var colorize_8hpp =
 [
     [ "hmap::ColorAdjust", "structhmap_1_1ColorAdjust.html", "structhmap_1_1ColorAdjust" ],
+    [ "MixMethod", "colorize_8hpp.html#ad3b2ee0d951dd1116cc489ab96600c0f", [
+      [ "MM_LINEAR", "colorize_8hpp.html#ad3b2ee0d951dd1116cc489ab96600c0fadb442265791dc4c41e19aa2d350bd15d", null ],
+      [ "MM_SQRT_AVG", "colorize_8hpp.html#ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9", null ],
+      [ "MM_MIXBOX", "colorize_8hpp.html#ad3b2ee0d951dd1116cc489ab96600c0fa1f0467ead0c69d25b41b6838f330902e", null ]
+    ] ],
     [ "NormalMapBlendingMethod", "colorize_8hpp.html#abc952321c99ec11d60b4037e3d27db9b", [
       [ "NMAP_LINEAR", "colorize_8hpp.html#abc952321c99ec11d60b4037e3d27db9bac248af7dd230247485e3c09a663cedd0", null ],
       [ "NMAP_DERIVATIVE", "colorize_8hpp.html#abc952321c99ec11d60b4037e3d27db9ba97d5a1740991179c436482de8c1c1f34", null ],
@@ -8,19 +13,19 @@ var colorize_8hpp =
       [ "NMAP_UNITY", "colorize_8hpp.html#abc952321c99ec11d60b4037e3d27db9ba54fd5928677cd19616ec52d6d59d4c60", null ],
       [ "NMAP_WHITEOUT", "colorize_8hpp.html#abc952321c99ec11d60b4037e3d27db9ba6ba5e07d11326f7567d533f169321e37", null ]
     ] ],
-    [ "apply_hillshade", "colorize_8hpp.html#a4960846742ad118ec9eadaba40ca39ac", null ],
+    [ "apply_hillshade", "colorize_8hpp.html#a76b37b88acf83d6a5b21f1be1b50697e", null ],
     [ "apply_hillshade", "colorize_8hpp.html#aefc8cbe645337bb5b663436c0324f9e2", null ],
     [ "color_adjust", "colorize_8hpp.html#a7634a1bb2505ae11370c431b0b1fd9ea", null ],
     [ "color_match_mask", "colorize_8hpp.html#a45e198f16e345fef1b2aeebc2fe7c429", null ],
-    [ "colorize", "colorize_8hpp.html#a33a635351aa13228557a585470ba4563", null ],
-    [ "colorize", "colorize_8hpp.html#a6f991e3bdf7c5c4bed631f2b7fb4f072", null ],
-    [ "colorize", "colorize_8hpp.html#a221887dae102efd3756a1a8559eadeee", null ],
-    [ "colorize_grayscale", "colorize_8hpp.html#aa76bdaf8b572bcea0778ef8815965307", null ],
-    [ "colorize_histogram", "colorize_8hpp.html#afda3d37dc8fba4a56818964784d2178b", null ],
-    [ "colorize_slope_height_heatmap", "colorize_8hpp.html#aa60f142e186d43472cdda569c03b31b2", null ],
-    [ "colorize_vec2", "colorize_8hpp.html#a9f21720d5e7b1c93e0d5b50631f1ca8f", null ],
-    [ "luminance", "colorize_8hpp.html#a051c3f6f1ceda0feaf3c36c97bd7fef9", null ],
-    [ "mix", "colorize_8hpp.html#ac5229d29466796bb6afcdebe997731a3", null ],
-    [ "mix", "colorize_8hpp.html#a663df316bd09bb4072cbfe655e389668", null ],
-    [ "mix_normal_map", "colorize_8hpp.html#a034df9fe48c4e9a2bead1da021ffd437", null ]
+    [ "colorize", "colorize_8hpp.html#a829cc9b8788f9387bcfd7be724b86f14", null ],
+    [ "colorize", "colorize_8hpp.html#ab80bd03a4b6659ec5f69873e0964edcf", null ],
+    [ "colorize_bivariate", "colorize_8hpp.html#a0681ba921814f774569408374886c66c", null ],
+    [ "colorize_grayscale", "colorize_8hpp.html#aaea87a967078703a07be55bcc8a0e506", null ],
+    [ "colorize_histogram", "colorize_8hpp.html#aec795a9ab2b98eb95af8e13688175fce", null ],
+    [ "colorize_slope_height_heatmap", "colorize_8hpp.html#add71495a25c10df4ab696a6662e741ce", null ],
+    [ "colorize_vec2", "colorize_8hpp.html#a5fb3aceed8d4fd9bb613218bd224159b", null ],
+    [ "luminance", "colorize_8hpp.html#af57ba0aebe498d0b79b91159d7e600b5", null ],
+    [ "mix", "colorize_8hpp.html#ad5894053c042e2076fbbc7003bf69451", null ],
+    [ "mix", "colorize_8hpp.html#a31a770d3f3a00d8cf4dd8478b5a50a17", null ],
+    [ "mix_normal_map", "colorize_8hpp.html#a5421f279cef2873c17b26c610a7fd87a", null ]
 ];
