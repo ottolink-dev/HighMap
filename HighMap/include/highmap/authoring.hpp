@@ -4,6 +4,7 @@
 #pragma once
 #include "highmap/array.hpp"
 #include "highmap/geometry/path.hpp"
+#include "highmap/morphology.hpp"
 
 namespace hmap
 {
@@ -123,6 +124,56 @@ Array base_elevation(glm::ivec2                             shape,
                      const Array                           *p_noise_y = nullptr,
                      const Array *p_stretching = nullptr,
                      glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @brief Generate elevation from user-defined constraint masks using distance
+ * transforms and harmonic mean weighting.
+ *
+ * Implements constraint-based elevation generation inspired by Red Blob
+ * Games' Elevation Control experiment. Computes distance fields to mountain
+ * ridges (A), boundary / deep water (B), and coastlines (C), and combines them
+ * via inverse-distance harmonic weighting with a tunable exponent.
+ *
+ * @param  mountains   Mask array where non-zero cells mark mountain ridges /
+ *                     high elevation (+1). Its shape defines the output
+ * heightmap size.
+ * @param  p_boundary  Optional mask for boundary/deep water (-1). If null,
+ *                     defaults to grid edges.
+ * @param  p_coastline Optional mask for coastlines (0). If null or empty,
+ *                     coastline weighting is omitted.
+ * @param  exponent         Weighting exponent (p > 0). Default is 1.0 (linear).
+ *                          Higher values produce flatter valleys and sharper
+ * peaks.
+ * @param  smoothing_radius Softening radius (in pixels) for harmonic weighting
+ * to eliminate halos and abrupt gradient kinks at frontiers. Default is 2.0f.
+ * @param  z_mountains      Target elevation at mountains (default: 1.0f).
+ * @param  z_boundary       Target elevation at boundaries (default: -1.0f).
+ * @param  z_coastline      Target elevation at coastlines (default: 0.0f).
+ * @param  p_noise          Optional noise array to blend into unconstrained
+ * areas.
+ * @param  noise_scale      Amplitude of noise in unconstrained regions.
+ * @param  dt_type          Distance transform algorithm to use (DT_EXACT,
+ * DT_APPROX, etc.). Defaults to DT_EXACT.
+ * @return Array            Generated heightmap.
+ *
+ * **Example**
+ * @include ex_elevation_from_distance_fields.cpp
+ *
+ * **Result**
+ * @image html ex_elevation_from_distance_fields.png
+ */
+Array elevation_from_distance_fields(
+    const Array          &mountains,
+    const Array          *p_boundary = nullptr,
+    const Array          *p_coastline = nullptr,
+    float                 exponent = 1.f,
+    float                 smoothing_radius = 2.f,
+    float                 z_mountains = 1.f,
+    float                 z_boundary = -1.f,
+    float                 z_coastline = 0.f,
+    const Array          *p_noise = nullptr,
+    float                 noise_scale = 0.f,
+    DistanceTransformType dt_type = DistanceTransformType::DT_EXACT);
 
 /**
  * @brief Apply the reverse midpoint displacement algorithm to the input array.

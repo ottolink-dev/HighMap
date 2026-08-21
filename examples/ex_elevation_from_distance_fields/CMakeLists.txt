@@ -1,0 +1,2 @@
+add_executable(ex_elevation_from_distance_fields ex_elevation_from_distance_fields.cpp)
+target_link_libraries(ex_elevation_from_distance_fields highmap)
