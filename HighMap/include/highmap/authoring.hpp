@@ -141,8 +141,10 @@ Array base_elevation(glm::ivec2                             shape,
  *                     defaults to grid edges.
  * @param  p_coastline Optional mask for coastlines (0). If null or empty,
  *                     coastline weighting is omitted.
- * @param  exponent    Optional exponent (p > 0) applied to the R-function
- *                     weights. Default is 1.0.
+ * @param  exponent    Optional exponent (p > 0) applied to distance fields.
+ *                     Default is 1.0 (linear).
+ * @param  alpha       Rvachev R-function parameter in (-1, 1] controlling
+ * blending sharpness. Default is 0.0 (Euclidean R-function).
  * @param  z_mountains Target elevation at mountains (default: 1.0f).
  * @param  z_boundary  Target elevation at boundaries (default: -1.0f).
  * @param  z_coastline Target elevation at coastlines (default: 0.0f).
@@ -163,6 +165,7 @@ Array elevation_from_distance_fields(
     const Array          *p_boundary = nullptr,
     const Array          *p_coastline = nullptr,
     float                 exponent = 1.f,
+    float                 alpha = 0.f,
     float                 z_mountains = 1.f,
     float                 z_boundary = -1.f,
     float                 z_coastline = 0.f,

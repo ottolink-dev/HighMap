@@ -233,25 +233,25 @@ Array pow(const Array &array, float exp)
   return array_out;
 }
 
-Array r_min(const Array &array1, const Array &array2)
+Array r_min(const Array &array1, const Array &array2, float alpha)
 {
   Array array_out = Array(array1.shape);
   std::transform(array1.vector.begin(),
                  array1.vector.end(),
                  array2.vector.begin(),
                  array_out.vector.begin(),
-                 [](float a, float b) { return r_min(a, b); });
+                 [alpha](float a, float b) { return r_min(a, b, alpha); });
   return array_out;
 }
 
-Array r_max(const Array &array1, const Array &array2)
+Array r_max(const Array &array1, const Array &array2, float alpha)
 {
   Array array_out = Array(array1.shape);
   std::transform(array1.vector.begin(),
                  array1.vector.end(),
                  array2.vector.begin(),
                  array_out.vector.begin(),
-                 [](float a, float b) { return r_max(a, b); });
+                 [alpha](float a, float b) { return r_max(a, b, alpha); });
   return array_out;
 }
 

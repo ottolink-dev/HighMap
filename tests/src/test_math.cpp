@@ -268,7 +268,15 @@ TEST(MathTest, RMinScalar)
   EXPECT_FLOAT_EQ(r_min(0.f, 5.f), 0.f);
   EXPECT_FLOAT_EQ(r_min(5.f, 0.f), 0.f);
   EXPECT_FLOAT_EQ(r_min(0.f, 0.f), 0.f);
-  EXPECT_NEAR(r_min(3.f, 4.f), 3.f + 4.f - 5.f, 1e-6f); // 2.0f
+  EXPECT_NEAR(r_min(3.f, 4.f), 3.f + 4.f - 5.f, 1e-6f); // alpha = 0 -> 2.0f
+
+  // alpha = 1 -> exact min
+  EXPECT_FLOAT_EQ(r_min(3.f, 4.f, 1.f), 3.f);
+  EXPECT_FLOAT_EQ(r_min(7.f, 2.f, 1.f), 2.f);
+
+  // zero-set preserved for all alpha in (-1, 1]
+  EXPECT_FLOAT_EQ(r_min(0.f, 8.f, 0.5f), 0.f);
+  EXPECT_FLOAT_EQ(r_min(8.f, 0.f, -0.5f), 0.f);
 }
 
 TEST(MathTest, RMaxScalar)
@@ -276,7 +284,11 @@ TEST(MathTest, RMaxScalar)
   EXPECT_FLOAT_EQ(r_max(0.f, 5.f), 10.f);
   EXPECT_FLOAT_EQ(r_max(5.f, 0.f), 10.f);
   EXPECT_FLOAT_EQ(r_max(0.f, 0.f), 0.f);
-  EXPECT_NEAR(r_max(3.f, 4.f), 3.f + 4.f + 5.f, 1e-6f); // 12.0f
+  EXPECT_NEAR(r_max(3.f, 4.f), 3.f + 4.f + 5.f, 1e-6f); // alpha = 0 -> 12.0f
+
+  // alpha = 1 -> exact max
+  EXPECT_FLOAT_EQ(r_max(3.f, 4.f, 1.f), 4.f);
+  EXPECT_FLOAT_EQ(r_max(7.f, 2.f, 1.f), 7.f);
 }
 
 TEST(MathTest, RMinRMaxArray)
@@ -288,7 +300,15 @@ TEST(MathTest, RMinRMaxArray)
   EXPECT_FLOAT_EQ(out_min(0, 0), 0.f);
   EXPECT_NEAR(out_min(0, 1), 2.f, 1e-6f);
 
+  Array out_min_exact = r_min(a, b, 1.f);
+  EXPECT_FLOAT_EQ(out_min_exact(0, 0), 0.f);
+  EXPECT_FLOAT_EQ(out_min_exact(0, 1), 3.f);
+
   Array out_max = r_max(a, b);
   EXPECT_FLOAT_EQ(out_max(0, 0), 10.f);
   EXPECT_NEAR(out_max(0, 1), 12.f, 1e-6f);
+
+  Array out_max_exact = r_max(a, b, 1.f);
+  EXPECT_FLOAT_EQ(out_max_exact(0, 0), 5.f);
+  EXPECT_FLOAT_EQ(out_max_exact(0, 1), 4.f);
 }

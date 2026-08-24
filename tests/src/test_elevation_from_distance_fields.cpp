@@ -36,6 +36,7 @@ TEST(ElevationFromDistanceFields, ConstraintsPreservedExactly)
                                            &boundary,
                                            &coastline,
                                            1.0f,
+                                           0.0f, // alpha
                                            1.f,
                                            -1.f,
                                            0.f);
@@ -79,6 +80,7 @@ TEST(ElevationFromDistanceFields, TwoConstraintsMonotonicity)
                                            nullptr,
                                            nullptr,
                                            1.0f,
+                                           0.0f,
                                            1.f,
                                            -1.f,
                                            0.f);
@@ -107,14 +109,55 @@ TEST(ElevationFromDistanceFields, ExponentEffect)
   Array z_p05 = elevation_from_distance_fields(mountains,
                                                nullptr,
                                                nullptr,
-                                               0.5f);
+                                               0.5f,
+                                               0.0f);
   Array z_p20 = elevation_from_distance_fields(mountains,
                                                nullptr,
                                                nullptr,
-                                               2.0f);
+                                               2.0f,
+                                               0.0f);
 
   EXPECT_FLOAT_EQ(z_p05(32, 32), 1.0f);
   EXPECT_FLOAT_EQ(z_p20(32, 32), 1.0f);
   EXPECT_FLOAT_EQ(z_p05(0, 0), -1.0f);
   EXPECT_FLOAT_EQ(z_p20(0, 0), -1.0f);
+}
+
+TEST(ElevationFromDistanceFields, AlphaEffect)
+{
+  glm::ivec2 shape = {65, 65};
+
+  Array mountains(shape, 0.f);
+  mountains(32, 32) = 1.f;
+
+  Array coastline(shape, 0.f);
+  for (int i = 0; i < shape.x; ++i)
+  {
+    coastline(i, 16) = 1.f;
+  }
+
+  Array z_a0 = elevation_from_distance_fields(mountains,
+                                              nullptr,
+                                              &coastline,
+                                              1.0f,
+                                              0.0f);
+  Array z_a8 = elevation_from_distance_fields(mountains,
+                                              nullptr,
+                                              &coastline,
+                                              1.0f,
+                                              0.8f);
+
+  // Both preserve constraints exactly
+  EXPECT_FLOAT_EQ(z_a0(32, 32), 1.0f);
+  EXPECT_FLOAT_EQ(z_a8(32, 32), 1.0f);
+  EXPECT_FLOAT_EQ(z_a0(32, 16), 0.0f);
+  EXPECT_FLOAT_EQ(z_a8(32, 16), 0.0f);
+
+  // Bounded in [-1, 1]
+  for (int j = 0; j < shape.y; ++j)
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_GE(z_a8(i, j), -1.0f);
+      EXPECT_LE(z_a8(i, j), 1.0f);
+    }
 }

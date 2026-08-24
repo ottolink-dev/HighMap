@@ -2,7 +2,7 @@
 
 int main(void)
 {
-  const glm::ivec2 shape = {256, 256};
+  const glm::ivec2 shape = {512, 512};
 
   // 1. Define mountain ridge paths (A)
 
@@ -70,6 +70,7 @@ int main(void)
                                                              nullptr,
                                                              &coastline,
                                                              1.5f,
+                                                             0.f,
                                                              1.f,
                                                              -1.f,
                                                              0.f,

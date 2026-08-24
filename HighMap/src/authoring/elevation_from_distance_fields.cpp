@@ -41,6 +41,7 @@ Array elevation_from_distance_fields(const Array          &mountains,
                                      const Array          *p_boundary,
                                      const Array          *p_coastline,
                                      float                 exponent,
+                                     float                 alpha,
                                      float                 z_mountains,
                                      float                 z_boundary,
                                      float                 z_coastline,
@@ -133,9 +134,9 @@ Array elevation_from_distance_fields(const Array          &mountains,
       {
         // Omega_{\neg k} using Rvachev Rmin intersection of the other distance
         // fields
-        wA = r_min(distB, distC);
-        wB = r_min(distA, distC);
-        wC = r_min(distA, distB);
+        wA = r_min(distB, distC, alpha);
+        wB = r_min(distA, distC, alpha);
+        wC = r_min(distA, distB, alpha);
       }
       else if (has_mountains && has_boundary)
       {
