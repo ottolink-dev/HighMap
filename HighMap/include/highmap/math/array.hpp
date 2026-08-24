@@ -182,7 +182,7 @@ Array pow(const Array &array, float exp);
  * @param  array1 First array.
  * @param  array2 Second array.
  * @param  alpha  Parameter in (-1, 1] controlling blending sharpness (default
- * 0.0).
+ *                0.0).
  * @return        Output array.
  */
 Array r_min(const Array &array1, const Array &array2, float alpha = 0.f);
@@ -194,7 +194,7 @@ Array r_min(const Array &array1, const Array &array2, float alpha = 0.f);
  * @param  array1 First array.
  * @param  array2 Second array.
  * @param  alpha  Parameter in (-1, 1] controlling blending sharpness (default
- * 0.0).
+ *                0.0).
  * @return        Output array.
  */
 Array r_max(const Array &array1, const Array &array2, float alpha = 0.f);

@@ -168,15 +168,15 @@ void colorize(VirtualTexture               &out,
 
 /**
  * @brief Colorize two scalar fields into a VirtualTexture using two custom
- *        colormaps and a color mixing method.
+ * colormaps and a color mixing method.
  * @param out              Output virtual texture.
  * @param a1               First input scalar field.
  * @param a2               Second input scalar field.
  * @param cm               Compute mode (CPU/GPU).
  * @param range1           Lower and upper bounds for normalization of the first
- * field.
+ *                         field.
  * @param range2           Lower and upper bounds for normalization of the
- * second field.
+ *                         second field.
  * @param positions1       Normalized color positions for the first colormap.
  * @param positions2       Normalized color positions for the second colormap.
  * @param colormap_colors1 RGB colors for the first colormap.
@@ -185,9 +185,9 @@ void colorize(VirtualTexture               &out,
  * @param reverse1         Reverse the first colormap mapping.
  * @param reverse2         Reverse the second colormap mapping.
  * @param p_noise1         Optional noise added to the first scalar field before
- * normalization.
+ *                         normalization.
  * @param p_noise2         Optional noise added to the second scalar field
- * before normalization.
+ *                         before normalization.
  */
 void colorize_bivariate(VirtualTexture               &out,
                         VirtualArray                 &a1,

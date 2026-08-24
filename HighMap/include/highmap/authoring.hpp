@@ -129,10 +129,10 @@ Array base_elevation(glm::ivec2                             shape,
  * @brief Generate elevation from user-defined constraint masks using distance
  * transforms and harmonic mean weighting.
  *
- * Implements constraint-based elevation generation inspired by Red Blob
- * Games' Elevation Control experiment. Computes distance fields to mountain
- * ridges (A), boundary / deep water (B), and coastlines (C), and combines them
- * via inverse-distance harmonic weighting with a tunable exponent.
+ * Implements constraint-based elevation generation inspired by Red Blob Games'
+ * Elevation Control experiment. Computes distance fields to mountain ridges
+ * (A), boundary / deep water (B), and coastlines (C), and combines them via
+ * inverse-distance harmonic weighting with a tunable exponent.
  *
  * @param  mountains   Mask array where non-zero cells mark mountain ridges /
  *                     high elevation (+1). Its shape defines the output
@@ -144,7 +144,8 @@ Array base_elevation(glm::ivec2                             shape,
  * @param  exponent    Optional exponent (p > 0) applied to distance fields.
  *                     Default is 1.0 (linear).
  * @param  alpha       Rvachev R-function parameter in (-1, 1] controlling
- * blending sharpness. Default is 0.0 (Euclidean R-function).
+ *                     blending sharpness. Default is 0.0 (Euclidean
+ *                     R-function).
  * @param  z_mountains Target elevation at mountains (default: 1.0f).
  * @param  z_boundary  Target elevation at boundaries (default: -1.0f).
  * @param  z_coastline Target elevation at coastlines (default: 0.0f).
@@ -152,7 +153,7 @@ Array base_elevation(glm::ivec2                             shape,
  * @param  noise_scale Amplitude of noise in unconstrained regions.
  * @param  dt_type     Distance transform algorithm to use (DT_EXACT, DT_APPROX,
  *                     etc.). Defaults to DT_EXACT.
- * @return Array       Generated heightmap.
+ * @return             Array       Generated heightmap.
  *
  * **Example**
  * @include ex_elevation_from_distance_fields.cpp

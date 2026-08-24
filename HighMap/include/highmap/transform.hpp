@@ -256,8 +256,8 @@ Array transpose(const Array &array);
 /**
  * @brief Return the transposed texture.
  *
- * @param texture Input texture to be transposed.
- * @return Texture The transposed texture.
+ * @param  texture Input texture to be transposed.
+ * @return         Texture The transposed texture.
  */
 Texture transpose(const Texture &texture);
 

@@ -238,31 +238,30 @@ Texture colorize(const Array                  &array,
 
 /**
  * @brief Colorize two scalar fields into a Texture using two custom colormaps
- *        and a color mixing method.
+ * and a color mixing method.
  *
  * Each scalar field is independently normalized using its corresponding range
- * and mapped to a color using its custom colormap. The two resulting colors
- * are then combined according to the specified mixing method.
+ * and mapped to a color using its custom colormap. The two resulting colors are
+ * then combined according to the specified mixing method.
  *
- * @param  a1                 First input scalar field.
- * @param  a2                 Second input scalar field.
- * @param  range1             Lower and upper bounds for normalization of the
- *                            first field.
- * @param  range2             Lower and upper bounds for normalization of the
- *                            second field.
- * @param  positions1         Normalized color positions for the first colormap.
- * @param  positions2         Normalized color positions for the second
- * colormap.
- * @param  colormap_colors1   RGB colors for the first colormap.
- * @param  colormap_colors2   RGB colors for the second colormap.
- * @param  method              Method used to mix the two resulting colors.
- * @param  reverse1            Reverse the first colormap mapping.
- * @param  reverse2            Reverse the second colormap mapping.
- * @param  p_noise1            Optional noise added to the first scalar field
- *                            before normalization.
- * @param  p_noise2            Optional noise added to the second scalar field
- *                            before normalization.
- * @return                    Colorized Texture containing the mixed colors.
+ * @param  a1               First input scalar field.
+ * @param  a2               Second input scalar field.
+ * @param  range1           Lower and upper bounds for normalization of the
+ *                          first field.
+ * @param  range2           Lower and upper bounds for normalization of the
+ *                          second field.
+ * @param  positions1       Normalized color positions for the first colormap.
+ * @param  positions2       Normalized color positions for the second colormap.
+ * @param  colormap_colors1 RGB colors for the first colormap.
+ * @param  colormap_colors2 RGB colors for the second colormap.
+ * @param  method           Method used to mix the two resulting colors.
+ * @param  reverse1         Reverse the first colormap mapping.
+ * @param  reverse2         Reverse the second colormap mapping.
+ * @param  p_noise1         Optional noise added to the first scalar field
+ *                          before normalization.
+ * @param  p_noise2         Optional noise added to the second scalar field
+ *                          before normalization.
+ * @return                  Colorized Texture containing the mixed colors.
  *
  * **Example**
  * @include ex_texture_colorize_bivariate.cpp
@@ -271,7 +270,7 @@ Texture colorize(const Array                  &array,
  * @image html ex_colorize_bivariate0.png
  * @image html ex_colorize_bivariate1.png
  *
- * @see tests/src/test_texture.cpp
+ * @see                     tests/src/test_texture.cpp
  */
 Texture colorize_bivariate(const Array                  &a1,
                            const Array                  &a2,
