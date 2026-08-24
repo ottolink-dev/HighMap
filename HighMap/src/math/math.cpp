@@ -233,6 +233,28 @@ Array pow(const Array &array, float exp)
   return array_out;
 }
 
+Array r_min(const Array &array1, const Array &array2)
+{
+  Array array_out = Array(array1.shape);
+  std::transform(array1.vector.begin(),
+                 array1.vector.end(),
+                 array2.vector.begin(),
+                 array_out.vector.begin(),
+                 [](float a, float b) { return r_min(a, b); });
+  return array_out;
+}
+
+Array r_max(const Array &array1, const Array &array2)
+{
+  Array array_out = Array(array1.shape);
+  std::transform(array1.vector.begin(),
+                 array1.vector.end(),
+                 array2.vector.begin(),
+                 array_out.vector.begin(),
+                 [](float a, float b) { return r_max(a, b); });
+  return array_out;
+}
+
 Array sigmoid(const Array &array, float width, float vmin, float vmax, float x0)
 {
   Array array_out = Array(array.shape);

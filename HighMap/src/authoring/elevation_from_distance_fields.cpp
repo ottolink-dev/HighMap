@@ -6,6 +6,7 @@
 #include <limits>
 
 #include "highmap/authoring.hpp"
+#include "highmap/math/core.hpp"
 #include "highmap/morphology.hpp"
 
 namespace hmap
@@ -40,7 +41,6 @@ Array elevation_from_distance_fields(const Array          &mountains,
                                      const Array          *p_boundary,
                                      const Array          *p_coastline,
                                      float                 exponent,
-                                     float                 smoothing_radius,
                                      float                 z_mountains,
                                      float                 z_boundary,
                                      float                 z_coastline,
@@ -103,142 +103,89 @@ Array elevation_from_distance_fields(const Array          &mountains,
     has_coastline = true;
   }
 
-  // --- Combine distance fields using inverse-distance harmonic weighting
-
-  float eps = std::max(0.f, smoothing_radius);
-  float eps2 = eps * eps;
+  // --- Combine distance fields using Rvachev R-functions
 
 #pragma omp parallel for collapse(2)
   for (int j = 0; j < shape.y; ++j)
     for (int i = 0; i < shape.x; ++i)
     {
-      float val = 0.f;
+      float n_val = (p_noise != nullptr) ? (*p_noise)(i, j) * noise_scale : 0.f;
 
-      if (eps == 0.f)
+      float distA = has_mountains ? std::max(0.f, dA(i, j) * (1.f + n_val))
+                                  : 0.f;
+      float distB = has_boundary ? std::max(0.f, dB(i, j) * (1.f - n_val))
+                                 : 0.f;
+      float distC = has_coastline ? std::max(0.f, dC(i, j) * (1.f + n_val))
+                                  : 0.f;
+
+      if (exponent != 1.f)
       {
-        // Exact piecewise check for zero-distance singularities
-        bool on_m = has_mountains && (dA(i, j) == 0.f);
-        bool on_c = has_coastline && (dC(i, j) == 0.f);
-        bool on_b = has_boundary && (dB(i, j) == 0.f);
+        if (distA > 0.f) distA = std::pow(distA, exponent);
+        if (distB > 0.f) distB = std::pow(distB, exponent);
+        if (distC > 0.f) distC = std::pow(distC, exponent);
+      }
 
-        if (on_m || on_c || on_b)
-        {
-          float sum_z = 0.f;
-          int   count = 0;
-          if (on_m)
-          {
-            sum_z += z_mountains;
-            count++;
-          }
-          if (on_c)
-          {
-            sum_z += z_coastline;
-            count++;
-          }
-          if (on_b)
-          {
-            sum_z += z_boundary;
-            count++;
-          }
-          val = sum_z / static_cast<float>(count);
-        }
-        else
-        {
-          float wA = 0.f;
-          float wB = 0.f;
-          float wC = 0.f;
-          float n_val = (p_noise != nullptr) ? (*p_noise)(i, j) * noise_scale
-                                             : 0.f;
+      float wA = 0.f;
+      float wB = 0.f;
+      float wC = 0.f;
 
-          if (has_mountains)
-          {
-            float distA = dA(i, j);
-            if (n_val != 0.f)
-            {
-              distA = std::max(1e-5f, distA * (1.f + n_val));
-            }
-            wA = 1.f / std::pow(distA, exponent);
-          }
+      if (has_mountains && has_boundary && has_coastline)
+      {
+        // Omega_{\neg k} using Rvachev Rmin intersection of the other distance
+        // fields
+        wA = r_min(distB, distC);
+        wB = r_min(distA, distC);
+        wC = r_min(distA, distB);
+      }
+      else if (has_mountains && has_boundary)
+      {
+        wA = distB;
+        wB = distA;
+      }
+      else if (has_mountains && has_coastline)
+      {
+        wA = distC;
+        wC = distA;
+      }
+      else if (has_coastline && has_boundary)
+      {
+        wC = distB;
+        wB = distC;
+      }
+      else if (has_mountains)
+      {
+        wA = 1.f;
+      }
 
-          if (has_boundary)
-          {
-            float distB = dB(i, j);
-            if (n_val != 0.f)
-            {
-              distB = std::max(1e-5f, distB * (1.f - n_val));
-            }
-            wB = 1.f / std::pow(distB, exponent);
-          }
-
-          if (has_coastline)
-          {
-            float distC = dC(i, j);
-            if (n_val != 0.f)
-            {
-              distC = std::max(1e-5f, distC * (1.f + n_val));
-            }
-            wC = 1.f / std::pow(distC, exponent);
-          }
-
-          float sum_w = wA + wB + wC;
-          if (sum_w > 0.f)
-          {
-            val = (z_mountains * wA + z_boundary * wB + z_coastline * wC) /
-                  sum_w;
-          }
-        }
+      float sum_w = wA + wB + wC;
+      if (sum_w > 0.f)
+      {
+        elev(i, j) = (z_mountains * wA + z_boundary * wB + z_coastline * wC) /
+                     sum_w;
       }
       else
       {
-        // Softened harmonic mean: smooth C^inf transitions without frontier
-        // halos
-        float wA = 0.f;
-        float wB = 0.f;
-        float wC = 0.f;
-        float n_val = (p_noise != nullptr) ? (*p_noise)(i, j) * noise_scale
-                                           : 0.f;
-
-        if (has_mountains)
+        // If constraints intersect at (i, j) where all weights are zero,
+        // average them
+        float sum_z = 0.f;
+        int   count = 0;
+        if (has_mountains && distA == 0.f)
         {
-          float distA = dA(i, j);
-          if (n_val != 0.f)
-          {
-            distA = std::max(0.f, distA * (1.f + n_val));
-          }
-          float d2 = distA * distA + eps2;
-          wA = 1.f / std::pow(d2, 0.5f * exponent);
+          sum_z += z_mountains;
+          count++;
         }
-
-        if (has_boundary)
+        if (has_boundary && distB == 0.f)
         {
-          float distB = dB(i, j);
-          if (n_val != 0.f)
-          {
-            distB = std::max(0.f, distB * (1.f - n_val));
-          }
-          float d2 = distB * distB + eps2;
-          wB = 1.f / std::pow(d2, 0.5f * exponent);
+          sum_z += z_boundary;
+          count++;
         }
-
-        if (has_coastline)
+        if (has_coastline && distC == 0.f)
         {
-          float distC = dC(i, j);
-          if (n_val != 0.f)
-          {
-            distC = std::max(0.f, distC * (1.f + n_val));
-          }
-          float d2 = distC * distC + eps2;
-          wC = 1.f / std::pow(d2, 0.5f * exponent);
+          sum_z += z_coastline;
+          count++;
         }
-
-        float sum_w = wA + wB + wC;
-        if (sum_w > 0.f)
-        {
-          val = (z_mountains * wA + z_boundary * wB + z_coastline * wC) / sum_w;
-        }
+        elev(i, j) = (count > 0) ? (sum_z / static_cast<float>(count)) : 0.f;
       }
-
-      elev(i, j) = val;
     }
 
   return elev;

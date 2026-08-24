@@ -32,18 +32,15 @@ TEST(ElevationFromDistanceFields, ConstraintsPreservedExactly)
     boundary(i, shape.y - 1) = 1.f;
   }
 
-  // With smoothing_radius = 0.f (exact singular check)
-  Array z = elevation_from_distance_fields(
-      mountains,
-      &boundary,
-      &coastline,
-      1.0f,
-      0.0f, // smoothing_radius = 0 for exact checks
-      1.f,
-      -1.f,
-      0.f);
+  Array z = elevation_from_distance_fields(mountains,
+                                           &boundary,
+                                           &coastline,
+                                           1.0f,
+                                           1.f,
+                                           -1.f,
+                                           0.f);
 
-  // Verify exact constraint values
+  // Verify exact constraint values with Rvachev R-functions
   for (int i = 0; i < shape.x; ++i)
   {
     EXPECT_FLOAT_EQ(z(i, 32), 1.0f);
@@ -70,36 +67,7 @@ TEST(ElevationFromDistanceFields, ConstraintsPreservedExactly)
   }
 }
 
-TEST(ElevationFromDistanceFields, SoftenedHarmonicWeightingSmoothTransitions)
-{
-  glm::ivec2 shape = {64, 64};
-
-  Array mountains(shape, 0.f);
-  mountains(32, 32) = 1.f;
-
-  Array coastline(shape, 0.f);
-  for (int i = 0; i < shape.x; ++i)
-  {
-    coastline(i, 16) = 1.f;
-  }
-
-  // Generate with default smoothing_radius = 2.0f
-  Array z = elevation_from_distance_fields(mountains,
-                                           nullptr,
-                                           &coastline,
-                                           1.0f,
-                                           2.0f);
-
-  // Ensure bounded within [-1, 1]
-  for (int j = 0; j < shape.y; ++j)
-    for (int i = 0; i < shape.x; ++i)
-    {
-      EXPECT_GE(z(i, j), -1.0f);
-      EXPECT_LE(z(i, j), 1.0f);
-    }
-}
-
-TEST(ElevationFromDistanceFields, TwoConstraintsHarmonicMean)
+TEST(ElevationFromDistanceFields, TwoConstraintsMonotonicity)
 {
   glm::ivec2 shape = {65, 65};
 
@@ -107,12 +75,10 @@ TEST(ElevationFromDistanceFields, TwoConstraintsHarmonicMean)
   Array mountains(shape, 0.f);
   mountains(32, 32) = 1.f;
 
-  // Default boundary around perimeter
   Array z = elevation_from_distance_fields(mountains,
                                            nullptr,
                                            nullptr,
                                            1.0f,
-                                           0.0f,
                                            1.f,
                                            -1.f,
                                            0.f);
@@ -141,13 +107,11 @@ TEST(ElevationFromDistanceFields, ExponentEffect)
   Array z_p05 = elevation_from_distance_fields(mountains,
                                                nullptr,
                                                nullptr,
-                                               0.5f,
-                                               0.0f);
+                                               0.5f);
   Array z_p20 = elevation_from_distance_fields(mountains,
                                                nullptr,
                                                nullptr,
-                                               2.0f,
-                                               0.0f);
+                                               2.0f);
 
   EXPECT_FLOAT_EQ(z_p05(32, 32), 1.0f);
   EXPECT_FLOAT_EQ(z_p20(32, 32), 1.0f);

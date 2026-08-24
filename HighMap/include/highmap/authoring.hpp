@@ -141,20 +141,16 @@ Array base_elevation(glm::ivec2                             shape,
  *                     defaults to grid edges.
  * @param  p_coastline Optional mask for coastlines (0). If null or empty,
  *                     coastline weighting is omitted.
- * @param  exponent         Weighting exponent (p > 0). Default is 1.0 (linear).
- *                          Higher values produce flatter valleys and sharper
- * peaks.
- * @param  smoothing_radius Softening radius (in pixels) for harmonic weighting
- * to eliminate halos and abrupt gradient kinks at frontiers. Default is 2.0f.
- * @param  z_mountains      Target elevation at mountains (default: 1.0f).
- * @param  z_boundary       Target elevation at boundaries (default: -1.0f).
- * @param  z_coastline      Target elevation at coastlines (default: 0.0f).
- * @param  p_noise          Optional noise array to blend into unconstrained
- * areas.
- * @param  noise_scale      Amplitude of noise in unconstrained regions.
- * @param  dt_type          Distance transform algorithm to use (DT_EXACT,
- * DT_APPROX, etc.). Defaults to DT_EXACT.
- * @return Array            Generated heightmap.
+ * @param  exponent    Optional exponent (p > 0) applied to the R-function
+ *                     weights. Default is 1.0.
+ * @param  z_mountains Target elevation at mountains (default: 1.0f).
+ * @param  z_boundary  Target elevation at boundaries (default: -1.0f).
+ * @param  z_coastline Target elevation at coastlines (default: 0.0f).
+ * @param  p_noise     Optional noise array to blend into unconstrained areas.
+ * @param  noise_scale Amplitude of noise in unconstrained regions.
+ * @param  dt_type     Distance transform algorithm to use (DT_EXACT, DT_APPROX,
+ *                     etc.). Defaults to DT_EXACT.
+ * @return Array       Generated heightmap.
  *
  * **Example**
  * @include ex_elevation_from_distance_fields.cpp
@@ -167,7 +163,6 @@ Array elevation_from_distance_fields(
     const Array          *p_boundary = nullptr,
     const Array          *p_coastline = nullptr,
     float                 exponent = 1.f,
-    float                 smoothing_radius = 2.f,
     float                 z_mountains = 1.f,
     float                 z_boundary = -1.f,
     float                 z_coastline = 0.f,

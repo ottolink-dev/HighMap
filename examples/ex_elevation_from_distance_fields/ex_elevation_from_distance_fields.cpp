@@ -2,7 +2,7 @@
 
 int main(void)
 {
-  const glm::ivec2 shape = {512, 512};
+  const glm::ivec2 shape = {256, 256};
 
   // 1. Define mountain ridge paths (A)
 
@@ -41,27 +41,23 @@ int main(void)
   hmap::Array coastline(shape, 0.f);
   coast.to_array(coastline);
 
-  // 3. Compute elevation with different harmonic weighting exponents
-
-  float smoothing_radius = 4.0f; // Smooth transitions without halos
+  // 3. Compute elevation using Rvachev R-function blending with different
+  // exponents
 
   hmap::Array z_p05 = hmap::elevation_from_distance_fields(mountains,
                                                            nullptr,
                                                            &coastline,
-                                                           0.5f,
-                                                           smoothing_radius);
+                                                           0.5f);
 
   hmap::Array z_p10 = hmap::elevation_from_distance_fields(mountains,
                                                            nullptr,
                                                            &coastline,
-                                                           1.f,
-                                                           smoothing_radius);
+                                                           1.f);
 
   hmap::Array z_p20 = hmap::elevation_from_distance_fields(mountains,
                                                            nullptr,
                                                            &coastline,
-                                                           2.0f,
-                                                           smoothing_radius);
+                                                           2.0f);
 
   // 4. Add procedural noise to distance fields
 
@@ -73,8 +69,7 @@ int main(void)
   hmap::Array z_noise = hmap::elevation_from_distance_fields(mountains,
                                                              nullptr,
                                                              &coastline,
-                                                             2.f,
-                                                             smoothing_radius,
+                                                             1.5f,
                                                              1.f,
                                                              -1.f,
                                                              0.f,

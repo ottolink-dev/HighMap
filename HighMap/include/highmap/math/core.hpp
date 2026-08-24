@@ -130,13 +130,43 @@ float lerp(float a, float b, float t);
  * @brief Smooth asymmetric bell-shaped curve on [0,1].
  *
  * Parameters @p a and @p b control left and right curvature. The function is
- * normalized to a maximum of 1.
- *
  * @param x Input value.
  * @param a Left curvature parameter.
  * @param b Right curvature parameter.
  */
 float power_curve(float x, float a, float b);
+
+/**
+ * @brief Rvachev R-function for smooth minimum / intersection (exact zero-set).
+ *
+ * \f[
+ * R_{\min}(f_1, f_2) = f_1 + f_2 - \sqrt{f_1^2 + f_2^2}
+ * \f]
+ *
+ * @param  f1 First value.
+ * @param  f2 Second value.
+ * @return    Smooth minimum value.
+ */
+inline float r_min(float f1, float f2)
+{
+  return f1 + f2 - std::sqrt(f1 * f1 + f2 * f2);
+}
+
+/**
+ * @brief Rvachev R-function for smooth maximum / union (exact zero-set).
+ *
+ * \f[
+ * R_{\max}(f_1, f_2) = f_1 + f_2 + \sqrt{f_1^2 + f_2^2}
+ * \f]
+ *
+ * @param  f1 First value.
+ * @param  f2 Second value.
+ * @return    Smooth maximum value.
+ */
+inline float r_max(float f1, float f2)
+{
+  return f1 + f2 + std::sqrt(f1 * f1 + f2 * f2);
+}
 
 /**
  * @brief Sigmoid function.
