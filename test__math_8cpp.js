@@ -22,5 +22,8 @@ var test__math_8cpp =
     [ "TEST", "test__math_8cpp.html#a1acefd28ba9ae08d29d65450cbbe1908", null ],
     [ "TEST", "test__math_8cpp.html#a2c941405225654a18620dbd0b2298617", null ],
     [ "TEST", "test__math_8cpp.html#a95238f70676eee9039a3d4d743996741", null ],
-    [ "TEST", "test__math_8cpp.html#a47c71b23149059256155a7a14073d221", null ]
+    [ "TEST", "test__math_8cpp.html#a47c71b23149059256155a7a14073d221", null ],
+    [ "TEST", "test__math_8cpp.html#aadf625b04e18f699126571a15974e05e", null ],
+    [ "TEST", "test__math_8cpp.html#a1fbe4505bcd7cda7622e393dea9f0d54", null ],
+    [ "TEST", "test__math_8cpp.html#ade0af126985b67ea09aa9df742aed632", null ]
 ];

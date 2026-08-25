@@ -9,6 +9,8 @@ var core_8cpp =
     [ "gain", "core_8cpp.html#a0db2ecdc6ca69af1e6eb3402b1147cb6", null ],
     [ "lerp", "core_8cpp.html#a1d5e665c9e945b8ad9a6b5f0c1b673ad", null ],
     [ "power_curve", "core_8cpp.html#ad22bdd7a9091286a11b872dc4de2ce9d", null ],
+    [ "r_min", "core_8cpp.html#a17d79628c2c9a191e2e06c551bbd7f08", null ],
+    [ "r_max", "core_8cpp.html#ab377ce7a4af4de11fdfe14e250c34663", null ],
     [ "sigmoid", "core_8cpp.html#ad0759b7e3cb7455527b9b5b4947720bd", null ],
     [ "smoothstep3", "core_8cpp.html#afe0b1df8525d0478c7433777cadd60a3", null ],
     [ "smoothstep3_lower", "core_8cpp.html#a4c21ef9d4f7d33f2413c7fe391b86253", null ],

@@ -1350,6 +1350,10 @@ std\+::vector$<$ float $>$ \mbox{\hyperlink{namespacehmap_a0b3237f9cc015299bf3e4
 \begin{DoxyCompactList}\small\item\em Base-\/10 logarithm. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a105e497c433e14b4235534ae6d2b87b9}{pow}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float \mbox{\hyperlink{namespacehmap_aad00066161ccf5ba4d6f93ab48c10876}{exp}})
 \begin{DoxyCompactList}\small\item\em Power function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_ad1eb8e81ef31a0e0bc7a5bd093c3aefc}{r\+\_\+min}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array1, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array2, float alpha=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Generalized Rvachev R-\/function for smooth minimum / intersection (exact zero-\/set). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_aa8f3fda9e1dd32c7b8011c7f2b9cbc55}{r\+\_\+max}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array1, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array2, float alpha=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Generalized Rvachev R-\/function for smooth maximum / union (exact zero-\/set). \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a0aa2c50266e16cf5af077e4e3f77bd8f}{sigmoid}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float width=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float vmin=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float vmax=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float x0=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Sigmoid function. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a03359e722d96524598aa525022317c95}{sin}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
@@ -1402,6 +1406,10 @@ float \mbox{\hyperlink{namespacehmap_a1d5e665c9e945b8ad9a6b5f0c1b673ad}{lerp}} (
 \begin{DoxyCompactList}\small\item\em Linear interpolation. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{namespacehmap_ad22bdd7a9091286a11b872dc4de2ce9d}{power\+\_\+curve}} (float x, float a, float b)
 \begin{DoxyCompactList}\small\item\em Smooth asymmetric bell-\/shaped curve on \mbox{[}0,1\mbox{]}. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{namespacehmap_a17d79628c2c9a191e2e06c551bbd7f08}{r\+\_\+min}} (float f1, float f2, float alpha=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Generalized Rvachev R-\/function for smooth minimum / intersection (exact zero-\/set). \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{namespacehmap_ab377ce7a4af4de11fdfe14e250c34663}{r\+\_\+max}} (float f1, float f2, float alpha=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Generalized Rvachev R-\/function for smooth maximum / union (exact zero-\/set). \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{namespacehmap_ad0759b7e3cb7455527b9b5b4947720bd}{sigmoid}} (float x, float width=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float vmin=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float vmax=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float x0=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Sigmoid function. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{namespacehmap_afe0b1df8525d0478c7433777cadd60a3}{smoothstep3}} (float x)
@@ -20202,6 +20210,50 @@ Power function.
 \begin{DoxyReturn}{Returns}
 Output array. 
 \end{DoxyReturn}
+\Hypertarget{namespacehmap_ad1eb8e81ef31a0e0bc7a5bd093c3aefc}\label{namespacehmap_ad1eb8e81ef31a0e0bc7a5bd093c3aefc} 
+\index{hmap@{hmap}!r\_min@{r\_min}}
+\index{r\_min@{r\_min}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{r\_min()}{r\_min()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::r\+\_\+min (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array1,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array2,  }\item[{float}]{alpha = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+
+
+
+Generalized Rvachev R-\/function for smooth minimum / intersection (exact zero-\/set). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em array1} & First array. \\
+\hline
+{\em array2} & Second array. \\
+\hline
+{\em alpha} & Parameter in (-\/1, 1\mbox{]} controlling blending sharpness (default 0.\+0). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Output array. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_aa8f3fda9e1dd32c7b8011c7f2b9cbc55}\label{namespacehmap_aa8f3fda9e1dd32c7b8011c7f2b9cbc55} 
+\index{hmap@{hmap}!r\_max@{r\_max}}
+\index{r\_max@{r\_max}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{r\_max()}{r\_max()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::r\+\_\+max (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array1,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array2,  }\item[{float}]{alpha = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+
+
+
+Generalized Rvachev R-\/function for smooth maximum / union (exact zero-\/set). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em array1} & First array. \\
+\hline
+{\em array2} & Second array. \\
+\hline
+{\em alpha} & Parameter in (-\/1, 1\mbox{]} controlling blending sharpness (default 0.\+0). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Output array. 
+\end{DoxyReturn}
 \Hypertarget{namespacehmap_a0aa2c50266e16cf5af077e4e3f77bd8f}\label{namespacehmap_a0aa2c50266e16cf5af077e4e3f77bd8f} 
 \index{hmap@{hmap}!sigmoid@{sigmoid}}
 \index{sigmoid@{sigmoid}!hmap@{hmap}}
@@ -20769,6 +20821,58 @@ Parameters {\ttfamily a} and {\ttfamily b} control left and right curvature. The
 {\em b} & Right curvature parameter. \\
 \hline
 \end{DoxyParams}
+\Hypertarget{namespacehmap_a17d79628c2c9a191e2e06c551bbd7f08}\label{namespacehmap_a17d79628c2c9a191e2e06c551bbd7f08} 
+\index{hmap@{hmap}!r\_min@{r\_min}}
+\index{r\_min@{r\_min}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{r\_min()}{r\_min()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily float hmap\+::r\+\_\+min (\begin{DoxyParamCaption}\item[{float}]{f1,  }\item[{float}]{f2,  }\item[{float}]{alpha = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+
+
+
+Generalized Rvachev R-\/function for smooth minimum / intersection (exact zero-\/set). 
+
+\[
+R_{\min}(f_1, f_2, \alpha) = \frac{f_1 + f_2 - \sqrt{f_1^2 + f_2^2 - 2\alpha
+f_1 f_2}}{1 + \alpha} \]
+
+
+\begin{DoxyParams}{Parameters}
+{\em f1} & First value. \\
+\hline
+{\em f2} & Second value. \\
+\hline
+{\em alpha} & Parameter in (-\/1, 1\mbox{]} controlling blending sharpness (default 0.\+0). alpha = 0 gives standard Euclidean R-\/min, alpha = 1 gives exact min. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Smooth minimum value. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_ab377ce7a4af4de11fdfe14e250c34663}\label{namespacehmap_ab377ce7a4af4de11fdfe14e250c34663} 
+\index{hmap@{hmap}!r\_max@{r\_max}}
+\index{r\_max@{r\_max}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{r\_max()}{r\_max()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily float hmap\+::r\+\_\+max (\begin{DoxyParamCaption}\item[{float}]{f1,  }\item[{float}]{f2,  }\item[{float}]{alpha = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+
+
+
+Generalized Rvachev R-\/function for smooth maximum / union (exact zero-\/set). 
+
+\[
+R_{\max}(f_1, f_2, \alpha) = \frac{f_1 + f_2 + \sqrt{f_1^2 + f_2^2 - 2\alpha
+f_1 f_2}}{1 + \alpha} \]
+
+
+\begin{DoxyParams}{Parameters}
+{\em f1} & First value. \\
+\hline
+{\em f2} & Second value. \\
+\hline
+{\em alpha} & Parameter in (-\/1, 1\mbox{]} controlling blending sharpness (default 0.\+0). alpha = 0 gives standard Euclidean R-\/max, alpha = 1 gives exact max. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Smooth maximum value. 
+\end{DoxyReturn}
 \Hypertarget{namespacehmap_ad0759b7e3cb7455527b9b5b4947720bd}\label{namespacehmap_ad0759b7e3cb7455527b9b5b4947720bd} 
 \index{hmap@{hmap}!sigmoid@{sigmoid}}
 \index{sigmoid@{sigmoid}!hmap@{hmap}}

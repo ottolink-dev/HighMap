@@ -19,6 +19,8 @@ var math_8cpp =
     [ "lerp", "math_8cpp.html#a6d85b2b635d15a4361344451619253f7", null ],
     [ "log10", "math_8cpp.html#a75475b6109023ce0ad64f6f9f7c4c525", null ],
     [ "pow", "math_8cpp.html#a105e497c433e14b4235534ae6d2b87b9", null ],
+    [ "r_min", "math_8cpp.html#ad1eb8e81ef31a0e0bc7a5bd093c3aefc", null ],
+    [ "r_max", "math_8cpp.html#aa8f3fda9e1dd32c7b8011c7f2b9cbc55", null ],
     [ "sigmoid", "math_8cpp.html#a0aa2c50266e16cf5af077e4e3f77bd8f", null ],
     [ "sin", "math_8cpp.html#a03359e722d96524598aa525022317c95", null ],
     [ "smoothstep3", "math_8cpp.html#a413648e2595721d8ba4096357dbb1f84", null ],
