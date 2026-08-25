@@ -71,13 +71,13 @@ Array elevation_from_distance_fields(const Array          &mountains,
   }
   else if (p_boundary == nullptr)
   {
-    // Explicit radial distance from center using domain width and height
-    // (semi-axes rx and ry) instead of the diagonal
+    // Explicit radial distance from center (radius normalized by half diagonal
+    // length)
     dB = Array(shape);
     float cx = 0.5f * static_cast<float>(shape.x - 1);
     float cy = 0.5f * static_cast<float>(shape.y - 1);
-    float rx = (cx <= 0.f) ? 1.f : cx;
-    float ry = (cy <= 0.f) ? 1.f : cy;
+    float r_max = std::sqrt(cx * cx + cy * cy);
+    if (r_max <= 0.f) r_max = 1.f;
 
     for (int j = 0; j < shape.y; ++j)
     {
@@ -85,26 +85,9 @@ Array elevation_from_distance_fields(const Array          &mountains,
       {
         float dx = static_cast<float>(i) - cx;
         float dy = static_cast<float>(j) - cy;
-        float rho2 = (dx * dx) / (rx * rx) + (dy * dy) / (ry * ry);
-
-        if (rho2 >= 1.f)
-        {
-          dB(i, j) = 0.f;
-        }
-        else
-        {
-          float r_euclid = std::sqrt(dx * dx + dy * dy);
-          if (r_euclid <= 1e-5f)
-          {
-            dB(i, j) = std::min(rx, ry);
-          }
-          else
-          {
-            float rho = std::sqrt(rho2);
-            float R_theta = r_euclid / rho;
-            dB(i, j) = R_theta - r_euclid;
-          }
-        }
+        float r = std::sqrt(dx * dx + dy * dy);
+        float d = r_max - r;
+        dB(i, j) = (d <= 1e-5f) ? 0.f : d;
       }
     }
     has_boundary = true;
