@@ -72,6 +72,18 @@ float power_curve(float x, float a, float b)
   return k * std::pow(x, a) * std::pow(1.f - x, b);
 }
 
+float r_min(float f1, float f2, float alpha)
+{
+  float disc = std::max(0.f, f1 * f1 + f2 * f2 - 2.f * alpha * f1 * f2);
+  return (f1 + f2 - std::sqrt(disc)) / (1.f + alpha);
+}
+
+float r_max(float f1, float f2, float alpha)
+{
+  float disc = std::max(0.f, f1 * f1 + f2 * f2 - 2.f * alpha * f1 * f2);
+  return (f1 + f2 + std::sqrt(disc)) / (1.f + alpha);
+}
+
 float sigmoid(float x, float width, float vmin, float vmax, float x0)
 {
   float v = 1.f / (1.f + std::exp(-(x - x0) / width));

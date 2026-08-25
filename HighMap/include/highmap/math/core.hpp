@@ -151,11 +151,7 @@ float power_curve(float x, float a, float b);
  *               exact min.
  * @return       Smooth minimum value.
  */
-inline float r_min(float f1, float f2, float alpha = 0.f)
-{
-  float disc = std::max(0.f, f1 * f1 + f2 * f2 - 2.f * alpha * f1 * f2);
-  return (f1 + f2 - std::sqrt(disc)) / (1.f + alpha);
-}
+float r_min(float f1, float f2, float alpha = 0.f);
 
 /**
  * @brief Generalized Rvachev R-function for smooth maximum / union (exact
@@ -172,11 +168,7 @@ inline float r_min(float f1, float f2, float alpha = 0.f)
  *               exact max.
  * @return       Smooth maximum value.
  */
-inline float r_max(float f1, float f2, float alpha = 0.f)
-{
-  float disc = std::max(0.f, f1 * f1 + f2 * f2 - 2.f * alpha * f1 * f2);
-  return (f1 + f2 + std::sqrt(disc)) / (1.f + alpha);
-}
+float r_max(float f1, float f2, float alpha = 0.f);
 
 /**
  * @brief Sigmoid function.
