@@ -709,7 +709,7 @@ var namespacehmap =
     [ "zfill", "namespacehmap.html#a3f38b7faedc76835a0a902eb48e3d94b", null ],
     [ "bilinear_interp", "namespacehmap.html#ae91029283452ab6d8276e3745a476b48", null ],
     [ "cubic_interpolate", "namespacehmap.html#aee026d8b23196038c2b16c370b743889", null ],
-    [ "harmonic_interpolation", "namespacehmap.html#a6cfd7b1fc064e5aaef1550041f1bbc06", null ],
+    [ "harmonic_interpolation", "namespacehmap.html#a87b1dfa4502c41ccc2ffc5a539cb8c9e", null ],
     [ "interpolate2d", "namespacehmap.html#aeddca5280bfeacef3cdf4bee68a2195f", null ],
     [ "interpolate2d_delaunay", "namespacehmap.html#acf40e21f779a67c8cfb0569fb728d797", null ],
     [ "interpolate2d_delaunay_gradient", "namespacehmap.html#a6dc3a429456ae7d9910ddcbbb32ce041", null ],

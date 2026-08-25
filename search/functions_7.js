@@ -1,7 +1,7 @@
 var searchData=
 [
   ['hann_0',['hann',['../namespacehmap.html#aa89855e9d803bce1ba67d20484724f5b',1,'hmap']]],
-  ['harmonic_5finterpolation_1',['harmonic_interpolation',['../namespacehmap.html#a6cfd7b1fc064e5aaef1550041f1bbc06',1,'hmap']]],
+  ['harmonic_5finterpolation_1',['harmonic_interpolation',['../namespacehmap.html#a87b1dfa4502c41ccc2ffc5a539cb8c9e',1,'hmap']]],
   ['has_5fduplicates_2',['has_duplicates',['../namespacehmap.html#a248e8293399d0a3ae57265562aecd659',1,'hmap::has_duplicates(const Cloud &amp;cloud, float eps=1e-9f, bool xy_only=true)'],['../namespacehmap.html#adb224131a9c75491b105b67801e0fe20',1,'hmap::has_duplicates(const Path &amp;path, float tol=1e-6f)']]],
   ['hash_3',['hash',['../structhmap_1_1TileKey.html#a63fda351a89fbde9e8d6c03061466bbe',1,'hmap::TileKey']]],
   ['heightmap_5fretopology_4',['heightmap_retopology',['../namespacehmap.html#a23ab6bc3fdc7d5c498f0b3c8bebdd4f9',1,'hmap']]],

@@ -2,7 +2,7 @@ var searchData=
 [
   ['halo_0',['halo',['../classhmap_1_1VirtualTexture.html#a086adf51b2d8005792bc505045a1974c',1,'hmap::VirtualTexture::halo'],['../structhmap_1_1VirtualArray.html#a2b173300623c38c8083654ad095217f2',1,'hmap::VirtualArray::halo'],['../structhmap_1_1TileRegion.html#a49c3eebc47bb7e161fd3c6ce87f01cca',1,'hmap::TileRegion::halo']]],
   ['hann_1',['hann',['../namespacehmap.html#aa89855e9d803bce1ba67d20484724f5b',1,'hmap']]],
-  ['harmonic_5finterpolation_2',['harmonic_interpolation',['../namespacehmap.html#a6cfd7b1fc064e5aaef1550041f1bbc06',1,'hmap']]],
+  ['harmonic_5finterpolation_2',['harmonic_interpolation',['../namespacehmap.html#a87b1dfa4502c41ccc2ffc5a539cb8c9e',1,'hmap']]],
   ['harmonic_5finterpolation_2ecpp_3',['harmonic_interpolation.cpp',['../harmonic__interpolation_8cpp.html',1,'']]],
   ['harmonic_5finterpolation_5fgpu_2ecpp_4',['harmonic_interpolation_gpu.cpp',['../harmonic__interpolation__gpu_8cpp.html',1,'']]],
   ['has_5fduplicates_5',['has_duplicates',['../namespacehmap.html#adb224131a9c75491b105b67801e0fe20',1,'hmap::has_duplicates(const Path &amp;path, float tol=1e-6f)'],['../namespacehmap.html#a248e8293399d0a3ae57265562aecd659',1,'hmap::has_duplicates(const Cloud &amp;cloud, float eps=1e-9f, bool xy_only=true)']]],

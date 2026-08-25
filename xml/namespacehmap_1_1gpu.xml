@@ -10717,10 +10717,10 @@ This is an overloaded member function, provided for convenience. It differs from
         </inbodydescription>
         <location file="HighMap/src/hydrology/water_depth.cpp" line="389" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="389" bodyend="417" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1032" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a864cdb10c297b4a59dc761f32dbbc11a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1ac6263cc13b02f77fddd917b8fe4f2662" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::gpu::harmonic_interpolation</definition>
-        <argsstring>(const Array &amp;array, const Array &amp;mask_fixed_values, int iterations_max=500)</argsstring>
+        <argsstring>(const Array &amp;array, const Array &amp;mask_fixed_values, int iterations_max=500, float tolerance=1e-5f, float omega=0.f)</argsstring>
         <name>harmonic_interpolation</name>
         <qualifiedname>hmap::gpu::harmonic_interpolation</qualifiedname>
         <param>
@@ -10736,14 +10736,96 @@ This is an overloaded member function, provided for convenience. It differs from
           <declname>iterations_max</declname>
           <defval>500</defval>
         </param>
+        <param>
+          <type>float</type>
+          <declname>tolerance</declname>
+          <defval>1e-5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>omega</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
         <briefdescription>
-<para>See <ref refid="namespacehmap_1a6cfd7b1fc064e5aaef1550041f1bbc06" kindref="member">hmap::harmonic_interpolation</ref>. </para>
+<para>Perform harmonic interpolation on GPU using Red-Black Successive Over-Relaxation (RB-SOR). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input 2D array providing the initial guess. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mask_fixed_values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask array where values &gt; 0 are fixed boundary constraints. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iterations_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of iterations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tolerance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Convergence tolerance for early exit (default: 1e-5). If the maximum update in an iteration check falls below this threshold, the algorithm stops. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>omega</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Relaxation parameter (1.0 &lt; omega &lt; 2.0). If set to 0.0f (default), the optimal analytical relaxation factor for the grid shape is automatically computed. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interpolated array. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/interpolate/harmonic_interpolation_gpu.cpp" line="16" column="7" bodyfile="HighMap/src/interpolate/harmonic_interpolation_gpu.cpp" bodystart="16" bodyend="83" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="314" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1a27678d867694b6abb276f103754182fa" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::gpu::harmonic_interpolation_legacy_bf</definition>
+        <argsstring>(const Array &amp;array, const Array &amp;mask_fixed_values, int iterations_max=500)</argsstring>
+        <name>harmonic_interpolation_legacy_bf</name>
+        <qualifiedname>hmap::gpu::harmonic_interpolation_legacy_bf</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>array</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>mask_fixed_values</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>iterations_max</declname>
+          <defval>500</defval>
+        </param>
+        <briefdescription>
+<para>Legacy brute-force Jacobi harmonic interpolation (kept for benchmarking purposes). </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/harmonic_interpolation_gpu.cpp" line="14" column="7" bodyfile="HighMap/src/interpolate/harmonic_interpolation_gpu.cpp" bodystart="14" bodyend="41" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="299" declcolumn="7"/>
+        <location file="HighMap/src/interpolate/harmonic_interpolation_gpu.cpp" line="85" column="7" bodyfile="HighMap/src/interpolate/harmonic_interpolation_gpu.cpp" bodystart="85" bodyend="112" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="323" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a7fca2b47602e86cf0c65908230bdee55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
