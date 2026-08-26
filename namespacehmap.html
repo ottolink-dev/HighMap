@@ -756,6 +756,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae7ea4f9f968fc3a4aa706ea3b9cc1f0a" id="r_ae7ea4f9f968fc3a4aa706ea3b9cc1f0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#ae7ea4f9f968fc3a4aa706ea3b9cc1f0a">stamping</a> (glm::ivec2 shape, const std::vector&lt; float &gt; &amp;xr, const std::vector&lt; float &gt; &amp;yr, const std::vector&lt; float &gt; &amp;zr, <a class="el" href="classhmap_1_1Array.html">Array</a> kernel, int kernel_ir, bool kernel_scale_radius, bool kernel_scale_amplitude, <a class="el" href="namespacehmap.html#a5101273ec456f5267dddc3e22dae223b">StampingBlendMethod</a> blend_method, std::uint32_t seed, float k_smoothing=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, bool kernel_flip=true, bool kernel_rotate=false, glm::vec4 bbox_array={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
 <tr class="memdesc:ae7ea4f9f968fc3a4aa706ea3b9cc1f0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a heightmap by stamping a kernel at predefined locations.  <br /></td></tr>
 <tr class="separator:ae7ea4f9f968fc3a4aa706ea3b9cc1f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77df59a73e83bc371eceae7793c690dc" id="r_a77df59a73e83bc371eceae7793c690dc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a77df59a73e83bc371eceae7793c690dc">elevation_from_sparse_constraints</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;mountains, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_coastline=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_boundary=nullptr, float mountain_elevation=1.0f, float coastline_elevation=0.0f, float boundary_elevation=-1.0f, int iterations_max=500, float tolerance=1e-5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise=nullptr, float noise_amplitude=0.0f)</td></tr>
+<tr class="memdesc:a77df59a73e83bc371eceae7793c690dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synthesize a smooth heightmap from sparse elevation constraints using GPU harmonic interpolation (Laplacian PDE).  <br /></td></tr>
+<tr class="separator:a77df59a73e83bc371eceae7793c690dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafb76d7961d1655fdc07422982357588" id="r_aafb76d7961d1655fdc07422982357588"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#aafb76d7961d1655fdc07422982357588">blend_exclusion</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array1, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array2)</td></tr>
 <tr class="memdesc:aafb76d7961d1655fdc07422982357588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the 'exclusion' blending of two arrays.  <br /></td></tr>
 <tr class="separator:aafb76d7961d1655fdc07422982357588"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -4928,6 +4931,181 @@ template&lt;typename Fn &gt; </div>
 
 </div>
 </div>
+<a id="a77df59a73e83bc371eceae7793c690dc" name="a77df59a73e83bc371eceae7793c690dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77df59a73e83bc371eceae7793c690dc">&#9670;&#160;</a></span>elevation_from_sparse_constraints()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1Array.html">Array</a> hmap::elevation_from_sparse_constraints </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>mountains</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> *&#160;</td>
+          <td class="paramname"><em>p_coastline</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> *&#160;</td>
+          <td class="paramname"><em>p_boundary</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>mountain_elevation</em> = <code>1.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>coastline_elevation</em> = <code>0.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>boundary_elevation</em> = <code>-1.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>iterations_max</em> = <code>500</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>tolerance</em> = <code>1e-5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> *&#160;</td>
+          <td class="paramname"><em>p_noise</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>noise_amplitude</em> = <code>0.0f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Synthesize a smooth heightmap from sparse elevation constraints using GPU harmonic interpolation (Laplacian PDE). </p>
+<p>This function allows generating a continuous terrain elevation model from sparse sketch data by treating the provided constraints as Dirichlet boundary conditions and solving the discrete Laplace equation ($\Delta z = 0$) using GPU-accelerated Red-Black SOR.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mountains</td><td><a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> specifying mountain peak/ridge elevations (&gt; 0). </td></tr>
+    <tr><td class="paramname">p_coastline</td><td>Optional pointer to coastline mask (fixed to coastline_elevation). </td></tr>
+    <tr><td class="paramname">p_boundary</td><td>Optional pointer to outer boundary/ocean mask (fixed to boundary_elevation). If null, a 1-pixel boundary border around the domain perimeter is used. </td></tr>
+    <tr><td class="paramname">mountain_elevation</td><td>Target elevation scaling for mountains (default: 1.0). </td></tr>
+    <tr><td class="paramname">coastline_elevation</td><td>Elevation at coastline (default: 0.0). </td></tr>
+    <tr><td class="paramname">boundary_elevation</td><td>Elevation at boundary/ocean (default: -1.0). </td></tr>
+    <tr><td class="paramname">iterations_max</td><td>Max iterations for GPU solver (default: 500). </td></tr>
+    <tr><td class="paramname">tolerance</td><td>Convergence tolerance for early exit (default: 1e-5). </td></tr>
+    <tr><td class="paramname">p_noise</td><td>Optional noise array to modulate the free terrain regions. </td></tr>
+    <tr><td class="paramname">noise_amplitude</td><td>Amplitude of optional noise detail (default: 0.0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> The resulting smooth synthesized heightmap.</dd></dl>
+<p><b>Example</b> </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="highmap_8hpp.html">highmap.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
+<div class="line">{</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#adb8336ed4d83c15500872185dee45d50">hmap::gpu::init_opencl</a>();</div>
+<div class="line"> </div>
+<div class="line">  glm::ivec2 shape = {512, 512};</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// 1. Define mountain ridge lines (values &gt; 0)</span></div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a> ridge1;</div>
+<div class="line">  ridge1.<a class="code hl_function" href="classhmap_1_1Cloud.html#ab1149531131111567d9f8760162d90ff">add_point</a>({0.150f, 0.250f, 1.0f});</div>
+<div class="line">  ridge1.<a class="code hl_function" href="classhmap_1_1Cloud.html#ab1149531131111567d9f8760162d90ff">add_point</a>({0.260f, 0.230f, 1.0f});</div>
+<div class="line">  ridge1.<a class="code hl_function" href="classhmap_1_1Cloud.html#ab1149531131111567d9f8760162d90ff">add_point</a>({0.360f, 0.220f, 1.0f});</div>
+<div class="line">  ridge1 = <a class="code hl_function" href="namespacehmap.html#a9b14eb25556ef745f1e606bbe8d41dcb">hmap::catmullrom</a>(ridge1);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a> ridge2;</div>
+<div class="line">  ridge2.<a class="code hl_function" href="classhmap_1_1Cloud.html#ab1149531131111567d9f8760162d90ff">add_point</a>({0.256f, 0.280f, 1.0f});</div>
+<div class="line">  ridge2.<a class="code hl_function" href="classhmap_1_1Cloud.html#ab1149531131111567d9f8760162d90ff">add_point</a>({0.280f, 0.380f, 1.0f});</div>
+<div class="line">  ridge2 = <a class="code hl_function" href="namespacehmap.html#a9b14eb25556ef745f1e606bbe8d41dcb">hmap::catmullrom</a>(ridge2);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> mountains(shape, 0.0f);</div>
+<div class="line">  ridge1.<a class="code hl_function" href="classhmap_1_1Path.html#a4d1e1e63fea24bf8f23bc3343f8b746e">to_array</a>(mountains);</div>
+<div class="line">  ridge2.<a class="code hl_function" href="classhmap_1_1Path.html#a4d1e1e63fea24bf8f23bc3343f8b746e">to_array</a>(mountains);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// 2. Define closed coastline path (z = 0)</span></div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a> coast;</div>
+<div class="line">  <span class="keywordtype">int</span>        n_coast_pts = 24;</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt;= n_coast_pts; ++i)</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordtype">float</span> <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 2.0f * M_PI * <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(i) /</div>
+<div class="line">                  <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(n_coast_pts);</div>
+<div class="line">    <span class="keywordtype">float</span> r = 0.22f + 0.03f * std::sin(3.0f * <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a>);</div>
+<div class="line"> </div>
+<div class="line">    coast.<a class="code hl_function" href="classhmap_1_1Cloud.html#ab1149531131111567d9f8760162d90ff">add_point</a>(</div>
+<div class="line">        {0.256f + r * std::cos(<a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a>), 0.256f + r * std::sin(<a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a>), 1.0f});</div>
+<div class="line">  }</div>
+<div class="line">  coast = <a class="code hl_function" href="namespacehmap.html#a9b14eb25556ef745f1e606bbe8d41dcb">hmap::catmullrom</a>(coast);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> coastline(shape, 0.0f);</div>
+<div class="line">  coast.<a class="code hl_function" href="classhmap_1_1Path.html#a4d1e1e63fea24bf8f23bc3343f8b746e">to_array</a>(coastline);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// 3. Generate smooth continuous heightmap using GPU harmonic interpolation</span></div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z_harmonic = <a class="code hl_function" href="namespacehmap.html#a77df59a73e83bc371eceae7793c690dc">hmap::elevation_from_sparse_constraints</a>(mountains,</div>
+<div class="line">                                                                   &amp;coastline,</div>
+<div class="line">                                                                   <span class="keyword">nullptr</span>,</div>
+<div class="line">                                                                   1.0f,</div>
+<div class="line">                                                                   0.0f,</div>
+<div class="line">                                                                   -1.0f);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// 4. Modulate with optional procedural noise</span></div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> <a class="code hl_function" href="namespacehmap.html#a0f94056bb01fb9798ce72d3c4b1be4d2">noise</a> = <a class="code hl_function" href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>,</div>
+<div class="line">                                      shape,</div>
+<div class="line">                                      {6.0f, 6.0f},</div>
+<div class="line">                                      42);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z_detailed = <a class="code hl_function" href="namespacehmap.html#a77df59a73e83bc371eceae7793c690dc">hmap::elevation_from_sparse_constraints</a>(mountains,</div>
+<div class="line">                                                                   &amp;coastline,</div>
+<div class="line">                                                                   <span class="keyword">nullptr</span>,</div>
+<div class="line">                                                                   1.0f,</div>
+<div class="line">                                                                   0.0f,</div>
+<div class="line">                                                                   -1.0f,</div>
+<div class="line">                                                                   500,</div>
+<div class="line">                                                                   1e-5f,</div>
+<div class="line">                                                                   &amp;<a class="code hl_function" href="namespacehmap.html#a0f94056bb01fb9798ce72d3c4b1be4d2">noise</a>,</div>
+<div class="line">                                                                   0.25f);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_elevation_from_sparse_constraints.png&quot;</span>,</div>
+<div class="line">                          {mountains, coastline, z_harmonic, z_detailed},</div>
+<div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>,</div>
+<div class="line">                          <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+<div class="ttc" id="anamespacehmap_1_1gpu_html_adb8336ed4d83c15500872185dee45d50"><div class="ttname"><a href="namespacehmap_1_1gpu.html#adb8336ed4d83c15500872185dee45d50">hmap::gpu::init_opencl</a></div><div class="ttdeci">bool init_opencl()</div><div class="ttdef"><b>Definition</b> gpu_opencl.cpp:32</div></div>
+<div class="ttc" id="anamespacehmap_html_a0f94056bb01fb9798ce72d3c4b1be4d2"><div class="ttname"><a href="namespacehmap.html#a0f94056bb01fb9798ce72d3c4b1be4d2">hmap::noise</a></div><div class="ttdeci">Array noise(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:16</div></div>
+<div class="ttc" id="anamespacehmap_html_a77df59a73e83bc371eceae7793c690dc"><div class="ttname"><a href="namespacehmap.html#a77df59a73e83bc371eceae7793c690dc">hmap::elevation_from_sparse_constraints</a></div><div class="ttdeci">Array elevation_from_sparse_constraints(const Array &amp;mountains, const Array *p_coastline=nullptr, const Array *p_boundary=nullptr, float mountain_elevation=1.0f, float coastline_elevation=0.0f, float boundary_elevation=-1.0f, int iterations_max=500, float tolerance=1e-5f, const Array *p_noise=nullptr, float noise_amplitude=0.0f)</div><div class="ttdoc">Synthesize a smooth heightmap from sparse elevation constraints using GPU harmonic interpolation (Lap...</div><div class="ttdef"><b>Definition</b> elevation_from_sparse_constraints.cpp:10</div></div>
+<div class="ttc" id="anamespacehmap_html_a9b14eb25556ef745f1e606bbe8d41dcb"><div class="ttname"><a href="namespacehmap.html#a9b14eb25556ef745f1e606bbe8d41dcb">hmap::catmullrom</a></div><div class="ttdeci">Path catmullrom(const Path &amp;path, int edge_divisions=10, Path::EdgeDivisionMode edm=Path::EdgeDivisionMode::EDM_PER_EDGE)</div><div class="ttdoc">Smooth the path using Catmull-Rom curves.</div><div class="ttdef"><b>Definition</b> path_functions.cpp:172</div></div>
+<div class="ttc" id="anamespacehmap_html_aac71bb6c14edc17967957f7918acdbdd"><div class="ttname"><a href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">hmap::angle</a></div><div class="ttdeci">float angle(const Point &amp;p1, const Point &amp;p2)</div><div class="ttdoc">Computes the angle between two points relative to the x-axis.</div><div class="ttdef"><b>Definition</b> points.cpp:46</div></div>
+<div class="ttc" id="anamespacehmap_html_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9"><div class="ttname"><a href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::TERRAIN</a></div><div class="ttdeci">@ TERRAIN</div><div class="ttdef"><b>Definition</b> colormaps.hpp:92</div></div>
+</div><!-- fragment --> 
+</div>
+</div>
 <a id="aafb76d7961d1655fdc07422982357588" name="aafb76d7961d1655fdc07422982357588"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aafb76d7961d1655fdc07422982357588">&#9670;&#160;</a></span>blend_exclusion()</h2>
 
@@ -5010,7 +5188,6 @@ template&lt;typename Fn &gt; </div>
 <div class="line">                          {z1, z2, z_gradients},</div>
 <div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492">hmap::Cmap::VIRIDIS</a>);</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_html_a0f94056bb01fb9798ce72d3c4b1be4d2"><div class="ttname"><a href="namespacehmap.html#a0f94056bb01fb9798ce72d3c4b1be4d2">hmap::noise</a></div><div class="ttdeci">Array noise(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:16</div></div>
 <div class="ttc" id="anamespacehmap_html_a183cf8de980d1886130cac97fd41bcc5"><div class="ttname"><a href="namespacehmap.html#a183cf8de980d1886130cac97fd41bcc5">hmap::blend_negate</a></div><div class="ttdeci">Array blend_negate(const Array &amp;array1, const Array &amp;array2)</div><div class="ttdoc">Return the 'negate' blending of two arrays.</div><div class="ttdef"><b>Definition</b> blending.cpp:40</div></div>
 <div class="ttc" id="anamespacehmap_html_a3d311d682d431e21c6d7063539a0db8e"><div class="ttname"><a href="namespacehmap.html#a3d311d682d431e21c6d7063539a0db8e">hmap::blend_overlay</a></div><div class="ttdeci">Array blend_overlay(const Array &amp;array1, const Array &amp;array2)</div><div class="ttdoc">Return the 'overlay' blending of two arrays.</div><div class="ttdef"><b>Definition</b> blending.cpp:55</div></div>
 <div class="ttc" id="anamespacehmap_html_a91e52ae1178d54931a1729a2368a31f7"><div class="ttname"><a href="namespacehmap.html#a91e52ae1178d54931a1729a2368a31f7">hmap::blend_soft</a></div><div class="ttdeci">Array blend_soft(const Array &amp;array1, const Array &amp;array2)</div><div class="ttdoc">Return the 'soft' blending of two arrays.</div><div class="ttdef"><b>Definition</b> blending.cpp:70</div></div>
@@ -5372,7 +5549,6 @@ template&lt;typename Fn &gt; </div>
 <div class="line">                          <span class="keyword">true</span>);</div>
 <div class="line">}</div>
 <div class="ttc" id="anamespacehmap_1_1gpu_html_acff6d6d559781cdeba565ed795bb81d8"><div class="ttname"><a href="namespacehmap_1_1gpu.html#acff6d6d559781cdeba565ed795bb81d8">hmap::gpu::transfer</a></div><div class="ttdeci">Array transfer(const Array &amp;source, const Array &amp;target, int ir, float amplitude, bool target_prefiltering=false)</div><div class="ttdoc">See hmap::transfer.</div><div class="ttdef"><b>Definition</b> blending_gpu.cpp:58</div></div>
-<div class="ttc" id="anamespacehmap_1_1gpu_html_adb8336ed4d83c15500872185dee45d50"><div class="ttname"><a href="namespacehmap_1_1gpu.html#adb8336ed4d83c15500872185dee45d50">hmap::gpu::init_opencl</a></div><div class="ttdeci">bool init_opencl()</div><div class="ttdef"><b>Definition</b> gpu_opencl.cpp:32</div></div>
 <div class="ttc" id="anamespacehmap_html_a6786fe2ccf9bd2ceb294927c88bd898d"><div class="ttname"><a href="namespacehmap.html#a6786fe2ccf9bd2ceb294927c88bd898d">hmap::transfer</a></div><div class="ttdeci">Array transfer(const Array &amp;source, const Array &amp;target, int ir, float amplitude, bool target_prefiltering=false)</div><div class="ttdoc">Transfers spatial details from a source array onto a target array.</div><div class="ttdef"><b>Definition</b> blending.cpp:120</div></div>
 <div class="ttc" id="anamespacehmap_html_ac70fe3cbb32e0340d5dd3e15cdcf9369a744ead0b170889e33126895264f1af2c"><div class="ttname"><a href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a744ead0b170889e33126895264f1af2c">hmap::MAGMA</a></div><div class="ttdeci">@ MAGMA</div><div class="ttdef"><b>Definition</b> colormaps.hpp:89</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
@@ -5845,7 +6021,6 @@ template&lt;typename Fn &gt; </div>
 <div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>);</div>
 <div class="line">}</div>
 <div class="ttc" id="anamespacehmap_html_abef85b092005d7c5b1d2962c3ed27ef0"><div class="ttname"><a href="namespacehmap.html#abef85b092005d7c5b1d2962c3ed27ef0">hmap::make_periodic_tiling</a></div><div class="ttdeci">Array make_periodic_tiling(const Array &amp;array, float overlap, glm::ivec2 tiling)</div><div class="ttdoc">Creates a tiled, periodic array by applying a transition with overlap in both directions.</div><div class="ttdef"><b>Definition</b> boundary.cpp:332</div></div>
-<div class="ttc" id="anamespacehmap_html_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9"><div class="ttname"><a href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::TERRAIN</a></div><div class="ttdeci">@ TERRAIN</div><div class="ttdef"><b>Definition</b> colormaps.hpp:92</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_make_periodic_tiling.png" alt=""/>
 </div>
@@ -13597,7 +13772,6 @@ An <a class="el" href="classhmap_1_1Array.html" title="Array class, helper to ma
 <div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>);</div>
 <div class="line">}</div>
 <div class="ttc" id="anamespacehmap_html_a5cfbd685a2042726fdcd7faa460273a3"><div class="ttname"><a href="namespacehmap.html#a5cfbd685a2042726fdcd7faa460273a3">hmap::shrink_directional</a></div><div class="ttdeci">void shrink_directional(Array &amp;array, int ir, float angle, float aspect_ratio, float anisotropy=1.f, const Array *p_mask=nullptr)</div><div class="ttdoc">Apply directional shrinking, or &quot;deflating&quot;, to emphasize the ridges in the terrain.</div><div class="ttdef"><b>Definition</b> filters.cpp:749</div></div>
-<div class="ttc" id="anamespacehmap_html_aac71bb6c14edc17967957f7918acdbdd"><div class="ttname"><a href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">hmap::angle</a></div><div class="ttdeci">float angle(const Point &amp;p1, const Point &amp;p2)</div><div class="ttdoc">Computes the angle between two points relative to the x-axis.</div><div class="ttdef"><b>Definition</b> points.cpp:46</div></div>
 <div class="ttc" id="anamespacehmap_html_affdf6ff9564f31cb988131c2b2c4c280"><div class="ttname"><a href="namespacehmap.html#affdf6ff9564f31cb988131c2b2c4c280">hmap::expand_directional</a></div><div class="ttdeci">void expand_directional(Array &amp;array, int ir, float angle, float aspect_ratio, float anisotropy=1.f, const Array *p_mask=nullptr)</div><div class="ttdoc">Apply expansion, or &quot;inflation&quot;, to emphasize the bulk of the terrain, using a directional kernel.</div><div class="ttdef"><b>Definition</b> filters.cpp:124</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_expand_directional.png" alt=""/>
@@ -22720,7 +22894,6 @@ A_{i,j}^{t+1} = A_{i,j}^{t} + \sigma \cdot
 <div class="line"> </div>
 <div class="line">  z.to_png(<span class="stringliteral">&quot;ex_path_catmullrom.png&quot;</span>, <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492">hmap::Cmap::VIRIDIS</a>);</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_html_a9b14eb25556ef745f1e606bbe8d41dcb"><div class="ttname"><a href="namespacehmap.html#a9b14eb25556ef745f1e606bbe8d41dcb">hmap::catmullrom</a></div><div class="ttdeci">Path catmullrom(const Path &amp;path, int edge_divisions=10, Path::EdgeDivisionMode edm=Path::EdgeDivisionMode::EDM_PER_EDGE)</div><div class="ttdoc">Smooth the path using Catmull-Rom curves.</div><div class="ttdef"><b>Definition</b> path_functions.cpp:172</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_path_catmullrom.png" alt=""/>
 </div>

@@ -371,6 +371,7 @@ var namespacehmap =
     [ "ridgelines", "namespacehmap.html#a74f6ef0464e0ec67df5179f49e14e35a", null ],
     [ "ridgelines_bezier", "namespacehmap.html#a4e7db58b8b58def3b862476f18b6005e", null ],
     [ "stamping", "namespacehmap.html#ae7ea4f9f968fc3a4aa706ea3b9cc1f0a", null ],
+    [ "elevation_from_sparse_constraints", "namespacehmap.html#a77df59a73e83bc371eceae7793c690dc", null ],
     [ "blend_exclusion", "namespacehmap.html#aafb76d7961d1655fdc07422982357588", null ],
     [ "blend_gradients", "namespacehmap.html#af91a60a9fcbed7e38f53df57631a5298", null ],
     [ "blend_negate", "namespacehmap.html#a183cf8de980d1886130cac97fd41bcc5", null ],

@@ -536,6 +536,8 @@ void \mbox{\hyperlink{namespacehmap_a6123c18788ae302332416d5d7585fd9f}{alter\+\_
 \begin{DoxyCompactList}\small\item\em Generate a heightmap based on a set of ridgelines with quadratic Bezier interpolation. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_ae7ea4f9f968fc3a4aa706ea3b9cc1f0a}{stamping}} (glm\+::ivec2 shape, const std\+::vector$<$ float $>$ \&xr, const std\+::vector$<$ float $>$ \&yr, const std\+::vector$<$ float $>$ \&zr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} kernel, int kernel\+\_\+ir, bool kernel\+\_\+scale\+\_\+radius, bool kernel\+\_\+scale\+\_\+amplitude, \mbox{\hyperlink{namespacehmap_a5101273ec456f5267dddc3e22dae223b}{Stamping\+Blend\+Method}} blend\+\_\+method, std\+::uint32\+\_\+t seed, float k\+\_\+smoothing=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, bool kernel\+\_\+flip=true, bool kernel\+\_\+rotate=false, glm\+::vec4 bbox\+\_\+array=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Generate a heightmap by stamping a kernel at predefined locations. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a77df59a73e83bc371eceae7793c690dc}{elevation\+\_\+from\+\_\+sparse\+\_\+constraints}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&mountains, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+coastline=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+boundary=nullptr, float mountain\+\_\+elevation=1.\+0f, float coastline\+\_\+elevation=0.\+0f, float boundary\+\_\+elevation=-\/1.\+0f, int iterations\+\_\+max=500, float tolerance=1e-\/5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise=nullptr, float noise\+\_\+amplitude=0.\+0f)
+\begin{DoxyCompactList}\small\item\em Synthesize a smooth heightmap from sparse elevation constraints using GPU harmonic interpolation (Laplacian PDE). \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_aafb76d7961d1655fdc07422982357588}{blend\+\_\+exclusion}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array1, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array2)
 \begin{DoxyCompactList}\small\item\em Return the \textquotesingle{}exclusion\textquotesingle{} blending of two arrays. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_af91a60a9fcbed7e38f53df57631a5298}{blend\+\_\+gradients}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array1, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array2, int ir=4)
@@ -3761,7 +3763,123 @@ This function creates a heightmap by stamping a specified kernel at given x, y, 
 \begin{DoxySeeAlso}{See also}
 {\ttfamily \doxylink{}{other\+\_\+related\+\_\+functions}} 
 \end{DoxySeeAlso}
-\Hypertarget{namespacehmap_aafb76d7961d1655fdc07422982357588}\label{namespacehmap_aafb76d7961d1655fdc07422982357588} 
+\Hypertarget{namespacehmap_a77df59a73e83bc371eceae7793c690dc}\label{namespacehmap_a77df59a73e83bc371eceae7793c690dc} 
+\index{hmap@{hmap}!elevation\_from\_sparse\_constraints@{elevation\_from\_sparse\_constraints}}
+\index{elevation\_from\_sparse\_constraints@{elevation\_from\_sparse\_constraints}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{elevation\_from\_sparse\_constraints()}{elevation\_from\_sparse\_constraints()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::elevation\+\_\+from\+\_\+sparse\+\_\+constraints (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{mountains,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+coastline = {\ttfamily nullptr},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+boundary = {\ttfamily nullptr},  }\item[{float}]{mountain\+\_\+elevation = {\ttfamily 1.0f},  }\item[{float}]{coastline\+\_\+elevation = {\ttfamily 0.0f},  }\item[{float}]{boundary\+\_\+elevation = {\ttfamily -\/1.0f},  }\item[{int}]{iterations\+\_\+max = {\ttfamily 500},  }\item[{float}]{tolerance = {\ttfamily 1e-\/5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise = {\ttfamily nullptr},  }\item[{float}]{noise\+\_\+amplitude = {\ttfamily 0.0f} }\end{DoxyParamCaption})}
+
+
+
+Synthesize a smooth heightmap from sparse elevation constraints using GPU harmonic interpolation (Laplacian PDE). 
+
+This function allows generating a continuous terrain elevation model from sparse sketch data by treating the provided constraints as Dirichlet boundary conditions and solving the discrete Laplace equation (\$\textbackslash{}\+Delta z = 0\$) using GPU-\/accelerated Red-\/\+Black SOR.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mountains} & \doxylink{classhmap_1_1Array}{Array} specifying mountain peak/ridge elevations (\texorpdfstring{$>$}{>} 0). \\
+\hline
+{\em p\+\_\+coastline} & Optional pointer to coastline mask (fixed to coastline\+\_\+elevation). \\
+\hline
+{\em p\+\_\+boundary} & Optional pointer to outer boundary/ocean mask (fixed to boundary\+\_\+elevation). If null, a 1-\/pixel boundary border around the domain perimeter is used. \\
+\hline
+{\em mountain\+\_\+elevation} & Target elevation scaling for mountains (default\+: 1.\+0). \\
+\hline
+{\em coastline\+\_\+elevation} & Elevation at coastline (default\+: 0.\+0). \\
+\hline
+{\em boundary\+\_\+elevation} & Elevation at boundary/ocean (default\+: -\/1.\+0). \\
+\hline
+{\em iterations\+\_\+max} & Max iterations for GPU solver (default\+: 500). \\
+\hline
+{\em tolerance} & Convergence tolerance for early exit (default\+: 1e-\/5). \\
+\hline
+{\em p\+\_\+noise} & Optional noise array to modulate the free terrain regions. \\
+\hline
+{\em noise\+\_\+amplitude} & Amplitude of optional noise detail (default\+: 0.\+0). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Array}{Array} The resulting smooth synthesized heightmap.
+\end{DoxyReturn}
+{\bfseries{Example}} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_adb8336ed4d83c15500872185dee45d50}{hmap::gpu::init\_opencl}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ glm::ivec2\ shape\ =\ \{512,\ 512\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ 1.\ Define\ mountain\ ridge\ lines\ (values\ >\ 0)}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Path}{hmap::Path}}\ ridge1;}
+\DoxyCodeLine{\ \ ridge1.\mbox{\hyperlink{classhmap_1_1Cloud_ab1149531131111567d9f8760162d90ff}{add\_point}}(\{0.150f,\ 0.250f,\ 1.0f\});}
+\DoxyCodeLine{\ \ ridge1.\mbox{\hyperlink{classhmap_1_1Cloud_ab1149531131111567d9f8760162d90ff}{add\_point}}(\{0.260f,\ 0.230f,\ 1.0f\});}
+\DoxyCodeLine{\ \ ridge1.\mbox{\hyperlink{classhmap_1_1Cloud_ab1149531131111567d9f8760162d90ff}{add\_point}}(\{0.360f,\ 0.220f,\ 1.0f\});}
+\DoxyCodeLine{\ \ ridge1\ =\ \mbox{\hyperlink{namespacehmap_a9b14eb25556ef745f1e606bbe8d41dcb}{hmap::catmullrom}}(ridge1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Path}{hmap::Path}}\ ridge2;}
+\DoxyCodeLine{\ \ ridge2.\mbox{\hyperlink{classhmap_1_1Cloud_ab1149531131111567d9f8760162d90ff}{add\_point}}(\{0.256f,\ 0.280f,\ 1.0f\});}
+\DoxyCodeLine{\ \ ridge2.\mbox{\hyperlink{classhmap_1_1Cloud_ab1149531131111567d9f8760162d90ff}{add\_point}}(\{0.280f,\ 0.380f,\ 1.0f\});}
+\DoxyCodeLine{\ \ ridge2\ =\ \mbox{\hyperlink{namespacehmap_a9b14eb25556ef745f1e606bbe8d41dcb}{hmap::catmullrom}}(ridge2);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ mountains(shape,\ 0.0f);}
+\DoxyCodeLine{\ \ ridge1.\mbox{\hyperlink{classhmap_1_1Path_a4d1e1e63fea24bf8f23bc3343f8b746e}{to\_array}}(mountains);}
+\DoxyCodeLine{\ \ ridge2.\mbox{\hyperlink{classhmap_1_1Path_a4d1e1e63fea24bf8f23bc3343f8b746e}{to\_array}}(mountains);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ 2.\ Define\ closed\ coastline\ path\ (z\ =\ 0)}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Path}{hmap::Path}}\ coast;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ n\_coast\_pts\ =\ 24;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <=\ n\_coast\_pts;\ ++i)}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}\ =\ 2.0f\ *\ M\_PI\ *\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(i)\ /}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(n\_coast\_pts);}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{float}\ r\ =\ 0.22f\ +\ 0.03f\ *\ std::sin(3.0f\ *\ \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ coast.\mbox{\hyperlink{classhmap_1_1Cloud_ab1149531131111567d9f8760162d90ff}{add\_point}}(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{0.256f\ +\ r\ *\ std::cos(\mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}),\ 0.256f\ +\ r\ *\ std::sin(\mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}),\ 1.0f\});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ coast\ =\ \mbox{\hyperlink{namespacehmap_a9b14eb25556ef745f1e606bbe8d41dcb}{hmap::catmullrom}}(coast);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ coastline(shape,\ 0.0f);}
+\DoxyCodeLine{\ \ coast.\mbox{\hyperlink{classhmap_1_1Path_a4d1e1e63fea24bf8f23bc3343f8b746e}{to\_array}}(coastline);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ 3.\ Generate\ smooth\ continuous\ heightmap\ using\ GPU\ harmonic\ interpolation}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_harmonic\ =\ \mbox{\hyperlink{namespacehmap_a77df59a73e83bc371eceae7793c690dc}{hmap::elevation\_from\_sparse\_constraints}}(mountains,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&coastline,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1.0f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.0f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1.0f);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ 4.\ Modulate\ with\ optional\ procedural\ noise}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ \mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{noise}}\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{6.0f,\ 6.0f\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 42);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_detailed\ =\ \mbox{\hyperlink{namespacehmap_a77df59a73e83bc371eceae7793c690dc}{hmap::elevation\_from\_sparse\_constraints}}(mountains,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&coastline,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1.0f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.0f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1.0f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 500,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1e-\/5f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{noise}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.25f);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_elevation\_from\_sparse\_constraints.png"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{mountains,\ coastline,\ z\_harmonic,\ z\_detailed\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9}{hmap::Cmap::TERRAIN}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ \Hypertarget{namespacehmap_aafb76d7961d1655fdc07422982357588}\label{namespacehmap_aafb76d7961d1655fdc07422982357588} 
 \index{hmap@{hmap}!blend\_exclusion@{blend\_exclusion}}
 \index{blend\_exclusion@{blend\_exclusion}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{blend\_exclusion()}{blend\_exclusion()}}

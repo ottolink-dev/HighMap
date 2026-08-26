@@ -14,5 +14,6 @@ var authoring_8hpp =
     [ "reverse_midpoint", "authoring_8hpp.html#a6f7e6e0cffaf7d03cfe1eef62b1c3575", null ],
     [ "ridgelines", "authoring_8hpp.html#a74f6ef0464e0ec67df5179f49e14e35a", null ],
     [ "ridgelines_bezier", "authoring_8hpp.html#a4e7db58b8b58def3b862476f18b6005e", null ],
-    [ "stamping", "authoring_8hpp.html#ae7ea4f9f968fc3a4aa706ea3b9cc1f0a", null ]
+    [ "stamping", "authoring_8hpp.html#ae7ea4f9f968fc3a4aa706ea3b9cc1f0a", null ],
+    [ "elevation_from_sparse_constraints", "authoring_8hpp.html#a77df59a73e83bc371eceae7793c690dc", null ]
 ];
