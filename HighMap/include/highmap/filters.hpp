@@ -41,6 +41,46 @@ enum neighborhood : int
 // clang-format on
 
 /**
+ * @brief Enhances local terrain relief adaptively while preventing overshoot.
+ *
+ * Applies an adaptive relief enhancement filter inspired by edge-adaptive
+ * sharpening. Detail is enhanced proportionally to local activity, while steep
+ * cliffs/high gradients are protected from over-sharpening artifacts and values
+ * are bounded by local neighborhood min/max limits.
+ *
+ * @param array       Input/output heightmap array to enhance in-place.
+ * @param strength    Sharpening/enhancement strength (default: 1.0f).
+ * @param clamp_ratio Ratio controlling how strictly overshoot beyond local
+ *                    extrema is clamped [0, 1] (1.0 = strict clamping to local
+ *                    min/max).
+ *
+ * **Example**
+ * @include ex_adaptive_relief.cpp
+ *
+ * **Result**
+ * @image html ex_adaptive_relief.png
+ */
+void adaptive_relief(Array &array,
+                     float  strength = 1.f,
+                     float  clamp_ratio = 1.f);
+
+/**
+ * @brief Enhances local terrain relief adaptively with a mask.
+ *
+ * @param array       Input/output heightmap array to enhance in-place.
+ * @param p_mask      Optional filter mask controlling local effect blending.
+ * @param strength    Sharpening/enhancement strength (default: 1.0f).
+ * @param clamp_ratio Ratio controlling how strictly overshoot beyond local
+ *                    extrema is clamped [0, 1].
+ *
+ * @overload
+ */
+void adaptive_relief(Array       &array,
+                     const Array *p_mask,
+                     float        strength = 1.f,
+                     float        clamp_ratio = 1.f);
+
+/**
  * @brief Applies a primitive-based displacement to an array.
  *
  * Adds a scaled primitive pattern (optionally perturbed by noise) to the input
@@ -2192,6 +2232,15 @@ void terrace(Array        &array,
 
 namespace hmap::gpu
 {
+
+/*! @brief See hmap::adaptive_relief */
+void adaptive_relief(Array &array,
+                     float  strength = 1.f,
+                     float  clamp_ratio = 1.f);
+void adaptive_relief(Array       &array,
+                     const Array *p_mask,
+                     float        strength = 1.f,
+                     float        clamp_ratio = 1.f); ///< @overload
 
 /**
  * @brief Apply a bilateral filter to an array.

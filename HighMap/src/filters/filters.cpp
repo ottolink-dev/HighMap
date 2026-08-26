@@ -30,6 +30,83 @@
 namespace hmap
 {
 
+void adaptive_relief(Array &array, float strength, float clamp_ratio)
+{
+  const glm::ivec2 &shape = array.shape;
+  Array             result = array;
+
+#pragma omp parallel for collapse(2)
+  for (int j = 0; j < shape.y; ++j)
+    for (int i = 0; i < shape.x; ++i)
+    {
+      // 3x3 neighborhood bounds
+      int im1 = std::max(0, i - 1);
+      int ip1 = std::min(shape.x - 1, i + 1);
+      int jm1 = std::max(0, j - 1);
+      int jp1 = std::min(shape.y - 1, j + 1);
+
+      float c = array(i, j);
+      float n = array(i, jm1);
+      float s = array(i, jp1);
+      float w = array(im1, j);
+      float e = array(ip1, j);
+      float nw = array(im1, jm1);
+      float ne = array(ip1, jm1);
+      float sw = array(im1, jp1);
+      float se = array(ip1, jp1);
+
+      // Local min and max
+      float min_z = std::min({c, n, s, w, e, nw, ne, sw, se});
+      float max_z = std::max({c, n, s, w, e, nw, ne, sw, se});
+
+      // Discrete Laplacian (high-pass filter)
+      // Standard 3x3 kernel: [[1, 2, 1], [2, -12, 2], [1, 2, 1]] / 16
+      // or [[0.5, 1, 0.5], [1, -6, 1], [0.5, 1, 0.5]]
+      float laplacian = c -
+                        (0.5f * (n + s + w + e) + 0.25f * (nw + ne + sw + se)) /
+                            3.0f;
+
+      // Local contrast / activity across neighborhood
+      float contrast = max_z - min_z;
+
+      // Compute edge/slope magnitude to reduce sharpening near extreme cliffs
+      float gx = (e - w) * 0.5f;
+      float gy = (s - n) * 0.5f;
+      float grad_sq = gx * gx + gy * gy;
+
+      // Edge dampening factor (protects steep cliffs/discontinuities)
+      float edge_factor = 1.0f / (1.0f + 4.0f * grad_sq /
+                                             (contrast * contrast + 1e-7f));
+
+      // Adaptive weight
+      float w_adaptive = strength * edge_factor;
+
+      // Sharpened value
+      float val = c + w_adaptive * laplacian;
+
+      // Constrain / anti-overshoot against neighborhood extrema
+      if (clamp_ratio > 0.f)
+      {
+        float clamped_val = std::clamp(val, min_z, max_z);
+        val = std::lerp(val, clamped_val, clamp_ratio);
+      }
+
+      result(i, j) = val;
+    }
+
+  array = std::move(result);
+}
+
+void adaptive_relief(Array       &array,
+                     const Array *p_mask,
+                     float        strength,
+                     float        clamp_ratio)
+{
+  apply_with_mask(array,
+                  p_mask,
+                  [&](Array &a) { adaptive_relief(a, strength, clamp_ratio); });
+}
+
 void equalize(Array &array)
 {
   Array flat_ref = hmap::white(array.shape, 0.f, 1.f, 0);

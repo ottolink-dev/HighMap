@@ -61,6 +61,9 @@ bool init_opencl()
   );
   //
   add(
+#include "kernels/adaptive_relief.cl"
+  );
+  add(
 #include "kernels/advection_particle.cl"
   );
   add(

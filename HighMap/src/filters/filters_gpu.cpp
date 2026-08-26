@@ -20,6 +20,32 @@
 namespace hmap::gpu
 {
 
+void adaptive_relief(Array &array, float strength, float clamp_ratio)
+{
+  const glm::ivec2 &shape = array.shape;
+
+  auto run = clwrapper::Run("adaptive_relief");
+
+  run.bind_imagef("in", array.vector, shape.x, shape.y);
+  run.bind_imagef("out", array.vector, shape.x, shape.y,
+                  true); // out
+  run.bind_arguments(shape.x, shape.y, strength, clamp_ratio);
+
+  run.execute({shape.x, shape.y});
+  run.read_imagef("out");
+}
+
+void adaptive_relief(Array       &array,
+                     const Array *p_mask,
+                     float        strength,
+                     float        clamp_ratio)
+{
+  apply_with_mask(array,
+                  p_mask,
+                  [&](Array &a)
+                  { gpu::adaptive_relief(a, strength, clamp_ratio); });
+}
+
 void expand(Array &array, int ir, int iterations)
 {
   Array kernel = cubic_pulse({2 * ir + 1, 2 * ir + 1});
