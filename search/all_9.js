@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['halo_0',['halo',['../classhmap_1_1VirtualTexture.html#a086adf51b2d8005792bc505045a1974c',1,'hmap::VirtualTexture::halo'],['../structhmap_1_1VirtualArray.html#a2b173300623c38c8083654ad095217f2',1,'hmap::VirtualArray::halo'],['../structhmap_1_1TileRegion.html#a49c3eebc47bb7e161fd3c6ce87f01cca',1,'hmap::TileRegion::halo']]],
+  ['halo_0',['halo',['../structhmap_1_1TileRegion.html#a49c3eebc47bb7e161fd3c6ce87f01cca',1,'hmap::TileRegion::halo'],['../structhmap_1_1VirtualArray.html#a2b173300623c38c8083654ad095217f2',1,'hmap::VirtualArray::halo'],['../classhmap_1_1VirtualTexture.html#a086adf51b2d8005792bc505045a1974c',1,'hmap::VirtualTexture::halo']]],
   ['hann_1',['hann',['../namespacehmap.html#aa89855e9d803bce1ba67d20484724f5b',1,'hmap']]],
-  ['harmonic_5finterpolation_2',['harmonic_interpolation',['../namespacehmap.html#a87b1dfa4502c41ccc2ffc5a539cb8c9e',1,'hmap']]],
+  ['harmonic_5finterpolation_2',['harmonic_interpolation',['../namespacehmap.html#a87b1dfa4502c41ccc2ffc5a539cb8c9e',1,'hmap::harmonic_interpolation(const Array &amp;array, const Array &amp;mask_fixed_values, int iterations_max=500, float tolerance=1e-5f, float omega=0.f)'],['../namespacehmap.html#a8571aec4431c93e9e7a0f6e07d6cbb28',1,'hmap::harmonic_interpolation(const Array &amp;array, const Array &amp;mask_fixed_values, const Array &amp;dx, const Array &amp;dy, int iterations_max=500, float tolerance=1e-5f, float omega=0.f)']]],
   ['harmonic_5finterpolation_2ecpp_3',['harmonic_interpolation.cpp',['../harmonic__interpolation_8cpp.html',1,'']]],
   ['harmonic_5finterpolation_5fgpu_2ecpp_4',['harmonic_interpolation_gpu.cpp',['../harmonic__interpolation__gpu_8cpp.html',1,'']]],
-  ['has_5fduplicates_5',['has_duplicates',['../namespacehmap.html#adb224131a9c75491b105b67801e0fe20',1,'hmap::has_duplicates(const Path &amp;path, float tol=1e-6f)'],['../namespacehmap.html#a248e8293399d0a3ae57265562aecd659',1,'hmap::has_duplicates(const Cloud &amp;cloud, float eps=1e-9f, bool xy_only=true)']]],
+  ['has_5fduplicates_5',['has_duplicates',['../namespacehmap.html#a248e8293399d0a3ae57265562aecd659',1,'hmap::has_duplicates(const Cloud &amp;cloud, float eps=1e-9f, bool xy_only=true)'],['../namespacehmap.html#adb224131a9c75491b105b67801e0fe20',1,'hmap::has_duplicates(const Path &amp;path, float tol=1e-6f)']]],
   ['hash_6',['hash',['../structhmap_1_1TileKey.html#a63fda351a89fbde9e8d6c03061466bbe',1,'hmap::TileKey']]],
   ['hash_2ecpp_7',['hash.cpp',['../hash_8cpp.html',1,'']]],
   ['heightmap_5fretopology_8',['heightmap_retopology',['../namespacehmap.html#a23ab6bc3fdc7d5c498f0b3c8bebdd4f9',1,'hmap']]],

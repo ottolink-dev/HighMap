@@ -31565,6 +31565,117 @@ The output path consists of:<itemizedlist>
         </inbodydescription>
         <location file="HighMap/src/interpolate/harmonic_interpolation.cpp" line="12" column="7" bodyfile="HighMap/src/interpolate/harmonic_interpolation.cpp" bodystart="12" bodyend="51" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="148" declcolumn="7"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a8571aec4431c93e9e7a0f6e07d6cbb28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::harmonic_interpolation</definition>
+        <argsstring>(const Array &amp;array, const Array &amp;mask_fixed_values, const Array &amp;dx, const Array &amp;dy, int iterations_max=500, float tolerance=1e-5f, float omega=0.f)</argsstring>
+        <name>harmonic_interpolation</name>
+        <qualifiedname>hmap::harmonic_interpolation</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>array</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>mask_fixed_values</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>dx</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>dy</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>iterations_max</declname>
+          <defval>500</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tolerance</declname>
+          <defval>1e-5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>omega</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+<para>Perform harmonic interpolation on a 2D array with 2D variable diffusion coefficients (Dx, Dy) using the Successive Over-Relaxation (SOR) method. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Solves the steady-state anisotropic diffusion equation:  <formula id="18">\[
+\nabla \cdot (\mathbf{D} \nabla u) = \frac{\partial}{\partial x}\left(D_x
+\frac{\partial u}{\partial x}\right) +
+\frac{\partial}{\partial y}\left(D_y \frac{\partial u}{\partial y}\right) = 0
+\]</formula></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input 2D array providing the initial guess. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mask_fixed_values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask where values &gt; 0 indicate fixed boundary constraints. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> of diffusion coefficients in the x-direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> of diffusion coefficients in the y-direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iterations_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of SOR iterations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tolerance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Convergence tolerance. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>omega</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Relaxation factor (0 = auto-computed optimal). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interpolated array. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/interpolate/harmonic_interpolation.cpp" line="53" column="7" bodyfile="HighMap/src/interpolate/harmonic_interpolation.cpp" bodystart="53" bodyend="107" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="176" declcolumn="7"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1aeddca5280bfeacef3cdf4bee68a2195f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::interpolate2d</definition>
@@ -31789,7 +31900,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate2d.cpp" line="13" column="7" bodyfile="HighMap/src/interpolate/interpolate2d.cpp" bodystart="13" bodyend="80" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="181" declcolumn="7"/>
+        <location file="HighMap/src/interpolate/interpolate2d.cpp" line="13" column="7" bodyfile="HighMap/src/interpolate/interpolate2d.cpp" bodystart="13" bodyend="80" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="211" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1acf40e21f779a67c8cfb0569fb728d797" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -31901,7 +32012,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate2d_delaunay.cpp" line="13" column="7" bodyfile="HighMap/src/interpolate/interpolate2d_delaunay.cpp" bodystart="13" bodyend="50" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="208" declcolumn="7"/>
+        <location file="HighMap/src/interpolate/interpolate2d_delaunay.cpp" line="13" column="7" bodyfile="HighMap/src/interpolate/interpolate2d_delaunay.cpp" bodystart="13" bodyend="50" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="238" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a6dc3a429456ae7d9910ddcbbb32ce041" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -31957,7 +32068,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate2d_delaunay_gradient.cpp" line="13" column="7" bodyfile="HighMap/src/interpolate/interpolate2d_delaunay_gradient.cpp" bodystart="13" bodyend="55" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="221" declcolumn="7"/>
+        <location file="HighMap/src/interpolate/interpolate2d_delaunay_gradient.cpp" line="13" column="7" bodyfile="HighMap/src/interpolate/interpolate2d_delaunay_gradient.cpp" bodystart="13" bodyend="55" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="251" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a0a14f8ea250312a1c2392dd26d34805f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -32013,7 +32124,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate2d_gaussian.cpp" line="17" column="7" bodyfile="HighMap/src/interpolate/interpolate2d_gaussian.cpp" bodystart="17" bodyend="92" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="234" declcolumn="7"/>
+        <location file="HighMap/src/interpolate/interpolate2d_gaussian.cpp" line="17" column="7" bodyfile="HighMap/src/interpolate/interpolate2d_gaussian.cpp" bodystart="17" bodyend="92" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="264" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a304d2b2e755c4a1fea14ac8dc6d44082" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -32069,7 +32180,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate2d_idw.cpp" line="18" column="7" bodyfile="HighMap/src/interpolate/interpolate2d_idw.cpp" bodystart="18" bodyend="98" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="247" declcolumn="7"/>
+        <location file="HighMap/src/interpolate/interpolate2d_idw.cpp" line="18" column="7" bodyfile="HighMap/src/interpolate/interpolate2d_idw.cpp" bodystart="18" bodyend="98" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="277" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a4cb51937d8283468bc540129d491222b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -32176,7 +32287,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate2d_nearest.cpp" line="14" column="7" bodyfile="HighMap/src/interpolate/interpolate2d_nearest.cpp" bodystart="14" bodyend="57" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="274" declcolumn="7"/>
+        <location file="HighMap/src/interpolate/interpolate2d_nearest.cpp" line="14" column="7" bodyfile="HighMap/src/interpolate/interpolate2d_nearest.cpp" bodystart="14" bodyend="57" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="304" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a7f56b267f543e34806bfd334272f7392" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -32222,7 +32333,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate2d_nni.cpp" line="15" column="7" bodyfile="HighMap/src/interpolate/interpolate2d_nni.cpp" bodystart="15" bodyend="72" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="285" declcolumn="7"/>
+        <location file="HighMap/src/interpolate/interpolate2d_nni.cpp" line="15" column="7" bodyfile="HighMap/src/interpolate/interpolate2d_nni.cpp" bodystart="15" bodyend="72" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="315" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9e8b724d238450ef72e9bd083acb9b8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -35069,7 +35180,7 @@ The output path consists of:<itemizedlist>
 <para>Sigmoid function. </para>
         </briefdescription>
         <detaileddescription>
-<para>Applies the generalized sigmoid transformation element-wise:  <formula id="18">\[
+<para>Applies the generalized sigmoid transformation element-wise:  <formula id="19">\[
 y = v_{\min} + \frac{v_{\max} - v_{\min}}
     {1 + \exp\left(-\frac{x - x_0}{\text{width}}\right)}
 \]</formula></para>
@@ -36167,7 +36278,7 @@ y = v_{\min} + \frac{v_{\max} - v_{\min}}
 <para>Generalized Rvachev R-function for smooth minimum / intersection (exact zero-set). </para>
         </briefdescription>
         <detaileddescription>
-<para><formula id="19">\[
+<para><formula id="20">\[
 R_{\min}(f_1, f_2, \alpha) = \frac{f_1 + f_2 - \sqrt{f_1^2 + f_2^2 - 2\alpha
 f_1 f_2}}{1 + \alpha} \]</formula></para>
 <para><parameterlist kind="param"><parameteritem>
@@ -36226,7 +36337,7 @@ f_1 f_2}}{1 + \alpha} \]</formula></para>
 <para>Generalized Rvachev R-function for smooth maximum / union (exact zero-set). </para>
         </briefdescription>
         <detaileddescription>
-<para><formula id="20">\[
+<para><formula id="21">\[
 R_{\max}(f_1, f_2, \alpha) = \frac{f_1 + f_2 + \sqrt{f_1^2 + f_2^2 - 2\alpha
 f_1 f_2}}{1 + \alpha} \]</formula></para>
 <para><parameterlist kind="param"><parameteritem>
@@ -36296,7 +36407,7 @@ f_1 f_2}}{1 + \alpha} \]</formula></para>
 <para>Sigmoid function. </para>
         </briefdescription>
         <detaileddescription>
-<para>Generalized logistic function:  <formula id="18">\[
+<para>Generalized logistic function:  <formula id="19">\[
 y = v_{\min} + \frac{v_{\max} - v_{\min}}
     {1 + \exp\left(-\frac{x - x_0}{\text{width}}\right)}
 \]</formula></para>

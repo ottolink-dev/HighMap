@@ -10797,7 +10797,113 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/harmonic_interpolation_gpu.cpp" line="16" column="7" bodyfile="HighMap/src/interpolate/harmonic_interpolation_gpu.cpp" bodystart="16" bodyend="83" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="314" declcolumn="7"/>
+        <location file="HighMap/src/interpolate/harmonic_interpolation_gpu.cpp" line="16" column="7" bodyfile="HighMap/src/interpolate/harmonic_interpolation_gpu.cpp" bodystart="16" bodyend="83" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="344" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1aef2c80d16aeb723a7125fb901ea8d6d7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::gpu::harmonic_interpolation</definition>
+        <argsstring>(const Array &amp;array, const Array &amp;mask_fixed_values, const Array &amp;dx, const Array &amp;dy, int iterations_max=500, float tolerance=1e-5f, float omega=0.f)</argsstring>
+        <name>harmonic_interpolation</name>
+        <qualifiedname>hmap::gpu::harmonic_interpolation</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>array</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>mask_fixed_values</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>dx</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>dy</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>iterations_max</declname>
+          <defval>500</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tolerance</declname>
+          <defval>1e-5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>omega</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+<para>Perform harmonic interpolation on GPU with 2D variable diffusion coefficients (Dx, Dy) using Red-Black SOR. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input 2D array providing the initial guess. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mask_fixed_values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask where values &gt; 0 are fixed boundary constraints. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> of diffusion coefficients in x-direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> of diffusion coefficients in y-direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iterations_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of iterations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tolerance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Convergence tolerance. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>omega</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Relaxation factor (0 = auto-computed optimal). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interpolated array. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/interpolate/harmonic_interpolation_gpu.cpp" line="85" column="7" bodyfile="HighMap/src/interpolate/harmonic_interpolation_gpu.cpp" bodystart="85" bodyend="154" declfile="HighMap/include/highmap/interpolate/interpolate2d.hpp" declline="363" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a7fca2b47602e86cf0c65908230bdee55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
