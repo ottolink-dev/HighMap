@@ -6,6 +6,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_array_io.cpp", "test__array__io_8cpp.html", "test__array__io_8cpp" ],
     [ "test_autocorr_length_scale.cpp", "test__autocorr__length__scale_8cpp.html", "test__autocorr__length__scale_8cpp" ],
     [ "test_band.cpp", "test__band_8cpp.html", "test__band_8cpp" ],
+    [ "test_blending.cpp", "test__blending_8cpp.html", "test__blending_8cpp" ],
     [ "test_boundary.cpp", "test__boundary_8cpp.html", "test__boundary_8cpp" ],
     [ "test_chebyshev.cpp", "test__chebyshev_8cpp.html", "test__chebyshev_8cpp" ],
     [ "test_cloud.cpp", "test__cloud_8cpp.html", "test__cloud_8cpp" ],
