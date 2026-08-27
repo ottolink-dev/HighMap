@@ -122,259 +122,156 @@ $(document).ready(function(){initNavTree('algebra_8hpp_source.html',''); initRes
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespacehmap.html#af3cb67926262ec806d4d64c2755b1ddd">to_csv</a>(<span class="keyword">const</span> std::vector&lt;glm::vec3&gt; &amp;xyz, <span class="keyword">const</span> std::string &amp;fname);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">// --- Backward compatiblity with former custom classes (deprecated)</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">// --- For unordered_map</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec2.html">   29</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct </span><a class="code hl_struct" href="structhmap_1_1Vec2.html">Vec2</a>; <span class="comment">// forward decl only</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="foldopen" id="foldopen00032" data-start="{" data-end="};">
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec2_3_01float_01_4.html">   32</a></span><span class="keyword">struct </span>[[deprecated(<span class="stringliteral">&quot;Replaced by glm::vec2&quot;</span>)]] <a class="code hl_struct" href="structhmap_1_1Vec2.html">Vec2</a>&lt;float&gt; : <span class="keyword">public</span> glm::vec2</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>{</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="keyword">using </span>glm::vec2::vec2;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="keyword">using </span>glm::vec2::x;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keyword">using </span>glm::vec2::y;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>};</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">// for glm::ivec2 map</span></div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="};">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec2Hash.html">   30</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmap_1_1IVec2Hash.html">IVec2Hash</a></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>{</div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec2Hash.html#a05de5f485d21faecd327f50ba42d50a3">   32</a></span>  <span class="keywordtype">size_t</span> <a class="code hl_function" href="structhmap_1_1IVec2Hash.html#a05de5f485d21faecd327f50ba42d50a3">operator()</a>(<span class="keyword">const</span> glm::ivec2 &amp;v) <span class="keyword">const</span> <span class="keyword">noexcept</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">return</span> std::hash&lt;int&gt;()(v.x) ^ (std::hash&lt;int&gt;()(v.y) &lt;&lt; 1);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  }</div>
 </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="foldopen" id="foldopen00040" data-start="{" data-end="};">
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec2_3_01int_01_4.html">   40</a></span><span class="keyword">struct </span>[[deprecated(<span class="stringliteral">&quot;Replaced by glm::ivec2&quot;</span>)]] <a class="code hl_struct" href="structhmap_1_1Vec2.html">Vec2</a>&lt;int&gt; : <span class="keyword">public</span> glm::ivec2</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <span class="keyword">using </span>glm::ivec2::ivec2;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="keyword">using </span>glm::ivec2::x;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="keyword">using </span>glm::ivec2::y;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>};</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
 </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec3.html">   47</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct </span><a class="code hl_struct" href="structhmap_1_1Vec3.html">Vec3</a>; <span class="comment">// forward decl only</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="foldopen" id="foldopen00050" data-start="{" data-end="};">
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec3_3_01float_01_4.html">   50</a></span><span class="keyword">struct </span>[[deprecated(<span class="stringliteral">&quot;Replaced by glm::vec3&quot;</span>)]] <a class="code hl_struct" href="structhmap_1_1Vec3.html">Vec3</a>&lt;float&gt; : <span class="keyword">public</span> glm::vec3</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>{</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  <span class="keyword">using </span>glm::vec3::vec3;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keyword">using </span>glm::vec3::x;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <span class="keyword">using </span>glm::vec3::y;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keyword">using </span>glm::vec3::z;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="};">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec2Eq.html">   38</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmap_1_1IVec2Eq.html">IVec2Eq</a></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>{</div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec2Eq.html#abb48599c0b275d1455a8bf47d8057a72">   40</a></span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmap_1_1IVec2Eq.html#abb48599c0b275d1455a8bf47d8057a72">operator()</a>(<span class="keyword">const</span> glm::ivec2 &amp;a, <span class="keyword">const</span> glm::ivec2 &amp;b) <span class="keyword">const</span> <span class="keyword">noexcept</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> a == b;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  }</div>
 </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="foldopen" id="foldopen00059" data-start="{" data-end="};">
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec3_3_01int_01_4.html">   59</a></span><span class="keyword">struct </span>[[deprecated(<span class="stringliteral">&quot;Replaced by glm::ivec3&quot;</span>)]] <a class="code hl_struct" href="structhmap_1_1Vec3.html">Vec3</a>&lt;int&gt; : <span class="keyword">public</span> glm::ivec3</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>{</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <span class="keyword">using </span>glm::ivec3::ivec3;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keyword">using </span>glm::ivec3::x;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keyword">using </span>glm::ivec3::y;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keyword">using </span>glm::ivec3::z;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>};</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>};</div>
 </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4.html">   67</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct </span><a class="code hl_struct" href="structhmap_1_1Vec4.html">Vec4</a>; <span class="comment">// forward decl only</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="foldopen" id="foldopen00070" data-start="{" data-end="};">
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01float_01_4.html">   70</a></span><span class="keyword">struct </span>[[deprecated(<span class="stringliteral">&quot;Replaced by glm::vec4&quot;</span>)]] <a class="code hl_struct" href="structhmap_1_1Vec4.html">Vec4</a>&lt;float&gt; : <span class="keyword">public</span> glm::vec4</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>{</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="keyword">using </span>glm::vec4::vec4;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <span class="comment">// expose glm names</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  <span class="keyword">using </span>glm::vec4::w;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  <span class="keyword">using </span>glm::vec4::x;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keyword">using </span>glm::vec4::y;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  <span class="keyword">using </span>glm::vec4::z;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  <span class="comment">// retro-compat aliases</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01float_01_4.html#a2db4d33abae3b131f9087ea55ce27931">   81</a></span>  <span class="keywordtype">float</span> &amp;a = x;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01float_01_4.html#a7c8d3b9636e42e627240ddee38bd9019">   82</a></span>  <span class="keywordtype">float</span> &amp;b = y;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01float_01_4.html#aa69095bc270e528f73a8440e5dcea363">   83</a></span>  <span class="keywordtype">float</span> &amp;c = z;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01float_01_4.html#a11b64ff1f7d189af375bf42337b849e5">   84</a></span>  <span class="keywordtype">float</span> &amp;d = w;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01float_01_4.html#a3929253dc7b3a1509c8f3e8c199f2e02">   86</a></span>  <span class="keyword">const</span> <span class="keywordtype">float</span> &amp;a_const = x;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01float_01_4.html#aff745cb50a7d106f8badc8d8e0e237e7">   87</a></span>  <span class="keyword">const</span> <span class="keywordtype">float</span> &amp;b_const = y;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01float_01_4.html#a6625a8b43389e7deea5409cf9c32719f">   88</a></span>  <span class="keyword">const</span> <span class="keywordtype">float</span> &amp;c_const = z;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01float_01_4.html#aae8b68d836394b46fecae84c6c4cf325">   89</a></span>  <span class="keyword">const</span> <span class="keywordtype">float</span> &amp;d_const = w;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>};</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">// for glm::ivec4 map</span></div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="};">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec4Hash.html">   47</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmap_1_1IVec4Hash.html">IVec4Hash</a></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>{</div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec4Hash.html#a48cda465432cc7181e29227b4502e030">   49</a></span>  std::size_t <a class="code hl_function" href="structhmap_1_1IVec4Hash.html#a48cda465432cc7181e29227b4502e030">operator()</a>(<span class="keyword">const</span> glm::ivec4 &amp;v) <span class="keyword">const</span> <span class="keyword">noexcept</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    std::size_t h = 0;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    h ^= std::hash&lt;int&gt;{}(v.x) + 0x9e3779b9 + (h &lt;&lt; 6) + (h &gt;&gt; 2);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    h ^= std::hash&lt;int&gt;{}(v.y) + 0x9e3779b9 + (h &lt;&lt; 6) + (h &gt;&gt; 2);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    h ^= std::hash&lt;int&gt;{}(v.z) + 0x9e3779b9 + (h &lt;&lt; 6) + (h &gt;&gt; 2);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    h ^= std::hash&lt;int&gt;{}(v.w) + 0x9e3779b9 + (h &lt;&lt; 6) + (h &gt;&gt; 2);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">return</span> h;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  }</div>
 </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="foldopen" id="foldopen00093" data-start="{" data-end="};">
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01int_01_4.html">   93</a></span><span class="keyword">struct </span>[[deprecated(<span class="stringliteral">&quot;Replaced by glm::ivec4&quot;</span>)]] <a class="code hl_struct" href="structhmap_1_1Vec4.html">Vec4</a>&lt;int&gt; : <span class="keyword">public</span> glm::ivec4</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>{</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  <span class="keyword">using </span>glm::ivec4::ivec4;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>  <span class="comment">// expose glm names</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>  <span class="keyword">using </span>glm::ivec4::w;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  <span class="keyword">using </span>glm::ivec4::x;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>  <span class="keyword">using </span>glm::ivec4::y;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>  <span class="keyword">using </span>glm::ivec4::z;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>  <span class="comment">// retro-compat aliases</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01int_01_4.html#ae842539e36b1301e2d730aad973d15bd">  104</a></span>  <span class="keywordtype">int</span> &amp;a = x;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01int_01_4.html#a5c2f3aaa713efe1df6c30e96e53935bf">  105</a></span>  <span class="keywordtype">int</span> &amp;b = y;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01int_01_4.html#a4fe691cc372becbfe8489ef746c4de1e">  106</a></span>  <span class="keywordtype">int</span> &amp;c = z;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01int_01_4.html#acf962b6a3d089d28350b2cc9cdeab1a0">  107</a></span>  <span class="keywordtype">int</span> &amp;d = w;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01int_01_4.html#a8cf42a2e5e65136dc51c7225b75319f3">  109</a></span>  <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;a_const = x;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01int_01_4.html#af9712f210b5c404ca3d2e872a2e0a6b8">  110</a></span>  <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;b_const = y;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01int_01_4.html#a2e5335f3d018bb1257f76ef0b7696114">  111</a></span>  <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;c_const = z;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="structhmap_1_1Vec4_3_01int_01_4.html#adc6a9d9f02857aa1262d6e16f18d0ff1">  112</a></span>  <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;d_const = w;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>};</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>};</div>
+</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="foldopen" id="foldopen00060" data-start="{" data-end="};">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec4Eq.html">   60</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmap_1_1IVec4Eq.html">IVec4Eq</a></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>{</div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec4Eq.html#a8221faa8712cb66e0977dbe497383267">   62</a></span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmap_1_1IVec4Eq.html#a8221faa8712cb66e0977dbe497383267">operator()</a>(<span class="keyword">const</span> glm::ivec4 &amp;a, <span class="keyword">const</span> glm::ivec4 &amp;b) <span class="keyword">const</span> <span class="keyword">noexcept</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">return</span> a == b;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  }</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
+</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="namespacehmap.html#adc5300323fa35e021fd83b8b048ef3b1">   68</a></span><span class="keyword">inline</span> glm::vec4 <a class="code hl_function" href="namespacehmap.html#adc5300323fa35e021fd83b8b048ef3b1">adjust</a>(<span class="keyword">const</span> glm::vec4 &amp;v,</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                        <span class="keywordtype">float</span>            dx,</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                        <span class="keywordtype">float</span>            dy,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                        <span class="keywordtype">float</span>            dz,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                        <span class="keywordtype">float</span>            dw)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>{</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <span class="keywordflow">return</span> glm::vec4{v.x + dx, v.y + dy, v.z + dz, v.w + dw};</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="namespacehmap.html#a65974181387dcb86ae7660a4708b4c09">   77</a></span><span class="keyword">inline</span> glm::vec4 <a class="code hl_function" href="namespacehmap.html#adc5300323fa35e021fd83b8b048ef3b1">adjust</a>(<span class="keyword">const</span> glm::vec4 &amp;v, <span class="keywordtype">float</span> dr)</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>{</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <span class="keywordflow">return</span> glm::vec4{v.x - dr, v.y + dr, v.z - dr, v.w + dr};</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
+</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="};">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html">   91</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct </span><a class="code hl_struct" href="structhmap_1_1Mat.html">Mat</a></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>{</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a4a27962ffe15d147fa23386947c08cbf">   93</a></span>  std::vector&lt;T&gt; <a class="code hl_variable" href="structhmap_1_1Mat.html#a4a27962ffe15d147fa23386947c08cbf">vector</a>; </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">   95</a></span>  glm::ivec2 <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>;      </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#aa469721a9114946e5346e95029a5f5dd">   98</a></span>  <a class="code hl_function" href="structhmap_1_1Mat.html#aa469721a9114946e5346e95029a5f5dd">Mat</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="foldopen" id="foldopen00110" data-start="{" data-end="}">
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a6a0451aafcbc5205d7f6bbe534092a9a">  110</a></span>  <a class="code hl_function" href="structhmap_1_1Mat.html#a6a0451aafcbc5205d7f6bbe534092a9a">Mat</a>(glm::ivec2 <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>) : <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>(<a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>)</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>  {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    this-&gt;vector.resize(<a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>.x * <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>.y);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  }</div>
 </div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment">// --- For unordered_map</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment">// for glm::ivec2 map</span></div>
-<div class="foldopen" id="foldopen00118" data-start="{" data-end="};">
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec2Hash.html">  118</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmap_1_1IVec2Hash.html">IVec2Hash</a></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>{</div>
-<div class="foldopen" id="foldopen00120" data-start="{" data-end="}">
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec2Hash.html#a05de5f485d21faecd327f50ba42d50a3">  120</a></span>  <span class="keywordtype">size_t</span> <a class="code hl_function" href="structhmap_1_1IVec2Hash.html#a05de5f485d21faecd327f50ba42d50a3">operator()</a>(<span class="keyword">const</span> glm::ivec2 &amp;v) <span class="keyword">const</span> <span class="keyword">noexcept</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>  {</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordflow">return</span> std::hash&lt;int&gt;()(v.x) ^ (std::hash&lt;int&gt;()(v.y) &lt;&lt; 1);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>  }</div>
+<div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a83bf076cc0c3e6dd8911e05a2b95592e">  126</a></span>  <a class="code hl_function" href="structhmap_1_1Mat.html#a83bf076cc0c3e6dd8911e05a2b95592e">Mat</a>(glm::ivec2 <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>, T value) : <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>(<a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>)</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>  {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    this-&gt;vector.resize(<a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>.x * <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>.y);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    std::fill(this-&gt;vector.begin(), this-&gt;vector.end(), value);</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>  }</div>
 </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>};</div>
-</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="foldopen" id="foldopen00126" data-start="{" data-end="};">
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec2Eq.html">  126</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmap_1_1IVec2Eq.html">IVec2Eq</a></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>{</div>
-<div class="foldopen" id="foldopen00128" data-start="{" data-end="}">
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec2Eq.html#abb48599c0b275d1455a8bf47d8057a72">  128</a></span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmap_1_1IVec2Eq.html#abb48599c0b275d1455a8bf47d8057a72">operator()</a>(<span class="keyword">const</span> glm::ivec2 &amp;a, <span class="keyword">const</span> glm::ivec2 &amp;b) <span class="keyword">const</span> <span class="keyword">noexcept</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>  {</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keywordflow">return</span> a == b;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>  }</div>
-</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>};</div>
-</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment">// for glm::ivec4 map</span></div>
-<div class="foldopen" id="foldopen00135" data-start="{" data-end="};">
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec4Hash.html">  135</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmap_1_1IVec4Hash.html">IVec4Hash</a></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>{</div>
-<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec4Hash.html#a48cda465432cc7181e29227b4502e030">  137</a></span>  std::size_t <a class="code hl_function" href="structhmap_1_1IVec4Hash.html#a48cda465432cc7181e29227b4502e030">operator()</a>(<span class="keyword">const</span> glm::ivec4 &amp;v) <span class="keyword">const</span> <span class="keyword">noexcept</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>  {</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    std::size_t h = 0;</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    h ^= std::hash&lt;int&gt;{}(v.x) + 0x9e3779b9 + (h &lt;&lt; 6) + (h &gt;&gt; 2);</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    h ^= std::hash&lt;int&gt;{}(v.y) + 0x9e3779b9 + (h &lt;&lt; 6) + (h &gt;&gt; 2);</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    h ^= std::hash&lt;int&gt;{}(v.z) + 0x9e3779b9 + (h &lt;&lt; 6) + (h &gt;&gt; 2);</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    h ^= std::hash&lt;int&gt;{}(v.w) + 0x9e3779b9 + (h &lt;&lt; 6) + (h &gt;&gt; 2);</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">return</span> h;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="foldopen" id="foldopen00142" data-start="{" data-end="}">
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a429366c8daa4495b65f288f3527f2022">  142</a></span>  T &amp;<a class="code hl_function" href="structhmap_1_1Mat.html#a429366c8daa4495b65f288f3527f2022">operator()</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j)</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>  {</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">return</span> this-&gt;vector[j * this-&gt;shape.x + i];</div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>  }</div>
 </div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>};</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="foldopen" id="foldopen00158" data-start="{" data-end="}">
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a4f148a4aa0f08e0bd0c4959b8fcc9aa5">  158</a></span>  <span class="keyword">const</span> T &amp;<a class="code hl_function" href="structhmap_1_1Mat.html#a4f148a4aa0f08e0bd0c4959b8fcc9aa5">operator()</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keywordflow">return</span> this-&gt;vector[j * this-&gt;shape.x + i];</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>  }</div>
 </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="foldopen" id="foldopen00148" data-start="{" data-end="};">
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec4Eq.html">  148</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmap_1_1IVec4Eq.html">IVec4Eq</a></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>{</div>
-<div class="foldopen" id="foldopen00150" data-start="{" data-end="}">
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="structhmap_1_1IVec4Eq.html#a8221faa8712cb66e0977dbe497383267">  150</a></span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmap_1_1IVec4Eq.html#a8221faa8712cb66e0977dbe497383267">operator()</a>(<span class="keyword">const</span> glm::ivec4 &amp;a, <span class="keyword">const</span> glm::ivec4 &amp;b) <span class="keyword">const</span> <span class="keyword">noexcept</span></div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>  {</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">return</span> a == b;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>  }</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="foldopen" id="foldopen00163" data-start="{" data-end="}">
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a64286cac9e847ae6f76dd8f696108b8a">  163</a></span>  T &amp;<a class="code hl_function" href="structhmap_1_1Mat.html#a64286cac9e847ae6f76dd8f696108b8a">operator()</a>(glm::ivec2 ij)</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>  {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordflow">return</span> this-&gt;vector[ij.y * this-&gt;shape.x + ij.x];</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>  }</div>
 </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>};</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="foldopen" id="foldopen00168" data-start="{" data-end="}">
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a7f02ddd8303ad668585dbed93df95b7c">  168</a></span>  <span class="keyword">const</span> T &amp;<a class="code hl_function" href="structhmap_1_1Mat.html#a7f02ddd8303ad668585dbed93df95b7c">operator()</a>(glm::ivec2 ij)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordflow">return</span> this-&gt;vector[ij.y * this-&gt;shape.x + ij.x];</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>  }</div>
 </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="foldopen" id="foldopen00156" data-start="{" data-end="}">
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="namespacehmap.html#adc5300323fa35e021fd83b8b048ef3b1">  156</a></span><span class="keyword">inline</span> glm::vec4 <a class="code hl_function" href="namespacehmap.html#adc5300323fa35e021fd83b8b048ef3b1">adjust</a>(<span class="keyword">const</span> glm::vec4 &amp;v,</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                        <span class="keywordtype">float</span>            dx,</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                        <span class="keywordtype">float</span>            dy,</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                        <span class="keywordtype">float</span>            dz,</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                        <span class="keywordtype">float</span>            dw)</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>{</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>  <span class="keywordflow">return</span> glm::vec4{v.x + dx, v.y + dy, v.z + dz, v.w + dw};</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>}</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>};</div>
 </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
-<div class="foldopen" id="foldopen00165" data-start="{" data-end="}">
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="namespacehmap.html#a65974181387dcb86ae7660a4708b4c09">  165</a></span><span class="keyword">inline</span> glm::vec4 <a class="code hl_function" href="namespacehmap.html#adc5300323fa35e021fd83b8b048ef3b1">adjust</a>(<span class="keyword">const</span> glm::vec4 &amp;v, <span class="keywordtype">float</span> dr)</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>{</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>  <span class="keywordflow">return</span> glm::vec4{v.x - dr, v.y + dr, v.z - dr, v.w + dr};</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>}</div>
-</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="foldopen" id="foldopen00179" data-start="{" data-end="};">
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html">  179</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct </span><a class="code hl_struct" href="structhmap_1_1Mat.html">Mat</a></div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>{</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a4a27962ffe15d147fa23386947c08cbf">  181</a></span>  std::vector&lt;T&gt; <a class="code hl_variable" href="structhmap_1_1Mat.html#a4a27962ffe15d147fa23386947c08cbf">vector</a>; </div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">  183</a></span>  glm::ivec2 <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>;      </div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#aa469721a9114946e5346e95029a5f5dd">  186</a></span>  <a class="code hl_function" href="structhmap_1_1Mat.html#aa469721a9114946e5346e95029a5f5dd">Mat</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
-<div class="foldopen" id="foldopen00198" data-start="{" data-end="}">
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a6a0451aafcbc5205d7f6bbe534092a9a">  198</a></span>  <a class="code hl_function" href="structhmap_1_1Mat.html#a6a0451aafcbc5205d7f6bbe534092a9a">Mat</a>(glm::ivec2 <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>) : <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>(<a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>)</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>  {</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    this-&gt;vector.resize(<a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>.x * <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>.y);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  }</div>
-</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="foldopen" id="foldopen00214" data-start="{" data-end="}">
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a83bf076cc0c3e6dd8911e05a2b95592e">  214</a></span>  <a class="code hl_function" href="structhmap_1_1Mat.html#a83bf076cc0c3e6dd8911e05a2b95592e">Mat</a>(glm::ivec2 <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>, T value) : <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>(<a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>)</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>  {</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    this-&gt;vector.resize(<a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>.x * <a class="code hl_variable" href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">shape</a>.y);</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    std::fill(this-&gt;vector.begin(), this-&gt;vector.end(), value);</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>  }</div>
-</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="foldopen" id="foldopen00230" data-start="{" data-end="}">
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a429366c8daa4495b65f288f3527f2022">  230</a></span>  T &amp;<a class="code hl_function" href="structhmap_1_1Mat.html#a429366c8daa4495b65f288f3527f2022">operator()</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j)</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>  {</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keywordflow">return</span> this-&gt;vector[j * this-&gt;shape.x + i];</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>  }</div>
-</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
-<div class="foldopen" id="foldopen00246" data-start="{" data-end="}">
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a4f148a4aa0f08e0bd0c4959b8fcc9aa5">  246</a></span>  <span class="keyword">const</span> T &amp;<a class="code hl_function" href="structhmap_1_1Mat.html#a4f148a4aa0f08e0bd0c4959b8fcc9aa5">operator()</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="keyword">  </span>{</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordflow">return</span> this-&gt;vector[j * this-&gt;shape.x + i];</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>  }</div>
-</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
-<div class="foldopen" id="foldopen00251" data-start="{" data-end="}">
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a64286cac9e847ae6f76dd8f696108b8a">  251</a></span>  T &amp;<a class="code hl_function" href="structhmap_1_1Mat.html#a64286cac9e847ae6f76dd8f696108b8a">operator()</a>(glm::ivec2 ij)</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>  {</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keywordflow">return</span> this-&gt;vector[ij.y * this-&gt;shape.x + ij.x];</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>  }</div>
-</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
-<div class="foldopen" id="foldopen00256" data-start="{" data-end="}">
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="structhmap_1_1Mat.html#a7f02ddd8303ad668585dbed93df95b7c">  256</a></span>  <span class="keyword">const</span> T &amp;<a class="code hl_function" href="structhmap_1_1Mat.html#a7f02ddd8303ad668585dbed93df95b7c">operator()</a>(glm::ivec2 ij)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="keyword">  </span>{</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keywordflow">return</span> this-&gt;vector[ij.y * this-&gt;shape.x + ij.x];</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>  }</div>
-</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>};</div>
-</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>} <span class="comment">// namespace hmap</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>} <span class="comment">// namespace hmap</span></div>
 </div>
 <div class="ttc" id="anamespacehmap_html"><div class="ttname"><a href="namespacehmap.html">hmap</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:23</div></div>
-<div class="ttc" id="anamespacehmap_html_adc5300323fa35e021fd83b8b048ef3b1"><div class="ttname"><a href="namespacehmap.html#adc5300323fa35e021fd83b8b048ef3b1">hmap::adjust</a></div><div class="ttdeci">glm::vec4 adjust(const glm::vec4 &amp;v, float dx, float dy, float dz, float dw)</div><div class="ttdef"><b>Definition</b> algebra.hpp:156</div></div>
+<div class="ttc" id="anamespacehmap_html_adc5300323fa35e021fd83b8b048ef3b1"><div class="ttname"><a href="namespacehmap.html#adc5300323fa35e021fd83b8b048ef3b1">hmap::adjust</a></div><div class="ttdeci">glm::vec4 adjust(const glm::vec4 &amp;v, float dx, float dy, float dz, float dw)</div><div class="ttdef"><b>Definition</b> algebra.hpp:68</div></div>
 <div class="ttc" id="anamespacehmap_html_af3cb67926262ec806d4d64c2755b1ddd"><div class="ttname"><a href="namespacehmap.html#af3cb67926262ec806d4d64c2755b1ddd">hmap::to_csv</a></div><div class="ttdeci">void to_csv(const std::vector&lt; glm::vec3 &gt; &amp;xyz, const std::string &amp;fname)</div><div class="ttdef"><b>Definition</b> algebra.cpp:13</div></div>
-<div class="ttc" id="astructhmap_1_1IVec2Eq_html"><div class="ttname"><a href="structhmap_1_1IVec2Eq.html">hmap::IVec2Eq</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:127</div></div>
-<div class="ttc" id="astructhmap_1_1IVec2Eq_html_abb48599c0b275d1455a8bf47d8057a72"><div class="ttname"><a href="structhmap_1_1IVec2Eq.html#abb48599c0b275d1455a8bf47d8057a72">hmap::IVec2Eq::operator()</a></div><div class="ttdeci">bool operator()(const glm::ivec2 &amp;a, const glm::ivec2 &amp;b) const noexcept</div><div class="ttdef"><b>Definition</b> algebra.hpp:128</div></div>
-<div class="ttc" id="astructhmap_1_1IVec2Hash_html"><div class="ttname"><a href="structhmap_1_1IVec2Hash.html">hmap::IVec2Hash</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:119</div></div>
-<div class="ttc" id="astructhmap_1_1IVec2Hash_html_a05de5f485d21faecd327f50ba42d50a3"><div class="ttname"><a href="structhmap_1_1IVec2Hash.html#a05de5f485d21faecd327f50ba42d50a3">hmap::IVec2Hash::operator()</a></div><div class="ttdeci">size_t operator()(const glm::ivec2 &amp;v) const noexcept</div><div class="ttdef"><b>Definition</b> algebra.hpp:120</div></div>
-<div class="ttc" id="astructhmap_1_1IVec4Eq_html"><div class="ttname"><a href="structhmap_1_1IVec4Eq.html">hmap::IVec4Eq</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:149</div></div>
-<div class="ttc" id="astructhmap_1_1IVec4Eq_html_a8221faa8712cb66e0977dbe497383267"><div class="ttname"><a href="structhmap_1_1IVec4Eq.html#a8221faa8712cb66e0977dbe497383267">hmap::IVec4Eq::operator()</a></div><div class="ttdeci">bool operator()(const glm::ivec4 &amp;a, const glm::ivec4 &amp;b) const noexcept</div><div class="ttdef"><b>Definition</b> algebra.hpp:150</div></div>
-<div class="ttc" id="astructhmap_1_1IVec4Hash_html"><div class="ttname"><a href="structhmap_1_1IVec4Hash.html">hmap::IVec4Hash</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:136</div></div>
-<div class="ttc" id="astructhmap_1_1IVec4Hash_html_a48cda465432cc7181e29227b4502e030"><div class="ttname"><a href="structhmap_1_1IVec4Hash.html#a48cda465432cc7181e29227b4502e030">hmap::IVec4Hash::operator()</a></div><div class="ttdeci">std::size_t operator()(const glm::ivec4 &amp;v) const noexcept</div><div class="ttdef"><b>Definition</b> algebra.hpp:137</div></div>
-<div class="ttc" id="astructhmap_1_1Mat_html"><div class="ttname"><a href="structhmap_1_1Mat.html">hmap::Mat</a></div><div class="ttdoc">Mat class for basic manipulation of 2D matrices.</div><div class="ttdef"><b>Definition</b> algebra.hpp:180</div></div>
-<div class="ttc" id="astructhmap_1_1Mat_html_a1ab58820a1efbf5e7c2f7ee1d51dd7c0"><div class="ttname"><a href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">hmap::Mat::shape</a></div><div class="ttdeci">glm::ivec2 shape</div><div class="ttdoc">Dimensions of the matrix (rows x columns).</div><div class="ttdef"><b>Definition</b> algebra.hpp:183</div></div>
-<div class="ttc" id="astructhmap_1_1Mat_html_a429366c8daa4495b65f288f3527f2022"><div class="ttname"><a href="structhmap_1_1Mat.html#a429366c8daa4495b65f288f3527f2022">hmap::Mat::operator()</a></div><div class="ttdeci">T &amp; operator()(int i, int j)</div><div class="ttdoc">Access operator to get a reference to the element at (i, j).</div><div class="ttdef"><b>Definition</b> algebra.hpp:230</div></div>
-<div class="ttc" id="astructhmap_1_1Mat_html_a4a27962ffe15d147fa23386947c08cbf"><div class="ttname"><a href="structhmap_1_1Mat.html#a4a27962ffe15d147fa23386947c08cbf">hmap::Mat::vector</a></div><div class="ttdeci">std::vector&lt; T &gt; vector</div><div class="ttdoc">1D vector storing matrix elements in row-major order.</div><div class="ttdef"><b>Definition</b> algebra.hpp:181</div></div>
-<div class="ttc" id="astructhmap_1_1Mat_html_a4f148a4aa0f08e0bd0c4959b8fcc9aa5"><div class="ttname"><a href="structhmap_1_1Mat.html#a4f148a4aa0f08e0bd0c4959b8fcc9aa5">hmap::Mat::operator()</a></div><div class="ttdeci">const T &amp; operator()(int i, int j) const</div><div class="ttdoc">Const access operator to get the value of the element at (i, j).</div><div class="ttdef"><b>Definition</b> algebra.hpp:246</div></div>
-<div class="ttc" id="astructhmap_1_1Mat_html_a64286cac9e847ae6f76dd8f696108b8a"><div class="ttname"><a href="structhmap_1_1Mat.html#a64286cac9e847ae6f76dd8f696108b8a">hmap::Mat::operator()</a></div><div class="ttdeci">T &amp; operator()(glm::ivec2 ij)</div><div class="ttdef"><b>Definition</b> algebra.hpp:251</div></div>
-<div class="ttc" id="astructhmap_1_1Mat_html_a6a0451aafcbc5205d7f6bbe534092a9a"><div class="ttname"><a href="structhmap_1_1Mat.html#a6a0451aafcbc5205d7f6bbe534092a9a">hmap::Mat::Mat</a></div><div class="ttdeci">Mat(glm::ivec2 shape)</div><div class="ttdoc">Constructor to initialize a matrix with a given shape.</div><div class="ttdef"><b>Definition</b> algebra.hpp:198</div></div>
-<div class="ttc" id="astructhmap_1_1Mat_html_a7f02ddd8303ad668585dbed93df95b7c"><div class="ttname"><a href="structhmap_1_1Mat.html#a7f02ddd8303ad668585dbed93df95b7c">hmap::Mat::operator()</a></div><div class="ttdeci">const T &amp; operator()(glm::ivec2 ij) const</div><div class="ttdef"><b>Definition</b> algebra.hpp:256</div></div>
-<div class="ttc" id="astructhmap_1_1Mat_html_a83bf076cc0c3e6dd8911e05a2b95592e"><div class="ttname"><a href="structhmap_1_1Mat.html#a83bf076cc0c3e6dd8911e05a2b95592e">hmap::Mat::Mat</a></div><div class="ttdeci">Mat(glm::ivec2 shape, T value)</div><div class="ttdoc">Constructor to initialize a matrix with a given shape and value.</div><div class="ttdef"><b>Definition</b> algebra.hpp:214</div></div>
+<div class="ttc" id="astructhmap_1_1IVec2Eq_html"><div class="ttname"><a href="structhmap_1_1IVec2Eq.html">hmap::IVec2Eq</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:39</div></div>
+<div class="ttc" id="astructhmap_1_1IVec2Eq_html_abb48599c0b275d1455a8bf47d8057a72"><div class="ttname"><a href="structhmap_1_1IVec2Eq.html#abb48599c0b275d1455a8bf47d8057a72">hmap::IVec2Eq::operator()</a></div><div class="ttdeci">bool operator()(const glm::ivec2 &amp;a, const glm::ivec2 &amp;b) const noexcept</div><div class="ttdef"><b>Definition</b> algebra.hpp:40</div></div>
+<div class="ttc" id="astructhmap_1_1IVec2Hash_html"><div class="ttname"><a href="structhmap_1_1IVec2Hash.html">hmap::IVec2Hash</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:31</div></div>
+<div class="ttc" id="astructhmap_1_1IVec2Hash_html_a05de5f485d21faecd327f50ba42d50a3"><div class="ttname"><a href="structhmap_1_1IVec2Hash.html#a05de5f485d21faecd327f50ba42d50a3">hmap::IVec2Hash::operator()</a></div><div class="ttdeci">size_t operator()(const glm::ivec2 &amp;v) const noexcept</div><div class="ttdef"><b>Definition</b> algebra.hpp:32</div></div>
+<div class="ttc" id="astructhmap_1_1IVec4Eq_html"><div class="ttname"><a href="structhmap_1_1IVec4Eq.html">hmap::IVec4Eq</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:61</div></div>
+<div class="ttc" id="astructhmap_1_1IVec4Eq_html_a8221faa8712cb66e0977dbe497383267"><div class="ttname"><a href="structhmap_1_1IVec4Eq.html#a8221faa8712cb66e0977dbe497383267">hmap::IVec4Eq::operator()</a></div><div class="ttdeci">bool operator()(const glm::ivec4 &amp;a, const glm::ivec4 &amp;b) const noexcept</div><div class="ttdef"><b>Definition</b> algebra.hpp:62</div></div>
+<div class="ttc" id="astructhmap_1_1IVec4Hash_html"><div class="ttname"><a href="structhmap_1_1IVec4Hash.html">hmap::IVec4Hash</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:48</div></div>
+<div class="ttc" id="astructhmap_1_1IVec4Hash_html_a48cda465432cc7181e29227b4502e030"><div class="ttname"><a href="structhmap_1_1IVec4Hash.html#a48cda465432cc7181e29227b4502e030">hmap::IVec4Hash::operator()</a></div><div class="ttdeci">std::size_t operator()(const glm::ivec4 &amp;v) const noexcept</div><div class="ttdef"><b>Definition</b> algebra.hpp:49</div></div>
+<div class="ttc" id="astructhmap_1_1Mat_html"><div class="ttname"><a href="structhmap_1_1Mat.html">hmap::Mat</a></div><div class="ttdoc">Mat class for basic manipulation of 2D matrices.</div><div class="ttdef"><b>Definition</b> algebra.hpp:92</div></div>
+<div class="ttc" id="astructhmap_1_1Mat_html_a1ab58820a1efbf5e7c2f7ee1d51dd7c0"><div class="ttname"><a href="structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0">hmap::Mat::shape</a></div><div class="ttdeci">glm::ivec2 shape</div><div class="ttdoc">Dimensions of the matrix (rows x columns).</div><div class="ttdef"><b>Definition</b> algebra.hpp:95</div></div>
+<div class="ttc" id="astructhmap_1_1Mat_html_a429366c8daa4495b65f288f3527f2022"><div class="ttname"><a href="structhmap_1_1Mat.html#a429366c8daa4495b65f288f3527f2022">hmap::Mat::operator()</a></div><div class="ttdeci">T &amp; operator()(int i, int j)</div><div class="ttdoc">Access operator to get a reference to the element at (i, j).</div><div class="ttdef"><b>Definition</b> algebra.hpp:142</div></div>
+<div class="ttc" id="astructhmap_1_1Mat_html_a4a27962ffe15d147fa23386947c08cbf"><div class="ttname"><a href="structhmap_1_1Mat.html#a4a27962ffe15d147fa23386947c08cbf">hmap::Mat::vector</a></div><div class="ttdeci">std::vector&lt; T &gt; vector</div><div class="ttdoc">1D vector storing matrix elements in row-major order.</div><div class="ttdef"><b>Definition</b> algebra.hpp:93</div></div>
+<div class="ttc" id="astructhmap_1_1Mat_html_a4f148a4aa0f08e0bd0c4959b8fcc9aa5"><div class="ttname"><a href="structhmap_1_1Mat.html#a4f148a4aa0f08e0bd0c4959b8fcc9aa5">hmap::Mat::operator()</a></div><div class="ttdeci">const T &amp; operator()(int i, int j) const</div><div class="ttdoc">Const access operator to get the value of the element at (i, j).</div><div class="ttdef"><b>Definition</b> algebra.hpp:158</div></div>
+<div class="ttc" id="astructhmap_1_1Mat_html_a64286cac9e847ae6f76dd8f696108b8a"><div class="ttname"><a href="structhmap_1_1Mat.html#a64286cac9e847ae6f76dd8f696108b8a">hmap::Mat::operator()</a></div><div class="ttdeci">T &amp; operator()(glm::ivec2 ij)</div><div class="ttdef"><b>Definition</b> algebra.hpp:163</div></div>
+<div class="ttc" id="astructhmap_1_1Mat_html_a6a0451aafcbc5205d7f6bbe534092a9a"><div class="ttname"><a href="structhmap_1_1Mat.html#a6a0451aafcbc5205d7f6bbe534092a9a">hmap::Mat::Mat</a></div><div class="ttdeci">Mat(glm::ivec2 shape)</div><div class="ttdoc">Constructor to initialize a matrix with a given shape.</div><div class="ttdef"><b>Definition</b> algebra.hpp:110</div></div>
+<div class="ttc" id="astructhmap_1_1Mat_html_a7f02ddd8303ad668585dbed93df95b7c"><div class="ttname"><a href="structhmap_1_1Mat.html#a7f02ddd8303ad668585dbed93df95b7c">hmap::Mat::operator()</a></div><div class="ttdeci">const T &amp; operator()(glm::ivec2 ij) const</div><div class="ttdef"><b>Definition</b> algebra.hpp:168</div></div>
+<div class="ttc" id="astructhmap_1_1Mat_html_a83bf076cc0c3e6dd8911e05a2b95592e"><div class="ttname"><a href="structhmap_1_1Mat.html#a83bf076cc0c3e6dd8911e05a2b95592e">hmap::Mat::Mat</a></div><div class="ttdeci">Mat(glm::ivec2 shape, T value)</div><div class="ttdoc">Constructor to initialize a matrix with a given shape and value.</div><div class="ttdef"><b>Definition</b> algebra.hpp:126</div></div>
 <div class="ttc" id="astructhmap_1_1Mat_html_aa469721a9114946e5346e95029a5f5dd"><div class="ttname"><a href="structhmap_1_1Mat.html#aa469721a9114946e5346e95029a5f5dd">hmap::Mat::Mat</a></div><div class="ttdeci">Mat()=default</div></div>
-<div class="ttc" id="astructhmap_1_1Vec2_html"><div class="ttname"><a href="structhmap_1_1Vec2.html">hmap::Vec2</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:29</div></div>
-<div class="ttc" id="astructhmap_1_1Vec3_html"><div class="ttname"><a href="structhmap_1_1Vec3.html">hmap::Vec3</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:47</div></div>
-<div class="ttc" id="astructhmap_1_1Vec4_html"><div class="ttname"><a href="structhmap_1_1Vec4.html">hmap::Vec4</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:67</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

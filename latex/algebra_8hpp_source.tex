@@ -19,187 +19,99 @@
 \DoxyCodeLine{00024\ }
 \DoxyCodeLine{00025\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_af3cb67926262ec806d4d64c2755b1ddd}{to\_csv}}(\textcolor{keyword}{const}\ std::vector<glm::vec3>\ \&xyz,\ \textcolor{keyword}{const}\ std::string\ \&fname);}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \textcolor{comment}{//\ -\/-\/-\/\ Backward\ compatiblity\ with\ former\ custom\ classes\ (deprecated)}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ -\/-\/-\/\ For\ unordered\_map}}
 \DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1Vec2}{Vec2}};\ \textcolor{comment}{//\ forward\ decl\ only}}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{template}\ <>}
-\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }[[deprecated(\textcolor{stringliteral}{"{}Replaced\ by\ glm::vec2"{}})]]\ \mbox{\hyperlink{structhmap_1_1Vec2}{Vec2}}<float>\ :\ \textcolor{keyword}{public}\ glm::vec2}
-\DoxyCodeLine{00033\ \{}
-\DoxyCodeLine{00034\ \ \ \textcolor{keyword}{using\ }glm::vec2::vec2;}
-\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{using\ }glm::vec2::x;}
-\DoxyCodeLine{00036\ \ \ \textcolor{keyword}{using\ }glm::vec2::y;}
-\DoxyCodeLine{00037\ \};}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \textcolor{keyword}{template}\ <>}
-\DoxyCodeLine{00040\ \textcolor{keyword}{struct\ }[[deprecated(\textcolor{stringliteral}{"{}Replaced\ by\ glm::ivec2"{}})]]\ \mbox{\hyperlink{structhmap_1_1Vec2}{Vec2}}<int>\ :\ \textcolor{keyword}{public}\ glm::ivec2}
-\DoxyCodeLine{00041\ \{}
-\DoxyCodeLine{00042\ \ \ \textcolor{keyword}{using\ }glm::ivec2::ivec2;}
-\DoxyCodeLine{00043\ \ \ \textcolor{keyword}{using\ }glm::ivec2::x;}
-\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{using\ }glm::ivec2::y;}
-\DoxyCodeLine{00045\ \};}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1Vec3}{Vec3}};\ \textcolor{comment}{//\ forward\ decl\ only}}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \textcolor{keyword}{template}\ <>}
-\DoxyCodeLine{00050\ \textcolor{keyword}{struct\ }[[deprecated(\textcolor{stringliteral}{"{}Replaced\ by\ glm::vec3"{}})]]\ \mbox{\hyperlink{structhmap_1_1Vec3}{Vec3}}<float>\ :\ \textcolor{keyword}{public}\ glm::vec3}
-\DoxyCodeLine{00051\ \{}
-\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{using\ }glm::vec3::vec3;}
-\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{using\ }glm::vec3::x;}
-\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{using\ }glm::vec3::y;}
-\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{using\ }glm::vec3::z;}
-\DoxyCodeLine{00056\ \};}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \textcolor{keyword}{template}\ <>}
-\DoxyCodeLine{00059\ \textcolor{keyword}{struct\ }[[deprecated(\textcolor{stringliteral}{"{}Replaced\ by\ glm::ivec3"{}})]]\ \mbox{\hyperlink{structhmap_1_1Vec3}{Vec3}}<int>\ :\ \textcolor{keyword}{public}\ glm::ivec3}
-\DoxyCodeLine{00060\ \{}
-\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{using\ }glm::ivec3::ivec3;}
-\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{using\ }glm::ivec3::x;}
-\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{using\ }glm::ivec3::y;}
-\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{using\ }glm::ivec3::z;}
-\DoxyCodeLine{00065\ \};}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1Vec4}{Vec4}};\ \textcolor{comment}{//\ forward\ decl\ only}}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \textcolor{keyword}{template}\ <>}
-\DoxyCodeLine{00070\ \textcolor{keyword}{struct\ }[[deprecated(\textcolor{stringliteral}{"{}Replaced\ by\ glm::vec4"{}})]]\ \mbox{\hyperlink{structhmap_1_1Vec4}{Vec4}}<float>\ :\ \textcolor{keyword}{public}\ glm::vec4}
-\DoxyCodeLine{00071\ \{}
-\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{using\ }glm::vec4::vec4;}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \textcolor{comment}{//\ expose\ glm\ names}}
-\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{using\ }glm::vec4::w;}
-\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{using\ }glm::vec4::x;}
-\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{using\ }glm::vec4::y;}
-\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{using\ }glm::vec4::z;}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \ \ \textcolor{comment}{//\ retro-\/compat\ aliases}}
-\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{float}\ \&a\ =\ x;}
-\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{float}\ \&b\ =\ y;}
-\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{float}\ \&c\ =\ z;}
-\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{float}\ \&d\ =\ w;}
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&a\_const\ =\ x;}
-\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&b\_const\ =\ y;}
-\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&c\_const\ =\ z;}
-\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&d\_const\ =\ w;}
-\DoxyCodeLine{00090\ \};}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \textcolor{keyword}{template}\ <>}
-\DoxyCodeLine{00093\ \textcolor{keyword}{struct\ }[[deprecated(\textcolor{stringliteral}{"{}Replaced\ by\ glm::ivec4"{}})]]\ \mbox{\hyperlink{structhmap_1_1Vec4}{Vec4}}<int>\ :\ \textcolor{keyword}{public}\ glm::ivec4}
-\DoxyCodeLine{00094\ \{}
-\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{using\ }glm::ivec4::ivec4;}
-\DoxyCodeLine{00096\ }
-\DoxyCodeLine{00097\ \ \ \textcolor{comment}{//\ expose\ glm\ names}}
-\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{using\ }glm::ivec4::w;}
-\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{using\ }glm::ivec4::x;}
-\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{using\ }glm::ivec4::y;}
-\DoxyCodeLine{00101\ \ \ \textcolor{keyword}{using\ }glm::ivec4::z;}
-\DoxyCodeLine{00102\ }
-\DoxyCodeLine{00103\ \ \ \textcolor{comment}{//\ retro-\/compat\ aliases}}
-\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{int}\ \&a\ =\ x;}
-\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{int}\ \&b\ =\ y;}
-\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{int}\ \&c\ =\ z;}
-\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{int}\ \&d\ =\ w;}
-\DoxyCodeLine{00108\ }
-\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&a\_const\ =\ x;}
-\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&b\_const\ =\ y;}
-\DoxyCodeLine{00111\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&c\_const\ =\ z;}
-\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&d\_const\ =\ w;}
-\DoxyCodeLine{00113\ \};}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ for\ glm::ivec2\ map}}
+\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1IVec2Hash}{IVec2Hash}}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structhmap_1_1IVec2Hash_a05de5f485d21faecd327f50ba42d50a3}{operator()}}(\textcolor{keyword}{const}\ glm::ivec2\ \&v)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00033\ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{return}\ std::hash<int>()(v.x)\ \string^\ (std::hash<int>()(v.y)\ <<\ 1);}
+\DoxyCodeLine{00035\ \ \ \}}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1IVec2Eq}{IVec2Eq}}}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structhmap_1_1IVec2Eq_abb48599c0b275d1455a8bf47d8057a72}{operator()}}(\textcolor{keyword}{const}\ glm::ivec2\ \&a,\ \textcolor{keyword}{const}\ glm::ivec2\ \&b)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00041\ \ \ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{return}\ a\ ==\ b;}
+\DoxyCodeLine{00043\ \ \ \}}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ for\ glm::ivec4\ map}}
+\DoxyCodeLine{00047\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1IVec4Hash}{IVec4Hash}}}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \ \ std::size\_t\ \mbox{\hyperlink{structhmap_1_1IVec4Hash_a48cda465432cc7181e29227b4502e030}{operator()}}(\textcolor{keyword}{const}\ glm::ivec4\ \&v)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00050\ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ std::size\_t\ h\ =\ 0;}
+\DoxyCodeLine{00052\ \ \ \ \ h\ \string^=\ std::hash<int>\{\}(v.x)\ +\ 0x9e3779b9\ +\ (h\ <<\ 6)\ +\ (h\ >>\ 2);}
+\DoxyCodeLine{00053\ \ \ \ \ h\ \string^=\ std::hash<int>\{\}(v.y)\ +\ 0x9e3779b9\ +\ (h\ <<\ 6)\ +\ (h\ >>\ 2);}
+\DoxyCodeLine{00054\ \ \ \ \ h\ \string^=\ std::hash<int>\{\}(v.z)\ +\ 0x9e3779b9\ +\ (h\ <<\ 6)\ +\ (h\ >>\ 2);}
+\DoxyCodeLine{00055\ \ \ \ \ h\ \string^=\ std::hash<int>\{\}(v.w)\ +\ 0x9e3779b9\ +\ (h\ <<\ 6)\ +\ (h\ >>\ 2);}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ h;}
+\DoxyCodeLine{00057\ \ \ \}}
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1IVec4Eq}{IVec4Eq}}}
+\DoxyCodeLine{00061\ \{}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structhmap_1_1IVec4Eq_a8221faa8712cb66e0977dbe497383267}{operator()}}(\textcolor{keyword}{const}\ glm::ivec4\ \&a,\ \textcolor{keyword}{const}\ glm::ivec4\ \&b)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00063\ \ \ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordflow}{return}\ a\ ==\ b;}
+\DoxyCodeLine{00065\ \ \ \}}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{inline}\ glm::vec4\ \mbox{\hyperlink{namespacehmap_adc5300323fa35e021fd83b8b048ef3b1}{adjust}}(\textcolor{keyword}{const}\ glm::vec4\ \&v,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ dx,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ dy,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ dz,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ dw)}
+\DoxyCodeLine{00073\ \{}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordflow}{return}\ glm::vec4\{v.x\ +\ dx,\ v.y\ +\ dy,\ v.z\ +\ dz,\ v.w\ +\ dw\};}
+\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{inline}\ glm::vec4\ \mbox{\hyperlink{namespacehmap_adc5300323fa35e021fd83b8b048ef3b1}{adjust}}(\textcolor{keyword}{const}\ glm::vec4\ \&v,\ \textcolor{keywordtype}{float}\ dr)}
+\DoxyCodeLine{00078\ \{}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordflow}{return}\ glm::vec4\{v.x\ -\/\ dr,\ v.y\ +\ dr,\ v.z\ -\/\ dr,\ v.w\ +\ dr\};}
+\DoxyCodeLine{00080\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1Mat}{Mat}}}
+\DoxyCodeLine{00092\ \{}
+\DoxyCodeLine{00093\ \ \ std::vector<T>\ \mbox{\hyperlink{structhmap_1_1Mat_a4a27962ffe15d147fa23386947c08cbf}{vector}};\ }
+\DoxyCodeLine{00095\ \ \ glm::ivec2\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}};\ \ \ \ \ \ }
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{structhmap_1_1Mat_aa469721a9114946e5346e95029a5f5dd}{Mat}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00110\ \ \ \mbox{\hyperlink{structhmap_1_1Mat_a6a0451aafcbc5205d7f6bbe534092a9a}{Mat}}(glm::ivec2\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}})\ :\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}}(\mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}})}
+\DoxyCodeLine{00111\ \ \ \{}
+\DoxyCodeLine{00112\ \ \ \ \ this-\/>vector.resize(\mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}}.x\ *\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}}.y);}
+\DoxyCodeLine{00113\ \ \ \}}
 \DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \textcolor{comment}{//\ -\/-\/-\/\ For\ unordered\_map}}
-\DoxyCodeLine{00116\ }
-\DoxyCodeLine{00117\ \textcolor{comment}{//\ for\ glm::ivec2\ map}}
-\DoxyCodeLine{00118\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1IVec2Hash}{IVec2Hash}}}
-\DoxyCodeLine{00119\ \{}
-\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structhmap_1_1IVec2Hash_a05de5f485d21faecd327f50ba42d50a3}{operator()}}(\textcolor{keyword}{const}\ glm::ivec2\ \&v)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00121\ \ \ \{}
-\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{return}\ std::hash<int>()(v.x)\ \string^\ (std::hash<int>()(v.y)\ <<\ 1);}
-\DoxyCodeLine{00123\ \ \ \}}
-\DoxyCodeLine{00124\ \};}
-\DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1IVec2Eq}{IVec2Eq}}}
-\DoxyCodeLine{00127\ \{}
-\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structhmap_1_1IVec2Eq_abb48599c0b275d1455a8bf47d8057a72}{operator()}}(\textcolor{keyword}{const}\ glm::ivec2\ \&a,\ \textcolor{keyword}{const}\ glm::ivec2\ \&b)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00129\ \ \ \{}
-\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{return}\ a\ ==\ b;}
-\DoxyCodeLine{00131\ \ \ \}}
-\DoxyCodeLine{00132\ \};}
-\DoxyCodeLine{00133\ }
-\DoxyCodeLine{00134\ \textcolor{comment}{//\ for\ glm::ivec4\ map}}
-\DoxyCodeLine{00135\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1IVec4Hash}{IVec4Hash}}}
-\DoxyCodeLine{00136\ \{}
-\DoxyCodeLine{00137\ \ \ std::size\_t\ \mbox{\hyperlink{structhmap_1_1IVec4Hash_a48cda465432cc7181e29227b4502e030}{operator()}}(\textcolor{keyword}{const}\ glm::ivec4\ \&v)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00138\ \ \ \{}
-\DoxyCodeLine{00139\ \ \ \ \ std::size\_t\ h\ =\ 0;}
-\DoxyCodeLine{00140\ \ \ \ \ h\ \string^=\ std::hash<int>\{\}(v.x)\ +\ 0x9e3779b9\ +\ (h\ <<\ 6)\ +\ (h\ >>\ 2);}
-\DoxyCodeLine{00141\ \ \ \ \ h\ \string^=\ std::hash<int>\{\}(v.y)\ +\ 0x9e3779b9\ +\ (h\ <<\ 6)\ +\ (h\ >>\ 2);}
-\DoxyCodeLine{00142\ \ \ \ \ h\ \string^=\ std::hash<int>\{\}(v.z)\ +\ 0x9e3779b9\ +\ (h\ <<\ 6)\ +\ (h\ >>\ 2);}
-\DoxyCodeLine{00143\ \ \ \ \ h\ \string^=\ std::hash<int>\{\}(v.w)\ +\ 0x9e3779b9\ +\ (h\ <<\ 6)\ +\ (h\ >>\ 2);}
-\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{return}\ h;}
+\DoxyCodeLine{00126\ \ \ \mbox{\hyperlink{structhmap_1_1Mat_a83bf076cc0c3e6dd8911e05a2b95592e}{Mat}}(glm::ivec2\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}},\ T\ value)\ :\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}}(\mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}})}
+\DoxyCodeLine{00127\ \ \ \{}
+\DoxyCodeLine{00128\ \ \ \ \ this-\/>vector.resize(\mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}}.x\ *\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}}.y);}
+\DoxyCodeLine{00129\ \ \ \ \ std::fill(this-\/>vector.begin(),\ this-\/>vector.end(),\ value);}
+\DoxyCodeLine{00130\ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00142\ \ \ T\ \&\mbox{\hyperlink{structhmap_1_1Mat_a429366c8daa4495b65f288f3527f2022}{operator()}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)}
+\DoxyCodeLine{00143\ \ \ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>vector[j\ *\ this-\/>shape.x\ +\ i];}
 \DoxyCodeLine{00145\ \ \ \}}
-\DoxyCodeLine{00146\ \};}
-\DoxyCodeLine{00147\ }
-\DoxyCodeLine{00148\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1IVec4Eq}{IVec4Eq}}}
-\DoxyCodeLine{00149\ \{}
-\DoxyCodeLine{00150\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structhmap_1_1IVec4Eq_a8221faa8712cb66e0977dbe497383267}{operator()}}(\textcolor{keyword}{const}\ glm::ivec4\ \&a,\ \textcolor{keyword}{const}\ glm::ivec4\ \&b)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00151\ \ \ \{}
-\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordflow}{return}\ a\ ==\ b;}
-\DoxyCodeLine{00153\ \ \ \}}
-\DoxyCodeLine{00154\ \};}
-\DoxyCodeLine{00155\ }
-\DoxyCodeLine{00156\ \textcolor{keyword}{inline}\ glm::vec4\ \mbox{\hyperlink{namespacehmap_adc5300323fa35e021fd83b8b048ef3b1}{adjust}}(\textcolor{keyword}{const}\ glm::vec4\ \&v,}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ dx,}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ dy,}
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ dz,}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ dw)}
-\DoxyCodeLine{00161\ \{}
-\DoxyCodeLine{00162\ \ \ \textcolor{keywordflow}{return}\ glm::vec4\{v.x\ +\ dx,\ v.y\ +\ dy,\ v.z\ +\ dz,\ v.w\ +\ dw\};}
-\DoxyCodeLine{00163\ \}}
-\DoxyCodeLine{00164\ }
-\DoxyCodeLine{00165\ \textcolor{keyword}{inline}\ glm::vec4\ \mbox{\hyperlink{namespacehmap_adc5300323fa35e021fd83b8b048ef3b1}{adjust}}(\textcolor{keyword}{const}\ glm::vec4\ \&v,\ \textcolor{keywordtype}{float}\ dr)}
-\DoxyCodeLine{00166\ \{}
-\DoxyCodeLine{00167\ \ \ \textcolor{keywordflow}{return}\ glm::vec4\{v.x\ -\/\ dr,\ v.y\ +\ dr,\ v.z\ -\/\ dr,\ v.w\ +\ dr\};}
-\DoxyCodeLine{00168\ \}}
-\DoxyCodeLine{00169\ }
-\DoxyCodeLine{00179\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1Mat}{Mat}}}
-\DoxyCodeLine{00180\ \{}
-\DoxyCodeLine{00181\ \ \ std::vector<T>\ \mbox{\hyperlink{structhmap_1_1Mat_a4a27962ffe15d147fa23386947c08cbf}{vector}};\ }
-\DoxyCodeLine{00183\ \ \ glm::ivec2\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}};\ \ \ \ \ \ }
-\DoxyCodeLine{00186\ \ \ \mbox{\hyperlink{structhmap_1_1Mat_aa469721a9114946e5346e95029a5f5dd}{Mat}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00187\ }
-\DoxyCodeLine{00198\ \ \ \mbox{\hyperlink{structhmap_1_1Mat_a6a0451aafcbc5205d7f6bbe534092a9a}{Mat}}(glm::ivec2\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}})\ :\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}}(\mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}})}
-\DoxyCodeLine{00199\ \ \ \{}
-\DoxyCodeLine{00200\ \ \ \ \ this-\/>vector.resize(\mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}}.x\ *\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}}.y);}
-\DoxyCodeLine{00201\ \ \ \}}
-\DoxyCodeLine{00202\ }
-\DoxyCodeLine{00214\ \ \ \mbox{\hyperlink{structhmap_1_1Mat_a83bf076cc0c3e6dd8911e05a2b95592e}{Mat}}(glm::ivec2\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}},\ T\ value)\ :\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}}(\mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}})}
-\DoxyCodeLine{00215\ \ \ \{}
-\DoxyCodeLine{00216\ \ \ \ \ this-\/>vector.resize(\mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}}.x\ *\ \mbox{\hyperlink{structhmap_1_1Mat_a1ab58820a1efbf5e7c2f7ee1d51dd7c0}{shape}}.y);}
-\DoxyCodeLine{00217\ \ \ \ \ std::fill(this-\/>vector.begin(),\ this-\/>vector.end(),\ value);}
-\DoxyCodeLine{00218\ \ \ \}}
-\DoxyCodeLine{00219\ }
-\DoxyCodeLine{00230\ \ \ T\ \&\mbox{\hyperlink{structhmap_1_1Mat_a429366c8daa4495b65f288f3527f2022}{operator()}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)}
-\DoxyCodeLine{00231\ \ \ \{}
-\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>vector[j\ *\ this-\/>shape.x\ +\ i];}
-\DoxyCodeLine{00233\ \ \ \}}
-\DoxyCodeLine{00234\ }
-\DoxyCodeLine{00246\ \ \ \textcolor{keyword}{const}\ T\ \&\mbox{\hyperlink{structhmap_1_1Mat_a4f148a4aa0f08e0bd0c4959b8fcc9aa5}{operator()}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00247\ \textcolor{keyword}{\ \ }\{}
-\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>vector[j\ *\ this-\/>shape.x\ +\ i];}
-\DoxyCodeLine{00249\ \ \ \}}
-\DoxyCodeLine{00250\ }
-\DoxyCodeLine{00251\ \ \ T\ \&\mbox{\hyperlink{structhmap_1_1Mat_a64286cac9e847ae6f76dd8f696108b8a}{operator()}}(glm::ivec2\ ij)}
-\DoxyCodeLine{00252\ \ \ \{}
-\DoxyCodeLine{00253\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>vector[ij.y\ *\ this-\/>shape.x\ +\ ij.x];}
-\DoxyCodeLine{00254\ \ \ \}}
-\DoxyCodeLine{00255\ }
-\DoxyCodeLine{00256\ \ \ \textcolor{keyword}{const}\ T\ \&\mbox{\hyperlink{structhmap_1_1Mat_a7f02ddd8303ad668585dbed93df95b7c}{operator()}}(glm::ivec2\ ij)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00257\ \textcolor{keyword}{\ \ }\{}
-\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>vector[ij.y\ *\ this-\/>shape.x\ +\ ij.x];}
-\DoxyCodeLine{00259\ \ \ \}}
-\DoxyCodeLine{00260\ \};}
-\DoxyCodeLine{00261\ }
-\DoxyCodeLine{00262\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00158\ \ \ \textcolor{keyword}{const}\ T\ \&\mbox{\hyperlink{structhmap_1_1Mat_a4f148a4aa0f08e0bd0c4959b8fcc9aa5}{operator()}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00159\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>vector[j\ *\ this-\/>shape.x\ +\ i];}
+\DoxyCodeLine{00161\ \ \ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ T\ \&\mbox{\hyperlink{structhmap_1_1Mat_a64286cac9e847ae6f76dd8f696108b8a}{operator()}}(glm::ivec2\ ij)}
+\DoxyCodeLine{00164\ \ \ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>vector[ij.y\ *\ this-\/>shape.x\ +\ ij.x];}
+\DoxyCodeLine{00166\ \ \ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \textcolor{keyword}{const}\ T\ \&\mbox{\hyperlink{structhmap_1_1Mat_a7f02ddd8303ad668585dbed93df95b7c}{operator()}}(glm::ivec2\ ij)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00169\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>vector[ij.y\ *\ this-\/>shape.x\ +\ ij.x];}
+\DoxyCodeLine{00171\ \ \ \}}
+\DoxyCodeLine{00172\ \};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
 
 \end{DoxyCode}
