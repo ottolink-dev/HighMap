@@ -119,7 +119,7 @@
 <codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>array.shape.y;<sp/>j++)</highlight></codeline>
 <codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>array.shape.x;<sp/>i++)</highlight></codeline>
 <codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r<sp/>=<sp/>r_fct(x[i],<sp/>y[j]);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r<sp/>=<sp/>r_fct(2.f<sp/>*<sp/>x[i],<sp/>2.f<sp/>*<sp/>y[j]);</highlight></codeline>
 <codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>r<sp/>+=<sp/>(*p_noise)(i,<sp/>j)<sp/>*<sp/>(*p_noise)(i,<sp/>j);</highlight></codeline>
 <codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>r<sp/>=<sp/>1.f<sp/>-<sp/>strength<sp/>*<sp/>r<sp/>*<sp/>r;</highlight></codeline>
 <codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array(i,<sp/>j)<sp/>*=<sp/>r;</highlight></codeline>
@@ -188,7 +188,7 @@
 <codeline lineno="178"><highlight class="normal"></highlight></codeline>
 <codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>j1;<sp/>j<sp/>&lt;<sp/>array_out.shape.y<sp/>-<sp/>j2;<sp/>j++)</highlight></codeline>
 <codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>array_out.shape.x<sp/>-<sp/>i2;<sp/>i<sp/>&lt;<sp/>array_out.shape.x;<sp/>i++)</highlight></codeline>
-<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array_out(i,<sp/>j)<sp/>=<sp/>array_out(2<sp/>*<sp/>(array_out.shape.x<sp/>-<sp/>i2)<sp/>-<sp/>i<sp/>-<sp/>1,<sp/>j);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array_out(i,<sp/>j)<sp/>=<sp/>array_out(2<sp/>*<sp/>(array_out.shape.x<sp/>-<sp/>i2<sp/>-<sp/>1)<sp/>-<sp/>i,<sp/>j);</highlight></codeline>
 <codeline lineno="182"><highlight class="normal"></highlight></codeline>
 <codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>j1;<sp/>j++)</highlight></codeline>
 <codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>array_out.shape.x;<sp/>i++)</highlight></codeline>
@@ -196,7 +196,7 @@
 <codeline lineno="186"><highlight class="normal"></highlight></codeline>
 <codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>array_out.shape.y<sp/>-<sp/>j2;<sp/>j<sp/>&lt;<sp/>array_out.shape.y;<sp/>j++)</highlight></codeline>
 <codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>array_out.shape.x;<sp/>i++)</highlight></codeline>
-<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array_out(i,<sp/>j)<sp/>=<sp/>array_out(i,<sp/>2<sp/>*<sp/>(array_out.shape.y<sp/>-<sp/>j2)<sp/>-<sp/>j<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array_out(i,<sp/>j)<sp/>=<sp/>array_out(i,<sp/>2<sp/>*<sp/>(array_out.shape.y<sp/>-<sp/>j2<sp/>-<sp/>1)<sp/>-<sp/>j);</highlight></codeline>
 <codeline lineno="190"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"></highlight></codeline>
 <codeline lineno="192"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>array_out;</highlight></codeline>
@@ -432,7 +432,7 @@
 <codeline lineno="422"><highlight class="normal"></highlight></codeline>
 <codeline lineno="423"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>j1;<sp/>j<sp/>&lt;<sp/>array.shape.y<sp/>-<sp/>j2;<sp/>j++)</highlight></codeline>
 <codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>array.shape.x<sp/>-<sp/>i2;<sp/>i<sp/>&lt;<sp/>array.shape.x;<sp/>i++)</highlight></codeline>
-<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>array(i,<sp/>j)<sp/>=<sp/>array(2<sp/>*<sp/>(array.shape.x<sp/>-<sp/>i2)<sp/>-<sp/>i<sp/>-<sp/>1,<sp/>j);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>array(i,<sp/>j)<sp/>=<sp/>array(2<sp/>*<sp/>(array.shape.x<sp/>-<sp/>i2<sp/>-<sp/>1)<sp/>-<sp/>i,<sp/>j);</highlight></codeline>
 <codeline lineno="426"><highlight class="normal"></highlight></codeline>
 <codeline lineno="427"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>j1;<sp/>j++)</highlight></codeline>
 <codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>array.shape.x;<sp/>i++)</highlight></codeline>
@@ -440,7 +440,7 @@
 <codeline lineno="430"><highlight class="normal"></highlight></codeline>
 <codeline lineno="431"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>array.shape.y<sp/>-<sp/>j2;<sp/>j<sp/>&lt;<sp/>array.shape.y;<sp/>j++)</highlight></codeline>
 <codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>array.shape.x;<sp/>i++)</highlight></codeline>
-<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>array(i,<sp/>j)<sp/>=<sp/>array(i,<sp/>2<sp/>*<sp/>(array.shape.y<sp/>-<sp/>j2)<sp/>-<sp/>j<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>array(i,<sp/>j)<sp/>=<sp/>array(i,<sp/>2<sp/>*<sp/>(array.shape.y<sp/>-<sp/>j2<sp/>-<sp/>1)<sp/>-<sp/>j);</highlight></codeline>
 <codeline lineno="434"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="435"><highlight class="normal"></highlight></codeline>
 <codeline lineno="436"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1ae8bdfc965780305d1d26ff8b84e1dced" kindref="member">zeroed_borders</ref>(Array<sp/>&amp;array)</highlight></codeline>

@@ -1,5 +1,10 @@
 var NAVTREEINDEX24 =
 {
+"thermal__gpu_8cpp.html#a36a2eba6d158e44d0ef917d9582987fe":[5,0,1,1,12,26,3],
+"thermal__gpu_8cpp.html#a435a38880a6bcabfb8991d5834a0f786":[5,0,1,1,12,26,12],
+"thermal__gpu_8cpp.html#a525c9818a95840ee8dfaa0c4e0d4f779":[5,0,1,1,12,26,16],
+"thermal__gpu_8cpp.html#a5a5275d0f2588dbbd766e2c5b1a8d55a":[5,0,1,1,12,26,6],
+"thermal__gpu_8cpp.html#a659c9749a413a9042480f0de9c4133cc":[5,0,1,1,12,26,17],
 "thermal__gpu_8cpp.html#a72c9d220589d2724b4e48e9c37ff55ad":[5,0,1,1,12,26,9],
 "thermal__gpu_8cpp.html#a812be167a39917ce8c869f7399dee231":[5,0,1,1,12,26,13],
 "thermal__gpu_8cpp.html#aac5f0e0045cf767611fb8d2def2c4cb5":[5,0,1,1,12,26,2],

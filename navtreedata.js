@@ -107,8 +107,8 @@ var NAVTREEINDEX =
 "range__gpu_8cpp.html#a84e8cfef31aeb4ba10d4f7cbe04cb96d",
 "structhmap_1_1ColorAdjust.html#abf71052fb9aa59345fff4155d9b33c0d",
 "structhmap_1_1Vec4_3_01int_01_4.html#ae842539e36b1301e2d730aad973d15bd",
-"test__gpu__cpu_8cpp.html#afcc19e2cd5708d3686cc1643568c4bd0",
-"thermal__gpu_8cpp.html#a72c9d220589d2724b4e48e9c37ff55ad"
+"test__gpu__cpu_8cpp.html",
+"thermal__gpu_8cpp.html#a36a2eba6d158e44d0ef917d9582987fe"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
