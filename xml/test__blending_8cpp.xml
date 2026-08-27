@@ -136,6 +136,25 @@
         </inbodydescription>
         <location file="tests/src/test_blending.cpp" line="133" column="1" bodyfile="tests/src/test_blending.cpp" bodystart="133" bodyend="145"/>
       </memberdef>
+      <memberdef kind="function" id="test__blending_8cpp_1aa9dd9e39ae3d02e2719501e0197be39a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(Blending, BlendPowerLaw)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>Blending</type>
+        </param>
+        <param>
+          <type>BlendPowerLaw</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_blending.cpp" line="147" column="1" bodyfile="tests/src/test_blending.cpp" bodystart="147" bodyend="179"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -287,6 +306,40 @@
 <codeline lineno="143"><highlight class="normal"><sp/><sp/>EXPECT_GE(res.<ref refid="classhmap_1_1Array_1a56c77f78e4864f5c6f2cbd6de8100556" kindref="member">min</ref>(),<sp/>-1e-4f);</highlight></codeline>
 <codeline lineno="144"><highlight class="normal"><sp/><sp/>EXPECT_LE(res.<ref refid="classhmap_1_1Array_1a68aac609ccba8f581da1cdf5cee671b9" kindref="member">max</ref>(),<sp/>1.0f<sp/>+<sp/>1e-4f);</highlight></codeline>
 <codeline lineno="145"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><ref refid="test__blending_8cpp_1a9f6d3ba532826e03fbb401acdf35669e" kindref="member">TEST</ref>(Blending,<sp/>BlendPowerLaw)</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{4,<sp/>4};</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>f1(shape,<sp/>2.0f);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>f2(shape,<sp/>8.0f);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>alpha<sp/>=<sp/>0<sp/>-&gt;<sp/>arithmetic<sp/>mean:<sp/>(2<sp/>+<sp/>8)<sp/>/<sp/>2<sp/>=<sp/>5.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>res_alpha0<sp/>=<sp/><ref refid="namespacehmap_1a85fd747437fd49e0fcfb770ad5f5851e" kindref="member">blend_power_law</ref>(f1,<sp/>f2,<sp/>0.0f);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(res_alpha0(0,<sp/>0),<sp/>5.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(res_alpha0(2,<sp/>2),<sp/>5.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>alpha<sp/>=<sp/>1<sp/>-&gt;<sp/>(2^2<sp/>+<sp/>8^2)<sp/>/<sp/>(2^1<sp/>+<sp/>8^1)<sp/>=<sp/>(4<sp/>+<sp/>64)<sp/>/<sp/>(2<sp/>+<sp/>8)<sp/>=<sp/>68<sp/>/<sp/>10<sp/>=<sp/>6.8</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>res_alpha1<sp/>=<sp/><ref refid="namespacehmap_1a85fd747437fd49e0fcfb770ad5f5851e" kindref="member">blend_power_law</ref>(f1,<sp/>f2,<sp/>1.0f);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(res_alpha1(0,<sp/>0),<sp/>6.8f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>alpha<sp/>large<sp/>-&gt;<sp/>approaches<sp/>max(f_i)<sp/>=<sp/>8.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>for<sp/>alpha<sp/>=<sp/>10:<sp/>(2^11<sp/>+<sp/>8^11)<sp/>/<sp/>(2^10<sp/>+<sp/>8^10)<sp/>~=<sp/>8.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>res_alpha10<sp/>=<sp/><ref refid="namespacehmap_1a85fd747437fd49e0fcfb770ad5f5851e" kindref="member">blend_power_law</ref>(f1,<sp/>f2,<sp/>10.0f);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(res_alpha10(0,<sp/>0),<sp/>8.0f,<sp/>1e-2f);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Test<sp/>with<sp/>vector<sp/>of<sp/>3<sp/>arrays</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>f3(shape,<sp/>5.0f);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/>std::vector&lt;const<sp/>Array<sp/>*&gt;<sp/>arrays<sp/>=<sp/>{&amp;f1,<sp/>&amp;f2,<sp/>&amp;f3};</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>alpha<sp/>=<sp/>0<sp/>-&gt;<sp/>(2<sp/>+<sp/>8<sp/>+<sp/>5)<sp/>/<sp/>3<sp/>=<sp/>5.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>res_vec0<sp/>=<sp/><ref refid="namespacehmap_1a85fd747437fd49e0fcfb770ad5f5851e" kindref="member">blend_power_law</ref>(arrays,<sp/>0.0f);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(res_vec0(0,<sp/>0),<sp/>5.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>alpha<sp/>=<sp/>1<sp/>-&gt;<sp/>(2^2<sp/>+<sp/>8^2<sp/>+<sp/>5^2)<sp/>/<sp/>(2<sp/>+<sp/>8<sp/>+<sp/>5)<sp/>=<sp/>(4<sp/>+<sp/>64<sp/>+<sp/>25)<sp/>/<sp/>15<sp/>=<sp/>93<sp/>/<sp/>15</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>=<sp/>6.2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>res_vec1<sp/>=<sp/><ref refid="namespacehmap_1a85fd747437fd49e0fcfb770ad5f5851e" kindref="member">blend_power_law</ref>(arrays,<sp/>1.0f);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(res_vec1(0,<sp/>0),<sp/>6.2f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_blending.cpp"/>
   </compounddef>

@@ -22,12 +22,13 @@ var searchData=
   ['blend_5fnegate_19',['blend_negate',['../namespacehmap.html#a183cf8de980d1886130cac97fd41bcc5',1,'hmap']]],
   ['blend_5foverlay_20',['blend_overlay',['../namespacehmap.html#a3d311d682d431e21c6d7063539a0db8e',1,'hmap']]],
   ['blend_5fpoisson_5fbf_21',['blend_poisson_bf',['../namespacehmap_1_1gpu.html#a65a176508b404f80e5f5abd31456712e',1,'hmap::gpu']]],
-  ['blend_5fsoft_22',['blend_soft',['../namespacehmap.html#a91e52ae1178d54931a1729a2368a31f7',1,'hmap']]],
-  ['border_23',['border',['../namespacehmap.html#af80bcff234bf1482cf26896b9d21d270',1,'hmap::border()'],['../namespacehmap_1_1gpu.html#a335e4629532ba64049e0721bdcb5f3ba',1,'hmap::gpu::border()']]],
-  ['bspline_24',['bspline',['../namespacehmap.html#a281c9db00eef9735e8eea7bbf50f3e34',1,'hmap']]],
-  ['build_25',['build',['../classhmap_1_1NaturalNeighborInterpolator.html#a9404f1043455692be64d35116a00742c',1,'hmap::NaturalNeighborInterpolator']]],
-  ['bulkify_26',['bulkify',['../namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3',1,'hmap']]],
-  ['bump_27',['bump',['../namespacehmap.html#a32035fe3ef18a31240ace195c721ecd7',1,'hmap']]],
-  ['bump_5florentzian_28',['bump_lorentzian',['../namespacehmap.html#a4af0bde798f0266db4dfe24e1134a506',1,'hmap']]],
-  ['bumpfunction_29',['BumpFunction',['../classhmap_1_1BumpFunction.html#a80e2476cc674ff1e15c5135829484c68',1,'hmap::BumpFunction']]]
+  ['blend_5fpower_5flaw_22',['blend_power_law',['../namespacehmap.html#a85fd747437fd49e0fcfb770ad5f5851e',1,'hmap::blend_power_law(const std::vector&lt; const Array * &gt; &amp;arrays, float alpha=0.f)'],['../namespacehmap.html#a01201c510915f9f10f26595c79a1220b',1,'hmap::blend_power_law(const Array &amp;array1, const Array &amp;array2, float alpha=0.f)']]],
+  ['blend_5fsoft_23',['blend_soft',['../namespacehmap.html#a91e52ae1178d54931a1729a2368a31f7',1,'hmap']]],
+  ['border_24',['border',['../namespacehmap.html#af80bcff234bf1482cf26896b9d21d270',1,'hmap::border()'],['../namespacehmap_1_1gpu.html#a335e4629532ba64049e0721bdcb5f3ba',1,'hmap::gpu::border()']]],
+  ['bspline_25',['bspline',['../namespacehmap.html#a281c9db00eef9735e8eea7bbf50f3e34',1,'hmap']]],
+  ['build_26',['build',['../classhmap_1_1NaturalNeighborInterpolator.html#a9404f1043455692be64d35116a00742c',1,'hmap::NaturalNeighborInterpolator']]],
+  ['bulkify_27',['bulkify',['../namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3',1,'hmap']]],
+  ['bump_28',['bump',['../namespacehmap.html#a32035fe3ef18a31240ace195c721ecd7',1,'hmap']]],
+  ['bump_5florentzian_29',['bump_lorentzian',['../namespacehmap.html#a4af0bde798f0266db4dfe24e1134a506',1,'hmap']]],
+  ['bumpfunction_30',['BumpFunction',['../classhmap_1_1BumpFunction.html#a80e2476cc674ff1e15c5135829484c68',1,'hmap::BumpFunction']]]
 ];

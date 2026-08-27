@@ -756,6 +756,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a91e52ae1178d54931a1729a2368a31f7" id="r_a91e52ae1178d54931a1729a2368a31f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a91e52ae1178d54931a1729a2368a31f7">blend_soft</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array1, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array2)</td></tr>
 <tr class="memdesc:a91e52ae1178d54931a1729a2368a31f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the 'soft' blending of two arrays.  <br /></td></tr>
 <tr class="separator:a91e52ae1178d54931a1729a2368a31f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85fd747437fd49e0fcfb770ad5f5851e" id="r_a85fd747437fd49e0fcfb770ad5f5851e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a85fd747437fd49e0fcfb770ad5f5851e">blend_power_law</a> (const std::vector&lt; const <a class="el" href="classhmap_1_1Array.html">Array</a> * &gt; &amp;arrays, float alpha=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
+<tr class="memdesc:a85fd747437fd49e0fcfb770ad5f5851e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the power law blending of a set of arrays.  <br /></td></tr>
+<tr class="separator:a85fd747437fd49e0fcfb770ad5f5851e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01201c510915f9f10f26595c79a1220b" id="r_a01201c510915f9f10f26595c79a1220b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a01201c510915f9f10f26595c79a1220b">blend_power_law</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array1, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array2, float alpha=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
+<tr class="memdesc:a01201c510915f9f10f26595c79a1220b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the power law blending of two arrays.  <br /></td></tr>
+<tr class="separator:a01201c510915f9f10f26595c79a1220b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1e91583a5c176014ed3720f0eb5a321" id="r_ad1e91583a5c176014ed3720f0eb5a321"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#ad1e91583a5c176014ed3720f0eb5a321">mixer</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;t, const std::vector&lt; const <a class="el" href="classhmap_1_1Array.html">Array</a> * &gt; &amp;arrays, float gain_factor=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
 <tr class="memdesc:ad1e91583a5c176014ed3720f0eb5a321"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the mixing of a set of arrays based on a parameter <code>t</code>.  <br /></td></tr>
 <tr class="separator:ad1e91583a5c176014ed3720f0eb5a321"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -5366,6 +5372,148 @@ template&lt;typename Fn &gt; </div>
 
 </div>
 </div>
+<a id="a85fd747437fd49e0fcfb770ad5f5851e" name="a85fd747437fd49e0fcfb770ad5f5851e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85fd747437fd49e0fcfb770ad5f5851e">&#9670;&#160;</a></span>blend_power_law() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1Array.html">Array</a> hmap::blend_power_law </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; const <a class="el" href="classhmap_1_1Array.html">Array</a> * &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arrays</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>alpha</em> = <code>0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the power law blending of a set of arrays. </p>
+<p>Blends two (or more) arrays using power law averaging:  </p><p class="formulaDsp">
+\[
+f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
+\]
+</p>
+<p> The behavior varies with the bias \(\alpha\) from a simple average of the heights at each node when \(\alpha=0\), approaching \(\max(f_i)\) as \(\alpha \to \infty\).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">arrays</td><td><a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> references to blend. </td></tr>
+    <tr><td class="paramname">alpha</td><td>Power law exponent (default: 0.0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> Resulting array after power law blending.</dd></dl>
+<p><b>Example</b> </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="highmap_8hpp.html">highmap.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
+<div class="line">{</div>
+<div class="line">  glm::ivec2 shape = {128, 128};</div>
+<div class="line">  <span class="keywordtype">int</span>        seed = 1;</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z1 = <a class="code hl_function" href="namespacehmap.html#a0f94056bb01fb9798ce72d3c4b1be4d2">hmap::noise</a>(<a class="code hl_enumvalue" href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>,</div>
+<div class="line">                               shape,</div>
+<div class="line">                               {2.f, 2.f},</div>
+<div class="line">                               seed);</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z2 = <a class="code hl_function" href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>,</div>
+<div class="line">                                   shape,</div>
+<div class="line">                                   {4.f, 4.f},</div>
+<div class="line">                                   seed + 1);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#a262e6495cb2d02598f36a2b46114b2b4">hmap::remap</a>(z1);</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#a262e6495cb2d02598f36a2b46114b2b4">hmap::remap</a>(z2);</div>
+<div class="line"> </div>
+<div class="line">  <span class="keyword">auto</span> z_alpha0 = <a class="code hl_function" href="namespacehmap.html#a85fd747437fd49e0fcfb770ad5f5851e">hmap::blend_power_law</a>(z1, z2, 0.f);</div>
+<div class="line">  <span class="keyword">auto</span> z_alpha1 = <a class="code hl_function" href="namespacehmap.html#a85fd747437fd49e0fcfb770ad5f5851e">hmap::blend_power_law</a>(z1, z2, 1.f);</div>
+<div class="line">  <span class="keyword">auto</span> z_alpha4 = <a class="code hl_function" href="namespacehmap.html#a85fd747437fd49e0fcfb770ad5f5851e">hmap::blend_power_law</a>(z1, z2, 4.f);</div>
+<div class="line">  <span class="keyword">auto</span> z_alpha16 = <a class="code hl_function" href="namespacehmap.html#a85fd747437fd49e0fcfb770ad5f5851e">hmap::blend_power_law</a>(z1, z2, 16.f);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_blend_power_law0.png&quot;</span>,</div>
+<div class="line">                          {z1, z2, z_alpha0},</div>
+<div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492">hmap::Cmap::VIRIDIS</a>);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_blend_power_law1.png&quot;</span>,</div>
+<div class="line">                          {z1, z2, z_alpha1},</div>
+<div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492">hmap::Cmap::VIRIDIS</a>);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_blend_power_law2.png&quot;</span>,</div>
+<div class="line">                          {z1, z2, z_alpha4},</div>
+<div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492">hmap::Cmap::VIRIDIS</a>);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_blend_power_law3.png&quot;</span>,</div>
+<div class="line">                          {z1, z2, z_alpha16},</div>
+<div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492">hmap::Cmap::VIRIDIS</a>);</div>
+<div class="line">}</div>
+<div class="ttc" id="anamespacehmap_html_a85fd747437fd49e0fcfb770ad5f5851e"><div class="ttname"><a href="namespacehmap.html#a85fd747437fd49e0fcfb770ad5f5851e">hmap::blend_power_law</a></div><div class="ttdeci">Array blend_power_law(const std::vector&lt; const Array * &gt; &amp;arrays, float alpha=0.f)</div><div class="ttdoc">Return the power law blending of a set of arrays.</div><div class="ttdef"><b>Definition</b> blending.cpp:78</div></div>
+</div><!-- fragment --><p><b>Result</b> </p><div class="image">
+<img src="ex_blend_power_law0.png" alt=""/>
+</div>
+ <div class="image">
+<img src="ex_blend_power_law1.png" alt=""/>
+</div>
+ <div class="image">
+<img src="ex_blend_power_law2.png" alt=""/>
+</div>
+ <div class="image">
+<img src="ex_blend_power_law3.png" alt=""/>
+</div>
+ 
+</div>
+</div>
+<a id="a01201c510915f9f10f26595c79a1220b" name="a01201c510915f9f10f26595c79a1220b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01201c510915f9f10f26595c79a1220b">&#9670;&#160;</a></span>blend_power_law() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1Array.html">Array</a> hmap::blend_power_law </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>array1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>array2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>alpha</em> = <code>0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the power law blending of two arrays. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array1</td><td>First input array. </td></tr>
+    <tr><td class="paramname">array2</td><td>Second input array. </td></tr>
+    <tr><td class="paramname">alpha</td><td>Power law exponent (default: 0.0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> Resulting array after power law blending. </dd></dl>
+
+</div>
+</div>
 <a id="ad1e91583a5c176014ed3720f0eb5a321" name="ad1e91583a5c176014ed3720f0eb5a321"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad1e91583a5c176014ed3720f0eb5a321">&#9670;&#160;</a></span>mixer()</h2>
 
@@ -5440,7 +5588,7 @@ template&lt;typename Fn &gt; </div>
 <div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492">hmap::Cmap::VIRIDIS</a>);</div>
 <div class="line">}</div>
 <div class="ttc" id="anamespacehmap_html_a5db6d20fe4a5e243dc67a713cb3ac419"><div class="ttname"><a href="namespacehmap.html#a5db6d20fe4a5e243dc67a713cb3ac419">hmap::white</a></div><div class="ttdeci">Array white(glm::ivec2 shape, float a, float b, std::uint32_t seed)</div><div class="ttdoc">Return an array filled with white noise.</div><div class="ttdef"><b>Definition</b> white.cpp:13</div></div>
-<div class="ttc" id="anamespacehmap_html_ad1e91583a5c176014ed3720f0eb5a321"><div class="ttname"><a href="namespacehmap.html#ad1e91583a5c176014ed3720f0eb5a321">hmap::mixer</a></div><div class="ttdeci">Array mixer(const Array &amp;t, const std::vector&lt; const Array * &gt; &amp;arrays, float gain_factor=1.f)</div><div class="ttdoc">Return the mixing of a set of arrays based on a parameter t.</div><div class="ttdef"><b>Definition</b> blending.cpp:78</div></div>
+<div class="ttc" id="anamespacehmap_html_ad1e91583a5c176014ed3720f0eb5a321"><div class="ttname"><a href="namespacehmap.html#ad1e91583a5c176014ed3720f0eb5a321">hmap::mixer</a></div><div class="ttdeci">Array mixer(const Array &amp;t, const std::vector&lt; const Array * &gt; &amp;arrays, float gain_factor=1.f)</div><div class="ttdoc">Return the mixing of a set of arrays based on a parameter t.</div><div class="ttdef"><b>Definition</b> blending.cpp:110</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_mixer.png" alt=""/>
 </div>
@@ -5534,7 +5682,7 @@ template&lt;typename Fn &gt; </div>
 <div class="line">                          <span class="keyword">true</span>);</div>
 <div class="line">}</div>
 <div class="ttc" id="anamespacehmap_1_1gpu_html_acff6d6d559781cdeba565ed795bb81d8"><div class="ttname"><a href="namespacehmap_1_1gpu.html#acff6d6d559781cdeba565ed795bb81d8">hmap::gpu::transfer</a></div><div class="ttdeci">Array transfer(const Array &amp;source, const Array &amp;target, int ir, float amplitude, bool target_prefiltering=false)</div><div class="ttdoc">See hmap::transfer.</div><div class="ttdef"><b>Definition</b> blending_gpu.cpp:58</div></div>
-<div class="ttc" id="anamespacehmap_html_a6786fe2ccf9bd2ceb294927c88bd898d"><div class="ttname"><a href="namespacehmap.html#a6786fe2ccf9bd2ceb294927c88bd898d">hmap::transfer</a></div><div class="ttdeci">Array transfer(const Array &amp;source, const Array &amp;target, int ir, float amplitude, bool target_prefiltering=false)</div><div class="ttdoc">Transfers spatial details from a source array onto a target array.</div><div class="ttdef"><b>Definition</b> blending.cpp:120</div></div>
+<div class="ttc" id="anamespacehmap_html_a6786fe2ccf9bd2ceb294927c88bd898d"><div class="ttname"><a href="namespacehmap.html#a6786fe2ccf9bd2ceb294927c88bd898d">hmap::transfer</a></div><div class="ttdeci">Array transfer(const Array &amp;source, const Array &amp;target, int ir, float amplitude, bool target_prefiltering=false)</div><div class="ttdoc">Transfers spatial details from a source array onto a target array.</div><div class="ttdef"><b>Definition</b> blending.cpp:152</div></div>
 <div class="ttc" id="anamespacehmap_html_ac70fe3cbb32e0340d5dd3e15cdcf9369a744ead0b170889e33126895264f1af2c"><div class="ttname"><a href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a744ead0b170889e33126895264f1af2c">hmap::MAGMA</a></div><div class="ttdeci">@ MAGMA</div><div class="ttdef"><b>Definition</b> colormaps.hpp:89</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_transfer.png" alt=""/>

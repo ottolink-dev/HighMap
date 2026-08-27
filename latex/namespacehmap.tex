@@ -530,6 +530,10 @@ void \mbox{\hyperlink{namespacehmap_a6123c18788ae302332416d5d7585fd9f}{alter\+\_
 \begin{DoxyCompactList}\small\item\em Return the \textquotesingle{}overlay\textquotesingle{} blending of two arrays. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a91e52ae1178d54931a1729a2368a31f7}{blend\+\_\+soft}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array1, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array2)
 \begin{DoxyCompactList}\small\item\em Return the \textquotesingle{}soft\textquotesingle{} blending of two arrays. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a85fd747437fd49e0fcfb770ad5f5851e}{blend\+\_\+power\+\_\+law}} (const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*} $>$ \&arrays, float alpha=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Return the power law blending of a set of arrays. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a01201c510915f9f10f26595c79a1220b}{blend\+\_\+power\+\_\+law}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array1, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array2, float alpha=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Return the power law blending of two arrays. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_ad1e91583a5c176014ed3720f0eb5a321}{mixer}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&t, const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*} $>$ \&arrays, float gain\+\_\+factor=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Return the mixing of a set of arrays based on a parameter {\ttfamily t}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a6786fe2ccf9bd2ceb294927c88bd898d}{transfer}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&source, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&target, int ir, float amplitude, bool target\+\_\+prefiltering=false)
@@ -4049,6 +4053,98 @@ The soft blend mode applies a soft light effect to the blending of two arrays, b
 \begin{DoxySeeAlso}{See also}
 {\ttfamily \doxylink{namespacehmap_aafb76d7961d1655fdc07422982357588}{blend\+\_\+exclusion}}, {\ttfamily \doxylink{namespacehmap_a183cf8de980d1886130cac97fd41bcc5}{blend\+\_\+negate}}, {\ttfamily \doxylink{namespacehmap_a3d311d682d431e21c6d7063539a0db8e}{blend\+\_\+overlay}}, {\ttfamily \doxylink{namespacehmap_a91e52ae1178d54931a1729a2368a31f7}{blend\+\_\+soft}} 
 \end{DoxySeeAlso}
+\Hypertarget{namespacehmap_a85fd747437fd49e0fcfb770ad5f5851e}\label{namespacehmap_a85fd747437fd49e0fcfb770ad5f5851e} 
+\index{hmap@{hmap}!blend\_power\_law@{blend\_power\_law}}
+\index{blend\_power\_law@{blend\_power\_law}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{blend\_power\_law()}{blend\_power\_law()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::blend\+\_\+power\+\_\+law (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*} $>$ \&}]{arrays,  }\item[{float}]{alpha = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+
+
+
+Return the power law blending of a set of arrays. 
+
+Blends two (or more) arrays using power law averaging\+:  \[
+f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
+\] The behavior varies with the bias $\alpha$ from a simple average of the heights at each node when $\alpha=0$, approaching $\max(f_i)$ as $\alpha \to \infty$.
+
+
+\begin{DoxyParams}{Parameters}
+{\em arrays} & \doxylink{classhmap_1_1Array}{Array} references to blend. \\
+\hline
+{\em alpha} & Power law exponent (default\+: 0.\+0). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Array}{Array} Resulting array after power law blending.
+\end{DoxyReturn}
+{\bfseries{Example}} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ glm::ivec2\ shape\ =\ \{128,\ 128\};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ seed\ =\ 1;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z1\ =\ \mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{hmap::noise}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{2.f,\ 2.f\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z2\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{4.f,\ 4.f\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed\ +\ 1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(z1);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(z2);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z\_alpha0\ =\ \mbox{\hyperlink{namespacehmap_a85fd747437fd49e0fcfb770ad5f5851e}{hmap::blend\_power\_law}}(z1,\ z2,\ 0.f);}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z\_alpha1\ =\ \mbox{\hyperlink{namespacehmap_a85fd747437fd49e0fcfb770ad5f5851e}{hmap::blend\_power\_law}}(z1,\ z2,\ 1.f);}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z\_alpha4\ =\ \mbox{\hyperlink{namespacehmap_a85fd747437fd49e0fcfb770ad5f5851e}{hmap::blend\_power\_law}}(z1,\ z2,\ 4.f);}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z\_alpha16\ =\ \mbox{\hyperlink{namespacehmap_a85fd747437fd49e0fcfb770ad5f5851e}{hmap::blend\_power\_law}}(z1,\ z2,\ 16.f);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_blend\_power\_law0.png"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z1,\ z2,\ z\_alpha0\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492}{hmap::Cmap::VIRIDIS}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_blend\_power\_law1.png"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z1,\ z2,\ z\_alpha1\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492}{hmap::Cmap::VIRIDIS}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_blend\_power\_law2.png"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z1,\ z2,\ z\_alpha4\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492}{hmap::Cmap::VIRIDIS}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_blend\_power\_law3.png"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z1,\ z2,\ z\_alpha16\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492}{hmap::Cmap::VIRIDIS}});}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+{\bfseries{Result}}     \Hypertarget{namespacehmap_a01201c510915f9f10f26595c79a1220b}\label{namespacehmap_a01201c510915f9f10f26595c79a1220b} 
+\index{hmap@{hmap}!blend\_power\_law@{blend\_power\_law}}
+\index{blend\_power\_law@{blend\_power\_law}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{blend\_power\_law()}{blend\_power\_law()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::blend\+\_\+power\+\_\+law (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array1,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array2,  }\item[{float}]{alpha = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+
+
+
+Return the power law blending of two arrays. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em array1} & First input array. \\
+\hline
+{\em array2} & Second input array. \\
+\hline
+{\em alpha} & Power law exponent (default\+: 0.\+0). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Array}{Array} Resulting array after power law blending. 
+\end{DoxyReturn}
 \Hypertarget{namespacehmap_ad1e91583a5c176014ed3720f0eb5a321}\label{namespacehmap_ad1e91583a5c176014ed3720f0eb5a321} 
 \index{hmap@{hmap}!mixer@{mixer}}
 \index{mixer@{mixer}!hmap@{hmap}}

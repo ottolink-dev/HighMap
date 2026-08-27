@@ -1,5 +1,9 @@
 var NAVTREEINDEX12 =
 {
+"local__metrics_8hpp.html#a36cacf53f15459d0e32a0b089ce2db2f":[5,0,1,0,0,31,12],
+"local__metrics_8hpp.html#a3816b73c0f933147dc86ee9f8d2dd701":[5,0,1,0,0,31,25],
+"local__metrics_8hpp.html#a5c576fca64db583bf500d667173c128a":[5,0,1,0,0,31,14],
+"local__metrics_8hpp.html#a5e3ebf317043142adc19dd211ba07230":[5,0,1,0,0,31,15],
 "local__metrics_8hpp.html#a62292cc4bf9f6eb5c7b63b1e26f8cc88":[5,0,1,0,0,31,23],
 "local__metrics_8hpp.html#a6c42198d3612cdfd232c900f427bd103":[5,0,1,0,0,31,1],
 "local__metrics_8hpp.html#a72341578d241e21b4c31d7497287cfc3":[5,0,1,0,0,31,17],
@@ -245,9 +249,5 @@ var NAVTREEINDEX12 =
 "morphology__gpu_8cpp.html#aed49f777e8ad095bafc5dc014e548e6e":[5,0,1,1,25,4,4],
 "morphology__gpu_8cpp.html#aed5416971461ddb7fb6427bdeb5cae86":[5,0,1,1,25,4,6],
 "morphology__gpu_8cpp.html#aed594a6d00b1239026f28df608e2bd36":[5,0,1,1,25,4,9],
-"morphology__gpu_8cpp.html#afd60fc3552953dcdbda7baeef6b2ccce":[5,0,1,1,25,4,8],
-"mountain__cone_8cpp.html":[5,0,1,1,30,2,6],
-"mountain__cone_8cpp.html#afcc3b4559a3042acadb0699666257185":[5,0,1,1,30,2,6,0],
-"mountain__inselberg_8cpp.html":[5,0,1,1,30,2,7],
-"mountain__inselberg_8cpp.html#af90fe4d4bbdac5b7425c9a95dd912406":[5,0,1,1,30,2,7,0]
+"morphology__gpu_8cpp.html#afd60fc3552953dcdbda7baeef6b2ccce":[5,0,1,1,25,4,8]
 };
