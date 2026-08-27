@@ -136,6 +136,7 @@ var namespacehmap_1_1gpu =
     [ "snow_simulation", "namespacehmap_1_1gpu.html#a7bed0a401445a2b13d8d37e7a34ea598", null ],
     [ "water_depth_filter", "namespacehmap_1_1gpu.html#a687d85d20bee065ffabeecea9124f432", null ],
     [ "water_frontier_curvature", "namespacehmap_1_1gpu.html#a4b9ba3dd7bc6c093329b262fd4ca8f6c", null ],
+    [ "water_depth_from_mask", "namespacehmap_1_1gpu.html#a703eaf095338c94f1b6589a5b8a650fe", null ],
     [ "interpolate_array_bicubic", "namespacehmap_1_1gpu.html#a7fca2b47602e86cf0c65908230bdee55", null ],
     [ "interpolate_array_bicubic", "namespacehmap_1_1gpu.html#a8b7cdbe45c09fc626e1a67d22fb46245", null ],
     [ "interpolate_array_bilinear", "namespacehmap_1_1gpu.html#a9c6bf942ee590b7a1b1fa7e5d87d890a", null ],

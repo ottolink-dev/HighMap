@@ -698,7 +698,7 @@ var namespacehmap =
     [ "generate_riverbed", "namespacehmap.html#a30d55fae5c75a1c45a005a3f9a9467eb", null ],
     [ "merge_water_depths", "namespacehmap.html#a64fbc0261e13ea842762efd3ac6bcc53", null ],
     [ "snow_melting_map", "namespacehmap.html#a78419f7981186b40c4a2d04456e4e63f", null ],
-    [ "water_depth_from_mask", "namespacehmap.html#a121c42071766df393b6e049315876d5e", null ],
+    [ "water_depth_from_mask", "namespacehmap.html#a3a5454dd7547ce6b9d995be17a2ac410", null ],
     [ "water_depth_dry_out", "namespacehmap.html#a3aebd62906b90ccfde11140e13b0853f", null ],
     [ "water_depth_increase", "namespacehmap.html#a136f042ce2ad8c14033f4d839f56265d", null ],
     [ "water_depth_increase_with_flooding", "namespacehmap.html#afad09b723c82dd7f0a0f7365e74b1edf", null ],

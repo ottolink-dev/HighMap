@@ -478,6 +478,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a4b9ba3dd7bc6c093329b262fd4ca8f6c" id="r_a4b9ba3dd7bc6c093329b262fd4ca8f6c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap_1_1gpu.html#a4b9ba3dd7bc6c093329b262fd4ca8f6c">water_frontier_curvature</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;water_depth, int prefilter_ir, bool extend_values_from_interface=false)</td></tr>
 <tr class="memdesc:a4b9ba3dd7bc6c093329b262fd4ca8f6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="namespacehmap.html#ab562e00b361d918c52dd5860fc88ae06" title="Compute the curvature of the water interface from a signed distance field.">hmap::water_frontier_curvature</a>.  <br /></td></tr>
 <tr class="separator:a4b9ba3dd7bc6c093329b262fd4ca8f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a703eaf095338c94f1b6589a5b8a650fe" id="r_a703eaf095338c94f1b6589a5b8a650fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap_1_1gpu.html#a703eaf095338c94f1b6589a5b8a650fe">water_depth_from_mask</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;mask, float mask_threshold=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int iterations_max=10000, float tolerance=1e-2<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
+<tr class="memdesc:a703eaf095338c94f1b6589a5b8a650fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="namespacehmap.html#a3a5454dd7547ce6b9d995be17a2ac410" title="Compute water depth over a masked terrain using harmonic interpolation.">hmap::water_depth_from_mask</a>.  <br /></td></tr>
+<tr class="separator:a703eaf095338c94f1b6589a5b8a650fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fca2b47602e86cf0c65908230bdee55" id="r_a7fca2b47602e86cf0c65908230bdee55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap_1_1gpu.html#a7fca2b47602e86cf0c65908230bdee55">interpolate_array_bicubic</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;source, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;target)</td></tr>
 <tr class="separator:a7fca2b47602e86cf0c65908230bdee55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b7cdbe45c09fc626e1a67d22fb46245" id="r_a8b7cdbe45c09fc626e1a67d22fb46245"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap_1_1gpu.html#a8b7cdbe45c09fc626e1a67d22fb46245">interpolate_array_bicubic</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;source, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;target, const glm::vec4 &amp;bbox_source, const glm::vec4 &amp;bbox_target)</td></tr>
@@ -10295,7 +10298,7 @@ Only available if OpenCL is enabled.</dd></dl>
 <div class="line">      {z, z + water_depth0, z + water_depth1, z + water_depth2},</div>
 <div class="line">      <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced">hmap::Cmap::JET</a>);</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_1_1gpu_html_a687d85d20bee065ffabeecea9124f432"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a687d85d20bee065ffabeecea9124f432">hmap::gpu::water_depth_filter</a></div><div class="ttdeci">void water_depth_filter(Array &amp;depth, const Array &amp;z, int ir, const Array *p_water_mask=nullptr, bool smooth_contour=false, float transition_ratio=0.1f)</div><div class="ttdoc">Filters water depth values using elevation data and a given radius.</div><div class="ttdef"><b>Definition</b> water_depth.cpp:349</div></div>
+<div class="ttc" id="anamespacehmap_1_1gpu_html_a687d85d20bee065ffabeecea9124f432"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a687d85d20bee065ffabeecea9124f432">hmap::gpu::water_depth_filter</a></div><div class="ttdeci">void water_depth_filter(Array &amp;depth, const Array &amp;z, int ir, const Array *p_water_mask=nullptr, bool smooth_contour=false, float transition_ratio=0.1f)</div><div class="ttdoc">Filters water depth values using elevation data and a given radius.</div><div class="ttdef"><b>Definition</b> water_depth.cpp:344</div></div>
 <div class="ttc" id="anamespacehmap_html_a3624c1660e60d16a87c90222606f7050"><div class="ttname"><a href="namespacehmap.html#a3624c1660e60d16a87c90222606f7050">hmap::flooding_lake_system</a></div><div class="ttdeci">Array flooding_lake_system(const Array &amp;z, float surface_threshold=0)</div><div class="ttdoc">Estimate lake water depths on a terrain by filling depressions.</div><div class="ttdef"><b>Definition</b> flooding.cpp:164</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_water_depth_filter.png" alt=""/>
@@ -10336,6 +10339,54 @@ Only available if OpenCL is enabled.</dd></dl>
 </div><div class="memdoc">
 
 <p>See <a class="el" href="namespacehmap.html#ab562e00b361d918c52dd5860fc88ae06" title="Compute the curvature of the water interface from a signed distance field.">hmap::water_frontier_curvature</a>. </p>
+
+</div>
+</div>
+<a id="a703eaf095338c94f1b6589a5b8a650fe" name="a703eaf095338c94f1b6589a5b8a650fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a703eaf095338c94f1b6589a5b8a650fe">&#9670;&#160;</a></span>water_depth_from_mask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1Array.html">Array</a> hmap::gpu::water_depth_from_mask </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>z</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>mask</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>mask_threshold</em> = <code>0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>iterations_max</em> = <code>10000</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>tolerance</em> = <code>1e-2<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>See <a class="el" href="namespacehmap.html#a3a5454dd7547ce6b9d995be17a2ac410" title="Compute water depth over a masked terrain using harmonic interpolation.">hmap::water_depth_from_mask</a>. </p>
 
 </div>
 </div>

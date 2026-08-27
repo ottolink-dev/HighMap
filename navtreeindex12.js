@@ -1,5 +1,6 @@
 var NAVTREEINDEX12 =
 {
+"local__metrics_8hpp.html#a62292cc4bf9f6eb5c7b63b1e26f8cc88":[5,0,1,0,0,31,23],
 "local__metrics_8hpp.html#a6c42198d3612cdfd232c900f427bd103":[5,0,1,0,0,31,1],
 "local__metrics_8hpp.html#a72341578d241e21b4c31d7497287cfc3":[5,0,1,0,0,31,17],
 "local__metrics_8hpp.html#a74594cae7628bcfb1c038ac6930fe97d":[5,0,1,0,0,31,20],
@@ -248,6 +249,5 @@ var NAVTREEINDEX12 =
 "mountain__cone_8cpp.html":[5,0,1,1,30,2,6],
 "mountain__cone_8cpp.html#afcc3b4559a3042acadb0699666257185":[5,0,1,1,30,2,6,0],
 "mountain__inselberg_8cpp.html":[5,0,1,1,30,2,7],
-"mountain__inselberg_8cpp.html#af90fe4d4bbdac5b7425c9a95dd912406":[5,0,1,1,30,2,7,0],
-"mountain__stump_8cpp.html":[5,0,1,1,30,2,8]
+"mountain__inselberg_8cpp.html#af90fe4d4bbdac5b7425c9a95dd912406":[5,0,1,1,30,2,7,0]
 };

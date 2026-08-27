@@ -1,5 +1,6 @@
 var NAVTREEINDEX13 =
 {
+"mountain__stump_8cpp.html":[5,0,1,1,30,2,8],
 "mountain__stump_8cpp.html#a3cac6320779d6623497e665082f96d5e":[5,0,1,1,30,2,8,0],
 "mountain__tibesti_8cpp.html":[5,0,1,1,30,2,9],
 "mountain__tibesti_8cpp.html#ae0089429a438c5ebb60099913cda627e":[5,0,1,1,30,2,9,0],
@@ -72,7 +73,6 @@ var NAVTREEINDEX13 =
 "namespacehmap.html#a11d438a3f643427c957d160b7c1a04de":[3,0,0,426],
 "namespacehmap.html#a11ddd5ab1aa625db9419d9b65c0eaa64":[3,0,0,623],
 "namespacehmap.html#a120b7a6f8941d783c52acf799d3cb7b2":[3,0,0,258],
-"namespacehmap.html#a121c42071766df393b6e049315876d5e":[3,0,0,466],
 "namespacehmap.html#a126e35d85212aa55b6c787206a46c77a":[3,0,0,662],
 "namespacehmap.html#a12781eab09d5662bd5490c167c03c8d5":[3,0,0,341],
 "namespacehmap.html#a12f76d80fee40f96dc5b6540bb83be80":[3,0,0,764],
@@ -237,6 +237,7 @@ var NAVTREEINDEX13 =
 "namespacehmap.html#a39b5e3442edf55eaf7392b2bca967242":[3,0,0,508],
 "namespacehmap.html#a3a1e261b646c9df967e78fb77e5bf8c1":[3,0,0,543],
 "namespacehmap.html#a3a29e127d53bc5b547af422da36da1cc":[3,0,0,161],
+"namespacehmap.html#a3a5454dd7547ce6b9d995be17a2ac410":[3,0,0,466],
 "namespacehmap.html#a3aa96cd684efd827ce57ffd9fef3c950":[3,0,0,221],
 "namespacehmap.html#a3aebd62906b90ccfde11140e13b0853f":[3,0,0,467],
 "namespacehmap.html#a3b39190192fb3cbda0b6d55d49d44eca":[3,0,0,239],
@@ -248,6 +249,5 @@ var NAVTREEINDEX13 =
 "namespacehmap.html#a3c5dc6759079cece03fad3d2c40813b8":[3,0,0,333],
 "namespacehmap.html#a3ce44e59b5eeb5c47a597f893f53eadb":[3,0,0,758],
 "namespacehmap.html#a3d23e9f95cfe4a8ceeecd6ea01d1d3e4":[3,0,0,152],
-"namespacehmap.html#a3d311d682d431e21c6d7063539a0db8e":[3,0,0,143],
-"namespacehmap.html#a3d6212896d8cd828bd5bd827d24a0344":[3,0,0,777]
+"namespacehmap.html#a3d311d682d431e21c6d7063539a0db8e":[3,0,0,143]
 };
