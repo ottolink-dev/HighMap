@@ -994,6 +994,10 @@ void \mbox{\hyperlink{namespacehmap_abae56b1864390cd2f2f03acc442b423a}{grid\+\_\
 \begin{DoxyCompactList}\small\item\em Removes geometric loops in a 2D path caused by self-\/intersections. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Path}{Path}} \mbox{\hyperlink{namespacehmap_ad81052648d6008d2b7b4a5a36a2d7830}{smooth}} (const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&path, int navg=1, float averaging\+\_\+intensity=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float inertia=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Applies a smoothing operation to the path points using a moving average filter. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Path}{Path}} \mbox{\hyperlink{namespacehmap_a23b54b32669c529a26f86b884ffca28b}{squiggle}} (const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&path, int iterations=4, std\+::uint32\+\_\+t seed=0, float height\+\_\+ratio=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int orientation=0, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+weights=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Generates a continuous, non-\/self-\/intersecting squiggle curve by applying the squiggle recursive triangle subdivision algorithm to each edge of the input path. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Path}{Path}} $>$ \mbox{\hyperlink{namespacehmap_a65e5e7e89af68f858de5181d86a42d9a}{squiggle\+\_\+branches}} (const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&path, int iterations=4, std\+::uint32\+\_\+t seed=0, float branch\+\_\+probability=0.\+3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+branches=8, float height\+\_\+ratio=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int orientation=0, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+weights=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Generates squiggle paths with secondary tributary branches along each edge. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{namespacehmap_a5944fc905be512784a9caceb527703d4}{assert\+\_\+start\+\_\+end\+\_\+points}} (const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&path1, const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&path2, float tol=1e-\/6\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, bool verbose=false)
 \begin{DoxyCompactList}\small\item\em Asserts that the start and end points of two paths are within a specified tolerance. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{namespacehmap_aba24d09d6f4a3eab8c1522536088f39e}{chamfer\+\_\+distance}} (const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&a, const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&b)
@@ -14978,7 +14982,148 @@ This method smooths the path points based on a specified number of neighboring p
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a5944fc905be512784a9caceb527703d4}\label{namespacehmap_a5944fc905be512784a9caceb527703d4} 
+{\bfseries{Result}}  \Hypertarget{namespacehmap_a23b54b32669c529a26f86b884ffca28b}\label{namespacehmap_a23b54b32669c529a26f86b884ffca28b} 
+\index{hmap@{hmap}!squiggle@{squiggle}}
+\index{squiggle@{squiggle}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{squiggle()}{squiggle()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Path}{Path}} hmap\+::squiggle (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&}]{path,  }\item[{int}]{iterations = {\ttfamily 4},  }\item[{std\+::uint32\+\_\+t}]{seed = {\ttfamily 0},  }\item[{float}]{height\+\_\+ratio = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{int}]{orientation = {\ttfamily 0},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+weights = {\ttfamily nullptr},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+mask = {\ttfamily nullptr},  }\item[{glm\+::vec4}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+
+
+
+Generates a continuous, non-\/self-\/intersecting squiggle curve by applying the squiggle recursive triangle subdivision algorithm to each edge of the input path. 
+
+Implements the squiggle curve construction from Prusinkiewicz et al., "{}\+Generating Mountainous Terrain"{}. Constrained within domain triangles for each edge, ensuring continuity and absence of self-\/intersections.
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & The input path to apply the squiggle algorithm to. \\
+\hline
+{\em iterations} & Number of recursive subdivision levels per edge (e.\+g., 2 to 6). \\
+\hline
+{\em seed} & Random seed number for deterministic edge selection. \\
+\hline
+{\em height\+\_\+ratio} & Height of the bounding triangle relative to edge length (default 0.\+5). \\
+\hline
+{\em orientation} & Displacement direction\+: 0 to alternate sides, 1 for positive normal, -\/1 for negative normal. \\
+\hline
+{\em p\+\_\+weights} & Optional pointer to an \doxylink{classhmap_1_1Array}{Array} defining spatial weights to bias path progression. \\
+\hline
+{\em p\+\_\+mask} & Optional pointer to a binary/mask \doxylink{classhmap_1_1Array}{Array} (1 = allowed, 0 = forbidden) preventing the path from entering forbidden areas. \\
+\hline
+{\em bbox} & Bounding box for spatial sampling. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Generated continuous \doxylink{classhmap_1_1Path}{Path}.
+\end{DoxyReturn}
+{\bfseries{Example}} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ glm::ivec2\ \ \ \ shape\ =\ \{256,\ 256\};}
+\DoxyCodeLine{\ \ glm::vec4\ \ \ \ \ bbox\ =\ \{0.f,\ 1.f,\ 0.f,\ 1.f\};}
+\DoxyCodeLine{\ \ std::uint32\_t\ seed\ =\ 42;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ 1.\ Initial\ base\ path\ (open\ polyline\ traversing\ domain)}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Path}{hmap::Path}}\ base\_path(\{\mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(0.1f,\ 0.3f,\ 0.2f),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(0.4f,\ 0.55f,\ 0.5f),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(0.65f,\ 0.45f,\ 0.8f),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(0.9f,\ 0.8f,\ 1.0f)\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_base\ =\ base\_path.to\_array(shape,\ bbox);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ 2.\ Standard\ procedural\ squiggle\ path\ (alternating\ orientation)}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Path}{hmap::Path}}\ p\_squiggle\ =}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a23b54b32669c529a26f86b884ffca28b}{hmap::squiggle}}(base\_path,\ 4,\ seed,\ 0.45f,\ 0,\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr},\ bbox);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_squiggle\ =\ p\_squiggle.\mbox{\hyperlink{classhmap_1_1Path_a4d1e1e63fea24bf8f23bc3343f8b746e}{to\_array}}(shape,\ bbox);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ 3.\ Squiggle\ with\ spatial\ weighting\ (attracted\ towards\ top\ half)}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ weights(shape,\ 1.f);}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ shape.y;\ ++j)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ shape.x;\ ++i)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{float}\ y\_norm\ =\ (float)j\ /\ (\textcolor{keywordtype}{float})shape.y;}
+\DoxyCodeLine{\ \ \ \ \ \ weights(i,\ j)\ =\ std::exp(4.f\ *\ y\_norm);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Path}{hmap::Path}}\ p\_weighted\ =}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a23b54b32669c529a26f86b884ffca28b}{hmap::squiggle}}(base\_path,\ 4,\ seed,\ 0.45f,\ 0,\ \&weights,\ \textcolor{keyword}{nullptr},\ bbox);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_weighted\ =\ p\_weighted.\mbox{\hyperlink{classhmap_1_1Path_a4d1e1e63fea24bf8f23bc3343f8b746e}{to\_array}}(shape,\ bbox);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ 4.\ Squiggle\ with\ branching\ tributaries}}
+\DoxyCodeLine{\ \ std::vector<hmap::Path>\ branched\_paths\ =\ \mbox{\hyperlink{namespacehmap_a65e5e7e89af68f858de5181d86a42d9a}{hmap::squiggle\_branches}}(base\_path,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.9f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 6,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.4f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bbox);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_branches(shape,\ 0.f);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&p\ :\ branched\_paths)}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_p\ =\ p.to\_array(shape,\ bbox);}
+\DoxyCodeLine{\ \ \ \ z\_branches\ =\ \mbox{\hyperlink{namespacehmap_aa52f3e1fcb1cad464a512c09a0c8eb54}{hmap::maximum}}(z\_branches,\ z\_p);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Export\ visual\ comparison\ banner}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_path\_squiggle.png"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z\_base,\ z\_squiggle,\ z\_weighted,\ z\_branches\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143}{hmap::Cmap::INFERNO}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+{\bfseries{Result}} 
+
+Reference\+: Prusinkiewicz et al., Generating Mountainous Terrain (1993). \Hypertarget{namespacehmap_a65e5e7e89af68f858de5181d86a42d9a}\label{namespacehmap_a65e5e7e89af68f858de5181d86a42d9a} 
+\index{hmap@{hmap}!squiggle\_branches@{squiggle\_branches}}
+\index{squiggle\_branches@{squiggle\_branches}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{squiggle\_branches()}{squiggle\_branches()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Path}{Path}} $>$ hmap\+::squiggle\+\_\+branches (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&}]{path,  }\item[{int}]{iterations = {\ttfamily 4},  }\item[{std\+::uint32\+\_\+t}]{seed = {\ttfamily 0},  }\item[{float}]{branch\+\_\+probability = {\ttfamily 0.3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{int}]{max\+\_\+branches = {\ttfamily 8},  }\item[{float}]{height\+\_\+ratio = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{int}]{orientation = {\ttfamily 0},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+weights = {\ttfamily nullptr},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+mask = {\ttfamily nullptr},  }\item[{glm\+::vec4}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+
+
+
+Generates squiggle paths with secondary tributary branches along each edge. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & The input path. \\
+\hline
+{\em iterations} & Number of recursive subdivision levels. \\
+\hline
+{\em seed} & Random seed number. \\
+\hline
+{\em branch\+\_\+probability} & Probability of initiating a tributary branch at subdivision steps. \\
+\hline
+{\em max\+\_\+branches} & Maximum number of secondary branches. \\
+\hline
+{\em height\+\_\+ratio} & Height of the bounding triangle relative to edge length. \\
+\hline
+{\em orientation} & Displacement direction\+: 0 to alternate sides, 1 for positive normal, -\/1 for negative normal. \\
+\hline
+{\em p\+\_\+weights} & Optional spatial weights \doxylink{classhmap_1_1Array}{Array}. \\
+\hline
+{\em p\+\_\+mask} & Optional mask \doxylink{classhmap_1_1Array}{Array}. \\
+\hline
+{\em bbox} & Bounding box for array sampling. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of Paths where the first \doxylink{classhmap_1_1Path}{Path} is the main trunk and subsequent Paths are tributary branches. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a5944fc905be512784a9caceb527703d4}\label{namespacehmap_a5944fc905be512784a9caceb527703d4} 
 \index{hmap@{hmap}!assert\_start\_end\_points@{assert\_start\_end\_points}}
 \index{assert\_start\_end\_points@{assert\_start\_end\_points}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{assert\_start\_end\_points()}{assert\_start\_end\_points()}}

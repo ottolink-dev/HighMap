@@ -92,7 +92,7 @@ var searchData=
   ['get_5fvalue_89',['get_value',['../classhmap_1_1Function.html#a82fb7788314b339a062cb80115e2e1da',1,'hmap::Function']]],
   ['get_5fvalue_5fbicubic_5fat_90',['get_value_bicubic_at',['../classhmap_1_1Array.html#ae47cb152f3e887d17160519afd589ee2',1,'hmap::Array']]],
   ['get_5fvalue_5fbilinear_5fat_91',['get_value_bilinear_at',['../classhmap_1_1Array.html#a12eb51c18154e3e452afe9743636085f',1,'hmap::Array']]],
-  ['get_5fvalue_5fnearest_92',['get_value_nearest',['../classhmap_1_1Array.html#ac0ae248f0c3bba1dc2f7e35460ec6b68',1,'hmap::Array']]],
+  ['get_5fvalue_5fnearest_92',['get_value_nearest',['../classhmap_1_1Array.html#afff00e67eea65de385d7cd2e9ea4d189',1,'hmap::Array']]],
   ['get_5fvalues_93',['get_values',['../classhmap_1_1Path.html#a5e321e91e212ccfcb33088be73543494',1,'hmap::Path::get_values()'],['../classhmap_1_1Cloud.html#a53cb47401f1e9d027a638f3680c3004d',1,'hmap::Cloud::get_values() const']]],
   ['get_5fvalues_5fmax_94',['get_values_max',['../classhmap_1_1Cloud.html#abe70a230c2bfecad67112321b3040286',1,'hmap::Cloud']]],
   ['get_5fvalues_5fmin_95',['get_values_min',['../classhmap_1_1Cloud.html#a9194835457c70bfa13d0dfa66d964f01',1,'hmap::Cloud']]],

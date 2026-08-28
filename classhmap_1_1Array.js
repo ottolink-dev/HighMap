@@ -50,7 +50,7 @@ var classhmap_1_1Array =
     [ "get_sizeof", "classhmap_1_1Array.html#a7ef7005c4ca95be75c82bded5165634c", null ],
     [ "get_value_bicubic_at", "classhmap_1_1Array.html#ae47cb152f3e887d17160519afd589ee2", null ],
     [ "get_value_bilinear_at", "classhmap_1_1Array.html#a12eb51c18154e3e452afe9743636085f", null ],
-    [ "get_value_nearest", "classhmap_1_1Array.html#ac0ae248f0c3bba1dc2f7e35460ec6b68", null ],
+    [ "get_value_nearest", "classhmap_1_1Array.html#afff00e67eea65de385d7cd2e9ea4d189", null ],
     [ "get_vector", "classhmap_1_1Array.html#a65336e3091ee64a91b3ecce8c01c837b", null ],
     [ "infos", "classhmap_1_1Array.html#a0a68f43a6e0cf3a2b0392a161ea18339", null ],
     [ "linear_index", "classhmap_1_1Array.html#a296cad1c7a3fd75b30a39a628bc7bcbe", null ],

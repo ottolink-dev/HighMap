@@ -24756,6 +24756,343 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </inbodydescription>
         <location file="HighMap/src/geometry/path_functions.cpp" line="532" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="532" bodyend="622" declfile="HighMap/include/highmap/geometry/path.hpp" declline="779" declcolumn="6"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a23b54b32669c529a26f86b884ffca28b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
+        <definition>Path hmap::squiggle</definition>
+        <argsstring>(const Path &amp;path, int iterations=4, std::uint32_t seed=0, float height_ratio=0.5f, int orientation=0, const Array *p_weights=nullptr, const Array *p_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>squiggle</name>
+        <qualifiedname>hmap::squiggle</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Path" kindref="compound">Path</ref> &amp;</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>iterations</declname>
+          <defval>4</defval>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>height_ratio</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>orientation</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_weights</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_mask</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Generates a continuous, non-self-intersecting squiggle curve by applying the squiggle recursive triangle subdivision algorithm to each edge of the input path. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Implements the squiggle curve construction from Prusinkiewicz et al., &quot;Generating Mountainous Terrain&quot;. Constrained within domain triangles for each edge, ensuring continuity and absence of self-intersections.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input path to apply the squiggle algorithm to. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iterations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of recursive subdivision levels per edge (e.g., 2 to 6). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random seed number for deterministic edge selection. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>height_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Height of the bounding triangle relative to edge length (default 0.5). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>orientation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Displacement direction: 0 to alternate sides, 1 for positive normal, -1 for negative normal. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_weights</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional pointer to an <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> defining spatial weights to bias path progression. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional pointer to a binary/mask <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> (1 = allowed, 0 = forbidden) preventing the path from entering forbidden areas. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box for spatial sampling. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Generated continuous <ref refid="classhmap_1_1Path" kindref="compound">Path</ref>.</para>
+</simplesect>
+<bold>Example</bold> <programlisting filename="ex_path_squiggle.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/>shape<sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/><sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::uint32_t<sp/>seed<sp/>=<sp/>42;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>1.<sp/>Initial<sp/>base<sp/>path<sp/>(open<sp/>polyline<sp/>traversing<sp/>domain)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>base_path({<ref refid="classhmap_1_1Point" kindref="compound">hmap::Point</ref>(0.1f,<sp/>0.3f,<sp/>0.2f),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Point" kindref="compound">hmap::Point</ref>(0.4f,<sp/>0.55f,<sp/>0.5f),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Point" kindref="compound">hmap::Point</ref>(0.65f,<sp/>0.45f,<sp/>0.8f),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Point" kindref="compound">hmap::Point</ref>(0.9f,<sp/>0.8f,<sp/>1.0f)});</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_base<sp/>=<sp/>base_path.to_array(shape,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>2.<sp/>Standard<sp/>procedural<sp/>squiggle<sp/>path<sp/>(alternating<sp/>orientation)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>p_squiggle<sp/>=</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a23b54b32669c529a26f86b884ffca28b" kindref="member">hmap::squiggle</ref>(base_path,<sp/>4,<sp/>seed,<sp/>0.45f,<sp/>0,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_squiggle<sp/>=<sp/>p_squiggle.<ref refid="classhmap_1_1Path_1a4d1e1e63fea24bf8f23bc3343f8b746e" kindref="member">to_array</ref>(shape,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>3.<sp/>Squiggle<sp/>with<sp/>spatial<sp/>weighting<sp/>(attracted<sp/>towards<sp/>top<sp/>half)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>weights(shape,<sp/>1.f);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>shape.y;<sp/>++j)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>shape.x;<sp/>++i)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y_norm<sp/>=<sp/>(float)j<sp/>/<sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)shape.y;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>weights(i,<sp/>j)<sp/>=<sp/>std::exp(4.f<sp/>*<sp/>y_norm);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>p_weighted<sp/>=</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a23b54b32669c529a26f86b884ffca28b" kindref="member">hmap::squiggle</ref>(base_path,<sp/>4,<sp/>seed,<sp/>0.45f,<sp/>0,<sp/>&amp;weights,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_weighted<sp/>=<sp/>p_weighted.<ref refid="classhmap_1_1Path_1a4d1e1e63fea24bf8f23bc3343f8b746e" kindref="member">to_array</ref>(shape,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>4.<sp/>Squiggle<sp/>with<sp/>branching<sp/>tributaries</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::vector&lt;hmap::Path&gt;<sp/>branched_paths<sp/>=<sp/><ref refid="namespacehmap_1a65e5e7e89af68f858de5181d86a42d9a" kindref="member">hmap::squiggle_branches</ref>(base_path,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.9f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.4f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_branches(shape,<sp/>0.f);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;p<sp/>:<sp/>branched_paths)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_p<sp/>=<sp/>p.to_array(shape,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>z_branches<sp/>=<sp/><ref refid="namespacehmap_1aa52f3e1fcb1cad464a512c09a0c8eb54" kindref="member">hmap::maximum</ref>(z_branches,<sp/>z_p);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Export<sp/>visual<sp/>comparison<sp/>banner</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_path_squiggle.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z_base,<sp/>z_squiggle,<sp/>z_weighted,<sp/>z_branches},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143" kindref="member">hmap::Cmap::INFERNO</ref>);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+<para><bold>Result</bold> <image type="html" name="ex_path_squiggle.png"></image>
+</para>
+<para>Reference: Prusinkiewicz et al., Generating Mountainous Terrain (1993). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/geometry/path_squiggle.cpp" line="168" column="6" bodyfile="HighMap/src/geometry/path_squiggle.cpp" bodystart="168" bodyend="278" declfile="HighMap/include/highmap/geometry/path.hpp" declline="817" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a65e5e7e89af68f858de5181d86a42d9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classhmap_1_1Path" kindref="compound">Path</ref> &gt;</type>
+        <definition>std::vector&lt; Path &gt; hmap::squiggle_branches</definition>
+        <argsstring>(const Path &amp;path, int iterations=4, std::uint32_t seed=0, float branch_probability=0.3f, int max_branches=8, float height_ratio=0.5f, int orientation=0, const Array *p_weights=nullptr, const Array *p_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>squiggle_branches</name>
+        <qualifiedname>hmap::squiggle_branches</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Path" kindref="compound">Path</ref> &amp;</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>iterations</declname>
+          <defval>4</defval>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>branch_probability</declname>
+          <defval>0.3<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>max_branches</declname>
+          <defval>8</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>height_ratio</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>orientation</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_weights</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_mask</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Generates squiggle paths with secondary tributary branches along each edge. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input path. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iterations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of recursive subdivision levels. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random seed number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>branch_probability</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Probability of initiating a tributary branch at subdivision steps. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_branches</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of secondary branches. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>height_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Height of the bounding triangle relative to edge length. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>orientation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Displacement direction: 0 to alternate sides, 1 for positive normal, -1 for negative normal. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_weights</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional spatial weights <ref refid="classhmap_1_1Array" kindref="compound">Array</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional mask <ref refid="classhmap_1_1Array" kindref="compound">Array</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box for array sampling. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Vector of Paths where the first <ref refid="classhmap_1_1Path" kindref="compound">Path</ref> is the main trunk and subsequent Paths are tributary branches. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/geometry/path_squiggle.cpp" line="280" column="13" bodyfile="HighMap/src/geometry/path_squiggle.cpp" bodystart="280" bodyend="433" declfile="HighMap/include/highmap/geometry/path.hpp" declline="846" declcolumn="13"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5944fc905be512784a9caceb527703d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool hmap::assert_start_end_points</definition>
@@ -24821,7 +25158,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_verification.cpp" line="18" column="6" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="18" bodyend="42" declfile="HighMap/include/highmap/geometry/path.hpp" declline="799" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_verification.cpp" line="18" column="6" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="18" bodyend="42" declfile="HighMap/include/highmap/geometry/path.hpp" declline="872" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aba24d09d6f4a3eab8c1522536088f39e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>float</type>
@@ -24862,7 +25199,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_verification.cpp" line="44" column="7" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="44" bodyend="60" declfile="HighMap/include/highmap/geometry/path.hpp" declline="810" declcolumn="7"/>
+        <location file="HighMap/src/geometry/path_verification.cpp" line="44" column="7" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="44" bodyend="60" declfile="HighMap/include/highmap/geometry/path.hpp" declline="883" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1adb224131a9c75491b105b67801e0fe20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -24908,7 +25245,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_verification.cpp" line="62" column="6" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="62" bodyend="71" declfile="HighMap/include/highmap/geometry/path.hpp" declline="821" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_verification.cpp" line="62" column="6" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="62" bodyend="71" declfile="HighMap/include/highmap/geometry/path.hpp" declline="894" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>float</type>
