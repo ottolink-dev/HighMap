@@ -1,6 +1,7 @@
 var namespacehmap =
 [
     [ "gpu", "namespacehmap_1_1gpu.html", "namespacehmap_1_1gpu" ],
+    [ "log", "namespacehmap_1_1log.html", "namespacehmap_1_1log" ],
     [ "Array", "classhmap_1_1Array.html", "classhmap_1_1Array" ],
     [ "ArrayControlFunction", "classhmap_1_1ArrayControlFunction.html", "classhmap_1_1ArrayControlFunction" ],
     [ "ArrayFunction", "classhmap_1_1ArrayFunction.html", "classhmap_1_1ArrayFunction" ],

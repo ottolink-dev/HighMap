@@ -20,6 +20,7 @@ var hierarchy =
     [ "hmap::DrainageBasinCellBased", "classhmap_1_1DrainageBasinCellBased.html", null ],
     [ "hmap::TerrainTriMesh::Edge", "structhmap_1_1TerrainTriMesh_1_1Edge.html", null ],
     [ "hmap::TerrainTriMesh::EdgeHash", "structhmap_1_1TerrainTriMesh_1_1EdgeHash.html", null ],
+    [ "hmap::log::format_string_with_loc< Args >", "structhmap_1_1log_1_1format__string__with__loc.html", null ],
     [ "hmap::Function", "classhmap_1_1Function.html", [
       [ "hmap::ArrayFunction", "classhmap_1_1ArrayFunction.html", null ],
       [ "hmap::BiquadFunction", "classhmap_1_1BiquadFunction.html", null ],

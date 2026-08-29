@@ -4,6 +4,8 @@
 \begin{DoxyCompactItemize}
 \item 
 namespace \mbox{\hyperlink{namespacehmap_1_1gpu}{gpu}}
+\item 
+namespace \mbox{\hyperlink{namespacehmap_1_1log}{log}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
@@ -7160,8 +7162,6 @@ Iteratively updates elevations using a drainage model with uplift, slope constra
 \end{DoxyParams}
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}macrologger.h"{}}}
-\DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/dbg/timer.hpp}}"{}}}
 \DoxyCodeLine{}
@@ -7306,8 +7306,6 @@ Eroded heightmap.
 \end{DoxyReturn}
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}macrologger.h"{}}}
-\DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/dbg/timer.hpp}}"{}}}
 \DoxyCodeLine{}
@@ -8226,9 +8224,9 @@ Connected-\/component labeling is a technique used to identify clusters of conne
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ labels\ =\ \mbox{\hyperlink{namespacehmap_a34efdecd3db27a30c06537acda6d9457}{hmap::connected\_components}}(z);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ unique\ labels}}
-\DoxyCodeLine{\ \ LOG\_DEBUG(\textcolor{stringliteral}{"{}Labels"{}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1log_a6480b435f3a81f37c203245b752fb5c7}{hmap::log::trace}}(\textcolor{stringliteral}{"{}Labels"{}});}
 \DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v\ :\ labels.unique\_values())}
-\DoxyCodeLine{\ \ \ \ LOG\_DEBUG(\textcolor{stringliteral}{"{}\ -\/\ \%f"{}},\ v);}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{namespacehmap}{hmap}}::log::\mbox{\hyperlink{namespacehmap_1_1log_a6480b435f3a81f37c203245b752fb5c7}{trace}}(\textcolor{stringliteral}{"{}\ -\/\ \{\}"{}},\ v);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ -\/-\/-\/\ Secondary\ outputs}}
 \DoxyCodeLine{}
@@ -8237,9 +8235,9 @@ Connected-\/component labeling is a technique used to identify clusters of conne
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ dummy\ =\ \mbox{\hyperlink{namespacehmap_a34efdecd3db27a30c06537acda6d9457}{hmap::connected\_components}}(z,\ 0.f,\ 0.f,\ \&surfaces,\ \&centroids);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ centroids\ of\ each\ components\ in\ index\ (i,\ j)\ scale}}
-\DoxyCodeLine{\ \ LOG\_DEBUG(\textcolor{stringliteral}{"{}Centroids"{}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1log_a6480b435f3a81f37c203245b752fb5c7}{hmap::log::trace}}(\textcolor{stringliteral}{"{}Centroids"{}});}
 \DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&[k,\ v]\ :\ centroids)}
-\DoxyCodeLine{\ \ \ \ LOG\_DEBUG(\textcolor{stringliteral}{"{}\ -\/\ \%f\ \%f\ \%f"{}},\ k,\ v[0],\ v[1]);}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{namespacehmap}{hmap}}::log::\mbox{\hyperlink{namespacehmap_1_1log_a6480b435f3a81f37c203245b752fb5c7}{trace}}(\textcolor{stringliteral}{"{}\ -\/\ \{\}\ \{\}\ \{\}"{}},\ k,\ v[0],\ v[1]);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ -\/-\/-\/\ Plots}}
 \DoxyCodeLine{}

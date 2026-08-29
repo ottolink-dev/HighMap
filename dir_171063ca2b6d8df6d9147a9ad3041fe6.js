@@ -25,6 +25,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_island_chain.cpp", "test__island__chain_8cpp.html", "test__island__chain_8cpp" ],
     [ "test_level_set_curvature.cpp", "test__level__set__curvature_8cpp.html", "test__level__set__curvature_8cpp" ],
     [ "test_local_metrics.cpp", "test__local__metrics_8cpp.html", "test__local__metrics_8cpp" ],
+    [ "test_logger.cpp", "test__logger_8cpp.html", "test__logger_8cpp" ],
     [ "test_math.cpp", "test__math_8cpp.html", "test__math_8cpp" ],
     [ "test_math_histogram.cpp", "test__math__histogram_8cpp.html", "test__math__histogram_8cpp" ],
     [ "test_normalize.cpp", "test__normalize_8cpp.html", "test__normalize_8cpp" ],

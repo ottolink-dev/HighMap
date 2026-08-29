@@ -1,0 +1,92 @@
+\doxysection{High\+Map/include/highmap/logger.hpp File Reference}
+\hypertarget{logger_8hpp}{}\label{logger_8hpp}\index{HighMap/include/highmap/logger.hpp@{HighMap/include/highmap/logger.hpp}}
+
+
+Custom logger utility with spdlog-\/like formatting and source location.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc}{hmap\+::log\+::format\+\_\+string\+\_\+with\+\_\+loc$<$ Args $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacehmap}{hmap}}
+\item 
+namespace \mbox{\hyperlink{namespacehmap_1_1log}{hmap\+::log}}
+\item 
+namespace \mbox{\hyperlink{namespacehmap_1_1log_1_1detail}{hmap\+::log\+::detail}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9}{hmap\+::log\+::detail\+::\+Level}} \{ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9add4ec0ac4e58f7c32a01244ae91150b1}{hmap\+::log\+::detail\+::\+Trace}}
+, \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a4059b0251f66a18cb56f544728796875}{hmap\+::log\+::detail\+::\+Info}}
+, \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a56525ae64d370c0b448ac0d60710ef17}{hmap\+::log\+::detail\+::\+Warn}}
+, \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a902b0d55fddef6f8d651fe1035b7d4bd}{hmap\+::log\+::detail\+::\+Error}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{namespacehmap_1_1log_a6480b435f3a81f37c203245b752fb5c7}{hmap\+::log\+::trace}} (Args \&\&...args)
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{namespacehmap_1_1log_a003adedecefe3badee6244e73b9168fb}{hmap\+::log\+::info}} (Args \&\&...args)
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{namespacehmap_1_1log_a2b618829e9c711302f726a3ec3f4ff49}{hmap\+::log\+::warn}} (Args \&\&...args)
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{namespacehmap_1_1log_a8329d2e0f083133cd0e3ff79fb74f2d9}{hmap\+::log\+::error}} (Args \&\&...args)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af77839d575b634b05fbd64a66fc7f9b4}{hmap\+::log\+::detail\+::level\+\_\+to\+\_\+string}} (\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9}{Level}} level)
+\item 
+constexpr std\+::string\+\_\+view \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_adf1a08821cd4c8261c3dba8acc3a332c}{hmap\+::log\+::detail\+::get\+\_\+filename}} (std\+::string\+\_\+view path)
+\item 
+std\+::string \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a858f9b2b03b26e0801a2b3bc6d137db5}{hmap\+::log\+::detail\+::format\+\_\+fixed\+\_\+width}} (std\+::string\+\_\+view str, size\+\_\+t width)
+\item 
+void \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{hmap\+::log\+::detail\+::log\+\_\+impl}} (\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9}{Level}} level, std\+::string\+\_\+view msg, const std\+::source\+\_\+location \&loc)
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{namespacehmap_1_1log_a36d8700c12247f686c8e1ad94373982c}{hmap\+::log\+::trace}} (\mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc}{format\+\_\+string\+\_\+with\+\_\+loc}}$<$ std\+::type\+\_\+identity\+\_\+t$<$ Args $>$... $>$ fl, Args \&\&...args)
+\item 
+void \mbox{\hyperlink{namespacehmap_1_1log_a7e74169886d5d637fa39354b95c167a4}{hmap\+::log\+::trace}} (std\+::string\+\_\+view message, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{namespacehmap_1_1log_ad7b9788c1dd51443be90a32e894b24b7}{hmap\+::log\+::trace}} (const std\+::source\+\_\+location \&loc, std\+::format\+\_\+string$<$ Args... $>$ fmt, Args \&\&...args)
+\item 
+void \mbox{\hyperlink{namespacehmap_1_1log_ac1f788088d44cb9a96d647f3f2ff1d7b}{hmap\+::log\+::trace}} (const std\+::source\+\_\+location \&loc, std\+::string\+\_\+view message)
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{namespacehmap_1_1log_ade28c3e96ca40d92596c8109f7240b92}{hmap\+::log\+::info}} (\mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc}{format\+\_\+string\+\_\+with\+\_\+loc}}$<$ std\+::type\+\_\+identity\+\_\+t$<$ Args $>$... $>$ fl, Args \&\&...args)
+\item 
+void \mbox{\hyperlink{namespacehmap_1_1log_a4f92a29ba2ab22266f27616c2ed87f4b}{hmap\+::log\+::info}} (std\+::string\+\_\+view message, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{namespacehmap_1_1log_aee4cc0c85345f25728f30b8bde71f90e}{hmap\+::log\+::info}} (const std\+::source\+\_\+location \&loc, std\+::format\+\_\+string$<$ Args... $>$ fmt, Args \&\&...args)
+\item 
+void \mbox{\hyperlink{namespacehmap_1_1log_a6722f75b1128ebfb8dd59ce19c4633f7}{hmap\+::log\+::info}} (const std\+::source\+\_\+location \&loc, std\+::string\+\_\+view message)
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{namespacehmap_1_1log_aee68e9f2996b30906a35591ba67b512e}{hmap\+::log\+::warn}} (\mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc}{format\+\_\+string\+\_\+with\+\_\+loc}}$<$ std\+::type\+\_\+identity\+\_\+t$<$ Args $>$... $>$ fl, Args \&\&...args)
+\item 
+void \mbox{\hyperlink{namespacehmap_1_1log_ac29d830f735240af262dff98a4821bdb}{hmap\+::log\+::warn}} (std\+::string\+\_\+view message, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{namespacehmap_1_1log_a46c31684b8b76befafe1190b8497459f}{hmap\+::log\+::warn}} (const std\+::source\+\_\+location \&loc, std\+::format\+\_\+string$<$ Args... $>$ fmt, Args \&\&...args)
+\item 
+void \mbox{\hyperlink{namespacehmap_1_1log_abb9cea51f3d394b99164dcde64377d5a}{hmap\+::log\+::warn}} (const std\+::source\+\_\+location \&loc, std\+::string\+\_\+view message)
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{namespacehmap_1_1log_a3a3741c6a7b48b99a364a007eb439c7d}{hmap\+::log\+::error}} (\mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc}{format\+\_\+string\+\_\+with\+\_\+loc}}$<$ std\+::type\+\_\+identity\+\_\+t$<$ Args $>$... $>$ fl, Args \&\&...args)
+\item 
+void \mbox{\hyperlink{namespacehmap_1_1log_a1787563be29f74a0d8c2d492839641bc}{hmap\+::log\+::error}} (std\+::string\+\_\+view message, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{namespacehmap_1_1log_a5a99752b3c92d91e0b975fa10ac8c8f7}{hmap\+::log\+::error}} (const std\+::source\+\_\+location \&loc, std\+::format\+\_\+string$<$ Args... $>$ fmt, Args \&\&...args)
+\item 
+void \mbox{\hyperlink{namespacehmap_1_1log_a43782590e21495ec926bacfe499b7aa2}{hmap\+::log\+::error}} (const std\+::source\+\_\+location \&loc, std\+::string\+\_\+view message)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Custom logger utility with spdlog-\/like formatting and source location. 
+
+\begin{DoxyAuthor}{Author}
+Otto Link (\href{mailto:otto.link.bv@gmail.com}{\texttt{ otto.\+link.\+bv@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2023 
+\end{DoxyCopyright}

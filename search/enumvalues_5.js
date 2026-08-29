@@ -19,6 +19,7 @@ var searchData=
   ['ep_5ftriangle_5fgrenier_16',['EP_TRIANGLE_GRENIER',['../namespacehmap.html#a25a4e4775f3c0918ed75f0503f5ed0a6a61a4a71c0e8d1a97da9657b03d51680f',1,'hmap']]],
   ['ep_5ftriangle_5fsharp_17',['EP_TRIANGLE_SHARP',['../namespacehmap.html#a25a4e4775f3c0918ed75f0503f5ed0a6abd62370bad5912fe7918895b6ddb0176',1,'hmap']]],
   ['ep_5ftriangle_5fsmooth_18',['EP_TRIANGLE_SMOOTH',['../namespacehmap.html#a25a4e4775f3c0918ed75f0503f5ed0a6a4ac60b8049aacabb3b5546b20cc87e9e',1,'hmap']]],
-  ['euclidian_19',['EUCLIDIAN',['../namespacehmap.html#a670f50d6c08ecd639d42db9c75a5273aab5937b3ae1efaa098f517fe7c761b781',1,'hmap']]],
-  ['euclishev_20',['EUCLISHEV',['../namespacehmap.html#a670f50d6c08ecd639d42db9c75a5273aa439184a2066b21b9ba0883b29efabfec',1,'hmap']]]
+  ['error_19',['Error',['../namespacehmap_1_1log_1_1detail.html#af3c0cdbd7ebc57f0a2d879d475f55cb9a902b0d55fddef6f8d651fe1035b7d4bd',1,'hmap::log::detail']]],
+  ['euclidian_20',['EUCLIDIAN',['../namespacehmap.html#a670f50d6c08ecd639d42db9c75a5273aab5937b3ae1efaa098f517fe7c761b781',1,'hmap']]],
+  ['euclishev_21',['EUCLISHEV',['../namespacehmap.html#a670f50d6c08ecd639d42db9c75a5273aa439184a2066b21b9ba0883b29efabfec',1,'hmap']]]
 ];

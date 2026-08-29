@@ -1,6 +1,9 @@
 var annotated_dup =
 [
     [ "hmap", "namespacehmap.html", [
+      [ "log", "namespacehmap_1_1log.html", [
+        [ "format_string_with_loc", "structhmap_1_1log_1_1format__string__with__loc.html", "structhmap_1_1log_1_1format__string__with__loc" ]
+      ] ],
       [ "Array", "classhmap_1_1Array.html", "classhmap_1_1Array" ],
       [ "ArrayControlFunction", "classhmap_1_1ArrayControlFunction.html", "classhmap_1_1ArrayControlFunction" ],
       [ "ArrayFunction", "classhmap_1_1ArrayFunction.html", "classhmap_1_1ArrayFunction" ],

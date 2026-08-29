@@ -1,0 +1,264 @@
+\doxysection{logger.\+hpp}
+\hypertarget{logger_8hpp_source}{}\label{logger_8hpp_source}\index{HighMap/include/highmap/logger.hpp@{HighMap/include/highmap/logger.hpp}}
+\mbox{\hyperlink{logger_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Copyright\ (c)\ 2023\ Otto\ Link.\ Distributed\ under\ the\ terms\ of\ the\ GNU\ General}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ Public\ License.\ The\ full\ license\ is\ in\ the\ file\ LICENSE,\ distributed\ with}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ this\ software.\ */}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <string\_view>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <concepts>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <format>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <source\_location>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifndef\ HIGHMAP\_ENABLE\_LOGS}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ HIGHMAP\_ENABLE\_LOGS\ 1}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifndef\ HIGHMAP\_LOG\_LEVEL\_WIDTH}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ HIGHMAP\_LOG\_LEVEL\_WIDTH\ 5}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifndef\ HIGHMAP\_LOG\_FILE\_WIDTH}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ HIGHMAP\_LOG\_FILE\_WIDTH\ 24}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap_1_1log}{hmap::log}}}
+\DoxyCodeLine{00036\ \{}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#if\ !HIGHMAP\_ENABLE\_LOGS}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a6480b435f3a81f37c203245b752fb5c7}{trace}}([[maybe\_unused]]\ Args\ \&\&...args)}
+\DoxyCodeLine{00041\ \{}
+\DoxyCodeLine{00042\ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a003adedecefe3badee6244e73b9168fb}{info}}([[maybe\_unused]]\ Args\ \&\&...args)}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a2b618829e9c711302f726a3ec3f4ff49}{warn}}([[maybe\_unused]]\ Args\ \&\&...args)}
+\DoxyCodeLine{00049\ \{}
+\DoxyCodeLine{00050\ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a8329d2e0f083133cd0e3ff79fb74f2d9}{error}}([[maybe\_unused]]\ Args\ \&\&...args)}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc}{format\_string\_with\_loc}}}
+\DoxyCodeLine{00059\ \{}
+\DoxyCodeLine{00060\ \ \ std::format\_string<Args...>\ \mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc_a59f8ad67bd4d100b737202a9f4b19140}{fmt}};}
+\DoxyCodeLine{00061\ \ \ std::source\_location\ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc_ab3a11e4b6aabb05b776944e597250bdd}{loc}};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{requires}\ std::constructible\_from<std::format\_string<Args...>,\ \textcolor{keyword}{const}\ S\ \&>}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{consteval}\ \mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc_a9f42302c10cfeed598d216bf879c4ea9}{format\_string\_with\_loc}}(}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&s,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::source\_location\ \&l\ =\ std::source\_location::current())}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ :\ \mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc_a59f8ad67bd4d100b737202a9f4b19140}{fmt}}(s),\ \mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc_ab3a11e4b6aabb05b776944e597250bdd}{loc}}(l)}
+\DoxyCodeLine{00069\ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \}}
+\DoxyCodeLine{00071\ \};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{namespace\ }detail}
+\DoxyCodeLine{00074\ \{}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9}{Level}}}
+\DoxyCodeLine{00077\ \{}
+\DoxyCodeLine{00078\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9add4ec0ac4e58f7c32a01244ae91150b1}{Trace}},}
+\DoxyCodeLine{00079\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a4059b0251f66a18cb56f544728796875}{Info}},}
+\DoxyCodeLine{00080\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a56525ae64d370c0b448ac0d60710ef17}{Warn}},}
+\DoxyCodeLine{00081\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a902b0d55fddef6f8d651fe1035b7d4bd}{Error}}}
+\DoxyCodeLine{00082\ \};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af77839d575b634b05fbd64a66fc7f9b4}{level\_to\_string}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9}{Level}}\ level)}
+\DoxyCodeLine{00085\ \{}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordflow}{switch}\ (level)}
+\DoxyCodeLine{00087\ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9add4ec0ac4e58f7c32a01244ae91150b1}{Level::Trace}}:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}trace"{}};}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a4059b0251f66a18cb56f544728796875}{Level::Info}}:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}info"{}};}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a56525ae64d370c0b448ac0d60710ef17}{Level::Warn}}:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}warn"{}};}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a902b0d55fddef6f8d651fe1035b7d4bd}{Level::Error}}:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}error"{}};}
+\DoxyCodeLine{00092\ \ \ \}}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}info"{}};}
+\DoxyCodeLine{00094\ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{constexpr}\ std::string\_view\ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_adf1a08821cd4c8261c3dba8acc3a332c}{get\_filename}}(std::string\_view\ path)}
+\DoxyCodeLine{00097\ \{}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ pos\ =\ path.find\_last\_of(\textcolor{stringliteral}{"{}/\(\backslash\)\(\backslash\)"{}});}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordflow}{return}\ (pos\ ==\ std::string\_view::npos)\ ?\ path\ :\ path.substr(pos\ +\ 1);}
+\DoxyCodeLine{00100\ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{inline}\ std::string\ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a858f9b2b03b26e0801a2b3bc6d137db5}{format\_fixed\_width}}(std::string\_view\ str,\ \textcolor{keywordtype}{size\_t}\ width)}
+\DoxyCodeLine{00103\ \{}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordflow}{if}\ (width\ ==\ 0)\ \textcolor{keywordflow}{return}\ std::string(str);}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordflow}{if}\ (str.length()\ >\ width)}
+\DoxyCodeLine{00106\ \ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{if}\ (width\ <=\ 3)\ \textcolor{keywordflow}{return}\ std::string(str.substr(0,\ width));}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{return}\ std::string(str.substr(0,\ width\ -\/\ 3))\ +\ \textcolor{stringliteral}{"{}..."{}};}
+\DoxyCodeLine{00109\ \ \ \}}
+\DoxyCodeLine{00110\ \ \ std::string\ res(str);}
+\DoxyCodeLine{00111\ \ \ res.append(width\ -\/\ str.length(),\ \textcolor{charliteral}{'\ '});}
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00113\ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9}{Level}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ level,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\_view\ \ \ \ \ \ \ \ \ \ \ \ msg,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::source\_location\ \&loc)}
+\DoxyCodeLine{00118\ \{}
+\DoxyCodeLine{00119\ \ \ std::ostream\ \&out\ =\ (level\ ==\ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a56525ae64d370c0b448ac0d60710ef17}{Level::Warn}}\ ||\ level\ ==\ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a902b0d55fddef6f8d651fe1035b7d4bd}{Level::Error}})}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ std::cerr}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ std::cout;}
+\DoxyCodeLine{00122\ \ \ out\ <<\ \textcolor{stringliteral}{"{}hmap\ "{}}\ <<\ \textcolor{stringliteral}{"{}["{}}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ <<\ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a858f9b2b03b26e0801a2b3bc6d137db5}{format\_fixed\_width}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af77839d575b634b05fbd64a66fc7f9b4}{level\_to\_string}}(level),\ HIGHMAP\_LOG\_LEVEL\_WIDTH)}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}]\ ["{}}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ <<\ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a858f9b2b03b26e0801a2b3bc6d137db5}{format\_fixed\_width}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_adf1a08821cd4c8261c3dba8acc3a332c}{get\_filename}}(loc.file\_name()),}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HIGHMAP\_LOG\_FILE\_WIDTH)}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ loc.line()\ <<\ \textcolor{stringliteral}{"{}]\ "{}}\ <<\ msg\ <<\ std::endl;}
+\DoxyCodeLine{00128\ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \}\ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00133\ \textcolor{comment}{//\ trace}}
+\DoxyCodeLine{00134\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00137\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a6480b435f3a81f37c203245b752fb5c7}{trace}}(\mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc}{format\_string\_with\_loc}}<std::type\_identity\_t<Args>...>\ fl,}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Args\ \&\&...args)}
+\DoxyCodeLine{00139\ \{}
+\DoxyCodeLine{00140\ \ \ std::string\ msg\ =\ std::vformat(fl.fmt.get(),\ std::make\_format\_args(args...));}
+\DoxyCodeLine{00141\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9add4ec0ac4e58f7c32a01244ae91150b1}{detail::Level::Trace}},\ msg,\ fl.loc);}
+\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a6480b435f3a81f37c203245b752fb5c7}{trace}}(}
+\DoxyCodeLine{00145\ \ \ \ \ std::string\_view\ \ \ \ \ \ \ \ \ \ \ \ message,}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{const}\ std::source\_location\ \&loc\ =\ std::source\_location::current())}
+\DoxyCodeLine{00147\ \{}
+\DoxyCodeLine{00148\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9add4ec0ac4e58f7c32a01244ae91150b1}{detail::Level::Trace}},\ message,\ loc);}
+\DoxyCodeLine{00149\ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00152\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a6480b435f3a81f37c203245b752fb5c7}{trace}}(\textcolor{keyword}{const}\ std::source\_location\ \&loc,}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::format\_string<Args...>\ fmt,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Args\ \&\&...args)}
+\DoxyCodeLine{00155\ \{}
+\DoxyCodeLine{00156\ \ \ std::string\ msg\ =\ std::vformat(fmt.get(),\ std::make\_format\_args(args...));}
+\DoxyCodeLine{00157\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9add4ec0ac4e58f7c32a01244ae91150b1}{detail::Level::Trace}},\ msg,\ loc);}
+\DoxyCodeLine{00158\ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a6480b435f3a81f37c203245b752fb5c7}{trace}}(\textcolor{keyword}{const}\ std::source\_location\ \&loc,\ std::string\_view\ message)}
+\DoxyCodeLine{00161\ \{}
+\DoxyCodeLine{00162\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9add4ec0ac4e58f7c32a01244ae91150b1}{detail::Level::Trace}},\ message,\ loc);}
+\DoxyCodeLine{00163\ \}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00166\ \textcolor{comment}{//\ info}}
+\DoxyCodeLine{00167\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00170\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a003adedecefe3badee6244e73b9168fb}{info}}(\mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc}{format\_string\_with\_loc}}<std::type\_identity\_t<Args>...>\ fl,}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Args\ \&\&...args)}
+\DoxyCodeLine{00172\ \{}
+\DoxyCodeLine{00173\ \ \ std::string\ msg\ =\ std::vformat(fl.fmt.get(),\ std::make\_format\_args(args...));}
+\DoxyCodeLine{00174\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a4059b0251f66a18cb56f544728796875}{detail::Level::Info}},\ msg,\ fl.loc);}
+\DoxyCodeLine{00175\ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a003adedecefe3badee6244e73b9168fb}{info}}(}
+\DoxyCodeLine{00178\ \ \ \ \ std::string\_view\ \ \ \ \ \ \ \ \ \ \ \ message,}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keyword}{const}\ std::source\_location\ \&loc\ =\ std::source\_location::current())}
+\DoxyCodeLine{00180\ \{}
+\DoxyCodeLine{00181\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a4059b0251f66a18cb56f544728796875}{detail::Level::Info}},\ message,\ loc);}
+\DoxyCodeLine{00182\ \}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00185\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a003adedecefe3badee6244e73b9168fb}{info}}(\textcolor{keyword}{const}\ std::source\_location\ \&loc,}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::format\_string<Args...>\ fmt,}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Args\ \&\&...args)}
+\DoxyCodeLine{00188\ \{}
+\DoxyCodeLine{00189\ \ \ std::string\ msg\ =\ std::vformat(fmt.get(),\ std::make\_format\_args(args...));}
+\DoxyCodeLine{00190\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a4059b0251f66a18cb56f544728796875}{detail::Level::Info}},\ msg,\ loc);}
+\DoxyCodeLine{00191\ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a003adedecefe3badee6244e73b9168fb}{info}}(\textcolor{keyword}{const}\ std::source\_location\ \&loc,\ std::string\_view\ message)}
+\DoxyCodeLine{00194\ \{}
+\DoxyCodeLine{00195\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a4059b0251f66a18cb56f544728796875}{detail::Level::Info}},\ message,\ loc);}
+\DoxyCodeLine{00196\ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00199\ \textcolor{comment}{//\ warn}}
+\DoxyCodeLine{00200\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00203\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a2b618829e9c711302f726a3ec3f4ff49}{warn}}(\mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc}{format\_string\_with\_loc}}<std::type\_identity\_t<Args>...>\ fl,}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Args\ \&\&...args)}
+\DoxyCodeLine{00205\ \{}
+\DoxyCodeLine{00206\ \ \ std::string\ msg\ =\ std::vformat(fl.fmt.get(),\ std::make\_format\_args(args...));}
+\DoxyCodeLine{00207\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a56525ae64d370c0b448ac0d60710ef17}{detail::Level::Warn}},\ msg,\ fl.loc);}
+\DoxyCodeLine{00208\ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a2b618829e9c711302f726a3ec3f4ff49}{warn}}(}
+\DoxyCodeLine{00211\ \ \ \ \ std::string\_view\ \ \ \ \ \ \ \ \ \ \ \ message,}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keyword}{const}\ std::source\_location\ \&loc\ =\ std::source\_location::current())}
+\DoxyCodeLine{00213\ \{}
+\DoxyCodeLine{00214\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a56525ae64d370c0b448ac0d60710ef17}{detail::Level::Warn}},\ message,\ loc);}
+\DoxyCodeLine{00215\ \}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00218\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a2b618829e9c711302f726a3ec3f4ff49}{warn}}(\textcolor{keyword}{const}\ std::source\_location\ \&loc,}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::format\_string<Args...>\ fmt,}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Args\ \&\&...args)}
+\DoxyCodeLine{00221\ \{}
+\DoxyCodeLine{00222\ \ \ std::string\ msg\ =\ std::vformat(fmt.get(),\ std::make\_format\_args(args...));}
+\DoxyCodeLine{00223\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a56525ae64d370c0b448ac0d60710ef17}{detail::Level::Warn}},\ msg,\ loc);}
+\DoxyCodeLine{00224\ \}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a2b618829e9c711302f726a3ec3f4ff49}{warn}}(\textcolor{keyword}{const}\ std::source\_location\ \&loc,\ std::string\_view\ message)}
+\DoxyCodeLine{00227\ \{}
+\DoxyCodeLine{00228\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a56525ae64d370c0b448ac0d60710ef17}{detail::Level::Warn}},\ message,\ loc);}
+\DoxyCodeLine{00229\ \}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00232\ \textcolor{comment}{//\ error}}
+\DoxyCodeLine{00233\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00236\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a8329d2e0f083133cd0e3ff79fb74f2d9}{error}}(\mbox{\hyperlink{structhmap_1_1log_1_1format__string__with__loc}{format\_string\_with\_loc}}<std::type\_identity\_t<Args>...>\ fl,}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Args\ \&\&...args)}
+\DoxyCodeLine{00238\ \{}
+\DoxyCodeLine{00239\ \ \ std::string\ msg\ =\ std::vformat(fl.fmt.get(),\ std::make\_format\_args(args...));}
+\DoxyCodeLine{00240\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a902b0d55fddef6f8d651fe1035b7d4bd}{detail::Level::Error}},\ msg,\ fl.loc);}
+\DoxyCodeLine{00241\ \}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a8329d2e0f083133cd0e3ff79fb74f2d9}{error}}(}
+\DoxyCodeLine{00244\ \ \ \ \ std::string\_view\ \ \ \ \ \ \ \ \ \ \ \ message,}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keyword}{const}\ std::source\_location\ \&loc\ =\ std::source\_location::current())}
+\DoxyCodeLine{00246\ \{}
+\DoxyCodeLine{00247\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a902b0d55fddef6f8d651fe1035b7d4bd}{detail::Level::Error}},\ message,\ loc);}
+\DoxyCodeLine{00248\ \}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00251\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a8329d2e0f083133cd0e3ff79fb74f2d9}{error}}(\textcolor{keyword}{const}\ std::source\_location\ \&loc,}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::format\_string<Args...>\ fmt,}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Args\ \&\&...args)}
+\DoxyCodeLine{00254\ \{}
+\DoxyCodeLine{00255\ \ \ std::string\ msg\ =\ std::vformat(fmt.get(),\ std::make\_format\_args(args...));}
+\DoxyCodeLine{00256\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a902b0d55fddef6f8d651fe1035b7d4bd}{detail::Level::Error}},\ msg,\ loc);}
+\DoxyCodeLine{00257\ \}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1log_a8329d2e0f083133cd0e3ff79fb74f2d9}{error}}(\textcolor{keyword}{const}\ std::source\_location\ \&loc,\ std::string\_view\ message)}
+\DoxyCodeLine{00260\ \{}
+\DoxyCodeLine{00261\ \ \ \mbox{\hyperlink{namespacehmap_1_1log_1_1detail_a63995cdf3b5dc5033a32662caec75cac}{detail::log\_impl}}(\mbox{\hyperlink{namespacehmap_1_1log_1_1detail_af3c0cdbd7ebc57f0a2d879d475f55cb9a902b0d55fddef6f8d651fe1035b7d4bd}{detail::Level::Error}},\ message,\ loc);}
+\DoxyCodeLine{00262\ \}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \}\ \textcolor{comment}{//\ namespace\ hmap::log}}
+
+\end{DoxyCode}
