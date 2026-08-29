@@ -691,7 +691,7 @@ var namespacehmap =
     [ "flow_direction_dinf_angle", "namespacehmap.html#ad1d77ab375dfcca54183bbb687c82e9d", null ],
     [ "flow_fixing", "namespacehmap.html#a165369392eff196af2299eafa089cd6e", null ],
     [ "flow_fixing_drainage_basin", "namespacehmap.html#a62e937a8e394092689481bb392bc15cf", null ],
-    [ "flow_fixing_mst", "namespacehmap.html#a13aa1dca6b0977ed1fe505e475d63bde", null ],
+    [ "flow_fixing_mst", "namespacehmap.html#af21f58347a8ebd90fda8d9142be67386", null ],
     [ "flow_stream", "namespacehmap.html#a948b4703486f175cd2681bd9bc7b5a88", null ],
     [ "carve_riverbed", "namespacehmap.html#a70e5aa1009c3de1d301e0a8994dd8b03", null ],
     [ "generate_riverbed", "namespacehmap.html#a30d55fae5c75a1c45a005a3f9a9467eb", null ],
