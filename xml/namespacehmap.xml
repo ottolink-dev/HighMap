@@ -30485,10 +30485,10 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
         </inbodydescription>
         <location file="HighMap/src/hydrology/flow_accumulation_dinf.cpp" line="242" column="7" bodyfile="HighMap/src/hydrology/flow_accumulation_dinf.cpp" bodystart="242" bodyend="290" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="461" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a165369392eff196af2299eafa089cd6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1ab4a40ce8de82f97aeaa1dea7a36f94c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::flow_fixing</definition>
-        <argsstring>(const Array &amp;z, float riverbed_talus=0.f, int iterations=5, int prefilter_ir=8, bool carve_riverbed=true, bool smooth_river_bottom=true, float talus_riverbank=0.01f, std::uint32_t seed=0, float riverbank_noise_ratio=0.f, float merging_distance=8.f, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr)</argsstring>
+        <argsstring>(const Array &amp;z, float riverbed_talus=0.f, int iterations=5, int prefilter_ir=8, bool carve_riverbed=true, float merging_distance=8.f, const Array *p_noise_r=nullptr)</argsstring>
         <name>flow_fixing</name>
         <qualifiedname>hmap::flow_fixing</qualifiedname>
         <param>
@@ -30516,38 +30516,13 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
           <defval>true</defval>
         </param>
         <param>
-          <type>bool</type>
-          <declname>smooth_river_bottom</declname>
-          <defval>true</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>talus_riverbank</declname>
-          <defval>0.01<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>std::uint32_t</type>
-          <declname>seed</declname>
-          <defval>0</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>riverbank_noise_ratio</declname>
-          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
           <type>float</type>
           <declname>merging_distance</declname>
           <defval>8.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_noise_x</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_noise_y</declname>
+          <declname>p_noise_r</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
@@ -30556,7 +30531,7 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/flow_fixing.cpp" line="26" column="7" bodyfile="HighMap/src/hydrology/flow_fixing.cpp" bodystart="26" bodyend="267" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="463" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/flow_fixing.cpp" line="27" column="7" bodyfile="HighMap/src/hydrology/flow_fixing.cpp" bodystart="27" bodyend="285" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="463" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a62e937a8e394092689481bb392bc15cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -30734,12 +30709,12 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/flow_fixing.cpp" line="269" column="7" bodyfile="HighMap/src/hydrology/flow_fixing.cpp" bodystart="269" bodyend="341" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="509" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/flow_fixing.cpp" line="287" column="7" bodyfile="HighMap/src/hydrology/flow_fixing.cpp" bodystart="287" bodyend="359" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="504" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1af21f58347a8ebd90fda8d9142be67386" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a51dcd14052f35aed4cd9352bd0341d16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::flow_fixing_mst</definition>
-        <argsstring>(const Array &amp;z, float riverbed_talus=0.f, float elevation_ratio=0.95f, float distance_exponent=2.f, float upward_penalization=50.f, float valley_affinity=0.5f, float path_sinuosity=0.25f, int prefilter_ir=8, float minimum_depth=1e-4f, bool carve_riverbed=true, bool smooth_river_bottom=true, float talus_riverbank=0.01f, std::uint32_t seed=0, float riverbank_noise_ratio=0.f, float merging_distance=8.f, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr)</argsstring>
+        <argsstring>(const Array &amp;z, float riverbed_talus=0.f, float elevation_ratio=0.95f, float distance_exponent=2.f, float upward_penalization=50.f, float valley_affinity=0.5f, float path_sinuosity=0.25f, int prefilter_ir=8, float minimum_depth=1e-4f, bool carve_riverbed=true, std::uint32_t seed=0, float merging_distance=8.f, const Array *p_noise_r=nullptr)</argsstring>
         <name>flow_fixing_mst</name>
         <qualifiedname>hmap::flow_fixing_mst</qualifiedname>
         <param>
@@ -30792,24 +30767,9 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
           <defval>true</defval>
         </param>
         <param>
-          <type>bool</type>
-          <declname>smooth_river_bottom</declname>
-          <defval>true</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>talus_riverbank</declname>
-          <defval>0.01<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
           <type>std::uint32_t</type>
           <declname>seed</declname>
           <defval>0</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>riverbank_noise_ratio</declname>
-          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>float</type>
@@ -30818,19 +30778,14 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
         </param>
         <param>
           <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_noise_x</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_noise_y</declname>
+          <declname>p_noise_r</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
 <para>Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning Tree (MST) over sinks and boundary outlets. </para>
         </briefdescription>
         <detaileddescription>
-<para>This function identifies all flow sinks and boundary outlets, computes candidate optimal path connections via multi-source Dijkstra search, constructs a Minimum Spanning Forest (Kruskal&apos;s algorithm) guaranteeing that each sink connects to an outlet through the lowest-effort saddle pass, and carves monotonic riverbeds along the MST paths.</para>
+<para>This function identifies all flow sinks and boundary outlets, computes candidate optimal path connections via multi-source Dijkstra search, constructs a Minimum Spanning Forest (Kruskal&apos;s algorithm) guaranteeing that each sink connects to an outlet through the lowest-effort saddle pass, and carves monotonic riverbeds along the MST paths using continuous trench profiles.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>z</parametername>
@@ -30845,14 +30800,6 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
 </parameternamelist>
 <parameterdescription>
 <para>Minimum talus (slope) along carved riverbeds. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>iterations</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Number of iterative sink detection and MST breaching passes. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -30881,6 +30828,22 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
 </parameteritem>
 <parameteritem>
 <parameternamelist>
+<parametername>valley_affinity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for valley/concavity affinity in cost. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path_sinuosity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for noise-based path sinuosity. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
 <parametername>prefilter_ir</parametername>
 </parameternamelist>
 <parameterdescription>
@@ -30905,34 +30868,10 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>smooth_river_bottom</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Whether to apply Laplace smoothing along the river bottom. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>talus_riverbank</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Talus value used when expanding riverbanks. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
 <parametername>seed</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Random seed for noise generation. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>riverbank_noise_ratio</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Noise ratio for riverbank expansion. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -30945,18 +30884,10 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>p_noise_x</parametername>
+<parametername>p_noise_r</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Optional noise array for riverbank domain warping in X. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>p_noise_y</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional noise array for riverbank domain warping in Y. </para>
+<para>Optional radial noise array for trench width perturbation. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -30966,7 +30897,7 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/flow_fixing.cpp" line="343" column="7" bodyfile="HighMap/src/hydrology/flow_fixing.cpp" bodystart="343" bodyend="780" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="561" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/flow_fixing.cpp" line="361" column="7" bodyfile="HighMap/src/hydrology/flow_fixing.cpp" bodystart="361" bodyend="822" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="551" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a948b4703486f175cd2681bd9bc7b5a88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
@@ -31120,7 +31051,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/flow_stream.cpp" line="49" column="6" bodyfile="HighMap/src/hydrology/flow_stream.cpp" bodystart="49" bodyend="120" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="612" declcolumn="6"/>
+        <location file="HighMap/src/hydrology/flow_stream.cpp" line="49" column="6" bodyfile="HighMap/src/hydrology/flow_stream.cpp" bodystart="49" bodyend="120" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="598" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a30d55fae5c75a1c45a005a3f9a9467eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -31375,7 +31306,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/generate_riverbed.cpp" line="20" column="7" bodyfile="HighMap/src/hydrology/generate_riverbed.cpp" bodystart="20" bodyend="89" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="664" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/generate_riverbed.cpp" line="20" column="7" bodyfile="HighMap/src/hydrology/generate_riverbed.cpp" bodystart="20" bodyend="89" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="650" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a64fbc0261e13ea842762efd3ac6bcc53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -31432,7 +31363,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="26" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="26" bodyend="38" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="690" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="26" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="26" bodyend="38" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="676" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a78419f7981186b40c4a2d04456e4e63f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -31623,7 +31554,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/snow_simulation.cpp" line="21" column="7" bodyfile="HighMap/src/hydrology/snow_simulation.cpp" bodystart="21" bodyend="75" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="719" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/snow_simulation.cpp" line="21" column="7" bodyfile="HighMap/src/hydrology/snow_simulation.cpp" bodystart="21" bodyend="75" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="705" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a3a5454dd7547ce6b9d995be17a2ac410" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -31733,7 +31664,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="68" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="68" bodyend="85" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="766" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="68" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="68" bodyend="85" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="752" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a3aebd62906b90ccfde11140e13b0853f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -31832,7 +31763,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="40" column="6" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="40" bodyend="66" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="796" declcolumn="6"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="40" column="6" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="40" bodyend="66" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="782" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a136f042ce2ad8c14033f4d839f56265d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -31923,7 +31854,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="87" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="87" bodyend="226" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="836" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="87" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="87" bodyend="226" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="822" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1afad09b723c82dd7f0a0f7365e74b1edf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -32014,7 +31945,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="228" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="228" bodyend="284" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="874" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="228" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="228" bodyend="284" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="860" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ab562e00b361d918c52dd5860fc88ae06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -32100,7 +32031,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="286" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="286" bodyend="314" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="899" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="286" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="286" bodyend="314" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="885" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ad39c72e2b4c07d3013f7b0143c31137c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -32155,7 +32086,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="316" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="316" bodyend="321" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="919" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="316" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="316" bodyend="321" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="905" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1abc5928f49e530927c8fb61a9afea3274" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -32234,7 +32165,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="323" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="323" bodyend="337" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="943" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="323" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="323" bodyend="337" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="929" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a67eae4546cbed6a804eaddcde9350e1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::filesystem::path</type>
