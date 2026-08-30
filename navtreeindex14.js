@@ -105,6 +105,7 @@ var NAVTREEINDEX14 =
 "namespacehmap.html#a4c42905cbb910cb4017ef3e026a31d59":[3,0,0,748],
 "namespacehmap.html#a4ca9ddaa140548937a12022e79823401":[3,0,0,281],
 "namespacehmap.html#a4cb51937d8283468bc540129d491222b":[3,0,0,484],
+"namespacehmap.html#a4d151da78c906907ca5ae39beaa1ed03":[3,0,0,460],
 "namespacehmap.html#a4e0ce9e13f26f66fa546e5127a68956c":[3,0,0,299],
 "namespacehmap.html#a4e2b7df70a18f94ad7f4d7cd934ec767":[3,0,0,183],
 "namespacehmap.html#a4e3cbe9e4b43341148c170f34bd462fd":[3,0,0,320],
@@ -248,6 +249,5 @@ var NAVTREEINDEX14 =
 "namespacehmap.html#a75475b6109023ce0ad64f6f9f7c4c525":[3,0,0,545],
 "namespacehmap.html#a7634a1bb2505ae11370c431b0b1fd9ea":[3,0,0,162],
 "namespacehmap.html#a765ffa5ee98f47eba4b9d4ebe7680190":[3,0,0,736],
-"namespacehmap.html#a76b37b88acf83d6a5b21f1be1b50697e":[3,0,0,160],
-"namespacehmap.html#a772bd6b8b78d944382991f3064c1f4e1":[3,0,0,655]
+"namespacehmap.html#a76b37b88acf83d6a5b21f1be1b50697e":[3,0,0,160]
 };
