@@ -22,7 +22,7 @@ var hydrology_2hydrology_8hpp =
     [ "flow_direction_dinf_angle", "hydrology_2hydrology_8hpp.html#ad1d77ab375dfcca54183bbb687c82e9d", null ],
     [ "flow_fixing", "hydrology_2hydrology_8hpp.html#ab4a40ce8de82f97aeaa1dea7a36f94c6", null ],
     [ "flow_fixing_drainage_basin", "hydrology_2hydrology_8hpp.html#a62e937a8e394092689481bb392bc15cf", null ],
-    [ "flow_fixing_mst", "hydrology_2hydrology_8hpp.html#a51dcd14052f35aed4cd9352bd0341d16", null ],
+    [ "flow_fixing_mst", "hydrology_2hydrology_8hpp.html#ad2240f2741a6216ad28e73bd8d3f71f2", null ],
     [ "flow_stream", "hydrology_2hydrology_8hpp.html#a948b4703486f175cd2681bd9bc7b5a88", null ],
     [ "generate_riverbed", "hydrology_2hydrology_8hpp.html#a30d55fae5c75a1c45a005a3f9a9467eb", null ],
     [ "merge_water_depths", "hydrology_2hydrology_8hpp.html#a64fbc0261e13ea842762efd3ac6bcc53", null ],
