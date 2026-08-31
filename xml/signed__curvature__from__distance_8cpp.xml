@@ -16,55 +16,64 @@
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="array_8hpp" kindref="compound">highmap/array.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="curvature_8hpp" kindref="compound">highmap/curvature.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="morphology_8hpp" kindref="compound">highmap/morphology.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref></highlight></codeline>
-<codeline lineno="11"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1ac56515202b30368216c7324b819cc838" kindref="member">signed_curvature_from_distance</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prefilter_ir)</highlight></codeline>
-<codeline lineno="14"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/>Array<sp/>dist<sp/>=<sp/><ref refid="namespacehmap_1a3bad25b24d9ae0e07e692c546bc3480d" kindref="member">distance_transform</ref>(array);</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1aa1f2e119a09d246fe0cf27e859ddb2e6" kindref="member">level_set_curvature</ref>(dist,<sp/>prefilter_ir);</highlight></codeline>
-<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight></codeline>
-<codeline lineno="19"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1ad4ab7bb38b3ea37fa912190251c1ed76" kindref="member">signed_distance_transform</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prefilter_ir)</highlight></codeline>
-<codeline lineno="20"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/>Array<sp/>dist0<sp/>=<sp/><ref refid="namespacehmap_1a3bad25b24d9ae0e07e692c546bc3480d" kindref="member">distance_transform</ref>(array);</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/>Array<sp/>dist<sp/>=<sp/>dist0;</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/>Array<sp/>gn<sp/>=<sp/><ref refid="namespacehmap_1aa1f2e119a09d246fe0cf27e859ddb2e6" kindref="member">level_set_curvature</ref>(dist,<sp/>prefilter_ir);</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>array.shape.y;<sp/>++j)</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>array.shape.x;<sp/>++i)</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dist0(i,<sp/>j)<sp/>*=<sp/>std::copysign(1.f,<sp/>gn(i,<sp/>j));</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dist0;</highlight></codeline>
-<codeline lineno="30"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="validation_8hpp" kindref="compound">highmap/internal/validation.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="morphology_8hpp" kindref="compound">highmap/morphology.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref></highlight></codeline>
+<codeline lineno="12"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1ac56515202b30368216c7324b819cc838" kindref="member">signed_curvature_from_distance</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prefilter_ir)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>Array<sp/>dist<sp/>=<sp/><ref refid="namespacehmap_1a3bad25b24d9ae0e07e692c546bc3480d" kindref="member">distance_transform</ref>(array);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1aa1f2e119a09d246fe0cf27e859ddb2e6" kindref="member">level_set_curvature</ref>(dist,<sp/>prefilter_ir);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1ad4ab7bb38b3ea37fa912190251c1ed76" kindref="member">signed_distance_transform</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prefilter_ir)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>Array<sp/>dist0<sp/>=<sp/><ref refid="namespacehmap_1a3bad25b24d9ae0e07e692c546bc3480d" kindref="member">distance_transform</ref>(array);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>Array<sp/>dist<sp/>=<sp/>dist0;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/>Array<sp/>gn<sp/>=<sp/><ref refid="namespacehmap_1aa1f2e119a09d246fe0cf27e859ddb2e6" kindref="member">level_set_curvature</ref>(dist,<sp/>prefilter_ir);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>array.shape.y;<sp/>++j)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>array.shape.x;<sp/>++i)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dist0(i,<sp/>j)<sp/>*=<sp/>std::copysign(1.f,<sp/>gn(i,<sp/>j));</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap_1_1gpu" kindref="compound">hmap::gpu</ref></highlight></codeline>
-<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dist0;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1afffb85b7bc6b9884cd00254c122da8e6" kindref="member">signed_curvature_from_distance</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prefilter_ir)</highlight></codeline>
-<codeline lineno="38"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/>Array<sp/>dist<sp/>=<sp/><ref refid="namespacehmap_1a3bad25b24d9ae0e07e692c546bc3480d" kindref="member">distance_transform</ref>(array);</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1_1gpu_1a125118b55d309727ff0b46d686fd3829" kindref="member">gpu::level_set_curvature</ref>(dist,<sp/>prefilter_ir);</highlight></codeline>
-<codeline lineno="41"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1a76cfd96b971a288964561449d83e21aa" kindref="member">signed_distance_transform</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prefilter_ir)</highlight></codeline>
-<codeline lineno="44"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/>Array<sp/>dist0<sp/>=<sp/><ref refid="namespacehmap_1a3bad25b24d9ae0e07e692c546bc3480d" kindref="member">distance_transform</ref>(array);</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/>Array<sp/>dist<sp/>=<sp/>dist0;</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/>Array<sp/>gn<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a125118b55d309727ff0b46d686fd3829" kindref="member">gpu::level_set_curvature</ref>(dist,<sp/>prefilter_ir);</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>array.shape.y;<sp/>++j)</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>array.shape.x;<sp/>++i)</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dist0(i,<sp/>j)<sp/>*=<sp/>std::copysign(1.f,<sp/>gn(i,<sp/>j));</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dist0;</highlight></codeline>
-<codeline lineno="54"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap::gpu</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap_1_1gpu" kindref="compound">hmap::gpu</ref></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1afffb85b7bc6b9884cd00254c122da8e6" kindref="member">signed_curvature_from_distance</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prefilter_ir)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>Array<sp/>dist<sp/>=<sp/><ref refid="namespacehmap_1a3bad25b24d9ae0e07e692c546bc3480d" kindref="member">distance_transform</ref>(array);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1_1gpu_1a125118b55d309727ff0b46d686fd3829" kindref="member">gpu::level_set_curvature</ref>(dist,<sp/>prefilter_ir);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1a76cfd96b971a288964561449d83e21aa" kindref="member">signed_distance_transform</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prefilter_ir)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>Array<sp/>dist0<sp/>=<sp/><ref refid="namespacehmap_1a3bad25b24d9ae0e07e692c546bc3480d" kindref="member">distance_transform</ref>(array);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>Array<sp/>dist<sp/>=<sp/>dist0;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>Array<sp/>gn<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a125118b55d309727ff0b46d686fd3829" kindref="member">gpu::level_set_curvature</ref>(dist,<sp/>prefilter_ir);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>array.shape.y;<sp/>++j)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>array.shape.x;<sp/>++i)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dist0(i,<sp/>j)<sp/>*=<sp/>std::copysign(1.f,<sp/>gn(i,<sp/>j));</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dist0;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap::gpu</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="HighMap/src/morphology/signed_curvature_from_distance.cpp"/>
   </compounddef>

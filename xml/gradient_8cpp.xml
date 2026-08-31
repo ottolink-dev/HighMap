@@ -19,273 +19,309 @@
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="boundary_8hpp" kindref="compound">highmap/boundary.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="filters_8hpp" kindref="compound">highmap/filters.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="gradient_8hpp" kindref="compound">highmap/gradient.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="math_2array_8hpp" kindref="compound">highmap/math/array.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="range_8hpp" kindref="compound">highmap/range.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref></highlight></codeline>
-<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Helper<sp/>for<sp/>generic<sp/>gradient<sp/>function<sp/>to<sp/>compute<sp/>different<sp/>types<sp/>of<sp/>gradients</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1ad97b6a0082efd4063f7839c95a51b294" kindref="member">compute_gradient</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dy,</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_coeff[3],</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y_coeff[3],</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>normalize_factor)</highlight></codeline>
-<codeline lineno="25"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>1;<sp/>j<sp/>&lt;<sp/>array.shape.y<sp/>-<sp/>1;<sp/>++j)</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>array.shape.x<sp/>-<sp/>1;<sp/>++i)</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dx(i,<sp/>j)<sp/>=<sp/>x_coeff[0]<sp/>*<sp/>(array(i<sp/>+<sp/>1,<sp/>j)<sp/>-<sp/>array(i<sp/>-<sp/>1,<sp/>j))<sp/>+</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_coeff[1]<sp/>*<sp/>(array(i<sp/>+<sp/>1,<sp/>j<sp/>-<sp/>1)<sp/>-<sp/>array(i<sp/>-<sp/>1,<sp/>j<sp/>-<sp/>1))<sp/>+</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_coeff[2]<sp/>*<sp/>(array(i<sp/>+<sp/>1,<sp/>j<sp/>+<sp/>1)<sp/>-<sp/>array(i<sp/>-<sp/>1,<sp/>j<sp/>+<sp/>1));</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dy(i,<sp/>j)<sp/>=<sp/>y_coeff[0]<sp/>*<sp/>(array(i,<sp/>j<sp/>+<sp/>1)<sp/>-<sp/>array(i,<sp/>j<sp/>-<sp/>1))<sp/>+</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y_coeff[1]<sp/>*<sp/>(array(i<sp/>-<sp/>1,<sp/>j<sp/>+<sp/>1)<sp/>-<sp/>array(i<sp/>-<sp/>1,<sp/>j<sp/>-<sp/>1))<sp/>+</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y_coeff[2]<sp/>*<sp/>(array(i<sp/>+<sp/>1,<sp/>j<sp/>+<sp/>1)<sp/>-<sp/>array(i<sp/>+<sp/>1,<sp/>j<sp/>-<sp/>1));</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8802e95ba76a252d2098bdb3fb5cfc28" kindref="member">extrapolate_borders</ref>(dx);</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8802e95ba76a252d2098bdb3fb5cfc28" kindref="member">extrapolate_borders</ref>(dy);</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/>dx<sp/>*=<sp/>normalize_factor;</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/>dy<sp/>*=<sp/>normalize_factor;</highlight></codeline>
-<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1aa2c4a82ac72b15cac34f868be9743471" kindref="member">compute_gradient_norm</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_coeff[3],</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y_coeff[3],</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>normalize_factor,</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*p_dx<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*p_dy<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="51"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/>Array<sp/>dx(array.shape),<sp/>dy(array.shape);</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ad97b6a0082efd4063f7839c95a51b294" kindref="member">compute_gradient</ref>(array,<sp/>dx,<sp/>dy,<sp/>x_coeff,<sp/>y_coeff,<sp/>normalize_factor);</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_dx)<sp/>*p_dx<sp/>=<sp/>dx;</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_dy)<sp/>*p_dy<sp/>=<sp/>dy;</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1acc88d4cddcb41e8142b7fef4846e3454" kindref="member">hypot</ref>(dx,<sp/>dy);</highlight></codeline>
-<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"></highlight></codeline>
-<codeline lineno="63"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a27518ea42feb447ad4eb83147663c24d" kindref="member">divergence_from_gradients</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;dx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;dy)</highlight></codeline>
-<codeline lineno="64"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/>Array<sp/>ddx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(dx);</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/>Array<sp/>ddy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(dy);</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ddx<sp/>+<sp/>ddy;</highlight></codeline>
-<codeline lineno="68"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1ae23a30f7964baacd6d0457c288fd3598" kindref="member">gradient_angle</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>downward)</highlight></codeline>
-<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/>Array<sp/>dx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(array);</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/>Array<sp/>dy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(array);</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/>Array<sp/>alpha<sp/>=<sp/>Array(array.shape);</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(downward)</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>dx<sp/>=<sp/>-1.f<sp/>*<sp/>dx;</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>dy<sp/>=<sp/>-1.f<sp/>*<sp/>dy;</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/>std::transform(dx.vector.begin(),</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dx.vector.end(),</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dy.vector.begin(),</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alpha.vector.begin(),</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[](</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>a,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>b)<sp/>{<sp/>return<sp/>std::atan2(b,<sp/>a);<sp/>});</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>alpha;</highlight></codeline>
-<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight></codeline>
-<codeline lineno="91"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a5d7bb7244ff862834560b9145866e1b2" kindref="member">gradient_angle_circular_smoothing</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ir,</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>downward)</highlight></codeline>
-<codeline lineno="94"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>gradients</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/>Array<sp/>dx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(array);</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/>Array<sp/>dy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(array);</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/>Array<sp/>dn<sp/>=<sp/><ref refid="namespacehmap_1acc88d4cddcb41e8142b7fef4846e3454" kindref="member">hypot</ref>(dx,<sp/>dy);</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/>Array<sp/>dn_safe<sp/>=<sp/><ref refid="namespacehmap_1aa52f3e1fcb1cad464a512c09a0c8eb54" kindref="member">maximum</ref>(dn,<sp/>1e-9f);</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(downward)</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>dx<sp/>=<sp/>-1.f<sp/>*<sp/>dx;</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>dy<sp/>=<sp/>-1.f<sp/>*<sp/>dy;</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>angle<sp/>to<sp/>unit<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/>Array<sp/>u<sp/>=<sp/>dx<sp/>/<sp/>dn_safe;</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/>Array<sp/>v<sp/>=<sp/>dy<sp/>/<sp/>dn_safe;</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>smoothing</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a95c0f4c53278620f0812381ccaa7459e" kindref="member">smooth_cpulse</ref>(u,<sp/>ir);</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a95c0f4c53278620f0812381ccaa7459e" kindref="member">smooth_cpulse</ref>(v,<sp/>ir);</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a95c0f4c53278620f0812381ccaa7459e" kindref="member">smooth_cpulse</ref>(dn,<sp/>ir);</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"></highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>renormalize<sp/>and<sp/>compute<sp/>the<sp/>angle</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/>dn_safe<sp/>=<sp/><ref refid="namespacehmap_1aa52f3e1fcb1cad464a512c09a0c8eb54" kindref="member">maximum</ref>(dn,<sp/>1e-9f);</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/>u<sp/>/=<sp/>dn_safe;</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/>v<sp/>/=<sp/>dn_safe;</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1abc58609556b107fdb1825a6c423efdce" kindref="member">atan2</ref>(v,<sp/>u);</highlight></codeline>
-<codeline lineno="122"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a5f58c4149344b401d82f0be3c3807156" kindref="member">gradient_norm</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>*p_dx,<sp/>Array<sp/>*p_dy)</highlight></codeline>
-<codeline lineno="125"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/>Array<sp/>dx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(array);</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/>Array<sp/>dy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(array);</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"></highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>store<sp/>directional<sp/>gradients<sp/>is<sp/>requested</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_dx)<sp/>*p_dx<sp/>=<sp/>dx;</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_dy)<sp/>*p_dy<sp/>=<sp/>dy;</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/>Array<sp/>dm<sp/>=<sp/><ref refid="namespacehmap_1acc88d4cddcb41e8142b7fef4846e3454" kindref="member">hypot</ref>(dx,<sp/>dy);</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dm;</highlight></codeline>
-<codeline lineno="135"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"></highlight></codeline>
-<codeline lineno="137"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a8924675e7f4be784370265a4169e0b74" kindref="member">gradient_norm_filtered</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ir)</highlight></codeline>
-<codeline lineno="138"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/>&amp;shape<sp/>=<sp/>array.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>;</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/><sp/>shape_f<sp/>=<sp/>{int(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(shape.x)<sp/>/<sp/>ir),</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(shape.y)<sp/>/<sp/>ir)};</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"></highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/>Array<sp/>array_f<sp/>=<sp/>array.resample_to_shape_nearest(shape_f);</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/>Array<sp/>gn_f<sp/>=<sp/><ref refid="namespacehmap_1a5f58c4149344b401d82f0be3c3807156" kindref="member">gradient_norm</ref>(array_f)<sp/>/<sp/>ir;</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/>Array<sp/>gn<sp/>=<sp/>gn_f.<ref refid="classhmap_1_1Array_1adbd79d599e39db1836e720048c33452f" kindref="member">resample_to_shape_bicubic</ref>(shape);</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"></highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>gn;</highlight></codeline>
-<codeline lineno="148"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="validation_8hpp" kindref="compound">highmap/internal/validation.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="math_2array_8hpp" kindref="compound">highmap/math/array.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="range_8hpp" kindref="compound">highmap/range.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Helper<sp/>for<sp/>generic<sp/>gradient<sp/>function<sp/>to<sp/>compute<sp/>different<sp/>types<sp/>of<sp/>gradients</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1ad97b6a0082efd4063f7839c95a51b294" kindref="member">compute_gradient</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dy,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_coeff[3],</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y_coeff[3],</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>normalize_factor)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>1;<sp/>j<sp/>&lt;<sp/>array.shape.y<sp/>-<sp/>1;<sp/>++j)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>array.shape.x<sp/>-<sp/>1;<sp/>++i)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dx(i,<sp/>j)<sp/>=<sp/>x_coeff[0]<sp/>*<sp/>(array(i<sp/>+<sp/>1,<sp/>j)<sp/>-<sp/>array(i<sp/>-<sp/>1,<sp/>j))<sp/>+</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_coeff[1]<sp/>*<sp/>(array(i<sp/>+<sp/>1,<sp/>j<sp/>-<sp/>1)<sp/>-<sp/>array(i<sp/>-<sp/>1,<sp/>j<sp/>-<sp/>1))<sp/>+</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_coeff[2]<sp/>*<sp/>(array(i<sp/>+<sp/>1,<sp/>j<sp/>+<sp/>1)<sp/>-<sp/>array(i<sp/>-<sp/>1,<sp/>j<sp/>+<sp/>1));</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dy(i,<sp/>j)<sp/>=<sp/>y_coeff[0]<sp/>*<sp/>(array(i,<sp/>j<sp/>+<sp/>1)<sp/>-<sp/>array(i,<sp/>j<sp/>-<sp/>1))<sp/>+</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y_coeff[1]<sp/>*<sp/>(array(i<sp/>-<sp/>1,<sp/>j<sp/>+<sp/>1)<sp/>-<sp/>array(i<sp/>-<sp/>1,<sp/>j<sp/>-<sp/>1))<sp/>+</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y_coeff[2]<sp/>*<sp/>(array(i<sp/>+<sp/>1,<sp/>j<sp/>+<sp/>1)<sp/>-<sp/>array(i<sp/>+<sp/>1,<sp/>j<sp/>-<sp/>1));</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8802e95ba76a252d2098bdb3fb5cfc28" kindref="member">extrapolate_borders</ref>(dx);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8802e95ba76a252d2098bdb3fb5cfc28" kindref="member">extrapolate_borders</ref>(dy);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>dx<sp/>*=<sp/>normalize_factor;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/>dy<sp/>*=<sp/>normalize_factor;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1aa2c4a82ac72b15cac34f868be9743471" kindref="member">compute_gradient_norm</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_coeff[3],</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y_coeff[3],</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>normalize_factor,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*p_dx<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*p_dy<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>Array<sp/>dx(array.shape),<sp/>dy(array.shape);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ad97b6a0082efd4063f7839c95a51b294" kindref="member">compute_gradient</ref>(array,<sp/>dx,<sp/>dy,<sp/>x_coeff,<sp/>y_coeff,<sp/>normalize_factor);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_dx)<sp/>*p_dx<sp/>=<sp/>dx;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_dy)<sp/>*p_dy<sp/>=<sp/>dy;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1acc88d4cddcb41e8142b7fef4846e3454" kindref="member">hypot</ref>(dx,<sp/>dy);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a27518ea42feb447ad4eb83147663c24d" kindref="member">divergence_from_gradients</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;dx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;dy)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(dx)<sp/>||<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(dx,<sp/>dy))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/>Array<sp/>ddx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(dx);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>Array<sp/>ddy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(dy);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ddx<sp/>+<sp/>ddy;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1ae23a30f7964baacd6d0457c288fd3598" kindref="member">gradient_angle</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>downward)</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/>Array<sp/>dx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(array);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>Array<sp/>dy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(array);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>Array<sp/>alpha<sp/>=<sp/>Array(array.shape);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(downward)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>dx<sp/>=<sp/>-1.f<sp/>*<sp/>dx;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>dy<sp/>=<sp/>-1.f<sp/>*<sp/>dy;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/>std::transform(dx.vector.begin(),</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dx.vector.end(),</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dy.vector.begin(),</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alpha.vector.begin(),</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[](</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>a,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>b)<sp/>{<sp/>return<sp/>std::atan2(b,<sp/>a);<sp/>});</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>alpha;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a5d7bb7244ff862834560b9145866e1b2" kindref="member">gradient_angle_circular_smoothing</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ir,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>downward)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>gradients</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>Array<sp/>dx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(array);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/>Array<sp/>dy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(array);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>Array<sp/>dn<sp/>=<sp/><ref refid="namespacehmap_1acc88d4cddcb41e8142b7fef4846e3454" kindref="member">hypot</ref>(dx,<sp/>dy);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>Array<sp/>dn_safe<sp/>=<sp/><ref refid="namespacehmap_1aa52f3e1fcb1cad464a512c09a0c8eb54" kindref="member">maximum</ref>(dn,<sp/>1e-9f);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(downward)</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>dx<sp/>=<sp/>-1.f<sp/>*<sp/>dx;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>dy<sp/>=<sp/>-1.f<sp/>*<sp/>dy;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>angle<sp/>to<sp/>unit<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/>Array<sp/>u<sp/>=<sp/>dx<sp/>/<sp/>dn_safe;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>Array<sp/>v<sp/>=<sp/>dy<sp/>/<sp/>dn_safe;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>smoothing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a95c0f4c53278620f0812381ccaa7459e" kindref="member">smooth_cpulse</ref>(u,<sp/>ir);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a95c0f4c53278620f0812381ccaa7459e" kindref="member">smooth_cpulse</ref>(v,<sp/>ir);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a95c0f4c53278620f0812381ccaa7459e" kindref="member">smooth_cpulse</ref>(dn,<sp/>ir);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>renormalize<sp/>and<sp/>compute<sp/>the<sp/>angle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/>dn_safe<sp/>=<sp/><ref refid="namespacehmap_1aa52f3e1fcb1cad464a512c09a0c8eb54" kindref="member">maximum</ref>(dn,<sp/>1e-9f);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/>u<sp/>/=<sp/>dn_safe;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/>v<sp/>/=<sp/>dn_safe;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1abc58609556b107fdb1825a6c423efdce" kindref="member">atan2</ref>(v,<sp/>u);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a5f58c4149344b401d82f0be3c3807156" kindref="member">gradient_norm</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>*p_dx,<sp/>Array<sp/>*p_dy)</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/>Array<sp/>dx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(array);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/>Array<sp/>dy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(array);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>store<sp/>directional<sp/>gradients<sp/>is<sp/>requested</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_dx)<sp/>*p_dx<sp/>=<sp/>dx;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_dy)<sp/>*p_dy<sp/>=<sp/>dy;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/>Array<sp/>dm<sp/>=<sp/><ref refid="namespacehmap_1acc88d4cddcb41e8142b7fef4846e3454" kindref="member">hypot</ref>(dx,<sp/>dy);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dm;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a8924675e7f4be784370265a4169e0b74" kindref="member">gradient_norm_filtered</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ir)</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
 <codeline lineno="149"><highlight class="normal"></highlight></codeline>
-<codeline lineno="150"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1ab02a5e564763a35cd3baa727b825db4a" kindref="member">gradient_norm_prewitt</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>*p_dx,<sp/>Array<sp/>*p_dy)</highlight></codeline>
-<codeline lineno="151"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_coeff[3]<sp/>=<sp/>{1.0f,<sp/>1.0f,<sp/>1.0f};</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y_coeff[3]<sp/>=<sp/>{1.0f,<sp/>1.0f,<sp/>1.0f};</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1aa2c4a82ac72b15cac34f868be9743471" kindref="member">compute_gradient_norm</ref>(array,</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_coeff,</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y_coeff,</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f<sp/>/<sp/>6.0f,</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_dx,</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_dy);</highlight></codeline>
-<codeline lineno="160"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"></highlight></codeline>
-<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Sobel<sp/>gradient<sp/>function</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="163"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1ad0956aa203f9962dba258a91543d2969" kindref="member">gradient_norm_sobel</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>*p_dx,<sp/>Array<sp/>*p_dy)</highlight></codeline>
-<codeline lineno="164"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_coeff[3]<sp/>=<sp/>{2.0f,<sp/>1.0f,<sp/>1.0f};</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y_coeff[3]<sp/>=<sp/>{2.0f,<sp/>1.0f,<sp/>1.0f};</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/>&amp;shape<sp/>=<sp/>array.shape;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/><sp/>shape_f<sp/>=<sp/>{int(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(shape.x)<sp/>/<sp/>ir),</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(shape.y)<sp/>/<sp/>ir)};</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/>Array<sp/>array_f<sp/>=<sp/>array.resample_to_shape_nearest(shape_f);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>Array<sp/>gn_f<sp/>=<sp/><ref refid="namespacehmap_1a5f58c4149344b401d82f0be3c3807156" kindref="member">gradient_norm</ref>(array_f)<sp/>/<sp/>ir;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/>Array<sp/>gn<sp/>=<sp/>gn_f.<ref refid="classhmap_1_1Array_1adbd79d599e39db1836e720048c33452f" kindref="member">resample_to_shape_bicubic</ref>(shape);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>gn;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1ab02a5e564763a35cd3baa727b825db4a" kindref="member">gradient_norm_prewitt</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>*p_dx,<sp/>Array<sp/>*p_dy)</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_coeff[3]<sp/>=<sp/>{1.0f,<sp/>1.0f,<sp/>1.0f};</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y_coeff[3]<sp/>=<sp/>{1.0f,<sp/>1.0f,<sp/>1.0f};</highlight></codeline>
 <codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1aa2c4a82ac72b15cac34f868be9743471" kindref="member">compute_gradient_norm</ref>(array,</highlight></codeline>
 <codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_coeff,</highlight></codeline>
 <codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y_coeff,</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f<sp/>/<sp/>8.0f,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f<sp/>/<sp/>6.0f,</highlight></codeline>
 <codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_dx,</highlight></codeline>
 <codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_dy);</highlight></codeline>
 <codeline lineno="173"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="174"><highlight class="normal"></highlight></codeline>
-<codeline lineno="175"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Scharr<sp/>gradient<sp/>function</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="176"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a522e28e6f997165bb492aa68327556d9" kindref="member">gradient_norm_scharr</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>*p_dx,<sp/>Array<sp/>*p_dy)</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Sobel<sp/>gradient<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1ad0956aa203f9962dba258a91543d2969" kindref="member">gradient_norm_sobel</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>*p_dx,<sp/>Array<sp/>*p_dy)</highlight></codeline>
 <codeline lineno="177"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_coeff[3]<sp/>=<sp/>{10.0f,<sp/>3.0f,<sp/>3.0f};</highlight></codeline>
-<codeline lineno="179"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y_coeff[3]<sp/>=<sp/>{10.0f,<sp/>3.0f,<sp/>3.0f};</highlight></codeline>
-<codeline lineno="180"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1aa2c4a82ac72b15cac34f868be9743471" kindref="member">compute_gradient_norm</ref>(array,</highlight></codeline>
-<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_coeff,</highlight></codeline>
-<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y_coeff,</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f<sp/>/<sp/>32.0f,</highlight></codeline>
-<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_dx,</highlight></codeline>
-<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_dy);</highlight></codeline>
-<codeline lineno="186"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="187"><highlight class="normal"></highlight></codeline>
-<codeline lineno="188"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array)</highlight></codeline>
-<codeline lineno="189"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"><sp/><sp/>Array<sp/>dx<sp/>=<sp/>Array(array.shape);</highlight></codeline>
-<codeline lineno="191"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(array,<sp/>dx);</highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dx;</highlight></codeline>
-<codeline lineno="193"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_coeff[3]<sp/>=<sp/>{2.0f,<sp/>1.0f,<sp/>1.0f};</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y_coeff[3]<sp/>=<sp/>{2.0f,<sp/>1.0f,<sp/>1.0f};</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1aa2c4a82ac72b15cac34f868be9743471" kindref="member">compute_gradient_norm</ref>(array,</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_coeff,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y_coeff,</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f<sp/>/<sp/>8.0f,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_dx,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_dy);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Scharr<sp/>gradient<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a522e28e6f997165bb492aa68327556d9" kindref="member">gradient_norm_scharr</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>*p_dx,<sp/>Array<sp/>*p_dy)</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
 <codeline lineno="194"><highlight class="normal"></highlight></codeline>
-<codeline lineno="195"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>&amp;dx)</highlight></codeline>
-<codeline lineno="196"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="197"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>array.shape.y;<sp/>j++)</highlight></codeline>
-<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>array.shape.x<sp/>-<sp/>1;<sp/>i++)</highlight></codeline>
-<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dx(i,<sp/>j)<sp/>=<sp/>0.5f<sp/>*<sp/>(array(i<sp/>+<sp/>1,<sp/>j)<sp/>-<sp/>array(i<sp/>-<sp/>1,<sp/>j));</highlight></codeline>
-<codeline lineno="200"><highlight class="normal"></highlight></codeline>
-<codeline lineno="201"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>array.shape.y;<sp/>j++)</highlight></codeline>
-<codeline lineno="202"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>dx(0,<sp/>j)<sp/>=<sp/>array(1,<sp/>j)<sp/>-<sp/>array(0,<sp/>j);</highlight></codeline>
-<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/>dx(array.shape.x<sp/>-<sp/>1,<sp/>j)<sp/>=<sp/>array(array.shape.x<sp/>-<sp/>1,<sp/>j)<sp/>-</highlight></codeline>
-<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array(array.shape.x<sp/>-<sp/>2,<sp/>j);</highlight></codeline>
-<codeline lineno="206"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="207"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_coeff[3]<sp/>=<sp/>{10.0f,<sp/>3.0f,<sp/>3.0f};</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y_coeff[3]<sp/>=<sp/>{10.0f,<sp/>3.0f,<sp/>3.0f};</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1aa2c4a82ac72b15cac34f868be9743471" kindref="member">compute_gradient_norm</ref>(array,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_coeff,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y_coeff,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f<sp/>/<sp/>32.0f,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_dx,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_dy);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array)</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
 <codeline lineno="208"><highlight class="normal"></highlight></codeline>
-<codeline lineno="209"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array)</highlight></codeline>
-<codeline lineno="210"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="211"><highlight class="normal"><sp/><sp/>Array<sp/>dy<sp/>=<sp/>Array(array.shape);</highlight></codeline>
-<codeline lineno="212"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(array,<sp/>dy);</highlight></codeline>
-<codeline lineno="213"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dy;</highlight></codeline>
-<codeline lineno="214"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="215"><highlight class="normal"></highlight></codeline>
-<codeline lineno="216"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>&amp;dy)</highlight></codeline>
-<codeline lineno="217"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="218"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>1;<sp/>j<sp/>&lt;<sp/>array.shape.y<sp/>-<sp/>1;<sp/>j++)</highlight></codeline>
-<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>array.shape.x;<sp/>i++)</highlight></codeline>
-<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dy(i,<sp/>j)<sp/>=<sp/>0.5f<sp/>*<sp/>(array(i,<sp/>j<sp/>+<sp/>1)<sp/>-<sp/>array(i,<sp/>j<sp/>-<sp/>1));</highlight></codeline>
-<codeline lineno="221"><highlight class="normal"></highlight></codeline>
-<codeline lineno="222"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>array.shape.x;<sp/>i++)</highlight></codeline>
-<codeline lineno="223"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/>dy(i,<sp/>0)<sp/>=<sp/>array(i,<sp/>1)<sp/>-<sp/>array(i,<sp/>0);</highlight></codeline>
-<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/>dy(i,<sp/>array.shape.y<sp/>-<sp/>1)<sp/>=<sp/>array(i,<sp/>array.shape.y<sp/>-<sp/>1)<sp/>-</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array(i,<sp/>array.shape.y<sp/>-<sp/>2);</highlight></codeline>
-<codeline lineno="227"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="228"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"></highlight></codeline>
-<codeline lineno="230"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a618fb6d396a832c3dd1f053bfd27eed4" kindref="member">gradient_talus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array)</highlight></codeline>
-<codeline lineno="231"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="232"><highlight class="normal"><sp/><sp/>Array<sp/>talus<sp/>=<sp/>Array(array.shape);</highlight></codeline>
-<codeline lineno="233"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a618fb6d396a832c3dd1f053bfd27eed4" kindref="member">gradient_talus</ref>(array,<sp/>talus);</highlight></codeline>
-<codeline lineno="234"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>talus;</highlight></codeline>
-<codeline lineno="235"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="236"><highlight class="normal"></highlight></codeline>
-<codeline lineno="237"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a618fb6d396a832c3dd1f053bfd27eed4" kindref="member">gradient_talus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>&amp;talus)</highlight></codeline>
-<codeline lineno="238"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>talus.shape.y;<sp/>j++)</highlight></codeline>
-<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>talus.shape.x<sp/>-<sp/>1;<sp/>i<sp/>+=<sp/>2)</highlight></codeline>
-<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d<sp/>=<sp/>std::abs(array(i,<sp/>j)<sp/>-<sp/>array(i<sp/>+<sp/>1,<sp/>j));</highlight></codeline>
-<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>talus(i,<sp/>j)<sp/>=<sp/>std::max(talus(i,<sp/>j),<sp/>d);</highlight></codeline>
-<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>talus(i<sp/>-<sp/>1,<sp/>j)<sp/>=<sp/>std::max(talus(i<sp/>-<sp/>1,<sp/>j),<sp/>talus(i,<sp/>j));</highlight></codeline>
-<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>talus(i<sp/>+<sp/>1,<sp/>j)<sp/>=<sp/>d;</highlight></codeline>
-<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="247"><highlight class="normal"></highlight></codeline>
-<codeline lineno="248"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>1;<sp/>j<sp/>&lt;<sp/>talus.shape.y<sp/>-<sp/>1;<sp/>j<sp/>+=<sp/>2)</highlight></codeline>
-<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>talus.shape.x;<sp/>i++)</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d<sp/>=<sp/>std::abs(array(i,<sp/>j)<sp/>-<sp/>array(i,<sp/>j<sp/>+<sp/>1));</highlight></codeline>
-<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>talus(i,<sp/>j)<sp/>=<sp/>std::max(talus(i,<sp/>j),<sp/>d);</highlight></codeline>
-<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>talus(i,<sp/>j<sp/>-<sp/>1)<sp/>=<sp/>std::max(talus(i,<sp/>j<sp/>-<sp/>1),<sp/>talus(i,<sp/>j));</highlight></codeline>
-<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>talus(i,<sp/>j<sp/>+<sp/>1)<sp/>=<sp/>d;</highlight></codeline>
-<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="256"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="257"><highlight class="normal"></highlight></codeline>
-<codeline lineno="258"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a893bb80f635c4711c075e078cde18cf5" kindref="member">laplacian</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array)</highlight></codeline>
-<codeline lineno="259"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="260"><highlight class="normal"><sp/><sp/>Array<sp/>delta<sp/>=<sp/>Array(array.shape);</highlight></codeline>
-<codeline lineno="261"><highlight class="normal"></highlight></codeline>
-<codeline lineno="262"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>1;<sp/>j<sp/>&lt;<sp/>array.shape.y<sp/>-<sp/>1;<sp/>j++)</highlight></codeline>
-<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>array.shape.x<sp/>-<sp/>1;<sp/>i++)</highlight></codeline>
-<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>delta(i,<sp/>j)<sp/>=<sp/>-4.f<sp/>*<sp/>array(i,<sp/>j)<sp/>+<sp/>array(i<sp/>+<sp/>1,<sp/>j)<sp/>+<sp/>array(i<sp/>-<sp/>1,<sp/>j)<sp/>+</highlight></codeline>
-<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array(i,<sp/>j<sp/>-<sp/>1)<sp/>+<sp/>array(i,<sp/>j<sp/>+<sp/>1);</highlight></codeline>
-<codeline lineno="266"><highlight class="normal"></highlight></codeline>
-<codeline lineno="267"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8802e95ba76a252d2098bdb3fb5cfc28" kindref="member">extrapolate_borders</ref>(delta);</highlight></codeline>
-<codeline lineno="268"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>delta;</highlight></codeline>
-<codeline lineno="269"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/>Array<sp/>dx<sp/>=<sp/>Array(array.shape);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(array,<sp/>dx);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dx;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>&amp;dx)</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(array,<sp/>dx))<sp/>dx<sp/>=<sp/>Array(array.shape);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>array.shape.y;<sp/>j++)</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>array.shape.x<sp/>-<sp/>1;<sp/>i++)</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dx(i,<sp/>j)<sp/>=<sp/>0.5f<sp/>*<sp/>(array(i<sp/>+<sp/>1,<sp/>j)<sp/>-<sp/>array(i<sp/>-<sp/>1,<sp/>j));</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>array.shape.y;<sp/>j++)</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/>dx(0,<sp/>j)<sp/>=<sp/>array(1,<sp/>j)<sp/>-<sp/>array(0,<sp/>j);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/>dx(array.shape.x<sp/>-<sp/>1,<sp/>j)<sp/>=<sp/>array(array.shape.x<sp/>-<sp/>1,<sp/>j)<sp/>-</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array(array.shape.x<sp/>-<sp/>2,<sp/>j);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array)</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/>Array<sp/>dy<sp/>=<sp/>Array(array.shape);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(array,<sp/>dy);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dy;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>&amp;dy)</highlight></codeline>
+<codeline lineno="241"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(array,<sp/>dy))<sp/>dy<sp/>=<sp/>Array(array.shape);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>1;<sp/>j<sp/>&lt;<sp/>array.shape.y<sp/>-<sp/>1;<sp/>j++)</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>array.shape.x;<sp/>i++)</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dy(i,<sp/>j)<sp/>=<sp/>0.5f<sp/>*<sp/>(array(i,<sp/>j<sp/>+<sp/>1)<sp/>-<sp/>array(i,<sp/>j<sp/>-<sp/>1));</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>array.shape.x;<sp/>i++)</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/>dy(i,<sp/>0)<sp/>=<sp/>array(i,<sp/>1)<sp/>-<sp/>array(i,<sp/>0);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/>dy(i,<sp/>array.shape.y<sp/>-<sp/>1)<sp/>=<sp/>array(i,<sp/>array.shape.y<sp/>-<sp/>1)<sp/>-</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array(i,<sp/>array.shape.y<sp/>-<sp/>2);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a618fb6d396a832c3dd1f053bfd27eed4" kindref="member">gradient_talus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array)</highlight></codeline>
+<codeline lineno="258"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/>Array<sp/>talus<sp/>=<sp/>Array(array.shape);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a618fb6d396a832c3dd1f053bfd27eed4" kindref="member">gradient_talus</ref>(array,<sp/>talus);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>talus;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a618fb6d396a832c3dd1f053bfd27eed4" kindref="member">gradient_talus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/>Array<sp/>&amp;talus)</highlight></codeline>
+<codeline lineno="267"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(array,<sp/>talus))<sp/>talus<sp/>=<sp/>Array(array.shape);</highlight></codeline>
 <codeline lineno="270"><highlight class="normal"></highlight></codeline>
-<codeline lineno="271"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a184b9eed77a8732a8631f8dd73d75a44" kindref="member">talus_jump_mask</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;z,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a30b11da38799224ac6d138dce87278b9" kindref="member">threshold</ref>,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma)</highlight></codeline>
-<codeline lineno="272"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="273"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>talus<sp/>=<sp/><ref refid="namespacehmap_1a5f58c4149344b401d82f0be3c3807156" kindref="member">gradient_norm</ref>(z);</highlight></codeline>
-<codeline lineno="274"><highlight class="normal"><sp/><sp/>Array<sp/>c<sp/>=<sp/><ref refid="namespacehmap_1a0aa2c50266e16cf5af077e4e3f77bd8f" kindref="member">sigmoid</ref>(talus,<sp/>sigma,<sp/>0.f<sp/></highlight><highlight class="comment">/*<sp/>vmin<sp/>*/</highlight><highlight class="normal">,<sp/>1.f<sp/></highlight><highlight class="comment">/*<sp/>vmax<sp/>*/</highlight><highlight class="normal">,<sp/><ref refid="namespacehmap_1a30b11da38799224ac6d138dce87278b9" kindref="member">threshold</ref>);</highlight></codeline>
-<codeline lineno="275"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>c;</highlight></codeline>
-<codeline lineno="276"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="277"><highlight class="normal"></highlight></codeline>
-<codeline lineno="278"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>talus.shape.y;<sp/>j++)</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>talus.shape.x<sp/>-<sp/>1;<sp/>i<sp/>+=<sp/>2)</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d<sp/>=<sp/>std::abs(array(i,<sp/>j)<sp/>-<sp/>array(i<sp/>+<sp/>1,<sp/>j));</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>talus(i,<sp/>j)<sp/>=<sp/>std::max(talus(i,<sp/>j),<sp/>d);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>talus(i<sp/>-<sp/>1,<sp/>j)<sp/>=<sp/>std::max(talus(i<sp/>-<sp/>1,<sp/>j),<sp/>talus(i,<sp/>j));</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>talus(i<sp/>+<sp/>1,<sp/>j)<sp/>=<sp/>d;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>1;<sp/>j<sp/>&lt;<sp/>talus.shape.y<sp/>-<sp/>1;<sp/>j<sp/>+=<sp/>2)</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>talus.shape.x;<sp/>i++)</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d<sp/>=<sp/>std::abs(array(i,<sp/>j)<sp/>-<sp/>array(i,<sp/>j<sp/>+<sp/>1));</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>talus(i,<sp/>j)<sp/>=<sp/>std::max(talus(i,<sp/>j),<sp/>d);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>talus(i,<sp/>j<sp/>-<sp/>1)<sp/>=<sp/>std::max(talus(i,<sp/>j<sp/>-<sp/>1),<sp/>talus(i,<sp/>j));</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>talus(i,<sp/>j<sp/>+<sp/>1)<sp/>=<sp/>d;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a893bb80f635c4711c075e078cde18cf5" kindref="member">laplacian</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array)</highlight></codeline>
+<codeline lineno="291"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/>Array<sp/>delta<sp/>=<sp/>Array(array.shape);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>1;<sp/>j<sp/>&lt;<sp/>array.shape.y<sp/>-<sp/>1;<sp/>j++)</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>array.shape.x<sp/>-<sp/>1;<sp/>i++)</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>delta(i,<sp/>j)<sp/>=<sp/>-4.f<sp/>*<sp/>array(i,<sp/>j)<sp/>+<sp/>array(i<sp/>+<sp/>1,<sp/>j)<sp/>+<sp/>array(i<sp/>-<sp/>1,<sp/>j)<sp/>+</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array(i,<sp/>j<sp/>-<sp/>1)<sp/>+<sp/>array(i,<sp/>j<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8802e95ba76a252d2098bdb3fb5cfc28" kindref="member">extrapolate_borders</ref>(delta);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>delta;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1a184b9eed77a8732a8631f8dd73d75a44" kindref="member">talus_jump_mask</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;z,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a30b11da38799224ac6d138dce87278b9" kindref="member">threshold</ref>,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma)</highlight></codeline>
+<codeline lineno="306"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(z))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>talus<sp/>=<sp/><ref refid="namespacehmap_1a5f58c4149344b401d82f0be3c3807156" kindref="member">gradient_norm</ref>(z);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/>Array<sp/>c<sp/>=<sp/><ref refid="namespacehmap_1a0aa2c50266e16cf5af077e4e3f77bd8f" kindref="member">sigmoid</ref>(talus,<sp/>sigma,<sp/>0.f<sp/></highlight><highlight class="comment">/*<sp/>vmin<sp/>*/</highlight><highlight class="normal">,<sp/>1.f<sp/></highlight><highlight class="comment">/*<sp/>vmax<sp/>*/</highlight><highlight class="normal">,<sp/><ref refid="namespacehmap_1a30b11da38799224ac6d138dce87278b9" kindref="member">threshold</ref>);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>c;</highlight></codeline>
+<codeline lineno="312"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="HighMap/src/gradient/gradient.cpp"/>
   </compounddef>

@@ -49,7 +49,7 @@ var searchData=
   ['boundary_5fright_46',['BOUNDARY_RIGHT',['../namespacehmap.html#a1ba9d4ce7afe3309f8ae8e617f7154eeadb9a04ab3508704543b5dd43ae495fe7',1,'hmap']]],
   ['boundary_5ftop_47',['BOUNDARY_TOP',['../namespacehmap.html#a1ba9d4ce7afe3309f8ae8e617f7154eea1bda4002f204a3b745ea70dab2b6b6d8',1,'hmap']]],
   ['boundingbox_48',['BoundingBox',['../structhmap_1_1TerrainTriMesh_1_1BoundingBox.html',1,'hmap::TerrainTriMesh']]],
-  ['bspline_49',['bspline',['../namespacehmap.html#aa78bf111867e13c63d8bd2ec005ad6c8a60f62532461a103e7680bba841871635',1,'hmap::BSPLINE'],['../namespacehmap.html#a281c9db00eef9735e8eea7bbf50f3e34',1,'hmap::bspline(const Path &amp;path, int edge_divisions=10, Path::EdgeDivisionMode edm=Path::EdgeDivisionMode::EDM_PER_EDGE)']]],
+  ['bspline_49',['bspline',['../namespacehmap.html#a281c9db00eef9735e8eea7bbf50f3e34',1,'hmap::bspline(const Path &amp;path, int edge_divisions=10, Path::EdgeDivisionMode edm=Path::EdgeDivisionMode::EDM_PER_EDGE)'],['../namespacehmap.html#aa78bf111867e13c63d8bd2ec005ad6c8a60f62532461a103e7680bba841871635',1,'hmap::BSPLINE']]],
   ['build_50',['build',['../classhmap_1_1NaturalNeighborInterpolator.html#a9404f1043455692be64d35116a00742c',1,'hmap::NaturalNeighborInterpolator']]],
   ['building_20heightmaps_51',['&quot;Array&quot; - Elementary Data Structure for Building Heightmaps',['../index.html#autotoc_md6',1,'']]],
   ['bulkify_52',['bulkify',['../namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3',1,'hmap']]],

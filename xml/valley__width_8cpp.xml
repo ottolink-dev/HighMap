@@ -14,41 +14,46 @@
 <codeline lineno="3"><highlight class="comment"><sp/>*<sp/>this<sp/>software.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="array_8hpp" kindref="compound">highmap/array.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="curvature_8hpp" kindref="compound">highmap/curvature.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="morphology_8hpp" kindref="compound">highmap/morphology.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref></highlight></codeline>
-<codeline lineno="9"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1ab4d8048b79080012b8e60c270de8137f" kindref="member">valley_width</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;z,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ir,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ridge_select)</highlight></codeline>
-<codeline lineno="12"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/>Array<sp/>vw<sp/>=<sp/>z;</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ridge_select)<sp/>vw<sp/>*=<sp/>-1.f;</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/>vw<sp/>=<sp/>-<ref refid="namespacehmap_1a4e2b7df70a18f94ad7f4d7cd934ec767" kindref="member">curvature_quadric</ref>(vw,<sp/>ir,<sp/><ref refid="namespacehmap_1ad4d5e191ca7dd12e389c842188bde88aad171888e3143edfa1d5916611c9a9f7f" kindref="member">CurvatureType::CT_MEAN</ref>);</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/>vw<sp/>=<sp/><ref refid="namespacehmap_1a23fdcd258e0bab2a5fcad31d6459c3fa" kindref="member">distance_transform_approx</ref>(vw);</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="validation_8hpp" kindref="compound">highmap/internal/validation.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="morphology_8hpp" kindref="compound">highmap/morphology.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref></highlight></codeline>
+<codeline lineno="10"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1ab4d8048b79080012b8e60c270de8137f" kindref="member">valley_width</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;z,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ir,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ridge_select)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(z))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>Array<sp/>vw<sp/>=<sp/>z;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ridge_select)<sp/>vw<sp/>*=<sp/>-1.f;</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>vw;</highlight></codeline>
-<codeline lineno="21"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>vw<sp/>=<sp/>-<ref refid="namespacehmap_1a4e2b7df70a18f94ad7f4d7cd934ec767" kindref="member">curvature_quadric</ref>(vw,<sp/>ir,<sp/><ref refid="namespacehmap_1ad4d5e191ca7dd12e389c842188bde88aad171888e3143edfa1d5916611c9a9f7f" kindref="member">CurvatureType::CT_MEAN</ref>);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>vw<sp/>=<sp/><ref refid="namespacehmap_1a23fdcd258e0bab2a5fcad31d6459c3fa" kindref="member">distance_transform_approx</ref>(vw);</highlight></codeline>
 <codeline lineno="22"><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap_1_1gpu" kindref="compound">hmap::gpu</ref></highlight></codeline>
-<codeline lineno="26"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>vw;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="27"><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1a3816b73c0f933147dc86ee9f8d2dd701" kindref="member">valley_width</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;z,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ir,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ridge_select)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap_1_1gpu" kindref="compound">hmap::gpu</ref></highlight></codeline>
 <codeline lineno="29"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/>Array<sp/>vw<sp/>=<sp/>z;</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ridge_select)<sp/>vw<sp/>*=<sp/>-1.f;</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/>vw<sp/>=<sp/>-<ref refid="namespacehmap_1_1gpu_1a7bfb7fecab3f34a73a57d7907c3ace7d" kindref="member">gpu::curvature_quadric</ref>(vw,<sp/>ir,<sp/><ref refid="namespacehmap_1ad4d5e191ca7dd12e389c842188bde88aad171888e3143edfa1d5916611c9a9f7f" kindref="member">CurvatureType::CT_MEAN</ref>);</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/>vw<sp/>=<sp/><ref refid="namespacehmap_1a23fdcd258e0bab2a5fcad31d6459c3fa" kindref="member">distance_transform_approx</ref>(vw);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1a3816b73c0f933147dc86ee9f8d2dd701" kindref="member">valley_width</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;z,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ir,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ridge_select)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(z))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>Array<sp/>vw<sp/>=<sp/>z;</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>vw;</highlight></codeline>
-<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap::gpu</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ridge_select)<sp/>vw<sp/>*=<sp/>-1.f;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>vw<sp/>=<sp/>-<ref refid="namespacehmap_1_1gpu_1a7bfb7fecab3f34a73a57d7907c3ace7d" kindref="member">gpu::curvature_quadric</ref>(vw,<sp/>ir,<sp/><ref refid="namespacehmap_1ad4d5e191ca7dd12e389c842188bde88aad171888e3143edfa1d5916611c9a9f7f" kindref="member">CurvatureType::CT_MEAN</ref>);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>vw<sp/>=<sp/><ref refid="namespacehmap_1a23fdcd258e0bab2a5fcad31d6459c3fa" kindref="member">distance_transform_approx</ref>(vw);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>vw;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap::gpu</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="HighMap/src/local_metrics/valley_width.cpp"/>
   </compounddef>

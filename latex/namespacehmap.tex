@@ -1208,6 +1208,40 @@ std\+::filesystem\+::path \mbox{\hyperlink{namespacehmap_a0a506d871b395e49e61754
 \begin{DoxyCompactList}\small\item\em Create a unique temporary directory. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{namespacehmap_a3f38b7faedc76835a0a902eb48e3d94b}{zfill}} (const std\+::string \&str, int n\+\_\+zero)
 \begin{DoxyCompactList}\small\item\em Pads the beginning of a string with zeros until it reaches a specified length. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a2fca2d32d65e0735c277d21623d1164e}{validate\+\_\+shape}} (glm\+::ivec2 shape, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that array dimensions are strictly positive. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_ada207723c327adabe73af8554e48e5bd}{validate\+\_\+non\+\_\+empty}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that an array is initialized, non-\/empty, and has a consistent buffer size. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires requires(const T \&t) \{ \{ t.\+empty() \} -\/$>$ std\+::convertible\+\_\+to$<$bool$>$; \}}\\bool \mbox{\hyperlink{namespacehmap_a2e0228ee67d8c47cd32a3c9d9c6cb9d4}{validate\+\_\+non\+\_\+empty}} (const T \&container, std\+::string\+\_\+view name="{}Container"{}, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that a container or object with an empty() method is not empty. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires requires(const T \&t) \{ \{ t.\+size() \} -\/$>$ std\+::convertible\+\_\+to$<$size\+\_\+t$>$; \}}\\bool \mbox{\hyperlink{namespacehmap_a21498251de1fa4b807aa5cbd06509fb3}{validate\+\_\+min\+\_\+size}} (const T \&container, size\+\_\+t min\+\_\+size, std\+::string\+\_\+view name="{}Container"{}, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that a container has at least min\+\_\+size elements. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_aacc13f5eefdd40efc6fc2e7ef1750c68}{validate\+\_\+same\+\_\+shape}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&a, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&b, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that two arrays have identical shapes and buffer sizes. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a69d71426d1b2c67c6a0edcb61553a5cd}{validate\+\_\+same\+\_\+shape}} (glm\+::ivec2 shape, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&b, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that an array has the expected 2D shape. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a383c48f0b11657f8319b6dca79213c8e}{validate\+\_\+non\+\_\+empty}} (const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&tex, int min\+\_\+channels=1, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that a \doxylink{classhmap_1_1Texture}{Texture} is initialized, non-\/empty, and has valid channel buffers. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a85c3e76e26be5025a669c8d8e7742dd9}{validate\+\_\+channels}} (const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&tex, int expected\+\_\+channels, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates exact channel count of a \doxylink{classhmap_1_1Texture}{Texture}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_ad160ef479ee398f252b4f12d02a47cb3}{validate\+\_\+same\+\_\+shape}} (const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&a, const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&b, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that two Textures have matching 2D shapes. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a2a7b4fc7684a703c9f275987fe61271c}{validate\+\_\+same\+\_\+shape}} (const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&tex, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&arr, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that a \doxylink{classhmap_1_1Texture}{Texture} and an \doxylink{classhmap_1_1Array}{Array} have matching 2D shapes. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_adaea0522457a624472e5e233ce87e558}{validate\+\_\+slice}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::ivec4 idx, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that a slice extent \{i1, i2, j1, j2\} is valid and within array boundaries. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a5f574de60d299167359adc9c5ccaf96d}{validate\+\_\+slice\+\_\+for\+\_\+array}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dest, glm\+::ivec4 idx, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&src, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that a slice extent matches the dimensions of a source array. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a71261eb3509f57f3d0690543ea13ba13}{validate\+\_\+not\+\_\+zero}} (float value, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that a divisor value is not zero. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a4d307825b053547f3a033acb2f153dbc}{validate\+\_\+parameter\+\_\+range}} (glm\+::vec2 range, float min\+\_\+val, float max\+\_\+val, std\+::string\+\_\+view param\+\_\+name="{}Range"{}, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that a 2D range vector \{low, high\} lies within \mbox{[}min\+\_\+val, max\+\_\+val\mbox{]} with low \texorpdfstring{$<$}{<}= high. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a55fc6a67f8f74dfd3fa340876ed0b988}{validate\+\_\+finite}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that all elements of an array are finite (not NaN or Inf). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a0fbcf441a52570f1ea7a005b4014222d}{validate\+\_\+cmap}} (int cmap, const std\+::source\+\_\+location \&loc=std\+::source\+\_\+location\+::current())
+\begin{DoxyCompactList}\small\item\em Validates that a colormap ID corresponds to a valid Cmap enum value. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{namespacehmap_ae91029283452ab6d8276e3745a476b48}{bilinear\+\_\+interp}} (float f00, float f10, float f01, float f11, float u, float v)
 \begin{DoxyCompactList}\small\item\em Compute the bilinear interpolated value from four input values. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{namespacehmap_aee026d8b23196038c2b16c370b743889}{cubic\+\_\+interpolate}} (float p\mbox{[}4\mbox{]}, float x)
@@ -18865,7 +18899,361 @@ A new string padded with leading zeros to reach the specified length.
 \DoxyCodeLine{\mbox{\hyperlink{namespacehmap_a3f38b7faedc76835a0a902eb48e3d94b}{zfill}}(\textcolor{stringliteral}{"{}12345"{}},\ 5);\ \textcolor{comment}{//\ returns\ "{}12345"{}}}
 
 \end{DoxyCode}
- \Hypertarget{namespacehmap_ae91029283452ab6d8276e3745a476b48}\label{namespacehmap_ae91029283452ab6d8276e3745a476b48} 
+ \Hypertarget{namespacehmap_a2fca2d32d65e0735c277d21623d1164e}\label{namespacehmap_a2fca2d32d65e0735c277d21623d1164e} 
+\index{hmap@{hmap}!validate\_shape@{validate\_shape}}
+\index{validate\_shape@{validate\_shape}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_shape()}{validate\_shape()}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+shape (\begin{DoxyParamCaption}\item[{glm\+::ivec2}]{shape,  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that array dimensions are strictly positive. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em shape} & Dimensions \{x, y\} to check. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if shape.\+x \texorpdfstring{$>$}{>} 0 and shape.\+y \texorpdfstring{$>$}{>} 0, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_ada207723c327adabe73af8554e48e5bd}\label{namespacehmap_ada207723c327adabe73af8554e48e5bd} 
+\index{hmap@{hmap}!validate\_non\_empty@{validate\_non\_empty}}
+\index{validate\_non\_empty@{validate\_non\_empty}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_non\_empty()}{validate\_non\_empty()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+non\+\_\+empty (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that an array is initialized, non-\/empty, and has a consistent buffer size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & \doxylink{classhmap_1_1Array}{Array} to check. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the array is non-\/empty and buffer size matches shape dimensions, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a2e0228ee67d8c47cd32a3c9d9c6cb9d4}\label{namespacehmap_a2e0228ee67d8c47cd32a3c9d9c6cb9d4} 
+\index{hmap@{hmap}!validate\_non\_empty@{validate\_non\_empty}}
+\index{validate\_non\_empty@{validate\_non\_empty}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_non\_empty()}{validate\_non\_empty()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires requires(const T \&t) \{ \{ t.\+empty() \} -\/$>$ std\+::convertible\+\_\+to$<$bool$>$; \}\\
+bool hmap\+::validate\+\_\+non\+\_\+empty (\begin{DoxyParamCaption}\item[{const T \&}]{container,  }\item[{std\+::string\+\_\+view}]{name = {\ttfamily "{}Container"{}},  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that a container or object with an empty() method is not empty. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em container} & Container to check. \\
+\hline
+{\em name} & Name or description of the container for logging. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if container is not empty, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a21498251de1fa4b807aa5cbd06509fb3}\label{namespacehmap_a21498251de1fa4b807aa5cbd06509fb3} 
+\index{hmap@{hmap}!validate\_min\_size@{validate\_min\_size}}
+\index{validate\_min\_size@{validate\_min\_size}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_min\_size()}{validate\_min\_size()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires requires(const T \&t) \{ \{ t.\+size() \} -\/$>$ std\+::convertible\+\_\+to$<$size\+\_\+t$>$; \}\\
+bool hmap\+::validate\+\_\+min\+\_\+size (\begin{DoxyParamCaption}\item[{const T \&}]{container,  }\item[{size\+\_\+t}]{min\+\_\+size,  }\item[{std\+::string\+\_\+view}]{name = {\ttfamily "{}Container"{}},  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that a container has at least min\+\_\+size elements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em container} & Container to check. \\
+\hline
+{\em min\+\_\+size} & Minimum required number of elements. \\
+\hline
+{\em name} & Name or description of the container for logging. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if container has at least min\+\_\+size elements, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_aacc13f5eefdd40efc6fc2e7ef1750c68}\label{namespacehmap_aacc13f5eefdd40efc6fc2e7ef1750c68} 
+\index{hmap@{hmap}!validate\_same\_shape@{validate\_same\_shape}}
+\index{validate\_same\_shape@{validate\_same\_shape}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_same\_shape()}{validate\_same\_shape()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+same\+\_\+shape (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{a,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{b,  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that two arrays have identical shapes and buffer sizes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & First array. \\
+\hline
+{\em b} & Second array. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if shapes and buffer sizes match, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a69d71426d1b2c67c6a0edcb61553a5cd}\label{namespacehmap_a69d71426d1b2c67c6a0edcb61553a5cd} 
+\index{hmap@{hmap}!validate\_same\_shape@{validate\_same\_shape}}
+\index{validate\_same\_shape@{validate\_same\_shape}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_same\_shape()}{validate\_same\_shape()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+same\+\_\+shape (\begin{DoxyParamCaption}\item[{glm\+::ivec2}]{shape,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{b,  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that an array has the expected 2D shape. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em shape} & Expected shape \{x, y\}. \\
+\hline
+{\em b} & \doxylink{classhmap_1_1Array}{Array} to check. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if b.\+shape matches shape and b is non-\/empty, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a383c48f0b11657f8319b6dca79213c8e}\label{namespacehmap_a383c48f0b11657f8319b6dca79213c8e} 
+\index{hmap@{hmap}!validate\_non\_empty@{validate\_non\_empty}}
+\index{validate\_non\_empty@{validate\_non\_empty}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_non\_empty()}{validate\_non\_empty()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+non\+\_\+empty (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{tex,  }\item[{int}]{min\+\_\+channels = {\ttfamily 1},  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that a \doxylink{classhmap_1_1Texture}{Texture} is initialized, non-\/empty, and has valid channel buffers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tex} & \doxylink{classhmap_1_1Texture}{Texture} to check. \\
+\hline
+{\em min\+\_\+channels} & Minimum required number of channels. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the \doxylink{classhmap_1_1Texture}{Texture} is non-\/empty and channels are valid, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a85c3e76e26be5025a669c8d8e7742dd9}\label{namespacehmap_a85c3e76e26be5025a669c8d8e7742dd9} 
+\index{hmap@{hmap}!validate\_channels@{validate\_channels}}
+\index{validate\_channels@{validate\_channels}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_channels()}{validate\_channels()}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+channels (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{tex,  }\item[{int}]{expected\+\_\+channels,  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates exact channel count of a \doxylink{classhmap_1_1Texture}{Texture}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tex} & \doxylink{classhmap_1_1Texture}{Texture} to check. \\
+\hline
+{\em expected\+\_\+channels} & Exact number of expected channels. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if channel count matches, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_ad160ef479ee398f252b4f12d02a47cb3}\label{namespacehmap_ad160ef479ee398f252b4f12d02a47cb3} 
+\index{hmap@{hmap}!validate\_same\_shape@{validate\_same\_shape}}
+\index{validate\_same\_shape@{validate\_same\_shape}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_same\_shape()}{validate\_same\_shape()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+same\+\_\+shape (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{a,  }\item[{const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{b,  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that two Textures have matching 2D shapes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & First texture. \\
+\hline
+{\em b} & Second texture. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if shapes match, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a2a7b4fc7684a703c9f275987fe61271c}\label{namespacehmap_a2a7b4fc7684a703c9f275987fe61271c} 
+\index{hmap@{hmap}!validate\_same\_shape@{validate\_same\_shape}}
+\index{validate\_same\_shape@{validate\_same\_shape}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_same\_shape()}{validate\_same\_shape()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+same\+\_\+shape (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{tex,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{arr,  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that a \doxylink{classhmap_1_1Texture}{Texture} and an \doxylink{classhmap_1_1Array}{Array} have matching 2D shapes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tex} & \doxylink{classhmap_1_1Texture}{Texture} to check. \\
+\hline
+{\em arr} & \doxylink{classhmap_1_1Array}{Array} to check. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if shapes match, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_adaea0522457a624472e5e233ce87e558}\label{namespacehmap_adaea0522457a624472e5e233ce87e558} 
+\index{hmap@{hmap}!validate\_slice@{validate\_slice}}
+\index{validate\_slice@{validate\_slice}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_slice()}{validate\_slice()}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+slice (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{glm\+::ivec4}]{idx,  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that a slice extent \{i1, i2, j1, j2\} is valid and within array boundaries. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & Target array. \\
+\hline
+{\em idx} & Slice extents\+: \{i1, i2, j1, j2\}. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if slice is valid and non-\/empty, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a5f574de60d299167359adc9c5ccaf96d}\label{namespacehmap_a5f574de60d299167359adc9c5ccaf96d} 
+\index{hmap@{hmap}!validate\_slice\_for\_array@{validate\_slice\_for\_array}}
+\index{validate\_slice\_for\_array@{validate\_slice\_for\_array}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_slice\_for\_array()}{validate\_slice\_for\_array()}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+slice\+\_\+for\+\_\+array (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{dest,  }\item[{glm\+::ivec4}]{idx,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{src,  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that a slice extent matches the dimensions of a source array. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dest} & Destination array. \\
+\hline
+{\em idx} & Slice extents \{i1, i2, j1, j2\}. \\
+\hline
+{\em src} & Source array to assign into the slice. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if slice is valid and matches src.\+shape, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a71261eb3509f57f3d0690543ea13ba13}\label{namespacehmap_a71261eb3509f57f3d0690543ea13ba13} 
+\index{hmap@{hmap}!validate\_not\_zero@{validate\_not\_zero}}
+\index{validate\_not\_zero@{validate\_not\_zero}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_not\_zero()}{validate\_not\_zero()}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+not\+\_\+zero (\begin{DoxyParamCaption}\item[{float}]{value,  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that a divisor value is not zero. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Divisor value. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if value != 0, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a4d307825b053547f3a033acb2f153dbc}\label{namespacehmap_a4d307825b053547f3a033acb2f153dbc} 
+\index{hmap@{hmap}!validate\_parameter\_range@{validate\_parameter\_range}}
+\index{validate\_parameter\_range@{validate\_parameter\_range}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_parameter\_range()}{validate\_parameter\_range()}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+parameter\+\_\+range (\begin{DoxyParamCaption}\item[{glm\+::vec2}]{range,  }\item[{float}]{min\+\_\+val,  }\item[{float}]{max\+\_\+val,  }\item[{std\+::string\+\_\+view}]{param\+\_\+name = {\ttfamily "{}Range"{}},  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that a 2D range vector \{low, high\} lies within \mbox{[}min\+\_\+val, max\+\_\+val\mbox{]} with low \texorpdfstring{$<$}{<}= high. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em range} & Range vector \{low, high\}. \\
+\hline
+{\em min\+\_\+val} & Minimum allowed value. \\
+\hline
+{\em max\+\_\+val} & Maximum allowed value. \\
+\hline
+{\em param\+\_\+name} & Name or description of the range parameter for logging. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if min\+\_\+val \texorpdfstring{$<$}{<}= range.\+x \texorpdfstring{$<$}{<}= range.\+y \texorpdfstring{$<$}{<}= max\+\_\+val, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a55fc6a67f8f74dfd3fa340876ed0b988}\label{namespacehmap_a55fc6a67f8f74dfd3fa340876ed0b988} 
+\index{hmap@{hmap}!validate\_finite@{validate\_finite}}
+\index{validate\_finite@{validate\_finite}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_finite()}{validate\_finite()}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+finite (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that all elements of an array are finite (not NaN or Inf). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & \doxylink{classhmap_1_1Array}{Array} to check. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if all values are finite, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a0fbcf441a52570f1ea7a005b4014222d}\label{namespacehmap_a0fbcf441a52570f1ea7a005b4014222d} 
+\index{hmap@{hmap}!validate\_cmap@{validate\_cmap}}
+\index{validate\_cmap@{validate\_cmap}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{validate\_cmap()}{validate\_cmap()}}
+{\footnotesize\ttfamily bool hmap\+::validate\+\_\+cmap (\begin{DoxyParamCaption}\item[{int}]{cmap,  }\item[{const std\+::source\+\_\+location \&}]{loc = {\ttfamily std\+:\+:source\+\_\+location\+:\+:current()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validates that a colormap ID corresponds to a valid Cmap enum value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmap} & Colormap ID. \\
+\hline
+{\em loc} & Source location of the caller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if cmap is a valid Cmap enum value, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_ae91029283452ab6d8276e3745a476b48}\label{namespacehmap_ae91029283452ab6d8276e3745a476b48} 
 \index{hmap@{hmap}!bilinear\_interp@{bilinear\_interp}}
 \index{bilinear\_interp@{bilinear\_interp}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{bilinear\_interp()}{bilinear\_interp()}}

@@ -242,6 +242,7 @@ var namespacehmap_1_1gpu =
     [ "rotate", "namespacehmap_1_1gpu.html#aab128e15988875b5d350d6f156612aa5", null ],
     [ "warp", "namespacehmap_1_1gpu.html#a99659d06f84b0e92e6731f28ca28937c", null ],
     [ "compute_particle_path", "namespacehmap_1_1gpu.html#afd1e43227fa8126847097029597c1573", null ],
+    [ "hydraulic_schott", "namespacehmap_1_1gpu.html#a7a16e5308f2297b55d7f0e6e77fdd9a5", null ],
     [ "helper_vflow_compute_adaptive_dt", "namespacehmap_1_1gpu.html#a88838a8a701facc69ddace7b1e98f837", null ],
     [ "helper_transform_bbox", "namespacehmap_1_1gpu.html#a757286c938a310c4e6046c5df9bb6302", null ],
     [ "helper_bind_optional_buffers", "namespacehmap_1_1gpu.html#a27b70c333fc5550bcca1b96dcb0116fb", null ],

@@ -16,29 +16,32 @@
 <codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="curvature_8hpp" kindref="compound">highmap/curvature.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="filters_8hpp" kindref="compound">highmap/filters.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="gradient_8hpp" kindref="compound">highmap/gradient.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap_1_1gpu" kindref="compound">hmap::gpu</ref></highlight></codeline>
-<codeline lineno="10"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1a125118b55d309727ff0b46d686fd3829" kindref="member">level_set_curvature</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prefilter_ir)</highlight></codeline>
-<codeline lineno="13"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/>Array<sp/>array_f<sp/>=<sp/>array;</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(prefilter_ir)<sp/><ref refid="namespacehmap_1_1gpu_1a7d2aae253f1f67bbdbc718859f83ef0a" kindref="member">gpu::smooth_cpulse</ref>(array_f,<sp/>prefilter_ir);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="validation_8hpp" kindref="compound">highmap/internal/validation.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap_1_1gpu" kindref="compound">hmap::gpu</ref></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1a125118b55d309727ff0b46d686fd3829" kindref="member">level_set_curvature</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prefilter_ir)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>compute<sp/>divergence<sp/>of<sp/>the<sp/>normalized<sp/>gradient</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/>Array<sp/>gx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(array_f);</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/>Array<sp/>gy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(array_f);</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/>Array<sp/>gn<sp/>=<sp/><ref refid="namespacehmap_1a5f58c4149344b401d82f0be3c3807156" kindref="member">hmap::gradient_norm</ref>(array_f)<sp/>+<sp/>1e-12f;</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/>Array<sp/>dgx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(gx<sp/>/<sp/>gn);</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/>Array<sp/>dgy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(gy<sp/>/<sp/>gn);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>Array<sp/>array_f<sp/>=<sp/>array;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(prefilter_ir)<sp/><ref refid="namespacehmap_1_1gpu_1a7d2aae253f1f67bbdbc718859f83ef0a" kindref="member">gpu::smooth_cpulse</ref>(array_f,<sp/>prefilter_ir);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>compute<sp/>divergence<sp/>of<sp/>the<sp/>normalized<sp/>gradient</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>Array<sp/>gx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(array_f);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>Array<sp/>gy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(array_f);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>Array<sp/>gn<sp/>=<sp/><ref refid="namespacehmap_1a5f58c4149344b401d82f0be3c3807156" kindref="member">hmap::gradient_norm</ref>(array_f)<sp/>+<sp/>1e-12f;</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/>gn<sp/>=<sp/>dgx<sp/>+<sp/>dgy;</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>gn;</highlight></codeline>
-<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>Array<sp/>dgx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(gx<sp/>/<sp/>gn);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>Array<sp/>dgy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(gy<sp/>/<sp/>gn);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/>gn<sp/>=<sp/>dgx<sp/>+<sp/>dgy;</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap::gpu</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>gn;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap::gpu</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="HighMap/src/curvature/curvature_gpu.cpp"/>
   </compounddef>

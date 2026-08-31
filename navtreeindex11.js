@@ -1,5 +1,7 @@
 var NAVTREEINDEX11 =
 {
+"hydraulic__stream__upscale__amplification_8cpp.html#af975837e0f5b169dcb6d3f5f58c95fe9":[5,0,1,1,12,20,1],
+"hydraulic__vpipes__gpu_8cpp.html":[5,0,1,1,12,21],
 "hydraulic__vpipes__gpu_8cpp.html#a548895d6665a5466b8541122338b59a9":[5,0,1,1,12,21,0],
 "hydrology_2hydrology_8hpp.html":[5,0,1,0,0,2,2],
 "hydrology_2hydrology_8hpp.html#a05b9777b63947937181d7b7406e4b50d":[5,0,1,0,0,2,2,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX11 =
 "local__metrics_8cpp.html":[5,0,1,1,23,0],
 "local__metrics_8cpp.html#a85e411c67e97deb8459f25d4440546c3":[5,0,1,1,23,0,6],
 "local__metrics_8cpp.html#a941d446cad19c166f4f6c4df857dba65":[5,0,1,1,23,0,4],
-"local__metrics_8cpp.html#a9b6a1d2ca8ef58a4a0605d04bcbff038":[5,0,1,1,23,0,3],
-"local__metrics_8cpp.html#aa7ab501bae56bac2236a74ade5cd34a4":[5,0,1,1,23,0,2],
-"local__metrics_8cpp.html#ac297b8711e186ee1e5cdc7d1fc6a7972":[5,0,1,1,23,0,1]
+"local__metrics_8cpp.html#a9b6a1d2ca8ef58a4a0605d04bcbff038":[5,0,1,1,23,0,3]
 };
