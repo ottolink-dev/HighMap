@@ -25,7 +25,15 @@ int main(void)
                                   0.5f,  // valley_affinity
                                   8,     // prefilter_ir
                                   1e-4f, // minimum_depth
-                                  true); // carve_riverbed
+                                  true,  // carve_riverbed
+                                  8.f,   // merging_distance
+                                  hmap::RadialProfile::RP_SMOOTHSTEP_UPPER,
+                                  2.f,     // radial_profile_parameter
+                                  nullptr, // p_noise_r
+                                  0,       // fractalize_iterations
+                                  0.1f,    // fractalize_sigma
+                                  4,       // decimate_target_points
+                                  seed);   // fractalize_seed
 
   z3.dump();
 

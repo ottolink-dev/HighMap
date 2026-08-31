@@ -355,6 +355,49 @@ Path fractalize(const Path   &path,
   return new_path;
 }
 
+Path fractalize_uniform(const Path   &path,
+                        int           iterations,
+                        std::uint32_t seed,
+                        float         sigma,
+                        float         spacing,
+                        int           orientation,
+                        float         persistence,
+                        Array        *p_ctrl_array,
+                        glm::vec4     bbox,
+                        bool          bounded)
+{
+  if (!validate_min_size(path.points, 2, "Path points")) return path;
+  if (p_ctrl_array && !validate_non_empty(*p_ctrl_array)) return path;
+
+  Path new_path = path;
+
+  // 1. Determine target uniform spacing if not provided
+  if (spacing <= 0.f)
+  {
+    std::vector<float> cdist = path.get_cumulative_distance();
+    float              total_len = cdist.empty() ? 0.f : cdist.back();
+    size_t             n = path.size();
+    spacing = (n > 1 && total_len > 1e-7f) ? (total_len / float(n - 1)) : 0.05f;
+  }
+
+  // 2. Uniformly resample the path before applying midpoint displacement
+  if (spacing > 1e-7f)
+  {
+    new_path.resample_by_spacing(spacing, InterpolationMethod1D::LINEAR);
+  }
+
+  // 3. Delegate to relative midpoint fractalize algorithm
+  return fractalize(new_path,
+                    iterations,
+                    seed,
+                    sigma,
+                    orientation,
+                    persistence,
+                    p_ctrl_array,
+                    bbox,
+                    bounded);
+}
+
 Path inflate(const Path &path, float radius, bool resample)
 {
   if (!validate_min_size(path.points, 3, "Path points")) return path;

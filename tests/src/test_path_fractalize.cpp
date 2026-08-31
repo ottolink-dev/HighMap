@@ -120,3 +120,22 @@ TEST(PathFractalize, DefaultUnboundedBehavior)
     EXPECT_LE(pt.x, 10.f);
   }
 }
+
+TEST(PathFractalizeUniform, UniformDisplacementAlongDifferentLengthEdges)
+{
+  // Edge 1: length = 1.0 (from (0,0) to (1,0))
+  // Edge 2: length = 10.0 (from (1,0) to (11,0))
+  Path path({Point(0.f, 0.f), Point(1.f, 0.f), Point(11.f, 0.f)});
+
+  float sigma = 0.2f;
+  float spacing = 0.5f;
+  Path  res = fractalize_uniform(path, 3, 42, sigma, spacing);
+
+  EXPECT_GT(res.size(), path.size());
+
+  for (const auto &pt : res.points)
+  {
+    EXPECT_GE(pt.x, -1.f);
+    EXPECT_LE(pt.x, 12.f);
+  }
+}

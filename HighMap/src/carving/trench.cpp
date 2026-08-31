@@ -41,7 +41,8 @@ void trench(Array                       &z,
             size_t                       k_neighbors,
             const Array                 *p_noise_r,
             Array                       *p_bending_mask,
-            glm::vec4                    bbox)
+            glm::vec4                    bbox,
+            bool                         resample_path)
 {
   if (!validate_non_empty(z)) return;
   if (p_noise_r && !validate_same_shape(z, *p_noise_r)) return;
@@ -50,18 +51,16 @@ void trench(Array                       &z,
   const glm::ivec2 &shape = z.shape;
 
   // path working copy
-  Path   path_copy = path;
+  Path path_copy = path;
+  if (resample_path)
+  {
+    path_copy.resample_by_grid_resolution(shape,
+                                          bbox,
+                                          InterpolationMethod1D::LINEAR);
+  }
+
   auto  &points = path_copy.points;
   size_t npts = points.size();
-
-  // --- Force path resolution
-
-  // {
-  //   float lx = bbox.y - bbox.x;
-  //   float ly = bbox.w - bbox.z;
-  //   float dmin = std::min(lx / shape.x, ly / shape.y);
-  //   path_copy.resample(dmin);
-  // }
 
   // for width with distance scaling
   const std::vector<float> arc_length = path_copy.get_arc_length();
@@ -134,8 +133,6 @@ void trench(Array                       &z,
 
   // for curvature scaling
   Path path_curv = path_copy;
-  // path_curv.decimate_vw(40);
-  // path_curv.bspline(50);
 
   std::vector<float> curvature = path_curv.get_curvature();
   std::vector<float> curv_radius;

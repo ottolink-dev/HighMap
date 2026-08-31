@@ -203,6 +203,8 @@ void flatbed_carve(Array        &z,
  *                                           blending weights (can be nullptr).
  * @param[in]     bbox                       Bounding box of the domain as
  *                                           (xmin, xmax, ymin, ymax).
+ * @param[in]     resample_path              Whether to ensure the path has at
+ *                                           least 1 point per pixel.
  *
  * @warning The function assumes that @p elevation_shift is non-zero when
  * width-depth scaling is enabled, to avoid division by zero.
@@ -233,6 +235,7 @@ void trench(Array        &z,
             size_t       k_neighbors = 8,
             const Array *p_noise_r = nullptr,
             Array       *p_bending_mask = nullptr,
-            glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+            glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
+            bool         resample_path = true);
 
 } // namespace hmap

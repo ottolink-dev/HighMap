@@ -378,7 +378,11 @@ Array flow_fixing_mst(const Array  &z,
                       float         merging_distance,
                       RadialProfile radial_profile,
                       float         radial_profile_parameter,
-                      const Array  *p_noise_r)
+                      const Array  *p_noise_r,
+                      int           fractalize_iterations,
+                      float         fractalize_sigma,
+                      int           decimate_target_points,
+                      std::uint32_t fractalize_seed)
 {
   if (!validate_non_empty(z)) return Array();
   if (p_noise_r && !validate_same_shape(z, *p_noise_r)) return Array();
@@ -742,14 +746,22 @@ Array flow_fixing_mst(const Array  &z,
   // boundary.
   std::reverse(directed_paths.begin(), directed_paths.end());
 
+  // Store the relaxed centerline elevations along each discrete cell path
+  // without modifying zb directly if carving with trench on pristine z.
+  Mat<float> cell_target_z(shape, std::numeric_limits<float>::max());
+  for (int j = 0; j < shape.y; ++j)
+    for (int i = 0; i < shape.x; ++i)
+      cell_target_z(i, j) = z(i, j);
+
   for (const auto &dp : directed_paths)
   {
     const auto &path = dp.path;
     if (path.size() < 2) continue;
 
     float min_d = std::max(minimum_depth, 0.f);
-    zb(path.front()) = std::min(zb(path.front()), z(path.front()) - min_d);
-    float current_z = zb(path.front());
+    cell_target_z(path.front()) = std::min(cell_target_z(path.front()),
+                                           z(path.front()) - min_d);
+    float current_z = cell_target_z(path.front());
 
     for (size_t idx = 1; idx < path.size(); ++idx)
     {
@@ -763,20 +775,21 @@ Array flow_fixing_mst(const Array  &z,
       current_z -= std::max(riverbed_talus, 1e-6f) * dist;
 
       // Ensure the elevation is strictly lower than the initial terrain
-      // elevation so that zb(curr) < z(curr) and river carving is always active
-      // along the entire path
+      // elevation
       float target_z = std::min(current_z, z(curr) - min_d);
+      if (cell_target_z(curr) > target_z) cell_target_z(curr) = target_z;
 
-      if (zb(curr) > target_z) zb(curr) = target_z;
-
-      current_z = zb(curr);
+      current_z = cell_target_z(curr);
     }
   }
 
-  // --- Optional riverbed carving and smoothing with trench
-
+  // --- Optional continuous riverbed carving with trench, or discrete incision
+  // fallback
   if (carve_riverbed)
   {
+    // Start carving on pristine terrain to avoid carving over an already
+    // notched 1-pixel line
+    zb = z;
     float trench_width = merging_distance / float(shape.x);
 
     // Carve riverbed using continuous trench along each path from inner sinks
@@ -792,10 +805,24 @@ Array flow_fixing_mst(const Array  &z,
       {
         float x = (float(p.x) + 0.5f) / float(shape.x);
         float y = (float(p.y) + 0.5f) / float(shape.y);
-        pts.push_back(Point(x, y, zb(p)));
+        pts.push_back(Point(x, y, cell_target_z(p)));
       }
 
       Path river_path(pts);
+
+      if (decimate_target_points > 0 &&
+          river_path.size() > static_cast<size_t>(decimate_target_points))
+      {
+        river_path = decimate_vw(river_path, decimate_target_points);
+      }
+
+      if (fractalize_iterations > 0)
+      {
+        river_path = fractalize_uniform(river_path,
+                                        fractalize_iterations,
+                                        fractalize_seed,
+                                        fractalize_sigma);
+      }
 
       trench(zb,
              river_path,
@@ -815,6 +842,17 @@ Array flow_fixing_mst(const Array  &z,
              /* min_slope */ std::max(riverbed_talus, 1e-4f),
              /* k_neighbors */ 4,
              /* p_noise_r */ p_noise_r);
+    }
+  }
+  else
+  {
+    // Apply 1D discrete line lowering directly to zb
+    for (const auto &dp : directed_paths)
+    {
+      for (const auto &p : dp.path)
+      {
+        if (zb(p) > cell_target_z(p)) zb(p) = cell_target_z(p);
+      }
     }
   }
 

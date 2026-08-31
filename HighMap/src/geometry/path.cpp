@@ -273,6 +273,21 @@ void Path::reorder_nns(int start_index)
   this->points = std::move(reordered_points);
 }
 
+void Path::resample_by_grid_resolution(glm::ivec2            shape,
+                                       glm::vec4             bbox,
+                                       InterpolationMethod1D itp_method)
+{
+  if (!validate_min_size(this->points, 2, "Path points")) return;
+  if (shape.x <= 0 || shape.y <= 0) return;
+
+  float dx = (bbox[1] - bbox[0]) / float(shape.x);
+  float dy = (bbox[3] - bbox[2]) / float(shape.y);
+  float pixel_size = std::min(std::abs(dx), std::abs(dy));
+  if (pixel_size <= 1e-7f) return;
+
+  this->resample_by_spacing(pixel_size, itp_method);
+}
+
 void Path::resample_by_spacing(float delta, InterpolationMethod1D itp_method)
 {
   if (!validate_min_size(this->points, 2, "Path points")) return;

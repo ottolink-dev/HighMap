@@ -544,10 +544,18 @@ Array flow_fixing_drainage_basin(
  * @param  merging_distance      Distance (in pixels) for blending modified flow
  *                               paths.
  * @param  radial_profile        Radial profile cross-section for trench
- * carving.
+ *                               carving.
  * @param  radial_profile_parameter Shape parameter for the radial profile.
  * @param  p_noise_r             Optional radial noise array for trench width
  *                               perturbation.
+ * @param  fractalize_iterations Number of recursive midpoint displacement
+ *                               iterations (0 to disable, > 0 to enable).
+ * @param  fractalize_sigma      Displacement amplitude standard deviation
+ *                               relative to edge length.
+ * @param  decimate_target_points Number of target points to decimate paths down
+ *                               to before fractalization (0 or <= 0 to skip
+ *                               decimation).
+ * @param  fractalize_seed       Random seed for path fractalization.
  * @return                       Array with unbroken flow paths.
  */
 Array flow_fixing_mst(
@@ -563,7 +571,11 @@ Array flow_fixing_mst(
     float         merging_distance = 8.f,
     RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
     float         radial_profile_parameter = 2.f,
-    const Array  *p_noise_r = nullptr);
+    const Array  *p_noise_r = nullptr,
+    int           fractalize_iterations = 2,
+    float         fractalize_sigma = 0.2f,
+    int           decimate_target_points = 0,
+    std::uint32_t fractalize_seed = 0);
 
 /**
  * @brief Computes the optimal flow path from a starting point to the boundary

@@ -299,6 +299,19 @@ public:
   void divide();
 
   /**
+   * @brief Resample the path so that there is at least one point per pixel
+   * for a given grid shape and domain bounding box.
+   *
+   * @param shape      Grid dimensions (width, height).
+   * @param bbox       Bounding box of the domain (xmin, xmax, ymin, ymax).
+   * @param itp_method Interpolation method used to resample the path.
+   */
+  void resample_by_grid_resolution(
+      glm::ivec2            shape,
+      glm::vec4             bbox = {0.f, 1.f, 0.f, 1.f},
+      InterpolationMethod1D itp_method = InterpolationMethod1D::LINEAR);
+
+  /**
    * @brief Resample the path to achieve an approximately constant distance
    * between points.
    *
@@ -646,6 +659,41 @@ Path fractalize(const Path   &path,
                 Array        *p_control_field = nullptr,
                 glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
                 bool          bounded = false);
+
+/**
+ * @brief Applies uniform fractalization along the path by first resampling the
+ * path uniformly according to a target edge spacing (or number of samples) so
+ * that all segments have equal base length, and then applying relative midpoint
+ * displacement (scaled by sigma relative to segment length).
+ *
+ * @param path          The input path.
+ * @param iterations    Number of recursive midpoint displacement levels.
+ * @param seed          Seed for random number generation.
+ * @param sigma         Standard deviation of the Gaussian displacement relative
+ *                      to the resampled segment length.
+ * @param spacing       Target uniform distance between consecutive points prior
+ *                      to midpoint displacement (<= 0 to auto-compute from
+ * total length and path size).
+ * @param orientation   `0` for random lateral, `1` for positive normal, `-1`
+ *                      for negative normal.
+ * @param persistence   Roughness decay factor applied to sigma each level
+ *                      (e.g., 1.0 or 0.5).
+ * @param p_ctrl_array  Optional control array to modulate local amplitude.
+ * @param bbox          Domain bounding box.
+ * @param bounded       If true, clamps displaced midpoints to initial edge
+ *                      bounding boxes.
+ * @return              Fractalized path with uniform detail density.
+ */
+Path fractalize_uniform(const Path   &path,
+                        int           iterations,
+                        std::uint32_t seed,
+                        float         sigma = 0.2f,
+                        float         spacing = 0.f,
+                        int           orientation = 0,
+                        float         persistence = 1.f,
+                        Array        *p_ctrl_array = nullptr,
+                        glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                        bool          bounded = false);
 
 /**
  * @brief Inflate (offset) a path along its normals using curvature.
