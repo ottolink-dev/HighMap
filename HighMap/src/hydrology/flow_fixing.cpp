@@ -378,11 +378,7 @@ Array flow_fixing_mst(const Array  &z,
                       float         merging_distance,
                       RadialProfile radial_profile,
                       float         radial_profile_parameter,
-                      const Array  *p_noise_r,
-                      int           fractalize_iterations,
-                      float         fractalize_sigma,
-                      int           decimate_target_points,
-                      std::uint32_t fractalize_seed)
+                      const Array  *p_noise_r)
 {
   if (!validate_non_empty(z)) return Array();
   if (p_noise_r && !validate_same_shape(z, *p_noise_r)) return Array();
@@ -809,20 +805,6 @@ Array flow_fixing_mst(const Array  &z,
       }
 
       Path river_path(pts);
-
-      if (decimate_target_points > 0 &&
-          river_path.size() > static_cast<size_t>(decimate_target_points))
-      {
-        river_path = decimate_vw(river_path, decimate_target_points);
-      }
-
-      if (fractalize_iterations > 0)
-      {
-        river_path = fractalize_uniform(river_path,
-                                        fractalize_iterations,
-                                        fractalize_seed,
-                                        fractalize_sigma);
-      }
 
       trench(zb,
              river_path,
