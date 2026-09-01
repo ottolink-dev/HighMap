@@ -795,10 +795,10 @@
         </inbodydescription>
         <location file="HighMap/src/erosion/deposition_fill_holes.cpp" line="33" column="6" bodyfile="HighMap/src/erosion/deposition_fill_holes.cpp" bodystart="33" bodyend="47" declfile="HighMap/include/highmap/erosion.hpp" declline="775" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1ac6d55fbc90b3e84de1a4b68f26873934" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1a4634556eb8cdc81b0bb52b5ebcd5309b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::gpu::hydraulic_particle</definition>
-        <argsstring>(Array &amp;z, int nparticles, std::uint32_t seed, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, const Array *p_elevation_shift=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, float c_capacity=10.f, float c_erosion=0.05f, float c_deposition=0.05f, float c_inertia=0.1f, float c_gravity=1.f, float drag_rate=0.001f, float evap_rate=0.001f, bool enable_directional_bias=false, float angle_bias=30.f)</argsstring>
+        <argsstring>(Array &amp;z, int nparticles, std::uint32_t seed, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, const Array *p_elevation_shift=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, float c_capacity=10.f, float c_erosion=0.05f, float c_deposition=0.05f, float c_inertia=0.01f, float c_gravity=1.f, float drag_rate=0.001f, float evap_rate=0.001f, float talus_slope=2.f, float collapse_rate=0.1f, int iterations=1)</argsstring>
         <name>hydraulic_particle</name>
         <qualifiedname>hmap::gpu::hydraulic_particle</qualifiedname>
         <param>
@@ -856,7 +856,7 @@
         <param>
           <type>float</type>
           <declname>c_inertia</declname>
-          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+          <defval>0.01<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>float</type>
@@ -874,14 +874,19 @@
           <defval>0.001<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
-          <type>bool</type>
-          <declname>enable_directional_bias</declname>
-          <defval>false</defval>
+          <type>float</type>
+          <declname>talus_slope</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>float</type>
-          <declname>angle_bias</declname>
-          <defval>30.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+          <declname>collapse_rate</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>iterations</declname>
+          <defval>1</defval>
         </param>
         <briefdescription>
 <para>Simulates hydraulic erosion on a heightmap using particle-based flow. </para>
@@ -997,7 +1002,7 @@
 <parametername>drag_rate</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Particle velocity damping. </para>
+<para>Particle velocity damping per step. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1021,7 +1026,15 @@
 <parametername>angle_bias</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Bias angle in degrees (if directional bias enabled).</para>
+<para>Bias angle in degrees (if directional bias enabled). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iterations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of multi-pass iterations. Particles are split evenly across passes and the terrain is re-uploaded between passes so later particles follow channels carved by earlier ones. Higher values produce more coherent drainage networks at the cost of serializing the GPU work.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -1048,21 +1061,62 @@
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nparticles<sp/>=<sp/>int(0.5f<sp/>*<sp/>shape.x<sp/>*<sp/>shape.y);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/>z0;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ac6d55fbc90b3e84de1a4b68f26873934" kindref="member">hmap::gpu::hydraulic_particle</ref>(z1,<sp/>nparticles,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a4634556eb8cdc81b0bb52b5ebcd5309b" kindref="member">hmap::gpu::hydraulic_particle</ref>(z1,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nparticles,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>p_bedrock<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>p_moisture_map<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>p_elevation_shift<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>p_erosion_map<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>p_deposition_map<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_capacity<sp/>*/</highlight><highlight class="normal"><sp/>10.f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_erosion<sp/>*/</highlight><highlight class="normal"><sp/>0.1f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_deposition<sp/>*/</highlight><highlight class="normal"><sp/>0.1f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_inertia<sp/>*/</highlight><highlight class="normal"><sp/>0.f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_gravity<sp/>*/</highlight><highlight class="normal"><sp/>1.f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>drag_rate<sp/>*/</highlight><highlight class="normal"><sp/>0.001f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>evap_rate<sp/>*/</highlight><highlight class="normal"><sp/>0.001f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>talus_slope<sp/>*/</highlight><highlight class="normal"><sp/>2.f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>collapse_rate<sp/>*/</highlight><highlight class="normal"><sp/>0.25f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>iterations<sp/>*/</highlight><highlight class="normal"><sp/>1);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>z1.dump();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z2<sp/>=<sp/>z0;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>zb2<sp/>=<sp/><ref refid="namespacehmap_1ae80026143790cc7a8f0dd1f4c7bc8e24" kindref="member">hmap::generate_bedrock</ref>(z2,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>elevation_strength<sp/>*/</highlight><highlight class="normal"><sp/>0.05f,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>slope_strength<sp/>*/</highlight><highlight class="normal"><sp/>0.f,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>slope_limit<sp/>*/</highlight><highlight class="normal"><sp/>0.f);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ac6d55fbc90b3e84de1a4b68f26873934" kindref="member">hmap::gpu::hydraulic_particle</ref>(z2,<sp/>nparticles,<sp/>seed,<sp/>&amp;zb2);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a4634556eb8cdc81b0bb52b5ebcd5309b" kindref="member">hmap::gpu::hydraulic_particle</ref>(z2,<sp/>nparticles,<sp/>seed,<sp/>&amp;zb2);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z3<sp/>=<sp/>z0;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>zb3<sp/>=<sp/><ref refid="namespacehmap_1ae80026143790cc7a8f0dd1f4c7bc8e24" kindref="member">hmap::generate_bedrock</ref>(z3,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>elevation_strength<sp/>*/</highlight><highlight class="normal"><sp/>0.f,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>slope_strength<sp/>*/</highlight><highlight class="normal"><sp/>0.1f,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>slope_limit<sp/>*/</highlight><highlight class="normal"><sp/>2.f<sp/>/<sp/>shape.x);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ac6d55fbc90b3e84de1a4b68f26873934" kindref="member">hmap::gpu::hydraulic_particle</ref>(z3,<sp/>nparticles,<sp/>seed,<sp/>&amp;zb3);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a4634556eb8cdc81b0bb52b5ebcd5309b" kindref="member">hmap::gpu::hydraulic_particle</ref>(z3,<sp/>nparticles,<sp/>seed,<sp/>&amp;zb3);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z4<sp/>=<sp/>z0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a6bf71c5a5b9e73d823bab65dc40c0287" kindref="member">hmap::gpu::hydraulic_particle_multiscale</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>z4,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>steps_per_level<sp/>*/</highlight><highlight class="normal"><sp/>{16,<sp/>8,<sp/>4,<sp/>2,<sp/>1},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>p_bedrock<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>p_moisture_map<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>p_elevation_shift<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>p_erosion_map<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>p_deposition_map<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>particles_ratio<sp/>*/</highlight><highlight class="normal"><sp/>0.5f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_capacity<sp/>*/</highlight><highlight class="normal"><sp/>10.f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_erosion<sp/>*/</highlight><highlight class="normal"><sp/>0.05f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_deposition<sp/>*/</highlight><highlight class="normal"><sp/>0.05f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_inertia<sp/>*/</highlight><highlight class="normal"><sp/>0.0f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_gravity<sp/>*/</highlight><highlight class="normal"><sp/>1.f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>drag_rate<sp/>*/</highlight><highlight class="normal"><sp/>0.001f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>evap_rate<sp/>*/</highlight><highlight class="normal"><sp/>0.001f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>talus_slope<sp/>*/</highlight><highlight class="normal"><sp/>2.f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>collapse_rate<sp/>*/</highlight><highlight class="normal"><sp/>0.25f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>mix<sp/>*/</highlight><highlight class="normal"><sp/>0.8f);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>output</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -1070,9 +1124,10 @@
 <codeline><highlight class="normal"><sp/><sp/>z1.dump(</highlight><highlight class="stringliteral">&quot;out1.png&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>z2.dump(</highlight><highlight class="stringliteral">&quot;out2.png&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>z3.dump(</highlight><highlight class="stringliteral">&quot;out3.png&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>z4.dump(</highlight><highlight class="stringliteral">&quot;out4.png&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_hydraulic_particle.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z0,<sp/>z1,<sp/>z2,<sp/>z3},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z0,<sp/>z1,<sp/>z2,<sp/>z3,<sp/>z4},</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9" kindref="member">hmap::Cmap::TERRAIN</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
@@ -1082,12 +1137,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_particle.cpp" line="20" column="6" bodyfile="HighMap/src/erosion/hydraulic_particle.cpp" bodystart="20" bodyend="91" declfile="HighMap/include/highmap/erosion.hpp" declline="813" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_particle.cpp" line="21" column="6" bodyfile="HighMap/src/erosion/hydraulic_particle.cpp" bodystart="21" bodyend="115" declfile="HighMap/include/highmap/erosion.hpp" declline="820" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1ac3ded0c179de9782edf74dbc0b348b5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1a896738bf580453d50668885176c3371a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::gpu::hydraulic_particle</definition>
-        <argsstring>(Array &amp;z, const Array *p_mask, int nparticles, std::uint32_t seed, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, const Array *p_elevation_shift=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, float c_capacity=10.f, float c_erosion=0.05f, float c_deposition=0.05f, float c_inertia=0.1f, float c_gravity=1.f, float drag_rate=0.001f, float evap_rate=0.001f, bool enable_directional_bias=false, float angle_bias=30.f)</argsstring>
+        <argsstring>(Array &amp;z, const Array *p_mask, int nparticles, std::uint32_t seed, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, const Array *p_elevation_shift=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, float c_capacity=10.f, float c_erosion=0.05f, float c_deposition=0.05f, float c_inertia=0.01f, float c_gravity=1.f, float drag_rate=0.001f, float evap_rate=0.001f, float talus_slope=2.f, float collapse_rate=0.1f, int iterations=1)</argsstring>
         <name>hydraulic_particle</name>
         <qualifiedname>hmap::gpu::hydraulic_particle</qualifiedname>
         <param>
@@ -1149,7 +1204,7 @@
         <param>
           <type>float</type>
           <declname>c_inertia</declname>
-          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+          <defval>0.01<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>float</type>
@@ -1167,23 +1222,290 @@
           <defval>0.001<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
-          <type>bool</type>
-          <declname>enable_directional_bias</declname>
-          <defval>false</defval>
+          <type>float</type>
+          <declname>talus_slope</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>float</type>
-          <declname>angle_bias</declname>
-          <defval>30.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+          <declname>collapse_rate</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>iterations</declname>
+          <defval>1</defval>
         </param>
         <briefdescription>
-<para>See hmap::hydraulic_particle. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_particle.cpp" line="93" column="6" bodyfile="HighMap/src/erosion/hydraulic_particle.cpp" bodystart="93" bodyend="134" declfile="HighMap/include/highmap/erosion.hpp" declline="832" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_particle.cpp" line="117" column="6" bodyfile="HighMap/src/erosion/hydraulic_particle.cpp" bodystart="117" bodyend="160" declfile="HighMap/include/highmap/erosion.hpp" declline="839" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1a6bf71c5a5b9e73d823bab65dc40c0287" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::gpu::hydraulic_particle_multiscale</definition>
+        <argsstring>(Array &amp;z, std::uint32_t seed, const std::vector&lt; int &gt; &amp;steps_per_level={4, 2, 1}, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, const Array *p_elevation_shift=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, float particles_ratio=0.5f, float c_capacity=10.f, float c_erosion=0.05f, float c_deposition=0.05f, float c_inertia=0.01f, float c_gravity=1.f, float drag_rate=0.001f, float evap_rate=0.001f, float talus_slope=2.f, float collapse_rate=0.1f, float mix=1.f)</argsstring>
+        <name>hydraulic_particle_multiscale</name>
+        <qualifiedname>hmap::gpu::hydraulic_particle_multiscale</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; int &gt; &amp;</type>
+          <declname>steps_per_level</declname>
+          <defval>{4, 2, 1}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_bedrock</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_moisture_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_elevation_shift</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_erosion_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_deposition_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>particles_ratio</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>c_capacity</declname>
+          <defval>10.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>c_erosion</declname>
+          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>c_deposition</declname>
+          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>c_inertia</declname>
+          <defval>0.01<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>c_gravity</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>drag_rate</declname>
+          <defval>0.001<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>evap_rate</declname>
+          <defval>0.001<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>talus_slope</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>collapse_rate</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>mix</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+<para>Multiscale particle-based hydraulic erosion cascade. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Runs particle erosion over a geometric resolution ladder (coarsest first, up to z.shape). Coarse levels carve broad continental valleys and major river corridors, while fine levels carve detailed tributaries and gullies.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Heightmap array to modify. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random seed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>steps_per_level</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of iteration steps per level (coarsest to finest, e.g. {4, 2, 1}). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_bedrock</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional bedrock array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_moisture_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional moisture map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_elevation_shift</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional elevation shift map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_erosion_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output erosion map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_deposition_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output deposition map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>particles_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Particles per level as a multiple of resolution (e.g. 0.5 * nx * ny). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c_capacity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sediment capacity factor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c_erosion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Erosion rate coefficient. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c_deposition</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Deposition rate coefficient. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c_inertia</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Inertia factor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c_gravity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Gravity factor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>drag_rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Velocity damping. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>evap_rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Evaporation rate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>talus_slope</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Domain-normalized talus slope threshold (e.g. 2.0, adjusted automatically to talus_slope / shape.x). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>collapse_rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bank collapse rate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interpolation blend factor in [0, 1] between original input heightmap (0) and eroded heightmap (1) at each upsampling step to retain original high-frequency details. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/erosion/hydraulic_particle.cpp" line="162" column="6" bodyfile="HighMap/src/erosion/hydraulic_particle.cpp" bodystart="162" bodyend="279" declfile="HighMap/include/highmap/erosion.hpp" declline="891" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a95d94b88a44f0b1c6b21a020d8779b1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1537,7 +1859,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_mcdonald_gpu.cpp" line="162" column="6" bodyfile="HighMap/src/erosion/hydraulic_mcdonald_gpu.cpp" bodystart="162" bodyend="220" declfile="HighMap/include/highmap/erosion.hpp" declline="905" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_mcdonald_gpu.cpp" line="162" column="6" bodyfile="HighMap/src/erosion/hydraulic_mcdonald_gpu.cpp" bodystart="162" bodyend="220" declfile="HighMap/include/highmap/erosion.hpp" declline="966" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a33b7748b6322b458482b3a60c6a3a7c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1709,7 +2031,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_mcdonald_gpu.cpp" line="222" column="6" bodyfile="HighMap/src/erosion/hydraulic_mcdonald_gpu.cpp" bodystart="222" bodyend="305" declfile="HighMap/include/highmap/erosion.hpp" declline="942" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_mcdonald_gpu.cpp" line="222" column="6" bodyfile="HighMap/src/erosion/hydraulic_mcdonald_gpu.cpp" bodystart="222" bodyend="305" declfile="HighMap/include/highmap/erosion.hpp" declline="1003" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a99e82fd045db7e5fddd177449289c3b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2063,7 +2385,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_procedural.cpp" line="26" column="6" bodyfile="HighMap/src/erosion/hydraulic_procedural.cpp" bodystart="26" bodyend="199" declfile="HighMap/include/highmap/erosion.hpp" declline="1014" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_procedural.cpp" line="26" column="6" bodyfile="HighMap/src/erosion/hydraulic_procedural.cpp" bodystart="26" bodyend="199" declfile="HighMap/include/highmap/erosion.hpp" declline="1075" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a79e45a2a4f3a41739ee49c722cded536" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2456,7 +2778,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_procedural.cpp" line="201" column="6" bodyfile="HighMap/src/erosion/hydraulic_procedural.cpp" bodystart="201" bodyend="276" declfile="HighMap/include/highmap/erosion.hpp" declline="1076" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_procedural.cpp" line="201" column="6" bodyfile="HighMap/src/erosion/hydraulic_procedural.cpp" bodystart="201" bodyend="276" declfile="HighMap/include/highmap/erosion.hpp" declline="1137" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a0cf61fdf1248cd9cc4da40f510e13973" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2595,7 +2917,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_procedural.cpp" line="278" column="6" bodyfile="HighMap/src/erosion/hydraulic_procedural.cpp" bodystart="278" bodyend="370" declfile="HighMap/include/highmap/erosion.hpp" declline="1103" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_procedural.cpp" line="278" column="6" bodyfile="HighMap/src/erosion/hydraulic_procedural.cpp" bodystart="278" bodyend="370" declfile="HighMap/include/highmap/erosion.hpp" declline="1164" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a9749d24b9dd9bed8ee333910951db395" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2800,7 +3122,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_schott_gpu.cpp" line="15" column="6" bodyfile="HighMap/src/erosion/hydraulic_schott_gpu.cpp" bodystart="15" bodyend="83" declfile="HighMap/include/highmap/erosion.hpp" declline="1178" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_schott_gpu.cpp" line="15" column="6" bodyfile="HighMap/src/erosion/hydraulic_schott_gpu.cpp" bodystart="15" bodyend="83" declfile="HighMap/include/highmap/erosion.hpp" declline="1239" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a54cd96bb811138a9c7f9768c4b0a8f98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2876,7 +3198,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/erosion.hpp" line="1191" column="6" declfile="HighMap/include/highmap/erosion.hpp" declline="1191" declcolumn="6"/>
+        <location file="HighMap/include/highmap/erosion.hpp" line="1252" column="6" declfile="HighMap/include/highmap/erosion.hpp" declline="1252" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1aa3c0fc5295f81856967feed8cf87f711" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2924,7 +3246,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_schott_gpu.cpp" line="135" column="6" bodyfile="HighMap/src/erosion/hydraulic_schott_gpu.cpp" bodystart="135" bodyend="181" declfile="HighMap/include/highmap/erosion.hpp" declline="1206" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_schott_gpu.cpp" line="135" column="6" bodyfile="HighMap/src/erosion/hydraulic_schott_gpu.cpp" bodystart="135" bodyend="181" declfile="HighMap/include/highmap/erosion.hpp" declline="1267" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a7814928e0f3b995421d298677934d11d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3006,7 +3328,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream_gpu.cpp" line="18" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_gpu.cpp" bodystart="18" bodyend="97" declfile="HighMap/include/highmap/erosion.hpp" declline="1215" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream_gpu.cpp" line="18" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_gpu.cpp" bodystart="18" bodyend="97" declfile="HighMap/include/highmap/erosion.hpp" declline="1276" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ac83dbe1bc607d991c237eaf5b20acd69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3092,7 +3414,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream_gpu.cpp" line="99" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_gpu.cpp" bodystart="99" bodyend="154" declfile="HighMap/include/highmap/erosion.hpp" declline="1230" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream_gpu.cpp" line="99" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_gpu.cpp" bodystart="99" bodyend="154" declfile="HighMap/include/highmap/erosion.hpp" declline="1291" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a548895d6665a5466b8541122338b59a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3196,7 +3518,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_vpipes_gpu.cpp" line="16" column="6" bodyfile="HighMap/src/erosion/hydraulic_vpipes_gpu.cpp" bodystart="16" bodyend="211" declfile="HighMap/include/highmap/erosion.hpp" declline="1247" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_vpipes_gpu.cpp" line="16" column="6" bodyfile="HighMap/src/erosion/hydraulic_vpipes_gpu.cpp" bodystart="16" bodyend="211" declfile="HighMap/include/highmap/erosion.hpp" declline="1308" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a3faa3e769849fbcc7784d130c05f99a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3340,7 +3662,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/mudslide.cpp" line="19" column="6" bodyfile="HighMap/src/erosion/mudslide.cpp" bodystart="19" bodyend="54" declfile="HighMap/include/highmap/erosion.hpp" declline="1294" declcolumn="6"/>
+        <location file="HighMap/src/erosion/mudslide.cpp" line="19" column="6" bodyfile="HighMap/src/erosion/mudslide.cpp" bodystart="19" bodyend="54" declfile="HighMap/include/highmap/erosion.hpp" declline="1355" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ac726e3e56563a153c2c62f0603d53381" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3391,7 +3713,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/mudslide.cpp" line="56" column="6" bodyfile="HighMap/src/erosion/mudslide.cpp" bodystart="56" bodyend="78" declfile="HighMap/include/highmap/erosion.hpp" declline="1304" declcolumn="6"/>
+        <location file="HighMap/src/erosion/mudslide.cpp" line="56" column="6" bodyfile="HighMap/src/erosion/mudslide.cpp" bodystart="56" bodyend="78" declfile="HighMap/include/highmap/erosion.hpp" declline="1365" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ace06af8ac4d53033c221b1e0f7462a54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3676,7 +3998,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/rifts_gpu.cpp" line="16" column="6" bodyfile="HighMap/src/erosion/rifts_gpu.cpp" bodystart="16" bodyend="75" declfile="HighMap/include/highmap/erosion.hpp" declline="1364" declcolumn="6"/>
+        <location file="HighMap/src/erosion/rifts_gpu.cpp" line="16" column="6" bodyfile="HighMap/src/erosion/rifts_gpu.cpp" bodystart="16" bodyend="75" declfile="HighMap/include/highmap/erosion.hpp" declline="1425" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a1c2651f7a65e696e8b444364abf0b3cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3807,7 +4129,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/deposition.cpp" line="45" column="6" bodyfile="HighMap/src/erosion/deposition.cpp" bodystart="45" bodyend="74" declfile="HighMap/include/highmap/erosion.hpp" declline="1407" declcolumn="6"/>
+        <location file="HighMap/src/erosion/deposition.cpp" line="45" column="6" bodyfile="HighMap/src/erosion/deposition.cpp" bodystart="45" bodyend="74" declfile="HighMap/include/highmap/erosion.hpp" declline="1468" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a26ed284f1df761074c2a49a2fbbd582e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3849,7 +4171,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/deposition.cpp" line="20" column="6" bodyfile="HighMap/src/erosion/deposition.cpp" bodystart="20" bodyend="43" declfile="HighMap/include/highmap/erosion.hpp" declline="1415" declcolumn="6"/>
+        <location file="HighMap/src/erosion/deposition.cpp" line="20" column="6" bodyfile="HighMap/src/erosion/deposition.cpp" bodystart="20" bodyend="43" declfile="HighMap/include/highmap/erosion.hpp" declline="1476" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1aec782e6aba3f4cfbbd97aafa46cc700b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3977,7 +4299,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/deposition.cpp" line="76" column="6" bodyfile="HighMap/src/erosion/deposition.cpp" bodystart="76" bodyend="123" declfile="HighMap/include/highmap/erosion.hpp" declline="1443" declcolumn="6"/>
+        <location file="HighMap/src/erosion/deposition.cpp" line="76" column="6" bodyfile="HighMap/src/erosion/deposition.cpp" bodystart="76" bodyend="123" declfile="HighMap/include/highmap/erosion.hpp" declline="1504" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1acdb08d6ebb8ddb8e5595c11278cf81e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4306,7 +4628,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/strata.cpp" line="20" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="20" bodyend="81" declfile="HighMap/include/highmap/erosion.hpp" declline="1507" declcolumn="6"/>
+        <location file="HighMap/src/erosion/strata.cpp" line="20" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="20" bodyend="81" declfile="HighMap/include/highmap/erosion.hpp" declline="1568" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a924e3d46ccfbe374d34eeaaacc2f81fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4561,7 +4883,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/strata.cpp" line="83" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="83" bodyend="133" declfile="HighMap/include/highmap/erosion.hpp" declline="1557" declcolumn="6"/>
+        <location file="HighMap/src/erosion/strata.cpp" line="83" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="83" bodyend="133" declfile="HighMap/include/highmap/erosion.hpp" declline="1618" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a740cd2ba7c58126ef27bfcddcb6f00b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4828,7 +5150,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/strata.cpp" line="135" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="135" bodyend="168" declfile="HighMap/include/highmap/erosion.hpp" declline="1598" declcolumn="6"/>
+        <location file="HighMap/src/erosion/strata.cpp" line="135" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="135" bodyend="168" declfile="HighMap/include/highmap/erosion.hpp" declline="1659" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a5b29dc1e29512877770fd208cd40b971" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -5135,7 +5457,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/strata.cpp" line="170" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="170" bodyend="254" declfile="HighMap/include/highmap/erosion.hpp" declline="1643" declcolumn="6"/>
+        <location file="HighMap/src/erosion/strata.cpp" line="170" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="170" bodyend="254" declfile="HighMap/include/highmap/erosion.hpp" declline="1704" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ab8f6820b9bd796b3283e763f4d872a51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -5454,7 +5776,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/strata.cpp" line="256" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="256" bodyend="297" declfile="HighMap/include/highmap/erosion.hpp" declline="1692" declcolumn="6"/>
+        <location file="HighMap/src/erosion/strata.cpp" line="256" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="256" bodyend="297" declfile="HighMap/include/highmap/erosion.hpp" declline="1753" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a9c033bf30ba815949b8d0fb01ab15eea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -5634,7 +5956,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/strata_plates.cpp" line="20" column="6" bodyfile="HighMap/src/erosion/strata_plates.cpp" bodystart="20" bodyend="78" declfile="HighMap/include/highmap/erosion.hpp" declline="1734" declcolumn="6"/>
+        <location file="HighMap/src/erosion/strata_plates.cpp" line="20" column="6" bodyfile="HighMap/src/erosion/strata_plates.cpp" bodystart="20" bodyend="78" declfile="HighMap/include/highmap/erosion.hpp" declline="1795" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a7bfb87c4fc0f9f4fe3a043cb18e7f8fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -5841,7 +6163,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/strata.cpp" line="299" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="299" bodyend="333" declfile="HighMap/include/highmap/erosion.hpp" declline="1772" declcolumn="6"/>
+        <location file="HighMap/src/erosion/strata.cpp" line="299" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="299" bodyend="333" declfile="HighMap/include/highmap/erosion.hpp" declline="1833" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a05cc60e4654cd2f0dbb5021bf7602bb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6060,7 +6382,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/strata.cpp" line="335" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="335" bodyend="362" declfile="HighMap/include/highmap/erosion.hpp" declline="1808" declcolumn="6"/>
+        <location file="HighMap/src/erosion/strata.cpp" line="335" column="6" bodyfile="HighMap/src/erosion/strata.cpp" bodystart="335" bodyend="362" declfile="HighMap/include/highmap/erosion.hpp" declline="1869" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a2eb4bdf2d7dc4441e56865027764425e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6170,7 +6492,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="18" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="18" bodyend="76" declfile="HighMap/include/highmap/erosion.hpp" declline="1839" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="18" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="18" bodyend="76" declfile="HighMap/include/highmap/erosion.hpp" declline="1900" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a0cd57e6ed132067e5768937fe84f1f46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6212,7 +6534,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="78" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="78" bodyend="90" declfile="HighMap/include/highmap/erosion.hpp" declline="1845" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="78" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="78" bodyend="90" declfile="HighMap/include/highmap/erosion.hpp" declline="1906" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1aac5f0e0045cf767611fb8d2def2c4cb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6250,7 +6572,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="92" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="92" bodyend="103" declfile="HighMap/include/highmap/erosion.hpp" declline="1852" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="92" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="92" bodyend="103" declfile="HighMap/include/highmap/erosion.hpp" declline="1913" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a36a2eba6d158e44d0ef917d9582987fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6344,7 +6666,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="105" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="105" bodyend="139" declfile="HighMap/include/highmap/erosion.hpp" declline="1879" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="105" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="105" bodyend="139" declfile="HighMap/include/highmap/erosion.hpp" declline="1940" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ae3402d591c3b13ef13cece96cdab85b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6381,7 +6703,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="152" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="152" bodyend="163" declfile="HighMap/include/highmap/erosion.hpp" declline="1884" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="152" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="152" bodyend="163" declfile="HighMap/include/highmap/erosion.hpp" declline="1945" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ac87a6d725bf0751510f6b1f426a8af27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6414,7 +6736,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="141" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="141" bodyend="150" declfile="HighMap/include/highmap/erosion.hpp" declline="1890" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="141" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="141" bodyend="150" declfile="HighMap/include/highmap/erosion.hpp" declline="1951" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a5a5275d0f2588dbbd766e2c5b1a8d55a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6495,7 +6817,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="165" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="165" bodyend="189" declfile="HighMap/include/highmap/erosion.hpp" declline="1910" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="165" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="165" bodyend="189" declfile="HighMap/include/highmap/erosion.hpp" declline="1971" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a13e5b18eb4ff1cf1f7357a9b29bf9368" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6536,7 +6858,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="191" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="191" bodyend="203" declfile="HighMap/include/highmap/erosion.hpp" declline="1916" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="191" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="191" bodyend="203" declfile="HighMap/include/highmap/erosion.hpp" declline="1977" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a00b54f4e60a8fbd6ed5213600d598869" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6615,7 +6937,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="236" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="236" bodyend="254" declfile="HighMap/include/highmap/erosion.hpp" declline="1942" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="236" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="236" bodyend="254" declfile="HighMap/include/highmap/erosion.hpp" declline="2003" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a2bb49a523386fcb8fc34f27741c520a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6646,7 +6968,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="256" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="256" bodyend="264" declfile="HighMap/include/highmap/erosion.hpp" declline="1944" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="256" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="256" bodyend="264" declfile="HighMap/include/highmap/erosion.hpp" declline="2005" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ae57a1e9bd94f218d4be17c9d8be012c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6745,7 +7067,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="205" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="205" bodyend="223" declfile="HighMap/include/highmap/erosion.hpp" declline="1966" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="205" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="205" bodyend="223" declfile="HighMap/include/highmap/erosion.hpp" declline="2027" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a72c9d220589d2724b4e48e9c37ff55ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6777,7 +7099,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="225" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="225" bodyend="234" declfile="HighMap/include/highmap/erosion.hpp" declline="1968" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="225" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="225" bodyend="234" declfile="HighMap/include/highmap/erosion.hpp" declline="2029" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a435a38880a6bcabfb8991d5834a0f786" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6848,7 +7170,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="266" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="266" bodyend="284" declfile="HighMap/include/highmap/erosion.hpp" declline="1985" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="266" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="266" bodyend="284" declfile="HighMap/include/highmap/erosion.hpp" declline="2046" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a812be167a39917ce8c869f7399dee231" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6875,7 +7197,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="286" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="286" bodyend="291" declfile="HighMap/include/highmap/erosion.hpp" declline="1987" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="286" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="286" bodyend="291" declfile="HighMap/include/highmap/erosion.hpp" declline="2048" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a1489150d5e1af976a9f814b9911b3ea0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6981,7 +7303,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="293" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="293" bodyend="319" declfile="HighMap/include/highmap/erosion.hpp" declline="2008" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="293" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="293" bodyend="319" declfile="HighMap/include/highmap/erosion.hpp" declline="2069" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ad0a05ed0beea669300d62197a0dadaf2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7018,7 +7340,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="321" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="321" bodyend="332" declfile="HighMap/include/highmap/erosion.hpp" declline="2013" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="321" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="321" bodyend="332" declfile="HighMap/include/highmap/erosion.hpp" declline="2074" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a525c9818a95840ee8dfaa0c4e0d4f779" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7125,7 +7447,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="334" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="334" bodyend="361" declfile="HighMap/include/highmap/erosion.hpp" declline="2040" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="334" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="334" bodyend="361" declfile="HighMap/include/highmap/erosion.hpp" declline="2101" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a659c9749a413a9042480f0de9c4133cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7167,7 +7489,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="363" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="363" bodyend="376" declfile="HighMap/include/highmap/erosion.hpp" declline="2046" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="363" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="363" bodyend="376" declfile="HighMap/include/highmap/erosion.hpp" declline="2107" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ab753c4abd819aa6945c1cfc5e25ccec4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7247,7 +7569,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="378" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="378" bodyend="409" declfile="HighMap/include/highmap/erosion.hpp" declline="2072" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="378" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="378" bodyend="409" declfile="HighMap/include/highmap/erosion.hpp" declline="2133" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1acfe28321531d2c03721588054da1446a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7288,7 +7610,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="411" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="411" bodyend="423" declfile="HighMap/include/highmap/erosion.hpp" declline="2078" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="411" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="411" bodyend="423" declfile="HighMap/include/highmap/erosion.hpp" declline="2139" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ae8a8da3d95deb978d813ce782a1492bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7438,7 +7760,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/valley_fill.cpp" line="14" column="6" bodyfile="HighMap/src/erosion/valley_fill.cpp" bodystart="14" bodyend="68" declfile="HighMap/include/highmap/erosion.hpp" declline="2105" declcolumn="6"/>
+        <location file="HighMap/src/erosion/valley_fill.cpp" line="14" column="6" bodyfile="HighMap/src/erosion/valley_fill.cpp" bodystart="14" bodyend="68" declfile="HighMap/include/highmap/erosion.hpp" declline="2166" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1aa7ce5c44914d54ec7fa0162c5ccbab86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7509,7 +7831,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/valley_fill.cpp" line="70" column="6" bodyfile="HighMap/src/erosion/valley_fill.cpp" bodystart="70" bodyend="117" declfile="HighMap/include/highmap/erosion.hpp" declline="2117" declcolumn="6"/>
+        <location file="HighMap/src/erosion/valley_fill.cpp" line="70" column="6" bodyfile="HighMap/src/erosion/valley_fill.cpp" bodystart="70" bodyend="117" declfile="HighMap/include/highmap/erosion.hpp" declline="2178" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a52a653b3b3be84e8ff2330f30a6b5bf3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -7652,7 +7974,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/watershed_ridge.cpp" line="22" column="7" bodyfile="HighMap/src/erosion/watershed_ridge.cpp" bodystart="22" bodyend="88" declfile="HighMap/include/highmap/erosion.hpp" declline="2151" declcolumn="7"/>
+        <location file="HighMap/src/erosion/watershed_ridge.cpp" line="22" column="7" bodyfile="HighMap/src/erosion/watershed_ridge.cpp" bodystart="22" bodyend="88" declfile="HighMap/include/highmap/erosion.hpp" declline="2212" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a04047f16ece68b32c1c8e68b4780f0df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -7714,7 +8036,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/watershed_ridge.cpp" line="90" column="7" bodyfile="HighMap/src/erosion/watershed_ridge.cpp" bodystart="90" bodyend="130" declfile="HighMap/include/highmap/erosion.hpp" declline="2162" declcolumn="7"/>
+        <location file="HighMap/src/erosion/watershed_ridge.cpp" line="90" column="7" bodyfile="HighMap/src/erosion/watershed_ridge.cpp" bodystart="90" bodyend="130" declfile="HighMap/include/highmap/erosion.hpp" declline="2223" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ad6240ccabf3a0f858698dc0b77ab619e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

@@ -1,5 +1,7 @@
 var NAVTREEINDEX11 =
 {
+"hydraulic__stream__upscale__amplification_8cpp.html":[5,0,1,1,12,20],
+"hydraulic__stream__upscale__amplification_8cpp.html#a66355f091aa60d97d5a7c7eeb08c51cc":[5,0,1,1,12,20,0],
 "hydraulic__stream__upscale__amplification_8cpp.html#af975837e0f5b169dcb6d3f5f58c95fe9":[5,0,1,1,12,20,1],
 "hydraulic__vpipes__gpu_8cpp.html":[5,0,1,1,12,21],
 "hydraulic__vpipes__gpu_8cpp.html#a548895d6665a5466b8541122338b59a9":[5,0,1,1,12,21,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX11 =
 "kmeans__clustering_8cpp.html#ab1bbddddf9ab88025a85668b66d68bdf":[5,0,1,1,14,2,1],
 "kmeans__clustering_8cpp.html#ab79c564a249c41caec3367b3d82ebdbf":[5,0,1,1,14,2,0],
 "local__metrics_8cpp.html":[5,0,1,1,23,0],
-"local__metrics_8cpp.html#a85e411c67e97deb8459f25d4440546c3":[5,0,1,1,23,0,6],
-"local__metrics_8cpp.html#a941d446cad19c166f4f6c4df857dba65":[5,0,1,1,23,0,4],
-"local__metrics_8cpp.html#a9b6a1d2ca8ef58a4a0605d04bcbff038":[5,0,1,1,23,0,3]
+"local__metrics_8cpp.html#a85e411c67e97deb8459f25d4440546c3":[5,0,1,1,23,0,6]
 };

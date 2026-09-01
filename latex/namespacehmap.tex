@@ -6813,21 +6813,62 @@ This function adjusts elevations based on overall height and local slope\+:
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ nparticles\ =\ int(0.5f\ *\ shape.x\ *\ shape.y);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z1\ =\ z0;}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ac6d55fbc90b3e84de1a4b68f26873934}{hmap::gpu::hydraulic\_particle}}(z1,\ nparticles,\ seed);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_a4634556eb8cdc81b0bb52b5ebcd5309b}{hmap::gpu::hydraulic\_particle}}(z1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nparticles,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ p\_bedrock\ */}\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ p\_moisture\_map\ */}\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ p\_elevation\_shift\ */}\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ p\_erosion\_map\ */}\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ p\_deposition\_map\ */}\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ c\_capacity\ */}\ 10.f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ c\_erosion\ */}\ 0.1f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ c\_deposition\ */}\ 0.1f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ c\_inertia\ */}\ 0.f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ c\_gravity\ */}\ 1.f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ drag\_rate\ */}\ 0.001f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ evap\_rate\ */}\ 0.001f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ talus\_slope\ */}\ 2.f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ collapse\_rate\ */}\ 0.25f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ iterations\ */}\ 1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ z1.dump();}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z2\ =\ z0;}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ zb2\ =\ \mbox{\hyperlink{namespacehmap_ae80026143790cc7a8f0dd1f4c7bc8e24}{hmap::generate\_bedrock}}(z2,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ elevation\_strength\ */}\ 0.05f,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ slope\_strength\ */}\ 0.f,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ slope\_limit\ */}\ 0.f);}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ac6d55fbc90b3e84de1a4b68f26873934}{hmap::gpu::hydraulic\_particle}}(z2,\ nparticles,\ seed,\ \&zb2);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_a4634556eb8cdc81b0bb52b5ebcd5309b}{hmap::gpu::hydraulic\_particle}}(z2,\ nparticles,\ seed,\ \&zb2);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z3\ =\ z0;}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ zb3\ =\ \mbox{\hyperlink{namespacehmap_ae80026143790cc7a8f0dd1f4c7bc8e24}{hmap::generate\_bedrock}}(z3,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ elevation\_strength\ */}\ 0.f,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ slope\_strength\ */}\ 0.1f,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ slope\_limit\ */}\ 2.f\ /\ shape.x);}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ac6d55fbc90b3e84de1a4b68f26873934}{hmap::gpu::hydraulic\_particle}}(z3,\ nparticles,\ seed,\ \&zb3);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_a4634556eb8cdc81b0bb52b5ebcd5309b}{hmap::gpu::hydraulic\_particle}}(z3,\ nparticles,\ seed,\ \&zb3);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z4\ =\ z0;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_a6bf71c5a5b9e73d823bab65dc40c0287}{hmap::gpu::hydraulic\_particle\_multiscale}}(}
+\DoxyCodeLine{\ \ \ \ \ \ z4,}
+\DoxyCodeLine{\ \ \ \ \ \ seed,}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ steps\_per\_level\ */}\ \{16,\ 8,\ 4,\ 2,\ 1\},}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ p\_bedrock\ */}\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ p\_moisture\_map\ */}\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ p\_elevation\_shift\ */}\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ p\_erosion\_map\ */}\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ p\_deposition\_map\ */}\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ particles\_ratio\ */}\ 0.5f,}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ c\_capacity\ */}\ 10.f,}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ c\_erosion\ */}\ 0.05f,}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ c\_deposition\ */}\ 0.05f,}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ c\_inertia\ */}\ 0.0f,}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ c\_gravity\ */}\ 1.f,}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ drag\_rate\ */}\ 0.001f,}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ evap\_rate\ */}\ 0.001f,}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ talus\_slope\ */}\ 2.f,}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ collapse\_rate\ */}\ 0.25f,}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ mix\ */}\ 0.8f);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ -\/-\/-\/\ output}}
 \DoxyCodeLine{}
@@ -6835,9 +6876,10 @@ This function adjusts elevations based on overall height and local slope\+:
 \DoxyCodeLine{\ \ z1.dump(\textcolor{stringliteral}{"{}out1.png"{}});}
 \DoxyCodeLine{\ \ z2.dump(\textcolor{stringliteral}{"{}out2.png"{}});}
 \DoxyCodeLine{\ \ z3.dump(\textcolor{stringliteral}{"{}out3.png"{}});}
+\DoxyCodeLine{\ \ z4.dump(\textcolor{stringliteral}{"{}out4.png"{}});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_hydraulic\_particle.png"{}},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z0,\ z1,\ z2,\ z3\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z0,\ z1,\ z2,\ z3,\ z4\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9}{hmap::Cmap::TERRAIN}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true});}
 \DoxyCodeLine{\}}

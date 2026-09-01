@@ -1,5 +1,6 @@
 var NAVTREEINDEX10 =
 {
+"functions_8hpp.html#a0139c2cbbb516591c54fe8a743dc139d":[5,0,1,0,0,25,39],
 "functions_8hpp.html#a84ca1f41de32e4beacb10787127b4b8a":[5,0,1,0,0,25,38],
 "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195":[5,0,1,0,0,25,37],
 "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195a035bda7c8c2179b47b9a766531c2e89e":[5,0,1,0,0,25,37,10],
@@ -106,8 +107,8 @@ var NAVTREEINDEX10 =
 "globals.html":[5,1,0],
 "globals_e.html":[5,1,0,1],
 "globals_f.html":[5,1,0,2],
-"globals_func.html":[5,1,1],
 "globals_func.html":[5,1,1,0],
+"globals_func.html":[5,1,1],
 "globals_func_e.html":[5,1,1,1],
 "globals_func_f.html":[5,1,1,2],
 "globals_func_g.html":[5,1,1,3],
@@ -226,8 +227,9 @@ var NAVTREEINDEX10 =
 "hydraulic__musgrave_8cpp.html#a5aceac22b926cbff676c323e1aca4db0":[5,0,1,1,12,13,0],
 "hydraulic__musgrave_8cpp.html#a8c20cd6c2b1cd1ec20ffb2ce86ed0ecb":[5,0,1,1,12,13,1],
 "hydraulic__particle_8cpp.html":[5,0,1,1,12,14],
-"hydraulic__particle_8cpp.html#ac3ded0c179de9782edf74dbc0b348b5d":[5,0,1,1,12,14,1],
-"hydraulic__particle_8cpp.html#ac6d55fbc90b3e84de1a4b68f26873934":[5,0,1,1,12,14,0],
+"hydraulic__particle_8cpp.html#a4634556eb8cdc81b0bb52b5ebcd5309b":[5,0,1,1,12,14,0],
+"hydraulic__particle_8cpp.html#a6bf71c5a5b9e73d823bab65dc40c0287":[5,0,1,1,12,14,2],
+"hydraulic__particle_8cpp.html#a896738bf580453d50668885176c3371a":[5,0,1,1,12,14,1],
 "hydraulic__procedural_8cpp.html":[5,0,1,1,12,15],
 "hydraulic__procedural_8cpp.html#a0cf61fdf1248cd9cc4da40f510e13973":[5,0,1,1,12,15,2],
 "hydraulic__procedural_8cpp.html#a79e45a2a4f3a41739ee49c722cded536":[5,0,1,1,12,15,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX10 =
 "hydraulic__stream_8cpp.html#ae3bc02b89f4e7d0bdb221e13b66ad91e":[5,0,1,1,12,18,1],
 "hydraulic__stream__gpu_8cpp.html":[5,0,1,1,12,19],
 "hydraulic__stream__gpu_8cpp.html#a7814928e0f3b995421d298677934d11d":[5,0,1,1,12,19,0],
-"hydraulic__stream__gpu_8cpp.html#ac83dbe1bc607d991c237eaf5b20acd69":[5,0,1,1,12,19,1],
-"hydraulic__stream__upscale__amplification_8cpp.html":[5,0,1,1,12,20],
-"hydraulic__stream__upscale__amplification_8cpp.html#a66355f091aa60d97d5a7c7eeb08c51cc":[5,0,1,1,12,20,0]
+"hydraulic__stream__gpu_8cpp.html#ac83dbe1bc607d991c237eaf5b20acd69":[5,0,1,1,12,19,1]
 };

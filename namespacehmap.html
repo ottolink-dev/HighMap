@@ -9973,21 +9973,62 @@ additional_depth)</code>.</li>
 <div class="line">  <span class="keywordtype">int</span> nparticles = int(0.5f * shape.x * shape.y);</div>
 <div class="line"> </div>
 <div class="line">  <span class="keyword">auto</span> z1 = z0;</div>
-<div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#ac6d55fbc90b3e84de1a4b68f26873934">hmap::gpu::hydraulic_particle</a>(z1, nparticles, seed);</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#a4634556eb8cdc81b0bb52b5ebcd5309b">hmap::gpu::hydraulic_particle</a>(z1,</div>
+<div class="line">                                nparticles,</div>
+<div class="line">                                seed,</div>
+<div class="line">                                <span class="comment">/* p_bedrock */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                                <span class="comment">/* p_moisture_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                                <span class="comment">/* p_elevation_shift */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                                <span class="comment">/* p_erosion_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                                <span class="comment">/* p_deposition_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                                <span class="comment">/* c_capacity */</span> 10.f,</div>
+<div class="line">                                <span class="comment">/* c_erosion */</span> 0.1f,</div>
+<div class="line">                                <span class="comment">/* c_deposition */</span> 0.1f,</div>
+<div class="line">                                <span class="comment">/* c_inertia */</span> 0.f,</div>
+<div class="line">                                <span class="comment">/* c_gravity */</span> 1.f,</div>
+<div class="line">                                <span class="comment">/* drag_rate */</span> 0.001f,</div>
+<div class="line">                                <span class="comment">/* evap_rate */</span> 0.001f,</div>
+<div class="line">                                <span class="comment">/* talus_slope */</span> 2.f,</div>
+<div class="line">                                <span class="comment">/* collapse_rate */</span> 0.25f,</div>
+<div class="line">                                <span class="comment">/* iterations */</span> 1);</div>
+<div class="line"> </div>
+<div class="line">  z1.dump();</div>
 <div class="line"> </div>
 <div class="line">  <span class="keyword">auto</span> z2 = z0;</div>
 <div class="line">  <span class="keyword">auto</span> zb2 = <a class="code hl_function" href="namespacehmap.html#ae80026143790cc7a8f0dd1f4c7bc8e24">hmap::generate_bedrock</a>(z2,</div>
 <div class="line">                                    <span class="comment">/* elevation_strength */</span> 0.05f,</div>
 <div class="line">                                    <span class="comment">/* slope_strength */</span> 0.f,</div>
 <div class="line">                                    <span class="comment">/* slope_limit */</span> 0.f);</div>
-<div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#ac6d55fbc90b3e84de1a4b68f26873934">hmap::gpu::hydraulic_particle</a>(z2, nparticles, seed, &amp;zb2);</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#a4634556eb8cdc81b0bb52b5ebcd5309b">hmap::gpu::hydraulic_particle</a>(z2, nparticles, seed, &amp;zb2);</div>
 <div class="line"> </div>
 <div class="line">  <span class="keyword">auto</span> z3 = z0;</div>
 <div class="line">  <span class="keyword">auto</span> zb3 = <a class="code hl_function" href="namespacehmap.html#ae80026143790cc7a8f0dd1f4c7bc8e24">hmap::generate_bedrock</a>(z3,</div>
 <div class="line">                                    <span class="comment">/* elevation_strength */</span> 0.f,</div>
 <div class="line">                                    <span class="comment">/* slope_strength */</span> 0.1f,</div>
 <div class="line">                                    <span class="comment">/* slope_limit */</span> 2.f / shape.x);</div>
-<div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#ac6d55fbc90b3e84de1a4b68f26873934">hmap::gpu::hydraulic_particle</a>(z3, nparticles, seed, &amp;zb3);</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#a4634556eb8cdc81b0bb52b5ebcd5309b">hmap::gpu::hydraulic_particle</a>(z3, nparticles, seed, &amp;zb3);</div>
+<div class="line"> </div>
+<div class="line">  <span class="keyword">auto</span> z4 = z0;</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#a6bf71c5a5b9e73d823bab65dc40c0287">hmap::gpu::hydraulic_particle_multiscale</a>(</div>
+<div class="line">      z4,</div>
+<div class="line">      seed,</div>
+<div class="line">      <span class="comment">/* steps_per_level */</span> {16, 8, 4, 2, 1},</div>
+<div class="line">      <span class="comment">/* p_bedrock */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">      <span class="comment">/* p_moisture_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">      <span class="comment">/* p_elevation_shift */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">      <span class="comment">/* p_erosion_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">      <span class="comment">/* p_deposition_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">      <span class="comment">/* particles_ratio */</span> 0.5f,</div>
+<div class="line">      <span class="comment">/* c_capacity */</span> 10.f,</div>
+<div class="line">      <span class="comment">/* c_erosion */</span> 0.05f,</div>
+<div class="line">      <span class="comment">/* c_deposition */</span> 0.05f,</div>
+<div class="line">      <span class="comment">/* c_inertia */</span> 0.0f,</div>
+<div class="line">      <span class="comment">/* c_gravity */</span> 1.f,</div>
+<div class="line">      <span class="comment">/* drag_rate */</span> 0.001f,</div>
+<div class="line">      <span class="comment">/* evap_rate */</span> 0.001f,</div>
+<div class="line">      <span class="comment">/* talus_slope */</span> 2.f,</div>
+<div class="line">      <span class="comment">/* collapse_rate */</span> 0.25f,</div>
+<div class="line">      <span class="comment">/* mix */</span> 0.8f);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// --- output</span></div>
 <div class="line"> </div>
@@ -9995,14 +10036,16 @@ additional_depth)</code>.</li>
 <div class="line">  z1.dump(<span class="stringliteral">&quot;out1.png&quot;</span>);</div>
 <div class="line">  z2.dump(<span class="stringliteral">&quot;out2.png&quot;</span>);</div>
 <div class="line">  z3.dump(<span class="stringliteral">&quot;out3.png&quot;</span>);</div>
+<div class="line">  z4.dump(<span class="stringliteral">&quot;out4.png&quot;</span>);</div>
 <div class="line"> </div>
 <div class="line">  <a class="code hl_function" href="namespacehmap.html#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_hydraulic_particle.png&quot;</span>,</div>
-<div class="line">                          {z0, z1, z2, z3},</div>
+<div class="line">                          {z0, z1, z2, z3, z4},</div>
 <div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>,</div>
 <div class="line">                          <span class="keyword">true</span>);</div>
 <div class="line">}</div>
 <div class="ttc" id="aclasshmap_1_1Array_html_a00b8f7462c1e22b1da8a67ec62d4c8c8"><div class="ttname"><a href="classhmap_1_1Array.html#a00b8f7462c1e22b1da8a67ec62d4c8c8">hmap::Array::dump</a></div><div class="ttdeci">void dump(const std::string &amp;fname=&quot;out.png&quot;) const</div><div class="ttdoc">Debug tool, dump some infos and generate an output file (16bits grayscale)</div><div class="ttdef"><b>Definition</b> methods.cpp:109</div></div>
-<div class="ttc" id="anamespacehmap_1_1gpu_html_ac6d55fbc90b3e84de1a4b68f26873934"><div class="ttname"><a href="namespacehmap_1_1gpu.html#ac6d55fbc90b3e84de1a4b68f26873934">hmap::gpu::hydraulic_particle</a></div><div class="ttdeci">void hydraulic_particle(Array &amp;z, int nparticles, std::uint32_t seed, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, const Array *p_elevation_shift=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, float c_capacity=10.f, float c_erosion=0.05f, float c_deposition=0.05f, float c_inertia=0.1f, float c_gravity=1.f, float drag_rate=0.001f, float evap_rate=0.001f, bool enable_directional_bias=false, float angle_bias=30.f)</div><div class="ttdoc">Simulates hydraulic erosion on a heightmap using particle-based flow.</div><div class="ttdef"><b>Definition</b> hydraulic_particle.cpp:20</div></div>
+<div class="ttc" id="anamespacehmap_1_1gpu_html_a4634556eb8cdc81b0bb52b5ebcd5309b"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a4634556eb8cdc81b0bb52b5ebcd5309b">hmap::gpu::hydraulic_particle</a></div><div class="ttdeci">void hydraulic_particle(Array &amp;z, int nparticles, std::uint32_t seed, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, const Array *p_elevation_shift=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, float c_capacity=10.f, float c_erosion=0.05f, float c_deposition=0.05f, float c_inertia=0.01f, float c_gravity=1.f, float drag_rate=0.001f, float evap_rate=0.001f, float talus_slope=2.f, float collapse_rate=0.1f, int iterations=1)</div><div class="ttdoc">Simulates hydraulic erosion on a heightmap using particle-based flow.</div><div class="ttdef"><b>Definition</b> hydraulic_particle.cpp:21</div></div>
+<div class="ttc" id="anamespacehmap_1_1gpu_html_a6bf71c5a5b9e73d823bab65dc40c0287"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a6bf71c5a5b9e73d823bab65dc40c0287">hmap::gpu::hydraulic_particle_multiscale</a></div><div class="ttdeci">void hydraulic_particle_multiscale(Array &amp;z, std::uint32_t seed, const std::vector&lt; int &gt; &amp;steps_per_level={4, 2, 1}, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, const Array *p_elevation_shift=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, float particles_ratio=0.5f, float c_capacity=10.f, float c_erosion=0.05f, float c_deposition=0.05f, float c_inertia=0.01f, float c_gravity=1.f, float drag_rate=0.001f, float evap_rate=0.001f, float talus_slope=2.f, float collapse_rate=0.1f, float mix=1.f)</div><div class="ttdoc">Multiscale particle-based hydraulic erosion cascade.</div><div class="ttdef"><b>Definition</b> hydraulic_particle.cpp:162</div></div>
 <div class="ttc" id="anamespacehmap_html_a55542a66f890ef9ecf5f82af2c23a0cfa71a3d57896b6c2d066433962e74e8961"><div class="ttname"><a href="namespacehmap.html#a55542a66f890ef9ecf5f82af2c23a0cfa71a3d57896b6c2d066433962e74e8961">hmap::PRIM_CONE_SMOOTH</a></div><div class="ttdeci">@ PRIM_CONE_SMOOTH</div><div class="ttdef"><b>Definition</b> functions.hpp:27</div></div>
 <div class="ttc" id="anamespacehmap_html_ae3ecf5f88476c5d49978a130f8cab2f3"><div class="ttname"><a href="namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3">hmap::bulkify</a></div><div class="ttdeci">Array bulkify(const Array &amp;z, const PrimitiveType &amp;primitive_type, float amp=1.f, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Applies a primitive-based displacement to an array.</div><div class="ttdef"><b>Definition</b> bulkify.cpp:11</div></div>
 <div class="ttc" id="anamespacehmap_html_ae80026143790cc7a8f0dd1f4c7bc8e24"><div class="ttname"><a href="namespacehmap.html#ae80026143790cc7a8f0dd1f4c7bc8e24">hmap::generate_bedrock</a></div><div class="ttdeci">Array generate_bedrock(const Array &amp;z, float elevation_strength, float slope_strength, float slope_limit, float zmin=0.f, float zmax=-1.f)</div><div class="ttdoc">Generates a modified bedrock heightmap from an input elevation array.</div><div class="ttdef"><b>Definition</b> generate_bedrock.cpp:12</div></div>
