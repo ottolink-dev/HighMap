@@ -19,6 +19,8 @@ var classhmap_1_1VirtualTexture =
     [ "to_png", "classhmap_1_1VirtualTexture.html#a377675bfed09cf8dc2d9cb91cd408c3a", null ],
     [ "to_raw", "classhmap_1_1VirtualTexture.html#a5104213e63d15089f933f6153483889c", null ],
     [ "to_texture", "classhmap_1_1VirtualTexture.html#a5a441d196194a019f1898ae2f531ce7b", null ],
+    [ "trim_storage", "classhmap_1_1VirtualTexture.html#aad6dfcfe623e7e7cfc9958fe9c97db72", null ],
+    [ "live_memory_bytes", "classhmap_1_1VirtualTexture.html#a3ba43f6ebd853a54fe8987689013a81b", null ],
     [ "shape", "classhmap_1_1VirtualTexture.html#ae999f1abfe76819639a319ce795924b7", null ],
     [ "bbox", "classhmap_1_1VirtualTexture.html#a9502a27aecf9f89a52e8939bcc7d6a6f", null ],
     [ "tile_shape", "classhmap_1_1VirtualTexture.html#a5715cc1c46c0d01c6d12648c49c7c3ba", null ],

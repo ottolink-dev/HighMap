@@ -44,5 +44,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_splines.cpp", "test__splines_8cpp.html", "test__splines_8cpp" ],
     [ "test_texture.cpp", "test__texture_8cpp.html", "test__texture_8cpp" ],
     [ "test_validation.cpp", "test__validation_8cpp.html", "test__validation_8cpp" ],
-    [ "test_variance.cpp", "test__variance_8cpp.html", "test__variance_8cpp" ]
+    [ "test_variance.cpp", "test__variance_8cpp.html", "test__variance_8cpp" ],
+    [ "test_virtual_array.cpp", "test__virtual__array_8cpp.html", "test__virtual__array_8cpp" ],
+    [ "test_virtual_texture.cpp", "test__virtual__texture_8cpp.html", "test__virtual__texture_8cpp" ]
 ];

@@ -189,7 +189,7 @@ var searchData=
   ['stitching_5fhelpers_2ecpp_186',['stitching_helpers.cpp',['../stitching__helpers_8cpp.html',1,'']]],
   ['stl_187',['STL',['../namespacehmap.html#ac3d35efc6e5b596f508e2b17a5aa871ba255d4f7c6ccaff8e1dbba731b721c118',1,'hmap']]],
   ['stlb_188',['STLB',['../namespacehmap.html#ac3d35efc6e5b596f508e2b17a5aa871bac692212c784096efd35f54c700a039f6',1,'hmap']]],
-  ['stop_189',['stop',['../structhmap_1_1Recorder.html#aba9c05c56a1c5a769f12467684735add',1,'hmap::Recorder::stop()'],['../classhmap_1_1Timer.html#a6054c197a10338a1bd48299be29593b5',1,'hmap::Timer::Stop()']]],
+  ['stop_189',['stop',['../classhmap_1_1Timer.html#a6054c197a10338a1bd48299be29593b5',1,'hmap::Timer::Stop()'],['../structhmap_1_1Recorder.html#aba9c05c56a1c5a769f12467684735add',1,'hmap::Recorder::stop()']]],
   ['storage_190',['storage',['../structhmap_1_1VirtualArray.html#ac46202fbde3f529ab290f38e73b529d6',1,'hmap::VirtualArray']]],
   ['storagemode_191',['StorageMode',['../namespacehmap.html#ad21b93a34c88a47d6b54f3a4d5b65e6e',1,'hmap']]],
   ['stp_192',['STP',['../namespacehmap.html#ac3d35efc6e5b596f508e2b17a5aa871ba95e433ab6ec047421d332a80d727fd29',1,'hmap']]],

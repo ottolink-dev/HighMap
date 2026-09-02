@@ -67,130 +67,140 @@
 \DoxyCodeLine{00068\ \ \ \textcolor{keyword}{virtual}\ std::unique\_ptr<TileStorage>\ \mbox{\hyperlink{classhmap_1_1TileStorage_a6058caeb55d8e5f1a7d86e6ba1d89047}{clone}}()\ \textcolor{keyword}{const}\ =\ 0;}
 \DoxyCodeLine{00069\ \ \ \textcolor{keyword}{virtual}\ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1TileStorage_a2feeb317dfb3fa8057fcd4daf4202fd8}{info\_string}}()\ \textcolor{keyword}{const}\ =\ 0;}
 \DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \ \ \textcolor{comment}{//\ Opportunistically\ free\ memory\ while\ keeping\ data\ persistent.}}
-\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1TileStorage_a019cb42b6028988281a116f669359935}{trim}}()}
-\DoxyCodeLine{00073\ \ \ \{}
-\DoxyCodeLine{00074\ \ \ \}}
-\DoxyCodeLine{00075\ \};}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00078\ \textcolor{comment}{//\ RAM\ storage}}
-\DoxyCodeLine{00079\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00071\ \ \ \textcolor{comment}{//\ Live\ memory\ tracking}}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classhmap_1_1TileStorage_aa9c65a5ef43b55185094d2edaacee21e}{live\_tile\_count}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classhmap_1_1TileStorage_a72aa4c018622ea5d064d1a0e049ec8c2}{live\_memory\_bytes}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{//\ Opportunistically\ free\ memory\ while\ keeping\ data\ persistent.}}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1TileStorage_a019cb42b6028988281a116f669359935}{trim}}()}
+\DoxyCodeLine{00077\ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \}}
+\DoxyCodeLine{00079\ \};}
 \DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1RamTileStorage}{RamTileStorage}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1TileStorage}{TileStorage}}}
-\DoxyCodeLine{00082\ \{}
-\DoxyCodeLine{00083\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00084\ \ \ std::unique\_ptr<TileStorage>\ \mbox{\hyperlink{classhmap_1_1RamTileStorage_af5df1a3fe48a778b06306bb08d212022}{clone}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1RamTileStorage_ac01f5b8f15b1c50ebece95106adce7fe}{get\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1RamTileStorage_a6614d1aebd7771e7e2645d7ef2cb1151}{release\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1RamTileStorage_a0e9c5b72223b7a7118cca997454472ed}{max\_live\_tiles}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00089\ \ \ std::string\ \mbox{\hyperlink{classhmap_1_1RamTileStorage_a741b156e46b8763496e2a3c5110b9a67}{info\_string}}()\textcolor{keyword}{\ const\ override}}
-\DoxyCodeLine{00090\ \textcolor{keyword}{\ \ }\{}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}RAM"{}};}
-\DoxyCodeLine{00092\ \ \ \};}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00095\ \ \ std::unordered\_map<TileKey,\ Array,\ TileKeyHash>\ tiles;}
-\DoxyCodeLine{00096\ \};}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00098\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00099\ \textcolor{comment}{//\ LRU\ storage}}
-\DoxyCodeLine{00100\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1LruTileEntry}{LruTileEntry}}}
-\DoxyCodeLine{00103\ \{}
-\DoxyCodeLine{00104\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1LruTileEntry_a64f43e9e8cd9c2a013deacda2409e26f}{value}};}
-\DoxyCodeLine{00105\ \ \ std::list<TileKey>::iterator\ \mbox{\hyperlink{structhmap_1_1LruTileEntry_a4b419114b2a041fe2e303cf6dbea4c39}{lru\_it}};}
-\DoxyCodeLine{00106\ \};}
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ RAM\ storage}}
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1RamTileStorage}{RamTileStorage}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1TileStorage}{TileStorage}}}
+\DoxyCodeLine{00086\ \{}
+\DoxyCodeLine{00087\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00088\ \ \ std::unique\_ptr<TileStorage>\ \mbox{\hyperlink{classhmap_1_1RamTileStorage_af5df1a3fe48a778b06306bb08d212022}{clone}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1RamTileStorage_ac01f5b8f15b1c50ebece95106adce7fe}{get\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1RamTileStorage_a6614d1aebd7771e7e2645d7ef2cb1151}{release\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1RamTileStorage_a0e9c5b72223b7a7118cca997454472ed}{max\_live\_tiles}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1RamTileStorage_a42f58176acc8eae0e470cac786597e0f}{live\_tile\_count}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1RamTileStorage_a137fa40285634eacf07d0e4f93d6e419}{live\_memory\_bytes}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00095\ \ \ std::string\ \mbox{\hyperlink{classhmap_1_1RamTileStorage_a741b156e46b8763496e2a3c5110b9a67}{info\_string}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00096\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}RAM"{}};}
+\DoxyCodeLine{00098\ \ \ \};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00101\ \ \ std::unordered\_map<TileKey,\ Array,\ TileKeyHash>\ tiles;}
+\DoxyCodeLine{00102\ \};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00105\ \textcolor{comment}{//\ LRU\ storage}}
+\DoxyCodeLine{00106\ \textcolor{comment}{//\ =====================================}}
 \DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1LruTileStorage}{LruTileStorage}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1TileStorage}{TileStorage}}}
+\DoxyCodeLine{00108\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1LruTileEntry}{LruTileEntry}}}
 \DoxyCodeLine{00109\ \{}
-\DoxyCodeLine{00110\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00111\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classhmap_1_1LruTileStorage}{LruTileStorage}}(\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classhmap_1_1LruTileStorage_aa04ddcca3cd4ef62b56823fc99ca1c30}{max\_tiles}});}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ std::unique\_ptr<TileStorage>\ \mbox{\hyperlink{classhmap_1_1LruTileStorage_a958b0fe829345faaec6e9263c5923e02}{clone}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1LruTileStorage_ad8d27889892845b867bee79aa596042f}{get\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1LruTileStorage_ab27b0290974d18f882fdadd7bc5acd96}{release\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1LruTileStorage_a62d3db90d62e59fb8e4ff341d2a8c139}{max\_live\_tiles}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00118\ \ \ std::string\ \mbox{\hyperlink{classhmap_1_1LruTileStorage_a904540ee5b81ccda39648248aede3a5a}{info\_string}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00119\ }
-\DoxyCodeLine{00120\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1LruTileStorage_aa04ddcca3cd4ef62b56823fc99ca1c30}{max\_tiles}};}
-\DoxyCodeLine{00122\ \ \ std::list<TileKey>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1LruTileStorage_a503160ae137678b2255088de204a5d7c}{lru}};}
-\DoxyCodeLine{00123\ \ \ std::unordered\_map<TileKey,\ LruTileEntry,\ TileKeyHash>\ \mbox{\hyperlink{classhmap_1_1LruTileStorage_afc5582d2a112b9907a175d101f8dcf30}{tiles}};}
-\DoxyCodeLine{00124\ \ \ std::mutex\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1LruTileStorage_ab9b7eae867ec2993d2e6f8d28417fcca}{mutex}};}
-\DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1LruTileStorage_aafd76cf3da42c38072a60934418898a4}{get\_tile\_no\_mutex\_lock}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region);}
-\DoxyCodeLine{00127\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1LruTileStorage_ac7f51bb13ce9dab2d1dac83f8177e8db}{on\_evict}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileKey}{TileKey}}\ \&key,\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&tile);}
-\DoxyCodeLine{00128\ \};}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00131\ \textcolor{comment}{//\ DISK-\/LRU\ storage}}
-\DoxyCodeLine{00132\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00110\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1LruTileEntry_a64f43e9e8cd9c2a013deacda2409e26f}{value}};}
+\DoxyCodeLine{00111\ \ \ std::list<TileKey>::iterator\ \mbox{\hyperlink{structhmap_1_1LruTileEntry_a4b419114b2a041fe2e303cf6dbea4c39}{lru\_it}};}
+\DoxyCodeLine{00112\ \};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1LruTileStorage}{LruTileStorage}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1TileStorage}{TileStorage}}}
+\DoxyCodeLine{00115\ \{}
+\DoxyCodeLine{00116\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classhmap_1_1LruTileStorage}{LruTileStorage}}(\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classhmap_1_1LruTileStorage_aa04ddcca3cd4ef62b56823fc99ca1c30}{max\_tiles}});}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ std::unique\_ptr<TileStorage>\ \mbox{\hyperlink{classhmap_1_1LruTileStorage_a958b0fe829345faaec6e9263c5923e02}{clone}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1LruTileStorage_ad8d27889892845b867bee79aa596042f}{get\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1LruTileStorage_ab27b0290974d18f882fdadd7bc5acd96}{release\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1LruTileStorage_a62d3db90d62e59fb8e4ff341d2a8c139}{max\_live\_tiles}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1LruTileStorage_a440a91d3756820dbdb93109bf2fa2968}{live\_tile\_count}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1LruTileStorage_ae8fc54b419fe5ec9b4d4d7f602d66015}{live\_memory\_bytes}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00126\ \ \ std::string\ \mbox{\hyperlink{classhmap_1_1LruTileStorage_a904540ee5b81ccda39648248aede3a5a}{info\_string}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1LruTileStorage_aa04ddcca3cd4ef62b56823fc99ca1c30}{max\_tiles}};}
+\DoxyCodeLine{00130\ \ \ std::list<TileKey>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1LruTileStorage_a503160ae137678b2255088de204a5d7c}{lru}};}
+\DoxyCodeLine{00131\ \ \ std::unordered\_map<TileKey,\ LruTileEntry,\ TileKeyHash>\ \mbox{\hyperlink{classhmap_1_1LruTileStorage_afc5582d2a112b9907a175d101f8dcf30}{tiles}};}
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{mutable}\ std::mutex\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1LruTileStorage_ab9b7eae867ec2993d2e6f8d28417fcca}{mutex}};}
 \DoxyCodeLine{00133\ }
-\DoxyCodeLine{00134\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1DiskLruTileStorage}{DiskLruTileStorage}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1LruTileStorage}{LruTileStorage}}}
-\DoxyCodeLine{00135\ \{}
-\DoxyCodeLine{00136\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00137\ \ \ \mbox{\hyperlink{classhmap_1_1DiskLruTileStorage}{DiskLruTileStorage}}(\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classhmap_1_1LruTileStorage_aa04ddcca3cd4ef62b56823fc99ca1c30}{max\_tiles}});}
-\DoxyCodeLine{00138\ \ \ \mbox{\hyperlink{classhmap_1_1DiskLruTileStorage_a746d7d13b82430e033bca005a3443a9f}{\string~DiskLruTileStorage}}();}
-\DoxyCodeLine{00139\ }
-\DoxyCodeLine{00140\ \ \ std::unique\_ptr<TileStorage>\ \mbox{\hyperlink{classhmap_1_1DiskLruTileStorage_ae451ccb62c7c5aa2958046ae16b6e6e7}{clone}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00134\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1LruTileStorage_aafd76cf3da42c38072a60934418898a4}{get\_tile\_no\_mutex\_lock}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region);}
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1LruTileStorage_ac7f51bb13ce9dab2d1dac83f8177e8db}{on\_evict}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileKey}{TileKey}}\ \&key,\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&tile);}
+\DoxyCodeLine{00136\ \};}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ DISK-\/LRU\ storage}}
+\DoxyCodeLine{00140\ \textcolor{comment}{//\ =====================================}}
 \DoxyCodeLine{00141\ }
-\DoxyCodeLine{00142\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&\mbox{\hyperlink{classhmap_1_1DiskLruTileStorage_ac55de909caccd23af25b19db9f39d54e}{get\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00143\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classhmap_1_1DiskLruTileStorage_ab0ce9ec07188c153bbbc267c266fe905}{max\_live\_tiles}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{void}\ \ \ \mbox{\hyperlink{classhmap_1_1DiskLruTileStorage_aa36f0f1105b15b5652d28d37793af7aa}{trim}}()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00145\ }
-\DoxyCodeLine{00146\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1DiskLruTileStorage_a6f78ac63137fcef483ab53c6a67bc424}{on\_evict}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileKey}{TileKey}}\ \&key,\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&tile)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00148\ }
-\DoxyCodeLine{00149\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00150\ \ \ std::filesystem::path\ root\_dir;}
-\DoxyCodeLine{00151\ }
-\DoxyCodeLine{00152\ \ \ std::filesystem::path\ tile\_path(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileKey}{TileKey}}\ \&key)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00153\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ load\_tile\_from\_disk(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region);}
-\DoxyCodeLine{00154\ \};}
-\DoxyCodeLine{00155\ }
-\DoxyCodeLine{00156\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00157\ \textcolor{comment}{//\ DISK-\/sequential\ storage}}
-\DoxyCodeLine{00158\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00142\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1DiskLruTileStorage}{DiskLruTileStorage}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1LruTileStorage}{LruTileStorage}}}
+\DoxyCodeLine{00143\ \{}
+\DoxyCodeLine{00144\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00145\ \ \ \mbox{\hyperlink{classhmap_1_1DiskLruTileStorage}{DiskLruTileStorage}}(\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classhmap_1_1LruTileStorage_aa04ddcca3cd4ef62b56823fc99ca1c30}{max\_tiles}});}
+\DoxyCodeLine{00146\ \ \ \mbox{\hyperlink{classhmap_1_1DiskLruTileStorage_a746d7d13b82430e033bca005a3443a9f}{\string~DiskLruTileStorage}}();}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ std::unique\_ptr<TileStorage>\ \mbox{\hyperlink{classhmap_1_1DiskLruTileStorage_ae451ccb62c7c5aa2958046ae16b6e6e7}{clone}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&\mbox{\hyperlink{classhmap_1_1DiskLruTileStorage_ac55de909caccd23af25b19db9f39d54e}{get\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00151\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classhmap_1_1DiskLruTileStorage_ab0ce9ec07188c153bbbc267c266fe905}{max\_live\_tiles}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordtype}{void}\ \ \ \mbox{\hyperlink{classhmap_1_1DiskLruTileStorage_aa36f0f1105b15b5652d28d37793af7aa}{trim}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1DiskLruTileStorage_a6f78ac63137fcef483ab53c6a67bc424}{on\_evict}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileKey}{TileKey}}\ \&key,\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&tile)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00158\ \ \ std::filesystem::path\ root\_dir;}
 \DoxyCodeLine{00159\ }
-\DoxyCodeLine{00160\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage}{DiskSequentialTileStorage}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1TileStorage}{TileStorage}}}
-\DoxyCodeLine{00161\ \{}
-\DoxyCodeLine{00162\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00163\ \ \ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_ab0b83330c9de5a2a8d2b2b24075d3c8c}{DiskSequentialTileStorage}}();}
-\DoxyCodeLine{00164\ \ \ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a15d12cadbcc636cbdce8f06edc86c149}{\string~DiskSequentialTileStorage}}()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00165\ }
-\DoxyCodeLine{00166\ \ \ std::unique\_ptr<TileStorage>\ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a33f865e9a64b78e5b2cca810b7833e90}{clone}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00160\ \ \ std::filesystem::path\ tile\_path(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileKey}{TileKey}}\ \&key)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00161\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ load\_tile\_from\_disk(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region);}
+\DoxyCodeLine{00162\ \};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00165\ \textcolor{comment}{//\ DISK-\/sequential\ storage}}
+\DoxyCodeLine{00166\ \textcolor{comment}{//\ =====================================}}
 \DoxyCodeLine{00167\ }
-\DoxyCodeLine{00168\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a4b9b283c99296d371fbbfb12425765b3}{get\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a7802fb1110b9105719962676dd582f3d}{release\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00170\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a903dd0531930ba6c3f0d43fbf71e7109}{max\_live\_tiles}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a1c57df8b1b30d942c70db54ad4557121}{trim}}()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00172\ \ \ std::string\ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_af77e4aeb215d4fdca9c32233c1377c1b}{info\_string}}()\textcolor{keyword}{\ const\ override}}
-\DoxyCodeLine{00173\ \textcolor{keyword}{\ \ }\{}
-\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}DiskSequential"{}};}
-\DoxyCodeLine{00175\ \ \ \};}
-\DoxyCodeLine{00176\ }
-\DoxyCodeLine{00177\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00178\ \ \ std::filesystem::path\ root\_dir;}
-\DoxyCodeLine{00179\ \ \ \mbox{\hyperlink{structhmap_1_1TileKey}{TileKey}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_key\{\};}
-\DoxyCodeLine{00180\ \ \ std::optional<Array>\ \ current\_tile;}
-\DoxyCodeLine{00181\ }
-\DoxyCodeLine{00182\ \ \ Array\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ load\_or\_create(\textcolor{keyword}{const}\ TileRegion\ \&region);}
-\DoxyCodeLine{00183\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ save\_tile(\textcolor{keyword}{const}\ TileKey\ \&key,\ \textcolor{keyword}{const}\ Array\ \&tile);}
-\DoxyCodeLine{00184\ \ \ std::filesystem::path\ tile\_path(\textcolor{keyword}{const}\ TileKey\ \&key)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00185\ \};}
+\DoxyCodeLine{00168\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage}{DiskSequentialTileStorage}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1TileStorage}{TileStorage}}}
+\DoxyCodeLine{00169\ \{}
+\DoxyCodeLine{00170\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00171\ \ \ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_ab0b83330c9de5a2a8d2b2b24075d3c8c}{DiskSequentialTileStorage}}();}
+\DoxyCodeLine{00172\ \ \ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a15d12cadbcc636cbdce8f06edc86c149}{\string~DiskSequentialTileStorage}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ std::unique\_ptr<TileStorage>\ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a33f865e9a64b78e5b2cca810b7833e90}{clone}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a4b9b283c99296d371fbbfb12425765b3}{get\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00177\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a7802fb1110b9105719962676dd582f3d}{release\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a903dd0531930ba6c3f0d43fbf71e7109}{max\_live\_tiles}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a6b98184917a90e56f172e95a79a30f5a}{live\_tile\_count}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a13ecae5bf1ed260172b39f7ebfeb95e7}{live\_memory\_bytes}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00181\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_a1c57df8b1b30d942c70db54ad4557121}{trim}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00182\ \ \ std::string\ \mbox{\hyperlink{classhmap_1_1DiskSequentialTileStorage_af77e4aeb215d4fdca9c32233c1377c1b}{info\_string}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00183\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}DiskSequential"{}};}
+\DoxyCodeLine{00185\ \ \ \};}
 \DoxyCodeLine{00186\ }
-\DoxyCodeLine{00187\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00188\ \textcolor{comment}{//\ functions}}
-\DoxyCodeLine{00189\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00190\ }
-\DoxyCodeLine{00191\ std::unique\_ptr<TileStorage>\ \mbox{\hyperlink{namespacehmap_a43075b5f93cea5525adb69b8d6990683}{make\_storage}}(glm::ivec2\ \ shape,}
-\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glm::ivec2\ \ tile\_shape,}
-\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ad21b93a34c88a47d6b54f3a4d5b65e6e}{StorageMode}}\ storage\_mode);}
-\DoxyCodeLine{00194\ }
-\DoxyCodeLine{00195\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+\DoxyCodeLine{00187\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00188\ \ \ std::filesystem::path\ root\_dir;}
+\DoxyCodeLine{00189\ \ \ \mbox{\hyperlink{structhmap_1_1TileKey}{TileKey}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_key\{\};}
+\DoxyCodeLine{00190\ \ \ std::optional<Array>\ \ current\_tile;}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ Array\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ load\_or\_create(\textcolor{keyword}{const}\ TileRegion\ \&region);}
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ save\_tile(\textcolor{keyword}{const}\ TileKey\ \&key,\ \textcolor{keyword}{const}\ Array\ \&tile);}
+\DoxyCodeLine{00194\ \ \ std::filesystem::path\ tile\_path(\textcolor{keyword}{const}\ TileKey\ \&key)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00195\ \};}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00198\ \textcolor{comment}{//\ functions}}
+\DoxyCodeLine{00199\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ std::unique\_ptr<TileStorage>\ \mbox{\hyperlink{namespacehmap_a43075b5f93cea5525adb69b8d6990683}{make\_storage}}(glm::ivec2\ \ shape,}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glm::ivec2\ \ tile\_shape,}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ad21b93a34c88a47d6b54f3a4d5b65e6e}{StorageMode}}\ storage\_mode);}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
 
 \end{DoxyCode}

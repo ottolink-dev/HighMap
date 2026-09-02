@@ -499,8 +499,8 @@
 <codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>rx<sp/>=<sp/>float(array.shape.x<sp/>-<sp/>1)<sp/>/<sp/>float(this-&gt;shape.x<sp/>-<sp/>1);</highlight></codeline>
 <codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ry<sp/>=<sp/>float(array.shape.y<sp/>-<sp/>1)<sp/>/<sp/>float(this-&gt;shape.y<sp/>-<sp/>1);</highlight></codeline>
 <codeline lineno="491"><highlight class="normal"></highlight></codeline>
-<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/>ij0<sp/>=<sp/>this-&gt;tile_region_global_indices(region);</highlight></codeline>
-<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec4<sp/>&amp;b<sp/>=<sp/>region.halo;</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/><sp/>ij0<sp/>=<sp/>this-&gt;tile_region_global_indices(region);</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec4<sp/>&amp;b<sp/>=<sp/>region.halo;</highlight></codeline>
 <codeline lineno="494"><highlight class="normal"></highlight></codeline>
 <codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>iterate<sp/>only<sp/>inner<sp/>tile<sp/>cells</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>b.z;<sp/>j<sp/>&lt;<sp/>region.shape.y<sp/>-<sp/>b.w;<sp/>++j)</highlight></codeline>
@@ -544,26 +544,36 @@
 <codeline lineno="534"><highlight class="normal"></highlight></codeline>
 <codeline lineno="535"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>VirtualArray::trim_storage()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="536"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="537"><highlight class="normal"><sp/><sp/>this-&gt;storage-&gt;trim();</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this-&gt;storage)<sp/>this-&gt;storage-&gt;trim();</highlight></codeline>
 <codeline lineno="538"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="539"><highlight class="normal"></highlight></codeline>
-<codeline lineno="540"><highlight class="normal"></highlight><highlight class="comment">//<sp/>---<sp/>FUNCTIONS</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="541"><highlight class="normal"></highlight></codeline>
-<codeline lineno="542"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a4216f86be919aeb4a2cb6aab44609a71" kindref="member">copy_data</ref>(VirtualArray<sp/>&amp;src,<sp/>VirtualArray<sp/>&amp;dst,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ComputeMode<sp/>&amp;cm)</highlight></codeline>
-<codeline lineno="543"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="544"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>&apos;src&apos;<sp/>should<sp/>be<sp/>const...</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="545"><highlight class="normal"><sp/><sp/><ref refid="virtual__array_8inl_1ab533899554e393dbefccf9a5602faa39" kindref="member">for_each_tile</ref>(</highlight></codeline>
-<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;src,<sp/>&amp;dst},</highlight></codeline>
-<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[](std::vector&lt;Array<sp/>*&gt;<sp/>p_arrays,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TileRegion<sp/>&amp;)</highlight></codeline>
-<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/>&amp;src_arr<sp/>=<sp/>*p_arrays[0];</highlight></codeline>
-<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/>&amp;dst_arr<sp/>=<sp/>*p_arrays[1];</highlight></codeline>
-<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dst_arr<sp/>=<sp/>src_arr;</highlight></codeline>
-<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
-<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
-<codeline lineno="554"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="555"><highlight class="normal"></highlight></codeline>
-<codeline lineno="556"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="540"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>VirtualArray::live_tile_count()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="541"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;storage<sp/>?<sp/>this-&gt;storage-&gt;live_tile_count()<sp/>:<sp/>0;</highlight></codeline>
+<codeline lineno="543"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"></highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>VirtualArray::live_memory_bytes()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="546"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;storage<sp/>?<sp/>this-&gt;storage-&gt;live_memory_bytes()<sp/>:<sp/>0;</highlight></codeline>
+<codeline lineno="548"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"></highlight></codeline>
+<codeline lineno="550"><highlight class="normal"></highlight><highlight class="comment">//<sp/>---<sp/>FUNCTIONS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="551"><highlight class="normal"></highlight></codeline>
+<codeline lineno="552"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a4216f86be919aeb4a2cb6aab44609a71" kindref="member">copy_data</ref>(VirtualArray<sp/>&amp;src,<sp/>VirtualArray<sp/>&amp;dst,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ComputeMode<sp/>&amp;cm)</highlight></codeline>
+<codeline lineno="553"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>&apos;src&apos;<sp/>should<sp/>be<sp/>const...</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><ref refid="virtual__array_8inl_1ab533899554e393dbefccf9a5602faa39" kindref="member">for_each_tile</ref>(</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;src,<sp/>&amp;dst},</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[](std::vector&lt;Array<sp/>*&gt;<sp/>p_arrays,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TileRegion<sp/>&amp;)</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/>&amp;src_arr<sp/>=<sp/>*p_arrays[0];</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/>&amp;dst_arr<sp/>=<sp/>*p_arrays[1];</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dst_arr<sp/>=<sp/>src_arr;</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
+<codeline lineno="564"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"></highlight></codeline>
+<codeline lineno="566"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="HighMap/src/virtual_array/virtual_array.cpp"/>
   </compounddef>
