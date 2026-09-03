@@ -16,7 +16,8 @@ void kernel hydraulic_vpipes_flow_pass(read_only image2d_t  z,
                                        const int            ny,
                                        const float          dt,
                                        const int            flux_diffusion,
-                                       const float flux_diffusion_strength)
+                                       const float flux_diffusion_strength,
+                                       const int   outflow_boundaries)
 {
   const int2 g = {get_global_id(0), get_global_id(1)};
 
@@ -32,10 +33,18 @@ void kernel hydraulic_vpipes_flow_pass(read_only image2d_t  z,
 
   float h0 = TGET(z, i, j) + TGET(d1, i, j);
 
-  float dhl = h0 - TGET(z, i - 1, j) - TGET(d1, i - 1, j);
-  float dhr = h0 - TGET(z, i + 1, j) - TGET(d1, i + 1, j);
-  float dht = h0 - TGET(z, i, j + 1) - TGET(d1, i, j + 1);
-  float dhb = h0 - TGET(z, i, j - 1) - TGET(d1, i, j - 1);
+  float dhl = (outflow_boundaries && i == 0)
+                  ? TGET(d1, i, j)
+                  : (h0 - TGET(z, i - 1, j) - TGET(d1, i - 1, j));
+  float dhr = (outflow_boundaries && i == nx - 1)
+                  ? TGET(d1, i, j)
+                  : (h0 - TGET(z, i + 1, j) - TGET(d1, i + 1, j));
+  float dht = (outflow_boundaries && j == ny - 1)
+                  ? TGET(d1, i, j)
+                  : (h0 - TGET(z, i, j + 1) - TGET(d1, i, j + 1));
+  float dhb = (outflow_boundaries && j == 0)
+                  ? TGET(d1, i, j)
+                  : (h0 - TGET(z, i, j - 1) - TGET(d1, i, j - 1));
 
   float fl_new = max(0.f, TGET(fl, i, j) + dt * gv * dhl / plength);
   float fr_new = max(0.f, TGET(fr, i, j) + dt * gv * dhr / plength);
@@ -80,7 +89,9 @@ void kernel hydraulic_vpipes_water_pass(read_only image2d_t  z,
                                         const int            nx,
                                         const int            ny,
                                         const float          dt,
-                                        const float          water_height)
+                                        const float          water_height,
+                                        const float          evap_rate,
+                                        const int            outflow_boundaries)
 {
   const int2 g = {get_global_id(0), get_global_id(1)};
 
@@ -94,10 +105,19 @@ void kernel hydraulic_vpipes_water_pass(read_only image2d_t  z,
   const float plength = 1.f;
   const float gv = 1.f; // gravity
 
-  float dv = dt * (TGET(fr, i - 1, j) + TGET(ft, i, j - 1) +
-                   TGET(fl, i + 1, j) + TGET(fb, i, j + 1) - TGET(fl, i, j) -
-                   TGET(fr, i, j) - TGET(ft, i, j) - TGET(fb, i, j));
+  float in_l = (outflow_boundaries && i == 0) ? 0.f : TGET(fr, i - 1, j);
+  float in_r = (outflow_boundaries && i == nx - 1) ? 0.f : TGET(fl, i + 1, j);
+  float in_b = (outflow_boundaries && j == 0) ? 0.f : TGET(ft, i, j - 1);
+  float in_t = (outflow_boundaries && j == ny - 1) ? 0.f : TGET(fb, i, j + 1);
+
+  float dv = dt * (in_l + in_b + in_r + in_t - TGET(fl, i, j) - TGET(fr, i, j) -
+                   TGET(ft, i, j) - TGET(fb, i, j));
   float d2_new = max(0.f, TGET(d1, i, j) + dv / (plength * plength));
+
+  if (evap_rate > 0.f)
+  {
+    d2_new = max(0.f, d2_new * (1.f - evap_rate * dt));
+  }
 
   TSET(d2_out, i, j, d2_new);
 

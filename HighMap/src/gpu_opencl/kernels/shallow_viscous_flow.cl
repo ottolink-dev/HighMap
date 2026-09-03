@@ -10,7 +10,9 @@ kernel void shallow_viscous_flow(read_only image2d_t  z,
                                  int                  ny,
                                  float                dt,
                                  float                viscosity,
-                                 float                power)
+                                 float                power,
+                                 float                evap_rate,
+                                 int                  outflow_boundaries)
 {
   int i = get_global_id(0);
   int j = get_global_id(1);
@@ -24,22 +26,29 @@ kernel void shallow_viscous_flow(read_only image2d_t  z,
   float zc = TGET(z, i, j);
 
   // neighbors
-  float hxp = TGET(h_in, i + 1, j);
-  float hxm = TGET(h_in, i - 1, j);
-  float hyp = TGET(h_in, i, j + 1);
-  float hym = TGET(h_in, i, j - 1);
+  float hxp = (outflow_boundaries && i == nx - 1) ? 0.f : TGET(h_in, i + 1, j);
+  float hxm = (outflow_boundaries && i == 0) ? 0.f : TGET(h_in, i - 1, j);
+  float hyp = (outflow_boundaries && j == ny - 1) ? 0.f : TGET(h_in, i, j + 1);
+  float hym = (outflow_boundaries && j == 0) ? 0.f : TGET(h_in, i, j - 1);
 
   float Hc = h + zc;
-  float Hxp = hxp + TGET(z, i + 1, j);
-  float Hxm = hxm + TGET(z, i - 1, j);
-  float Hyp = hyp + TGET(z, i, j + 1);
-  float Hym = hym + TGET(z, i, j - 1);
+  float Hxp = (outflow_boundaries && i == nx - 1) ? zc
+                                                  : (hxp + TGET(z, i + 1, j));
+  float Hxm = (outflow_boundaries && i == 0) ? zc : (hxm + TGET(z, i - 1, j));
+  float Hyp = (outflow_boundaries && j == ny - 1) ? zc
+                                                  : (hyp + TGET(z, i, j + 1));
+  float Hym = (outflow_boundaries && j == 0) ? zc : (hym + TGET(z, i, j - 1));
 
-  // face mobilities
-  float Mp = pow(0.5f * (h + hxp), power) / viscosity;
-  float Mm = pow(0.5f * (h + hxm), power) / viscosity;
-  float Myp = pow(0.5f * (h + hyp), power) / viscosity;
-  float Mym = pow(0.5f * (h + hym), power) / viscosity;
+  // upwind face mobilities
+  float h_up_xp = (Hc >= Hxp) ? h : hxp;
+  float h_up_xm = (Hxm >= Hc) ? hxm : h;
+  float h_up_yp = (Hc >= Hyp) ? h : hyp;
+  float h_up_ym = (Hym >= Hc) ? hym : h;
+
+  float Mp = pow(h_up_xp, power) / viscosity;
+  float Mm = pow(h_up_xm, power) / viscosity;
+  float Myp = pow(h_up_yp, power) / viscosity;
+  float Mym = pow(h_up_ym, power) / viscosity;
 
   // fluxes through faces
   float qxp = -Mp * (Hxp - Hc);
@@ -47,11 +56,23 @@ kernel void shallow_viscous_flow(read_only image2d_t  z,
   float qyp = -Myp * (Hyp - Hc);
   float qym = -Mym * (Hc - Hym);
 
-  // divergence
-  float dhdt = -(qxp - qxm + qyp - qym);
+  // outflow limiting to preserve non-negativity and mass conservation
+  float q_out = max(0.f, qxp) + max(0.f, -qxm) + max(0.f, qyp) + max(0.f, -qym);
+  float q_in = max(0.f, -qxp) + max(0.f, qxm) + max(0.f, -qyp) + max(0.f, qym);
+
+  float k_out = 1.f;
+  if (q_out * dt > h && q_out > 1e-6f)
+  {
+    k_out = h / (q_out * dt);
+  }
 
   // explicit update
-  float h_new = fmax(0.f, h + dt * dhdt);
+  float h_new = max(0.f, h + dt * (q_in - k_out * q_out));
+
+  if (evap_rate > 0.f)
+  {
+    h_new = max(0.f, h_new * (1.f - evap_rate * dt));
+  }
 
   // smoothing
   float h_avg = (TGET(h_in, i - 1, j) + TGET(h_in, i + 1, j) +

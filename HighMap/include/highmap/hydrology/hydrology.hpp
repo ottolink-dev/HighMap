@@ -1037,8 +1037,6 @@ Array flow_direction_d8(const Array &z);
  * @brief GPU hydraulic flow simulation using a virtual-pipes model; simulates
  * shallow-water transport over a height field using iterative flux computation
  * and water transport passes, with optional flux diffusion and post-simulation
- * depth clamping to remove thin residual water layers.
- *
  * @param  z                       Terrain height field.
  * @param  water_height            Global water scaling factor.
  * @param  depth_map               Initial relative water distribution.
@@ -1048,6 +1046,16 @@ Array flow_direction_d8(const Array &z);
  * @param  flux_diffusion_strength Strength of flux diffusion.
  * @param  dry_out_ratio           Ratio for removing thin remaining water
  *                                 layers.
+ * @param  p_rain_map              Optional spatial precipitation map.
+ * @param  rain_rate               Continuous precipitation rate added per
+ *                                 timestep.
+ * @param  evap_rate               Evaporation rate per timestep.
+ * @param  outflow_boundaries      Allows water to freely discharge outside the
+ *                                 domain at boundaries.
+ * @param  p_vel_u                 Optional output array for horizontal velocity
+ *                                 field.
+ * @param  p_vel_v                 Optional output array for vertical velocity
+ *                                 field.
  *
  * @return                         Array Final simulated water depth map.
  */
@@ -1058,8 +1066,32 @@ Array flow_simulation(const Array &z,
                       float        dt = 0.5f,
                       bool         flux_diffusion = true,
                       float        flux_diffusion_strength = 0.01f,
-                      float        dry_out_ratio = 0.f);
+                      float        dry_out_ratio = 0.f,
+                      const Array *p_rain_map = nullptr,
+                      float        rain_rate = 0.f,
+                      float        evap_rate = 0.f,
+                      bool         outflow_boundaries = false,
+                      Array       *p_vel_u = nullptr,
+                      Array       *p_vel_v = nullptr);
 
+/**
+ * @brief GPU viscous shallow-water flow simulation using non-linear thin-film
+ * diffusion with upwind mobility.
+ *
+ * @param  z                  Terrain height field.
+ * @param  water_depth        Global initial water scaling factor.
+ * @param  depth_map          Initial relative water distribution.
+ * @param  iterations         Number of simulation steps.
+ * @param  dt                 Time step size.
+ * @param  dry_out_ratio      Ratio for removing thin remaining water layers.
+ * @param  viscosity          Fluid dynamic viscosity.
+ * @param  power              Non-linear mobility depth exponent.
+ * @param  evap_rate          Evaporation rate per timestep.
+ * @param  outflow_boundaries Allows fluid to freely discharge outside domain at
+ *                            boundaries.
+ *
+ * @return                    Array Final simulated water depth map.
+ */
 Array flow_simulation_viscous(const Array &z,
                               float        water_depth,
                               const Array &depth_map,
@@ -1067,7 +1099,9 @@ Array flow_simulation_viscous(const Array &z,
                               float        dt = 0.5f,
                               float        dry_out_ratio = 0.f,
                               float        viscosity = 1.f,
-                              float        power = 2.5f);
+                              float        power = 2.5f,
+                              float        evap_rate = 0.f,
+                              bool         outflow_boundaries = false);
 
 /*! @brief See hmap::generate_riverbed */
 Array generate_riverbed(const Path &path,
