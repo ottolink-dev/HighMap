@@ -202,14 +202,14 @@
 <codeline lineno="192"><highlight class="normal"></highlight></codeline>
 <codeline lineno="193"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Find<sp/>maximum<sp/>bin<sp/>height<sp/>for<sp/>scaling</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="194"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>max_bin<sp/>=<sp/>*std::max_element(bins.begin(),<sp/>bins.end());</highlight></codeline>
-<codeline lineno="195"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>scale<sp/>=<sp/>float(hist_height)<sp/>/<sp/>float(max_bin);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref><sp/>=<sp/>float(hist_height)<sp/>/<sp/>float(max_bin);</highlight></codeline>
 <codeline lineno="196"><highlight class="normal"></highlight></codeline>
 <codeline lineno="197"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Build<sp/>histogram<sp/>(top<sp/>to<sp/>bottom)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="198"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>row<sp/>=<sp/>hist_height;<sp/>row<sp/>&gt;<sp/>0;<sp/>--row)</highlight></codeline>
 <codeline lineno="199"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
 <codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>b<sp/>=<sp/>0;<sp/>b<sp/>&lt;<sp/>bin_count;<sp/>++b)</highlight></codeline>
 <codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>scaled_height<sp/>=<sp/>bins[b]<sp/>*<sp/>scale;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>scaled_height<sp/>=<sp/>bins[b]<sp/>*<sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>;</highlight></codeline>
 <codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>out<sp/>&lt;&lt;<sp/>(scaled_height<sp/>&gt;=<sp/>row<sp/>?<sp/></highlight><highlight class="stringliteral">&quot;█&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/>out<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
@@ -286,11 +286,11 @@
 <codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
 <codeline lineno="277"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="278"><highlight class="normal"></highlight></codeline>
-<codeline lineno="279"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>scale<sp/>=<sp/>(new_max<sp/>-<sp/>new_min)<sp/>/<sp/>(old_max<sp/>-<sp/>old_min);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref><sp/>=<sp/>(new_max<sp/>-<sp/>new_min)<sp/>/<sp/>(old_max<sp/>-<sp/>old_min);</highlight></codeline>
 <codeline lineno="280"><highlight class="normal"></highlight></codeline>
 <codeline lineno="281"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>data.size();<sp/>++i)</highlight></codeline>
 <codeline lineno="282"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/>result[i]<sp/>=<sp/>new_min<sp/>+<sp/>(data[i]<sp/>-<sp/>old_min)<sp/>*<sp/>scale;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/>result[i]<sp/>=<sp/>new_min<sp/>+<sp/>(data[i]<sp/>-<sp/>old_min)<sp/>*<sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>;</highlight></codeline>
 <codeline lineno="284"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="285"><highlight class="normal"></highlight></codeline>
 <codeline lineno="286"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>

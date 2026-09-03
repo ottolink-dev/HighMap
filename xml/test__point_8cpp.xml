@@ -520,6 +520,44 @@
         </inbodydescription>
         <location file="tests/src/test_point.cpp" line="298" column="1" bodyfile="tests/src/test_point.cpp" bodystart="298" bodyend="307"/>
       </memberdef>
+      <memberdef kind="function" id="test__point_8cpp_1a14d34cf371d9e38f988ce5eb6fe98605" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(PointTest, ScaleUniformDefaultCenter)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>PointTest</type>
+        </param>
+        <param>
+          <type>ScaleUniformDefaultCenter</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_point.cpp" line="313" column="1" bodyfile="tests/src/test_point.cpp" bodystart="313" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="test__point_8cpp_1a2ea583b8533161fdaa4eee8194e18853" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(PointTest, ScaleNonUniformCustomCenter)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>PointTest</type>
+        </param>
+        <param>
+          <type>ScaleNonUniformCustomCenter</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_point.cpp" line="323" column="1" bodyfile="tests/src/test_point.cpp" bodystart="323" bodyend="331"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -833,6 +871,30 @@
 <codeline lineno="305"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(pts[1]<sp/>==<sp/><ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(1,<sp/>2,<sp/>0));</highlight></codeline>
 <codeline lineno="306"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(pts[2]<sp/>==<sp/><ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(2,<sp/>1,<sp/>0));</highlight></codeline>
 <codeline lineno="307"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="comment">//<sp/>------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Scale</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="comment">//<sp/>------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><ref refid="test__point_8cpp_1aa191917728614c210eb51b166798c3a4" kindref="member">TEST</ref>(PointTest,<sp/>ScaleUniformDefaultCenter)</highlight></codeline>
+<codeline lineno="314"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Point" kindref="compound">Point</ref><sp/>p(0.f,<sp/>1.f,<sp/>5.f);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Point" kindref="compound">Point</ref><sp/>scaled<sp/>=<sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>(p,<sp/>0.8f);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled.<ref refid="classhmap_1_1Point_1ac0d4eaf8062b8f11638db83e08198e48" kindref="member">x</ref>,<sp/>0.1f,<sp/>eps);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled.<ref refid="classhmap_1_1Point_1aa045aed7ca12dffe13ba8f2db730a9bf" kindref="member">y</ref>,<sp/>0.9f,<sp/>eps);</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled.<ref refid="classhmap_1_1Point_1ac67fb22939ed39d6c5ff4194b4405efb" kindref="member">v</ref>,<sp/>5.f,<sp/>eps);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><ref refid="test__point_8cpp_1aa191917728614c210eb51b166798c3a4" kindref="member">TEST</ref>(PointTest,<sp/>ScaleNonUniformCustomCenter)</highlight></codeline>
+<codeline lineno="324"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Point" kindref="compound">Point</ref><sp/>p(1.f,<sp/>2.f,<sp/>3.f);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Point" kindref="compound">Point</ref><sp/>scaled<sp/>=<sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>(p,<sp/>glm::vec2(2.f,<sp/>0.5f),<sp/>glm::vec2(0.f,<sp/>0.f));</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled.<ref refid="classhmap_1_1Point_1ac0d4eaf8062b8f11638db83e08198e48" kindref="member">x</ref>,<sp/>2.f,<sp/>eps);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled.<ref refid="classhmap_1_1Point_1aa045aed7ca12dffe13ba8f2db730a9bf" kindref="member">y</ref>,<sp/>1.f,<sp/>eps);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled.<ref refid="classhmap_1_1Point_1ac67fb22939ed39d6c5ff4194b4405efb" kindref="member">v</ref>,<sp/>3.f,<sp/>eps);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_point.cpp"/>
   </compounddef>

@@ -25,5 +25,7 @@ var test__point_8cpp =
     [ "TEST", "test__point_8cpp.html#a7df76ab8cea2560785f6c18055fdead2", null ],
     [ "TEST", "test__point_8cpp.html#a1897145540705f2ed8891169448f12f8", null ],
     [ "TEST", "test__point_8cpp.html#a4e1f0a9b4cd110b481071188f83a76ca", null ],
-    [ "TEST", "test__point_8cpp.html#a55e670434bdbf5d733c5e0fe21cd824c", null ]
+    [ "TEST", "test__point_8cpp.html#a55e670434bdbf5d733c5e0fe21cd824c", null ],
+    [ "TEST", "test__point_8cpp.html#a14d34cf371d9e38f988ce5eb6fe98605", null ],
+    [ "TEST", "test__point_8cpp.html#a2ea583b8533161fdaa4eee8194e18853", null ]
 ];

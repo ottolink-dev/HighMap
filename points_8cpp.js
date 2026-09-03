@@ -17,6 +17,8 @@ var points_8cpp =
     [ "is_point_within_bounding_box", "points_8cpp.html#a538bb0deab3446abc04bbe26a4dd5da1", null ],
     [ "lerp", "points_8cpp.html#ac14815cf025b7430d31d08125a5c6f0d", null ],
     [ "midpoint", "points_8cpp.html#a520a1e42c4e492e81b334914807abc22", null ],
+    [ "scale", "points_8cpp.html#ae02fef88d73c4db09d0c152226e180c0", null ],
+    [ "scale", "points_8cpp.html#a4db26523148bcbdedc64cd342a122964", null ],
     [ "segment_intersection", "points_8cpp.html#ae6135d0c9d4716e3edbd06bb67f26fb2", null ],
     [ "cmp_inf", "points_8cpp.html#ac070e7f9253f57fe6b44ad1f6c9fd753", null ],
     [ "side", "points_8cpp.html#a2064345ed067ff51624e17f118b48870", null ],

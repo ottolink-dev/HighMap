@@ -22,5 +22,9 @@ var test__cloud_8cpp =
     [ "TEST", "test__cloud_8cpp.html#a3411470db8f4d245d6f67f6737c0cd3b", null ],
     [ "TEST", "test__cloud_8cpp.html#a679f1567a1da1577fe434ae6fa03203d", null ],
     [ "TEST", "test__cloud_8cpp.html#a7f54daab5dff413f781fb07195ca2204", null ],
-    [ "TEST", "test__cloud_8cpp.html#ad774353608c512a2d6b5161b3e297a9d", null ]
+    [ "TEST", "test__cloud_8cpp.html#ad774353608c512a2d6b5161b3e297a9d", null ],
+    [ "TEST", "test__cloud_8cpp.html#a311ad5b40db92dbc5d8e613bad215c45", null ],
+    [ "TEST", "test__cloud_8cpp.html#addf610022f430442af81859ab34280e8", null ],
+    [ "TEST", "test__cloud_8cpp.html#a064a6bd0cfd4fa184c9da238d457f6dc", null ],
+    [ "TEST", "test__cloud_8cpp.html#afc56ec6148b458d7319371329152dd48", null ]
 ];

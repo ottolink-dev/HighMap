@@ -12,6 +12,8 @@ var path_8hpp =
     [ "meanderize", "path_8hpp.html#a46a5e09cd5db9de358dd50a590215294", null ],
     [ "path_sdf_to_array", "path_8hpp.html#a2e33d478424b6f4d2bd05ccaeabd0846", null ],
     [ "remove_geometric_loops", "path_8hpp.html#a650c6eaf8bd10356a77c7c1f9ef9af3c", null ],
+    [ "scale", "path_8hpp.html#a4fcd1f7314f074c73a593197b1999080", null ],
+    [ "scale", "path_8hpp.html#aadd11cd9dde165414f778005ed69bc78", null ],
     [ "smooth", "path_8hpp.html#ad81052648d6008d2b7b4a5a36a2d7830", null ],
     [ "squiggle", "path_8hpp.html#a23b54b32669c529a26f86b884ffca28b", null ],
     [ "squiggle_branches", "path_8hpp.html#a65e5e7e89af68f858de5181d86a42d9a", null ],

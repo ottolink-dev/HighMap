@@ -39,7 +39,7 @@
 <codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>actual_min<sp/>=<sp/>(ir_min<sp/>==<sp/>0<sp/>?<sp/>1.f<sp/>:<sp/>float(ir_min));</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>di<sp/>=<sp/>(std::log(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(ir_max))<sp/>-<sp/>std::log(actual_min))<sp/>/</highlight></codeline>
 <codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(steps<sp/>-<sp/>1);</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>scale<sp/>=<sp/>1.f;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref><sp/>=<sp/>1.f;</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"></highlight></codeline>
 <codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>steps;<sp/>++k)</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
@@ -51,14 +51,14 @@
 <codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>mean<sp/>curvature<sp/>on<sp/>filtered<sp/>field</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>zf<sp/>=<sp/>z;</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a7d2aae253f1f67bbdbc718859f83ef0a" kindref="member">gpu::smooth_cpulse</ref>(zf,<sp/>ir);</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>cm<sp/>=<sp/>-scale<sp/>*<sp/><ref refid="namespacehmap_1_1gpu_1a7bfb7fecab3f34a73a57d7907c3ace7d" kindref="member">gpu::curvature_quadric</ref>(zf,<sp/>0,<sp/><ref refid="namespacehmap_1ad4d5e191ca7dd12e389c842188bde88aad171888e3143edfa1d5916611c9a9f7f" kindref="member">CurvatureType::CT_MEAN</ref>)<sp/>*</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>cm<sp/>=<sp/>-<ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref><sp/>*<sp/><ref refid="namespacehmap_1_1gpu_1a7bfb7fecab3f34a73a57d7907c3ace7d" kindref="member">gpu::curvature_quadric</ref>(zf,<sp/>0,<sp/><ref refid="namespacehmap_1ad4d5e191ca7dd12e389c842188bde88aad171888e3143edfa1d5916611c9a9f7f" kindref="member">CurvatureType::CT_MEAN</ref>)<sp/>*</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ir;</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight></codeline>
 <codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ae6dfd87b0368629657c3138dbf24cbc4" kindref="member">clamp</ref>(cm,<sp/>curvature_clamping,<sp/>curvature_clamp_mode);</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"></highlight></codeline>
 <codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>sr<sp/>=<sp/><ref refid="namespacehmap_1aa52f3e1fcb1cad464a512c09a0c8eb54" kindref="member">maximum</ref>(sr,<sp/>cm);</highlight></codeline>
 <codeline lineno="49"><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>scale<sp/>/=<sp/>smaller_scales_weight;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref><sp/>/=<sp/>smaller_scales_weight;</highlight></codeline>
 <codeline lineno="51"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>sr;</highlight></codeline>

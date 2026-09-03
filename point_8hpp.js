@@ -18,6 +18,8 @@ var point_8hpp =
     [ "is_point_within_bounding_box", "point_8hpp.html#a538bb0deab3446abc04bbe26a4dd5da1", null ],
     [ "lerp", "point_8hpp.html#ac14815cf025b7430d31d08125a5c6f0d", null ],
     [ "midpoint", "point_8hpp.html#a520a1e42c4e492e81b334914807abc22", null ],
+    [ "scale", "point_8hpp.html#ae02fef88d73c4db09d0c152226e180c0", null ],
+    [ "scale", "point_8hpp.html#a4db26523148bcbdedc64cd342a122964", null ],
     [ "segment_intersection", "point_8hpp.html#ae6135d0c9d4716e3edbd06bb67f26fb2", null ],
     [ "side", "point_8hpp.html#a2064345ed067ff51624e17f118b48870", null ],
     [ "sort_points", "point_8hpp.html#a69877ef43645c767daa0735fde59821c", null ],

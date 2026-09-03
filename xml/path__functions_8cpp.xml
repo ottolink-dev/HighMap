@@ -556,99 +556,114 @@
 <codeline lineno="546"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
 <codeline lineno="547"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="548"><highlight class="normal"></highlight></codeline>
-<codeline lineno="549"><highlight class="normal">Path<sp/><ref refid="namespacehmap_1ad81052648d6008d2b7b4a5a36a2d7830" kindref="member">smooth</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Path<sp/>&amp;path,</highlight></codeline>
-<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>navg,</highlight></codeline>
-<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>averaging_intensity,</highlight></codeline>
-<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>inertia)</highlight></codeline>
-<codeline lineno="553"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="554"><highlight class="normal"><sp/><sp/>Path<sp/>new_path<sp/>=<sp/>path;</highlight></codeline>
+<codeline lineno="549"><highlight class="normal">Path<sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Path<sp/>&amp;path,<sp/>glm::vec2<sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>,<sp/>glm::vec2<sp/>center)</highlight></codeline>
+<codeline lineno="550"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/>Path<sp/>result<sp/>=<sp/>path;</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"></highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;p<sp/>:<sp/>result.points)</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/>p<sp/>=<sp/><ref refid="namespacehmap" kindref="compound">hmap</ref>::<ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>(p,<sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>,<sp/>center);</highlight></codeline>
 <codeline lineno="555"><highlight class="normal"></highlight></codeline>
-<codeline lineno="556"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(new_path.points,<sp/></highlight><highlight class="stringliteral">&quot;Path<sp/>points&quot;</highlight><highlight class="normal">))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>new_path;</highlight></codeline>
-<codeline lineno="557"><highlight class="normal"></highlight></codeline>
-<codeline lineno="558"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>n<sp/>=<sp/>(int)new_path.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>();</highlight></codeline>
-<codeline lineno="559"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_closed<sp/>=<sp/>new_path.is_closed();</highlight></codeline>
-<codeline lineno="560"><highlight class="normal"></highlight></codeline>
-<codeline lineno="561"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>get_index<sp/>=<sp/>[&amp;](</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="562"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(is_closed)</highlight></codeline>
-<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>wrap<sp/>around</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>i<sp/>=<sp/>i<sp/>%<sp/>n;</highlight></codeline>
-<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>&lt;<sp/>0)<sp/>i<sp/>+=<sp/>n;</highlight></codeline>
-<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
-<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clamp</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::max(0,<sp/>std::min(i,<sp/>n<sp/>-<sp/>1));</highlight></codeline>
-<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="575"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="576"><highlight class="normal"></highlight></codeline>
-<codeline lineno="577"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Moving<sp/>average</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="578"><highlight class="normal"></highlight></codeline>
-<codeline lineno="579"><highlight class="normal"><sp/><sp/>std::vector&lt;Point&gt;<sp/>smooth_points;</highlight></codeline>
-<codeline lineno="580"><highlight class="normal"><sp/><sp/>smooth_points.reserve(n);</highlight></codeline>
-<codeline lineno="581"><highlight class="normal"></highlight></codeline>
-<codeline lineno="582"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>n;<sp/>i++)</highlight></codeline>
-<codeline lineno="583"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>is;</highlight></codeline>
-<codeline lineno="585"><highlight class="normal"></highlight></codeline>
-<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(is_closed)</highlight></codeline>
-<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>is<sp/>=<sp/>navg;<sp/></highlight><highlight class="comment">//<sp/>full<sp/>window<sp/>always<sp/>valid</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="557"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"></highlight></codeline>
+<codeline lineno="559"><highlight class="normal">Path<sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Path<sp/>&amp;path,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>scale_factor,<sp/>glm::vec2<sp/>center)</highlight></codeline>
+<codeline lineno="560"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>(path,<sp/>glm::vec2(scale_factor,<sp/>scale_factor),<sp/>center);</highlight></codeline>
+<codeline lineno="562"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"></highlight></codeline>
+<codeline lineno="564"><highlight class="normal">Path<sp/><ref refid="namespacehmap_1ad81052648d6008d2b7b4a5a36a2d7830" kindref="member">smooth</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Path<sp/>&amp;path,</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>navg,</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>averaging_intensity,</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>inertia)</highlight></codeline>
+<codeline lineno="568"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/>Path<sp/>new_path<sp/>=<sp/>path;</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"></highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(new_path.points,<sp/></highlight><highlight class="stringliteral">&quot;Path<sp/>points&quot;</highlight><highlight class="normal">))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>new_path;</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"></highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>n<sp/>=<sp/>(int)new_path.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>();</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_closed<sp/>=<sp/>new_path.is_closed();</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"></highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>get_index<sp/>=<sp/>[&amp;](</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(is_closed)</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>wrap<sp/>around</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>i<sp/>=<sp/>i<sp/>%<sp/>n;</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>&lt;<sp/>0)<sp/>i<sp/>+=<sp/>n;</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clamp</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::max(0,<sp/>std::min(i,<sp/>n<sp/>-<sp/>1));</highlight></codeline>
 <codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i1<sp/>=<sp/>std::min(navg,<sp/>i);</highlight></codeline>
-<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i2<sp/>=<sp/>std::min(navg,<sp/>n<sp/>-<sp/>1<sp/>-<sp/>i);</highlight></codeline>
-<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>is<sp/>=<sp/>std::min(i1,<sp/>i2);</highlight></codeline>
-<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"></highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Moving<sp/>average</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="593"><highlight class="normal"></highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/>std::vector&lt;Point&gt;<sp/>smooth_points;</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/>smooth_points.reserve(n);</highlight></codeline>
 <codeline lineno="596"><highlight class="normal"></highlight></codeline>
-<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/>Point<sp/>psum(0.f,<sp/>0.f);</highlight></codeline>
-<codeline lineno="598"><highlight class="normal"></highlight></codeline>
-<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>-is;<sp/>k<sp/>&lt;=<sp/>is;<sp/>k++)</highlight></codeline>
-<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>idx<sp/>=<sp/>get_index(i<sp/>+<sp/>k);</highlight></codeline>
-<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>psum<sp/>=<sp/>psum<sp/>+<sp/>new_path.points[idx];</highlight></codeline>
-<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="604"><highlight class="normal"></highlight></codeline>
-<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/>Point<sp/>avg<sp/>=<sp/>psum<sp/>/<sp/>float(2<sp/>*<sp/>is<sp/>+<sp/>1);</highlight></codeline>
-<codeline lineno="606"><highlight class="normal"></highlight></codeline>
-<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/>Point<sp/>new_point<sp/>=<sp/>(1.f<sp/>-<sp/>averaging_intensity)<sp/>*<sp/>new_path.points[i]<sp/>+</highlight></codeline>
-<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>averaging_intensity<sp/>*<sp/>avg;</highlight></codeline>
-<codeline lineno="609"><highlight class="normal"></highlight></codeline>
-<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/>smooth_points.push_back(new_point);</highlight></codeline>
-<codeline lineno="611"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="612"><highlight class="normal"></highlight></codeline>
-<codeline lineno="613"><highlight class="normal"><sp/><sp/>new_path.points<sp/>=<sp/>smooth_points;</highlight></codeline>
-<codeline lineno="614"><highlight class="normal"></highlight></codeline>
-<codeline lineno="615"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Inertia</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="616"><highlight class="normal"></highlight></codeline>
-<codeline lineno="617"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(inertia<sp/>&gt;<sp/>0.f)</highlight></codeline>
-<codeline lineno="618"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(is_closed)</highlight></codeline>
-<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>n;<sp/>i++)</highlight></codeline>
-<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prev<sp/>=<sp/>get_index(i<sp/>-<sp/>1);</highlight></codeline>
-<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>new_path.points[i]<sp/>=<sp/>(1.f<sp/>-<sp/>inertia)<sp/>*<sp/>new_path.points[i]<sp/>+</highlight></codeline>
-<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>inertia<sp/>*<sp/>new_path.points[prev];</highlight></codeline>
-<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>n<sp/>-<sp/>1;<sp/>i++)</highlight></codeline>
-<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>new_path.points[i]<sp/>=<sp/>(1.f<sp/>-<sp/>inertia)<sp/>*<sp/>new_path.points[i]<sp/>+</highlight></codeline>
-<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>inertia<sp/>*<sp/>new_path.points[i<sp/>-<sp/>1];</highlight></codeline>
-<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="636"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="637"><highlight class="normal"></highlight></codeline>
-<codeline lineno="638"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>new_path;</highlight></codeline>
-<codeline lineno="639"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="640"><highlight class="normal"></highlight></codeline>
-<codeline lineno="641"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>n;<sp/>i++)</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>is;</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"></highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(is_closed)</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>is<sp/>=<sp/>navg;<sp/></highlight><highlight class="comment">//<sp/>full<sp/>window<sp/>always<sp/>valid</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i1<sp/>=<sp/>std::min(navg,<sp/>i);</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i2<sp/>=<sp/>std::min(navg,<sp/>n<sp/>-<sp/>1<sp/>-<sp/>i);</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>is<sp/>=<sp/>std::min(i1,<sp/>i2);</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"></highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/>Point<sp/>psum(0.f,<sp/>0.f);</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"></highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>-is;<sp/>k<sp/>&lt;=<sp/>is;<sp/>k++)</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>idx<sp/>=<sp/>get_index(i<sp/>+<sp/>k);</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>psum<sp/>=<sp/>psum<sp/>+<sp/>new_path.points[idx];</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"></highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/>Point<sp/>avg<sp/>=<sp/>psum<sp/>/<sp/>float(2<sp/>*<sp/>is<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"></highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/>Point<sp/>new_point<sp/>=<sp/>(1.f<sp/>-<sp/>averaging_intensity)<sp/>*<sp/>new_path.points[i]<sp/>+</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>averaging_intensity<sp/>*<sp/>avg;</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"></highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/>smooth_points.push_back(new_point);</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"></highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/>new_path.points<sp/>=<sp/>smooth_points;</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"></highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Inertia</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="631"><highlight class="normal"></highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(inertia<sp/>&gt;<sp/>0.f)</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(is_closed)</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>n;<sp/>i++)</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prev<sp/>=<sp/>get_index(i<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>new_path.points[i]<sp/>=<sp/>(1.f<sp/>-<sp/>inertia)<sp/>*<sp/>new_path.points[i]<sp/>+</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>inertia<sp/>*<sp/>new_path.points[prev];</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="644"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>n<sp/>-<sp/>1;<sp/>i++)</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>new_path.points[i]<sp/>=<sp/>(1.f<sp/>-<sp/>inertia)<sp/>*<sp/>new_path.points[i]<sp/>+</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>inertia<sp/>*<sp/>new_path.points[i<sp/>-<sp/>1];</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"></highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>new_path;</highlight></codeline>
+<codeline lineno="654"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"></highlight></codeline>
+<codeline lineno="656"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="HighMap/src/geometry/path_functions.cpp"/>
   </compounddef>
