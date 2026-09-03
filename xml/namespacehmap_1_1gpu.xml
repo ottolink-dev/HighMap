@@ -10465,10 +10465,10 @@ This is an overloaded member function, provided for convenience. It differs from
         </inbodydescription>
         <location file="HighMap/src/hydrology/flow_accumulation_d8_gpu.cpp" line="15" column="7" bodyfile="HighMap/src/hydrology/flow_accumulation_d8_gpu.cpp" bodystart="15" bodyend="31" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1034" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1ab2ccca5e12b451191af1edc97cb86fbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1aea15be4e56a0076b7cafb4435bf5b155" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::gpu::flow_simulation</definition>
-        <argsstring>(const Array &amp;z, float water_depth, const Array &amp;depth_map, int iterations, float dt=0.5f, bool flux_diffusion=true, float flux_diffusion_strength=0.01f, float dry_out_ratio=0.f)</argsstring>
+        <argsstring>(const Array &amp;z, float water_depth, const Array &amp;depth_map, int iterations, float dt=0.5f, bool flux_diffusion=true, float flux_diffusion_strength=0.01f, float dry_out_ratio=0.f, const Array *p_rain_map=nullptr, float rain_rate=0.f, float evap_rate=0.f, bool outflow_boundaries=false, Array *p_vel_u=nullptr, Array *p_vel_v=nullptr)</argsstring>
         <name>flow_simulation</name>
         <qualifiedname>hmap::gpu::flow_simulation</qualifiedname>
         <param>
@@ -10507,8 +10507,38 @@ This is an overloaded member function, provided for convenience. It differs from
           <declname>dry_out_ratio</declname>
           <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_rain_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>rain_rate</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>evap_rate</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>outflow_boundaries</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_vel_u</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_vel_v</declname>
+          <defval>nullptr</defval>
+        </param>
         <briefdescription>
-<para>GPU hydraulic flow simulation using a virtual-pipes model; simulates shallow-water transport over a height field using iterative flux computation and water transport passes, with optional flux diffusion and post-simulation depth clamping to remove thin residual water layers. </para>
+<para>GPU hydraulic flow simulation using a virtual-pipes model; simulates shallow-water transport over a height field using iterative flux computation and water transport passes, with optional flux diffusion and post-simulation. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -10572,7 +10602,55 @@ This is an overloaded member function, provided for convenience. It differs from
 <parametername>dry_out_ratio</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Ratio for removing thin remaining water layers.</para>
+<para>Ratio for removing thin remaining water layers. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_rain_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional spatial precipitation map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rain_rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Continuous precipitation rate added per timestep. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>evap_rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Evaporation rate per timestep. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outflow_boundaries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allows water to freely discharge outside the domain at boundaries. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_vel_u</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output array for horizontal velocity field. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_vel_v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output array for vertical velocity field.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -10582,12 +10660,12 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/flow_simulation.cpp" line="27" column="7" bodyfile="HighMap/src/hydrology/flow_simulation.cpp" bodystart="27" bodyend="113" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1054" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/flow_simulation.cpp" line="27" column="7" bodyfile="HighMap/src/hydrology/flow_simulation.cpp" bodystart="27" bodyend="166" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1062" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1aeebe29334cfef012f311a2369ed3286c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1af8e8a1855d3df42e6fc0398a4f9dc65c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::gpu::flow_simulation_viscous</definition>
-        <argsstring>(const Array &amp;z, float water_depth, const Array &amp;depth_map, int iterations, float dt=0.5f, float dry_out_ratio=0.f, float viscosity=1.f, float power=2.5f)</argsstring>
+        <argsstring>(const Array &amp;z, float water_depth, const Array &amp;depth_map, int iterations, float dt=0.5f, float dry_out_ratio=0.f, float viscosity=1.f, float power=2.5f, float evap_rate=0.f, bool outflow_boundaries=false)</argsstring>
         <name>flow_simulation_viscous</name>
         <qualifiedname>hmap::gpu::flow_simulation_viscous</qualifiedname>
         <param>
@@ -10626,13 +10704,108 @@ This is an overloaded member function, provided for convenience. It differs from
           <declname>power</declname>
           <defval>2.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
+        <param>
+          <type>float</type>
+          <declname>evap_rate</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>outflow_boundaries</declname>
+          <defval>false</defval>
+        </param>
         <briefdescription>
+<para>GPU viscous shallow-water flow simulation using non-linear thin-film diffusion with upwind mobility. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrain height field. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>water_depth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Global initial water scaling factor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>depth_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial relative water distribution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iterations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of simulation steps. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Time step size. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dry_out_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Ratio for removing thin remaining water layers. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>viscosity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Fluid dynamic viscosity. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>power</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Non-linear mobility depth exponent. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>evap_rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Evaporation rate per timestep. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outflow_boundaries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allows fluid to freely discharge outside domain at boundaries.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> Final simulated water depth map. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/flow_simulation.cpp" line="115" column="7" bodyfile="HighMap/src/hydrology/flow_simulation.cpp" bodystart="115" bodyend="164" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1063" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/flow_simulation.cpp" line="168" column="7" bodyfile="HighMap/src/hydrology/flow_simulation.cpp" bodystart="168" bodyend="226" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1095" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a129b54789c706428d04afd91d5eb8ae6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -10720,7 +10893,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/generate_riverbed_gpu.cpp" line="20" column="7" bodyfile="HighMap/src/hydrology/generate_riverbed_gpu.cpp" bodystart="20" bodyend="90" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1073" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/generate_riverbed_gpu.cpp" line="20" column="7" bodyfile="HighMap/src/hydrology/generate_riverbed_gpu.cpp" bodystart="20" bodyend="90" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1107" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a7bed0a401445a2b13d8d37e7a34ea598" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -10979,7 +11152,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/snow_simulation.cpp" line="85" column="7" bodyfile="HighMap/src/hydrology/snow_simulation.cpp" bodystart="85" bodyend="162" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1121" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/snow_simulation.cpp" line="85" column="7" bodyfile="HighMap/src/hydrology/snow_simulation.cpp" bodystart="85" bodyend="162" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1155" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a687d85d20bee065ffabeecea9124f432" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -11079,7 +11252,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="367" column="6" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="367" bodyend="409" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1150" declcolumn="6"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="367" column="6" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="367" bodyend="409" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1184" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a4b9ba3dd7bc6c093329b262fd4ca8f6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -11107,7 +11280,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="436" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="436" bodyend="466" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1158" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="436" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="436" bodyend="466" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1192" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a703eaf095338c94f1b6589a5b8a650fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -11145,7 +11318,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="411" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="411" bodyend="434" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1163" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="411" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="411" bodyend="434" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1197" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ac6263cc13b02f77fddd917b8fe4f2662" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

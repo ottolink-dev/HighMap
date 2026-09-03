@@ -221,73 +221,81 @@
 \DoxyCodeLine{01032\ }
 \DoxyCodeLine{01034\ Array\ \mbox{\hyperlink{namespacehmap_1_1gpu_af794a4c54c3766ca86b7e4a06346ab91}{flow\_direction\_d8}}(\textcolor{keyword}{const}\ Array\ \&z);}
 \DoxyCodeLine{01035\ }
-\DoxyCodeLine{01054\ Array\ \mbox{\hyperlink{namespacehmap_1_1gpu_ab2ccca5e12b451191af1edc97cb86fbf}{flow\_simulation}}(\textcolor{keyword}{const}\ Array\ \&z,}
-\DoxyCodeLine{01055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ water\_depth,}
-\DoxyCodeLine{01056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&depth\_map,}
-\DoxyCodeLine{01057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ iterations,}
-\DoxyCodeLine{01058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ dt\ =\ 0.5f,}
-\DoxyCodeLine{01059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ flux\_diffusion\ =\ \textcolor{keyword}{true},}
-\DoxyCodeLine{01060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ flux\_diffusion\_strength\ =\ 0.01f,}
-\DoxyCodeLine{01061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ dry\_out\_ratio\ =\ 0.f);}
-\DoxyCodeLine{01062\ }
-\DoxyCodeLine{01063\ Array\ \mbox{\hyperlink{namespacehmap_1_1gpu_aeebe29334cfef012f311a2369ed3286c}{flow\_simulation\_viscous}}(\textcolor{keyword}{const}\ Array\ \&z,}
-\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ water\_depth,}
-\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&depth\_map,}
-\DoxyCodeLine{01066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ iterations,}
-\DoxyCodeLine{01067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ dt\ =\ 0.5f,}
-\DoxyCodeLine{01068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ dry\_out\_ratio\ =\ 0.f,}
-\DoxyCodeLine{01069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ viscosity\ =\ 1.f,}
-\DoxyCodeLine{01070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ power\ =\ 2.5f);}
-\DoxyCodeLine{01071\ }
-\DoxyCodeLine{01073\ Array\ \mbox{\hyperlink{namespacehmap_1_1gpu_a129b54789c706428d04afd91d5eb8ae6}{generate\_riverbed}}(\textcolor{keyword}{const}\ Path\ \&path,}
-\DoxyCodeLine{01074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glm::ivec2\ \ shape,}
-\DoxyCodeLine{01075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glm::vec4\ \ \ bbox\ =\ \{0.f,\ 1.f,\ 0.f,\ 1.f\},}
-\DoxyCodeLine{01076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ bezier\_smoothing\ =\ \textcolor{keyword}{false},}
-\DoxyCodeLine{01077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ depth\_start\ =\ 0.01f,}
-\DoxyCodeLine{01078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ depth\_end\ =\ 1.f,}
-\DoxyCodeLine{01079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ slope\_start\ =\ 64.f,}
-\DoxyCodeLine{01080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ slope\_end\ =\ 32.f,}
-\DoxyCodeLine{01081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ shape\_exponent\_start\ =\ 1.f,}
-\DoxyCodeLine{01082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ shape\_exponent\_end\ =\ 10.f,}
-\DoxyCodeLine{01083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ k\_smoothing\ =\ 0.5f,}
-\DoxyCodeLine{01084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ post\_filter\_ir\ =\ 0,}
-\DoxyCodeLine{01085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ *p\_noise\_x\ =\ \textcolor{keyword}{nullptr},}
-\DoxyCodeLine{01086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ *p\_noise\_y\ =\ \textcolor{keyword}{nullptr},}
-\DoxyCodeLine{01087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ *p\_noise\_r\ =\ \textcolor{keyword}{nullptr});}
-\DoxyCodeLine{01088\ }
-\DoxyCodeLine{01121\ Array\ \mbox{\hyperlink{namespacehmap_1_1gpu_a7bed0a401445a2b13d8d37e7a34ea598}{snow\_simulation}}(\textcolor{keyword}{const}\ Array\ \&z,}
-\DoxyCodeLine{01122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ snow\_depth,}
-\DoxyCodeLine{01123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&fall\_map,}
-\DoxyCodeLine{01124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&melting\_map,}
-\DoxyCodeLine{01125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&talus,}
-\DoxyCodeLine{01126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ iterations,}
-\DoxyCodeLine{01127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ dt\ =\ 0.5f,}
-\DoxyCodeLine{01128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ fall\_iterations\_ratio\ =\ 1.f,}
-\DoxyCodeLine{01129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ k\_snow\ =\ 0.5f,}
-\DoxyCodeLine{01130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ k\_visc\ =\ 0.1f,}
-\DoxyCodeLine{01131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ k\_melt\_factor\ =\ 0.8f,}
-\DoxyCodeLine{01132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ k\_depth\_ratio\ =\ 1.f,}
-\DoxyCodeLine{01133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ k\_depth\_slope\_ratio\ =\ 1.f,}
-\DoxyCodeLine{01134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ post\_filter\ =\ \textcolor{keyword}{true},}
-\DoxyCodeLine{01135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ thermal\_talus\_ratio\ =\ 0.2f);}
-\DoxyCodeLine{01136\ }
-\DoxyCodeLine{01150\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_a687d85d20bee065ffabeecea9124f432}{water\_depth\_filter}}(Array\ \ \ \ \ \ \ \&depth,}
-\DoxyCodeLine{01151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&z,}
-\DoxyCodeLine{01152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ ir,}
-\DoxyCodeLine{01153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ *p\_water\_mask\ =\ \textcolor{keyword}{nullptr},}
-\DoxyCodeLine{01154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ smooth\_contour\ =\ \textcolor{keyword}{false},}
-\DoxyCodeLine{01155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ transition\_ratio\ =\ 0.1f);}
-\DoxyCodeLine{01156\ }
-\DoxyCodeLine{01158\ Array\ \mbox{\hyperlink{namespacehmap_1_1gpu_a4b9ba3dd7bc6c093329b262fd4ca8f6c}{water\_frontier\_curvature}}(\textcolor{keyword}{const}\ Array\ \&water\_depth,}
-\DoxyCodeLine{01159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ prefilter\_ir,}
-\DoxyCodeLine{01160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ extend\_values\_from\_interface\ =\ \textcolor{keyword}{false});}
-\DoxyCodeLine{01161\ }
-\DoxyCodeLine{01163\ Array\ \mbox{\hyperlink{namespacehmap_1_1gpu_a703eaf095338c94f1b6589a5b8a650fe}{water\_depth\_from\_mask}}(\textcolor{keyword}{const}\ Array\ \&z,}
-\DoxyCodeLine{01164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&mask,}
-\DoxyCodeLine{01165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ mask\_threshold\ =\ 0.f,}
-\DoxyCodeLine{01166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ iterations\_max\ =\ 10000,}
-\DoxyCodeLine{01167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ tolerance\ =\ 1e-\/2f);}
-\DoxyCodeLine{01168\ }
-\DoxyCodeLine{01169\ \}\ \textcolor{comment}{//\ namespace\ hmap::gpu}}
+\DoxyCodeLine{01062\ Array\ \mbox{\hyperlink{namespacehmap_1_1gpu_aea15be4e56a0076b7cafb4435bf5b155}{flow\_simulation}}(\textcolor{keyword}{const}\ Array\ \&z,}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ water\_depth,}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&depth\_map,}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ iterations,}
+\DoxyCodeLine{01066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ dt\ =\ 0.5f,}
+\DoxyCodeLine{01067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ flux\_diffusion\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{01068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ flux\_diffusion\_strength\ =\ 0.01f,}
+\DoxyCodeLine{01069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ dry\_out\_ratio\ =\ 0.f,}
+\DoxyCodeLine{01070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ *p\_rain\_map\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{01071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ rain\_rate\ =\ 0.f,}
+\DoxyCodeLine{01072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ evap\_rate\ =\ 0.f,}
+\DoxyCodeLine{01073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ outflow\_boundaries\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ \ *p\_vel\_u\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{01075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ \ *p\_vel\_v\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{01076\ }
+\DoxyCodeLine{01095\ Array\ \mbox{\hyperlink{namespacehmap_1_1gpu_af8e8a1855d3df42e6fc0398a4f9dc65c}{flow\_simulation\_viscous}}(\textcolor{keyword}{const}\ Array\ \&z,}
+\DoxyCodeLine{01096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ water\_depth,}
+\DoxyCodeLine{01097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&depth\_map,}
+\DoxyCodeLine{01098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ iterations,}
+\DoxyCodeLine{01099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ dt\ =\ 0.5f,}
+\DoxyCodeLine{01100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ dry\_out\_ratio\ =\ 0.f,}
+\DoxyCodeLine{01101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ viscosity\ =\ 1.f,}
+\DoxyCodeLine{01102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ power\ =\ 2.5f,}
+\DoxyCodeLine{01103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ evap\_rate\ =\ 0.f,}
+\DoxyCodeLine{01104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ outflow\_boundaries\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01105\ }
+\DoxyCodeLine{01107\ Array\ \mbox{\hyperlink{namespacehmap_1_1gpu_a129b54789c706428d04afd91d5eb8ae6}{generate\_riverbed}}(\textcolor{keyword}{const}\ Path\ \&path,}
+\DoxyCodeLine{01108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glm::ivec2\ \ shape,}
+\DoxyCodeLine{01109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glm::vec4\ \ \ bbox\ =\ \{0.f,\ 1.f,\ 0.f,\ 1.f\},}
+\DoxyCodeLine{01110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ bezier\_smoothing\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{01111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ depth\_start\ =\ 0.01f,}
+\DoxyCodeLine{01112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ depth\_end\ =\ 1.f,}
+\DoxyCodeLine{01113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ slope\_start\ =\ 64.f,}
+\DoxyCodeLine{01114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ slope\_end\ =\ 32.f,}
+\DoxyCodeLine{01115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ shape\_exponent\_start\ =\ 1.f,}
+\DoxyCodeLine{01116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ shape\_exponent\_end\ =\ 10.f,}
+\DoxyCodeLine{01117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ k\_smoothing\ =\ 0.5f,}
+\DoxyCodeLine{01118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ post\_filter\_ir\ =\ 0,}
+\DoxyCodeLine{01119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ *p\_noise\_x\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{01120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ *p\_noise\_y\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{01121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ *p\_noise\_r\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{01122\ }
+\DoxyCodeLine{01155\ Array\ \mbox{\hyperlink{namespacehmap_1_1gpu_a7bed0a401445a2b13d8d37e7a34ea598}{snow\_simulation}}(\textcolor{keyword}{const}\ Array\ \&z,}
+\DoxyCodeLine{01156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ snow\_depth,}
+\DoxyCodeLine{01157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&fall\_map,}
+\DoxyCodeLine{01158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&melting\_map,}
+\DoxyCodeLine{01159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&talus,}
+\DoxyCodeLine{01160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ iterations,}
+\DoxyCodeLine{01161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ dt\ =\ 0.5f,}
+\DoxyCodeLine{01162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ fall\_iterations\_ratio\ =\ 1.f,}
+\DoxyCodeLine{01163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ k\_snow\ =\ 0.5f,}
+\DoxyCodeLine{01164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ k\_visc\ =\ 0.1f,}
+\DoxyCodeLine{01165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ k\_melt\_factor\ =\ 0.8f,}
+\DoxyCodeLine{01166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ k\_depth\_ratio\ =\ 1.f,}
+\DoxyCodeLine{01167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ k\_depth\_slope\_ratio\ =\ 1.f,}
+\DoxyCodeLine{01168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ post\_filter\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{01169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ thermal\_talus\_ratio\ =\ 0.2f);}
+\DoxyCodeLine{01170\ }
+\DoxyCodeLine{01184\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_a687d85d20bee065ffabeecea9124f432}{water\_depth\_filter}}(Array\ \ \ \ \ \ \ \&depth,}
+\DoxyCodeLine{01185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&z,}
+\DoxyCodeLine{01186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ ir,}
+\DoxyCodeLine{01187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ *p\_water\_mask\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{01188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ smooth\_contour\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{01189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ transition\_ratio\ =\ 0.1f);}
+\DoxyCodeLine{01190\ }
+\DoxyCodeLine{01192\ Array\ \mbox{\hyperlink{namespacehmap_1_1gpu_a4b9ba3dd7bc6c093329b262fd4ca8f6c}{water\_frontier\_curvature}}(\textcolor{keyword}{const}\ Array\ \&water\_depth,}
+\DoxyCodeLine{01193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ prefilter\_ir,}
+\DoxyCodeLine{01194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ extend\_values\_from\_interface\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01195\ }
+\DoxyCodeLine{01197\ Array\ \mbox{\hyperlink{namespacehmap_1_1gpu_a703eaf095338c94f1b6589a5b8a650fe}{water\_depth\_from\_mask}}(\textcolor{keyword}{const}\ Array\ \&z,}
+\DoxyCodeLine{01198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&mask,}
+\DoxyCodeLine{01199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ mask\_threshold\ =\ 0.f,}
+\DoxyCodeLine{01200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ iterations\_max\ =\ 10000,}
+\DoxyCodeLine{01201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ tolerance\ =\ 1e-\/2f);}
+\DoxyCodeLine{01202\ }
+\DoxyCodeLine{01203\ \}\ \textcolor{comment}{//\ namespace\ hmap::gpu}}
 
 \end{DoxyCode}
