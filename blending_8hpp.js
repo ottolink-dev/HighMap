@@ -11,5 +11,6 @@ var blending_8hpp =
     [ "transfer", "blending_8hpp.html#a6786fe2ccf9bd2ceb294927c88bd898d", null ],
     [ "blend_gradients", "blending_8hpp.html#a3a43696b1d6b8f0d966f9f05e5085edf", null ],
     [ "blend_poisson_bf", "blending_8hpp.html#a65a176508b404f80e5f5abd31456712e", null ],
+    [ "blend_poisson_bf", "blending_8hpp.html#a11510c63a1d13a6107720f6e220f13de", null ],
     [ "transfer", "blending_8hpp.html#acff6d6d559781cdeba565ed795bb81d8", null ]
 ];

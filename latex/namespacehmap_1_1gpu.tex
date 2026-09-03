@@ -35,6 +35,8 @@ enum \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895f}{Lo
 \begin{DoxyCompactList}\small\item\em See \doxylink{namespacehmap_af91a60a9fcbed7e38f53df57631a5298}{hmap\+::blend\+\_\+gradients}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_1_1gpu_a65a176508b404f80e5f5abd31456712e}{blend\+\_\+poisson\+\_\+bf}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array1, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array2, const int iterations=500, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask=nullptr)
 \begin{DoxyCompactList}\small\item\em Blends two arrays using Poisson blending with a brute-\/force solver. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \mbox{\hyperlink{namespacehmap_1_1gpu_a11510c63a1d13a6107720f6e220f13de}{blend\+\_\+poisson\+\_\+bf}} (const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture1, const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture2, const int iterations=500, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask=nullptr)
+\begin{DoxyCompactList}\small\item\em Blends two textures using Poisson blending with a brute-\/force solver. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_1_1gpu_acff6d6d559781cdeba565ed795bb81d8}{transfer}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&source, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&target, int ir, float amplitude, bool target\+\_\+prefiltering=false)
 \begin{DoxyCompactList}\small\item\em See \doxylink{namespacehmap_a6786fe2ccf9bd2ceb294927c88bd898d}{hmap\+::transfer}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_1_1gpu_a0020f712944fdb63ee2894c19eaa27ca}{sparse\+\_\+max\+\_\+convolution}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&kernel, bool scale\+\_\+kernel\+\_\+with\+\_\+value=true, float k\+\_\+smoothmax=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
@@ -580,7 +582,7 @@ See \doxylink{namespacehmap_af91a60a9fcbed7e38f53df57631a5298}{hmap\+::blend\+\_
 \Hypertarget{namespacehmap_1_1gpu_a65a176508b404f80e5f5abd31456712e}\label{namespacehmap_1_1gpu_a65a176508b404f80e5f5abd31456712e} 
 \index{hmap::gpu@{hmap::gpu}!blend\_poisson\_bf@{blend\_poisson\_bf}}
 \index{blend\_poisson\_bf@{blend\_poisson\_bf}!hmap::gpu@{hmap::gpu}}
-\doxysubsubsection{\texorpdfstring{blend\_poisson\_bf()}{blend\_poisson\_bf()}}
+\doxysubsubsection{\texorpdfstring{blend\_poisson\_bf()}{blend\_poisson\_bf()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::gpu\+::blend\+\_\+poisson\+\_\+bf (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array1,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array2,  }\item[{const int}]{iterations = {\ttfamily 500},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+mask = {\ttfamily nullptr} }\end{DoxyParamCaption})}
 
 
@@ -636,7 +638,33 @@ The blended array resulting from the Poisson blending operation.
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_1_1gpu_acff6d6d559781cdeba565ed795bb81d8}\label{namespacehmap_1_1gpu_acff6d6d559781cdeba565ed795bb81d8} 
+{\bfseries{Result}}  \Hypertarget{namespacehmap_1_1gpu_a11510c63a1d13a6107720f6e220f13de}\label{namespacehmap_1_1gpu_a11510c63a1d13a6107720f6e220f13de} 
+\index{hmap::gpu@{hmap::gpu}!blend\_poisson\_bf@{blend\_poisson\_bf}}
+\index{blend\_poisson\_bf@{blend\_poisson\_bf}!hmap::gpu@{hmap::gpu}}
+\doxysubsubsection{\texorpdfstring{blend\_poisson\_bf()}{blend\_poisson\_bf()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} hmap\+::gpu\+::blend\+\_\+poisson\+\_\+bf (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture1,  }\item[{const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture2,  }\item[{const int}]{iterations = {\ttfamily 500},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+mask = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Blends two textures using Poisson blending with a brute-\/force solver. 
+
+This function performs Poisson blending between {\ttfamily texture1} and {\ttfamily texture2} channel by channel over a specified number of iterations. Optionally, a mask can be provided to control the blending regions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em texture1} & The first input texture. \\
+\hline
+{\em texture2} & The second input texture. \\
+\hline
+{\em iterations} & The number of iterations for the blending process (default\+: 500). \\
+\hline
+{\em p\+\_\+mask} & Optional pointer to an array defining the blending mask. If null, blending is applied globally. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The blended texture resulting from the Poisson blending operation. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_1_1gpu_acff6d6d559781cdeba565ed795bb81d8}\label{namespacehmap_1_1gpu_acff6d6d559781cdeba565ed795bb81d8} 
 \index{hmap::gpu@{hmap::gpu}!transfer@{transfer}}
 \index{transfer@{transfer}!hmap::gpu@{hmap::gpu}}
 \doxysubsubsection{\texorpdfstring{transfer()}{transfer()}}

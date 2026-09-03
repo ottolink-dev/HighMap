@@ -21,7 +21,7 @@ var searchData=
   ['blend_5fgradients_18',['blend_gradients',['../namespacehmap.html#af91a60a9fcbed7e38f53df57631a5298',1,'hmap::blend_gradients()'],['../namespacehmap_1_1gpu.html#a3a43696b1d6b8f0d966f9f05e5085edf',1,'hmap::gpu::blend_gradients()']]],
   ['blend_5fnegate_19',['blend_negate',['../namespacehmap.html#a183cf8de980d1886130cac97fd41bcc5',1,'hmap']]],
   ['blend_5foverlay_20',['blend_overlay',['../namespacehmap.html#a3d311d682d431e21c6d7063539a0db8e',1,'hmap']]],
-  ['blend_5fpoisson_5fbf_21',['blend_poisson_bf',['../namespacehmap_1_1gpu.html#a65a176508b404f80e5f5abd31456712e',1,'hmap::gpu']]],
+  ['blend_5fpoisson_5fbf_21',['blend_poisson_bf',['../namespacehmap_1_1gpu.html#a65a176508b404f80e5f5abd31456712e',1,'hmap::gpu::blend_poisson_bf(const Array &amp;array1, const Array &amp;array2, const int iterations=500, const Array *p_mask=nullptr)'],['../namespacehmap_1_1gpu.html#a11510c63a1d13a6107720f6e220f13de',1,'hmap::gpu::blend_poisson_bf(const Texture &amp;texture1, const Texture &amp;texture2, const int iterations=500, const Array *p_mask=nullptr)']]],
   ['blend_5fpower_5flaw_22',['blend_power_law',['../namespacehmap.html#a85fd747437fd49e0fcfb770ad5f5851e',1,'hmap::blend_power_law(const std::vector&lt; const Array * &gt; &amp;arrays, float alpha=0.f)'],['../namespacehmap.html#a01201c510915f9f10f26595c79a1220b',1,'hmap::blend_power_law(const Array &amp;array1, const Array &amp;array2, float alpha=0.f)']]],
   ['blend_5fsoft_23',['blend_soft',['../namespacehmap.html#a91e52ae1178d54931a1729a2368a31f7',1,'hmap']]],
   ['border_24',['border',['../namespacehmap.html#af80bcff234bf1482cf26896b9d21d270',1,'hmap::border()'],['../namespacehmap_1_1gpu.html#a335e4629532ba64049e0721bdcb5f3ba',1,'hmap::gpu::border()']]],
