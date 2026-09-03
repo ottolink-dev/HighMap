@@ -604,6 +604,8 @@ void \mbox{\hyperlink{namespacehmap_a7634a1bb2505ae11370c431b0b1fd9ea}{color\+\_
 \begin{DoxyCompactList}\small\item\em Compute luminance from a \doxylink{classhmap_1_1Texture}{Texture}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \mbox{\hyperlink{namespacehmap_ad5894053c042e2076fbbc7003bf69451}{mix}} (const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&tex1, const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&tex2, \mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0f}{Mix\+Method}} method=\mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9}{MM\+\_\+\+SQRT\+\_\+\+AVG}})
 \begin{DoxyCompactList}\small\item\em Mix two textures into an output texture. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \mbox{\hyperlink{namespacehmap_aba3c0883b647456926804368b2a0728e}{mix}} (const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&tex1, const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&tex2, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&mask, \mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0f}{Mix\+Method}} method=\mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9}{MM\+\_\+\+SQRT\+\_\+\+AVG}}, float \mbox{\hyperlink{namespacehmap_ab1e1b26c0c1eb51d0b256db94d6ca22e}{gain}}=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Mix two textures based on a transparency mask. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \mbox{\hyperlink{namespacehmap_a31a770d3f3a00d8cf4dd8478b5a50a17}{mix}} (const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \texorpdfstring{$\ast$}{*} $>$ \&texs, \mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0f}{Mix\+Method}} method=\mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9}{MM\+\_\+\+SQRT\+\_\+\+AVG}})
 \begin{DoxyCompactList}\small\item\em Mix a list of textures sequentially. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \mbox{\hyperlink{namespacehmap_a5421f279cef2873c17b26c610a7fd87a}{mix\+\_\+normal\+\_\+map}} (const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&nmap\+\_\+base, const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&nmap\+\_\+detail, float detail\+\_\+scaling, \mbox{\hyperlink{namespacehmap_abc952321c99ec11d60b4037e3d27db9b}{Normal\+Map\+Blending\+Method}} blending\+\_\+method)
@@ -5873,7 +5875,7 @@ Luminance \doxylink{classhmap_1_1Array}{Array}.
 \Hypertarget{namespacehmap_ad5894053c042e2076fbbc7003bf69451}\label{namespacehmap_ad5894053c042e2076fbbc7003bf69451} 
 \index{hmap@{hmap}!mix@{mix}}
 \index{mix@{mix}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{mix()}{mix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+\doxysubsubsection{\texorpdfstring{mix()}{mix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} hmap\+::mix (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{tex1,  }\item[{const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{tex2,  }\item[{\mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0f}{Mix\+Method}}}]{method = {\ttfamily \mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9}{MM\+\_\+\+SQRT\+\_\+\+AVG}}} }\end{DoxyParamCaption})}
 
 
@@ -6015,10 +6017,38 @@ Mixed \doxylink{classhmap_1_1Texture}{Texture}.
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{ex_mixbox_8cpp-example}{ex\+\_\+mixbox.\+cpp}}.\end{Desc}
+\Hypertarget{namespacehmap_aba3c0883b647456926804368b2a0728e}\label{namespacehmap_aba3c0883b647456926804368b2a0728e} 
+\index{hmap@{hmap}!mix@{mix}}
+\index{mix@{mix}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{mix()}{mix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} hmap\+::mix (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{tex1,  }\item[{const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{tex2,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{mask,  }\item[{\mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0f}{Mix\+Method}}}]{method = {\ttfamily \mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9}{MM\+\_\+\+SQRT\+\_\+\+AVG}}},  }\item[{float}]{gain = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+
+
+
+Mix two textures based on a transparency mask. 
+
+Blends {\ttfamily tex1} and {\ttfamily tex2} according to the values in {\ttfamily mask}. When mask is 0, {\ttfamily tex1} is selected; when mask is 1, {\ttfamily tex2} is selected. If {\ttfamily gain} is different from 1.\+0, a gain curve is applied to the mask beforehand.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tex1} & First input texture (background). \\
+\hline
+{\em tex2} & Second input texture (foreground). \\
+\hline
+{\em mask} & Transparency mask array with values in \mbox{[}0, 1\mbox{]}. \\
+\hline
+{\em method} & Mixing method to use (default\+: MM\+\_\+\+SQRT\+\_\+\+AVG). \\
+\hline
+{\em gain} & Gain factor applied to the mask when != 1.\+0 (default\+: 1.\+0). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Mixed \doxylink{classhmap_1_1Texture}{Texture}. 
+\end{DoxyReturn}
 \Hypertarget{namespacehmap_a31a770d3f3a00d8cf4dd8478b5a50a17}\label{namespacehmap_a31a770d3f3a00d8cf4dd8478b5a50a17} 
 \index{hmap@{hmap}!mix@{mix}}
 \index{mix@{mix}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{mix()}{mix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+\doxysubsubsection{\texorpdfstring{mix()}{mix()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} hmap\+::mix (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \texorpdfstring{$\ast$}{*} $>$ \&}]{texs,  }\item[{\mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0f}{Mix\+Method}}}]{method = {\ttfamily \mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9}{MM\+\_\+\+SQRT\+\_\+\+AVG}}} }\end{DoxyParamCaption})}
 
 
@@ -33765,7 +33795,7 @@ Computes a grayscale luminance array from the RGB channels of a virtual texture 
 \Hypertarget{namespacehmap_a14c2ff528ad95764b5b2c5330087fac4}\label{namespacehmap_a14c2ff528ad95764b5b2c5330087fac4} 
 \index{hmap@{hmap}!mix@{mix}}
 \index{mix@{mix}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{mix()}{mix()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+\doxysubsubsection{\texorpdfstring{mix()}{mix()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
 {\footnotesize\ttfamily void hmap\+::mix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1VirtualTexture}{Virtual\+Texture}} \&}]{out,  }\item[{\mbox{\hyperlink{classhmap_1_1VirtualTexture}{Virtual\+Texture}} \&}]{tex1,  }\item[{\mbox{\hyperlink{classhmap_1_1VirtualTexture}{Virtual\+Texture}} \&}]{tex2,  }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm,  }\item[{\mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0f}{Mix\+Method}}}]{method = {\ttfamily \mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9}{MM\+\_\+\+SQRT\+\_\+\+AVG}}} }\end{DoxyParamCaption})}
 
 
@@ -34001,7 +34031,7 @@ Mix two virtual textures into an output virtual texture.
  \Hypertarget{namespacehmap_aa0a65dc38f8ea42c2e9d36c6fd80cfc9}\label{namespacehmap_aa0a65dc38f8ea42c2e9d36c6fd80cfc9} 
 \index{hmap@{hmap}!mix@{mix}}
 \index{mix@{mix}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{mix()}{mix()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+\doxysubsubsection{\texorpdfstring{mix()}{mix()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
 {\footnotesize\ttfamily void hmap\+::mix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1VirtualTexture}{Virtual\+Texture}} \&}]{out,  }\item[{std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1VirtualTexture}{Virtual\+Texture}} \texorpdfstring{$\ast$}{*} $>$ \&}]{texs,  }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm,  }\item[{\mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0f}{Mix\+Method}}}]{method = {\ttfamily \mbox{\hyperlink{namespacehmap_ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9}{MM\+\_\+\+SQRT\+\_\+\+AVG}}} }\end{DoxyParamCaption})}
 
 

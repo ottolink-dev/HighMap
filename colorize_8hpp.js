@@ -26,6 +26,7 @@ var colorize_8hpp =
     [ "colorize_vec2", "colorize_8hpp.html#a5fb3aceed8d4fd9bb613218bd224159b", null ],
     [ "luminance", "colorize_8hpp.html#af57ba0aebe498d0b79b91159d7e600b5", null ],
     [ "mix", "colorize_8hpp.html#ad5894053c042e2076fbbc7003bf69451", null ],
+    [ "mix", "colorize_8hpp.html#aba3c0883b647456926804368b2a0728e", null ],
     [ "mix", "colorize_8hpp.html#a31a770d3f3a00d8cf4dd8478b5a50a17", null ],
     [ "mix_normal_map", "colorize_8hpp.html#a5421f279cef2873c17b26c610a7fd87a", null ]
 ];

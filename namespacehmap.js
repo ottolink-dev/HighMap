@@ -405,6 +405,7 @@ var namespacehmap =
     [ "colorize_vec2", "namespacehmap.html#a5fb3aceed8d4fd9bb613218bd224159b", null ],
     [ "luminance", "namespacehmap.html#af57ba0aebe498d0b79b91159d7e600b5", null ],
     [ "mix", "namespacehmap.html#ad5894053c042e2076fbbc7003bf69451", null ],
+    [ "mix", "namespacehmap.html#aba3c0883b647456926804368b2a0728e", null ],
     [ "mix", "namespacehmap.html#a31a770d3f3a00d8cf4dd8478b5a50a17", null ],
     [ "mix_normal_map", "namespacehmap.html#a5421f279cef2873c17b26c610a7fd87a", null ],
     [ "get_colormap_data", "namespacehmap.html#a2f2ca726f4e41128135e6c77120c66d8", null ],
