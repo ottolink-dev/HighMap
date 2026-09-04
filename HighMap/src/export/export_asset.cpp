@@ -198,6 +198,9 @@ void helper_build_mesh(aiMesh      *p_mesh,
     p_mesh->mVertices = new aiVector3D[n_vertices];
     p_mesh->mNumVertices = n_vertices;
 
+    p_mesh->mTextureCoords[0] = new aiVector3D[n_vertices];
+    p_mesh->mNumUVComponents[0] = 2;
+
     for (size_t k = 0; k < points.size(); k++)
     {
       p_mesh->mVertices[k] = aiVector3D(ay * points[k].y,
