@@ -950,7 +950,7 @@ var namespacehmap =
     [ "wave_sine", "namespacehmap.html#ae65e0bfdf26b7cd12731ca80d4af6b92", null ],
     [ "wave_square", "namespacehmap.html#a9c29bf793c38447f4375038546d258a6", null ],
     [ "wave_triangular", "namespacehmap.html#acbf9eb2aba9535d901c816ff33e8aa11", null ],
-    [ "caldera", "namespacehmap.html#a9ee91a0c5ac4f49f1e40aa54ab69cb2f", null ],
+    [ "caldera", "namespacehmap.html#a505897da1d63ea7e613cdde55f68de29", null ],
     [ "caldera", "namespacehmap.html#aaa2b720ef7b261b4eb2f1e89838a538e", null ],
     [ "crater", "namespacehmap.html#a2651fce70d267d4e115873dce4749ce1", null ],
     [ "island_land_mask", "namespacehmap.html#a8f68239db7ea7bdf2177e0290f4fd250", null ],

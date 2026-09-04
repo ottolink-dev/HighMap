@@ -50931,10 +50931,10 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </inbodydescription>
         <location file="HighMap/src/primitives/functions/wave.cpp" line="104" column="7" bodyfile="HighMap/src/primitives/functions/wave.cpp" bodystart="104" bodyend="133" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="838" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a9ee91a0c5ac4f49f1e40aa54ab69cb2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a505897da1d63ea7e613cdde55f68de29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::caldera</definition>
-        <argsstring>(glm::ivec2 shape, float radius, float sigma_inner, float sigma_outer, float z_bottom, const Array *p_noise, float noise_amp_r, float noise_ratio_z, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(glm::ivec2 shape, float radius, float sigma_inner, float sigma_outer, float z_bottom, const Array *p_noise, float noise_r_amp, float noise_ratio_z, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>caldera</name>
         <qualifiedname>hmap::caldera</qualifiedname>
         <param>
@@ -50963,7 +50963,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </param>
         <param>
           <type>float</type>
-          <declname>noise_amp_r</declname>
+          <declname>noise_r_amp</declname>
         </param>
         <param>
           <type>float</type>
@@ -51033,10 +51033,10 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>noise_amp_r</parametername>
+<parametername>noise_r_amp</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Radial noise absolute scale (in pixels). </para>
+<para>Radial noise amplitude. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -51072,13 +51072,13 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
 <codeline><highlight class="normal">{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>radius<sp/>=<sp/>48.f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma_inner<sp/>=<sp/>8.f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma_outer<sp/>=<sp/>32.f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>radius<sp/>=<sp/>0.2f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma_inner<sp/>=<sp/>0.03f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma_outer<sp/>=<sp/>0.12f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z_bottom<sp/>=<sp/>0.3f;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>without<sp/>noise</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z1<sp/>=<sp/><ref refid="namespacehmap_1a9ee91a0c5ac4f49f1e40aa54ab69cb2f" kindref="member">hmap::caldera</ref>(shape,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z1<sp/>=<sp/><ref refid="namespacehmap_1a505897da1d63ea7e613cdde55f68de29" kindref="member">hmap::caldera</ref>(shape,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>radius,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sigma_inner,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sigma_outer,</highlight></codeline>
@@ -51092,12 +51092,12 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noise_r_amp<sp/>=<sp/>8.f;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>pixels</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noise_r_amp<sp/>=<sp/>0.03f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noise_z_ratio<sp/>=<sp/>0.4f;<sp/></highlight><highlight class="comment">//<sp/>in<sp/>[0,<sp/>1]</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(<ref refid="namespacehmap_1a0f94056bb01fb9798ce72d3c4b1be4d2" kindref="member">noise</ref>);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z2<sp/>=<sp/><ref refid="namespacehmap_1a9ee91a0c5ac4f49f1e40aa54ab69cb2f" kindref="member">hmap::caldera</ref>(shape,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z2<sp/>=<sp/><ref refid="namespacehmap_1a505897da1d63ea7e613cdde55f68de29" kindref="member">hmap::caldera</ref>(shape,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>radius,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sigma_inner,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sigma_outer,</highlight></codeline>
@@ -51117,7 +51117,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/geo/caldera.cpp" line="14" column="7" bodyfile="HighMap/src/primitives/geo/caldera.cpp" bodystart="14" bodyend="71" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="41" declcolumn="7"/>
+        <location file="HighMap/src/primitives/geo/caldera.cpp" line="16" column="7" bodyfile="HighMap/src/primitives/geo/caldera.cpp" bodystart="16" bodyend="74" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="41" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aaa2b720ef7b261b4eb2f1e89838a538e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -51162,7 +51162,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/geo/caldera.cpp" line="73" column="7" bodyfile="HighMap/src/primitives/geo/caldera.cpp" bodystart="73" bodyend="95" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="52" declcolumn="7"/>
+        <location file="HighMap/src/primitives/geo/caldera.cpp" line="76" column="7" bodyfile="HighMap/src/primitives/geo/caldera.cpp" bodystart="76" bodyend="98" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="52" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2651fce70d267d4e115873dce4749ce1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

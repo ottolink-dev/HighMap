@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['caldera_0',['caldera',['../namespacehmap.html#a9ee91a0c5ac4f49f1e40aa54ab69cb2f',1,'hmap::caldera(glm::ivec2 shape, float radius, float sigma_inner, float sigma_outer, float z_bottom, const Array *p_noise, float noise_amp_r, float noise_ratio_z, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})'],['../namespacehmap.html#aaa2b720ef7b261b4eb2f1e89838a538e',1,'hmap::caldera(glm::ivec2 shape, float radius, float sigma_inner, float sigma_outer, float z_bottom, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})']]],
+  ['caldera_0',['caldera',['../namespacehmap.html#a505897da1d63ea7e613cdde55f68de29',1,'hmap::caldera(glm::ivec2 shape, float radius, float sigma_inner, float sigma_outer, float z_bottom, const Array *p_noise, float noise_r_amp, float noise_ratio_z, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})'],['../namespacehmap.html#aaa2b720ef7b261b4eb2f1e89838a538e',1,'hmap::caldera(glm::ivec2 shape, float radius, float sigma_inner, float sigma_outer, float z_bottom, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})']]],
   ['carve_5friverbed_1',['carve_riverbed',['../namespacehmap.html#a70e5aa1009c3de1d301e0a8994dd8b03',1,'hmap']]],
   ['catmullrom_2',['catmullrom',['../namespacehmap.html#a9b14eb25556ef745f1e606bbe8d41dcb',1,'hmap']]],
   ['ceil_5fdiv_3',['ceil_div',['../namespacehmap.html#a6294951db2b05d8b1081e4d865c11244',1,'hmap']]],

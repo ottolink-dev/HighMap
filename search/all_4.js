@@ -1,7 +1,7 @@
 var searchData=
 [
   ['c_0',['c',['../structhmap_1_1TerrainTriMesh_1_1Triangle.html#a72041b394e1504aeb471f56c86322ae6',1,'hmap::TerrainTriMesh::Triangle::c'],['../index.html',1,'HighMap library (C++)']]],
-  ['caldera_1',['caldera',['../namespacehmap.html#aaa2b720ef7b261b4eb2f1e89838a538e',1,'hmap::caldera(glm::ivec2 shape, float radius, float sigma_inner, float sigma_outer, float z_bottom, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})'],['../namespacehmap.html#a9ee91a0c5ac4f49f1e40aa54ab69cb2f',1,'hmap::caldera(glm::ivec2 shape, float radius, float sigma_inner, float sigma_outer, float z_bottom, const Array *p_noise, float noise_amp_r, float noise_ratio_z, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})']]],
+  ['caldera_1',['caldera',['../namespacehmap.html#aaa2b720ef7b261b4eb2f1e89838a538e',1,'hmap::caldera(glm::ivec2 shape, float radius, float sigma_inner, float sigma_outer, float z_bottom, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})'],['../namespacehmap.html#a505897da1d63ea7e613cdde55f68de29',1,'hmap::caldera(glm::ivec2 shape, float radius, float sigma_inner, float sigma_outer, float z_bottom, const Array *p_noise, float noise_r_amp, float noise_ratio_z, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})']]],
   ['caldera_2ecpp_2',['caldera.cpp',['../caldera_8cpp.html',1,'']]],
   ['carve_5friverbed_3',['carve_riverbed',['../namespacehmap.html#a70e5aa1009c3de1d301e0a8994dd8b03',1,'hmap']]],
   ['carve_5friverbed_2ecpp_4',['carve_riverbed.cpp',['../carve__riverbed_8cpp.html',1,'']]],
