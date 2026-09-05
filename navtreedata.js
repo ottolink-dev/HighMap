@@ -75,7 +75,8 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", "globals_dup" ],
-        [ "Functions", "globals_func.html", "globals_func" ]
+        [ "Functions", "globals_func.html", "globals_func" ],
+        [ "Variables", "globals_vars.html", null ]
       ] ]
     ] ],
     [ "Examples", "examples.html", "examples" ]
@@ -91,25 +92,25 @@ var NAVTREEINDEX =
 "classhmap_1_1NoiseFunction.html#a8f14d149f09e4278bdb9953237e4d7a9",
 "classhmap_1_1StepFunction.html",
 "classhmap_1_1VirtualTexture.html#aae1f588acc9e3d8a08fdc90bfdf3ed1f",
-"colorize__virtual__texture_8cpp.html#a973e9eeaf1bc68c61a860bcff379461b",
-"distance__functions_8hpp.html#a0ac3576b72f3669bd39a7d6ef7d60a9ba55e2391ae312d57fb9545bff594938b7",
-"filters_8cpp.html#a81647bbf7183fed5cbfc468c8fa75b62",
-"flow__accumulation__dinf_8cpp.html#a9a75c558c8576802e0661ca9cabc7475",
-"hydraulic__mcdonald__gpu_8cpp.html#a95d94b88a44f0b1c6b21a020d8779b1f",
-"kernels_8hpp.html#a4b6f135c6e81d313ca54ae1efac5f2c9abd845bef8f2959d8d9e7355aa9c44d86",
-"morphology_8hpp.html#a321149eda3417aa485a010c31267818cacf16fa7af982861a53abb15071452ab2",
-"namespacehmap.html#a2affc745bc33b7555352665745741f90ac0cd381f8918df73dd4bc6df1190d7ba",
-"namespacehmap.html#a670f50d6c08ecd639d42db9c75a5273aad250b63dea876f47d2b0dab1edf01b63",
-"namespacehmap.html#aafb76d7961d1655fdc07422982357588",
-"namespacehmap.html#add3e6744c96ed203d611ceecf65d343e",
-"namespacehmap_1_1gpu.html#a85ae9a85097c8cb2501e4502fa7d2525",
-"openmp_8hpp_source.html",
-"primitives_8cpp.html#aac2bd27e550ca991c67d8df2df6f0999",
-"selector_8hpp.html#a07420c28501484b219710bac89da8f60",
-"structhmap_1_1Recorder.html#a91405999f103db680d9c0445a5e8c807",
-"test__array__io_8cpp.html#ae5626597d88f3811165f11fe5b49657b",
-"test__path__sample__at_8cpp.html#a6afd5662057337743d299e79db3a048a",
-"transform_8hpp.html#a38f2a8c3b5122feeef5668cf907d7634"
+"colorize__virtual__texture_8cpp.html#a6f991e3bdf7c5c4bed631f2b7fb4f072",
+"distance__functions_8hpp.html#a0ac3576b72f3669bd39a7d6ef7d60a9ba4f690d97bafd042c8faf0ce2ff6bce0c",
+"filters_8cpp.html#a4e87766dc576eec73cfef1f4050f3bb3",
+"flooding_8cpp.html#add3e6744c96ed203d611ceecf65d343e",
+"highmap_8hpp.html",
+"kernels_8cpp.html#af79b0d6faf3275a80f3948dfff6adaf5",
+"morphology_8hpp.html#a1dbc83521075f7c0179c7157f292b2b2",
+"namespacehmap.html#a27518ea42feb447ad4eb83147663c24d",
+"namespacehmap.html#a64fbc0261e13ea842762efd3ac6bcc53",
+"namespacehmap.html#aab86375877f77e5c6fd396c339d8cbea",
+"namespacehmap.html#ad9d7f866e3a5140ed694e502c1db44ae",
+"namespacehmap_1_1gpu.html#a7725963a18b9fca522dec1ae74ad8c2f",
+"normal__map_8cpp.html#a8776cc91b81a545c90b2a1623f011887",
+"primitives_2random_8hpp.html#a77473fb1fbaeed58445c10a9cb6fae50",
+"selector_8cpp.html#a6c6abf2b8bd3161610e273ef97ee4771",
+"structhmap_1_1NanoflannPointCloudAdaptor.html#a7c24b8b7c69bbfe87e60a9d1a9243bea",
+"terrain__tri__mesh_8hpp_source.html",
+"test__math__histogram_8cpp.html#a5dd91fecc9b7d95e27b17e5e50b1701d",
+"tile__storage_8hpp.html#ad21b93a34c88a47d6b54f3a4d5b65e6ea3696aa48b93c260deb79c830ae605781"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

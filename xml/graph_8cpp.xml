@@ -162,7 +162,7 @@
 <codeline lineno="152"><highlight class="normal"></highlight></codeline>
 <codeline lineno="153"><highlight class="normal">Graph<sp/><ref refid="classhmap_1_1Graph_1ad3b05e01d0c31e189fa6bae4ac43de7c" kindref="member">Graph::minimum_spanning_tree_prim</ref>()</highlight></codeline>
 <codeline lineno="154"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/>std::vector&lt;int&gt;<sp/><sp/><sp/>parent(this-&gt;<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>());</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>std::vector&lt;int&gt;<sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1accb5beeabad0347d9d80378ada00759f" kindref="member">parent</ref>(this-&gt;<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>());</highlight></codeline>
 <codeline lineno="156"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>key(this-&gt;<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>());</highlight></codeline>
 <codeline lineno="157"><highlight class="normal"><sp/><sp/>std::vector&lt;bool&gt;<sp/><sp/>is_point_in_mst(this-&gt;<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>());</highlight></codeline>
 <codeline lineno="158"><highlight class="normal"></highlight></codeline>
@@ -174,7 +174,7 @@
 <codeline lineno="164"><highlight class="normal"></highlight></codeline>
 <codeline lineno="165"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>starting<sp/>point</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="166"><highlight class="normal"><sp/><sp/>key[0]<sp/>=<sp/>0.f;</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/>parent[0]<sp/>=<sp/>-1;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><ref refid="elevation__from__contours_8cpp_1accb5beeabad0347d9d80378ada00759f" kindref="member">parent</ref>[0]<sp/>=<sp/>-1;</highlight></codeline>
 <codeline lineno="168"><highlight class="normal"></highlight></codeline>
 <codeline lineno="169"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>this-&gt;<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>-<sp/>1;<sp/>i++)</highlight></codeline>
 <codeline lineno="170"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
@@ -196,7 +196,7 @@
 <codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(is_point_in_mst[p]<sp/>==<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">)<sp/>and</highlight></codeline>
 <codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(this-&gt;<ref refid="classhmap_1_1Graph_1a93e452d7229b47e83f431502a18f68da" kindref="member">adjacency_matrix</ref>[{k,<sp/>p}]<sp/>&lt;<sp/>key[p]))</highlight></codeline>
 <codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>parent[p]<sp/>=<sp/>k;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1accb5beeabad0347d9d80378ada00759f" kindref="member">parent</ref>[p]<sp/>=<sp/>k;</highlight></codeline>
 <codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>key[p]<sp/>=<sp/>this-&gt;<ref refid="classhmap_1_1Graph_1a93e452d7229b47e83f431502a18f68da" kindref="member">adjacency_matrix</ref>[{k,<sp/>p}];</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
@@ -205,7 +205,7 @@
 <codeline lineno="195"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>build<sp/>output<sp/>graph</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="196"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Graph_1a1209ddaafbb68fed3c43ec7766d8dc0a" kindref="member">Graph</ref><sp/>graph<sp/>=<sp/><ref refid="classhmap_1_1Graph_1a1209ddaafbb68fed3c43ec7766d8dc0a" kindref="member">Graph</ref>(this-&gt;<ref refid="classhmap_1_1Cloud_1aad75fb7bcfa7a2c3f139d2e3d3d6cc54" kindref="member">points</ref>);</highlight></codeline>
 <codeline lineno="197"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>this-&gt;<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>();<sp/>i++)</highlight></codeline>
-<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/>graph.add_edge({(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)i,<sp/>parent[i]});</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/>graph.add_edge({(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)i,<sp/><ref refid="elevation__from__contours_8cpp_1accb5beeabad0347d9d80378ada00759f" kindref="member">parent</ref>[i]});</highlight></codeline>
 <codeline lineno="199"><highlight class="normal"></highlight></codeline>
 <codeline lineno="200"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>graph;</highlight></codeline>
 <codeline lineno="201"><highlight class="normal">}</highlight></codeline>
@@ -335,15 +335,15 @@
 <codeline lineno="325"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="326"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="327"><highlight class="normal"></highlight></codeline>
-<codeline lineno="328"><highlight class="normal">Array<sp/>Graph::to_array_sdf(glm::ivec2<sp/>shape,</highlight></codeline>
+<codeline lineno="328"><highlight class="normal">Array<sp/>Graph::to_array_sdf(glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,</highlight></codeline>
 <codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec4<sp/><sp/>bbox,</highlight></codeline>
 <codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/>*p_noise_x,</highlight></codeline>
 <codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/>*p_noise_y,</highlight></codeline>
 <codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec4<sp/><sp/>bbox_array)</highlight></codeline>
 <codeline lineno="333"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="334"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1a2fca2d32d65e0735c277d21623d1164e" kindref="member">validate_shape</ref>(shape))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
-<codeline lineno="335"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_noise_x<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(shape,<sp/>*p_noise_x))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
-<codeline lineno="336"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_noise_y<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(shape,<sp/>*p_noise_y))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1a2fca2d32d65e0735c277d21623d1164e" kindref="member">validate_shape</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_noise_x<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>*p_noise_x))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_noise_y<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>*p_noise_y))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
 <codeline lineno="337"><highlight class="normal"></highlight></codeline>
 <codeline lineno="338"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>nodes</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="339"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>xp<sp/>=<sp/>this-&gt;get_edge_x_pairs();</highlight></codeline>
@@ -372,7 +372,7 @@
 <codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::sqrt(d);</highlight></codeline>
 <codeline lineno="363"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
 <codeline lineno="364"><highlight class="normal"></highlight></codeline>
-<codeline lineno="365"><highlight class="normal"><sp/><sp/>Array<sp/>z<sp/>=<sp/>Array(shape);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/>Array<sp/>z<sp/>=<sp/>Array(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
 <codeline lineno="366"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a54f6b9fef96254284b27ea73543abe55" kindref="member">fill_array_using_xy_function</ref>(z,</highlight></codeline>
 <codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox_array,</highlight></codeline>
 <codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
@@ -410,11 +410,11 @@
 <codeline lineno="400"><highlight class="normal"><sp/><sp/><ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>.close();</highlight></codeline>
 <codeline lineno="401"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="402"><highlight class="normal"></highlight></codeline>
-<codeline lineno="403"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Graph::to_png(std::string<sp/>fname,<sp/>glm::ivec2<sp/>shape)</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Graph::to_png(std::string<sp/>fname,<sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>)</highlight></codeline>
 <codeline lineno="404"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="405"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1a2fca2d32d65e0735c277d21623d1164e" kindref="member">validate_shape</ref>(shape))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1a2fca2d32d65e0735c277d21623d1164e" kindref="member">validate_shape</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="406"><highlight class="normal"></highlight></codeline>
-<codeline lineno="407"><highlight class="normal"><sp/><sp/>Array<sp/>array<sp/>=<sp/>Array(shape);</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/>Array<sp/>array<sp/>=<sp/>Array(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
 <codeline lineno="408"><highlight class="normal"><sp/><sp/>this-&gt;to_array(array,<sp/>this-&gt;get_bbox());</highlight></codeline>
 <codeline lineno="409"><highlight class="normal"><sp/><sp/>array.to_png(fname,<sp/>Cmap::INFERNO,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="410"><highlight class="normal">}</highlight></codeline>

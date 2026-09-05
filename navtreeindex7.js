@@ -1,5 +1,6 @@
 var NAVTREEINDEX7 =
 {
+"colorize__virtual__texture_8cpp.html#a6f991e3bdf7c5c4bed631f2b7fb4f072":[5,0,1,1,45,0,0],
 "colorize__virtual__texture_8cpp.html#a973e9eeaf1bc68c61a860bcff379461b":[5,0,1,1,45,0,2],
 "colorize__virtual__texture_8cpp.html#aa0a65dc38f8ea42c2e9d36c6fd80cfc9":[5,0,1,1,45,0,5],
 "colormaps_8hpp.html":[5,0,1,0,0,17],
@@ -248,6 +249,5 @@ var NAVTREEINDEX7 =
 "distance__functions_8cpp.html":[5,0,1,1,24,1],
 "distance__functions_8cpp.html#a4ec7654348a03f333c10c005ec8231b5":[5,0,1,1,24,1,0],
 "distance__functions_8hpp.html":[5,0,1,0,0,5,4],
-"distance__functions_8hpp.html#a0ac3576b72f3669bd39a7d6ef7d60a9b":[5,0,1,0,0,5,4,1],
-"distance__functions_8hpp.html#a0ac3576b72f3669bd39a7d6ef7d60a9ba4f690d97bafd042c8faf0ce2ff6bce0c":[5,0,1,0,0,5,4,1,0]
+"distance__functions_8hpp.html#a0ac3576b72f3669bd39a7d6ef7d60a9b":[5,0,1,0,0,5,4,1]
 };

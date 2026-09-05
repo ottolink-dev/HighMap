@@ -204,14 +204,18 @@ var menudata={children:[
 {text:"File List",url:"files.html"},
 {text:"File Members",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
-{text:"d",url:"globals.html#index_d"},
+{text:"c",url:"globals.html#index_c"},
+{text:"d",url:"globals_d.html#index_d"},
 {text:"e",url:"globals_e.html#index_e"},
 {text:"f",url:"globals_f.html#index_f"},
 {text:"g",url:"globals_g.html#index_g"},
 {text:"h",url:"globals_h.html#index_h"},
 {text:"m",url:"globals_m.html#index_m"},
+{text:"p",url:"globals_p.html#index_p"},
+{text:"r",url:"globals_r.html#index_r"},
 {text:"s",url:"globals_s.html#index_s"},
-{text:"t",url:"globals_t.html#index_t"}]},
+{text:"t",url:"globals_t.html#index_t"},
+{text:"z",url:"globals_z.html#index_z"}]},
 {text:"Functions",url:"globals_func.html",children:[
 {text:"d",url:"globals_func.html#index_d"},
 {text:"e",url:"globals_func_e.html#index_e"},
@@ -220,5 +224,6 @@ var menudata={children:[
 {text:"h",url:"globals_func_h.html#index_h"},
 {text:"m",url:"globals_func_m.html#index_m"},
 {text:"s",url:"globals_func_s.html#index_s"},
-{text:"t",url:"globals_func_t.html#index_t"}]}]}]},
+{text:"t",url:"globals_func_t.html#index_t"}]},
+{text:"Variables",url:"globals_vars.html"}]}]},
 {text:"Examples",url:"examples.html"}]}

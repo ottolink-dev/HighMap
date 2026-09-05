@@ -14,6 +14,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_connected_components.cpp", "test__connected__components_8cpp.html", "test__connected__components_8cpp" ],
     [ "test_decimate_vw.cpp", "test__decimate__vw_8cpp.html", "test__decimate__vw_8cpp" ],
     [ "test_distance_transform.cpp", "test__distance__transform_8cpp.html", "test__distance__transform_8cpp" ],
+    [ "test_elevation_from_contours.cpp", "test__elevation__from__contours_8cpp.html", "test__elevation__from__contours_8cpp" ],
     [ "test_elevation_from_sparse_constraints.cpp", "test__elevation__from__sparse__constraints_8cpp.html", "test__elevation__from__sparse__constraints_8cpp" ],
     [ "test_erosion.cpp", "test__erosion_8cpp.html", "test__erosion_8cpp" ],
     [ "test_export_asset.cpp", "test__export__asset_8cpp.html", "test__export__asset_8cpp" ],

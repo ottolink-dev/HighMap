@@ -39,7 +39,7 @@
 <codeline lineno="29"><highlight class="normal"></highlight></codeline>
 <codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>https://math.stackexchange.com/questions/3088292</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>z.shape;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>z.shape;</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
 <codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>neighbors<sp/>pattern</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;int&gt;<sp/><sp/><sp/>di<sp/>=<sp/>{-1,<sp/>0,<sp/>0,<sp/>1,<sp/>-1,<sp/>-1,<sp/>1,<sp/>1};</highlight></codeline>
@@ -52,14 +52,14 @@
 <codeline lineno="42"><highlight class="normal"><sp/><sp/>std::vector&lt;int&gt;<sp/><sp/><sp/>queue_i;</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"><sp/><sp/>std::vector&lt;int&gt;<sp/><sp/><sp/>queue_j;</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>queue_d;<sp/></highlight><highlight class="comment">//<sp/>distance</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/>queue_i.reserve(shape.x<sp/>*<sp/>shape.y);</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/>queue_j.reserve(shape.x<sp/>*<sp/>shape.y);</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/>queue_d.reserve(shape.x<sp/>*<sp/>shape.y);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>queue_i.reserve(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>*<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>queue_j.reserve(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>*<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>queue_d.reserve(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>*<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y);</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/>Mat&lt;float&gt;<sp/><ref refid="namespacehmap_1a567410971127d39a9e3c2d7b75364def" kindref="member">distance</ref>(shape);</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/>Mat&lt;int&gt;<sp/><sp/><sp/>mask(shape);</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/>Mat&lt;int&gt;<sp/><sp/><sp/>next_idx_i(shape);</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/>Mat&lt;int&gt;<sp/><sp/><sp/>next_idx_j(shape);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>Mat&lt;float&gt;<sp/><ref refid="namespacehmap_1a567410971127d39a9e3c2d7b75364def" kindref="member">distance</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>Mat&lt;int&gt;<sp/><sp/><sp/>mask(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>Mat&lt;int&gt;<sp/><sp/><sp/>next_idx_i(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>Mat&lt;int&gt;<sp/><sp/><sp/>next_idx_j(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
 <codeline lineno="53"><highlight class="normal"></highlight></codeline>
 <codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Dijkstra&apos;s<sp/>algorithm</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="55"><highlight class="normal"></highlight></codeline>
@@ -88,7 +88,7 @@
 <codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>p<sp/>=<sp/>i<sp/>+<sp/>di[k];</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>q<sp/>=<sp/>j<sp/>+<sp/>dj[k];</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((p<sp/>&gt;=<sp/>0)<sp/>and<sp/>(p<sp/>&lt;<sp/>shape.x)<sp/>and<sp/>(q<sp/>&gt;=<sp/>0)<sp/>and<sp/>(q<sp/>&lt;<sp/>shape.y))</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((p<sp/>&gt;=<sp/>0)<sp/>and<sp/>(p<sp/>&lt;<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x)<sp/>and<sp/>(q<sp/>&gt;=<sp/>0)<sp/>and<sp/>(q<sp/>&lt;<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y))</highlight></codeline>
 <codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>previous<sp/>cumulative<sp/>value</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>dist<sp/>=<sp/><ref refid="namespacehmap_1a567410971127d39a9e3c2d7b75364def" kindref="member">distance</ref>(i,<sp/>j);</highlight></codeline>

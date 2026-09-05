@@ -124,15 +124,15 @@ $(document).ready(function(){initNavTree('validation_8hpp_source.html',''); init
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespacehmap.html#a2fca2d32d65e0735c277d21623d1164e">   34</a></span>[[nodiscard]] <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacehmap.html#a2fca2d32d65e0735c277d21623d1164e">validate_shape</a>(</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    glm::ivec2                  shape,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    glm::ivec2                  <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">const</span> std::source_location &amp;loc = std::source_location::current())</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>{</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keywordflow">if</span> (shape.x &lt;= 0 || shape.y &lt;= 0)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keywordflow">if</span> (<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.x &lt;= 0 || <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.y &lt;= 0)</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  {</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_function" href="namespacehmap_1_1log.html#a2b618829e9c711302f726a3ec3f4ff49">hmap::log::warn</a>(loc,</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                    <span class="stringliteral">&quot;Invalid array shape ({}, {}): dimensions must be positive&quot;</span>,</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                    shape.x,</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                    shape.y);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.x,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.y);</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  }</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
@@ -170,8 +170,8 @@ $(document).ready(function(){initNavTree('validation_8hpp_source.html',''); init
 </div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  <span class="keyword">requires</span> <span class="keyword">requires</span>(<span class="keyword">const</span> T &amp;t) {</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    { t.empty() } -&gt; std::convertible_to&lt;bool&gt;;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  <span class="keyword">requires</span> <span class="keyword">requires</span>(<span class="keyword">const</span> T &amp;<a class="code hl_variable" href="elevation__from__contours_8cpp.html#a305c809f0e63e80705b5138b76dc0cc2">t</a>) {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    { <a class="code hl_variable" href="elevation__from__contours_8cpp.html#a305c809f0e63e80705b5138b76dc0cc2">t</a>.empty() } -&gt; std::convertible_to&lt;bool&gt;;</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>  }</div>
 <div class="foldopen" id="foldopen00099" data-start="{" data-end="}">
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="namespacehmap.html#a2e0228ee67d8c47cd32a3c9d9c6cb9d4">   99</a></span>[[nodiscard]] <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacehmap.html#ada207723c327adabe73af8554e48e5bd">validate_non_empty</a>(</div>
@@ -189,8 +189,8 @@ $(document).ready(function(){initNavTree('validation_8hpp_source.html',''); init
 </div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>  <span class="keyword">requires</span> <span class="keyword">requires</span>(<span class="keyword">const</span> T &amp;t) {</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    { t.size() } -&gt; std::convertible_to&lt;size_t&gt;;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>  <span class="keyword">requires</span> <span class="keyword">requires</span>(<span class="keyword">const</span> T &amp;<a class="code hl_variable" href="elevation__from__contours_8cpp.html#a305c809f0e63e80705b5138b76dc0cc2">t</a>) {</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    { <a class="code hl_variable" href="elevation__from__contours_8cpp.html#a305c809f0e63e80705b5138b76dc0cc2">t</a>.size() } -&gt; std::convertible_to&lt;size_t&gt;;</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>  }</div>
 <div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="namespacehmap.html#a21498251de1fa4b807aa5cbd06509fb3">  126</a></span>[[nodiscard]] <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacehmap.html#a21498251de1fa4b807aa5cbd06509fb3">validate_min_size</a>(</div>
@@ -238,19 +238,19 @@ $(document).ready(function(){initNavTree('validation_8hpp_source.html',''); init
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
 <div class="foldopen" id="foldopen00183" data-start="{" data-end="}">
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="namespacehmap.html#a69d71426d1b2c67c6a0edcb61553a5cd">  183</a></span>[[nodiscard]] <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacehmap.html#aacc13f5eefdd40efc6fc2e7ef1750c68">validate_same_shape</a>(</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    glm::ivec2                  shape,</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    glm::ivec2                  <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keyword">const</span> <a class="code hl_class" href="classhmap_1_1Array.html">Array</a>                &amp;b,</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keyword">const</span> std::source_location &amp;loc = std::source_location::current())</div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>{</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>  <span class="keywordflow">if</span> (shape != b.<a class="code hl_variable" href="classhmap_1_1Array.html#a9ee3e85888021b80660357e73f35a5ea">shape</a> ||</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>      <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(shape.x * shape.y) != b.<a class="code hl_variable" href="classhmap_1_1Array.html#af586ddce153ac93df48a6d26609d7264">vector</a>.size())</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>  <span class="keywordflow">if</span> (<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> != b.<a class="code hl_variable" href="classhmap_1_1Array.html#a9ee3e85888021b80660357e73f35a5ea">shape</a> ||</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>      <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.x * <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.y) != b.<a class="code hl_variable" href="classhmap_1_1Array.html#af586ddce153ac93df48a6d26609d7264">vector</a>.size())</div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>  {</div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <a class="code hl_function" href="namespacehmap_1_1log.html#a2b618829e9c711302f726a3ec3f4ff49">hmap::log::warn</a>(</div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        loc,</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="stringliteral">&quot;Array shape mismatch: expected shape ({}, {}), actual is ({}, {}) &quot;</span></div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="stringliteral">&quot;[size: {}]&quot;</span>,</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        shape.x,</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        shape.y,</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.x,</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.y,</div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        b.<a class="code hl_variable" href="classhmap_1_1Array.html#a9ee3e85888021b80660357e73f35a5ea">shape</a>.x,</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        b.<a class="code hl_variable" href="classhmap_1_1Array.html#a9ee3e85888021b80660357e73f35a5ea">shape</a>.y,</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        b.<a class="code hl_variable" href="classhmap_1_1Array.html#af586ddce153ac93df48a6d26609d7264">vector</a>.size());</div>
@@ -499,6 +499,8 @@ $(document).ready(function(){initNavTree('validation_8hpp_source.html',''); init
 <div class="ttc" id="aclasshmap_1_1Texture_html_aa47eecec5ca81b281c39164e5a4b562f"><div class="ttname"><a href="classhmap_1_1Texture.html#aa47eecec5ca81b281c39164e5a4b562f">hmap::Texture::channels</a></div><div class="ttdeci">std::vector&lt; Array &gt; channels</div><div class="ttdoc">Vector of planar Array channels.</div><div class="ttdef"><b>Definition</b> texture.hpp:47</div></div>
 <div class="ttc" id="aclasshmap_1_1Texture_html_ad84007785575c1d7eca558afed9785cf"><div class="ttname"><a href="classhmap_1_1Texture.html#ad84007785575c1d7eca558afed9785cf">hmap::Texture::shape</a></div><div class="ttdeci">glm::ivec2 shape</div><div class="ttdoc">Shape of the texture in 2D space (x, y).</div><div class="ttdef"><b>Definition</b> texture.hpp:42</div></div>
 <div class="ttc" id="acolormaps_8hpp_html"><div class="ttname"><a href="colormaps_8hpp.html">colormaps.hpp</a></div><div class="ttdoc">Predefined color mapping schemes for data visualization, including perceptual uniform (Viridis,...</div></div>
+<div class="ttc" id="aelevation__from__contours_8cpp_html_a305c809f0e63e80705b5138b76dc0cc2"><div class="ttname"><a href="elevation__from__contours_8cpp.html#a305c809f0e63e80705b5138b76dc0cc2">t</a></div><div class="ttdeci">std::vector&lt; float &gt; t</div><div class="ttdef"><b>Definition</b> elevation_from_contours.cpp:208</div></div>
+<div class="ttc" id="aelevation__from__contours_8cpp_html_af339e609a44f3516574ffecaf5245fa3"><div class="ttname"><a href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a></div><div class="ttdeci">glm::ivec2 shape</div><div class="ttdef"><b>Definition</b> elevation_from_contours.cpp:112</div></div>
 <div class="ttc" id="alogger_8hpp_html"><div class="ttname"><a href="logger_8hpp.html">logger.hpp</a></div><div class="ttdoc">Custom logger utility with spdlog-like formatting and source location.</div></div>
 <div class="ttc" id="anamespacehmap_1_1log_html_a2b618829e9c711302f726a3ec3f4ff49"><div class="ttname"><a href="namespacehmap_1_1log.html#a2b618829e9c711302f726a3ec3f4ff49">hmap::log::warn</a></div><div class="ttdeci">void warn(Args &amp;&amp;...args)</div><div class="ttdef"><b>Definition</b> logger.hpp:48</div></div>
 <div class="ttc" id="anamespacehmap_html"><div class="ttname"><a href="namespacehmap.html">hmap</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:23</div></div>

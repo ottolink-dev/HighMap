@@ -198,11 +198,11 @@ Public Attributes</h2></td></tr>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
-<div class="line">  glm::ivec2 shape = {256, 256};</div>
+<div class="line">  glm::ivec2 <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {256, 256};</div>
 <div class="line">  glm::vec2  res = {4.f, 4.f};</div>
 <div class="line">  <span class="keywordtype">int</span>        seed = 1;</div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z = <a class="code hl_function" href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>, shape, res, seed);</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z = <a class="code hl_function" href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>, <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, res, seed);</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordtype">int</span>                        <a class="code hl_variable" href="classhmap_1_1PyramidDecomposition.html#ac3688f38d739c9eed21b4d32b49648bc">nlevels</a> = 4;</div>
 <div class="line">  <a class="code hl_class" href="classhmap_1_1PyramidDecomposition.html">hmap::PyramidDecomposition</a> pyr = <a class="code hl_class" href="classhmap_1_1PyramidDecomposition.html">hmap::PyramidDecomposition</a>(z, <a class="code hl_variable" href="classhmap_1_1PyramidDecomposition.html#ac3688f38d739c9eed21b4d32b49648bc">nlevels</a>);</div>
@@ -238,6 +238,7 @@ Public Attributes</h2></td></tr>
 <div class="ttc" id="aclasshmap_1_1PyramidDecomposition_html_ac711ffdbd5c38eb1f028106ceed16075"><div class="ttname"><a href="classhmap_1_1PyramidDecomposition.html#ac711ffdbd5c38eb1f028106ceed16075">hmap::PyramidDecomposition::residual</a></div><div class="ttdeci">Array residual</div><div class="ttdoc">Residual field (low-pass component) a the coarsest level.</div><div class="ttdef"><b>Definition</b> pyramid.hpp:50</div></div>
 <div class="ttc" id="aclasshmap_1_1PyramidDecomposition_html_ae28c747403f67117823f3bf6ad1b931f"><div class="ttname"><a href="classhmap_1_1PyramidDecomposition.html#ae28c747403f67117823f3bf6ad1b931f">hmap::PyramidDecomposition::components</a></div><div class="ttdeci">std::vector&lt; Array &gt; components</div><div class="ttdoc">High-pass component for each level.</div><div class="ttdef"><b>Definition</b> pyramid.hpp:55</div></div>
 <div class="ttc" id="aclasshmap_1_1PyramidDecomposition_html_aefa4ee30147d004b1398e4dca1edb637"><div class="ttname"><a href="classhmap_1_1PyramidDecomposition.html#aefa4ee30147d004b1398e4dca1edb637">hmap::PyramidDecomposition::to_png</a></div><div class="ttdeci">void to_png(std::string fname, int cmap, bool hillshading=false)</div><div class="ttdoc">Export pyramid as png image file.</div><div class="ttdef"><b>Definition</b> pyramid_decomposition.cpp:113</div></div>
+<div class="ttc" id="aelevation__from__contours_8cpp_html_af339e609a44f3516574ffecaf5245fa3"><div class="ttname"><a href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a></div><div class="ttdeci">glm::ivec2 shape</div><div class="ttdef"><b>Definition</b> elevation_from_contours.cpp:112</div></div>
 <div class="ttc" id="ahighmap_8hpp_html"><div class="ttname"><a href="highmap_8hpp.html">highmap.hpp</a></div></div>
 <div class="ttc" id="amain_8cpp_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition</b> main.cpp:12</div></div>
 <div class="ttc" id="anamespacehmap_html_a7d699a468a18be16c70654958ee13b41"><div class="ttname"><a href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a></div><div class="ttdeci">Array noise_fbm(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:45</div></div>
@@ -396,12 +397,12 @@ Public Attributes</h2></td></tr>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
-<div class="line">  glm::ivec2 shape = {256, 256};</div>
-<div class="line">  shape = {512, 512};</div>
+<div class="line">  glm::ivec2 <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {256, 256};</div>
+<div class="line">  <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {512, 512};</div>
 <div class="line">  glm::vec2 res = {4.f, 4.f};</div>
 <div class="line">  <span class="keywordtype">int</span>       seed = 1;</div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z = <a class="code hl_function" href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>, shape, res, seed);</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z = <a class="code hl_function" href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>, <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, res, seed);</div>
 <div class="line">  <a class="code hl_function" href="namespacehmap.html#a262e6495cb2d02598f36a2b46114b2b4">hmap::remap</a>(z);</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordtype">int</span>                        <a class="code hl_variable" href="classhmap_1_1PyramidDecomposition.html#ac3688f38d739c9eed21b4d32b49648bc">nlevels</a> = 4;</div>

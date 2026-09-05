@@ -21,15 +21,15 @@
 \DoxyCodeLine{00025\ \{}
 \DoxyCodeLine{00026\ }
 \DoxyCodeLine{00034\ [[nodiscard]]\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacehmap_a2fca2d32d65e0735c277d21623d1164e}{validate\_shape}}(}
-\DoxyCodeLine{00035\ \ \ \ \ glm::ivec2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape,}
+\DoxyCodeLine{00035\ \ \ \ \ glm::ivec2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},}
 \DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{const}\ std::source\_location\ \&loc\ =\ std::source\_location::current())}
 \DoxyCodeLine{00037\ \{}
-\DoxyCodeLine{00038\ \ \ \textcolor{keywordflow}{if}\ (shape.x\ <=\ 0\ ||\ shape.y\ <=\ 0)}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x\ <=\ 0\ ||\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.y\ <=\ 0)}
 \DoxyCodeLine{00039\ \ \ \{}
 \DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1log_a2b618829e9c711302f726a3ec3f4ff49}{hmap::log::warn}}(loc,}
 \DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Invalid\ array\ shape\ (\{\},\ \{\}):\ dimensions\ must\ be\ positive"{}},}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape.x,}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape.y);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.y);}
 \DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
 \DoxyCodeLine{00045\ \ \ \}}
 \DoxyCodeLine{00046\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
@@ -64,8 +64,8 @@
 \DoxyCodeLine{00084\ \}}
 \DoxyCodeLine{00085\ }
 \DoxyCodeLine{00095\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{requires}\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ T\ \&t)\ \{}
-\DoxyCodeLine{00097\ \ \ \ \ \{\ t.empty()\ \}\ -\/>\ std::convertible\_to<bool>;}
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{requires}\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ T\ \&\mbox{\hyperlink{elevation__from__contours_8cpp_a305c809f0e63e80705b5138b76dc0cc2}{t}})\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \{\ \mbox{\hyperlink{elevation__from__contours_8cpp_a305c809f0e63e80705b5138b76dc0cc2}{t}}.empty()\ \}\ -\/>\ std::convertible\_to<bool>;}
 \DoxyCodeLine{00098\ \ \ \}}
 \DoxyCodeLine{00099\ [[nodiscard]]\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacehmap_ada207723c327adabe73af8554e48e5bd}{validate\_non\_empty}}(}
 \DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{const}\ T\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&container,}
@@ -81,8 +81,8 @@
 \DoxyCodeLine{00110\ \}}
 \DoxyCodeLine{00111\ }
 \DoxyCodeLine{00122\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{requires}\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ T\ \&t)\ \{}
-\DoxyCodeLine{00124\ \ \ \ \ \{\ t.size()\ \}\ -\/>\ std::convertible\_to<size\_t>;}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{requires}\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ T\ \&\mbox{\hyperlink{elevation__from__contours_8cpp_a305c809f0e63e80705b5138b76dc0cc2}{t}})\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \{\ \mbox{\hyperlink{elevation__from__contours_8cpp_a305c809f0e63e80705b5138b76dc0cc2}{t}}.size()\ \}\ -\/>\ std::convertible\_to<size\_t>;}
 \DoxyCodeLine{00125\ \ \ \}}
 \DoxyCodeLine{00126\ [[nodiscard]]\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacehmap_a21498251de1fa4b807aa5cbd06509fb3}{validate\_min\_size}}(}
 \DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{const}\ T\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&container,}
@@ -125,19 +125,19 @@
 \DoxyCodeLine{00172\ \}}
 \DoxyCodeLine{00173\ }
 \DoxyCodeLine{00183\ [[nodiscard]]\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacehmap_aacc13f5eefdd40efc6fc2e7ef1750c68}{validate\_same\_shape}}(}
-\DoxyCodeLine{00184\ \ \ \ \ glm::ivec2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape,}
+\DoxyCodeLine{00184\ \ \ \ \ glm::ivec2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},}
 \DoxyCodeLine{00185\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&b,}
 \DoxyCodeLine{00186\ \ \ \ \ \textcolor{keyword}{const}\ std::source\_location\ \&loc\ =\ std::source\_location::current())}
 \DoxyCodeLine{00187\ \{}
-\DoxyCodeLine{00188\ \ \ \textcolor{keywordflow}{if}\ (shape\ !=\ b.\mbox{\hyperlink{classhmap_1_1Array_a9ee3e85888021b80660357e73f35a5ea}{shape}}\ ||}
-\DoxyCodeLine{00189\ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(shape.x\ *\ shape.y)\ !=\ b.\mbox{\hyperlink{classhmap_1_1Array_af586ddce153ac93df48a6d26609d7264}{vector}}.size())}
+\DoxyCodeLine{00188\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ !=\ b.\mbox{\hyperlink{classhmap_1_1Array_a9ee3e85888021b80660357e73f35a5ea}{shape}}\ ||}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x\ *\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.y)\ !=\ b.\mbox{\hyperlink{classhmap_1_1Array_af586ddce153ac93df48a6d26609d7264}{vector}}.size())}
 \DoxyCodeLine{00190\ \ \ \{}
 \DoxyCodeLine{00191\ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1log_a2b618829e9c711302f726a3ec3f4ff49}{hmap::log::warn}}(}
 \DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ loc,}
 \DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Array\ shape\ mismatch:\ expected\ shape\ (\{\},\ \{\}),\ actual\ is\ (\{\},\ \{\})\ "{}}}
 \DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}[size:\ \{\}]"{}},}
-\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ shape.x,}
-\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ shape.y,}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x,}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.y,}
 \DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ b.\mbox{\hyperlink{classhmap_1_1Array_a9ee3e85888021b80660357e73f35a5ea}{shape}}.x,}
 \DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ b.\mbox{\hyperlink{classhmap_1_1Array_a9ee3e85888021b80660357e73f35a5ea}{shape}}.y,}
 \DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ b.\mbox{\hyperlink{classhmap_1_1Array_af586ddce153ac93df48a6d26609d7264}{vector}}.size());}

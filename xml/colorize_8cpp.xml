@@ -142,10 +142,10 @@
 <codeline lineno="132"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>apply_colormap<sp/>=<sp/>[&amp;](</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>value)<sp/>-&gt;<sp/>glm::vec3</highlight></codeline>
 <codeline lineno="133"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
 <codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>q<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(value);</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>t<sp/>=<sp/>value<sp/>-<sp/>q;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref><sp/>=<sp/>value<sp/>-<sp/>q;</highlight></codeline>
 <codeline lineno="136"><highlight class="normal"></highlight></codeline>
 <codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(q<sp/>&lt;<sp/>nc<sp/>-<sp/>1)</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(1.f<sp/>-<sp/>t)<sp/>*<sp/>colormap_colors[q]<sp/>+<sp/>t<sp/>*<sp/>colormap_colors[q<sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(1.f<sp/>-<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>)<sp/>*<sp/>colormap_colors[q]<sp/>+<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref><sp/>*<sp/>colormap_colors[q<sp/>+<sp/>1];</highlight></codeline>
 <codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>colormap_colors[q];</highlight></codeline>
 <codeline lineno="141"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
@@ -290,8 +290,8 @@
 <codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Texture();</highlight></codeline>
 <codeline lineno="281"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="282"><highlight class="normal"></highlight></codeline>
-<codeline lineno="283"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>a1.shape;</highlight></codeline>
-<codeline lineno="284"><highlight class="normal"><sp/><sp/>Texture<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>color3(shape,<sp/>3);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>a1.shape;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/>Texture<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>color3(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>3);</highlight></codeline>
 <codeline lineno="285"><highlight class="normal"></highlight></codeline>
 <codeline lineno="286"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Colormap<sp/>preparation</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="287"><highlight class="normal"></highlight></codeline>
@@ -380,9 +380,9 @@
 <codeline lineno="370"><highlight class="normal"></highlight></codeline>
 <codeline lineno="371"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Apply<sp/>colormaps<sp/>and<sp/>mix</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="372"><highlight class="normal"></highlight></codeline>
-<codeline lineno="373"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>shape.y;<sp/>++j)</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y;<sp/>++j)</highlight></codeline>
 <codeline lineno="374"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>shape.x;<sp/>++i)</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x;<sp/>++i)</highlight></codeline>
 <codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>v1<sp/>=<sp/>a1(i,<sp/>j);</highlight></codeline>
 <codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>v2<sp/>=<sp/>a2(i,<sp/>j);</highlight></codeline>
@@ -447,7 +447,7 @@
 <codeline lineno="437"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!hist.empty())<sp/>hmax<sp/>=<sp/>*std::max_element(hist.begin(),<sp/>hist.end());</highlight></codeline>
 <codeline lineno="438"><highlight class="normal"></highlight></codeline>
 <codeline lineno="439"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;v<sp/>:<sp/>hist)</highlight></codeline>
-<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/>v<sp/>=<sp/>(int)((float)v<sp/>/<sp/>(float)hmax<sp/>*<sp/>(float)(array.shape.y<sp/>-<sp/>1));</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/>v<sp/>=<sp/>(int)((float)v<sp/>/<sp/>(float)hmax<sp/>*<sp/>(float)(array.<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y<sp/>-<sp/>1));</highlight></codeline>
 <codeline lineno="441"><highlight class="normal"></highlight></codeline>
 <codeline lineno="442"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>create<sp/>histogram<sp/>image</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="443"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>array.shape.y;<sp/>j++)</highlight></codeline>
@@ -570,7 +570,7 @@
 <codeline lineno="560"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;a1<sp/>=<sp/>tex1[3];</highlight></codeline>
 <codeline lineno="561"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;a2<sp/>=<sp/>tex2[3];</highlight></codeline>
 <codeline lineno="562"><highlight class="normal"></highlight></codeline>
-<codeline lineno="563"><highlight class="normal"><sp/><sp/>Array<sp/>t<sp/>=<sp/>a2<sp/>/<sp/>(a2<sp/>+<sp/>a1<sp/>*<sp/>(1.f<sp/>-<sp/>a2));</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/>Array<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref><sp/>=<sp/>a2<sp/>/<sp/>(a2<sp/>+<sp/>a1<sp/>*<sp/>(1.f<sp/>-<sp/>a2));</highlight></codeline>
 <codeline lineno="564"><highlight class="normal"></highlight></codeline>
 <codeline lineno="565"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(method<sp/>==<sp/><ref refid="namespacehmap_1ad3b2ee0d951dd1116cc489ab96600c0fa1f0467ead0c69d25b41b6838f330902e" kindref="member">MM_MIXBOX</ref>)</highlight></codeline>
 <codeline lineno="566"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
@@ -590,7 +590,7 @@
 <codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>g2<sp/>=<sp/>tex2[1].vector[idx];</highlight></codeline>
 <codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>b2<sp/>=<sp/>tex2[2].vector[idx];</highlight></codeline>
 <codeline lineno="582"><highlight class="normal"></highlight></codeline>
-<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ratio<sp/>=<sp/>t.vector[idx];</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ratio<sp/>=<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>.vector[idx];</highlight></codeline>
 <codeline lineno="584"><highlight class="normal"></highlight></codeline>
 <codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r,<sp/>g,<sp/>b;</highlight></codeline>
 <codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>mixbox_lerp_float(r1,<sp/>g1,<sp/>b1,<sp/>r2,<sp/>g2,<sp/>b2,<sp/>ratio,<sp/>&amp;r,<sp/>&amp;g,<sp/>&amp;b);</highlight></codeline>
@@ -606,13 +606,13 @@
 <codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(method<sp/>==<sp/><ref refid="namespacehmap_1ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9" kindref="member">MM_SQRT_AVG</ref>)</highlight></codeline>
 <codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out[nch]<sp/>=<sp/><ref refid="namespacehmap_1a105e497c433e14b4235534ae6d2b87b9" kindref="member">pow</ref>((1.f<sp/>-<sp/>t)<sp/>*<sp/>tex1[nch]<sp/>*<sp/>tex1[nch]<sp/>+</highlight></codeline>
-<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t<sp/>*<sp/>tex2[nch]<sp/>*<sp/>tex2[nch],</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out[nch]<sp/>=<sp/><ref refid="namespacehmap_1a105e497c433e14b4235534ae6d2b87b9" kindref="member">pow</ref>((1.f<sp/>-<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>)<sp/>*<sp/>tex1[nch]<sp/>*<sp/>tex1[nch]<sp/>+</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref><sp/>*<sp/>tex2[nch]<sp/>*<sp/>tex2[nch],</highlight></codeline>
 <codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.5f);</highlight></codeline>
 <codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out[nch]<sp/>=<sp/><ref refid="namespacehmap_1ac14815cf025b7430d31d08125a5c6f0d" kindref="member">lerp</ref>(tex1[nch],<sp/>tex2[nch],<sp/>t);</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out[nch]<sp/>=<sp/><ref refid="namespacehmap_1ac14815cf025b7430d31d08125a5c6f0d" kindref="member">lerp</ref>(tex1[nch],<sp/>tex2[nch],<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>);</highlight></codeline>
 <codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="608"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
@@ -636,10 +636,10 @@
 <codeline lineno="626"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>num_channels<sp/>=<sp/>std::min(tex1.num_channels(),<sp/>tex2.num_channels());</highlight></codeline>
 <codeline lineno="627"><highlight class="normal"><sp/><sp/>Texture<sp/>out(tex1.shape,<sp/>num_channels);</highlight></codeline>
 <codeline lineno="628"><highlight class="normal"></highlight></codeline>
-<codeline lineno="629"><highlight class="normal"><sp/><sp/>Array<sp/>t<sp/>=<sp/>mask;</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/>Array<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref><sp/>=<sp/>mask;</highlight></codeline>
 <codeline lineno="630"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(gain_factor<sp/>!=<sp/>1.f)</highlight></codeline>
 <codeline lineno="631"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab1e1b26c0c1eb51d0b256db94d6ca22e" kindref="member">gain</ref>(t,<sp/>gain_factor);</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab1e1b26c0c1eb51d0b256db94d6ca22e" kindref="member">gain</ref>(<ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>,<sp/>gain_factor);</highlight></codeline>
 <codeline lineno="633"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="634"><highlight class="normal"></highlight></codeline>
 <codeline lineno="635"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(method<sp/>==<sp/><ref refid="namespacehmap_1ad3b2ee0d951dd1116cc489ab96600c0fa1f0467ead0c69d25b41b6838f330902e" kindref="member">MM_MIXBOX</ref>)</highlight></codeline>
@@ -660,7 +660,7 @@
 <codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>g2<sp/>=<sp/>tex2[1].vector[idx];</highlight></codeline>
 <codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>b2<sp/>=<sp/>tex2[2].vector[idx];</highlight></codeline>
 <codeline lineno="652"><highlight class="normal"></highlight></codeline>
-<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ratio<sp/>=<sp/>t.vector[idx];</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ratio<sp/>=<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>.vector[idx];</highlight></codeline>
 <codeline lineno="654"><highlight class="normal"></highlight></codeline>
 <codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r,<sp/>g,<sp/>b;</highlight></codeline>
 <codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>mixbox_lerp_float(r1,<sp/>g1,<sp/>b1,<sp/>r2,<sp/>g2,<sp/>b2,<sp/>ratio,<sp/>&amp;r,<sp/>&amp;g,<sp/>&amp;b);</highlight></codeline>
@@ -676,20 +676,20 @@
 <codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(method<sp/>==<sp/><ref refid="namespacehmap_1ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9" kindref="member">MM_SQRT_AVG</ref>)</highlight></codeline>
 <codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out[nch]<sp/>=<sp/><ref refid="namespacehmap_1a105e497c433e14b4235534ae6d2b87b9" kindref="member">pow</ref>((1.f<sp/>-<sp/>t)<sp/>*<sp/>tex1[nch]<sp/>*<sp/>tex1[nch]<sp/>+</highlight></codeline>
-<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t<sp/>*<sp/>tex2[nch]<sp/>*<sp/>tex2[nch],</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out[nch]<sp/>=<sp/><ref refid="namespacehmap_1a105e497c433e14b4235534ae6d2b87b9" kindref="member">pow</ref>((1.f<sp/>-<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>)<sp/>*<sp/>tex1[nch]<sp/>*<sp/>tex1[nch]<sp/>+</highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref><sp/>*<sp/>tex2[nch]<sp/>*<sp/>tex2[nch],</highlight></codeline>
 <codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.5f);</highlight></codeline>
 <codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out[nch]<sp/>=<sp/><ref refid="namespacehmap_1ac14815cf025b7430d31d08125a5c6f0d" kindref="member">lerp</ref>(tex1[nch],<sp/>tex2[nch],<sp/>t);</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out[nch]<sp/>=<sp/><ref refid="namespacehmap_1ac14815cf025b7430d31d08125a5c6f0d" kindref="member">lerp</ref>(tex1[nch],<sp/>tex2[nch],<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>);</highlight></codeline>
 <codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="678"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="679"><highlight class="normal"></highlight></codeline>
 <codeline lineno="680"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nch<sp/>=<sp/>3;<sp/>nch<sp/>&lt;<sp/>num_channels;<sp/>++nch)</highlight></codeline>
 <codeline lineno="681"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/>out[nch]<sp/>=<sp/><ref refid="namespacehmap_1ac14815cf025b7430d31d08125a5c6f0d" kindref="member">lerp</ref>(tex1[nch],<sp/>tex2[nch],<sp/>t);</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/>out[nch]<sp/>=<sp/><ref refid="namespacehmap_1ac14815cf025b7430d31d08125a5c6f0d" kindref="member">lerp</ref>(tex1[nch],<sp/>tex2[nch],<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>);</highlight></codeline>
 <codeline lineno="683"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="684"><highlight class="normal"></highlight></codeline>
 <codeline lineno="685"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>out;</highlight></codeline>
@@ -698,14 +698,14 @@
 <codeline lineno="688"><highlight class="normal">Texture<sp/><ref refid="namespacehmap_1ad5894053c042e2076fbbc7003bf69451" kindref="member">mix</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;const<sp/>Texture<sp/>*&gt;<sp/>&amp;texs,<sp/><ref refid="namespacehmap_1ad3b2ee0d951dd1116cc489ab96600c0f" kindref="member">MixMethod</ref><sp/>method)</highlight></codeline>
 <codeline lineno="689"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="690"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(texs,<sp/></highlight><highlight class="stringliteral">&quot;Texture<sp/>list&quot;</highlight><highlight class="normal">))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Texture();</highlight></codeline>
-<codeline lineno="691"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>*t<sp/>:<sp/>texs)</highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>*<ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref><sp/>:<sp/>texs)</highlight></codeline>
 <codeline lineno="692"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!t)</highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>)</highlight></codeline>
 <codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1log_1a2b618829e9c711302f726a3ec3f4ff49" kindref="member">hmap::log::warn</ref>(</highlight><highlight class="stringliteral">&quot;Null<sp/>texture<sp/>pointer<sp/>encountered<sp/>in<sp/>mix&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Texture();</highlight></codeline>
 <codeline lineno="697"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(*t,<sp/>4)<sp/>||<sp/>!<ref refid="namespacehmap_1a85c3e76e26be5025a669c8d8e7742dd9" kindref="member">validate_channels</ref>(*t,<sp/>4))</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(*<ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>,<sp/>4)<sp/>||<sp/>!<ref refid="namespacehmap_1a85c3e76e26be5025a669c8d8e7742dd9" kindref="member">validate_channels</ref>(*<ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>,<sp/>4))</highlight></codeline>
 <codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Texture();</highlight></codeline>
 <codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>

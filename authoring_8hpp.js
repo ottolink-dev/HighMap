@@ -12,6 +12,7 @@ var authoring_8hpp =
     [ "alter_elevation", "authoring_8hpp.html#a6123c18788ae302332416d5d7585fd9f", null ],
     [ "base_elevation", "authoring_8hpp.html#ad0679d167a3129dc403e3ca7082579f8", null ],
     [ "elevation_from_sparse_constraints", "authoring_8hpp.html#a77df59a73e83bc371eceae7793c690dc", null ],
+    [ "elevation_from_contours", "authoring_8hpp.html#a78736b79e58ddaad2b196e7cc9bbe37b", null ],
     [ "reverse_midpoint", "authoring_8hpp.html#a6f7e6e0cffaf7d03cfe1eef62b1c3575", null ],
     [ "ridgelines", "authoring_8hpp.html#a74f6ef0464e0ec67df5179f49e14e35a", null ],
     [ "ridgelines_bezier", "authoring_8hpp.html#a4e7db58b8b58def3b862476f18b6005e", null ],

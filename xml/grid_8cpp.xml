@@ -120,19 +120,19 @@
 <codeline lineno="110"><highlight class="normal"></highlight></codeline>
 <codeline lineno="111"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1abae56b1864390cd2f2f03acc442b423a" kindref="member">grid_xy_vector</ref>(std::vector&lt;float&gt;<sp/>&amp;x,</highlight></codeline>
 <codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>&amp;y,</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,</highlight></codeline>
 <codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox,</highlight></codeline>
 <codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endpoint)</highlight></codeline>
 <codeline lineno="116"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1a2fca2d32d65e0735c277d21623d1164e" kindref="member">validate_shape</ref>(shape))</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1a2fca2d32d65e0735c277d21623d1164e" kindref="member">validate_shape</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>))</highlight></codeline>
 <codeline lineno="118"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>x.clear();</highlight></codeline>
 <codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>y.clear();</highlight></codeline>
 <codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="122"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="123"><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/>x<sp/>=<sp/><ref refid="namespacehmap_1a3957ac4ae673f8ad402b5dd71e99b015" kindref="member">linspace</ref>(bbox.x,<sp/>bbox.y,<sp/>shape.x,<sp/>endpoint);</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/>y<sp/>=<sp/><ref refid="namespacehmap_1a3957ac4ae673f8ad402b5dd71e99b015" kindref="member">linspace</ref>(bbox.z,<sp/>bbox.w,<sp/>shape.y,<sp/>endpoint);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/>x<sp/>=<sp/><ref refid="namespacehmap_1a3957ac4ae673f8ad402b5dd71e99b015" kindref="member">linspace</ref>(bbox.x,<sp/>bbox.y,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x,<sp/>endpoint);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/>y<sp/>=<sp/><ref refid="namespacehmap_1a3957ac4ae673f8ad402b5dd71e99b015" kindref="member">linspace</ref>(bbox.z,<sp/>bbox.w,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y,<sp/>endpoint);</highlight></codeline>
 <codeline lineno="126"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="127"><highlight class="normal"></highlight></codeline>
 <codeline lineno="128"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1aa9061db538c0b776f46d7088bbcdc289" kindref="member">rescale_grid_from_unit_square_to_bbox</ref>(std::vector&lt;float&gt;<sp/>&amp;x,</highlight></codeline>
@@ -144,14 +144,14 @@
 <codeline lineno="134"><highlight class="normal"></highlight></codeline>
 <codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>nx;<sp/>++i)</highlight></codeline>
 <codeline lineno="136"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>t<sp/>=<sp/>(float)i<sp/>/<sp/>((</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)nx<sp/>-<sp/>1.f);</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>x[i]<sp/>=<sp/>bbox.x<sp/>+<sp/>(bbox.y<sp/>-<sp/>bbox.x)<sp/>*<sp/>t;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref><sp/>=<sp/>(float)i<sp/>/<sp/>((</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)nx<sp/>-<sp/>1.f);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>x[i]<sp/>=<sp/>bbox.x<sp/>+<sp/>(bbox.y<sp/>-<sp/>bbox.x)<sp/>*<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>;</highlight></codeline>
 <codeline lineno="139"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="140"><highlight class="normal"></highlight></codeline>
 <codeline lineno="141"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>ny;<sp/>++j)</highlight></codeline>
 <codeline lineno="142"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>t<sp/>=<sp/>(float)j<sp/>/<sp/>((</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)ny<sp/>-<sp/>1.f);</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>y[j]<sp/>=<sp/>bbox.z<sp/>+<sp/>(bbox.w<sp/>-<sp/>bbox.z)<sp/>*<sp/>t;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref><sp/>=<sp/>(float)j<sp/>/<sp/>((</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)ny<sp/>-<sp/>1.f);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>y[j]<sp/>=<sp/>bbox.z<sp/>+<sp/>(bbox.w<sp/>-<sp/>bbox.z)<sp/>*<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>;</highlight></codeline>
 <codeline lineno="145"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="146"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="147"><highlight class="normal"></highlight></codeline>

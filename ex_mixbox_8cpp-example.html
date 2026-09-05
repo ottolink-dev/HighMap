@@ -116,7 +116,7 @@ Mixbox Blending</div></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> <a id="a0" name="a0"></a><a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
-<div class="line">  <span class="keyword">const</span> glm::ivec2 shape = {512, 128};</div>
+<div class="line">  <span class="keyword">const</span> glm::ivec2 <a id="a1" name="a1"></a><a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {512, 128};</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Define two classic pigment colors: Ultramarine Blue and Cadmium Yellow</span></div>
 <div class="line">  <span class="comment">// Ultramarine Blue: RGB (25, 0, 89) -&gt; normalized: (0.098f, 0.0f, 0.349f)</span></div>
@@ -125,42 +125,42 @@ Mixbox Blending</div></div>
 <div class="line">  <span class="keyword">const</span> glm::vec3 yellow(0.996f, 0.925f, 0.0f);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Create base texture 1 (Blue) with 100% opacity</span></div>
-<div class="line">  <a id="_a1" name="_a1"></a><a class="code hl_class" href="classhmap_1_1Texture.html">hmap::Texture</a> tex1(shape, 4);</div>
-<div class="line">  tex1[0] = <a id="_a2" name="_a2"></a><a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(shape, blue.x);</div>
-<div class="line">  tex1[1] = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(shape, blue.y);</div>
-<div class="line">  tex1[2] = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(shape, blue.z);</div>
-<div class="line">  tex1[3] = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(shape, 1.0f);</div>
+<div class="line">  <a id="_a2" name="_a2"></a><a class="code hl_class" href="classhmap_1_1Texture.html">hmap::Texture</a> tex1(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, 4);</div>
+<div class="line">  tex1[0] = <a id="_a3" name="_a3"></a><a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, blue.x);</div>
+<div class="line">  tex1[1] = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, blue.y);</div>
+<div class="line">  tex1[2] = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, blue.z);</div>
+<div class="line">  tex1[3] = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, 1.0f);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Create base texture 2 (Yellow) with a horizontal gradient in the alpha</span></div>
 <div class="line">  <span class="comment">// channel</span></div>
-<div class="line">  <a class="code hl_class" href="classhmap_1_1Texture.html">hmap::Texture</a> tex2(shape, 4);</div>
-<div class="line">  tex2[0] = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(shape, yellow.x);</div>
-<div class="line">  tex2[1] = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(shape, yellow.y);</div>
-<div class="line">  tex2[2] = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(shape, yellow.z);</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Texture.html">hmap::Texture</a> tex2(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, 4);</div>
+<div class="line">  tex2[0] = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, yellow.x);</div>
+<div class="line">  tex2[1] = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, yellow.y);</div>
+<div class="line">  tex2[2] = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, yellow.z);</div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> alpha(shape);</div>
-<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; shape.y; ++j)</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> alpha(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>);</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.y; ++j)</div>
 <div class="line">  {</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; shape.x; ++i)</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.x; ++i)</div>
 <div class="line">    {</div>
-<div class="line">      alpha(i, j) = float(i) / float(shape.x - 1);</div>
+<div class="line">      alpha(i, j) = float(i) / float(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.x - 1);</div>
 <div class="line">    }</div>
 <div class="line">  }</div>
 <div class="line">  tex2[3] = alpha;</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Mix using the three different methods</span></div>
-<div class="line">  <a class="code hl_class" href="classhmap_1_1Texture.html">hmap::Texture</a> blended_linear = <a id="a3" name="a3"></a><a class="code hl_function" href="namespacehmap.html#ad5894053c042e2076fbbc7003bf69451">hmap::mix</a>(tex1,</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Texture.html">hmap::Texture</a> blended_linear = <a id="a4" name="a4"></a><a class="code hl_function" href="namespacehmap.html#ad5894053c042e2076fbbc7003bf69451">hmap::mix</a>(tex1,</div>
 <div class="line">                                           tex2,</div>
-<div class="line">                                           <a id="a4" name="a4"></a><a class="code hl_enumvalue" href="namespacehmap.html#ad3b2ee0d951dd1116cc489ab96600c0fadb442265791dc4c41e19aa2d350bd15d">hmap::MixMethod::MM_LINEAR</a>);</div>
+<div class="line">                                           <a id="a5" name="a5"></a><a class="code hl_enumvalue" href="namespacehmap.html#ad3b2ee0d951dd1116cc489ab96600c0fadb442265791dc4c41e19aa2d350bd15d">hmap::MixMethod::MM_LINEAR</a>);</div>
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Texture.html">hmap::Texture</a> blended_sqrt = <a class="code hl_function" href="namespacehmap.html#ad5894053c042e2076fbbc7003bf69451">hmap::mix</a>(tex1,</div>
 <div class="line">                                         tex2,</div>
-<div class="line">                                         <a id="a5" name="a5"></a><a class="code hl_enumvalue" href="namespacehmap.html#ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9">hmap::MixMethod::MM_SQRT_AVG</a>);</div>
+<div class="line">                                         <a id="a6" name="a6"></a><a class="code hl_enumvalue" href="namespacehmap.html#ad3b2ee0d951dd1116cc489ab96600c0fa87c04d9fc25c1a1408df6899b50a96b9">hmap::MixMethod::MM_SQRT_AVG</a>);</div>
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Texture.html">hmap::Texture</a> blended_mixbox = <a class="code hl_function" href="namespacehmap.html#ad5894053c042e2076fbbc7003bf69451">hmap::mix</a>(tex1,</div>
 <div class="line">                                           tex2,</div>
-<div class="line">                                           <a id="a6" name="a6"></a><a class="code hl_enumvalue" href="namespacehmap.html#ad3b2ee0d951dd1116cc489ab96600c0fa1f0467ead0c69d25b41b6838f330902e">hmap::MixMethod::MM_MIXBOX</a>);</div>
+<div class="line">                                           <a id="a7" name="a7"></a><a class="code hl_enumvalue" href="namespacehmap.html#ad3b2ee0d951dd1116cc489ab96600c0fa1f0467ead0c69d25b41b6838f330902e">hmap::MixMethod::MM_MIXBOX</a>);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Save the blended gradients</span></div>
-<div class="line">  blended_linear.<a id="a7" name="a7"></a><a class="code hl_function" href="classhmap_1_1Texture.html#a8459decef6432076cc6f307d8719f012">to_png</a>(<span class="stringliteral">&quot;ex_mixbox_linear.png&quot;</span>);</div>
+<div class="line">  blended_linear.<a id="a8" name="a8"></a><a class="code hl_function" href="classhmap_1_1Texture.html#a8459decef6432076cc6f307d8719f012">to_png</a>(<span class="stringliteral">&quot;ex_mixbox_linear.png&quot;</span>);</div>
 <div class="line">  blended_sqrt.<a class="code hl_function" href="classhmap_1_1Texture.html#a8459decef6432076cc6f307d8719f012">to_png</a>(<span class="stringliteral">&quot;ex_mixbox_sqrt.png&quot;</span>);</div>
 <div class="line">  blended_mixbox.<a class="code hl_function" href="classhmap_1_1Texture.html#a8459decef6432076cc6f307d8719f012">to_png</a>(<span class="stringliteral">&quot;ex_mixbox_mixbox.png&quot;</span>);</div>
 <div class="line"> </div>
@@ -169,6 +169,7 @@ Mixbox Blending</div></div>
 <div class="ttc" id="aclasshmap_1_1Array_html"><div class="ttname"><a href="classhmap_1_1Array.html">hmap::Array</a></div><div class="ttdoc">Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.</div><div class="ttdef"><b>Definition</b> array.hpp:32</div></div>
 <div class="ttc" id="aclasshmap_1_1Texture_html"><div class="ttname"><a href="classhmap_1_1Texture.html">hmap::Texture</a></div><div class="ttdoc">A class to represent a multi-channel texture using planar hmap::Array storage.</div><div class="ttdef"><b>Definition</b> texture.hpp:37</div></div>
 <div class="ttc" id="aclasshmap_1_1Texture_html_a8459decef6432076cc6f307d8719f012"><div class="ttname"><a href="classhmap_1_1Texture.html#a8459decef6432076cc6f307d8719f012">hmap::Texture::to_png</a></div><div class="ttdeci">void to_png(const std::string &amp;fname, int depth=CV_8U) const</div><div class="ttdoc">Saves the Texture as an image file (e.g. PNG).</div><div class="ttdef"><b>Definition</b> texture.cpp:253</div></div>
+<div class="ttc" id="aelevation__from__contours_8cpp_html_af339e609a44f3516574ffecaf5245fa3"><div class="ttname"><a href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a></div><div class="ttdeci">glm::ivec2 shape</div><div class="ttdef"><b>Definition</b> elevation_from_contours.cpp:112</div></div>
 <div class="ttc" id="ahighmap_8hpp_html"><div class="ttname"><a href="highmap_8hpp.html">highmap.hpp</a></div></div>
 <div class="ttc" id="amain_8cpp_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition</b> main.cpp:12</div></div>
 <div class="ttc" id="anamespacehmap_html_ad3b2ee0d951dd1116cc489ab96600c0fa1f0467ead0c69d25b41b6838f330902e"><div class="ttname"><a href="namespacehmap.html#ad3b2ee0d951dd1116cc489ab96600c0fa1f0467ead0c69d25b41b6838f330902e">hmap::MM_MIXBOX</a></div><div class="ttdeci">@ MM_MIXBOX</div><div class="ttdoc">Physical pigment-based mixing (Mixbox).</div><div class="ttdef"><b>Definition</b> colorize.hpp:47</div></div>
