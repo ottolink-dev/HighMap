@@ -25,6 +25,62 @@ enum StampingBlendMethod : int
 };
 
 /**
+ * @brief Penalty type of a deformation constraint (see @ref
+ * DeformationConstraint).
+ */
+enum DeformationConstraintType : int
+{
+  MATCH, ///< penalize any deviation from the target height
+  ABOVE, ///< penalize only heights below the target (target acts as a floor)
+  BELOW, ///< penalize only heights above the target (target acts as a
+         ///< ceiling)
+};
+
+/**
+ * @brief Per-vertex penalty term used by @ref sls_deformation.
+ *
+ * Each constraint contributes `scale * weight(x, y) * (z(x, y) - target(x,
+ * y))^2` to the fitness of a vertex, gated by its type: for `MATCH` the
+ * penalty always applies, for `ABOVE` only where `z < target`, for `BELOW`
+ * only where `z > target`. Vertices with a zero weight are unconstrained by
+ * that term. Several constraints are summed, so the `scale` factor can be
+ * used to normalize competing terms.
+ *
+ * Typical uses (after Stachniak & Stuerzlinger, 2005):
+ * - match a reference height map: `target = ref, weight = 1, MATCH`;
+ * - shape mask (island): `target = water_level, weight = mask, ABOVE` plus
+ *   `target = water_level, weight = 1 - mask, BELOW`;
+ * - flat road: `target = road_height, weight = path, MATCH` plus
+ *   `target = original, weight = 1 - path, MATCH` (preserve the rest);
+ * - edge matching: `target` = neighbour terrain edge values, `weight` non-zero
+ *   along the edge only, `MATCH`.
+ */
+struct DeformationConstraint
+{
+  Array                     target;       ///< desired height field
+  Array                     weight;       ///< per-vertex weight (0 = free)
+  DeformationConstraintType type = MATCH; ///< penalty type
+  float                     scale = 1.f;  ///< global weight of the term
+};
+
+/**
+ * @brief Truncated-Gaussian push operation, the elementary deformation used
+ * by @ref sls_deformation.
+ *
+ * The push adds `amplitude * G(d)` to every vertex within `ir` pixels of the
+ * center `(i, j)`, where `G` is a truncated Gaussian kernel equal to 1 at the
+ * center and to 0 at distance `ir`. The center vertex is therefore displaced
+ * by exactly `amplitude`.
+ */
+struct GaussianPush
+{
+  int   i;         ///< center index (x)
+  int   j;         ///< center index (y)
+  int   ir;        ///< kernel radius in pixels
+  float amplitude; ///< height displacement at the center
+};
+
+/**
  * @brief Point-wise alteration: locally enforce a new elevation value while
  * maintaining the 'shape' of the heightmap.
  *
@@ -71,6 +127,21 @@ void alter_elevation(Array       &array,
                      float        footprint_ratio = 1.f,
                      glm::vec2    shift = {0.f, 0.f},
                      glm::vec2    scale = {1.f, 1.f});
+
+/**
+ * @brief Apply a sequence of truncated-Gaussian pushes to a heightmap.
+ *
+ * Replays, in order, the deformations recorded by @ref sls_deformation. Since
+ * the deformed terrain is fully described by the original terrain and the
+ * push sequence, this also provides a compact storage of the deformation.
+ *
+ * @param array  Heightmap to deform (modified in place).
+ * @param pushes Push operations to apply, in order.
+ *
+ * @see          sls_deformation
+ */
+void apply_gaussian_pushes(Array                           &array,
+                           const std::vector<GaussianPush> &pushes);
 
 /**
  * @brief Generate a heightmap from a coarse grid of control points with defined
@@ -325,6 +396,78 @@ Array ridgelines_bezier(glm::ivec2                shape,
                         const Array              *p_noise_y = nullptr,
                         const Array              *p_stretching = nullptr,
                         glm::vec4 bbox_array = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @brief Deform a heightmap to satisfy a set of constraints using stochastic
+ * local search over truncated-Gaussian push operations.
+ *
+ * Implements the constraint-based terrain deformation of S. Stachniak and W.
+ * Stuerzlinger, "An Algorithm for Automated Fractal Terrain Deformation",
+ * WSCG 2005. The terrain `T` is deformed into `T'` by searching for a
+ * sequence of local push operations `(location, amplitude, radius)` (see @ref
+ * GaussianPush) that minimize a fitness function `F(T) = sum F(x, y)`, where
+ * the per-vertex penalty `F(x, y)` is the sum of the supplied constraint
+ * terms (see @ref DeformationConstraint). Because the penalties are summed,
+ * several constraints (shape masks, fixed paths, edge matching, reference
+ * heights...) can be satisfied simultaneously.
+ *
+ * At every iteration, a set of candidate vertices is drawn: half on a
+ * jittered uniform grid, half sampled proportionally to the current penalty
+ * map so that the search concentrates where constraints are violated. For
+ * each candidate and each radius, the push amplitude is the least-squares
+ * optimum of the (locally quadratic) penalty over the kernel footprint,
+ * clamped by the slope limit `talus_max * radius` which suppresses
+ * high-frequency spikes (frequency limitation of the paper). The best
+ * deformation is applied with probability `p_best`, otherwise one of the
+ * `top_fraction` best deformations is applied (the stochastic noise of the
+ * search, which prevents stalling in local minima). The search stops when the
+ * fitness drops below `tolerance` times its initial value, when no improving
+ * deformation can be found for a number of consecutive iterations, or after
+ * `iterations` pushes.
+ *
+ * @param  z            Input heightmap.
+ * @param  constraints  Constraint terms defining the fitness function. Every
+ *                      target and weight array must have the shape of `z`.
+ * @param  seed         Random seed number.
+ * @param  iterations   Maximum number of iterations (one push per iteration).
+ * @param  ir_min       Smallest push radius, in pixels.
+ * @param  ir_max       Largest push radius, in pixels.
+ * @param  n_radii      Number of radii, geometrically spaced in [ir_min,
+ *                      ir_max].
+ * @param  talus_max    Maximum push amplitude per pixel of radius (slope
+ *                      limit). If zero or negative, defaults to the elevation
+ *                      range of the inputs divided by `ir_max`.
+ * @param  n_candidates Number of candidate vertices evaluated per iteration.
+ * @param  p_best       Probability of applying the best deformation found
+ *                      (0.65 in the original paper).
+ * @param  top_fraction Fraction of the best deformations a sub-optimal choice
+ *                      is drawn from.
+ * @param  tolerance    Relative fitness tolerance for early termination.
+ * @param  p_pushes     Optional pointer to a vector receiving the applied
+ *                      pushes, in order (see @ref apply_gaussian_pushes).
+ * @return              Array Deformed heightmap.
+ *
+ * **Example**
+ * @include ex_sls_deformation.cpp
+ *
+ * **Result**
+ * @image html ex_sls_deformation.png
+ *
+ * @see                 apply_gaussian_pushes, DeformationConstraint
+ */
+Array sls_deformation(const Array                              &z,
+                      const std::vector<DeformationConstraint> &constraints,
+                      std::uint32_t                             seed,
+                      int                        iterations = 200,
+                      int                        ir_min = 4,
+                      int                        ir_max = 64,
+                      int                        n_radii = 7,
+                      float                      talus_max = 0.f,
+                      int                        n_candidates = 512,
+                      float                      p_best = 0.65f,
+                      float                      top_fraction = 0.1f,
+                      float                      tolerance = 1e-3f,
+                      std::vector<GaussianPush> *p_pushes = nullptr);
 
 /**
  * @brief Generate a heightmap by stamping a kernel at predefined locations.

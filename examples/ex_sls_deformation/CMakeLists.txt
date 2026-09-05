@@ -1,0 +1,2 @@
+add_executable(ex_sls_deformation ex_sls_deformation.cpp)
+target_link_libraries(ex_sls_deformation highmap)
