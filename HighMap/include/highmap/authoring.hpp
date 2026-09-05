@@ -238,7 +238,7 @@ Array elevation_from_contours(glm::ivec2                shape,
                               const std::vector<float> &elevations,
                               const Array              *p_probability = nullptr,
                               float                     randomness = 1.f,
-                              uint                      seed = 0,
+                              std::uint32_t             seed = 0,
                               float                     peak_ratio = 0.5f,
                               float                     outside_ratio = 1.f,
                               glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});

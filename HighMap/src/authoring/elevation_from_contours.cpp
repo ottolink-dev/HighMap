@@ -28,14 +28,8 @@ constexpr float T_UNREACHED = std::numeric_limits<float>::max();
 // 8-neighbourhood offsets and the corresponding step lengths
 constexpr int   DI[8] = {1, -1, 0, 0, 1, 1, -1, -1};
 constexpr int   DJ[8] = {0, 0, 1, -1, 1, -1, 1, -1};
-constexpr float STEP[8] = {1.f,
-                           1.f,
-                           1.f,
-                           1.f,
-                           1.41421356f,
-                           1.41421356f,
-                           1.41421356f,
-                           1.41421356f};
+constexpr float STEP[8] =
+    {1.f, 1.f, 1.f, 1.f, 1.41421356f, 1.41421356f, 1.41421356f, 1.41421356f};
 
 // Contour vertices converted to (float) pixel coordinates, using the same
 // mapping as Cloud::to_array.
@@ -187,9 +181,9 @@ ContourRaster rasterize_contours(const std::vector<Path> &contours,
 }
 
 // Per-pixel passage time for a front: ((1 - r) + r * E) / rate
-std::vector<float> passage_times(const Array *p_probability,
-                                 bool         descending,
-                                 float        randomness,
+std::vector<float> passage_times(const Array  *p_probability,
+                                 bool          descending,
+                                 float         randomness,
                                  std::mt19937 &gen,
                                  size_t        npix)
 {
@@ -198,8 +192,9 @@ std::vector<float> passage_times(const Array *p_probability,
 
   for (size_t p = 0; p < npix; ++p)
   {
-    float rate = p_probability ? std::clamp((*p_probability)((int)p), 1e-3f, 0.999f)
-                               : 0.5f;
+    float rate = p_probability
+                     ? std::clamp((*p_probability)((int)p), 1e-3f, 0.999f)
+                     : 0.5f;
     if (descending) rate = 1.f - rate;
 
     const float e = randomness > 0.f ? expo(gen) : 1.f;
@@ -211,15 +206,15 @@ std::vector<float> passage_times(const Array *p_probability,
 struct Front
 {
   std::vector<float> t;       // arrival time
-  std::vector<int>   label;   // seeding contour index
   std::vector<char>  reached; // whether the front reached the pixel
+  float              tmax = 0.f;
 };
 
-// Dijkstra front propagation from the fixed contour pixels into the free
-// pixels of a target zone. For the "near" front a contour seeds its own
-// interior zone; for the "far" front it seeds the zone of its parent.
+// Dijkstra front propagation from the fixed pixels of contour `source` into
+// the free pixels of zone `zone_id`.
 Front propagate_front(const ContourRaster      &r,
-                      bool                      to_parent,
+                      int                       zone_id,
+                      int                       source,
                       const std::vector<float> &tau)
 {
   const glm::ivec2 shape = r.shape;
@@ -227,16 +222,15 @@ Front propagate_front(const ContourRaster      &r,
 
   Front f;
   f.t.assign(npix, T_UNREACHED);
-  f.label.assign(npix, -1);
   f.reached.assign(npix, 0);
-
-  std::vector<int> target(npix, -3); // zone a settled pixel expands into
 
   using Item = std::pair<float, int>;
   std::priority_queue<Item, std::vector<Item>, std::greater<Item>> pq;
 
-  auto relax = [&](int p, int i, int j, int tgt, int lbl, float t0)
+  auto relax = [&](int p, float t0)
   {
+    const int i = p % shape.x;
+    const int j = p / shape.x;
     for (int m = 0; m < 8; ++m)
     {
       const int ii = i + DI[m];
@@ -244,31 +238,21 @@ Front propagate_front(const ContourRaster      &r,
       if (ii < 0 || ii >= shape.x || jj < 0 || jj >= shape.y) continue;
 
       const int q = jj * shape.x + ii;
-      if (r.zone[q] != tgt) continue;
+      if (r.zone[q] != zone_id) continue;
 
       const float t = t0 + STEP[m] * tau[q];
       if (t < f.t[q])
       {
         f.t[q] = t;
-        f.label[q] = lbl;
         f.reached[q] = 1;
-        target[q] = tgt;
         pq.emplace(t, q);
       }
     }
-    (void)p;
   };
 
-  // seeds
   for (size_t p = 0; p < npix; ++p)
-  {
-    const int k = r.contour_of[p];
-    if (k < 0) continue;
-    const int tgt = to_parent ? r.parent[k] : k;
-    relax((int)p, (int)(p % shape.x), (int)(p / shape.x), tgt, k, 0.f);
-  }
+    if (r.contour_of[p] == source) relax((int)p, 0.f);
 
-  // propagation
   std::vector<char> settled(npix, 0);
   while (!pq.empty())
   {
@@ -276,19 +260,17 @@ Front propagate_front(const ContourRaster      &r,
     pq.pop();
     if (settled[p] || t > f.t[p]) continue;
     settled[p] = 1;
-    relax(p, p % shape.x, p / shape.x, target[p], f.label[p], t);
+    f.tmax = std::max(f.tmax, t);
+    relax(p, t);
   }
 
   return f;
 }
 
-// Priority flood of the progress field T inside one zone, seeded from the
-// free pixels adjacent to the zone's own contour. Removes pits by replacing T
-// with the running maximum along the flood.
-void fill_pits(const ContourRaster &r,
-               int                  zone_id,
-               const std::vector<char> &eligible,
-               std::vector<float>      &T)
+// Priority flood of the elevation inside one zone, seeded from the free
+// pixels adjacent to the zone's own contour. Removes pits by replacing the
+// elevation with the running maximum along the flood.
+void fill_pits(const ContourRaster &r, int zone_id, std::vector<float> &z)
 {
   const glm::ivec2 shape = r.shape;
   const size_t     npix = r.zone.size();
@@ -307,14 +289,13 @@ void fill_pits(const ContourRaster &r,
       const int jj = j + DJ[m];
       if (ii < 0 || ii >= shape.x || jj < 0 || jj >= shape.y) continue;
       const int q = jj * shape.x + ii;
-      if (settled[q] || r.zone[q] != zone_id || !eligible[q]) continue;
-      pq.emplace(std::max(T[q], key), q);
+      if (settled[q] || r.zone[q] != zone_id) continue;
+      pq.emplace(std::max(z[q], key), q);
     }
   };
 
-  // seeds: fixed pixels of the zone's own contour
   for (size_t p = 0; p < npix; ++p)
-    if (r.contour_of[p] == zone_id) push_neighbours((int)p, 0.f);
+    if (r.contour_of[p] == zone_id) push_neighbours((int)p, z[p]);
 
   while (!pq.empty())
   {
@@ -322,7 +303,7 @@ void fill_pits(const ContourRaster &r,
     pq.pop();
     if (settled[p]) continue;
     settled[p] = 1;
-    T[p] = key;
+    z[p] = key;
     push_neighbours(p, key);
   }
 }
@@ -334,7 +315,7 @@ Array elevation_from_contours(glm::ivec2                shape,
                               const std::vector<float> &elevations,
                               const Array              *p_probability,
                               float                     randomness,
-                              uint                      seed,
+                              std::uint32_t             seed,
                               float                     peak_ratio,
                               float                     outside_ratio,
                               glm::vec4                 bbox)
@@ -376,6 +357,21 @@ Array elevation_from_contours(glm::ivec2                shape,
   // --- rasterization, zones and nesting tree
   const ContourRaster r = rasterize_contours(contours, shape, bbox);
 
+  std::vector<std::vector<int>> children(n);
+  std::vector<int>              roots;
+  for (int k = 0; k < n; ++k)
+  {
+    if (r.parent[k] >= 0)
+      children[r.parent[k]].push_back(k);
+    else
+      roots.push_back(k);
+  }
+
+  // pixels of each zone (index shifted by one: outside zone -1 -> 0)
+  std::vector<std::vector<int>> zone_pixels(n + 1);
+  for (size_t p = 0; p < npix; ++p)
+    if (r.zone[p] >= -1) zone_pixels[r.zone[p] + 1].push_back((int)p);
+
   // mean elevation gap between nested contours
   float spacing = 0.f;
   int   nspacing = 0;
@@ -396,8 +392,9 @@ Array elevation_from_contours(glm::ivec2                shape,
 
   const float elev_min = *std::min_element(elevations.begin(),
                                            elevations.end());
+  const float floor = elev_min - outside_ratio * spacing;
 
-  // --- front propagation
+  // --- passage times
   std::mt19937 gen(seed);
 
   const std::vector<float> tau_near = passage_times(p_probability,
@@ -411,106 +408,93 @@ Array elevation_from_contours(glm::ivec2                shape,
                                                    gen,
                                                    npix);
 
-  const Front front_near = propagate_front(r, false, tau_near);
-  const Front front_far = propagate_front(r, true, tau_far);
-
-  // per-zone maximum arrival times (zone index shifted by one: -1 -> 0)
-  std::vector<float> tnear_max(n + 1, 0.f);
-  std::vector<float> tfar_max(n + 1, 0.f);
-  for (size_t p = 0; p < npix; ++p)
-  {
-    const int k = r.zone[p];
-    if (k < -1) continue;
-    if (front_near.reached[p])
-      tnear_max[k + 1] = std::max(tnear_max[k + 1], front_near.t[p]);
-    if (front_far.reached[p])
-      tfar_max[k + 1] = std::max(tfar_max[k + 1], front_far.t[p]);
-  }
-
-  // --- progress field
-  std::vector<float> T(npix, 0.f);
-  std::vector<char>  both(npix, 0); // reached by both fronts
+  // --- per-zone synthesis
+  std::vector<float> z(npix, 0.f);
 
   for (size_t p = 0; p < npix; ++p)
+    if (r.zone[p] == -2) z[p] = elevations[r.contour_of[p]];
+
+  constexpr float t_eps = 1e-6f;
+
+  for (int k = -1; k < n; ++k)
   {
-    const int k = r.zone[p];
-    if (k < -1) continue;
+    const std::vector<int> &pixels = zone_pixels[k + 1];
+    if (pixels.empty()) continue;
 
-    const bool  ra = front_near.reached[p];
-    const bool  rb = front_far.reached[p];
-    const float ta = front_near.t[p];
-    const float tb = front_far.t[p];
+    const std::vector<int> &kids = k < 0 ? roots : children[k];
 
-    if (ra && rb)
+    // one front per source: the zone's own contour (if any) and its children
+    Front              own;
+    std::vector<Front> far(kids.size());
+
+    if (k >= 0) own = propagate_front(r, k, k, tau_near);
+    for (size_t c = 0; c < kids.size(); ++c)
+      far[c] = propagate_front(r, k, kids[c], tau_far);
+
+    for (int p : pixels)
     {
-      T[p] = ta / (ta + tb);
-      both[p] = 1;
-    }
-    else if (ra)
-      T[p] = tnear_max[k + 1] > 0.f ? ta / tnear_max[k + 1] : 0.f;
-    else if (rb)
-      T[p] = tfar_max[k + 1] > 0.f ? tb / tfar_max[k + 1] : 0.f;
-  }
-
-  // pit removal in rising zones (all children higher than the contour)
-  for (int k = 0; k < n; ++k)
-  {
-    bool rising = false;
-    bool has_child = false;
-    for (int c = 0; c < n; ++c)
-      if (r.parent[c] == k)
+      if (k < 0)
       {
-        has_child = true;
-        rising = elevations[c] > elevations[k];
-        if (!rising) break;
+        // outside zone: inverse-travel-time blend of the root contours, each
+        // falling off with distance towards the floor
+        float num = 0.f, den = 0.f;
+        for (size_t c = 0; c < kids.size(); ++c)
+          if (far[c].reached[p])
+          {
+            const float t = far[c].t[p];
+            const float w = 1.f / std::max(t, t_eps);
+            const float zc = elevations[kids[c]] -
+                             outside_ratio * spacing * t / far[c].tmax;
+            num += w * zc;
+            den += w;
+          }
+        z[p] = den > 0.f ? num / den : floor;
       }
-    if (has_child && rising) fill_pits(r, k, both, T);
+      else if (kids.empty())
+      {
+        // leaf zone: rise to a peak (or sink to a basin bottom)
+        const bool up = r.parent[k] < 0 ||
+                        elevations[k] >= elevations[r.parent[k]];
+        const float delta = (up ? 1.f : -1.f) * peak_ratio * spacing;
+        z[p] = elevations[k];
+        if (own.reached[p] && own.tmax > 0.f)
+          z[p] += delta * own.t[p] / own.tmax;
+      }
+      else
+      {
+        // ring zone: inverse-travel-time blend of the own contour and the
+        // children (reduces to a linear ramp between two contours)
+        float num = 0.f, den = 0.f;
+        if (own.reached[p])
+        {
+          const float w = 1.f / std::max(own.t[p], t_eps);
+          num += w * elevations[k];
+          den += w;
+        }
+        for (size_t c = 0; c < kids.size(); ++c)
+          if (far[c].reached[p])
+          {
+            const float w = 1.f / std::max(far[c].t[p], t_eps);
+            num += w * elevations[kids[c]];
+            den += w;
+          }
+        z[p] = den > 0.f ? num / den : elevations[k];
+      }
+    }
+
+    // pit removal in rising ring zones (all children higher than the contour)
+    if (k >= 0 && !kids.empty())
+    {
+      bool rising = true;
+      for (int c : kids)
+        rising = rising && elevations[c] > elevations[k];
+      if (rising) fill_pits(r, k, z);
+    }
   }
 
-  // --- elevation
-  Array z(shape, 0.f);
-
-  for (size_t p = 0; p < npix; ++p)
-  {
-    const int k = r.zone[p];
-
-    if (k == -2) // fixed contour pixel
-    {
-      z((int)p) = elevations[r.contour_of[p]];
-      continue;
-    }
-
-    const bool ra = front_near.reached[p];
-    const bool rb = front_far.reached[p];
-    float      h_near, h_far;
-
-    if (ra && rb)
-    {
-      h_near = elevations[k];
-      h_far = elevations[front_far.label[p]];
-    }
-    else if (ra) // leaf zone: peak or basin
-    {
-      const bool up = r.parent[k] < 0 ||
-                      elevations[k] >= elevations[r.parent[k]];
-      h_near = elevations[k];
-      h_far = elevations[k] + (up ? 1.f : -1.f) * peak_ratio * spacing;
-    }
-    else if (rb) // outside zone (or zone without own front)
-    {
-      h_near = elevations[front_far.label[p]];
-      h_far = k < 0 ? h_near - outside_ratio * spacing : elevations[k];
-    }
-    else // unreachable pixel
-    {
-      z((int)p) = k >= 0 ? elevations[k] : elev_min - outside_ratio * spacing;
-      continue;
-    }
-
-    z((int)p) = lerp(h_near, h_far, T[p]);
-  }
-
-  return z;
+  Array out(shape);
+  out.vector = z;
+  return out;
 }
 
 } // namespace hmap

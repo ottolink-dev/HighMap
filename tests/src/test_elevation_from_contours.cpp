@@ -137,14 +137,8 @@ TEST(ElevationFromContours, LeafZoneRisesAboveItsContour)
                                square(0.5f, 0.5f, 0.2f)};
   std::vector<float>      h = {0.2f, 0.6f};
 
-  hmap::Array z = hmap::elevation_from_contours(shape,
-                                                c,
-                                                h,
-                                                nullptr,
-                                                0.f,
-                                                0,
-                                                0.5f,
-                                                1.f);
+  hmap::Array z =
+      hmap::elevation_from_contours(shape, c, h, nullptr, 0.f, 0, 0.5f, 1.f);
 
   // spacing = 0.4, peak = 0.6 + 0.5 * 0.4 = 0.8 at the centre (farthest point)
   EXPECT_NEAR(z(32, 32), 0.8f, 0.05f);
@@ -159,14 +153,8 @@ TEST(ElevationFromContours, OutsideDropsBelowRootContour)
   std::vector<float>      h = {0.5f};
 
   // single contour: spacing falls back to 1 -> outside floor 0.5 - 1.0 * 1
-  hmap::Array z = hmap::elevation_from_contours(shape,
-                                                c,
-                                                h,
-                                                nullptr,
-                                                0.f,
-                                                0,
-                                                0.5f,
-                                                1.f);
+  hmap::Array z =
+      hmap::elevation_from_contours(shape, c, h, nullptr, 0.f, 0, 0.5f, 1.f);
 
   EXPECT_NEAR(z(0, 0), -0.5f, 0.05f); // farthest corner
   EXPECT_LT(z(10, 32), 0.5f);         // outside, near the contour
@@ -181,14 +169,8 @@ TEST(ElevationFromContours, BasinLeafSinksBelowItsContour)
                                square(0.5f, 0.5f, 0.2f)};
   std::vector<float>      h = {0.6f, 0.2f};
 
-  hmap::Array z = hmap::elevation_from_contours(shape,
-                                                c,
-                                                h,
-                                                nullptr,
-                                                0.f,
-                                                0,
-                                                0.5f,
-                                                1.f);
+  hmap::Array z =
+      hmap::elevation_from_contours(shape, c, h, nullptr, 0.f, 0, 0.5f, 1.f);
 
   // inner contour lower than its parent: interior sinks to 0.2 - 0.5 * 0.4
   EXPECT_NEAR(z(32, 32), 0.0f, 0.05f);
@@ -253,4 +235,49 @@ TEST(ElevationFromContours, RisingZoneHasNoPits)
       pits += !has_lower;
     }
   EXPECT_EQ(pits, 0);
+}
+
+namespace
+{
+
+// largest absolute difference between horizontally adjacent pixels in a row
+float max_row_jump(const hmap::Array &z, int j, int i0, int i1)
+{
+  float jump = 0.f;
+  for (int i = i0; i < i1; ++i)
+    jump = std::max(jump, std::abs(z(i + 1, j) - z(i, j)));
+  return jump;
+}
+
+} // namespace
+
+TEST(ElevationFromContours, OutsideZoneIsContinuousBetweenRoots)
+{
+  glm::ivec2              shape = {96, 64};
+  std::vector<hmap::Path> c = {square(0.2f, 0.5f, 0.1f),
+                               square(0.8f, 0.5f, 0.1f)};
+  std::vector<float>      h = {0.2f, 0.5f};
+
+  hmap::Array z = hmap::elevation_from_contours(shape, c, h, nullptr, 0.f);
+
+  // row through both contours, between them (outlines at i = 29 and 66)
+  // the elevation must vary smoothly: no jump larger than a few percent of
+  // the elevation gap per pixel
+  EXPECT_LT(max_row_jump(z, 32, 30, 65), 0.03f);
+}
+
+TEST(ElevationFromContours, SiblingsAtDifferentElevationsAreContinuous)
+{
+  glm::ivec2 shape = {96, 64};
+  // enclosing contour with two children: a hill and a basin
+  std::vector<hmap::Path> c = {square(0.5f, 0.5f, 0.45f),
+                               square(0.25f, 0.5f, 0.08f),
+                               square(0.75f, 0.5f, 0.08f)};
+  std::vector<float>      h = {0.2f, 0.6f, 0.0f};
+
+  hmap::Array z = hmap::elevation_from_contours(shape, c, h, nullptr, 0.f);
+
+  // row through both children, in the ring between them (outlines at
+  // i = 31 and 64)
+  EXPECT_LT(max_row_jump(z, 32, 32, 63), 0.03f);
 }
