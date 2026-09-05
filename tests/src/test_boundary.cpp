@@ -1,4 +1,5 @@
 #include "highmap/boundary.hpp"
+#include "highmap/primitives.hpp"
 
 #include <gtest/gtest.h>
 
@@ -87,3 +88,23 @@ TEST(BoundaryTest, FalloffWithAndWithoutNoise)
     for (int i = 0; i < 16; ++i)
       EXPECT_NEAR(a1(i, j), a2(i, j), 1e-5f);
 }
+
+TEST(BoundaryTest, MakePeriodicStitchingContinuity)
+{
+  hmap::Array z = hmap::noise_fbm(hmap::NoiseType::PERLIN, glm::ivec2(64, 64), glm::vec2(4.f, 4.f), 1);
+  hmap::Array zp = hmap::make_periodic_stitching(z, 0.5f);
+
+  EXPECT_EQ(zp.shape.x, 64);
+  EXPECT_EQ(zp.shape.y, 64);
+
+  // Check continuity across boundary
+  for (int j = 0; j < zp.shape.y; ++j)
+  {
+    EXPECT_NEAR(zp(0, j), zp(zp.shape.x - 1, j), 1e-2f);
+  }
+  for (int i = 0; i < zp.shape.x; ++i)
+  {
+    EXPECT_NEAR(zp(i, 0), zp(i, zp.shape.y - 1), 1e-2f);
+  }
+}
+

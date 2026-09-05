@@ -298,65 +298,100 @@ Array make_periodic_stitching(const Array &array, float overlap)
 
   glm::ivec2 noverlap = {(int)(0.5f * overlap * shape.x),
                          (int)(0.5f * overlap * shape.y)};
-  int        ir = (int)noverlap.x / 2.f;
+  int        ir = (int)noverlap.x / 2;
 
-  // east frontier
+  // east/west frontier
+  if (noverlap.x > 0)
   {
     Array error = Array(glm::ivec2(noverlap.x, shape.y));
     for (int j = 0; j < shape.y; j++)
       for (int i = 0; i < noverlap.x; i++)
-        error(i, j) = std::abs(array(i, j) -
-                               array(shape.x - 1 - noverlap.x + i, j));
+        error(i,
+              j) = std::abs(array(i, j) - array(shape.x - noverlap.x + i, j));
 
     // find cut path
     std::vector<int> cut_path_i;
     find_vertical_cut_path(error, cut_path_i);
 
-    // define lerp factor
+    // define lerp factor: 0 on left (use east side), 1 on right (use west side)
     Array mask = generate_mask(error.shape, cut_path_i, ir);
 
     for (int j = 0; j < shape.y; j++)
       for (int i = 0; i < noverlap.x; i++)
-        array_p(i, j) = lerp(array(shape.x - 1 - noverlap.x + i, j),
+      {
+        float blended = lerp(array(shape.x - noverlap.x + i, j),
                              array(i, j),
                              mask(i, j));
+        array_p(i, j) = blended;
+        array_p(shape.x - noverlap.x + i, j) = blended;
+      }
   }
 
-  // south frontier
+  // north/south frontier
+  if (noverlap.y > 0)
   {
     Array error = Array(glm::ivec2(shape.x, noverlap.y));
     for (int j = 0; j < noverlap.y; j++)
       for (int i = 0; i < shape.x; i++)
         error(i, j) = std::abs(array_p(i, j) -
-                               array_p(i, shape.y - 1 - noverlap.y + j));
+                               array_p(i, shape.y - noverlap.y + j));
 
     Array mask = Array(error.shape);
     {
       Array            error_t = transpose(error);
       std::vector<int> cut_path_i;
       find_vertical_cut_path(error_t, cut_path_i);
-      Array mask_t = generate_mask(error_t.shape, cut_path_i, ir);
+      Array mask_t = generate_mask(error_t.shape,
+                                   cut_path_i,
+                                   (int)noverlap.y / 2);
       mask = transpose(mask_t);
     }
 
     for (int j = 0; j < noverlap.y; j++)
       for (int i = 0; i < shape.x; i++)
-        array_p(i, j) = lerp(array_p(i, shape.y - 1 - noverlap.y + j),
+      {
+        float blended = lerp(array_p(i, shape.y - noverlap.y + j),
                              array_p(i, j),
                              mask(i, j));
+        array_p(i, j) = blended;
+        array_p(i, shape.y - noverlap.y + j) = blended;
+      }
   }
 
-  int nx = (int)(0.5f * noverlap.x);
-  int ny = (int)(0.5f * noverlap.y);
+  // extract the periodic core of size (shape - noverlap)
+  Array core = array_p.extract_slice(
+      glm::ivec4(0, shape.x - noverlap.x, 0, shape.y - noverlap.y));
 
-  array_p = array_p.extract_slice(glm::ivec4(nx,
-                                             array.shape.x - noverlap.x + nx,
-                                             ny,
-                                             array.shape.y - noverlap.y + ny));
+  // resample core periodically back to target shape
+  Array result(shape);
+  for (int j = 0; j < shape.y; ++j)
+  {
+    float v_norm = (float)j / (float)(shape.y - 1);
+    float src_y = v_norm * (float)(core.shape.y);
+    int   j0 = ((int)std::floor(src_y)) % core.shape.y;
+    int   j1 = (j0 + 1) % core.shape.y;
+    float frac_y = src_y - std::floor(src_y);
 
-  array_p = array_p.resample_to_shape(shape);
+    for (int i = 0; i < shape.x; ++i)
+    {
+      float u_norm = (float)i / (float)(shape.x - 1);
+      float src_x = u_norm * (float)(core.shape.x);
+      int   i0 = ((int)std::floor(src_x)) % core.shape.x;
+      int   i1 = (i0 + 1) % core.shape.x;
+      float frac_x = src_x - std::floor(src_x);
 
-  return array_p;
+      float v00 = core(i0, j0);
+      float v10 = core(i1, j0);
+      float v01 = core(i0, j1);
+      float v11 = core(i1, j1);
+
+      float v0 = v00 + (v10 - v00) * frac_x;
+      float v1 = v01 + (v11 - v01) * frac_x;
+      result(i, j) = v0 + (v1 - v0) * frac_y;
+    }
+  }
+
+  return result;
 }
 
 Array make_periodic_tiling(const Array &array, float overlap, glm::ivec2 tiling)
