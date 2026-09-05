@@ -1,9 +1,9 @@
 #include <cstdio>
 #include <filesystem>
 
-#include <gtest/gtest.h>
-
 #include "highmap.hpp"
+
+#include <gtest/gtest.h>
 
 using namespace hmap;
 
