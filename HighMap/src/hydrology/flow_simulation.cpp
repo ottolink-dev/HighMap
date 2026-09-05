@@ -2,7 +2,9 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 
+#include <array>
 #include <cmath>
+#include <memory>
 #include <vector>
 
 #include "cl_wrapper/run.hpp"
@@ -46,36 +48,49 @@ Array flow_simulation(const Array &z,
   const glm::ivec2 shape = z.shape;
 
   Array d = water_height * depth_map;
-  Array fl(shape); // left flux
-  Array fr(shape); // right
-  Array ft(shape); // top
-  Array fb(shape); // bottom
-
   Array u(shape);
   Array v(shape);
 
-  // continuous rainfall increment
-  Array rain_step;
-  if (p_rain_map && rain_rate > 0.f)
+  auto finalize = [&]()
   {
-    rain_step = (*p_rain_map) * (rain_rate * dt);
-  }
+    if (p_vel_u) *p_vel_u = u;
+    if (p_vel_v) *p_vel_v = v;
 
-  // --- instantiate runners once outside the iteration loop
+    // remove thin layer of remaining water
+    if (dry_out_ratio != 0.f)
+    {
+      float dmax = d.max();
+      water_depth_dry_out(d, dry_out_ratio, nullptr, dmax);
+    }
+    return d; // water depth
+  };
 
+  if (iterations <= 0) return finalize();
+
+  // --- device state: depth and the four fluxes are ping-pong pairs (A/B)
+  // that stay on the GPU for the whole loop; only the terrain is uploaded
+  // once and only the results are read back at the end.
+
+  Array zeros(shape);
+
+  const bool use_rain = rain_rate > 0.f;
+  const bool use_map = use_rain && p_rain_map;
+
+  using clwrapper::Direction;
+
+  // flux pass: (z, fl, fr, ft, fb, d1, fl_out, fr_out, ft_out, fb_out, ...)
   auto run_fp = clwrapper::Run("hydraulic_vpipes_flow_pass");
 
-  run_fp.bind_imagef("z", z.vector, shape.x, shape.y); // inputs
-  run_fp.bind_imagef("fl", fl.vector, shape.x, shape.y);
-  run_fp.bind_imagef("fr", fr.vector, shape.x, shape.y);
-  run_fp.bind_imagef("ft", ft.vector, shape.x, shape.y);
-  run_fp.bind_imagef("fb", fb.vector, shape.x, shape.y);
-  run_fp.bind_imagef("d1", d.vector, shape.x, shape.y);
-
-  run_fp.bind_imagef("fl_out", fl.vector, shape.x, shape.y, true); // outputs
-  run_fp.bind_imagef("fr_out", fr.vector, shape.x, shape.y, true);
-  run_fp.bind_imagef("ft_out", ft.vector, shape.x, shape.y, true);
-  run_fp.bind_imagef("fb_out", fb.vector, shape.x, shape.y, true);
+  run_fp.bind_imagef("z", z.vector, shape.x, shape.y);
+  run_fp.bind_imagef("fl_a", zeros.vector, shape.x, shape.y, Direction::INOUT);
+  run_fp.bind_imagef("fr_a", zeros.vector, shape.x, shape.y, Direction::INOUT);
+  run_fp.bind_imagef("ft_a", zeros.vector, shape.x, shape.y, Direction::INOUT);
+  run_fp.bind_imagef("fb_a", zeros.vector, shape.x, shape.y, Direction::INOUT);
+  run_fp.bind_imagef("d_a", d.vector, shape.x, shape.y, Direction::INOUT);
+  run_fp.bind_imagef("fl_b", zeros.vector, shape.x, shape.y, Direction::INOUT);
+  run_fp.bind_imagef("fr_b", zeros.vector, shape.x, shape.y, Direction::INOUT);
+  run_fp.bind_imagef("ft_b", zeros.vector, shape.x, shape.y, Direction::INOUT);
+  run_fp.bind_imagef("fb_b", zeros.vector, shape.x, shape.y, Direction::INOUT);
 
   run_fp.bind_arguments(shape.x,
                         shape.y,
@@ -84,18 +99,19 @@ Array flow_simulation(const Array &z,
                         flux_diffusion_strength,
                         outflow_boundaries ? 1 : 0);
 
-  auto run_wa = clwrapper::Run("hydraulic_vpipes_water_pass");
+  // water pass: (z, fl, fr, ft, fb, d1, d2_out, u_out, v_out, ...)
+  auto run_wa = clwrapper::Run("hydraulic_vpipes_water_pass",
+                               run_fp.get_queue());
 
-  run_wa.bind_imagef("z", z.vector, shape.x, shape.y); // inputs
-  run_wa.bind_imagef("fl", fl.vector, shape.x, shape.y);
-  run_wa.bind_imagef("fr", fr.vector, shape.x, shape.y);
-  run_wa.bind_imagef("ft", ft.vector, shape.x, shape.y);
-  run_wa.bind_imagef("fb", fb.vector, shape.x, shape.y);
-  run_wa.bind_imagef("d1", d.vector, shape.x, shape.y);
-
-  run_wa.bind_imagef("d2_out", d.vector, shape.x, shape.y, true); // outputs
-  run_wa.bind_imagef("u_out", u.vector, shape.x, shape.y, true);
-  run_wa.bind_imagef("v_out", v.vector, shape.x, shape.y, true);
+  run_wa.bind_image2d("z", run_fp.get_image2d("z"));
+  run_wa.bind_image2d("fl_b", run_fp.get_image2d("fl_b"));
+  run_wa.bind_image2d("fr_b", run_fp.get_image2d("fr_b"));
+  run_wa.bind_image2d("ft_b", run_fp.get_image2d("ft_b"));
+  run_wa.bind_image2d("fb_b", run_fp.get_image2d("fb_b"));
+  run_wa.bind_image2d("d_a", run_fp.get_image2d("d_a"));
+  run_wa.bind_imagef("d_b", d.vector, shape.x, shape.y, Direction::INOUT);
+  run_wa.bind_imagef("u", u.vector, shape.x, shape.y, Direction::OUT);
+  run_wa.bind_imagef("v", v.vector, shape.x, shape.y, Direction::OUT);
 
   run_wa.bind_arguments(shape.x,
                         shape.y,
@@ -104,65 +120,81 @@ Array flow_simulation(const Array &z,
                         evap_rate,
                         outflow_boundaries ? 1 : 0);
 
+  // rain pass: (d_in, rain_map, d_out, nx, ny, amount, use_map)
+  std::unique_ptr<clwrapper::Run> run_rain;
+
+  if (use_rain)
+  {
+    run_rain = std::make_unique<clwrapper::Run>("hydraulic_vpipes_rain_pass",
+                                                run_fp.get_queue());
+
+    run_rain->bind_image2d("d_a", run_fp.get_image2d("d_a"));
+    run_rain->bind_imagef("rain",
+                          use_map ? p_rain_map->vector : zeros.vector,
+                          shape.x,
+                          shape.y);
+    run_rain->bind_image2d("d_b", run_wa.get_image2d("d_b"));
+    run_rain->bind_arguments(shape.x, shape.y, rain_rate * dt, use_map ? 1 : 0);
+  }
+
+  // ping-pong handles
+  const std::array<cl::Image2D, 2> img_d = {run_fp.get_image2d("d_a").cl_image,
+                                            run_wa.get_image2d("d_b").cl_image};
+
+  const std::array<std::array<cl::Image2D, 4>, 2> img_f = {
+      {{run_fp.get_image2d("fl_a").cl_image,
+        run_fp.get_image2d("fr_a").cl_image,
+        run_fp.get_image2d("ft_a").cl_image,
+        run_fp.get_image2d("fb_a").cl_image},
+       {run_fp.get_image2d("fl_b").cl_image,
+        run_fp.get_image2d("fr_b").cl_image,
+        run_fp.get_image2d("ft_b").cl_image,
+        run_fp.get_image2d("fb_b").cl_image}}};
+
+  int dc = 0; // index of the current depth image
+  int fc = 0; // index of the current flux images
+
   for (int it = 0; it < iterations; ++it)
   {
-    // add continuous rainfall
-    if (p_rain_map && rain_rate > 0.f)
+    // continuous rainfall: d[dc] + rain -> d[1 - dc]
+    if (use_rain)
     {
-      d += rain_step;
+      run_rain->set_argument(0, img_d[dc]);
+      run_rain->set_argument(2, img_d[1 - dc]);
+      run_rain->execute_async({shape.x, shape.y});
+      dc = 1 - dc;
     }
-    else if (rain_rate > 0.f)
-    {
-      d += rain_rate * dt;
-    }
 
-    // --- flux update
-    run_fp.write_imagef("fl");
-    run_fp.write_imagef("fr");
-    run_fp.write_imagef("ft");
-    run_fp.write_imagef("fb");
-    run_fp.write_imagef("d1");
+    // flux update: reads f[fc], d[dc]; writes f[1 - fc]
+    for (int k = 0; k < 4; ++k)
+      run_fp.set_argument(1 + k, img_f[fc][k]);
+    run_fp.set_argument(5, img_d[dc]);
+    for (int k = 0; k < 4; ++k)
+      run_fp.set_argument(6 + k, img_f[1 - fc][k]);
 
-    run_fp.execute({shape.x, shape.y});
+    run_fp.execute_async({shape.x, shape.y});
 
-    // update flux (from GPU to CPU)
-    run_fp.read_imagef("fl_out");
-    run_fp.read_imagef("fr_out");
-    run_fp.read_imagef("ft_out");
-    run_fp.read_imagef("fb_out");
+    // water transport: reads f[1 - fc], d[dc]; writes d[1 - dc], u, v
+    for (int k = 0; k < 4; ++k)
+      run_wa.set_argument(1 + k, img_f[1 - fc][k]);
+    run_wa.set_argument(5, img_d[dc]);
+    run_wa.set_argument(6, img_d[1 - dc]);
 
-    // --- water transport
-    run_wa.write_imagef("fl");
-    run_wa.write_imagef("fr");
-    run_wa.write_imagef("ft");
-    run_wa.write_imagef("fb");
-    run_wa.write_imagef("d1");
+    run_wa.execute_async({shape.x, shape.y});
 
-    run_wa.execute({shape.x, shape.y});
-
-    run_wa.read_imagef("d2_out");
+    fc = 1 - fc;
+    dc = 1 - dc;
   }
 
-  // retrieve velocity field if requested
-  if (p_vel_u)
-  {
-    run_wa.read_imagef("u_out");
-    *p_vel_u = u;
-  }
-  if (p_vel_v)
-  {
-    run_wa.read_imagef("v_out");
-    *p_vel_v = v;
-  }
+  run_wa.finish();
 
-  // remove thin layer of remaining water
-  if (dry_out_ratio != 0.f)
-  {
-    float dmax = d.max();
-    water_depth_dry_out(d, dry_out_ratio, nullptr, dmax);
-  }
+  // retrieve results (both depth images map to the host array `d`)
+  run_wa.read_imagef(dc == 0 ? "d_a" : "d_b");
 
-  return d; // water depth
+  if (p_vel_u) run_wa.read_imagef("u");
+  if (p_vel_v) run_wa.read_imagef("v");
+
+  return finalize();
 }
 
 Array flow_simulation_viscous(const Array &z,
