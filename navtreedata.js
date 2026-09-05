@@ -109,8 +109,8 @@ var NAVTREEINDEX =
 "selector_8cpp.html#a5c54b11ce530d2b0cfc75de360e25ebf",
 "structhmap_1_1NanoflannPointCloudAdaptor.html#a7c24b8b7c69bbfe87e60a9d1a9243bea",
 "terrain__super__resolution_8cpp.html#a8f124990bd3d5f11ab18503b6290b615",
-"test__math_8cpp.html#a84e12a829c17f7e4ccb0c0d28dd3b90a",
-"thermal__gpu_8cpp.html#a435a38880a6bcabfb8991d5834a0f786"
+"test__math_8cpp.html#a7b9b200c4db4d7be5b1ba54f33ea71ed",
+"thermal__gpu_8cpp.html#a36a2eba6d158e44d0ef917d9582987fe"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
