@@ -2726,6 +2726,9 @@ requires requires(const T &amp;<a class="el" href="elevation__from__contours_8cp
 <tr class="memitem:adb1405cd7f9a219c82c149bcaa55cafc" id="r_adb1405cd7f9a219c82c149bcaa55cafc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#adb1405cd7f9a219c82c149bcaa55cafc">quilting_shuffle</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, glm::ivec2 patch_base_shape, float overlap, std::uint32_t seed, std::vector&lt; <a class="el" href="classhmap_1_1Array.html">Array</a> * &gt; secondary_arrays={}, bool patch_flip=true, bool patch_rotate=true, bool patch_transpose=true, float filter_width_ratio=0.25<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
 <tr class="memdesc:adb1405cd7f9a219c82c149bcaa55cafc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synthesize a new heightmap by reshuffling patches of the input heightmap.  <br /></td></tr>
 <tr class="separator:adb1405cd7f9a219c82c149bcaa55cafc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a580605e460b9b7573340233906b67517" id="r_a580605e460b9b7573340233906b67517"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a580605e460b9b7573340233906b67517">terrain_super_resolution</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;exemplar, int factor, int patch_size=16, int analysis_stride=8, int synthesis_stride=8, int sparsity=1)</td></tr>
+<tr class="memdesc:a580605e460b9b7573340233906b67517"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synthesize a high-resolution heightmap from a low-resolution input using an exemplar-based sparse patch representation (terrain amplification).  <br /></td></tr>
+<tr class="separator:a580605e460b9b7573340233906b67517"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad6a39e70bf2ff70f8367e663d3027cf" id="r_aad6a39e70bf2ff70f8367e663d3027cf"><td class="memItemLeft" align="right" valign="top">std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#aad6a39e70bf2ff70f8367e663d3027cf">cubic_pulse</a> (const <a class="el" href="classhmap_1_1TerrainTriMesh.html">TerrainTriMesh</a> &amp;mesh)</td></tr>
 <tr class="memdesc:aad6a39e70bf2ff70f8367e663d3027cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute a cubic pulse value for each mesh vertex.  <br /></td></tr>
 <tr class="separator:aad6a39e70bf2ff70f8367e663d3027cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -53302,6 +53305,136 @@ off" values that fall below the threshold, which can be useful for filtering out
 </div>
  <div class="image">
 <img src="ex_quilting4.png" alt=""/>
+</div>
+ 
+</div>
+</div>
+<a id="a580605e460b9b7573340233906b67517" name="a580605e460b9b7573340233906b67517"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a580605e460b9b7573340233906b67517">&#9670;&#160;</a></span>terrain_super_resolution()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1Array.html">Array</a> hmap::terrain_super_resolution </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>array</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>exemplar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>factor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>patch_size</em> = <code>16</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>analysis_stride</em> = <code>8</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>synthesis_stride</em> = <code>8</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sparsity</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Synthesize a high-resolution heightmap from a low-resolution input using an exemplar-based sparse patch representation (terrain amplification). </p>
+<p>The exemplar is downsampled by <code>factor</code> and every <code>patch_size</code> x <code>patch_size</code> patch of the downsampled exemplar (mean removed, radial mask applied, unit norm) becomes an atom of a dictionary, paired with the corresponding <code>patch_size * factor</code> high-resolution patch. Each patch of the input is then sparse-coded against the low-resolution atoms with orthogonal matching pursuit, and the same coefficients are applied to the paired high-resolution atoms to synthesize the output, which is blended from the overlapping patches using the mask as weight. This technique is based on <b>[Guerin2016]</b>.</p>
+<p>With <code>sparsity = 1</code> (the setting of the reference implementation), each input patch is replaced by the detail of its best-correlated exemplar patch. The strides control the density of the patch grids: smaller strides give more atoms and more overlap at a higher cost. The patch mask vanishes at the patch corners, so <code>synthesis_stride</code> should not exceed about <code>0.7 * patch_size</code> to keep the output fully covered; uncovered pixels, if any, are filled with a bicubic upsampling of the input.</p>
+<p>Memory usage scales with the number of atoms times <code>(patch_size * factor)^2</code>: large exemplars with small <code>analysis_stride</code> can require a lot of memory.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>Low-resolution input heightmap. </td></tr>
+    <tr><td class="paramname">exemplar</td><td>High-resolution exemplar heightmap providing the detail. </td></tr>
+    <tr><td class="paramname">factor</td><td>Amplification factor (&gt;= 1); the output shape is <code>array.shape * factor</code>. </td></tr>
+    <tr><td class="paramname">patch_size</td><td>Side of the square patches on the low-resolution grid (&gt;= 2). </td></tr>
+    <tr><td class="paramname">analysis_stride</td><td>Stride of the patch grid over the downsampled exemplar, in <code>[1, patch_size]</code>. </td></tr>
+    <tr><td class="paramname">synthesis_stride</td><td>Stride of the patch grid over the input, in <code>[1, patch_size]</code>. </td></tr>
+    <tr><td class="paramname">sparsity</td><td>Maximum number of atoms used to code each patch (&gt;= 1). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> Synthesized heightmap of shape <code>array.shape * factor</code>, or an empty array if the inputs are invalid (e.g. the downsampled exemplar is smaller than a patch, or the exemplar is flat).</dd></dl>
+<p><b>Example</b> </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="highmap_8hpp.html">highmap.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
+<div class="line">{</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#adb8336ed4d83c15500872185dee45d50">hmap::gpu::init_opencl</a>(); <span class="comment">// for hydraulic erosion</span></div>
+<div class="line"> </div>
+<div class="line">  glm::ivec2 shape_hr = {512, 512};</div>
+<div class="line">  <span class="keywordtype">int</span>        factor = 4;</div>
+<div class="line">  <span class="keywordtype">int</span>        seed = 1;</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// high-resolution exemplar providing the fine details</span></div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> exemplar = <a class="code hl_function" href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed">hmap::NoiseType::SIMPLEX2</a>,</div>
+<div class="line">                                         shape_hr,</div>
+<div class="line">                                         {2.f, 2.f},</div>
+<div class="line">                                         seed + 1);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#a4634556eb8cdc81b0bb52b5ebcd5309b">hmap::gpu::hydraulic_particle</a>(exemplar, 500000, seed);</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#a262e6495cb2d02598f36a2b46114b2b4">hmap::remap</a>(exemplar);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// smooth, low-resolution input terrain to amplify</span></div>
+<div class="line">  glm::ivec2  shape_lr = {shape_hr.x / factor, shape_hr.y / factor};</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z = <a class="code hl_function" href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>,</div>
+<div class="line">                                  shape_lr,</div>
+<div class="line">                                  {4.f, 4.f},</div>
+<div class="line">                                  ++seed,</div>
+<div class="line">                                  2);</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#a262e6495cb2d02598f36a2b46114b2b4">hmap::remap</a>(z);</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordtype">int</span> patch_size = 16;</div>
+<div class="line">  <span class="keywordtype">int</span> analysis_stride = patch_size / 8;</div>
+<div class="line">  <span class="keywordtype">int</span> synthesis_stride = patch_size / 2;</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> zsr = <a class="code hl_function" href="namespacehmap.html#a580605e460b9b7573340233906b67517">hmap::terrain_super_resolution</a>(z,</div>
+<div class="line">                                                   exemplar,</div>
+<div class="line">                                                   factor,</div>
+<div class="line">                                                   patch_size,</div>
+<div class="line">                                                   analysis_stride,</div>
+<div class="line">                                                   synthesis_stride);</div>
+<div class="line"> </div>
+<div class="line">  zsr.<a class="code hl_function" href="classhmap_1_1Array.html#a00b8f7462c1e22b1da8a67ec62d4c8c8">dump</a>();</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// plain upsampling of the input, for comparison</span></div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> zup = z.<a class="code hl_function" href="classhmap_1_1Array.html#adbd79d599e39db1836e720048c33452f">resample_to_shape_bicubic</a>(shape_hr);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_terrain_super_resolution.png&quot;</span>,</div>
+<div class="line">                          {exemplar, zup, zsr},</div>
+<div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>,</div>
+<div class="line">                          <span class="keyword">true</span>);</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasshmap_1_1Array_html_adbd79d599e39db1836e720048c33452f"><div class="ttname"><a href="classhmap_1_1Array.html#adbd79d599e39db1836e720048c33452f">hmap::Array::resample_to_shape_bicubic</a></div><div class="ttdeci">Array resample_to_shape_bicubic(glm::ivec2 new_shape) const</div><div class="ttdoc">Return a resampled array of shape new_shape using bicubic interpolation.</div><div class="ttdef"><b>Definition</b> methods.cpp:390</div></div>
+<div class="ttc" id="anamespacehmap_html_a580605e460b9b7573340233906b67517"><div class="ttname"><a href="namespacehmap.html#a580605e460b9b7573340233906b67517">hmap::terrain_super_resolution</a></div><div class="ttdeci">Array terrain_super_resolution(const Array &amp;array, const Array &amp;exemplar, int factor, int patch_size=16, int analysis_stride=8, int synthesis_stride=8, int sparsity=1)</div><div class="ttdoc">Synthesize a high-resolution heightmap from a low-resolution input using an exemplar-based sparse pat...</div><div class="ttdef"><b>Definition</b> terrain_super_resolution.cpp:328</div></div>
+</div><!-- fragment --><p><b>Result</b> </p><div class="image">
+<img src="ex_terrain_super_resolution.png" alt=""/>
 </div>
  
 </div>

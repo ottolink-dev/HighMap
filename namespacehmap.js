@@ -1039,6 +1039,7 @@ var namespacehmap =
     [ "quilting_blend", "namespacehmap.html#a8407611dc51d0372c4626c6c6fa94acd", null ],
     [ "quilting_expand", "namespacehmap.html#aad762d7a12d68d42ffd90e07be88fcb3", null ],
     [ "quilting_shuffle", "namespacehmap.html#adb1405cd7f9a219c82c149bcaa55cafc", null ],
+    [ "terrain_super_resolution", "namespacehmap.html#a580605e460b9b7573340233906b67517", null ],
     [ "cubic_pulse", "namespacehmap.html#aad6a39e70bf2ff70f8367e663d3027cf", null ],
     [ "generate_terrain_tri_mesh_from_heightmap", "namespacehmap.html#af9fdabd692817be603ff5c44e68ea619", null ],
     [ "generate_terrain_tri_mesh_from_heightmap_random", "namespacehmap.html#a5078af3eb73fb47ab1aad6cc872ab29a", null ],

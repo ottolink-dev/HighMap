@@ -5,9 +5,10 @@ var searchData=
   ['channel_5fstorages_2',['channel_storages',['../structhmap_1_1VirtualTextureStorage.html#a518936a932a928a0b1b135f976491e8b',1,'hmap::VirtualTextureStorage']]],
   ['channels_3',['channels',['../classhmap_1_1Texture.html#aa47eecec5ca81b281c39164e5a4b562f',1,'hmap::Texture']]],
   ['children_4',['children',['../classhmap_1_1DrainageBasinCellBased.html#ab881041e84158253cc375d9661162472',1,'hmap::DrainageBasinCellBased']]],
-  ['components_5',['components',['../classhmap_1_1PyramidDecomposition.html#ae28c747403f67117823f3bf6ad1b931f',1,'hmap::PyramidDecomposition']]],
-  ['connectivity_6',['connectivity',['../classhmap_1_1Graph.html#ac4fa0788cdc6162d9254b059ae9857da',1,'hmap::Graph']]],
-  ['contour_5fof_7',['contour_of',['../elevation__from__contours_8cpp.html#a76484755dc39e22e7979cd1c93dc5bcc',1,'elevation_from_contours.cpp']]],
-  ['contrast_8',['contrast',['../structhmap_1_1ColorAdjust.html#a9d4b1c3d2a6af81d3d5c61491782a74d',1,'hmap::ColorAdjust']]],
-  ['count_9',['count',['../structhmap_1_1AssertResults.html#a4c628df3519b0272201adac2607573a9',1,'hmap::AssertResults']]]
+  ['coeffs_5',['coeffs',['../terrain__super__resolution_8cpp.html#a7f0a7ab07d0cf2936dcebe1e2c473049',1,'terrain_super_resolution.cpp']]],
+  ['components_6',['components',['../classhmap_1_1PyramidDecomposition.html#ae28c747403f67117823f3bf6ad1b931f',1,'hmap::PyramidDecomposition']]],
+  ['connectivity_7',['connectivity',['../classhmap_1_1Graph.html#ac4fa0788cdc6162d9254b059ae9857da',1,'hmap::Graph']]],
+  ['contour_5fof_8',['contour_of',['../elevation__from__contours_8cpp.html#a76484755dc39e22e7979cd1c93dc5bcc',1,'elevation_from_contours.cpp']]],
+  ['contrast_9',['contrast',['../structhmap_1_1ColorAdjust.html#a9d4b1c3d2a6af81d3d5c61491782a74d',1,'hmap::ColorAdjust']]],
+  ['count_10',['count',['../structhmap_1_1AssertResults.html#a4c628df3519b0272201adac2607573a9',1,'hmap::AssertResults']]]
 ];

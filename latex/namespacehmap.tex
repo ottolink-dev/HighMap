@@ -1874,6 +1874,8 @@ float \mbox{\hyperlink{namespacehmap_aec6ff7b54fb5d02804aa8de94bcd4caa}{variance
 \begin{DoxyCompactList}\small\item\em Synthesize a new heightmap by expanding the input heightmap and stitching patches. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_adb1405cd7f9a219c82c149bcaa55cafc}{quilting\+\_\+shuffle}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::ivec2 patch\+\_\+base\+\_\+shape, float overlap, std\+::uint32\+\_\+t seed, std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*} $>$ secondary\+\_\+arrays=\{\}, bool patch\+\_\+flip=true, bool patch\+\_\+rotate=true, bool patch\+\_\+transpose=true, float filter\+\_\+width\+\_\+ratio=0.\+25\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Synthesize a new heightmap by reshuffling patches of the input heightmap. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a580605e460b9b7573340233906b67517}{terrain\+\_\+super\+\_\+resolution}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exemplar, int factor, int patch\+\_\+size=16, int analysis\+\_\+stride=8, int synthesis\+\_\+stride=8, int sparsity=1)
+\begin{DoxyCompactList}\small\item\em Synthesize a high-\/resolution heightmap from a low-\/resolution input using an exemplar-\/based sparse patch representation (terrain amplification). \end{DoxyCompactList}\item 
 std\+::vector$<$ float $>$ \mbox{\hyperlink{namespacehmap_aad6a39e70bf2ff70f8367e663d3027cf}{cubic\+\_\+pulse}} (const \mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \&mesh)
 \begin{DoxyCompactList}\small\item\em Compute a cubic pulse value for each mesh vertex. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \mbox{\hyperlink{namespacehmap_af9fdabd692817be603ff5c44e68ea619}{generate\+\_\+terrain\+\_\+tri\+\_\+mesh\+\_\+from\+\_\+heightmap}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, float max\+\_\+error, int max\+\_\+triangles=0, int max\+\_\+points=0)
@@ -32396,7 +32398,98 @@ This function generates a new heightmap by reshuffling patches of the input heig
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}      \Hypertarget{namespacehmap_aad6a39e70bf2ff70f8367e663d3027cf}\label{namespacehmap_aad6a39e70bf2ff70f8367e663d3027cf} 
+{\bfseries{Result}}      \Hypertarget{namespacehmap_a580605e460b9b7573340233906b67517}\label{namespacehmap_a580605e460b9b7573340233906b67517} 
+\index{hmap@{hmap}!terrain\_super\_resolution@{terrain\_super\_resolution}}
+\index{terrain\_super\_resolution@{terrain\_super\_resolution}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{terrain\_super\_resolution()}{terrain\_super\_resolution()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::terrain\+\_\+super\+\_\+resolution (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{exemplar,  }\item[{int}]{factor,  }\item[{int}]{patch\+\_\+size = {\ttfamily 16},  }\item[{int}]{analysis\+\_\+stride = {\ttfamily 8},  }\item[{int}]{synthesis\+\_\+stride = {\ttfamily 8},  }\item[{int}]{sparsity = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+Synthesize a high-\/resolution heightmap from a low-\/resolution input using an exemplar-\/based sparse patch representation (terrain amplification). 
+
+The exemplar is downsampled by {\ttfamily factor} and every {\ttfamily patch\+\_\+size} x {\ttfamily patch\+\_\+size} patch of the downsampled exemplar (mean removed, radial mask applied, unit norm) becomes an atom of a dictionary, paired with the corresponding {\ttfamily patch\+\_\+size \texorpdfstring{$\ast$}{*} factor} high-\/resolution patch. Each patch of the input is then sparse-\/coded against the low-\/resolution atoms with orthogonal matching pursuit, and the same coefficients are applied to the paired high-\/resolution atoms to synthesize the output, which is blended from the overlapping patches using the mask as weight. This technique is based on {\bfseries [Guerin2016]}.
+
+With {\ttfamily sparsity = 1} (the setting of the reference implementation), each input patch is replaced by the detail of its best-\/correlated exemplar patch. The strides control the density of the patch grids\+: smaller strides give more atoms and more overlap at a higher cost. The patch mask vanishes at the patch corners, so {\ttfamily synthesis\+\_\+stride} should not exceed about {\ttfamily 0.\+7 \texorpdfstring{$\ast$}{*} patch\+\_\+size} to keep the output fully covered; uncovered pixels, if any, are filled with a bicubic upsampling of the input.
+
+Memory usage scales with the number of atoms times {\ttfamily (patch\+\_\+size \texorpdfstring{$\ast$}{*} factor)\texorpdfstring{$^\wedge$}{\string^}2}\+: large exemplars with small {\ttfamily analysis\+\_\+stride} can require a lot of memory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & Low-\/resolution input heightmap. \\
+\hline
+{\em exemplar} & High-\/resolution exemplar heightmap providing the detail. \\
+\hline
+{\em factor} & Amplification factor (\texorpdfstring{$>$}{>}= 1); the output shape is {\ttfamily array.\+shape \texorpdfstring{$\ast$}{*} factor}. \\
+\hline
+{\em patch\+\_\+size} & Side of the square patches on the low-\/resolution grid (\texorpdfstring{$>$}{>}= 2). \\
+\hline
+{\em analysis\+\_\+stride} & Stride of the patch grid over the downsampled exemplar, in {\ttfamily \mbox{[}1, patch\+\_\+size\mbox{]}}. \\
+\hline
+{\em synthesis\+\_\+stride} & Stride of the patch grid over the input, in {\ttfamily \mbox{[}1, patch\+\_\+size\mbox{]}}. \\
+\hline
+{\em sparsity} & Maximum number of atoms used to code each patch (\texorpdfstring{$>$}{>}= 1). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Array}{Array} Synthesized heightmap of shape {\ttfamily array.\+shape \texorpdfstring{$\ast$}{*} factor}, or an empty array if the inputs are invalid (e.\+g. the downsampled exemplar is smaller than a patch, or the exemplar is flat).
+\end{DoxyReturn}
+{\bfseries{Example}} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_adb8336ed4d83c15500872185dee45d50}{hmap::gpu::init\_opencl}}();\ \textcolor{comment}{//\ for\ hydraulic\ erosion}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ glm::ivec2\ shape\_hr\ =\ \{512,\ 512\};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ factor\ =\ 4;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ seed\ =\ 1;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ high-\/resolution\ exemplar\ providing\ the\ fine\ details}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ exemplar\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed}{hmap::NoiseType::SIMPLEX2}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape\_hr,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{2.f,\ 2.f\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed\ +\ 1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_a4634556eb8cdc81b0bb52b5ebcd5309b}{hmap::gpu::hydraulic\_particle}}(exemplar,\ 500000,\ seed);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(exemplar);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ smooth,\ low-\/resolution\ input\ terrain\ to\ amplify}}
+\DoxyCodeLine{\ \ glm::ivec2\ \ shape\_lr\ =\ \{shape\_hr.x\ /\ factor,\ shape\_hr.y\ /\ factor\};}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape\_lr,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{4.f,\ 4.f\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++seed,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(z);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ patch\_size\ =\ 16;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ analysis\_stride\ =\ patch\_size\ /\ 8;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ synthesis\_stride\ =\ patch\_size\ /\ 2;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zsr\ =\ \mbox{\hyperlink{namespacehmap_a580605e460b9b7573340233906b67517}{hmap::terrain\_super\_resolution}}(z,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exemplar,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ factor,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ patch\_size,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ analysis\_stride,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ synthesis\_stride);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ zsr.\mbox{\hyperlink{classhmap_1_1Array_a00b8f7462c1e22b1da8a67ec62d4c8c8}{dump}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ plain\ upsampling\ of\ the\ input,\ for\ comparison}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zup\ =\ z.\mbox{\hyperlink{classhmap_1_1Array_adbd79d599e39db1836e720048c33452f}{resample\_to\_shape\_bicubic}}(shape\_hr);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_terrain\_super\_resolution.png"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{exemplar,\ zup,\ zsr\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9}{hmap::Cmap::TERRAIN}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true});}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+{\bfseries{Result}}  \Hypertarget{namespacehmap_aad6a39e70bf2ff70f8367e663d3027cf}\label{namespacehmap_aad6a39e70bf2ff70f8367e663d3027cf} 
 \index{hmap@{hmap}!cubic\_pulse@{cubic\_pulse}}
 \index{cubic\_pulse@{cubic\_pulse}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{cubic\_pulse()}{cubic\_pulse()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
