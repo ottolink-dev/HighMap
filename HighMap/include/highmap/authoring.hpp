@@ -170,6 +170,80 @@ Array elevation_from_sparse_constraints(const Array &mountains,
                                         float        noise_amplitude = 0.0f);
 
 /**
+ * @brief Synthesize a heightmap from sparse closed iso-contours with known
+ * elevations using stochastic front propagation (proof of concept).
+ *
+ * Experimental raster adaptation of the contour-based terrain synthesis of
+ * Huftier et al. @cite Huftier2026. Each input path is treated as a closed
+ * polygon at a constant elevation. Contour pixels are fixed to their elevation
+ * (Dirichlet constraints) and the innermost enclosing contour defines the
+ * "zone" of every other pixel. Within a zone, two fronts are propagated from
+ * the fixed pixels with an Eden growth process implemented as first-passage
+ * percolation (Dijkstra with random passage times): one front from the
+ * zone's own contour, one from its child contours. The time needed to enter a
+ * pixel is `((1 - randomness) + randomness * E) / rate` with `E` an
+ * exponential random variable and `rate` given by the probability map for the
+ * rising front and by its complement for the descending front. The arrival
+ * times `t_near` and `t_far` define a progress `t_near / (t_near + t_far)`
+ * that is mapped linearly between the two contour elevations after spurious
+ * pits are removed by a priority flood.
+ *
+ * With `randomness = 0` the passage times equal their expectation and the
+ * method reduces to a deterministic, probability-weighted geodesic front
+ * propagation. With a uniform probability map the result is then close to an
+ * inverse-distance interpolation between consecutive contours.
+ *
+ * Leaf contours (contours without children) rise to `elevation + peak_ratio *
+ * spacing` at their farthest interior point, or sink by the same amount when
+ * the contour is lower than its parent (basins). Outside all contours the
+ * terrain falls off to `elevation - outside_ratio * spacing`. `spacing` is the
+ * mean elevation gap between nested contours (falls back to the elevation
+ * range, then to 1).
+ *
+ * Limitations of this proof of concept: contours must not cross each other;
+ * children of a contour with different elevations produce a discontinuity
+ * along the seam between their regions; pit removal is only applied to zones
+ * whose child contours are all higher than the enclosing contour.
+ *
+ * @param  shape         Output array shape.
+ * @param  contours      Closed contour polygons (at least 3 points each), in
+ *                       `bbox` coordinates. The `closed` flag of the paths is
+ *                       ignored, every path is closed.
+ * @param  elevations    Elevation of each contour (same size as `contours`).
+ * @param  p_probability Optional probability map in [0, 1] with shape `shape`.
+ *                       Where it is high the rising front advances fast and
+ *                       the terrain stays low longer (gentle slopes); where it
+ *                       is low the terrain rises quickly (steep slopes). If
+ *                       null, a uniform map (0.5) is used.
+ * @param  randomness    Amount of randomness in the front propagation in
+ *                       [0, 1]: 0 is deterministic, 1 is the Eden growth
+ *                       model.
+ * @param  seed          Random seed.
+ * @param  peak_ratio    Elevation gain of leaf contour interiors, relative to
+ *                       the mean elevation gap between nested contours.
+ * @param  outside_ratio Elevation drop outside all contours, relative to the
+ *                       mean elevation gap between nested contours.
+ * @param  bbox          Domain bounding box {xmin, xmax, ymin, ymax}.
+ * @return               Array Synthesized heightmap, or an empty array if the
+ *                       inputs are invalid.
+ *
+ * **Example**
+ * @include ex_elevation_from_contours.cpp
+ *
+ * **Result**
+ * @image html ex_elevation_from_contours.png
+ */
+Array elevation_from_contours(glm::ivec2                shape,
+                              const std::vector<Path>  &contours,
+                              const std::vector<float> &elevations,
+                              const Array              *p_probability = nullptr,
+                              float                     randomness = 1.f,
+                              uint                      seed = 0,
+                              float                     peak_ratio = 0.5f,
+                              float                     outside_ratio = 1.f,
+                              glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
  * @brief Apply the reverse midpoint displacement algorithm to the input array.
  *
  * This function implements the reverse midpoint displacement algorithm as
