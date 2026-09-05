@@ -1,7 +1,5 @@
 var NAVTREEINDEX23 =
 {
-"terrain__super__resolution_8cpp.html#a580605e460b9b7573340233906b67517":[5,0,1,1,39,2,0],
-"terrain__super__resolution_8cpp.html#a7f0a7ab07d0cf2936dcebe1e2c473049":[5,0,1,1,39,2,7],
 "terrain__super__resolution_8cpp.html#a8f124990bd3d5f11ab18503b6290b615":[5,0,1,1,39,2,5],
 "terrain__super__resolution_8cpp.html#a90488dbe3bbed84860b4b851399b17a5":[5,0,1,1,39,2,1],
 "terrain__super__resolution_8cpp.html#ac154efd88846a5ab29c0ce98d32fbd4e":[5,0,1,1,39,2,2],
@@ -249,5 +247,7 @@ var NAVTREEINDEX23 =
 "test__math_8cpp.html#a6ab76b3a1a9b99079b43e1239195cc9d":[5,0,2,0,29,17],
 "test__math_8cpp.html#a745a85802f3c96931c289bdfe091460b":[5,0,2,0,29,5],
 "test__math_8cpp.html#a74a564a9d56bbf66e5a28e9956e07e27":[5,0,2,0,29,18],
-"test__math_8cpp.html#a77801489cacf9c14da556509c6cba35a":[5,0,2,0,29,15]
+"test__math_8cpp.html#a77801489cacf9c14da556509c6cba35a":[5,0,2,0,29,15],
+"test__math_8cpp.html#a7ac432955ab2f2e1acd6313200fcd742":[5,0,2,0,29,4],
+"test__math_8cpp.html#a7b9b200c4db4d7be5b1ba54f33ea71ed":[5,0,2,0,29,3]
 };

@@ -21,7 +21,7 @@ var searchData=
   ['helper_5fcrater_5fradial_5ffunction_18',['helper_crater_radial_function',['../namespacehmap.html#a38823c416595a4cbc4f1d13914f1185f',1,'hmap']]],
   ['helper_5festimate_5fcount_19',['helper_estimate_count',['../namespacehmap.html#a680e3eafe72e649e15f076c59c86ab01',1,'hmap']]],
   ['helper_5ffind_5fup_5fdownslope_20',['helper_find_up_downslope',['../namespacehmap.html#a5acae3ca582cc9a70ad321ef484c05f2',1,'hmap']]],
-  ['helper_5fflip_5frot_5ftranspose_21',['helper_flip_rot_transpose',['../namespacehmap.html#a36f7eca67d2fdc5dd03a63f8b1d7255e',1,'hmap']]],
+  ['helper_5fflip_5frot_5ftranspose_21',['helper_flip_rot_transpose',['../namespacehmap.html#a2675436fd50279a3f2f991204cc11195',1,'hmap']]],
   ['helper_5fgenerate_5farray_22',['helper_generate_array',['../test__gpu__cpu_8cpp.html#afcc19e2cd5708d3686cc1643568c4bd0',1,'test_gpu_cpu.cpp']]],
   ['helper_5fgenerate_5fpath_23',['helper_generate_path',['../test__splines_8cpp.html#aeb0040f5b6eac21c2f0256fa8f844cad',1,'test_splines.cpp']]],
   ['helper_5fget_5fdistance_5fpolar_24',['helper_get_distance_polar',['../namespacehmap.html#acc54c794223302fc298eeeb563a27d0e',1,'hmap']]],

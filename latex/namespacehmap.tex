@@ -1587,7 +1587,7 @@ void \mbox{\hyperlink{namespacehmap_a54f6b9fef96254284b27ea73543abe55}{fill\+\_\
 void \mbox{\hyperlink{namespacehmap_af1b7865647bb6acd5f3c9720b3677da7}{fill\+\_\+array\+\_\+using\+\_\+xy\+\_\+function}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec4 bbox, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+ctrl\+\_\+param, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+stretching, std\+::function$<$ float(float, float, float)$>$ fct\+\_\+xy, int subsampling)
 \begin{DoxyCompactList}\small\item\em Fill an array using a scalar function based on (x, y) coordinates with subsampling. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_ae0a3c73cc23a288fe03bf5ed6ac73c3d}{find\+\_\+vertical\+\_\+cut\+\_\+path}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&error, std\+::vector$<$ int $>$ \&path\+\_\+i)
-\begin{DoxyCompactList}\small\item\em Find the vertical cut path with the minimum cost using Dijkstra\textquotesingle{}s algorithm. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Find the vertical cut path with the minimum cost using dynamic programming. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_ae6817ca5deb78b7edb959b3ea334b25b}{generate\+\_\+mask}} (glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, std\+::vector$<$ int $>$ cut\+\_\+path\+\_\+i, int ir)
 \begin{DoxyCompactList}\small\item\em Generate a smooth mask based on a cut path. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a1efabd6902468a707a2029f684b45ba1}{get\+\_\+random\+\_\+patch}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::ivec2 patch\+\_\+shape, std\+::mt19937 \&gen, bool patch\+\_\+flip=false, bool patch\+\_\+rotate=false, bool patch\+\_\+transpose=false, std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}p\+\_\+secondary\+\_\+arrays=nullptr, std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Array}{Array}} $>$ \texorpdfstring{$\ast$}{*}p\+\_\+secondary\+\_\+patches=nullptr)
@@ -2058,9 +2058,7 @@ float \mbox{\hyperlink{namespacehmap_a18d33562e8ffbb8be79e2ec87bcf285f}{helper\+
 \item 
 void \mbox{\hyperlink{namespacehmap_a2c98f2116e221df5f6684a7546bb233f}{helper\+\_\+thinning}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&in, int iter)
 \item 
-bool \mbox{\hyperlink{namespacehmap_a5ce9334e0b274e48f7ba8bcaa9dd12a3}{cmp\+\_\+path}} (std\+::pair$<$ float, std\+::vector$<$ int $>$ $>$ \&a, std\+::pair$<$ float, std\+::vector$<$ int $>$ $>$ \&b)
-\item 
-void \mbox{\hyperlink{namespacehmap_a36f7eca67d2fdc5dd03a63f8b1d7255e}{helper\+\_\+flip\+\_\+rot\+\_\+transpose}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, bool do\+\_\+flip\+\_\+ud, bool do\+\_\+flip\+\_\+lr, bool do\+\_\+rot90, bool do\+\_\+transpose)
+void \mbox{\hyperlink{namespacehmap_a2675436fd50279a3f2f991204cc11195}{helper\+\_\+flip\+\_\+rot\+\_\+transpose}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, bool do\+\_\+flip, int rot\+\_\+steps, bool do\+\_\+transpose)
 \item 
 float \mbox{\hyperlink{namespacehmap_a38823c416595a4cbc4f1d13914f1185f}{helper\+\_\+crater\+\_\+radial\+\_\+function}} (float r, float inner\+\_\+depth, float inner\+\_\+exp, float lip\+\_\+height, float lip\+\_\+extent, float lip\+\_\+exp, int n\+\_\+terraces, float terrace\+\_\+extent, float terrace\+\_\+exp, float terrace\+\_\+persistence)
 \item 
@@ -24940,9 +24938,9 @@ This function is similar to the one above but includes a {\ttfamily subsampling}
 
 
 
-Find the vertical cut path with the minimum cost using Dijkstra\textquotesingle{}s algorithm. 
+Find the vertical cut path with the minimum cost using dynamic programming. 
 
-This function identifies the vertical cut path in an array from the bottom to the top that has the minimum cumulative cost. The path is determined using Dijkstra\textquotesingle{}s algorithm.
+This function identifies the vertical cut path in an array from the bottom to the top that has the minimum cumulative cost.
 
 
 \begin{DoxyParams}{Parameters}
@@ -34763,17 +34761,11 @@ auto hmap\+::helper\+\_\+make\+\_\+wrapped (\begin{DoxyParamCaption}\item[{F}]{f
 \doxysubsubsection{\texorpdfstring{helper\_thinning()}{helper\_thinning()}}
 {\footnotesize\ttfamily void hmap\+::helper\+\_\+thinning (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{in,  }\item[{int}]{iter }\end{DoxyParamCaption})}
 
-\Hypertarget{namespacehmap_a5ce9334e0b274e48f7ba8bcaa9dd12a3}\label{namespacehmap_a5ce9334e0b274e48f7ba8bcaa9dd12a3} 
-\index{hmap@{hmap}!cmp\_path@{cmp\_path}}
-\index{cmp\_path@{cmp\_path}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{cmp\_path()}{cmp\_path()}}
-{\footnotesize\ttfamily bool hmap\+::cmp\+\_\+path (\begin{DoxyParamCaption}\item[{std\+::pair$<$ float, std\+::vector$<$ int $>$ $>$ \&}]{a,  }\item[{std\+::pair$<$ float, std\+::vector$<$ int $>$ $>$ \&}]{b }\end{DoxyParamCaption})}
-
-\Hypertarget{namespacehmap_a36f7eca67d2fdc5dd03a63f8b1d7255e}\label{namespacehmap_a36f7eca67d2fdc5dd03a63f8b1d7255e} 
+\Hypertarget{namespacehmap_a2675436fd50279a3f2f991204cc11195}\label{namespacehmap_a2675436fd50279a3f2f991204cc11195} 
 \index{hmap@{hmap}!helper\_flip\_rot\_transpose@{helper\_flip\_rot\_transpose}}
 \index{helper\_flip\_rot\_transpose@{helper\_flip\_rot\_transpose}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{helper\_flip\_rot\_transpose()}{helper\_flip\_rot\_transpose()}}
-{\footnotesize\ttfamily void hmap\+::helper\+\_\+flip\+\_\+rot\+\_\+transpose (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{bool}]{do\+\_\+flip\+\_\+ud,  }\item[{bool}]{do\+\_\+flip\+\_\+lr,  }\item[{bool}]{do\+\_\+rot90,  }\item[{bool}]{do\+\_\+transpose }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void hmap\+::helper\+\_\+flip\+\_\+rot\+\_\+transpose (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{bool}]{do\+\_\+flip,  }\item[{int}]{rot\+\_\+steps,  }\item[{bool}]{do\+\_\+transpose }\end{DoxyParamCaption})}
 
 \Hypertarget{namespacehmap_a38823c416595a4cbc4f1d13914f1185f}\label{namespacehmap_a38823c416595a4cbc4f1d13914f1185f} 
 \index{hmap@{hmap}!helper\_crater\_radial\_function@{helper\_crater\_radial\_function}}

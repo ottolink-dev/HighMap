@@ -1,6 +1,5 @@
 var NAVTREEINDEX20 =
 {
-"primitives_2functions_8hpp_source.html":[5,0,1,0,0,8,1],
 "primitives_2random_8hpp.html":[5,0,1,0,0,8,3],
 "primitives_2random_8hpp.html#a5db6d20fe4a5e243dc67a713cb3ac419":[5,0,1,0,0,8,3,0],
 "primitives_2random_8hpp.html#a77473fb1fbaeed58445c10a9cb6fae50":[5,0,1,0,0,8,3,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX20 =
 "selector_8cpp.html#a183508644aea6442e249cfc2973fef97":[5,0,1,1,35,4,19],
 "selector_8cpp.html#a1f35e2238ee222ab2aa87304f6692ce6":[5,0,1,1,35,4,20],
 "selector_8cpp.html#a3ce44e59b5eeb5c47a597f893f53eadb":[5,0,1,1,35,4,18],
-"selector_8cpp.html#a4c42905cbb910cb4017ef3e026a31d59":[5,0,1,1,35,4,10]
+"selector_8cpp.html#a4c42905cbb910cb4017ef3e026a31d59":[5,0,1,1,35,4,10],
+"selector_8cpp.html#a565788418282bab28d9d3384622abd9d":[5,0,1,1,35,4,16]
 };

@@ -2300,7 +2300,7 @@ requires requires(const T &amp;<a class="el" href="elevation__from__contours_8cp
 <tr class="memdesc:af1b7865647bb6acd5f3c9720b3677da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill an array using a scalar function based on (x, y) coordinates with subsampling.  <br /></td></tr>
 <tr class="separator:af1b7865647bb6acd5f3c9720b3677da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0a3c73cc23a288fe03bf5ed6ac73c3d" id="r_ae0a3c73cc23a288fe03bf5ed6ac73c3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#ae0a3c73cc23a288fe03bf5ed6ac73c3d">find_vertical_cut_path</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;error, std::vector&lt; int &gt; &amp;path_i)</td></tr>
-<tr class="memdesc:ae0a3c73cc23a288fe03bf5ed6ac73c3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the vertical cut path with the minimum cost using Dijkstra's algorithm.  <br /></td></tr>
+<tr class="memdesc:ae0a3c73cc23a288fe03bf5ed6ac73c3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the vertical cut path with the minimum cost using dynamic programming.  <br /></td></tr>
 <tr class="separator:ae0a3c73cc23a288fe03bf5ed6ac73c3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6817ca5deb78b7edb959b3ea334b25b" id="r_ae6817ca5deb78b7edb959b3ea334b25b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#ae6817ca5deb78b7edb959b3ea334b25b">generate_mask</a> (glm::ivec2 <a class="el" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, std::vector&lt; int &gt; cut_path_i, int ir)</td></tr>
 <tr class="memdesc:ae6817ca5deb78b7edb959b3ea334b25b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a smooth mask based on a cut path.  <br /></td></tr>
@@ -2964,10 +2964,8 @@ requires requires(const T &amp;<a class="el" href="elevation__from__contours_8cp
 <tr class="separator:af988efebdf30c6135f68af79aaa83605"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c98f2116e221df5f6684a7546bb233f" id="r_a2c98f2116e221df5f6684a7546bb233f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a2c98f2116e221df5f6684a7546bb233f">helper_thinning</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;in, int iter)</td></tr>
 <tr class="separator:a2c98f2116e221df5f6684a7546bb233f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ce9334e0b274e48f7ba8bcaa9dd12a3" id="r_a5ce9334e0b274e48f7ba8bcaa9dd12a3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a5ce9334e0b274e48f7ba8bcaa9dd12a3">cmp_path</a> (std::pair&lt; float, std::vector&lt; int &gt; &gt; &amp;a, std::pair&lt; float, std::vector&lt; int &gt; &gt; &amp;b)</td></tr>
-<tr class="separator:a5ce9334e0b274e48f7ba8bcaa9dd12a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36f7eca67d2fdc5dd03a63f8b1d7255e" id="r_a36f7eca67d2fdc5dd03a63f8b1d7255e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a36f7eca67d2fdc5dd03a63f8b1d7255e">helper_flip_rot_transpose</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, bool do_flip_ud, bool do_flip_lr, bool do_rot90, bool do_transpose)</td></tr>
-<tr class="separator:a36f7eca67d2fdc5dd03a63f8b1d7255e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2675436fd50279a3f2f991204cc11195" id="r_a2675436fd50279a3f2f991204cc11195"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a2675436fd50279a3f2f991204cc11195">helper_flip_rot_transpose</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, bool do_flip, int rot_steps, bool do_transpose)</td></tr>
+<tr class="separator:a2675436fd50279a3f2f991204cc11195"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38823c416595a4cbc4f1d13914f1185f" id="r_a38823c416595a4cbc4f1d13914f1185f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a38823c416595a4cbc4f1d13914f1185f">helper_crater_radial_function</a> (float r, float inner_depth, float inner_exp, float lip_height, float lip_extent, float lip_exp, int n_terraces, float terrace_extent, float terrace_exp, float terrace_persistence)</td></tr>
 <tr class="separator:a38823c416595a4cbc4f1d13914f1185f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed9491c87a175e07ff614dfa3ad8b4f4" id="r_aed9491c87a175e07ff614dfa3ad8b4f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Point.html">Point</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#aed9491c87a175e07ff614dfa3ad8b4f4">helper_pick_lowest</a> (const <a class="el" href="classhmap_1_1Point.html">Point</a> &amp;pa, const <a class="el" href="classhmap_1_1Point.html">Point</a> &amp;pb, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, float max_offset, int steps)</td></tr>
@@ -40469,8 +40467,8 @@ y = v_{\min} + \frac{v_{\max} - v_{\min}}
       </table>
 </div><div class="memdoc">
 
-<p>Find the vertical cut path with the minimum cost using Dijkstra's algorithm. </p>
-<p>This function identifies the vertical cut path in an array from the bottom to the top that has the minimum cumulative cost. The path is determined using Dijkstra's algorithm.</p>
+<p>Find the vertical cut path with the minimum cost using dynamic programming. </p>
+<p>This function identifies the vertical cut path in an array from the bottom to the top that has the minimum cumulative cost.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">error</td><td>Input array containing error or cost values. </td></tr>
@@ -52616,10 +52614,10 @@ off" values that fall below the threshold, which can be useful for filtering out
 <div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>,</div>
 <div class="line">                          <span class="keyword">true</span>);</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_html_a8407611dc51d0372c4626c6c6fa94acd"><div class="ttname"><a href="namespacehmap.html#a8407611dc51d0372c4626c6c6fa94acd">hmap::quilting_blend</a></div><div class="ttdeci">Array quilting_blend(const std::vector&lt; const Array * &gt; &amp;p_arrays, glm::ivec2 patch_base_shape, float overlap, std::uint32_t seed, bool patch_flip=true, bool patch_rotate=true, bool patch_transpose=true, float filter_width_ratio=0.25f)</div><div class="ttdoc">Synthesize a new heightmap by stitching together small patches from a list of input heightmaps.</div><div class="ttdef"><b>Definition</b> quilting.cpp:214</div></div>
-<div class="ttc" id="anamespacehmap_html_aad762d7a12d68d42ffd90e07be88fcb3"><div class="ttname"><a href="namespacehmap.html#aad762d7a12d68d42ffd90e07be88fcb3">hmap::quilting_expand</a></div><div class="ttdeci">Array quilting_expand(const Array &amp;array, float expansion_ratio, glm::ivec2 patch_base_shape, float overlap, std::uint32_t seed, std::vector&lt; Array * &gt; secondary_arrays={}, bool keep_input_shape=false, bool patch_flip=true, bool patch_rotate=true, bool patch_transpose=true, float filter_width_ratio=0.25f)</div><div class="ttdoc">Synthesize a new heightmap by expanding the input heightmap and stitching patches.</div><div class="ttdef"><b>Definition</b> quilting.cpp:249</div></div>
+<div class="ttc" id="anamespacehmap_html_a8407611dc51d0372c4626c6c6fa94acd"><div class="ttname"><a href="namespacehmap.html#a8407611dc51d0372c4626c6c6fa94acd">hmap::quilting_blend</a></div><div class="ttdeci">Array quilting_blend(const std::vector&lt; const Array * &gt; &amp;p_arrays, glm::ivec2 patch_base_shape, float overlap, std::uint32_t seed, bool patch_flip=true, bool patch_rotate=true, bool patch_transpose=true, float filter_width_ratio=0.25f)</div><div class="ttdoc">Synthesize a new heightmap by stitching together small patches from a list of input heightmaps.</div><div class="ttdef"><b>Definition</b> quilting.cpp:225</div></div>
+<div class="ttc" id="anamespacehmap_html_aad762d7a12d68d42ffd90e07be88fcb3"><div class="ttname"><a href="namespacehmap.html#aad762d7a12d68d42ffd90e07be88fcb3">hmap::quilting_expand</a></div><div class="ttdeci">Array quilting_expand(const Array &amp;array, float expansion_ratio, glm::ivec2 patch_base_shape, float overlap, std::uint32_t seed, std::vector&lt; Array * &gt; secondary_arrays={}, bool keep_input_shape=false, bool patch_flip=true, bool patch_rotate=true, bool patch_transpose=true, float filter_width_ratio=0.25f)</div><div class="ttdoc">Synthesize a new heightmap by expanding the input heightmap and stitching patches.</div><div class="ttdef"><b>Definition</b> quilting.cpp:260</div></div>
 <div class="ttc" id="anamespacehmap_html_ada12bd91a1719f64ff4b652bf1462d2a"><div class="ttname"><a href="namespacehmap.html#ada12bd91a1719f64ff4b652bf1462d2a">hmap::quilting</a></div><div class="ttdeci">Array quilting(const std::vector&lt; const Array * &gt; &amp;p_arrays, glm::ivec2 patch_base_shape, glm::ivec2 tiling, float overlap, std::uint32_t seed, std::vector&lt; Array * &gt; secondary_arrays={}, bool patch_flip=true, bool patch_rotate=true, bool patch_transpose=true, float filter_width_ratio=0.25f)</div><div class="ttdoc">Synthesize a new heightmap by stitching together small patches from input heightmaps.</div><div class="ttdef"><b>Definition</b> quilting.cpp:20</div></div>
-<div class="ttc" id="anamespacehmap_html_adb1405cd7f9a219c82c149bcaa55cafc"><div class="ttname"><a href="namespacehmap.html#adb1405cd7f9a219c82c149bcaa55cafc">hmap::quilting_shuffle</a></div><div class="ttdeci">Array quilting_shuffle(const Array &amp;array, glm::ivec2 patch_base_shape, float overlap, std::uint32_t seed, std::vector&lt; Array * &gt; secondary_arrays={}, bool patch_flip=true, bool patch_rotate=true, bool patch_transpose=true, float filter_width_ratio=0.25f)</div><div class="ttdoc">Synthesize a new heightmap by reshuffling patches of the input heightmap.</div><div class="ttdef"><b>Definition</b> quilting.cpp:351</div></div>
+<div class="ttc" id="anamespacehmap_html_adb1405cd7f9a219c82c149bcaa55cafc"><div class="ttname"><a href="namespacehmap.html#adb1405cd7f9a219c82c149bcaa55cafc">hmap::quilting_shuffle</a></div><div class="ttdeci">Array quilting_shuffle(const Array &amp;array, glm::ivec2 patch_base_shape, float overlap, std::uint32_t seed, std::vector&lt; Array * &gt; secondary_arrays={}, bool patch_flip=true, bool patch_rotate=true, bool patch_transpose=true, float filter_width_ratio=0.25f)</div><div class="ttdoc">Synthesize a new heightmap by reshuffling patches of the input heightmap.</div><div class="ttdef"><b>Definition</b> quilting.cpp:367</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_quilting0.png" alt=""/>
 </div>
@@ -58249,36 +58247,8 @@ template&lt;typename F &gt; </div>
 
 </div>
 </div>
-<a id="a5ce9334e0b274e48f7ba8bcaa9dd12a3" name="a5ce9334e0b274e48f7ba8bcaa9dd12a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ce9334e0b274e48f7ba8bcaa9dd12a3">&#9670;&#160;</a></span>cmp_path()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hmap::cmp_path </td>
-          <td>(</td>
-          <td class="paramtype">std::pair&lt; float, std::vector&lt; int &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::pair&lt; float, std::vector&lt; int &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a36f7eca67d2fdc5dd03a63f8b1d7255e" name="a36f7eca67d2fdc5dd03a63f8b1d7255e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36f7eca67d2fdc5dd03a63f8b1d7255e">&#9670;&#160;</a></span>helper_flip_rot_transpose()</h2>
+<a id="a2675436fd50279a3f2f991204cc11195" name="a2675436fd50279a3f2f991204cc11195"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2675436fd50279a3f2f991204cc11195">&#9670;&#160;</a></span>helper_flip_rot_transpose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -58293,19 +58263,13 @@ template&lt;typename F &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>do_flip_ud</em>, </td>
+          <td class="paramname"><em>do_flip</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>do_flip_lr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>do_rot90</em>, </td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rot_steps</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

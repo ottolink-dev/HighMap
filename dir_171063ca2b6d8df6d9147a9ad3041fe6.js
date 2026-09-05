@@ -39,6 +39,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_path_squiggle.cpp", "test__path__squiggle_8cpp.html", "test__path__squiggle_8cpp" ],
     [ "test_pdf_sampler.cpp", "test__pdf__sampler_8cpp.html", "test__pdf__sampler_8cpp" ],
     [ "test_point.cpp", "test__point_8cpp.html", "test__point_8cpp" ],
+    [ "test_quilting.cpp", "test__quilting_8cpp.html", "test__quilting_8cpp" ],
     [ "test_range.cpp", "test__range_8cpp.html", "test__range_8cpp" ],
     [ "test_remap.cpp", "test__remap_8cpp.html", "test__remap_8cpp" ],
     [ "test_remove_endpoints.cpp", "test__remove__endpoints_8cpp.html", "test__remove__endpoints_8cpp" ],
