@@ -17,66 +17,74 @@
 namespace hmap
 {
 
-bool cmp_path(std::pair<float, std::vector<int>> &a,
-              std::pair<float, std::vector<int>> &b)
-{
-  return a.first < b.first;
-}
-
-// among all the possible cut path from top to bottom and find the one
-// with the minimum cost using Dijkstra's algorithm
+// find the cut path from top to bottom with the minimum cost using dynamic
+// programming
 void find_vertical_cut_path(const Array &error, std::vector<int> &path_i)
 {
   if (!validate_non_empty(error)) return;
 
   glm::ivec2 shape = error.shape;
 
-  path_i.clear();
-  path_i.reserve(shape.y);
+  path_i.resize(shape.y);
 
-  Mat<int> cell_done(shape);
-
-  // queue of possible paths from bottom to top (described but a
-  // list of 'i' indices std::vector<int>) and their cumulative
-  // error (float)
-  std::vector<std::pair<float, std::vector<int>>> queue;
-
-  // populate queue from the top
-  for (int i = 0; i < shape.x; i++)
-    queue.push_back(std::pair(error(i, 0), std::vector<int>({i})));
-
-  std::make_heap(queue.begin(), queue.end(), cmp_path);
-
-  while (queue.size() > 0)
+  if (shape.x == 1)
   {
-    std::pair<float, std::vector<int>> current = queue.back();
-    queue.pop_back();
+    std::fill(path_i.begin(), path_i.end(), 0);
+    return;
+  }
 
-    int i = current.second.back();
-    int j = (int)current.second.size() - 1;
+  // dynamic programming table for cumulative minimum error
+  std::vector<float> dp_prev(shape.x);
+  std::vector<float> dp_curr(shape.x);
+  // store chosen offsets: -1, 0, or +1
+  std::vector<int8_t> backtrack(shape.x * shape.y, 0);
 
-    if (j == shape.y - 1)
+  for (int i = 0; i < shape.x; i++)
+    dp_prev[i] = error(i, 0);
+
+  for (int j = 1; j < shape.y; j++)
+  {
+    for (int i = 0; i < shape.x; i++)
     {
-      // top has been reached, we're done
-      for (auto &v : current.second)
-        path_i.push_back(v);
-      break;
-    }
+      float  min_cost = dp_prev[i];
+      int8_t best_offset = 0;
 
-    for (int di = -1; di < 2; di++)
+      if (i > 0 && dp_prev[i - 1] < min_cost)
+      {
+        min_cost = dp_prev[i - 1];
+        best_offset = -1;
+      }
+      if (i + 1 < shape.x && dp_prev[i + 1] < min_cost)
+      {
+        min_cost = dp_prev[i + 1];
+        best_offset = 1;
+      }
+
+      dp_curr[i] = error(i, j) + min_cost;
+      backtrack[j * shape.x + i] = best_offset;
+    }
+    dp_prev = dp_curr;
+  }
+
+  // find index with minimum cumulative error in the bottom row
+  int   best_i = 0;
+  float min_total_cost = dp_prev[0];
+  for (int i = 1; i < shape.x; i++)
+  {
+    if (dp_prev[i] < min_total_cost)
     {
-      int inext = i + di;
-      if (inext >= 0 && inext < shape.x)
-        if (cell_done(inext, j + 1) == 0)
-        {
-          std::vector<int> new_path = current.second;
-          new_path.push_back(inext);
-
-          queue.push_back(std::pair(current.first + error(inext, j), new_path));
-          cell_done(inext, j + 1) = 1;
-          std::push_heap(queue.begin(), queue.end());
-        }
+      min_total_cost = dp_prev[i];
+      best_i = i;
     }
+  }
+
+  // backtrack from bottom to top
+  path_i[shape.y - 1] = best_i;
+  int curr_i = best_i;
+  for (int j = shape.y - 1; j > 0; j--)
+  {
+    curr_i += backtrack[j * shape.x + curr_i];
+    path_i[j - 1] = curr_i;
   }
 }
 
@@ -133,18 +141,22 @@ Array generate_mask(glm::ivec2 shape, std::vector<int> cut_path_i, int ir)
 }
 
 void helper_flip_rot_transpose(Array &array,
-                               bool   do_flip_ud,
-                               bool   do_flip_lr,
-                               bool   do_rot90,
+                               bool   do_flip,
+                               int    rot_steps,
                                bool   do_transpose)
 {
-  if (do_flip_ud) flip_ud(array);
-  if (do_flip_lr) flip_lr(array);
+  if (do_flip) flip_lr(array);
 
-  // square patches only...
+  // square patches support arbitrary 90-degree step rotations and transposition
   if (array.shape.x == array.shape.y)
   {
-    if (do_rot90) rot90(array);
+    if (rot_steps == 1)
+      rot90(array);
+    else if (rot_steps == 2)
+      rot180(array);
+    else if (rot_steps == 3)
+      rot270(array);
+
     if (do_transpose) transpose(array);
   }
 }
@@ -161,41 +173,32 @@ Array get_random_patch(const Array          &array,
   if (!validate_non_empty(array) || !validate_shape(patch_shape))
     return Array();
 
-  std::uniform_int_distribution<int> dis_i(0, array.shape.x - 1);
-  std::uniform_int_distribution<int> dis_j(0, array.shape.y - 1);
+  // clamp patch shape to array bounds
+  int pw = std::min(patch_shape.x, array.shape.x);
+  int ph = std::min(patch_shape.y, array.shape.y);
 
-  // random pair of indices
-  int i = dis_i(gen);
-  int j = dis_j(gen);
+  // uniform sampling of valid start coordinates across the source heightmap
+  int max_i = std::max(0, array.shape.x - pw);
+  int max_j = std::max(0, array.shape.y - ph);
 
-  // compute desired end indices
-  int i_end = i + patch_shape.x;
-  int j_end = j + patch_shape.y;
+  std::uniform_int_distribution<int> dis_i(0, max_i);
+  std::uniform_int_distribution<int> dis_j(0, max_j);
+  std::uniform_int_distribution<int> dis_rot(0, 3);
+  std::bernoulli_distribution        dis_bool(0.5);
 
-  // clamp end indices to array bounds
-  i_end = std::min(i_end, array.shape.x);
-  j_end = std::min(j_end, array.shape.y);
-
-  // adjust start index if patch became smaller on the right/bottom.
-  // This keeps the patch size constant (if you want that).
-  int i_start = std::max(0, i_end - patch_shape.x);
-  int j_start = std::max(0, j_end - patch_shape.y);
+  int i_start = dis_i(gen);
+  int j_start = dis_j(gen);
+  int i_end = i_start + pw;
+  int j_end = j_start + ph;
 
   Array patch = array.extract_slice(glm::ivec4(i_start, i_end, j_start, j_end));
 
-  // flipping, etc...
-  int imid = (int)(0.5f * (array.shape.x - 1));
+  // sample transformations uniformly
+  bool do_flip = patch_flip && dis_bool(gen);
+  int  rot_steps = patch_rotate ? dis_rot(gen) : 0;
+  bool do_transpose = patch_transpose && dis_bool(gen);
 
-  bool do_flip_ud = patch_flip && (dis_i(gen) > imid);
-  bool do_flip_lr = patch_flip && (dis_i(gen) > imid);
-  bool do_rot90 = patch_rotate && (dis_i(gen) > imid);
-  bool do_transpose = patch_transpose && (dis_i(gen) > imid);
-
-  helper_flip_rot_transpose(patch,
-                            do_flip_ud,
-                            do_flip_lr,
-                            do_rot90,
-                            do_transpose);
+  helper_flip_rot_transpose(patch, do_flip, rot_steps, do_transpose);
 
   // apply the patch extraction with the same parameters to the
   // secondary arrays
@@ -209,11 +212,7 @@ Array get_random_patch(const Array          &array,
 
       Array sec_patch = pa->extract_slice(
           glm::ivec4(i_start, i_end, j_start, j_end));
-      helper_flip_rot_transpose(sec_patch,
-                                do_flip_ud,
-                                do_flip_lr,
-                                do_rot90,
-                                do_transpose);
+      helper_flip_rot_transpose(sec_patch, do_flip, rot_steps, do_transpose);
       p_secondary_patches->push_back(sec_patch);
     }
   }

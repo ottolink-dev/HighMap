@@ -42,12 +42,21 @@ Array quilting(const std::vector<const Array *> &p_arrays,
 
   std::uniform_int_distribution<int> dis_a(0, (int)p_arrays.size() - 1);
 
+  overlap = std::max(0.f, overlap);
+
   glm::ivec2 patch_shape = {(int)(patch_base_shape.x * (1.f + overlap)),
                             (int)(patch_base_shape.y * (1.f + overlap))};
 
-  // keep size under control
-  patch_shape.x = std::min(patch_shape.x, p_arrays.front()->shape.x);
-  patch_shape.y = std::min(patch_shape.y, p_arrays.front()->shape.y);
+  // keep size under control across all input arrays
+  for (const auto *p : p_arrays)
+  {
+    patch_shape.x = std::min(patch_shape.x, p->shape.x);
+    patch_shape.y = std::min(patch_shape.y, p->shape.y);
+  }
+
+  // ensure patch is at least patch_base_shape
+  patch_shape.x = std::max(patch_shape.x, patch_base_shape.x);
+  patch_shape.y = std::max(patch_shape.y, patch_base_shape.y);
 
   glm::ivec2 noverlap = {patch_shape.x - patch_base_shape.x,
                          patch_shape.y - patch_base_shape.y};
@@ -92,7 +101,7 @@ Array quilting(const std::vector<const Array *> &p_arrays,
                                      &secondary_arrays,
                                      &secondary_patches);
 
-      if (it > 0)
+      if (it > 0 && noverlap.x > 0)
       {
         Array error = Array(glm::ivec2(noverlap.x, patch_shape.y));
         for (int j = 0; j < patch_shape.y; j++)
@@ -138,7 +147,7 @@ Array quilting(const std::vector<const Array *> &p_arrays,
     }
 
     // patch the horizontal stripes
-    if (jt > 0)
+    if (jt > 0 && noverlap.y > 0)
     {
       Array error = Array(glm::ivec2(shape_output.x, noverlap.y));
 
@@ -151,7 +160,9 @@ Array quilting(const std::vector<const Array *> &p_arrays,
         Array            error_t = transpose(error);
         std::vector<int> cut_path_i;
         find_vertical_cut_path(error_t, cut_path_i);
-        Array mask_t = generate_mask(error_t.shape, cut_path_i, ir);
+        Array mask_t = generate_mask(error_t.shape,
+                                     cut_path_i,
+                                     (int)(noverlap.y * filter_width_ratio));
         mask = transpose(mask_t);
       }
 
@@ -269,8 +280,9 @@ Array quilting_expand(const Array         &array,
   if (keep_input_shape)
   {
     // output shape is the same as the output
-    glm::ivec2 work_shape = glm::ivec2((int)(array.shape.x / expansion_ratio),
-                                       (int)(array.shape.y / expansion_ratio));
+    glm::ivec2 work_shape = glm::ivec2(
+        std::max(4, (int)(array.shape.x / expansion_ratio)),
+        std::max(4, (int)(array.shape.y / expansion_ratio)));
 
     Array array_work = array.resample_to_shape(work_shape);
 
@@ -286,12 +298,16 @@ Array quilting_expand(const Array         &array,
 
     // apply
     glm::ivec2 patch_base_shape_work = glm::ivec2(
-        (int)(patch_base_shape.x / expansion_ratio),
-        (int)(patch_base_shape.y / expansion_ratio));
+        std::max(2, (int)(patch_base_shape.x / expansion_ratio)),
+        std::max(2, (int)(patch_base_shape.y / expansion_ratio)));
+
+    // ensure patch base shape does not exceed work shape
+    patch_base_shape_work.x = std::min(patch_base_shape_work.x, work_shape.x);
+    patch_base_shape_work.y = std::min(patch_base_shape_work.y, work_shape.y);
 
     glm::ivec2 tiling = glm::ivec2(
-        (int)(std::ceil(array.shape.x / patch_base_shape_work.x)),
-        (int)(std::ceil(array.shape.y / patch_base_shape_work.y)));
+        (int)(std::ceil((float)array.shape.x / patch_base_shape_work.x)),
+        (int)(std::ceil((float)array.shape.y / patch_base_shape_work.y)));
 
     Array array_out = quilting({&array_work},
                                patch_base_shape_work,

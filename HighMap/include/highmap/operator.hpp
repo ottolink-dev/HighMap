@@ -263,12 +263,11 @@ void fill_array_using_xy_function(
     int                                       subsampling); ///< @overload
 
 /**
- * @brief Find the vertical cut path with the minimum cost using Dijkstra's
- * algorithm.
+ * @brief Find the vertical cut path with the minimum cost using dynamic
+ * programming.
  *
  * This function identifies the vertical cut path in an array from the bottom to
- * the top that has the minimum cumulative cost. The path is determined using
- * Dijkstra's algorithm.
+ * the top that has the minimum cumulative cost.
  *
  * @param error  Input array containing error or cost values.
  * @param path_i Output vector of indices representing the cut path.
