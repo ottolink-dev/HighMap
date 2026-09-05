@@ -23,6 +23,8 @@
  * stitching patches from an input heightmap.
  * - `quilting_shuffle`: Similar to `quilting_expand`, but reshuffles patches to
  * generate a new heightmap with the same shape.
+ * - `terrain_super_resolution`: Amplifies a low-resolution heightmap using
+ * sparse patch coding against a high-resolution exemplar.
  *
  * @copyright Copyright (c) 2023 Otto Link
  */
@@ -235,5 +237,64 @@ Array quilting_shuffle(const Array         &array,
                        bool                 patch_rotate = true,
                        bool                 patch_transpose = true,
                        float                filter_width_ratio = 0.25f);
+
+/**
+ * @brief Synthesize a high-resolution heightmap from a low-resolution input
+ * using an exemplar-based sparse patch representation (terrain
+ * amplification).
+ *
+ * The exemplar is downsampled by `factor` and every `patch_size` x
+ * `patch_size` patch of the downsampled exemplar (mean removed, radial mask
+ * applied, unit norm) becomes an atom of a dictionary, paired with the
+ * corresponding `patch_size * factor` high-resolution patch. Each patch of the
+ * input is then sparse-coded against the low-resolution atoms with orthogonal
+ * matching pursuit, and the same coefficients are applied to the paired
+ * high-resolution atoms to synthesize the output, which is blended from the
+ * overlapping patches using the mask as weight. This technique is based on
+ * @cite Guerin2016.
+ *
+ * With `sparsity = 1` (the setting of the reference implementation), each
+ * input patch is replaced by the detail of its best-correlated exemplar
+ * patch. The strides control the density of the patch grids: smaller strides
+ * give more atoms and more overlap at a higher cost. The patch mask vanishes
+ * at the patch corners, so `synthesis_stride` should not exceed about
+ * `0.7 * patch_size` to keep the output fully covered; uncovered pixels, if
+ * any, are filled with a bicubic upsampling of the input.
+ *
+ * Memory usage scales with the number of atoms times `(patch_size *
+ * factor)^2`: large exemplars with small `analysis_stride` can require a lot
+ * of memory.
+ *
+ * @param  array            Low-resolution input heightmap.
+ * @param  exemplar         High-resolution exemplar heightmap providing the
+ *                          detail.
+ * @param  factor           Amplification factor (>= 1); the output shape is
+ *                          `array.shape * factor`.
+ * @param  patch_size       Side of the square patches on the low-resolution
+ *                          grid (>= 2).
+ * @param  analysis_stride  Stride of the patch grid over the downsampled
+ *                          exemplar, in `[1, patch_size]`.
+ * @param  synthesis_stride Stride of the patch grid over the input, in `[1,
+ *                          patch_size]`.
+ * @param  sparsity         Maximum number of atoms used to code each patch
+ *                          (>= 1).
+ * @return                  Array Synthesized heightmap of shape `array.shape *
+ *                          factor`, or an empty array if the inputs are
+ *                          invalid (e.g. the downsampled exemplar is smaller
+ *                          than a patch, or the exemplar is flat).
+ *
+ * **Example**
+ * @include ex_terrain_super_resolution.cpp
+ *
+ * **Result**
+ * @image html ex_terrain_super_resolution.png
+ */
+Array terrain_super_resolution(const Array &array,
+                               const Array &exemplar,
+                               int          factor,
+                               int          patch_size = 16,
+                               int          analysis_stride = 8,
+                               int          synthesis_stride = 8,
+                               int          sparsity = 1);
 
 } // namespace hmap

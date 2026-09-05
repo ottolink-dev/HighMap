@@ -1,0 +1,2 @@
+add_executable(ex_terrain_super_resolution ex_terrain_super_resolution.cpp)
+target_link_libraries(ex_terrain_super_resolution highmap)
