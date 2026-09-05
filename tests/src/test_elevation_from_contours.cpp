@@ -198,3 +198,59 @@ TEST(ElevationFromContours, BasinLeafSinksBelowItsContour)
   EXPECT_GT(z(12, 32), 0.2f);
   EXPECT_LT(z(12, 32), 0.6f);
 }
+
+TEST(ElevationFromContours, HighProbabilityKeepsTerrainLower)
+{
+  glm::ivec2              shape = {64, 64};
+  std::vector<hmap::Path> c = {square(0.5f, 0.5f, 0.45f),
+                               square(0.5f, 0.5f, 0.1f)};
+  std::vector<float>      h = {0.f, 1.f};
+
+  // high probability in the lower half of the domain
+  hmap::Array p(shape, 0.5f);
+  for (int j = 0; j < 32; ++j)
+    for (int i = 0; i < 64; ++i)
+      p(i, j) = 0.9f;
+
+  hmap::Array z = hmap::elevation_from_contours(shape, c, h, &p, 0.f, 0);
+
+  // mirrored mid-ring samples: the high-probability half must be lower
+  float lo = 0.f, hi = 0.f;
+  int   n = 0;
+  for (int i = 20; i < 44; ++i)
+  {
+    lo += z(i, 14);
+    hi += z(i, 49);
+    ++n;
+  }
+  EXPECT_LT(lo / n, hi / n);
+}
+
+TEST(ElevationFromContours, RisingZoneHasNoPits)
+{
+  glm::ivec2              shape = {64, 64};
+  std::vector<hmap::Path> c = {square(0.5f, 0.5f, 0.4f),
+                               square(0.5f, 0.5f, 0.15f)};
+  std::vector<float>      h = {0.f, 1.f};
+
+  hmap::Array z = hmap::elevation_from_contours(shape, c, h, nullptr, 1.f, 11);
+
+  // every pixel of the ring between the contours (outer outline at i,j = 6
+  // and 57, inner outline at 23 and 41) must have an 8-neighbour that is not
+  // higher than itself
+  int pits = 0;
+  for (int j = 7; j < 57; ++j)
+    for (int i = 7; i < 57; ++i)
+    {
+      const bool ring = (i < 23 || i > 41 || j < 23 || j > 41);
+      if (!ring) continue;
+
+      const float v = z(i, j);
+      bool        has_lower = false;
+      for (int dj = -1; dj <= 1; ++dj)
+        for (int di = -1; di <= 1; ++di)
+          if ((di || dj) && z(i + di, j + dj) <= v) has_lower = true;
+      pits += !has_lower;
+    }
+  EXPECT_EQ(pits, 0);
+}
