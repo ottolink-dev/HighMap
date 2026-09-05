@@ -1,0 +1,2 @@
+add_executable(ex_elevation_from_contours ex_elevation_from_contours.cpp)
+target_link_libraries(ex_elevation_from_contours highmap)
