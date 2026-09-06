@@ -97,6 +97,124 @@ TEST(FlowSimulationViscous, NoSpuriousMassFromDryRidge)
   EXPECT_GE(water_depth.min(), 0.f);
 }
 
+TEST(FlowSimulationViscous, IterationParityAndDeterminism)
+{
+  gpu::init_opencl();
+
+  const glm::ivec2 shape = {64, 64};
+  Array            z = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
+  remap(z);
+
+  Array       depth_map(shape, 1.f);
+  const float water_height = 0.05f;
+
+  Array d_even = gpu::flow_simulation_viscous(z, water_height, depth_map, 50);
+  Array d_odd = gpu::flow_simulation_viscous(z, water_height, depth_map, 51);
+  Array d_even_again = gpu::flow_simulation_viscous(z,
+                                                    water_height,
+                                                    depth_map,
+                                                    50);
+
+  // deterministic
+  EXPECT_EQ(d_even.vector, d_even_again.vector);
+
+  // evolution check
+  const float s_even = d_even.sum();
+  const float s_odd = d_odd.sum();
+  EXPECT_GT(s_even, 0.f);
+  EXPECT_NEAR(s_odd, s_even, 0.05f * s_even);
+  EXPECT_NE(d_even.vector, (water_height * depth_map).vector);
+  EXPECT_GE(d_odd.min(), 0.f);
+}
+
+TEST(FlowSimulationViscous, ZeroIterationsReturnsInitialState)
+{
+  gpu::init_opencl();
+
+  const glm::ivec2 shape = {32, 48};
+  Array            z = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 3);
+  remap(z);
+
+  Array depth_map = noise_fbm(NoiseType::PERLIN, shape, {4.f, 4.f}, 5);
+  remap(depth_map);
+
+  Array d = gpu::flow_simulation_viscous(z, 0.1f, depth_map, 0);
+
+  EXPECT_EQ(d.vector, (0.1f * depth_map).vector);
+}
+
+TEST(FlowSimulationViscous, OutflowBoundaries)
+{
+  gpu::init_opencl();
+
+  const glm::ivec2 shape = {64, 64};
+  Array            z(shape, 0.f);
+
+  // tilt terrain down towards right (+x)
+  for (int j = 0; j < shape.y; ++j)
+    for (int i = 0; i < shape.x; ++i)
+      z(i, j) = 1.f - (float)i / (float)shape.x;
+
+  Array depth_map(shape, 1.f);
+  float water_height = 0.05f;
+
+  Array d_closed = gpu::flow_simulation_viscous(z,
+                                                water_height,
+                                                depth_map,
+                                                100,
+                                                0.1f,
+                                                0.f,
+                                                1.f,
+                                                2.5f,
+                                                0.f,
+                                                false);
+
+  Array d_outflow = gpu::flow_simulation_viscous(z,
+                                                 water_height,
+                                                 depth_map,
+                                                 100,
+                                                 0.1f,
+                                                 0.f,
+                                                 1.f,
+                                                 2.5f,
+                                                 0.f,
+                                                 true);
+
+  EXPECT_LT(d_outflow.sum(), d_closed.sum());
+}
+
+TEST(FlowSimulationViscous, Evaporation)
+{
+  gpu::init_opencl();
+
+  const glm::ivec2 shape = {64, 64};
+  Array            z(shape, 0.f);
+  Array            depth_map(shape, 1.f);
+  float            water_height = 0.1f;
+
+  Array d_no_evap = gpu::flow_simulation_viscous(z,
+                                                 water_height,
+                                                 depth_map,
+                                                 50,
+                                                 0.1f,
+                                                 0.f,
+                                                 1.f,
+                                                 2.5f,
+                                                 0.f);
+
+  Array d_evap = gpu::flow_simulation_viscous(z,
+                                              water_height,
+                                              depth_map,
+                                              50,
+                                              0.1f,
+                                              0.f,
+                                              1.f,
+                                              2.5f,
+                                              0.1f);
+
+  EXPECT_LT(d_evap.sum(), d_no_evap.sum());
+}
+
 TEST(FlowSimulation, VelocityExport)
 {
   gpu::init_opencl();

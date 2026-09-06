@@ -215,11 +215,30 @@ Array flow_simulation_viscous(const Array &z,
 
   Array d = water_height * depth_map;
 
+  auto finalize = [&]()
+  {
+    // remove thin layer of remaining water
+    if (dry_out_ratio != 0.f)
+    {
+      float dmax = d.max();
+      water_depth_dry_out(d, dry_out_ratio, nullptr, dmax);
+    }
+    return d; // depth
+  };
+
+  if (iterations <= 0) return finalize();
+
+  // --- Device state: depth is a ping-pong pair (A/B) on GPU
+
+  using clwrapper::Direction;
+
+  dt = std::min(dt, helper_vflow_compute_adaptive_dt(d, viscosity, power));
+
   auto run = clwrapper::Run("shallow_viscous_flow");
 
-  run.bind_imagef("z", z.vector, shape.x, shape.y); // inputs
-  run.bind_imagef("d_in", d.vector, shape.x, shape.y);
-  run.bind_imagef("d_out", d.vector, shape.x, shape.y, true); // outputs
+  run.bind_imagef("z", z.vector, shape.x, shape.y);
+  run.bind_imagef("d_a", d.vector, shape.x, shape.y, Direction::INOUT);
+  run.bind_imagef("d_b", d.vector, shape.x, shape.y, Direction::INOUT);
 
   run.bind_arguments(shape.x,
                      shape.y,
@@ -229,32 +248,28 @@ Array flow_simulation_viscous(const Array &z,
                      evap_rate,
                      outflow_boundaries ? 1 : 0);
 
-  run.write_imagef("z");
+  // ping-pong handles
+  const std::array<cl::Image2D, 2> img_d = {run.get_image2d("d_a").cl_image,
+                                            run.get_image2d("d_b").cl_image};
+
+  int dc = 0; // index of the current depth image
 
   for (int it = 0; it < iterations; ++it)
   {
-    if (it % 10 == 0)
-    {
-      dt = helper_vflow_compute_adaptive_dt(d, viscosity, power);
-      run.set_argument(5, dt);
-    }
+    run.set_argument(1, img_d[dc]);
+    run.set_argument(2, img_d[1 - dc]);
 
-    run.write_imagef("d_in");
+    run.execute_async({shape.x, shape.y});
 
-    run.execute({shape.x, shape.y});
-
-    // update flux (from GPU to CPU)
-    run.read_imagef("d_out");
+    dc = 1 - dc;
   }
 
-  // remove thin layer of remaining water
-  if (dry_out_ratio != 0.f)
-  {
-    float dmax = d.max();
-    water_depth_dry_out(d, dry_out_ratio, nullptr, dmax);
-  }
+  run.finish();
 
-  return d; // depth
+  // retrieve results (both depth images map to the host array `d`)
+  run.read_imagef(dc == 0 ? "d_a" : "d_b");
+
+  return finalize();
 }
 
 } // namespace hmap::gpu
