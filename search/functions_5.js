@@ -56,7 +56,7 @@ var searchData=
   ['flow_5ffixing_5fdrainage_5fbasin_53',['flow_fixing_drainage_basin',['../namespacehmap.html#a62e937a8e394092689481bb392bc15cf',1,'hmap']]],
   ['flow_5ffixing_5fmst_54',['flow_fixing_mst',['../namespacehmap.html#a4d151da78c906907ca5ae39beaa1ed03',1,'hmap']]],
   ['flow_5fsimulation_55',['flow_simulation',['../namespacehmap_1_1gpu.html#aea15be4e56a0076b7cafb4435bf5b155',1,'hmap::gpu']]],
-  ['flow_5fsimulation_5fviscous_56',['flow_simulation_viscous',['../namespacehmap_1_1gpu.html#af8e8a1855d3df42e6fc0398a4f9dc65c',1,'hmap::gpu']]],
+  ['flow_5fsimulation_5fviscous_56',['flow_simulation_viscous',['../namespacehmap_1_1gpu.html#ab4a0a4e3cea15b07f864be30c7f1e44d',1,'hmap::gpu']]],
   ['flow_5fstream_57',['flow_stream',['../namespacehmap.html#a948b4703486f175cd2681bd9bc7b5a88',1,'hmap']]],
   ['fold_58',['fold',['../namespacehmap.html#a2ba465615ff1d745cfcf7a27b7dcb37e',1,'hmap::fold(Array &amp;array, float vmin, float vmax, int iterations=3, float k=0.05f)'],['../namespacehmap.html#a2dc21bf2079bb06efa5d16445a00ca7b',1,'hmap::fold(Array &amp;array, int iterations=3, float k=0.05f)']]],
   ['for_5feach_5fcell_59',['for_each_cell',['../namespacehmap.html#a05ee0ea53f1a06ac43741f11e25ec2cc',1,'hmap::for_each_cell(Array &amp;a, Fn &amp;&amp;fn)'],['../namespacehmap.html#a8a43091b3356d69271fa6d185f5bdcbe',1,'hmap::for_each_cell(const Array &amp;a, Fn &amp;&amp;fn)'],['../virtual__array_8inl.html#a54eec3c94e3409f3990876e68a581322',1,'for_each_cell():&#160;virtual_array.inl']]],
