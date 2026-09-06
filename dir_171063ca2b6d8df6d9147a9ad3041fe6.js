@@ -46,6 +46,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_saturate.cpp", "test__saturate_8cpp.html", "test__saturate_8cpp" ],
     [ "test_skeleton.cpp", "test__skeleton_8cpp.html", "test__skeleton_8cpp" ],
     [ "test_smooth_cpulse.cpp", "test__smooth__cpulse_8cpp.html", "test__smooth__cpulse_8cpp" ],
+    [ "test_snow_simulation.cpp", "test__snow__simulation_8cpp.html", "test__snow__simulation_8cpp" ],
     [ "test_splines.cpp", "test__splines_8cpp.html", "test__splines_8cpp" ],
     [ "test_terrain_super_resolution.cpp", "test__terrain__super__resolution_8cpp.html", "test__terrain__super__resolution_8cpp" ],
     [ "test_texture.cpp", "test__texture_8cpp.html", "test__texture_8cpp" ],
