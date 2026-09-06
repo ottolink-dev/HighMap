@@ -37,8 +37,10 @@ void kernel hydraulic_vpipes_flow_pass(read_only image2d_t  z,
   float ft_val = TGET(ft, i, j);
   float fb_val = TGET(fb, i, j);
 
-  // fast early-exit: if cell is dry and has no existing flux, outgoing fluxes are strictly zero
-  if (d0 <= 0.f && fl_val <= 0.f && fr_val <= 0.f && ft_val <= 0.f && fb_val <= 0.f)
+  // fast early-exit: if cell is dry and has no existing flux, outgoing fluxes
+  // are strictly zero
+  if (d0 <= 0.f && fl_val <= 0.f && fr_val <= 0.f && ft_val <= 0.f &&
+      fb_val <= 0.f)
   {
     TSET(fl_out, i, j, 0.f);
     TSET(fr_out, i, j, 0.f);
@@ -134,8 +136,7 @@ void kernel hydraulic_vpipes_water_pass(read_only image2d_t  z,
 
   // fast early-exit: if cell is dry and has no incoming or outgoing fluxes
   if (d0 <= 0.f && fl_val <= 0.f && fr_val <= 0.f && ft_val <= 0.f &&
-      fb_val <= 0.f && in_l <= 0.f && in_r <= 0.f && in_b <= 0.f &&
-      in_t <= 0.f)
+      fb_val <= 0.f && in_l <= 0.f && in_r <= 0.f && in_b <= 0.f && in_t <= 0.f)
   {
     TSET(d2_out, i, j, 0.f);
     TSET(u_out, i, j, 0.f);
@@ -143,7 +144,8 @@ void kernel hydraulic_vpipes_water_pass(read_only image2d_t  z,
     return;
   }
 
-  float dv = dt * (in_l + in_b + in_r + in_t - fl_val - fr_val - ft_val - fb_val);
+  float dv = dt *
+             (in_l + in_b + in_r + in_t - fl_val - fr_val - ft_val - fb_val);
   float d2_new = max(0.f, d0 + dv / (plength * plength));
 
   if (evap_rate > 0.f)
@@ -153,10 +155,14 @@ void kernel hydraulic_vpipes_water_pass(read_only image2d_t  z,
 
   TSET(d2_out, i, j, d2_new);
 
-  float u_new = 0.5f * (in_l - fl_val + fr_val -
-                        ((outflow_boundaries && i == nx - 1) ? 0.f : TGET(fl, i + 1, j)));
-  float v_new = 0.5f * (in_b - fb_val + ft_val -
-                        ((outflow_boundaries && j == ny - 1) ? 0.f : TGET(fb, i, j + 1)));
+  float u_new = 0.5f *
+                (in_l - fl_val + fr_val -
+                 ((outflow_boundaries && i == nx - 1) ? 0.f
+                                                      : TGET(fl, i + 1, j)));
+  float v_new = 0.5f *
+                (in_b - fb_val + ft_val -
+                 ((outflow_boundaries && j == ny - 1) ? 0.f
+                                                      : TGET(fb, i, j + 1)));
 
   float dmean = max(0.001f * water_height, d2_new);
 

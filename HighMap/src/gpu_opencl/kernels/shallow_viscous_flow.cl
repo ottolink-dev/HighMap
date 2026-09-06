@@ -20,7 +20,7 @@ kernel void shallow_viscous_flow(read_only image2d_t  z,
 
   const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE |
                             CLK_ADDRESS_CLAMP_TO_EDGE | CLK_FILTER_NEAREST;
-  const float     diag = 0.70710678f;
+  const float diag = 0.70710678f;
 
   float h = TGET(h_in, i, j);
   float hxp = (outflow_boundaries && i == nx - 1) ? 0.f : TGET(h_in, i + 1, j);
@@ -28,7 +28,8 @@ kernel void shallow_viscous_flow(read_only image2d_t  z,
   float hyp = (outflow_boundaries && j == ny - 1) ? 0.f : TGET(h_in, i, j + 1);
   float hym = (outflow_boundaries && j == 0) ? 0.f : TGET(h_in, i, j - 1);
 
-  // fast early-exit: skip all elevation fetches, pow(), and flux math if cell and neighbors are dry
+  // fast early-exit: skip all elevation fetches, pow(), and flux math if cell
+  // and neighbors are dry
   if (h <= 0.f && hxp <= 0.f && hxm <= 0.f && hyp <= 0.f && hym <= 0.f)
   {
     TSET(h_out, i, j, 0.f);
