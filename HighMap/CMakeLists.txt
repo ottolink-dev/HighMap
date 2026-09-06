@@ -44,3 +44,20 @@ target_link_libraries(
   point_sampler
   clwrapper
   ${OpenCL_LIBRARIES})
+
+if(HIGHMAP_ENABLE_PCH)
+  message(STATUS "Precompiled Headers (PCH) enabled for target ${PROJECT_NAME}")
+  target_precompile_headers(
+    ${PROJECT_NAME}
+    PRIVATE
+    <vector>
+    <string>
+    <memory>
+    <cmath>
+    <algorithm>
+    <functional>
+    <map>
+    <unordered_map>
+    <iostream>
+    <glm/glm.hpp>)
+endif()

@@ -17,6 +17,7 @@ option(HIGHMAP_ENABLE_EXAMPLES "" ON)
 option(HIGHMAP_ENABLE_TESTS "" ON)
 option(HIGHMAP_ENABLE_BENCHMARKS "" ON)
 option(HIGHMAP_ENABLE_PROFILE_BUILD "Enable build time profiling (-ftime-trace)" OFF)
+option(HIGHMAP_ENABLE_PCH "Enable Precompiled Headers (PCH)" OFF)
 
 # -----------------------------------------------------------------------------
 # C++
