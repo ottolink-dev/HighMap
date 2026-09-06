@@ -53,9 +53,9 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     -Wall
     -Wextra
     -Wpedantic
-    -O3
-    -Ofast
-    -ffast-math
+    $<$<CONFIG:Debug>:-Og>
+    $<$<NOT:$<CONFIG:Debug>>:-Ofast>
+    $<$<NOT:$<CONFIG:Debug>>:-ffast-math>
     -pthread
     -fPIC
     -Wno-deprecated-enum-enum-conversion
@@ -69,9 +69,9 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   add_compile_options(
     -Wall
     -Wextra
-    -O3
-    -Ofast
-    -ffast-math
+    $<$<CONFIG:Debug>:-Og>
+    $<$<NOT:$<CONFIG:Debug>>:-Ofast>
+    $<$<NOT:$<CONFIG:Debug>>:-ffast-math>
     -pthread
     -fPIC
     -Wno-free-nonheap-object
