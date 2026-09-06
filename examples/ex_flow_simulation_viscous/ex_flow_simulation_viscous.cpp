@@ -21,7 +21,7 @@ int main(void)
       hmap::disk(shape, 0.05f, 32.f, nullptr, nullptr, nullptr, {0.5f, 0.45f});
 
   float amount = 1e-1f;
-  int   iterations = 500000;
+  int   iterations = 5000;
 
   hmap::Array water_depth = hmap::gpu::flow_simulation_viscous(z,
                                                                amount,

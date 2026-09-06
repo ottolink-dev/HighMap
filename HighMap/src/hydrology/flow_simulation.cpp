@@ -21,7 +21,8 @@ float helper_vflow_compute_adaptive_dt(const Array &h,
                                        float        power)
 {
   float hmax = h.max();
-  float mobility = std::pow(hmax, power) / viscosity;
+  float href = std::max(hmax, 0.1f);
+  float mobility = std::pow(href, power) / viscosity;
   float c = 0.2f; // safety factor
   return c / fmax(mobility, 1e-6f);
 }
@@ -232,7 +233,10 @@ Array flow_simulation_viscous(const Array &z,
 
   using clwrapper::Direction;
 
-  dt = std::min(dt, helper_vflow_compute_adaptive_dt(d, viscosity, power));
+  if (dt <= 0.f)
+    dt = helper_vflow_compute_adaptive_dt(d, viscosity, power);
+  else
+    dt = std::min(dt, helper_vflow_compute_adaptive_dt(d, viscosity, power));
 
   auto run = clwrapper::Run("shallow_viscous_flow");
 

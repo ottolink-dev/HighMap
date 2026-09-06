@@ -43,7 +43,7 @@ void mudslide(Array       &z,
                                             depth,
                                             depth_map,
                                             iterations,
-                                            /* dt */ 0.5,
+                                            /* dt */ -1.f,
                                             /* dry_out_ratio */ 0.f,
                                             /* viscosity */ 1.f,
                                             viscosity_law_power);
