@@ -417,10 +417,9 @@ Texture mix(const Texture &tex1,
 /**
  * @brief Mix two textures based on a transparency mask.
  *
- * Blends @p tex1 and @p tex2 according to the values in @p mask.
- * When mask is 0, @p tex1 is selected; when mask is 1, @p tex2 is selected.
- * If @p gain is different from 1.0, a gain curve is applied to the mask
- * beforehand.
+ * Blends @p tex1 and @p tex2 according to the values in @p mask. When mask is
+ * 0, @p tex1 is selected; when mask is 1, @p tex2 is selected. If @p gain is
+ * different from 1.0, a gain curve is applied to the mask beforehand.
  *
  * @param  tex1   First input texture (background).
  * @param  tex2   Second input texture (foreground).

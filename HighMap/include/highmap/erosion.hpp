@@ -757,6 +757,86 @@ void conv_erosion(Array        &z,
                   float         gradient_strength_min = 0.f);
 
 /**
+ * @brief Applies the procedural Advanced Terrain Erosion Filter (Runevision).
+ *
+ * A single-pass multi-octave directional noise erosion filter (Phacelle noise)
+ * generating branching gullies and sharp ridges.
+ *
+ * @param[in,out] z             Heightmap array to erode in-place.
+ * @param         scale         Spatial feature scale.
+ * @param         strength      Overall erosion strength.
+ * @param         gully_weight  Relative weighting of gully carving.
+ * @param         detail        Detail preservation exponent across octaves.
+ * @param         rounding      Rounding parameters {valley_rounding,
+ *                              ridge_rounding, input_mult, octave_mult}.
+ *                              Controls transition smoothness at valleys vs
+ *                              peaks and across octaves:
+ *                              - `rounding.x`: Valley rounding parameter
+ * (smoothness at low elevations / valleys).
+ *                              - `rounding.y`: Ridge rounding parameter
+ * (smoothness at high elevations / peaks).
+ *                              - `rounding.z`: Initial input mask rounding
+ * multiplier.
+ *                              - `rounding.w`: Compounding multiplier applied
+ * to rounding across successive noise octaves.
+ * @param         onset         Slope sensitivity parameters {base_slope,
+ *                              octave_slope, base_ridge, octave_ridge}.
+ *                              Controls slope thresholds (~1/onset) where
+ *                              erosion and ridge features trigger:
+ *                              - `onset.x`: Base terrain slope sensitivity.
+ * Higher values allow erosion to start on gentler slopes; lower values confine
+ * it to steep terrain.
+ *                              - `onset.y`: Multi-octave slope sensitivity.
+ * Governs how subsequent noise octaves carve tributary gullies into slopes
+ * created by earlier octaves.
+ *                              - `onset.z`: Base slope sensitivity for ridge
+ * map extraction.
+ *                              - `onset.w`: Multi-octave slope sensitivity for
+ * ridge map attenuation and sharpening.
+ * @param         assumed_slope Assumed slope parameters {magnitude, weight}:
+ *                              - `assumed_slope.x`: Assumed reference slope
+ * magnitude.
+ *                              - `assumed_slope.y`: Blend weight between
+ * measured slope gradient and normalized direction (`1.0` enforces stable
+ * directional flow even in flat areas).
+ * @param         cell_scale    Relative scale of Phacelle noise cells.
+ * @param         octaves       Number of erosion octaves.
+ * @param         gain          Amplitude persistence factor per octave.
+ * @param         lacunarity    Frequency multiplier per octave.
+ * @param         normalization Partial normalization factor for directional
+ *                              waves.
+ * @param         seed          Random seed for cell jitter and octave offsets.
+ * @param         p_fade_target Optional spatial fade target array in [-1, 1].
+ * @param         p_ridge_map   Optional output array receiving the dendritic
+ *                              ridge/drainage map.
+ * @param         bbox          World-space bounding box {xmin, xmax, ymin,
+ *                              ymax}.
+ *
+ * **Example**
+ * @include ex_erosion_filter.cpp
+ *
+ * **Result**
+ * @image html ex_erosion_filter.png
+ */
+void erosion_filter(Array        &z,
+                    float         scale = 0.15f,
+                    float         strength = 0.22f,
+                    float         gully_weight = 0.5f,
+                    float         detail = 1.5f,
+                    glm::vec4     rounding = {0.1f, 0.0f, 0.1f, 2.0f},
+                    glm::vec4     onset = {1.25f, 1.25f, 2.8f, 1.5f},
+                    glm::vec2     assumed_slope = {0.7f, 1.0f},
+                    float         cell_scale = 0.7f,
+                    int           octaves = 5,
+                    float         gain = 0.5f,
+                    float         lacunarity = 2.0f,
+                    float         normalization = 0.5f,
+                    std::uint32_t seed = 1337,
+                    const Array  *p_fade_target = nullptr,
+                    Array        *p_ridge_map = nullptr,
+                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
  * @brief Fill holes using Gaussian-based deposition.
  *
  * Applies a smoothing/deposition pass that fills local depressions while

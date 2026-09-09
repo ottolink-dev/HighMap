@@ -753,7 +753,7 @@ Path remove_geometric_loops(const Path &path);
  * @param  path   Input path.
  * @param  scale  Scale factor(s) for x and y axes.
  * @param  center Center of scaling (defaults to (0.5, 0.5)).
- * @return Path   A new path with scaled point coordinates.
+ * @return        Path   A new path with scaled point coordinates.
  *
  * **Example**
  * @include ex_path_scale.cpp

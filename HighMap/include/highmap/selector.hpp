@@ -465,7 +465,8 @@ Array select_valley(const Array &z, int ir, bool ridge_select = false);
  *
  * @param  mask          Input binary mask ({0, 1}).
  * @param  feather_width Width of the feathering falloff in grid units.
- * @return Array         Smoothed mask with smooth falloff of the 1s.
+ * @return               Array         Smoothed mask with smooth falloff of the
+ *                       1s.
  */
 Array smooth_mask_preserve_frontier(const Array &mask, float feather_width);
 

@@ -112,3 +112,57 @@ TEST(ThermalConserve, MassPreserved)
 
   EXPECT_NEAR(z.sum(), z0.sum(), 1e-2f);
 }
+
+TEST(ErosionFilter, BasicExecutionAndRidgeMap)
+{
+  hmap::gpu::init_opencl();
+
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {2.f, 2.f};
+  Array      z0 = noise_fbm(NoiseType::SIMPLEX2, shape, kw, 1234);
+
+  Array z = z0;
+  Array ridge_map(shape);
+
+  gpu::erosion_filter(z,
+                      /* scale */ 0.15f,
+                      /* strength */ 0.22f,
+                      /* gully_weight */ 0.5f,
+                      /* detail */ 1.5f,
+                      /* rounding */ {0.1f, 0.0f, 0.1f, 2.0f},
+                      /* onset */ {1.25f, 1.25f, 2.8f, 1.5f},
+                      /* assumed_slope */ {0.7f, 1.0f},
+                      /* cell_scale */ 0.7f,
+                      /* octaves */ 3,
+                      /* gain */ 0.5f,
+                      /* lacunarity */ 2.0f,
+                      /* normalization */ 0.5f,
+                      /* seed */ 1337,
+                      /* p_fade_target */ nullptr,
+                      /* p_ridge_map */ &ridge_map);
+
+  // Check that heightmap was modified
+  EXPECT_FALSE(assert_almost_equal(z, z0));
+
+  // Check that ridge_map was populated
+  EXPECT_GT(ridge_map.max(), ridge_map.min());
+
+  // Determinism test with identical seed
+  Array z_repeat = z0;
+  gpu::erosion_filter(z_repeat,
+                      0.15f,
+                      0.22f,
+                      0.5f,
+                      1.5f,
+                      {0.1f, 0.0f, 0.1f, 2.0f},
+                      {1.25f, 1.25f, 2.8f, 1.5f},
+                      {0.7f, 1.0f},
+                      0.7f,
+                      3,
+                      0.5f,
+                      2.0f,
+                      0.5f,
+                      1337);
+
+  EXPECT_TRUE(assert_almost_equal(z, z_repeat));
+}

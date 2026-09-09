@@ -82,6 +82,9 @@ bool init_opencl()
 #include "kernels/directional_blur.cl"
   );
   add(
+#include "kernels/erosion_filter.cl"
+  );
+  add(
 #include "kernels/eulerian_transport.cl"
   );
   add(
