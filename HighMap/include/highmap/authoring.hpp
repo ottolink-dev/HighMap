@@ -31,7 +31,8 @@ enum StampingBlendMethod : int
 enum DeformationConstraintType : int
 {
   MATCH, ///< penalize any deviation from the target height
-  ABOVE, ///< penalize only heights below the target (target acts as a floor)
+  ABOVE, ///< penalize only heights below the target (target acts as a
+  // floor)
   BELOW, ///< penalize only heights above the target (target acts as a
          ///< ceiling)
 };
@@ -40,11 +41,11 @@ enum DeformationConstraintType : int
  * @brief Per-vertex penalty term used by @ref sls_deformation.
  *
  * Each constraint contributes `scale * weight(x, y) * (z(x, y) - target(x,
- * y))^2` to the fitness of a vertex, gated by its type: for `MATCH` the
- * penalty always applies, for `ABOVE` only where `z < target`, for `BELOW`
+ * y))^2` to the fitness of a vertex, gated by its type: for `MATCH` the penalty
+ * always applies, for `ABOVE` only where `z < target`, for `BELOW`
  * only where `z > target`. Vertices with a zero weight are unconstrained by
- * that term. Several constraints are summed, so the `scale` factor can be
- * used to normalize competing terms.
+ * that term. Several constraints are summed, so the `scale` factor can be used
+ * to normalize competing terms.
  *
  * Typical uses (after Stachniak & Stuerzlinger, 2005):
  * - match a reference height map: `target = ref, weight = 1, MATCH`;
@@ -53,7 +54,7 @@ enum DeformationConstraintType : int
  * - flat road: `target = road_height, weight = path, MATCH` plus
  *   `target = original, weight = 1 - path, MATCH` (preserve the rest);
  * - edge matching: `target` = neighbour terrain edge values, `weight` non-zero
- *   along the edge only, `MATCH`.
+ * along the edge only, `MATCH`.
  */
 struct DeformationConstraint
 {
@@ -64,13 +65,13 @@ struct DeformationConstraint
 };
 
 /**
- * @brief Truncated-Gaussian push operation, the elementary deformation used
- * by @ref sls_deformation.
+ * @brief Truncated-Gaussian push operation, the elementary deformation used by
+ * @ref sls_deformation.
  *
  * The push adds `amplitude * G(d)` to every vertex within `ir` pixels of the
  * center `(i, j)`, where `G` is a truncated Gaussian kernel equal to 1 at the
- * center and to 0 at distance `ir`. The center vertex is therefore displaced
- * by exactly `amplitude`.
+ * center and to 0 at distance `ir`. The center vertex is therefore displaced by
+ * exactly `amplitude`.
  */
 struct GaussianPush
 {
@@ -132,8 +133,8 @@ void alter_elevation(Array       &array,
  * @brief Apply a sequence of truncated-Gaussian pushes to a heightmap.
  *
  * Replays, in order, the deformations recorded by @ref sls_deformation. Since
- * the deformed terrain is fully described by the original terrain and the
- * push sequence, this also provides a compact storage of the deformation.
+ * the deformed terrain is fully described by the original terrain and the push
+ * sequence, this also provides a compact storage of the deformation.
  *
  * @param array  Heightmap to deform (modified in place).
  * @param pushes Push operations to apply, in order.
@@ -205,12 +206,12 @@ Array base_elevation(glm::ivec2                             shape,
  * (Dirichlet constraints) and the innermost enclosing contour defines the
  * "zone" of every other pixel. Within a zone, two fronts are propagated from
  * the fixed pixels with an Eden growth process implemented as first-passage
- * percolation (Dijkstra with random passage times): one front from the
- * zone's own contour, one from its child contours. The time needed to enter a
- * pixel is `((1 - randomness) + randomness * E) / rate` with `E` an
- * exponential random variable and `rate` given by the probability map for the
- * rising front and by its complement for the descending front. The arrival
- * times `t_near` and `t_far` define a progress `t_near / (t_near + t_far)`
+ * percolation (Dijkstra with random passage times): one front from the zone's
+ * own contour, one from its child contours. The time needed to enter a pixel is
+ * `((1 - randomness) + randomness * E) / rate` with `E` an exponential random
+ * variable and `rate` given by the probability map for the rising front and by
+ * its complement for the descending front. The arrival times `t_near` and
+ * `t_far` define a progress `t_near / (t_near + t_far)`
  * that is mapped linearly between the two contour elevations after spurious
  * pits are removed by a priority flood.
  *
@@ -227,23 +228,22 @@ Array base_elevation(glm::ivec2                             shape,
  * range, then to 1).
  *
  * Limitations of this proof of concept: contours must not cross each other;
- * children of a contour with different elevations produce a discontinuity
- * along the seam between their regions; pit removal is only applied to zones
- * whose child contours are all higher than the enclosing contour.
+ * children of a contour with different elevations produce a discontinuity along
+ * the seam between their regions; pit removal is only applied to zones whose
+ * child contours are all higher than the enclosing contour.
  *
  * @param  shape         Output array shape.
  * @param  contours      Closed contour polygons (at least 3 points each), in
  *                       `bbox` coordinates. The `closed` flag of the paths is
- *                       ignored, every path is closed.
+ * ignored, every path is closed.
  * @param  elevations    Elevation of each contour (same size as `contours`).
  * @param  p_probability Optional probability map in [0, 1] with shape `shape`.
- *                       Where it is high the rising front advances fast and
- *                       the terrain stays low longer (gentle slopes); where it
- *                       is low the terrain rises quickly (steep slopes). If
- *                       null, a uniform map (0.5) is used.
- * @param  randomness    Amount of randomness in the front propagation in
- *                       [0, 1]: 0 is deterministic, 1 is the Eden growth
- *                       model.
+ *                       Where it is high the rising front advances fast and the
+ *                       terrain stays low longer (gentle slopes); where it is
+ *                       low the terrain rises quickly (steep slopes). If null,
+ *                       a uniform map (0.5) is used.
+ * @param  randomness    Amount of randomness in the front propagation in [0,
+ *                       1]: 0 is deterministic, 1 is the Eden growth model.
  * @param  seed          Random seed.
  * @param  peak_ratio    Elevation gain of leaf contour interiors, relative to
  *                       the mean elevation gap between nested contours.
@@ -284,11 +284,10 @@ Array elevation_from_contours(glm::ivec2                shape,
  *
  * @param  contours      Raster array containing contour elevations at contour
  *                       pixels and zero elsewhere.
- * @param  p_probability Optional probability map in [0, 1] with the same
- *                       shape as @p contours.
- * @param  randomness    Amount of randomness in the front propagation in
- *                       [0, 1]: 0 is deterministic, 1 is the Eden growth
- *                       model.
+ * @param  p_probability Optional probability map in [0, 1] with the same shape
+ *                       as @p contours.
+ * @param  randomness    Amount of randomness in the front propagation in [0,
+ *                       1]: 0 is deterministic, 1 is the Eden growth model.
  * @param  seed          Random seed.
  * @param  peak_ratio    Elevation gain of leaf contour interiors, relative to
  *                       the mean elevation gap between nested contours.
@@ -513,23 +512,23 @@ Array ridgelines_bezier(glm::ivec2                shape,
  * local search over truncated-Gaussian push operations.
  *
  * Implements the constraint-based terrain deformation of S. Stachniak and W.
- * Stuerzlinger, "An Algorithm for Automated Fractal Terrain Deformation",
- * WSCG 2005. The terrain `T` is deformed into `T'` by searching for a
- * sequence of local push operations `(location, amplitude, radius)` (see @ref
- * GaussianPush) that minimize a fitness function `F(T) = sum F(x, y)`, where
- * the per-vertex penalty `F(x, y)` is the sum of the supplied constraint
- * terms (see @ref DeformationConstraint). Because the penalties are summed,
- * several constraints (shape masks, fixed paths, edge matching, reference
- * heights...) can be satisfied simultaneously.
+ * Stuerzlinger, "An Algorithm for Automated Fractal Terrain Deformation", WSCG
+ * 2005. The terrain `T` is deformed into `T'` by searching for a sequence of
+ * local push operations `(location, amplitude, radius)` (see @ref GaussianPush)
+ * that minimize a fitness function `F(T) = sum F(x, y)`, where the per-vertex
+ * penalty `F(x, y)` is the sum of the supplied constraint terms (see @ref
+ * DeformationConstraint). Because the penalties are summed, several constraints
+ * (shape masks, fixed paths, edge matching, reference heights...) can be
+ * satisfied simultaneously.
  *
- * At every iteration, a set of candidate vertices is drawn: half on a
- * jittered uniform grid, half sampled proportionally to the current penalty
- * map so that the search concentrates where constraints are violated. For
- * each candidate and each radius, the push amplitude is the least-squares
- * optimum of the (locally quadratic) penalty over the kernel footprint,
- * clamped by the slope limit `talus_max * radius` which suppresses
- * high-frequency spikes (frequency limitation of the paper). The best
- * deformation is applied with probability `p_best`, otherwise one of the
+ * At every iteration, a set of candidate vertices is drawn: half on a jittered
+ * uniform grid, half sampled proportionally to the current penalty map so that
+ * the search concentrates where constraints are violated. For each candidate
+ * and each radius, the push amplitude is the least-squares optimum of the
+ * (locally quadratic) penalty over the kernel footprint, clamped by the slope
+ * limit `talus_max * radius` which suppresses high-frequency spikes (frequency
+ * limitation of the paper). The best deformation is applied with probability
+ * `p_best`, otherwise one of the
  * `top_fraction` best deformations is applied (the stochastic noise of the
  * search, which prevents stalling in local minima). The search stops when the
  * fitness drops below `tolerance` times its initial value, when no improving
@@ -549,8 +548,8 @@ Array ridgelines_bezier(glm::ivec2                shape,
  *                      limit). If zero or negative, defaults to the elevation
  *                      range of the inputs divided by `ir_max`.
  * @param  n_candidates Number of candidate vertices evaluated per iteration.
- * @param  p_best       Probability of applying the best deformation found
- *                      (0.65 in the original paper).
+ * @param  p_best       Probability of applying the best deformation found (0.65
+ *                      in the original paper).
  * @param  top_fraction Fraction of the best deformations a sub-optimal choice
  *                      is drawn from.
  * @param  tolerance    Relative fitness tolerance for early termination.

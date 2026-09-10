@@ -22,5 +22,9 @@ int main(void)
   hmap::fold(z2, iterations, k_smooth);
   hmap::remap(z2);
 
+  auto z3 = z;
+  hmap::fold(z3, hmap::PhasorProfile::PP_COSINE_PEAKY, 0.f, 1.f, iterations);
+  hmap::remap(z3);
+
   hmap::export_banner_png("ex_fold.png", {z, z1, z2}, hmap::Cmap::INFERNO);
 }

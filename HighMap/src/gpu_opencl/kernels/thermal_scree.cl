@@ -2,7 +2,13 @@ R""(
 /* Copyright (c) 2023 Otto Link. Distributed under the terms of the GNU General
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
-void kernel thermal_scree(global float       *z,
+__constant const int   thermal_scree_di[8] = {-1, 0, 0, 1, -1, -1, 1, 1};
+__constant const int   thermal_scree_dj[8] = {0, 1, -1, 0, -1, 1, -1, 1};
+__constant const float thermal_scree_c[8] =
+    {1.f, 1.f, 1.f, 1.f, 1.41421356f, 1.41421356f, 1.41421356f, 1.41421356f};
+
+void kernel thermal_scree(global const float *z_in,
+                          global float       *z_out,
                           const global float *talus,
                           const global float *zmax,
                           const int           nx,
@@ -12,21 +18,21 @@ void kernel thermal_scree(global float       *z,
   int  index = linear_index(g.x, g.y, nx);
 
   if (g.x >= nx || g.y >= ny) return;
-  if (apply_boundaries(z, g.x, g.y, nx, ny)) return;
+  if (apply_boundaries_io(z_in, z_out, g.x, g.y, nx, ny)) return;
 
   // --- thermal erosion
 
-  const int   di[8] = {-1, 0, 0, 1, -1, -1, 1, 1};
-  const int   dj[8] = {0, 1, -1, 0, -1, 1, -1, 1};
-  const float c[8] = {1.f, 1.f, 1.f, 1.f, 1.414f, 1.414f, 1.414f, 1.414f};
-
-  float val = z[index];
+  float val = z_in[index];
   float sum = 0.f;
   float slope_max = 0.f;
 
+#pragma unroll
   for (int k = 0; k < 8; k++)
   {
-    float dz = (val - z[linear_index(g.x + di[k], g.y + dj[k], nx)]) / c[k];
+    float dz = (val - z_in[linear_index(g.x + thermal_scree_di[k],
+                                        g.y + thermal_scree_dj[k],
+                                        nx)]) /
+               thermal_scree_c[k];
 
     if (dz < 0.f) sum += dz;
 
@@ -39,6 +45,6 @@ void kernel thermal_scree(global float       *z,
 
   amp *= almost_unit_identity(clamp(1.f - val / zmax[index], 0.f, 1.f));
 
-  z[index] += 0.25f * (t - 0.5f * sum) * amp;
+  z_out[index] = val + 0.25f * (t - 0.5f * sum) * amp;
 }
 )""

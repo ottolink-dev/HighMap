@@ -112,3 +112,83 @@ TEST(ThermalConserve, MassPreserved)
 
   EXPECT_NEAR(z.sum(), z0.sum(), 1e-2f);
 }
+
+TEST(ThermalGPU, VariantsRunAndModify)
+{
+  hmap::gpu::init_opencl();
+
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+  float      talus = 0.5f / shape.x;
+  Array      talus_map(shape, talus);
+
+  // thermal
+  {
+    Array z = z0;
+    Array dep(shape);
+    gpu::thermal(z, talus_map, 5, nullptr, &dep);
+    EXPECT_FALSE(assert_almost_equal(z, z0));
+  }
+
+  // thermal_auto_bedrock
+  {
+    Array z = z0;
+    Array dep(shape);
+    gpu::thermal_auto_bedrock(z, talus_map, 5, &dep);
+    EXPECT_FALSE(assert_almost_equal(z, z0));
+  }
+
+  // thermal_flatten
+  {
+    Array z = z0;
+    gpu::thermal_flatten(z, talus_map, 5);
+    EXPECT_FALSE(assert_almost_equal(z, z0));
+  }
+
+  // thermal_inflate
+  {
+    Array z = z0;
+    gpu::thermal_inflate(z, talus_map, 5);
+    EXPECT_FALSE(assert_almost_equal(z, z0));
+  }
+
+  // thermal_olsen
+  {
+    Array z = z0;
+    gpu::thermal_olsen(z, talus_map, 5);
+    EXPECT_FALSE(assert_almost_equal(z, z0));
+  }
+
+  // thermal_rib
+  {
+    Array z = z0;
+    gpu::thermal_rib(z, 5);
+    EXPECT_FALSE(assert_almost_equal(z, z0));
+  }
+
+  // thermal_ridge
+  {
+    Array z = z0;
+    Array dep(shape);
+    gpu::thermal_ridge(z, talus_map, 5, &dep);
+    EXPECT_FALSE(assert_almost_equal(z, z0));
+  }
+
+  // thermal_schott
+  {
+    Array z = z0;
+    Array dep(shape);
+    gpu::thermal_schott(z, talus_map, 5, 0.2f, &dep);
+    EXPECT_FALSE(assert_almost_equal(z, z0));
+  }
+
+  // thermal_scree
+  {
+    Array z = z0;
+    Array zmax(shape, 1.f);
+    Array dep(shape);
+    gpu::thermal_scree(z, talus_map, zmax, 5, &dep);
+    EXPECT_FALSE(assert_almost_equal(z, z0));
+  }
+}

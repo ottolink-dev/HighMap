@@ -53,7 +53,7 @@ void thermal_schott(Array       &z,
             up++;
         }
 
-        z_new(i, j) += intensity * (float)(up - down);
+        z_new(i, j) += intensity * talus(i, j) * (float)(up - down);
       }
 
     z = z_new;

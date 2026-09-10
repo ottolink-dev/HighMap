@@ -796,7 +796,7 @@ void rejection_filter_density(Cloud           &cloud,
  * @param  cloud  Input point cloud.
  * @param  scale  Scale factor(s) for x and y axes.
  * @param  center Center of scaling (defaults to (0.5, 0.5)).
- * @return Cloud  A new point cloud with scaled point coordinates.
+ * @return        Cloud  A new point cloud with scaled point coordinates.
  */
 Cloud scale(const Cloud &cloud,
             glm::vec2    scale,

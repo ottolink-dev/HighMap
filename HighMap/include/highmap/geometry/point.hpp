@@ -457,7 +457,7 @@ Point midpoint(const Point &p1,
  * @param  p      The input point.
  * @param  scale  Scale factor(s) for x and y axes.
  * @param  center Center of scaling (defaults to (0.5, 0.5)).
- * @return Point  The scaled point.
+ * @return        Point  The scaled point.
  */
 Point scale(const Point &p, glm::vec2 scale, glm::vec2 center = {0.5f, 0.5f});
 
