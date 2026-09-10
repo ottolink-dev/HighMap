@@ -1,14 +1,14 @@
 var thermal__gpu_8cpp =
 [
     [ "thermal", "thermal__gpu_8cpp.html#a4e8be6889c281171b841805b17b42b7f", null ],
-    [ "thermal_conserve", "thermal__gpu_8cpp.html#a551ff43fadc1798ab22617dfe68f231b", null ],
-    [ "thermal_conserve", "thermal__gpu_8cpp.html#a76130f083fcac4a25954f37f7ff6b34e", null ],
-    [ "thermal_conserve", "thermal__gpu_8cpp.html#ad8a556d7caa0d6bda80d7f28b8374b4a", null ],
     [ "thermal", "thermal__gpu_8cpp.html#a2ce8ecd08ace98c21dfb354bab5451a2", null ],
     [ "thermal", "thermal__gpu_8cpp.html#abfffd9aa12ea86a2c191a7a5b9cbe5f8", null ],
     [ "thermal_auto_bedrock", "thermal__gpu_8cpp.html#a36a2eba6d158e44d0ef917d9582987fe", null ],
-    [ "thermal_auto_bedrock", "thermal__gpu_8cpp.html#ac87a6d725bf0751510f6b1f426a8af27", null ],
     [ "thermal_auto_bedrock", "thermal__gpu_8cpp.html#ae3402d591c3b13ef13cece96cdab85b4", null ],
+    [ "thermal_auto_bedrock", "thermal__gpu_8cpp.html#ac87a6d725bf0751510f6b1f426a8af27", null ],
+    [ "thermal_conserve", "thermal__gpu_8cpp.html#a551ff43fadc1798ab22617dfe68f231b", null ],
+    [ "thermal_conserve", "thermal__gpu_8cpp.html#a76130f083fcac4a25954f37f7ff6b34e", null ],
+    [ "thermal_conserve", "thermal__gpu_8cpp.html#ad8a556d7caa0d6bda80d7f28b8374b4a", null ],
     [ "thermal_flatten", "thermal__gpu_8cpp.html#a5a5275d0f2588dbbd766e2c5b1a8d55a", null ],
     [ "thermal_flatten", "thermal__gpu_8cpp.html#a13e5b18eb4ff1cf1f7357a9b29bf9368", null ],
     [ "thermal_inflate", "thermal__gpu_8cpp.html#ae57a1e9bd94f218d4be17c9d8be012c3", null ],

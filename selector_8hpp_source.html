@@ -192,57 +192,57 @@ $(document).ready(function(){initNavTree('selector_8hpp_source.html',''); initRe
 <div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span> </div>
 <div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>Array <a class="code hl_function" href="namespacehmap.html#ac72cb684be1045c7f2a5c8941f905772">select_valley</a>(<span class="keyword">const</span> Array &amp;z, <span class="keywordtype">int</span> <a class="code hl_variable" href="sls__deformation_8cpp.html#a108a1d0fcea4288c9e48f5dc4fa0a1b0">ir</a>, <span class="keywordtype">bool</span> ridge_select = <span class="keyword">false</span>);</div>
 <div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span> </div>
-<div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span>Array <a class="code hl_function" href="namespacehmap.html#a11a2a1f3cd9295fd38e05e61819b06fd">smooth_mask_preserve_frontier</a>(<span class="keyword">const</span> Array &amp;mask, <span class="keywordtype">float</span> feather_width);</div>
-<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span> </div>
-<div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span>} <span class="comment">// namespace hmap</span></div>
-<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span> </div>
-<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmap_1_1gpu.html">hmap::gpu</a></div>
-<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>{</div>
-<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span> </div>
-<div class="line"><a id="l00478" name="l00478"></a><span class="lineno">  478</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a9d2e42789abe01802177574660804fa1">select_cavities</a>(<span class="keyword">const</span> Array &amp;array, <span class="keywordtype">int</span> <a class="code hl_variable" href="sls__deformation_8cpp.html#a108a1d0fcea4288c9e48f5dc4fa0a1b0">ir</a>, <span class="keywordtype">bool</span> concave = <span class="keyword">true</span>);</div>
-<div class="line"><a id="l00479" name="l00479"></a><span class="lineno">  479</span> </div>
-<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#afb62cf56466c5bdfb9b6a26458a52d12">select_soil_flow</a>(<span class="keyword">const</span> Array &amp;z,</div>
-<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>                       <span class="keywordtype">int</span>          ir_gradient = 1,</div>
-<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>                       <span class="keywordtype">float</span>        gradient_weight = 1.f,</div>
-<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>                       <span class="keywordtype">float</span>        gradient_scaling_factor = 0.f,</div>
-<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>                       <span class="keywordtype">float</span>        flow_weight = 0.05f,</div>
-<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>                       <span class="keywordtype">float</span>        talus_ref = 0.f,</div>
-<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>                       <span class="keywordtype">float</span>        clipping_ratio = 50.f,</div>
-<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>                       <span class="keywordtype">float</span>        flow_gamma = 1.f,</div>
-<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>                       <span class="keywordtype">float</span>        k_smooth = 0.01f);</div>
-<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span> </div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a735421f1b5f42ade55224b932603c58e">select_soil_rocks</a>(</div>
-<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>    <span class="keyword">const</span> Array &amp;z,</div>
-<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>    <span class="keywordtype">int</span>          ir_max = 64,</div>
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>    <span class="keywordtype">int</span>          ir_min = 0,</div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>    <span class="keywordtype">int</span>          steps = 4,</div>
-<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>    <span class="keywordtype">float</span>        smaller_scales_weight = 1.f,</div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>    <a class="code hl_enumeration" href="namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbe">ClampMode</a>    curvature_clamp_mode = <a class="code hl_enumvalue" href="namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbea7ee5673a01d4215ae4ba9ba95268ed59">ClampMode::POSITIVE_ONLY</a>,</div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    <span class="keywordtype">float</span>        curvature_clamping = 1.f);</div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span> </div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#ae394dd88c39510d2ada01cf120922719">select_soil_weathered</a>(</div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>    <span class="keyword">const</span> Array &amp;z,</div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>    <span class="keywordtype">int</span>          ir_curvature = 0,</div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>    <span class="keywordtype">int</span>          ir_gradient = 4,</div>
-<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>    <a class="code hl_enumeration" href="namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbe">ClampMode</a>    curvature_clamp_mode = <a class="code hl_enumvalue" href="namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbea7ee5673a01d4215ae4ba9ba95268ed59">ClampMode::POSITIVE_ONLY</a>,</div>
-<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>    <span class="keywordtype">float</span>        curvature_clamping = 10.f,</div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    <span class="keywordtype">float</span>        curvature_weight = 1.f,</div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>    <span class="keywordtype">float</span>        gradient_weight = 1.f,</div>
-<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>    <span class="keywordtype">float</span>        gradient_scaling_factor = 0.f);</div>
-<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span> </div>
-<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span><span class="comment">// if the gradient norm is known before-hand</span></div>
-<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#ae394dd88c39510d2ada01cf120922719">select_soil_weathered</a>(<span class="keyword">const</span> Array &amp;z,</div>
-<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>                            <span class="keyword">const</span> Array &amp;<a class="code hl_function" href="namespacehmap_1_1gpu.html#a1c5e49734e49973fe1b275b6988dba12">gradient_norm</a>, <span class="comment">// in [0, 1]</span></div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>                            <span class="keywordtype">int</span>          ir_curvature,</div>
-<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>                            <a class="code hl_enumeration" href="namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbe">ClampMode</a>    curvature_clamp_mode,</div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>                            <span class="keywordtype">float</span>        curvature_clamping,</div>
-<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>                            <span class="keywordtype">float</span>        curvature_weight,</div>
-<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>                            <span class="keywordtype">float</span>        gradient_weight,</div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>                            <span class="keywordtype">float</span> gradient_scaling_factor); <span class="comment">// for curvature</span></div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span> </div>
-<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a13f97a9cf5f7f219e5ed9a32fefbfa1a">select_valley</a>(<span class="keyword">const</span> Array &amp;z, <span class="keywordtype">int</span> <a class="code hl_variable" href="sls__deformation_8cpp.html#a108a1d0fcea4288c9e48f5dc4fa0a1b0">ir</a>, <span class="keywordtype">bool</span> ridge_select = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span> </div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>} <span class="comment">// namespace hmap::gpu</span></div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span>Array <a class="code hl_function" href="namespacehmap.html#a11a2a1f3cd9295fd38e05e61819b06fd">smooth_mask_preserve_frontier</a>(<span class="keyword">const</span> Array &amp;mask, <span class="keywordtype">float</span> feather_width);</div>
+<div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span> </div>
+<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span>} <span class="comment">// namespace hmap</span></div>
+<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span> </div>
+<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmap_1_1gpu.html">hmap::gpu</a></div>
+<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span>{</div>
+<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span> </div>
+<div class="line"><a id="l00479" name="l00479"></a><span class="lineno">  479</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a9d2e42789abe01802177574660804fa1">select_cavities</a>(<span class="keyword">const</span> Array &amp;array, <span class="keywordtype">int</span> <a class="code hl_variable" href="sls__deformation_8cpp.html#a108a1d0fcea4288c9e48f5dc4fa0a1b0">ir</a>, <span class="keywordtype">bool</span> concave = <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00480" name="l00480"></a><span class="lineno">  480</span> </div>
+<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#afb62cf56466c5bdfb9b6a26458a52d12">select_soil_flow</a>(<span class="keyword">const</span> Array &amp;z,</div>
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>                       <span class="keywordtype">int</span>          ir_gradient = 1,</div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>                       <span class="keywordtype">float</span>        gradient_weight = 1.f,</div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>                       <span class="keywordtype">float</span>        gradient_scaling_factor = 0.f,</div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>                       <span class="keywordtype">float</span>        flow_weight = 0.05f,</div>
+<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>                       <span class="keywordtype">float</span>        talus_ref = 0.f,</div>
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>                       <span class="keywordtype">float</span>        clipping_ratio = 50.f,</div>
+<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>                       <span class="keywordtype">float</span>        flow_gamma = 1.f,</div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>                       <span class="keywordtype">float</span>        k_smooth = 0.01f);</div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span> </div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a735421f1b5f42ade55224b932603c58e">select_soil_rocks</a>(</div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>    <span class="keyword">const</span> Array &amp;z,</div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>    <span class="keywordtype">int</span>          ir_max = 64,</div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>    <span class="keywordtype">int</span>          ir_min = 0,</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>    <span class="keywordtype">int</span>          steps = 4,</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>    <span class="keywordtype">float</span>        smaller_scales_weight = 1.f,</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    <a class="code hl_enumeration" href="namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbe">ClampMode</a>    curvature_clamp_mode = <a class="code hl_enumvalue" href="namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbea7ee5673a01d4215ae4ba9ba95268ed59">ClampMode::POSITIVE_ONLY</a>,</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>    <span class="keywordtype">float</span>        curvature_clamping = 1.f);</div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span> </div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#ae394dd88c39510d2ada01cf120922719">select_soil_weathered</a>(</div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>    <span class="keyword">const</span> Array &amp;z,</div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>    <span class="keywordtype">int</span>          ir_curvature = 0,</div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>    <span class="keywordtype">int</span>          ir_gradient = 4,</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>    <a class="code hl_enumeration" href="namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbe">ClampMode</a>    curvature_clamp_mode = <a class="code hl_enumvalue" href="namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbea7ee5673a01d4215ae4ba9ba95268ed59">ClampMode::POSITIVE_ONLY</a>,</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    <span class="keywordtype">float</span>        curvature_clamping = 10.f,</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>    <span class="keywordtype">float</span>        curvature_weight = 1.f,</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>    <span class="keywordtype">float</span>        gradient_weight = 1.f,</div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>    <span class="keywordtype">float</span>        gradient_scaling_factor = 0.f);</div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span> </div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span><span class="comment">// if the gradient norm is known before-hand</span></div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#ae394dd88c39510d2ada01cf120922719">select_soil_weathered</a>(<span class="keyword">const</span> Array &amp;z,</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>                            <span class="keyword">const</span> Array &amp;<a class="code hl_function" href="namespacehmap_1_1gpu.html#a1c5e49734e49973fe1b275b6988dba12">gradient_norm</a>, <span class="comment">// in [0, 1]</span></div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>                            <span class="keywordtype">int</span>          ir_curvature,</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>                            <a class="code hl_enumeration" href="namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbe">ClampMode</a>    curvature_clamp_mode,</div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>                            <span class="keywordtype">float</span>        curvature_clamping,</div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>                            <span class="keywordtype">float</span>        curvature_weight,</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>                            <span class="keywordtype">float</span>        gradient_weight,</div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>                            <span class="keywordtype">float</span> gradient_scaling_factor); <span class="comment">// for curvature</span></div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span> </div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a13f97a9cf5f7f219e5ed9a32fefbfa1a">select_valley</a>(<span class="keyword">const</span> Array &amp;z, <span class="keywordtype">int</span> <a class="code hl_variable" href="sls__deformation_8cpp.html#a108a1d0fcea4288c9e48f5dc4fa0a1b0">ir</a>, <span class="keywordtype">bool</span> ridge_select = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span> </div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>} <span class="comment">// namespace hmap::gpu</span></div>
 <div class="ttc" id="aarray_8hpp_html"><div class="ttname"><a href="array_8hpp.html">array.hpp</a></div><div class="ttdoc">Declaration of the Array class for 2D floating-point arrays with various mathematical operations and ...</div></div>
 <div class="ttc" id="anamespacehmap_1_1gpu_html"><div class="ttname"><a href="namespacehmap_1_1gpu.html">hmap::gpu</a></div><div class="ttdef"><b>Definition</b> blending.hpp:225</div></div>
 <div class="ttc" id="anamespacehmap_1_1gpu_html_a13f97a9cf5f7f219e5ed9a32fefbfa1a"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a13f97a9cf5f7f219e5ed9a32fefbfa1a">hmap::gpu::select_valley</a></div><div class="ttdeci">Array select_valley(const Array &amp;z, int ir, bool ridge_select=false)</div><div class="ttdoc">See hmap::select_valley.</div><div class="ttdef"><b>Definition</b> selector_gpu.cpp:28</div></div>

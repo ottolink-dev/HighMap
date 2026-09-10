@@ -2169,7 +2169,7 @@ MATCH&penalize any deviation from the target height \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{ABOVE@{ABOVE}!hmap@{hmap}}\index{hmap@{hmap}!ABOVE@{ABOVE}}}\Hypertarget{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2a4a4ff914bd69d6b43e40b58f08627a3e}\label{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2a4a4ff914bd69d6b43e40b58f08627a3e} 
-ABOVE&penalize only heights below the target (target acts as a floor) \\
+ABOVE&penalize only heights below the target (target acts as a \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{BELOW@{BELOW}!hmap@{hmap}}\index{hmap@{hmap}!BELOW@{BELOW}}}\Hypertarget{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2a7e9c666cdfeb7b317902253fda25e978}\label{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2a7e9c666cdfeb7b317902253fda25e978} 
@@ -4195,7 +4195,10 @@ This function creates a heightmap using ridgelines defined by their x, y, and z 
 
 Deform a heightmap to satisfy a set of constraints using stochastic local search over truncated-\/\+Gaussian push operations. 
 
-Implements the constraint-\/based terrain deformation of S. Stachniak and W. Stuerzlinger, "{}\+An Algorithm for Automated Fractal Terrain Deformation"{}, WSCG 2005. The terrain {\ttfamily T} is deformed into `T'{\ttfamily by searching for a sequence of local push operations}(location, amplitude, radius){\ttfamily (see @ref \doxylink{structhmap_1_1GaussianPush}{Gaussian\+Push}) that minimize a fitness function}F(\+T) = sum F(x, y){\ttfamily , where the per-\/vertex penalty}F(x, y)\`{} is the sum of the supplied constraint terms (see \doxylink{structhmap_1_1DeformationConstraint}{Deformation\+Constraint}). Because the penalties are summed, several constraints (shape masks, fixed paths, edge matching, reference heights...) can be satisfied simultaneously.
+Implements the constraint-\/based terrain deformation of S. Stachniak and W. Stuerzlinger, "{}\+An Algorithm for Automated Fractal Terrain Deformation"{}, WSCG
+\begin{DoxyEnumerate}
+\item The terrain {\ttfamily T} is deformed into `T'{\ttfamily by searching for a sequence of local push operations}(location, amplitude, radius){\ttfamily (see @ref \doxylink{structhmap_1_1GaussianPush}{Gaussian\+Push}) that minimize a fitness function}F(\+T) = sum F(x, y){\ttfamily , where the per-\/vertex penalty}F(x, y)\`{} is the sum of the supplied constraint terms (see \doxylink{structhmap_1_1DeformationConstraint}{Deformation\+Constraint}). Because the penalties are summed, several constraints (shape masks, fixed paths, edge matching, reference heights...) can be satisfied simultaneously.
+\end{DoxyEnumerate}
 
 At every iteration, a set of candidate vertices is drawn\+: half on a jittered uniform grid, half sampled proportionally to the current penalty map so that the search concentrates where constraints are violated. For each candidate and each radius, the push amplitude is the least-\/squares optimum of the (locally quadratic) penalty over the kernel footprint, clamped by the slope limit {\ttfamily talus\+\_\+max \texorpdfstring{$\ast$}{*} radius} which suppresses high-\/frequency spikes (frequency limitation of the paper). The best deformation is applied with probability {\ttfamily p\+\_\+best}, otherwise one of the {\ttfamily top\+\_\+fraction} best deformations is applied (the stochastic noise of the search, which prevents stalling in local minima). The search stops when the fitness drops below {\ttfamily tolerance} times its initial value, when no improving deformation can be found for a number of consecutive iterations, or after {\ttfamily iterations} pushes.
 
@@ -9680,6 +9683,10 @@ This function applies a folding filter to the input array, where the values are 
 \DoxyCodeLine{\ \ k\_smooth\ =\ 0.05f;}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a2ba465615ff1d745cfcf7a27b7dcb37e}{hmap::fold}}(z2,\ iterations,\ k\_smooth);}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(z2);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z3\ =\ z;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a2ba465615ff1d745cfcf7a27b7dcb37e}{hmap::fold}}(z3,\ \mbox{\hyperlink{namespacehmap_a67d6620c147710ebb09b64f0f738241aa0cd4624d7ec212818cf2ef09f8540bf1}{hmap::PhasorProfile::PP\_COSINE\_PEAKY}},\ 0.f,\ 1.f,\ iterations);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(z3);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_fold.png"{}},\ \{z,\ z1,\ z2\},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143}{hmap::Cmap::INFERNO}});}
 \DoxyCodeLine{\}}

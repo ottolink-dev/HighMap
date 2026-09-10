@@ -155,6 +155,25 @@
         </inbodydescription>
         <location file="tests/src/test_erosion.cpp" line="102" column="1" bodyfile="tests/src/test_erosion.cpp" bodystart="102" bodyend="114"/>
       </memberdef>
+      <memberdef kind="function" id="test__erosion_8cpp_1a4fe8bd6a607002564f2875aebf0b5def" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ThermalGPU, VariantsRunAndModify)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ThermalGPU</type>
+        </param>
+        <param>
+          <type>VariantsRunAndModify</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_erosion.cpp" line="116" column="1" bodyfile="tests/src/test_erosion.cpp" bodystart="116" bodyend="194"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -275,6 +294,86 @@
 <codeline lineno="112"><highlight class="normal"></highlight></codeline>
 <codeline lineno="113"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(z.<ref refid="classhmap_1_1Array_1a7ee63fb7135276ed8d6643d082f06892" kindref="member">sum</ref>(),<sp/>z0.<ref refid="classhmap_1_1Array_1a7ee63fb7135276ed8d6643d082f06892" kindref="member">sum</ref>(),<sp/>1e-2f);</highlight></codeline>
 <codeline lineno="114"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><ref refid="test__erosion_8cpp_1abc3d4c545d6d7957bf2237c1a272a30d" kindref="member">TEST</ref>(ThermalGPU,<sp/>VariantsRunAndModify)</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1adb8336ed4d83c15500872185dee45d50" kindref="member">hmap::gpu::init_opencl</ref>();</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/>glm::vec2<sp/><sp/>kw<sp/>=<sp/>{4.f,<sp/>4.f};</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>z0<sp/>=<sp/><ref refid="namespacehmap_1a7d699a468a18be16c70654958ee13b41" kindref="member">noise_fbm</ref>(NoiseType::PERLIN,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>kw,<sp/>42);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>talus<sp/>=<sp/>0.5f<sp/>/<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>talus_map(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>talus);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>thermal</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z<sp/>=<sp/>z0;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>dep(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a4e8be6889c281171b841805b17b42b7f" kindref="member">gpu::thermal</ref>(z,<sp/>talus_map,<sp/>5,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>&amp;dep);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FALSE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(z,<sp/>z0));</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>thermal_auto_bedrock</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z<sp/>=<sp/>z0;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>dep(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a36a2eba6d158e44d0ef917d9582987fe" kindref="member">gpu::thermal_auto_bedrock</ref>(z,<sp/>talus_map,<sp/>5,<sp/>&amp;dep);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FALSE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(z,<sp/>z0));</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>thermal_flatten</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z<sp/>=<sp/>z0;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a5a5275d0f2588dbbd766e2c5b1a8d55a" kindref="member">gpu::thermal_flatten</ref>(z,<sp/>talus_map,<sp/>5);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FALSE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(z,<sp/>z0));</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>thermal_inflate</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z<sp/>=<sp/>z0;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ae57a1e9bd94f218d4be17c9d8be012c3" kindref="member">gpu::thermal_inflate</ref>(z,<sp/>talus_map,<sp/>5);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FALSE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(z,<sp/>z0));</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>thermal_olsen</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z<sp/>=<sp/>z0;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a00b54f4e60a8fbd6ed5213600d598869" kindref="member">gpu::thermal_olsen</ref>(z,<sp/>talus_map,<sp/>5);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FALSE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(z,<sp/>z0));</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>thermal_rib</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z<sp/>=<sp/>z0;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a435a38880a6bcabfb8991d5834a0f786" kindref="member">gpu::thermal_rib</ref>(z,<sp/>5);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FALSE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(z,<sp/>z0));</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>thermal_ridge</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z<sp/>=<sp/>z0;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>dep(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a1489150d5e1af976a9f814b9911b3ea0" kindref="member">gpu::thermal_ridge</ref>(z,<sp/>talus_map,<sp/>5,<sp/>&amp;dep);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FALSE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(z,<sp/>z0));</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>thermal_schott</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z<sp/>=<sp/>z0;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>dep(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a525c9818a95840ee8dfaa0c4e0d4f779" kindref="member">gpu::thermal_schott</ref>(z,<sp/>talus_map,<sp/>5,<sp/>0.2f,<sp/>&amp;dep);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FALSE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(z,<sp/>z0));</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>thermal_scree</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z<sp/>=<sp/>z0;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>zmax(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>1.f);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>dep(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab753c4abd819aa6945c1cfc5e25ccec4" kindref="member">gpu::thermal_scree</ref>(z,<sp/>talus_map,<sp/>zmax,<sp/>5,<sp/>&amp;dep);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FALSE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(z,<sp/>z0));</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_erosion.cpp"/>
   </compounddef>
