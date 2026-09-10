@@ -267,6 +267,53 @@ Array rift(glm::ivec2    shape,
            Array        *p_rift_mask = nullptr,
            Array        *p_bottom_mask = nullptr);
 
+/**
+ * @brief Generate a procedural natural valley head / valley incision
+ * deformation heightmap.
+ *
+ * Creates a valley head incision that smoothly emerges at the origin and
+ * progressively deepens and widens downstream following exponential saturation
+ * laws and smooth lateral falloff.
+ *
+ * @param  shape             Output array shape.
+ * @param  angle             Valley orientation angle in degrees.
+ * @param  max_depth         Maximum incision depth at maturity.
+ * @param  min_width         Valley width at the head.
+ * @param  max_width         Mature valley width.
+ * @param  depth_length      Distance scale over which depth develops.
+ * @param  width_length      Distance scale over which width develops.
+ * @param  development_power Exponent controlling how quickly the incision
+ *                           emerges.
+ * @param  profile_power     Cross-section exponent (1 = sharp V, > 1 = rounded
+ *                           U-shape).
+ * @param  p_noise_offset    Optional cross-section centerline offset noise.
+ * @param  p_noise_r         Optional width / radial noise.
+ * @param  center            Valley head position.
+ * @param  bbox              Bounding box coordinates.
+ * @param  p_mask            Optional output mask for incision intensity.
+ * @return                   Generated valley head deformation array.
+ *
+ * **Example**
+ * @include ex_valley_head.cpp
+ *
+ * **Result**
+ * @image html ex_valley_head.png
+ */
+Array valley_head(glm::ivec2   shape,
+                  float        angle = 0.f,
+                  float        max_depth = 0.2f,
+                  float        min_width = 0.02f,
+                  float        max_width = 0.15f,
+                  float        depth_length = 0.5f,
+                  float        width_length = 0.5f,
+                  float        development_power = 2.f,
+                  float        profile_power = 1.3f,
+                  const Array *p_noise_offset = nullptr,
+                  const Array *p_noise_r = nullptr,
+                  glm::vec2    center = {0.5f, 0.5f},
+                  glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
+                  Array       *p_mask = nullptr);
+
 } // namespace hmap
 
 namespace hmap::gpu
