@@ -971,6 +971,7 @@ var namespacehmap =
     [ "island_land_mask", "namespacehmap.html#a8f68239db7ea7bdf2177e0290f4fd250", null ],
     [ "island_chain_land_mask", "namespacehmap.html#a1b24d28eff3fda2f950daa821441760c", null ],
     [ "rift", "namespacehmap.html#a0da433ef9eb80cc11084bd3adbe75051", null ],
+    [ "valley_head", "namespacehmap.html#a1f5d273275a3eac6e9798c966ef55d21", null ],
     [ "white", "namespacehmap.html#a5db6d20fe4a5e243dc67a713cb3ac419", null ],
     [ "white_density_map", "namespacehmap.html#a77473fb1fbaeed58445c10a9cb6fae50", null ],
     [ "white_sparse", "namespacehmap.html#aedd4a3e6f5dcabc77e7e3cb10b934a9c", null ],

@@ -209,209 +209,224 @@ $(document).ready(function(){initNavTree('geo_8hpp_source.html',''); initResizab
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>           Array        *p_rift_mask = <span class="keyword">nullptr</span>,</div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>           Array        *p_bottom_mask = <span class="keyword">nullptr</span>);</div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>} <span class="comment">// namespace hmap</span></div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmap_1_1gpu.html">hmap::gpu</a></div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>{</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a54906b55a1c4e4efe938a780c1fb348e">badlands</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>               glm::vec2     kw,</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>               std::uint32_t seed,</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>               <span class="keywordtype">int</span>           octaves = 8,</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>               <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.2f,</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>               <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 30.f,</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>               <span class="keywordtype">float</span>         k_smoothing = 0.1f,</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>               <span class="keywordtype">float</span>         base_noise_amp = 0.2f,</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>               <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>               <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>               glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a7111b9e9f203eeaad6c912049dd25392">basalt_field</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>                   glm::vec2     kw,</div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>                   std::uint32_t seed,</div>
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>                   <span class="keywordtype">float</span>         warp_kw = 4.f,</div>
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>                   <span class="keywordtype">float</span>         large_scale_warp_amp = 0.2f,</div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>                   <span class="keywordtype">float</span>         large_scale_gain = 6.f,</div>
-<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>                   <span class="keywordtype">float</span>         large_scale_amp = 0.2f,</div>
-<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>                   <span class="keywordtype">float</span>         medium_scale_kw_ratio = 3.f,</div>
-<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>                   <span class="keywordtype">float</span>         medium_scale_warp_amp = 1.f,</div>
-<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>                   <span class="keywordtype">float</span>         medium_scale_gain = 7.f,</div>
-<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>                   <span class="keywordtype">float</span>         medium_scale_amp = 0.08f,</div>
-<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>                   <span class="keywordtype">float</span>         small_scale_kw_ratio = 10.f,</div>
-<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>                   <span class="keywordtype">float</span>         small_scale_amp = 0.1f,</div>
-<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>                   <span class="keywordtype">float</span>         small_scale_overlay_amp = 0.002f,</div>
-<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>                   <span class="keywordtype">float</span>         rugosity_kw_ratio = 1.f,</div>
-<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>                   <span class="keywordtype">float</span>         rugosity_amp = 1.f,</div>
-<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>                   <span class="keywordtype">bool</span>          flatten_activate = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>                   <span class="keywordtype">float</span>         flatten_kw_ratio = 1.f,</div>
-<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>                   <span class="keywordtype">float</span>         flatten_amp = 0.f,</div>
-<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>                   <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>                   <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>                   glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span> </div>
-<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#ae20d5b7f78d4c3eb5064490a3a407533">island</a>(<span class="keyword">const</span> Array &amp;land_mask,</div>
-<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>             <span class="keyword">const</span> Array *p_noise_r = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>             <span class="keywordtype">float</span>        apex_elevation = 1.f,</div>
-<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>             <span class="keywordtype">bool</span>         filter_distance = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>             <span class="keywordtype">int</span>          filter_ir = 32,</div>
-<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>             <span class="keywordtype">float</span>        slope_min = 0.1f,</div>
-<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>             <span class="keywordtype">float</span>        slope_max = 8.f,</div>
-<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>             <span class="keywordtype">float</span>        slope_start = 0.5f,</div>
-<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>             <span class="keywordtype">float</span>        slope_end = 1.f,</div>
-<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>             <span class="keywordtype">float</span>        slope_noise_intensity = 0.5f,</div>
-<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>             <span class="keywordtype">float</span>        k_smooth = 0.05f,</div>
-<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>             <span class="keywordtype">float</span>        radial_noise_intensity = 0.3f,</div>
-<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>             <span class="keywordtype">float</span>        radial_profile_gain = 2.f,</div>
-<div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span>             <span class="keywordtype">float</span>        water_decay = 0.05f,</div>
-<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span>             <span class="keywordtype">float</span>        water_depth = 0.3f,</div>
-<div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span>             <span class="keywordtype">float</span>        lee_angle = 30.f,</div>
-<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span>             <span class="keywordtype">float</span>        lee_amp = 0.f,</div>
-<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span>             <span class="keywordtype">float</span>        uplift_amp = 0.f,</div>
-<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>             Array       *p_water_depth = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span>             Array       *p_inland_mask = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span> </div>
-<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#ae20d5b7f78d4c3eb5064490a3a407533">island</a>(<span class="keyword">const</span> Array  &amp;land_mask,</div>
-<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>             std::uint32_t seed,</div>
-<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>             <span class="keywordtype">float</span>         noise_amp = 0.07f,</div>
-<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>             glm::vec2     noise_kw = {4.f, 4.f},</div>
-<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>             <span class="keywordtype">int</span>           noise_octaves = 8,</div>
-<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>             <span class="keywordtype">float</span>         noise_rugosity = 0.7f,</div>
-<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>             <span class="keywordtype">float</span>         noise_angle = 45.f,</div>
-<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>             <span class="keywordtype">float</span>         noise_k_smoothing = 0.05f,</div>
-<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>             <span class="keywordtype">float</span>         apex_elevation = 1.f,</div>
-<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>             <span class="keywordtype">bool</span>          filter_distance = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>             <span class="keywordtype">int</span>           filter_ir = 32,</div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>             <span class="keywordtype">float</span>         slope_min = 0.1f,</div>
-<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>             <span class="keywordtype">float</span>         slope_max = 8.f,</div>
-<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>             <span class="keywordtype">float</span>         slope_start = 0.5f,</div>
-<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>             <span class="keywordtype">float</span>         slope_end = 1.f,</div>
-<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>             <span class="keywordtype">float</span>         slope_noise_intensity = 0.5f,</div>
-<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>             <span class="keywordtype">float</span>         k_smooth = 0.05f,</div>
-<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>             <span class="keywordtype">float</span>         radial_noise_intensity = 0.3f,</div>
-<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>             <span class="keywordtype">float</span>         radial_profile_gain = 2.f,</div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>             <span class="keywordtype">float</span>         water_decay = 0.05f,</div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>             <span class="keywordtype">float</span>         water_depth = 0.3f,</div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>             <span class="keywordtype">float</span>         lee_angle = 30.f,</div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>             <span class="keywordtype">float</span>         lee_amp = 0.f,</div>
-<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>             <span class="keywordtype">float</span>         uplift_amp = 0.f,</div>
-<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>             Array        *p_water_depth = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>             Array        *p_inland_mask = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span> </div>
-<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#afcc3b4559a3042acadb0699666257185">mountain_cone</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
-<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>                    std::uint32_t seed,</div>
-<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>                    <span class="keywordtype">float</span>         <a class="code hl_variable" href="sls__deformation_8cpp.html#a1d28dec57cce925ad92342891bd71e7c">scale</a> = 1.f,</div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>                    <span class="keywordtype">int</span>           octaves = 8,</div>
-<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>                    <span class="keywordtype">float</span>         peak_kw = 4.f,</div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>                    <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.f,</div>
-<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>                    <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 45.f,</div>
-<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>                    <span class="keywordtype">float</span>         k_smoothing = 0.f,</div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>                    <span class="keywordtype">float</span>         gamma = 0.5f,</div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>                    <span class="keywordtype">float</span>         cone_alpha = 1.f,</div>
-<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>                    <span class="keywordtype">float</span>         ridge_amp = 0.4f,</div>
-<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>                    <span class="keywordtype">float</span>         base_noise_amp = 0.05f,</div>
-<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>                    glm::vec2     center = {0.5f, 0.5f},</div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>                    <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>                    <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span> </div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#af90fe4d4bbdac5b7425c9a95dd912406">mountain_inselberg</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>                         std::uint32_t seed,</div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>                         <span class="keywordtype">float</span>         <a class="code hl_variable" href="sls__deformation_8cpp.html#a1d28dec57cce925ad92342891bd71e7c">scale</a> = 1.f,</div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>                         <span class="keywordtype">int</span>           octaves = 8,</div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>                         <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.2f,</div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>                         <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 45.f,</div>
-<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>                         <span class="keywordtype">float</span>         gamma = 1.1f,</div>
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>                         <span class="keywordtype">bool</span>          round_shape = <span class="keyword">false</span>,</div>
-<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>                         <span class="keywordtype">bool</span>          add_deposition = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>                         <span class="keywordtype">float</span>         bulk_amp = 0.2f,</div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>                         <span class="keywordtype">float</span>         base_noise_amp = 0.2f,</div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>                         <span class="keywordtype">float</span>         k_smoothing = 0.1f,</div>
-<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>                         glm::vec2     center = {0.5f, 0.5f},</div>
-<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>                         <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>                         <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>                         glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span> </div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a657d52dc062f617c6917e80a4ac81186">mountain_range_radial</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
-<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>                            glm::vec2     kw,</div>
-<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>                            std::uint32_t seed,</div>
-<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>                            <span class="keywordtype">float</span>         half_width = 0.2f,</div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>                            <span class="keywordtype">float</span>         angle_spread_ratio = 0.5f,</div>
-<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>                            <span class="keywordtype">float</span>         core_size_ratio = 1.f,</div>
-<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>                            glm::vec2     center = {0.5f, 0.5f},</div>
-<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>                            <span class="keywordtype">int</span>           octaves = 8,</div>
-<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>                            <span class="keywordtype">float</span>         <a class="code hl_variable" href="sls__deformation_8cpp.html#aeb4aca717b10b3f05f897485b4e1e9a6">weight</a> = 0.7f,</div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>                            <span class="keywordtype">float</span>         persistence = 0.5f,</div>
-<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>                            <span class="keywordtype">float</span>         lacunarity = 2.f,</div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>                            <span class="keyword">const</span> Array  *p_ctrl_param = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>                            <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>                            <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>                            <span class="keyword">const</span> Array  *p_angle = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>                            glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span> </div>
-<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a3cac6320779d6623497e665082f96d5e">mountain_stump</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
-<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>                     std::uint32_t seed,</div>
-<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>                     <span class="keywordtype">float</span>         <a class="code hl_variable" href="sls__deformation_8cpp.html#a1d28dec57cce925ad92342891bd71e7c">scale</a> = 1.f,</div>
-<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>                     <span class="keywordtype">int</span>           octaves = 8,</div>
-<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>                     <span class="keywordtype">float</span>         peak_kw = 6.f,</div>
-<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>                     <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.f,</div>
-<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>                     <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 45.f,</div>
-<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>                     <span class="keywordtype">float</span>         k_smoothing = 0.f,</div>
-<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>                     <span class="keywordtype">float</span>         gamma = 0.25f,</div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>                     <span class="keywordtype">bool</span>          add_deposition = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>                     <span class="keywordtype">float</span>         ridge_amp = 0.75f,</div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>                     <span class="keywordtype">float</span>         base_noise_amp = 0.1f,</div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>                     glm::vec2     center = {0.5f, 0.5f},</div>
-<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>                     <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>                     <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span> </div>
-<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#ae0089429a438c5ebb60099913cda627e">mountain_tibesti</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
-<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span>                       std::uint32_t seed,</div>
-<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span>                       <span class="keywordtype">float</span>         <a class="code hl_variable" href="sls__deformation_8cpp.html#a1d28dec57cce925ad92342891bd71e7c">scale</a> = 1.f,</div>
-<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>                       <span class="keywordtype">int</span>           octaves = 8,</div>
-<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span>                       <span class="keywordtype">float</span>         peak_kw = 20.f,</div>
-<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>                       <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.f,</div>
-<div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span>                       <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 30.f,</div>
-<div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span>                       <span class="keywordtype">float</span>         angle_spread_ratio = 0.25f,</div>
-<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>                       <span class="keywordtype">float</span>         gamma = 1.f,</div>
-<div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span>                       <span class="keywordtype">bool</span>          add_deposition = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span>                       <span class="keywordtype">float</span>         bulk_amp = 1.f,</div>
-<div class="line"><a id="l00858" name="l00858"></a><span class="lineno">  858</span>                       <span class="keywordtype">float</span>         base_noise_amp = 0.1f,</div>
-<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span>                       glm::vec2     center = {0.5f, 0.5f},</div>
-<div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span>                       <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>                       <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>                       glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span> </div>
-<div class="line"><a id="l00890" name="l00890"></a><span class="lineno">  890</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a4fda0f0457d94b2746c32798a97d34c3">plates</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
-<div class="line"><a id="l00891" name="l00891"></a><span class="lineno">  891</span>             glm::vec2     kw,</div>
-<div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span>             std::uint32_t seed,</div>
-<div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span>             <span class="keywordtype">float</span>         talus,</div>
-<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>             <span class="keywordtype">int</span>           direction = 0,</div>
-<div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span>             <span class="keywordtype">float</span>         mix_ratio = 0.9f,</div>
-<div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>             <span class="keywordtype">float</span>         base_noise_amp = 0.05f,</div>
-<div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span>             <span class="keywordtype">float</span>         kw_multiplier = 2.f,</div>
-<div class="line"><a id="l00898" name="l00898"></a><span class="lineno">  898</span>             <span class="keywordtype">int</span>           octaves = 8,</div>
-<div class="line"><a id="l00899" name="l00899"></a><span class="lineno">  899</span>             <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.f,</div>
-<div class="line"><a id="l00900" name="l00900"></a><span class="lineno">  900</span>             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l00901" name="l00901"></a><span class="lineno">  901</span> </div>
-<div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a9ad458afe77ac52647461cc7d3d61864">shattered_peak</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
-<div class="line"><a id="l00947" name="l00947"></a><span class="lineno">  947</span>                     std::uint32_t seed,</div>
-<div class="line"><a id="l00948" name="l00948"></a><span class="lineno">  948</span>                     <span class="keywordtype">float</span>         <a class="code hl_variable" href="sls__deformation_8cpp.html#a1d28dec57cce925ad92342891bd71e7c">scale</a> = 1.f,</div>
-<div class="line"><a id="l00949" name="l00949"></a><span class="lineno">  949</span>                     <span class="keywordtype">int</span>           octaves = 8,</div>
-<div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span>                     <span class="keywordtype">float</span>         peak_kw = 4.f,</div>
-<div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span>                     <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.f,</div>
-<div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span>                     <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 30.f,</div>
-<div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span>                     <span class="keywordtype">float</span>         gamma = 1.f,</div>
-<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>                     <span class="keywordtype">bool</span>          add_deposition = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span>                     <span class="keywordtype">float</span>         bulk_amp = 0.3f,</div>
-<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span>                     <span class="keywordtype">float</span>         base_noise_amp = 0.1f,</div>
-<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span>                     <span class="keywordtype">float</span>         k_smoothing = 0.f,</div>
-<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span>                     glm::vec2     center = {0.5f, 0.5f},</div>
-<div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span>                     <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span>                     <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span>                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l00962" name="l00962"></a><span class="lineno">  962</span> </div>
-<div class="line"><a id="l00963" name="l00963"></a><span class="lineno">  963</span>} <span class="comment">// namespace hmap::gpu</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>Array <a class="code hl_function" href="namespacehmap.html#a1f5d273275a3eac6e9798c966ef55d21">valley_head</a>(glm::ivec2   <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>                  <span class="keywordtype">float</span>        <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 0.f,</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>                  <span class="keywordtype">float</span>        max_depth = 0.2f,</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>                  <span class="keywordtype">float</span>        min_width = 0.02f,</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>                  <span class="keywordtype">float</span>        max_width = 0.15f,</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>                  <span class="keywordtype">float</span>        depth_length = 0.5f,</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>                  <span class="keywordtype">float</span>        width_length = 0.5f,</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>                  <span class="keywordtype">float</span>        development_power = 2.f,</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>                  <span class="keywordtype">float</span>        profile_power = 1.3f,</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>                  <span class="keyword">const</span> Array *p_noise_offset = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>                  <span class="keyword">const</span> Array *p_noise_r = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>                  glm::vec2    center = {0.5f, 0.5f},</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>                  glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>                  Array       *p_mask = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>} <span class="comment">// namespace hmap</span></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmap_1_1gpu.html">hmap::gpu</a></div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>{</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a54906b55a1c4e4efe938a780c1fb348e">badlands</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>               glm::vec2     kw,</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>               std::uint32_t seed,</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>               <span class="keywordtype">int</span>           octaves = 8,</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>               <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.2f,</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>               <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 30.f,</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>               <span class="keywordtype">float</span>         k_smoothing = 0.1f,</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>               <span class="keywordtype">float</span>         base_noise_amp = 0.2f,</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>               <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>               <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>               glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a7111b9e9f203eeaad6c912049dd25392">basalt_field</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>                   glm::vec2     kw,</div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span>                   std::uint32_t seed,</div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span>                   <span class="keywordtype">float</span>         warp_kw = 4.f,</div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span>                   <span class="keywordtype">float</span>         large_scale_warp_amp = 0.2f,</div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span>                   <span class="keywordtype">float</span>         large_scale_gain = 6.f,</div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span>                   <span class="keywordtype">float</span>         large_scale_amp = 0.2f,</div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>                   <span class="keywordtype">float</span>         medium_scale_kw_ratio = 3.f,</div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>                   <span class="keywordtype">float</span>         medium_scale_warp_amp = 1.f,</div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>                   <span class="keywordtype">float</span>         medium_scale_gain = 7.f,</div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>                   <span class="keywordtype">float</span>         medium_scale_amp = 0.08f,</div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>                   <span class="keywordtype">float</span>         small_scale_kw_ratio = 10.f,</div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span>                   <span class="keywordtype">float</span>         small_scale_amp = 0.1f,</div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>                   <span class="keywordtype">float</span>         small_scale_overlay_amp = 0.002f,</div>
+<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span>                   <span class="keywordtype">float</span>         rugosity_kw_ratio = 1.f,</div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>                   <span class="keywordtype">float</span>         rugosity_amp = 1.f,</div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>                   <span class="keywordtype">bool</span>          flatten_activate = <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>                   <span class="keywordtype">float</span>         flatten_kw_ratio = 1.f,</div>
+<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>                   <span class="keywordtype">float</span>         flatten_amp = 0.f,</div>
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>                   <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>                   <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>                   glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span> </div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#ae20d5b7f78d4c3eb5064490a3a407533">island</a>(<span class="keyword">const</span> Array &amp;land_mask,</div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>             <span class="keyword">const</span> Array *p_noise_r = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>             <span class="keywordtype">float</span>        apex_elevation = 1.f,</div>
+<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>             <span class="keywordtype">bool</span>         filter_distance = <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>             <span class="keywordtype">int</span>          filter_ir = 32,</div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>             <span class="keywordtype">float</span>        slope_min = 0.1f,</div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>             <span class="keywordtype">float</span>        slope_max = 8.f,</div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>             <span class="keywordtype">float</span>        slope_start = 0.5f,</div>
+<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>             <span class="keywordtype">float</span>        slope_end = 1.f,</div>
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>             <span class="keywordtype">float</span>        slope_noise_intensity = 0.5f,</div>
+<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>             <span class="keywordtype">float</span>        k_smooth = 0.05f,</div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>             <span class="keywordtype">float</span>        radial_noise_intensity = 0.3f,</div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>             <span class="keywordtype">float</span>        radial_profile_gain = 2.f,</div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>             <span class="keywordtype">float</span>        water_decay = 0.05f,</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>             <span class="keywordtype">float</span>        water_depth = 0.3f,</div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>             <span class="keywordtype">float</span>        lee_angle = 30.f,</div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>             <span class="keywordtype">float</span>        lee_amp = 0.f,</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>             <span class="keywordtype">float</span>        uplift_amp = 0.f,</div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>             Array       *p_water_depth = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>             Array       *p_inland_mask = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span> </div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#ae20d5b7f78d4c3eb5064490a3a407533">island</a>(<span class="keyword">const</span> Array  &amp;land_mask,</div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>             std::uint32_t seed,</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>             <span class="keywordtype">float</span>         noise_amp = 0.07f,</div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>             glm::vec2     noise_kw = {4.f, 4.f},</div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>             <span class="keywordtype">int</span>           noise_octaves = 8,</div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>             <span class="keywordtype">float</span>         noise_rugosity = 0.7f,</div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>             <span class="keywordtype">float</span>         noise_angle = 45.f,</div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>             <span class="keywordtype">float</span>         noise_k_smoothing = 0.05f,</div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>             <span class="keywordtype">float</span>         apex_elevation = 1.f,</div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>             <span class="keywordtype">bool</span>          filter_distance = <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>             <span class="keywordtype">int</span>           filter_ir = 32,</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>             <span class="keywordtype">float</span>         slope_min = 0.1f,</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>             <span class="keywordtype">float</span>         slope_max = 8.f,</div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>             <span class="keywordtype">float</span>         slope_start = 0.5f,</div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>             <span class="keywordtype">float</span>         slope_end = 1.f,</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>             <span class="keywordtype">float</span>         slope_noise_intensity = 0.5f,</div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>             <span class="keywordtype">float</span>         k_smooth = 0.05f,</div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>             <span class="keywordtype">float</span>         radial_noise_intensity = 0.3f,</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>             <span class="keywordtype">float</span>         radial_profile_gain = 2.f,</div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>             <span class="keywordtype">float</span>         water_decay = 0.05f,</div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>             <span class="keywordtype">float</span>         water_depth = 0.3f,</div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>             <span class="keywordtype">float</span>         lee_angle = 30.f,</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>             <span class="keywordtype">float</span>         lee_amp = 0.f,</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>             <span class="keywordtype">float</span>         uplift_amp = 0.f,</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>             Array        *p_water_depth = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>             Array        *p_inland_mask = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span> </div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#afcc3b4559a3042acadb0699666257185">mountain_cone</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>                    std::uint32_t seed,</div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>                    <span class="keywordtype">float</span>         <a class="code hl_variable" href="sls__deformation_8cpp.html#a1d28dec57cce925ad92342891bd71e7c">scale</a> = 1.f,</div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>                    <span class="keywordtype">int</span>           octaves = 8,</div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>                    <span class="keywordtype">float</span>         peak_kw = 4.f,</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>                    <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.f,</div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>                    <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 45.f,</div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>                    <span class="keywordtype">float</span>         k_smoothing = 0.f,</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>                    <span class="keywordtype">float</span>         gamma = 0.5f,</div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>                    <span class="keywordtype">float</span>         cone_alpha = 1.f,</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>                    <span class="keywordtype">float</span>         ridge_amp = 0.4f,</div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>                    <span class="keywordtype">float</span>         base_noise_amp = 0.05f,</div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>                    glm::vec2     center = {0.5f, 0.5f},</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>                    <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>                    <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span> </div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#af90fe4d4bbdac5b7425c9a95dd912406">mountain_inselberg</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>                         std::uint32_t seed,</div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>                         <span class="keywordtype">float</span>         <a class="code hl_variable" href="sls__deformation_8cpp.html#a1d28dec57cce925ad92342891bd71e7c">scale</a> = 1.f,</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>                         <span class="keywordtype">int</span>           octaves = 8,</div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>                         <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.2f,</div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>                         <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 45.f,</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>                         <span class="keywordtype">float</span>         gamma = 1.1f,</div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>                         <span class="keywordtype">bool</span>          round_shape = <span class="keyword">false</span>,</div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>                         <span class="keywordtype">bool</span>          add_deposition = <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>                         <span class="keywordtype">float</span>         bulk_amp = 0.2f,</div>
+<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>                         <span class="keywordtype">float</span>         base_noise_amp = 0.2f,</div>
+<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>                         <span class="keywordtype">float</span>         k_smoothing = 0.1f,</div>
+<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>                         glm::vec2     center = {0.5f, 0.5f},</div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>                         <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>                         <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>                         glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span> </div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a657d52dc062f617c6917e80a4ac81186">mountain_range_radial</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>                            glm::vec2     kw,</div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>                            std::uint32_t seed,</div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>                            <span class="keywordtype">float</span>         half_width = 0.2f,</div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>                            <span class="keywordtype">float</span>         angle_spread_ratio = 0.5f,</div>
+<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>                            <span class="keywordtype">float</span>         core_size_ratio = 1.f,</div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>                            glm::vec2     center = {0.5f, 0.5f},</div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>                            <span class="keywordtype">int</span>           octaves = 8,</div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>                            <span class="keywordtype">float</span>         <a class="code hl_variable" href="sls__deformation_8cpp.html#aeb4aca717b10b3f05f897485b4e1e9a6">weight</a> = 0.7f,</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>                            <span class="keywordtype">float</span>         persistence = 0.5f,</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>                            <span class="keywordtype">float</span>         lacunarity = 2.f,</div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>                            <span class="keyword">const</span> Array  *p_ctrl_param = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>                            <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>                            <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>                            <span class="keyword">const</span> Array  *p_angle = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>                            glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span> </div>
+<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a3cac6320779d6623497e665082f96d5e">mountain_stump</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
+<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>                     std::uint32_t seed,</div>
+<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>                     <span class="keywordtype">float</span>         <a class="code hl_variable" href="sls__deformation_8cpp.html#a1d28dec57cce925ad92342891bd71e7c">scale</a> = 1.f,</div>
+<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>                     <span class="keywordtype">int</span>           octaves = 8,</div>
+<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span>                     <span class="keywordtype">float</span>         peak_kw = 6.f,</div>
+<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>                     <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.f,</div>
+<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span>                     <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 45.f,</div>
+<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>                     <span class="keywordtype">float</span>         k_smoothing = 0.f,</div>
+<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>                     <span class="keywordtype">float</span>         gamma = 0.25f,</div>
+<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>                     <span class="keywordtype">bool</span>          add_deposition = <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>                     <span class="keywordtype">float</span>         ridge_amp = 0.75f,</div>
+<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>                     <span class="keywordtype">float</span>         base_noise_amp = 0.1f,</div>
+<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>                     glm::vec2     center = {0.5f, 0.5f},</div>
+<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>                     <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>                     <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span> </div>
+<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#ae0089429a438c5ebb60099913cda627e">mountain_tibesti</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
+<div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span>                       std::uint32_t seed,</div>
+<div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>                       <span class="keywordtype">float</span>         <a class="code hl_variable" href="sls__deformation_8cpp.html#a1d28dec57cce925ad92342891bd71e7c">scale</a> = 1.f,</div>
+<div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span>                       <span class="keywordtype">int</span>           octaves = 8,</div>
+<div class="line"><a id="l00898" name="l00898"></a><span class="lineno">  898</span>                       <span class="keywordtype">float</span>         peak_kw = 20.f,</div>
+<div class="line"><a id="l00899" name="l00899"></a><span class="lineno">  899</span>                       <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.f,</div>
+<div class="line"><a id="l00900" name="l00900"></a><span class="lineno">  900</span>                       <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 30.f,</div>
+<div class="line"><a id="l00901" name="l00901"></a><span class="lineno">  901</span>                       <span class="keywordtype">float</span>         angle_spread_ratio = 0.25f,</div>
+<div class="line"><a id="l00902" name="l00902"></a><span class="lineno">  902</span>                       <span class="keywordtype">float</span>         gamma = 1.f,</div>
+<div class="line"><a id="l00903" name="l00903"></a><span class="lineno">  903</span>                       <span class="keywordtype">bool</span>          add_deposition = <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00904" name="l00904"></a><span class="lineno">  904</span>                       <span class="keywordtype">float</span>         bulk_amp = 1.f,</div>
+<div class="line"><a id="l00905" name="l00905"></a><span class="lineno">  905</span>                       <span class="keywordtype">float</span>         base_noise_amp = 0.1f,</div>
+<div class="line"><a id="l00906" name="l00906"></a><span class="lineno">  906</span>                       glm::vec2     center = {0.5f, 0.5f},</div>
+<div class="line"><a id="l00907" name="l00907"></a><span class="lineno">  907</span>                       <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00908" name="l00908"></a><span class="lineno">  908</span>                       <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00909" name="l00909"></a><span class="lineno">  909</span>                       glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l00910" name="l00910"></a><span class="lineno">  910</span> </div>
+<div class="line"><a id="l00937" name="l00937"></a><span class="lineno">  937</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a4fda0f0457d94b2746c32798a97d34c3">plates</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
+<div class="line"><a id="l00938" name="l00938"></a><span class="lineno">  938</span>             glm::vec2     kw,</div>
+<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span>             std::uint32_t seed,</div>
+<div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span>             <span class="keywordtype">float</span>         talus,</div>
+<div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span>             <span class="keywordtype">int</span>           direction = 0,</div>
+<div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span>             <span class="keywordtype">float</span>         mix_ratio = 0.9f,</div>
+<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span>             <span class="keywordtype">float</span>         base_noise_amp = 0.05f,</div>
+<div class="line"><a id="l00944" name="l00944"></a><span class="lineno">  944</span>             <span class="keywordtype">float</span>         kw_multiplier = 2.f,</div>
+<div class="line"><a id="l00945" name="l00945"></a><span class="lineno">  945</span>             <span class="keywordtype">int</span>           octaves = 8,</div>
+<div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span>             <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.f,</div>
+<div class="line"><a id="l00947" name="l00947"></a><span class="lineno">  947</span>             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l00948" name="l00948"></a><span class="lineno">  948</span> </div>
+<div class="line"><a id="l00993" name="l00993"></a><span class="lineno">  993</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#a9ad458afe77ac52647461cc7d3d61864">shattered_peak</a>(glm::ivec2    <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
+<div class="line"><a id="l00994" name="l00994"></a><span class="lineno">  994</span>                     std::uint32_t seed,</div>
+<div class="line"><a id="l00995" name="l00995"></a><span class="lineno">  995</span>                     <span class="keywordtype">float</span>         <a class="code hl_variable" href="sls__deformation_8cpp.html#a1d28dec57cce925ad92342891bd71e7c">scale</a> = 1.f,</div>
+<div class="line"><a id="l00996" name="l00996"></a><span class="lineno">  996</span>                     <span class="keywordtype">int</span>           octaves = 8,</div>
+<div class="line"><a id="l00997" name="l00997"></a><span class="lineno">  997</span>                     <span class="keywordtype">float</span>         peak_kw = 4.f,</div>
+<div class="line"><a id="l00998" name="l00998"></a><span class="lineno">  998</span>                     <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad">rugosity</a> = 0.f,</div>
+<div class="line"><a id="l00999" name="l00999"></a><span class="lineno">  999</span>                     <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 30.f,</div>
+<div class="line"><a id="l01000" name="l01000"></a><span class="lineno"> 1000</span>                     <span class="keywordtype">float</span>         gamma = 1.f,</div>
+<div class="line"><a id="l01001" name="l01001"></a><span class="lineno"> 1001</span>                     <span class="keywordtype">bool</span>          add_deposition = <span class="keyword">true</span>,</div>
+<div class="line"><a id="l01002" name="l01002"></a><span class="lineno"> 1002</span>                     <span class="keywordtype">float</span>         bulk_amp = 0.3f,</div>
+<div class="line"><a id="l01003" name="l01003"></a><span class="lineno"> 1003</span>                     <span class="keywordtype">float</span>         base_noise_amp = 0.1f,</div>
+<div class="line"><a id="l01004" name="l01004"></a><span class="lineno"> 1004</span>                     <span class="keywordtype">float</span>         k_smoothing = 0.f,</div>
+<div class="line"><a id="l01005" name="l01005"></a><span class="lineno"> 1005</span>                     glm::vec2     center = {0.5f, 0.5f},</div>
+<div class="line"><a id="l01006" name="l01006"></a><span class="lineno"> 1006</span>                     <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l01007" name="l01007"></a><span class="lineno"> 1007</span>                     <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l01008" name="l01008"></a><span class="lineno"> 1008</span>                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l01009" name="l01009"></a><span class="lineno"> 1009</span> </div>
+<div class="line"><a id="l01010" name="l01010"></a><span class="lineno"> 1010</span>} <span class="comment">// namespace hmap::gpu</span></div>
 <div class="ttc" id="aarray_8hpp_html"><div class="ttname"><a href="array_8hpp.html">array.hpp</a></div><div class="ttdoc">Declaration of the Array class for 2D floating-point arrays with various mathematical operations and ...</div></div>
 <div class="ttc" id="aelevation__from__contours_8cpp_html_af339e609a44f3516574ffecaf5245fa3"><div class="ttname"><a href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a></div><div class="ttdeci">glm::ivec2 shape</div><div class="ttdef"><b>Definition</b> elevation_from_contours.cpp:273</div></div>
 <div class="ttc" id="afunctions_8hpp_html"><div class="ttname"><a href="functions_8hpp.html">functions.hpp</a></div><div class="ttdoc">Defines modular function objects for procedural generation, including noise algorithms (Perlin,...</div></div>
@@ -430,6 +445,7 @@ $(document).ready(function(){initNavTree('geo_8hpp_source.html',''); initResizab
 <div class="ttc" id="anamespacehmap_html"><div class="ttname"><a href="namespacehmap.html">hmap</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:23</div></div>
 <div class="ttc" id="anamespacehmap_html_a0da433ef9eb80cc11084bd3adbe75051"><div class="ttname"><a href="namespacehmap.html#a0da433ef9eb80cc11084bd3adbe75051">hmap::rift</a></div><div class="ttdeci">Array rift(glm::ivec2 shape, float angle, float radius=0.1f, float axial_slope=0.2f, float depth=0.5f, bool scale_with_depth=true, RadialProfile profile=RadialProfile::RP_SMOOTHSTEP, float profile_param=0.f, float bottom_extent=0.1, float bottom_depth=0.05f, RadialProfile bottom_profile=RadialProfile::RP_SQRT, float bottom_profile_param=0.f, bool bottom_force_minimum_depth=true, float outer_slope=0.5f, const Array *p_noise_r=nullptr, const Array *p_noise_offset=nullptr, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, Array *p_rift_mask=nullptr, Array *p_bottom_mask=nullptr)</div><div class="ttdoc">Generate a rift-shaped primitive.</div><div class="ttdef"><b>Definition</b> rift.cpp:18</div></div>
 <div class="ttc" id="anamespacehmap_html_a1b24d28eff3fda2f950daa821441760c"><div class="ttname"><a href="namespacehmap.html#a1b24d28eff3fda2f950daa821441760c">hmap::island_chain_land_mask</a></div><div class="ttdeci">Array island_chain_land_mask(glm::ivec2 shape, const Path &amp;path, std::uint32_t seed, int island_count=5, float island_radius=0.1f, float size_falloff=0.5f, float size_jitter=0.3f, float scatter=0.f, float displacement=0.2f, NoiseType noise_type=NoiseType::SIMPLEX2S, float kw=4.f, int octaves=8, float weight=0.f, float persistence=0.5f, float lacunarity=2.f, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a land mask of an island chain scattered along a path.</div><div class="ttdef"><b>Definition</b> island_chain.cpp:22</div></div>
+<div class="ttc" id="anamespacehmap_html_a1f5d273275a3eac6e9798c966ef55d21"><div class="ttname"><a href="namespacehmap.html#a1f5d273275a3eac6e9798c966ef55d21">hmap::valley_head</a></div><div class="ttdeci">Array valley_head(glm::ivec2 shape, float angle=0.f, float max_depth=0.2f, float min_width=0.02f, float max_width=0.15f, float depth_length=0.5f, float width_length=0.5f, float development_power=2.f, float profile_power=1.3f, const Array *p_noise_offset=nullptr, const Array *p_noise_r=nullptr, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, Array *p_mask=nullptr)</div><div class="ttdoc">Generate a procedural natural valley head / valley incision deformation heightmap.</div><div class="ttdef"><b>Definition</b> valley_head.cpp:16</div></div>
 <div class="ttc" id="anamespacehmap_html_a2651fce70d267d4e115873dce4749ce1"><div class="ttname"><a href="namespacehmap.html#a2651fce70d267d4e115873dce4749ce1">hmap::crater</a></div><div class="ttdeci">Array crater(glm::ivec2 shape, float radius, glm::vec2 center={0.5f, 0.5f}, float angle=30.f, float inner_depth=0.1f, float inner_exp=3.f, float lip_height=0.02f, float lip_extent=0.25f, float lip_exp=2.f, float asym_ratio=0.8f, float central_peak_height=0.01f, float central_peak_extent=0.4f, int n_terraces=0, float terrace_extent=0.1f, float terrace_exp=2.f, float terrace_persistence=0.5f, const Array *p_noise_r=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, Array *p_crater_mask=nullptr, Array *p_inner_crater_mask=nullptr)</div><div class="ttdoc">Generate a procedural impact crater heightmap.</div><div class="ttdef"><b>Definition</b> crater.cpp:67</div></div>
 <div class="ttc" id="anamespacehmap_html_a2affc745bc33b7555352665745741f90"><div class="ttname"><a href="namespacehmap.html#a2affc745bc33b7555352665745741f90">hmap::RadialProfile</a></div><div class="ttdeci">RadialProfile</div><div class="ttdoc">Radial profile type.</div><div class="ttdef"><b>Definition</b> profiles.hpp:51</div></div>
 <div class="ttc" id="anamespacehmap_html_a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd"><div class="ttname"><a href="namespacehmap.html#a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd">hmap::RP_SMOOTHSTEP</a></div><div class="ttdeci">@ RP_SMOOTHSTEP</div><div class="ttdef"><b>Definition</b> profiles.hpp:55</div></div>

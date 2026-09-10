@@ -54,6 +54,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_terrain_super_resolution.cpp", "test__terrain__super__resolution_8cpp.html", "test__terrain__super__resolution_8cpp" ],
     [ "test_texture.cpp", "test__texture_8cpp.html", "test__texture_8cpp" ],
     [ "test_validation.cpp", "test__validation_8cpp.html", "test__validation_8cpp" ],
+    [ "test_valley_head.cpp", "test__valley__head_8cpp.html", "test__valley__head_8cpp" ],
     [ "test_variance.cpp", "test__variance_8cpp.html", "test__variance_8cpp" ],
     [ "test_virtual_array.cpp", "test__virtual__array_8cpp.html", "test__virtual__array_8cpp" ],
     [ "test_virtual_texture.cpp", "test__virtual__texture_8cpp.html", "test__virtual__texture_8cpp" ]
