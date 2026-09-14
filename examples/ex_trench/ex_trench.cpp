@@ -1,7 +1,10 @@
 #include "highmap.hpp"
+#include "highmap/dbg/timer.hpp"
 
 int main(void)
 {
+  hmap::init_openmp();
+
   glm::ivec2 shape = {256, 256};
   shape = {1024, 1024};
   glm::vec2 kw = {2.f, 2.f};
@@ -42,6 +45,8 @@ int main(void)
 
   float width = 0.05f;
   hmap::trench(z3, path, width, true, false);
+
+  hmap::Timer::Dump();
 
   z3.dump();
 

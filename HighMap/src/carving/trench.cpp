@@ -10,6 +10,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/carving.hpp"
+#include "highmap/dbg/timer.hpp"
 #include "highmap/geometry/grids.hpp"
 #include "highmap/geometry/kd_tree.hpp"
 #include "highmap/geometry/path.hpp"
@@ -47,6 +48,8 @@ void trench(Array                       &z,
   if (p_noise_r && !validate_same_shape(z, *p_noise_r)) return;
   if (!validate_non_empty(path, "Path")) return;
 
+  Timer::Start("trench: total");
+
   const glm::ivec2 &shape = z.shape;
 
   // path working copy
@@ -62,6 +65,8 @@ void trench(Array                       &z,
   //   float dmin = std::min(lx / shape.x, ly / shape.y);
   //   path_copy.resample(dmin);
   // }
+
+  Timer::Start("trench: longitudinal elevation & arc length");
 
   // for width with distance scaling
   const std::vector<float> arc_length = path_copy.get_arc_length();
@@ -117,22 +122,26 @@ void trench(Array                       &z,
       break;
     }
   }
+  Timer::Stop("trench: longitudinal elevation & arc length");
 
   // --- SDF-based transform
 
-  Array zp(shape);
+  Array zp = z;
   Array blending_mask(shape);
 
+  Timer::Start("trench: kdtree build");
   std::vector<float> xp = path_copy.get_x();
   std::vector<float> yp = path_copy.get_y();
 
   KDTreeContext tree(xp, yp);
+  Timer::Stop("trench: kdtree build");
 
   // interpolation base grid
   std::vector<float> xg, yg;
   grid_xy_vector(xg, yg, shape, bbox, /* endpoint */ false);
 
   // for curvature scaling
+  Timer::Start("trench: curvature & shape factor");
   Path path_curv = path_copy;
   // path_curv.decimate_vw(40);
   // path_curv.bspline(50);
@@ -223,16 +232,64 @@ void trench(Array                       &z,
       curv_shape_factor = moving_average(curv_shape_factor, 1);
     }
   }
+  Timer::Stop("trench: curvature & shape factor");
 
   // radial profile
   auto profile_fct = get_radial_profile_function(radial_profile,
                                                  radial_profile_parameter);
 
-  std::vector<size_t> indices;
-  std::vector<float>  distances;
+  Timer::Start("trench: grid evaluation");
 
-  for (int j = 0; j < shape.y; ++j)
-    for (int i = 0; i < shape.x; ++i)
+  // calculate bounding box of influence
+  float max_effective_width = width;
+  if (p_noise_r)
+    max_effective_width = std::max(0.f, width * (1.f + p_noise_r->max()));
+  if (enable_width_curvature_scaling)
+    max_effective_width *= std::max(1.f, curv_width_ratio_max);
+
+  float xmin_path = points[0].x;
+  float xmax_path = points[0].x;
+  float ymin_path = points[0].y;
+  float ymax_path = points[0].y;
+
+  for (size_t k = 1; k < npts; ++k)
+  {
+    xmin_path = std::min(xmin_path, points[k].x);
+    xmax_path = std::max(xmax_path, points[k].x);
+    ymin_path = std::min(ymin_path, points[k].y);
+    ymax_path = std::max(ymax_path, points[k].y);
+  }
+
+  float xmin_roi = xmin_path - max_effective_width;
+  float xmax_roi = xmax_path + max_effective_width;
+  float ymin_roi = ymin_path - max_effective_width;
+  float ymax_roi = ymax_path + max_effective_width;
+
+  float dx = (bbox.y - bbox.x) / float(shape.x);
+  float dy = (bbox.w - bbox.z) / float(shape.y);
+
+  int imin = std::clamp(static_cast<int>(std::floor((xmin_roi - bbox.x) / dx)),
+                        0,
+                        shape.x - 1);
+  int imax = std::clamp(static_cast<int>(std::ceil((xmax_roi - bbox.x) / dx)),
+                        0,
+                        shape.x - 1);
+  int jmin = std::clamp(static_cast<int>(std::floor((ymin_roi - bbox.z) / dy)),
+                        0,
+                        shape.y - 1);
+  int jmax = std::clamp(static_cast<int>(std::ceil((ymax_roi - bbox.z) / dy)),
+                        0,
+                        shape.y - 1);
+
+#pragma omp parallel for schedule(dynamic, 16)
+  for (int j = jmin; j <= jmax; ++j)
+  {
+    std::vector<size_t> indices;
+    std::vector<float>  distances;
+    indices.reserve(k_neighbors);
+    distances.reserve(k_neighbors);
+
+    for (int i = imin; i <= imax; ++i)
     {
       float xi = xg[i];
       float yi = yg[j];
@@ -281,6 +338,12 @@ void trench(Array                       &z,
             curv_shape_factor[k0]);
       }
 
+      if (effective_width <= 0.f ||
+          distances[0] > effective_width * effective_width)
+      {
+        continue;
+      }
+
       for (size_t k = 0; k < k_neighbors; ++k)
       {
         float zref = points[indices[k]].v;
@@ -301,12 +364,17 @@ void trench(Array                       &z,
       zp(i, j) = value / float(k_neighbors);
       blending_mask(i, j) = value_mask / float(k_neighbors);
     }
+  }
+
+  Timer::Stop("trench: grid evaluation");
 
   // --- outputs
 
   if (p_bending_mask) *p_bending_mask = std::move(blending_mask);
 
   z = std::move(zp);
+
+  Timer::Stop("trench: total");
 }
 
 } // namespace hmap
