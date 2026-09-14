@@ -58,6 +58,49 @@ Array caldera(glm::ivec2 shape,
               glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f}); ///< @overload
 
 /**
+ * @brief Generate a procedural circus (glacial cirque / amphitheatre basin)
+ * heightmap.
+ *
+ * Generates an elevation envelope representing a basin/depression with a
+ * defined low exit point, a central depression, and an elevated arc on the side
+ * opposite the exit point.
+ *
+ * @param  shape           Output array shape.
+ * @param  radius          Circus basin/ridge radius.
+ * @param  angle           Exit point direction angle in degrees.
+ * @param  exit_width      Angular opening/width factor of the low exit.
+ * @param  exit_depth      Elevation at the low exit point.
+ * @param  center_depth    Elevation in the central basin depression.
+ * @param  ridge_height    Elevation of the opposite ridge arc.
+ * @param  ridge_width     Radial width of the ridge crest.
+ * @param  outer_falloff   Exponent controlling the outer slope falloff.
+ * @param  p_noise_r       Optional radial noise distortion.
+ * @param  center          Center position in normalized domain coordinates.
+ * @param  bbox            Bounding box coordinates.
+ * @param  p_mask          Optional output mask of the circus envelope.
+ * @return                 Generated circus elevation envelope.
+ *
+ * **Example**
+ * @include ex_circus.cpp
+ *
+ * **Result**
+ * @image html ex_circus.png
+ */
+Array circus(glm::ivec2   shape,
+             float        radius = 0.4f,
+             float        angle = 0.f,
+             float        exit_width = 0.35f,
+             float        exit_depth = 0.f,
+             float        center_depth = 0.1f,
+             float        ridge_height = 1.f,
+             float        ridge_width = 0.15f,
+             float        outer_falloff = 2.f,
+             const Array *p_noise_r = nullptr,
+             glm::vec2    center = {0.5f, 0.5f},
+             glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
+             Array       *p_mask = nullptr);
+
+/**
  * @brief Generate a procedural impact crater heightmap.
  *
  * Creates a crater-shaped terrain with configurable inner cavity, outer lip,
