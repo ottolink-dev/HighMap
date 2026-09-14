@@ -258,3 +258,56 @@ TEST(PathMultiscale, FindCutPathMultiscale)
   EXPECT_NEAR(path.points.front().x, 0.f, 1e-4f);
   EXPECT_NEAR(path.points.back().x, 1.f, 1e-4f);
 }
+
+TEST(PathMultiscale, FindPathDijkstraHarmonized)
+{
+  glm::ivec2  shape = {64, 64};
+  hmap::Array z = hmap::noise_fbm(hmap::NoiseType::PERLIN,
+                                  shape,
+                                  {2.f, 2.f},
+                                  10);
+
+  glm::ivec2 start = {5, 5};
+  glm::ivec2 end = {58, 58};
+  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
+
+  // vector overload
+  std::vector<glm::ivec2> vec_path = hmap::find_path_dijkstra(z, start, end);
+  ASSERT_FALSE(vec_path.empty());
+  EXPECT_EQ(vec_path.front(), start);
+  EXPECT_EQ(vec_path.back(), end);
+
+  // Path overload
+  hmap::Path path = hmap::find_path_dijkstra(z, start, end, bbox);
+  ASSERT_FALSE(path.points.empty());
+  EXPECT_NEAR(path.points.front().v, z(start.x, start.y), 1e-5f);
+  EXPECT_NEAR(path.points.back().v, z(end.x, end.y), 1e-5f);
+}
+
+TEST(PathMultiscale, FindPathMidpointHarmonized)
+{
+  glm::ivec2  shape = {64, 64};
+  hmap::Array z = hmap::noise_fbm(hmap::NoiseType::PERLIN,
+                                  shape,
+                                  {2.f, 2.f},
+                                  20);
+
+  glm::ivec2 start = {5, 5};
+  glm::ivec2 end = {58, 58};
+  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
+
+  // void (i_path, j_path) overload
+  std::vector<int> ip, jp;
+  hmap::find_path_midpoint(z, start, end, ip, jp);
+  ASSERT_FALSE(ip.empty());
+  EXPECT_EQ(ip.front(), start.x);
+  EXPECT_EQ(jp.front(), start.y);
+  EXPECT_EQ(ip.back(), end.x);
+  EXPECT_EQ(jp.back(), end.y);
+
+  // Path overload
+  hmap::Path path = hmap::find_path_midpoint(z, start, end, bbox);
+  ASSERT_FALSE(path.points.empty());
+  EXPECT_NEAR(path.points.front().v, z(start.x, start.y), 1e-5f);
+  EXPECT_NEAR(path.points.back().v, z(end.x, end.y), 1e-5f);
+}

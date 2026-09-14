@@ -23,28 +23,15 @@ int main(void)
   // --- 1. find_path_dijkstra (full-resolution Dijkstra)
 
   hmap::Timer::Start("find_path_dijkstra");
-  std::vector<int> i_dijk, j_dijk;
-  hmap::find_path_dijkstra(z,
-                           ij_start,
-                           ij_end,
-                           i_dijk,
-                           j_dijk,
-                           elevation_ratio,
-                           distance_exponent,
-                           upward_penalization);
+  hmap::Path path_dijk = hmap::find_path_dijkstra(z,
+                                                  ij_start,
+                                                  ij_end,
+                                                  bbox,
+                                                  elevation_ratio,
+                                                  distance_exponent,
+                                                  upward_penalization);
   hmap::Timer::Stop("find_path_dijkstra");
 
-  std::vector<hmap::Point> pts_dijk;
-  pts_dijk.reserve(i_dijk.size());
-
-  for (size_t k = 0; k < i_dijk.size(); ++k)
-  {
-    pts_dijk.emplace_back(float(i_dijk[k]) / float(shape.x - 1),
-                          float(j_dijk[k]) / float(shape.y - 1),
-                          z(i_dijk[k], j_dijk[k]));
-  }
-
-  hmap::Path  path_dijk(pts_dijk);
   hmap::Array w_dijk = path_dijk.to_array(shape);
 
   // --- 2. find_path_midpoint (midpoint displacement heuristic)
@@ -52,23 +39,13 @@ int main(void)
   const float offset_ratio = 0.2f;
 
   hmap::Timer::Start("find_path_midpoint");
-  std::vector<glm::ivec2> idx_midp = hmap::find_path_midpoint(z,
-                                                              ij_start,
-                                                              ij_end,
-                                                              offset_ratio);
+  hmap::Path path_midp = hmap::find_path_midpoint(z,
+                                                  ij_start,
+                                                  ij_end,
+                                                  bbox,
+                                                  offset_ratio);
   hmap::Timer::Stop("find_path_midpoint");
 
-  std::vector<hmap::Point> pts_midp;
-  pts_midp.reserve(idx_midp.size());
-
-  for (const auto &p : idx_midp)
-  {
-    pts_midp.emplace_back(float(p.x) / float(shape.x - 1),
-                          float(p.y) / float(shape.y - 1),
-                          z(p.x, p.y));
-  }
-
-  hmap::Path  path_midp(pts_midp);
   hmap::Array w_midp = path_midp.to_array(shape);
 
   // --- 3. find_path_multiscale (coarse-to-fine shortest path)

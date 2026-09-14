@@ -231,6 +231,52 @@ void find_path_dijkstra(const Array                   &z,
                         const Array *p_mask_nogo = nullptr);
 
 /**
+ * @brief Overload of find_path_dijkstra returning a vector of grid indices.
+ *
+ * @param  z                   Heightmap array.
+ * @param  ij_start            Start grid index (i, j).
+ * @param  ij_end              End grid index (i, j).
+ * @param  elevation_ratio     Weight of absolute elevation in cost.
+ * @param  distance_exponent   Exponent applied to distance cost.
+ * @param  upward_penalization Penalty factor for uphill moves.
+ * @param  p_mask_nogo         Optional obstacle mask.
+ *
+ * @return                     Vector of 2D grid indices forming the path.
+ */
+std::vector<glm::ivec2> find_path_dijkstra(const Array &z,
+                                           glm::ivec2   ij_start,
+                                           glm::ivec2   ij_end,
+                                           float        elevation_ratio = 0.1f,
+                                           float        distance_exponent = 2.f,
+                                           float upward_penalization = 0.1f,
+                                           const Array *p_mask_nogo = nullptr);
+
+/**
+ * @brief Overload of find_path_dijkstra returning a Path mapped to a bounding
+ * box with point values holding sampled terrain elevations.
+ *
+ * @param  z                   Heightmap array.
+ * @param  ij_start            Start grid index (i, j).
+ * @param  ij_end              End grid index (i, j).
+ * @param  bbox                Bounding box for coordinate remapping.
+ * @param  elevation_ratio     Weight of absolute elevation in cost.
+ * @param  distance_exponent   Exponent applied to distance cost.
+ * @param  upward_penalization Penalty factor for uphill moves.
+ * @param  p_mask_nogo         Optional obstacle mask.
+ *
+ * @return                     Path with coordinates and sampled elevation
+ *                             values.
+ */
+Path find_path_dijkstra(const Array &z,
+                        glm::ivec2   ij_start,
+                        glm::ivec2   ij_end,
+                        glm::vec4    bbox,
+                        float        elevation_ratio = 0.1f,
+                        float        distance_exponent = 2.f,
+                        float        upward_penalization = 0.1f,
+                        const Array *p_mask_nogo = nullptr);
+
+/**
  * @brief Compute a path between two points using iterative midpoint refinement.
  *
  * The algorithm subdivides segments and shifts midpoints along the
@@ -258,6 +304,50 @@ std::vector<glm::ivec2> find_path_midpoint(const Array &z,
                                            float        offset_ratio = 0.2f,
                                            int          max_it = 0,
                                            int          steps = 16);
+
+/**
+ * @brief Overload of find_path_midpoint returning path indices in i and j
+ * vectors.
+ *
+ * @param z            2D scalar field (weights).
+ * @param ij_start     Start index.
+ * @param ij_end       End index.
+ * @param i_path[out]  Vector storing path i indices.
+ * @param j_path[out]  Vector storing path j indices.
+ * @param offset_ratio Relative transverse displacement (per segment length).
+ * @param max_it       Max iterations (0 = automatic based on distance).
+ * @param steps        Number of samples for transverse search.
+ */
+void find_path_midpoint(const Array      &z,
+                        glm::ivec2        ij_start,
+                        glm::ivec2        ij_end,
+                        std::vector<int> &i_path,
+                        std::vector<int> &j_path,
+                        float             offset_ratio = 0.2f,
+                        int               max_it = 0,
+                        int               steps = 16);
+
+/**
+ * @brief Overload of find_path_midpoint returning a Path mapped to a bounding
+ * box with point values holding sampled terrain elevations.
+ *
+ * @param  z            2D scalar field (weights).
+ * @param  ij_start     Start index.
+ * @param  ij_end       End index.
+ * @param  bbox         Bounding box for coordinate remapping.
+ * @param  offset_ratio Relative transverse displacement (per segment length).
+ * @param  max_it       Max iterations (0 = automatic based on distance).
+ * @param  steps        Number of samples for transverse search.
+ *
+ * @return              Path with coordinates and sampled elevation values.
+ */
+Path find_path_midpoint(const Array &z,
+                        glm::ivec2   ij_start,
+                        glm::ivec2   ij_end,
+                        glm::vec4    bbox,
+                        float        offset_ratio = 0.2f,
+                        int          max_it = 0,
+                        int          steps = 16);
 
 /**
  * @brief Finds a shortest path on a 2D grid using a fast coarse-to-fine
