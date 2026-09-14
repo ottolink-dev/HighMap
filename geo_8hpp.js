@@ -2,6 +2,7 @@ var geo_8hpp =
 [
     [ "caldera", "geo_8hpp.html#a505897da1d63ea7e613cdde55f68de29", null ],
     [ "caldera", "geo_8hpp.html#aaa2b720ef7b261b4eb2f1e89838a538e", null ],
+    [ "circus", "geo_8hpp.html#aeeb81bcbca7fdd49fafe7090a9abc765", null ],
     [ "crater", "geo_8hpp.html#a2651fce70d267d4e115873dce4749ce1", null ],
     [ "island_land_mask", "geo_8hpp.html#a8f68239db7ea7bdf2177e0290f4fd250", null ],
     [ "island_chain_land_mask", "geo_8hpp.html#a1b24d28eff3fda2f950daa821441760c", null ],
