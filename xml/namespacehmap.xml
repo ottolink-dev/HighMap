@@ -7173,9 +7173,12 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 <simplesect kind="warning"><para>The function assumes that <computeroutput>elevation_shift</computeroutput> is non-zero when width-depth scaling is enabled, to avoid division by zero.</para>
 </simplesect>
 <bold>Example</bold> <programlisting filename="ex_trench.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/dbg/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aab86375877f77e5c6fd396c339d8cbea" kindref="member">hmap::init_openmp</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{1024,<sp/>1024};</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>glm::vec2<sp/>kw<sp/>=<sp/>{2.f,<sp/>2.f};</highlight></codeline>
@@ -7217,6 +7220,8 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>width<sp/>=<sp/>0.05f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a1321283ca30e8f6203345e272ef3530b" kindref="member">hmap::trench</ref>(z3,<sp/>path,<sp/>width,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1a5bc931885a549c561740f39cea91dd5f" kindref="member">hmap::Timer::Dump</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>z3.dump();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_trench.png&quot;</highlight><highlight class="normal">,<sp/>{z1,<sp/>z2,<sp/>z3},<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
@@ -7227,7 +7232,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/trench.cpp" line="25" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="25" bodyend="310" declfile="HighMap/include/highmap/carving.hpp" declline="216" declcolumn="6"/>
+        <location file="HighMap/src/carving/trench.cpp" line="26" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="26" bodyend="378" declfile="HighMap/include/highmap/carving.hpp" declline="216" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a76b37b88acf83d6a5b21f1be1b50697e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
