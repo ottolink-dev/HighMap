@@ -56,7 +56,7 @@ Path dijkstra(const Path  &path,
               glm::vec4    bbox,
               float        elevation_ratio = 0.f,
               float        distance_exponent = 0.5f,
-              float        upward_penalization = 1.f,
+              float        upward_penalization = 0.1f,
               Array       *p_mask_nogo = nullptr);
 
 /**
@@ -217,7 +217,7 @@ void find_path_dijkstra(const Array      &z,
                         std::vector<int> &j_path,
                         float             elevation_ratio = 0.1f,
                         float             distance_exponent = 2.f,
-                        float             upward_penalization = 1.f,
+                        float             upward_penalization = 0.1f,
                         const Array      *p_mask_nogo = nullptr);
 
 void find_path_dijkstra(const Array                   &z,
@@ -227,7 +227,7 @@ void find_path_dijkstra(const Array                   &z,
                         std::vector<std::vector<int>> &j_path_list,
                         float                          elevation_ratio = 0.1f,
                         float                          distance_exponent = 2.f,
-                        float        upward_penalization = 1.f,
+                        float        upward_penalization = 0.1f,
                         const Array *p_mask_nogo = nullptr);
 
 /**
@@ -300,7 +300,7 @@ void find_path_multiscale(const Array      &z,
                           float             corridor_decay = 1.f,
                           float             elevation_ratio = 0.1f,
                           float             distance_exponent = 2.f,
-                          float             upward_penalization = 1.f,
+                          float             upward_penalization = 0.1f,
                           const Array      *p_mask_nogo = nullptr,
                           bool              use_astar = false,
                           bool              smooth_path = false);
@@ -332,7 +332,7 @@ std::vector<glm::ivec2> find_path_multiscale(const Array &z,
                                              float        corridor_decay = 1.f,
                                              float elevation_ratio = 0.1f,
                                              float distance_exponent = 2.f,
-                                             float upward_penalization = 1.f,
+                                             float upward_penalization = 0.1f,
                                              const Array *p_mask_nogo = nullptr,
                                              bool         use_astar = false,
                                              bool         smooth_path = false);
@@ -369,7 +369,7 @@ Path find_path_multiscale(const Array &z,
                           float        corridor_decay = 1.f,
                           float        elevation_ratio = 0.1f,
                           float        distance_exponent = 2.f,
-                          float        upward_penalization = 1.f,
+                          float        upward_penalization = 0.1f,
                           const Array *p_mask_nogo = nullptr,
                           bool         use_astar = false,
                           bool         smooth_path = false);
