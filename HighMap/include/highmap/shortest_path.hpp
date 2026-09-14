@@ -127,6 +127,49 @@ Path find_cut_path_midpoint(const Array   &z,
                             bool           favor_sinks = true);
 
 /**
+ * @brief Find a fast coarse-to-fine multiscale cut path between two domain
+ * boundaries.
+ *
+ * Selects candidate boundary cells on the @p start and @p end boundaries, then
+ * computes a path using hierarchical multiscale search with corridor
+ * restriction.
+ *
+ * @param  z                        Heightmap array.
+ * @param  start                    Boundary where the path begins.
+ * @param  end                      Boundary where the path ends.
+ * @param  n_levels                 Number of multiscale pyramid levels.
+ * @param  corridor_radius          Corridor radius in grid cells.
+ * @param  corridor_decay           Corridor radius decay factor per level.
+ * @param  dijk_elevation_ratio     Weight of elevation in the cost.
+ * @param  dijk_distance_exponent   Exponent applied to distance cost.
+ * @param  dijk_upward_penalization Extra penalty for uphill moves.
+ * @param  seed                     Seed for boundary cell selection.
+ * @param  favor_boundary_center    Bias boundary cell toward center.
+ * @param  favor_lower_elevation    Bias boundary cell toward lower elevation.
+ * @param  favor_sinks              Bias boundary cell toward local sinks.
+ * @param  use_astar                Use A* heuristic.
+ * @param  smooth_path              Smooth the resulting path.
+ *
+ * @return                          Path containing normalized coordinates and
+ *                                  sampled elevations.
+ */
+Path find_cut_path_multiscale(const Array   &z,
+                              DomainBoundary start,
+                              DomainBoundary end,
+                              int            n_levels = 3,
+                              int            corridor_radius = 4,
+                              float          corridor_decay = 1.f,
+                              float          dijk_elevation_ratio = 0.9f,
+                              float          dijk_distance_exponent = 2.f,
+                              float          dijk_upward_penalization = 100.f,
+                              std::uint32_t  seed = 0,
+                              bool           favor_boundary_center = true,
+                              bool           favor_lower_elevation = true,
+                              bool           favor_sinks = true,
+                              bool           use_astar = false,
+                              bool           smooth_path = false);
+
+/**
  * @brief Finds the path with the lowest elevation and elevation difference
  * between two points in a 2D array using Dijkstra's algorithm.
  *
@@ -212,8 +255,123 @@ void find_path_dijkstra(const Array                   &z,
 std::vector<glm::ivec2> find_path_midpoint(const Array &z,
                                            glm::ivec2   ij_start,
                                            glm::ivec2   ij_end,
-                                           float        offset_ratio = 0.5f,
+                                           float        offset_ratio = 0.2f,
                                            int          max_it = 0,
                                            int          steps = 16);
+
+/**
+ * @brief Finds a shortest path on a 2D grid using a fast coarse-to-fine
+ * multiscale approach.
+ *
+ * This function solves pathfinding across multiple grid resolutions to
+ * drastically reduce the number of explored cells on large grids while
+ * maintaining high path quality. A coarse path is found on downsampled cost
+ * maps, upsampled to the next finer resolution, and restricted to a narrow
+ * search corridor at each stage.
+ *
+ * @param z                   Heightmap or cost array.
+ * @param ij_start            Starting grid index (i, j).
+ * @param ij_end              Target grid index (i, j).
+ * @param i_path[out]         Vector storing resulting path i indices.
+ * @param j_path[out]         Vector storing resulting path j indices.
+ * @param n_levels            Number of multiscale pyramid levels (>= 1).
+ * @param corridor_radius     Radius of search corridor in grid cells.
+ * @param corridor_decay      Decay factor applied to corridor radius per level.
+ * @param elevation_ratio     Weight factor for absolute elevation vs gradient.
+ * @param distance_exponent   Exponent applied to elevation differences.
+ * @param upward_penalization Penalty factor for moving uphill.
+ * @param p_mask_nogo         Optional pointer to mask of impassable regions.
+ * @param use_astar           Use A* heuristic instead of Dijkstra.
+ * @param smooth_path         Apply smoothing to the resulting path.
+ *
+ * **Example**
+ * @include ex_find_path_multiscale.cpp
+ *
+ * **Result**
+ * @image html ex_find_path_multiscale.png
+ */
+void find_path_multiscale(const Array      &z,
+                          glm::ivec2        ij_start,
+                          glm::ivec2        ij_end,
+                          std::vector<int> &i_path,
+                          std::vector<int> &j_path,
+                          int               n_levels = 3,
+                          int               corridor_radius = 4,
+                          float             corridor_decay = 1.f,
+                          float             elevation_ratio = 0.1f,
+                          float             distance_exponent = 2.f,
+                          float             upward_penalization = 1.f,
+                          const Array      *p_mask_nogo = nullptr,
+                          bool              use_astar = false,
+                          bool              smooth_path = false);
+
+/**
+ * @brief Overload of find_path_multiscale returning a vector of grid indices.
+ *
+ * @param  z                   Heightmap or cost array.
+ * @param  ij_start            Starting grid index (i, j).
+ * @param  ij_end              Target grid index (i, j).
+ * @param  n_levels            Number of multiscale pyramid levels (>= 1).
+ * @param  corridor_radius     Radius of search corridor in grid cells.
+ * @param  corridor_decay      Decay factor applied to corridor radius per
+ *                             level.
+ * @param  elevation_ratio     Weight factor for absolute elevation vs gradient.
+ * @param  distance_exponent   Exponent applied to elevation differences.
+ * @param  upward_penalization Penalty factor for moving uphill.
+ * @param  p_mask_nogo         Optional pointer to mask of impassable regions.
+ * @param  use_astar           Use A* heuristic instead of Dijkstra.
+ * @param  smooth_path         Apply smoothing to the resulting path.
+ *
+ * @return                     Vector of 2D grid indices forming the path.
+ */
+std::vector<glm::ivec2> find_path_multiscale(const Array &z,
+                                             glm::ivec2   ij_start,
+                                             glm::ivec2   ij_end,
+                                             int          n_levels = 3,
+                                             int          corridor_radius = 4,
+                                             float        corridor_decay = 1.f,
+                                             float elevation_ratio = 0.1f,
+                                             float distance_exponent = 2.f,
+                                             float upward_penalization = 1.f,
+                                             const Array *p_mask_nogo = nullptr,
+                                             bool         use_astar = false,
+                                             bool         smooth_path = false);
+
+/**
+ * @brief Overload of find_path_multiscale returning a Path object mapped to a
+ * bounding box, with point values containing the elevation sampled from the
+ * heightmap.
+ *
+ * @param  z                   Heightmap or cost array.
+ * @param  ij_start            Starting grid index (i, j).
+ * @param  ij_end              Target grid index (i, j).
+ * @param  bbox                Bounding box domain for coordinate remapping.
+ * @param  n_levels            Number of multiscale pyramid levels (>= 1).
+ * @param  corridor_radius     Radius of search corridor in grid cells.
+ * @param  corridor_decay      Decay factor applied to corridor radius per
+ *                             level.
+ * @param  elevation_ratio     Weight factor for absolute elevation vs gradient.
+ * @param  distance_exponent   Exponent applied to elevation differences.
+ * @param  upward_penalization Penalty factor for moving uphill.
+ * @param  p_mask_nogo         Optional pointer to mask of impassable regions.
+ * @param  use_astar           Use A* heuristic instead of Dijkstra.
+ * @param  smooth_path         Apply smoothing to the resulting path.
+ *
+ * @return                     Path containing coordinates and sampled elevation
+ *                             values.
+ */
+Path find_path_multiscale(const Array &z,
+                          glm::ivec2   ij_start,
+                          glm::ivec2   ij_end,
+                          glm::vec4    bbox,
+                          int          n_levels = 3,
+                          int          corridor_radius = 4,
+                          float        corridor_decay = 1.f,
+                          float        elevation_ratio = 0.1f,
+                          float        distance_exponent = 2.f,
+                          float        upward_penalization = 1.f,
+                          const Array *p_mask_nogo = nullptr,
+                          bool         use_astar = false,
+                          bool         smooth_path = false);
 
 } // namespace hmap
