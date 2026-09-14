@@ -1,0 +1,43 @@
+\doxysection{High\+Map/src/shortest\+\_\+path/find\+\_\+path\+\_\+multiscale.cpp File Reference}
+\hypertarget{find__path__multiscale_8cpp}{}\label{find__path__multiscale_8cpp}\index{HighMap/src/shortest\_path/find\_path\_multiscale.cpp@{HighMap/src/shortest\_path/find\_path\_multiscale.cpp}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacehmap}{hmap}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacehmap_a7c174527ef9ac7c595ad65514dc00756}{hmap\+::find\+\_\+path\+\_\+multiscale}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, glm\+::ivec2 ij\+\_\+start, glm\+::ivec2 ij\+\_\+end, std\+::vector$<$ int $>$ \&i\+\_\+path, std\+::vector$<$ int $>$ \&j\+\_\+path, int n\+\_\+levels=3, int corridor\+\_\+radius=4, float corridor\+\_\+decay=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float elevation\+\_\+ratio=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float distance\+\_\+exponent=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float upward\+\_\+penalization=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask\+\_\+nogo=nullptr, bool use\+\_\+astar=false, bool smooth\+\_\+path=false)
+\begin{DoxyCompactList}\small\item\em Finds a shortest path on a 2D grid using a fast coarse-\/to-\/fine multiscale approach. \end{DoxyCompactList}\item 
+std\+::vector$<$ glm\+::ivec2 $>$ \mbox{\hyperlink{namespacehmap_ad23ac0ef43a4925071b5da947a7d4b1c}{hmap\+::find\+\_\+path\+\_\+multiscale}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, glm\+::ivec2 ij\+\_\+start, glm\+::ivec2 ij\+\_\+end, int n\+\_\+levels=3, int corridor\+\_\+radius=4, float corridor\+\_\+decay=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float elevation\+\_\+ratio=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float distance\+\_\+exponent=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float upward\+\_\+penalization=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask\+\_\+nogo=nullptr, bool use\+\_\+astar=false, bool smooth\+\_\+path=false)
+\begin{DoxyCompactList}\small\item\em Overload of find\+\_\+path\+\_\+multiscale returning a vector of grid indices. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Path}{Path}} \mbox{\hyperlink{namespacehmap_ae49e68036a8d179017c3e41e39952318}{hmap\+::find\+\_\+path\+\_\+multiscale}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, glm\+::ivec2 ij\+\_\+start, glm\+::ivec2 ij\+\_\+end, glm\+::vec4 bbox, int n\+\_\+levels=3, int corridor\+\_\+radius=4, float corridor\+\_\+decay=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float elevation\+\_\+ratio=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float distance\+\_\+exponent=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float upward\+\_\+penalization=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask\+\_\+nogo=nullptr, bool use\+\_\+astar=false, bool smooth\+\_\+path=false)
+\begin{DoxyCompactList}\small\item\em Overload of find\+\_\+path\+\_\+multiscale returning a \doxylink{classhmap_1_1Path}{Path} object mapped to a bounding box, with point values containing the elevation sampled from the heightmap. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{find__path__multiscale_8cpp_ab4ad87b08386d7796fdf419a5b97ac99}\label{find__path__multiscale_8cpp_ab4ad87b08386d7796fdf419a5b97ac99} 
+\index{find\_path\_multiscale.cpp@{find\_path\_multiscale.cpp}!priority@{priority}}
+\index{priority@{priority}!find\_path\_multiscale.cpp@{find\_path\_multiscale.cpp}}
+\doxysubsubsection{\texorpdfstring{priority}{priority}}
+{\footnotesize\ttfamily float priority}
+
+\Hypertarget{find__path__multiscale_8cpp_a0a3e07ccef70fda8cc92ce87b85cd207}\label{find__path__multiscale_8cpp_a0a3e07ccef70fda8cc92ce87b85cd207} 
+\index{find\_path\_multiscale.cpp@{find\_path\_multiscale.cpp}!g\_cost@{g\_cost}}
+\index{g\_cost@{g\_cost}!find\_path\_multiscale.cpp@{find\_path\_multiscale.cpp}}
+\doxysubsubsection{\texorpdfstring{g\_cost}{g\_cost}}
+{\footnotesize\ttfamily float g\+\_\+cost}
+
+\Hypertarget{find__path__multiscale_8cpp_acb559820d9ca11295b4500f179ef6392}\label{find__path__multiscale_8cpp_acb559820d9ca11295b4500f179ef6392} 
+\index{find\_path\_multiscale.cpp@{find\_path\_multiscale.cpp}!i@{i}}
+\index{i@{i}!find\_path\_multiscale.cpp@{find\_path\_multiscale.cpp}}
+\doxysubsubsection{\texorpdfstring{i}{i}}
+{\footnotesize\ttfamily int i}
+
+\Hypertarget{find__path__multiscale_8cpp_a37d972ae0b47b9099e30983131d31916}\label{find__path__multiscale_8cpp_a37d972ae0b47b9099e30983131d31916} 
+\index{find\_path\_multiscale.cpp@{find\_path\_multiscale.cpp}!j@{j}}
+\index{j@{j}!find\_path\_multiscale.cpp@{find\_path\_multiscale.cpp}}
+\doxysubsubsection{\texorpdfstring{j}{j}}
+{\footnotesize\ttfamily int j}
+

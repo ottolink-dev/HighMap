@@ -41,7 +41,7 @@ var searchData=
   ['dig_5fpath_2ecpp_38',['dig_path.cpp',['../dig__path_8cpp.html',1,'']]],
   ['dig_5friver_39',['dig_river',['../namespacehmap.html#aa0407e8bf3d06ffb4d8d1e97809d3665',1,'hmap::dig_river(Array &amp;z, const std::vector&lt; Path &gt; &amp;path_list, float riverbank_talus, int river_width=0, int merging_width=0, float depth=0.f, float riverbed_talus=0.f, float noise_ratio=0.9f, std::uint32_t seed=0, Array *p_mask=nullptr)'],['../namespacehmap.html#ada12e6cab4577326964d00fac3aa1077',1,'hmap::dig_river(Array &amp;z, const Path &amp;path, float riverbank_talus, int river_width=0, int merging_width=0, float depth=0.f, float riverbed_talus=0.f, float noise_ratio=0.9f, std::uint32_t seed=0, Array *p_mask=nullptr)']]],
   ['dig_5friver_2ecpp_40',['dig_river.cpp',['../dig__river_8cpp.html',1,'']]],
-  ['dijkstra_41',['dijkstra',['../classhmap_1_1Graph.html#a07e0c31ab59d4f51c51c3f90117ca71a',1,'hmap::Graph::dijkstra()'],['../namespacehmap.html#a5c8cb3751b2b9a83d23b15e3369f8449',1,'hmap::dijkstra()']]],
+  ['dijkstra_41',['dijkstra',['../classhmap_1_1Graph.html#a07e0c31ab59d4f51c51c3f90117ca71a',1,'hmap::Graph::dijkstra()'],['../namespacehmap.html#a38e634dbf8d4bc5c7ded9abdb2ecab2a',1,'hmap::dijkstra()']]],
   ['dijsktra_2ecpp_42',['dijsktra.cpp',['../dijsktra_8cpp.html',1,'']]],
   ['dijsktra_5fpath_2ecpp_43',['dijsktra_path.cpp',['../dijsktra__path_8cpp.html',1,'']]],
   ['dilation_44',['dilation',['../namespacehmap.html#ac91a2dacd050d8588b4135f02dd8f2a5',1,'hmap::dilation()'],['../namespacehmap_1_1gpu.html#aed49f777e8ad095bafc5dc014e548e6e',1,'hmap::gpu::dilation()']]],

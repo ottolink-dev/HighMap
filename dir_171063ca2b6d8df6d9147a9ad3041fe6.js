@@ -35,6 +35,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_normalize.cpp", "test__normalize_8cpp.html", "test__normalize_8cpp" ],
     [ "test_path_arc_length.cpp", "test__path__arc__length_8cpp.html", "test__path__arc__length_8cpp" ],
     [ "test_path_fractalize.cpp", "test__path__fractalize_8cpp.html", "test__path__fractalize_8cpp" ],
+    [ "test_path_multiscale.cpp", "test__path__multiscale_8cpp.html", "test__path__multiscale_8cpp" ],
     [ "test_path_sample_at.cpp", "test__path__sample__at_8cpp.html", "test__path__sample__at_8cpp" ],
     [ "test_path_scale.cpp", "test__path__scale_8cpp.html", "test__path__scale_8cpp" ],
     [ "test_path_squiggle.cpp", "test__path__squiggle_8cpp.html", "test__path__squiggle_8cpp" ],
