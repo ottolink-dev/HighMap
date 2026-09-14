@@ -1,0 +1,2 @@
+add_executable(ex_find_path_multiscale ex_find_path_multiscale.cpp)
+target_link_libraries(ex_find_path_multiscale highmap)

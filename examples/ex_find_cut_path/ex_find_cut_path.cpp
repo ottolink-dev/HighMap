@@ -14,21 +14,24 @@ int main(void)
       z,
       hmap::DomainBoundary::BOUNDARY_LEFT,
       hmap::DomainBoundary::BOUNDARY_RIGHT);
+  hmap::Array zp = path.to_array(shape);
 
-  hmap::Array zp = hmap::Array(shape);
-  path.to_array(zp);
-
-  // greedy procedural
+  // greedy midpoint
   hmap::Path path2 = hmap::find_cut_path_midpoint(
       z,
       hmap::DomainBoundary::BOUNDARY_LEFT,
       hmap::DomainBoundary::BOUNDARY_RIGHT,
       seed);
+  hmap::Array zp2 = path2.to_array(shape);
 
-  hmap::Array zp2 = hmap::Array(shape);
-  path2.to_array(zp2);
+  // multiscale
+  hmap::Path path3 = hmap::find_cut_path_multiscale(
+      z,
+      hmap::DomainBoundary::BOUNDARY_LEFT,
+      hmap::DomainBoundary::BOUNDARY_RIGHT);
+  hmap::Array zp3 = path3.to_array(shape);
 
   hmap::export_banner_png("ex_find_cut_path.png",
-                          {z, zp, zp2},
+                          {z, zp, zp2, zp3},
                           hmap::Cmap::INFERNO);
 }

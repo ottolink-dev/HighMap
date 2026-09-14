@@ -9,6 +9,8 @@
 
 #include "highmap/algebra.hpp"
 #include "highmap/array.hpp"
+#include "highmap/geometry/path.hpp"
+#include "highmap/geometry/point.hpp"
 #include "highmap/internal/validation.hpp"
 
 namespace hmap
@@ -171,6 +173,75 @@ void find_path_dijkstra(const Array      &z,
 
   i_path = i_path_list[0];
   j_path = j_path_list[0];
+}
+
+std::vector<glm::ivec2> find_path_dijkstra(const Array &z,
+                                           glm::ivec2   ij_start,
+                                           glm::ivec2   ij_end,
+                                           float        elevation_ratio,
+                                           float        distance_exponent,
+                                           float        upward_penalization,
+                                           const Array *p_mask_nogo)
+{
+  std::vector<int> ip, jp;
+  find_path_dijkstra(z,
+                     ij_start,
+                     ij_end,
+                     ip,
+                     jp,
+                     elevation_ratio,
+                     distance_exponent,
+                     upward_penalization,
+                     p_mask_nogo);
+
+  std::vector<glm::ivec2> path;
+  path.reserve(ip.size());
+  for (size_t k = 0; k < ip.size(); ++k)
+    path.emplace_back(ip[k], jp[k]);
+
+  return path;
+}
+
+Path find_path_dijkstra(const Array &z,
+                        glm::ivec2   ij_start,
+                        glm::ivec2   ij_end,
+                        glm::vec4    bbox,
+                        float        elevation_ratio,
+                        float        distance_exponent,
+                        float        upward_penalization,
+                        const Array *p_mask_nogo)
+{
+  if (!validate_non_empty(z)) return Path();
+
+  std::vector<int> ip, jp;
+  find_path_dijkstra(z,
+                     ij_start,
+                     ij_end,
+                     ip,
+                     jp,
+                     elevation_ratio,
+                     distance_exponent,
+                     upward_penalization,
+                     p_mask_nogo);
+
+  std::vector<Point> points;
+  points.reserve(ip.size());
+
+  const float lx = bbox.y - bbox.x;
+  const float ly = bbox.w - bbox.z;
+  const float denom_x = (z.shape.x > 1) ? float(z.shape.x - 1) : 1.f;
+  const float denom_y = (z.shape.y > 1) ? float(z.shape.y - 1) : 1.f;
+
+  for (size_t k = 0; k < ip.size(); ++k)
+  {
+    float px = (float(ip[k]) / denom_x) * lx + bbox.x;
+    float py = (float(jp[k]) / denom_y) * ly + bbox.z;
+    float pv = z(ip[k], jp[k]);
+
+    points.emplace_back(px, py, pv);
+  }
+
+  return Path(points);
 }
 
 } // namespace hmap

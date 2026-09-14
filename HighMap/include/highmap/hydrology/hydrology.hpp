@@ -557,7 +557,7 @@ Array flow_fixing_mst(
     float         riverbed_talus = 0.f,
     float         elevation_ratio = 0.95f,
     float         distance_exponent = 2.f,
-    float         upward_penalization = 50.f,
+    float         upward_penalization = 0.1f,
     float         valley_affinity = 0.5f,
     int           prefilter_ir = 8,
     float         minimum_depth = 1e-4f,

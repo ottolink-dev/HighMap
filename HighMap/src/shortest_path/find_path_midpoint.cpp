@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "highmap/array.hpp"
+#include "highmap/geometry/path.hpp"
 #include "highmap/geometry/point.hpp"
 #include "highmap/internal/validation.hpp"
 
@@ -140,6 +141,71 @@ std::vector<glm::ivec2> find_path_midpoint(const Array &z,
   }
 
   return idx;
+}
+
+void find_path_midpoint(const Array      &z,
+                        glm::ivec2        ij_start,
+                        glm::ivec2        ij_end,
+                        std::vector<int> &i_path,
+                        std::vector<int> &j_path,
+                        float             offset_ratio,
+                        int               max_it,
+                        int               steps)
+{
+  std::vector<glm::ivec2> indices = find_path_midpoint(z,
+                                                       ij_start,
+                                                       ij_end,
+                                                       offset_ratio,
+                                                       max_it,
+                                                       steps);
+
+  i_path.clear();
+  j_path.clear();
+  i_path.reserve(indices.size());
+  j_path.reserve(indices.size());
+
+  for (const auto &p : indices)
+  {
+    i_path.push_back(p.x);
+    j_path.push_back(p.y);
+  }
+}
+
+Path find_path_midpoint(const Array &z,
+                        glm::ivec2   ij_start,
+                        glm::ivec2   ij_end,
+                        glm::vec4    bbox,
+                        float        offset_ratio,
+                        int          max_it,
+                        int          steps)
+{
+  if (!validate_non_empty(z)) return Path();
+
+  std::vector<glm::ivec2> indices = find_path_midpoint(z,
+                                                       ij_start,
+                                                       ij_end,
+                                                       offset_ratio,
+                                                       max_it,
+                                                       steps);
+
+  std::vector<Point> points;
+  points.reserve(indices.size());
+
+  const float lx = bbox.y - bbox.x;
+  const float ly = bbox.w - bbox.z;
+  const float denom_x = (z.shape.x > 1) ? float(z.shape.x - 1) : 1.f;
+  const float denom_y = (z.shape.y > 1) ? float(z.shape.y - 1) : 1.f;
+
+  for (const auto &p : indices)
+  {
+    float px = (float(p.x) / denom_x) * lx + bbox.x;
+    float py = (float(p.y) / denom_y) * ly + bbox.z;
+    float pv = z(p);
+
+    points.emplace_back(px, py, pv);
+  }
+
+  return Path(points);
 }
 
 } // namespace hmap
