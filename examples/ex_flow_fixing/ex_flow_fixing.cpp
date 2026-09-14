@@ -26,11 +26,27 @@ int main(void)
                                   8,     // prefilter_ir
                                   1e-4f, // minimum_depth
                                   true); // carve_riverbed
+  auto z4 = hmap::flow_fixing_mst(
+      z0,
+      riverbed_talus,
+      0.99f,                                    // elevation_ratio
+      2.f,                                      // distance_exponent
+      100.f,                                    // upward_penalization
+      0.5f,                                     // valley_affinity
+      8,                                        // prefilter_ir
+      1e-4f,                                    // minimum_depth
+      true,                                     // carve_riverbed
+      8.f,                                      // merging_distance
+      hmap::RadialProfile::RP_SMOOTHSTEP_UPPER, // radial_profile
+      2.f,                                      // radial_profile_parameter
+      nullptr,                                  // p_noise_r
+      true);                                    // use_midpoint
 
   z3.dump();
+  z4.dump();
 
   hmap::export_banner_png("ex_flow_fixing.png",
-                          {z0, z1, z2, z3},
+                          {z0, z1, z2, z3, z4},
                           hmap::Cmap::TERRAIN,
                           true);
 }
