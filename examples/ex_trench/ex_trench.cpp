@@ -1,5 +1,4 @@
 #include "highmap.hpp"
-#include "highmap/dbg/timer.hpp"
 
 int main(void)
 {
@@ -45,8 +44,6 @@ int main(void)
 
   float width = 0.05f;
   hmap::trench(z3, path, width, true, false);
-
-  hmap::Timer::Dump();
 
   z3.dump();
 

@@ -10,7 +10,6 @@
 
 #include "highmap/array.hpp"
 #include "highmap/carving.hpp"
-#include "highmap/dbg/timer.hpp"
 #include "highmap/geometry/grids.hpp"
 #include "highmap/geometry/kd_tree.hpp"
 #include "highmap/geometry/path.hpp"
@@ -48,8 +47,6 @@ void trench(Array                       &z,
   if (p_noise_r && !validate_same_shape(z, *p_noise_r)) return;
   if (!validate_non_empty(path, "Path")) return;
 
-  Timer::Start("trench: total");
-
   const glm::ivec2 &shape = z.shape;
 
   // path working copy
@@ -65,8 +62,6 @@ void trench(Array                       &z,
   //   float dmin = std::min(lx / shape.x, ly / shape.y);
   //   path_copy.resample(dmin);
   // }
-
-  Timer::Start("trench: longitudinal elevation & arc length");
 
   // for width with distance scaling
   const std::vector<float> arc_length = path_copy.get_arc_length();
@@ -122,26 +117,22 @@ void trench(Array                       &z,
       break;
     }
   }
-  Timer::Stop("trench: longitudinal elevation & arc length");
 
   // --- SDF-based transform
 
   Array zp = z;
   Array blending_mask(shape);
 
-  Timer::Start("trench: kdtree build");
   std::vector<float> xp = path_copy.get_x();
   std::vector<float> yp = path_copy.get_y();
 
   KDTreeContext tree(xp, yp);
-  Timer::Stop("trench: kdtree build");
 
   // interpolation base grid
   std::vector<float> xg, yg;
   grid_xy_vector(xg, yg, shape, bbox, /* endpoint */ false);
 
   // for curvature scaling
-  Timer::Start("trench: curvature & shape factor");
   Path path_curv = path_copy;
   // path_curv.decimate_vw(40);
   // path_curv.bspline(50);
@@ -232,13 +223,10 @@ void trench(Array                       &z,
       curv_shape_factor = moving_average(curv_shape_factor, 1);
     }
   }
-  Timer::Stop("trench: curvature & shape factor");
 
   // radial profile
   auto profile_fct = get_radial_profile_function(radial_profile,
                                                  radial_profile_parameter);
-
-  Timer::Start("trench: grid evaluation");
 
   // calculate bounding box of influence
   float max_effective_width = width;
@@ -366,15 +354,11 @@ void trench(Array                       &z,
     }
   }
 
-  Timer::Stop("trench: grid evaluation");
-
   // --- outputs
 
   if (p_bending_mask) *p_bending_mask = std::move(blending_mask);
 
   z = std::move(zp);
-
-  Timer::Stop("trench: total");
 }
 
 } // namespace hmap
