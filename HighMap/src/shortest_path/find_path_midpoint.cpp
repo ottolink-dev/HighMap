@@ -105,12 +105,16 @@ std::vector<glm::ivec2> find_path_midpoint(const Array &z,
     std::vector<glm::ivec2> new_idx;
     new_idx.reserve(idx.size() * 2);
 
+    bool any_subdivided = false;
     for (size_t k = 0; k < idx.size() - 1; ++k)
     {
       const glm::ivec2 &a = idx[k];
       const glm::ivec2 &b = idx[k + 1];
 
       new_idx.push_back(a);
+
+      // skip if already adjacent pixels (8-neighborhood)
+      if (std::max(std::abs(a.x - b.x), std::abs(a.y - b.y)) <= 1) continue;
 
       Point pa(float(a.x), float(a.y));
       Point pb(float(b.x), float(b.y));
@@ -129,13 +133,17 @@ std::vector<glm::ivec2> find_path_midpoint(const Array &z,
       ij.y = std::clamp(ij.y, 0, shape.y - 1);
 
       // avoid duplicates
-      if (ij != new_idx.back()) new_idx.push_back(ij);
+      if (ij != new_idx.back() && ij != b)
+      {
+        new_idx.push_back(ij);
+        any_subdivided = true;
+      }
     }
 
     new_idx.push_back(idx.back());
 
-    // early exit if stabilized
-    if (new_idx.size() == idx.size()) break;
+    // early exit if stabilized or no segment needed subdivision
+    if (!any_subdivided || new_idx.size() == idx.size()) break;
 
     idx = std::move(new_idx);
   }

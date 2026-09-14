@@ -547,11 +547,9 @@ Array flow_fixing_drainage_basin(
  *                                  flow paths.
  * @param  radial_profile           Radial profile cross-section for trench
  *                                  carving.
- * @param  radial_profile_parameter Shape parameter for the radial profile.
- * @param  p_noise_r                Optional radial noise array for trench width
- *                                  perturbation.
  * @param  use_midpoint             Whether to use midpoint displacement
  *                                  pathfinding instead of classical Dijkstra.
+ * @param  offset_ratio             Midpoint displacement amplitude ratio.
  * @return                          Array with unbroken flow paths.
  */
 Array flow_fixing_mst(
@@ -568,7 +566,8 @@ Array flow_fixing_mst(
     RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
     float         radial_profile_parameter = 2.f,
     const Array  *p_noise_r = nullptr,
-    bool          use_midpoint = false);
+    bool          use_midpoint = false,
+    float         offset_ratio = 0.2f);
 
 /**
  * @brief Computes the optimal flow path from a starting point to the boundary

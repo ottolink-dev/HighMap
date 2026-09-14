@@ -380,7 +380,8 @@ Array flow_fixing_mst(const Array  &z,
                       RadialProfile radial_profile,
                       float         radial_profile_parameter,
                       const Array  *p_noise_r,
-                      bool          use_midpoint)
+                      bool          use_midpoint,
+                      float         offset_ratio)
 {
   if (!validate_non_empty(z)) return Array();
   if (p_noise_r && !validate_same_shape(z, *p_noise_r)) return Array();
@@ -662,36 +663,42 @@ Array flow_fixing_mst(const Array  &z,
       return cost;
     };
 
-    // candidate paths between all sink pairs
+    // candidate paths between k-nearest sink pairs
+    const int max_neighbors = std::min(n_sinks - 1, 8);
     for (int u = 0; u < n_sinks; ++u)
     {
-      for (int v = u + 1; v < n_sinks; ++v)
+      std::vector<std::pair<float, int>> neighbors;
+      neighbors.reserve(n_sinks - 1);
+      for (int v = 0; v < n_sinks; ++v)
       {
+        if (u == v) continue;
+        float d2 = float((sinks[u].x - sinks[v].x) * (sinks[u].x - sinks[v].x) +
+                         (sinks[u].y - sinks[v].y) * (sinks[u].y - sinks[v].y));
+        neighbors.push_back({d2, v});
+      }
+      std::partial_sort(neighbors.begin(),
+                        neighbors.begin() + max_neighbors,
+                        neighbors.end());
+
+      for (int i = 0; i < max_neighbors; ++i)
+      {
+        int v = neighbors[i].second;
+        if (u >= v) continue;
+        int64_t key = make_key(u, v);
+        if (candidate_edges.find(key) != candidate_edges.end()) continue;
+
         std::vector<glm::ivec2> path = find_path_midpoint(zb,
                                                           sinks[u],
-                                                          sinks[v]);
+                                                          sinks[v],
+                                                          offset_ratio,
+                                                          0,  // max_it
+                                                          4); // steps
         if (!path.empty())
         {
-          float   cost = compute_path_cost(path);
-          int64_t key = make_key(u, v);
+          float cost = compute_path_cost(path);
           candidate_edges[key] = {cost, u, v, std::move(path)};
         }
       }
-    }
-
-    // candidate exit points along domain boundary
-    std::vector<glm::ivec2> boundary_candidates;
-    int                     step = std::max(1, std::min(shape.x, shape.y) / 16);
-
-    for (int i = 0; i < shape.x; i += step)
-    {
-      boundary_candidates.push_back({i, 0});
-      boundary_candidates.push_back({i, shape.y - 1});
-    }
-    for (int j = 0; j < shape.y; j += step)
-    {
-      boundary_candidates.push_back({0, j});
-      boundary_candidates.push_back({shape.x - 1, j});
     }
 
     // find lowest boundary cells on each edge
@@ -711,29 +718,33 @@ Array flow_fixing_mst(const Array  &z,
       if (zb(shape.x - 1, j) < zb(min_r)) min_r = {shape.x - 1, j};
     }
 
-    boundary_candidates.push_back(min_b);
-    boundary_candidates.push_back(min_t);
-    boundary_candidates.push_back(min_l);
-    boundary_candidates.push_back(min_r);
-
     // candidate paths from each sink to boundary
     for (int u = 0; u < n_sinks; ++u)
     {
       glm::ivec2 p = sinks[u];
 
-      // include orthogonal projections
-      std::vector<glm::ivec2> b_candidates = boundary_candidates;
-      b_candidates.push_back({p.x, 0});
-      b_candidates.push_back({p.x, shape.y - 1});
-      b_candidates.push_back({0, p.y});
-      b_candidates.push_back({shape.x - 1, p.y});
+      // candidate boundary targets: orthogonal projections + lowest border
+      // points
+      std::vector<glm::ivec2> b_candidates = {{p.x, 0},
+                                              {p.x, shape.y - 1},
+                                              {0, p.y},
+                                              {shape.x - 1, p.y},
+                                              min_b,
+                                              min_t,
+                                              min_l,
+                                              min_r};
 
       float                   best_cost = std::numeric_limits<float>::max();
       std::vector<glm::ivec2> best_path;
 
       for (const auto &b_pt : b_candidates)
       {
-        std::vector<glm::ivec2> path = find_path_midpoint(zb, p, b_pt);
+        std::vector<glm::ivec2> path = find_path_midpoint(zb,
+                                                          p,
+                                                          b_pt,
+                                                          offset_ratio,
+                                                          0,  // max_it
+                                                          4); // steps
         if (path.empty()) continue;
 
         float norm_z = (zb(b_pt) - z_range.x) / z_span;
