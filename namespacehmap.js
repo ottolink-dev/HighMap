@@ -897,7 +897,7 @@ var namespacehmap =
     [ "downscale_transform", "namespacehmap.html#a1fb8077215c98a741e0de5366c2f7ca3", null ],
     [ "downscale_transform_multi", "namespacehmap.html#a669a4f9586f3df4b018e321048c9bc7d", null ],
     [ "upscale_amplification", "namespacehmap.html#a868ae7c781d7e72af7b1416898a2f891", null ],
-    [ "init_openmp", "namespacehmap.html#aab86375877f77e5c6fd396c339d8cbea", null ],
+    [ "init_openmp", "namespacehmap.html#a8eb3b37f9c2d4832fa1e0645bc69ac22", null ],
     [ "log_openmp_info", "namespacehmap.html#afaefd4e8848d0155162b24a1a67f9479", null ],
     [ "add_kernel", "namespacehmap.html#ae51dda5e070b01ad1a85b44d986f5003", null ],
     [ "add_kernel_maximum_smooth", "namespacehmap.html#a34aa21678ff4bb869bb29ee0f2f68886", null ],

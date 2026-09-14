@@ -2298,8 +2298,8 @@ requires requires(const T &amp;<a class="el" href="elevation__from__contours_8cp
 <tr class="memitem:a868ae7c781d7e72af7b1416898a2f891" id="r_a868ae7c781d7e72af7b1416898a2f891"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a868ae7c781d7e72af7b1416898a2f891">upscale_amplification</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, int upscaling_levels, float persistence, std::function&lt; void(<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;x, float current_scaling)&gt; unary_op)</td></tr>
 <tr class="memdesc:a868ae7c781d7e72af7b1416898a2f891"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies an upscaling amplification process to an array, followed by a unary operation.  <br /></td></tr>
 <tr class="separator:a868ae7c781d7e72af7b1416898a2f891"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab86375877f77e5c6fd396c339d8cbea" id="r_aab86375877f77e5c6fd396c339d8cbea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#aab86375877f77e5c6fd396c339d8cbea">init_openmp</a> (int num_threads=8)</td></tr>
-<tr class="separator:aab86375877f77e5c6fd396c339d8cbea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8eb3b37f9c2d4832fa1e0645bc69ac22" id="r_a8eb3b37f9c2d4832fa1e0645bc69ac22"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a8eb3b37f9c2d4832fa1e0645bc69ac22">init_openmp</a> (int num_threads=-1)</td></tr>
+<tr class="separator:a8eb3b37f9c2d4832fa1e0645bc69ac22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afaefd4e8848d0155162b24a1a67f9479" id="r_afaefd4e8848d0155162b24a1a67f9479"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#afaefd4e8848d0155162b24a1a67f9479">log_openmp_info</a> ()</td></tr>
 <tr class="separator:afaefd4e8848d0155162b24a1a67f9479"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae51dda5e070b01ad1a85b44d986f5003" id="r_ae51dda5e070b01ad1a85b44d986f5003"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#ae51dda5e070b01ad1a85b44d986f5003">add_kernel</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;kernel, int <a class="el" href="sls__deformation_8cpp.html#acb559820d9ca11295b4500f179ef6392">i</a>, int <a class="el" href="sls__deformation_8cpp.html#a37d972ae0b47b9099e30983131d31916">j</a>)</td></tr>
@@ -8167,7 +8167,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
-<div class="line">  <a class="code hl_function" href="namespacehmap.html#aab86375877f77e5c6fd396c339d8cbea">hmap::init_openmp</a>();</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#a8eb3b37f9c2d4832fa1e0645bc69ac22">hmap::init_openmp</a>();</div>
 <div class="line"> </div>
 <div class="line">  glm::ivec2 <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {256, 256};</div>
 <div class="line">  <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {1024, 1024};</div>
@@ -8216,7 +8216,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 <div class="line">}</div>
 <div class="ttc" id="anamespacehmap_html_a1321283ca30e8f6203345e272ef3530b"><div class="ttname"><a href="namespacehmap.html#a1321283ca30e8f6203345e272ef3530b">hmap::trench</a></div><div class="ttdeci">void trench(Array &amp;z, const Path &amp;path, float width, bool enable_width_depth_scaling=true, bool enable_width_distance_scaling=true, bool enable_width_curvature_scaling=false, float curvature_radius_min=1.f, float curv_width_ratio_min=0.5f, float curv_width_ratio_max=2.f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP_UPPER, float radial_profile_parameter=2.f, ElevationLongitudinalProfile longitudinal_profile=ElevationLongitudinalProfile::ELP_DECREASING, float elevation_shift=-0.05f, float shift_ramp_start_ratio=0.f, float shift_ramp_end_ratio=0.f, float min_slope=0.001f, size_t k_neighbors=8, const Array *p_noise_r=nullptr, Array *p_bending_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Carves a trench along a given path into a heightmap.</div><div class="ttdef"><b>Definition</b> trench.cpp:25</div></div>
 <div class="ttc" id="anamespacehmap_html_a2c463175bb90319f83de452c2b55ac2b"><div class="ttname"><a href="namespacehmap.html#a2c463175bb90319f83de452c2b55ac2b">hmap::find_cut_path_midpoint</a></div><div class="ttdeci">Path find_cut_path_midpoint(const Array &amp;z, DomainBoundary start, DomainBoundary end, std::uint32_t seed, float offset_ratio=0.2f, int steps=16, bool favor_boundary_center=true, bool favor_lower_elevation=true, bool favor_sinks=true)</div><div class="ttdoc">Generate a stochastic cut path using midpoint displacement.</div><div class="ttdef"><b>Definition</b> find_cut_path.cpp:56</div></div>
-<div class="ttc" id="anamespacehmap_html_aab86375877f77e5c6fd396c339d8cbea"><div class="ttname"><a href="namespacehmap.html#aab86375877f77e5c6fd396c339d8cbea">hmap::init_openmp</a></div><div class="ttdeci">bool init_openmp(int num_threads=8)</div><div class="ttdef"><b>Definition</b> openmp.cpp:14</div></div>
+<div class="ttc" id="anamespacehmap_html_a8eb3b37f9c2d4832fa1e0645bc69ac22"><div class="ttname"><a href="namespacehmap.html#a8eb3b37f9c2d4832fa1e0645bc69ac22">hmap::init_openmp</a></div><div class="ttdeci">bool init_openmp(int num_threads=-1)</div><div class="ttdef"><b>Definition</b> openmp.cpp:14</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_trench.png" alt=""/>
 </div>
@@ -11789,7 +11789,7 @@ additional_depth)</code>.</li>
 <div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
 <div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#adb8336ed4d83c15500872185dee45d50">hmap::gpu::init_opencl</a>();</div>
-<div class="line">  <a class="code hl_function" href="namespacehmap.html#aab86375877f77e5c6fd396c339d8cbea">hmap::init_openmp</a>();</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#a8eb3b37f9c2d4832fa1e0645bc69ac22">hmap::init_openmp</a>();</div>
 <div class="line"> </div>
 <div class="line">  glm::ivec2 <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {256, 256};</div>
 <div class="line">  <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {1024, 1024};</div>
@@ -12042,7 +12042,7 @@ additional_depth)</code>.</li>
 <div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
 <div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#adb8336ed4d83c15500872185dee45d50">hmap::gpu::init_opencl</a>();</div>
-<div class="line">  <a class="code hl_function" href="namespacehmap.html#aab86375877f77e5c6fd396c339d8cbea">hmap::init_openmp</a>();</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#a8eb3b37f9c2d4832fa1e0645bc69ac22">hmap::init_openmp</a>();</div>
 <div class="line"> </div>
 <div class="line">  glm::ivec2 <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {256, 256};</div>
 <div class="line">  <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {1024, 1024};</div>
@@ -12350,7 +12350,7 @@ additional_depth)</code>.</li>
 <div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
 <div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#adb8336ed4d83c15500872185dee45d50">hmap::gpu::init_opencl</a>();</div>
-<div class="line">  <a class="code hl_function" href="namespacehmap.html#aab86375877f77e5c6fd396c339d8cbea">hmap::init_openmp</a>();</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#a8eb3b37f9c2d4832fa1e0645bc69ac22">hmap::init_openmp</a>();</div>
 <div class="line"> </div>
 <div class="line">  glm::ivec2 <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {256, 256};</div>
 <div class="line">  <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {1024, 1024};</div>
@@ -12605,7 +12605,7 @@ additional_depth)</code>.</li>
 <div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
 <div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#adb8336ed4d83c15500872185dee45d50">hmap::gpu::init_opencl</a>();</div>
-<div class="line">  <a class="code hl_function" href="namespacehmap.html#aab86375877f77e5c6fd396c339d8cbea">hmap::init_openmp</a>();</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#a8eb3b37f9c2d4832fa1e0645bc69ac22">hmap::init_openmp</a>();</div>
 <div class="line"> </div>
 <div class="line">  glm::ivec2 <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {256, 256};</div>
 <div class="line">  <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {1024, 1024};</div>
@@ -40553,8 +40553,8 @@ y = v_{\min} + \frac{v_{\max} - v_{\min}}
 
 </div>
 </div>
-<a id="aab86375877f77e5c6fd396c339d8cbea" name="aab86375877f77e5c6fd396c339d8cbea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab86375877f77e5c6fd396c339d8cbea">&#9670;&#160;</a></span>init_openmp()</h2>
+<a id="a8eb3b37f9c2d4832fa1e0645bc69ac22" name="a8eb3b37f9c2d4832fa1e0645bc69ac22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8eb3b37f9c2d4832fa1e0645bc69ac22">&#9670;&#160;</a></span>init_openmp()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -40563,7 +40563,7 @@ y = v_{\min} + \frac{v_{\max} - v_{\min}}
           <td class="memname">bool hmap::init_openmp </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>num_threads</em> = <code>8</code></td><td>)</td>
+          <td class="paramname"><em>num_threads</em> = <code>-1</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
