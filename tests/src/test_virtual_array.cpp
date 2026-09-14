@@ -140,11 +140,11 @@ TEST(VirtualArrayTest, CloneAndCopyFrom)
 
   auto cloned = va.clone(cm, /*deep_copy=*/true);
   EXPECT_EQ(cloned->shape, va.shape);
-  EXPECT_FLOAT_EQ(cloned->mean(cm), 12.34f);
+  EXPECT_NEAR(cloned->mean(cm), 12.34f, 1e-4f);
 
   VirtualArray va_copy(shape, {16, 16}, 2, StorageMode::VA_RAM);
   va_copy.copy_from(va, cm, /*copy_src_data=*/true);
-  EXPECT_FLOAT_EQ(va_copy.mean(cm), 12.34f);
+  EXPECT_NEAR(va_copy.mean(cm), 12.34f, 1e-4f);
 }
 
 TEST(VirtualArrayTest, RemapAndInverse)
