@@ -11,6 +11,7 @@
 #include "highmap/functions.hpp"
 #include "highmap/geometry/grids.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/interpolate/interpolate2d.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/primitives/functions.hpp"
 #include "highmap/transform.hpp"
@@ -140,6 +141,49 @@ void rotate_displacement(const Array &delta, float angle, Array &dx, Array &dy)
   const float alpha = angle / 180.f * M_PI;
   dx = delta * std::cos(alpha);
   dy = delta * std::sin(alpha);
+}
+
+void scale_uv(Array &array, glm::vec2 uv_scale)
+{
+  if (!validate_non_empty(array)) return;
+  if (uv_scale.x == 1.f && uv_scale.y == 1.f) return;
+
+  Array array_out(array.shape);
+
+  for (int j = 0; j < array.shape.y; j++)
+  {
+    float v_scaled = (static_cast<float>(j) /
+                      static_cast<float>(array.shape.y)) *
+                     uv_scale.y;
+    float v_wrap = v_scaled - std::floor(v_scaled);
+    float y = v_wrap * static_cast<float>(array.shape.y);
+
+    int   j0 = static_cast<int>(y);
+    int   j1 = (j0 + 1) % array.shape.y;
+    float v = y - static_cast<float>(j0);
+
+    for (int i = 0; i < array.shape.x; i++)
+    {
+      float u_scaled = (static_cast<float>(i) /
+                        static_cast<float>(array.shape.x)) *
+                       uv_scale.x;
+      float u_wrap = u_scaled - std::floor(u_scaled);
+      float x = u_wrap * static_cast<float>(array.shape.x);
+
+      int   i0 = static_cast<int>(x);
+      int   i1 = (i0 + 1) % array.shape.x;
+      float u = x - static_cast<float>(i0);
+
+      array_out(i, j) = bilinear_interp(array(i0, j0),
+                                        array(i1, j0),
+                                        array(i0, j1),
+                                        array(i1, j1),
+                                        u,
+                                        v);
+    }
+  }
+
+  array = std::move(array_out);
 }
 
 Array translate(const Array &array,
