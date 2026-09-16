@@ -5,5 +5,6 @@ var texture__transform_8cpp =
     [ "rot90", "texture__transform_8cpp.html#a7d27d0392fb6850a212bee00cb58700c", null ],
     [ "rot180", "texture__transform_8cpp.html#a8a5ff34f817dd9993eb2dc1df44373e5", null ],
     [ "rot270", "texture__transform_8cpp.html#a078f509a586adcdf1ff75eb828d7ceb5", null ],
+    [ "scale_uv", "texture__transform_8cpp.html#aa6e0ddb5fd3b76e1ba7f18d8c4a45549", null ],
     [ "transpose", "texture__transform_8cpp.html#aa8ffb5a748ba6524f2b121c62819e892", null ]
 ];

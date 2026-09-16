@@ -13,6 +13,8 @@ var transform_8hpp =
     [ "rot90", "transform_8hpp.html#a7d27d0392fb6850a212bee00cb58700c", null ],
     [ "rotate", "transform_8hpp.html#a888dcfe5adb36448366400f04efcde04", null ],
     [ "rotate_displacement", "transform_8hpp.html#ad2d28babba03ed11cf115ab08009de64", null ],
+    [ "scale_uv", "transform_8hpp.html#a66ec69d0e52dd23350bed20dbbcb0d08", null ],
+    [ "scale_uv", "transform_8hpp.html#aa6e0ddb5fd3b76e1ba7f18d8c4a45549", null ],
     [ "translate", "transform_8hpp.html#a6e52fd8e2580523aae968d76461c30b8", null ],
     [ "transpose", "transform_8hpp.html#a9b059a298d27843519baa3b6bfe291cd", null ],
     [ "transpose", "transform_8hpp.html#aa8ffb5a748ba6524f2b121c62819e892", null ],
