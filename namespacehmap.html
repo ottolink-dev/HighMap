@@ -50497,7 +50497,7 @@ off" values that fall below the threshold, which can be useful for filtering out
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
-<div class="line">  glm::ivec2 <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {256, 256};</div>
+<div class="line">  glm::ivec2 <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {512, 512};</div>
 <div class="line">  <span class="keywordtype">int</span>        seed = 0;</div>
 <div class="line"> </div>
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z = <a class="code hl_function" href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>,</div>
@@ -50507,11 +50507,11 @@ off" values that fall below the threshold, which can be useful for filtering out
 <div class="line">  z.<a class="code hl_function" href="classhmap_1_1Array.html#a9ff7b2c0be8f2b5dd9fc33085cd647d1">to_png</a>(<span class="stringliteral">&quot;ex_generate_network_alpha_model0.png&quot;</span>, <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>, <span class="keyword">true</span>);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// &quot;cities&quot;</span></div>
-<div class="line">  <span class="keywordtype">int</span>         npoints = 10;</div>
+<div class="line">  <span class="keywordtype">int</span>         npoints = 4;</div>
 <div class="line">  <span class="keywordtype">int</span>         ndummy = 50 * 50;</div>
-<div class="line">  <span class="keywordtype">float</span>       alpha = 0.7f;</div>
+<div class="line">  <span class="keywordtype">float</span>       alpha = 0.8f;</div>
 <div class="line">  glm::vec4   bbox = {1.f, 2.f, -0.5f, 0.5f};</div>
-<div class="line">  <a class="code hl_class" href="classhmap_1_1Cloud.html">hmap::Cloud</a> cloud = <a class="code hl_class" href="classhmap_1_1Cloud.html">hmap::Cloud</a>(npoints, seed, {1.1f, 1.9f, -0.4, 0.4f});</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Cloud.html">hmap::Cloud</a> cloud = <a class="code hl_class" href="classhmap_1_1Cloud.html">hmap::Cloud</a>(npoints, seed, {1.2f, 1.8f, -0.4f, 0.4f});</div>
 <div class="line"> </div>
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Graph.html">hmap::Graph</a> network = <a class="code hl_function" href="namespacehmap.html#a286e4e74e6495802dba7f873c06ccb20">hmap::generate_network_alpha_model</a>(cloud.<a class="code hl_function" href="classhmap_1_1Cloud.html#aab450c9376e44def1d4e4465f0b1b691">get_x</a>(),</div>
 <div class="line">                                                           cloud.<a class="code hl_function" href="classhmap_1_1Cloud.html#abf5f933e3506395b5369cb090119002e">get_y</a>(),</div>
@@ -50533,10 +50533,10 @@ off" values that fall below the threshold, which can be useful for filtering out
 <div class="line">  <span class="comment">// values</span></div>
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> g = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>);</div>
 <div class="line">  network.to_array(g, bbox);</div>
-<div class="line">  g.<a class="code hl_function" href="classhmap_1_1Array.html#a9ff7b2c0be8f2b5dd9fc33085cd647d1">to_png</a>(<span class="stringliteral">&quot;ex_generate_network_alpha_model2.png&quot;</span>, <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a233f5593cf083495332bafd2607d154d">hmap::Cmap::GRAY</a>);</div>
+<div class="line">  g.<a class="code hl_function" href="classhmap_1_1Array.html#a9ff7b2c0be8f2b5dd9fc33085cd647d1">to_png</a>(<span class="stringliteral">&quot;ex_generate_network_alpha_model2.png&quot;</span>, <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced">hmap::Cmap::JET</a>);</div>
 <div class="line">}</div>
 <div class="ttc" id="aclasshmap_1_1Graph_html"><div class="ttname"><a href="classhmap_1_1Graph.html">hmap::Graph</a></div><div class="ttdoc">Graph class, to manipulate graphs in 2D.</div><div class="ttdef"><b>Definition</b> graph.hpp:50</div></div>
-<div class="ttc" id="anamespacehmap_html_a286e4e74e6495802dba7f873c06ccb20"><div class="ttname"><a href="namespacehmap.html#a286e4e74e6495802dba7f873c06ccb20">hmap::generate_network_alpha_model</a></div><div class="ttdeci">Graph generate_network_alpha_model(const std::vector&lt; float &gt; &amp;xc, const std::vector&lt; float &gt; &amp;yc, const std::vector&lt; float &gt; &amp;size, glm::vec4 bbox, const Array &amp;z, std::uint32_t seed, float alpha=0.7f, int n_dummy_nodes=2500, float dz_weight=1.f, const Array *p_weight=nullptr)</div><div class="ttdoc">Generate a large scale road network between &quot;nodes&quot; (or cities) using the alpha model.</div><div class="ttdef"><b>Definition</b> alpha_model.cpp:23</div></div>
+<div class="ttc" id="anamespacehmap_html_a286e4e74e6495802dba7f873c06ccb20"><div class="ttname"><a href="namespacehmap.html#a286e4e74e6495802dba7f873c06ccb20">hmap::generate_network_alpha_model</a></div><div class="ttdeci">Graph generate_network_alpha_model(const std::vector&lt; float &gt; &amp;xc, const std::vector&lt; float &gt; &amp;yc, const std::vector&lt; float &gt; &amp;size, glm::vec4 bbox, const Array &amp;z, std::uint32_t seed, float alpha=0.7f, int n_dummy_nodes=2500, float dz_weight=1.f, const Array *p_weight=nullptr)</div><div class="ttdoc">Generate a large scale road network between &quot;nodes&quot; (or cities) using the alpha model.</div><div class="ttdef"><b>Definition</b> alpha_model.cpp:25</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_generate_network_alpha_model0.png" alt=""/>
 </div>
