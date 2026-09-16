@@ -10,8 +10,8 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
-#include <list>
 #include <map>
+#include <queue>
 #include <string>
 #include <utility>
 #include <vector>
@@ -29,64 +29,60 @@ namespace hmap
 
 std::vector<int> Graph::dijkstra(int source_point_index, int target_point_index)
 {
-  std::vector<float> dist(this->size());
-  std::vector<int>   prev(this->size());
+  if (source_point_index < 0 ||
+      source_point_index >= static_cast<int>(this->size()) ||
+      target_point_index < 0 ||
+      target_point_index >= static_cast<int>(this->size()))
+    return {};
+
+  if (source_point_index == target_point_index) return {source_point_index};
+
+  std::vector<float> dist(this->size(), std::numeric_limits<float>::max());
+  std::vector<int>   prev(this->size(), -1);
 
   // --- Dijkstra's algo
-  std::list<int> queue = {};
 
-  for (size_t i = 0; i < this->size(); i++)
-  {
-    dist[i] = std::numeric_limits<float>::max();
-    prev[i] = -1;
-    queue.push_back((int)i);
-  }
+  using DistNode = std::pair<float, int>;
+  std::priority_queue<DistNode, std::vector<DistNode>, std::greater<DistNode>>
+      pq;
+
   dist[source_point_index] = 0.f;
+  pq.push({0.f, source_point_index});
 
-  while (queue.size() > 0)
+  while (!pq.empty())
   {
-    // find closest point, within the queue
-    int   i = 0;
-    float dmax = std::numeric_limits<float>::max();
-    for (auto &k : queue)
-      if (dist[k] < dmax)
-      {
-        dmax = dist[k];
-        i = k;
-      }
+    auto [d, u] = pq.top();
+    pq.pop();
 
-    if (i == target_point_index) break;
+    if (u == target_point_index) break;
+    if (d > dist[u]) continue;
 
-    queue.remove(i);
-
-    // loop over point i neighbors
-    for (int &k : this->connectivity[i])
+    for (int k : this->connectivity[u])
     {
-      // check if the neighbor is in the queue
-      bool found = (std::find(queue.begin(), queue.end(), k) != queue.end());
+      auto it = this->adjacency_matrix.find({u, k});
+      if (it == this->adjacency_matrix.end()) continue;
 
-      if (found)
+      float weight = it->second;
+      float alt = dist[u] + weight;
+      if (alt < dist[k])
       {
-        float alt = dist[i] + this->adjacency_matrix[{i, k}];
-        if (alt < dist[k]) // alternative route is better
-        {
-          dist[k] = alt;
-          prev[k] = i;
-        }
+        dist[k] = alt;
+        prev[k] = u;
+        pq.push({alt, k});
       }
     }
   }
 
-  // --- backward rebuild the complete path
-  int              i = target_point_index;
-  std::vector<int> path = {i};
+  if (dist[target_point_index] == std::numeric_limits<float>::max()) return {};
 
-  while (prev[i] > 0)
+  // --- Backward rebuild the complete path
+
+  std::vector<int> path;
+  for (int curr = target_point_index; curr != -1; curr = prev[curr])
   {
-    i = prev[i];
-    path.push_back(i);
+    path.push_back(curr);
+    if (curr == source_point_index) break;
   }
-  path.push_back(source_point_index);
   std::reverse(path.begin(), path.end());
 
   return path;
