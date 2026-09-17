@@ -1,0 +1,735 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classhmap_1_1KDTree" kind="class" language="C++" prot="public">
+    <compoundname>hmap::KDTree</compoundname>
+    <includes refid="kd__tree_8hpp" local="no">kd_tree.hpp</includes>
+    <innerclass refid="structhmap_1_1KDTree_1_1Impl" prot="public">hmap::KDTree::Impl</innerclass>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhmap_1_1KDTree_1a944345cf62ebf5f23b2ade4b8701ff23" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="structhmap_1_1KDTree_1_1Impl" kindref="compound">Impl</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;Impl&gt; hmap::KDTree::p_impl</definition>
+        <argsstring></argsstring>
+        <name>p_impl</name>
+        <qualifiedname>hmap::KDTree::p_impl</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="216" column="19" bodyfile="HighMap/include/highmap/geometry/kd_tree.hpp" bodystart="216" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhmap_1_1KDTree_1a379f309c3e8aa60ad886179c91244718" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hmap::KDTree::KDTree</definition>
+        <argsstring>()</argsstring>
+        <name>KDTree</name>
+        <qualifiedname>hmap::KDTree::KDTree</qualifiedname>
+        <briefdescription>
+<para>Construct an empty KD-tree. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="44" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1aa00f3ad38b5e1e712d566fd9b67a1ece" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hmap::KDTree::~KDTree</definition>
+        <argsstring>()</argsstring>
+        <name>~KDTree</name>
+        <qualifiedname>hmap::KDTree::~KDTree</qualifiedname>
+        <briefdescription>
+<para>Destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="49" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1ae1e4ce256c73ac0697c31709afdf6f25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hmap::KDTree::KDTree</definition>
+        <argsstring>(const std::vector&lt; float &gt; &amp;x, const std::vector&lt; float &gt; &amp;y)</argsstring>
+        <name>KDTree</name>
+        <qualifiedname>hmap::KDTree::KDTree</qualifiedname>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+<para>Construct a KD-tree referencing separate coordinate arrays. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of x coordinates. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of y coordinates. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="56" column="3" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="223" bodyend="226"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1a6a69c840c8d2421d96fa453063b135e2" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hmap::KDTree::KDTree</definition>
+        <argsstring>(const std::vector&lt; Point &gt; &amp;points)</argsstring>
+        <name>KDTree</name>
+        <qualifiedname>hmap::KDTree::KDTree</qualifiedname>
+        <param>
+          <type>const std::vector&lt; <ref refid="classhmap_1_1Point" kindref="compound">Point</ref> &gt; &amp;</type>
+          <declname>points</declname>
+        </param>
+        <briefdescription>
+<para>Construct a KD-tree referencing a vector of points. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>points</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of <ref refid="classhmap_1_1Point" kindref="compound">Point</ref> objects. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="62" column="12" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="228" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1a2089caf6b31e8717d082d178ae2ace87" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hmap::KDTree::KDTree</definition>
+        <argsstring>(const Cloud &amp;cloud)</argsstring>
+        <name>KDTree</name>
+        <qualifiedname>hmap::KDTree::KDTree</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref> &amp;</type>
+          <declname>cloud</declname>
+        </param>
+        <briefdescription>
+<para>Construct a KD-tree referencing a <ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cloud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref> object. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="68" column="12" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="234" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1a9cc921455bc2aacf05048ec70d8e1efb" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type></type>
+        <definition>hmap::KDTree::KDTree</definition>
+        <argsstring>(KDTree &amp;&amp;other) noexcept</argsstring>
+        <name>KDTree</name>
+        <qualifiedname>hmap::KDTree::KDTree</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1KDTree" kindref="compound">KDTree</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+<para>Move constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="73" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1abf873b42e786fe8734ba8f6aa0ef6625" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classhmap_1_1KDTree" kindref="compound">KDTree</ref> &amp;</type>
+        <definition>KDTree &amp; hmap::KDTree::operator=</definition>
+        <argsstring>(KDTree &amp;&amp;other) noexcept</argsstring>
+        <name>operator=</name>
+        <qualifiedname>hmap::KDTree::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1KDTree" kindref="compound">KDTree</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+<para>Move assignment operator. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="78" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1ae9918e3fef110fd3aa26bc7aaed641c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hmap::KDTree::KDTree</definition>
+        <argsstring>(const KDTree &amp;)=delete</argsstring>
+        <name>KDTree</name>
+        <qualifiedname>hmap::KDTree::KDTree</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1KDTree" kindref="compound">KDTree</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="80" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1ae934400d3a543105e8f7ef2a3000740e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1KDTree" kindref="compound">KDTree</ref> &amp;</type>
+        <definition>KDTree &amp; hmap::KDTree::operator=</definition>
+        <argsstring>(const KDTree &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>hmap::KDTree::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1KDTree" kindref="compound">KDTree</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="81" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1a687adbe42e600b2a25051d9b7f4c2ef9" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hmap::KDTree::empty</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>empty</name>
+        <qualifiedname>hmap::KDTree::empty</qualifiedname>
+        <briefdescription>
+<para>Check whether the KD-tree is empty. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if empty, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="91" column="8" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="248" bodyend="251"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1a16df51a0b09b285bc053200c90233d77" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t hmap::KDTree::size</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>size</name>
+        <qualifiedname>hmap::KDTree::size</qualifiedname>
+        <briefdescription>
+<para>Get the number of points indexed by the KD-tree. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Number of points. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="97" column="10" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="253" bodyend="256"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1a1ca045967ba79adf48c120dfe33ff346" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>glm::vec2</type>
+        <definition>glm::vec2 hmap::KDTree::compute_neighbor_distance_range</definition>
+        <argsstring>(size_t k_neighbors) const</argsstring>
+        <name>compute_neighbor_distance_range</name>
+        <qualifiedname>hmap::KDTree::compute_neighbor_distance_range</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>k_neighbors</declname>
+        </param>
+        <briefdescription>
+<para>Estimate the range of neighbor distances across the dataset. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes the minimum and maximum Euclidean distance to the k-th nearest neighbor across all indexed points.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>k_neighbors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of neighbors considered. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>vec2(min_euclidean_distance, max_euclidean_distance) </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="112" column="13" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="262" bodyend="297"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1a71a6e126c8f231ecd8ad296770354d63" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t hmap::KDTree::nearest</definition>
+        <argsstring>(float x_query, float y_query) const</argsstring>
+        <name>nearest</name>
+        <qualifiedname>hmap::KDTree::nearest</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>x_query</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y_query</declname>
+        </param>
+        <briefdescription>
+<para>Find the index of the nearest neighbor to a 2D query position. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Fast 1-nearest-neighbor query that performs no heap allocations.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x_query</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Query x coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_query</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Query y coordinate. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Index of the nearest neighbor point (0 if empty). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="123" column="10" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="299" bodyend="302"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1ac0c78222344910f0fa9d738ae785eed4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t hmap::KDTree::nearest</definition>
+        <argsstring>(const Point &amp;p) const</argsstring>
+        <name>nearest</name>
+        <qualifiedname>hmap::KDTree::nearest</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Point" kindref="compound">Point</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Find the index of the nearest neighbor to a <ref refid="classhmap_1_1Point" kindref="compound">Point</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="128" column="10" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="304" bodyend="307"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1ae359f0b4384a005d0b44e69bc30e74b5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t hmap::KDTree::nearest</definition>
+        <argsstring>(const glm::vec2 &amp;xy) const</argsstring>
+        <name>nearest</name>
+        <qualifiedname>hmap::KDTree::nearest</qualifiedname>
+        <param>
+          <type>const glm::vec2 &amp;</type>
+          <declname>xy</declname>
+        </param>
+        <briefdescription>
+<para>Find the index of the nearest neighbor to a glm::vec2. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="133" column="10" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="309" bodyend="312"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1a6470b709082cd4c65c46cbb7582a6718" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::pair&lt; size_t, float &gt;</type>
+        <definition>std::pair&lt; size_t, float &gt; hmap::KDTree::nearest_with_distance_squared</definition>
+        <argsstring>(float x_query, float y_query) const</argsstring>
+        <name>nearest_with_distance_squared</name>
+        <qualifiedname>hmap::KDTree::nearest_with_distance_squared</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>x_query</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y_query</declname>
+        </param>
+        <briefdescription>
+<para>Find the index and squared distance of the nearest neighbor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x_query</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Query x coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_query</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Query y coordinate. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pair of (index, squared_distance). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="142" column="13" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="314" bodyend="320"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1a935bbb520b21ad806cddff2fd0622aa6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::pair&lt; size_t, float &gt;</type>
+        <definition>std::pair&lt; size_t, float &gt; hmap::KDTree::nearest_with_distance_squared</definition>
+        <argsstring>(const Point &amp;p) const</argsstring>
+        <name>nearest_with_distance_squared</name>
+        <qualifiedname>hmap::KDTree::nearest_with_distance_squared</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Point" kindref="compound">Point</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Find the index and squared distance of the nearest neighbor to a <ref refid="classhmap_1_1Point" kindref="compound">Point</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="149" column="13" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="322" bodyend="326"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1a957d4e8b3845faf98b017d6fa0eee2b5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::pair&lt; size_t, float &gt;</type>
+        <definition>std::pair&lt; size_t, float &gt; hmap::KDTree::nearest_with_distance_squared</definition>
+        <argsstring>(const glm::vec2 &amp;xy) const</argsstring>
+        <name>nearest_with_distance_squared</name>
+        <qualifiedname>hmap::KDTree::nearest_with_distance_squared</qualifiedname>
+        <param>
+          <type>const glm::vec2 &amp;</type>
+          <declname>xy</declname>
+        </param>
+        <briefdescription>
+<para>Find the index and squared distance of the nearest neighbor to a glm::vec2. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="155" column="13" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="328" bodyend="332"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1aea5edb7aed468d985c9b0079b45baf91" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::KDTree::neighbor_search</definition>
+        <argsstring>(float x_query, float y_query, size_t k_neighbors, std::vector&lt; size_t &gt; &amp;indices, std::vector&lt; float &gt; &amp;distances) const</argsstring>
+        <name>neighbor_search</name>
+        <qualifiedname>hmap::KDTree::neighbor_search</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>x_query</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y_query</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>k_neighbors</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; size_t &gt; &amp;</type>
+          <declname>indices</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt; &amp;</type>
+          <declname>distances</declname>
+        </param>
+        <briefdescription>
+<para>Perform a k-nearest neighbor search. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x_query</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Query x coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_query</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Query y coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>k_neighbors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of neighbors to retrieve. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output indices of neighbors. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">distances</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output squared distances to neighbors. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="167" column="8" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="334" bodyend="347"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1a28e014b1d02cf4a168ec74be0cb28ab1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::KDTree::neighbor_search</definition>
+        <argsstring>(const Point &amp;p, size_t k_neighbors, std::vector&lt; size_t &gt; &amp;indices, std::vector&lt; float &gt; &amp;distances) const</argsstring>
+        <name>neighbor_search</name>
+        <qualifiedname>hmap::KDTree::neighbor_search</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Point" kindref="compound">Point</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>k_neighbors</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; size_t &gt; &amp;</type>
+          <declname>indices</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt; &amp;</type>
+          <declname>distances</declname>
+        </param>
+        <briefdescription>
+<para>Perform a k-nearest neighbor search for a <ref refid="classhmap_1_1Point" kindref="compound">Point</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="176" column="8" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="349" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1af40315249edc5f65b6de1663f11a0366" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::KDTree::neighbor_search</definition>
+        <argsstring>(const glm::vec2 &amp;xy, size_t k_neighbors, std::vector&lt; size_t &gt; &amp;indices, std::vector&lt; float &gt; &amp;distances) const</argsstring>
+        <name>neighbor_search</name>
+        <qualifiedname>hmap::KDTree::neighbor_search</qualifiedname>
+        <param>
+          <type>const glm::vec2 &amp;</type>
+          <declname>xy</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>k_neighbors</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; size_t &gt; &amp;</type>
+          <declname>indices</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt; &amp;</type>
+          <declname>distances</declname>
+        </param>
+        <briefdescription>
+<para>Perform a k-nearest neighbor search for a glm::vec2. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="184" column="8" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="357" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1ae04aa827d456ef634aff2bf6f616f58f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::pair&lt; size_t, float &gt; &gt;</type>
+        <definition>std::vector&lt; std::pair&lt; size_t, float &gt; &gt; hmap::KDTree::radius_search</definition>
+        <argsstring>(float x_query, float y_query, float radius) const</argsstring>
+        <name>radius_search</name>
+        <qualifiedname>hmap::KDTree::radius_search</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>x_query</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y_query</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>radius</declname>
+        </param>
+        <briefdescription>
+<para>Perform a radius-based neighbor search. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x_query</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Query x coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_query</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Query y coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>radius</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Search radius (Euclidean distance). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Vector of (index, squared_distance) pairs. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="197" column="15" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="365" bodyend="371"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1a06565d3ed2e9d34bfd768d9737873258" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::pair&lt; size_t, float &gt; &gt;</type>
+        <definition>std::vector&lt; std::pair&lt; size_t, float &gt; &gt; hmap::KDTree::radius_search</definition>
+        <argsstring>(const Point &amp;p, float radius) const</argsstring>
+        <name>radius_search</name>
+        <qualifiedname>hmap::KDTree::radius_search</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Point" kindref="compound">Point</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>radius</declname>
+        </param>
+        <briefdescription>
+<para>Perform a radius-based neighbor search for a <ref refid="classhmap_1_1Point" kindref="compound">Point</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="204" column="15" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="373" bodyend="377"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1KDTree_1aaef1ab8e55a9aae26e00f933fbe3e9b8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::pair&lt; size_t, float &gt; &gt;</type>
+        <definition>std::vector&lt; std::pair&lt; size_t, float &gt; &gt; hmap::KDTree::radius_search</definition>
+        <argsstring>(const glm::vec2 &amp;xy, float radius) const</argsstring>
+        <name>radius_search</name>
+        <qualifiedname>hmap::KDTree::radius_search</qualifiedname>
+        <param>
+          <type>const glm::vec2 &amp;</type>
+          <declname>xy</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>radius</declname>
+        </param>
+        <briefdescription>
+<para>Perform a radius-based neighbor search for a glm::vec2. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="210" column="15" bodyfile="HighMap/src/geometry/kd_tree.cpp" bodystart="379" bodyend="383"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>2D KD-Tree for spatial point queries. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Supports construction from separate coordinate arrays (x, y), point vectors (std::vector&lt;Point&gt;), and <ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref> objects.</para>
+<para><simplesect kind="note"><para>Input point data must remain valid for the lifetime of this <ref refid="classhmap_1_1KDTree" kindref="compound">KDTree</ref> object. </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="HighMap/include/highmap/geometry/kd_tree.hpp" line="34" column="1" bodyfile="HighMap/include/highmap/geometry/kd_tree.hpp" bodystart="35" bodyend="217"/>
+    <listofallmembers>
+      <member refid="classhmap_1_1KDTree_1a1ca045967ba79adf48c120dfe33ff346" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>compute_neighbor_distance_range</name></member>
+      <member refid="classhmap_1_1KDTree_1a687adbe42e600b2a25051d9b7f4c2ef9" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>empty</name></member>
+      <member refid="classhmap_1_1KDTree_1a379f309c3e8aa60ad886179c91244718" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>KDTree</name></member>
+      <member refid="classhmap_1_1KDTree_1ae1e4ce256c73ac0697c31709afdf6f25" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>KDTree</name></member>
+      <member refid="classhmap_1_1KDTree_1a6a69c840c8d2421d96fa453063b135e2" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>KDTree</name></member>
+      <member refid="classhmap_1_1KDTree_1a2089caf6b31e8717d082d178ae2ace87" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>KDTree</name></member>
+      <member refid="classhmap_1_1KDTree_1a9cc921455bc2aacf05048ec70d8e1efb" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>KDTree</name></member>
+      <member refid="classhmap_1_1KDTree_1ae9918e3fef110fd3aa26bc7aaed641c0" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>KDTree</name></member>
+      <member refid="classhmap_1_1KDTree_1a71a6e126c8f231ecd8ad296770354d63" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>nearest</name></member>
+      <member refid="classhmap_1_1KDTree_1ac0c78222344910f0fa9d738ae785eed4" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>nearest</name></member>
+      <member refid="classhmap_1_1KDTree_1ae359f0b4384a005d0b44e69bc30e74b5" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>nearest</name></member>
+      <member refid="classhmap_1_1KDTree_1a6470b709082cd4c65c46cbb7582a6718" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>nearest_with_distance_squared</name></member>
+      <member refid="classhmap_1_1KDTree_1a935bbb520b21ad806cddff2fd0622aa6" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>nearest_with_distance_squared</name></member>
+      <member refid="classhmap_1_1KDTree_1a957d4e8b3845faf98b017d6fa0eee2b5" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>nearest_with_distance_squared</name></member>
+      <member refid="classhmap_1_1KDTree_1aea5edb7aed468d985c9b0079b45baf91" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>neighbor_search</name></member>
+      <member refid="classhmap_1_1KDTree_1a28e014b1d02cf4a168ec74be0cb28ab1" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>neighbor_search</name></member>
+      <member refid="classhmap_1_1KDTree_1af40315249edc5f65b6de1663f11a0366" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>neighbor_search</name></member>
+      <member refid="classhmap_1_1KDTree_1abf873b42e786fe8734ba8f6aa0ef6625" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>operator=</name></member>
+      <member refid="classhmap_1_1KDTree_1ae934400d3a543105e8f7ef2a3000740e" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>operator=</name></member>
+      <member refid="classhmap_1_1KDTree_1a944345cf62ebf5f23b2ade4b8701ff23" prot="private" virt="non-virtual"><scope>hmap::KDTree</scope><name>p_impl</name></member>
+      <member refid="classhmap_1_1KDTree_1ae04aa827d456ef634aff2bf6f616f58f" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>radius_search</name></member>
+      <member refid="classhmap_1_1KDTree_1a06565d3ed2e9d34bfd768d9737873258" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>radius_search</name></member>
+      <member refid="classhmap_1_1KDTree_1aaef1ab8e55a9aae26e00f933fbe3e9b8" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>radius_search</name></member>
+      <member refid="classhmap_1_1KDTree_1a16df51a0b09b285bc053200c90233d77" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>size</name></member>
+      <member refid="classhmap_1_1KDTree_1aa00f3ad38b5e1e712d566fd9b67a1ece" prot="public" virt="non-virtual"><scope>hmap::KDTree</scope><name>~KDTree</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

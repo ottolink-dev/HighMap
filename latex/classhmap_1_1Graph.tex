@@ -26,56 +26,74 @@ Collaboration diagram for hmap\+::Graph\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classhmap_1_1Graph__coll__graph}
+\includegraphics[width=193pt]{classhmap_1_1Graph__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classhmap_1_1Graph_a1209ddaafbb68fed3c43ec7766d8dc0a}{Graph}} ()
+\mbox{\hyperlink{classhmap_1_1Graph_a797c61ded419bf16cd47dd20728bf918}{Graph}} ()=default
 \begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classhmap_1_1Graph}{Graph} object. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Graph_af7cd4377270d4e0dd90e7c8793351191}{Graph}} (\mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}} cloud)
 \begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classhmap_1_1Graph}{Graph} object based on a cloud of points. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Graph_a0ff744b8d48139b49e7dae7c7d4e7a18}{Graph}} (std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$ \mbox{\hyperlink{classhmap_1_1Cloud_aad75fb7bcfa7a2c3f139d2e3d3d6cc54}{points}})
 \begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classhmap_1_1Graph}{Graph} object based on a list of points. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Graph_a6d56f1e42407c74f2cf097b7a9b05d7b}{Graph}} (std\+::vector$<$ float $>$ x, std\+::vector$<$ float $>$ y)
+\mbox{\hyperlink{classhmap_1_1Graph_a6d56f1e42407c74f2cf097b7a9b05d7b}{Graph}} (std\+::vector$<$ float $>$ \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}, std\+::vector$<$ float $>$ \mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}})
 \begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classhmap_1_1Graph}{Graph} object based on x and y coordinates. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Graph_a1f632d4e9ee628a4dcab783f08e42277}{add\+\_\+edge}} (std\+::vector$<$ int $>$ edge, float \mbox{\hyperlink{sls__deformation_8cpp_aeb4aca717b10b3f05f897485b4e1e9a6}{weight}})
-\begin{DoxyCompactList}\small\item\em Add an edge to the graph. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Graph_a91ad513cd4834aa3424e9bbd56d891ac}{add\+\_\+edge}} (std\+::vector$<$ int $>$ edge)
-\begin{DoxyCompactList}\small\item\em Add an edge to the graph with default weight. \end{DoxyCompactList}\item 
-std\+::vector$<$ int $>$ \mbox{\hyperlink{classhmap_1_1Graph_a07e0c31ab59d4f51c51c3f90117ca71a}{dijkstra}} (int source\+\_\+point\+\_\+index, int target\+\_\+point\+\_\+index)
+void \mbox{\hyperlink{classhmap_1_1Graph_a85e17398e3cd9215ef189f8bbc03f73f}{add\+\_\+edge}} (int u, int v, float \mbox{\hyperlink{sls__deformation_8cpp_aeb4aca717b10b3f05f897485b4e1e9a6}{weight}})
+\begin{DoxyCompactList}\small\item\em Add an edge connecting two node indices with explicit weight. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Graph_a400cfa9a067f45b6f06d90503ec5a71f}{add\+\_\+edge}} (int u, int v)
+\begin{DoxyCompactList}\small\item\em Add an edge connecting two node indices with default geometric distance weight. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Graph_a26f1ed2af21da89bd7ed3d999bcb48b2}{add\+\_\+edge}} (glm\+::ivec2 edge, float \mbox{\hyperlink{sls__deformation_8cpp_aeb4aca717b10b3f05f897485b4e1e9a6}{weight}})
+\begin{DoxyCompactList}\small\item\em Add an edge with explicit weight. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Graph_afe8d4e58ca035b43ed891556dd7cdd2c}{add\+\_\+edge}} (glm\+::ivec2 edge)
+\begin{DoxyCompactList}\small\item\em Add an edge with default geometric distance weight. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Graph_ad191d0d38350b42a95a9ecb58652ffd9}{clear\+\_\+edges}} () noexcept
+\begin{DoxyCompactList}\small\item\em Clear all edges from the graph. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classhmap_1_1Graph_aa47c8285e9c489fe7794d60eb19a3c7c}{degree}} (int u) const
+\begin{DoxyCompactList}\small\item\em Get the degree (number of incident edges) of node {\ttfamily u}. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{classhmap_1_1Graph_aec94f282ad2c0633edaf14ee782ff3a7}{dijkstra}} (int source\+\_\+point\+\_\+index, int target\+\_\+point\+\_\+index) const
 \begin{DoxyCompactList}\small\item\em Return the shortest route between two points using Dijkstra\textquotesingle{}s algorithm. \end{DoxyCompactList}\item 
-float \mbox{\hyperlink{classhmap_1_1Graph_aa04970dd704339909bcc4770fa0481ab}{get\+\_\+edge\+\_\+length}} (int k)
-\begin{DoxyCompactList}\small\item\em Get the length of edge {\ttfamily k}. \end{DoxyCompactList}\item 
-std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1Graph_ab9c3f02b3a4921f785eb7f80834ed9d7}{get\+\_\+edge\+\_\+x\+\_\+pairs}} ()
+bool \mbox{\hyperlink{classhmap_1_1Graph_a452a1e8102c63bbb4988d9d4c2690287}{empty\+\_\+edges}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Check whether the graph has no edges. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structhmap_1_1Edge}{Edge}} \mbox{\hyperlink{classhmap_1_1Graph_a8ce4c44596c11ae0bbd651ad78967ca5}{get\+\_\+edge}} (size\+\_\+t k) const
+\begin{DoxyCompactList}\small\item\em Get an edge by index. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1Graph_ae2948bc10a491b6b36dbe5140d1231ea}{get\+\_\+edge\+\_\+length}} (size\+\_\+t k) const
+\begin{DoxyCompactList}\small\item\em Get the Euclidean length of edge {\ttfamily k}. \end{DoxyCompactList}\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1Graph_a018064b7d9f27f1c4af7bb9bc6f56357}{get\+\_\+edge\+\_\+x\+\_\+pairs}} () const
 \begin{DoxyCompactList}\small\item\em Return x coordinates of the edges (as pairs). \end{DoxyCompactList}\item 
-std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1Graph_a0088d1935cc3ee61ede820f51ccf117c}{get\+\_\+edge\+\_\+y\+\_\+pairs}} ()
+std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1Graph_a62793a11ad97333cace3aa81c39d65b1}{get\+\_\+edge\+\_\+y\+\_\+pairs}} () const
 \begin{DoxyCompactList}\small\item\em Return y coordinates of the edges (as pairs). \end{DoxyCompactList}\item 
-std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1Graph_abee24a8b157637b7e667531aca13f1c4}{get\+\_\+lengths}} ()
-\begin{DoxyCompactList}\small\item\em Get the length of all the edges. \end{DoxyCompactList}\item 
-size\+\_\+t \mbox{\hyperlink{classhmap_1_1Graph_ad110d66385a8e4ef83708914cc972260}{get\+\_\+nedges}} ()
+const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Edge}{Edge}} $>$ \& \mbox{\hyperlink{classhmap_1_1Graph_a7b1a701b472365f39736aef20e2ce1cc}{get\+\_\+edges}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the edge list. \end{DoxyCompactList}\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1Graph_a03ec3725fe8c6bb78149118fad041d43}{get\+\_\+lengths}} () const
+\begin{DoxyCompactList}\small\item\em Get the Euclidean lengths of all the edges. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classhmap_1_1Graph_ae9b2fd0dd4c63e88a2ecec9e4abec04c}{get\+\_\+nedges}} () const noexcept
 \begin{DoxyCompactList}\small\item\em Get the number of edges in the graph. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Graph}{Graph}} \mbox{\hyperlink{classhmap_1_1Graph_ad3b05e01d0c31e189fa6bae4ac43de7c}{minimum\+\_\+spanning\+\_\+tree\+\_\+prim}} ()
-\begin{DoxyCompactList}\small\item\em Generate a Minimum Spanning Tree (MST) of the graph using Prim\textquotesingle{}s algorithm. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Graph_a862b83b369721a4930917a78bd313421}{print}} ()
+\mbox{\hyperlink{classhmap_1_1Graph}{Graph}} \mbox{\hyperlink{classhmap_1_1Graph_a8b18f90110d46fb650b73d8410856c1c}{minimum\+\_\+spanning\+\_\+tree\+\_\+prim}} () const
+\begin{DoxyCompactList}\small\item\em Generate a Minimum Spanning Tree (MST) using Prim\textquotesingle{}s algorithm. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Neighbor}{Neighbor}} $>$ \& \mbox{\hyperlink{classhmap_1_1Graph_a83be20f4cc52c15ed7773d81cf304c2f}{neighbors}} (int u) const
+\begin{DoxyCompactList}\small\item\em Get the neighbors of node {\ttfamily u}. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classhmap_1_1Graph_a99a6f2b1940db4c49cbf51dcb592a198}{num\+\_\+edges}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the number of edges in the graph. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Graph_a3c549606a34f49273461999caf5c5ecd}{print}} () const
 \begin{DoxyCompactList}\small\item\em Print the graph data to the standard output. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Graph}{Graph}} \mbox{\hyperlink{classhmap_1_1Graph_ad1aeb414389af66a30d891d8fc28bc46}{remove\+\_\+orphan\+\_\+points}} ()
-\begin{DoxyCompactList}\small\item\em Remove orphan points from the graph. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Graph_af6518d1fa6ddec305e4e114db6f66ab9}{to\+\_\+array}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec4 bbox, bool color\+\_\+by\+\_\+edge\+\_\+weight=true)
+\mbox{\hyperlink{classhmap_1_1Graph}{Graph}} \mbox{\hyperlink{classhmap_1_1Graph_a9342d61be778e7fd8525334b5e3b4e00}{remove\+\_\+orphan\+\_\+points}} () const
+\begin{DoxyCompactList}\small\item\em Remove orphan points (points with no connected edges). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Graph_af9dd5d2b3ff699e1e064f4d189d74d55}{set\+\_\+edge\+\_\+weight}} (size\+\_\+t k, float \mbox{\hyperlink{sls__deformation_8cpp_aeb4aca717b10b3f05f897485b4e1e9a6}{weight}})
+\begin{DoxyCompactList}\small\item\em Set the weight of edge {\ttfamily k}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Graph_a531127f7513c688936bd83e852f1c741}{set\+\_\+edge\+\_\+weight}} (int u, int v, float \mbox{\hyperlink{sls__deformation_8cpp_aeb4aca717b10b3f05f897485b4e1e9a6}{weight}})
+\begin{DoxyCompactList}\small\item\em Set the weight of an edge between node {\ttfamily u} and node {\ttfamily v}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Graph_a5d27935b935d6d788a934bc0e4f4082f}{to\+\_\+array}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec4 bbox, bool color\+\_\+by\+\_\+edge\+\_\+weight=true) const
 \begin{DoxyCompactList}\small\item\em Project the graph to an array and optionally color by edge weight. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Graph_ac52347e3154ee87b67534d4c38d3b779}{to\+\_\+array\+\_\+fractalize}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec4 bbox, int iterations, std\+::uint32\+\_\+t seed, float sigma=0.\+3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int orientation=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float persistence=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+void \mbox{\hyperlink{classhmap_1_1Graph_a72b12f0c404bb6e1cb22790b5f4fb44b}{to\+\_\+array\+\_\+fractalize}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec4 bbox, int iterations, std\+::uint32\+\_\+t seed, float sigma=0.\+3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int orientation=0, float persistence=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}) const
 \begin{DoxyCompactList}\small\item\em Apply fractalization to graph edges and project to an array. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{classhmap_1_1Graph_ad6942a03b44d0567ee597236083416ae}{to\+\_\+array\+\_\+sdf}} (glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, glm\+::vec4 bbox, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox\+\_\+array=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{classhmap_1_1Graph_ab107e8c114939acd9fdd55ab427d5d51}{to\+\_\+array\+\_\+sdf}} (glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, glm\+::vec4 bbox, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox\+\_\+array=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}) const
 \begin{DoxyCompactList}\small\item\em Generate an array filled with the Signed Distance \doxylink{classhmap_1_1Function}{Function} (SDF) to the graph. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Graph_a47f4e4792141971443d9dbeb714ae612}{to\+\_\+csv}} (std\+::string fname\+\_\+xy, std\+::string fname\+\_\+adjacency)
+void \mbox{\hyperlink{classhmap_1_1Graph_a7b092be3bef180b012ab3d68bbe793e1}{to\+\_\+csv}} (const std\+::string \&fname\+\_\+xy, const std\+::string \&fname\+\_\+edges) const
 \begin{DoxyCompactList}\small\item\em Export graph data to CSV files. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Graph_a3cf9a6b56638062f4e740e642dc07c3c}{to\+\_\+png}} (std\+::string fname, glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}=\{512, 512\})
-\begin{DoxyCompactList}\small\item\em Export the graph as a PNG image file. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Graph_a6accdaeaf48a49a3a751f4a83e59df47}{update\+\_\+adjacency\+\_\+matrix}} ()
-\begin{DoxyCompactList}\small\item\em Update the adjacency matrix of the graph. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Graph_ad37ed278a791b43779733f7f22187f15}{update\+\_\+connectivity}} ()
-\begin{DoxyCompactList}\small\item\em Update the point connectivity information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+void \mbox{\hyperlink{classhmap_1_1Graph_a10acc9e91285887d95ab12a42f2d1869}{to\+\_\+png}} (const std\+::string \&fname, glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}=\{512, 512\}) const
+\begin{DoxyCompactList}\small\item\em Export the graph as a PNG image file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classhmap_1_1Cloud}{hmap\+::\+Cloud}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -87,18 +105,16 @@ virtual \mbox{\hyperlink{classhmap_1_1Cloud_a37e6f8229904ba2b013fbdf25751c6d4}{\
 \begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{classhmap_1_1Cloud}{Cloud} object with random positions and values. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Cloud_a76ba65d3116849aecbc2a6d90cd4d652}{Cloud}} (const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$ \&\mbox{\hyperlink{classhmap_1_1Cloud_aad75fb7bcfa7a2c3f139d2e3d3d6cc54}{points}})
 \begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{classhmap_1_1Cloud}{Cloud} object based on a list of existing points. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Cloud_a34e33bc454459b077a2384ecaea4ba26}{Cloud}} (const std\+::vector$<$ float $>$ \&x, const std\+::vector$<$ float $>$ \&y, float default\+\_\+value=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\mbox{\hyperlink{classhmap_1_1Cloud_a79e8290bc6b1a17916ac63374a87dfee}{Cloud}} (std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$ \&\&\mbox{\hyperlink{classhmap_1_1Cloud_aad75fb7bcfa7a2c3f139d2e3d3d6cc54}{points}}) noexcept
+\begin{DoxyCompactList}\small\item\em Move-\/constructs a new \doxylink{classhmap_1_1Cloud}{Cloud} object from an existing points vector. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Cloud_a34e33bc454459b077a2384ecaea4ba26}{Cloud}} (const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}, const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}}, float default\+\_\+value=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{classhmap_1_1Cloud}{Cloud} object from lists of {\ttfamily x} and {\ttfamily y} coordinates. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Cloud_a189ddb2d4389ab85c28ad586fbbc4c30}{Cloud}} (const std\+::vector$<$ float $>$ \&x, const std\+::vector$<$ float $>$ \&y, const std\+::vector$<$ float $>$ \&v)
+\mbox{\hyperlink{classhmap_1_1Cloud_a189ddb2d4389ab85c28ad586fbbc4c30}{Cloud}} (const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}, const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}}, const std\+::vector$<$ float $>$ \&v)
 \begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{classhmap_1_1Cloud}{Cloud} object from lists of {\ttfamily x} and {\ttfamily y} coordinates with assigned values. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Cloud_aaa3aebf8afba3cddb605df797a3e8ff1}{Cloud}} (const std\+::vector$<$ glm\+::ivec2 $>$ \&indices, const glm\+::ivec2 \&\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Construct a point cloud from grid indices mapped to a bounding box. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Cloud_af62bc19e589d351a4f21a7177bde5456}{Cloud}} (const std\+::vector$<$ glm\+::vec3 $>$ \&xyv)
 \begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{classhmap_1_1Cloud}{Cloud} object from lists of xyz data as glm\+::vec3. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Cloud_ab1149531131111567d9f8760162d90ff}{add\+\_\+point}} (const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \&p)
-\begin{DoxyCompactList}\small\item\em Add a new point to the cloud. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Cloud_afa8d7286a65d513bdc90c4c05bc42e0f}{remove\+\_\+point}} (int point\+\_\+idx)
-\begin{DoxyCompactList}\small\item\em Remove a point from the cloud. \end{DoxyCompactList}\item 
 glm\+::vec4 \mbox{\hyperlink{classhmap_1_1Cloud_ae5ba6ffbe371603545c312e51601615f}{get\+\_\+bbox}} () const
 \begin{DoxyCompactList}\small\item\em Get the bounding box of the cloud. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Point}{Point}} \mbox{\hyperlink{classhmap_1_1Cloud_a2f4679015ee69b12c50f60a607388965}{get\+\_\+center}} () const
@@ -119,7 +135,7 @@ std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1Cloud_abf5f933e3506395b
 \begin{DoxyCompactList}\small\item\em Get the {\ttfamily y} coordinates of the points in the cloud. \end{DoxyCompactList}\item 
 size\+\_\+t \mbox{\hyperlink{classhmap_1_1Cloud_ad75a6d3223008397f8f93bbda4470706}{nearest\+\_\+point}} (const glm\+::vec2 \&xy) const
 \begin{DoxyCompactList}\small\item\em Find the index of the nearest point in the cloud. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Cloud_a6e8c4efb301989f9ecf2175d62ef55f8}{set\+\_\+points}} (const std\+::vector$<$ float $>$ \&x, const std\+::vector$<$ float $>$ \&y)
+void \mbox{\hyperlink{classhmap_1_1Cloud_a6e8c4efb301989f9ecf2175d62ef55f8}{set\+\_\+points}} (const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}, const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}})
 \begin{DoxyCompactList}\small\item\em Set points of the using x, y coordinates. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1Cloud_a604e61fbcbd8cc469ed21501e65f5c7b}{set\+\_\+values}} (const std\+::vector$<$ float $>$ \&new\+\_\+values)
 \begin{DoxyCompactList}\small\item\em Set new values for the cloud points. \end{DoxyCompactList}\item 
@@ -133,13 +149,67 @@ void \mbox{\hyperlink{classhmap_1_1Cloud_adf0b7a7c0c7d414e5d01e19be624aa3c}{set\
 \begin{DoxyCompactList}\small\item\em Set the values of the cloud points based on the distance to the convex hull of the cloud. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1Cloud_ad8b2d626436107c4b0e2c9877747375f}{set\+\_\+values\+\_\+from\+\_\+min\+\_\+distance}} ()
 \begin{DoxyCompactList}\small\item\em Sets point values based on the distance to their nearest neighbor. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classhmap_1_1Cloud_a89f21637cf9c4857bf65ad6a6009eff9}{empty}} () const
-\begin{DoxyCompactList}\small\item\em Check whether the cloud has no points. \end{DoxyCompactList}\item 
-size\+\_\+t \mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}} () const
-\begin{DoxyCompactList}\small\item\em Get the number of points in the cloud. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Point}{Point}} \& \mbox{\hyperlink{classhmap_1_1Cloud_ab96aeb01451ed1123b6674eb10d1dbac}{operator\mbox{[}$\,$\mbox{]}}} (size\+\_\+t \mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}})
+\begin{DoxyCompactList}\small\item\em Access point by index. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \& \mbox{\hyperlink{classhmap_1_1Cloud_ac6421b9b7385dce77cb3b3d85fd04f67}{operator\mbox{[}$\,$\mbox{]}}} (size\+\_\+t \mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}}) const
+\begin{DoxyCompactList}\small\item\em Access point by index (const). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Point}{Point}} \& \mbox{\hyperlink{classhmap_1_1Cloud_a866ec6610eec3e9c0de92aacbfcbefb1}{at}} (size\+\_\+t \mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}})
+\begin{DoxyCompactList}\small\item\em Access point with bounds checking. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \& \mbox{\hyperlink{classhmap_1_1Cloud_aafa7e8dda6f65d37f30c3fa8414481c0}{at}} (size\+\_\+t \mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}}) const
+\begin{DoxyCompactList}\small\item\em Access point with bounds checking (const). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Point}{Point}} \& \mbox{\hyperlink{classhmap_1_1Cloud_a0ccd5b43ebbf2d1f1ef4777f66943553}{back}} ()
+\begin{DoxyCompactList}\small\item\em Access the last point. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \& \mbox{\hyperlink{classhmap_1_1Cloud_aa342e6ad28fc89f534163b511dd96a95}{back}} () const
+\begin{DoxyCompactList}\small\item\em Access the last point (const). \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::iterator \mbox{\hyperlink{classhmap_1_1Cloud_a3f115445c5a6bb481aebdf75d83f4705}{begin}} () noexcept
+\begin{DoxyCompactList}\small\item\em Returns an iterator to the first point. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::const\+\_\+iterator \mbox{\hyperlink{classhmap_1_1Cloud_abc8571dba46ab6ee16f8a351dc832580}{begin}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns a const iterator to the first point. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classhmap_1_1Cloud_a1544c5da7b03e5f5f914250707ce2bf0}{capacity}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns the number of points that can be held in currently allocated storage. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::const\+\_\+iterator \mbox{\hyperlink{classhmap_1_1Cloud_ad8e5ec7f623ca5fabb20bc20929fb465}{cbegin}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns a const iterator to the first point. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::const\+\_\+iterator \mbox{\hyperlink{classhmap_1_1Cloud_a275a7defeab5438f0bb4a455bc15c399}{cend}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns a const iterator to the end. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1Cloud_a247e64e1c0e5cb85570c0ec3aed3d774}{clear}} ()
 \begin{DoxyCompactList}\small\item\em Clear all data from the cloud. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Cloud_aefea3d749a554df8a23ec38af5acb415}{print}} ()
+\mbox{\hyperlink{classhmap_1_1Point}{Point}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classhmap_1_1Cloud_a53b1754ac6bc551b18d80a0dc9c3f76f}{data}} () noexcept
+\begin{DoxyCompactList}\small\item\em Direct pointer to the underlying point array. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classhmap_1_1Cloud_ae6111341e9a207c3446d7e4024abd5f5}{data}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Direct pointer to the underlying point array (const). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Cloud_af8a784f76736b7ec459fbfa1bf7618d7}{emplace\+\_\+back}} (float \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}, float \mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}}, float v=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Appends a new point in-\/place. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classhmap_1_1Cloud_a89f21637cf9c4857bf65ad6a6009eff9}{empty}} () const
+\begin{DoxyCompactList}\small\item\em Check whether the cloud has no points. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::iterator \mbox{\hyperlink{classhmap_1_1Cloud_a142e0d65c2fac2a04834e8d07372eb87}{end}} () noexcept
+\begin{DoxyCompactList}\small\item\em Returns an iterator to the end. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::const\+\_\+iterator \mbox{\hyperlink{classhmap_1_1Cloud_adce6ad1fcde7423b475721ad66d824e2}{end}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns a const iterator to the end. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::iterator \mbox{\hyperlink{classhmap_1_1Cloud_af93934b0c344c81d0260680988643d32}{erase}} (std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::const\+\_\+iterator pos)
+\begin{DoxyCompactList}\small\item\em Erases the point at the specified position. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::iterator \mbox{\hyperlink{classhmap_1_1Cloud_a9ac3c2b9b492c973236e1d693506a75a}{erase}} (std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::const\+\_\+iterator first, std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::const\+\_\+iterator last)
+\begin{DoxyCompactList}\small\item\em Erases the range of points \mbox{[}first, last). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Point}{Point}} \& \mbox{\hyperlink{classhmap_1_1Cloud_a8cae222f807dfaab9f9bf5d75493da0b}{front}} ()
+\begin{DoxyCompactList}\small\item\em Access the first point. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \& \mbox{\hyperlink{classhmap_1_1Cloud_a78fbf9591f4e985df41a448c835e8213}{front}} () const
+\begin{DoxyCompactList}\small\item\em Access the first point (const). \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::iterator \mbox{\hyperlink{classhmap_1_1Cloud_a6d355cfb583cc02015b59ac8538083e1}{insert}} (std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::const\+\_\+iterator pos, const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \&value)
+\begin{DoxyCompactList}\small\item\em Inserts a point before pos. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::iterator \mbox{\hyperlink{classhmap_1_1Cloud_a2f646db559f8bb7818fecce03c4ad59f}{insert}} (std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::const\+\_\+iterator pos, \mbox{\hyperlink{classhmap_1_1Point}{Point}} \&\&value)
+\begin{DoxyCompactList}\small\item\em Inserts a point before pos (move). \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Input\+It $>$ }\\std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::iterator \mbox{\hyperlink{classhmap_1_1Cloud_ab17d4682409c73c01f9cefca91f2522f}{insert}} (std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$\+::const\+\_\+iterator pos, Input\+It first, Input\+It last)
+\begin{DoxyCompactList}\small\item\em Inserts elements from range \mbox{[}first, last) before pos. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Cloud_a05f84e1c28054900fb172a1c457d57bc}{pop\+\_\+back}} ()
+\begin{DoxyCompactList}\small\item\em Removes the last point. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Cloud_ac9ab31444357a0a0c3922b4d16ccef7f}{push\+\_\+back}} (const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \&p)
+\begin{DoxyCompactList}\small\item\em Appends a point. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Cloud_a848261f1bc463decda8d4307c741c041}{push\+\_\+back}} (\mbox{\hyperlink{classhmap_1_1Point}{Point}} \&\&p)
+\begin{DoxyCompactList}\small\item\em Appends a point (move). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Cloud_a69be0a85718c0df9f66eb194b5cfaa15}{reserve}} (size\+\_\+t new\+\_\+cap)
+\begin{DoxyCompactList}\small\item\em Reserves storage for at least the specified number of points. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}} () const
+\begin{DoxyCompactList}\small\item\em Get the number of points in the cloud. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1Cloud_a3e80a8b40c3d9e27aff507bcea50d486}{print}} () const
 \begin{DoxyCompactList}\small\item\em Print information about the cloud\textquotesingle{}s points. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1Cloud_aa6f1b0089949fc2e8ed6e7e3ce465448}{randomize}} (std\+::uint32\+\_\+t seed, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Randomize the positions and values of the cloud points. \end{DoxyCompactList}\item 
@@ -159,24 +229,14 @@ void \mbox{\hyperlink{classhmap_1_1Cloud_acd6b504637e3c0791049b1f426ad4553}{to\+
 \begin{DoxyCompactList}\small\item\em Interpolate the values of an array using the cloud points. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1Cloud_aea876ffcd05ba762a9a12d2fc4a5d27c}{to\+\_\+csv}} (const std\+::string \&fname) const
 \begin{DoxyCompactList}\small\item\em Export the cloud data to a CSV file. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Graph}{Graph}} \mbox{\hyperlink{classhmap_1_1Cloud_add728a8b00dadb4a1d043ce50876c569}{to\+\_\+graph\+\_\+delaunay}} ()
+\mbox{\hyperlink{classhmap_1_1Graph}{Graph}} \mbox{\hyperlink{classhmap_1_1Cloud_aacfbabf4294d4922d79dc9a94e501592}{to\+\_\+graph\+\_\+delaunay}} () const
 \begin{DoxyCompactList}\small\item\em Convert the cloud to a graph using Delaunay triangulation. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Cloud_ad9dd8073b3ce4224c3e6435b24bea561}{to\+\_\+png}} (const std\+::string \&fname, int cmap, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, int depth=CV\+\_\+8U, glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}=\{512, 512\})
+void \mbox{\hyperlink{classhmap_1_1Cloud_a848a9a9af5ef1b3011a04d821c03fb24}{to\+\_\+png}} (const std\+::string \&fname, int cmap, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, int depth=CV\+\_\+8U, glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}=\{512, 512\}) const
 \begin{DoxyCompactList}\small\item\em Saves the current data as a PNG image file. \end{DoxyCompactList}\item 
 std\+::vector$<$ glm\+::vec3 $>$ \mbox{\hyperlink{classhmap_1_1Cloud_a653188a0cf3bd86403a12d225b2eb1fa}{to\+\_\+vec3}} () const
 \begin{DoxyCompactList}\small\item\em Convert path points to a vector of 3D positions. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \mbox{\hyperlink{classhmap_1_1Graph_ae6a15dbafff50f5aa083c975292acffd}{edges}} = \{\}
-\begin{DoxyCompactList}\small\item\em Edges of the graph. \end{DoxyCompactList}\item 
-std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1Graph_a72f35dca4fd9c5f061bdc6b2ad70cb5e}{weights}} = \{\}
-\begin{DoxyCompactList}\small\item\em Edge weights. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \mbox{\hyperlink{classhmap_1_1Graph_ac4fa0788cdc6162d9254b059ae9857da}{connectivity}} = \{\}
-\begin{DoxyCompactList}\small\item\em Store point connectivity. \end{DoxyCompactList}\item 
-std\+::map$<$ std\+::pair$<$ int, int $>$, float $>$ \mbox{\hyperlink{classhmap_1_1Graph_a93e452d7229b47e83f431502a18f68da}{adjacency\+\_\+matrix}}
-\begin{DoxyCompactList}\small\item\em Adjacency matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classhmap_1_1Cloud}{hmap\+::\+Cloud}}}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classhmap_1_1Cloud}{hmap\+::\+Cloud}}}
 \begin{DoxyCompactItemize}
 \item 
 std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$ \mbox{\hyperlink{classhmap_1_1Cloud_aad75fb7bcfa7a2c3f139d2e3d3d6cc54}{points}} = \{\}
@@ -202,13 +262,11 @@ This class represents a 2D graph, allowing the creation, manipulation, and analy
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ triangulation}}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ npoints\ =\ 10;}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ cloud\ =\ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}(npoints,\ seed,\ bbox);}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Graph}{hmap::Graph}}\ graph\ =\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_add728a8b00dadb4a1d043ce50876c569}{to\_graph\_delaunay}}();}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Graph}{hmap::Graph}}\ graph\ =\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_aacfbabf4294d4922d79dc9a94e501592}{to\_graph\_delaunay}}();}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ graph.\mbox{\hyperlink{classhmap_1_1Graph_a862b83b369721a4930917a78bd313421}{print}}();}
-\DoxyCodeLine{\ \ graph.\mbox{\hyperlink{classhmap_1_1Graph_a3cf9a6b56638062f4e740e642dc07c3c}{to\_png}}(\textcolor{stringliteral}{"{}ex\_graph0.png"{}});}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ graph.\mbox{\hyperlink{classhmap_1_1Graph_a6accdaeaf48a49a3a751f4a83e59df47}{update\_adjacency\_matrix}}();}
-\DoxyCodeLine{\ \ graph.\mbox{\hyperlink{classhmap_1_1Graph_a47f4e4792141971443d9dbeb714ae612}{to\_csv}}(\textcolor{stringliteral}{"{}ex\_graph\_nodes.csv"{}},\ \textcolor{stringliteral}{"{}ex\_graph\_adj.csv"{}});}
+\DoxyCodeLine{\ \ graph.\mbox{\hyperlink{classhmap_1_1Graph_a3c549606a34f49273461999caf5c5ecd}{print}}();}
+\DoxyCodeLine{\ \ graph.\mbox{\hyperlink{classhmap_1_1Graph_a10acc9e91285887d95ab12a42f2d1869}{to\_png}}(\textcolor{stringliteral}{"{}ex\_graph0.png"{}});}
+\DoxyCodeLine{\ \ graph.\mbox{\hyperlink{classhmap_1_1Graph_a7b092be3bef180b012ab3d68bbe793e1}{to\_csv}}(\textcolor{stringliteral}{"{}ex\_graph\_nodes.csv"{}},\ \textcolor{stringliteral}{"{}ex\_graph\_edges.csv"{}});}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}
@@ -217,27 +275,25 @@ This class represents a 2D graph, allowing the creation, manipulation, and analy
 {\bfseries{Result}}  
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{classhmap_1_1Graph_a1209ddaafbb68fed3c43ec7766d8dc0a}\label{classhmap_1_1Graph_a1209ddaafbb68fed3c43ec7766d8dc0a} 
+\Hypertarget{classhmap_1_1Graph_a797c61ded419bf16cd47dd20728bf918}\label{classhmap_1_1Graph_a797c61ded419bf16cd47dd20728bf918} 
 \index{hmap::Graph@{hmap::Graph}!Graph@{Graph}}
 \index{Graph@{Graph}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{Graph()}{Graph()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily hmap\+::\+Graph\+::\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily hmap\+::\+Graph\+::\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
 
 
 Construct a new \doxylink{classhmap_1_1Graph}{Graph} object. 
 
-The default constructor initializes a new {\ttfamily \doxylink{classhmap_1_1Graph}{Graph}} object. It calls the base class constructor {\ttfamily \doxylink{classhmap_1_1Cloud_a710bdb9a8b189d0886682dcc785c0bc5}{Cloud()}} to set up any inherited functionality from the {\ttfamily \doxylink{classhmap_1_1Cloud}{Cloud}} class. This constructor sets up an empty graph with no edges, weights, connectivity, or adjacency matrix. \Hypertarget{classhmap_1_1Graph_af7cd4377270d4e0dd90e7c8793351191}\label{classhmap_1_1Graph_af7cd4377270d4e0dd90e7c8793351191} 
+\Hypertarget{classhmap_1_1Graph_af7cd4377270d4e0dd90e7c8793351191}\label{classhmap_1_1Graph_af7cd4377270d4e0dd90e7c8793351191} 
 \index{hmap::Graph@{hmap::Graph}!Graph@{Graph}}
 \index{Graph@{Graph}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{Graph()}{Graph()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily hmap\+::\+Graph\+::\+Graph (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}}}]{cloud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily hmap\+::\+Graph\+::\+Graph (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}}}]{cloud }\end{DoxyParamCaption})}
 
 
 
 Construct a new \doxylink{classhmap_1_1Graph}{Graph} object based on a cloud of points. 
-
-This constructor initializes a {\ttfamily \doxylink{classhmap_1_1Graph}{Graph}} object using a {\ttfamily \doxylink{classhmap_1_1Cloud}{Cloud}} object. The {\ttfamily \doxylink{classhmap_1_1Cloud}{Cloud}} object provides the points which will be used to construct the graph. This constructor is useful when you have a {\ttfamily \doxylink{classhmap_1_1Cloud}{Cloud}} object and want to create a {\ttfamily \doxylink{classhmap_1_1Graph}{Graph}} representation from it.
 
 
 \begin{DoxyParams}{Parameters}
@@ -248,13 +304,11 @@ This constructor initializes a {\ttfamily \doxylink{classhmap_1_1Graph}{Graph}} 
 \index{hmap::Graph@{hmap::Graph}!Graph@{Graph}}
 \index{Graph@{Graph}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{Graph()}{Graph()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily hmap\+::\+Graph\+::\+Graph (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$}]{points }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily hmap\+::\+Graph\+::\+Graph (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$}]{points }\end{DoxyParamCaption})}
 
 
 
 Construct a new \doxylink{classhmap_1_1Graph}{Graph} object based on a list of points. 
-
-This constructor initializes a {\ttfamily \doxylink{classhmap_1_1Graph}{Graph}} object using a vector of {\ttfamily \doxylink{classhmap_1_1Point}{Point}} objects. The {\ttfamily \doxylink{classhmap_1_1Point}{Point}} objects are used to populate the vertices of the graph. This constructor is useful when you have a list of {\ttfamily \doxylink{classhmap_1_1Point}{Point}} objects and want to create a {\ttfamily \doxylink{classhmap_1_1Graph}{Graph}} representation from them.
 
 
 \begin{DoxyParams}{Parameters}
@@ -265,13 +319,11 @@ This constructor initializes a {\ttfamily \doxylink{classhmap_1_1Graph}{Graph}} 
 \index{hmap::Graph@{hmap::Graph}!Graph@{Graph}}
 \index{Graph@{Graph}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{Graph()}{Graph()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily hmap\+::\+Graph\+::\+Graph (\begin{DoxyParamCaption}\item[{std\+::vector$<$ float $>$}]{x,  }\item[{std\+::vector$<$ float $>$}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily hmap\+::\+Graph\+::\+Graph (\begin{DoxyParamCaption}\item[{std\+::vector$<$ float $>$}]{x,  }\item[{std\+::vector$<$ float $>$}]{y }\end{DoxyParamCaption})}
 
 
 
 Construct a new \doxylink{classhmap_1_1Graph}{Graph} object based on x and y coordinates. 
-
-This constructor initializes a {\ttfamily \doxylink{classhmap_1_1Graph}{Graph}} object using separate vectors for x and y coordinates. The points are created from these coordinates and used to populate the vertices of the graph. This constructor is useful when you have x and y coordinates and want to create a {\ttfamily \doxylink{classhmap_1_1Graph}{Graph}} representation from them.
 
 
 \begin{DoxyParams}{Parameters}
@@ -283,63 +335,121 @@ This constructor initializes a {\ttfamily \doxylink{classhmap_1_1Graph}{Graph}} 
 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classhmap_1_1Graph_a1f632d4e9ee628a4dcab783f08e42277}\label{classhmap_1_1Graph_a1f632d4e9ee628a4dcab783f08e42277} 
+\Hypertarget{classhmap_1_1Graph_a85e17398e3cd9215ef189f8bbc03f73f}\label{classhmap_1_1Graph_a85e17398e3cd9215ef189f8bbc03f73f} 
 \index{hmap::Graph@{hmap::Graph}!add\_edge@{add\_edge}}
 \index{add\_edge@{add\_edge}!hmap::Graph@{hmap::Graph}}
-\doxysubsubsection{\texorpdfstring{add\_edge()}{add\_edge()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void hmap\+::\+Graph\+::add\+\_\+edge (\begin{DoxyParamCaption}\item[{std\+::vector$<$ int $>$}]{edge,  }\item[{float}]{weight }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{add\_edge()}{add\_edge()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily void hmap\+::\+Graph\+::add\+\_\+edge (\begin{DoxyParamCaption}\item[{int}]{u,  }\item[{int}]{v,  }\item[{float}]{weight }\end{DoxyParamCaption})}
 
 
 
-Add an edge to the graph. 
-
-This method adds a new edge to the graph. The edge is specified by a vector of two indices representing the points connected by the edge. The weight of the edge can be provided explicitly; if not provided, the Euclidean distance between the connected points is used as the default weight.
+Add an edge connecting two node indices with explicit weight. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em edge} & A vector of two integers representing the indices of the points connected by the edge. \\
+{\em u} & Node 1 index. \\
 \hline
-{\em weight} & The weight of the edge. If not provided, the default weight is calculated as the Euclidean distance between the points. \\
+{\em v} & Node 2 index. \\
+\hline
+{\em weight} & \doxylink{structhmap_1_1Edge}{Edge} weight. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1Graph_a91ad513cd4834aa3424e9bbd56d891ac}\label{classhmap_1_1Graph_a91ad513cd4834aa3424e9bbd56d891ac} 
+\Hypertarget{classhmap_1_1Graph_a400cfa9a067f45b6f06d90503ec5a71f}\label{classhmap_1_1Graph_a400cfa9a067f45b6f06d90503ec5a71f} 
 \index{hmap::Graph@{hmap::Graph}!add\_edge@{add\_edge}}
 \index{add\_edge@{add\_edge}!hmap::Graph@{hmap::Graph}}
-\doxysubsubsection{\texorpdfstring{add\_edge()}{add\_edge()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void hmap\+::\+Graph\+::add\+\_\+edge (\begin{DoxyParamCaption}\item[{std\+::vector$<$ int $>$}]{edge }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{add\_edge()}{add\_edge()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily void hmap\+::\+Graph\+::add\+\_\+edge (\begin{DoxyParamCaption}\item[{int}]{u,  }\item[{int}]{v }\end{DoxyParamCaption})}
 
 
 
-Add an edge to the graph with default weight. 
-
-This method adds a new edge to the graph. The edge is specified by a vector of two indices representing the points connected by the edge. The weight of the edge is calculated as the Euclidean distance between the connected points.
+Add an edge connecting two node indices with default geometric distance weight. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em edge} & A vector of two integers representing the indices of the points connected by the edge. \\
+{\em u} & Node 1 index. \\
+\hline
+{\em v} & Node 2 index. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1Graph_a07e0c31ab59d4f51c51c3f90117ca71a}\label{classhmap_1_1Graph_a07e0c31ab59d4f51c51c3f90117ca71a} 
+\Hypertarget{classhmap_1_1Graph_a26f1ed2af21da89bd7ed3d999bcb48b2}\label{classhmap_1_1Graph_a26f1ed2af21da89bd7ed3d999bcb48b2} 
+\index{hmap::Graph@{hmap::Graph}!add\_edge@{add\_edge}}
+\index{add\_edge@{add\_edge}!hmap::Graph@{hmap::Graph}}
+\doxysubsubsection{\texorpdfstring{add\_edge()}{add\_edge()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily void hmap\+::\+Graph\+::add\+\_\+edge (\begin{DoxyParamCaption}\item[{glm\+::ivec2}]{edge,  }\item[{float}]{weight }\end{DoxyParamCaption})}
+
+
+
+Add an edge with explicit weight. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em edge} & Pair of node indices. \\
+\hline
+{\em weight} & \doxylink{structhmap_1_1Edge}{Edge} weight. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1Graph_afe8d4e58ca035b43ed891556dd7cdd2c}\label{classhmap_1_1Graph_afe8d4e58ca035b43ed891556dd7cdd2c} 
+\index{hmap::Graph@{hmap::Graph}!add\_edge@{add\_edge}}
+\index{add\_edge@{add\_edge}!hmap::Graph@{hmap::Graph}}
+\doxysubsubsection{\texorpdfstring{add\_edge()}{add\_edge()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void hmap\+::\+Graph\+::add\+\_\+edge (\begin{DoxyParamCaption}\item[{glm\+::ivec2}]{edge }\end{DoxyParamCaption})}
+
+
+
+Add an edge with default geometric distance weight. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em edge} & Pair of node indices. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1Graph_ad191d0d38350b42a95a9ecb58652ffd9}\label{classhmap_1_1Graph_ad191d0d38350b42a95a9ecb58652ffd9} 
+\index{hmap::Graph@{hmap::Graph}!clear\_edges@{clear\_edges}}
+\index{clear\_edges@{clear\_edges}!hmap::Graph@{hmap::Graph}}
+\doxysubsubsection{\texorpdfstring{clear\_edges()}{clear\_edges()}}
+{\footnotesize\ttfamily void hmap\+::\+Graph\+::clear\+\_\+edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Clear all edges from the graph. 
+
+\Hypertarget{classhmap_1_1Graph_aa47c8285e9c489fe7794d60eb19a3c7c}\label{classhmap_1_1Graph_aa47c8285e9c489fe7794d60eb19a3c7c} 
+\index{hmap::Graph@{hmap::Graph}!degree@{degree}}
+\index{degree@{degree}!hmap::Graph@{hmap::Graph}}
+\doxysubsubsection{\texorpdfstring{degree()}{degree()}}
+{\footnotesize\ttfamily size\+\_\+t hmap\+::\+Graph\+::degree (\begin{DoxyParamCaption}\item[{int}]{u }\end{DoxyParamCaption}) const}
+
+
+
+Get the degree (number of incident edges) of node {\ttfamily u}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em u} & Node index. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Degree of node {\ttfamily u}. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1Graph_aec94f282ad2c0633edaf14ee782ff3a7}\label{classhmap_1_1Graph_aec94f282ad2c0633edaf14ee782ff3a7} 
 \index{hmap::Graph@{hmap::Graph}!dijkstra@{dijkstra}}
 \index{dijkstra@{dijkstra}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{dijkstra()}{dijkstra()}}
-{\footnotesize\ttfamily std\+::vector$<$ int $>$ hmap\+::\+Graph\+::dijkstra (\begin{DoxyParamCaption}\item[{int}]{source\+\_\+point\+\_\+index,  }\item[{int}]{target\+\_\+point\+\_\+index }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ int $>$ hmap\+::\+Graph\+::dijkstra (\begin{DoxyParamCaption}\item[{int}]{source\+\_\+point\+\_\+index,  }\item[{int}]{target\+\_\+point\+\_\+index }\end{DoxyParamCaption}) const}
 
 
 
 Return the shortest route between two points using Dijkstra\textquotesingle{}s algorithm. 
 
-This method computes the shortest path from a specified source point to a target point in the graph using Dijkstra\textquotesingle{}s algorithm. It returns a vector of point indices representing the route from the source to the target point.
-
 
 \begin{DoxyParams}{Parameters}
-{\em source\+\_\+point\+\_\+index} & The index of the starting point in the graph. \\
+{\em source\+\_\+point\+\_\+index} & Starting point index. \\
 \hline
-{\em target\+\_\+point\+\_\+index} & The index of the ending point in the graph. \\
+{\em target\+\_\+point\+\_\+index} & Ending point index. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-std\+::vector$<$int$>$ A vector of point indices representing the shortest path from the source to the target.
+std\+::vector$<$int$>$ \doxylink{classhmap_1_1Path}{Path} of node indices from source to target.
 \end{DoxyReturn}
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
@@ -356,16 +466,13 @@ std\+::vector$<$int$>$ A vector of point indices representing the shortest path 
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ triangulation}}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ npoints\ =\ 15;}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ cloud\ =\ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}(npoints,\ seed,\ bbox);}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Graph}{hmap::Graph}}\ graph\ =\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_add728a8b00dadb4a1d043ce50876c569}{to\_graph\_delaunay}}();}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Graph}{hmap::Graph}}\ graph\ =\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_aacfbabf4294d4922d79dc9a94e501592}{to\_graph\_delaunay}}();}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ graph.\mbox{\hyperlink{classhmap_1_1Graph_a862b83b369721a4930917a78bd313421}{print}}();}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ graph.\mbox{\hyperlink{classhmap_1_1Graph_a6accdaeaf48a49a3a751f4a83e59df47}{update\_adjacency\_matrix}}();}
-\DoxyCodeLine{\ \ graph.\mbox{\hyperlink{classhmap_1_1Graph_ad37ed278a791b43779733f7f22187f15}{update\_connectivity}}();}
+\DoxyCodeLine{\ \ graph.\mbox{\hyperlink{classhmap_1_1Graph_a3c549606a34f49273461999caf5c5ecd}{print}}();}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ i\_point\_start\ =\ 0;}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ i\_point\_end\ =\ 4;}
-\DoxyCodeLine{\ \ std::vector<int>\ route\ =\ graph.\mbox{\hyperlink{classhmap_1_1Graph_a07e0c31ab59d4f51c51c3f90117ca71a}{dijkstra}}(i\_point\_start,\ i\_point\_end);}
+\DoxyCodeLine{\ \ std::vector<int>\ route\ =\ graph.\mbox{\hyperlink{classhmap_1_1Graph_aec94f282ad2c0633edaf14ee782ff3a7}{dijkstra}}(i\_point\_start,\ i\_point\_end);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Route\ (point\ indices):\(\backslash\)n"{}};}
 \DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&p\ :\ route)}
@@ -373,100 +480,132 @@ std\+::vector$<$int$>$ A vector of point indices representing the shortest path 
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}
- \Hypertarget{classhmap_1_1Graph_aa04970dd704339909bcc4770fa0481ab}\label{classhmap_1_1Graph_aa04970dd704339909bcc4770fa0481ab} 
-\index{hmap::Graph@{hmap::Graph}!get\_edge\_length@{get\_edge\_length}}
-\index{get\_edge\_length@{get\_edge\_length}!hmap::Graph@{hmap::Graph}}
-\doxysubsubsection{\texorpdfstring{get\_edge\_length()}{get\_edge\_length()}}
-{\footnotesize\ttfamily float hmap\+::\+Graph\+::get\+\_\+edge\+\_\+length (\begin{DoxyParamCaption}\item[{int}]{k }\end{DoxyParamCaption})}
+ \Hypertarget{classhmap_1_1Graph_a452a1e8102c63bbb4988d9d4c2690287}\label{classhmap_1_1Graph_a452a1e8102c63bbb4988d9d4c2690287} 
+\index{hmap::Graph@{hmap::Graph}!empty\_edges@{empty\_edges}}
+\index{empty\_edges@{empty\_edges}!hmap::Graph@{hmap::Graph}}
+\doxysubsubsection{\texorpdfstring{empty\_edges()}{empty\_edges()}}
+{\footnotesize\ttfamily bool hmap\+::\+Graph\+::empty\+\_\+edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
 
 
 
-Get the length of edge {\ttfamily k}. 
+Check whether the graph has no edges. 
 
-This method calculates the Euclidean length of a specific edge in the graph. The edge is identified by the index {\ttfamily k}, and its length is determined by the distance between the two vertices connected by the edge.
+\begin{DoxyReturn}{Returns}
+True if no edges, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1Graph_a8ce4c44596c11ae0bbd651ad78967ca5}\label{classhmap_1_1Graph_a8ce4c44596c11ae0bbd651ad78967ca5} 
+\index{hmap::Graph@{hmap::Graph}!get\_edge@{get\_edge}}
+\index{get\_edge@{get\_edge}!hmap::Graph@{hmap::Graph}}
+\doxysubsubsection{\texorpdfstring{get\_edge()}{get\_edge()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1Edge}{Edge}} hmap\+::\+Graph\+::get\+\_\+edge (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{k }\end{DoxyParamCaption}) const}
+
+
+
+Get an edge by index. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em k} & Index of the edge for which the length is to be computed. \\
+{\em k} & \doxylink{structhmap_1_1Edge}{Edge} index. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-float The Euclidean length of the edge. 
+\doxylink{structhmap_1_1Edge}{Edge} structure. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1Graph_ab9c3f02b3a4921f785eb7f80834ed9d7}\label{classhmap_1_1Graph_ab9c3f02b3a4921f785eb7f80834ed9d7} 
+\Hypertarget{classhmap_1_1Graph_ae2948bc10a491b6b36dbe5140d1231ea}\label{classhmap_1_1Graph_ae2948bc10a491b6b36dbe5140d1231ea} 
+\index{hmap::Graph@{hmap::Graph}!get\_edge\_length@{get\_edge\_length}}
+\index{get\_edge\_length@{get\_edge\_length}!hmap::Graph@{hmap::Graph}}
+\doxysubsubsection{\texorpdfstring{get\_edge\_length()}{get\_edge\_length()}}
+{\footnotesize\ttfamily float hmap\+::\+Graph\+::get\+\_\+edge\+\_\+length (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{k }\end{DoxyParamCaption}) const}
+
+
+
+Get the Euclidean length of edge {\ttfamily k}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & \doxylink{structhmap_1_1Edge}{Edge} index. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float Euclidean length of the edge. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1Graph_a018064b7d9f27f1c4af7bb9bc6f56357}\label{classhmap_1_1Graph_a018064b7d9f27f1c4af7bb9bc6f56357} 
 \index{hmap::Graph@{hmap::Graph}!get\_edge\_x\_pairs@{get\_edge\_x\_pairs}}
 \index{get\_edge\_x\_pairs@{get\_edge\_x\_pairs}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{get\_edge\_x\_pairs()}{get\_edge\_x\_pairs()}}
-{\footnotesize\ttfamily std\+::vector$<$ float $>$ hmap\+::\+Graph\+::get\+\_\+edge\+\_\+x\+\_\+pairs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ float $>$ hmap\+::\+Graph\+::get\+\_\+edge\+\_\+x\+\_\+pairs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
 Return x coordinates of the edges (as pairs). 
 
-This method returns the x coordinates of the endpoints of each edge in the graph. The coordinates are returned as a vector of floats, where each pair of floats represents the x coordinates of an edge\textquotesingle{}s endpoints.
-
 \begin{DoxyReturn}{Returns}
 std\+::vector$<$float$>$ The x coordinates of the edges. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1Graph_a0088d1935cc3ee61ede820f51ccf117c}\label{classhmap_1_1Graph_a0088d1935cc3ee61ede820f51ccf117c} 
+\Hypertarget{classhmap_1_1Graph_a62793a11ad97333cace3aa81c39d65b1}\label{classhmap_1_1Graph_a62793a11ad97333cace3aa81c39d65b1} 
 \index{hmap::Graph@{hmap::Graph}!get\_edge\_y\_pairs@{get\_edge\_y\_pairs}}
 \index{get\_edge\_y\_pairs@{get\_edge\_y\_pairs}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{get\_edge\_y\_pairs()}{get\_edge\_y\_pairs()}}
-{\footnotesize\ttfamily std\+::vector$<$ float $>$ hmap\+::\+Graph\+::get\+\_\+edge\+\_\+y\+\_\+pairs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ float $>$ hmap\+::\+Graph\+::get\+\_\+edge\+\_\+y\+\_\+pairs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
 Return y coordinates of the edges (as pairs). 
 
-This method returns the y coordinates of the endpoints of each edge in the graph. The coordinates are returned as a vector of floats, where each pair of floats represents the y coordinates of an edge\textquotesingle{}s endpoints.
-
 \begin{DoxyReturn}{Returns}
 std\+::vector$<$float$>$ The y coordinates of the edges. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1Graph_abee24a8b157637b7e667531aca13f1c4}\label{classhmap_1_1Graph_abee24a8b157637b7e667531aca13f1c4} 
+\Hypertarget{classhmap_1_1Graph_a7b1a701b472365f39736aef20e2ce1cc}\label{classhmap_1_1Graph_a7b1a701b472365f39736aef20e2ce1cc} 
+\index{hmap::Graph@{hmap::Graph}!get\_edges@{get\_edges}}
+\index{get\_edges@{get\_edges}!hmap::Graph@{hmap::Graph}}
+\doxysubsubsection{\texorpdfstring{get\_edges()}{get\_edges()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Edge}{Edge}} $>$ \& hmap\+::\+Graph\+::get\+\_\+edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the edge list. 
+
+\begin{DoxyReturn}{Returns}
+Const reference to the edge vector. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1Graph_a03ec3725fe8c6bb78149118fad041d43}\label{classhmap_1_1Graph_a03ec3725fe8c6bb78149118fad041d43} 
 \index{hmap::Graph@{hmap::Graph}!get\_lengths@{get\_lengths}}
 \index{get\_lengths@{get\_lengths}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{get\_lengths()}{get\_lengths()}}
-{\footnotesize\ttfamily std\+::vector$<$ float $>$ hmap\+::\+Graph\+::get\+\_\+lengths (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ float $>$ hmap\+::\+Graph\+::get\+\_\+lengths (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
-Get the length of all the edges. 
-
-This method returns the lengths of all the edges in the graph. The lengths are computed using the Euclidean distance formula, and the result is returned as a vector of floats.
+Get the Euclidean lengths of all the edges. 
 
 \begin{DoxyReturn}{Returns}
-std\+::vector$<$float$>$ The lengths of all the edges in the graph. 
+std\+::vector$<$float$>$ The lengths of all the edges. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1Graph_ad110d66385a8e4ef83708914cc972260}\label{classhmap_1_1Graph_ad110d66385a8e4ef83708914cc972260} 
+\Hypertarget{classhmap_1_1Graph_ae9b2fd0dd4c63e88a2ecec9e4abec04c}\label{classhmap_1_1Graph_ae9b2fd0dd4c63e88a2ecec9e4abec04c} 
 \index{hmap::Graph@{hmap::Graph}!get\_nedges@{get\_nedges}}
 \index{get\_nedges@{get\_nedges}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{get\_nedges()}{get\_nedges()}}
-{\footnotesize\ttfamily size\+\_\+t hmap\+::\+Graph\+::get\+\_\+nedges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily size\+\_\+t hmap\+::\+Graph\+::get\+\_\+nedges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
 
 
 
 Get the number of edges in the graph. 
 
-This method returns the total number of edges present in the graph. The edges are stored in a vector, and this method returns the size of that vector, which represents the number of edges.
-
 \begin{DoxyReturn}{Returns}
-size\+\_\+t The number of edges in the graph. 
+size\+\_\+t Number of edges. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1Graph_ad3b05e01d0c31e189fa6bae4ac43de7c}\label{classhmap_1_1Graph_ad3b05e01d0c31e189fa6bae4ac43de7c} 
+\Hypertarget{classhmap_1_1Graph_a8b18f90110d46fb650b73d8410856c1c}\label{classhmap_1_1Graph_a8b18f90110d46fb650b73d8410856c1c} 
 \index{hmap::Graph@{hmap::Graph}!minimum\_spanning\_tree\_prim@{minimum\_spanning\_tree\_prim}}
 \index{minimum\_spanning\_tree\_prim@{minimum\_spanning\_tree\_prim}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{minimum\_spanning\_tree\_prim()}{minimum\_spanning\_tree\_prim()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Graph}{Graph}} hmap\+::\+Graph\+::minimum\+\_\+spanning\+\_\+tree\+\_\+prim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Graph}{Graph}} hmap\+::\+Graph\+::minimum\+\_\+spanning\+\_\+tree\+\_\+prim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
-Generate a Minimum Spanning Tree (MST) of the graph using Prim\textquotesingle{}s algorithm. 
-
-This method creates a Minimum Spanning Tree from the graph using Prim\textquotesingle{}s algorithm. It returns a new {\ttfamily \doxylink{classhmap_1_1Graph}{Graph}} object that represents the MST, which connects all the points in the graph with the minimum total edge weight.
+Generate a Minimum Spanning Tree (MST) using Prim\textquotesingle{}s algorithm. 
 
 \begin{DoxyReturn}{Returns}
-\doxylink{classhmap_1_1Graph}{Graph} The Minimum Spanning Tree (MST) of the original graph.
+\doxylink{classhmap_1_1Graph}{Graph} The Minimum Spanning Tree (MST) of the graph.
 \end{DoxyReturn}
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
@@ -482,244 +621,211 @@ This method creates a Minimum Spanning Tree from the graph using Prim\textquotes
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ triangulation}}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ npoints\ =\ 10;}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ cloud\ =\ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}(npoints,\ seed,\ bbox);}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Graph}{hmap::Graph}}\ graph\_delaunay\ =\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_add728a8b00dadb4a1d043ce50876c569}{to\_graph\_delaunay}}();}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Graph}{hmap::Graph}}\ graph\_delaunay\ =\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_aacfbabf4294d4922d79dc9a94e501592}{to\_graph\_delaunay}}();}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Graph}{hmap::Graph}}\ graph\_mst\ =\ graph\_delaunay.\mbox{\hyperlink{classhmap_1_1Graph_a8b18f90110d46fb650b73d8410856c1c}{minimum\_spanning\_tree\_prim}}();}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ graph\_delaunay.\mbox{\hyperlink{classhmap_1_1Graph_a6accdaeaf48a49a3a751f4a83e59df47}{update\_adjacency\_matrix}}();}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Graph}{hmap::Graph}}\ graph\_mst\ =\ graph\_delaunay.\mbox{\hyperlink{classhmap_1_1Graph_ad3b05e01d0c31e189fa6bae4ac43de7c}{minimum\_spanning\_tree\_prim}}();}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ graph\_delaunay.\mbox{\hyperlink{classhmap_1_1Graph_a3cf9a6b56638062f4e740e642dc07c3c}{to\_png}}(\textcolor{stringliteral}{"{}ex\_graph\_minimum\_spanning\_tree\_prim0.png"{}});}
-\DoxyCodeLine{\ \ graph\_mst.\mbox{\hyperlink{classhmap_1_1Graph_a3cf9a6b56638062f4e740e642dc07c3c}{to\_png}}(\textcolor{stringliteral}{"{}ex\_graph\_minimum\_spanning\_tree\_prim1.png"{}});}
+\DoxyCodeLine{\ \ graph\_delaunay.\mbox{\hyperlink{classhmap_1_1Graph_a10acc9e91285887d95ab12a42f2d1869}{to\_png}}(\textcolor{stringliteral}{"{}ex\_graph\_minimum\_spanning\_tree\_prim0.png"{}});}
+\DoxyCodeLine{\ \ graph\_mst.\mbox{\hyperlink{classhmap_1_1Graph_a10acc9e91285887d95ab12a42f2d1869}{to\_png}}(\textcolor{stringliteral}{"{}ex\_graph\_minimum\_spanning\_tree\_prim1.png"{}});}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}
- Result\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}   \Hypertarget{classhmap_1_1Graph_a862b83b369721a4930917a78bd313421}\label{classhmap_1_1Graph_a862b83b369721a4930917a78bd313421} 
+ \Hypertarget{classhmap_1_1Graph_a83be20f4cc52c15ed7773d81cf304c2f}\label{classhmap_1_1Graph_a83be20f4cc52c15ed7773d81cf304c2f} 
+\index{hmap::Graph@{hmap::Graph}!neighbors@{neighbors}}
+\index{neighbors@{neighbors}!hmap::Graph@{hmap::Graph}}
+\doxysubsubsection{\texorpdfstring{neighbors()}{neighbors()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Neighbor}{Neighbor}} $>$ \& hmap\+::\+Graph\+::neighbors (\begin{DoxyParamCaption}\item[{int}]{u }\end{DoxyParamCaption}) const}
+
+
+
+Get the neighbors of node {\ttfamily u}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em u} & Node index. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of \doxylink{structhmap_1_1Neighbor}{Neighbor} objects. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1Graph_a99a6f2b1940db4c49cbf51dcb592a198}\label{classhmap_1_1Graph_a99a6f2b1940db4c49cbf51dcb592a198} 
+\index{hmap::Graph@{hmap::Graph}!num\_edges@{num\_edges}}
+\index{num\_edges@{num\_edges}!hmap::Graph@{hmap::Graph}}
+\doxysubsubsection{\texorpdfstring{num\_edges()}{num\_edges()}}
+{\footnotesize\ttfamily size\+\_\+t hmap\+::\+Graph\+::num\+\_\+edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the number of edges in the graph. 
+
+\begin{DoxyReturn}{Returns}
+size\+\_\+t Total number of edges. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1Graph_a3c549606a34f49273461999caf5c5ecd}\label{classhmap_1_1Graph_a3c549606a34f49273461999caf5c5ecd} 
 \index{hmap::Graph@{hmap::Graph}!print@{print}}
 \index{print@{print}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{print()}{print()}}
-{\footnotesize\ttfamily void hmap\+::\+Graph\+::print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void hmap\+::\+Graph\+::print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
 Print the graph data to the standard output. 
 
-This method prints the current state of the graph, including point coordinates, edges, and edge weights. \Hypertarget{classhmap_1_1Graph_ad1aeb414389af66a30d891d8fc28bc46}\label{classhmap_1_1Graph_ad1aeb414389af66a30d891d8fc28bc46} 
+\Hypertarget{classhmap_1_1Graph_a9342d61be778e7fd8525334b5e3b4e00}\label{classhmap_1_1Graph_a9342d61be778e7fd8525334b5e3b4e00} 
 \index{hmap::Graph@{hmap::Graph}!remove\_orphan\_points@{remove\_orphan\_points}}
 \index{remove\_orphan\_points@{remove\_orphan\_points}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{remove\_orphan\_points()}{remove\_orphan\_points()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Graph}{Graph}} hmap\+::\+Graph\+::remove\+\_\+orphan\+\_\+points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Graph}{Graph}} hmap\+::\+Graph\+::remove\+\_\+orphan\+\_\+points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
-Remove orphan points from the graph. 
-
-Orphan points are points that are not connected to any edges. This method removes such points from the graph and returns a new {\ttfamily \doxylink{classhmap_1_1Graph}{Graph}} object that excludes these orphan points.
+Remove orphan points (points with no connected edges). 
 
 \begin{DoxyReturn}{Returns}
 \doxylink{classhmap_1_1Graph}{Graph} A new graph object with orphan points removed. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1Graph_af6518d1fa6ddec305e4e114db6f66ab9}\label{classhmap_1_1Graph_af6518d1fa6ddec305e4e114db6f66ab9} 
+\Hypertarget{classhmap_1_1Graph_af9dd5d2b3ff699e1e064f4d189d74d55}\label{classhmap_1_1Graph_af9dd5d2b3ff699e1e064f4d189d74d55} 
+\index{hmap::Graph@{hmap::Graph}!set\_edge\_weight@{set\_edge\_weight}}
+\index{set\_edge\_weight@{set\_edge\_weight}!hmap::Graph@{hmap::Graph}}
+\doxysubsubsection{\texorpdfstring{set\_edge\_weight()}{set\_edge\_weight()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void hmap\+::\+Graph\+::set\+\_\+edge\+\_\+weight (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{k,  }\item[{float}]{weight }\end{DoxyParamCaption})}
+
+
+
+Set the weight of edge {\ttfamily k}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & \doxylink{structhmap_1_1Edge}{Edge} index. \\
+\hline
+{\em weight} & New weight. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1Graph_a531127f7513c688936bd83e852f1c741}\label{classhmap_1_1Graph_a531127f7513c688936bd83e852f1c741} 
+\index{hmap::Graph@{hmap::Graph}!set\_edge\_weight@{set\_edge\_weight}}
+\index{set\_edge\_weight@{set\_edge\_weight}!hmap::Graph@{hmap::Graph}}
+\doxysubsubsection{\texorpdfstring{set\_edge\_weight()}{set\_edge\_weight()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void hmap\+::\+Graph\+::set\+\_\+edge\+\_\+weight (\begin{DoxyParamCaption}\item[{int}]{u,  }\item[{int}]{v,  }\item[{float}]{weight }\end{DoxyParamCaption})}
+
+
+
+Set the weight of an edge between node {\ttfamily u} and node {\ttfamily v}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em u} & Node 1 index. \\
+\hline
+{\em v} & Node 2 index. \\
+\hline
+{\em weight} & New weight. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1Graph_a5d27935b935d6d788a934bc0e4f4082f}\label{classhmap_1_1Graph_a5d27935b935d6d788a934bc0e4f4082f} 
 \index{hmap::Graph@{hmap::Graph}!to\_array@{to\_array}}
 \index{to\_array@{to\_array}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{to\_array()}{to\_array()}}
-{\footnotesize\ttfamily void hmap\+::\+Graph\+::to\+\_\+array (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{glm\+::vec4}]{bbox,  }\item[{bool}]{color\+\_\+by\+\_\+edge\+\_\+weight = {\ttfamily true} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void hmap\+::\+Graph\+::to\+\_\+array (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{glm\+::vec4}]{bbox,  }\item[{bool}]{color\+\_\+by\+\_\+edge\+\_\+weight = {\ttfamily true} }\end{DoxyParamCaption}) const}
 
 
 
 Project the graph to an array and optionally color by edge weight. 
 
-This method projects the graph onto a 2D array. The array\textquotesingle{}s elements are filled based on the graph\textquotesingle{}s structure, and optionally, the color can represent edge weights. This allows visual representation of the graph in array form.
-
 
 \begin{DoxyParams}{Parameters}
-{\em array} & The input array to project the graph onto. \\
+{\em array} & The input array to project onto. \\
 \hline
-{\em bbox} & The bounding box for the array. \\
+{\em bbox} & Bounding box for projection. \\
 \hline
-{\em color\+\_\+by\+\_\+edge\+\_\+weight} & If {\ttfamily true}, colors the array based on edge weights; otherwise, colors by node values. \\
+{\em color\+\_\+by\+\_\+edge\+\_\+weight} & Color lines by edge weight if true. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1Graph_ac52347e3154ee87b67534d4c38d3b779}\label{classhmap_1_1Graph_ac52347e3154ee87b67534d4c38d3b779} 
+\Hypertarget{classhmap_1_1Graph_a72b12f0c404bb6e1cb22790b5f4fb44b}\label{classhmap_1_1Graph_a72b12f0c404bb6e1cb22790b5f4fb44b} 
 \index{hmap::Graph@{hmap::Graph}!to\_array\_fractalize@{to\_array\_fractalize}}
 \index{to\_array\_fractalize@{to\_array\_fractalize}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{to\_array\_fractalize()}{to\_array\_fractalize()}}
-{\footnotesize\ttfamily void hmap\+::\+Graph\+::to\+\_\+array\+\_\+fractalize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{glm\+::vec4}]{bbox,  }\item[{int}]{iterations,  }\item[{std\+::uint32\+\_\+t}]{seed,  }\item[{float}]{sigma = {\ttfamily 0.3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{int}]{orientation = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{persistence = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void hmap\+::\+Graph\+::to\+\_\+array\+\_\+fractalize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{glm\+::vec4}]{bbox,  }\item[{int}]{iterations,  }\item[{std\+::uint32\+\_\+t}]{seed,  }\item[{float}]{sigma = {\ttfamily 0.3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{int}]{orientation = {\ttfamily 0},  }\item[{float}]{persistence = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption}) const}
 
 
 
 Apply fractalization to graph edges and project to an array. 
 
-This method applies a fractalization process to the graph edges, creating a more complex structure, and then projects the result onto an array. The fractalization includes multiple iterations and random Gaussian displacement to generate a fractal effect. The parameters control the number of iterations, randomness, and how the graph path is altered.
-
 
 \begin{DoxyParams}{Parameters}
-{\em array} & The input array to project the fractalized graph onto. \\
+{\em array} & Destination array. \\
 \hline
-{\em bbox} & The bounding box for the array. \\
+{\em bbox} & Bounding box. \\
 \hline
-{\em iterations} & Number of fractalization iterations to perform. \\
+{\em iterations} & Number of fractal iterations. \\
 \hline
-{\em seed} & Random seed number for stochastic processes. \\
+{\em seed} & Random seed. \\
 \hline
-{\em sigma} & Half-\/width of the Gaussian displacement normalized by the distance between points. \\
+{\em sigma} & Displacement magnitude. \\
 \hline
-{\em orientation} & Displacement orientation\+: 0 for random inward/outward, 1 to inflate, -\/1 to deflate. \\
+{\em orientation} & Displacement orientation. \\
 \hline
-{\em persistence} & Noise persistence factor with respect to iteration number. \\
+{\em persistence} & Octave persistence. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1Graph_ad6942a03b44d0567ee597236083416ae}\label{classhmap_1_1Graph_ad6942a03b44d0567ee597236083416ae} 
+\Hypertarget{classhmap_1_1Graph_ab107e8c114939acd9fdd55ab427d5d51}\label{classhmap_1_1Graph_ab107e8c114939acd9fdd55ab427d5d51} 
 \index{hmap::Graph@{hmap::Graph}!to\_array\_sdf@{to\_array\_sdf}}
 \index{to\_array\_sdf@{to\_array\_sdf}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{to\_array\_sdf()}{to\_array\_sdf()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::\+Graph\+::to\+\_\+array\+\_\+sdf (\begin{DoxyParamCaption}\item[{glm\+::ivec2}]{shape,  }\item[{glm\+::vec4}]{bbox,  }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+x = {\ttfamily nullptr},  }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+y = {\ttfamily nullptr},  }\item[{glm\+::vec4}]{bbox\+\_\+array = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::\+Graph\+::to\+\_\+array\+\_\+sdf (\begin{DoxyParamCaption}\item[{glm\+::ivec2}]{shape,  }\item[{glm\+::vec4}]{bbox,  }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+x = {\ttfamily nullptr},  }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+y = {\ttfamily nullptr},  }\item[{glm\+::vec4}]{bbox\+\_\+array = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption}) const}
 
 
 
 Generate an array filled with the Signed Distance \doxylink{classhmap_1_1Function}{Function} (SDF) to the graph. 
 
-This method computes the signed distance function for the graph, which measures the distance of each point in the array to the nearest edge of the graph. The result is projected onto an output array. The optional noise arrays can be used for domain warping.
-
 
 \begin{DoxyParams}{Parameters}
-{\em shape} & The shape of the output array. \\
+{\em shape} & Output array dimensions. \\
 \hline
-{\em bbox} & The bounding box defining the area over which the SDF is computed. \\
+{\em bbox} & Bounding box. \\
 \hline
-{\em p\+\_\+noise\+\_\+x} & Reference to the input noise array for domain warping in the x-\/direction (optional). \\
+{\em p\+\_\+noise\+\_\+x} & Optional X noise array for domain warping. \\
 \hline
-{\em p\+\_\+noise\+\_\+y} & Reference to the input noise array for domain warping in the y-\/direction (optional). \\
+{\em p\+\_\+noise\+\_\+y} & Optional Y noise array for domain warping. \\
 \hline
-{\em bbox\+\_\+array} & The bounding box of the destination array. \\
+{\em bbox\+\_\+array} & Output array bounding box. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-\doxylink{classhmap_1_1Array}{Array} The resulting array with the signed distance function values.
+\doxylink{classhmap_1_1Array}{Array} SDF array. 
 \end{DoxyReturn}
-{\bfseries{Example}} 
-\begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
-\DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ glm::ivec2\ \ \ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ =\ \{256,\ 256\};}
-\DoxyCodeLine{\ \ std::uint32\_t\ seed\ =\ 1;}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{noise}}\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ \{2,\ 2\},\ seed);}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(\mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{noise}},\ 0.f,\ 0.2f);}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ glm::vec4\ \ \ bbox\ =\ \{0.f,\ 1.f,\ 0.f,\ 1.f\};}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ cloud\ =\ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}(5,\ seed,\ \mbox{\hyperlink{namespacehmap_adc5300323fa35e021fd83b8b048ef3b1}{hmap::adjust}}(bbox,\ -\/0.1f));}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z0\ =\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_a36e47d4857108c56193755e32374184d}{to\_array}}(\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ bbox);}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z1\ =\ \mbox{\hyperlink{namespacehmap_aad6694d36e91a15ded7373064d15b88c}{hmap::cloud\_sdf\_to\_array}}(cloud,\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ bbox);}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z2\ =\ \mbox{\hyperlink{namespacehmap_aad6694d36e91a15ded7373064d15b88c}{hmap::cloud\_sdf\_to\_array}}(cloud,\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ bbox,\ \&\mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{noise}},\ \&\mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{noise}});}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_cloud\_sdf.png"{}},\ \{z0,\ z1,\ z2\},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced}{hmap::Cmap::JET}});}
-\DoxyCodeLine{\}}
-
-\end{DoxyCodeInclude}
- Result\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}  \Hypertarget{classhmap_1_1Graph_a47f4e4792141971443d9dbeb714ae612}\label{classhmap_1_1Graph_a47f4e4792141971443d9dbeb714ae612} 
+\Hypertarget{classhmap_1_1Graph_a7b092be3bef180b012ab3d68bbe793e1}\label{classhmap_1_1Graph_a7b092be3bef180b012ab3d68bbe793e1} 
 \index{hmap::Graph@{hmap::Graph}!to\_csv@{to\_csv}}
 \index{to\_csv@{to\_csv}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{to\_csv()}{to\_csv()}}
-{\footnotesize\ttfamily void hmap\+::\+Graph\+::to\+\_\+csv (\begin{DoxyParamCaption}\item[{std\+::string}]{fname\+\_\+xy,  }\item[{std\+::string}]{fname\+\_\+adjacency }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void hmap\+::\+Graph\+::to\+\_\+csv (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname\+\_\+xy,  }\item[{const std\+::string \&}]{fname\+\_\+edges }\end{DoxyParamCaption}) const}
 
 
 
 Export graph data to CSV files. 
 
-This method exports the graph data to two separate CSV files\+: one for node coordinates and one for the adjacency matrix. The node coordinates file contains the {\ttfamily (x, y)} coordinates of the graph\textquotesingle{}s nodes, and the adjacency matrix file contains the graph\textquotesingle{}s connectivity information.
-
 
 \begin{DoxyParams}{Parameters}
-{\em fname\+\_\+xy} & Filename for the CSV file containing node {\ttfamily (x, y)} coordinates. \\
+{\em fname\+\_\+xy} & Output CSV for node (x, y, v). \\
 \hline
-{\em fname\+\_\+adjacency} & Filename for the CSV file containing the adjacency matrix. \\
+{\em fname\+\_\+edges} & Output CSV for edges (u, v, weight). \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1Graph_a3cf9a6b56638062f4e740e642dc07c3c}\label{classhmap_1_1Graph_a3cf9a6b56638062f4e740e642dc07c3c} 
+\Hypertarget{classhmap_1_1Graph_a10acc9e91285887d95ab12a42f2d1869}\label{classhmap_1_1Graph_a10acc9e91285887d95ab12a42f2d1869} 
 \index{hmap::Graph@{hmap::Graph}!to\_png@{to\_png}}
 \index{to\_png@{to\_png}!hmap::Graph@{hmap::Graph}}
 \doxysubsubsection{\texorpdfstring{to\_png()}{to\_png()}}
-{\footnotesize\ttfamily void hmap\+::\+Graph\+::to\+\_\+png (\begin{DoxyParamCaption}\item[{std\+::string}]{fname,  }\item[{glm\+::ivec2}]{shape = {\ttfamily \{512,~512\}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void hmap\+::\+Graph\+::to\+\_\+png (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname,  }\item[{glm\+::ivec2}]{shape = {\ttfamily \{512,~512\}} }\end{DoxyParamCaption}) const}
 
 
 
 Export the graph as a PNG image file. 
 
-This method exports a visual representation of the graph as a PNG image file. The resolution of the image can be specified using the {\ttfamily shape} parameter.
-
 
 \begin{DoxyParams}{Parameters}
-{\em fname} & The file name for the PNG image. \\
+{\em fname} & Output image path. \\
 \hline
-{\em shape} & The resolution of the image in pixels (width, height). \\
+{\em shape} & Image dimensions in pixels. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1Graph_a6accdaeaf48a49a3a751f4a83e59df47}\label{classhmap_1_1Graph_a6accdaeaf48a49a3a751f4a83e59df47} 
-\index{hmap::Graph@{hmap::Graph}!update\_adjacency\_matrix@{update\_adjacency\_matrix}}
-\index{update\_adjacency\_matrix@{update\_adjacency\_matrix}!hmap::Graph@{hmap::Graph}}
-\doxysubsubsection{\texorpdfstring{update\_adjacency\_matrix()}{update\_adjacency\_matrix()}}
-{\footnotesize\ttfamily void hmap\+::\+Graph\+::update\+\_\+adjacency\+\_\+matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-
-
-Update the adjacency matrix of the graph. 
-
-This method updates the adjacency matrix based on the current graph edges and weights. The adjacency matrix represents the connectivity between nodes in the graph. \Hypertarget{classhmap_1_1Graph_ad37ed278a791b43779733f7f22187f15}\label{classhmap_1_1Graph_ad37ed278a791b43779733f7f22187f15} 
-\index{hmap::Graph@{hmap::Graph}!update\_connectivity@{update\_connectivity}}
-\index{update\_connectivity@{update\_connectivity}!hmap::Graph@{hmap::Graph}}
-\doxysubsubsection{\texorpdfstring{update\_connectivity()}{update\_connectivity()}}
-{\footnotesize\ttfamily void hmap\+::\+Graph\+::update\+\_\+connectivity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Update the point connectivity information. 
-
-This method updates the point connectivity data, which describes the relationships between nodes in the graph based on the current edges. 
-
-\doxysubsection{Member Data Documentation}
-\Hypertarget{classhmap_1_1Graph_ae6a15dbafff50f5aa083c975292acffd}\label{classhmap_1_1Graph_ae6a15dbafff50f5aa083c975292acffd} 
-\index{hmap::Graph@{hmap::Graph}!edges@{edges}}
-\index{edges@{edges}!hmap::Graph@{hmap::Graph}}
-\doxysubsubsection{\texorpdfstring{edges}{edges}}
-{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$int$>$ $>$ hmap\+::\+Graph\+::edges = \{\}}
-
-
-
-Edges of the graph. 
-
-This member variable stores the edges of the graph. Each edge is represented as a pair of indices referring to the vertices in the graph. The edges are stored as a vector of vectors, where each inner vector contains the indices of vertices connected by that edge. \Hypertarget{classhmap_1_1Graph_a72f35dca4fd9c5f061bdc6b2ad70cb5e}\label{classhmap_1_1Graph_a72f35dca4fd9c5f061bdc6b2ad70cb5e} 
-\index{hmap::Graph@{hmap::Graph}!weights@{weights}}
-\index{weights@{weights}!hmap::Graph@{hmap::Graph}}
-\doxysubsubsection{\texorpdfstring{weights}{weights}}
-{\footnotesize\ttfamily std\+::vector$<$float$>$ hmap\+::\+Graph\+::weights = \{\}}
-
-
-
-Edge weights. 
-
-This member variable stores the weights associated with the edges of the graph. Each weight corresponds to an edge and is stored in a vector. The weights are used to represent the cost or distance associated with traveling along an edge in the graph. \Hypertarget{classhmap_1_1Graph_ac4fa0788cdc6162d9254b059ae9857da}\label{classhmap_1_1Graph_ac4fa0788cdc6162d9254b059ae9857da} 
-\index{hmap::Graph@{hmap::Graph}!connectivity@{connectivity}}
-\index{connectivity@{connectivity}!hmap::Graph@{hmap::Graph}}
-\doxysubsubsection{\texorpdfstring{connectivity}{connectivity}}
-{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$int$>$ $>$ hmap\+::\+Graph\+::connectivity = \{\}}
-
-
-
-Store point connectivity. 
-
-This member variable stores the connectivity information of the points in the graph. It is represented as a vector of vectors, where each inner vector contains the indices of neighboring vertices connected to the corresponding point. \Hypertarget{classhmap_1_1Graph_a93e452d7229b47e83f431502a18f68da}\label{classhmap_1_1Graph_a93e452d7229b47e83f431502a18f68da} 
-\index{hmap::Graph@{hmap::Graph}!adjacency\_matrix@{adjacency\_matrix}}
-\index{adjacency\_matrix@{adjacency\_matrix}!hmap::Graph@{hmap::Graph}}
-\doxysubsubsection{\texorpdfstring{adjacency\_matrix}{adjacency\_matrix}}
-{\footnotesize\ttfamily std\+::map$<$std\+::pair$<$int, int$>$, float$>$ hmap\+::\+Graph\+::adjacency\+\_\+matrix}
-
-
-
-Adjacency matrix. 
-
-This member variable represents the adjacency matrix of the graph. It is a map where each key is a pair of vertex indices and the value is the weight of the edge connecting those vertices. The adjacency matrix provides a way to quickly access the weight of an edge between any two vertices. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

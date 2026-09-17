@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kdtreecontext_0',['KDTreeContext',['../structhmap_1_1KDTreeContext.html',1,'hmap']]]
+  ['kdtree_0',['KDTree',['../classhmap_1_1KDTree.html',1,'hmap']]]
 ];

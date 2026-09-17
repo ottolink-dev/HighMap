@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['v_0',['v',['../classhmap_1_1Point.html#ac67fb22939ed39d6c5ff4194b4405efb',1,'hmap::Point']]],
+  ['v_0',['v',['../structhmap_1_1Edge.html#a98358a23447279dde010430f00e4d139',1,'hmap::Edge::v'],['../classhmap_1_1Point.html#ac67fb22939ed39d6c5ff4194b4405efb',1,'hmap::Point::v']]],
   ['v0_1',['v0',['../structhmap_1_1TerrainTriMesh_1_1Edge.html#a73341f8d9c9398b96e078037ddd01c52',1,'hmap::TerrainTriMesh::Edge']]],
   ['v1_2',['v1',['../structhmap_1_1TerrainTriMesh_1_1Edge.html#a929e0593ce70fabcac04c77ef18de2a0',1,'hmap::TerrainTriMesh::Edge']]],
   ['va_5fdisk_5flru_3',['VA_DISK_LRU',['../namespacehmap.html#ad21b93a34c88a47d6b54f3a4d5b65e6ea671262171ccce9633cc42db046ea63d4',1,'hmap']]],

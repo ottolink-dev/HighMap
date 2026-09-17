@@ -1,0 +1,255 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="test__graph_8cpp" kind="file" language="C++">
+    <compoundname>test_graph.cpp</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="test__graph_8cpp_1ac20850ac7ca37af017fd4133bb14b8d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GraphTest, ConstructionAndEdgeManagement)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GraphTest</type>
+        </param>
+        <param>
+          <type>ConstructionAndEdgeManagement</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_graph.cpp" line="11" column="1" bodyfile="tests/src/test_graph.cpp" bodystart="11" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="test__graph_8cpp_1ae69fecdc6cfd307f79d95bbe703db1db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GraphTest, DijkstraShortestPath)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GraphTest</type>
+        </param>
+        <param>
+          <type>DijkstraShortestPath</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_graph.cpp" line="52" column="1" bodyfile="tests/src/test_graph.cpp" bodystart="52" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="test__graph_8cpp_1a953463ad95837d8a93d93734a93fa04b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GraphTest, MinimumSpanningTreePrim)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GraphTest</type>
+        </param>
+        <param>
+          <type>MinimumSpanningTreePrim</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_graph.cpp" line="80" column="1" bodyfile="tests/src/test_graph.cpp" bodystart="80" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="test__graph_8cpp_1a5bbfd27c7d548d31bd44e929a6017e63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GraphTest, RemoveOrphanPoints)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GraphTest</type>
+        </param>
+        <param>
+          <type>RemoveOrphanPoints</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_graph.cpp" line="102" column="1" bodyfile="tests/src/test_graph.cpp" bodystart="102" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="test__graph_8cpp_1acae7b4a868c7ef61b6affc5623dc5814" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GraphTest, EdgeCoordinatesAndLengths)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GraphTest</type>
+        </param>
+        <param>
+          <type>EdgeCoordinatesAndLengths</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_graph.cpp" line="124" column="1" bodyfile="tests/src/test_graph.cpp" bodystart="124" bodyend="145"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="graph_8hpp" kindref="compound">highmap/geometry/graph.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="point_8hpp" kindref="compound">highmap/geometry/point.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref>;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><ref refid="test__graph_8cpp_1ac20850ac7ca37af017fd4133bb14b8d0" kindref="member">TEST</ref>(GraphTest,<sp/>ConstructionAndEdgeManagement)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref><sp/>g;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(g.<ref refid="classhmap_1_1Cloud_1a89f21637cf9c4857bf65ad6a6009eff9" kindref="member">empty</ref>());</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(g.<ref refid="classhmap_1_1Graph_1a452a1e8102c63bbb4988d9d4c2690287" kindref="member">empty_edges</ref>());</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>EXPECT_EQ(g.<ref refid="classhmap_1_1Graph_1a99a6f2b1940db4c49cbf51dcb592a198" kindref="member">num_edges</ref>(),<sp/>0u);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>EXPECT_EQ(g.<ref refid="classhmap_1_1Graph_1ae9b2fd0dd4c63e88a2ecec9e4abec04c" kindref="member">get_nedges</ref>(),<sp/>0u);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(0.f,<sp/>0.f));</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(1.f,<sp/>0.f));</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(1.f,<sp/>1.f));</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>EXPECT_EQ(g.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>3u);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(0,<sp/>1);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>EXPECT_EQ(g.<ref refid="classhmap_1_1Graph_1a99a6f2b1940db4c49cbf51dcb592a198" kindref="member">num_edges</ref>(),<sp/>1u);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(g.<ref refid="classhmap_1_1Graph_1a8ce4c44596c11ae0bbd651ad78967ca5" kindref="member">get_edge</ref>(0).<ref refid="structhmap_1_1Edge_1a736107901733cccc302516a0890641f1" kindref="member">weight</ref>,<sp/>1.f);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(g.<ref refid="classhmap_1_1Graph_1ae2948bc10a491b6b36dbe5140d1231ea" kindref="member">get_edge_length</ref>(0),<sp/>1.f);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(glm::ivec2(1,<sp/>2),<sp/>2.5f);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>EXPECT_EQ(g.<ref refid="classhmap_1_1Graph_1a99a6f2b1940db4c49cbf51dcb592a198" kindref="member">num_edges</ref>(),<sp/>2u);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(g.<ref refid="classhmap_1_1Graph_1a8ce4c44596c11ae0bbd651ad78967ca5" kindref="member">get_edge</ref>(1).<ref refid="structhmap_1_1Edge_1a736107901733cccc302516a0890641f1" kindref="member">weight</ref>,<sp/>2.5f);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(g.<ref refid="classhmap_1_1Graph_1ae2948bc10a491b6b36dbe5140d1231ea" kindref="member">get_edge_length</ref>(1),<sp/>1.f);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>EXPECT_EQ(g.<ref refid="classhmap_1_1Graph_1aa47c8285e9c489fe7794d60eb19a3c7c" kindref="member">degree</ref>(0),<sp/>1u);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>EXPECT_EQ(g.<ref refid="classhmap_1_1Graph_1aa47c8285e9c489fe7794d60eb19a3c7c" kindref="member">degree</ref>(1),<sp/>2u);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>EXPECT_EQ(g.<ref refid="classhmap_1_1Graph_1aa47c8285e9c489fe7794d60eb19a3c7c" kindref="member">degree</ref>(2),<sp/>1u);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;nbrs1<sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1a83be20f4cc52c15ed7773d81cf304c2f" kindref="member">neighbors</ref>(1);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>ASSERT_EQ(nbrs1.size(),<sp/>2u);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>EXPECT_EQ(nbrs1[0].<ref refid="sls__deformation_8cpp_1a2975431cdfb0da699844afbc6058ebc9" kindref="member">target</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>EXPECT_EQ(nbrs1[1].<ref refid="sls__deformation_8cpp_1a2975431cdfb0da699844afbc6058ebc9" kindref="member">target</ref>,<sp/>2);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1af9dd5d2b3ff699e1e064f4d189d74d55" kindref="member">set_edge_weight</ref>(0,<sp/>10.f);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(g.<ref refid="classhmap_1_1Graph_1a8ce4c44596c11ae0bbd651ad78967ca5" kindref="member">get_edge</ref>(0).<ref refid="structhmap_1_1Edge_1a736107901733cccc302516a0890641f1" kindref="member">weight</ref>,<sp/>10.f);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(g.<ref refid="classhmap_1_1Graph_1a83be20f4cc52c15ed7773d81cf304c2f" kindref="member">neighbors</ref>(1)[0].weight,<sp/>10.f);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1ad191d0d38350b42a95a9ecb58652ffd9" kindref="member">clear_edges</ref>();</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(g.<ref refid="classhmap_1_1Graph_1a452a1e8102c63bbb4988d9d4c2690287" kindref="member">empty_edges</ref>());</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>EXPECT_EQ(g.<ref refid="classhmap_1_1Graph_1aa47c8285e9c489fe7794d60eb19a3c7c" kindref="member">degree</ref>(1),<sp/>0u);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><ref refid="test__graph_8cpp_1ac20850ac7ca37af017fd4133bb14b8d0" kindref="member">TEST</ref>(GraphTest,<sp/>DijkstraShortestPath)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>0<sp/>-<sp/>(1)<sp/>-<sp/>1<sp/>-<sp/>(2)<sp/>-<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>+-------<sp/>(10)<sp/>------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref><sp/>g;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(0.f,<sp/>0.f));</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(1.f,<sp/>0.f));</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(2.f,<sp/>0.f));</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(0,<sp/>1,<sp/>1.f);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(1,<sp/>2,<sp/>2.f);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(0,<sp/>2,<sp/>10.f);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>std::vector&lt;int&gt;<sp/>path<sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1aec94f282ad2c0633edaf14ee782ff3a7" kindref="member">dijkstra</ref>(0,<sp/>2);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>ASSERT_EQ(path.size(),<sp/>3u);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[0],<sp/>0);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[1],<sp/>1);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[2],<sp/>2);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Shortest<sp/>path<sp/>with<sp/>updated<sp/>direct<sp/>edge<sp/>weight</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1af9dd5d2b3ff699e1e064f4d189d74d55" kindref="member">set_edge_weight</ref>(0,<sp/>2,<sp/>0.5f);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>path<sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1aec94f282ad2c0633edaf14ee782ff3a7" kindref="member">dijkstra</ref>(0,<sp/>2);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>ASSERT_EQ(path.size(),<sp/>2u);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[0],<sp/>0);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[1],<sp/>2);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><ref refid="test__graph_8cpp_1ac20850ac7ca37af017fd4133bb14b8d0" kindref="member">TEST</ref>(GraphTest,<sp/>MinimumSpanningTreePrim)</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Triangle<sp/>graph:<sp/>(0,<sp/>1)=1,<sp/>(1,<sp/>2)=2,<sp/>(0,<sp/>2)=3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref><sp/>g;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(0.f,<sp/>0.f));</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(1.f,<sp/>0.f));</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(0.f,<sp/>1.f));</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(0,<sp/>1,<sp/>1.f);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(1,<sp/>2,<sp/>2.f);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(0,<sp/>2,<sp/>3.f);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref><sp/>mst<sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1a8b18f90110d46fb650b73d8410856c1c" kindref="member">minimum_spanning_tree_prim</ref>();</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>EXPECT_EQ(mst.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>3u);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/>EXPECT_EQ(mst.<ref refid="classhmap_1_1Graph_1a99a6f2b1940db4c49cbf51dcb592a198" kindref="member">num_edges</ref>(),<sp/>2u);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>total_weight<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;e<sp/>:<sp/>mst.get_edges())</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>total_weight<sp/>+=<sp/>e.<ref refid="sls__deformation_8cpp_1aeb4aca717b10b3f05f897485b4e1e9a6" kindref="member">weight</ref>;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(total_weight,<sp/>3.f);<sp/></highlight><highlight class="comment">//<sp/>1<sp/>+<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><ref refid="test__graph_8cpp_1ac20850ac7ca37af017fd4133bb14b8d0" kindref="member">TEST</ref>(GraphTest,<sp/>RemoveOrphanPoints)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref><sp/>g;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(0.f,<sp/>0.f));<sp/></highlight><highlight class="comment">//<sp/>node<sp/>0<sp/>(orphan)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(1.f,<sp/>1.f));<sp/></highlight><highlight class="comment">//<sp/>node<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(2.f,<sp/>2.f));<sp/></highlight><highlight class="comment">//<sp/>node<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(3.f,<sp/>3.f));<sp/></highlight><highlight class="comment">//<sp/>node<sp/>3<sp/>(orphan)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(1,<sp/>2,<sp/>5.f);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref><sp/>cleaned<sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1a9342d61be778e7fd8525334b5e3b4e00" kindref="member">remove_orphan_points</ref>();</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cleaned.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>2u);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cleaned.<ref refid="classhmap_1_1Graph_1a99a6f2b1940db4c49cbf51dcb592a198" kindref="member">num_edges</ref>(),<sp/>1u);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned[0].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>1.f);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned[0].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>1.f);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned[1].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>2.f);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned[1].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>2.f);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cleaned.<ref refid="classhmap_1_1Graph_1a8ce4c44596c11ae0bbd651ad78967ca5" kindref="member">get_edge</ref>(0).<ref refid="structhmap_1_1Edge_1a47ef0094cf5374e9e613a9d0035e5c72" kindref="member">u</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cleaned.<ref refid="classhmap_1_1Graph_1a8ce4c44596c11ae0bbd651ad78967ca5" kindref="member">get_edge</ref>(0).<ref refid="structhmap_1_1Edge_1a98358a23447279dde010430f00e4d139" kindref="member">v</ref>,<sp/>1);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned.<ref refid="classhmap_1_1Graph_1a8ce4c44596c11ae0bbd651ad78967ca5" kindref="member">get_edge</ref>(0).<ref refid="structhmap_1_1Edge_1a736107901733cccc302516a0890641f1" kindref="member">weight</ref>,<sp/>5.f);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><ref refid="test__graph_8cpp_1ac20850ac7ca37af017fd4133bb14b8d0" kindref="member">TEST</ref>(GraphTest,<sp/>EdgeCoordinatesAndLengths)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref><sp/>g;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(0.f,<sp/>0.f));</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(3.f,<sp/>4.f));</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(0,<sp/>1);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>x_pairs<sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1a018064b7d9f27f1c4af7bb9bc6f56357" kindref="member">get_edge_x_pairs</ref>();</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>y_pairs<sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1a62793a11ad97333cace3aa81c39d65b1" kindref="member">get_edge_y_pairs</ref>();</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>lengths<sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1a03ec3725fe8c6bb78149118fad041d43" kindref="member">get_lengths</ref>();</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/>ASSERT_EQ(x_pairs.size(),<sp/>2u);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/>ASSERT_EQ(y_pairs.size(),<sp/>2u);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/>ASSERT_EQ(lengths.size(),<sp/>1u);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(x_pairs[0],<sp/>0.f);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(x_pairs[1],<sp/>3.f);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(y_pairs[0],<sp/>0.f);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(y_pairs[1],<sp/>4.f);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(lengths[0],<sp/>5.f);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="tests/src/test_graph.cpp"/>
+  </compounddef>
+</doxygen>

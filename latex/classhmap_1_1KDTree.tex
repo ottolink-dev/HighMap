@@ -1,0 +1,401 @@
+\doxysection{hmap\+::KDTree Class Reference}
+\hypertarget{classhmap_1_1KDTree}{}\label{classhmap_1_1KDTree}\index{hmap::KDTree@{hmap::KDTree}}
+
+
+2D KD-\/\+Tree for spatial point queries.  
+
+
+
+
+{\ttfamily \#include $<$kd\+\_\+tree.\+hpp$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structhmap_1_1KDTree_1_1Impl}{Impl}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classhmap_1_1KDTree_a379f309c3e8aa60ad886179c91244718}{KDTree}} ()
+\begin{DoxyCompactList}\small\item\em Construct an empty KD-\/tree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1KDTree_aa00f3ad38b5e1e712d566fd9b67a1ece}{\texorpdfstring{$\sim$}{\string~}\+KDTree}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1KDTree_ae1e4ce256c73ac0697c31709afdf6f25}{KDTree}} (const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}, const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}})
+\begin{DoxyCompactList}\small\item\em Construct a KD-\/tree referencing separate coordinate arrays. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1KDTree_a6a69c840c8d2421d96fa453063b135e2}{KDTree}} (const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$ \&\mbox{\hyperlink{kd__tree_8cpp_a7cbf926513672593ee7214c43a06e057}{points}})
+\begin{DoxyCompactList}\small\item\em Construct a KD-\/tree referencing a vector of points. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1KDTree_a2089caf6b31e8717d082d178ae2ace87}{KDTree}} (const \mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}} \&cloud)
+\begin{DoxyCompactList}\small\item\em Construct a KD-\/tree referencing a \doxylink{classhmap_1_1Cloud}{Cloud}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1KDTree_a9cc921455bc2aacf05048ec70d8e1efb}{KDTree}} (\mbox{\hyperlink{classhmap_1_1KDTree}{KDTree}} \&\&other) noexcept
+\begin{DoxyCompactList}\small\item\em Move constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1KDTree}{KDTree}} \& \mbox{\hyperlink{classhmap_1_1KDTree_abf873b42e786fe8734ba8f6aa0ef6625}{operator=}} (\mbox{\hyperlink{classhmap_1_1KDTree}{KDTree}} \&\&other) noexcept
+\begin{DoxyCompactList}\small\item\em Move assignment operator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1KDTree_ae9918e3fef110fd3aa26bc7aaed641c0}{KDTree}} (const \mbox{\hyperlink{classhmap_1_1KDTree}{KDTree}} \&)=delete
+\item 
+\mbox{\hyperlink{classhmap_1_1KDTree}{KDTree}} \& \mbox{\hyperlink{classhmap_1_1KDTree_ae934400d3a543105e8f7ef2a3000740e}{operator=}} (const \mbox{\hyperlink{classhmap_1_1KDTree}{KDTree}} \&)=delete
+\item 
+bool \mbox{\hyperlink{classhmap_1_1KDTree_a687adbe42e600b2a25051d9b7f4c2ef9}{empty}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Check whether the KD-\/tree is empty. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classhmap_1_1KDTree_a16df51a0b09b285bc053200c90233d77}{size}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the number of points indexed by the KD-\/tree. \end{DoxyCompactList}\item 
+glm\+::vec2 \mbox{\hyperlink{classhmap_1_1KDTree_a1ca045967ba79adf48c120dfe33ff346}{compute\+\_\+neighbor\+\_\+distance\+\_\+range}} (size\+\_\+t k\+\_\+neighbors) const
+\begin{DoxyCompactList}\small\item\em Estimate the range of neighbor distances across the dataset. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classhmap_1_1KDTree_a71a6e126c8f231ecd8ad296770354d63}{nearest}} (float x\+\_\+query, float y\+\_\+query) const
+\begin{DoxyCompactList}\small\item\em Find the index of the nearest neighbor to a 2D query position. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classhmap_1_1KDTree_ac0c78222344910f0fa9d738ae785eed4}{nearest}} (const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \&p) const
+\begin{DoxyCompactList}\small\item\em Find the index of the nearest neighbor to a \doxylink{classhmap_1_1Point}{Point}. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classhmap_1_1KDTree_ae359f0b4384a005d0b44e69bc30e74b5}{nearest}} (const glm\+::vec2 \&xy) const
+\begin{DoxyCompactList}\small\item\em Find the index of the nearest neighbor to a glm\+::vec2. \end{DoxyCompactList}\item 
+std\+::pair$<$ size\+\_\+t, float $>$ \mbox{\hyperlink{classhmap_1_1KDTree_a6470b709082cd4c65c46cbb7582a6718}{nearest\+\_\+with\+\_\+distance\+\_\+squared}} (float x\+\_\+query, float y\+\_\+query) const
+\begin{DoxyCompactList}\small\item\em Find the index and squared distance of the nearest neighbor. \end{DoxyCompactList}\item 
+std\+::pair$<$ size\+\_\+t, float $>$ \mbox{\hyperlink{classhmap_1_1KDTree_a935bbb520b21ad806cddff2fd0622aa6}{nearest\+\_\+with\+\_\+distance\+\_\+squared}} (const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \&p) const
+\begin{DoxyCompactList}\small\item\em Find the index and squared distance of the nearest neighbor to a \doxylink{classhmap_1_1Point}{Point}. \end{DoxyCompactList}\item 
+std\+::pair$<$ size\+\_\+t, float $>$ \mbox{\hyperlink{classhmap_1_1KDTree_a957d4e8b3845faf98b017d6fa0eee2b5}{nearest\+\_\+with\+\_\+distance\+\_\+squared}} (const glm\+::vec2 \&xy) const
+\begin{DoxyCompactList}\small\item\em Find the index and squared distance of the nearest neighbor to a glm\+::vec2. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1KDTree_aea5edb7aed468d985c9b0079b45baf91}{neighbor\+\_\+search}} (float x\+\_\+query, float y\+\_\+query, size\+\_\+t k\+\_\+neighbors, std\+::vector$<$ size\+\_\+t $>$ \&indices, std\+::vector$<$ float $>$ \&distances) const
+\begin{DoxyCompactList}\small\item\em Perform a k-\/nearest neighbor search. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1KDTree_a28e014b1d02cf4a168ec74be0cb28ab1}{neighbor\+\_\+search}} (const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \&p, size\+\_\+t k\+\_\+neighbors, std\+::vector$<$ size\+\_\+t $>$ \&indices, std\+::vector$<$ float $>$ \&distances) const
+\begin{DoxyCompactList}\small\item\em Perform a k-\/nearest neighbor search for a \doxylink{classhmap_1_1Point}{Point}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1KDTree_af40315249edc5f65b6de1663f11a0366}{neighbor\+\_\+search}} (const glm\+::vec2 \&xy, size\+\_\+t k\+\_\+neighbors, std\+::vector$<$ size\+\_\+t $>$ \&indices, std\+::vector$<$ float $>$ \&distances) const
+\begin{DoxyCompactList}\small\item\em Perform a k-\/nearest neighbor search for a glm\+::vec2. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ size\+\_\+t, float $>$ $>$ \mbox{\hyperlink{classhmap_1_1KDTree_ae04aa827d456ef634aff2bf6f616f58f}{radius\+\_\+search}} (float x\+\_\+query, float y\+\_\+query, float radius) const
+\begin{DoxyCompactList}\small\item\em Perform a radius-\/based neighbor search. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ size\+\_\+t, float $>$ $>$ \mbox{\hyperlink{classhmap_1_1KDTree_a06565d3ed2e9d34bfd768d9737873258}{radius\+\_\+search}} (const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \&p, float radius) const
+\begin{DoxyCompactList}\small\item\em Perform a radius-\/based neighbor search for a \doxylink{classhmap_1_1Point}{Point}. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ size\+\_\+t, float $>$ $>$ \mbox{\hyperlink{classhmap_1_1KDTree_aaef1ab8e55a9aae26e00f933fbe3e9b8}{radius\+\_\+search}} (const glm\+::vec2 \&xy, float radius) const
+\begin{DoxyCompactList}\small\item\em Perform a radius-\/based neighbor search for a glm\+::vec2. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+2D KD-\/\+Tree for spatial point queries. 
+
+Supports construction from separate coordinate arrays (x, y), point vectors (std\+::vector$<$\+Point$>$), and \doxylink{classhmap_1_1Cloud}{Cloud} objects.
+
+\begin{DoxyNote}{Note}
+Input point data must remain valid for the lifetime of this \doxylink{classhmap_1_1KDTree}{KDTree} object. 
+\end{DoxyNote}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classhmap_1_1KDTree_a379f309c3e8aa60ad886179c91244718}\label{classhmap_1_1KDTree_a379f309c3e8aa60ad886179c91244718} 
+\index{hmap::KDTree@{hmap::KDTree}!KDTree@{KDTree}}
+\index{KDTree@{KDTree}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{KDTree()}{KDTree()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily hmap\+::\+KDTree\+::\+KDTree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Construct an empty KD-\/tree. 
+
+\Hypertarget{classhmap_1_1KDTree_aa00f3ad38b5e1e712d566fd9b67a1ece}\label{classhmap_1_1KDTree_aa00f3ad38b5e1e712d566fd9b67a1ece} 
+\index{hmap::KDTree@{hmap::KDTree}!````~KDTree@{\texorpdfstring{$\sim$}{\string~}KDTree}}
+\index{````~KDTree@{\texorpdfstring{$\sim$}{\string~}KDTree}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}KDTree()}{\string~KDTree()}}
+{\footnotesize\ttfamily hmap\+::\+KDTree\+::\texorpdfstring{$\sim$}{\string~}\+KDTree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Destructor. 
+
+\Hypertarget{classhmap_1_1KDTree_ae1e4ce256c73ac0697c31709afdf6f25}\label{classhmap_1_1KDTree_ae1e4ce256c73ac0697c31709afdf6f25} 
+\index{hmap::KDTree@{hmap::KDTree}!KDTree@{KDTree}}
+\index{KDTree@{KDTree}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{KDTree()}{KDTree()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily hmap\+::\+KDTree\+::\+KDTree (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{x,  }\item[{const std\+::vector$<$ float $>$ \&}]{y }\end{DoxyParamCaption})}
+
+
+
+Construct a KD-\/tree referencing separate coordinate arrays. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Vector of x coordinates. \\
+\hline
+{\em y} & Vector of y coordinates. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1KDTree_a6a69c840c8d2421d96fa453063b135e2}\label{classhmap_1_1KDTree_a6a69c840c8d2421d96fa453063b135e2} 
+\index{hmap::KDTree@{hmap::KDTree}!KDTree@{KDTree}}
+\index{KDTree@{KDTree}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{KDTree()}{KDTree()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily hmap\+::\+KDTree\+::\+KDTree (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Point}{Point}} $>$ \&}]{points }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construct a KD-\/tree referencing a vector of points. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em points} & Vector of \doxylink{classhmap_1_1Point}{Point} objects. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1KDTree_a2089caf6b31e8717d082d178ae2ace87}\label{classhmap_1_1KDTree_a2089caf6b31e8717d082d178ae2ace87} 
+\index{hmap::KDTree@{hmap::KDTree}!KDTree@{KDTree}}
+\index{KDTree@{KDTree}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{KDTree()}{KDTree()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily hmap\+::\+KDTree\+::\+KDTree (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}} \&}]{cloud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construct a KD-\/tree referencing a \doxylink{classhmap_1_1Cloud}{Cloud}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cloud} & \doxylink{classhmap_1_1Cloud}{Cloud} object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1KDTree_a9cc921455bc2aacf05048ec70d8e1efb}\label{classhmap_1_1KDTree_a9cc921455bc2aacf05048ec70d8e1efb} 
+\index{hmap::KDTree@{hmap::KDTree}!KDTree@{KDTree}}
+\index{KDTree@{KDTree}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{KDTree()}{KDTree()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily hmap\+::\+KDTree\+::\+KDTree (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1KDTree}{KDTree}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+
+
+Move constructor. 
+
+\Hypertarget{classhmap_1_1KDTree_ae9918e3fef110fd3aa26bc7aaed641c0}\label{classhmap_1_1KDTree_ae9918e3fef110fd3aa26bc7aaed641c0} 
+\index{hmap::KDTree@{hmap::KDTree}!KDTree@{KDTree}}
+\index{KDTree@{KDTree}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{KDTree()}{KDTree()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily hmap\+::\+KDTree\+::\+KDTree (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1KDTree}{KDTree}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classhmap_1_1KDTree_abf873b42e786fe8734ba8f6aa0ef6625}\label{classhmap_1_1KDTree_abf873b42e786fe8734ba8f6aa0ef6625} 
+\index{hmap::KDTree@{hmap::KDTree}!operator=@{operator=}}
+\index{operator=@{operator=}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1KDTree}{KDTree}} \& hmap\+::\+KDTree\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1KDTree}{KDTree}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+
+
+Move assignment operator. 
+
+\Hypertarget{classhmap_1_1KDTree_ae934400d3a543105e8f7ef2a3000740e}\label{classhmap_1_1KDTree_ae934400d3a543105e8f7ef2a3000740e} 
+\index{hmap::KDTree@{hmap::KDTree}!operator=@{operator=}}
+\index{operator=@{operator=}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1KDTree}{KDTree}} \& hmap\+::\+KDTree\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1KDTree}{KDTree}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\Hypertarget{classhmap_1_1KDTree_a687adbe42e600b2a25051d9b7f4c2ef9}\label{classhmap_1_1KDTree_a687adbe42e600b2a25051d9b7f4c2ef9} 
+\index{hmap::KDTree@{hmap::KDTree}!empty@{empty}}
+\index{empty@{empty}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily bool hmap\+::\+KDTree\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Check whether the KD-\/tree is empty. 
+
+\begin{DoxyReturn}{Returns}
+true if empty, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1KDTree_a16df51a0b09b285bc053200c90233d77}\label{classhmap_1_1KDTree_a16df51a0b09b285bc053200c90233d77} 
+\index{hmap::KDTree@{hmap::KDTree}!size@{size}}
+\index{size@{size}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily size\+\_\+t hmap\+::\+KDTree\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the number of points indexed by the KD-\/tree. 
+
+\begin{DoxyReturn}{Returns}
+Number of points. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1KDTree_a1ca045967ba79adf48c120dfe33ff346}\label{classhmap_1_1KDTree_a1ca045967ba79adf48c120dfe33ff346} 
+\index{hmap::KDTree@{hmap::KDTree}!compute\_neighbor\_distance\_range@{compute\_neighbor\_distance\_range}}
+\index{compute\_neighbor\_distance\_range@{compute\_neighbor\_distance\_range}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{compute\_neighbor\_distance\_range()}{compute\_neighbor\_distance\_range()}}
+{\footnotesize\ttfamily glm\+::vec2 hmap\+::\+KDTree\+::compute\+\_\+neighbor\+\_\+distance\+\_\+range (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{k\+\_\+neighbors }\end{DoxyParamCaption}) const}
+
+
+
+Estimate the range of neighbor distances across the dataset. 
+
+Computes the minimum and maximum Euclidean distance to the k-\/th nearest neighbor across all indexed points.
+
+
+\begin{DoxyParams}{Parameters}
+{\em k\+\_\+neighbors} & Number of neighbors considered. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vec2(min\+\_\+euclidean\+\_\+distance, max\+\_\+euclidean\+\_\+distance) 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1KDTree_a71a6e126c8f231ecd8ad296770354d63}\label{classhmap_1_1KDTree_a71a6e126c8f231ecd8ad296770354d63} 
+\index{hmap::KDTree@{hmap::KDTree}!nearest@{nearest}}
+\index{nearest@{nearest}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{nearest()}{nearest()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily size\+\_\+t hmap\+::\+KDTree\+::nearest (\begin{DoxyParamCaption}\item[{float}]{x\+\_\+query,  }\item[{float}]{y\+\_\+query }\end{DoxyParamCaption}) const}
+
+
+
+Find the index of the nearest neighbor to a 2D query position. 
+
+Fast 1-\/nearest-\/neighbor query that performs no heap allocations.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+\_\+query} & Query x coordinate. \\
+\hline
+{\em y\+\_\+query} & Query y coordinate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of the nearest neighbor point (0 if empty). 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1KDTree_ac0c78222344910f0fa9d738ae785eed4}\label{classhmap_1_1KDTree_ac0c78222344910f0fa9d738ae785eed4} 
+\index{hmap::KDTree@{hmap::KDTree}!nearest@{nearest}}
+\index{nearest@{nearest}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{nearest()}{nearest()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily size\+\_\+t hmap\+::\+KDTree\+::nearest (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \&}]{p }\end{DoxyParamCaption}) const}
+
+
+
+Find the index of the nearest neighbor to a \doxylink{classhmap_1_1Point}{Point}. 
+
+\Hypertarget{classhmap_1_1KDTree_ae359f0b4384a005d0b44e69bc30e74b5}\label{classhmap_1_1KDTree_ae359f0b4384a005d0b44e69bc30e74b5} 
+\index{hmap::KDTree@{hmap::KDTree}!nearest@{nearest}}
+\index{nearest@{nearest}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{nearest()}{nearest()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily size\+\_\+t hmap\+::\+KDTree\+::nearest (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{xy }\end{DoxyParamCaption}) const}
+
+
+
+Find the index of the nearest neighbor to a glm\+::vec2. 
+
+\Hypertarget{classhmap_1_1KDTree_a6470b709082cd4c65c46cbb7582a6718}\label{classhmap_1_1KDTree_a6470b709082cd4c65c46cbb7582a6718} 
+\index{hmap::KDTree@{hmap::KDTree}!nearest\_with\_distance\_squared@{nearest\_with\_distance\_squared}}
+\index{nearest\_with\_distance\_squared@{nearest\_with\_distance\_squared}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{nearest\_with\_distance\_squared()}{nearest\_with\_distance\_squared()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily std\+::pair$<$ size\+\_\+t, float $>$ hmap\+::\+KDTree\+::nearest\+\_\+with\+\_\+distance\+\_\+squared (\begin{DoxyParamCaption}\item[{float}]{x\+\_\+query,  }\item[{float}]{y\+\_\+query }\end{DoxyParamCaption}) const}
+
+
+
+Find the index and squared distance of the nearest neighbor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+\_\+query} & Query x coordinate. \\
+\hline
+{\em y\+\_\+query} & Query y coordinate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pair of (index, squared\+\_\+distance). 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1KDTree_a935bbb520b21ad806cddff2fd0622aa6}\label{classhmap_1_1KDTree_a935bbb520b21ad806cddff2fd0622aa6} 
+\index{hmap::KDTree@{hmap::KDTree}!nearest\_with\_distance\_squared@{nearest\_with\_distance\_squared}}
+\index{nearest\_with\_distance\_squared@{nearest\_with\_distance\_squared}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{nearest\_with\_distance\_squared()}{nearest\_with\_distance\_squared()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily std\+::pair$<$ size\+\_\+t, float $>$ hmap\+::\+KDTree\+::nearest\+\_\+with\+\_\+distance\+\_\+squared (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \&}]{p }\end{DoxyParamCaption}) const}
+
+
+
+Find the index and squared distance of the nearest neighbor to a \doxylink{classhmap_1_1Point}{Point}. 
+
+\Hypertarget{classhmap_1_1KDTree_a957d4e8b3845faf98b017d6fa0eee2b5}\label{classhmap_1_1KDTree_a957d4e8b3845faf98b017d6fa0eee2b5} 
+\index{hmap::KDTree@{hmap::KDTree}!nearest\_with\_distance\_squared@{nearest\_with\_distance\_squared}}
+\index{nearest\_with\_distance\_squared@{nearest\_with\_distance\_squared}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{nearest\_with\_distance\_squared()}{nearest\_with\_distance\_squared()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily std\+::pair$<$ size\+\_\+t, float $>$ hmap\+::\+KDTree\+::nearest\+\_\+with\+\_\+distance\+\_\+squared (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{xy }\end{DoxyParamCaption}) const}
+
+
+
+Find the index and squared distance of the nearest neighbor to a glm\+::vec2. 
+
+\Hypertarget{classhmap_1_1KDTree_aea5edb7aed468d985c9b0079b45baf91}\label{classhmap_1_1KDTree_aea5edb7aed468d985c9b0079b45baf91} 
+\index{hmap::KDTree@{hmap::KDTree}!neighbor\_search@{neighbor\_search}}
+\index{neighbor\_search@{neighbor\_search}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{neighbor\_search()}{neighbor\_search()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void hmap\+::\+KDTree\+::neighbor\+\_\+search (\begin{DoxyParamCaption}\item[{float}]{x\+\_\+query,  }\item[{float}]{y\+\_\+query,  }\item[{size\+\_\+t}]{k\+\_\+neighbors,  }\item[{std\+::vector$<$ size\+\_\+t $>$ \&}]{indices,  }\item[{std\+::vector$<$ float $>$ \&}]{distances }\end{DoxyParamCaption}) const}
+
+
+
+Perform a k-\/nearest neighbor search. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em x\+\_\+query} & Query x coordinate. \\
+\hline
+ & {\em y\+\_\+query} & Query y coordinate. \\
+\hline
+ & {\em k\+\_\+neighbors} & Number of neighbors to retrieve. \\
+\hline
+\mbox{\texttt{ out}}  & {\em indices} & Output indices of neighbors. \\
+\hline
+\mbox{\texttt{ out}}  & {\em distances} & Output squared distances to neighbors. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1KDTree_a28e014b1d02cf4a168ec74be0cb28ab1}\label{classhmap_1_1KDTree_a28e014b1d02cf4a168ec74be0cb28ab1} 
+\index{hmap::KDTree@{hmap::KDTree}!neighbor\_search@{neighbor\_search}}
+\index{neighbor\_search@{neighbor\_search}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{neighbor\_search()}{neighbor\_search()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void hmap\+::\+KDTree\+::neighbor\+\_\+search (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \&}]{p,  }\item[{size\+\_\+t}]{k\+\_\+neighbors,  }\item[{std\+::vector$<$ size\+\_\+t $>$ \&}]{indices,  }\item[{std\+::vector$<$ float $>$ \&}]{distances }\end{DoxyParamCaption}) const}
+
+
+
+Perform a k-\/nearest neighbor search for a \doxylink{classhmap_1_1Point}{Point}. 
+
+\Hypertarget{classhmap_1_1KDTree_af40315249edc5f65b6de1663f11a0366}\label{classhmap_1_1KDTree_af40315249edc5f65b6de1663f11a0366} 
+\index{hmap::KDTree@{hmap::KDTree}!neighbor\_search@{neighbor\_search}}
+\index{neighbor\_search@{neighbor\_search}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{neighbor\_search()}{neighbor\_search()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void hmap\+::\+KDTree\+::neighbor\+\_\+search (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{xy,  }\item[{size\+\_\+t}]{k\+\_\+neighbors,  }\item[{std\+::vector$<$ size\+\_\+t $>$ \&}]{indices,  }\item[{std\+::vector$<$ float $>$ \&}]{distances }\end{DoxyParamCaption}) const}
+
+
+
+Perform a k-\/nearest neighbor search for a glm\+::vec2. 
+
+\Hypertarget{classhmap_1_1KDTree_ae04aa827d456ef634aff2bf6f616f58f}\label{classhmap_1_1KDTree_ae04aa827d456ef634aff2bf6f616f58f} 
+\index{hmap::KDTree@{hmap::KDTree}!radius\_search@{radius\_search}}
+\index{radius\_search@{radius\_search}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{radius\_search()}{radius\_search()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ size\+\_\+t, float $>$ $>$ hmap\+::\+KDTree\+::radius\+\_\+search (\begin{DoxyParamCaption}\item[{float}]{x\+\_\+query,  }\item[{float}]{y\+\_\+query,  }\item[{float}]{radius }\end{DoxyParamCaption}) const}
+
+
+
+Perform a radius-\/based neighbor search. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+\_\+query} & Query x coordinate. \\
+\hline
+{\em y\+\_\+query} & Query y coordinate. \\
+\hline
+{\em radius} & Search radius (Euclidean distance). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of (index, squared\+\_\+distance) pairs. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1KDTree_a06565d3ed2e9d34bfd768d9737873258}\label{classhmap_1_1KDTree_a06565d3ed2e9d34bfd768d9737873258} 
+\index{hmap::KDTree@{hmap::KDTree}!radius\_search@{radius\_search}}
+\index{radius\_search@{radius\_search}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{radius\_search()}{radius\_search()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ size\+\_\+t, float $>$ $>$ hmap\+::\+KDTree\+::radius\+\_\+search (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Point}{Point}} \&}]{p,  }\item[{float}]{radius }\end{DoxyParamCaption}) const}
+
+
+
+Perform a radius-\/based neighbor search for a \doxylink{classhmap_1_1Point}{Point}. 
+
+\Hypertarget{classhmap_1_1KDTree_aaef1ab8e55a9aae26e00f933fbe3e9b8}\label{classhmap_1_1KDTree_aaef1ab8e55a9aae26e00f933fbe3e9b8} 
+\index{hmap::KDTree@{hmap::KDTree}!radius\_search@{radius\_search}}
+\index{radius\_search@{radius\_search}!hmap::KDTree@{hmap::KDTree}}
+\doxysubsubsection{\texorpdfstring{radius\_search()}{radius\_search()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ size\+\_\+t, float $>$ $>$ hmap\+::\+KDTree\+::radius\+\_\+search (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{xy,  }\item[{float}]{radius }\end{DoxyParamCaption}) const}
+
+
+
+Perform a radius-\/based neighbor search for a glm\+::vec2. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+High\+Map/include/highmap/geometry/\mbox{\hyperlink{kd__tree_8hpp}{kd\+\_\+tree.\+hpp}}\item 
+High\+Map/src/geometry/\mbox{\hyperlink{kd__tree_8cpp}{kd\+\_\+tree.\+cpp}}\end{DoxyCompactItemize}

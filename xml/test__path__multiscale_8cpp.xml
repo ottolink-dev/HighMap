@@ -415,10 +415,10 @@
 <codeline lineno="214"><highlight class="normal"></highlight></codeline>
 <codeline lineno="215"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a7c174527ef9ac7c595ad65514dc00756" kindref="member">hmap::find_path_multiscale</ref>(z,<sp/>start,<sp/>end,<sp/>bbox,<sp/>3,<sp/>4);</highlight></codeline>
 <codeline lineno="216"><highlight class="normal"></highlight></codeline>
-<codeline lineno="217"><highlight class="normal"><sp/><sp/>ASSERT_FALSE(path.<ref refid="classhmap_1_1Cloud_1aad75fb7bcfa7a2c3f139d2e3d3d6cc54" kindref="member">points</ref>.empty());</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/>ASSERT_FALSE(path.<ref refid="classhmap_1_1Cloud_1a89f21637cf9c4857bf65ad6a6009eff9" kindref="member">empty</ref>());</highlight></codeline>
 <codeline lineno="218"><highlight class="normal"></highlight></codeline>
 <codeline lineno="219"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>verify<sp/>point<sp/>values<sp/>hold<sp/>actual<sp/>elevations<sp/>from<sp/>z</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="220"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;p<sp/>:<sp/>path.points)</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;p<sp/>:<sp/>path)</highlight></codeline>
 <codeline lineno="221"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
 <codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>int(std::round(p.x<sp/>*<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>-<sp/>1)));</highlight></codeline>
 <codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>=<sp/>int(std::round(p.y<sp/>*<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y<sp/>-<sp/>1)));</highlight></codeline>
@@ -428,8 +428,8 @@
 <codeline lineno="227"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="228"><highlight class="normal"></highlight></codeline>
 <codeline lineno="229"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>verify<sp/>exact<sp/>elevation<sp/>on<sp/>path<sp/>endpoints</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="230"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.<ref refid="classhmap_1_1Cloud_1aad75fb7bcfa7a2c3f139d2e3d3d6cc54" kindref="member">points</ref>.front().v,<sp/>z(start.x,<sp/>start.y),<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="231"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.<ref refid="classhmap_1_1Cloud_1aad75fb7bcfa7a2c3f139d2e3d3d6cc54" kindref="member">points</ref>.back().v,<sp/>z(end.x,<sp/>end.y),<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.<ref refid="classhmap_1_1Cloud_1a8cae222f807dfaab9f9bf5d75493da0b" kindref="member">front</ref>().<ref refid="classhmap_1_1Point_1ac67fb22939ed39d6c5ff4194b4405efb" kindref="member">v</ref>,<sp/>z(start.x,<sp/>start.y),<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.<ref refid="classhmap_1_1Cloud_1a0ccd5b43ebbf2d1f1ef4777f66943553" kindref="member">back</ref>().<ref refid="classhmap_1_1Point_1ac67fb22939ed39d6c5ff4194b4405efb" kindref="member">v</ref>,<sp/>z(end.x,<sp/>end.y),<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="232"><highlight class="normal"></highlight></codeline>
 <codeline lineno="233"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>test<sp/>built-in<sp/>to_array</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="234"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>arr<sp/>=<sp/>path.<ref refid="classhmap_1_1Path_1a4d1e1e63fea24bf8f23bc3343f8b746e" kindref="member">to_array</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>bbox);</highlight></codeline>
@@ -455,9 +455,9 @@
 <codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>3,</highlight></codeline>
 <codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>6);</highlight></codeline>
 <codeline lineno="256"><highlight class="normal"></highlight></codeline>
-<codeline lineno="257"><highlight class="normal"><sp/><sp/>ASSERT_FALSE(path.points.empty());</highlight></codeline>
-<codeline lineno="258"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.points.front().x,<sp/>0.f,<sp/>1e-4f);</highlight></codeline>
-<codeline lineno="259"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.points.back().x,<sp/>1.f,<sp/>1e-4f);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/>ASSERT_FALSE(path.empty());</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.front().x,<sp/>0.f,<sp/>1e-4f);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.back().x,<sp/>1.f,<sp/>1e-4f);</highlight></codeline>
 <codeline lineno="260"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="261"><highlight class="normal"></highlight></codeline>
 <codeline lineno="262"><highlight class="normal"><ref refid="test__path__multiscale_8cpp_1a86850fc6cec7b75e01af7a321cdfdcc8" kindref="member">TEST</ref>(PathMultiscale,<sp/>FindPathDijkstraHarmonized)</highlight></codeline>
@@ -480,9 +480,9 @@
 <codeline lineno="279"><highlight class="normal"></highlight></codeline>
 <codeline lineno="280"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Path<sp/>overload</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="281"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a812ed2264582321318f8f731d621f7bb" kindref="member">hmap::find_path_dijkstra</ref>(z,<sp/>start,<sp/>end,<sp/>bbox);</highlight></codeline>
-<codeline lineno="282"><highlight class="normal"><sp/><sp/>ASSERT_FALSE(path.<ref refid="classhmap_1_1Cloud_1aad75fb7bcfa7a2c3f139d2e3d3d6cc54" kindref="member">points</ref>.empty());</highlight></codeline>
-<codeline lineno="283"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.<ref refid="classhmap_1_1Cloud_1aad75fb7bcfa7a2c3f139d2e3d3d6cc54" kindref="member">points</ref>.front().v,<sp/>z(start.x,<sp/>start.y),<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="284"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.<ref refid="classhmap_1_1Cloud_1aad75fb7bcfa7a2c3f139d2e3d3d6cc54" kindref="member">points</ref>.back().v,<sp/>z(end.x,<sp/>end.y),<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/>ASSERT_FALSE(path.<ref refid="classhmap_1_1Cloud_1a89f21637cf9c4857bf65ad6a6009eff9" kindref="member">empty</ref>());</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.<ref refid="classhmap_1_1Cloud_1a8cae222f807dfaab9f9bf5d75493da0b" kindref="member">front</ref>().<ref refid="classhmap_1_1Point_1ac67fb22939ed39d6c5ff4194b4405efb" kindref="member">v</ref>,<sp/>z(start.x,<sp/>start.y),<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.<ref refid="classhmap_1_1Cloud_1a0ccd5b43ebbf2d1f1ef4777f66943553" kindref="member">back</ref>().<ref refid="classhmap_1_1Point_1ac67fb22939ed39d6c5ff4194b4405efb" kindref="member">v</ref>,<sp/>z(end.x,<sp/>end.y),<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="285"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="286"><highlight class="normal"></highlight></codeline>
 <codeline lineno="287"><highlight class="normal"><ref refid="test__path__multiscale_8cpp_1a86850fc6cec7b75e01af7a321cdfdcc8" kindref="member">TEST</ref>(PathMultiscale,<sp/>FindPathMidpointHarmonized)</highlight></codeline>
@@ -508,9 +508,9 @@
 <codeline lineno="307"><highlight class="normal"></highlight></codeline>
 <codeline lineno="308"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Path<sp/>overload</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="309"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a6ade30d7f5f6b02e1640bea9c83d05e3" kindref="member">hmap::find_path_midpoint</ref>(z,<sp/>start,<sp/>end,<sp/>bbox);</highlight></codeline>
-<codeline lineno="310"><highlight class="normal"><sp/><sp/>ASSERT_FALSE(path.<ref refid="classhmap_1_1Cloud_1aad75fb7bcfa7a2c3f139d2e3d3d6cc54" kindref="member">points</ref>.empty());</highlight></codeline>
-<codeline lineno="311"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.<ref refid="classhmap_1_1Cloud_1aad75fb7bcfa7a2c3f139d2e3d3d6cc54" kindref="member">points</ref>.front().v,<sp/>z(start.x,<sp/>start.y),<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="312"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.<ref refid="classhmap_1_1Cloud_1aad75fb7bcfa7a2c3f139d2e3d3d6cc54" kindref="member">points</ref>.back().v,<sp/>z(end.x,<sp/>end.y),<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/>ASSERT_FALSE(path.<ref refid="classhmap_1_1Cloud_1a89f21637cf9c4857bf65ad6a6009eff9" kindref="member">empty</ref>());</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.<ref refid="classhmap_1_1Cloud_1a8cae222f807dfaab9f9bf5d75493da0b" kindref="member">front</ref>().<ref refid="classhmap_1_1Point_1ac67fb22939ed39d6c5ff4194b4405efb" kindref="member">v</ref>,<sp/>z(start.x,<sp/>start.y),<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(path.<ref refid="classhmap_1_1Cloud_1a0ccd5b43ebbf2d1f1ef4777f66943553" kindref="member">back</ref>().<ref refid="classhmap_1_1Point_1ac67fb22939ed39d6c5ff4194b4405efb" kindref="member">v</ref>,<sp/>z(end.x,<sp/>end.y),<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="313"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_path_multiscale.cpp"/>

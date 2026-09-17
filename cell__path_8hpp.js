@@ -1,8 +1,8 @@
 var cell__path_8hpp =
 [
     [ "hmap::CellPath", "classhmap_1_1CellPath.html", "classhmap_1_1CellPath" ],
-    [ "add_line_bresenham", "cell__path_8hpp.html#a79765f4d29b53c1e41310dd90ab3ebcf", null ],
-    [ "add_noise", "cell__path_8hpp.html#a05996c063dedad696c29b73855dc4311", null ],
-    [ "enforce_path_adjacency", "cell__path_8hpp.html#ac6946a57676cf1b3fef0bc7cb0221789", null ],
-    [ "is_path_adjacent", "cell__path_8hpp.html#a1f55b3e36f46f0c821fb093bca24ca5f", null ]
+    [ "add_line_bresenham", "cell__path_8hpp.html#a2eb54fb6e51f35573926f9255bcd00e4", null ],
+    [ "add_noise", "cell__path_8hpp.html#ae2e53495ed85355b7fee99c4293a1d4c", null ],
+    [ "enforce_path_adjacency", "cell__path_8hpp.html#a10175819fe536f531bb0ef2f4f26a342", null ],
+    [ "is_path_adjacent", "cell__path_8hpp.html#a8c8d4255595c43a8e8440dfc4d34572b", null ]
 ];

@@ -5,6 +5,6 @@ var searchData=
   ['periodic_2',['periodic',['../classhmap_1_1ArrayFunction.html#a5f74e2ba75875e4cc02827be36c933da',1,'hmap::ArrayFunction']]],
   ['persistence_3',['persistence',['../classhmap_1_1GenericFractalFunction.html#ab14745ebb9beee94828d13aa587de69a',1,'hmap::GenericFractalFunction']]],
   ['phase_5fshift_4',['phase_shift',['../classhmap_1_1WaveDuneFunction.html#abc24fb97142a7688cb1c14f1f67259c3',1,'hmap::WaveDuneFunction::phase_shift'],['../classhmap_1_1WaveSineFunction.html#afeb64dcd835089aca43509acd96d07e3',1,'hmap::WaveSineFunction::phase_shift'],['../classhmap_1_1WaveSquareFunction.html#acafda7056c558f5daf9090944ab43e47',1,'hmap::WaveSquareFunction::phase_shift'],['../classhmap_1_1WaveTriangularFunction.html#abf7528af6e80038e800596f70d863bdb',1,'hmap::WaveTriangularFunction::phase_shift']]],
-  ['points_5',['points',['../classhmap_1_1Cloud.html#aad75fb7bcfa7a2c3f139d2e3d3d6cc54',1,'hmap::Cloud']]],
+  ['points_5',['points',['../classhmap_1_1Cloud.html#aad75fb7bcfa7a2c3f139d2e3d3d6cc54',1,'hmap::Cloud::points'],['../kd__tree_8cpp.html#a7cbf926513672593ee7214c43a06e057',1,'points:&#160;kd_tree.cpp']]],
   ['priority_6',['priority',['../find__path__multiscale_8cpp.html#ab4ad87b08386d7796fdf419a5b97ac99',1,'find_path_multiscale.cpp']]]
 ];

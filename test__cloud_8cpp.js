@@ -6,8 +6,8 @@ var test__cloud_8cpp =
     [ "TEST", "test__cloud_8cpp.html#ab430295358a843fbb6c3c26ee1209849", null ],
     [ "TEST", "test__cloud_8cpp.html#aaa6ef8676f6c7dd87dc6afe9815b4e20", null ],
     [ "TEST", "test__cloud_8cpp.html#ac3cfc91c01e56690f15539520095b39a", null ],
-    [ "TEST", "test__cloud_8cpp.html#a8fca374dba75d14834b47d0134c9fa22", null ],
-    [ "TEST", "test__cloud_8cpp.html#a82e03d2458805650b4d900505311ab97", null ],
+    [ "TEST", "test__cloud_8cpp.html#a1289a1120d220d6c93d6de2aeeac803c", null ],
+    [ "TEST", "test__cloud_8cpp.html#a20b0bf61efc576e659b952422a770961", null ],
     [ "TEST", "test__cloud_8cpp.html#a338005e0b8859e07eb8f7812c9d9f933", null ],
     [ "TEST", "test__cloud_8cpp.html#abbe9e611ee4c8cd0df7c734e24e0a2a5", null ],
     [ "TEST", "test__cloud_8cpp.html#a2635d53220155d41c0cdf04c61a5555f", null ],
@@ -26,5 +26,11 @@ var test__cloud_8cpp =
     [ "TEST", "test__cloud_8cpp.html#a311ad5b40db92dbc5d8e613bad215c45", null ],
     [ "TEST", "test__cloud_8cpp.html#addf610022f430442af81859ab34280e8", null ],
     [ "TEST", "test__cloud_8cpp.html#a064a6bd0cfd4fa184c9da238d457f6dc", null ],
-    [ "TEST", "test__cloud_8cpp.html#afc56ec6148b458d7319371329152dd48", null ]
+    [ "TEST", "test__cloud_8cpp.html#afc56ec6148b458d7319371329152dd48", null ],
+    [ "TEST", "test__cloud_8cpp.html#a5429a31b2c00dac2483fd69eb91d69c7", null ],
+    [ "TEST", "test__cloud_8cpp.html#a434b9e87a0218e8aa36f511f4ed03647", null ],
+    [ "TEST", "test__cloud_8cpp.html#ac70a3ec972395858071213590f9c76d0", null ],
+    [ "TEST", "test__cloud_8cpp.html#a797d43e16a987502f8dae190dbc61b16", null ],
+    [ "TEST", "test__cloud_8cpp.html#ac5145f7d0e42527d321df7d7f6715361", null ],
+    [ "TEST", "test__cloud_8cpp.html#a88d19cb9d2f09747e6668473c3df525b", null ]
 ];
