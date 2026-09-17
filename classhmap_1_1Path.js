@@ -5,6 +5,8 @@ var classhmap_1_1Path =
       [ "EDM_FULL_ARC", "classhmap_1_1Path.html#a52c62bad1cdef88e8793d9c022357787a5809dc79c1bc0e85924a160c89a46338", null ]
     ] ],
     [ "Path", "classhmap_1_1Path.html#a2e6b68e1b725991715f052d04f902dac", null ],
+    [ "Path", "classhmap_1_1Path.html#a3bc33655592c32922cdc3686b201a0df", null ],
+    [ "Path", "classhmap_1_1Path.html#a9c839021437a438bf6ce7e49bfadba0f", null ],
     [ "Path", "classhmap_1_1Path.html#a329b1d3f78808ff33ed6aeb8c0148c5c", null ],
     [ "Path", "classhmap_1_1Path.html#a1e53097202dd97f5869bec938719f887", null ],
     [ "Path", "classhmap_1_1Path.html#af6c1f217ddb1a98060701bc3dc2ca6a9", null ],
