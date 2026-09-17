@@ -15,8 +15,6 @@ add_library(${PROJECT_NAME} STATIC ${NNC_SRC})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE TRILIBRARY=1)
-target_compile_definitions(${PROJECT_NAME} PRIVATE SINGLE=0)
-target_compile_definitions(${PROJECT_NAME} PRIVATE NO_TIMER=0)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${NNC_INCLUDE_DIR}
                                                   ${CMAKE_BINARY_DIR}/nn-c)
