@@ -44,8 +44,8 @@ TEST(CloudTest, ConstructFromXY)
   Cloud cloud(x, y);
 
   ASSERT_EQ(cloud.size(), 2);
-  EXPECT_TRUE(floatEq(cloud.points[0].x, 0.f));
-  EXPECT_TRUE(floatEq(cloud.points[0].y, 2.f));
+  EXPECT_TRUE(floatEq(cloud[0].x, 0.f));
+  EXPECT_TRUE(floatEq(cloud[0].y, 2.f));
 }
 
 TEST(CloudTest, ConstructFromXYV)
@@ -57,7 +57,7 @@ TEST(CloudTest, ConstructFromXYV)
   Cloud cloud(x, y, v);
 
   ASSERT_EQ(cloud.size(), 2);
-  EXPECT_TRUE(floatEq(cloud.points[1].v, 20.f));
+  EXPECT_TRUE(floatEq(cloud[1].v, 20.f));
 }
 
 TEST(CloudTest, RandomConstructorDeterministic)
@@ -69,8 +69,8 @@ TEST(CloudTest, RandomConstructorDeterministic)
 
   for (size_t i = 0; i < c1.size(); ++i)
   {
-    EXPECT_NEAR(c1.points[i].x, c2.points[i].x, eps);
-    EXPECT_NEAR(c1.points[i].y, c2.points[i].y, eps);
+    EXPECT_NEAR(c1[i].x, c2[i].x, eps);
+    EXPECT_NEAR(c1[i].y, c2[i].y, eps);
   }
 }
 
@@ -94,7 +94,7 @@ TEST(CloudTest, RemovePointReducesSize)
   cloud.remove_point(0);
 
   ASSERT_EQ(cloud.size(), 1);
-  EXPECT_TRUE(floatEq(cloud.points[0].x, 1.f));
+  EXPECT_TRUE(floatEq(cloud[0].x, 1.f));
 }
 
 TEST(CloudTest, ClearEmptiesCloud)
@@ -181,7 +181,7 @@ TEST(CloudTest, SetValuesConstant)
 
   cloud.set_values(5.f);
 
-  for (auto &p : cloud.points)
+  for (auto &p : cloud)
     EXPECT_TRUE(floatEq(p.v, 5.f));
 }
 
@@ -191,8 +191,8 @@ TEST(CloudTest, SetValuesVector)
 
   cloud.set_values({3.f, 4.f});
 
-  EXPECT_TRUE(floatEq(cloud.points[0].v, 3.f));
-  EXPECT_TRUE(floatEq(cloud.points[1].v, 4.f));
+  EXPECT_TRUE(floatEq(cloud[0].v, 3.f));
+  EXPECT_TRUE(floatEq(cloud[1].v, 4.f));
 }
 
 // ------------------------------------------------------------
@@ -223,8 +223,8 @@ TEST(CloudTest, RandomizeDeterministic)
 
   for (size_t i = 0; i < c1.size(); ++i)
   {
-    EXPECT_NEAR(c1.points[i].x, c2.points[i].x, eps);
-    EXPECT_NEAR(c1.points[i].y, c2.points[i].y, eps);
+    EXPECT_NEAR(c1[i].x, c2[i].x, eps);
+    EXPECT_NEAR(c1[i].y, c2[i].y, eps);
   }
 }
 
@@ -238,8 +238,8 @@ TEST(CloudTest, ShuffleDeterministic)
 
   for (size_t i = 0; i < c1.size(); ++i)
   {
-    EXPECT_NEAR(c1.points[i].x, c2.points[i].x, eps);
-    EXPECT_NEAR(c1.points[i].v, c2.points[i].v, eps);
+    EXPECT_NEAR(c1[i].x, c2[i].x, eps);
+    EXPECT_NEAR(c1[i].v, c2[i].v, eps);
   }
 }
 
@@ -296,13 +296,13 @@ TEST(CloudTest, ScaleUniformDefaultCenter)
   Cloud scaled = scale(cloud, 0.8f);
 
   ASSERT_EQ(scaled.size(), 2);
-  EXPECT_NEAR(scaled.points[0].x, 0.1f, eps);
-  EXPECT_NEAR(scaled.points[0].y, 0.1f, eps);
-  EXPECT_NEAR(scaled.points[0].v, 10.f, eps);
+  EXPECT_NEAR(scaled[0].x, 0.1f, eps);
+  EXPECT_NEAR(scaled[0].y, 0.1f, eps);
+  EXPECT_NEAR(scaled[0].v, 10.f, eps);
 
-  EXPECT_NEAR(scaled.points[1].x, 0.9f, eps);
-  EXPECT_NEAR(scaled.points[1].y, 0.9f, eps);
-  EXPECT_NEAR(scaled.points[1].v, 20.f, eps);
+  EXPECT_NEAR(scaled[1].x, 0.9f, eps);
+  EXPECT_NEAR(scaled[1].y, 0.9f, eps);
+  EXPECT_NEAR(scaled[1].v, 20.f, eps);
 }
 
 TEST(CloudTest, ScaleNonUniformCustomCenter)
@@ -315,9 +315,9 @@ TEST(CloudTest, ScaleNonUniformCustomCenter)
   Cloud scaled = scale(cloud, glm::vec2(2.f, 0.5f), glm::vec2(1.f, 1.f));
 
   ASSERT_EQ(scaled.size(), 1);
-  EXPECT_NEAR(scaled.points[0].x, 1.f, eps);
-  EXPECT_NEAR(scaled.points[0].y, 1.5f, eps);
-  EXPECT_NEAR(scaled.points[0].v, 5.f, eps);
+  EXPECT_NEAR(scaled[0].x, 1.f, eps);
+  EXPECT_NEAR(scaled[0].y, 1.5f, eps);
+  EXPECT_NEAR(scaled[0].v, 5.f, eps);
 }
 
 TEST(CloudTest, ScaleCustomCenter)
@@ -331,10 +331,10 @@ TEST(CloudTest, ScaleCustomCenter)
   Cloud scaled = scale(cloud, 0.5f, center);
 
   ASSERT_EQ(scaled.size(), 2);
-  EXPECT_NEAR(scaled.points[0].x, 12.5f, eps);
-  EXPECT_NEAR(scaled.points[0].y, 25.f, eps);
-  EXPECT_NEAR(scaled.points[1].x, 17.5f, eps);
-  EXPECT_NEAR(scaled.points[1].y, 35.f, eps);
+  EXPECT_NEAR(scaled[0].x, 12.5f, eps);
+  EXPECT_NEAR(scaled[0].y, 25.f, eps);
+  EXPECT_NEAR(scaled[1].x, 17.5f, eps);
+  EXPECT_NEAR(scaled[1].y, 35.f, eps);
 }
 
 TEST(CloudTest, ScalePreservesPointValues)
@@ -348,9 +348,9 @@ TEST(CloudTest, ScalePreservesPointValues)
   Cloud scaled = scale(cloud, glm::vec2(0.5f, 1.5f));
 
   ASSERT_EQ(scaled.size(), 3u);
-  EXPECT_FLOAT_EQ(scaled.points[0].v, 100.5f);
-  EXPECT_FLOAT_EQ(scaled.points[1].v, -42.0f);
-  EXPECT_FLOAT_EQ(scaled.points[2].v, 3.1415f);
+  EXPECT_FLOAT_EQ(scaled[0].v, 100.5f);
+  EXPECT_FLOAT_EQ(scaled[1].v, -42.0f);
+  EXPECT_FLOAT_EQ(scaled[2].v, 3.1415f);
 }
 
 // ------------------------------------------------------------

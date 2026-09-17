@@ -32,7 +32,7 @@ Array cloud_sdf_to_array(const Cloud &cloud,
 
   Array array(shape);
 
-  if (!validate_min_size(cloud.points, 1, "Cloud points")) return array;
+  if (!validate_min_size(cloud, 1, "Cloud points")) return array;
 
   // --- KD-tree
 
@@ -105,17 +105,16 @@ std::vector<float> interpolate_values_from_array(const Cloud &cloud,
                                                  const Array &array,
                                                  glm::vec4    bbox)
 {
-  if (!validate_non_empty(array))
-    return std::vector<float>(cloud.points.size(), 0.f);
+  if (!validate_non_empty(array)) return std::vector<float>(cloud.size(), 0.f);
 
   const float      inv_width = 1.0f / (bbox.y - bbox.x);
   const float      inv_height = 1.0f / (bbox.w - bbox.z);
   const glm::ivec2 shape = {array.shape.x - 1, array.shape.y - 1};
 
   std::vector<float> values;
-  values.reserve(cloud.points.size());
+  values.reserve(cloud.size());
 
-  for (const auto &p : cloud.points)
+  for (const auto &p : cloud)
   {
     const float xn = (p.x - bbox.x) * inv_width;
     const float yn = (p.y - bbox.z) * inv_height;
@@ -157,21 +156,21 @@ void rejection_filter_density(Cloud           &cloud,
 
   auto density_fct = make_xy_function_from_array(density_mask, bbox);
 
-  cloud.points.erase(std::remove_if(cloud.points.begin(),
-                                    cloud.points.end(),
+  cloud.points.erase(std::remove_if(cloud.begin(),
+                                    cloud.end(),
                                     [&](const Point &p)
                                     {
                                       float rnd = dis(gen);
                                       return (rnd > density_fct(p.x, p.y));
                                     }),
-                     cloud.points.end());
+                     cloud.end());
 }
 
 Cloud scale(const Cloud &cloud, glm::vec2 scale, glm::vec2 center)
 {
   Cloud result = cloud;
 
-  for (auto &p : result.points)
+  for (auto &p : result)
     p = hmap::scale(p, scale, center);
 
   return result;
