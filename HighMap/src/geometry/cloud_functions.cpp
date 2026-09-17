@@ -65,27 +65,32 @@ Array cloud_sdf_to_array(const Cloud &cloud,
 
 bool has_duplicates(const Cloud &cloud, float eps, bool xy_only)
 {
-  std::vector<glm::vec3> pts = cloud.to_vec3();
+  if (cloud.size() < 2) return false;
 
-  std::sort(pts.begin(),
-            pts.end(),
-            [](const auto &a, const auto &b)
-            { return a.x < b.x || (a.x == b.x && a.y < b.y); });
+  KDTree tree(cloud);
 
   if (xy_only)
   {
-    for (size_t i = 1; i < pts.size(); ++i)
+    for (const auto &p : cloud)
     {
-      glm::vec2 p0 = {pts[i].x, pts[i].y};
-      glm::vec2 p1 = {pts[i - 1].x, pts[i - 1].y};
-
-      if (glm::distance(p0, p1) < eps) return true;
+      auto neighbors = tree.radius_search(p, eps);
+      if (neighbors.size() > 1) return true;
     }
   }
   else
   {
-    for (size_t i = 1; i < pts.size(); ++i)
-      if (glm::distance(pts[i], pts[i - 1]) < eps) return true;
+    for (const auto &p : cloud)
+    {
+      auto neighbors = tree.radius_search(p, eps);
+      for (const auto &[idx, d_sq] : neighbors)
+      {
+        if (std::abs(cloud[idx].v - p.v) < eps &&
+            (&cloud[idx] != &p || neighbors.size() > 1))
+        {
+          if (&cloud[idx] != &p) return true;
+        }
+      }
+    }
   }
 
   return false;

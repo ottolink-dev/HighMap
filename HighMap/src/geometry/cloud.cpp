@@ -26,6 +26,7 @@
 #include "highmap/array.hpp"
 #include "highmap/geometry/cloud.hpp"
 #include "highmap/geometry/graph.hpp"
+#include "highmap/geometry/kd_tree.hpp"
 #include "highmap/geometry/point.hpp"
 #include "highmap/geometry/point_sampling.hpp"
 #include "highmap/internal/validation.hpp"
@@ -417,14 +418,27 @@ void Cloud::set_values_from_chull_distance()
 
 void Cloud::set_values_from_min_distance()
 {
-  std::array<std::vector<float>, 2> xy = {this->get_x(), this->get_y()};
-  std::vector<ps::Point<float, 2>>  points_ps = ps::merge_by_dimension(xy);
-  std::vector<float> dist = ps::first_neighbor_distance_squared(points_ps);
+  if (this->size() < 2)
+  {
+    for (auto &p : this->points)
+      p.v = 0.f;
+    return;
+  }
 
-  for (auto &v : dist)
-    v = std::sqrt(v);
+  KDTree              tree(*this);
+  std::vector<size_t> indices;
+  std::vector<float>  distances;
 
-  this->set_values(dist);
+  for (auto &p : this->points)
+  {
+    // find 2 nearest neighbors (1st is the point itself with distance 0, 2nd is
+    // the nearest other neighbor)
+    tree.neighbor_search(p, 2, indices, distances);
+    if (distances.size() >= 2)
+      p.v = std::sqrt(distances[1]);
+    else
+      p.v = 0.f;
+  }
 }
 
 // --- Container interface
@@ -620,28 +634,12 @@ void Cloud::snap_points_to_bounding_box(const glm::vec4 &bbox,
                           {bbox.x, bbox.w}};
 
   // snap closest point to each corner
+  KDTree tree(*this);
   for (int c = 0; c < 4; ++c)
   {
-    float best_d2 = std::numeric_limits<float>::max();
-    int   best_i = -1;
-
-    for (size_t i = 0; i < this->size(); ++i)
-    {
-      glm::vec2 d = glm::vec2((*this)[i].x, (*this)[i].y) - corners[c];
-      float     d2 = glm::dot(d, d);
-
-      if (d2 < best_d2)
-      {
-        best_d2 = d2;
-        best_i = int(i);
-      }
-    }
-
-    if (best_i >= 0)
-    {
-      (*this)[best_i].x = corners[c].x;
-      (*this)[best_i].y = corners[c].y;
-    }
+    size_t best_i = tree.nearest(corners[c]);
+    (*this)[best_i].x = corners[c].x;
+    (*this)[best_i].y = corners[c].y;
   }
 }
 

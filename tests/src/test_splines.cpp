@@ -62,3 +62,14 @@ TEST(PathSplines, HasNoDuplicates)
   EXPECT_EQ(has_duplicates(catmullrom(path)), false);
   EXPECT_EQ(has_duplicates(decasteljau(path)), false);
 }
+
+TEST(PathSplines, TwoPointEdgeCases)
+{
+  Path two_pts(std::vector<hmap::Point>{{0.f, 0.f, 0.f}, {1.f, 1.f, 1.f}});
+
+  Path b_round = bezier_round(two_pts);
+  EXPECT_GE(b_round.size(), 2u);
+
+  Path meand = meanderize(two_pts, 0.2f);
+  EXPECT_GE(meand.size(), 2u);
+}

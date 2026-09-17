@@ -33,10 +33,12 @@ void Path::clear()
 void Path::divide()
 {
   size_t npoints = this->size();
+  if (npoints == 0) return;
+
   size_t end = this->is_closed() ? npoints : npoints - 1;
 
   std::vector<Point> new_points;
-  new_points.reserve(2 * npoints); // reserve space for the new points
+  new_points.reserve(2 * npoints);
 
   for (size_t k = 0; k < end; ++k)
   {
@@ -57,6 +59,8 @@ void Path::divide()
 
 void Path::enforce_monotonic_values(bool decreasing)
 {
+  if (this->points.size() < 2) return;
+
   if (decreasing)
   {
     for (size_t k = 0; k < this->size() - 1; k++)
@@ -77,22 +81,33 @@ void Path::enforce_monotonic_values(bool decreasing)
 
 std::vector<float> Path::get_arc_length() const
 {
+  if (this->empty()) return {};
+
   std::vector<float> s = this->get_cumulative_distance();
-  // normalize in [0, 1]
-  for (auto &v : s)
-    v /= s.back();
+  float              total_len = s.back();
+
+  if (total_len > 0.f)
+  {
+    for (auto &v : s)
+      v /= total_len;
+  }
+  else
+  {
+    std::fill(s.begin(), s.end(), 0.f);
+  }
+
   return s;
 }
 
 std::vector<float> Path::get_cumulative_distance() const
 {
+  if (this->empty()) return {};
+
   size_t             ke = this->is_closed() ? 1 : 0;
-  std::vector<float> dacc(this->size() + ke);
+  std::vector<float> dacc(this->size() + ke, 0.f);
 
   for (size_t k = 1; k < this->size() + ke; k++)
   {
-    // distance of the segment between consecutive points k-1 and k; the modulo
-    // wraps only the closing segment of a closed path (k == size).
     size_t knext = k % this->size();
     float  dist = distance(this->points[k - 1], this->points[knext]);
     dacc[k] = dacc[k - 1] + dist;
@@ -103,8 +118,10 @@ std::vector<float> Path::get_cumulative_distance() const
 
 std::vector<float> Path::get_curvature(bool normalized) const
 {
+  if (this->size() < 3) return std::vector<float>(this->size(), 0.f);
+
   size_t             ke = this->is_closed() ? 1 : 0;
-  std::vector<float> cv(this->size() + ke);
+  std::vector<float> cv(this->size() + ke, 0.f);
   float              cmax = 0.f;
 
   for (size_t k = 1; k < this->size() - 1 + ke; k++)
@@ -118,7 +135,7 @@ std::vector<float> Path::get_curvature(bool normalized) const
     cmax = std::max(cmax, std::abs(cv[k]));
   }
 
-  if (normalized)
+  if (normalized && cmax > 0.f)
   {
     for (auto &v : cv)
       v /= cmax;
@@ -159,8 +176,11 @@ std::vector<glm::vec2> Path::get_normals() const
 
 std::vector<glm::vec2> Path::get_tangents() const
 {
+  if (this->empty()) return {};
+  if (this->size() == 1) return {glm::vec2(1.f, 0.f)};
+
   size_t                 ke = this->is_closed() ? 1 : 0;
-  std::vector<glm::vec2> tangents(this->size() + ke);
+  std::vector<glm::vec2> tangents(this->size() + ke, glm::vec2(0.f));
 
   for (size_t k = 1; k < this->size() - 1 + ke; k++)
   {
@@ -169,7 +189,23 @@ std::vector<glm::vec2> Path::get_tangents() const
     glm::vec2 delta = {this->points[kp].x - this->points[km].x,
                        this->points[kp].y - this->points[km].y};
 
-    tangents[k] = glm::normalize(delta);
+    float len = glm::length(delta);
+    tangents[k] = len > 0.f ? delta / len : glm::vec2(1.f, 0.f);
+  }
+
+  if (!this->is_closed())
+  {
+    glm::vec2 d_start = {this->points[1].x - this->points[0].x,
+                         this->points[1].y - this->points[0].y};
+    float     len_start = glm::length(d_start);
+    tangents.front() = len_start > 0.f ? d_start / len_start
+                                       : glm::vec2(1.f, 0.f);
+
+    size_t    n = this->size();
+    glm::vec2 d_end = {this->points[n - 1].x - this->points[n - 2].x,
+                       this->points[n - 1].y - this->points[n - 2].y};
+    float     len_end = glm::length(d_end);
+    tangents.back() = len_end > 0.f ? d_end / len_end : glm::vec2(1.f, 0.f);
   }
 
   return tangents;
@@ -229,48 +265,50 @@ bool Path::is_closed() const
 
 void Path::reorder_nns(int start_index)
 {
-  // reserve space in idx vector upfront
-  std::vector<int> idx;
-  idx.reserve(this->size());
-  idx.push_back(start_index);
+  const size_t n = this->size();
+  if (n <= 1) return;
 
-  // populate the search queue with all other indices
-  std::list<int> queue_search;
-  for (int k = 0; k < static_cast<int>(this->size()); ++k)
-    if (k != start_index) queue_search.push_back(k);
+  start_index = std::clamp(start_index, 0, static_cast<int>(n - 1));
 
-  while (idx.size() < this->size())
+  std::vector<Point> reordered;
+  reordered.reserve(n);
+
+  std::vector<bool> visited(n, false);
+  int               current = start_index;
+  visited[current] = true;
+  reordered.push_back(this->points[current]);
+
+  for (size_t step = 1; step < n; ++step)
   {
-    int   k = idx.back(); // current point
-    int   knext = -1;     // next point to add to idx
-    float dmin = std::numeric_limits<float>::max();
+    int   best_idx = -1;
+    float best_dist_sq = std::numeric_limits<float>::max();
 
-    for (const auto &i : queue_search)
+    const Point &p_curr = this->points[current];
+
+    for (size_t i = 0; i < n; ++i)
     {
-      float dist = distance(this->points[k], this->points[i]);
-      if (dist < dmin)
+      if (visited[i]) continue;
+
+      float dx = this->points[i].x - p_curr.x;
+      float dy = this->points[i].y - p_curr.y;
+      float dist_sq = dx * dx + dy * dy;
+
+      if (dist_sq < best_dist_sq)
       {
-        dmin = dist;
-        knext = i;
+        best_dist_sq = dist_sq;
+        best_idx = static_cast<int>(i);
       }
     }
 
-    // ensure knext was found
-    if (knext != -1)
+    if (best_idx != -1)
     {
-      queue_search.remove(knext);
-      idx.push_back(knext);
+      visited[best_idx] = true;
+      reordered.push_back(this->points[best_idx]);
+      current = best_idx;
     }
   }
 
-  // reorder the points based on the new indices
-  std::vector<Point> reordered_points;
-  reordered_points.reserve(this->size());
-  for (const int &i : idx)
-    reordered_points.push_back(this->points[i]);
-
-  // assign the reordered points back to the object's points vector
-  this->points = std::move(reordered_points);
+  this->points = std::move(reordered);
 }
 
 void Path::resample_by_spacing(float delta, InterpolationMethod1D itp_method)
@@ -326,9 +364,6 @@ void Path::resample_uniform(InterpolationMethod1D itp_method)
 {
   if (!validate_min_size(this->points, 2, "Path points")) return;
 
-  // determine smallest distance between two consecutive points (and
-  // store distances because there are used for the interpolation
-  // step)
   float dmin = std::numeric_limits<float>::max();
   float dsum = 0.f;
 
@@ -344,8 +379,9 @@ void Path::resample_uniform(InterpolationMethod1D itp_method)
     dsum += dist;
   }
 
-  // resample
-  this->resample_interp(dsum / dmin, itp_method);
+  if (dmin <= 0.f) return;
+
+  this->resample_interp(static_cast<int>(dsum / dmin), itp_method);
 }
 
 void Path::reverse()
@@ -357,9 +393,18 @@ glm::vec3 Path::sample_at(float                     t,
                           const std::vector<float> *p_arc,
                           glm::vec2                *p_tangent) const
 {
-  // recompute of use the provided arc length (to avoid recomputing it
-  // at every sampling call) - no failsafe, p_arc size must be checked
-  // before-hand
+  if (this->empty())
+  {
+    if (p_tangent) *p_tangent = glm::vec2(1.f, 0.f);
+    return glm::vec3(0.f);
+  }
+
+  if (this->size() == 1)
+  {
+    if (p_tangent) *p_tangent = glm::vec2(1.f, 0.f);
+    return glm::vec3(this->points[0].x, this->points[0].y, this->points[0].v);
+  }
+
   const std::vector<float>  arc = p_arc ? *p_arc : this->get_arc_length();
   const std::vector<Point> &pts = this->points;
 
@@ -396,25 +441,29 @@ void Path::set_closed(bool new_value)
 
 void Path::subsample(int step)
 {
-  size_t k_global = 0;
-  size_t k_last = this->size() - 1; // to keep the end point
+  if (step <= 1 || this->size() <= 2) return;
 
-  for (size_t k = 0; k < this->size(); k++)
+  std::vector<Point> subsampled;
+  subsampled.reserve((this->size() + step - 1) / step + 1);
+
+  for (size_t k = 0; k < this->size(); k += step)
   {
-    if ((k_global % step != 0) and (k_global != k_last))
-    {
-      this->points.erase(this->points.begin() + k);
-      k--;
-    }
-    k_global++;
+    subsampled.push_back(this->points[k]);
   }
+
+  // always preserve endpoint for open paths
+  if (!this->is_closed() && (this->size() - 1) % step != 0)
+  {
+    subsampled.push_back(this->points.back());
+  }
+
+  this->points = std::move(subsampled);
 }
 
 void Path::to_array(Array &array, glm::vec4 bbox, bool filled) const
 {
   if (!validate_non_empty(array)) return;
 
-  // number of pixels per unit length
   float lx = bbox.y - bbox.x;
   float ly = bbox.w - bbox.z;
   float ppu = std::max(array.shape.x / lx, array.shape.y / ly);
