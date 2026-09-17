@@ -57,19 +57,18 @@ Graph generate_network_alpha_model(const std::vector<float> &xc,
     for (size_t k = 0; k < nc; k++)
     {
       Point p = Point(xc[k], yc[k], size[k]);
-      cloud.add_point(p);
+      cloud.push_back(p);
     }
 
     // Delaunay triangulation
     graph = cloud.to_graph_delaunay();
     graph.set_values_from_array(z, bbox);
-    graph.update_connectivity();
   }
 
   // --- Road weights
 
   std::unordered_map<std::uint64_t, float> is_road;
-  is_road.reserve(graph.get_nedges());
+  is_road.reserve(graph.num_edges());
 
   // define number of trips between each cities
   size_t             n_trips = nc * (nc - 1) / 2;
@@ -91,29 +90,20 @@ Graph generate_network_alpha_model(const std::vector<float> &xc,
       trips_iend.push_back(static_cast<int>(j));
     }
 
-  // compute adjacency matrix based on the Euclidian distance
-  // between points and add elevation difference
-  graph.update_adjacency_matrix();
-
+  // compute weights based on the Euclidean distance between points and
+  // elevation difference
   std::vector<float> local_weight(graph.size());
   if (p_weight != nullptr)
     local_weight = interpolate_values_from_array(graph, *p_weight, bbox);
 
-  for (size_t i = 0; i < graph.size(); i++)
-    for (size_t r = 0; r < graph.connectivity[i].size(); r++)
-    {
-      int j = graph.connectivity[i][r];
-      if (j > static_cast<int>(i))
-      {
-        float dz = graph.points[i].v - graph.points[j].v;
-        graph.adjacency_matrix[{static_cast<int>(i), j}] += std::abs(dz) *
-                                                            dz_weight;
-        graph.adjacency_matrix[{static_cast<int>(i), j}] += local_weight[i] +
-                                                            local_weight[j];
-        graph.adjacency_matrix[{j, static_cast<int>(i)}] =
-            graph.adjacency_matrix[{static_cast<int>(i), j}];
-      }
-    }
+  for (size_t k = 0; k < graph.num_edges(); ++k)
+  {
+    Edge  e = graph.get_edge(k);
+    float dz = graph[e.u].v - graph[e.v].v;
+    float w = e.weight + std::abs(dz) * dz_weight + local_weight[e.u] +
+              local_weight[e.v];
+    graph.set_edge_weight(k, w);
+  }
 
   // start with the most important connections
   std::vector<size_t> ksort = argsort(ntrips);
@@ -140,8 +130,14 @@ Graph generate_network_alpha_model(const std::vector<float> &xc,
 
       if (road_count == 1.f)
       {
-        graph.adjacency_matrix[{i1, i2}] *= alpha;
-        graph.adjacency_matrix[{i2, i1}] = graph.adjacency_matrix[{i1, i2}];
+        for (const auto &nbr : graph.neighbors(i1))
+        {
+          if (nbr.target == i2)
+          {
+            graph.set_edge_weight(nbr.edge_index, nbr.weight * alpha);
+            break;
+          }
+        }
       }
     }
   }
@@ -151,30 +147,31 @@ Graph generate_network_alpha_model(const std::vector<float> &xc,
   Graph network = Graph(graph.get_x(), graph.get_y());
 
   for (size_t i = 0; i < graph.size(); i++)
-    for (size_t r = 0; r < graph.connectivity[i].size(); r++)
+  {
+    for (const auto &nbr : graph.neighbors(static_cast<int>(i)))
     {
-      int j = graph.connectivity[i][r];
+      int j = nbr.target;
       if (j > static_cast<int>(i))
       {
         std::uint64_t key = (static_cast<std::uint64_t>(i) << 32) |
                             static_cast<std::uint32_t>(j);
         auto it = is_road.find(key);
         if (it != is_road.end() && it->second > 0.f)
-          network.add_edge({static_cast<int>(i), j}, it->second);
+          network.add_edge(static_cast<int>(i), j, it->second);
       }
     }
+  }
 
   // store city size in node value (equals to 0 if the node is not a
   // city)
   for (size_t i = 0; i < network.size(); i++)
     if (i < network.size() - nc)
-      network.points[i].v = 0.f;
+      network[i].v = 0.f;
     else
-      network.points[i].v = size[i - network.size() + nc];
+      network[i].v = size[i - network.size() + nc];
 
   // final clean-up
   network = network.remove_orphan_points();
-  network.update_adjacency_matrix();
 
   return network;
 }

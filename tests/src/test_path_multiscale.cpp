@@ -214,10 +214,10 @@ TEST(PathMultiscale, PathOverloadAndToArray)
 
   hmap::Path path = hmap::find_path_multiscale(z, start, end, bbox, 3, 4);
 
-  ASSERT_FALSE(path.points.empty());
+  ASSERT_FALSE(path.empty());
 
   // verify point values hold actual elevations from z
-  for (const auto &p : path.points)
+  for (const auto &p : path)
   {
     int i = int(std::round(p.x * float(shape.x - 1)));
     int j = int(std::round(p.y * float(shape.y - 1)));
@@ -227,8 +227,8 @@ TEST(PathMultiscale, PathOverloadAndToArray)
   }
 
   // verify exact elevation on path endpoints
-  EXPECT_NEAR(path.points.front().v, z(start.x, start.y), 1e-5f);
-  EXPECT_NEAR(path.points.back().v, z(end.x, end.y), 1e-5f);
+  EXPECT_NEAR(path.front().v, z(start.x, start.y), 1e-5f);
+  EXPECT_NEAR(path.back().v, z(end.x, end.y), 1e-5f);
 
   // test built-in to_array
   hmap::Array arr = path.to_array(shape, bbox);
@@ -254,9 +254,9 @@ TEST(PathMultiscale, FindCutPathMultiscale)
       3,
       6);
 
-  ASSERT_FALSE(path.points.empty());
-  EXPECT_NEAR(path.points.front().x, 0.f, 1e-4f);
-  EXPECT_NEAR(path.points.back().x, 1.f, 1e-4f);
+  ASSERT_FALSE(path.empty());
+  EXPECT_NEAR(path.front().x, 0.f, 1e-4f);
+  EXPECT_NEAR(path.back().x, 1.f, 1e-4f);
 }
 
 TEST(PathMultiscale, FindPathDijkstraHarmonized)
@@ -279,9 +279,9 @@ TEST(PathMultiscale, FindPathDijkstraHarmonized)
 
   // Path overload
   hmap::Path path = hmap::find_path_dijkstra(z, start, end, bbox);
-  ASSERT_FALSE(path.points.empty());
-  EXPECT_NEAR(path.points.front().v, z(start.x, start.y), 1e-5f);
-  EXPECT_NEAR(path.points.back().v, z(end.x, end.y), 1e-5f);
+  ASSERT_FALSE(path.empty());
+  EXPECT_NEAR(path.front().v, z(start.x, start.y), 1e-5f);
+  EXPECT_NEAR(path.back().v, z(end.x, end.y), 1e-5f);
 }
 
 TEST(PathMultiscale, FindPathMidpointHarmonized)
@@ -307,7 +307,7 @@ TEST(PathMultiscale, FindPathMidpointHarmonized)
 
   // Path overload
   hmap::Path path = hmap::find_path_midpoint(z, start, end, bbox);
-  ASSERT_FALSE(path.points.empty());
-  EXPECT_NEAR(path.points.front().v, z(start.x, start.y), 1e-5f);
-  EXPECT_NEAR(path.points.back().v, z(end.x, end.y), 1e-5f);
+  ASSERT_FALSE(path.empty());
+  EXPECT_NEAR(path.front().v, z(start.x, start.y), 1e-5f);
+  EXPECT_NEAR(path.back().v, z(end.x, end.y), 1e-5f);
 }

@@ -12,10 +12,10 @@ int main(void)
 
   path.print();
 
-  hmap::Point p0 = path.points[0];
-  hmap::Point p1 = path.points[1];
-  hmap::Point p2 = path.points[2];
-  hmap::Point p3 = path.points[3];
+  hmap::Point p0 = path[0];
+  hmap::Point p1 = path[1];
+  hmap::Point p2 = path[2];
+  hmap::Point p3 = path[3];
 
   // interpolate
   int                npts = 50;

@@ -49,8 +49,6 @@ class Graph;
 class Cloud
 {
 public:
-  std::vector<Point> points = {}; ///< Points of the cloud.
-
   // ==========================================================================
   //  Constructors
   // ==========================================================================
@@ -60,7 +58,7 @@ public:
    *
    * Initializes an empty cloud with no points.
    */
-  Cloud(){};
+  Cloud();
 
   virtual ~Cloud() = default;
 
@@ -80,7 +78,14 @@ public:
    *
    * @param points A vector of `Point` objects representing the cloud's points.
    */
-  Cloud(const std::vector<Point> &points) : points(points){};
+  Cloud(const std::vector<Point> &points);
+
+  /**
+   * @brief Move-constructs a new Cloud object from an existing points vector.
+   *
+   * @param points An rvalue vector of `Point` objects.
+   */
+  Cloud(std::vector<Point> &&points) noexcept;
 
   /**
    * @brief Constructs a new Cloud object from lists of `x` and `y` coordinates.
@@ -124,19 +129,6 @@ public:
    * @brief  Constructs a new Cloud object from lists of xyz data as glm::vec3.
    * */
   Cloud(const std::vector<glm::vec3> &xyv);
-
-  /**
-   * @brief Add a new point to the cloud.
-   *
-   * @param p The point to be added to the cloud.
-   */
-  void add_point(const Point &p);
-
-  /**
-   * @brief Remove a point from the cloud.
-   * @param point_idx Index of the point to be removed.
-   */
-  void remove_point(int point_idx);
 
   // ==========================================================================
   //  Accessors
@@ -304,11 +296,165 @@ public:
    */
   void set_values_from_min_distance();
 
+  // ==========================================================================
+  //  Container Interface
+  // ==========================================================================
+
+  /**
+   * @brief Access point by index.
+   */
+  Point &operator[](size_t index);
+
+  /**
+   * @brief Access point by index (const).
+   */
+  const Point &operator[](size_t index) const;
+
+  /**
+   * @brief Access point with bounds checking.
+   */
+  Point &at(size_t index);
+
+  /**
+   * @brief Access point with bounds checking (const).
+   */
+  const Point &at(size_t index) const;
+
+  /**
+   * @brief Access the last point.
+   */
+  Point &back();
+
+  /**
+   * @brief Access the last point (const).
+   */
+  const Point &back() const;
+
+  /**
+   * @brief Returns an iterator to the first point.
+   */
+  std::vector<Point>::iterator begin() noexcept;
+
+  /**
+   * @brief Returns a const iterator to the first point.
+   */
+  std::vector<Point>::const_iterator begin() const noexcept;
+
+  /**
+   * @brief Returns the number of points that can be held in currently allocated
+   * storage.
+   */
+  size_t capacity() const noexcept;
+
+  /**
+   * @brief Returns a const iterator to the first point.
+   */
+  std::vector<Point>::const_iterator cbegin() const noexcept;
+
+  /**
+   * @brief Returns a const iterator to the end.
+   */
+  std::vector<Point>::const_iterator cend() const noexcept;
+
+  /**
+   * @brief Clear all data from the cloud.
+   */
+  void clear();
+
+  /**
+   * @brief Direct pointer to the underlying point array.
+   */
+  Point *data() noexcept;
+
+  /**
+   * @brief Direct pointer to the underlying point array (const).
+   */
+  const Point *data() const noexcept;
+
+  /**
+   * @brief Appends a new point in-place.
+   */
+  void emplace_back(float x, float y, float v = 0.f);
+
   /**
    * @brief Check whether the cloud has no points.
    * @return true if the cloud contains no points, false otherwise.
    */
   bool empty() const;
+
+  /**
+   * @brief Returns an iterator to the end.
+   */
+  std::vector<Point>::iterator end() noexcept;
+
+  /**
+   * @brief Returns a const iterator to the end.
+   */
+  std::vector<Point>::const_iterator end() const noexcept;
+
+  /**
+   * @brief Erases the point at the specified position.
+   */
+  std::vector<Point>::iterator erase(std::vector<Point>::const_iterator pos);
+
+  /**
+   * @brief Erases the range of points [first, last).
+   */
+  std::vector<Point>::iterator erase(std::vector<Point>::const_iterator first,
+                                     std::vector<Point>::const_iterator last);
+
+  /**
+   * @brief Access the first point.
+   */
+  Point &front();
+
+  /**
+   * @brief Access the first point (const).
+   */
+  const Point &front() const;
+
+  /**
+   * @brief Inserts a point before pos.
+   */
+  std::vector<Point>::iterator insert(std::vector<Point>::const_iterator pos,
+                                      const Point                       &value);
+
+  /**
+   * @brief Inserts a point before pos (move).
+   */
+  std::vector<Point>::iterator insert(std::vector<Point>::const_iterator pos,
+                                      Point                            &&value);
+
+  /**
+   * @brief Inserts elements from range [first, last) before pos.
+   */
+  template <typename InputIt>
+  std::vector<Point>::iterator insert(std::vector<Point>::const_iterator pos,
+                                      InputIt                            first,
+                                      InputIt                            last)
+  {
+    return this->points.insert(pos, first, last);
+  }
+
+  /**
+   * @brief Removes the last point.
+   */
+  void pop_back();
+
+  /**
+   * @brief Appends a point.
+   */
+  void push_back(const Point &p);
+
+  /**
+   * @brief Appends a point (move).
+   */
+  void push_back(Point &&p);
+
+  /**
+   * @brief Reserves storage for at least the specified number of points.
+   */
+  void reserve(size_t new_cap);
 
   /**
    * @brief Get the number of points in the cloud.
@@ -321,14 +467,9 @@ public:
   // ==========================================================================
 
   /**
-   * @brief Clear all data from the cloud.
-   */
-  void clear();
-
-  /**
    * @brief Print information about the cloud's points.
    */
-  void print();
+  void print() const;
 
   /**
    * @brief Randomize the positions and values of the cloud points.
@@ -461,7 +602,7 @@ public:
    * @brief Convert the cloud to a graph using Delaunay triangulation.
    * @return Graph The resulting graph from Delaunay triangulation.
    */
-  Graph to_graph_delaunay();
+  Graph to_graph_delaunay() const;
 
   /**
    * @brief Saves the current data as a PNG image file.
@@ -483,13 +624,16 @@ public:
               int                cmap,
               glm::vec4          bbox = {0.f, 1.f, 0.f, 1.f},
               int                depth = CV_8U,
-              glm::ivec2         shape = {512, 512});
+              glm::ivec2         shape = {512, 512}) const;
 
   /**
    * @brief Convert path points to a vector of 3D positions.
    * @return Vector of points as (x, y, v).
    */
   std::vector<glm::vec3> to_vec3() const;
+
+protected:
+  std::vector<Point> points = {}; ///< Points of the cloud.
 };
 
 // ==========================================================================

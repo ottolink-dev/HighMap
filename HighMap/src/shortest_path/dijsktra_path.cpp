@@ -23,7 +23,7 @@ Path dijkstra(const Path  &path,
               Array       *p_mask_nogo)
 {
   if (!validate_non_empty(array)) return path;
-  if (!validate_min_size(path.points, 2, "Path points")) return path;
+  if (!validate_min_size(path, 2, "Path points")) return path;
   if (p_mask_nogo && !validate_same_shape(array, *p_mask_nogo)) return path;
 
   Path new_path = path;
@@ -34,15 +34,15 @@ Path dijkstra(const Path  &path,
     size_t knext = (k + 1) % new_path.size();
 
     glm::ivec2 ij_start = glm::ivec2(
-        (int)((new_path.points[k].x - bbox.x) / (bbox.y - bbox.x) *
+        (int)((new_path[k].x - bbox.x) / (bbox.y - bbox.x) *
               (array.shape.x - 1)),
-        (int)((new_path.points[k].y - bbox.z) / (bbox.w - bbox.z) *
+        (int)((new_path[k].y - bbox.z) / (bbox.w - bbox.z) *
               (array.shape.y - 1)));
 
     glm::ivec2 ij_end = glm::ivec2(
-        (int)((new_path.points[knext].x - bbox.x) / (bbox.y - bbox.x) *
+        (int)((new_path[knext].x - bbox.x) / (bbox.y - bbox.x) *
               (array.shape.x - 1)),
-        (int)((new_path.points[knext].y - bbox.z) / (bbox.w - bbox.z) *
+        (int)((new_path[knext].y - bbox.z) / (bbox.w - bbox.z) *
               (array.shape.y - 1)));
 
     std::vector<int> ip, jp;
@@ -57,8 +57,8 @@ Path dijkstra(const Path  &path,
                        p_mask_nogo);
 
     // backup cuurrent edge informations before adding points to this edge
-    Point p1 = new_path.points[k];
-    Point p2 = new_path.points[knext];
+    Point p1 = new_path[k];
+    Point p2 = new_path[knext];
 
     for (size_t r = 1; r < ip.size() - 1; r++)
     {
@@ -74,7 +74,7 @@ Path dijkstra(const Path  &path,
       float v = (d2 * p1.v + d1 * p2.v) / (d1 + d2);
 
       Point p = Point(x, y, v);
-      new_path.points.insert(new_path.points.begin() + k + 1, p);
+      new_path.insert(new_path.begin() + k + 1, p);
       ++k;
     }
   }

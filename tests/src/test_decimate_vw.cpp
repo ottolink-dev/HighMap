@@ -25,36 +25,33 @@ std::vector<Point> generate_circle(int n, float r)
 
 TEST(PathDecimateVw, ReducesPointCount)
 {
-  Path path;
-  path.points = generate_line(100);
+  Path path(generate_line(100));
   path = decimate_vw(path, 10);
 
-  EXPECT_EQ(path.points.size(), 10);
+  EXPECT_EQ(path.size(), 10);
 }
 
 TEST(PathDecimateVw, PreservesStraightLine)
 {
-  Path path;
-  path.points = generate_line(100);
+  Path path(generate_line(100));
   path = decimate_vw(path, 5);
 
   // all points should remain colinear
-  for (size_t i = 1; i + 1 < path.points.size(); ++i)
+  for (size_t i = 1; i + 1 < path.size(); ++i)
   {
-    float k = curvature(path.points[i - 1], path.points[i], path.points[i + 1]);
+    float k = curvature(path[i - 1], path[i], path[i + 1]);
     EXPECT_NEAR(k, 0.0f, 1e-5f);
   }
 }
 
 TEST(PathDecimateVw, PreservesCircle)
 {
-  Path path;
-  path.points = generate_circle(100, 1.f);
+  Path path(generate_circle(100, 1.f));
   path = decimate_vw(path, 20);
 
   float avg_radius = 1.f;
 
-  for (auto &p : path.points)
+  for (auto &p : path)
   {
     float r = std::hypot(p.x, p.y);
     EXPECT_NEAR(r, avg_radius, 0.05f);

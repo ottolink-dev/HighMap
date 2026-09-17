@@ -177,12 +177,12 @@ Path squiggle(const Path   &path,
 {
   if (p_weights && !validate_non_empty(*p_weights)) return path;
   if (p_mask && !validate_non_empty(*p_mask)) return path;
-  if (!validate_min_size(path.points, 2, "Path points")) return path;
+  if (!validate_min_size(path, 2, "Path points")) return path;
 
   iterations = std::max(1, iterations);
   bool is_closed = path.is_closed();
 
-  std::vector<Point> current_points = path.points;
+  std::vector<Point> current_points(path.begin(), path.end());
 
   for (int it = 0; it < iterations; ++it)
   {
@@ -293,12 +293,12 @@ std::vector<Path> squiggle_branches(const Path   &path,
 {
   if (p_weights && !validate_non_empty(*p_weights)) return {path};
   if (p_mask && !validate_non_empty(*p_mask)) return {path};
-  if (!validate_min_size(path.points, 2, "Path points")) return {path};
+  if (!validate_min_size(path, 2, "Path points")) return {path};
 
   iterations = std::max(1, iterations);
   bool is_closed = path.is_closed();
 
-  std::vector<Point> current_points = path.points;
+  std::vector<Point> current_points(path.begin(), path.end());
   std::vector<Path>  branches;
 
   for (int it = 0; it < iterations; ++it)

@@ -3,10 +3,10 @@
 int main(void)
 {
   hmap::Path path;
-  path.add_point({10.f, 10.f});
-  path.add_point({50.f, 100.f});
-  path.add_point({200.f, 50.f});
-  path.add_point({240.f, 240.f});
+  path.push_back({10.f, 10.f});
+  path.push_back({50.f, 100.f});
+  path.push_back({200.f, 50.f});
+  path.push_back({240.f, 240.f});
 
   hmap::Path bpath = hmap::bspline(path, 10);
 

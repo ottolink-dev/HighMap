@@ -44,8 +44,8 @@ TEST(CloudTest, ConstructFromXY)
   Cloud cloud(x, y);
 
   ASSERT_EQ(cloud.size(), 2);
-  EXPECT_TRUE(floatEq(cloud.points[0].x, 0.f));
-  EXPECT_TRUE(floatEq(cloud.points[0].y, 2.f));
+  EXPECT_TRUE(floatEq(cloud[0].x, 0.f));
+  EXPECT_TRUE(floatEq(cloud[0].y, 2.f));
 }
 
 TEST(CloudTest, ConstructFromXYV)
@@ -57,7 +57,7 @@ TEST(CloudTest, ConstructFromXYV)
   Cloud cloud(x, y, v);
 
   ASSERT_EQ(cloud.size(), 2);
-  EXPECT_TRUE(floatEq(cloud.points[1].v, 20.f));
+  EXPECT_TRUE(floatEq(cloud[1].v, 20.f));
 }
 
 TEST(CloudTest, RandomConstructorDeterministic)
@@ -69,8 +69,8 @@ TEST(CloudTest, RandomConstructorDeterministic)
 
   for (size_t i = 0; i < c1.size(); ++i)
   {
-    EXPECT_NEAR(c1.points[i].x, c2.points[i].x, eps);
-    EXPECT_NEAR(c1.points[i].y, c2.points[i].y, eps);
+    EXPECT_NEAR(c1[i].x, c2[i].x, eps);
+    EXPECT_NEAR(c1[i].y, c2[i].y, eps);
   }
 }
 
@@ -78,23 +78,23 @@ TEST(CloudTest, RandomConstructorDeterministic)
 // Basic Operations
 // ------------------------------------------------------------
 
-TEST(CloudTest, AddPointIncreasesSize)
+TEST(CloudTest, PushBackIncreasesSize)
 {
   Cloud cloud;
 
-  cloud.add_point({1.f, 2.f, 3.f});
+  cloud.push_back({1.f, 2.f, 3.f});
 
   EXPECT_EQ(cloud.size(), 1);
 }
 
-TEST(CloudTest, RemovePointReducesSize)
+TEST(CloudTest, EraseReducesSize)
 {
   Cloud cloud(std::vector<Point>{{0, 0, 0}, {1, 1, 1}});
 
-  cloud.remove_point(0);
+  cloud.erase(cloud.begin());
 
   ASSERT_EQ(cloud.size(), 1);
-  EXPECT_TRUE(floatEq(cloud.points[0].x, 1.f));
+  EXPECT_TRUE(floatEq(cloud[0].x, 1.f));
 }
 
 TEST(CloudTest, ClearEmptiesCloud)
@@ -181,7 +181,7 @@ TEST(CloudTest, SetValuesConstant)
 
   cloud.set_values(5.f);
 
-  for (auto &p : cloud.points)
+  for (auto &p : cloud)
     EXPECT_TRUE(floatEq(p.v, 5.f));
 }
 
@@ -191,8 +191,8 @@ TEST(CloudTest, SetValuesVector)
 
   cloud.set_values({3.f, 4.f});
 
-  EXPECT_TRUE(floatEq(cloud.points[0].v, 3.f));
-  EXPECT_TRUE(floatEq(cloud.points[1].v, 4.f));
+  EXPECT_TRUE(floatEq(cloud[0].v, 3.f));
+  EXPECT_TRUE(floatEq(cloud[1].v, 4.f));
 }
 
 // ------------------------------------------------------------
@@ -223,8 +223,8 @@ TEST(CloudTest, RandomizeDeterministic)
 
   for (size_t i = 0; i < c1.size(); ++i)
   {
-    EXPECT_NEAR(c1.points[i].x, c2.points[i].x, eps);
-    EXPECT_NEAR(c1.points[i].y, c2.points[i].y, eps);
+    EXPECT_NEAR(c1[i].x, c2[i].x, eps);
+    EXPECT_NEAR(c1[i].y, c2[i].y, eps);
   }
 }
 
@@ -238,8 +238,8 @@ TEST(CloudTest, ShuffleDeterministic)
 
   for (size_t i = 0; i < c1.size(); ++i)
   {
-    EXPECT_NEAR(c1.points[i].x, c2.points[i].x, eps);
-    EXPECT_NEAR(c1.points[i].v, c2.points[i].v, eps);
+    EXPECT_NEAR(c1[i].x, c2[i].x, eps);
+    EXPECT_NEAR(c1[i].v, c2[i].v, eps);
   }
 }
 
@@ -296,13 +296,13 @@ TEST(CloudTest, ScaleUniformDefaultCenter)
   Cloud scaled = scale(cloud, 0.8f);
 
   ASSERT_EQ(scaled.size(), 2);
-  EXPECT_NEAR(scaled.points[0].x, 0.1f, eps);
-  EXPECT_NEAR(scaled.points[0].y, 0.1f, eps);
-  EXPECT_NEAR(scaled.points[0].v, 10.f, eps);
+  EXPECT_NEAR(scaled[0].x, 0.1f, eps);
+  EXPECT_NEAR(scaled[0].y, 0.1f, eps);
+  EXPECT_NEAR(scaled[0].v, 10.f, eps);
 
-  EXPECT_NEAR(scaled.points[1].x, 0.9f, eps);
-  EXPECT_NEAR(scaled.points[1].y, 0.9f, eps);
-  EXPECT_NEAR(scaled.points[1].v, 20.f, eps);
+  EXPECT_NEAR(scaled[1].x, 0.9f, eps);
+  EXPECT_NEAR(scaled[1].y, 0.9f, eps);
+  EXPECT_NEAR(scaled[1].v, 20.f, eps);
 }
 
 TEST(CloudTest, ScaleNonUniformCustomCenter)
@@ -315,9 +315,9 @@ TEST(CloudTest, ScaleNonUniformCustomCenter)
   Cloud scaled = scale(cloud, glm::vec2(2.f, 0.5f), glm::vec2(1.f, 1.f));
 
   ASSERT_EQ(scaled.size(), 1);
-  EXPECT_NEAR(scaled.points[0].x, 1.f, eps);
-  EXPECT_NEAR(scaled.points[0].y, 1.5f, eps);
-  EXPECT_NEAR(scaled.points[0].v, 5.f, eps);
+  EXPECT_NEAR(scaled[0].x, 1.f, eps);
+  EXPECT_NEAR(scaled[0].y, 1.5f, eps);
+  EXPECT_NEAR(scaled[0].v, 5.f, eps);
 }
 
 TEST(CloudTest, ScaleCustomCenter)
@@ -331,10 +331,10 @@ TEST(CloudTest, ScaleCustomCenter)
   Cloud scaled = scale(cloud, 0.5f, center);
 
   ASSERT_EQ(scaled.size(), 2);
-  EXPECT_NEAR(scaled.points[0].x, 12.5f, eps);
-  EXPECT_NEAR(scaled.points[0].y, 25.f, eps);
-  EXPECT_NEAR(scaled.points[1].x, 17.5f, eps);
-  EXPECT_NEAR(scaled.points[1].y, 35.f, eps);
+  EXPECT_NEAR(scaled[0].x, 12.5f, eps);
+  EXPECT_NEAR(scaled[0].y, 25.f, eps);
+  EXPECT_NEAR(scaled[1].x, 17.5f, eps);
+  EXPECT_NEAR(scaled[1].y, 35.f, eps);
 }
 
 TEST(CloudTest, ScalePreservesPointValues)
@@ -348,7 +348,103 @@ TEST(CloudTest, ScalePreservesPointValues)
   Cloud scaled = scale(cloud, glm::vec2(0.5f, 1.5f));
 
   ASSERT_EQ(scaled.size(), 3u);
-  EXPECT_FLOAT_EQ(scaled.points[0].v, 100.5f);
-  EXPECT_FLOAT_EQ(scaled.points[1].v, -42.0f);
-  EXPECT_FLOAT_EQ(scaled.points[2].v, 3.1415f);
+  EXPECT_FLOAT_EQ(scaled[0].v, 100.5f);
+  EXPECT_FLOAT_EQ(scaled[1].v, -42.0f);
+  EXPECT_FLOAT_EQ(scaled[2].v, 3.1415f);
+}
+
+// ------------------------------------------------------------
+// Container Interface & Move Semantics
+// ------------------------------------------------------------
+
+TEST(CloudTest, MoveConstructor)
+{
+  std::vector<Point> pts = {{1.f, 2.f, 3.f}, {4.f, 5.f, 6.f}};
+  Cloud              cloud(std::move(pts));
+
+  EXPECT_EQ(cloud.size(), 2);
+  EXPECT_TRUE(floatEq(cloud[0].x, 1.f));
+  EXPECT_TRUE(floatEq(cloud[1].v, 6.f));
+}
+
+TEST(CloudTest, ContainerAccessAndIterators)
+{
+  Cloud cloud(std::vector<Point>{{1.f, 2.f, 3.f}, {4.f, 5.f, 6.f}});
+
+  // Indexing
+  EXPECT_TRUE(floatEq(cloud[0].x, 1.f));
+  EXPECT_TRUE(floatEq(cloud.at(1).y, 5.f));
+  EXPECT_TRUE(floatEq(cloud.front().v, 3.f));
+  EXPECT_TRUE(floatEq(cloud.back().x, 4.f));
+
+  // Mutation via reference
+  cloud[0].x = 10.f;
+  EXPECT_TRUE(floatEq(cloud[0].x, 10.f));
+
+  // Range-based for loop
+  float sum_v = 0.f;
+  for (const auto &p : cloud)
+    sum_v += p.v;
+  EXPECT_TRUE(floatEq(sum_v, 9.f));
+
+  // Capacity, emplace_back & push_back
+  cloud.reserve(10);
+  EXPECT_GE(cloud.capacity(), 10u);
+  cloud.emplace_back(7.f, 8.f, 9.f);
+  EXPECT_EQ(cloud.size(), 3u);
+  EXPECT_TRUE(floatEq(cloud.back().v, 9.f));
+
+  Point p_lvalue(10.f, 11.f, 12.f);
+  cloud.push_back(p_lvalue);
+  cloud.push_back(Point(13.f, 14.f, 15.f));
+  EXPECT_EQ(cloud.size(), 5u);
+  EXPECT_TRUE(floatEq(cloud.back().x, 13.f));
+
+  auto it = cloud.erase(cloud.begin() + 1);
+  EXPECT_EQ(cloud.size(), 4u);
+  EXPECT_TRUE(floatEq(it->x, 7.f));
+}
+
+// ------------------------------------------------------------
+// Rejection Filter & Edge Cases
+// ------------------------------------------------------------
+
+TEST(CloudTest, RejectionFilterDensityActuallyErases)
+{
+  // Cloud of 10 points
+  std::vector<Point> pts;
+  for (int i = 0; i < 10; ++i)
+    pts.emplace_back(0.5f, 0.5f, 0.f);
+  Cloud cloud(pts);
+
+  // Mask where density is 0 everywhere -> all points should be removed
+  Array zero_mask({10, 10}, 0.f);
+  rejection_filter_density(cloud, zero_mask, 42);
+
+  EXPECT_EQ(cloud.size(), 0u);
+  EXPECT_TRUE(cloud.empty());
+}
+
+TEST(CloudTest, RemapValuesEmptyCloudSafe)
+{
+  Cloud cloud;
+  EXPECT_NO_THROW(cloud.remap_values(0.f, 1.f));
+}
+
+TEST(CloudTest, ConvexHullDegenerateInputsSafe)
+{
+  Cloud empty_cloud;
+  EXPECT_TRUE(empty_cloud.get_convex_hull().empty());
+
+  Cloud two_points(std::vector<Point>{{0.f, 0.f, 0.f}, {1.f, 1.f, 0.f}});
+  EXPECT_TRUE(two_points.get_convex_hull().empty());
+}
+
+TEST(CloudTest, ToArrayDegenerateBBoxSafe)
+{
+  Cloud cloud(std::vector<Point>{{0.5f, 0.5f, 1.f}});
+  Array array({10, 10}, 0.f);
+
+  // Degenerate bbox (width = 0, height = 0)
+  EXPECT_NO_THROW(cloud.to_array(array, {0.f, 0.f, 0.f, 0.f}));
 }

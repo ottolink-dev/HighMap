@@ -32,13 +32,11 @@ Array cloud_sdf_to_array(const Cloud &cloud,
 
   Array array(shape);
 
-  if (!validate_min_size(cloud.points, 1, "Cloud points")) return array;
+  if (!validate_min_size(cloud, 1, "Cloud points")) return array;
 
   // --- KD-tree
 
-  std::vector<float> x = cloud.get_x();
-  std::vector<float> y = cloud.get_y();
-  KDTreeContext      tree(x, y);
+  KDTree tree(cloud);
 
   // --- SDF
 
@@ -46,10 +44,10 @@ Array cloud_sdf_to_array(const Cloud &cloud,
   std::vector<float> xg, yg;
   grid_xy_vector(xg, yg, shape, bbox_array, /* endpoint */ false);
 
-  std::vector<size_t> indices;
-  std::vector<float>  distances;
-
+#pragma omp parallel for default(none)                                         \
+    shared(shape, p_noise_x, p_noise_y, xg, yg, tree, array)
   for (int j = 0; j < shape.y; ++j)
+  {
     for (int i = 0; i < shape.x; ++i)
     {
       float dx = p_noise_x ? (*p_noise_x)(i, j) : 0.f;
@@ -57,41 +55,42 @@ Array cloud_sdf_to_array(const Cloud &cloud,
       float xi = xg[i] + dx;
       float yi = yg[j] + dy;
 
-      tree.neighbor_search(xi,
-                           yi,
-                           /* k_neighbors */ 1,
-                           indices,
-                           distances);
-
-      array(i, j) = std::sqrt(distances[0]);
+      auto [idx, dist_sq] = tree.nearest_with_distance_squared(xi, yi);
+      array(i, j) = std::sqrt(dist_sq);
     }
+  }
 
   return array;
 }
 
 bool has_duplicates(const Cloud &cloud, float eps, bool xy_only)
 {
-  std::vector<glm::vec3> pts = cloud.to_vec3();
+  if (cloud.size() < 2) return false;
 
-  std::sort(pts.begin(),
-            pts.end(),
-            [](const auto &a, const auto &b)
-            { return a.x < b.x || (a.x == b.x && a.y < b.y); });
+  KDTree tree(cloud);
 
   if (xy_only)
   {
-    for (size_t i = 1; i < pts.size(); ++i)
+    for (const auto &p : cloud)
     {
-      glm::vec2 p0 = {pts[i].x, pts[i].y};
-      glm::vec2 p1 = {pts[i - 1].x, pts[i - 1].y};
-
-      if (glm::distance(p0, p1) < eps) return true;
+      auto neighbors = tree.radius_search(p, eps);
+      if (neighbors.size() > 1) return true;
     }
   }
   else
   {
-    for (size_t i = 1; i < pts.size(); ++i)
-      if (glm::distance(pts[i], pts[i - 1]) < eps) return true;
+    for (const auto &p : cloud)
+    {
+      auto neighbors = tree.radius_search(p, eps);
+      for (const auto &[idx, d_sq] : neighbors)
+      {
+        if (std::abs(cloud[idx].v - p.v) < eps &&
+            (&cloud[idx] != &p || neighbors.size() > 1))
+        {
+          if (&cloud[idx] != &p) return true;
+        }
+      }
+    }
   }
 
   return false;
@@ -101,17 +100,16 @@ std::vector<float> interpolate_values_from_array(const Cloud &cloud,
                                                  const Array &array,
                                                  glm::vec4    bbox)
 {
-  if (!validate_non_empty(array))
-    return std::vector<float>(cloud.points.size(), 0.f);
+  if (!validate_non_empty(array)) return std::vector<float>(cloud.size(), 0.f);
 
   const float      inv_width = 1.0f / (bbox.y - bbox.x);
   const float      inv_height = 1.0f / (bbox.w - bbox.z);
   const glm::ivec2 shape = {array.shape.x - 1, array.shape.y - 1};
 
   std::vector<float> values;
-  values.reserve(cloud.points.size());
+  values.reserve(cloud.size());
 
-  for (const auto &p : cloud.points)
+  for (const auto &p : cloud)
   {
     const float xn = (p.x - bbox.x) * inv_width;
     const float yn = (p.y - bbox.z) * inv_height;
@@ -153,20 +151,21 @@ void rejection_filter_density(Cloud           &cloud,
 
   auto density_fct = make_xy_function_from_array(density_mask, bbox);
 
-  std::remove_if(cloud.points.begin(),
-                 cloud.points.end(),
-                 [&](Point p)
-                 {
-                   float rnd = dis(gen);
-                   return (rnd > density_fct(p.x, p.y));
-                 });
+  cloud.erase(std::remove_if(cloud.begin(),
+                             cloud.end(),
+                             [&](const Point &p)
+                             {
+                               float rnd = dis(gen);
+                               return (rnd > density_fct(p.x, p.y));
+                             }),
+              cloud.end());
 }
 
 Cloud scale(const Cloud &cloud, glm::vec2 scale, glm::vec2 center)
 {
   Cloud result = cloud;
 
-  for (auto &p : result.points)
+  for (auto &p : result)
     p = hmap::scale(p, scale, center);
 
   return result;

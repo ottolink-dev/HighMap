@@ -4,127 +4,165 @@
 
 /**
  * @file kd_tree.hpp
- * @brief KD-tree utilities for 2D point queries using nanoflann.
+ * @brief 2D KD-tree for spatial point queries (nearest neighbor and radius
+ * search).
  */
 #pragma once
+
 #include <cstddef>
+#include <memory>
+#include <utility>
 #include <vector>
 
 #include <glm/glm.hpp>
 
-#include <nanoflann.hpp>
-
 namespace hmap
 {
 
+class Cloud;
+struct Point;
+
 /**
- * @brief Adaptor exposing a 2D point cloud to nanoflann.
+ * @brief 2D KD-Tree for spatial point queries.
  *
- * This class provides the minimal interface required by nanoflann to access a
- * set of 2D points stored as separate x and y coordinate arrays.
+ * Supports construction from separate coordinate arrays (x, y), point vectors
+ * (std::vector<Point>), and Cloud objects.
  *
- * The data is not owned by the adaptor; it references external vectors.
+ * @note Input point data must remain valid for the lifetime of this KDTree
+ * object.
  */
-struct NanoflannPointCloudAdaptor
+class KDTree
 {
-  /** Reference to x coordinates */
-  const std::vector<float> &x;
-
-  /** Reference to y coordinates */
-  const std::vector<float> &y;
+public:
+  // ==========================================================================
+  //  Constructors & Destructor
+  // ==========================================================================
 
   /**
-   * @brief Construct the adaptor from coordinate arrays.
-   * @param x_ Vector of x coordinates
-   * @param y_ Vector of y coordinates
+   * @brief Construct an empty KD-tree.
    */
-  NanoflannPointCloudAdaptor(const std::vector<float> &x_,
-                             const std::vector<float> &y_);
+  KDTree();
 
   /**
-   * @brief Get the number of points in the dataset.
-   * @return Number of points
+   * @brief Destructor.
    */
-  inline size_t kdtree_get_point_count() const;
+  ~KDTree();
 
   /**
-   * @brief Get a coordinate component of a point.
-   * @param  idx Point index
-   * @param  dim Dimension (0 = x, 1 = y)
-   * @return     Coordinate value
+   * @brief Construct a KD-tree referencing separate coordinate arrays.
+   * @param x Vector of x coordinates.
+   * @param y Vector of y coordinates.
    */
-  inline float kdtree_get_pt(const size_t idx, int dim) const;
+  KDTree(const std::vector<float> &x, const std::vector<float> &y);
 
   /**
-   * @brief Optional bounding-box computation (unused).
-   * @return Always false (no bounding box provided)
+   * @brief Construct a KD-tree referencing a vector of points.
+   * @param points Vector of Point objects.
    */
-  template <class BBOX> bool kdtree_get_bbox(BBOX &) const
-  {
-    return false;
-  }
-};
-
-/**
- * @brief Alias for a 2D KD-tree using L2 (Euclidean) distance.
- */
-using KDTree = nanoflann::KDTreeSingleIndexAdaptor<
-    nanoflann::L2_Simple_Adaptor<float, NanoflannPointCloudAdaptor>,
-    NanoflannPointCloudAdaptor,
-    2>;
-
-/**
- * @brief Context wrapper for KD-tree operations.
- *
- * This class encapsulates:
- * - input point data
- * - nanoflann adaptor
- * - KD-tree index
- *
- * It provides convenient methods for nearest-neighbor and radius-based queries.
- *
- * @note The input vectors must remain valid for the lifetime of this object.
- */
-struct KDTreeContext
-{
-  /** Reference to x coordinates */
-  const std::vector<float> &x;
-
-  /** Reference to y coordinates */
-  const std::vector<float> &y;
-
-  /** Nanoflann adaptor */
-  NanoflannPointCloudAdaptor adaptor;
-
-  /** KD-tree index */
-  KDTree index;
+  explicit KDTree(const std::vector<Point> &points);
 
   /**
-   * @brief Construct the KD-tree context and build the index.
-   * @param x_ Vector of x coordinates
-   * @param y_ Vector of y coordinates
+   * @brief Construct a KD-tree referencing a Cloud.
+   * @param cloud Cloud object.
    */
-  KDTreeContext(const std::vector<float> &x_, const std::vector<float> &y_);
+  explicit KDTree(const Cloud &cloud);
 
   /**
-   * @brief Estimate the range of neighbor distances.
+   * @brief Move constructor.
+   */
+  KDTree(KDTree &&other) noexcept;
+
+  /**
+   * @brief Move assignment operator.
+   */
+  KDTree &operator=(KDTree &&other) noexcept;
+
+  KDTree(const KDTree &) = delete;
+  KDTree &operator=(const KDTree &) = delete;
+
+  // ==========================================================================
+  //  Capacity & Status
+  // ==========================================================================
+
+  /**
+   * @brief Check whether the KD-tree is empty.
+   * @return true if empty, false otherwise.
+   */
+  bool empty() const noexcept;
+
+  /**
+   * @brief Get the number of points indexed by the KD-tree.
+   * @return Number of points.
+   */
+  size_t size() const noexcept;
+
+  // ==========================================================================
+  //  Queries
+  // ==========================================================================
+
+  /**
+   * @brief Estimate the range of neighbor distances across the dataset.
    *
-   * Computes the minimum and maximum distance to the k-th nearest
-   * neighbor across all points in the dataset.
+   * Computes the minimum and maximum Euclidean distance to the k-th nearest
+   * neighbor across all indexed points.
    *
-   * @param  k_neighbors Number of neighbors considered
-   * @return             vec2(min_distance, max_distance)
+   * @param  k_neighbors Number of neighbors considered.
+   * @return             vec2(min_euclidean_distance, max_euclidean_distance)
    */
-  glm::vec2 compte_neighbor_distance_range(size_t k_neighbors) const;
+  glm::vec2 compute_neighbor_distance_range(size_t k_neighbors) const;
+
+  /**
+   * @brief Find the index of the nearest neighbor to a 2D query position.
+   *
+   * Fast 1-nearest-neighbor query that performs no heap allocations.
+   *
+   * @param  x_query Query x coordinate.
+   * @param  y_query Query y coordinate.
+   * @return         Index of the nearest neighbor point (0 if empty).
+   */
+  size_t nearest(float x_query, float y_query) const;
+
+  /**
+   * @brief Find the index of the nearest neighbor to a Point.
+   */
+  size_t nearest(const Point &p) const;
+
+  /**
+   * @brief Find the index of the nearest neighbor to a glm::vec2.
+   */
+  size_t nearest(const glm::vec2 &xy) const;
+
+  /**
+   * @brief Find the index and squared distance of the nearest neighbor.
+   *
+   * @param  x_query Query x coordinate.
+   * @param  y_query Query y coordinate.
+   * @return         Pair of (index, squared_distance).
+   */
+  std::pair<size_t, float> nearest_with_distance_squared(float x_query,
+                                                         float y_query) const;
+
+  /**
+   * @brief Find the index and squared distance of the nearest neighbor to a
+   * Point.
+   */
+  std::pair<size_t, float> nearest_with_distance_squared(const Point &p) const;
+
+  /**
+   * @brief Find the index and squared distance of the nearest neighbor to a
+   * glm::vec2.
+   */
+  std::pair<size_t, float> nearest_with_distance_squared(
+      const glm::vec2 &xy) const;
 
   /**
    * @brief Perform a k-nearest neighbor search.
    *
-   * @param      x_query     Query x coordinate
-   * @param      y_query     Query y coordinate
-   * @param      k_neighbors Number of neighbors to retrieve
-   * @param[out] indices     Output indices of neighbors
-   * @param[out] distances   Output squared distances to neighbors
+   * @param      x_query     Query x coordinate.
+   * @param      y_query     Query y coordinate.
+   * @param      k_neighbors Number of neighbors to retrieve.
+   * @param[out] indices     Output indices of neighbors.
+   * @param[out] distances   Output squared distances to neighbors.
    */
   void neighbor_search(float                x_query,
                        float                y_query,
@@ -133,19 +171,49 @@ struct KDTreeContext
                        std::vector<float>  &distances) const;
 
   /**
+   * @brief Perform a k-nearest neighbor search for a Point.
+   */
+  void neighbor_search(const Point         &p,
+                       size_t               k_neighbors,
+                       std::vector<size_t> &indices,
+                       std::vector<float>  &distances) const;
+
+  /**
+   * @brief Perform a k-nearest neighbor search for a glm::vec2.
+   */
+  void neighbor_search(const glm::vec2     &xy,
+                       size_t               k_neighbors,
+                       std::vector<size_t> &indices,
+                       std::vector<float>  &distances) const;
+
+  /**
    * @brief Perform a radius-based neighbor search.
    *
-   * @param  x_query Query x coordinate
-   * @param  y_query Query y coordinate
-   * @param  radius  Search radius (Euclidean distance)
-   * @return         Vector of (index, squared distance) pairs
-   *
-   * @note Returned distances are squared distances.
+   * @param  x_query Query x coordinate.
+   * @param  y_query Query y coordinate.
+   * @param  radius  Search radius (Euclidean distance).
+   * @return         Vector of (index, squared_distance) pairs.
    */
-  std::vector<nanoflann::ResultItem<unsigned int, float>> radius_search(
-      float x_query,
-      float y_query,
-      float radius) const;
+  std::vector<std::pair<size_t, float>> radius_search(float x_query,
+                                                      float y_query,
+                                                      float radius) const;
+
+  /**
+   * @brief Perform a radius-based neighbor search for a Point.
+   */
+  std::vector<std::pair<size_t, float>> radius_search(const Point &p,
+                                                      float radius) const;
+
+  /**
+   * @brief Perform a radius-based neighbor search for a glm::vec2.
+   */
+  std::vector<std::pair<size_t, float>> radius_search(const glm::vec2 &xy,
+                                                      float radius) const;
+
+  struct Impl;
+
+private:
+  std::unique_ptr<Impl> p_impl;
 };
 
 } // namespace hmap

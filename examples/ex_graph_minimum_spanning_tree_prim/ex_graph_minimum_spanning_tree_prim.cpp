@@ -11,8 +11,6 @@ int main(void)
   int         npoints = 10;
   hmap::Cloud cloud = hmap::Cloud(npoints, seed, bbox);
   hmap::Graph graph_delaunay = cloud.to_graph_delaunay();
-
-  graph_delaunay.update_adjacency_matrix();
   hmap::Graph graph_mst = graph_delaunay.minimum_spanning_tree_prim();
 
   graph_delaunay.to_png("ex_graph_minimum_spanning_tree_prim0.png");

@@ -35,7 +35,7 @@ Array generate_riverbed(const Path &path,
                         Array      *p_noise_r)
 {
   if (!validate_shape(shape)) return Array();
-  if (!validate_min_size(path.points, 2, "Path points")) return Array(shape);
+  if (!validate_min_size(path, 2, "Path points")) return Array(shape);
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
   if (p_noise_y && !validate_same_shape(shape, *p_noise_y)) return Array();
   if (p_noise_r && !validate_same_shape(shape, *p_noise_r)) return Array();
