@@ -17,7 +17,7 @@ var searchData=
   ['fill_5fborders_14',['fill_borders',['../namespacehmap.html#a072f0c93c6e3e5e0f8f88c760850dce8',1,'hmap::fill_borders(Array &amp;array)'],['../namespacehmap.html#a8b7bdf4f052ba72e3dc8150d324a53b6',1,'hmap::fill_borders(Array &amp;array, int nbuffer)']]],
   ['fill_5ftalus_15',['fill_talus',['../namespacehmap.html#a9c26b60e353b42465e4ccaf8b3c6d2cb',1,'hmap::fill_talus(Array &amp;z, float talus, std::uint32_t seed, int ir=1, float noise_ratio=0.2f, const Array *p_seed_mask=nullptr)'],['../namespacehmap.html#a3bbe50f04fdbaf14c55b7eaf1ceb67e1',1,'hmap::fill_talus(Array &amp;z, const Array &amp;talus, std::uint32_t seed, int ir=1, float noise_ratio=0.2f, const Array *p_seed_mask=nullptr)']]],
   ['find_5fborder_5fminima_16',['find_border_minima',['../namespacehmap.html#a330255b50cec60fc2ba713fb945e2fdd',1,'hmap']]],
-  ['find_5fborder_5fsinks_17',['find_border_sinks',['../namespacehmap.html#a7c49b9b92f0badad7ace856e897de1f0',1,'hmap']]],
+  ['find_5fborder_5fsinks_17',['find_border_sinks',['../namespacehmap.html#ac92d13b60ba68e2a31afca15fcb5f82f',1,'hmap']]],
   ['find_5fcut_5fpath_5fdijkstra_18',['find_cut_path_dijkstra',['../namespacehmap.html#a505d334a39df55be569fbc1c1f640042',1,'hmap']]],
   ['find_5fcut_5fpath_5fmidpoint_19',['find_cut_path_midpoint',['../namespacehmap.html#a2c463175bb90319f83de452c2b55ac2b',1,'hmap']]],
   ['find_5fcut_5fpath_5fmultiscale_20',['find_cut_path_multiscale',['../namespacehmap.html#a3e877482c194619d1bf1dc398766fe66',1,'hmap']]],

@@ -80,7 +80,7 @@ var searchData=
   ['get_5foctaves_77',['get_octaves',['../classhmap_1_1GenericFractalFunction.html#a57b80d6a0cbdc8e14963d1417b1c0b07',1,'hmap::GenericFractalFunction']]],
   ['get_5fopencv_5fbuild_5finformation_78',['get_opencv_build_information',['../namespacehmap.html#a9c60eb4b1dddad23a27fe2ffc9507a2b',1,'hmap']]],
   ['get_5forigin_79',['get_origin',['../classhmap_1_1CoordFrame.html#aafb7aff2dd90eba7aa198a3a7bdb6ccb',1,'hmap::CoordFrame']]],
-  ['get_5foutlets_80',['get_outlets',['../classhmap_1_1DrainageBasin.html#a0c94cd5e10cf5a85b99cc4ad76fe9a81',1,'hmap::DrainageBasin::get_outlets()'],['../classhmap_1_1DrainageBasinCellBased.html#a517f9509d3e56b99362ba1daf1416c52',1,'hmap::DrainageBasinCellBased::get_outlets()']]],
+  ['get_5foutlets_80',['get_outlets',['../classhmap_1_1DrainageBasin.html#a75e8fb089bba94af75e6c9ce8ef4493e',1,'hmap::DrainageBasin::get_outlets()'],['../classhmap_1_1DrainageBasinCellBased.html#a517f9509d3e56b99362ba1daf1416c52',1,'hmap::DrainageBasinCellBased::get_outlets()']]],
   ['get_5fpersistence_81',['get_persistence',['../classhmap_1_1GenericFractalFunction.html#aa2c95085c01b4dd7edbcf3caa8074c91',1,'hmap::GenericFractalFunction']]],
   ['get_5fphasor_5fprofile_5ffunction_82',['get_phasor_profile_function',['../namespacehmap.html#a3e2e333ca90c11a997a9ac04361b1741',1,'hmap']]],
   ['get_5fpixel3_83',['get_pixel3',['../classhmap_1_1Texture.html#a5454cbbe9d86f4ccb736502bc775e33d',1,'hmap::Texture']]],

@@ -13,7 +13,7 @@ var classhmap_1_1DrainageBasin =
     [ "update_stream_tree", "classhmap_1_1DrainageBasin.html#ae2d06a498fbe2fc7ba8d4872bafd407b", null ],
     [ "update_stream_tree", "classhmap_1_1DrainageBasin.html#ab5608cb8b6accfb29e5fb42976824553", null ],
     [ "update_traversals", "classhmap_1_1DrainageBasin.html#aac712678f6584ecdcd8e4805e3c50047", null ],
-    [ "get_outlets", "classhmap_1_1DrainageBasin.html#a0c94cd5e10cf5a85b99cc4ad76fe9a81", null ],
+    [ "get_outlets", "classhmap_1_1DrainageBasin.html#a75e8fb089bba94af75e6c9ce8ef4493e", null ],
     [ "set_outlets", "classhmap_1_1DrainageBasin.html#ab11584d1b69b0a836ea1ef1f5ba20274", null ],
     [ "get_receivers", "classhmap_1_1DrainageBasin.html#a3c870f93d22d0d5846a042af97165fb2", null ],
     [ "invert_receiver_map", "classhmap_1_1DrainageBasin.html#a32652e8b38b167fc611b3e723b4ee775", null ],

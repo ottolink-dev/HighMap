@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="test__drainage__basin_8cpp" kind="file" language="C++">
+    <compoundname>test_drainage_basin.cpp</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="test__drainage__basin_8cpp_1afdec16c993cc3ea6e747b612044e33f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(DrainageBasin, BasicConstructionAndOutlets)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>DrainageBasin</type>
+        </param>
+        <param>
+          <type>BasicConstructionAndOutlets</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_drainage_basin.cpp" line="10" column="1" bodyfile="tests/src/test_drainage_basin.cpp" bodystart="10" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="test__drainage__basin_8cpp_1af1d691ac436ed0370ad5aec7a8764604" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(DrainageBasin, StrahlerOrderTree)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>DrainageBasin</type>
+        </param>
+        <param>
+          <type>StrahlerOrderTree</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_drainage_basin.cpp" line="26" column="1" bodyfile="tests/src/test_drainage_basin.cpp" bodystart="26" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="test__drainage__basin_8cpp_1a98146bd8be4e2b536b3c24783a0dd5cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(DrainageBasin, RidgeNodesAndRootsInitialized)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>DrainageBasin</type>
+        </param>
+        <param>
+          <type>RidgeNodesAndRootsInitialized</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_drainage_basin.cpp" line="45" column="1" bodyfile="tests/src/test_drainage_basin.cpp" bodystart="45" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="test__drainage__basin_8cpp_1a98e542e97a38be601519eb6873a5474d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(DrainageBasin, ResponseTimesAndElevationUpdate)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>DrainageBasin</type>
+        </param>
+        <param>
+          <type>ResponseTimesAndElevationUpdate</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_drainage_basin.cpp" line="69" column="1" bodyfile="tests/src/test_drainage_basin.cpp" bodystart="69" bodyend="103"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="drainage__basin_8hpp" kindref="compound">highmap/hydrology/drainage_basin.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><ref refid="test__drainage__basin_8cpp_1afdec16c993cc3ea6e747b612044e33f3" kindref="member">TEST</ref>(DrainageBasin,<sp/>BasicConstructionAndOutlets)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/>std::vector&lt;glm::vec3&gt;<sp/>pts<sp/>=<sp/>{{0.f,<sp/>0.f,<sp/>0.f},</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1.f,<sp/>0.f,<sp/>0.f},</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1.f,<sp/>1.f,<sp/>0.f},</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0.f,<sp/>1.f,<sp/>0.f},</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0.5f,<sp/>0.5f,<sp/>1.f}};</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1DrainageBasin" kindref="compound">hmap::DrainageBasin</ref><sp/>db(pts);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>EXPECT_EQ(db.size(),<sp/>5);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>db.update_stream_tree();</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;outlets<sp/>=<sp/>db.get_outlets();</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(outlets.empty());</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><ref refid="test__drainage__basin_8cpp_1afdec16c993cc3ea6e747b612044e33f3" kindref="member">TEST</ref>(DrainageBasin,<sp/>StrahlerOrderTree)</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/>std::vector&lt;glm::vec3&gt;<sp/>pts<sp/>=<sp/>{{0.f,<sp/>0.f,<sp/>0.f},</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1.f,<sp/>0.f,<sp/>1.f},</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1.f,<sp/>1.f,<sp/>2.f},</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0.f,<sp/>1.f,<sp/>1.f},</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0.5f,<sp/>0.5f,<sp/>1.5f}};</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1DrainageBasin" kindref="compound">hmap::DrainageBasin</ref><sp/>db(pts);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>db.set_outlets({0});</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>db.update_stream_tree();</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>std::vector&lt;size_t&gt;<sp/>order<sp/>=<sp/>db.compute_strahler_order();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>EXPECT_EQ(order.size(),<sp/>pts.size());</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>o<sp/>:<sp/>order)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_GE(o,<sp/>1);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><ref refid="test__drainage__basin_8cpp_1afdec16c993cc3ea6e747b612044e33f3" kindref="member">TEST</ref>(DrainageBasin,<sp/>RidgeNodesAndRootsInitialized)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z0<sp/>=<sp/><ref refid="namespacehmap_1a7d699a468a18be16c70654958ee13b41" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{2.f,<sp/>2.f},</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>42);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(z0);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud<sp/>=<sp/><ref refid="namespacehmap_1ac56218126b8f4fafd161848508bb040b" kindref="member">hmap::random_cloud</ref>(200,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>42,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1aba758c4143b6e499ec6f4385467a6d77a8943dd2a2e3993c1e0cff37be3f65957" kindref="member">hmap::PointSamplingMethod::RND_LHS</ref>,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a7b26dc92e0d2217b8438f1ce9376ea0d" kindref="member">snap_points_to_bounding_box</ref>(bbox);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a5ac84550aceffbb9053c3b58490e7126" kindref="member">set_values_from_array</ref>(z0,<sp/>bbox);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1DrainageBasin" kindref="compound">hmap::DrainageBasin</ref><sp/>db(cloud.<ref refid="classhmap_1_1Cloud_1a653188a0cf3bd86403a12d225b2eb1fa" kindref="member">to_vec3</ref>());</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>db.update_stream_tree();</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>std::vector&lt;bool&gt;<sp/>ridges<sp/>=<sp/>db.compute_is_ridge_node();</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>EXPECT_EQ(ridges.size(),<sp/>db.size());</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><ref refid="test__drainage__basin_8cpp_1afdec16c993cc3ea6e747b612044e33f3" kindref="member">TEST</ref>(DrainageBasin,<sp/>ResponseTimesAndElevationUpdate)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z0<sp/>=<sp/><ref refid="namespacehmap_1a7d699a468a18be16c70654958ee13b41" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{2.f,<sp/>2.f},</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>123);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(z0);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud<sp/>=<sp/><ref refid="namespacehmap_1ac56218126b8f4fafd161848508bb040b" kindref="member">hmap::random_cloud</ref>(300,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>123,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1aba758c4143b6e499ec6f4385467a6d77a8943dd2a2e3993c1e0cff37be3f65957" kindref="member">hmap::PointSamplingMethod::RND_LHS</ref>,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a7b26dc92e0d2217b8438f1ce9376ea0d" kindref="member">snap_points_to_bounding_box</ref>(bbox);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a5ac84550aceffbb9053c3b58490e7126" kindref="member">set_values_from_array</ref>(z0,<sp/>bbox);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1DrainageBasin" kindref="compound">hmap::DrainageBasin</ref><sp/>db(cloud.<ref refid="classhmap_1_1Cloud_1a653188a0cf3bd86403a12d225b2eb1fa" kindref="member">to_vec3</ref>());</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/>db.set_outlets(<ref refid="namespacehmap_1ac92d13b60ba68e2a31afca15fcb5f82f" kindref="member">hmap::find_border_sinks</ref>(db.get_mesh()));</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>db.update_stream_tree();</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>area<sp/>=<sp/>db.compute_vertex_areas();</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>acc(db.size(),<sp/>0.f);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/>db.accumulate_area_by_outlet(area,<sp/>acc);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>erodibility(db.size(),<sp/>1.f);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>response_times<sp/>=<sp/>db.compute_response_times(acc,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>erodibility,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.8f);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>EXPECT_EQ(response_times.size(),<sp/>db.size());</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>max_slope(db.size(),<sp/>2.f);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>diff<sp/>=<sp/>db.update_elevations(response_times,<sp/>1.f,<sp/>max_slope);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>EXPECT_GE(diff,<sp/>0.f);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="tests/src/test_drainage_basin.cpp"/>
+  </compounddef>
+</doxygen>

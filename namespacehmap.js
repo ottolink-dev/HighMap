@@ -690,7 +690,7 @@ var namespacehmap =
     [ "unwrap_phase", "namespacehmap.html#a3f8dc201377b61428eba8daa4a03a65f", null ],
     [ "talus_jump_mask", "namespacehmap.html#a184b9eed77a8732a8631f8dd73d75a44", null ],
     [ "find_border_minima", "namespacehmap.html#a330255b50cec60fc2ba713fb945e2fdd", null ],
-    [ "find_border_sinks", "namespacehmap.html#a7c49b9b92f0badad7ace856e897de1f0", null ],
+    [ "find_border_sinks", "namespacehmap.html#ac92d13b60ba68e2a31afca15fcb5f82f", null ],
     [ "heightmap_retopology", "namespacehmap.html#a23ab6bc3fdc7d5c498f0b3c8bebdd4f9", null ],
     [ "sample_border_points", "namespacehmap.html#abbc07969594bdb8632f96c9ec893872e", null ],
     [ "invert_receiver_map", "namespacehmap.html#a6d5ae7cdae4d3db7507517699fb44ed7", null ],

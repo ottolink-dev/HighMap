@@ -1166,7 +1166,7 @@ void \mbox{\hyperlink{namespacehmap_a0bcc84aa462aee73e1a3a52729f21ea6}{solve\+\_
 \item 
 std\+::vector$<$ size\+\_\+t $>$ \mbox{\hyperlink{namespacehmap_a330255b50cec60fc2ba713fb945e2fdd}{find\+\_\+border\+\_\+minima}} (const std\+::vector$<$ glm\+::vec3 $>$ \&xyz, float eps=1e-\/6\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Find local minima along the border of a set of 3D coordinates. \end{DoxyCompactList}\item 
-std\+::vector$<$ size\+\_\+t $>$ \mbox{\hyperlink{namespacehmap_a7c49b9b92f0badad7ace856e897de1f0}{find\+\_\+border\+\_\+sinks}} (\mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \&mesh, float eps=1e-\/6\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+std\+::vector$<$ size\+\_\+t $>$ \mbox{\hyperlink{namespacehmap_ac92d13b60ba68e2a31afca15fcb5f82f}{find\+\_\+border\+\_\+sinks}} (const \mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \&mesh, float eps=1e-\/6\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Find sinks along the border of a terrain tri mesh. \end{DoxyCompactList}\item 
 std\+::vector$<$ glm\+::vec3 $>$ \mbox{\hyperlink{namespacehmap_a23ab6bc3fdc7d5c498f0b3c8bebdd4f9}{heightmap\+\_\+retopology}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, float max\+\_\+error, int max\+\_\+triangles=0, int max\+\_\+points=0)
 \begin{DoxyCompactList}\small\item\em Performs retopology of a heightmap to generate a 3D point cloud. \end{DoxyCompactList}\item 
@@ -7861,9 +7861,8 @@ Iteratively updates elevations using a drainage model with uplift, slope constra
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a8eb3b37f9c2d4832fa1e0645bc69ac22}{hmap::init\_openmp}}();}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ glm::ivec2\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ =\ \{256,\ 256\};}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ =\ \{1024,\ 1024\};}
-\DoxyCodeLine{\ \ glm::vec2\ kw\ =\ \{4.f,\ 4.f\};}
-\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ seed\ =\ 0;}
+\DoxyCodeLine{\ \ glm::vec2\ \ kw\ =\ \{4.f,\ 4.f\};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ seed\ =\ 0;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ -\/-\/-\/\ erosion\ of\ an\ heightmap}}
 \DoxyCodeLine{}
@@ -7903,6 +7902,7 @@ Iteratively updates elevations using a drainage model with uplift, slope constra
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.f);}
 \DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Timer_ae9248cf01bfd4d8f680a6c7d5b80f45b}{hmap::Timer::Start}}(\textcolor{stringliteral}{"{}hydraulic\_saleve"{}});}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z1\ =\ \mbox{\hyperlink{namespacehmap_ada51d6f53d06fa3a592223e5f6137e03}{hmap::hydraulic\_saleve}}(}
 \DoxyCodeLine{\ \ \ \ \ \ z0,}
 \DoxyCodeLine{\ \ \ \ \ \ ++seed,}
@@ -7923,6 +7923,7 @@ Iteratively updates elevations using a drainage model with uplift, slope constra
 \DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278}{hmap::InterpolationMethod2D::ITP2D\_DELAUNAY\_GRADIENT}},}
 \DoxyCodeLine{\ \ \ \ \ \ \&dx,}
 \DoxyCodeLine{\ \ \ \ \ \ \&dy);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Timer_a6054c197a10338a1bd48299be29593b5}{hmap::Timer::Stop}}(\textcolor{stringliteral}{"{}hydraulic\_saleve"{}});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ mimic\ deposition}}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ deposition\_ir\ =\ int(0.1f\ *\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x);}
@@ -7932,6 +7933,8 @@ Iteratively updates elevations using a drainage model with uplift, slope constra
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ deposition\_ir,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ deposition\_strength,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iterations);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Timer_a5bc931885a549c561740f39cea91dd5f}{hmap::Timer::Dump}}();}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ z1.\mbox{\hyperlink{classhmap_1_1Array_a00b8f7462c1e22b1da8a67ec62d4c8c8}{dump}}();}
 \DoxyCodeLine{}
@@ -8005,9 +8008,8 @@ Eroded heightmap.
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a8eb3b37f9c2d4832fa1e0645bc69ac22}{hmap::init\_openmp}}();}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ glm::ivec2\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ =\ \{256,\ 256\};}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ =\ \{1024,\ 1024\};}
-\DoxyCodeLine{\ \ glm::vec2\ kw\ =\ \{4.f,\ 4.f\};}
-\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ seed\ =\ 0;}
+\DoxyCodeLine{\ \ glm::vec2\ \ kw\ =\ \{4.f,\ 4.f\};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ seed\ =\ 0;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ -\/-\/-\/\ erosion\ of\ an\ heightmap}}
 \DoxyCodeLine{}
@@ -8047,6 +8049,7 @@ Eroded heightmap.
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.f);}
 \DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Timer_ae9248cf01bfd4d8f680a6c7d5b80f45b}{hmap::Timer::Start}}(\textcolor{stringliteral}{"{}hydraulic\_saleve"{}});}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z1\ =\ \mbox{\hyperlink{namespacehmap_ada51d6f53d06fa3a592223e5f6137e03}{hmap::hydraulic\_saleve}}(}
 \DoxyCodeLine{\ \ \ \ \ \ z0,}
 \DoxyCodeLine{\ \ \ \ \ \ ++seed,}
@@ -8067,6 +8070,7 @@ Eroded heightmap.
 \DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278}{hmap::InterpolationMethod2D::ITP2D\_DELAUNAY\_GRADIENT}},}
 \DoxyCodeLine{\ \ \ \ \ \ \&dx,}
 \DoxyCodeLine{\ \ \ \ \ \ \&dy);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Timer_a6054c197a10338a1bd48299be29593b5}{hmap::Timer::Stop}}(\textcolor{stringliteral}{"{}hydraulic\_saleve"{}});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ mimic\ deposition}}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ deposition\_ir\ =\ int(0.1f\ *\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x);}
@@ -8076,6 +8080,8 @@ Eroded heightmap.
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ deposition\_ir,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ deposition\_strength,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iterations);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Timer_a5bc931885a549c561740f39cea91dd5f}{hmap::Timer::Dump}}();}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ z1.\mbox{\hyperlink{classhmap_1_1Array_a00b8f7462c1e22b1da8a67ec62d4c8c8}{dump}}();}
 \DoxyCodeLine{}
@@ -17767,11 +17773,11 @@ Find local minima along the border of a set of 3D coordinates.
 \begin{DoxyReturn}{Returns}
 A vector of indices of the border minima. 
 \end{DoxyReturn}
-\Hypertarget{namespacehmap_a7c49b9b92f0badad7ace856e897de1f0}\label{namespacehmap_a7c49b9b92f0badad7ace856e897de1f0} 
+\Hypertarget{namespacehmap_ac92d13b60ba68e2a31afca15fcb5f82f}\label{namespacehmap_ac92d13b60ba68e2a31afca15fcb5f82f} 
 \index{hmap@{hmap}!find\_border\_sinks@{find\_border\_sinks}}
 \index{find\_border\_sinks@{find\_border\_sinks}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{find\_border\_sinks()}{find\_border\_sinks()}}
-{\footnotesize\ttfamily std\+::vector$<$ size\+\_\+t $>$ hmap\+::find\+\_\+border\+\_\+sinks (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \&}]{mesh,  }\item[{float}]{eps = {\ttfamily 1e-\/6\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ size\+\_\+t $>$ hmap\+::find\+\_\+border\+\_\+sinks (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \&}]{mesh,  }\item[{float}]{eps = {\ttfamily 1e-\/6\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
 
 
 

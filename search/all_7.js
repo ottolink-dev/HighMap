@@ -36,7 +36,7 @@ var searchData=
   ['filters_2ehpp_33',['filters.hpp',['../filters_8hpp.html',1,'']]],
   ['filters_5fgpu_2ecpp_34',['filters_gpu.cpp',['../filters__gpu_8cpp.html',1,'']]],
   ['find_5fborder_5fminima_35',['find_border_minima',['../namespacehmap.html#a330255b50cec60fc2ba713fb945e2fdd',1,'hmap']]],
-  ['find_5fborder_5fsinks_36',['find_border_sinks',['../namespacehmap.html#a7c49b9b92f0badad7ace856e897de1f0',1,'hmap']]],
+  ['find_5fborder_5fsinks_36',['find_border_sinks',['../namespacehmap.html#ac92d13b60ba68e2a31afca15fcb5f82f',1,'hmap']]],
   ['find_5fcut_5fpath_2ecpp_37',['find_cut_path.cpp',['../find__cut__path_8cpp.html',1,'']]],
   ['find_5fcut_5fpath_5fdijkstra_38',['find_cut_path_dijkstra',['../namespacehmap.html#a505d334a39df55be569fbc1c1f640042',1,'hmap']]],
   ['find_5fcut_5fpath_5fmidpoint_39',['find_cut_path_midpoint',['../namespacehmap.html#a2c463175bb90319f83de452c2b55ac2b',1,'hmap']]],

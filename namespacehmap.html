@@ -1689,9 +1689,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a330255b50cec60fc2ba713fb945e2fdd" id="r_a330255b50cec60fc2ba713fb945e2fdd"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a330255b50cec60fc2ba713fb945e2fdd">find_border_minima</a> (const std::vector&lt; glm::vec3 &gt; &amp;xyz, float eps=1e-6<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
 <tr class="memdesc:a330255b50cec60fc2ba713fb945e2fdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find local minima along the border of a set of 3D coordinates.  <br /></td></tr>
 <tr class="separator:a330255b50cec60fc2ba713fb945e2fdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c49b9b92f0badad7ace856e897de1f0" id="r_a7c49b9b92f0badad7ace856e897de1f0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a7c49b9b92f0badad7ace856e897de1f0">find_border_sinks</a> (<a class="el" href="classhmap_1_1TerrainTriMesh.html">TerrainTriMesh</a> &amp;mesh, float eps=1e-6<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
-<tr class="memdesc:a7c49b9b92f0badad7ace856e897de1f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find sinks along the border of a terrain tri mesh.  <br /></td></tr>
-<tr class="separator:a7c49b9b92f0badad7ace856e897de1f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac92d13b60ba68e2a31afca15fcb5f82f" id="r_ac92d13b60ba68e2a31afca15fcb5f82f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#ac92d13b60ba68e2a31afca15fcb5f82f">find_border_sinks</a> (const <a class="el" href="classhmap_1_1TerrainTriMesh.html">TerrainTriMesh</a> &amp;mesh, float eps=1e-6<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
+<tr class="memdesc:ac92d13b60ba68e2a31afca15fcb5f82f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find sinks along the border of a terrain tri mesh.  <br /></td></tr>
+<tr class="separator:ac92d13b60ba68e2a31afca15fcb5f82f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23ab6bc3fdc7d5c498f0b3c8bebdd4f9" id="r_a23ab6bc3fdc7d5c498f0b3c8bebdd4f9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; glm::vec3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a23ab6bc3fdc7d5c498f0b3c8bebdd4f9">heightmap_retopology</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, float max_error, int max_triangles=0, int max_points=0)</td></tr>
 <tr class="memdesc:a23ab6bc3fdc7d5c498f0b3c8bebdd4f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs retopology of a heightmap to generate a 3D point cloud.  <br /></td></tr>
 <tr class="separator:a23ab6bc3fdc7d5c498f0b3c8bebdd4f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -11790,9 +11790,8 @@ additional_depth)</code>.</li>
 <div class="line">  <a class="code hl_function" href="namespacehmap.html#a8eb3b37f9c2d4832fa1e0645bc69ac22">hmap::init_openmp</a>();</div>
 <div class="line"> </div>
 <div class="line">  glm::ivec2 <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {256, 256};</div>
-<div class="line">  <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {1024, 1024};</div>
-<div class="line">  glm::vec2 kw = {4.f, 4.f};</div>
-<div class="line">  <span class="keywordtype">int</span>       seed = 0;</div>
+<div class="line">  glm::vec2  kw = {4.f, 4.f};</div>
+<div class="line">  <span class="keywordtype">int</span>        seed = 0;</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// --- erosion of an heightmap</span></div>
 <div class="line"> </div>
@@ -11832,6 +11831,7 @@ additional_depth)</code>.</li>
 <div class="line">                                           8,</div>
 <div class="line">                                           0.f);</div>
 <div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="classhmap_1_1Timer.html#ae9248cf01bfd4d8f680a6c7d5b80f45b">hmap::Timer::Start</a>(<span class="stringliteral">&quot;hydraulic_saleve&quot;</span>);</div>
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z1 = <a class="code hl_function" href="namespacehmap.html#ada51d6f53d06fa3a592223e5f6137e03">hmap::hydraulic_saleve</a>(</div>
 <div class="line">      z0,</div>
 <div class="line">      ++seed,</div>
@@ -11852,6 +11852,7 @@ additional_depth)</code>.</li>
 <div class="line">      <a class="code hl_enumvalue" href="namespacehmap.html#a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278">hmap::InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT</a>,</div>
 <div class="line">      &amp;dx,</div>
 <div class="line">      &amp;dy);</div>
+<div class="line">  <a class="code hl_function" href="classhmap_1_1Timer.html#a6054c197a10338a1bd48299be29593b5">hmap::Timer::Stop</a>(<span class="stringliteral">&quot;hydraulic_saleve&quot;</span>);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// mimic deposition</span></div>
 <div class="line">  <span class="keywordtype">int</span>   deposition_ir = int(0.1f * <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.x);</div>
@@ -11862,6 +11863,8 @@ additional_depth)</code>.</li>
 <div class="line">                                   deposition_strength,</div>
 <div class="line">                                   iterations);</div>
 <div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="classhmap_1_1Timer.html#a5bc931885a549c561740f39cea91dd5f">hmap::Timer::Dump</a>();</div>
+<div class="line"> </div>
 <div class="line">  z1.<a class="code hl_function" href="classhmap_1_1Array.html#a00b8f7462c1e22b1da8a67ec62d4c8c8">dump</a>();</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// --- export</span></div>
@@ -11871,6 +11874,9 @@ additional_depth)</code>.</li>
 <div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>,</div>
 <div class="line">                          <span class="keyword">true</span>);</div>
 <div class="line">}</div>
+<div class="ttc" id="aclasshmap_1_1Timer_html_a5bc931885a549c561740f39cea91dd5f"><div class="ttname"><a href="classhmap_1_1Timer.html#a5bc931885a549c561740f39cea91dd5f">hmap::Timer::Dump</a></div><div class="ttdeci">static void Dump()</div><div class="ttdoc">Dumps the timing information for all recorded events to the console.</div><div class="ttdef"><b>Definition</b> timer.cpp:69</div></div>
+<div class="ttc" id="aclasshmap_1_1Timer_html_a6054c197a10338a1bd48299be29593b5"><div class="ttname"><a href="classhmap_1_1Timer.html#a6054c197a10338a1bd48299be29593b5">hmap::Timer::Stop</a></div><div class="ttdeci">static void Stop(const std::string &amp;name)</div><div class="ttdoc">Stops the timer for the specified event name.</div><div class="ttdef"><b>Definition</b> timer.cpp:59</div></div>
+<div class="ttc" id="aclasshmap_1_1Timer_html_ae9248cf01bfd4d8f680a6c7d5b80f45b"><div class="ttname"><a href="classhmap_1_1Timer.html#ae9248cf01bfd4d8f680a6c7d5b80f45b">hmap::Timer::Start</a></div><div class="ttdeci">static void Start(const std::string &amp;name)</div><div class="ttdoc">Starts a timer for the specified event name.</div><div class="ttdef"><b>Definition</b> timer.cpp:54</div></div>
 <div class="ttc" id="anamespacehmap_1_1gpu_html_a8497e2fce595293ea07e68eac1e5bce2"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a8497e2fce595293ea07e68eac1e5bce2">hmap::gpu::deposition_fill_holes</a></div><div class="ttdeci">void deposition_fill_holes(Array &amp;z, int deposition_ir, float deposition_strength, int iterations=1)</div><div class="ttdoc">Fill holes using Gaussian-based deposition.</div><div class="ttdef"><b>Definition</b> deposition_fill_holes.cpp:15</div></div>
 <div class="ttc" id="anamespacehmap_html_a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278"><div class="ttname"><a href="namespacehmap.html#a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278">hmap::ITP2D_DELAUNAY_GRADIENT</a></div><div class="ttdeci">@ ITP2D_DELAUNAY_GRADIENT</div><div class="ttdoc">Delaunay triangulation + linear gradient.</div><div class="ttdef"><b>Definition</b> interpolate2d.hpp:53</div></div>
 <div class="ttc" id="anamespacehmap_html_ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed"><div class="ttname"><a href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed">hmap::SIMPLEX2</a></div><div class="ttdeci">@ SIMPLEX2</div><div class="ttdoc">OpenSimplex2.</div><div class="ttdef"><b>Definition</b> functions.hpp:71</div></div>
@@ -12043,9 +12049,8 @@ additional_depth)</code>.</li>
 <div class="line">  <a class="code hl_function" href="namespacehmap.html#a8eb3b37f9c2d4832fa1e0645bc69ac22">hmap::init_openmp</a>();</div>
 <div class="line"> </div>
 <div class="line">  glm::ivec2 <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {256, 256};</div>
-<div class="line">  <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {1024, 1024};</div>
-<div class="line">  glm::vec2 kw = {4.f, 4.f};</div>
-<div class="line">  <span class="keywordtype">int</span>       seed = 0;</div>
+<div class="line">  glm::vec2  kw = {4.f, 4.f};</div>
+<div class="line">  <span class="keywordtype">int</span>        seed = 0;</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// --- erosion of an heightmap</span></div>
 <div class="line"> </div>
@@ -12085,6 +12090,7 @@ additional_depth)</code>.</li>
 <div class="line">                                           8,</div>
 <div class="line">                                           0.f);</div>
 <div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="classhmap_1_1Timer.html#ae9248cf01bfd4d8f680a6c7d5b80f45b">hmap::Timer::Start</a>(<span class="stringliteral">&quot;hydraulic_saleve&quot;</span>);</div>
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z1 = <a class="code hl_function" href="namespacehmap.html#ada51d6f53d06fa3a592223e5f6137e03">hmap::hydraulic_saleve</a>(</div>
 <div class="line">      z0,</div>
 <div class="line">      ++seed,</div>
@@ -12105,6 +12111,7 @@ additional_depth)</code>.</li>
 <div class="line">      <a class="code hl_enumvalue" href="namespacehmap.html#a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278">hmap::InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT</a>,</div>
 <div class="line">      &amp;dx,</div>
 <div class="line">      &amp;dy);</div>
+<div class="line">  <a class="code hl_function" href="classhmap_1_1Timer.html#a6054c197a10338a1bd48299be29593b5">hmap::Timer::Stop</a>(<span class="stringliteral">&quot;hydraulic_saleve&quot;</span>);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// mimic deposition</span></div>
 <div class="line">  <span class="keywordtype">int</span>   deposition_ir = int(0.1f * <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.x);</div>
@@ -12114,6 +12121,8 @@ additional_depth)</code>.</li>
 <div class="line">                                   deposition_ir,</div>
 <div class="line">                                   deposition_strength,</div>
 <div class="line">                                   iterations);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="classhmap_1_1Timer.html#a5bc931885a549c561740f39cea91dd5f">hmap::Timer::Dump</a>();</div>
 <div class="line"> </div>
 <div class="line">  z1.<a class="code hl_function" href="classhmap_1_1Array.html#a00b8f7462c1e22b1da8a67ec62d4c8c8">dump</a>();</div>
 <div class="line"> </div>
@@ -28627,8 +28636,8 @@ h}{\partial y}
 
 </div>
 </div>
-<a id="a7c49b9b92f0badad7ace856e897de1f0" name="a7c49b9b92f0badad7ace856e897de1f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c49b9b92f0badad7ace856e897de1f0">&#9670;&#160;</a></span>find_border_sinks()</h2>
+<a id="ac92d13b60ba68e2a31afca15fcb5f82f" name="ac92d13b60ba68e2a31afca15fcb5f82f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac92d13b60ba68e2a31afca15fcb5f82f">&#9670;&#160;</a></span>find_border_sinks()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -28636,7 +28645,7 @@ h}{\partial y}
         <tr>
           <td class="memname">std::vector&lt; size_t &gt; hmap::find_border_sinks </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classhmap_1_1TerrainTriMesh.html">TerrainTriMesh</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1TerrainTriMesh.html">TerrainTriMesh</a> &amp;&#160;</td>
           <td class="paramname"><em>mesh</em>, </td>
         </tr>
         <tr>
@@ -32844,8 +32853,6 @@ requires requires(const T &amp;<a class="el" href="elevation__from__contours_8cp
 <div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143">hmap::Cmap::INFERNO</a>);</div>
 <div class="line">}</div>
 <div class="ttc" id="aclasshmap_1_1Cloud_html_a7b26dc92e0d2217b8438f1ce9376ea0d"><div class="ttname"><a href="classhmap_1_1Cloud.html#a7b26dc92e0d2217b8438f1ce9376ea0d">hmap::Cloud::snap_points_to_bounding_box</a></div><div class="ttdeci">void snap_points_to_bounding_box(const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f}, float tolerance_ratio=1.f)</div><div class="ttdoc">Snap points to the bounding box edges and corners.</div><div class="ttdef"><b>Definition</b> cloud.cpp:598</div></div>
-<div class="ttc" id="aclasshmap_1_1Timer_html_a6054c197a10338a1bd48299be29593b5"><div class="ttname"><a href="classhmap_1_1Timer.html#a6054c197a10338a1bd48299be29593b5">hmap::Timer::Stop</a></div><div class="ttdeci">static void Stop(const std::string &amp;name)</div><div class="ttdoc">Stops the timer for the specified event name.</div><div class="ttdef"><b>Definition</b> timer.cpp:59</div></div>
-<div class="ttc" id="aclasshmap_1_1Timer_html_ae9248cf01bfd4d8f680a6c7d5b80f45b"><div class="ttname"><a href="classhmap_1_1Timer.html#ae9248cf01bfd4d8f680a6c7d5b80f45b">hmap::Timer::Start</a></div><div class="ttdeci">static void Start(const std::string &amp;name)</div><div class="ttdoc">Starts a timer for the specified event name.</div><div class="ttdef"><b>Definition</b> timer.cpp:54</div></div>
 <div class="ttc" id="anamespacehmap_html_a5bfab5d68e822294ff90fde21b85f581a4beec3d16f7dc0a1873bb04d85ea6eec"><div class="ttname"><a href="namespacehmap.html#a5bfab5d68e822294ff90fde21b85f581a4beec3d16f7dc0a1873bb04d85ea6eec">hmap::ITP2D_IDW</a></div><div class="ttdeci">@ ITP2D_IDW</div><div class="ttdoc">Inverse Distance Weighting.</div><div class="ttdef"><b>Definition</b> interpolate2d.hpp:50</div></div>
 <div class="ttc" id="anamespacehmap_html_a5bfab5d68e822294ff90fde21b85f581a5fc536ff63a05f254ff7583cccac8a12"><div class="ttname"><a href="namespacehmap.html#a5bfab5d68e822294ff90fde21b85f581a5fc536ff63a05f254ff7583cccac8a12">hmap::ITP2D_DELAUNAY</a></div><div class="ttdeci">@ ITP2D_DELAUNAY</div><div class="ttdoc">Delaunay triangulation method for 2D interpolation.</div><div class="ttdef"><b>Definition</b> interpolate2d.hpp:48</div></div>
 <div class="ttc" id="anamespacehmap_html_a5bfab5d68e822294ff90fde21b85f581a95b33e28ebad4905884242b69db8de0d"><div class="ttname"><a href="namespacehmap.html#a5bfab5d68e822294ff90fde21b85f581a95b33e28ebad4905884242b69db8de0d">hmap::ITP2D_NNI</a></div><div class="ttdeci">@ ITP2D_NNI</div><div class="ttdoc">Natural Neighbor Interpolation.</div><div class="ttdef"><b>Definition</b> interpolate2d.hpp:52</div></div>
@@ -53817,7 +53824,6 @@ off" values that fall below the threshold, which can be useful for filtering out
 <div class="line"> </div>
 <div class="line">  <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclasshmap_1_1Timer_html_a5bc931885a549c561740f39cea91dd5f"><div class="ttname"><a href="classhmap_1_1Timer.html#a5bc931885a549c561740f39cea91dd5f">hmap::Timer::Dump</a></div><div class="ttdeci">static void Dump()</div><div class="ttdoc">Dumps the timing information for all recorded events to the console.</div><div class="ttdef"><b>Definition</b> timer.cpp:69</div></div>
 <div class="ttc" id="anamespacehmap_html_a7c174527ef9ac7c595ad65514dc00756"><div class="ttname"><a href="namespacehmap.html#a7c174527ef9ac7c595ad65514dc00756">hmap::find_path_multiscale</a></div><div class="ttdeci">void find_path_multiscale(const Array &amp;z, glm::ivec2 ij_start, glm::ivec2 ij_end, std::vector&lt; int &gt; &amp;i_path, std::vector&lt; int &gt; &amp;j_path, int n_levels=3, int corridor_radius=4, float corridor_decay=1.f, float elevation_ratio=0.1f, float distance_exponent=2.f, float upward_penalization=0.1f, const Array *p_mask_nogo=nullptr, bool use_astar=false, bool smooth_path=false)</div><div class="ttdoc">Finds a shortest path on a 2D grid using a fast coarse-to-fine multiscale approach.</div><div class="ttdef"><b>Definition</b> find_path_multiscale.cpp:224</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_find_path_multiscale.png" alt=""/>
