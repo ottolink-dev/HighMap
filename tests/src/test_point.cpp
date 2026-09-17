@@ -39,6 +39,35 @@ TEST(PointTest, ParameterizedConstructor)
   EXPECT_TRUE(float_eq(p.v, 3.f));
 }
 
+TEST(PointTest, GlmVec2ConstructorAndConversion)
+{
+  glm::vec2 v(1.5f, 2.5f);
+  Point     p(v, 4.f);
+
+  EXPECT_TRUE(float_eq(p.x, 1.5f));
+  EXPECT_TRUE(float_eq(p.y, 2.5f));
+  EXPECT_TRUE(float_eq(p.v, 4.f));
+
+  glm::vec2 out = p.to_vec2();
+  EXPECT_TRUE(float_eq(out.x, 1.5f));
+  EXPECT_TRUE(float_eq(out.y, 2.5f));
+}
+
+TEST(PointTest, GlmVec3ConstructorAndConversion)
+{
+  glm::vec3 v(1.5f, 2.5f, 3.5f);
+  Point     p(v);
+
+  EXPECT_TRUE(float_eq(p.x, 1.5f));
+  EXPECT_TRUE(float_eq(p.y, 2.5f));
+  EXPECT_TRUE(float_eq(p.v, 3.5f));
+
+  glm::vec3 out = p.to_vec3();
+  EXPECT_TRUE(float_eq(out.x, 1.5f));
+  EXPECT_TRUE(float_eq(out.y, 2.5f));
+  EXPECT_TRUE(float_eq(out.z, 3.5f));
+}
+
 // ------------------------------------------------------------
 // Operators
 // ------------------------------------------------------------
@@ -117,6 +146,32 @@ TEST(PointTest, ScalarDivision)
   EXPECT_TRUE(float_eq(c.v, 3));
 }
 
+TEST(PointTest, CompoundOperators)
+{
+  Point a(1, 2, 3);
+  Point b(4, 5, 6);
+
+  a += b;
+  EXPECT_TRUE(float_eq(a.x, 5));
+  EXPECT_TRUE(float_eq(a.y, 7));
+  EXPECT_TRUE(float_eq(a.v, 9));
+
+  a -= b;
+  EXPECT_TRUE(float_eq(a.x, 1));
+  EXPECT_TRUE(float_eq(a.y, 2));
+  EXPECT_TRUE(float_eq(a.v, 3));
+
+  a *= 2.f;
+  EXPECT_TRUE(float_eq(a.x, 2));
+  EXPECT_TRUE(float_eq(a.y, 4));
+  EXPECT_TRUE(float_eq(a.v, 6));
+
+  a /= 2.f;
+  EXPECT_TRUE(float_eq(a.x, 1));
+  EXPECT_TRUE(float_eq(a.y, 2));
+  EXPECT_TRUE(float_eq(a.v, 3));
+}
+
 // ------------------------------------------------------------
 // Geometry
 // ------------------------------------------------------------
@@ -127,6 +182,7 @@ TEST(PointTest, DistanceBasic)
   Point b(3, 4, 0);
 
   EXPECT_TRUE(float_eq(distance(a, b), 5.f));
+  EXPECT_TRUE(float_eq(distance_squared(a, b), 25.f));
 }
 
 TEST(PointTest, CrossProductOrientation)
@@ -240,6 +296,24 @@ TEST(PointTest, CatmullRomEndpoints)
 
   EXPECT_TRUE(interp_catmullrom(p0, p1, p2, p3, 0.f) == p1);
   EXPECT_TRUE(interp_catmullrom(p0, p1, p2, p3, 1.f) == p2);
+}
+
+TEST(PointTest, DecasteljauEmptyAndEndpoints)
+{
+  std::vector<Point> empty_pts;
+  EXPECT_TRUE(interp_decasteljau(empty_pts, 0.5f) == Point(0, 0, 0));
+
+  std::vector<Point> single_pt = {Point(3, 4, 5)};
+  EXPECT_TRUE(interp_decasteljau(single_pt, 0.5f) == Point(3, 4, 5));
+
+  std::vector<Point> pts = {Point(0, 0, 0),
+                            Point(1, 0, 0),
+                            Point(1, 1, 0),
+                            Point(0, 1, 0)};
+  EXPECT_TRUE(interp_decasteljau(pts, 0.f) == pts.front());
+  EXPECT_TRUE(interp_decasteljau(pts, 1.f) == pts.back());
+  EXPECT_TRUE(interp_decasteljau(pts, 0.5f) ==
+              interp_bezier(pts[0], pts[1], pts[2], pts[3], 0.5f));
 }
 
 // ------------------------------------------------------------
