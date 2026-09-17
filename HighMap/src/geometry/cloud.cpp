@@ -747,7 +747,7 @@ Graph Cloud::to_graph_delaunay() const
     if (((int)e > i) or (i == -1))
     {
       int next_he = (e % 3 == 2) ? e - 2 : e + 1;
-      graph.add_edge({(int)d.triangles[e], (int)d.triangles[next_he]});
+      graph.add_edge((int)d.triangles[e], (int)d.triangles[next_he]);
     }
   }
 

@@ -65,10 +65,8 @@ TEST(GraphDijkstraTest, PathWithIntermediateZero)
   g.push_back(Point(-1.f, 0.f, 0.f)); // node 1
   g.push_back(Point(1.f, 0.f, 0.f));  // node 2
 
-  g.add_edge({1, 0}, 1.f);
-  g.add_edge({0, 2}, 1.f);
-  g.update_adjacency_matrix();
-  g.update_connectivity();
+  g.add_edge(1, 0, 1.f);
+  g.add_edge(0, 2, 1.f);
 
   std::vector<int> path = g.dijkstra(1, 2);
   ASSERT_EQ(path.size(), 3);
@@ -82,9 +80,7 @@ TEST(GraphDijkstraTest, SameSourceAndTarget)
   Graph g;
   g.push_back(Point(0.f, 0.f, 0.f));
   g.push_back(Point(1.f, 0.f, 0.f));
-  g.add_edge({0, 1}, 1.f);
-  g.update_adjacency_matrix();
-  g.update_connectivity();
+  g.add_edge(0, 1, 1.f);
 
   std::vector<int> path = g.dijkstra(0, 0);
   ASSERT_EQ(path.size(), 1);
@@ -96,8 +92,6 @@ TEST(GraphDijkstraTest, DisconnectedGraph)
   Graph g;
   g.push_back(Point(0.f, 0.f, 0.f)); // node 0
   g.push_back(Point(1.f, 0.f, 0.f)); // node 1
-  g.update_adjacency_matrix();
-  g.update_connectivity();
 
   std::vector<int> path = g.dijkstra(0, 1);
   EXPECT_TRUE(path.empty());
