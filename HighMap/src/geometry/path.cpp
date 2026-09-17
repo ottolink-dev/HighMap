@@ -435,7 +435,7 @@ void Path::to_array(Array &array, glm::vec4 bbox, bool filled) const
     {
       float t = (float)i / (float)(npixels - 1);
       Point p = lerp(this->points[k], this->points[knext], t);
-      cloud.add_point(p);
+      cloud.push_back(p);
     }
   }
 

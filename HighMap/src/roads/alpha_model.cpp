@@ -57,7 +57,7 @@ Graph generate_network_alpha_model(const std::vector<float> &xc,
     for (size_t k = 0; k < nc; k++)
     {
       Point p = Point(xc[k], yc[k], size[k]);
-      cloud.add_point(p);
+      cloud.push_back(p);
     }
 
     // Delaunay triangulation

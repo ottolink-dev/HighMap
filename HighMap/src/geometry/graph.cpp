@@ -238,7 +238,7 @@ Graph Graph::remove_orphan_points()
       // add it
       if (new_point_idx[k] == -1)
       {
-        graph_out.add_point(this->points[k]);
+        graph_out.push_back(this->points[k]);
         new_point_idx[k] = (int)graph_out.size() - 1;
       }
 
@@ -247,7 +247,7 @@ Graph Graph::remove_orphan_points()
         int j = this->connectivity[k][r];
         if ((j > (int)k) and (new_point_idx[j] == -1))
         {
-          graph_out.add_point(this->points[j]);
+          graph_out.push_back(this->points[j]);
           new_point_idx[j] = (int)graph_out.size() - 1;
         }
       }

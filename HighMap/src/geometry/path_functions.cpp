@@ -421,13 +421,12 @@ Path meanderize(const Path            &path,
     {
       size_t kp1 = (k + 1) % path.size();
 
-      new_path.add_point(
-          Point(path.points[k].x, path.points[k].y, path.points[k].v));
+      new_path.push_back(Point(path[k].x, path[k].y, path[k].v));
 
-      float alpha = angle(path.points[kp1], path.points[k]);
-      float dist = distance(path.points[kp1], path.points[k]);
+      float alpha = angle(path[kp1], path[k]);
+      float dist = distance(path[kp1], path[k]);
 
-      Point p = lerp(path.points[k], path.points[kp1], 0.5f);
+      Point p = lerp(path[k], path[kp1], 0.5f);
 
       if (orientation >= 0.f)
         alpha += M_PI_2;
@@ -439,14 +438,14 @@ Path meanderize(const Path            &path,
       p.x += dist * std::cos(alpha);
       p.y += dist * std::sin(alpha);
 
-      new_path.add_point(p);
+      new_path.push_back(p);
       orientation *= -1.f;
     }
 
     if (path.is_closed())
-      new_path.add_point(path.points[0]);
+      new_path.push_back(path[0]);
     else
-      new_path.add_point(path.points.back());
+      new_path.push_back(path.back());
 
     path_wrk = new_path;
   }

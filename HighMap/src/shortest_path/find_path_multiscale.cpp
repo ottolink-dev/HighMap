@@ -536,7 +536,7 @@ Path find_path_multiscale(const Array &z,
     y = bbox.z + y * (bbox.w - bbox.z);
     float v = z(p.x, p.y);
 
-    path.add_point(Point(x, y, v));
+    path.push_back(Point(x, y, v));
   }
 
   if (smooth_path && path.size() > 2)

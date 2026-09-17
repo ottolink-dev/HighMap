@@ -78,20 +78,20 @@ TEST(CloudTest, RandomConstructorDeterministic)
 // Basic Operations
 // ------------------------------------------------------------
 
-TEST(CloudTest, AddPointIncreasesSize)
+TEST(CloudTest, PushBackIncreasesSize)
 {
   Cloud cloud;
 
-  cloud.add_point({1.f, 2.f, 3.f});
+  cloud.push_back({1.f, 2.f, 3.f});
 
   EXPECT_EQ(cloud.size(), 1);
 }
 
-TEST(CloudTest, RemovePointReducesSize)
+TEST(CloudTest, EraseReducesSize)
 {
   Cloud cloud(std::vector<Point>{{0, 0, 0}, {1, 1, 1}});
 
-  cloud.remove_point(0);
+  cloud.erase(cloud.begin());
 
   ASSERT_EQ(cloud.size(), 1);
   EXPECT_TRUE(floatEq(cloud[0].x, 1.f));
@@ -387,12 +387,22 @@ TEST(CloudTest, ContainerAccessAndIterators)
     sum_v += p.v;
   EXPECT_TRUE(floatEq(sum_v, 9.f));
 
-  // Capacity & emplace_back
+  // Capacity, emplace_back & push_back
   cloud.reserve(10);
   EXPECT_GE(cloud.capacity(), 10u);
   cloud.emplace_back(7.f, 8.f, 9.f);
   EXPECT_EQ(cloud.size(), 3u);
   EXPECT_TRUE(floatEq(cloud.back().v, 9.f));
+
+  Point p_lvalue(10.f, 11.f, 12.f);
+  cloud.push_back(p_lvalue);
+  cloud.push_back(Point(13.f, 14.f, 15.f));
+  EXPECT_EQ(cloud.size(), 5u);
+  EXPECT_TRUE(floatEq(cloud.back().x, 13.f));
+
+  auto it = cloud.erase(cloud.begin() + 1);
+  EXPECT_EQ(cloud.size(), 4u);
+  EXPECT_TRUE(floatEq(it->x, 7.f));
 }
 
 // ------------------------------------------------------------

@@ -132,19 +132,6 @@ public:
    * */
   Cloud(const std::vector<glm::vec3> &xyv);
 
-  /**
-   * @brief Add a new point to the cloud.
-   *
-   * @param p The point to be added to the cloud.
-   */
-  void add_point(const Point &p);
-
-  /**
-   * @brief Remove a point from the cloud.
-   * @param point_idx Index of the point to be removed.
-   */
-  void remove_point(int point_idx);
-
   // ==========================================================================
   //  Accessors
   // ==========================================================================
@@ -417,6 +404,21 @@ public:
    * @brief Appends a new point in-place.
    */
   void emplace_back(float x, float y, float v = 0.f);
+
+  /**
+   * @brief Erases the point at the specified position.
+   */
+  std::vector<Point>::iterator erase(std::vector<Point>::const_iterator pos);
+
+  /**
+   * @brief Appends a point.
+   */
+  void push_back(const Point &p);
+
+  /**
+   * @brief Appends a point (move).
+   */
+  void push_back(Point &&p);
 
   /**
    * @brief Reserves storage for at least the specified number of points.

@@ -11,8 +11,8 @@ int main(void)
   // modification point (x, y) in [0, 1]x[0, 1] and a value
   // corresponding to the relative elevation modification
   hmap::Cloud cloud = hmap::Cloud();
-  cloud.add_point(hmap::Point(0.2f, 0.5f, -1.f));
-  cloud.add_point(hmap::Point(0.6f, 0.2f, 1.f));
+  cloud.push_back(hmap::Point(0.2f, 0.5f, -1.f));
+  cloud.push_back(hmap::Point(0.6f, 0.2f, 1.f));
 
   hmap::Array z1 = z0;
   hmap::alter_elevation(z1, cloud, 32, 2.f);

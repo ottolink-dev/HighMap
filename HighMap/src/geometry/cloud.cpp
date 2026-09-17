@@ -105,11 +105,6 @@ Cloud::Cloud(const std::vector<glm::vec3> &xyv)
     this->points.emplace_back(p.x, p.y, p.z);
 }
 
-void Cloud::add_point(const Point &p)
-{
-  this->points.push_back(p);
-}
-
 void Cloud::clear()
 {
   this->points.clear();
@@ -357,11 +352,6 @@ void Cloud::remap_values(float vmin, float vmax)
     p.v = (p.v - current_min->v) * scale + vmin;
 }
 
-void Cloud::remove_point(int point_idx)
-{
-  this->points.erase(this->begin() + point_idx);
-}
-
 void Cloud::set_points(const std::vector<float> &x, const std::vector<float> &y)
 {
   if (x.size() != y.size() || x.size() != this->size())
@@ -542,6 +532,22 @@ size_t Cloud::capacity() const noexcept
 void Cloud::emplace_back(float x, float y, float v)
 {
   this->points.emplace_back(x, y, v);
+}
+
+std::vector<Point>::iterator Cloud::erase(
+    std::vector<Point>::const_iterator pos)
+{
+  return this->points.erase(pos);
+}
+
+void Cloud::push_back(const Point &p)
+{
+  this->points.push_back(p);
+}
+
+void Cloud::push_back(Point &&p)
+{
+  this->points.push_back(std::move(p));
 }
 
 void Cloud::reserve(size_t new_cap)

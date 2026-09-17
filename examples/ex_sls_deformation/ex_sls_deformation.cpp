@@ -27,7 +27,7 @@ int main(void)
   {
     float angle = 0.5f * M_PI + 2.f * M_PI * static_cast<float>(k) / 10.f;
     float r = (k % 2 == 0) ? 0.42f : 0.18f;
-    star.add_point(
+    star.push_back(
         {0.5f + r * std::cos(angle), 0.5f + r * std::sin(angle), 1.f});
   }
   star.set_closed(true);
@@ -53,11 +53,11 @@ int main(void)
   // flattening of the terrain)
 
   hmap::Path road;
-  road.add_point({0.08f, 0.15f, 1.f});
-  road.add_point({0.35f, 0.25f, 1.f});
-  road.add_point({0.50f, 0.50f, 1.f});
-  road.add_point({0.65f, 0.75f, 1.f});
-  road.add_point({0.92f, 0.85f, 1.f});
+  road.push_back({0.08f, 0.15f, 1.f});
+  road.push_back({0.35f, 0.25f, 1.f});
+  road.push_back({0.50f, 0.50f, 1.f});
+  road.push_back({0.65f, 0.75f, 1.f});
+  road.push_back({0.92f, 0.85f, 1.f});
   road = hmap::catmullrom(road);
 
   hmap::Array path(shape, 0.f);
