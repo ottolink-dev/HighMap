@@ -60,7 +60,7 @@ public:
    *
    * Initializes an empty cloud with no points.
    */
-  Cloud(){};
+  Cloud();
 
   virtual ~Cloud() = default;
 
@@ -80,7 +80,14 @@ public:
    *
    * @param points A vector of `Point` objects representing the cloud's points.
    */
-  Cloud(const std::vector<Point> &points) : points(points){};
+  Cloud(const std::vector<Point> &points);
+
+  /**
+   * @brief Move-constructs a new Cloud object from an existing points vector.
+   *
+   * @param points An rvalue vector of `Point` objects.
+   */
+  Cloud(std::vector<Point> &&points) noexcept;
 
   /**
    * @brief Constructs a new Cloud object from lists of `x` and `y` coordinates.
@@ -317,6 +324,106 @@ public:
   size_t size() const;
 
   // ==========================================================================
+  //  Container Interface
+  // ==========================================================================
+
+  /**
+   * @brief Access point by index.
+   */
+  Point &operator[](size_t index);
+
+  /**
+   * @brief Access point by index (const).
+   */
+  const Point &operator[](size_t index) const;
+
+  /**
+   * @brief Access point with bounds checking.
+   */
+  Point &at(size_t index);
+
+  /**
+   * @brief Access point with bounds checking (const).
+   */
+  const Point &at(size_t index) const;
+
+  /**
+   * @brief Access the first point.
+   */
+  Point &front();
+
+  /**
+   * @brief Access the first point (const).
+   */
+  const Point &front() const;
+
+  /**
+   * @brief Access the last point.
+   */
+  Point &back();
+
+  /**
+   * @brief Access the last point (const).
+   */
+  const Point &back() const;
+
+  /**
+   * @brief Returns an iterator to the first point.
+   */
+  std::vector<Point>::iterator begin() noexcept;
+
+  /**
+   * @brief Returns a const iterator to the first point.
+   */
+  std::vector<Point>::const_iterator begin() const noexcept;
+
+  /**
+   * @brief Returns a const iterator to the first point.
+   */
+  std::vector<Point>::const_iterator cbegin() const noexcept;
+
+  /**
+   * @brief Returns an iterator to the end.
+   */
+  std::vector<Point>::iterator end() noexcept;
+
+  /**
+   * @brief Returns a const iterator to the end.
+   */
+  std::vector<Point>::const_iterator end() const noexcept;
+
+  /**
+   * @brief Returns a const iterator to the end.
+   */
+  std::vector<Point>::const_iterator cend() const noexcept;
+
+  /**
+   * @brief Direct pointer to the underlying point array.
+   */
+  Point *data() noexcept;
+
+  /**
+   * @brief Direct pointer to the underlying point array (const).
+   */
+  const Point *data() const noexcept;
+
+  /**
+   * @brief Returns the number of points that can be held in currently allocated
+   * storage.
+   */
+  size_t capacity() const noexcept;
+
+  /**
+   * @brief Appends a new point in-place.
+   */
+  void emplace_back(float x, float y, float v = 0.f);
+
+  /**
+   * @brief Reserves storage for at least the specified number of points.
+   */
+  void reserve(size_t new_cap);
+
+  // ==========================================================================
   //  Basic Ops
   // ==========================================================================
 
@@ -328,7 +435,7 @@ public:
   /**
    * @brief Print information about the cloud's points.
    */
-  void print();
+  void print() const;
 
   /**
    * @brief Randomize the positions and values of the cloud points.
@@ -461,7 +568,7 @@ public:
    * @brief Convert the cloud to a graph using Delaunay triangulation.
    * @return Graph The resulting graph from Delaunay triangulation.
    */
-  Graph to_graph_delaunay();
+  Graph to_graph_delaunay() const;
 
   /**
    * @brief Saves the current data as a PNG image file.
@@ -483,7 +590,7 @@ public:
               int                cmap,
               glm::vec4          bbox = {0.f, 1.f, 0.f, 1.f},
               int                depth = CV_8U,
-              glm::ivec2         shape = {512, 512});
+              glm::ivec2         shape = {512, 512}) const;
 
   /**
    * @brief Convert path points to a vector of 3D positions.

@@ -46,10 +46,13 @@ Array cloud_sdf_to_array(const Cloud &cloud,
   std::vector<float> xg, yg;
   grid_xy_vector(xg, yg, shape, bbox_array, /* endpoint */ false);
 
-  std::vector<size_t> indices;
-  std::vector<float>  distances;
-
+#pragma omp parallel for default(none)                                         \
+    shared(shape, p_noise_x, p_noise_y, xg, yg, tree, array)
   for (int j = 0; j < shape.y; ++j)
+  {
+    std::vector<size_t> indices;
+    std::vector<float>  distances;
+
     for (int i = 0; i < shape.x; ++i)
     {
       float dx = p_noise_x ? (*p_noise_x)(i, j) : 0.f;
@@ -65,6 +68,7 @@ Array cloud_sdf_to_array(const Cloud &cloud,
 
       array(i, j) = std::sqrt(distances[0]);
     }
+  }
 
   return array;
 }
@@ -153,13 +157,14 @@ void rejection_filter_density(Cloud           &cloud,
 
   auto density_fct = make_xy_function_from_array(density_mask, bbox);
 
-  std::remove_if(cloud.points.begin(),
-                 cloud.points.end(),
-                 [&](Point p)
-                 {
-                   float rnd = dis(gen);
-                   return (rnd > density_fct(p.x, p.y));
-                 });
+  cloud.points.erase(std::remove_if(cloud.points.begin(),
+                                    cloud.points.end(),
+                                    [&](const Point &p)
+                                    {
+                                      float rnd = dis(gen);
+                                      return (rnd > density_fct(p.x, p.y));
+                                    }),
+                     cloud.points.end());
 }
 
 Cloud scale(const Cloud &cloud, glm::vec2 scale, glm::vec2 center)

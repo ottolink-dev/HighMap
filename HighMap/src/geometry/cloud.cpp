@@ -37,11 +37,21 @@
 namespace hmap
 {
 
+Cloud::Cloud() = default;
+
 Cloud::Cloud(int npoints, std::uint32_t seed, glm::vec4 bbox)
 {
   this->points.resize(npoints);
   this->randomize(seed, bbox);
-};
+}
+
+Cloud::Cloud(const std::vector<Point> &points) : points(points)
+{
+}
+
+Cloud::Cloud(std::vector<Point> &&points) noexcept : points(std::move(points))
+{
+}
 
 Cloud::Cloud(const std::vector<float> &x,
              const std::vector<float> &y,
@@ -117,7 +127,6 @@ bool Cloud::from_csv(const std::string &fname)
   std::vector<Point> new_points;
   std::string        line;
   size_t             line_num = 0;
-  const auto         old_locale = std::locale::global(std::locale("C"));
 
   while (std::getline(file, line))
   {
@@ -125,6 +134,7 @@ bool Cloud::from_csv(const std::string &fname)
     if (line.empty()) continue;
 
     std::istringstream ss(line);
+    ss.imbue(std::locale::classic());
     std::vector<float> values;
     std::string        token;
 
@@ -139,7 +149,6 @@ bool Cloud::from_csv(const std::string &fname)
         hmap::log::error("Invalid number format in CSV line {}: '{}'",
                          line_num,
                          token);
-        std::locale::global(old_locale);
         return false;
       }
     }
@@ -157,12 +166,10 @@ bool Cloud::from_csv(const std::string &fname)
       hmap::log::error("Invalid number of values ({}) in CSV line {}",
                        values.size(),
                        line_num);
-      std::locale::global(old_locale);
       return false;
     }
   }
 
-  std::locale::global(old_locale);
   this->points = std::move(new_points);
   return true;
 }
@@ -171,17 +178,20 @@ glm::vec4 Cloud::get_bbox() const
 {
   if (!validate_non_empty(this->points, "Cloud points")) return glm::vec4();
 
-  std::vector<float> x = this->get_x();
-  std::vector<float> y = this->get_y();
-  glm::vec4          bbox;
+  float xmin = this->points[0].x;
+  float xmax = this->points[0].x;
+  float ymin = this->points[0].y;
+  float ymax = this->points[0].y;
+
+  for (size_t i = 1; i < this->points.size(); ++i)
   {
-    float xmin = *std::min_element(x.begin(), x.end());
-    float xmax = *std::max_element(x.begin(), x.end());
-    float ymin = *std::min_element(y.begin(), y.end());
-    float ymax = *std::max_element(y.begin(), y.end());
-    bbox = {xmin, xmax, ymin, ymax};
+    xmin = std::min(xmin, this->points[i].x);
+    xmax = std::max(xmax, this->points[i].x);
+    ymin = std::min(ymin, this->points[i].y);
+    ymax = std::max(ymax, this->points[i].y);
   }
-  return bbox;
+
+  return {xmin, xmax, ymin, ymax};
 }
 
 Point Cloud::get_center() const
@@ -196,15 +206,20 @@ Point Cloud::get_center() const
 
 std::vector<int> Cloud::get_convex_hull() const
 {
+  if (this->points.size() < 3) return {};
+
   delaunator::Delaunator d(this->get_xy());
+  if (d.hull_next.empty() || d.hull_start >= d.hull_next.size()) return {};
 
-  std::vector<int> chull = {(int)d.hull_start};
+  std::vector<int> chull = {static_cast<int>(d.hull_start)};
 
-  int inext = (int)d.hull_next[chull.back()];
-  while (inext != chull[0])
+  int    inext = static_cast<int>(d.hull_next[chull.back()]);
+  size_t max_iter = this->points.size() + 1;
+  while (inext != chull[0] && chull.size() < max_iter)
   {
+    if (inext < 0 || static_cast<size_t>(inext) >= d.hull_next.size()) break;
     chull.push_back(inext);
-    inext = d.hull_next[chull.back()];
+    inext = static_cast<int>(d.hull_next[chull.back()]);
   }
 
   return chull;
@@ -223,16 +238,22 @@ float Cloud::get_values_max() const
 {
   if (!validate_non_empty(this->points, "Cloud points")) return 0.f;
 
-  std::vector<float> values = this->get_values();
-  return *std::max_element(values.begin(), values.end());
+  auto it = std::max_element(this->points.begin(),
+                             this->points.end(),
+                             [](const Point &a, const Point &b)
+                             { return a.v < b.v; });
+  return it->v;
 }
 
 float Cloud::get_values_min() const
 {
   if (!validate_non_empty(this->points, "Cloud points")) return 0.f;
 
-  std::vector<float> values = this->get_values();
-  return *std::min_element(values.begin(), values.end());
+  auto it = std::min_element(this->points.begin(),
+                             this->points.end(),
+                             [](const Point &a, const Point &b)
+                             { return a.v < b.v; });
+  return it->v;
 }
 
 std::vector<float> Cloud::get_x() const
@@ -285,7 +306,7 @@ size_t Cloud::nearest_point(const glm::vec2 &xy) const
   return kn;
 }
 
-void Cloud::print()
+void Cloud::print() const
 {
   std::cout << "Cloud" << std::endl;
 
@@ -322,6 +343,8 @@ void Cloud::randomize(std::uint32_t seed, glm::vec4 bbox)
 
 void Cloud::remap_values(float vmin, float vmax)
 {
+  if (this->points.empty()) return;
+
   const auto [current_min, current_max] = std::minmax_element(
       this->points.begin(),
       this->points.end(),
@@ -388,19 +411,22 @@ void Cloud::set_values_from_border_distance(const glm::vec4 &bbox)
 void Cloud::set_values_from_chull_distance()
 {
   std::vector<int> chull = this->get_convex_hull();
+  if (chull.empty()) return;
 
-  for (size_t i = 0; i < this->size(); i++)
+  for (size_t i = 0; i < this->size(); ++i)
   {
-    float dmax = std::numeric_limits<float>::max();
-    for (size_t k = 0; k < chull.size(); k++)
+    float d2_min = std::numeric_limits<float>::max();
+    for (size_t k = 0; k < chull.size(); ++k)
     {
-      float dist = distance(this->points[i], this->points[chull[k]]);
-      if (dist < dmax)
+      glm::vec2 diff = {this->points[i].x - this->points[chull[k]].x,
+                        this->points[i].y - this->points[chull[k]].y};
+      float     d2 = glm::dot(diff, diff);
+      if (d2 < d2_min)
       {
-        dmax = dist;
-        this->points[i].v = dist;
+        d2_min = d2;
       }
     }
+    this->points[i].v = std::sqrt(d2_min);
   }
 }
 
@@ -424,6 +450,103 @@ bool Cloud::empty() const
 size_t Cloud::size() const
 {
   return this->points.size();
+}
+
+// --- Container interface
+
+Point &Cloud::operator[](size_t index)
+{
+  return this->points[index];
+}
+
+const Point &Cloud::operator[](size_t index) const
+{
+  return this->points[index];
+}
+
+Point &Cloud::at(size_t index)
+{
+  return this->points.at(index);
+}
+
+const Point &Cloud::at(size_t index) const
+{
+  return this->points.at(index);
+}
+
+Point &Cloud::front()
+{
+  return this->points.front();
+}
+
+const Point &Cloud::front() const
+{
+  return this->points.front();
+}
+
+Point &Cloud::back()
+{
+  return this->points.back();
+}
+
+const Point &Cloud::back() const
+{
+  return this->points.back();
+}
+
+std::vector<Point>::iterator Cloud::begin() noexcept
+{
+  return this->points.begin();
+}
+
+std::vector<Point>::const_iterator Cloud::begin() const noexcept
+{
+  return this->points.begin();
+}
+
+std::vector<Point>::const_iterator Cloud::cbegin() const noexcept
+{
+  return this->points.cbegin();
+}
+
+std::vector<Point>::iterator Cloud::end() noexcept
+{
+  return this->points.end();
+}
+
+std::vector<Point>::const_iterator Cloud::end() const noexcept
+{
+  return this->points.end();
+}
+
+std::vector<Point>::const_iterator Cloud::cend() const noexcept
+{
+  return this->points.cend();
+}
+
+Point *Cloud::data() noexcept
+{
+  return this->points.data();
+}
+
+const Point *Cloud::data() const noexcept
+{
+  return this->points.data();
+}
+
+size_t Cloud::capacity() const noexcept
+{
+  return this->points.capacity();
+}
+
+void Cloud::emplace_back(float x, float y, float v)
+{
+  this->points.emplace_back(x, y, v);
+}
+
+void Cloud::reserve(size_t new_cap)
+{
+  this->points.reserve(new_cap);
 }
 
 void Cloud::snap_points_to_bounding_box(const glm::vec4 &bbox,
@@ -508,12 +631,16 @@ void Cloud::to_array(Array &array, glm::vec4 bbox) const
 {
   if (!validate_non_empty(array)) return;
 
+  float dx = bbox.y - bbox.x;
+  float dy = bbox.w - bbox.z;
+  if (std::abs(dx) < 1e-9f || std::abs(dy) < 1e-9f) return;
+
   int   ni = array.shape.x;
   int   nj = array.shape.y;
-  float ai = (ni - 1) / (bbox.y - bbox.x);
-  float bi = -bbox.x * (ni - 1) / (bbox.y - bbox.x);
-  float aj = (nj - 1) / (bbox.w - bbox.z);
-  float bj = -bbox.z * (nj - 1) / (bbox.w - bbox.z);
+  float ai = (ni - 1) / dx;
+  float bi = -bbox.x * (ni - 1) / dx;
+  float aj = (nj - 1) / dy;
+  float bj = -bbox.z * (nj - 1) / dy;
 
   for (auto &p : this->points)
   {
@@ -580,7 +707,7 @@ void Cloud::to_csv(const std::string &fname) const
     f << p.x << ',' << p.y << ',' << p.v << '\n';
 }
 
-Graph Cloud::to_graph_delaunay()
+Graph Cloud::to_graph_delaunay() const
 {
   delaunator::Delaunator d(this->get_xy());
   Graph                  graph = Graph(*this);
@@ -602,7 +729,7 @@ void Cloud::to_png(const std::string &fname,
                    int                cmap,
                    glm::vec4          bbox,
                    int                depth,
-                   glm::ivec2         shape)
+                   glm::ivec2         shape) const
 {
   if (!validate_shape(shape)) return;
 
@@ -624,48 +751,33 @@ std::vector<glm::vec3> Cloud::to_vec3() const
 
 Cloud merge_cloud(const Cloud &cloud1, const Cloud &cloud2)
 {
-  std::vector<float> x1 = cloud1.get_x();
-  std::vector<float> y1 = cloud1.get_y();
-  std::vector<float> v1 = cloud1.get_values();
-
-  std::vector<float> x2 = cloud2.get_x();
-  std::vector<float> y2 = cloud2.get_y();
-  std::vector<float> v2 = cloud2.get_values();
-
-  x1.insert(x1.end(), x2.begin(), x2.end());
-  y1.insert(y1.end(), y2.begin(), y2.end());
-  v1.insert(v1.end(), v2.begin(), v2.end());
-
-  return Cloud(x1, y1, v1);
+  Cloud result;
+  result.points.reserve(cloud1.size() + cloud2.size());
+  result.points.insert(result.points.end(),
+                       cloud1.points.begin(),
+                       cloud1.points.end());
+  result.points.insert(result.points.end(),
+                       cloud2.points.begin(),
+                       cloud2.points.end());
+  return result;
 }
 
 Cloud merge_clouds(const std::vector<Cloud> &clouds)
 {
-  std::vector<float> x;
-  std::vector<float> y;
-  std::vector<float> v;
-
-  // reserve total size to avoid reallocations
+  Cloud       result;
   std::size_t total_size = 0;
   for (const auto &cloud : clouds)
     total_size += cloud.size();
 
-  x.reserve(total_size);
-  y.reserve(total_size);
-  v.reserve(total_size);
-
+  result.points.reserve(total_size);
   for (const auto &cloud : clouds)
   {
-    const auto &cx = cloud.get_x();
-    const auto &cy = cloud.get_y();
-    const auto &cv = cloud.get_values();
-
-    x.insert(x.end(), cx.begin(), cx.end());
-    y.insert(y.end(), cy.begin(), cy.end());
-    v.insert(v.end(), cv.begin(), cv.end());
+    result.points.insert(result.points.end(),
+                         cloud.points.begin(),
+                         cloud.points.end());
   }
 
-  return Cloud(x, y, v);
+  return result;
 }
 
 Cloud random_cloud(size_t                     count,

@@ -352,3 +352,89 @@ TEST(CloudTest, ScalePreservesPointValues)
   EXPECT_FLOAT_EQ(scaled.points[1].v, -42.0f);
   EXPECT_FLOAT_EQ(scaled.points[2].v, 3.1415f);
 }
+
+// ------------------------------------------------------------
+// Container Interface & Move Semantics
+// ------------------------------------------------------------
+
+TEST(CloudTest, MoveConstructor)
+{
+  std::vector<Point> pts = {{1.f, 2.f, 3.f}, {4.f, 5.f, 6.f}};
+  Cloud              cloud(std::move(pts));
+
+  EXPECT_EQ(cloud.size(), 2);
+  EXPECT_TRUE(floatEq(cloud[0].x, 1.f));
+  EXPECT_TRUE(floatEq(cloud[1].v, 6.f));
+}
+
+TEST(CloudTest, ContainerAccessAndIterators)
+{
+  Cloud cloud(std::vector<Point>{{1.f, 2.f, 3.f}, {4.f, 5.f, 6.f}});
+
+  // Indexing
+  EXPECT_TRUE(floatEq(cloud[0].x, 1.f));
+  EXPECT_TRUE(floatEq(cloud.at(1).y, 5.f));
+  EXPECT_TRUE(floatEq(cloud.front().v, 3.f));
+  EXPECT_TRUE(floatEq(cloud.back().x, 4.f));
+
+  // Mutation via reference
+  cloud[0].x = 10.f;
+  EXPECT_TRUE(floatEq(cloud[0].x, 10.f));
+
+  // Range-based for loop
+  float sum_v = 0.f;
+  for (const auto &p : cloud)
+    sum_v += p.v;
+  EXPECT_TRUE(floatEq(sum_v, 9.f));
+
+  // Capacity & emplace_back
+  cloud.reserve(10);
+  EXPECT_GE(cloud.capacity(), 10u);
+  cloud.emplace_back(7.f, 8.f, 9.f);
+  EXPECT_EQ(cloud.size(), 3u);
+  EXPECT_TRUE(floatEq(cloud.back().v, 9.f));
+}
+
+// ------------------------------------------------------------
+// Rejection Filter & Edge Cases
+// ------------------------------------------------------------
+
+TEST(CloudTest, RejectionFilterDensityActuallyErases)
+{
+  // Cloud of 10 points
+  std::vector<Point> pts;
+  for (int i = 0; i < 10; ++i)
+    pts.emplace_back(0.5f, 0.5f, 0.f);
+  Cloud cloud(pts);
+
+  // Mask where density is 0 everywhere -> all points should be removed
+  Array zero_mask({10, 10}, 0.f);
+  rejection_filter_density(cloud, zero_mask, 42);
+
+  EXPECT_EQ(cloud.size(), 0u);
+  EXPECT_TRUE(cloud.empty());
+}
+
+TEST(CloudTest, RemapValuesEmptyCloudSafe)
+{
+  Cloud cloud;
+  EXPECT_NO_THROW(cloud.remap_values(0.f, 1.f));
+}
+
+TEST(CloudTest, ConvexHullDegenerateInputsSafe)
+{
+  Cloud empty_cloud;
+  EXPECT_TRUE(empty_cloud.get_convex_hull().empty());
+
+  Cloud two_points(std::vector<Point>{{0.f, 0.f, 0.f}, {1.f, 1.f, 0.f}});
+  EXPECT_TRUE(two_points.get_convex_hull().empty());
+}
+
+TEST(CloudTest, ToArrayDegenerateBBoxSafe)
+{
+  Cloud cloud(std::vector<Point>{{0.5f, 0.5f, 1.f}});
+  Array array({10, 10}, 0.f);
+
+  // Degenerate bbox (width = 0, height = 0)
+  EXPECT_NO_THROW(cloud.to_array(array, {0.f, 0.f, 0.f, 0.f}));
+}
