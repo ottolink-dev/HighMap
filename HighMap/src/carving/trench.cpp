@@ -122,10 +122,7 @@ void trench(Array                       &z,
   Array zp = z;
   Array blending_mask(shape);
 
-  std::vector<float> xp = path_copy.get_x();
-  std::vector<float> yp = path_copy.get_y();
-
-  KDTreeContext tree(xp, yp);
+  KDTree tree(path_copy);
 
   // interpolation base grid
   std::vector<float> xg, yg;

@@ -36,9 +36,7 @@ Array cloud_sdf_to_array(const Cloud &cloud,
 
   // --- KD-tree
 
-  std::vector<float> x = cloud.get_x();
-  std::vector<float> y = cloud.get_y();
-  KDTreeContext      tree(x, y);
+  KDTree tree(cloud);
 
   // --- SDF
 
@@ -50,9 +48,6 @@ Array cloud_sdf_to_array(const Cloud &cloud,
     shared(shape, p_noise_x, p_noise_y, xg, yg, tree, array)
   for (int j = 0; j < shape.y; ++j)
   {
-    std::vector<size_t> indices;
-    std::vector<float>  distances;
-
     for (int i = 0; i < shape.x; ++i)
     {
       float dx = p_noise_x ? (*p_noise_x)(i, j) : 0.f;
@@ -60,13 +55,8 @@ Array cloud_sdf_to_array(const Cloud &cloud,
       float xi = xg[i] + dx;
       float yi = yg[j] + dy;
 
-      tree.neighbor_search(xi,
-                           yi,
-                           /* k_neighbors */ 1,
-                           indices,
-                           distances);
-
-      array(i, j) = std::sqrt(distances[0]);
+      auto [idx, dist_sq] = tree.nearest_with_distance_squared(xi, yi);
+      array(i, j) = std::sqrt(dist_sq);
     }
   }
 
