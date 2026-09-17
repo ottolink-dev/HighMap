@@ -29,7 +29,7 @@ TEST(PathDecimateVw, ReducesPointCount)
   path.points = generate_line(100);
   path = decimate_vw(path, 10);
 
-  EXPECT_EQ(path.points.size(), 10);
+  EXPECT_EQ(path.size(), 10);
 }
 
 TEST(PathDecimateVw, PreservesStraightLine)
@@ -39,9 +39,9 @@ TEST(PathDecimateVw, PreservesStraightLine)
   path = decimate_vw(path, 5);
 
   // all points should remain colinear
-  for (size_t i = 1; i + 1 < path.points.size(); ++i)
+  for (size_t i = 1; i + 1 < path.size(); ++i)
   {
-    float k = curvature(path.points[i - 1], path.points[i], path.points[i + 1]);
+    float k = curvature(path[i - 1], path[i], path[i + 1]);
     EXPECT_NEAR(k, 0.0f, 1e-5f);
   }
 }

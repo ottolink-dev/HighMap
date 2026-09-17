@@ -41,8 +41,8 @@ std::vector<glm::vec2> contour_to_pixel_coords(const Path &path,
   const float aj = (shape.y - 1) / (bbox.w - bbox.z);
 
   std::vector<glm::vec2> pts;
-  pts.reserve(path.points.size());
-  for (const Point &p : path.points)
+  pts.reserve(path.size());
+  for (const Point &p : path)
     pts.emplace_back(ai * (p.x - bbox.x), aj * (p.y - bbox.z));
   return pts;
 }
@@ -889,7 +889,7 @@ Array elevation_from_contours(glm::ivec2                shape,
   }
 
   for (size_t k = 0; k < contours.size(); ++k)
-    if (contours[k].points.size() < 3)
+    if (contours[k].size() < 3)
     {
       log::error("elevation_from_contours: contour {} has fewer than 3 points",
                  k);

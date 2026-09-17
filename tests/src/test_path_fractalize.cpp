@@ -60,16 +60,16 @@ TEST(PathFractalize, BoundedMultiEdgePath)
 
   for (size_t i = 0; i <= points_per_edge; ++i)
   {
-    const auto &pt = result.points[i];
+    const auto &pt = result[i];
     EXPECT_GE(pt.x, 0.f);
     EXPECT_LE(pt.x, 5.f);
     EXPECT_GE(pt.y, 0.f);
     EXPECT_LE(pt.y, 10.f);
   }
 
-  for (size_t i = points_per_edge; i < result.points.size(); ++i)
+  for (size_t i = points_per_edge; i < result.size(); ++i)
   {
-    const auto &pt = result.points[i];
+    const auto &pt = result[i];
     EXPECT_GE(pt.x, 5.f);
     EXPECT_LE(pt.x, 10.f);
     EXPECT_GE(pt.y, 0.f);

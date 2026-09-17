@@ -298,18 +298,6 @@ public:
    */
   void set_values_from_min_distance();
 
-  /**
-   * @brief Check whether the cloud has no points.
-   * @return true if the cloud contains no points, false otherwise.
-   */
-  bool empty() const;
-
-  /**
-   * @brief Get the number of points in the cloud.
-   * @return size_t The number of points in the cloud.
-   */
-  size_t size() const;
-
   // ==========================================================================
   //  Container Interface
   // ==========================================================================
@@ -335,16 +323,6 @@ public:
   const Point &at(size_t index) const;
 
   /**
-   * @brief Access the first point.
-   */
-  Point &front();
-
-  /**
-   * @brief Access the first point (const).
-   */
-  const Point &front() const;
-
-  /**
    * @brief Access the last point.
    */
   Point &back();
@@ -365,24 +343,25 @@ public:
   std::vector<Point>::const_iterator begin() const noexcept;
 
   /**
+   * @brief Returns the number of points that can be held in currently allocated
+   * storage.
+   */
+  size_t capacity() const noexcept;
+
+  /**
    * @brief Returns a const iterator to the first point.
    */
   std::vector<Point>::const_iterator cbegin() const noexcept;
 
   /**
-   * @brief Returns an iterator to the end.
-   */
-  std::vector<Point>::iterator end() noexcept;
-
-  /**
-   * @brief Returns a const iterator to the end.
-   */
-  std::vector<Point>::const_iterator end() const noexcept;
-
-  /**
    * @brief Returns a const iterator to the end.
    */
   std::vector<Point>::const_iterator cend() const noexcept;
+
+  /**
+   * @brief Clear all data from the cloud.
+   */
+  void clear();
 
   /**
    * @brief Direct pointer to the underlying point array.
@@ -395,20 +374,40 @@ public:
   const Point *data() const noexcept;
 
   /**
-   * @brief Returns the number of points that can be held in currently allocated
-   * storage.
-   */
-  size_t capacity() const noexcept;
-
-  /**
    * @brief Appends a new point in-place.
    */
   void emplace_back(float x, float y, float v = 0.f);
 
   /**
+   * @brief Check whether the cloud has no points.
+   * @return true if the cloud contains no points, false otherwise.
+   */
+  bool empty() const;
+
+  /**
+   * @brief Returns an iterator to the end.
+   */
+  std::vector<Point>::iterator end() noexcept;
+
+  /**
+   * @brief Returns a const iterator to the end.
+   */
+  std::vector<Point>::const_iterator end() const noexcept;
+
+  /**
    * @brief Erases the point at the specified position.
    */
   std::vector<Point>::iterator erase(std::vector<Point>::const_iterator pos);
+
+  /**
+   * @brief Access the first point.
+   */
+  Point &front();
+
+  /**
+   * @brief Access the first point (const).
+   */
+  const Point &front() const;
 
   /**
    * @brief Appends a point.
@@ -425,14 +424,15 @@ public:
    */
   void reserve(size_t new_cap);
 
+  /**
+   * @brief Get the number of points in the cloud.
+   * @return size_t The number of points in the cloud.
+   */
+  size_t size() const;
+
   // ==========================================================================
   //  Basic Ops
   // ==========================================================================
-
-  /**
-   * @brief Clear all data from the cloud.
-   */
-  void clear();
 
   /**
    * @brief Print information about the cloud's points.

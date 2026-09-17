@@ -105,11 +105,6 @@ Cloud::Cloud(const std::vector<glm::vec3> &xyv)
     this->points.emplace_back(p.x, p.y, p.z);
 }
 
-void Cloud::clear()
-{
-  this->points.clear();
-}
-
 bool Cloud::from_csv(const std::string &fname)
 {
   std::ifstream file(fname);
@@ -432,16 +427,6 @@ void Cloud::set_values_from_min_distance()
   this->set_values(dist);
 }
 
-bool Cloud::empty() const
-{
-  return this->points.empty();
-}
-
-size_t Cloud::size() const
-{
-  return this->points.size();
-}
-
 // --- Container interface
 
 Point &Cloud::operator[](size_t index)
@@ -464,16 +449,6 @@ const Point &Cloud::at(size_t index) const
   return this->points.at(index);
 }
 
-Point &Cloud::front()
-{
-  return this->points.front();
-}
-
-const Point &Cloud::front() const
-{
-  return this->points.front();
-}
-
 Point &Cloud::back()
 {
   return this->points.back();
@@ -494,24 +469,24 @@ std::vector<Point>::const_iterator Cloud::begin() const noexcept
   return this->points.begin();
 }
 
+size_t Cloud::capacity() const noexcept
+{
+  return this->points.capacity();
+}
+
 std::vector<Point>::const_iterator Cloud::cbegin() const noexcept
 {
   return this->points.cbegin();
 }
 
-std::vector<Point>::iterator Cloud::end() noexcept
-{
-  return this->points.end();
-}
-
-std::vector<Point>::const_iterator Cloud::end() const noexcept
-{
-  return this->points.end();
-}
-
 std::vector<Point>::const_iterator Cloud::cend() const noexcept
 {
   return this->points.cend();
+}
+
+void Cloud::clear()
+{
+  this->points.clear();
 }
 
 Point *Cloud::data() noexcept
@@ -524,20 +499,40 @@ const Point *Cloud::data() const noexcept
   return this->points.data();
 }
 
-size_t Cloud::capacity() const noexcept
-{
-  return this->points.capacity();
-}
-
 void Cloud::emplace_back(float x, float y, float v)
 {
   this->points.emplace_back(x, y, v);
+}
+
+bool Cloud::empty() const
+{
+  return this->points.empty();
+}
+
+std::vector<Point>::iterator Cloud::end() noexcept
+{
+  return this->points.end();
+}
+
+std::vector<Point>::const_iterator Cloud::end() const noexcept
+{
+  return this->points.end();
 }
 
 std::vector<Point>::iterator Cloud::erase(
     std::vector<Point>::const_iterator pos)
 {
   return this->points.erase(pos);
+}
+
+Point &Cloud::front()
+{
+  return this->points.front();
+}
+
+const Point &Cloud::front() const
+{
+  return this->points.front();
 }
 
 void Cloud::push_back(const Point &p)
@@ -555,10 +550,15 @@ void Cloud::reserve(size_t new_cap)
   this->points.reserve(new_cap);
 }
 
+size_t Cloud::size() const
+{
+  return this->points.size();
+}
+
 void Cloud::snap_points_to_bounding_box(const glm::vec4 &bbox,
                                         float            tolerance_ratio)
 {
-  if (!validate_non_empty(this->points, "Cloud points")) return;
+  if (!validate_non_empty(*this, "Cloud points")) return;
 
   // reference distance based on point density
   float lx = bbox.y - bbox.x;
@@ -566,7 +566,7 @@ void Cloud::snap_points_to_bounding_box(const glm::vec4 &bbox,
   float dref = tolerance_ratio * std::sqrt(lx * ly / float(this->size()));
 
   // snap points to border if close enough
-  for (auto &p : this->points)
+  for (auto &p : *this)
   {
     float dl = std::abs(p.x - bbox.x);
     float dr = std::abs(p.x - bbox.y);
@@ -599,11 +599,10 @@ void Cloud::snap_points_to_bounding_box(const glm::vec4 &bbox,
     float best_d2 = std::numeric_limits<float>::max();
     int   best_i = -1;
 
-    for (size_t i = 0; i < this->points.size(); ++i)
+    for (size_t i = 0; i < this->size(); ++i)
     {
-      glm::vec2 d = glm::vec2(this->points[i].x, this->points[i].y) -
-                    corners[c];
-      float d2 = glm::dot(d, d);
+      glm::vec2 d = glm::vec2((*this)[i].x, (*this)[i].y) - corners[c];
+      float     d2 = glm::dot(d, d);
 
       if (d2 < best_d2)
       {
@@ -614,8 +613,8 @@ void Cloud::snap_points_to_bounding_box(const glm::vec4 &bbox,
 
     if (best_i >= 0)
     {
-      this->points[best_i].x = corners[c].x;
-      this->points[best_i].y = corners[c].y;
+      (*this)[best_i].x = corners[c].x;
+      (*this)[best_i].y = corners[c].y;
     }
   }
 }
