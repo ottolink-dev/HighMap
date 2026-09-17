@@ -59,6 +59,18 @@ public:
   Path() = default;
 
   /**
+   * @brief Construct a new Path object based on a cloud of points.
+   * @param cloud The cloud of points used to initialize the path.
+   */
+  Path(const Cloud &cloud) : Cloud(cloud){};
+
+  /**
+   * @brief Move-construct a new Path object based on a cloud of points.
+   * @param cloud Rvalue cloud of points used to initialize the path.
+   */
+  Path(Cloud &&cloud) noexcept : Cloud(std::move(cloud)){};
+
+  /**
    * @brief Construct a new Path object with random positions and values.
    * Initializes a path with a specified number of points, random values, and
    * the option to be open or closed.
