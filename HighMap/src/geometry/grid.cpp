@@ -132,16 +132,30 @@ void rescale_grid_from_unit_square_to_bbox(std::vector<float> &x,
   size_t nx = x.size();
   size_t ny = y.size();
 
-  for (size_t i = 0; i < nx; ++i)
+  if (nx == 1)
   {
-    float t = (float)i / ((float)nx - 1.f);
-    x[i] = bbox.x + (bbox.y - bbox.x) * t;
+    x[0] = bbox.x;
+  }
+  else if (nx > 1)
+  {
+    for (size_t i = 0; i < nx; ++i)
+    {
+      float t = (float)i / ((float)nx - 1.f);
+      x[i] = bbox.x + (bbox.y - bbox.x) * t;
+    }
   }
 
-  for (size_t j = 0; j < ny; ++j)
+  if (ny == 1)
   {
-    float t = (float)j / ((float)ny - 1.f);
-    y[j] = bbox.z + (bbox.w - bbox.z) * t;
+    y[0] = bbox.z;
+  }
+  else if (ny > 1)
+  {
+    for (size_t j = 0; j < ny; ++j)
+    {
+      float t = (float)j / ((float)ny - 1.f);
+      y[j] = bbox.z + (bbox.w - bbox.z) * t;
+    }
   }
 }
 
@@ -149,11 +163,30 @@ void rescale_points_to_unit_square(std::vector<float> &x,
                                    std::vector<float> &y,
                                    glm::vec4           bbox)
 {
-  for (size_t k = 0; k < x.size(); k++)
-    x[k] = (x[k] - bbox.x) / (bbox.y - bbox.x);
+  float lx = bbox.y - bbox.x;
+  float ly = bbox.w - bbox.z;
 
-  for (size_t k = 0; k < y.size(); k++)
-    y[k] = (y[k] - bbox.z) / (bbox.w - bbox.z);
+  if (std::abs(lx) > 1e-9f)
+  {
+    for (size_t k = 0; k < x.size(); k++)
+      x[k] = (x[k] - bbox.x) / lx;
+  }
+  else
+  {
+    for (size_t k = 0; k < x.size(); k++)
+      x[k] = 0.f;
+  }
+
+  if (std::abs(ly) > 1e-9f)
+  {
+    for (size_t k = 0; k < y.size(); k++)
+      y[k] = (y[k] - bbox.z) / ly;
+  }
+  else
+  {
+    for (size_t k = 0; k < y.size(); k++)
+      y[k] = 0.f;
+  }
 }
 
 } // namespace hmap

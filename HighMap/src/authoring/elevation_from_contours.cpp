@@ -53,9 +53,9 @@ std::vector<glm::ivec2> rasterize_outline(const std::vector<glm::vec2> &pts,
                                           glm::ivec2                    shape,
                                           bool is_closed = true)
 {
-  std::vector<glm::ivec2> cells;
-  const size_t            n = pts.size();
-  if (n == 0) return cells;
+  CellPath     cells;
+  const size_t n = pts.size();
+  if (n == 0) return cells.get_indices();
 
   const size_t num_segments = is_closed ? n : n - 1;
   for (size_t k = 0; k < num_segments; ++k)

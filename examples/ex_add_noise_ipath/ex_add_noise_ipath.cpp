@@ -8,7 +8,7 @@ int main(void)
   int   seed = 0;
   float amp = 128.f;
 
-  std::vector<glm::ivec2> ipath;
+  hmap::CellPath ipath;
 
   int i0 = 32;
   int i1 = shape.x - i0;
