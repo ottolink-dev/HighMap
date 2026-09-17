@@ -9,9 +9,8 @@ int main(void)
   hmap::init_openmp();
 
   glm::ivec2 shape = {256, 256};
-  shape = {1024, 1024};
-  glm::vec2 kw = {4.f, 4.f};
-  int       seed = 0;
+  glm::vec2  kw = {4.f, 4.f};
+  int        seed = 0;
 
   // --- erosion of an heightmap
 
@@ -51,6 +50,7 @@ int main(void)
                                            8,
                                            0.f);
 
+  hmap::Timer::Start("hydraulic_saleve");
   hmap::Array z1 = hmap::hydraulic_saleve(
       z0,
       ++seed,
@@ -71,6 +71,7 @@ int main(void)
       hmap::InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT,
       &dx,
       &dy);
+  hmap::Timer::Stop("hydraulic_saleve");
 
   // mimic deposition
   int   deposition_ir = int(0.1f * shape.x);
@@ -80,6 +81,8 @@ int main(void)
                                    deposition_ir,
                                    deposition_strength,
                                    iterations);
+
+  hmap::Timer::Dump();
 
   z1.dump();
 

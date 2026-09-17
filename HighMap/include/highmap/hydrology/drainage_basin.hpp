@@ -126,9 +126,9 @@ public:
 
   /**
    * @brief Get the indices of the outlets in the basin.
-   * @return A reference to the vector of outlet indices.
+   * @return A const reference to the vector of outlet indices.
    */
-  std::vector<size_t> &get_outlets() const;
+  const std::vector<size_t> &get_outlets() const;
 
   /**
    * @brief Set the outlets of the basin.
@@ -260,7 +260,6 @@ private:
   std::vector<bool>                outlets_mask;
   mutable std::vector<size_t>      cached_outlets;
   mutable bool                     outlets_dirty = true;
-  int                              tick = 0;
 
   // --- Traversal cache ---
 
@@ -288,7 +287,8 @@ std::vector<size_t> find_border_minima(const std::vector<glm::vec3> &xyz,
  * @param  eps  Tolerance for border coordinate comparison.
  * @return      A vector of indices of the border sinks.
  */
-std::vector<size_t> find_border_sinks(TerrainTriMesh &mesh, float eps = 1e-6f);
+std::vector<size_t> find_border_sinks(const TerrainTriMesh &mesh,
+                                      float                 eps = 1e-6f);
 
 /**
  * @brief Performs retopology of a heightmap to generate a 3D point cloud.
