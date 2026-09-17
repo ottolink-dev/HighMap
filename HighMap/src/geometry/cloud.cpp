@@ -525,6 +525,13 @@ std::vector<Point>::iterator Cloud::erase(
   return this->points.erase(pos);
 }
 
+std::vector<Point>::iterator Cloud::erase(
+    std::vector<Point>::const_iterator first,
+    std::vector<Point>::const_iterator last)
+{
+  return this->points.erase(first, last);
+}
+
 Point &Cloud::front()
 {
   return this->points.front();
@@ -533,6 +540,25 @@ Point &Cloud::front()
 const Point &Cloud::front() const
 {
   return this->points.front();
+}
+
+std::vector<Point>::iterator Cloud::insert(
+    std::vector<Point>::const_iterator pos,
+    const Point                       &value)
+{
+  return this->points.insert(pos, value);
+}
+
+std::vector<Point>::iterator Cloud::insert(
+    std::vector<Point>::const_iterator pos,
+    Point                            &&value)
+{
+  return this->points.insert(pos, std::move(value));
+}
+
+void Cloud::pop_back()
+{
+  this->points.pop_back();
 }
 
 void Cloud::push_back(const Point &p)
@@ -758,8 +784,8 @@ Cloud merge_cloud(const Cloud &cloud1, const Cloud &cloud2)
 {
   Cloud result;
   result.reserve(cloud1.size() + cloud2.size());
-  result.points.insert(result.end(), cloud1.begin(), cloud1.end());
-  result.points.insert(result.end(), cloud2.begin(), cloud2.end());
+  result.insert(result.end(), cloud1.begin(), cloud1.end());
+  result.insert(result.end(), cloud2.begin(), cloud2.end());
   return result;
 }
 
@@ -773,7 +799,7 @@ Cloud merge_clouds(const std::vector<Cloud> &clouds)
   result.reserve(total_size);
   for (const auto &cloud : clouds)
   {
-    result.points.insert(result.end(), cloud.begin(), cloud.end());
+    result.insert(result.end(), cloud.begin(), cloud.end());
   }
 
   return result;

@@ -291,7 +291,7 @@ void Path::resample_interp(int npoints, InterpolationMethod1D itp_method)
   Path path_wrk = *this;
 
   // duplicate 1st/last point for closed path
-  if (this->is_closed()) path_wrk.points.push_back(path_wrk.points.front());
+  if (this->is_closed()) path_wrk.push_back(path_wrk.front());
 
   // interpolation points along arc
   std::vector<float> t = hmap::linspace(0.f, 1.f, npoints);

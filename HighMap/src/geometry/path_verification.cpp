@@ -25,10 +25,10 @@ bool assert_start_end_points(const Path &path1,
     return false;
   }
 
-  const Point &p1s = path1.points.front();
-  const Point &p1e = path1.points.back();
-  const Point &p2s = path2.points.front();
-  const Point &p2e = path2.points.back();
+  const Point &p1s = path1.front();
+  const Point &p1e = path1.back();
+  const Point &p2s = path2.front();
+  const Point &p2e = path2.back();
 
   float ds = distance(p1s, p2s);
   float de = distance(p1e, p2e);
@@ -45,10 +45,10 @@ float chamfer_distance(const Path &a, const Path &b)
   auto avg = [](const Path &p, const Path &q)
   {
     float sum = 0.f;
-    for (auto &pa : p.points)
+    for (const auto &pa : p)
     {
       float min_d = FLT_MAX;
-      for (auto &pb : q.points)
+      for (const auto &pb : q)
         min_d = std::min(min_d, distance(pa, pb));
       sum += min_d;
     }
@@ -60,11 +60,9 @@ float chamfer_distance(const Path &a, const Path &b)
 
 bool has_duplicates(const Path &path, float tol)
 {
-  const auto &pts = path.points;
-
-  for (size_t i = 0; i < pts.size(); ++i)
-    for (size_t j = i + 1; j < pts.size(); ++j)
-      if (distance(pts[i], pts[j]) < tol) return true;
+  for (size_t i = 0; i < path.size(); ++i)
+    for (size_t j = i + 1; j < path.size(); ++j)
+      if (distance(path[i], path[j]) < tol) return true;
 
   return false;
 }

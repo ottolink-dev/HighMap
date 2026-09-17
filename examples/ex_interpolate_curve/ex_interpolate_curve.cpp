@@ -12,20 +12,22 @@ int main(void)
   path.reorder_nns();
 
   // interpolate
+  std::vector<hmap::Point> pts(path.begin(), path.end());
+
   hmap::InterpolatorCurve fb = hmap::InterpolatorCurve(
-      path.points,
+      pts,
       hmap::InterpolationMethodCurve::BEZIER);
 
   hmap::InterpolatorCurve fs = hmap::InterpolatorCurve(
-      path.points,
+      pts,
       hmap::InterpolationMethodCurve::BSPLINE);
 
   hmap::InterpolatorCurve fc = hmap::InterpolatorCurve(
-      path.points,
+      pts,
       hmap::InterpolationMethodCurve::CATMULLROM);
 
   hmap::InterpolatorCurve fd = hmap::InterpolatorCurve(
-      path.points,
+      pts,
       hmap::InterpolationMethodCurve::DECASTELJAU);
 
   int                npts = 200;

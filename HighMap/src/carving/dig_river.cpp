@@ -47,16 +47,15 @@ void dig_river(Array                   &z,
     path_copy = path;
     path_copy.enforce_monotonic_values();
 
-    for (auto &p : path_copy.points)
+    for (auto &p : path_copy)
       p.v -= depth;
 
     // add downstream slope
     if (riverbed_talus > 0.f)
     {
       for (size_t k = 0; k < path_copy.size() - 1; k++)
-        path_copy.points[k + 1].v = std::min(path_copy.points[k + 1].v,
-                                             path_copy.points[k].v -
-                                                 riverbed_talus);
+        path_copy[k + 1].v = std::min(path_copy[k + 1].v,
+                                      path_copy[k].v - riverbed_talus);
     }
 
     path_copy.to_array(z_carved, bbox);

@@ -11,10 +11,10 @@ TEST(PathSquiggle, BasicEdgeSubdivision)
   Path result = squiggle(input_path, 4, 42);
 
   EXPECT_GT(result.size(), input_path.size());
-  EXPECT_NEAR(result.points.front().x, 0.f, 1e-5f);
-  EXPECT_NEAR(result.points.front().y, 0.f, 1e-5f);
-  EXPECT_NEAR(result.points.back().x, 10.f, 1e-5f);
-  EXPECT_NEAR(result.points.back().y, 0.f, 1e-5f);
+  EXPECT_NEAR(result.front().x, 0.f, 1e-5f);
+  EXPECT_NEAR(result.front().y, 0.f, 1e-5f);
+  EXPECT_NEAR(result.back().x, 10.f, 1e-5f);
+  EXPECT_NEAR(result.back().y, 0.f, 1e-5f);
 }
 
 TEST(PathSquiggle, FirstAndLastEdgeSubdivision)
@@ -29,20 +29,17 @@ TEST(PathSquiggle, FirstAndLastEdgeSubdivision)
   EXPECT_GT(p3.size(), p2.size());
 
   // Check that the first segment length decreases with each iteration
-  float first_seg_len1 = distance(p1.points[0], p1.points[1]);
-  float first_seg_len2 = distance(p2.points[0], p2.points[1]);
-  float first_seg_len3 = distance(p3.points[0], p3.points[1]);
+  float first_seg_len1 = distance(p1[0], p1[1]);
+  float first_seg_len2 = distance(p2[0], p2[1]);
+  float first_seg_len3 = distance(p3[0], p3[1]);
 
   EXPECT_LT(first_seg_len2, first_seg_len1);
   EXPECT_LT(first_seg_len3, first_seg_len2);
 
   // Check that the last segment length decreases with each iteration
-  float last_seg_len1 = distance(p1.points[p1.size() - 2],
-                                 p1.points[p1.size() - 1]);
-  float last_seg_len2 = distance(p2.points[p2.size() - 2],
-                                 p2.points[p2.size() - 1]);
-  float last_seg_len3 = distance(p3.points[p3.size() - 2],
-                                 p3.points[p3.size() - 1]);
+  float last_seg_len1 = distance(p1[p1.size() - 2], p1[p1.size() - 1]);
+  float last_seg_len2 = distance(p2[p2.size() - 2], p2[p2.size() - 1]);
+  float last_seg_len3 = distance(p3[p3.size() - 2], p3[p3.size() - 1]);
 
   EXPECT_LT(last_seg_len2, last_seg_len1);
   EXPECT_LT(last_seg_len3, last_seg_len2);
@@ -71,8 +68,8 @@ TEST(PathSquiggle, Determinism)
   EXPECT_EQ(p1.size(), p2.size());
   for (size_t i = 0; i < p1.size(); ++i)
   {
-    EXPECT_FLOAT_EQ(p1.points[i].x, p2.points[i].x);
-    EXPECT_FLOAT_EQ(p1.points[i].y, p2.points[i].y);
+    EXPECT_FLOAT_EQ(p1[i].x, p2[i].x);
+    EXPECT_FLOAT_EQ(p1[i].y, p2[i].y);
   }
 
   bool differs = (p1.size() != p3.size());
@@ -80,8 +77,8 @@ TEST(PathSquiggle, Determinism)
   {
     for (size_t i = 0; i < p1.size(); ++i)
     {
-      if (std::abs(p1.points[i].x - p3.points[i].x) > 1e-4f ||
-          std::abs(p1.points[i].y - p3.points[i].y) > 1e-4f)
+      if (std::abs(p1[i].x - p3[i].x) > 1e-4f ||
+          std::abs(p1[i].y - p3[i].y) > 1e-4f)
       {
         differs = true;
         break;

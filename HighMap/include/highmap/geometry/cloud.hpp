@@ -49,8 +49,6 @@ class Graph;
 class Cloud
 {
 public:
-  std::vector<Point> points = {}; ///< Points of the cloud.
-
   // ==========================================================================
   //  Constructors
   // ==========================================================================
@@ -400,6 +398,12 @@ public:
   std::vector<Point>::iterator erase(std::vector<Point>::const_iterator pos);
 
   /**
+   * @brief Erases the range of points [first, last).
+   */
+  std::vector<Point>::iterator erase(std::vector<Point>::const_iterator first,
+                                     std::vector<Point>::const_iterator last);
+
+  /**
    * @brief Access the first point.
    */
   Point &front();
@@ -408,6 +412,34 @@ public:
    * @brief Access the first point (const).
    */
   const Point &front() const;
+
+  /**
+   * @brief Inserts a point before pos.
+   */
+  std::vector<Point>::iterator insert(std::vector<Point>::const_iterator pos,
+                                      const Point                       &value);
+
+  /**
+   * @brief Inserts a point before pos (move).
+   */
+  std::vector<Point>::iterator insert(std::vector<Point>::const_iterator pos,
+                                      Point                            &&value);
+
+  /**
+   * @brief Inserts elements from range [first, last) before pos.
+   */
+  template <typename InputIt>
+  std::vector<Point>::iterator insert(std::vector<Point>::const_iterator pos,
+                                      InputIt                            first,
+                                      InputIt                            last)
+  {
+    return this->points.insert(pos, first, last);
+  }
+
+  /**
+   * @brief Removes the last point.
+   */
+  void pop_back();
 
   /**
    * @brief Appends a point.
@@ -599,6 +631,9 @@ public:
    * @return Vector of points as (x, y, v).
    */
   std::vector<glm::vec3> to_vec3() const;
+
+protected:
+  std::vector<Point> points = {}; ///< Points of the cloud.
 };
 
 // ==========================================================================

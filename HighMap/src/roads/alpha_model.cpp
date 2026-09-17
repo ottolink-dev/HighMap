@@ -105,7 +105,7 @@ Graph generate_network_alpha_model(const std::vector<float> &xc,
       int j = graph.connectivity[i][r];
       if (j > static_cast<int>(i))
       {
-        float dz = graph.points[i].v - graph.points[j].v;
+        float dz = graph[i].v - graph[j].v;
         graph.adjacency_matrix[{static_cast<int>(i), j}] += std::abs(dz) *
                                                             dz_weight;
         graph.adjacency_matrix[{static_cast<int>(i), j}] += local_weight[i] +
@@ -168,9 +168,9 @@ Graph generate_network_alpha_model(const std::vector<float> &xc,
   // city)
   for (size_t i = 0; i < network.size(); i++)
     if (i < network.size() - nc)
-      network.points[i].v = 0.f;
+      network[i].v = 0.f;
     else
-      network.points[i].v = size[i - network.size() + nc];
+      network[i].v = size[i - network.size() + nc];
 
   // final clean-up
   network = network.remove_orphan_points();

@@ -156,14 +156,14 @@ void rejection_filter_density(Cloud           &cloud,
 
   auto density_fct = make_xy_function_from_array(density_mask, bbox);
 
-  cloud.points.erase(std::remove_if(cloud.begin(),
-                                    cloud.end(),
-                                    [&](const Point &p)
-                                    {
-                                      float rnd = dis(gen);
-                                      return (rnd > density_fct(p.x, p.y));
-                                    }),
-                     cloud.end());
+  cloud.erase(std::remove_if(cloud.begin(),
+                             cloud.end(),
+                             [&](const Point &p)
+                             {
+                               float rnd = dis(gen);
+                               return (rnd > density_fct(p.x, p.y));
+                             }),
+              cloud.end());
 }
 
 Cloud scale(const Cloud &cloud, glm::vec2 scale, glm::vec2 center)

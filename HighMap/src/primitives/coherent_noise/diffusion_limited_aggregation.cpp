@@ -143,7 +143,7 @@ Array diffusion_limited_aggregation_trimesh(
 
   // initialize seed
   size_t kc = cloud.nearest_point(seed_position);
-  cloud.points[kc].v = 1.f;
+  cloud[kc].v = 1.f;
 
   auto        mesh = TerrainTriMesh(cloud.to_vec3());
   const auto &nbrs_data = mesh.get_neighbors();

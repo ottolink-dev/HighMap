@@ -21,9 +21,9 @@ int main(void)
 
   for (int k : idx)
   {
-    x.push_back(cloud.points[k].x);
-    y.push_back(cloud.points[k].y);
-    v.push_back(cloud.points[k].v);
+    x.push_back(cloud[k].x);
+    y.push_back(cloud[k].y);
+    v.push_back(cloud[k].v);
   }
   hmap::Path path_chull = hmap::Path(x, y, v);
   path_chull.set_closed(true);

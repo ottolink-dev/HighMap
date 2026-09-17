@@ -47,7 +47,7 @@ Path bezier(const Path            &path,
             int                    edge_divisions,
             Path::EdgeDivisionMode edm)
 {
-  if (!validate_min_size(path.points, 2, "Path points")) return path;
+  if (!validate_min_size(path, 2, "Path points")) return path;
 
   // --- generate a new set of points by adding control points
   // --- inbetween path points
@@ -63,12 +63,10 @@ Path bezier(const Path            &path,
     size_t knext = (k + 1) % npoints;
     size_t knext_after = (k + 2) % npoints;
 
-    Point pc1 = lerp(path.points[k], path.points[knext], curvature_ratio);
-    Point pc2 = lerp(path.points[knext],
-                     path.points[knext_after],
-                     -curvature_ratio);
+    Point pc1 = lerp(path[k], path[knext], curvature_ratio);
+    Point pc2 = lerp(path[knext], path[knext_after], -curvature_ratio);
 
-    new_points.push_back(path.points[k]);
+    new_points.push_back(path[k]);
     new_points.push_back(pc1);
     new_points.push_back(pc2);
   }
@@ -76,12 +74,12 @@ Path bezier(const Path            &path,
   // preserve endpoint for open paths
   if (!path.is_closed())
   {
-    new_points.push_back(path.points.back());
+    new_points.push_back(path.back());
   }
   else
   {
     // keep loop continuity
-    new_points.push_back(path.points.front());
+    new_points.push_back(path.front());
   }
 
   // --- interpolate
@@ -92,7 +90,7 @@ Path bezier(const Path            &path,
                                     edge_divisions,
                                     path.size());
 
-  if (path.is_closed()) new_path.points.pop_back();
+  if (path.is_closed()) new_path.pop_back();
   new_path.set_closed(path.is_closed());
 
   return new_path;
@@ -103,7 +101,7 @@ Path bezier_round(const Path            &path,
                   int                    edge_divisions,
                   Path::EdgeDivisionMode edm)
 {
-  if (!validate_min_size(path.points, 2, "Path points")) return path;
+  if (!validate_min_size(path, 2, "Path points")) return path;
 
   // --- generate a new set of points by adding control points
   // --- inbetween path points
@@ -120,13 +118,13 @@ Path bezier_round(const Path            &path,
     size_t knext = (k + 1) % npoints;
     size_t knext_after = (k + 2) % npoints;
 
-    Point delta_p1 = path.points[knext] - path.points[kprev];
-    Point delta_p2 = path.points[k] - path.points[knext_after];
+    Point delta_p1 = path[knext] - path[kprev];
+    Point delta_p2 = path[k] - path[knext_after];
 
-    Point pc1 = path.points[k] + curvature_ratio * delta_p1;
-    Point pc2 = path.points[knext] + curvature_ratio * delta_p2;
+    Point pc1 = path[k] + curvature_ratio * delta_p1;
+    Point pc2 = path[knext] + curvature_ratio * delta_p2;
 
-    new_points.push_back(path.points[k]);
+    new_points.push_back(path[k]);
     new_points.push_back(pc1);
     new_points.push_back(pc2);
   }
@@ -134,12 +132,12 @@ Path bezier_round(const Path            &path,
   // preserve endpoint for open paths
   if (!path.is_closed())
   {
-    new_points.push_back(path.points.back());
+    new_points.push_back(path.back());
   }
   else
   {
     // keep loop continuity
-    new_points.push_back(path.points.front());
+    new_points.push_back(path.front());
   }
 
   // --- interpolate
@@ -150,7 +148,7 @@ Path bezier_round(const Path            &path,
                                     edge_divisions,
                                     path.size());
 
-  if (path.is_closed()) new_path.points.pop_back();
+  if (path.is_closed()) new_path.pop_back();
   new_path.set_closed(path.is_closed());
 
   return new_path;
@@ -158,11 +156,11 @@ Path bezier_round(const Path            &path,
 
 Path bspline(const Path &path, int edge_divisions, Path::EdgeDivisionMode edm)
 {
-  if (!validate_min_size(path.points, 2, "Path points")) return path;
+  if (!validate_min_size(path, 2, "Path points")) return path;
 
-  std::vector<Point> new_points = path.points;
+  std::vector<Point> new_points(path.begin(), path.end());
 
-  if (path.is_closed()) new_points.push_back(path.points.front());
+  if (path.is_closed()) new_points.push_back(path.front());
 
   Path new_path = helper_build_path(new_points,
                                     InterpolationMethodCurve::BSPLINE,
@@ -170,7 +168,7 @@ Path bspline(const Path &path, int edge_divisions, Path::EdgeDivisionMode edm)
                                     edge_divisions,
                                     path.size());
 
-  if (path.is_closed()) new_path.points.pop_back();
+  if (path.is_closed()) new_path.pop_back();
   new_path.set_closed(path.is_closed());
 
   return new_path;
@@ -180,19 +178,19 @@ Path catmullrom(const Path            &path,
                 int                    edge_divisions,
                 Path::EdgeDivisionMode edm)
 {
-  if (!validate_min_size(path.points, 2, "Path points")) return path;
+  if (!validate_min_size(path, 2, "Path points")) return path;
 
-  std::vector<Point> new_points = path.points;
+  std::vector<Point> new_points(path.begin(), path.end());
 
-  if (path.is_closed()) new_points.push_back(path.points.front());
+  if (path.is_closed()) new_points.push_back(path.front());
 
-  Path new_path = helper_build_path(path.points,
+  Path new_path = helper_build_path(new_points,
                                     InterpolationMethodCurve::CATMULLROM,
                                     edm,
                                     edge_divisions,
                                     path.size());
 
-  if (path.is_closed()) new_path.points.pop_back();
+  if (path.is_closed()) new_path.pop_back();
   new_path.set_closed(path.is_closed());
 
   return new_path;
@@ -202,11 +200,11 @@ Path decasteljau(const Path            &path,
                  int                    edge_divisions,
                  Path::EdgeDivisionMode edm)
 {
-  if (!validate_min_size(path.points, 2, "Path points")) return path;
+  if (!validate_min_size(path, 2, "Path points")) return path;
 
-  std::vector<Point> new_points = path.points;
+  std::vector<Point> new_points(path.begin(), path.end());
 
-  if (path.is_closed()) new_points.push_back(path.points.front());
+  if (path.is_closed()) new_points.push_back(path.front());
 
   Path new_path = helper_build_path(new_points,
                                     InterpolationMethodCurve::DECASTELJAU,
@@ -214,7 +212,7 @@ Path decasteljau(const Path            &path,
                                     edge_divisions,
                                     path.size());
 
-  if (path.is_closed()) new_path.points.pop_back();
+  if (path.is_closed()) new_path.pop_back();
   new_path.set_closed(path.is_closed());
 
   return new_path;
@@ -227,17 +225,15 @@ Path decimate_vw(const Path &path, int n_points_target)
 
   Path new_path = path;
 
-  std::vector<Point> pts = new_path.points;
-
-  while (pts.size() > (size_t)n_points_target)
+  while (new_path.size() > (size_t)n_points_target)
   {
     size_t remove_idx = 1;
     float  min_area = std::numeric_limits<float>::max();
 
     // find smallest effective triangle
-    for (size_t i = 1; i + 1 < pts.size(); ++i)
+    for (size_t i = 1; i + 1 < new_path.size(); ++i)
     {
-      float area = triangle_area(pts[i - 1], pts[i], pts[i + 1]);
+      float area = triangle_area(new_path[i - 1], new_path[i], new_path[i + 1]);
       if (area < min_area)
       {
         min_area = area;
@@ -245,10 +241,8 @@ Path decimate_vw(const Path &path, int n_points_target)
       }
     }
 
-    pts.erase(pts.begin() + remove_idx);
+    new_path.erase(new_path.begin() + remove_idx);
   }
-
-  new_path.points = std::move(pts);
 
   return new_path;
 }
@@ -263,7 +257,7 @@ Path fractalize(const Path   &path,
                 glm::vec4     bbox,
                 bool          bounded)
 {
-  if (!validate_min_size(path.points, 2, "Path points")) return path;
+  if (!validate_min_size(path, 2, "Path points")) return path;
   if (p_ctrl_array && !validate_non_empty(*p_ctrl_array)) return path;
 
   Path new_path = path;
@@ -286,8 +280,8 @@ Path fractalize(const Path   &path,
     for (size_t i = 0; i < end_init; ++i)
     {
       size_t      inext = (i + 1) % n_init;
-      const auto &p1 = path.points[i];
-      const auto &p2 = path.points[inext];
+      const auto &p1 = path[i];
+      const auto &p2 = path[inext];
       initial_bboxes.push_back({
           std::min(p1.x, p2.x),
           std::max(p1.x, p2.x),
@@ -317,15 +311,12 @@ Path fractalize(const Path   &path,
 
       // if provided, modulate amplitude based on underlying field
       if (p_ctrl_array)
-        amp *= p_ctrl_array->get_value_nearest(new_path.points[k].x,
-                                               new_path.points[k].y,
+        amp *= p_ctrl_array->get_value_nearest(new_path[k].x,
+                                               new_path[k].y,
                                                bbox);
 
       // insert midpoint between current edge start and end
-      Point pnew = midpoint(new_path.points[k],
-                            new_path.points[knext],
-                            orientation,
-                            amp);
+      Point pnew = midpoint(new_path[k], new_path[knext], orientation, amp);
 
       if (bounded && !initial_bboxes.empty())
       {
@@ -338,15 +329,16 @@ Path fractalize(const Path   &path,
         }
       }
 
-      new_points.push_back(new_path.points[k]);
+      new_points.push_back(new_path[k]);
       new_points.push_back(pnew);
     }
 
     // if the path is not closed, ensure the last original point is added
-    if (!new_path.is_closed()) new_points.push_back(new_path.points.back());
+    if (!new_path.is_closed()) new_points.push_back(new_path.back());
 
     // replace the original points with the resampled points
-    new_path.points = std::move(new_points);
+    new_path.clear();
+    new_path.insert(new_path.end(), new_points.begin(), new_points.end());
 
     // update sigma by multiplying with persistence factor
     sigma *= persistence;
@@ -357,7 +349,7 @@ Path fractalize(const Path   &path,
 
 Path inflate(const Path &path, float radius, bool resample)
 {
-  if (!validate_min_size(path.points, 3, "Path points")) return path;
+  if (!validate_min_size(path, 3, "Path points")) return path;
 
   Path new_path = path;
 
@@ -367,8 +359,8 @@ Path inflate(const Path &path, float radius, bool resample)
   for (size_t k = 0; k < new_path.size(); ++k)
   {
     float amp = -curvature[k] * radius;
-    new_path.points[k].x += amp * normals[k].x;
-    new_path.points[k].y += amp * normals[k].y;
+    new_path[k].x += amp * normals[k].x;
+    new_path[k].y += amp * normals[k].y;
   }
 
   // preserve the spatial resolution
@@ -393,7 +385,7 @@ Path meanderize(const Path            &path,
                 int                    edge_divisions,
                 Path::EdgeDivisionMode edm)
 {
-  if (!validate_min_size(path.points, 2, "Path points")) return path;
+  if (!validate_min_size(path, 2, "Path points")) return path;
 
   Path path_wrk = path;
 
@@ -407,10 +399,8 @@ Path meanderize(const Path            &path,
     float cross_product;
 
     if (path.size() > 1)
-      cross_product = (path.points[2].y - path.points[0].y) *
-                          (path.points[1].x - path.points[0].x) -
-                      (path.points[2].x - path.points[0].x) *
-                          (path.points[1].y - path.points[0].y);
+      cross_product = (path[2].y - path[0].y) * (path[1].x - path[0].x) -
+                      (path[2].x - path[0].x) * (path[1].y - path[0].y);
     else
       cross_product = 1.f;
 
@@ -464,13 +454,11 @@ Array path_sdf_to_array(const Path  &path,
   if (p_noise_y && !validate_same_shape(shape, *p_noise_y)) return Array();
 
   Array array(shape);
-  if (!validate_min_size(path.points, 2, "Path points")) return array;
+  if (!validate_min_size(path, 2, "Path points")) return array;
 
   // array base grid
   std::vector<float> xg, yg;
   grid_xy_vector(xg, yg, shape, bbox_array, /* endpoint */ false);
-
-  const std::vector<Point> &points = path.points;
 
   for (int j = 0; j < shape.y; ++j)
     for (int i = 0; i < shape.x; ++i)
@@ -486,14 +474,14 @@ Array path_sdf_to_array(const Path  &path,
 
       for (size_t i = 0, j = path.size() - 1; i < path.size(); j = i, i++)
       {
-        glm::vec2 e = {points[j].x - points[i].x, points[j].y - points[i].y};
-        glm::vec2 w = {xi - points[i].x, yi - points[i].y};
+        glm::vec2 e = {path[j].x - path[i].x, path[j].y - path[i].y};
+        glm::vec2 w = {xi - path[i].x, yi - path[i].y};
         float     coeff = std::clamp(dot(w, e) / dot(e, e), 0.f, 1.f);
         glm::vec2 b = {w.x - e.x * coeff, w.y - e.y * coeff};
         d = std::min(d, dot(b, b));
 
-        std::array<bool, 3> c = {yi >= points[i].y,
-                                 yi<points[j].y, e.x * w.y> e.y * w.x};
+        std::array<bool, 3> c = {yi >= path[i].y,
+                                 yi<path[j].y, e.x * w.y> e.y * w.x};
 
         if ((c[0] && c[1] && c[2]) || (not(c[0]) && not(c[1]) && not(c[2])))
           s *= -1.f;
@@ -522,18 +510,17 @@ Path remove_geometric_loops(const Path &path)
     {
       for (size_t j = i + 2; j + 1 < result.size(); ++j)
       {
-        auto inter = segment_intersection(result.points[i],
-                                          result.points[i + 1],
-                                          result.points[j],
-                                          result.points[j + 1]);
+        auto inter = segment_intersection(result[i],
+                                          result[i + 1],
+                                          result[j],
+                                          result[j + 1]);
         if (inter)
         {
           // remove points between segments i+1 and j
-          result.points.erase(result.points.begin() + i + 1,
-                              result.points.begin() + j + 1);
+          result.erase(result.begin() + i + 1, result.begin() + j + 1);
 
           // insert intersection point
-          result.points.insert(result.points.begin() + i + 1, *inter);
+          result.insert(result.begin() + i + 1, *inter);
           changed = true;
           break;
         }
@@ -549,7 +536,7 @@ Path scale(const Path &path, glm::vec2 scale, glm::vec2 center)
 {
   Path result = path;
 
-  for (auto &p : result.points)
+  for (auto &p : result)
     p = hmap::scale(p, scale, center);
 
   return result;
@@ -567,7 +554,7 @@ Path smooth(const Path &path,
 {
   Path new_path = path;
 
-  if (!validate_non_empty(new_path.points, "Path points")) return new_path;
+  if (!validate_non_empty(new_path, "Path points")) return new_path;
 
   const int  n = (int)new_path.size();
   const bool is_closed = new_path.is_closed();
@@ -613,18 +600,19 @@ Path smooth(const Path &path,
     for (int k = -is; k <= is; k++)
     {
       int idx = get_index(i + k);
-      psum = psum + new_path.points[idx];
+      psum = psum + new_path[idx];
     }
 
     Point avg = psum / float(2 * is + 1);
 
-    Point new_point = (1.f - averaging_intensity) * new_path.points[i] +
+    Point new_point = (1.f - averaging_intensity) * new_path[i] +
                       averaging_intensity * avg;
 
     smooth_points.push_back(new_point);
   }
 
-  new_path.points = smooth_points;
+  new_path.clear();
+  new_path.insert(new_path.end(), smooth_points.begin(), smooth_points.end());
 
   // --- Inertia
 
@@ -635,16 +623,14 @@ Path smooth(const Path &path,
       for (int i = 0; i < n; i++)
       {
         int prev = get_index(i - 1);
-        new_path.points[i] = (1.f - inertia) * new_path.points[i] +
-                             inertia * new_path.points[prev];
+        new_path[i] = (1.f - inertia) * new_path[i] + inertia * new_path[prev];
       }
     }
     else
     {
       for (int i = 1; i < n - 1; i++)
       {
-        new_path.points[i] = (1.f - inertia) * new_path.points[i] +
-                             inertia * new_path.points[i - 1];
+        new_path[i] = (1.f - inertia) * new_path[i] + inertia * new_path[i - 1];
       }
     }
   }

@@ -188,8 +188,8 @@ std::vector<glm::ivec2> helper_smooth_grid_path(
 
   for (size_t k = 1; k < smoothed.size(); ++k)
   {
-    Point p0 = smoothed.points[k - 1];
-    Point p1 = smoothed.points[k];
+    Point p0 = smoothed[k - 1];
+    Point p1 = smoothed[k];
 
     float u0 = p0.x * float(shape.x - 1);
     float v0 = p0.y * float(shape.y - 1);
@@ -525,7 +525,7 @@ Path find_path_multiscale(const Array &z,
   const int ny = z.shape.y;
 
   Path path;
-  path.points.reserve(indices.size());
+  path.reserve(indices.size());
 
   for (const auto &p : indices)
   {

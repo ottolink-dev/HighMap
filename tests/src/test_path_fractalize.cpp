@@ -24,7 +24,7 @@ TEST(PathFractalize, BoundedWithinSingleEdgeBoundingBox)
                                    {0.f, 10.f, 0.f, 10.f},
                                    true);
 
-  for (const auto &pt : result_bounded.points)
+  for (const auto &pt : result_bounded)
   {
     EXPECT_GE(pt.x, 0.f);
     EXPECT_LE(pt.x, 10.f);
@@ -91,7 +91,7 @@ TEST(PathFractalize, DefaultUnboundedBehavior)
   Path result_unbounded = fractalize(path, iterations, seed, sigma);
 
   bool has_non_zero_y = false;
-  for (const auto &pt : result_unbounded.points)
+  for (const auto &pt : result_unbounded)
   {
     if (std::abs(pt.y) > 1e-4f)
     {
@@ -113,7 +113,7 @@ TEST(PathFractalize, DefaultUnboundedBehavior)
                                    {0.f, 10.f, 0.f, 0.f},
                                    true);
 
-  for (const auto &pt : result_bounded.points)
+  for (const auto &pt : result_bounded)
   {
     EXPECT_NEAR(pt.y, 0.f, 1e-5f);
     EXPECT_GE(pt.x, 0.f);
