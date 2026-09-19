@@ -3738,8 +3738,8 @@ This is an overloaded member function, provided for convenience. It differs from
 
 Apply a Voronoi-\/based jagged facet filter to an array. 
 
-For each array cell, calculates a normalized distance weight ( w(x) \textbackslash{}in \mbox{[}0, 1\mbox{]} ) based on the distance to the Voronoi cell edge (with ( w = 0 ) at cell edge and ( w = 1 ) at Voronoi cell center). An exponent correction is applied as\+:  \[
-Z_{\text{out}}(x) = Z(x)^{1 + (\gamma - 1) \cdot w(x)}
+For each array cell, calculates a normalized distance weight ( w(x) \textbackslash{}in \mbox{[}0, 1\mbox{]} ) based on the distance to the Voronoi cell edge (with ( w = 0 ) at cell edge and ( w = 1 ) at Voronoi cell center). A localized power deformation is applied as\+:  \[
+Z_{\text{out}}(x) = Z(x) + w(x) \cdot \left[ Z(x)^\gamma - Z(x) \right]
 \]
 
 
@@ -3790,9 +3790,9 @@ Filtered array.
 \DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \ \ \ \ kw\ =\ 8.f;}
 \DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \ \ \ \ kw\_fine\ =\ 16.f;}
 \DoxyCodeLine{\ \ \textcolor{keyword}{const}\ glm::vec2\ jitter\ =\ \{0.6f,\ 0.6f\};}
-\DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \ \ \ \ gamma\_mild\ =\ 0.8f;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \ \ \ \ gamma\_mild\ =\ 0.5f;}
 \DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \ \ \ \ gamma\_strong\ =\ 1.5f;}
-\DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \ \ \ \ shape\_gamma\_none\ =\ 0.f;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \ \ \ \ shape\_gamma\_none\ =\ 0.5f;}
 \DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \ \ \ \ shape\_gamma\_smooth\ =\ 0.5f;}
 \DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \ \ \ \ shape\_gamma\_accentuated\ =\ 1.5f;}
 \DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \ \ \ \ mask\_sigma\ =\ 0.25f;}

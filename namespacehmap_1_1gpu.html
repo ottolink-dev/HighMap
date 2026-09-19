@@ -8475,9 +8475,9 @@ Only available if OpenCL is enabled.</dd></dl>
 </div><div class="memdoc">
 
 <p>Apply a Voronoi-based jagged facet filter to an array. </p>
-<p>For each array cell, calculates a normalized distance weight ( w(x) \in [0, 1] ) based on the distance to the Voronoi cell edge (with ( w = 0 ) at cell edge and ( w = 1 ) at Voronoi cell center). An exponent correction is applied as:  </p><p class="formulaDsp">
+<p>For each array cell, calculates a normalized distance weight ( w(x) \in [0, 1] ) based on the distance to the Voronoi cell edge (with ( w = 0 ) at cell edge and ( w = 1 ) at Voronoi cell center). A localized power deformation is applied as:  </p><p class="formulaDsp">
 \[
-Z_{\text{out}}(x) = Z(x)^{1 + (\gamma - 1) \cdot w(x)}
+Z_{\text{out}}(x) = Z(x) + w(x) \cdot \left[ Z(x)^\gamma - Z(x) \right]
 \]
 </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -8516,9 +8516,9 @@ Z_{\text{out}}(x) = Z(x)^{1 + (\gamma - 1) \cdot w(x)}
 <div class="line">  <span class="keyword">const</span> <span class="keywordtype">float</span>     kw = 8.f;</div>
 <div class="line">  <span class="keyword">const</span> <span class="keywordtype">float</span>     kw_fine = 16.f;</div>
 <div class="line">  <span class="keyword">const</span> glm::vec2 jitter = {0.6f, 0.6f};</div>
-<div class="line">  <span class="keyword">const</span> <span class="keywordtype">float</span>     gamma_mild = 0.8f;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">float</span>     gamma_mild = 0.5f;</div>
 <div class="line">  <span class="keyword">const</span> <span class="keywordtype">float</span>     gamma_strong = 1.5f;</div>
-<div class="line">  <span class="keyword">const</span> <span class="keywordtype">float</span>     shape_gamma_none = 0.f;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">float</span>     shape_gamma_none = 0.5f;</div>
 <div class="line">  <span class="keyword">const</span> <span class="keywordtype">float</span>     shape_gamma_smooth = 0.5f;</div>
 <div class="line">  <span class="keyword">const</span> <span class="keywordtype">float</span>     shape_gamma_accentuated = 1.5f;</div>
 <div class="line">  <span class="keyword">const</span> <span class="keywordtype">float</span>     mask_sigma = 0.25f;</div>
