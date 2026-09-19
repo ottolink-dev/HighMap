@@ -12,7 +12,7 @@ var searchData=
   ['bezier_9',['bezier',['../namespacehmap.html#ac39b5e32d90e0351f4124ea61334461d',1,'hmap']]],
   ['bezier_5fround_10',['bezier_round',['../namespacehmap.html#a3beb0c80491a827b346e9e69cadf4228',1,'hmap']]],
   ['bilateral_5ffilter_11',['bilateral_filter',['../namespacehmap_1_1gpu.html#ad6240ccabf3a0f858698dc0b77ab619e',1,'hmap::gpu::bilateral_filter(const Array &amp;array, const Array &amp;kernel2d, const Array &amp;kernel1d, float kernel1d_value_scaling)'],['../namespacehmap_1_1gpu.html#a0cd7116e5c346fe9534e25b53d5e054a',1,'hmap::gpu::bilateral_filter(const Array &amp;array, int ir, float kernel1d_value_scaling)']]],
-  ['bilinear_5finterp_12',['bilinear_interp',['../namespacehmap.html#ae91029283452ab6d8276e3745a476b48',1,'hmap']]],
+  ['bilinear_5finterp_12',['bilinear_interp',['../namespacehmap.html#a32a6621a3e1bc6fff747e47efcc8497f',1,'hmap']]],
   ['biquad_5fpulse_13',['biquad_pulse',['../namespacehmap.html#a02c2283ef2c4fedf45dcbed47a86f853',1,'hmap']]],
   ['biquad_5fpulse_5fx_14',['biquad_pulse_x',['../namespacehmap.html#a05f15dbf656e6f7ae36542c48a7d2980',1,'hmap']]],
   ['biquad_5fpulse_5fy_15',['biquad_pulse_y',['../namespacehmap.html#aeffedc90714bfcfed6a5f18d780b1094',1,'hmap']]],

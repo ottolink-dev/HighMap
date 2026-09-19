@@ -9,8 +9,8 @@ var interpolate2d_8hpp =
       [ "ITP2D_NNI", "interpolate2d_8hpp.html#a5bfab5d68e822294ff90fde21b85f581a95b33e28ebad4905884242b69db8de0d", null ],
       [ "ITP2D_DELAUNAY_GRADIENT", "interpolate2d_8hpp.html#a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278", null ]
     ] ],
-    [ "bilinear_interp", "interpolate2d_8hpp.html#ae91029283452ab6d8276e3745a476b48", null ],
-    [ "cubic_interpolate", "interpolate2d_8hpp.html#aee026d8b23196038c2b16c370b743889", null ],
+    [ "bilinear_interp", "interpolate2d_8hpp.html#a32a6621a3e1bc6fff747e47efcc8497f", null ],
+    [ "cubic_interpolate", "interpolate2d_8hpp.html#ad4d954d9eeef8a212738fe8774bfcb92", null ],
     [ "harmonic_interpolation", "interpolate2d_8hpp.html#a87b1dfa4502c41ccc2ffc5a539cb8c9e", null ],
     [ "harmonic_interpolation", "interpolate2d_8hpp.html#a8571aec4431c93e9e7a0f6e07d6cbb28", null ],
     [ "interpolate2d", "interpolate2d_8hpp.html#aeddca5280bfeacef3cdf4bee68a2195f", null ],

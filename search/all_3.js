@@ -23,7 +23,7 @@ var searchData=
   ['bibliography_20',['Bibliography',['../citelist.html',1,'']]],
   ['bilateral_5ffilter_21',['bilateral_filter',['../namespacehmap_1_1gpu.html#ad6240ccabf3a0f858698dc0b77ab619e',1,'hmap::gpu::bilateral_filter(const Array &amp;array, const Array &amp;kernel2d, const Array &amp;kernel1d, float kernel1d_value_scaling)'],['../namespacehmap_1_1gpu.html#a0cd7116e5c346fe9534e25b53d5e054a',1,'hmap::gpu::bilateral_filter(const Array &amp;array, int ir, float kernel1d_value_scaling)']]],
   ['bilateral_5ffilter_2ecpp_22',['bilateral_filter.cpp',['../bilateral__filter_8cpp.html',1,'']]],
-  ['bilinear_5finterp_23',['bilinear_interp',['../namespacehmap.html#ae91029283452ab6d8276e3745a476b48',1,'hmap']]],
+  ['bilinear_5finterp_23',['bilinear_interp',['../namespacehmap.html#a32a6621a3e1bc6fff747e47efcc8497f',1,'hmap']]],
   ['binary_20file_24',['binary file',['../index.html#autotoc_md14',1,'Numpy binary file'],['../index.html#autotoc_md15',1,'Raw binary file']]],
   ['biquad_5fpulse_25',['biquad_pulse',['../namespacehmap.html#a02c2283ef2c4fedf45dcbed47a86f853',1,'hmap']]],
   ['biquad_5fpulse_5fx_26',['biquad_pulse_x',['../namespacehmap.html#a05f15dbf656e6f7ae36542c48a7d2980',1,'hmap']]],
