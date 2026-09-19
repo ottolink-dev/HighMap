@@ -18,30 +18,28 @@ int main(void)
   const float     kw = 8.f;
   const float     kw_fine = 16.f;
   const glm::vec2 jitter = {0.6f, 0.6f};
-  const float     factor_mild = 0.8f;
-  const float     factor_strong = 1.5f;
-  const float     shape_factor_none = 0.f;
-  const float     shape_factor_smooth = 0.5f;
-  const float     shape_factor_accentuated = 1.5f;
+  const float     gamma_mild = 0.8f;
+  const float     gamma_strong = 1.5f;
+  const float     shape_gamma_none = 0.f;
+  const float     shape_gamma_smooth = 0.5f;
+  const float     shape_gamma_accentuated = 1.5f;
   const float     mask_sigma = 0.25f;
 
-  // Jagged filter with hard cell boundaries (shape_factor = 0.0)
+  // Jagged filter with hard cell boundaries (shape_gamma = 0.0)
   auto z1 = hmap::gpu::jagged(z0,
                               kw,
                               seed,
                               jitter,
-                              factor_mild,
-                              shape_factor_none);
+                              gamma_mild,
+                              shape_gamma_none);
 
-  // Jagged filter with edge distance falloff (shape_factor = 1.0)
+  // Jagged filter with edge distance falloff (shape_gamma = 0.5)
   auto z2 = hmap::gpu::jagged(z0,
                               kw,
                               seed,
                               jitter,
-                              factor_mild,
-                              shape_factor_smooth);
-
-  z2.dump();
+                              gamma_mild,
+                              shape_gamma_smooth);
 
   // Jagged filter with higher frequency and mask
   hmap::Array mask = hmap::gaussian_pulse(shape, mask_sigma);
@@ -49,8 +47,8 @@ int main(void)
                               kw_fine,
                               seed,
                               jitter,
-                              factor_strong,
-                              shape_factor_accentuated,
+                              gamma_strong,
+                              shape_gamma_accentuated,
                               &mask);
 
   hmap::export_banner_png("ex_jagged.png",

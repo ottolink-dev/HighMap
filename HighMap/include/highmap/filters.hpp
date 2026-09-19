@@ -2383,24 +2383,22 @@ void gamma_correction_local(Array       &array,
 /**
  * @brief Apply a Voronoi-based jagged facet filter to an array.
  *
- * For each array cell, finds the nearest Voronoi cell center, samples the input
- * array at that center, and computes the output elevation as:
+ * For each array cell, calculates a normalized distance weight \( w(x) \in [0,
+ * 1] \) based on the distance to the Voronoi cell edge (with \( w = 0 \) at
+ * cell edge and
+ * \( w = 1 \) at Voronoi cell center). An exponent correction is applied as:
  * \f[
- * Z_{\text{out}}(x) = \text{lerp}\left(Z(x), Z(x_c) + \text{factor} \cdot
- * (Z(x_c) - Z(x)), w(x)\right)
- * \f] where \( x_c \) is the Voronoi cell center, \( x \) is the current cell,
- * and
- * \( w(x) \) is a shape factor based on the normalized distance to the cell
- * edge (at cell edge \( w = 0 \), at Voronoi cell center \( w = 1 \)).
+ * Z_{\text{out}}(x) = Z(x)^{1 + (\gamma - 1) \cdot w(x)}
+ * \f]
  *
  * @param  array        Input array to be filtered.
  * @param  kw           Frequency / wave numbers for Voronoi cells.
  * @param  seed         Seed for random jitter of Voronoi cell centers.
  * @param  jitter       Jitter amount controlling cell randomness (default:
  *                      {0.5f, 0.5f}).
- * @param  factor       Strength of the facet / difference effect (default:
- *                      1.0f).
- * @param  shape_factor Exponent for distance-to-edge attenuation (default:
+ * @param  gamma        Exponent target at cell center (default: 1.0f, where 1.0
+ * means no effect).
+ * @param  shape_gamma  Exponent for distance-to-edge attenuation (default:
  *                      1.0f; 0 disables edge falloff).
  * @param  p_mask       Optional mask array for blending.
  * @param  p_noise_x    Optional noise array for X perturbation.
@@ -2420,8 +2418,8 @@ Array jagged(const Array  &array,
              glm::vec2     kw,
              std::uint32_t seed = 0,
              glm::vec2     jitter = {0.5f, 0.5f},
-             float         factor = 1.f,
-             float         shape_factor = 1.f,
+             float         gamma = 1.f,
+             float         shape_gamma = 1.f,
              const Array  *p_mask = nullptr,
              const Array  *p_noise_x = nullptr,
              const Array  *p_noise_y = nullptr,
@@ -2436,9 +2434,9 @@ Array jagged(const Array  &array,
  * @param  seed         Seed for random jitter of Voronoi cell centers.
  * @param  jitter       Jitter amount controlling cell randomness (default:
  *                      {0.5f, 0.5f}).
- * @param  factor       Strength of the facet / difference effect (default:
- *                      1.0f).
- * @param  shape_factor Exponent for distance-to-edge attenuation (default:
+ * @param  gamma        Exponent target at cell center (default: 1.0f, where 1.0
+ * means no effect).
+ * @param  shape_gamma  Exponent for distance-to-edge attenuation (default:
  *                      1.0f; 0 disables edge falloff).
  * @param  p_mask       Optional mask array for blending.
  * @param  p_noise_x    Optional noise array for X perturbation.
@@ -2454,8 +2452,8 @@ Array jagged(const Array  &array,
              float         kw,
              std::uint32_t seed = 0,
              glm::vec2     jitter = {0.5f, 0.5f},
-             float         factor = 1.f,
-             float         shape_factor = 1.f,
+             float         gamma = 1.f,
+             float         shape_gamma = 1.f,
              const Array  *p_mask = nullptr,
              const Array  *p_noise_x = nullptr,
              const Array  *p_noise_y = nullptr,
