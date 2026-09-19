@@ -2385,10 +2385,10 @@ void gamma_correction_local(Array       &array,
  *
  * For each array cell, calculates a normalized distance weight \( w(x) \in [0,
  * 1] \) based on the distance to the Voronoi cell edge (with \( w = 0 \) at
- * cell edge and
- * \( w = 1 \) at Voronoi cell center). An exponent correction is applied as:
+ * cell edge and \( w = 1 \) at Voronoi cell center). A localized power
+ * deformation is applied as:
  * \f[
- * Z_{\text{out}}(x) = Z(x)^{1 + (\gamma - 1) \cdot w(x)}
+ * Z_{\text{out}}(x) = Z(x) + w(x) \cdot \left[ Z(x)^\gamma - Z(x) \right]
  * \f]
  *
  * @param  array        Input array to be filtered.
@@ -2397,7 +2397,7 @@ void gamma_correction_local(Array       &array,
  * @param  jitter       Jitter amount controlling cell randomness (default:
  *                      {0.5f, 0.5f}).
  * @param  gamma        Exponent target at cell center (default: 1.0f, where 1.0
- * means no effect).
+ *                      means no effect).
  * @param  shape_gamma  Exponent for distance-to-edge attenuation (default:
  *                      1.0f; 0 disables edge falloff).
  * @param  p_mask       Optional mask array for blending.
@@ -2435,7 +2435,7 @@ Array jagged(const Array  &array,
  * @param  jitter       Jitter amount controlling cell randomness (default:
  *                      {0.5f, 0.5f}).
  * @param  gamma        Exponent target at cell center (default: 1.0f, where 1.0
- * means no effect).
+ *                      means no effect).
  * @param  shape_gamma  Exponent for distance-to-edge attenuation (default:
  *                      1.0f; 0 disables edge falloff).
  * @param  p_mask       Optional mask array for blending.

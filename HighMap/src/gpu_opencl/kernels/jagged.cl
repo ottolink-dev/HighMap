@@ -88,9 +88,9 @@ void kernel jagged(read_only image2d_t  in,
 
   float val_curr = read_imagef(in, sampler_unnorm, g).x;
 
-  float effective_exponent = 1.f + (gamma - 1.f) * w;
-  float val_out = val_curr > 0.f ? pow_float(val_curr, effective_exponent)
-                                 : val_curr;
+  float val_out = val_curr > 0.f
+                      ? val_curr + w * (pow_float(val_curr, gamma) - val_curr)
+                      : val_curr;
 
   if (has_mask > 0)
   {

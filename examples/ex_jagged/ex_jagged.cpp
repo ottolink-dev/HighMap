@@ -18,9 +18,9 @@ int main(void)
   const float     kw = 8.f;
   const float     kw_fine = 16.f;
   const glm::vec2 jitter = {0.6f, 0.6f};
-  const float     gamma_mild = 0.8f;
+  const float     gamma_mild = 0.5f;
   const float     gamma_strong = 1.5f;
-  const float     shape_gamma_none = 0.f;
+  const float     shape_gamma_none = 0.5f;
   const float     shape_gamma_smooth = 0.5f;
   const float     shape_gamma_accentuated = 1.5f;
   const float     mask_sigma = 0.25f;
