@@ -96,6 +96,8 @@ var namespacehmap_1_1gpu =
     [ "expand", "namespacehmap_1_1gpu.html#a722cef96155d5c26274e24c796dc3a1b", null ],
     [ "gamma_correction_local", "namespacehmap_1_1gpu.html#a76e0787fcca5220ec08b423349a475a4", null ],
     [ "gamma_correction_local", "namespacehmap_1_1gpu.html#a7725963a18b9fca522dec1ae74ad8c2f", null ],
+    [ "jagged", "namespacehmap_1_1gpu.html#aef335bd6388cf8885bf1280085d9c756", null ],
+    [ "jagged", "namespacehmap_1_1gpu.html#a7e15b44d442f9aea7937d961218cced1", null ],
     [ "laplace", "namespacehmap_1_1gpu.html#a13625ec501979795138bac6499ac0f08", null ],
     [ "laplace", "namespacehmap_1_1gpu.html#a65f49b330320b4c60d8ca5083eda8e86", null ],
     [ "mean_shift", "namespacehmap_1_1gpu.html#a54dd015841925f624e6e2bed159f9d37", null ],

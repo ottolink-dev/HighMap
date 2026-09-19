@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['naturalneighborinterpolator_0',['NaturalNeighborInterpolator',['../classhmap_1_1NaturalNeighborInterpolator.html',1,'hmap']]],
-  ['neighbor_1',['neighbor',['../structhmap_1_1Neighbor.html',1,'hmap::Neighbor'],['../structhmap_1_1TerrainTriMesh_1_1Neighbor.html',1,'hmap::TerrainTriMesh::Neighbor']]],
-  ['neighbordata_2',['NeighborData',['../structhmap_1_1TerrainTriMesh_1_1NeighborData.html',1,'hmap::TerrainTriMesh']]],
-  ['noisefunction_3',['NoiseFunction',['../classhmap_1_1NoiseFunction.html',1,'hmap']]]
+  ['mat_0',['Mat',['../structhmap_1_1Mat.html',1,'hmap']]],
+  ['mat_3c_20glm_3a_3aivec2_20_3e_1',['Mat&lt; glm::ivec2 &gt;',['../structhmap_1_1Mat.html',1,'hmap']]],
+  ['mat_3c_20int_20_3e_2',['Mat&lt; int &gt;',['../structhmap_1_1Mat.html',1,'hmap']]],
+  ['mat_3c_20std_3a_3avector_3c_20glm_3a_3aivec2_20_3e_20_3e_3',['Mat&lt; std::vector&lt; glm::ivec2 &gt; &gt;',['../structhmap_1_1Mat.html',1,'hmap']]]
 ];

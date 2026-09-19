@@ -128,6 +128,8 @@ var filters_8hpp =
     [ "expand", "filters_8hpp.html#a722cef96155d5c26274e24c796dc3a1b", null ],
     [ "gamma_correction_local", "filters_8hpp.html#a76e0787fcca5220ec08b423349a475a4", null ],
     [ "gamma_correction_local", "filters_8hpp.html#a7725963a18b9fca522dec1ae74ad8c2f", null ],
+    [ "jagged", "filters_8hpp.html#aef335bd6388cf8885bf1280085d9c756", null ],
+    [ "jagged", "filters_8hpp.html#a7e15b44d442f9aea7937d961218cced1", null ],
     [ "laplace", "filters_8hpp.html#a13625ec501979795138bac6499ac0f08", null ],
     [ "laplace", "filters_8hpp.html#a65f49b330320b4c60d8ca5083eda8e86", null ],
     [ "mean_shift", "filters_8hpp.html#a54dd015841925f624e6e2bed159f9d37", null ],

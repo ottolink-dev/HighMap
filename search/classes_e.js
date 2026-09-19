@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['scopedtimer_0',['ScopedTimer',['../structhmap_1_1ScopedTimer.html',1,'hmap']]],
-  ['shortestpathresult_1',['ShortestPathResult',['../structhmap_1_1TerrainTriMesh_1_1ShortestPathResult.html',1,'hmap::TerrainTriMesh']]],
-  ['simplex2function_2',['Simplex2Function',['../classhmap_1_1Simplex2Function.html',1,'hmap']]],
-  ['simplex2sfunction_3',['Simplex2SFunction',['../classhmap_1_1Simplex2SFunction.html',1,'hmap']]],
-  ['slopefunction_4',['SlopeFunction',['../classhmap_1_1SlopeFunction.html',1,'hmap']]],
-  ['stepfunction_5',['StepFunction',['../classhmap_1_1StepFunction.html',1,'hmap']]]
+  ['ramtilestorage_0',['RamTileStorage',['../classhmap_1_1RamTileStorage.html',1,'hmap']]],
+  ['recorder_1',['Recorder',['../structhmap_1_1Recorder.html',1,'hmap']]],
+  ['rectanglefunction_2',['RectangleFunction',['../classhmap_1_1RectangleFunction.html',1,'hmap']]],
+  ['riftfunction_3',['RiftFunction',['../classhmap_1_1RiftFunction.html',1,'hmap']]]
 ];

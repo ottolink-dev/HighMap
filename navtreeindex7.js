@@ -1,5 +1,7 @@
 var NAVTREEINDEX7 =
 {
+"classhmap_1_1WaveTriangularFunction.html#a58593bbbdade49717f157e44d4f196df":[4,0,0,81,4],
+"classhmap_1_1WaveTriangularFunction.html#aa35fb98f18848ac7c99f15678d0ac71c":[3,0,0,82,2],
 "classhmap_1_1WaveTriangularFunction.html#aa35fb98f18848ac7c99f15678d0ac71c":[4,0,0,81,2],
 "classhmap_1_1WaveTriangularFunction.html#ab49a906dde5df326c1263724c2b477e6":[3,0,0,82,3],
 "classhmap_1_1WaveTriangularFunction.html#ab49a906dde5df326c1263724c2b477e6":[4,0,0,81,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX7 =
 "core_8cpp.html#a2752dc48a6d7bac9d3798033d1e7b3dd":[5,0,1,1,24,0,19],
 "core_8cpp.html#a4c21ef9d4f7d33f2413c7fe391b86253":[5,0,1,1,24,0,13],
 "core_8cpp.html#a5eaeb43a259dcdf4b0fb4632a559a1d4":[5,0,1,1,24,0,21],
-"core_8cpp.html#a6294951db2b05d8b1081e4d865c11244":[5,0,1,1,24,0,3],
-"core_8cpp.html#a826591db096cb2ca4d836d4c5eeaac02":[5,0,1,1,24,0,15],
-"core_8cpp.html#a8ddf0121ee2b8c701a61a12274b5f3e3":[5,0,1,1,24,0,1]
+"core_8cpp.html#a6294951db2b05d8b1081e4d865c11244":[5,0,1,1,24,0,3]
 };

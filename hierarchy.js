@@ -88,6 +88,9 @@ var hierarchy =
     [ "hmap::ScopedTimer", "structhmap_1_1ScopedTimer.html", null ],
     [ "hmap::TerrainTriMesh::ShortestPathResult", "structhmap_1_1TerrainTriMesh_1_1ShortestPathResult.html", null ],
     [ "hmap::TerrainTriMesh", "classhmap_1_1TerrainTriMesh.html", null ],
+    [ "testing::Test", null, [
+      [ "JaggedTest", "classJaggedTest.html", null ]
+    ] ],
     [ "hmap::Texture", "classhmap_1_1Texture.html", null ],
     [ "TileAccess", "structTileAccess.html", null ],
     [ "hmap::TileKey", "structhmap_1_1TileKey.html", null ],

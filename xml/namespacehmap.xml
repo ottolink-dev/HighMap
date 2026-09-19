@@ -22598,7 +22598,7 @@ This function:<itemizedlist>
 <para>Create a continuous 2D function from a sampled array. </para>
         </briefdescription>
         <detaileddescription>
-<para>This adaptor takes a discrete 2D array (indexed by i, j) defined over a bounding box and returns a continuous function <formula id="8">$f(x, y)$</formula> that interpolates values at arbitrary 2D positions inside the bounding box.</para>
+<para>This adaptor takes a discrete 2D array (indexed by i, j) defined over a bounding box and returns a continuous function <formula id="9">$f(x, y)$</formula> that interpolates values at arbitrary 2D positions inside the bounding box.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>array</parametername>
@@ -24753,7 +24753,7 @@ This function:<itemizedlist>
 <parametername>density_mask</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>2D array defining the spatial density field over the bounding box. Values should lie in <formula id="9">$[0,1]$</formula>. </para>
+<para>2D array defining the spatial density field over the bounding box. Values should lie in <formula id="10">$[0,1]$</formula>. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -28440,8 +28440,8 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <para>Create a continuous 2D function from a sampled array. </para>
         </briefdescription>
         <detaileddescription>
-<para>This adaptor takes a discrete 2D array (indexed by i, j) defined over a bounding box and returns a continuous function <formula id="8">$f(x, y)$</formula> that interpolates values at arbitrary 2D positions inside the bounding box.</para>
-<para>The function maps a point <formula id="10">$p = (x, y)$</formula> in world coordinates to array indices <formula id="11">$(i, j)$</formula> and interpolates the array values.</para>
+<para>This adaptor takes a discrete 2D array (indexed by i, j) defined over a bounding box and returns a continuous function <formula id="9">$f(x, y)$</formula> that interpolates values at arbitrary 2D positions inside the bounding box.</para>
+<para>The function maps a point <formula id="11">$p = (x, y)$</formula> in world coordinates to array indices <formula id="12">$(i, j)$</formula> and interpolates the array values.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>array</parametername>
@@ -29133,20 +29133,20 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <para>Compute the divergence of a 2D gradient field. </para>
         </briefdescription>
         <detaileddescription>
-<para>Given two scalar fields representing the horizontal and vertical derivatives of a height map:  <formula id="12">\[
+<para>Given two scalar fields representing the horizontal and vertical derivatives of a height map:  <formula id="13">\[
     p(x, y) = \frac{\partial h}{\partial x}, \qquad q(x, y) = \frac{\partial
 h}{\partial y}
-\]</formula> this function returns the divergence:  <formula id="13">\[
+\]</formula> this function returns the divergence:  <formula id="14">\[
     f(x, y) = \frac{\partial p}{\partial x}(x, y)
             + \frac{\partial q}{\partial y}(x, y)
 \]</formula></para>
-<para>The divergence is a key term for solving the Poisson equation <formula id="14">$\nabla^2 h = f$</formula> when reconstructing a height field from gradients or from a normal map.</para>
+<para>The divergence is a key term for solving the Poisson equation <formula id="15">$\nabla^2 h = f$</formula> when reconstructing a height field from gradients or from a normal map.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>dx</parametername>
 </parameternamelist>
 <parameterdescription>
-<para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> of horizontal derivatives ( <formula id="15">$\partial h / \partial x$</formula>). Must have the same dimensions as <computeroutput>dy</computeroutput>. </para>
+<para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> of horizontal derivatives ( <formula id="16">$\partial h / \partial x$</formula>). Must have the same dimensions as <computeroutput>dy</computeroutput>. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -29154,11 +29154,11 @@ h}{\partial y}
 <parametername>dy</parametername>
 </parameternamelist>
 <parameterdescription>
-<para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> of vertical derivatives ( <formula id="16">$\partial h / \partial y$</formula>). Must have the same dimensions as <computeroutput>dx</computeroutput>.</para>
+<para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> of vertical derivatives ( <formula id="17">$\partial h / \partial y$</formula>). Must have the same dimensions as <computeroutput>dx</computeroutput>.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>A new <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> containing the divergence <formula id="8">$f(x, y)$</formula> for each pixel. The returned array has the same size as the inputs.</para>
+<simplesect kind="return"><para>A new <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> containing the divergence <formula id="9">$f(x, y)$</formula> for each pixel. The returned array has the same size as the inputs.</para>
 </simplesect>
 See unit tests: <ref refid="test__gradient_8cpp" kindref="compound">test_gradient.cpp</ref> </para>
         </detaileddescription>
@@ -30167,7 +30167,7 @@ See unit tests: <ref refid="test__gradient_8cpp" kindref="compound">test_gradien
 <para>Solve the Poisson equation ∇²h = rhs using Gauss–Seidel iteration. </para>
         </briefdescription>
         <detaileddescription>
-<para>This function assumes Dirichlet boundary conditions (height = 0 at the edges). The algorithm updates interior points according to: <formula id="17">\[ h(x, y) = (1
+<para>This function assumes Dirichlet boundary conditions (height = 0 at the edges). The algorithm updates interior points according to: <formula id="18">\[ h(x, y) = (1
 - \omega) h(x, y)
           + \omega \cdot 0.25 \big(
               h(x+1, y) + h(x-1, y)
@@ -30228,7 +30228,7 @@ See unit tests: <ref refid="test__gradient_8cpp" kindref="compound">test_gradien
 <para>Unwraps a 2D phase array to correct discontinuities in phase data. </para>
         </briefdescription>
         <detaileddescription>
-<para>This function unwraps phase values in the given array, ensuring that discontinuities exceeding <formula id="18">$ \pi $</formula> are adjusted to provide a continuous phase result.</para>
+<para>This function unwraps phase values in the given array, ensuring that discontinuities exceeding <formula id="19">$ \pi $</formula> are adjusted to provide a continuous phase result.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>alpha</parametername>
@@ -35008,7 +35008,7 @@ The output path consists of:<itemizedlist>
 <para>Perform harmonic interpolation on a 2D array with 2D variable diffusion coefficients (Dx, Dy) using the Successive Over-Relaxation (SOR) method. </para>
         </briefdescription>
         <detaileddescription>
-<para>Solves the steady-state anisotropic diffusion equation:  <formula id="22">\[
+<para>Solves the steady-state anisotropic diffusion equation:  <formula id="23">\[
 \nabla \cdot (\mathbf{D} \nabla u) = \frac{\partial}{\partial x}\left(D_x
 \frac{\partial u}{\partial x}\right) +
 \frac{\partial}{\partial y}\left(D_y \frac{\partial u}{\partial y}\right) = 0
@@ -38582,7 +38582,7 @@ The output path consists of:<itemizedlist>
 <para>Sigmoid function. </para>
         </briefdescription>
         <detaileddescription>
-<para>Applies the generalized sigmoid transformation element-wise:  <formula id="23">\[
+<para>Applies the generalized sigmoid transformation element-wise:  <formula id="24">\[
 y = v_{\min} + \frac{v_{\max} - v_{\min}}
     {1 + \exp\left(-\frac{x - x_0}{\text{width}}\right)}
 \]</formula></para>
@@ -39680,7 +39680,7 @@ y = v_{\min} + \frac{v_{\max} - v_{\min}}
 <para>Generalized Rvachev R-function for smooth minimum / intersection (exact zero-set). </para>
         </briefdescription>
         <detaileddescription>
-<para><formula id="24">\[
+<para><formula id="25">\[
 R_{\min}(f_1, f_2, \alpha) = \frac{f_1 + f_2 - \sqrt{f_1^2 + f_2^2 - 2\alpha
 f_1 f_2}}{1 + \alpha} \]</formula></para>
 <para><parameterlist kind="param"><parameteritem>
@@ -39739,7 +39739,7 @@ f_1 f_2}}{1 + \alpha} \]</formula></para>
 <para>Generalized Rvachev R-function for smooth maximum / union (exact zero-set). </para>
         </briefdescription>
         <detaileddescription>
-<para><formula id="25">\[
+<para><formula id="26">\[
 R_{\max}(f_1, f_2, \alpha) = \frac{f_1 + f_2 + \sqrt{f_1^2 + f_2^2 - 2\alpha
 f_1 f_2}}{1 + \alpha} \]</formula></para>
 <para><parameterlist kind="param"><parameteritem>
@@ -39809,7 +39809,7 @@ f_1 f_2}}{1 + \alpha} \]</formula></para>
 <para>Sigmoid function. </para>
         </briefdescription>
         <detaileddescription>
-<para>Generalized logistic function:  <formula id="23">\[
+<para>Generalized logistic function:  <formula id="24">\[
 y = v_{\min} + \frac{v_{\max} - v_{\min}}
     {1 + \exp\left(-\frac{x - x_0}{\text{width}}\right)}
 \]</formula></para>

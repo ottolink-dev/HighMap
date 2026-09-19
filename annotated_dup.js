@@ -89,5 +89,6 @@ var annotated_dup =
       [ "WorleyFunction", "classhmap_1_1WorleyFunction.html", "classhmap_1_1WorleyFunction" ],
       [ "XyControlFunction", "classhmap_1_1XyControlFunction.html", "classhmap_1_1XyControlFunction" ]
     ] ],
+    [ "JaggedTest", "classJaggedTest.html", "classJaggedTest" ],
     [ "TileAccess", "structTileAccess.html", "structTileAccess" ]
 ];

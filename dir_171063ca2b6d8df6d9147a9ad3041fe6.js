@@ -34,6 +34,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_interpolate1d.cpp", "test__interpolate1d_8cpp.html", "test__interpolate1d_8cpp" ],
     [ "test_interpolate_array_empty_source.cpp", "test__interpolate__array__empty__source_8cpp.html", "test__interpolate__array__empty__source_8cpp" ],
     [ "test_island_chain.cpp", "test__island__chain_8cpp.html", "test__island__chain_8cpp" ],
+    [ "test_jagged.cpp", "test__jagged_8cpp.html", "test__jagged_8cpp" ],
     [ "test_kd_tree.cpp", "test__kd__tree_8cpp.html", "test__kd__tree_8cpp" ],
     [ "test_level_set_curvature.cpp", "test__level__set__curvature_8cpp.html", "test__level__set__curvature_8cpp" ],
     [ "test_local_metrics.cpp", "test__local__metrics_8cpp.html", "test__local__metrics_8cpp" ],
