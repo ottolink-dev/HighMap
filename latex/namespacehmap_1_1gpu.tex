@@ -491,7 +491,7 @@ void \mbox{\hyperlink{namespacehmap_1_1gpu_aab128e15988875b5d350d6f156612aa5}{ro
 \begin{DoxyCompactList}\small\item\em See \doxylink{namespacehmap_a888dcfe5adb36448366400f04efcde04}{hmap\+::rotate}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_1_1gpu_a99659d06f84b0e92e6731f28ca28937c}{warp}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+dx, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+dy)
 \begin{DoxyCompactList}\small\item\em See \doxylink{namespacehmap_a19148ad2a95f7ad5b05161e9a0f0f732}{hmap\+::warp}. \end{DoxyCompactList}\item 
-std\+::vector$<$ glm\+::ivec2 $>$ \mbox{\hyperlink{namespacehmap_1_1gpu_afd1e43227fa8126847097029597c1573}{compute\+\_\+particle\+\_\+path}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, glm\+::ivec2 start, bool allow\+\_\+uphill, float randomness, std\+::uint32\+\_\+t seed, float inertia, float exit\+\_\+weight, int border\+\_\+margin, std\+::vector$<$ float $>$ \&dz)
+std\+::vector$<$ glm\+::ivec2 $>$ \mbox{\hyperlink{namespacehmap_1_1gpu_a23b30113ce94eb8de610c6784f5a9cd5}{compute\+\_\+particle\+\_\+path}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, glm\+::ivec2 start, bool allow\+\_\+uphill, float randomness, std\+::uint32\+\_\+t seed, float inertia, float exit\+\_\+weight, int border\+\_\+margin, \mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$ uint8\+\_\+t $>$ \&visited)
 \item 
 void \mbox{\hyperlink{namespacehmap_1_1gpu_a7a16e5308f2297b55d7f0e6e77fdd9a5}{hydraulic\+\_\+schott}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask, int iterations, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&talus, float c\+\_\+erosion, float c\+\_\+thermal, float c\+\_\+deposition, float flow\+\_\+acc\+\_\+exponent, float flow\+\_\+acc\+\_\+exponent\+\_\+depo, float flow\+\_\+routing\+\_\+exponent, float thermal\+\_\+weight, float deposition\+\_\+weight, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+flow)
 \item 
@@ -823,20 +823,20 @@ The process is repeated for a number of iterations to refine the result.
 \DoxyCodeLine{\ \ glm::vec2\ \ kw\ =\ \{4.f,\ 4.f\};}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ seed\ =\ 4;}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{comment}{//\ shape\ =\ \{512,\ 512\};}}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ =\ \{1024,\ 1024\};}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ =\ \{512,\ 512\};}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ shape\ =\ \{1024,\ 1024\};}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z0\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ kw,\ seed);}
 \DoxyCodeLine{\ \ z0\ =\ \mbox{\hyperlink{namespacehmap_ae3ecf5f88476c5d49978a130f8cab2f3}{hmap::bulkify}}(z0,\ \mbox{\hyperlink{namespacehmap_a55542a66f890ef9ecf5f82af2c23a0cfa71a3d57896b6c2d066433962e74e8961}{hmap::PrimitiveType::PRIM\_CONE\_SMOOTH}},\ 0.5f);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z1\ =\ z0;}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ iterations\ =\ 40;}
-\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ particle\_count\ =\ 500;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ iterations\ =\ 20;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ particle\_count\ =\ 2500;}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ ir\_min\ =\ 1;}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ ir\_max\ =\ 1;}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{float}\ size\_distrib\_exp\ =\ 2.f;}
-\DoxyCodeLine{\ \ \textcolor{keywordtype}{float}\ erosion\_strength\ =\ 0.002f;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{float}\ erosion\_strength\ =\ 0.01f;}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{float}\ randomness\ =\ 0.002f;}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{float}\ exit\_forcing\ =\ 0.01f;}
 \DoxyCodeLine{}
@@ -8655,11 +8655,11 @@ See \doxylink{namespacehmap_a888dcfe5adb36448366400f04efcde04}{hmap\+::rotate}.
 
 See \doxylink{namespacehmap_a19148ad2a95f7ad5b05161e9a0f0f732}{hmap\+::warp}. 
 
-\Hypertarget{namespacehmap_1_1gpu_afd1e43227fa8126847097029597c1573}\label{namespacehmap_1_1gpu_afd1e43227fa8126847097029597c1573} 
+\Hypertarget{namespacehmap_1_1gpu_a23b30113ce94eb8de610c6784f5a9cd5}\label{namespacehmap_1_1gpu_a23b30113ce94eb8de610c6784f5a9cd5} 
 \index{hmap::gpu@{hmap::gpu}!compute\_particle\_path@{compute\_particle\_path}}
 \index{compute\_particle\_path@{compute\_particle\_path}!hmap::gpu@{hmap::gpu}}
 \doxysubsubsection{\texorpdfstring{compute\_particle\_path()}{compute\_particle\_path()}}
-{\footnotesize\ttfamily std\+::vector$<$ glm\+::ivec2 $>$ hmap\+::gpu\+::compute\+\_\+particle\+\_\+path (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{glm\+::ivec2}]{start,  }\item[{bool}]{allow\+\_\+uphill,  }\item[{float}]{randomness,  }\item[{std\+::uint32\+\_\+t}]{seed,  }\item[{float}]{inertia,  }\item[{float}]{exit\+\_\+weight,  }\item[{int}]{border\+\_\+margin,  }\item[{std\+::vector$<$ float $>$ \&}]{dz }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ glm\+::ivec2 $>$ hmap\+::gpu\+::compute\+\_\+particle\+\_\+path (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{glm\+::ivec2}]{start,  }\item[{bool}]{allow\+\_\+uphill,  }\item[{float}]{randomness,  }\item[{std\+::uint32\+\_\+t}]{seed,  }\item[{float}]{inertia,  }\item[{float}]{exit\+\_\+weight,  }\item[{int}]{border\+\_\+margin,  }\item[{\mbox{\hyperlink{structhmap_1_1Mat}{Mat}}$<$ uint8\+\_\+t $>$ \&}]{visited }\end{DoxyParamCaption})}
 
 \Hypertarget{namespacehmap_1_1gpu_a7a16e5308f2297b55d7f0e6e77fdd9a5}\label{namespacehmap_1_1gpu_a7a16e5308f2297b55d7f0e6e77fdd9a5} 
 \index{hmap::gpu@{hmap::gpu}!hydraulic\_schott@{hydraulic\_schott}}

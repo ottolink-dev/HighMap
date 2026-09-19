@@ -174,6 +174,44 @@
         </inbodydescription>
         <location file="tests/src/test_erosion.cpp" line="116" column="1" bodyfile="tests/src/test_erosion.cpp" bodystart="116" bodyend="194"/>
       </memberdef>
+      <memberdef kind="function" id="test__erosion_8cpp_1a8e6da42f3e4f8e234c2fd42052f3fd55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ConvErosion, EmptyArray)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ConvErosion</type>
+        </param>
+        <param>
+          <type>EmptyArray</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_erosion.cpp" line="196" column="1" bodyfile="tests/src/test_erosion.cpp" bodystart="196" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="test__erosion_8cpp_1a9007dd0d6e8b6ed3b0c354528ffe5e51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ConvErosion, BasicExecution)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ConvErosion</type>
+        </param>
+        <param>
+          <type>BasicExecution</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_erosion.cpp" line="203" column="1" bodyfile="tests/src/test_erosion.cpp" bodystart="203" bodyend="216"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -374,6 +412,28 @@
 <codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FALSE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(z,<sp/>z0));</highlight></codeline>
 <codeline lineno="193"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="194"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><ref refid="test__erosion_8cpp_1abc3d4c545d6d7957bf2237c1a272a30d" kindref="member">TEST</ref>(ConvErosion,<sp/>EmptyArray)</highlight></codeline>
+<codeline lineno="197"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>empty;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a453995ce289c0c3dad0f34fe10a54d74" kindref="member">gpu::conv_erosion</ref>(empty,<sp/>42,<sp/>5,<sp/>10,<sp/>1,<sp/>2);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(empty.<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>.empty());</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><ref refid="test__erosion_8cpp_1abc3d4c545d6d7957bf2237c1a272a30d" kindref="member">TEST</ref>(ConvErosion,<sp/>BasicExecution)</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1adb8336ed4d83c15500872185dee45d50" kindref="member">hmap::gpu::init_opencl</ref>();</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/>glm::vec2<sp/><sp/>kw<sp/>=<sp/>{4.f,<sp/>4.f};</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>z0<sp/>=<sp/><ref refid="namespacehmap_1a7d699a468a18be16c70654958ee13b41" kindref="member">noise_fbm</ref>(NoiseType::PERLIN,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>kw,<sp/>42);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>z<sp/>=<sp/>z0;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a453995ce289c0c3dad0f34fe10a54d74" kindref="member">gpu::conv_erosion</ref>(z,<sp/>42,<sp/>5,<sp/>200,<sp/>1,<sp/>4,<sp/>1.f,<sp/>0.05f);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/>EXPECT_EQ(z.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(z,<sp/>z0));</highlight></codeline>
+<codeline lineno="216"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_erosion.cpp"/>
   </compounddef>

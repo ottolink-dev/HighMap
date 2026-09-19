@@ -794,8 +794,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a99659d06f84b0e92e6731f28ca28937c" id="r_a99659d06f84b0e92e6731f28ca28937c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap_1_1gpu.html#a99659d06f84b0e92e6731f28ca28937c">warp</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_dx, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_dy)</td></tr>
 <tr class="memdesc:a99659d06f84b0e92e6731f28ca28937c"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="namespacehmap.html#a19148ad2a95f7ad5b05161e9a0f0f732" title="Apply a warping effect to the array.">hmap::warp</a>.  <br /></td></tr>
 <tr class="separator:a99659d06f84b0e92e6731f28ca28937c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd1e43227fa8126847097029597c1573" id="r_afd1e43227fa8126847097029597c1573"><td class="memItemLeft" align="right" valign="top">std::vector&lt; glm::ivec2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap_1_1gpu.html#afd1e43227fa8126847097029597c1573">compute_particle_path</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, glm::ivec2 start, bool allow_uphill, float randomness, std::uint32_t seed, float inertia, float exit_weight, int border_margin, std::vector&lt; float &gt; &amp;dz)</td></tr>
-<tr class="separator:afd1e43227fa8126847097029597c1573"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23b30113ce94eb8de610c6784f5a9cd5" id="r_a23b30113ce94eb8de610c6784f5a9cd5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; glm::ivec2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap_1_1gpu.html#a23b30113ce94eb8de610c6784f5a9cd5">compute_particle_path</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, glm::ivec2 start, bool allow_uphill, float randomness, std::uint32_t seed, float inertia, float exit_weight, int border_margin, <a class="el" href="structhmap_1_1Mat.html">Mat</a>&lt; uint8_t &gt; &amp;visited)</td></tr>
+<tr class="separator:a23b30113ce94eb8de610c6784f5a9cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a16e5308f2297b55d7f0e6e77fdd9a5" id="r_a7a16e5308f2297b55d7f0e6e77fdd9a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap_1_1gpu.html#a7a16e5308f2297b55d7f0e6e77fdd9a5">hydraulic_schott</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_mask, int iterations, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;talus, float c_erosion, float c_thermal, float c_deposition, float flow_acc_exponent, float flow_acc_exponent_depo, float flow_routing_exponent, float thermal_weight, float deposition_weight, <a class="el" href="classhmap_1_1Array.html">Array</a> *p_flow)</td></tr>
 <tr class="separator:a7a16e5308f2297b55d7f0e6e77fdd9a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88838a8a701facc69ddace7b1e98f837" id="r_a88838a8a701facc69ddace7b1e98f837"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap_1_1gpu.html#a88838a8a701facc69ddace7b1e98f837">helper_vflow_compute_adaptive_dt</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;h, float viscosity, float power)</td></tr>
@@ -1416,20 +1416,20 @@ Functions</h2></td></tr>
 <div class="line">  glm::vec2  kw = {4.f, 4.f};</div>
 <div class="line">  <span class="keywordtype">int</span>        seed = 4;</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">// shape = {512, 512};</span></div>
-<div class="line">  <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {1024, 1024};</div>
+<div class="line">  <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {512, 512};</div>
+<div class="line">  <span class="comment">// shape = {1024, 1024};</span></div>
 <div class="line"> </div>
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z0 = <a class="code hl_function" href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>, <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, kw, seed);</div>
 <div class="line">  z0 = <a class="code hl_function" href="namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3">hmap::bulkify</a>(z0, <a class="code hl_enumvalue" href="namespacehmap.html#a55542a66f890ef9ecf5f82af2c23a0cfa71a3d57896b6c2d066433962e74e8961">hmap::PrimitiveType::PRIM_CONE_SMOOTH</a>, 0.5f);</div>
 <div class="line"> </div>
 <div class="line">  <span class="keyword">auto</span> z1 = z0;</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordtype">int</span>   iterations = 40;</div>
-<div class="line">  <span class="keywordtype">int</span>   particle_count = 500;</div>
+<div class="line">  <span class="keywordtype">int</span>   iterations = 20;</div>
+<div class="line">  <span class="keywordtype">int</span>   particle_count = 2500;</div>
 <div class="line">  <span class="keywordtype">int</span>   ir_min = 1;</div>
 <div class="line">  <span class="keywordtype">int</span>   ir_max = 1;</div>
 <div class="line">  <span class="keywordtype">float</span> size_distrib_exp = 2.f;</div>
-<div class="line">  <span class="keywordtype">float</span> erosion_strength = 0.002f;</div>
+<div class="line">  <span class="keywordtype">float</span> erosion_strength = 0.01f;</div>
 <div class="line">  <span class="keywordtype">float</span> randomness = 0.002f;</div>
 <div class="line">  <span class="keywordtype">float</span> exit_forcing = 0.01f;</div>
 <div class="line"> </div>
@@ -1453,7 +1453,7 @@ Functions</h2></td></tr>
 <div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>,</div>
 <div class="line">                          <span class="keyword">true</span>);</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_1_1gpu_html_a453995ce289c0c3dad0f34fe10a54d74"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a453995ce289c0c3dad0f34fe10a54d74">hmap::gpu::conv_erosion</a></div><div class="ttdeci">void conv_erosion(Array &amp;z, std::uint32_t seed, int iterations=20, int particle_count=1000, int ir_min=8, int ir_max=64, float size_distrib_exp=1.f, float erosion_strength=0.02f, float randomness=0.01f, float exit_forcing=0.05f, int gradient_ir=16, float gradient_exp=0.5f, float gradient_strength_min=0.f)</div><div class="ttdoc">Performs iterative particle-based convolution erosion on a heightmap.</div><div class="ttdef"><b>Definition</b> conv_erosion.cpp:167</div></div>
+<div class="ttc" id="anamespacehmap_1_1gpu_html_a453995ce289c0c3dad0f34fe10a54d74"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a453995ce289c0c3dad0f34fe10a54d74">hmap::gpu::conv_erosion</a></div><div class="ttdeci">void conv_erosion(Array &amp;z, std::uint32_t seed, int iterations=20, int particle_count=1000, int ir_min=8, int ir_max=64, float size_distrib_exp=1.f, float erosion_strength=0.02f, float randomness=0.01f, float exit_forcing=0.05f, int gradient_ir=16, float gradient_exp=0.5f, float gradient_strength_min=0.f)</div><div class="ttdoc">Performs iterative particle-based convolution erosion on a heightmap.</div><div class="ttdef"><b>Definition</b> conv_erosion.cpp:178</div></div>
 <div class="ttc" id="anamespacehmap_html_a55542a66f890ef9ecf5f82af2c23a0cfa71a3d57896b6c2d066433962e74e8961"><div class="ttname"><a href="namespacehmap.html#a55542a66f890ef9ecf5f82af2c23a0cfa71a3d57896b6c2d066433962e74e8961">hmap::PRIM_CONE_SMOOTH</a></div><div class="ttdeci">@ PRIM_CONE_SMOOTH</div><div class="ttdef"><b>Definition</b> functions.hpp:27</div></div>
 <div class="ttc" id="anamespacehmap_html_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9"><div class="ttname"><a href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::TERRAIN</a></div><div class="ttdeci">@ TERRAIN</div><div class="ttdef"><b>Definition</b> colormaps.hpp:92</div></div>
 <div class="ttc" id="anamespacehmap_html_ae3ecf5f88476c5d49978a130f8cab2f3"><div class="ttname"><a href="namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3">hmap::bulkify</a></div><div class="ttdeci">Array bulkify(const Array &amp;z, const PrimitiveType &amp;primitive_type, float amp=1.f, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec2 center={0.5f, 0.5f}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Applies a primitive-based displacement to an array.</div><div class="ttdef"><b>Definition</b> bulkify.cpp:11</div></div>
@@ -20156,8 +20156,8 @@ The sign of the SDF is negative inside polygons and positive outside.</dd></dl>
 
 </div>
 </div>
-<a id="afd1e43227fa8126847097029597c1573" name="afd1e43227fa8126847097029597c1573"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd1e43227fa8126847097029597c1573">&#9670;&#160;</a></span>compute_particle_path()</h2>
+<a id="a23b30113ce94eb8de610c6784f5a9cd5" name="a23b30113ce94eb8de610c6784f5a9cd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23b30113ce94eb8de610c6784f5a9cd5">&#9670;&#160;</a></span>compute_particle_path()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -20213,8 +20213,8 @@ The sign of the SDF is negative inside polygons and positive outside.</dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; float &gt; &amp;&#160;</td>
-          <td class="paramname"><em>dz</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="structhmap_1_1Mat.html">Mat</a>&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>visited</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
