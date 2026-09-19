@@ -88,7 +88,19 @@ Array interpolate2d_idw(glm::ivec2                shape,
 
         float w = 1.f - d;
         w = smoothstep3(w);
-        w /= std::pow(d, 0.5f * distance_exp);
+
+        if (distance_exp == 2.f)
+        {
+          w /= d;
+        }
+        else if (distance_exp == 1.f)
+        {
+          w /= std::sqrt(d);
+        }
+        else
+        {
+          w /= std::pow(d, 0.5f * distance_exp);
+        }
 
         v += values[nk] * w;
         sum += w;

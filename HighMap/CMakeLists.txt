@@ -25,25 +25,25 @@ target_compile_definitions(
 
 target_link_libraries(
   ${PROJECT_NAME}
-  assimp::assimp
-  delaunator::delaunator
-  glm::glm
-  GSL::gsl
-  GSL::gslcblas
-  dkm::dkm
-  FastNoiseLite::FastNoiseLite
-  hmm::hmm
-  libnpy::libnpy
-  nanoflann::nanoflann
-  nn-c::nn-c
-  mixbox
-  NoiseLib
-  terrain-descriptors
-  OpenMP::OpenMP_CXX
-  ${OpenCV_LIBS}
-  point_sampler
-  clwrapper
-  ${OpenCL_LIBRARIES})
+  PUBLIC assimp::assimp
+         delaunator::delaunator
+         glm::glm
+         GSL::gsl
+         GSL::gslcblas
+         dkm::dkm
+         FastNoiseLite::FastNoiseLite
+         hmm::hmm
+         libnpy::libnpy
+         nanoflann::nanoflann
+         mixbox
+         NoiseLib
+         terrain-descriptors
+         OpenMP::OpenMP_CXX
+         ${OpenCV_LIBS}
+         point_sampler
+         clwrapper
+         ${OpenCL_LIBRARIES}
+  PRIVATE nn-c::nn-c)
 
 if(HIGHMAP_ENABLE_PCH)
   message(STATUS "Precompiled Headers (PCH) enabled for target ${PROJECT_NAME}")
