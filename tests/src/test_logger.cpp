@@ -82,6 +82,7 @@ TEST(LoggerTest, ExplicitSourceLocation)
 #endif
 }
 
+#if HIGHMAP_ENABLE_LOGS
 TEST(LoggerTest, FixedWidthFormattingAndTruncation)
 {
   EXPECT_EQ(hmap::log::detail::format_fixed_width("hello", 5), "hello");
@@ -91,3 +92,4 @@ TEST(LoggerTest, FixedWidthFormattingAndTruncation)
   EXPECT_EQ(hmap::log::detail::format_fixed_width("abc", 2), "ab");
   EXPECT_EQ(hmap::log::detail::format_fixed_width("abc", 0), "abc");
 }
+#endif

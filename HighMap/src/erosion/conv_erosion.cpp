@@ -27,15 +27,15 @@
 namespace hmap::gpu
 {
 
-std::vector<glm::ivec2> compute_particle_path(const Array        &z,
-                                              glm::ivec2          start,
-                                              bool                allow_uphill,
-                                              float               randomness,
-                                              std::uint32_t       seed,
-                                              float               inertia,
-                                              float               exit_weight,
-                                              int                 border_margin,
-                                              std::vector<float> &dz)
+std::vector<glm::ivec2> compute_particle_path(const Array  &z,
+                                              glm::ivec2    start,
+                                              bool          allow_uphill,
+                                              float         randomness,
+                                              std::uint32_t seed,
+                                              float         inertia,
+                                              float         exit_weight,
+                                              int           border_margin,
+                                              Mat<uint8_t> &visited)
 {
   const glm::ivec2 &shape = z.shape;
 
@@ -43,11 +43,6 @@ std::vector<glm::ivec2> compute_particle_path(const Array        &z,
   path.reserve(1024);
   path.push_back(start);
 
-  dz.clear();
-  dz.reserve(1024);
-  dz.push_back(0.f);
-
-  Mat<uint8_t> visited(shape);
   visited(start) = 1;
 
   glm::ivec2 current = start;
@@ -58,6 +53,21 @@ std::vector<glm::ivec2> compute_particle_path(const Array        &z,
 
   static const glm::ivec2 dirs[8] =
       {{1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+  static const float dists[8] =
+      {1.f, 1.f, 1.f, 1.f, 1.41421356f, 1.41421356f, 1.41421356f, 1.41421356f};
+  static const glm::vec2 norm_dirs[8] = {{1.f, 0.f},
+                                         {-1.f, 0.f},
+                                         {0.f, 1.f},
+                                         {0.f, -1.f},
+                                         {0.70710678f, 0.70710678f},
+                                         {0.70710678f, -0.70710678f},
+                                         {-0.70710678f, 0.70710678f},
+                                         {-0.70710678f, -0.70710678f}};
+
+  const glm::vec2 half_shape(0.5f * static_cast<float>(shape.x - 1),
+                             0.5f * static_cast<float>(shape.y - 1));
+  const glm::vec2 inv_half_shape(half_shape.x > 0.f ? 1.f / half_shape.x : 0.f,
+                                 half_shape.y > 0.f ? 1.f / half_shape.y : 0.f);
 
   while (true)
   {
@@ -65,7 +75,6 @@ std::vector<glm::ivec2> compute_particle_path(const Array        &z,
 
     glm::ivec2 best_next = current;
     float      best_score = -std::numeric_limits<float>::infinity();
-    float      best_slope = 0.f;
     bool       found_move = false;
 
     // direction from the center toward the current particle position
@@ -87,25 +96,25 @@ std::vector<glm::ivec2> compute_particle_path(const Array        &z,
       exit_dir = glm::vec2(0.f);
     }
 
-    for (const auto &d : dirs)
+    for (int d_idx = 0; d_idx < 8; ++d_idx)
     {
-      glm::ivec2 n = current + d;
-
-      if (visited(n)) continue;
+      const auto &d = dirs[d_idx];
+      glm::ivec2  n = current + d;
 
       if (n.x < 0 || n.y < 0 || n.x >= shape.x || n.y >= shape.y) continue;
+      if (visited(n)) continue;
 
       float nh = z(n);
-      float dist = glm::length(glm::vec2(float(d.x), float(d.y)));
+      float dist = dists[d_idx];
       float slope = (current_h - nh) / dist;
       bool  downhill = slope > 0.f;
 
       if (!downhill && !allow_uphill) continue;
 
-      glm::vec2 dir = glm::normalize(glm::vec2(d));
+      const glm::vec2 &dir = norm_dirs[d_idx];
 
       float dir_align = 0.f;
-      if (glm::length(prev_dir) > 0.f) dir_align = glm::dot(prev_dir, dir);
+      if (prev_dir != glm::vec2(0.f)) dir_align = glm::dot(prev_dir, dir);
 
       float score;
 
@@ -116,13 +125,12 @@ std::vector<glm::ivec2> compute_particle_path(const Array        &z,
       }
       else
       {
-        // uphill: smallest climb + inertia + preference toward the
-        // nearest exit
+        // uphill: smallest climb + inertia + preference toward the nearest exit
         float exit_align = glm::dot(dir, exit_dir);
 
         // negative uphill penalty (scale exit_weight with distance
         // from the center, the closer the particle is from the
-        // boundary, the more the partcile is attracted to it)
+        // boundary, the more the particle is attracted to it)
         score = slope + inertia * dir_align + len2 * exit_weight * exit_align;
       }
 
@@ -135,7 +143,6 @@ std::vector<glm::ivec2> compute_particle_path(const Array        &z,
       {
         best_score = score;
         best_next = n;
-        best_slope = std::abs(slope);
         found_move = true;
       }
     }
@@ -150,7 +157,6 @@ std::vector<glm::ivec2> compute_particle_path(const Array        &z,
 
     visited(current) = 1;
     path.push_back(current);
-    dz.push_back(best_slope);
 
     if (current.x < border_margin || current.y < border_margin ||
         current.x >= shape.x - border_margin ||
@@ -159,6 +165,11 @@ std::vector<glm::ivec2> compute_particle_path(const Array        &z,
 
     // safe guard, keep the number of iterations reasonable
     if (path.size() >= static_cast<size_t>(shape.x + shape.y)) break;
+  }
+
+  for (const auto &p : path)
+  {
+    visited(p) = 0;
   }
 
   return path;
@@ -180,8 +191,8 @@ void conv_erosion(Array        &z,
 {
   if (!validate_non_empty(z)) return;
 
-  float bulk_amp = 0.1f;
-  float filling_strength = 0.5f;
+  float bulk_amp = 2.f;
+  float filling_strength = 0.f;
 
   // --- Setup
 
@@ -202,29 +213,26 @@ void conv_erosion(Array        &z,
 
   Array z_wrk = z;
 
-  // const auto prim = hmap::PrimitiveType::PRIM_CUBIC_PULSE;
   auto prim = hmap::PrimitiveType::PRIM_CONE_SMOOTH;
 
-  if (filling_strength)
+  if (filling_strength > 0.f)
   {
-    depression_filling(z_wrk, shape.x, 0.1f / shape.x);
-    // depression_filling_priority_flood(z_wrk, /* apply_post_filter */ true);
+    depression_filling_priority_flood(z_wrk, /* apply_post_filter */ true);
     z_wrk = lerp(z, z_wrk, filling_strength);
   }
 
-  if (bulk_amp) z_wrk = hmap::bulkify(z_wrk, prim, bulk_amp);
+  if (bulk_amp > 0.f) z_wrk = hmap::bulkify(z_wrk, prim, bulk_amp);
 
   // --- Main loop
 
-  Array mask(shape);
-  Array size(shape);
-  Array deposit(shape);
+  Mat<uint8_t> visited(shape);
+  Array        mask(shape);
+  Array        size(shape);
 
   for (int it = 0; it < iterations; ++it)
   {
     mask = 0.f;
     size = 0.f;
-    deposit = 0.f;
 
     for (int k = 0; k < particle_count; ++k)
     {
@@ -234,16 +242,15 @@ void conv_erosion(Array        &z,
                                           (static_cast<uint32_t>(it) * 6271u +
                                            static_cast<uint32_t>(k) * 2053u);
 
-      std::vector<float>      dz;
       std::vector<glm::ivec2> path = compute_particle_path(z_wrk,
                                                            spawn,
                                                            true,
                                                            randomness,
                                                            particle_seed,
-                                                           /* intertia */ 0.f,
+                                                           /* inertia */ 0.f,
                                                            exit_forcing,
                                                            border_margin,
-                                                           dz);
+                                                           visited);
 
       if (path.empty()) continue;
 
@@ -271,9 +278,17 @@ void conv_erosion(Array        &z,
     Array erosion_field = gpu::sparse_max_convolution(mask, size, kernel, 0.f);
 
     // gradient scaling
-    Array gn = gradient_norm_filtered(z_wrk, gradient_ir);
-    remap(gn, gradient_strength_min, 1.f);
-    erosion_field *= pow(gn, gradient_exp);
+    if (gradient_ir > 0 && gradient_exp != 0.f)
+    {
+      int   effective_ir = std::min(gradient_ir,
+                                  std::max(1, std::min(shape.x, shape.y) / 4));
+      Array gn = gradient_norm_filtered(z_wrk, effective_ir);
+      if (gn.max() > gn.min())
+      {
+        remap(gn, gradient_strength_min, 1.f);
+        erosion_field *= pow(gn, gradient_exp);
+      }
+    }
 
     hmap::laplace(erosion_field, 0.125f, 1);
 
@@ -282,7 +297,7 @@ void conv_erosion(Array        &z,
 
   // --- Output
 
-  if (bulk_amp) z_wrk = hmap::bulkify(z_wrk, prim, -bulk_amp);
+  if (bulk_amp > 0.f) z_wrk = hmap::bulkify(z_wrk, prim, -bulk_amp);
 
   z = z_wrk;
 }
