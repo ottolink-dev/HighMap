@@ -103,7 +103,7 @@ var NAVTREEINDEX =
 "namespacehmap.html#a65974181387dcb86ae7660a4708b4c09",
 "namespacehmap.html#aaaa3b5f379755d9595ed061a17acb4f9",
 "namespacehmap.html#ad7c71deabcf6e48d3f40804ef1938d19",
-"namespacehmap_1_1gpu.html#a7236194a9133a228c9965f1c3e32d6a2",
+"namespacehmap_1_1gpu.html#a722cef96155d5c26274e24c796dc3a1b",
 "natural__neighbor__interpolator_8cpp.html",
 "primitives_2functions_8hpp.html#a9c29bf793c38447f4375038546d258a6",
 "sdf__2d__polyline__gpu_8cpp.html",
