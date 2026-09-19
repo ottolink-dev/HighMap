@@ -127,6 +127,9 @@ bool init_opencl()
 #include "kernels/interpolate_array.cl"
   );
   add(
+#include "kernels/jagged.cl"
+  );
+  add(
 #include "kernels/jump_flooding.cl"
   );
   add(

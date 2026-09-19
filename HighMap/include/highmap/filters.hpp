@@ -2380,6 +2380,87 @@ void gamma_correction_local(Array       &array,
                             const Array *p_mask,
                             float        k = 0.1f); ///< @overload
 
+/**
+ * @brief Apply a Voronoi-based jagged facet filter to an array.
+ *
+ * For each array cell, finds the nearest Voronoi cell center, samples the input
+ * array at that center, and computes the output elevation as:
+ * \f[
+ * Z_{\text{out}}(x) = \text{lerp}\left(Z(x), Z(x_c) + \text{factor} \cdot
+ * (Z(x_c) - Z(x)), w(x)\right)
+ * \f] where \( x_c \) is the Voronoi cell center, \( x \) is the current cell,
+ * and
+ * \( w(x) \) is a shape factor based on the normalized distance to the cell
+ * edge (at cell edge \( w = 0 \), at Voronoi cell center \( w = 1 \)).
+ *
+ * @param  array        Input array to be filtered.
+ * @param  kw           Frequency / wave numbers for Voronoi cells.
+ * @param  seed         Seed for random jitter of Voronoi cell centers.
+ * @param  jitter       Jitter amount controlling cell randomness (default:
+ *                      {0.5f, 0.5f}).
+ * @param  factor       Strength of the facet / difference effect (default:
+ *                      1.0f).
+ * @param  shape_factor Exponent for distance-to-edge attenuation (default:
+ *                      1.0f; 0 disables edge falloff).
+ * @param  p_mask       Optional mask array for blending.
+ * @param  p_noise_x    Optional noise array for X perturbation.
+ * @param  p_noise_y    Optional noise array for Y perturbation.
+ * @param  bbox         Bounding box for domain mapping (default: {0.f, 1.f,
+ *                      0.f, 1.f}).
+ *
+ * @return              Filtered array.
+ *
+ * **Example**
+ * @include ex_jagged.cpp
+ *
+ * **Result**
+ * @image html ex_jagged.png
+ */
+Array jagged(const Array  &array,
+             glm::vec2     kw,
+             std::uint32_t seed = 0,
+             glm::vec2     jitter = {0.5f, 0.5f},
+             float         factor = 1.f,
+             float         shape_factor = 1.f,
+             const Array  *p_mask = nullptr,
+             const Array  *p_noise_x = nullptr,
+             const Array  *p_noise_y = nullptr,
+             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @brief Apply a Voronoi-based jagged facet filter using an isotropic
+ * frequency.
+ *
+ * @param  array        Input array to be filtered.
+ * @param  kw           Isotropic frequency / wave number for Voronoi cells.
+ * @param  seed         Seed for random jitter of Voronoi cell centers.
+ * @param  jitter       Jitter amount controlling cell randomness (default:
+ *                      {0.5f, 0.5f}).
+ * @param  factor       Strength of the facet / difference effect (default:
+ *                      1.0f).
+ * @param  shape_factor Exponent for distance-to-edge attenuation (default:
+ *                      1.0f; 0 disables edge falloff).
+ * @param  p_mask       Optional mask array for blending.
+ * @param  p_noise_x    Optional noise array for X perturbation.
+ * @param  p_noise_y    Optional noise array for Y perturbation.
+ * @param  bbox         Bounding box for domain mapping (default: {0.f, 1.f,
+ *                      0.f, 1.f}).
+ *
+ * @return              Filtered array.
+ *
+ * @overload
+ */
+Array jagged(const Array  &array,
+             float         kw,
+             std::uint32_t seed = 0,
+             glm::vec2     jitter = {0.5f, 0.5f},
+             float         factor = 1.f,
+             float         shape_factor = 1.f,
+             const Array  *p_mask = nullptr,
+             const Array  *p_noise_x = nullptr,
+             const Array  *p_noise_y = nullptr,
+             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+
 /*! @brief See hmap::laplace */
 void laplace(Array &array, float sigma = 0.2f, int iterations = 3);
 void laplace(Array       &array,
