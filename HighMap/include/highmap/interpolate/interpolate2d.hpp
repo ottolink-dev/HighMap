@@ -17,21 +17,15 @@
 
 #pragma once
 #include <cstddef>
-#include <map>
 #include <vector>
 
-extern "C" // order matters
-{
-#include "config.h"
-//
-#include "nn.h"
-//
-#include "nncommon.h"
-//
-#include "delaunay.h"
-}
-
 #include "highmap/array.hpp"
+
+extern "C"
+{
+  struct delaunay;
+  struct nnai;
+}
 
 namespace hmap
 {
@@ -59,10 +53,23 @@ public:
   NaturalNeighborInterpolator() = default;
   ~NaturalNeighborInterpolator();
 
+  NaturalNeighborInterpolator(const NaturalNeighborInterpolator &) = delete;
+  NaturalNeighborInterpolator &operator=(const NaturalNeighborInterpolator &) =
+      delete;
+
+  NaturalNeighborInterpolator(NaturalNeighborInterpolator &&other) noexcept;
+  NaturalNeighborInterpolator &operator=(
+      NaturalNeighborInterpolator &&other) noexcept;
+
   void build(const std::vector<float> &xin, const std::vector<float> &yin);
 
   void setup_output_points(const std::vector<float> &x,
                            const std::vector<float> &y);
+
+  void setup_output_points(const std::vector<double> &x,
+                           const std::vector<double> &y);
+
+  void setup_output_points(std::vector<double> &&x, std::vector<double> &&y);
 
   void interpolate(const std::vector<float> &values_in,
                    std::vector<float>       &values_out) const;
@@ -73,6 +80,7 @@ private:
   std::vector<double> xout;
   std::vector<double> yout;
   size_t              nout = 0;
+  size_t              nin = 0;
 };
 
 /**
@@ -91,12 +99,12 @@ private:
  *             1).
  * @return     float The bilinear interpolated value.
  */
-inline float bilinear_interp(float f00,
-                             float f10,
-                             float f01,
-                             float f11,
-                             float u,
-                             float v)
+[[nodiscard]] inline constexpr float bilinear_interp(float f00,
+                                                     float f10,
+                                                     float f01,
+                                                     float f11,
+                                                     float u,
+                                                     float v) noexcept
 {
   float a10 = f10 - f00;
   float a01 = f01 - f00;
@@ -104,12 +112,13 @@ inline float bilinear_interp(float f00,
   return f00 + a10 * u + a01 * v + a11 * u * v;
 }
 
-inline float cubic_interpolate(float p[4], float x)
+[[nodiscard]] inline constexpr float cubic_interpolate(const float p[4],
+                                                       float       x) noexcept
 {
-  return p[1] + 0.5 * x *
+  return p[1] + 0.5f * x *
                     (p[2] - p[0] +
-                     x * (2.0 * p[0] - 5.0 * p[1] + 4.0 * p[2] - p[3] +
-                          x * (3.0 * (p[1] - p[2]) + p[3] - p[0])));
+                     x * (2.f * p[0] - 5.f * p[1] + 4.f * p[2] - p[3] +
+                          x * (3.f * (p[1] - p[2]) + p[3] - p[0])));
 }
 
 /**

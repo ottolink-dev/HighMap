@@ -10,7 +10,7 @@
 namespace hmap
 {
 
-bool init_openmp(int num_threads = 8);
+bool init_openmp(int num_threads = -1);
 
 void log_openmp_info();
 

@@ -16,6 +16,10 @@
 namespace hmap
 {
 
+// ==========================================================================
+//  Functions
+// ==========================================================================
+
 /**
  * @brief Converts a length value to a pixel index in a discretized space.
  *
@@ -49,5 +53,16 @@ void grid_xy_vector(std::vector<float> &x,
                     glm::ivec2          shape,
                     glm::vec4           bbox = {0.f, 1.f, 0.f, 1.f},
                     bool                endpoint = false);
+
+/**
+ * @brief Rescale 1D grid vectors from unit square [0, 1] to target bounding
+ * box.
+ * @param x[in, out] Vector x.
+ * @param y[in, out] Vector y.
+ * @param bbox       Target bounding box.
+ */
+void rescale_grid_from_unit_square_to_bbox(std::vector<float> &x,
+                                           std::vector<float> &y,
+                                           glm::vec4           bbox);
 
 } // namespace hmap

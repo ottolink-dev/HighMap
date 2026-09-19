@@ -59,6 +59,18 @@ public:
   Path() = default;
 
   /**
+   * @brief Construct a new Path object based on a cloud of points.
+   * @param cloud The cloud of points used to initialize the path.
+   */
+  Path(const Cloud &cloud) : Cloud(cloud){};
+
+  /**
+   * @brief Move-construct a new Path object based on a cloud of points.
+   * @param cloud Rvalue cloud of points used to initialize the path.
+   */
+  Path(Cloud &&cloud) noexcept : Cloud(std::move(cloud)){};
+
+  /**
    * @brief Construct a new Path object with random positions and values.
    * Initializes a path with a specified number of points, random values, and
    * the option to be open or closed.
@@ -74,7 +86,13 @@ public:
    * path with the specified points and an option to be open or closed.
    * @param points List of points defining the path.
    */
-  Path(std::vector<Point> points) : Cloud(points){};
+  Path(const std::vector<Point> &points) : Cloud(points){};
+
+  /**
+   * @brief Move-construct a new Path object based on a list of points.
+   * @param points Rvalue vector of points defining the path.
+   */
+  Path(std::vector<Point> &&points) noexcept : Cloud(std::move(points)){};
 
   /**
    * @brief Construct a new Path object based on `x` and `y` coordinates.
@@ -83,7 +101,8 @@ public:
    * @param x List of `x` coordinates for the points.
    * @param y List of `y` coordinates for the points.
    */
-  Path(std::vector<float> x, std::vector<float> y) : Cloud(x, y){};
+  Path(const std::vector<float> &x, const std::vector<float> &y)
+      : Cloud(x, y){};
 
   /**
    * @brief Construct a new Path object based on `x`, `y` coordinates, and
@@ -93,7 +112,9 @@ public:
    * @param y List of `y` coordinates for the points.
    * @param v List of values associated with the points.
    */
-  Path(std::vector<float> x, std::vector<float> y, std::vector<float> v)
+  Path(const std::vector<float> &x,
+       const std::vector<float> &y,
+       const std::vector<float> &v)
       : Cloud(x, y, v){};
 
   /**

@@ -199,6 +199,9 @@ bool init_opencl()
 #include "kernels/project_slope_along_direction.cl"
   );
   add(
+#include "kernels/ridge_accentuate.cl"
+  );
+  add(
 #include "kernels/rotate.cl"
   );
   add(

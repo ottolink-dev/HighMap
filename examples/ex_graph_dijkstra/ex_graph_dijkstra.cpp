@@ -15,9 +15,6 @@ int main(void)
 
   graph.print();
 
-  graph.update_adjacency_matrix();
-  graph.update_connectivity();
-
   int              i_point_start = 0;
   int              i_point_end = 4;
   std::vector<int> route = graph.dijkstra(i_point_start, i_point_end);

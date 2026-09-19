@@ -348,6 +348,53 @@ void fold(Array &array,
 void fold(Array &array, int iterations = 3, float k = 0.05f);
 
 /**
+ * @brief Apply a periodic "folding" filter to the array elements using a
+ * periodic phasor profile.
+ *
+ * This function applies a folding filter based on a periodic profile function
+ * (PhasorProfile) rather than successive absolute-value operations. For each
+ * iteration, the function evaluates the periodic profile across the range
+ * defined by [vmin, vmax] with an increasing frequency (doubled per iteration).
+ *
+ * @param array          Input array to which the periodic folding filter is
+ *                       applied.
+ * @param phasor_profile Type of phasor profile to use for folding.
+ * @param delta          Profile shape parameter (defaults to 0.0).
+ * @param vmin           Minimum reference value used as a lower bound for the
+ *                       folding operation.
+ * @param vmax           Maximum reference value used as an upper bound for the
+ *                       folding operation.
+ * @param iterations     Number of iterations for applying the folding filter.
+ *                       The default is 3.
+ */
+void fold_periodic(Array        &array,
+                   PhasorProfile phasor_profile,
+                   float         vmin,
+                   float         vmax,
+                   int           iterations = 3,
+                   float         delta = 0.f);
+
+/**
+ * @brief Apply a periodic "folding" filter with default reference values.
+ *
+ * This overload applies the periodic folding filter using the array's minimum
+ * and maximum values as reference bounds.
+ *
+ * @param array          Input array to which the periodic folding filter is
+ *                       applied.
+ * @param phasor_profile Type of phasor profile to use for folding.
+ * @param iterations     Number of iterations for applying the folding filter.
+ *                       The default is 3.
+ * @param delta          Profile shape parameter (defaults to 0.0).
+ *
+ * @overload
+ */
+void fold_periodic(Array        &array,
+                   PhasorProfile phasor_profile = PhasorProfile::PP_COSINE_STD,
+                   int           iterations = 3,
+                   float         delta = 0.f);
+
+/**
  * @brief Apply a gain correction to the array elements.
  *
  * This function applies a gain correction to the input array using a power law.
@@ -1578,6 +1625,40 @@ void reverse_above_theshold(Array       &array,
                             float transition_extent = 0.f); ///< @overload
 
 /**
+ * @brief Accentuate ridges by gradient-directed resampling along the normal
+ * direction.
+ *
+ * This filter sharpens and accentuates ridgelines in a heightmap. For each
+ * pixel, the terrain surface normal is computed at a scale controlled by
+ * `ir`. The sampling position is displaced along the horizontal normal
+ * direction by an amount proportional to `strength`, and the original heightmap
+ * is resampled.
+ *
+ * @param array    Input array representing the terrain (modified in place).
+ * @param strength Displacement amount / ridge intensity (default is 0.1f).
+ * @param ir       Filter radius used to smooth terrain before computing the
+ *                 normal (default is 0).
+ * @param reverse  If true, inverts displacement direction to form
+ *                 valleys/channels (default is false).
+ *
+ * **Example**
+ * @include ex_ridge_accentuate.cpp
+ *
+ * **Result**
+ * @image html ex_ridge_accentuate.png
+ */
+void ridge_accentuate(Array &array,
+                      float  strength = 0.1f,
+                      int    ir = 0,
+                      bool   reverse = false);
+
+void ridge_accentuate(Array       &array,
+                      const Array *p_mask,
+                      float        strength = 0.1f,
+                      int          ir = 0,
+                      bool         reverse = false); ///< @overload
+
+/**
  * @brief Saturate the array values based on the input interval [vmin, vmax]
  * (the output amplitude is not modified).
  *
@@ -2374,6 +2455,19 @@ Array project_talus_along_direction(const Array &array,
                                     const Array *p_mask,
                                     int          direction = 0,
                                     float        vmin = -FLT_MAX);
+
+/*! @brief See hmap::ridge_accentuate */
+void ridge_accentuate(Array &array,
+                      float  strength = 0.1f,
+                      int    ir = 0,
+                      bool   reverse = false);
+
+/*! @brief See hmap::ridge_accentuate */
+void ridge_accentuate(Array       &array,
+                      const Array *p_mask,
+                      float        strength = 0.1f,
+                      int          ir = 0,
+                      bool         reverse = false);
 
 /*! @brief See hmap::shrink */
 void shrink(Array &array, int ir, int iterations = 1);

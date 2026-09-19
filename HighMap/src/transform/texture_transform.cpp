@@ -64,6 +64,16 @@ void rot270(Texture &texture)
   texture.shape = glm::ivec2(texture.shape.y, texture.shape.x);
 }
 
+void scale_uv(Texture &texture, glm::vec2 uv_scale)
+{
+  if (!validate_non_empty(texture)) return;
+
+  for (auto &ch : texture.channels)
+  {
+    scale_uv(ch, uv_scale);
+  }
+}
+
 Texture transpose(const Texture &texture)
 {
   if (!validate_non_empty(texture)) return Texture();

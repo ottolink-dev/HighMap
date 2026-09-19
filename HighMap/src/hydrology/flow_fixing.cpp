@@ -18,6 +18,7 @@
 #include "highmap/math/array.hpp"
 #include "highmap/morphology.hpp"
 #include "highmap/random.hpp"
+#include "highmap/shortest_path.hpp"
 #include "highmap/transform.hpp"
 
 #include <unordered_map>
@@ -378,7 +379,9 @@ Array flow_fixing_mst(const Array  &z,
                       float         merging_distance,
                       RadialProfile radial_profile,
                       float         radial_profile_parameter,
-                      const Array  *p_noise_r)
+                      const Array  *p_noise_r,
+                      bool          use_midpoint,
+                      float         offset_ratio)
 {
   if (!validate_non_empty(z)) return Array();
   if (p_noise_r && !validate_same_shape(z, *p_noise_r)) return Array();
@@ -393,7 +396,7 @@ Array flow_fixing_mst(const Array  &z,
   auto is_inside = [&shape](int i, int j)
   { return i >= 0 && i < shape.x && j >= 0 && j < shape.y; };
 
-  // --- Dijkstra structures
+  // --- Graph structures
 
   // Disjoint Set (Union-Find) structure for Kruskal's MST
   struct DSU
@@ -474,56 +477,8 @@ Array flow_fixing_mst(const Array  &z,
   int boundary_src_id = n_sinks;
   int total_sources = n_sinks + 1;
 
-  Mat<float>      dist_map(shape, std::numeric_limits<float>::max());
-  Mat<int>        owner_map(shape, -1);
-  Mat<glm::ivec2> prev_cell(shape, {-1, -1});
-
-  std::priority_queue<DijkstraNode,
-                      std::vector<DijkstraNode>,
-                      std::greater<DijkstraNode>>
-      pq;
-
-  // ---- Initialize boundary outlets (Source ID = n_sinks)
-
-  // Weight initial distance by border elevation so flow actively steers
-  // towards lowest natural exit saddles/valleys along the boundary rather than
-  // perpendicular lines.
   glm::vec2 z_range = zb.range();
   float     z_span = std::max(z_range.y - z_range.x, 1e-6f);
-
-  auto init_boundary_cell = [&](int i, int j)
-  {
-    float norm_z = (zb(i, j) - z_range.x) / z_span;
-    float init_d = 5.f *
-                   norm_z; // higher border cells have a starting cost penalty
-    dist_map(i, j) = init_d;
-    owner_map(i, j) = boundary_src_id;
-    prev_cell(i, j) = {i, j};
-    pq.push({init_d, i, j});
-  };
-
-  for (int i = 0; i < shape.x; ++i)
-  {
-    init_boundary_cell(i, 0);
-    init_boundary_cell(i, shape.y - 1);
-  }
-
-  for (int j = 1; j < shape.y - 1; ++j)
-  {
-    init_boundary_cell(0, j);
-    init_boundary_cell(shape.x - 1, j);
-  }
-
-  // --- Initialize sinks (Source ID = 0 ... n_sinks - 1)
-
-  for (int s = 0; s < n_sinks; ++s)
-  {
-    glm::ivec2 p = sinks[s];
-    dist_map(p) = 0.f;
-    owner_map(p) = s;
-    prev_cell(p) = p;
-    pq.push({0.f, p.x, p.y});
-  }
 
   // Store candidate edges between meeting sources: key = (min(u,v), max(u,v))
   std::unordered_map<int64_t, MSTEdge> candidate_edges;
@@ -534,96 +489,281 @@ Array flow_fixing_mst(const Array  &z,
     return (static_cast<int64_t>(u) << 32) | static_cast<int64_t>(v);
   };
 
-  // --- Multi-source Dijkstra expansion
-
-  while (!pq.empty())
+  if (!use_midpoint)
   {
-    DijkstraNode top = pq.top();
-    pq.pop();
+    // --- Multi-source Dijkstra expansion
 
-    int ci = top.i;
-    int cj = top.j;
+    Mat<float>      dist_map(shape, std::numeric_limits<float>::max());
+    Mat<int>        owner_map(shape, -1);
+    Mat<glm::ivec2> prev_cell(shape, {-1, -1});
 
-    if (top.dist > dist_map(ci, cj)) continue;
+    std::priority_queue<DijkstraNode,
+                        std::vector<DijkstraNode>,
+                        std::greater<DijkstraNode>>
+        pq;
 
-    int cur_owner = owner_map(ci, cj);
-
-    for (int k = 0; k < 8; ++k)
+    // initialize boundary outlets (Source ID = n_sinks)
+    auto init_boundary_cell = [&](int i, int j)
     {
-      int ni = ci + di[k];
-      int nj = cj + dj[k];
+      float norm_z = (zb(i, j) - z_range.x) / z_span;
+      float init_d = 5.f *
+                     norm_z; // higher border cells have a starting cost penalty
+      dist_map(i, j) = init_d;
+      owner_map(i, j) = boundary_src_id;
+      prev_cell(i, j) = {i, j};
+      pq.push({init_d, i, j});
+    };
 
-      if (!is_inside(ni, nj)) continue;
+    for (int i = 0; i < shape.x; ++i)
+    {
+      init_boundary_cell(i, 0);
+      init_boundary_cell(i, shape.y - 1);
+    }
 
-      int nb_owner = owner_map(ni, nj);
+    for (int j = 1; j < shape.y - 1; ++j)
+    {
+      init_boundary_cell(0, j);
+      init_boundary_cell(shape.x - 1, j);
+    }
 
-      // When meeting a different source region, record candidate bridge edge
-      if (nb_owner != -1 && nb_owner != cur_owner)
+    // initialize sinks (Source ID = 0 ... n_sinks - 1)
+    for (int s = 0; s < n_sinks; ++s)
+    {
+      glm::ivec2 p = sinks[s];
+      dist_map(p) = 0.f;
+      owner_map(p) = s;
+      prev_cell(p) = p;
+      pq.push({0.f, p.x, p.y});
+    }
+
+    while (!pq.empty())
+    {
+      DijkstraNode top = pq.top();
+      pq.pop();
+
+      int ci = top.i;
+      int cj = top.j;
+
+      if (top.dist > dist_map(ci, cj)) continue;
+
+      int cur_owner = owner_map(ci, cj);
+
+      for (int k = 0; k < 8; ++k)
       {
-        float   total_cost = dist_map(ci, cj) + dist_map(ni, nj) + cd[k];
-        int64_t key = make_key(cur_owner, nb_owner);
+        int ni = ci + di[k];
+        int nj = cj + dj[k];
 
-        if (candidate_edges.find(key) == candidate_edges.end() ||
-            total_cost < candidate_edges[key].cost)
+        if (!is_inside(ni, nj)) continue;
+
+        int nb_owner = owner_map(ni, nj);
+
+        // when meeting a different source region, record candidate bridge edge
+        if (nb_owner != -1 && nb_owner != cur_owner)
         {
-          // Reconstruct path from cur_owner to nb_owner through (ci, cj) - (ni,
-          // nj)
-          std::vector<glm::ivec2> p1;
-          glm::ivec2              curr = {ci, cj};
-          while (true)
+          float   total_cost = dist_map(ci, cj) + dist_map(ni, nj) + cd[k];
+          int64_t key = make_key(cur_owner, nb_owner);
+
+          if (candidate_edges.find(key) == candidate_edges.end() ||
+              total_cost < candidate_edges[key].cost)
           {
-            p1.push_back(curr);
-            glm::ivec2 nxt = prev_cell(curr);
-            if (nxt == curr) break;
-            curr = nxt;
+            // reconstruct path from cur_owner to nb_owner through (ci, cj) -
+            // (ni, nj)
+            std::vector<glm::ivec2> p1;
+            glm::ivec2              curr = {ci, cj};
+            while (true)
+            {
+              p1.push_back(curr);
+              glm::ivec2 nxt = prev_cell(curr);
+              if (nxt == curr) break;
+              curr = nxt;
+            }
+            std::reverse(p1.begin(), p1.end()); // from source to (ci, cj)
+
+            std::vector<glm::ivec2> p2;
+            curr = {ni, nj};
+            while (true)
+            {
+              p2.push_back(curr);
+              glm::ivec2 nxt = prev_cell(curr);
+              if (nxt == curr) break;
+              curr = nxt;
+            } // from (ni, nj) to other source
+
+            p1.insert(p1.end(), p2.begin(), p2.end());
+            candidate_edges[key] = {total_cost,
+                                    cur_owner,
+                                    nb_owner,
+                                    std::move(p1)};
           }
-          std::reverse(p1.begin(), p1.end()); // from source to (ci, cj)
+        }
 
-          std::vector<glm::ivec2> p2;
-          curr = {ni, nj};
-          while (true)
-          {
-            p2.push_back(curr);
-            glm::ivec2 nxt = prev_cell(curr);
-            if (nxt == curr) break;
-            curr = nxt;
-          } // from (ni, nj) to other source
+        // Dijkstra transition cost from (ci, cj) to (ni, nj)
+        float dz = (zb(ni, nj) - zb(ci, cj)) * cd[k];
+        float cost_step = (1.f - elevation_ratio) * cd[k];
 
-          p1.insert(p1.end(), p2.begin(), p2.end());
-          candidate_edges[key] = {total_cost,
-                                  cur_owner,
-                                  nb_owner,
-                                  std::move(p1)};
+        if (dz > 0.f)
+          cost_step += upward_penalization * std::pow(dz, distance_exponent);
+        else
+          cost_step += std::abs(dz);
+
+        cost_step += elevation_ratio * std::max(0.f, zb(ni, nj));
+
+        // valley / concavity affinity: reduce cost in natural valleys and
+        // depressions
+        if (valley_affinity > 0.f)
+        {
+          float val_factor = 1.f - valley_affinity * valley_field(ni, nj);
+          cost_step *= std::max(0.1f, val_factor);
+        }
+
+        float new_dist = dist_map(ci, cj) + cost_step;
+
+        if (new_dist < dist_map(ni, nj))
+        {
+          dist_map(ni, nj) = new_dist;
+          owner_map(ni, nj) = cur_owner;
+          prev_cell(ni, nj) = {ci, cj};
+          pq.push({new_dist, ni, nj});
+        }
+      }
+    }
+  }
+  else
+  {
+    // --- Midpoint displacement pathfinding
+
+    auto compute_path_cost = [&](const std::vector<glm::ivec2> &path) -> float
+    {
+      float cost = 0.f;
+      for (size_t k = 0; k + 1 < path.size(); ++k)
+      {
+        glm::ivec2 curr = path[k];
+        glm::ivec2 nxt = path[k + 1];
+        float      dx = float(nxt.x - curr.x);
+        float      dy = float(nxt.y - curr.y);
+        float      step_len = std::hypot(dx, dy);
+        float      dz = (zb(nxt) - zb(curr));
+        float      cost_step = (1.f - elevation_ratio) * step_len;
+
+        if (dz > 0.f)
+          cost_step += upward_penalization * std::pow(dz, distance_exponent);
+        else
+          cost_step += std::abs(dz);
+
+        cost_step += elevation_ratio * std::max(0.f, zb(nxt));
+
+        if (valley_affinity > 0.f)
+        {
+          float val_factor = 1.f - valley_affinity * valley_field(nxt);
+          cost_step *= std::max(0.1f, val_factor);
+        }
+
+        cost += cost_step;
+      }
+      return cost;
+    };
+
+    // candidate paths between k-nearest sink pairs
+    const int max_neighbors = std::min(n_sinks - 1, 8);
+    for (int u = 0; u < n_sinks; ++u)
+    {
+      std::vector<std::pair<float, int>> neighbors;
+      neighbors.reserve(n_sinks - 1);
+      for (int v = 0; v < n_sinks; ++v)
+      {
+        if (u == v) continue;
+        float d2 = float((sinks[u].x - sinks[v].x) * (sinks[u].x - sinks[v].x) +
+                         (sinks[u].y - sinks[v].y) * (sinks[u].y - sinks[v].y));
+        neighbors.push_back({d2, v});
+      }
+      std::partial_sort(neighbors.begin(),
+                        neighbors.begin() + max_neighbors,
+                        neighbors.end());
+
+      for (int i = 0; i < max_neighbors; ++i)
+      {
+        int v = neighbors[i].second;
+        if (u >= v) continue;
+        int64_t key = make_key(u, v);
+        if (candidate_edges.find(key) != candidate_edges.end()) continue;
+
+        std::vector<glm::ivec2> path = find_path_midpoint(zb,
+                                                          sinks[u],
+                                                          sinks[v],
+                                                          offset_ratio,
+                                                          0,  // max_it
+                                                          4); // steps
+        if (!path.empty())
+        {
+          float cost = compute_path_cost(path);
+          candidate_edges[key] = {cost, u, v, std::move(path)};
+        }
+      }
+    }
+
+    // find lowest boundary cells on each edge
+    glm::ivec2 min_b = {0, 0};
+    glm::ivec2 min_t = {0, shape.y - 1};
+    glm::ivec2 min_l = {0, 0};
+    glm::ivec2 min_r = {shape.x - 1, 0};
+
+    for (int i = 0; i < shape.x; ++i)
+    {
+      if (zb(i, 0) < zb(min_b)) min_b = {i, 0};
+      if (zb(i, shape.y - 1) < zb(min_t)) min_t = {i, shape.y - 1};
+    }
+    for (int j = 0; j < shape.y; ++j)
+    {
+      if (zb(0, j) < zb(min_l)) min_l = {0, j};
+      if (zb(shape.x - 1, j) < zb(min_r)) min_r = {shape.x - 1, j};
+    }
+
+    // candidate paths from each sink to boundary
+    for (int u = 0; u < n_sinks; ++u)
+    {
+      glm::ivec2 p = sinks[u];
+
+      // candidate boundary targets: orthogonal projections + lowest border
+      // points
+      std::vector<glm::ivec2> b_candidates = {{p.x, 0},
+                                              {p.x, shape.y - 1},
+                                              {0, p.y},
+                                              {shape.x - 1, p.y},
+                                              min_b,
+                                              min_t,
+                                              min_l,
+                                              min_r};
+
+      float                   best_cost = std::numeric_limits<float>::max();
+      std::vector<glm::ivec2> best_path;
+
+      for (const auto &b_pt : b_candidates)
+      {
+        std::vector<glm::ivec2> path = find_path_midpoint(zb,
+                                                          p,
+                                                          b_pt,
+                                                          offset_ratio,
+                                                          0,  // max_it
+                                                          4); // steps
+        if (path.empty()) continue;
+
+        float norm_z = (zb(b_pt) - z_range.x) / z_span;
+        float total_cost = compute_path_cost(path) + 5.f * norm_z;
+
+        if (total_cost < best_cost)
+        {
+          best_cost = total_cost;
+          best_path = std::move(path);
         }
       }
 
-      // Dijkstra transition cost from (ci, cj) to (ni, nj)
-      float dz = (zb(ni, nj) - zb(ci, cj)) * cd[k];
-      float cost_step = (1.f - elevation_ratio) * cd[k];
-
-      if (dz > 0.f)
-        cost_step += upward_penalization * std::pow(dz, distance_exponent);
-      else
-        cost_step += std::abs(dz);
-
-      cost_step += elevation_ratio * std::max(0.f, zb(ni, nj));
-
-      // Valley / concavity affinity: reduce cost in natural valleys and
-      // depressions
-      if (valley_affinity > 0.f)
+      if (!best_path.empty())
       {
-        float val_factor = 1.f - valley_affinity * valley_field(ni, nj);
-        cost_step *= std::max(0.1f, val_factor);
-      }
-
-      float new_dist = dist_map(ci, cj) + cost_step;
-
-      if (new_dist < dist_map(ni, nj))
-      {
-        dist_map(ni, nj) = new_dist;
-        owner_map(ni, nj) = cur_owner;
-        prev_cell(ni, nj) = {ci, cj};
-        pq.push({new_dist, ni, nj});
+        int64_t key = make_key(u, boundary_src_id);
+        candidate_edges[key] = {best_cost,
+                                u,
+                                boundary_src_id,
+                                std::move(best_path)};
       }
     }
   }
@@ -757,12 +897,12 @@ Array flow_fixing_mst(const Array  &z,
       glm::ivec2 prev = path[idx - 1];
       int        dx = curr.x - prev.x;
       int        dy = curr.y - prev.y;
-      float      dist = (dx != 0 && dy != 0) ? M_SQRT2 : 1.f;
 
-      // Decrement elevation along downstream flow direction
+      // decrement elevation along downstream flow direction
+      float dist = std::hypot(float(dx), float(dy));
       current_z -= std::max(riverbed_talus, 1e-6f) * dist;
 
-      // Ensure the elevation is strictly lower than the initial terrain
+      // ensure the elevation is strictly lower than the initial terrain
       // elevation so that zb(curr) < z(curr) and river carving is always active
       // along the entire path
       float target_z = std::min(current_z, z(curr) - min_d);

@@ -197,6 +197,22 @@ void rotate(Array &array,
 void rotate_displacement(const Array &delta, float angle, Array &dx, Array &dy);
 
 /**
+ * @brief Scale the array in UV space with wrapping boundary.
+ *
+ * @param array    Input array to be scaled.
+ * @param uv_scale Scaling factors for U and V dimensions.
+ */
+void scale_uv(Array &array, glm::vec2 uv_scale);
+
+/**
+ * @brief Scale the texture in UV space with wrapping boundary.
+ *
+ * @param texture  Input texture to be scaled.
+ * @param uv_scale Scaling factors for U and V dimensions.
+ */
+void scale_uv(Texture &texture, glm::vec2 uv_scale);
+
+/**
  * @brief Translates a 2D array by a specified amount along the x and y axes.
  *
  * This function shifts the contents of the input array by `dx` and `dy` units

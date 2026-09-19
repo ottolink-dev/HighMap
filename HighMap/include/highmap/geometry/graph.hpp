@@ -32,6 +32,26 @@ namespace hmap
 class Cloud;
 
 /**
+ * @brief Graph edge connecting two node indices with an associated weight.
+ */
+struct Edge
+{
+  int   u{0};        ///< First node index
+  int   v{0};        ///< Second node index
+  float weight{0.f}; ///< Edge weight (cost or length)
+};
+
+/**
+ * @brief Graph neighbor information for adjacency representation.
+ */
+struct Neighbor
+{
+  int   target{0};      ///< Neighbor node index
+  float weight{0.f};    ///< Edge weight
+  int   edge_index{-1}; ///< Index into the edge list
+};
+
+/**
  * @brief Graph class, to manipulate graphs in 2D.
  *
  * This class represents a 2D graph, allowing the creation, manipulation, and
@@ -50,348 +70,248 @@ class Graph : public Cloud
 {
 public:
   /**
-   * @brief Edges of the graph.
-   *
-   * This member variable stores the edges of the graph. Each edge is
-   * represented as a pair of indices referring to the vertices in the graph.
-   * The edges are stored as a vector of vectors, where each inner vector
-   * contains the indices of vertices connected by that edge.
-   */
-  std::vector<std::vector<int>> edges = {};
-
-  /**
-   * @brief Edge weights.
-   *
-   * This member variable stores the weights associated with the edges of the
-   * graph. Each weight corresponds to an edge and is stored in a vector. The
-   * weights are used to represent the cost or distance associated with
-   * traveling along an edge in the graph.
-   */
-  std::vector<float> weights = {};
-
-  /**
-   * @brief Store point connectivity.
-   *
-   * This member variable stores the connectivity information of the points in
-   * the graph. It is represented as a vector of vectors, where each inner
-   * vector contains the indices of neighboring vertices connected to the
-   * corresponding point.
-   */
-  std::vector<std::vector<int>> connectivity = {};
-
-  /**
-   * @brief Adjacency matrix.
-   *
-   * This member variable represents the adjacency matrix of the graph. It is a
-   * map where each key is a pair of vertex indices and the value is the weight
-   * of the edge connecting those vertices. The adjacency matrix provides a way
-   * to quickly access the weight of an edge between any two vertices.
-   */
-  std::map<std::pair<int, int>, float> adjacency_matrix;
-
-  /**
    * @brief Construct a new Graph object.
-   *
-   * The default constructor initializes a new `Graph` object. It calls the base
-   * class constructor `Cloud()` to set up any inherited functionality from the
-   * `Cloud` class. This constructor sets up an empty graph with no edges,
-   * weights, connectivity, or adjacency matrix.
    */
-  Graph() : Cloud(){};
+  Graph() = default;
 
   /**
    * @brief Construct a new Graph object based on a cloud of points.
-   *
-   * This constructor initializes a `Graph` object using a `Cloud` object. The
-   * `Cloud` object provides the points which will be used to construct the
-   * graph. This constructor is useful when you have a `Cloud` object and want
-   * to create a `Graph` representation from it.
-   *
    * @param cloud The cloud of points used to initialize the graph.
    */
-  Graph(Cloud cloud) : Cloud(cloud){};
+  Graph(Cloud cloud);
 
   /**
    * @brief Construct a new Graph object based on a list of points.
-   *
-   * This constructor initializes a `Graph` object using a vector of `Point`
-   * objects. The `Point` objects are used to populate the vertices of the
-   * graph. This constructor is useful when you have a list of `Point` objects
-   * and want to create a `Graph` representation from them.
-   *
    * @param points The list of points used to initialize the graph.
    */
-  Graph(std::vector<Point> points) : Cloud(points){};
+  Graph(std::vector<Point> points);
 
   /**
    * @brief Construct a new Graph object based on x and y coordinates.
-   *
-   * This constructor initializes a `Graph` object using separate vectors for x
-   * and y coordinates. The points are created from these coordinates and used
-   * to populate the vertices of the graph. This constructor is useful when you
-   * have x and y coordinates and want to create a `Graph` representation from
-   * them.
-   *
    * @param x Vector of x coordinates for the points.
    * @param y Vector of y coordinates for the points.
    */
-  Graph(std::vector<float> x, std::vector<float> y) : Cloud(x, y){};
+  Graph(std::vector<float> x, std::vector<float> y);
 
   /**
-   * @brief Add an edge to the graph.
-   *
-   * This method adds a new edge to the graph. The edge is specified by a vector
-   * of two indices representing the points connected by the edge. The weight of
-   * the edge can be provided explicitly; if not provided, the Euclidean
-   * distance between the connected points is used as the default weight.
-   *
-   * @param edge   A vector of two integers representing the indices of the
-   * points connected by the edge.
-   * @param weight The weight of the edge. If not provided, the default weight
-   * is calculated as the Euclidean distance between the points.
+   * @brief Add an edge connecting two node indices with explicit weight.
+   * @param u Node 1 index.
+   * @param v Node 2 index.
+   * @param weight Edge weight.
    */
-  void add_edge(std::vector<int> edge, float weight);
+  void add_edge(int u, int v, float weight);
 
   /**
-   * @brief Add an edge to the graph with default weight.
-   *
-   * This method adds a new edge to the graph. The edge is specified by a vector
-   * of two indices representing the points connected by the edge. The weight of
-   * the edge is calculated as the Euclidean distance between the connected
-   * points.
-   *
-   * @param edge A vector of two integers representing the indices of the points
-   *             connected by the edge.
+   * @brief Add an edge connecting two node indices with default geometric
+   * distance weight.
+   * @param u Node 1 index.
+   * @param v Node 2 index.
    */
-  void add_edge(std::vector<int> edge);
+  void add_edge(int u, int v);
+
+  /**
+   * @brief Add an edge with explicit weight.
+   * @param edge Pair of node indices.
+   * @param weight Edge weight.
+   */
+  void add_edge(glm::ivec2 edge, float weight);
+
+  /**
+   * @brief Add an edge with default geometric distance weight.
+   * @param edge Pair of node indices.
+   */
+  void add_edge(glm::ivec2 edge);
+
+  /**
+   * @brief Clear all edges from the graph.
+   */
+  void clear_edges() noexcept;
+
+  /**
+   * @brief Get the degree (number of incident edges) of node `u`.
+   * @param u Node index.
+   * @return Degree of node `u`.
+   */
+  size_t degree(int u) const;
 
   /**
    * @brief Return the shortest route between two points using Dijkstra's
    * algorithm.
    *
-   * This method computes the shortest path from a specified source point to a
-   * target point in the graph using Dijkstra's algorithm. It returns a vector
-   * of point indices representing the route from the source to the target
-   * point.
-   *
-   * @param  source_point_index The index of the starting point in the graph.
-   * @param  target_point_index The index of the ending point in the graph.
-   * @return                    std::vector<int> A vector of point indices
-   *                            representing the shortest path from the source
-   * to the target.
+   * @param  source_point_index Starting point index.
+   * @param  target_point_index Ending point index.
+   * @return std::vector<int> Path of node indices from source to target.
    *
    * **Example**
    * @include ex_graph_dijkstra.cpp
    */
-  std::vector<int> dijkstra(int source_point_index, int target_point_index);
+  std::vector<int> dijkstra(int source_point_index,
+                            int target_point_index) const;
 
   /**
-   * @brief Get the length of edge `k`.
-   *
-   * This method calculates the Euclidean length of a specific edge in the
-   * graph. The edge is identified by the index `k`, and its length is
-   * determined by the distance between the two vertices connected by the edge.
-   *
-   * @param  k Index of the edge for which the length is to be computed.
-   * @return   float The Euclidean length of the edge.
+   * @brief Check whether the graph has no edges.
+   * @return True if no edges, false otherwise.
    */
-  float get_edge_length(int k);
+  bool empty_edges() const noexcept;
+
+  /**
+   * @brief Get an edge by index.
+   * @param k Edge index.
+   * @return Edge structure.
+   */
+  Edge get_edge(size_t k) const;
+
+  /**
+   * @brief Get the Euclidean length of edge `k`.
+   * @param k Edge index.
+   * @return float Euclidean length of the edge.
+   */
+  float get_edge_length(size_t k) const;
 
   /**
    * @brief Return x coordinates of the edges (as pairs).
-   *
-   * This method returns the x coordinates of the endpoints of each edge in the
-   * graph. The coordinates are returned as a vector of floats, where each pair
-   * of floats represents the x coordinates of an edge's endpoints.
-   *
    * @return std::vector<float> The x coordinates of the edges.
    */
-  std::vector<float> get_edge_x_pairs();
+  std::vector<float> get_edge_x_pairs() const;
 
   /**
    * @brief Return y coordinates of the edges (as pairs).
-   *
-   * This method returns the y coordinates of the endpoints of each edge in the
-   * graph. The coordinates are returned as a vector of floats, where each pair
-   * of floats represents the y coordinates of an edge's endpoints.
-   *
    * @return std::vector<float> The y coordinates of the edges.
    */
-  std::vector<float> get_edge_y_pairs();
+  std::vector<float> get_edge_y_pairs() const;
 
   /**
-   * @brief Get the length of all the edges.
-   *
-   * This method returns the lengths of all the edges in the graph. The lengths
-   * are computed using the Euclidean distance formula, and the result is
-   * returned as a vector of floats.
-   *
-   * @return std::vector<float> The lengths of all the edges in the graph.
+   * @brief Get the edge list.
+   * @return Const reference to the edge vector.
    */
-  std::vector<float> get_lengths();
+  const std::vector<Edge> &get_edges() const noexcept;
+
+  /**
+   * @brief Get the Euclidean lengths of all the edges.
+   * @return std::vector<float> The lengths of all the edges.
+   */
+  std::vector<float> get_lengths() const;
 
   /**
    * @brief Get the number of edges in the graph.
-   *
-   * This method returns the total number of edges present in the graph. The
-   * edges are stored in a vector, and this method returns the size of that
-   * vector, which represents the number of edges.
-   *
-   * @return size_t The number of edges in the graph.
+   * @return size_t Number of edges.
    */
-  size_t get_nedges();
+  size_t get_nedges() const noexcept;
 
   /**
-   * @brief Generate a Minimum Spanning Tree (MST) of the graph using Prim's
-   * algorithm.
-   *
-   * This method creates a Minimum Spanning Tree from the graph using Prim's
-   * algorithm. It returns a new `Graph` object that represents the MST, which
-   * connects all the points in the graph with the minimum total edge weight.
-   *
-   * @return Graph The Minimum Spanning Tree (MST) of the original graph.
+   * @brief Generate a Minimum Spanning Tree (MST) using Prim's algorithm.
+   * @return Graph The Minimum Spanning Tree (MST) of the graph.
    *
    * **Example**
-   * @include ex_graph_minimum_spanning_tree_prim.cpp Result**
-   * @image html ex_graph_minimum_spanning_tree_prim0.png
-   * @image html ex_graph_minimum_spanning_tree_prim1.png
+   * @include ex_graph_minimum_spanning_tree_prim.cpp
    */
-  Graph minimum_spanning_tree_prim();
+  Graph minimum_spanning_tree_prim() const;
+
+  /**
+   * @brief Get the neighbors of node `u`.
+   * @param u Node index.
+   * @return List of Neighbor objects.
+   */
+  const std::vector<Neighbor> &neighbors(int u) const;
+
+  /**
+   * @brief Get the number of edges in the graph.
+   * @return size_t Total number of edges.
+   */
+  size_t num_edges() const noexcept;
 
   /**
    * @brief Print the graph data to the standard output.
-   *
-   * This method prints the current state of the graph, including point
-   * coordinates, edges, and edge weights.
    */
-  void print();
+  void print() const;
 
   /**
-   * @brief Remove orphan points from the graph.
-   *
-   * Orphan points are points that are not connected to any edges. This method
-   * removes such points from the graph and returns a new `Graph` object that
-   * excludes these orphan points.
-   *
+   * @brief Remove orphan points (points with no connected edges).
    * @return Graph A new graph object with orphan points removed.
    */
-  Graph remove_orphan_points();
+  Graph remove_orphan_points() const;
+
+  /**
+   * @brief Set the weight of edge `k`.
+   * @param k Edge index.
+   * @param weight New weight.
+   */
+  void set_edge_weight(size_t k, float weight);
+
+  /**
+   * @brief Set the weight of an edge between node `u` and node `v`.
+   * @param u Node 1 index.
+   * @param v Node 2 index.
+   * @param weight New weight.
+   */
+  void set_edge_weight(int u, int v, float weight);
 
   /**
    * @brief Project the graph to an array and optionally color by edge weight.
-   *
-   * This method projects the graph onto a 2D array. The array's elements are
-   * filled based on the graph's structure, and optionally, the color can
-   * represent edge weights. This allows visual representation of the graph in
-   * array form.
-   *
-   * @param array                The input array to project the graph onto.
-   * @param bbox                 The bounding box for the array.
-   * @param color_by_edge_weight If `true`, colors the array based on edge
-   *                             weights; otherwise, colors by node values.
+   * @param array The input array to project onto.
+   * @param bbox Bounding box for projection.
+   * @param color_by_edge_weight Color lines by edge weight if true.
    */
-  void to_array(Array &array, glm::vec4 bbox, bool color_by_edge_weight = true);
+  void to_array(Array    &array,
+                glm::vec4 bbox,
+                bool      color_by_edge_weight = true) const;
 
   /**
    * @brief Apply fractalization to graph edges and project to an array.
-   *
-   * This method applies a fractalization process to the graph edges, creating a
-   * more complex structure, and then projects the result onto an array. The
-   * fractalization includes multiple iterations and random Gaussian
-   * displacement to generate a fractal effect. The parameters control the
-   * number of iterations, randomness, and how the graph path is altered.
-   *
-   * @param array       The input array to project the fractalized graph onto.
-   * @param bbox        The bounding box for the array.
-   * @param iterations  Number of fractalization iterations to perform.
-   * @param seed        Random seed number for stochastic processes.
-   * @param sigma       Half-width of the Gaussian displacement normalized by
-   * the distance between points.
-   * @param orientation Displacement orientation: 0 for random inward/outward, 1
-   *                    to inflate, -1 to deflate.
-   * @param persistence Noise persistence factor with respect to iteration
-   * number.
+   * @param array Destination array.
+   * @param bbox Bounding box.
+   * @param iterations Number of fractal iterations.
+   * @param seed Random seed.
+   * @param sigma Displacement magnitude.
+   * @param orientation Displacement orientation.
+   * @param persistence Octave persistence.
    */
   void to_array_fractalize(Array        &array,
                            glm::vec4     bbox,
                            int           iterations,
                            std::uint32_t seed,
                            float         sigma = 0.3f,
-                           int           orientation = 0.f,
-                           float         persistence = 1.f);
+                           int           orientation = 0,
+                           float         persistence = 1.f) const;
 
   /**
    * @brief Generate an array filled with the Signed Distance Function (SDF) to
    * the graph.
-   *
-   * This method computes the signed distance function for the graph, which
-   * measures the distance of each point in the array to the nearest edge of the
-   * graph. The result is projected onto an output array. The optional noise
-   * arrays can be used for domain warping.
-   *
-   * @param  shape      The shape of the output array.
-   * @param  bbox       The bounding box defining the area over which the SDF is
-   *                    computed.
-   * @param  p_noise_x  Reference to the input noise array for domain warping in
-   *                    the x-direction (optional).
-   * @param  p_noise_y  Reference to the input noise array for domain warping in
-   *                    the y-direction (optional).
-   * @param  bbox_array The bounding box of the destination array.
-   * @return            Array The resulting array with the signed distance
-   *                    function values.
-   *
-   * **Example**
-   * @include ex_cloud_sdf.cpp Result**
-   * @image html ex_cloud_sdf.png
+   * @param shape Output array dimensions.
+   * @param bbox Bounding box.
+   * @param p_noise_x Optional X noise array for domain warping.
+   * @param p_noise_y Optional Y noise array for domain warping.
+   * @param bbox_array Output array bounding box.
+   * @return Array SDF array.
    */
   Array to_array_sdf(glm::ivec2 shape,
                      glm::vec4  bbox,
                      Array     *p_noise_x = nullptr,
                      Array     *p_noise_y = nullptr,
-                     glm::vec4  bbox_array = {0.f, 1.f, 0.f, 1.f});
+                     glm::vec4  bbox_array = {0.f, 1.f, 0.f, 1.f}) const;
 
   /**
    * @brief Export graph data to CSV files.
-   *
-   * This method exports the graph data to two separate CSV files: one for node
-   * coordinates and one for the adjacency matrix. The node coordinates file
-   * contains the `(x, y)` coordinates of the graph's nodes, and the adjacency
-   * matrix file contains the graph's connectivity information.
-   *
-   * @param fname_xy        Filename for the CSV file containing node `(x, y)`
-   * coordinates.
-   * @param fname_adjacency Filename for the CSV file containing the adjacency
-   *                        matrix.
+   * @param fname_xy Output CSV for node (x, y, v).
+   * @param fname_edges Output CSV for edges (u, v, weight).
    */
-  void to_csv(std::string fname_xy, std::string fname_adjacency);
+  void to_csv(const std::string &fname_xy,
+              const std::string &fname_edges) const;
 
   /**
    * @brief Export the graph as a PNG image file.
-   *
-   * This method exports a visual representation of the graph as a PNG image
-   * file. The resolution of the image can be specified using the `shape`
-   * parameter.
-   *
-   * @param fname The file name for the PNG image.
-   * @param shape The resolution of the image in pixels (width, height).
+   * @param fname Output image path.
+   * @param shape Image dimensions in pixels.
    */
-  void to_png(std::string fname, glm::ivec2 shape = {512, 512});
+  void to_png(const std::string &fname, glm::ivec2 shape = {512, 512}) const;
 
-  /**
-   * @brief Update the adjacency matrix of the graph.
-   *
-   * This method updates the adjacency matrix based on the current graph edges
-   * and weights. The adjacency matrix represents the connectivity between nodes
-   * in the graph.
-   */
-  void update_adjacency_matrix();
+private:
+  std::vector<Edge>                  edge_list;
+  std::vector<std::vector<Neighbor>> adj_list;
 
-  /**
-   * @brief Update the point connectivity information.
-   *
-   * This method updates the point connectivity data, which describes the
-   * relationships between nodes in the graph based on the current edges.
-   */
-  void update_connectivity();
+  static const std::vector<Neighbor> empty_neighbors;
+
+  void ensure_adj_capacity(size_t node_count);
 };
+
 } // namespace hmap

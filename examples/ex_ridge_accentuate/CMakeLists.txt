@@ -1,0 +1,2 @@
+add_executable(ex_ridge_accentuate ex_ridge_accentuate.cpp)
+target_link_libraries(ex_ridge_accentuate highmap)

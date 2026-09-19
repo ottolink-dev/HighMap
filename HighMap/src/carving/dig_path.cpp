@@ -38,8 +38,8 @@ void dig_path(Array    &z,
     path_copy.set_values_from_array(z, bbox);
 
     for (size_t k = 1; k < path_copy.size(); k++)
-      if (path_copy.points[k].v > path_copy.points[k - 1].v)
-        path_copy.points[k].v = path_copy.points[k - 1].v;
+      if (path_copy[k].v > path_copy[k - 1].v)
+        path_copy[k].v = path_copy[k - 1].v;
 
     path_copy.to_array(mask, bbox);
     zf = local_max(mask, 3 * (width + decay));

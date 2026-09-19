@@ -278,4 +278,51 @@ void hydraulic_particle_multiscale(Array                  &z,
   }
 }
 
+void hydraulic_particle_multiscale(Array                  &z,
+                                   const Array            *p_mask,
+                                   std::uint32_t           seed,
+                                   const std::vector<int> &steps_per_level,
+                                   const Array            *p_bedrock,
+                                   const Array            *p_moisture_map,
+                                   const Array            *p_elevation_shift,
+                                   Array                  *p_erosion_map,
+                                   Array                  *p_deposition_map,
+                                   float                   particles_ratio,
+                                   float                   c_capacity,
+                                   float                   c_erosion,
+                                   float                   c_deposition,
+                                   float                   c_inertia,
+                                   float                   c_gravity,
+                                   float                   drag_rate,
+                                   float                   evap_rate,
+                                   float                   talus_slope,
+                                   float                   collapse_rate,
+                                   float                   mix)
+{
+  apply_with_mask(z,
+                  p_mask,
+                  [&](Array &a)
+                  {
+                    gpu::hydraulic_particle_multiscale(a,
+                                                       seed,
+                                                       steps_per_level,
+                                                       p_bedrock,
+                                                       p_moisture_map,
+                                                       p_elevation_shift,
+                                                       p_erosion_map,
+                                                       p_deposition_map,
+                                                       particles_ratio,
+                                                       c_capacity,
+                                                       c_erosion,
+                                                       c_deposition,
+                                                       c_inertia,
+                                                       c_gravity,
+                                                       drag_rate,
+                                                       evap_rate,
+                                                       talus_slope,
+                                                       collapse_rate,
+                                                       mix);
+                  });
+}
+
 } // namespace hmap::gpu

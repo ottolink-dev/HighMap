@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "highmap/array.hpp"
+#include "highmap/geometry/path.hpp"
 #include "highmap/geometry/point.hpp"
 #include "highmap/internal/validation.hpp"
 
@@ -104,12 +105,16 @@ std::vector<glm::ivec2> find_path_midpoint(const Array &z,
     std::vector<glm::ivec2> new_idx;
     new_idx.reserve(idx.size() * 2);
 
+    bool any_subdivided = false;
     for (size_t k = 0; k < idx.size() - 1; ++k)
     {
       const glm::ivec2 &a = idx[k];
       const glm::ivec2 &b = idx[k + 1];
 
       new_idx.push_back(a);
+
+      // skip if already adjacent pixels (8-neighborhood)
+      if (std::max(std::abs(a.x - b.x), std::abs(a.y - b.y)) <= 1) continue;
 
       Point pa(float(a.x), float(a.y));
       Point pb(float(b.x), float(b.y));
@@ -128,18 +133,87 @@ std::vector<glm::ivec2> find_path_midpoint(const Array &z,
       ij.y = std::clamp(ij.y, 0, shape.y - 1);
 
       // avoid duplicates
-      if (ij != new_idx.back()) new_idx.push_back(ij);
+      if (ij != new_idx.back() && ij != b)
+      {
+        new_idx.push_back(ij);
+        any_subdivided = true;
+      }
     }
 
     new_idx.push_back(idx.back());
 
-    // early exit if stabilized
-    if (new_idx.size() == idx.size()) break;
+    // early exit if stabilized or no segment needed subdivision
+    if (!any_subdivided || new_idx.size() == idx.size()) break;
 
     idx = std::move(new_idx);
   }
 
   return idx;
+}
+
+void find_path_midpoint(const Array      &z,
+                        glm::ivec2        ij_start,
+                        glm::ivec2        ij_end,
+                        std::vector<int> &i_path,
+                        std::vector<int> &j_path,
+                        float             offset_ratio,
+                        int               max_it,
+                        int               steps)
+{
+  std::vector<glm::ivec2> indices = find_path_midpoint(z,
+                                                       ij_start,
+                                                       ij_end,
+                                                       offset_ratio,
+                                                       max_it,
+                                                       steps);
+
+  i_path.clear();
+  j_path.clear();
+  i_path.reserve(indices.size());
+  j_path.reserve(indices.size());
+
+  for (const auto &p : indices)
+  {
+    i_path.push_back(p.x);
+    j_path.push_back(p.y);
+  }
+}
+
+Path find_path_midpoint(const Array &z,
+                        glm::ivec2   ij_start,
+                        glm::ivec2   ij_end,
+                        glm::vec4    bbox,
+                        float        offset_ratio,
+                        int          max_it,
+                        int          steps)
+{
+  if (!validate_non_empty(z)) return Path();
+
+  std::vector<glm::ivec2> indices = find_path_midpoint(z,
+                                                       ij_start,
+                                                       ij_end,
+                                                       offset_ratio,
+                                                       max_it,
+                                                       steps);
+
+  std::vector<Point> points;
+  points.reserve(indices.size());
+
+  const float lx = bbox.y - bbox.x;
+  const float ly = bbox.w - bbox.z;
+  const float denom_x = (z.shape.x > 1) ? float(z.shape.x - 1) : 1.f;
+  const float denom_y = (z.shape.y > 1) ? float(z.shape.y - 1) : 1.f;
+
+  for (const auto &p : indices)
+  {
+    float px = (float(p.x) / denom_x) * lx + bbox.x;
+    float py = (float(p.y) / denom_y) * ly + bbox.z;
+    float pv = z(p);
+
+    points.emplace_back(px, py, pv);
+  }
+
+  return Path(points);
 }
 
 } // namespace hmap

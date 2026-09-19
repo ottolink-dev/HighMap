@@ -27,8 +27,8 @@ int main(void)
   for (size_t k = 0; k < path_cpy.size(); ++k)
   {
     float amp = std::clamp(dr * c[k], -0.1f, 0.1f);
-    path_cpy.points[k].x -= amp * normals[k].x;
-    path_cpy.points[k].y -= amp * normals[k].y;
+    path_cpy[k].x -= amp * normals[k].x;
+    path_cpy[k].y -= amp * normals[k].y;
   }
 
   auto z2 = hmap::Array(shape);

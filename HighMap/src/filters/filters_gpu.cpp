@@ -389,6 +389,42 @@ Array project_talus_along_direction(const Array &array,
       { return project_talus_along_direction(a, talus, direction, vmin); });
 }
 
+void ridge_accentuate(Array &array, float strength, int ir, bool reverse)
+{
+  if (!validate_non_empty(array)) return;
+
+  auto run = clwrapper::Run("ridge_accentuate");
+
+  Array array_f = array;
+  if (ir > 0) gpu::smooth_cpulse(array_f, ir);
+
+  if (reverse) strength *= -1.f;
+
+  run.bind_imagef("array", array.vector, array.shape.x, array.shape.y);
+  run.bind_imagef("array_f", array_f.vector, array.shape.x, array.shape.y);
+  run.bind_imagef("out", array.vector, array.shape.x, array.shape.y, true);
+  run.bind_arguments(array.shape.x, array.shape.y, strength);
+
+  run.execute({array.shape.x, array.shape.y});
+
+  run.read_imagef("out");
+}
+
+void ridge_accentuate(Array       &array,
+                      const Array *p_mask,
+                      float        strength,
+                      int          ir,
+                      bool         reverse)
+{
+  if (!validate_non_empty(array)) return;
+  if (p_mask && !validate_same_shape(array, *p_mask)) return;
+
+  apply_with_mask(array,
+                  p_mask,
+                  [&](Array &a)
+                  { gpu::ridge_accentuate(a, strength, ir, reverse); });
+}
+
 void shrink(Array &array, int ir, int iterations)
 {
   if (!validate_non_empty(array)) return;

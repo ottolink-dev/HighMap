@@ -188,7 +188,7 @@ private:
 
 struct ScopedTimer
 {
-  ScopedTimer(const char *id)
+  ScopedTimer(const char *id) : id(id)
   {
     Timer::Start(id);
   }

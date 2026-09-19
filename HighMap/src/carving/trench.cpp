@@ -51,8 +51,7 @@ void trench(Array                       &z,
 
   // path working copy
   Path   path_copy = path;
-  auto  &points = path_copy.points;
-  size_t npts = points.size();
+  size_t npts = path_copy.size();
 
   // --- Force path resolution
 
@@ -85,7 +84,7 @@ void trench(Array                       &z,
     t = smoothstep3(t);
 
     // apply
-    points[k].v += t * elevation_shift;
+    path_copy[k].v += t * elevation_shift;
   }
 
   // monotonicity
@@ -93,23 +92,23 @@ void trench(Array                       &z,
   {
     // minimum elevation delta (use when monotonicity is enforced)
     float dz_min = min_slope *
-                   glm::length(glm::vec2(points[k].x - points[k - 1].x,
-                                         points[k].y - points[k - 1].y));
+                   glm::length(glm::vec2(path_copy[k].x - path_copy[k - 1].x,
+                                         path_copy[k].y - path_copy[k - 1].y));
 
     switch (longitudinal_profile)
     {
     case ElevationLongitudinalProfile::ELP_FLAT:
-      points[k].v = points[0].v;
+      path_copy[k].v = path_copy[0].v;
       break;
 
     case ElevationLongitudinalProfile::ELP_DECREASING:
     {
-      points[k].v = std::min(points[k].v, points[k - 1].v - dz_min);
+      path_copy[k].v = std::min(path_copy[k].v, path_copy[k - 1].v - dz_min);
     }
     break;
 
     case ElevationLongitudinalProfile::ELP_INCREASING:
-      points[k].v = std::max(points[k].v, points[k - 1].v + dz_min);
+      path_copy[k].v = std::max(path_copy[k].v, path_copy[k - 1].v + dz_min);
       break;
 
     case ElevationLongitudinalProfile::ELP_UNCHANGED:
@@ -120,13 +119,10 @@ void trench(Array                       &z,
 
   // --- SDF-based transform
 
-  Array zp(shape);
+  Array zp = z;
   Array blending_mask(shape);
 
-  std::vector<float> xp = path_copy.get_x();
-  std::vector<float> yp = path_copy.get_y();
-
-  KDTreeContext tree(xp, yp);
+  KDTree tree(path_copy);
 
   // interpolation base grid
   std::vector<float> xg, yg;
@@ -228,11 +224,56 @@ void trench(Array                       &z,
   auto profile_fct = get_radial_profile_function(radial_profile,
                                                  radial_profile_parameter);
 
-  std::vector<size_t> indices;
-  std::vector<float>  distances;
+  // calculate bounding box of influence
+  float max_effective_width = width;
+  if (p_noise_r)
+    max_effective_width = std::max(0.f, width * (1.f + p_noise_r->max()));
+  if (enable_width_curvature_scaling)
+    max_effective_width *= std::max(1.f, curv_width_ratio_max);
 
-  for (int j = 0; j < shape.y; ++j)
-    for (int i = 0; i < shape.x; ++i)
+  float xmin_path = path_copy[0].x;
+  float xmax_path = path_copy[0].x;
+  float ymin_path = path_copy[0].y;
+  float ymax_path = path_copy[0].y;
+
+  for (size_t k = 1; k < npts; ++k)
+  {
+    xmin_path = std::min(xmin_path, path_copy[k].x);
+    xmax_path = std::max(xmax_path, path_copy[k].x);
+    ymin_path = std::min(ymin_path, path_copy[k].y);
+    ymax_path = std::max(ymax_path, path_copy[k].y);
+  }
+
+  float xmin_roi = xmin_path - max_effective_width;
+  float xmax_roi = xmax_path + max_effective_width;
+  float ymin_roi = ymin_path - max_effective_width;
+  float ymax_roi = ymax_path + max_effective_width;
+
+  float dx = (bbox.y - bbox.x) / float(shape.x);
+  float dy = (bbox.w - bbox.z) / float(shape.y);
+
+  int imin = std::clamp(static_cast<int>(std::floor((xmin_roi - bbox.x) / dx)),
+                        0,
+                        shape.x - 1);
+  int imax = std::clamp(static_cast<int>(std::ceil((xmax_roi - bbox.x) / dx)),
+                        0,
+                        shape.x - 1);
+  int jmin = std::clamp(static_cast<int>(std::floor((ymin_roi - bbox.z) / dy)),
+                        0,
+                        shape.y - 1);
+  int jmax = std::clamp(static_cast<int>(std::ceil((ymax_roi - bbox.z) / dy)),
+                        0,
+                        shape.y - 1);
+
+#pragma omp parallel for schedule(dynamic, 16)
+  for (int j = jmin; j <= jmax; ++j)
+  {
+    std::vector<size_t> indices;
+    std::vector<float>  distances;
+    indices.reserve(k_neighbors);
+    distances.reserve(k_neighbors);
+
+    for (int i = imin; i <= imax; ++i)
     {
       float xi = xg[i];
       float yi = yg[j];
@@ -252,7 +293,7 @@ void trench(Array                       &z,
 
       if (enable_width_depth_scaling)
       {
-        float dz = std::abs((z(i, j) - points[k0].v) / elevation_shift);
+        float dz = std::abs((z(i, j) - path_copy[k0].v) / elevation_shift);
         effective_width *= std::clamp(dz, 0.f, 1.f);
       }
 
@@ -262,9 +303,9 @@ void trench(Array                       &z,
         size_t km = std::max(k0 - 1, size_t(0));
         size_t kp = std::min(k0 + 1, npts);
 
-        float s = -classify_point(points[km],
-                                  points[k0],
-                                  points[kp],
+        float s = -classify_point(path_copy[km],
+                                  path_copy[k0],
+                                  path_copy[kp],
                                   Point(xi, yi));
 
         // longitudinal scaling
@@ -281,9 +322,15 @@ void trench(Array                       &z,
             curv_shape_factor[k0]);
       }
 
+      if (effective_width <= 0.f ||
+          distances[0] > effective_width * effective_width)
+      {
+        continue;
+      }
+
       for (size_t k = 0; k < k_neighbors; ++k)
       {
-        float zref = points[indices[k]].v;
+        float zref = path_copy[indices[k]].v;
         float r = std::sqrt(distances[k]) / effective_width;
 
         if (r >= 0.f && r <= 1.f)
@@ -301,6 +348,7 @@ void trench(Array                       &z,
       zp(i, j) = value / float(k_neighbors);
       blending_mask(i, j) = value_mask / float(k_neighbors);
     }
+  }
 
   // --- outputs
 

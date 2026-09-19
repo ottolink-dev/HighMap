@@ -28,7 +28,7 @@ Array interpolate2d_nearest(glm::ivec2                shape,
   if (p_noise_y && !validate_same_shape(shape, *p_noise_y)) return Array();
 
   // KD-tree
-  KDTreeContext tree(x, y);
+  KDTree tree(x, y);
 
   // interpolation base grid
   std::vector<float> xg, yg;
@@ -36,9 +36,6 @@ Array interpolate2d_nearest(glm::ivec2                shape,
 
   // interpolate
   Array out(shape);
-
-  std::vector<size_t> indices;
-  std::vector<float>  distances;
 
   for (int j = 0; j < shape.y; ++j)
     for (int i = 0; i < shape.x; ++i)
@@ -48,13 +45,7 @@ Array interpolate2d_nearest(glm::ivec2                shape,
       float xi = xg[i] + dx;
       float yi = yg[j] + dy;
 
-      tree.neighbor_search(xi,
-                           yi,
-                           /* k_neighbors */ 1,
-                           indices,
-                           distances);
-
-      out(i, j) = values[indices[0]];
+      out(i, j) = values[tree.nearest(xi, yi)];
     }
 
   return out;

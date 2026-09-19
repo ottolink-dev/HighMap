@@ -10,8 +10,8 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
-#include <list>
 #include <map>
+#include <queue>
 #include <string>
 #include <utility>
 #include <vector>
@@ -27,180 +27,281 @@
 namespace hmap
 {
 
-std::vector<int> Graph::dijkstra(int source_point_index, int target_point_index)
+const std::vector<Neighbor> Graph::empty_neighbors = {};
+
+// --- Constructors
+
+Graph::Graph(Cloud cloud) : Cloud(std::move(cloud))
 {
-  std::vector<float> dist(this->size());
-  std::vector<int>   prev(this->size());
+  this->ensure_adj_capacity(this->size());
+}
+
+Graph::Graph(std::vector<Point> points) : Cloud(std::move(points))
+{
+  this->ensure_adj_capacity(this->size());
+}
+
+Graph::Graph(std::vector<float> x, std::vector<float> y)
+    : Cloud(std::move(x), std::move(y))
+{
+  this->ensure_adj_capacity(this->size());
+}
+
+// --- Private helpers
+
+void Graph::ensure_adj_capacity(size_t node_count)
+{
+  if (this->adj_list.size() < node_count) this->adj_list.resize(node_count);
+}
+
+// --- Public Graph methods (alphabetical)
+
+void Graph::add_edge(int u, int v, float weight)
+{
+  size_t max_node = static_cast<size_t>(std::max(u, v) + 1);
+  this->ensure_adj_capacity(std::max(this->size(), max_node));
+
+  int edge_idx = static_cast<int>(this->edge_list.size());
+  this->edge_list.push_back({u, v, weight});
+
+  if (u >= 0 && static_cast<size_t>(u) < this->adj_list.size())
+    this->adj_list[u].push_back({v, weight, edge_idx});
+  if (v >= 0 && static_cast<size_t>(v) < this->adj_list.size())
+    this->adj_list[v].push_back({u, weight, edge_idx});
+}
+
+void Graph::add_edge(int u, int v)
+{
+  float w = 0.f;
+  if (u >= 0 && u < static_cast<int>(this->size()) && v >= 0 &&
+      v < static_cast<int>(this->size()))
+  {
+    w = distance(this->points[u], this->points[v]);
+  }
+  this->add_edge(u, v, w);
+}
+
+void Graph::add_edge(glm::ivec2 edge, float weight)
+{
+  this->add_edge(edge.x, edge.y, weight);
+}
+
+void Graph::add_edge(glm::ivec2 edge)
+{
+  this->add_edge(edge.x, edge.y);
+}
+
+void Graph::clear_edges() noexcept
+{
+  this->edge_list.clear();
+  this->adj_list.clear();
+}
+
+size_t Graph::degree(int u) const
+{
+  if (u < 0 || static_cast<size_t>(u) >= this->adj_list.size()) return 0;
+  return this->adj_list[u].size();
+}
+
+std::vector<int> Graph::dijkstra(int source_point_index,
+                                 int target_point_index) const
+{
+  if (source_point_index < 0 ||
+      source_point_index >= static_cast<int>(this->size()) ||
+      target_point_index < 0 ||
+      target_point_index >= static_cast<int>(this->size()))
+    return {};
+
+  if (source_point_index == target_point_index) return {source_point_index};
+
+  std::vector<float> dist(this->size(), std::numeric_limits<float>::max());
+  std::vector<int>   prev(this->size(), -1);
 
   // --- Dijkstra's algo
-  std::list<int> queue = {};
 
-  for (size_t i = 0; i < this->size(); i++)
-  {
-    dist[i] = std::numeric_limits<float>::max();
-    prev[i] = -1;
-    queue.push_back((int)i);
-  }
+  using DistNode = std::pair<float, int>;
+  std::priority_queue<DistNode, std::vector<DistNode>, std::greater<DistNode>>
+      pq;
+
   dist[source_point_index] = 0.f;
+  pq.push({0.f, source_point_index});
 
-  while (queue.size() > 0)
+  while (!pq.empty())
   {
-    // find closest point, within the queue
-    int   i = 0;
-    float dmax = std::numeric_limits<float>::max();
-    for (auto &k : queue)
-      if (dist[k] < dmax)
-      {
-        dmax = dist[k];
-        i = k;
-      }
+    auto [d, u] = pq.top();
+    pq.pop();
 
-    if (i == target_point_index) break;
+    if (u == target_point_index) break;
+    if (d > dist[u]) continue;
 
-    queue.remove(i);
-
-    // loop over point i neighbors
-    for (int &k : this->connectivity[i])
+    if (static_cast<size_t>(u) < this->adj_list.size())
     {
-      // check if the neighbor is in the queue
-      bool found = (std::find(queue.begin(), queue.end(), k) != queue.end());
-
-      if (found)
+      for (const auto &nbr : this->adj_list[u])
       {
-        float alt = dist[i] + this->adjacency_matrix[{i, k}];
-        if (alt < dist[k]) // alternative route is better
+        int   k = nbr.target;
+        float weight = nbr.weight;
+        float alt = dist[u] + weight;
+        if (k >= 0 && static_cast<size_t>(k) < this->size() && alt < dist[k])
         {
           dist[k] = alt;
-          prev[k] = i;
+          prev[k] = u;
+          pq.push({alt, k});
         }
       }
     }
   }
 
-  // --- backward rebuild the complete path
-  int              i = target_point_index;
-  std::vector<int> path = {i};
+  if (dist[target_point_index] == std::numeric_limits<float>::max()) return {};
 
-  while (prev[i] > 0)
+  // --- Backward rebuild the complete path
+
+  std::vector<int> path;
+  for (int curr = target_point_index; curr != -1; curr = prev[curr])
   {
-    i = prev[i];
-    path.push_back(i);
+    path.push_back(curr);
+    if (curr == source_point_index) break;
   }
-  path.push_back(source_point_index);
   std::reverse(path.begin(), path.end());
 
   return path;
 }
 
-void Graph::add_edge(std::vector<int> edge, float weight)
+bool Graph::empty_edges() const noexcept
 {
-  this->edges.push_back(edge);
-  this->weights.push_back(weight);
+  return this->edge_list.empty();
 }
 
-void Graph::add_edge(std::vector<int> edge)
+Edge Graph::get_edge(size_t k) const
 {
-  this->edges.push_back(edge);
-  this->weights.push_back(this->get_edge_length((int)this->get_nedges() - 1));
+  if (k < this->edge_list.size()) return this->edge_list[k];
+  return {};
 }
 
-float Graph::get_edge_length(int k)
+float Graph::get_edge_length(size_t k) const
 {
-  return distance(this->points[this->edges[k][0]],
-                  this->points[this->edges[k][1]]);
+  if (k >= this->edge_list.size()) return 0.f;
+  int u = this->edge_list[k].u;
+  int v = this->edge_list[k].v;
+  if (u < 0 || u >= static_cast<int>(this->size()) || v < 0 ||
+      v >= static_cast<int>(this->size()))
+    return 0.f;
+  return distance(this->points[u], this->points[v]);
 }
 
-std::vector<float> Graph::get_lengths()
-{
-  std::vector<float> lengths = {};
-  for (size_t k = 0; k < this->get_nedges(); k++)
-  {
-    lengths.push_back(distance(this->points[this->edges[k][0]],
-                               this->points[this->edges[k][1]]));
-  }
-  return lengths;
-}
-
-std::vector<float> Graph::get_edge_x_pairs()
+std::vector<float> Graph::get_edge_x_pairs() const
 {
   std::vector<float> x;
-  x.reserve(2 * this->get_nedges());
-  for (auto &e : this->edges)
+  x.reserve(2 * this->edge_list.size());
+  for (const auto &e : this->edge_list)
   {
-    x.push_back(this->points[e[0]].x);
-    x.push_back(this->points[e[1]].x);
+    if (e.u >= 0 && e.u < static_cast<int>(this->size()) && e.v >= 0 &&
+        e.v < static_cast<int>(this->size()))
+    {
+      x.push_back(this->points[e.u].x);
+      x.push_back(this->points[e.v].x);
+    }
   }
   return x;
 }
 
-std::vector<float> Graph::get_edge_y_pairs()
+std::vector<float> Graph::get_edge_y_pairs() const
 {
   std::vector<float> y;
-  y.reserve(2 * this->get_nedges());
-  for (auto &e : this->edges)
+  y.reserve(2 * this->edge_list.size());
+  for (const auto &e : this->edge_list)
   {
-    y.push_back(this->points[e[0]].y);
-    y.push_back(this->points[e[1]].y);
+    if (e.u >= 0 && e.u < static_cast<int>(this->size()) && e.v >= 0 &&
+        e.v < static_cast<int>(this->size()))
+    {
+      y.push_back(this->points[e.u].y);
+      y.push_back(this->points[e.v].y);
+    }
   }
   return y;
 }
 
-size_t Graph::get_nedges()
+const std::vector<Edge> &Graph::get_edges() const noexcept
 {
-  return this->edges.size();
+  return this->edge_list;
 }
 
-Graph Graph::minimum_spanning_tree_prim()
+std::vector<float> Graph::get_lengths() const
 {
-  std::vector<int>   parent(this->size());
-  std::vector<float> key(this->size());
-  std::vector<bool>  is_point_in_mst(this->size());
+  std::vector<float> lengths;
+  lengths.reserve(this->edge_list.size());
+  for (size_t k = 0; k < this->edge_list.size(); ++k)
+    lengths.push_back(this->get_edge_length(k));
+  return lengths;
+}
 
-  for (size_t i = 0; i < this->size(); i++)
-  {
-    key[i] = std::numeric_limits<float>::max();
-    is_point_in_mst[i] = false;
-  }
+size_t Graph::get_nedges() const noexcept
+{
+  return this->edge_list.size();
+}
 
-  // starting point
+Graph Graph::minimum_spanning_tree_prim() const
+{
+  if (this->empty()) return Graph();
+
+  std::vector<int>   parent(this->size(), -1);
+  std::vector<float> key(this->size(), std::numeric_limits<float>::max());
+  std::vector<bool>  in_mst(this->size(), false);
+
+  using DistNode = std::pair<float, int>;
+  std::priority_queue<DistNode, std::vector<DistNode>, std::greater<DistNode>>
+      pq;
+
   key[0] = 0.f;
-  parent[0] = -1;
+  pq.push({0.f, 0});
 
-  for (size_t i = 0; i < this->size() - 1; i++)
+  while (!pq.empty())
   {
-    // find point with smallest 'key' while not being in the MS tree
-    int   k = 0;
-    float key_max = std::numeric_limits<float>::max();
-    for (size_t p = 0; p < key.size(); p++)
-      if ((key[p] < key_max) and (is_point_in_mst[p] == false))
-      {
-        key_max = key[p];
-        k = (int)p;
-      }
+    auto [d, u] = pq.top();
+    pq.pop();
 
-    is_point_in_mst[k] = true;
+    if (in_mst[u] || d > key[u]) continue;
+    in_mst[u] = true;
 
-    for (size_t p = 0; p < this->size(); p++)
+    if (static_cast<size_t>(u) < this->adj_list.size())
     {
-      if ((this->adjacency_matrix[{k, p}] > 0.f) and
-          (is_point_in_mst[p] == false) and
-          (this->adjacency_matrix[{k, p}] < key[p]))
+      for (const auto &nbr : this->adj_list[u])
       {
-        parent[p] = k;
-        key[p] = this->adjacency_matrix[{k, p}];
+        int   v = nbr.target;
+        float w = nbr.weight;
+        if (v >= 0 && static_cast<size_t>(v) < this->size() && !in_mst[v] &&
+            w < key[v])
+        {
+          key[v] = w;
+          parent[v] = u;
+          pq.push({w, v});
+        }
       }
     }
   }
 
-  // build output graph
-  Graph graph = Graph(this->points);
-  for (size_t i = 1; i < this->size(); i++)
-    graph.add_edge({(int)i, parent[i]});
+  // Build output MST graph
+  Graph graph(this->points);
+  for (size_t i = 1; i < this->size(); ++i)
+  {
+    if (parent[i] != -1) graph.add_edge(static_cast<int>(i), parent[i], key[i]);
+  }
 
   return graph;
 }
 
-void Graph::print()
+const std::vector<Neighbor> &Graph::neighbors(int u) const
+{
+  if (u < 0 || static_cast<size_t>(u) >= this->adj_list.size())
+    return empty_neighbors;
+  return this->adj_list[u];
+}
+
+size_t Graph::num_edges() const noexcept
+{
+  return this->edge_list.size();
+}
+
+void Graph::print() const
 {
   std::cout << "Points:" << std::endl;
   for (size_t k = 0; k < this->size(); k++)
@@ -213,84 +314,104 @@ void Graph::print()
   }
 
   std::cout << "Edges: (index, {pt1, pt2}, weight)" << std::endl;
-  for (size_t k = 0; k < this->get_nedges(); k++)
+  for (size_t k = 0; k < this->edge_list.size(); k++)
   {
     std::cout << std::setw(6) << k;
-    std::cout << " {" << this->edges[k][0] << ", ";
-    std::cout << this->edges[k][1] << "} ";
-    std::cout << std::setw(12) << this->weights[k];
+    std::cout << " {" << this->edge_list[k].u << ", ";
+    std::cout << this->edge_list[k].v << "} ";
+    std::cout << std::setw(12) << this->edge_list[k].weight;
     std::cout << std::endl;
   }
 }
 
-Graph Graph::remove_orphan_points()
+Graph Graph::remove_orphan_points() const
 {
-  Graph            graph_out = Graph();
-  std::vector<int> new_point_idx(this->size());
+  Graph            graph_out;
+  std::vector<int> new_point_idx(this->size(), -1);
 
-  // fill vector with '-1' to keep track of which points have already
-  // been added
-  std::fill(new_point_idx.begin(), new_point_idx.end(), -1);
-
-  this->update_connectivity();
-
-  for (size_t k = 0; k < this->size(); k++)
+  // Identify connected nodes
+  for (size_t u = 0; u < this->size(); ++u)
   {
-    if (this->connectivity[k].size() > 0)
+    if (u < this->adj_list.size() && !this->adj_list[u].empty())
     {
-      // current point is connected to at least one other node =>
-      // add it
-      if (new_point_idx[k] == -1)
+      if (new_point_idx[u] == -1)
       {
-        graph_out.add_point(this->points[k]);
-        new_point_idx[k] = (int)graph_out.size() - 1;
-      }
-
-      for (size_t r = 0; r < this->connectivity[k].size(); r++)
-      {
-        int j = this->connectivity[k][r];
-        if ((j > (int)k) and (new_point_idx[j] == -1))
-        {
-          graph_out.add_point(this->points[j]);
-          new_point_idx[j] = (int)graph_out.size() - 1;
-        }
+        graph_out.push_back(this->points[u]);
+        new_point_idx[u] = static_cast<int>(graph_out.size()) - 1;
       }
     }
   }
 
-  // rebuild connectivity
-  for (size_t k = 0; k < this->get_nedges(); k++)
+  // Re-add edges with new indices
+  for (const auto &e : this->edge_list)
   {
-    int k1 = new_point_idx[this->edges[k][0]];
-    int k2 = new_point_idx[this->edges[k][1]];
-    graph_out.add_edge({k1, k2}, this->weights[k]);
+    if (e.u >= 0 && e.u < static_cast<int>(this->size()) && e.v >= 0 &&
+        e.v < static_cast<int>(this->size()))
+    {
+      int k1 = new_point_idx[e.u];
+      int k2 = new_point_idx[e.v];
+      if (k1 != -1 && k2 != -1) graph_out.add_edge(k1, k2, e.weight);
+    }
   }
 
   return graph_out;
 }
 
-void Graph::to_array(Array &array, glm::vec4 bbox, bool color_by_edge_weight)
+void Graph::set_edge_weight(size_t k, float weight)
+{
+  if (k >= this->edge_list.size()) return;
+  this->edge_list[k].weight = weight;
+  int u = this->edge_list[k].u;
+  int v = this->edge_list[k].v;
+  int edge_idx = static_cast<int>(k);
+
+  if (u >= 0 && static_cast<size_t>(u) < this->adj_list.size())
+  {
+    for (auto &nbr : this->adj_list[u])
+      if (nbr.edge_index == edge_idx) nbr.weight = weight;
+  }
+  if (v >= 0 && static_cast<size_t>(v) < this->adj_list.size())
+  {
+    for (auto &nbr : this->adj_list[v])
+      if (nbr.edge_index == edge_idx) nbr.weight = weight;
+  }
+}
+
+void Graph::set_edge_weight(int u, int v, float weight)
+{
+  if (u < 0 || static_cast<size_t>(u) >= this->adj_list.size()) return;
+  for (const auto &nbr : this->adj_list[u])
+  {
+    if (nbr.target == v)
+    {
+      this->set_edge_weight(static_cast<size_t>(nbr.edge_index), weight);
+      return;
+    }
+  }
+}
+
+void Graph::to_array(Array    &array,
+                     glm::vec4 bbox,
+                     bool      color_by_edge_weight) const
 {
   if (!validate_non_empty(array)) return;
 
-  if (color_by_edge_weight)
-    for (std::size_t k = 0; k < this->get_nedges(); k++)
+  for (const auto &e : this->edge_list)
+  {
+    if (e.u >= 0 && e.u < static_cast<int>(this->size()) && e.v >= 0 &&
+        e.v < static_cast<int>(this->size()))
     {
-      Point p1 = this->points[this->edges[k][0]];
-      Point p2 = this->points[this->edges[k][1]];
-      p1.v = this->weights[this->edges[k][0]];
-      p2.v = this->weights[this->edges[k][1]];
+      Point p1 = this->points[e.u];
+      Point p2 = this->points[e.v];
+      if (color_by_edge_weight)
+      {
+        p1.v = e.weight;
+        p2.v = e.weight;
+      }
       Path path = Path({p1, p2});
       path.to_array(array, bbox);
     }
-  else
-    for (std::size_t k = 0; k < this->get_nedges(); k++)
-    {
-      Point p1 = this->points[this->edges[k][0]];
-      Point p2 = this->points[this->edges[k][1]];
-      Path  path = Path({p1, p2});
-      path.to_array(array, bbox);
-    }
+  }
 }
 
 void Graph::to_array_fractalize(Array        &array,
@@ -299,29 +420,39 @@ void Graph::to_array_fractalize(Array        &array,
                                 std::uint32_t seed,
                                 float         sigma,
                                 int           orientation,
-                                float         persistence)
+                                float         persistence) const
 {
   if (!validate_non_empty(array)) return;
 
   // find smallest edge length
   float dmin = std::numeric_limits<float>::max();
 
-  for (size_t k = 0; k < this->get_nedges(); k++)
+  for (size_t k = 0; k < this->edge_list.size(); ++k)
   {
-    float dist = this->get_edge_length((int)k);
-    if (dist < dmin) dmin = dist;
+    float dist = this->get_edge_length(k);
+    if (dist < dmin && dist > 0.f) dmin = dist;
   }
+  if (dmin == std::numeric_limits<float>::max()) dmin = 1.f;
 
   // fractalize and project to array
-  for (std::size_t k = 0; k < this->get_nedges(); k++)
+  for (const auto &e : this->edge_list)
   {
-    Point p1 = this->points[this->edges[k][0]];
-    Point p2 = this->points[this->edges[k][1]];
-    Path  path = Path({p1, p2});
+    if (e.u >= 0 && e.u < static_cast<int>(this->size()) && e.v >= 0 &&
+        e.v < static_cast<int>(this->size()))
+    {
+      Point p1 = this->points[e.u];
+      Point p2 = this->points[e.v];
+      Path  path = Path({p1, p2});
 
-    path.resample_by_spacing(dmin);
-    path = fractalize(path, iterations, seed, sigma, orientation, persistence);
-    path.to_array(array, bbox);
+      path.resample_by_spacing(dmin);
+      path = fractalize(path,
+                        iterations,
+                        seed,
+                        sigma,
+                        orientation,
+                        persistence);
+      path.to_array(array, bbox);
+    }
   }
 }
 
@@ -329,7 +460,7 @@ Array Graph::to_array_sdf(glm::ivec2 shape,
                           glm::vec4  bbox,
                           Array     *p_noise_x,
                           Array     *p_noise_y,
-                          glm::vec4  bbox_array)
+                          glm::vec4  bbox_array) const
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
@@ -355,7 +486,9 @@ Array Graph::to_array_sdf(glm::ivec2 shape,
       size_t    j = i + 1;
       glm::vec2 e = {xp[j] - xp[i], yp[j] - yp[i]};
       glm::vec2 w = {x - xp[i], y - yp[i]};
-      float     coeff = std::clamp(dot(w, e) / dot(e, e), 0.f, 1.f);
+      float     len2 = dot(e, e);
+      float     coeff = (len2 > 1e-12f) ? std::clamp(dot(w, e) / len2, 0.f, 1.f)
+                                        : 0.f;
       glm::vec2 b = {w.x - e.x * coeff, w.y - e.y * coeff};
       d = std::min(d, dot(b, b));
     }
@@ -373,67 +506,27 @@ Array Graph::to_array_sdf(glm::ivec2 shape,
   return z;
 }
 
-void Graph::to_csv(std::string fname_xy, std::string fname_adjacency)
+void Graph::to_csv(const std::string &fname_xy,
+                   const std::string &fname_edges) const
 {
-  std::fstream f;
-
-  f.open(fname_xy, std::ios::out);
-  for (auto &p : this->points)
-    f << p.x << "," << p.y << "," << p.v << std::endl;
+  std::ofstream f(fname_xy, std::ios::out);
+  for (const auto &p : this->points)
+    f << p.x << "," << p.y << "," << p.v << "\n";
   f.close();
 
-  f.open(fname_adjacency, std::ios::out);
-  for (int i = 0; i < (int)this->size(); i++)
-  {
-    for (int j = 0; j < (int)this->size(); j++)
-    {
-      float v = 0.f;
-      if (this->adjacency_matrix.count({i, j}))
-        v = this->adjacency_matrix[{i, j}];
-      f << v;
-
-      if (j < (int)this->size() - 1) f << ",";
-    }
-    f << std::endl;
-  }
-
-  f.close();
+  std::ofstream fe(fname_edges, std::ios::out);
+  for (const auto &e : this->edge_list)
+    fe << e.u << "," << e.v << "," << e.weight << "\n";
+  fe.close();
 }
 
-void Graph::to_png(std::string fname, glm::ivec2 shape)
+void Graph::to_png(const std::string &fname, glm::ivec2 shape) const
 {
   if (!validate_shape(shape)) return;
 
   Array array = Array(shape);
   this->to_array(array, this->get_bbox());
   array.to_png(fname, Cmap::INFERNO, false);
-}
-
-void Graph::update_adjacency_matrix()
-{
-  this->adjacency_matrix.clear();
-
-  // fill matrix
-  for (std::size_t k = 0; k < this->get_nedges(); k++)
-  {
-    this->adjacency_matrix[{this->edges[k][0], this->edges[k][1]}] =
-        this->weights[k];
-    this->adjacency_matrix[{this->edges[k][1], this->edges[k][0]}] =
-        this->weights[k];
-  }
-}
-
-void Graph::update_connectivity()
-{
-  std::vector<std::vector<int>> nbrs(this->size());
-
-  for (std::size_t k = 0; k < this->get_nedges(); k++)
-  {
-    nbrs[this->edges[k][0]].push_back(this->edges[k][1]);
-    nbrs[this->edges[k][1]].push_back(this->edges[k][0]);
-  }
-
-  this->connectivity = nbrs;
 }
 
 } // namespace hmap

@@ -20,6 +20,7 @@
 #include "highmap/local_metrics.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/math/core.hpp"
+#include "highmap/math/profiles.hpp"
 #include "highmap/morphology.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/primitives/random.hpp"
@@ -177,6 +178,51 @@ void fold(Array &array, float vmin, float vmax, int iterations, float k)
       array = abs(array);
     else
       array = abs_smooth(array, k);
+  }
+}
+
+void fold_periodic(Array        &array,
+                   PhasorProfile phasor_profile,
+                   int           iterations,
+                   float         delta)
+{
+  if (!validate_non_empty(array)) return;
+  fold_periodic(array,
+                phasor_profile,
+                array.min(),
+                array.max(),
+                iterations,
+                delta);
+}
+
+void fold_periodic(Array        &array,
+                   PhasorProfile phasor_profile,
+                   float         vmin,
+                   float         vmax,
+                   int           iterations,
+                   float         delta)
+{
+  if (!validate_non_empty(array)) return;
+
+  auto  fct = get_phasor_profile_function(phasor_profile, delta);
+  float range = vmax - vmin;
+
+  if (range == 0.f)
+  {
+    array = 0.f;
+    return;
+  }
+
+  for (int it = 0; it < iterations; it++)
+  {
+    float freq = std::pow(2.f, static_cast<float>(it));
+
+    for (int idx = 0; idx < array.size(); ++idx)
+    {
+      float t = (array.vector[idx] - vmin) / range;
+      float phi = 2.f * M_PI * freq * t - M_PI;
+      array.vector[idx] = fct(phi);
+    }
   }
 }
 

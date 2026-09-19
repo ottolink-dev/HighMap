@@ -41,8 +41,8 @@ std::vector<glm::vec2> contour_to_pixel_coords(const Path &path,
   const float aj = (shape.y - 1) / (bbox.w - bbox.z);
 
   std::vector<glm::vec2> pts;
-  pts.reserve(path.points.size());
-  for (const Point &p : path.points)
+  pts.reserve(path.size());
+  for (const Point &p : path)
     pts.emplace_back(ai * (p.x - bbox.x), aj * (p.y - bbox.z));
   return pts;
 }
@@ -53,9 +53,9 @@ std::vector<glm::ivec2> rasterize_outline(const std::vector<glm::vec2> &pts,
                                           glm::ivec2                    shape,
                                           bool is_closed = true)
 {
-  std::vector<glm::ivec2> cells;
-  const size_t            n = pts.size();
-  if (n == 0) return cells;
+  CellPath     cells;
+  const size_t n = pts.size();
+  if (n == 0) return cells.get_indices();
 
   const size_t num_segments = is_closed ? n : n - 1;
   for (size_t k = 0; k < num_segments; ++k)
@@ -889,7 +889,7 @@ Array elevation_from_contours(glm::ivec2                shape,
   }
 
   for (size_t k = 0; k < contours.size(); ++k)
-    if (contours[k].points.size() < 3)
+    if (contours[k].size() < 3)
     {
       log::error("elevation_from_contours: contour {} has fewer than 3 points",
                  k);

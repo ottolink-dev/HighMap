@@ -108,6 +108,8 @@ void Timer::stop(const std::string &name)
 
 void Timer::dump()
 {
+  if (records.empty()) return;
+
   std::cout << "Timer dump: " << this->sid << std::endl;
   for (auto &n : records)
     n.second->dump();

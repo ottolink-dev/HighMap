@@ -34,13 +34,13 @@ Array interpolate2d_idw(glm::ivec2                shape,
   if (p_noise_y && !validate_same_shape(shape, *p_noise_y)) return Array();
 
   // KD-tree
-  KDTreeContext tree(x, y);
+  KDTree tree(x, y);
 
   // automatically set the search radius
   if (radius == 0.f)
   {
     size_t    k_nbrs = 32;
-    glm::vec2 drange = tree.compte_neighbor_distance_range(k_nbrs);
+    glm::vec2 drange = tree.compute_neighbor_distance_range(k_nbrs);
     radius = 2.5f * drange.y;
   }
 
@@ -88,7 +88,19 @@ Array interpolate2d_idw(glm::ivec2                shape,
 
         float w = 1.f - d;
         w = smoothstep3(w);
-        w /= std::pow(d, 0.5f * distance_exp);
+
+        if (distance_exp == 2.f)
+        {
+          w /= d;
+        }
+        else if (distance_exp == 1.f)
+        {
+          w /= std::sqrt(d);
+        }
+        else
+        {
+          w /= std::pow(d, 0.5f * distance_exp);
+        }
 
         v += values[nk] * w;
         sum += w;

@@ -24,7 +24,7 @@ void alter_elevation(Array       &array,
   if (!validate_non_empty(array)) return;
 
   Array amp = Array(array.shape);
-  for (auto &p : cloud.points)
+  for (const auto &p : cloud)
   {
     int ic = (int)((p.x - shift.x) / scale.x * array.shape.x);
     int jc = (int)((p.y - shift.y) / scale.y * array.shape.y);

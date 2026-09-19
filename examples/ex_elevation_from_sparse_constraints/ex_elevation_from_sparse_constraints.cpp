@@ -8,14 +8,14 @@ int main(void)
 
   // 1. Define mountain ridge lines (values > 0)
   hmap::Path ridge1;
-  ridge1.add_point({0.150f, 0.250f, 1.0f});
-  ridge1.add_point({0.260f, 0.230f, 1.0f});
-  ridge1.add_point({0.360f, 0.220f, 1.0f});
+  ridge1.push_back({0.150f, 0.250f, 1.0f});
+  ridge1.push_back({0.260f, 0.230f, 1.0f});
+  ridge1.push_back({0.360f, 0.220f, 1.0f});
   ridge1 = hmap::catmullrom(ridge1);
 
   hmap::Path ridge2;
-  ridge2.add_point({0.256f, 0.280f, 1.0f});
-  ridge2.add_point({0.280f, 0.380f, 1.0f});
+  ridge2.push_back({0.256f, 0.280f, 1.0f});
+  ridge2.push_back({0.280f, 0.380f, 1.0f});
   ridge2 = hmap::catmullrom(ridge2);
 
   hmap::Array mountains(shape, 0.0f);
@@ -32,7 +32,7 @@ int main(void)
                   static_cast<float>(n_coast_pts);
     float r = 0.22f + 0.03f * std::sin(3.0f * angle);
 
-    coast.add_point(
+    coast.push_back(
         {0.256f + r * std::cos(angle), 0.256f + r * std::sin(angle), 1.0f});
   }
   coast = hmap::catmullrom(coast);

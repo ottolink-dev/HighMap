@@ -17,7 +17,6 @@ int main(void)
   hmap::Array zd = graph_delaunay.to_array_sdf(shape, bbox_array);
 
   // convert to a minimum spanning tree
-  graph_delaunay.update_adjacency_matrix();
   hmap::Graph graph_mst = graph_delaunay.minimum_spanning_tree_prim();
 
   hmap::Array zm = graph_mst.to_array_sdf(shape, bbox_array);

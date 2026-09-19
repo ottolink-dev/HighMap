@@ -990,6 +990,28 @@ void hydraulic_particle_multiscale(
     float                   collapse_rate = 0.1f,
     float                   mix = 1.f);
 
+void hydraulic_particle_multiscale(
+    Array                  &z,
+    const Array            *p_mask,
+    std::uint32_t           seed,
+    const std::vector<int> &steps_per_level = {4, 2, 1},
+    const Array            *p_bedrock = nullptr,
+    const Array            *p_moisture_map = nullptr,
+    const Array            *p_elevation_shift = nullptr,
+    Array                  *p_erosion_map = nullptr,
+    Array                  *p_deposition_map = nullptr,
+    float                   particles_ratio = 0.5f,
+    float                   c_capacity = 10.f,
+    float                   c_erosion = 0.05f,
+    float                   c_deposition = 0.05f,
+    float                   c_inertia = 0.01f,
+    float                   c_gravity = 1.f,
+    float                   drag_rate = 0.001f,
+    float                   evap_rate = 0.001f,
+    float                   talus_slope = 2.f,
+    float                   collapse_rate = 0.1f,
+    float                   mix = 1.f);
+
 /**
  * @brief Particle-based hydraulic erosion with flow-field coupling (McDonald's
  * model): persistent per-cell discharge and momentum fields, exponentially

@@ -13,26 +13,18 @@ int main(void)
 
   glm::ivec2 ij_start = {40, 40};
   glm::ivec2 ij_end = {230, 230};
+  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
 
-  std::vector<int> i, j;
-
-  hmap::find_path_dijkstra(z, ij_start, ij_end, i, j);
-
-  // export path to a png file
-  hmap::Array w = hmap::Array(shape);
-  for (size_t k = 0; k < i.size(); k++)
-    w(i[k], j[k]) = 1.f;
-
-  w.to_png("ex_find_path_dijkstra1.png", hmap::Cmap::GRAY);
+  // default parameters
+  hmap::Path  path1 = hmap::find_path_dijkstra(z, ij_start, ij_end, bbox);
+  hmap::Array w1 = path1.to_array(shape);
 
   // set "elevation_ratio" to 1.f to find the path with the lowest
   // cumulative elevation
-  hmap::find_path_dijkstra(z, ij_start, ij_end, i, j, 1.f);
+  hmap::Path  path2 = hmap::find_path_dijkstra(z, ij_start, ij_end, bbox, 1.f);
+  hmap::Array w2 = path2.to_array(shape);
 
-  // export path to a png file
-  w = hmap::Array(shape);
-  for (size_t k = 0; k < i.size(); k++)
-    w(i[k], j[k]) = 1.f;
-
-  w.to_png("ex_find_path_dijkstra2.png", hmap::Cmap::GRAY);
+  hmap::export_banner_png("ex_find_path_dijkstra.png",
+                          {z, w1, w2},
+                          hmap::Cmap::TERRAIN);
 }
