@@ -1,5 +1,6 @@
 #include "highmap/dbg/assert.hpp"
 #include "highmap/erosion.hpp"
+#include "highmap/math.hpp"
 #include "highmap/morphology.hpp"
 #include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/primitives.hpp"
@@ -217,17 +218,18 @@ TEST(ErosionFilter, BasicExecutionAndRidgeMap)
                       /* gain */ 0.5f,
                       /* lacunarity */ 2.0f,
                       /* normalization */ 0.5f,
+                      /* curvature_scaling */ 0.1f,
                       /* seed */ 1337,
                       /* p_fade_target */ nullptr,
                       /* p_ridge_map */ &ridge_map);
 
-  // Check that heightmap was modified
+  // check that heightmap was modified
   EXPECT_FALSE(assert_almost_equal(z, z0));
 
-  // Check that ridge_map was populated
+  // check that ridge_map was populated
   EXPECT_GT(ridge_map.max(), ridge_map.min());
 
-  // Determinism test with identical seed
+  // determinism test with identical seed
   Array z_repeat = z0;
   gpu::erosion_filter(z_repeat,
                       0.15f,
@@ -242,7 +244,55 @@ TEST(ErosionFilter, BasicExecutionAndRidgeMap)
                       0.5f,
                       2.0f,
                       0.5f,
+                      0.1f,
                       1337);
 
   EXPECT_TRUE(assert_almost_equal(z, z_repeat));
 }
+
+TEST(ErosionFilter, CurvatureScalingPeakAndSink)
+{
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {2.f, 2.f};
+  Array      z0 = noise_fbm(NoiseType::SIMPLEX2, shape, kw, 42);
+
+  Array z_no_curv = z0;
+  Array z_with_curv = z0;
+
+  gpu::erosion_filter(z_no_curv,
+                      /* scale */ 0.15f,
+                      /* strength */ 0.22f,
+                      /* gully_weight */ 0.5f,
+                      /* detail */ 1.5f,
+                      /* rounding */ {0.1f, 0.0f, 0.1f, 2.0f},
+                      /* onset */ {1.25f, 1.25f, 2.8f, 1.5f},
+                      /* assumed_slope */ {0.7f, 1.0f},
+                      /* cell_scale */ 0.7f,
+                      /* octaves */ 3,
+                      /* gain */ 0.5f,
+                      /* lacunarity */ 2.0f,
+                      /* normalization */ 0.5f,
+                      /* curvature_scaling */ 0.0f,
+                      /* seed */ 42);
+
+  gpu::erosion_filter(z_with_curv,
+                      /* scale */ 0.15f,
+                      /* strength */ 0.22f,
+                      /* gully_weight */ 0.5f,
+                      /* detail */ 1.5f,
+                      /* rounding */ {0.1f, 0.0f, 0.1f, 2.0f},
+                      /* onset */ {1.25f, 1.25f, 2.8f, 1.5f},
+                      /* assumed_slope */ {0.7f, 1.0f},
+                      /* cell_scale */ 0.7f,
+                      /* octaves */ 3,
+                      /* gain */ 0.5f,
+                      /* lacunarity */ 2.0f,
+                      /* normalization */ 0.5f,
+                      /* curvature_scaling */ 0.5f,
+                      /* seed */ 42);
+
+  // curvature scaling should produce distinct results around peaks and sinks
+  Array diff = abs(z_no_curv - z_with_curv);
+  EXPECT_GT(diff.max(), 0.01f);
+}
+

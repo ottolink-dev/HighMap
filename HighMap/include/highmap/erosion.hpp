@@ -802,15 +802,16 @@ void conv_erosion(Array        &z,
  * @param         cell_scale    Relative scale of Phacelle noise cells.
  * @param         octaves       Number of erosion octaves.
  * @param         gain          Amplitude persistence factor per octave.
- * @param         lacunarity    Frequency multiplier per octave.
- * @param         normalization Partial normalization factor for directional
- *                              waves.
- * @param         seed          Random seed for cell jitter and octave offsets.
- * @param         p_fade_target Optional spatial fade target array in [-1, 1].
- * @param         p_ridge_map   Optional output array receiving the dendritic
- *                              ridge/drainage map.
- * @param         bbox          World-space bounding box {xmin, xmax, ymin,
- *                              ymax}.
+ * @param         normalization     Partial normalization factor for directional
+ *                                  waves.
+ * @param         curvature_scaling Curvature scaling factor to sustain
+ *                                  erosion onset near peaks and sinks.
+ * @param         seed              Random seed for cell jitter and octave offsets.
+ * @param         p_fade_target     Optional spatial fade target array in [-1, 1].
+ * @param         p_ridge_map       Optional output array receiving the dendritic
+ *                                  ridge/drainage map.
+ * @param         bbox              World-space bounding box {xmin, xmax, ymin,
+ *                                  ymax}.
  *
  * **Example**
  * @include ex_erosion_filter.cpp
@@ -831,6 +832,7 @@ void erosion_filter(Array        &z,
                     float         gain = 0.5f,
                     float         lacunarity = 2.0f,
                     float         normalization = 0.5f,
+                    float         curvature_scaling = 0.1f,
                     std::uint32_t seed = 1337,
                     const Array  *p_fade_target = nullptr,
                     Array        *p_ridge_map = nullptr,

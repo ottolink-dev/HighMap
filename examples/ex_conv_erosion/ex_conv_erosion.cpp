@@ -19,7 +19,7 @@ int main(void)
   int   iterations = 40;
   int   particle_count = 500;
   int   ir_min = 1;
-  int   ir_max = 1;
+  int   ir_max = 16;
   float size_distrib_exp = 2.f;
   float erosion_strength = 0.002f;
   float randomness = 0.002f;

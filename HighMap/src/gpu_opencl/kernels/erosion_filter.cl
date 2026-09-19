@@ -106,6 +106,7 @@ void kernel erosion_filter(read_only image2d_t height_in,
                            const float         gain,
                            const float         lacunarity,
                            const float         normalization,
+                           const float         curvature_scaling,
                            const int           has_fade_target,
                            const int           has_ridge_output,
                            const float4        bbox)
@@ -125,7 +126,7 @@ void kernel erosion_filter(read_only image2d_t height_in,
 
   float base_h = read_imagef(height_in, sampler_itp, pos).x;
 
-  // Sample gradients from input heightmap
+  // sample gradients and curvature from input heightmap
   float eps = 0.5f / (float)max(nx, ny);
   float h_px = read_imagef(height_in, sampler_itp, pos + (float2)(eps, 0.f)).x;
   float h_mx = read_imagef(height_in, sampler_itp, pos - (float2)(eps, 0.f)).x;
@@ -134,6 +135,20 @@ void kernel erosion_filter(read_only image2d_t height_in,
 
   float2 slope = (float2)((h_px - h_mx) / (2.f * eps),
                           (h_py - h_my) / (2.f * eps));
+
+  // compute local curvature from second derivatives
+  float h_p2x =
+      read_imagef(height_in, sampler_itp, pos + (float2)(2.f * eps, 0.f)).x;
+  float h_m2x =
+      read_imagef(height_in, sampler_itp, pos - (float2)(2.f * eps, 0.f)).x;
+  float h_p2y =
+      read_imagef(height_in, sampler_itp, pos + (float2)(0.f, 2.f * eps)).x;
+  float h_m2y =
+      read_imagef(height_in, sampler_itp, pos - (float2)(0.f, 2.f * eps)).x;
+
+  float d2x = (h_p2x + h_m2x - 2.f * base_h) / (4.f * eps * eps);
+  float d2y = (h_p2y + h_m2y - 2.f * base_h) / (4.f * eps * eps);
+  float curv = length((float2)(d2x, d2y)) * scale;
 
   // Determine fade target: [-1, 1] from valleys to peaks
   float fade_target;
@@ -149,7 +164,8 @@ void kernel erosion_filter(read_only image2d_t height_in,
   float3 height_and_slope = (float3)(base_h, slope.x, slope.y);
   float  cur_strength = strength * scale;
   float  freq = 1.f / (scale * cell_scale);
-  float  slope_len = max(length(height_and_slope.yz), 1e-7f);
+  float  slope_len =
+      max(length(height_and_slope.yz) + curvature_scaling * curv, 1e-7f);
   float  rounding_mult = 1.f;
 
   float rounding_for_input = mix(rounding.y,
