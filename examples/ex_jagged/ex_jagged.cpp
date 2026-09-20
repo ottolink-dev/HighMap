@@ -20,7 +20,7 @@ int main(void)
   const glm::vec2 jitter = {0.6f, 0.6f};
   const float     gamma_mild = 0.5f;
   const float     gamma_strong = 1.5f;
-  const float     shape_gamma_none = 0.5f;
+  const float     shape_gamma_none = 0.f;
   const float     shape_gamma_smooth = 0.5f;
   const float     shape_gamma_accentuated = 1.5f;
   const float     mask_sigma = 0.25f;
@@ -41,7 +41,7 @@ int main(void)
                               gamma_mild,
                               shape_gamma_smooth);
 
-  // Jagged filter with higher frequency and mask
+  // Jagged filter with higher frequency, angle, and mask
   hmap::Array mask = hmap::gaussian_pulse(shape, mask_sigma);
   auto        z3 = hmap::gpu::jagged(z0,
                               kw_fine,
@@ -49,6 +49,8 @@ int main(void)
                               jitter,
                               gamma_strong,
                               shape_gamma_accentuated,
+                              1.f,
+                              30.f,
                               &mask);
 
   hmap::export_banner_png("ex_jagged.png",

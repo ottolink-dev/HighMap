@@ -16,6 +16,8 @@ void kernel jagged(read_only image2d_t  in,
                    const float2         jitter,
                    const float          gamma,
                    const float          shape_gamma,
+                   const float          factor,
+                   const float          angle,
                    const int            has_mask,
                    const int            has_noise_x,
                    const int            has_noise_y,
@@ -34,6 +36,14 @@ void kernel jagged(read_only image2d_t  in,
   float dy = has_noise_y > 0 ? noise_y[index] : 0.f;
 
   float2 pos = g_to_xy(g, nx, ny, kx, ky, dx, dy, bbox);
+
+  if (angle != 0.f)
+  {
+    float alpha = angle / 180.f * 3.14159265f;
+    float ca = cos(alpha);
+    float sa = sin(alpha);
+    pos = (float2)(pos.x * ca - pos.y * sa, pos.x * sa + pos.y * ca);
+  }
 
   float2 p = floor(pos);
   float2 pi;
@@ -89,7 +99,9 @@ void kernel jagged(read_only image2d_t  in,
   float val_curr = read_imagef(in, sampler_unnorm, g).x;
 
   float val_out = val_curr > 0.f
-                      ? val_curr + w * (pow_float(val_curr, gamma) - val_curr)
+                      ? val_curr +
+                            factor * w *
+                                (pow_float(val_curr, gamma) - val_curr)
                       : val_curr;
 
   if (has_mask > 0)
