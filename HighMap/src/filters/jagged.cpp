@@ -90,4 +90,84 @@ Array jagged(const Array  &array,
                 bbox);
 }
 
+Array jagged_fbm(const Array  &array,
+                 glm::vec2     kw,
+                 float         amp,
+                 std::uint32_t seed,
+                 int           octaves,
+                 float         persistence,
+                 float         lacunarity,
+                 glm::vec2     jitter,
+                 float         gamma,
+                 float         angle,
+                 const Array  *p_mask,
+                 const Array  *p_noise_x,
+                 const Array  *p_noise_y,
+                 glm::vec4     bbox)
+{
+  if (!validate_non_empty(array)) return Array();
+  if (p_mask && !validate_same_shape(array, *p_mask)) return Array(array.shape);
+  if (p_noise_x && !validate_same_shape(array, *p_noise_x))
+    return Array(array.shape);
+  if (p_noise_y && !validate_same_shape(array, *p_noise_y))
+    return Array(array.shape);
+
+  Array         out = array;
+  glm::vec2     current_kw = kw;
+  float         current_amp = amp;
+  std::uint32_t current_seed = seed;
+
+  for (int k = 0; k < octaves; ++k)
+  {
+    out = jagged(out,
+                 current_kw,
+                 current_amp,
+                 current_seed,
+                 jitter,
+                 gamma,
+                 angle,
+                 p_mask,
+                 p_noise_x,
+                 p_noise_y,
+                 bbox);
+
+    current_kw *= lacunarity;
+    current_amp *= persistence;
+    current_seed++;
+  }
+
+  return out;
+}
+
+Array jagged_fbm(const Array  &array,
+                 float         kw,
+                 float         amp,
+                 std::uint32_t seed,
+                 int           octaves,
+                 float         persistence,
+                 float         lacunarity,
+                 glm::vec2     jitter,
+                 float         gamma,
+                 float         angle,
+                 const Array  *p_mask,
+                 const Array  *p_noise_x,
+                 const Array  *p_noise_y,
+                 glm::vec4     bbox)
+{
+  return jagged_fbm(array,
+                    {kw, kw},
+                    amp,
+                    seed,
+                    octaves,
+                    persistence,
+                    lacunarity,
+                    jitter,
+                    gamma,
+                    angle,
+                    p_mask,
+                    p_noise_x,
+                    p_noise_y,
+                    bbox);
+}
+
 } // namespace hmap::gpu

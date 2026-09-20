@@ -2462,6 +2462,92 @@ Array jagged(const Array  &array,
              const Array  *p_noise_y = nullptr,
              glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
 
+/**
+ * @brief Apply a fractal Brownian motion (fBm) version of the Voronoi-based
+ * jagged bubble dome filter to an array.
+ *
+ * Applies sequential jagged filters across multiple octaves, scaling the
+ * frequency by `lacunarity` and the amplitude by `persistence` at each
+ * iteration.
+ *
+ * @param  array       Input array to be filtered.
+ * @param  kw          Frequency / wave numbers for Voronoi cells.
+ * @param  amp         Initial amplitude of the bubble dome elevation (default:
+ *                     0.1f).
+ * @param  seed        Seed for random jitter of Voronoi cell centers.
+ * @param  octaves     Number of fBm octaves (default: 8).
+ * @param  persistence Amplitude multiplier per octave (default: 0.5f).
+ * @param  lacunarity  Frequency multiplier per octave (default: 2.0f).
+ * @param  jitter      Jitter amount controlling cell randomness (default:
+ *                     {0.5f, 0.5f}).
+ * @param  gamma       Shape exponent for the dome curvature (default: 1.0f).
+ * @param  angle       Orientation angle in degrees for rotating the Voronoi
+ *                     pattern around (0, 0) (default: 0.0f).
+ * @param  p_mask      Optional mask array for blending.
+ * @param  p_noise_x   Optional noise array for X perturbation.
+ * @param  p_noise_y   Optional noise array for Y perturbation.
+ * @param  bbox        Bounding box for domain mapping (default: {0.f, 1.f,
+ *                     0.f, 1.f}).
+ *
+ * @return             Filtered array.
+ */
+Array jagged_fbm(const Array  &array,
+                 glm::vec2     kw,
+                 float         amp = 0.1f,
+                 std::uint32_t seed = 0,
+                 int           octaves = 8,
+                 float         persistence = 0.5f,
+                 float         lacunarity = 2.f,
+                 glm::vec2     jitter = {0.5f, 0.5f},
+                 float         gamma = 1.f,
+                 float         angle = 0.f,
+                 const Array  *p_mask = nullptr,
+                 const Array  *p_noise_x = nullptr,
+                 const Array  *p_noise_y = nullptr,
+                 glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @brief Apply a fractal Brownian motion (fBm) version of the Voronoi-based
+ * jagged bubble dome filter using an isotropic frequency.
+ *
+ * @param  array       Input array to be filtered.
+ * @param  kw          Isotropic frequency / wave number for Voronoi cells.
+ * @param  amp         Initial amplitude of the bubble dome elevation (default:
+ *                     0.1f).
+ * @param  seed        Seed for random jitter of Voronoi cell centers.
+ * @param  octaves     Number of fBm octaves (default: 8).
+ * @param  persistence Amplitude multiplier per octave (default: 0.5f).
+ * @param  lacunarity  Frequency multiplier per octave (default: 2.0f).
+ * @param  jitter      Jitter amount controlling cell randomness (default:
+ *                     {0.5f, 0.5f}).
+ * @param  gamma       Shape exponent for the dome curvature (default: 1.0f).
+ * @param  angle       Orientation angle in degrees for rotating the Voronoi
+ *                     pattern around (0, 0) (default: 0.0f).
+ * @param  p_mask      Optional mask array for blending.
+ * @param  p_noise_x   Optional noise array for X perturbation.
+ * @param  p_noise_y   Optional noise array for Y perturbation.
+ * @param  bbox        Bounding box for domain mapping (default: {0.f, 1.f,
+ *                     0.f, 1.f}).
+ *
+ * @return             Filtered array.
+ *
+ * @overload
+ */
+Array jagged_fbm(const Array  &array,
+                 float         kw,
+                 float         amp = 0.1f,
+                 std::uint32_t seed = 0,
+                 int           octaves = 8,
+                 float         persistence = 0.5f,
+                 float         lacunarity = 2.f,
+                 glm::vec2     jitter = {0.5f, 0.5f},
+                 float         gamma = 1.f,
+                 float         angle = 0.f,
+                 const Array  *p_mask = nullptr,
+                 const Array  *p_noise_x = nullptr,
+                 const Array  *p_noise_y = nullptr,
+                 glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+
 /*! @brief See hmap::laplace */
 void laplace(Array &array, float sigma = 0.2f, int iterations = 3);
 void laplace(Array       &array,

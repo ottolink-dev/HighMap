@@ -116,3 +116,143 @@ TEST_F(JaggedTest, EmptyArrayReturnsEmpty)
   Array out = gpu::jagged(input, 4.f);
   EXPECT_TRUE(out.vector.empty());
 }
+
+TEST_F(JaggedTest, FbmAmpZeroReturnsInput)
+{
+  glm::ivec2 shape = {64, 64};
+  Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
+
+  Array out = gpu::jagged_fbm(input, glm::vec2(4.f, 4.f), 0.f, 1, 4, 0.5f, 2.f);
+
+  EXPECT_EQ(out.shape, shape);
+  EXPECT_TRUE(assert_almost_equal(out, input, 1e-5f));
+}
+
+TEST_F(JaggedTest, FbmOctavesZeroReturnsInput)
+{
+  glm::ivec2 shape = {64, 64};
+  Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
+
+  Array out = gpu::jagged_fbm(input, glm::vec2(4.f, 4.f), 0.2f, 1, 0);
+
+  EXPECT_EQ(out.shape, shape);
+  EXPECT_TRUE(assert_almost_equal(out, input, 1e-5f));
+}
+
+TEST_F(JaggedTest, FbmSingleOctaveMatchesJagged)
+{
+  glm::ivec2 shape = {64, 64};
+  Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
+
+  Array out_single = gpu::jagged(input,
+                                 glm::vec2(4.f, 4.f),
+                                 0.2f,
+                                 7,
+                                 {0.6f, 0.6f},
+                                 1.5f,
+                                 25.f);
+  Array out_fbm = gpu::jagged_fbm(input,
+                                  glm::vec2(4.f, 4.f),
+                                  0.2f,
+                                  7,
+                                  1,
+                                  0.5f,
+                                  2.f,
+                                  {0.6f, 0.6f},
+                                  1.5f,
+                                  25.f);
+
+  EXPECT_TRUE(assert_almost_equal(out_single, out_fbm, 1e-5f));
+}
+
+TEST_F(JaggedTest, FbmMultipleOctavesAddsDetail)
+{
+  glm::ivec2 shape = {64, 64};
+  Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
+
+  Array out_1 = gpu::jagged_fbm(input, 4.f, 0.2f, 1, 1);
+  Array out_3 = gpu::jagged_fbm(input, 4.f, 0.2f, 1, 3);
+
+  EXPECT_FALSE(assert_almost_equal(out_1, out_3, 1e-3f));
+  EXPECT_FALSE(assert_almost_equal(out_3, input, 1e-3f));
+}
+
+TEST_F(JaggedTest, FbmPersistenceAndLacunarityEffect)
+{
+  glm::ivec2 shape = {64, 64};
+  Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
+
+  Array out_p03 = gpu::jagged_fbm(input, 4.f, 0.2f, 1, 3, 0.3f, 2.f);
+  Array out_p08 = gpu::jagged_fbm(input, 4.f, 0.2f, 1, 3, 0.8f, 2.f);
+  Array out_lac3 = gpu::jagged_fbm(input, 4.f, 0.2f, 1, 3, 0.5f, 3.f);
+
+  EXPECT_FALSE(assert_almost_equal(out_p03, out_p08, 1e-3f));
+  EXPECT_FALSE(assert_almost_equal(out_p03, out_lac3, 1e-3f));
+}
+
+TEST_F(JaggedTest, FbmMaskPreservesUnmaskedArea)
+{
+  const int  nx = 64;
+  const int  ny = 64;
+  glm::ivec2 shape = {nx, ny};
+  Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 10);
+  Array      mask(shape, 0.f);
+
+  // Mask top half only
+  for (int j = ny / 2; j < ny; ++j)
+    for (int i = 0; i < nx; ++i)
+      mask(i, j) = 1.f;
+
+  Array out = gpu::jagged_fbm(input,
+                              glm::vec2(4.f, 4.f),
+                              0.2f,
+                              1,
+                              3,
+                              0.5f,
+                              2.f,
+                              {0.5f, 0.5f},
+                              1.f,
+                              0.f,
+                              &mask);
+
+  // Bottom half (mask = 0) should remain unchanged
+  for (int j = 0; j < ny / 2; ++j)
+    for (int i = 0; i < nx; ++i)
+      EXPECT_NEAR(out(i, j), input(i, j), 1e-5f);
+}
+
+TEST_F(JaggedTest, FbmScalarKwOverloadEquivalence)
+{
+  glm::ivec2 shape = {64, 64};
+  Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 123);
+
+  Array out1 = gpu::jagged_fbm(input,
+                               5.f,
+                               0.15f,
+                               7,
+                               3,
+                               0.6f,
+                               2.2f,
+                               {0.6f, 0.6f},
+                               1.5f,
+                               30.f);
+  Array out2 = gpu::jagged_fbm(input,
+                               glm::vec2(5.f, 5.f),
+                               0.15f,
+                               7,
+                               3,
+                               0.6f,
+                               2.2f,
+                               {0.6f, 0.6f},
+                               1.5f,
+                               30.f);
+
+  EXPECT_TRUE(assert_almost_equal(out1, out2, 1e-5f));
+}
+
+TEST_F(JaggedTest, FbmEmptyArrayReturnsEmpty)
+{
+  Array input;
+  Array out = gpu::jagged_fbm(input, 4.f);
+  EXPECT_TRUE(out.vector.empty());
+}
