@@ -29,9 +29,10 @@ var searchData=
   ['log_5fimpl_26',['log_impl',['../namespacehmap_1_1log_1_1detail.html#a63995cdf3b5dc5033a32662caec75cac',1,'hmap::log::detail']]],
   ['log_5fopenmp_5finfo_27',['log_openmp_info',['../namespacehmap.html#afaefd4e8848d0155162b24a1a67f9479',1,'hmap']]],
   ['logspace_28',['logspace',['../namespacehmap.html#a72951e6ba82ab8726d1b5d2f491226b2',1,'hmap']]],
-  ['lorentzian_29',['lorentzian',['../namespacehmap.html#a921bc84c2e2cf76a022da0ffaaf60802',1,'hmap']]],
-  ['lorentzian_5fcompact_30',['lorentzian_compact',['../namespacehmap.html#a0cfa024afb9246aaa89ec6b2e69501c3',1,'hmap']]],
-  ['low_5fpass_5fhigh_5forder_31',['low_pass_high_order',['../namespacehmap.html#a81842482472ceecc660913388219bb77',1,'hmap']]],
-  ['lrutilestorage_32',['LruTileStorage',['../classhmap_1_1LruTileStorage.html#a18948b97db31797b0fe45c58d2da883b',1,'hmap::LruTileStorage']]],
-  ['luminance_33',['luminance',['../namespacehmap.html#af57ba0aebe498d0b79b91159d7e600b5',1,'hmap::luminance(const Texture &amp;tex)'],['../namespacehmap.html#a051c3f6f1ceda0feaf3c36c97bd7fef9',1,'hmap::luminance(VirtualArray &amp;out, VirtualTexture &amp;tex, const ComputeMode &amp;cm)']]]
+  ['loose_5fsymmetry_29',['loose_symmetry',['../namespacehmap.html#a57f4446f0d199ae373e5c29a3fdd705a',1,'hmap']]],
+  ['lorentzian_30',['lorentzian',['../namespacehmap.html#a921bc84c2e2cf76a022da0ffaaf60802',1,'hmap']]],
+  ['lorentzian_5fcompact_31',['lorentzian_compact',['../namespacehmap.html#a0cfa024afb9246aaa89ec6b2e69501c3',1,'hmap']]],
+  ['low_5fpass_5fhigh_5forder_32',['low_pass_high_order',['../namespacehmap.html#a81842482472ceecc660913388219bb77',1,'hmap']]],
+  ['lrutilestorage_33',['LruTileStorage',['../classhmap_1_1LruTileStorage.html#a18948b97db31797b0fe45c58d2da883b',1,'hmap::LruTileStorage']]],
+  ['luminance_34',['luminance',['../namespacehmap.html#af57ba0aebe498d0b79b91159d7e600b5',1,'hmap::luminance(const Texture &amp;tex)'],['../namespacehmap.html#a051c3f6f1ceda0feaf3c36c97bd7fef9',1,'hmap::luminance(VirtualArray &amp;out, VirtualTexture &amp;tex, const ComputeMode &amp;cm)']]]
 ];

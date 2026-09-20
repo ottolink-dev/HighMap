@@ -1,5 +1,15 @@
 var transform_8hpp =
 [
+    [ "SymmetryType", "transform_8hpp.html#a869e8b1294539de116023ed41279c455", [
+      [ "SYMMETRY_LEFT_TO_RIGHT", "transform_8hpp.html#a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85", null ],
+      [ "SYMMETRY_RIGHT_TO_LEFT", "transform_8hpp.html#a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f", null ],
+      [ "SYMMETRY_TOP_TO_BOTTOM", "transform_8hpp.html#a869e8b1294539de116023ed41279c455a3ddaa2a956cc883b21be2299aaf5b9e6", null ],
+      [ "SYMMETRY_BOTTOM_TO_TOP", "transform_8hpp.html#a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad", null ],
+      [ "SYMMETRY_X", "transform_8hpp.html#a869e8b1294539de116023ed41279c455a920e2b98c2ac5a04a409d80e07987845", null ],
+      [ "SYMMETRY_Y", "transform_8hpp.html#a869e8b1294539de116023ed41279c455a8517750a37931564bdebfecc33af5f8a", null ],
+      [ "SYMMETRY_XY", "transform_8hpp.html#a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e", null ],
+      [ "SYMMETRY_ROT180", "transform_8hpp.html#a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351", null ]
+    ] ],
     [ "flip_lr", "transform_8hpp.html#a19dec938e688ef4b73cf27ff3934043b", null ],
     [ "flip_lr", "transform_8hpp.html#afda98f22fc66ebb9e1e48008f3f1a34c", null ],
     [ "flip_ud", "transform_8hpp.html#a2c304fc0d8cefe164e3070c885b43aaa", null ],
@@ -15,6 +25,7 @@ var transform_8hpp =
     [ "rotate_displacement", "transform_8hpp.html#ad2d28babba03ed11cf115ab08009de64", null ],
     [ "scale_uv", "transform_8hpp.html#a66ec69d0e52dd23350bed20dbbcb0d08", null ],
     [ "scale_uv", "transform_8hpp.html#aa6e0ddb5fd3b76e1ba7f18d8c4a45549", null ],
+    [ "symmetrize", "transform_8hpp.html#addaf4b4338e96fbca8a43146757f8c2b", null ],
     [ "translate", "transform_8hpp.html#a6e52fd8e2580523aae968d76461c30b8", null ],
     [ "transpose", "transform_8hpp.html#a9b059a298d27843519baa3b6bfe291cd", null ],
     [ "transpose", "transform_8hpp.html#aa8ffb5a748ba6524f2b121c62819e892", null ],

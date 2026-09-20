@@ -481,6 +481,18 @@ enum \mbox{\hyperlink{namespacehmap_ad9d7f866e3a5140ed694e502c1db44ae}{Normaliza
 , \mbox{\hyperlink{namespacehmap_ad9d7f866e3a5140ed694e502c1db44aeaf15cebde3e8fe2d5c3633e5d118d423c}{NM\+\_\+\+ROBUST}}
  \}
 \begin{DoxyCompactList}\small\item\em Normalization methods. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455}{Symmetry\+Type}} \+: int \{ \newline
+\mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85}{SYMMETRY\+\_\+\+LEFT\+\_\+\+TO\+\_\+\+RIGHT}}
+, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f}{SYMMETRY\+\_\+\+RIGHT\+\_\+\+TO\+\_\+\+LEFT}}
+, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a3ddaa2a956cc883b21be2299aaf5b9e6}{SYMMETRY\+\_\+\+TOP\+\_\+\+TO\+\_\+\+BOTTOM}}
+, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad}{SYMMETRY\+\_\+\+BOTTOM\+\_\+\+TO\+\_\+\+TOP}}
+, \newline
+\mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a920e2b98c2ac5a04a409d80e07987845}{SYMMETRY\+\_\+X}}
+, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a8517750a37931564bdebfecc33af5f8a}{SYMMETRY\+\_\+Y}}
+, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e}{SYMMETRY\+\_\+\+XY}}
+, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351}{SYMMETRY\+\_\+\+ROT180}}
+ \}
+\begin{DoxyCompactList}\small\item\em Describes the symmetry operation to apply to an array. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{namespacehmap_ad21b93a34c88a47d6b54f3a4d5b65e6e}{Storage\+Mode}} \+: int \{ \mbox{\hyperlink{namespacehmap_ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce}{VA\+\_\+\+RAM}}
 , \mbox{\hyperlink{namespacehmap_ad21b93a34c88a47d6b54f3a4d5b65e6ea671262171ccce9633cc42db046ea63d4}{VA\+\_\+\+DISK\+\_\+\+LRU}}
 , \mbox{\hyperlink{namespacehmap_ad21b93a34c88a47d6b54f3a4d5b65e6ea3696aa48b93c260deb79c830ae605781}{VA\+\_\+\+DISK\+\_\+\+LRU\+\_\+\+MIN}}
@@ -1910,6 +1922,8 @@ void \mbox{\hyperlink{namespacehmap_a27faed8c5c8f89f271b6882c8a7cc81b}{normalize
 \begin{DoxyCompactList}\small\item\em Returns a normalized copy of an array. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{namespacehmap_aec6ff7b54fb5d02804aa8de94bcd4caa}{variance}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float \texorpdfstring{$\ast$}{*}p\+\_\+mean=nullptr)
 \begin{DoxyCompactList}\small\item\em Compute the population variance of a 2D array. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a57f4446f0d199ae373e5c29a3fdd705a}{loose\+\_\+symmetry}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455}{Symmetry\+Type}} symmetry\+\_\+type=\mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85}{Symmetry\+Type\+::\+SYMMETRY\+\_\+\+LEFT\+\_\+\+TO\+\_\+\+RIGHT}}, float strength=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int factor=4, int patch\+\_\+size=16, int analysis\+\_\+stride=2, int synthesis\+\_\+stride=8, int sparsity=1)
+\begin{DoxyCompactList}\small\item\em Synthesize a heightmap with natural, approximate symmetry using exemplar-\/based super-\/resolution. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_afd029dcbec994bb60252eb7e126a4fb7}{non\+\_\+parametric\+\_\+sampling}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::ivec2 patch\+\_\+shape, std\+::uint32\+\_\+t seed, float error\+\_\+threshold=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Synthesize a new heightmap based on an input array using a non-\/parametric sampling method. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_ada12bd91a1719f64ff4b652bf1462d2a}{quilting}} (const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*} $>$ \&p\+\_\+arrays, glm\+::ivec2 patch\+\_\+base\+\_\+shape, glm\+::ivec2 tiling, float overlap, std\+::uint32\+\_\+t seed, std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*} $>$ secondary\+\_\+arrays=\{\}, bool patch\+\_\+flip=true, bool patch\+\_\+rotate=true, bool patch\+\_\+transpose=true, float filter\+\_\+width\+\_\+ratio=0.\+25\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
@@ -1958,6 +1972,8 @@ void \mbox{\hyperlink{namespacehmap_a66ec69d0e52dd23350bed20dbbcb0d08}{scale\+\_
 \begin{DoxyCompactList}\small\item\em Scale the array in UV space with wrapping boundary. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_aa6e0ddb5fd3b76e1ba7f18d8c4a45549}{scale\+\_\+uv}} (\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture, glm\+::vec2 uv\+\_\+scale)
 \begin{DoxyCompactList}\small\item\em Scale the texture in UV space with wrapping boundary. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_addaf4b4338e96fbca8a43146757f8c2b}{symmetrize}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455}{Symmetry\+Type}} symmetry\+\_\+type=\mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85}{Symmetry\+Type\+::\+SYMMETRY\+\_\+\+LEFT\+\_\+\+TO\+\_\+\+RIGHT}})
+\begin{DoxyCompactList}\small\item\em Enforces geometric symmetry on an array. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a6e52fd8e2580523aae968d76461c30b8}{translate}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float dx, float dy, bool periodic=false, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Translates a 2D array by a specified amount along the x and y axes. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a9b059a298d27843519baa3b6bfe291cd}{transpose}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
@@ -3271,6 +3287,50 @@ NM\+\_\+\+STANDARDIZE&\\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NM\_ROBUST@{NM\_ROBUST}!hmap@{hmap}}\index{hmap@{hmap}!NM\_ROBUST@{NM\_ROBUST}}}\Hypertarget{namespacehmap_ad9d7f866e3a5140ed694e502c1db44aeaf15cebde3e8fe2d5c3633e5d118d423c}\label{namespacehmap_ad9d7f866e3a5140ed694e502c1db44aeaf15cebde3e8fe2d5c3633e5d118d423c} 
 NM\+\_\+\+ROBUST&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455}\label{namespacehmap_a869e8b1294539de116023ed41279c455} 
+\index{hmap@{hmap}!SymmetryType@{SymmetryType}}
+\index{SymmetryType@{SymmetryType}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{SymmetryType}{SymmetryType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455}{hmap\+::\+Symmetry\+Type}} \+: int}
+
+
+
+Describes the symmetry operation to apply to an array. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYMMETRY\_LEFT\_TO\_RIGHT@{SYMMETRY\_LEFT\_TO\_RIGHT}!hmap@{hmap}}\index{hmap@{hmap}!SYMMETRY\_LEFT\_TO\_RIGHT@{SYMMETRY\_LEFT\_TO\_RIGHT}}}\Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85}\label{namespacehmap_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85} 
+SYMMETRY\+\_\+\+LEFT\+\_\+\+TO\+\_\+\+RIGHT&Mirror left half onto right half. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYMMETRY\_RIGHT\_TO\_LEFT@{SYMMETRY\_RIGHT\_TO\_LEFT}!hmap@{hmap}}\index{hmap@{hmap}!SYMMETRY\_RIGHT\_TO\_LEFT@{SYMMETRY\_RIGHT\_TO\_LEFT}}}\Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f}\label{namespacehmap_a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f} 
+SYMMETRY\+\_\+\+RIGHT\+\_\+\+TO\+\_\+\+LEFT&Mirror right half onto left half. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYMMETRY\_TOP\_TO\_BOTTOM@{SYMMETRY\_TOP\_TO\_BOTTOM}!hmap@{hmap}}\index{hmap@{hmap}!SYMMETRY\_TOP\_TO\_BOTTOM@{SYMMETRY\_TOP\_TO\_BOTTOM}}}\Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455a3ddaa2a956cc883b21be2299aaf5b9e6}\label{namespacehmap_a869e8b1294539de116023ed41279c455a3ddaa2a956cc883b21be2299aaf5b9e6} 
+SYMMETRY\+\_\+\+TOP\+\_\+\+TO\+\_\+\+BOTTOM&Mirror top half onto bottom half. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYMMETRY\_BOTTOM\_TO\_TOP@{SYMMETRY\_BOTTOM\_TO\_TOP}!hmap@{hmap}}\index{hmap@{hmap}!SYMMETRY\_BOTTOM\_TO\_TOP@{SYMMETRY\_BOTTOM\_TO\_TOP}}}\Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad}\label{namespacehmap_a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad} 
+SYMMETRY\+\_\+\+BOTTOM\+\_\+\+TO\+\_\+\+TOP&Mirror bottom half onto top half. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYMMETRY\_X@{SYMMETRY\_X}!hmap@{hmap}}\index{hmap@{hmap}!SYMMETRY\_X@{SYMMETRY\_X}}}\Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455a920e2b98c2ac5a04a409d80e07987845}\label{namespacehmap_a869e8b1294539de116023ed41279c455a920e2b98c2ac5a04a409d80e07987845} 
+SYMMETRY\+\_\+X&Symmetric average across vertical axis. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYMMETRY\_Y@{SYMMETRY\_Y}!hmap@{hmap}}\index{hmap@{hmap}!SYMMETRY\_Y@{SYMMETRY\_Y}}}\Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455a8517750a37931564bdebfecc33af5f8a}\label{namespacehmap_a869e8b1294539de116023ed41279c455a8517750a37931564bdebfecc33af5f8a} 
+SYMMETRY\+\_\+Y&Symmetric average across horizontal axis. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYMMETRY\_XY@{SYMMETRY\_XY}!hmap@{hmap}}\index{hmap@{hmap}!SYMMETRY\_XY@{SYMMETRY\_XY}}}\Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e}\label{namespacehmap_a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e} 
+SYMMETRY\+\_\+\+XY&4-\/quadrant symmetric average across both X and Y. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYMMETRY\_ROT180@{SYMMETRY\_ROT180}!hmap@{hmap}}\index{hmap@{hmap}!SYMMETRY\_ROT180@{SYMMETRY\_ROT180}}}\Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351}\label{namespacehmap_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351} 
+SYMMETRY\+\_\+\+ROT180&180-\/degree rotational symmetry around center. \\
 \hline
 
 \end{DoxyEnumFields}
@@ -32679,7 +32739,146 @@ Compute the population variance of a 2D array.
 \begin{DoxyReturn}{Returns}
 Population variance.
 \end{DoxyReturn}
-See unit tests\+: \doxylink{test__variance_8cpp}{test\+\_\+variance.\+cpp} \Hypertarget{namespacehmap_afd029dcbec994bb60252eb7e126a4fb7}\label{namespacehmap_afd029dcbec994bb60252eb7e126a4fb7} 
+See unit tests\+: \doxylink{test__variance_8cpp}{test\+\_\+variance.\+cpp} \Hypertarget{namespacehmap_a57f4446f0d199ae373e5c29a3fdd705a}\label{namespacehmap_a57f4446f0d199ae373e5c29a3fdd705a} 
+\index{hmap@{hmap}!loose\_symmetry@{loose\_symmetry}}
+\index{loose\_symmetry@{loose\_symmetry}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{loose\_symmetry()}{loose\_symmetry()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::loose\+\_\+symmetry (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{\mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455}{Symmetry\+Type}}}]{symmetry\+\_\+type = {\ttfamily \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85}{Symmetry\+Type\+::\+SYMMETRY\+\_\+\+LEFT\+\_\+\+TO\+\_\+\+RIGHT}}},  }\item[{float}]{strength = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{int}]{factor = {\ttfamily 4},  }\item[{int}]{patch\+\_\+size = {\ttfamily 16},  }\item[{int}]{analysis\+\_\+stride = {\ttfamily 2},  }\item[{int}]{synthesis\+\_\+stride = {\ttfamily 8},  }\item[{int}]{sparsity = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+Synthesize a heightmap with natural, approximate symmetry using exemplar-\/based super-\/resolution. 
+
+This function creates a heightmap with recognizable symmetrical macro features while retaining natural variation and avoiding strict geometric pixel-\/mirroring. It extracts the macro shape of the input (with optional pre-\/filtering), applies geometric symmetry to construct a guide field, and transfers the un-\/mirrored high-\/resolution features and textures of the input exemplar onto the symmetrical guide using sparse patch coding.
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & Input heightmap providing the exemplar features. \\
+\hline
+{\em symmetry\+\_\+type} & Type of symmetry to apply to the guide field. \\
+\hline
+{\em strength} & Symmetry strength in \mbox{[}0, 1\mbox{]} controlling interpolation between the original macro base and the symmetrical guide. Default is 1.\+0. \\
+\hline
+{\em factor} & Super-\/resolution amplification factor (\texorpdfstring{$>$}{>}= 1). \\
+\hline
+{\em patch\+\_\+size} & Side of square patches for sparse coding (\texorpdfstring{$>$}{>}= 2). \\
+\hline
+{\em analysis\+\_\+stride} & Patch stride on the exemplar grid. \\
+\hline
+{\em synthesis\+\_\+stride} & Patch stride on the synthesis grid. \\
+\hline
+{\em sparsity} & Maximum number of atoms used to code each patch. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Array}{Array} Synthesized heightmap with loose symmetry.
+\end{DoxyReturn}
+{\bfseries{Example}} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_adb8336ed4d83c15500872185dee45d50}{hmap::gpu::init\_opencl}}();\ \textcolor{comment}{//\ for\ hydraulic\ erosion}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ glm::ivec2\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ =\ \{512,\ 512\};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ seed\ =\ 42;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ input\ terrain\ with\ natural\ features\ and\ rich\ erosion\ details}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed}{hmap::NoiseType::SIMPLEX2}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{4.f,\ 4.f\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_a4634556eb8cdc81b0bb52b5ebcd5309b}{hmap::gpu::hydraulic\_particle}}(z,\ 30000,\ seed);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(z);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ loose\ symmetry\ parameters}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ patch\_size\ =\ 16;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ analysis\_stride\ =\ patch\_size\ /\ 8;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ synthesis\_stride\ =\ patch\_size\ /\ 2;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ factor\ =\ 4;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{float}\ strength\ =\ 0.8f;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ compute\ loose\ symmetry\ for\ all\ symmetry\ types}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_lr\ =\ \mbox{\hyperlink{namespacehmap_a57f4446f0d199ae373e5c29a3fdd705a}{hmap::loose\_symmetry}}(}
+\DoxyCodeLine{\ \ \ \ \ \ z,}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85}{hmap::SymmetryType::SYMMETRY\_LEFT\_TO\_RIGHT}},}
+\DoxyCodeLine{\ \ \ \ \ \ strength,}
+\DoxyCodeLine{\ \ \ \ \ \ factor,}
+\DoxyCodeLine{\ \ \ \ \ \ patch\_size,}
+\DoxyCodeLine{\ \ \ \ \ \ analysis\_stride,}
+\DoxyCodeLine{\ \ \ \ \ \ synthesis\_stride);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_rl\ =\ \mbox{\hyperlink{namespacehmap_a57f4446f0d199ae373e5c29a3fdd705a}{hmap::loose\_symmetry}}(}
+\DoxyCodeLine{\ \ \ \ \ \ z,}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f}{hmap::SymmetryType::SYMMETRY\_RIGHT\_TO\_LEFT}},}
+\DoxyCodeLine{\ \ \ \ \ \ strength,}
+\DoxyCodeLine{\ \ \ \ \ \ factor,}
+\DoxyCodeLine{\ \ \ \ \ \ patch\_size,}
+\DoxyCodeLine{\ \ \ \ \ \ analysis\_stride,}
+\DoxyCodeLine{\ \ \ \ \ \ synthesis\_stride);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_tb\ =\ \mbox{\hyperlink{namespacehmap_a57f4446f0d199ae373e5c29a3fdd705a}{hmap::loose\_symmetry}}(}
+\DoxyCodeLine{\ \ \ \ \ \ z,}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a3ddaa2a956cc883b21be2299aaf5b9e6}{hmap::SymmetryType::SYMMETRY\_TOP\_TO\_BOTTOM}},}
+\DoxyCodeLine{\ \ \ \ \ \ strength,}
+\DoxyCodeLine{\ \ \ \ \ \ factor,}
+\DoxyCodeLine{\ \ \ \ \ \ patch\_size,}
+\DoxyCodeLine{\ \ \ \ \ \ analysis\_stride,}
+\DoxyCodeLine{\ \ \ \ \ \ synthesis\_stride);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_bt\ =\ \mbox{\hyperlink{namespacehmap_a57f4446f0d199ae373e5c29a3fdd705a}{hmap::loose\_symmetry}}(}
+\DoxyCodeLine{\ \ \ \ \ \ z,}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad}{hmap::SymmetryType::SYMMETRY\_BOTTOM\_TO\_TOP}},}
+\DoxyCodeLine{\ \ \ \ \ \ strength,}
+\DoxyCodeLine{\ \ \ \ \ \ factor,}
+\DoxyCodeLine{\ \ \ \ \ \ patch\_size,}
+\DoxyCodeLine{\ \ \ \ \ \ analysis\_stride,}
+\DoxyCodeLine{\ \ \ \ \ \ synthesis\_stride);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_x\ =\ \mbox{\hyperlink{namespacehmap_a57f4446f0d199ae373e5c29a3fdd705a}{hmap::loose\_symmetry}}(z,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a920e2b98c2ac5a04a409d80e07987845}{hmap::SymmetryType::SYMMETRY\_X}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strength,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ factor,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ patch\_size,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ analysis\_stride,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ synthesis\_stride);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_y\ =\ \mbox{\hyperlink{namespacehmap_a57f4446f0d199ae373e5c29a3fdd705a}{hmap::loose\_symmetry}}(z,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a8517750a37931564bdebfecc33af5f8a}{hmap::SymmetryType::SYMMETRY\_Y}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strength,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ factor,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ patch\_size,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ analysis\_stride,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ synthesis\_stride);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_xy\ =\ \mbox{\hyperlink{namespacehmap_a57f4446f0d199ae373e5c29a3fdd705a}{hmap::loose\_symmetry}}(z,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e}{hmap::SymmetryType::SYMMETRY\_XY}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strength,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ factor,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ patch\_size,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ analysis\_stride,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ synthesis\_stride);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\_rot180\ =\ \mbox{\hyperlink{namespacehmap_a57f4446f0d199ae373e5c29a3fdd705a}{hmap::loose\_symmetry}}(}
+\DoxyCodeLine{\ \ \ \ \ \ z,}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351}{hmap::SymmetryType::SYMMETRY\_ROT180}},}
+\DoxyCodeLine{\ \ \ \ \ \ strength,}
+\DoxyCodeLine{\ \ \ \ \ \ factor,}
+\DoxyCodeLine{\ \ \ \ \ \ patch\_size,}
+\DoxyCodeLine{\ \ \ \ \ \ analysis\_stride,}
+\DoxyCodeLine{\ \ \ \ \ \ synthesis\_stride);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_loose\_symmetry.png"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z,\ z\_lr,\ z\_rl,\ z\_tb,\ z\_bt,\ z\_x,\ z\_y,\ z\_xy,\ z\_rot180\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9}{hmap::Cmap::TERRAIN}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true});}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+{\bfseries{Result}}  \Hypertarget{namespacehmap_afd029dcbec994bb60252eb7e126a4fb7}\label{namespacehmap_afd029dcbec994bb60252eb7e126a4fb7} 
 \index{hmap@{hmap}!non\_parametric\_sampling@{non\_parametric\_sampling}}
 \index{non\_parametric\_sampling@{non\_parametric\_sampling}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{non\_parametric\_sampling()}{non\_parametric\_sampling()}}
@@ -33927,6 +34126,28 @@ Scale the texture in UV space with wrapping boundary.
 {\em uv\+\_\+scale} & Scaling factors for U and V dimensions. \\
 \hline
 \end{DoxyParams}
+\Hypertarget{namespacehmap_addaf4b4338e96fbca8a43146757f8c2b}\label{namespacehmap_addaf4b4338e96fbca8a43146757f8c2b} 
+\index{hmap@{hmap}!symmetrize@{symmetrize}}
+\index{symmetrize@{symmetrize}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{symmetrize()}{symmetrize()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::symmetrize (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{\mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455}{Symmetry\+Type}}}]{symmetry\+\_\+type = {\ttfamily \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85}{Symmetry\+Type\+::\+SYMMETRY\+\_\+\+LEFT\+\_\+\+TO\+\_\+\+RIGHT}}} }\end{DoxyParamCaption})}
+
+
+
+Enforces geometric symmetry on an array. 
+
+This function reflects or averages portions of the input array across the specified symmetry axis or plane according to {\ttfamily symmetry\+\_\+type}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & Input array to symmetrize. \\
+\hline
+{\em symmetry\+\_\+type} & Type of symmetry operation to apply. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Symmetrized array. 
+\end{DoxyReturn}
 \Hypertarget{namespacehmap_a6e52fd8e2580523aae968d76461c30b8}\label{namespacehmap_a6e52fd8e2580523aae968d76461c30b8} 
 \index{hmap@{hmap}!translate@{translate}}
 \index{translate@{translate}!hmap@{hmap}}

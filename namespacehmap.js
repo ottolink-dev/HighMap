@@ -343,6 +343,16 @@ var namespacehmap =
       [ "NM_STANDARDIZE", "namespacehmap.html#ad9d7f866e3a5140ed694e502c1db44aeae57ff6409cf6f0f59120845c765b349b", null ],
       [ "NM_ROBUST", "namespacehmap.html#ad9d7f866e3a5140ed694e502c1db44aeaf15cebde3e8fe2d5c3633e5d118d423c", null ]
     ] ],
+    [ "SymmetryType", "namespacehmap.html#a869e8b1294539de116023ed41279c455", [
+      [ "SYMMETRY_LEFT_TO_RIGHT", "namespacehmap.html#a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85", null ],
+      [ "SYMMETRY_RIGHT_TO_LEFT", "namespacehmap.html#a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f", null ],
+      [ "SYMMETRY_TOP_TO_BOTTOM", "namespacehmap.html#a869e8b1294539de116023ed41279c455a3ddaa2a956cc883b21be2299aaf5b9e6", null ],
+      [ "SYMMETRY_BOTTOM_TO_TOP", "namespacehmap.html#a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad", null ],
+      [ "SYMMETRY_X", "namespacehmap.html#a869e8b1294539de116023ed41279c455a920e2b98c2ac5a04a409d80e07987845", null ],
+      [ "SYMMETRY_Y", "namespacehmap.html#a869e8b1294539de116023ed41279c455a8517750a37931564bdebfecc33af5f8a", null ],
+      [ "SYMMETRY_XY", "namespacehmap.html#a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e", null ],
+      [ "SYMMETRY_ROT180", "namespacehmap.html#a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351", null ]
+    ] ],
     [ "StorageMode", "namespacehmap.html#ad21b93a34c88a47d6b54f3a4d5b65e6e", [
       [ "VA_RAM", "namespacehmap.html#ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce", null ],
       [ "VA_DISK_LRU", "namespacehmap.html#ad21b93a34c88a47d6b54f3a4d5b65e6ea671262171ccce9633cc42db046ea63d4", null ],
@@ -1061,6 +1071,7 @@ var namespacehmap =
     [ "normalize", "namespacehmap.html#a27faed8c5c8f89f271b6882c8a7cc81b", null ],
     [ "normalized", "namespacehmap.html#a3d6212896d8cd828bd5bd827d24a0344", null ],
     [ "variance", "namespacehmap.html#aec6ff7b54fb5d02804aa8de94bcd4caa", null ],
+    [ "loose_symmetry", "namespacehmap.html#a57f4446f0d199ae373e5c29a3fdd705a", null ],
     [ "non_parametric_sampling", "namespacehmap.html#afd029dcbec994bb60252eb7e126a4fb7", null ],
     [ "quilting", "namespacehmap.html#ada12bd91a1719f64ff4b652bf1462d2a", null ],
     [ "quilting_blend", "namespacehmap.html#a8407611dc51d0372c4626c6c6fa94acd", null ],
@@ -1085,6 +1096,7 @@ var namespacehmap =
     [ "rotate_displacement", "namespacehmap.html#ad2d28babba03ed11cf115ab08009de64", null ],
     [ "scale_uv", "namespacehmap.html#a66ec69d0e52dd23350bed20dbbcb0d08", null ],
     [ "scale_uv", "namespacehmap.html#aa6e0ddb5fd3b76e1ba7f18d8c4a45549", null ],
+    [ "symmetrize", "namespacehmap.html#addaf4b4338e96fbca8a43146757f8c2b", null ],
     [ "translate", "namespacehmap.html#a6e52fd8e2580523aae968d76461c30b8", null ],
     [ "transpose", "namespacehmap.html#a9b059a298d27843519baa3b6bfe291cd", null ],
     [ "transpose", "namespacehmap.html#aa8ffb5a748ba6524f2b121c62819e892", null ],
