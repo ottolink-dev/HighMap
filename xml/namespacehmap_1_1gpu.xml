@@ -8832,10 +8832,10 @@ This is an overloaded member function, provided for convenience. It differs from
         </inbodydescription>
         <location file="HighMap/src/filters/filters_gpu.cpp" line="125" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="125" bodyend="138" declfile="HighMap/include/highmap/filters.hpp" declline="2377" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a40391b60d91a8ea4c124d6e9947d3b1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1ad4270c1dc61c9594997f4b504b778d75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::gpu::jagged</definition>
-        <argsstring>(const Array &amp;array, glm::vec2 kw, std::uint32_t seed=0, glm::vec2 jitter={0.5f, 0.5f}, float gamma=1.f, float shape_gamma=1.f, const Array *p_mask=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(const Array &amp;array, glm::vec2 kw, std::uint32_t seed=0, glm::vec2 jitter={0.5f, 0.5f}, float gamma=0.5f, float shape_gamma=1.f, float factor=1.f, float angle=0.f, const Array *p_mask=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>jagged</name>
         <qualifiedname>hmap::gpu::jagged</qualifiedname>
         <param>
@@ -8859,12 +8859,22 @@ This is an overloaded member function, provided for convenience. It differs from
         <param>
           <type>float</type>
           <declname>gamma</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>float</type>
           <declname>shape_gamma</declname>
           <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>factor</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>angle</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
@@ -8890,9 +8900,9 @@ This is an overloaded member function, provided for convenience. It differs from
 <para>Apply a Voronoi-based jagged facet filter to an array. </para>
         </briefdescription>
         <detaileddescription>
-<para>For each array cell, calculates a normalized distance weight ( w(x) \in [0, 1] ) based on the distance to the Voronoi cell edge (with ( w = 0 ) at cell edge and ( w = 1 ) at Voronoi cell center). A localized power deformation is applied as:  <formula id="8">\[
-Z_{\text{out}}(x) = Z(x) + w(x) \cdot \left[ Z(x)^\gamma - Z(x) \right]
-\]</formula></para>
+<para>For each array cell, calculates the nearest Voronoi cell center ( x_c ), samples the input array at that center, and computes a normalized distance weight ( w(x) \in [0, 1] ) based on the distance to the Voronoi cell edge (with ( w = 0 ) at cell edge and ( w = 1 ) at Voronoi cell center). The output elevation is:  <formula id="8">\[
+Z_{\text{out}}(x) = Z(x) + \text{factor} \cdot w(x) \cdot \left( Z(x_c) -
+Z(x) \right) \]</formula></para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>array</parametername>
@@ -8927,18 +8937,26 @@ Z_{\text{out}}(x) = Z(x) + w(x) \cdot \left[ Z(x)^\gamma - Z(x) \right]
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>gamma</parametername>
+<parametername>factor</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Exponent target at cell center (default: 1.0f, where 1.0 means no effect). </para>
+<para>Strength of the facet / difference effect (default: 1.0f). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>shape_gamma</parametername>
+<parametername>shape_factor</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Exponent for distance-to-edge attenuation (default: 1.0f; 0 disables edge falloff). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Orientation angle in degrees for rotating the Voronoi pattern around (0, 0) (default: 0.0f). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -8998,13 +9016,13 @@ Z_{\text{out}}(x) = Z(x) + w(x) \cdot \left[ Z(x)^\gamma - Z(x) \right]
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec2<sp/>jitter<sp/>=<sp/>{0.6f,<sp/>0.6f};</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>gamma_mild<sp/>=<sp/>0.5f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>gamma_strong<sp/>=<sp/>1.5f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>shape_gamma_none<sp/>=<sp/>0.5f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>shape_gamma_none<sp/>=<sp/>0.f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>shape_gamma_smooth<sp/>=<sp/>0.5f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>shape_gamma_accentuated<sp/>=<sp/>1.5f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>mask_sigma<sp/>=<sp/>0.25f;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Jagged<sp/>filter<sp/>with<sp/>hard<sp/>cell<sp/>boundaries<sp/>(shape_gamma<sp/>=<sp/>0.0)</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a40391b60d91a8ea4c124d6e9947d3b1b" kindref="member">hmap::gpu::jagged</ref>(z0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1ad4270c1dc61c9594997f4b504b778d75" kindref="member">hmap::gpu::jagged</ref>(z0,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>jitter,</highlight></codeline>
@@ -9012,21 +9030,23 @@ Z_{\text{out}}(x) = Z(x) + w(x) \cdot \left[ Z(x)^\gamma - Z(x) \right]
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape_gamma_none);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Jagged<sp/>filter<sp/>with<sp/>edge<sp/>distance<sp/>falloff<sp/>(shape_gamma<sp/>=<sp/>0.5)</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z2<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a40391b60d91a8ea4c124d6e9947d3b1b" kindref="member">hmap::gpu::jagged</ref>(z0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z2<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1ad4270c1dc61c9594997f4b504b778d75" kindref="member">hmap::gpu::jagged</ref>(z0,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>jitter,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>gamma_mild,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape_gamma_smooth);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Jagged<sp/>filter<sp/>with<sp/>higher<sp/>frequency<sp/>and<sp/>mask</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Jagged<sp/>filter<sp/>with<sp/>higher<sp/>frequency,<sp/>angle,<sp/>and<sp/>mask</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>mask<sp/>=<sp/><ref refid="namespacehmap_1ab42ef2251b12bdbea69f71c31082505e" kindref="member">hmap::gaussian_pulse</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>mask_sigma);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z3<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a40391b60d91a8ea4c124d6e9947d3b1b" kindref="member">hmap::gpu::jagged</ref>(z0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z3<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1ad4270c1dc61c9594997f4b504b778d75" kindref="member">hmap::gpu::jagged</ref>(z0,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw_fine,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>jitter,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>gamma_strong,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape_gamma_accentuated,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>30.f,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;mask);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_jagged.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
@@ -9040,12 +9060,12 @@ Z_{\text{out}}(x) = Z(x) + w(x) \cdot \left[ Z(x)^\gamma - Z(x) \right]
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/jagged.cpp" line="16" column="7" bodyfile="HighMap/src/filters/jagged.cpp" bodystart="16" bodyend="64" declfile="HighMap/include/highmap/filters.hpp" declline="2417" declcolumn="7"/>
+        <location file="HighMap/src/filters/jagged.cpp" line="16" column="7" bodyfile="HighMap/src/filters/jagged.cpp" bodystart="16" bodyend="68" declfile="HighMap/include/highmap/filters.hpp" declline="2420" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a6019673b5d442c826343552f036725c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1a4f1612105e0d844054b7345170e46e71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::gpu::jagged</definition>
-        <argsstring>(const Array &amp;array, float kw, std::uint32_t seed=0, glm::vec2 jitter={0.5f, 0.5f}, float gamma=1.f, float shape_gamma=1.f, const Array *p_mask=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(const Array &amp;array, float kw, std::uint32_t seed=0, glm::vec2 jitter={0.5f, 0.5f}, float gamma=0.5f, float shape_gamma=1.f, float factor=1.f, float angle=0.f, const Array *p_mask=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>jagged</name>
         <qualifiedname>hmap::gpu::jagged</qualifiedname>
         <param>
@@ -9069,12 +9089,22 @@ Z_{\text{out}}(x) = Z(x) + w(x) \cdot \left[ Z(x)^\gamma - Z(x) \right]
         <param>
           <type>float</type>
           <declname>gamma</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>float</type>
           <declname>shape_gamma</declname>
           <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>factor</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>angle</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
@@ -9137,7 +9167,7 @@ Z_{\text{out}}(x) = Z(x) + w(x) \cdot \left[ Z(x)^\gamma - Z(x) \right]
 <parametername>gamma</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Exponent target at cell center (default: 1.0f, where 1.0 means no effect). </para>
+<para>Power-law exponent for facet deformation (default: 0.5f). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -9146,6 +9176,22 @@ Z_{\text{out}}(x) = Z(x) + w(x) \cdot \left[ Z(x)^\gamma - Z(x) \right]
 </parameternamelist>
 <parameterdescription>
 <para>Exponent for distance-to-edge attenuation (default: 1.0f; 0 disables edge falloff). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>factor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Scaling factor applied to the jagged deformation (default: 1.0f). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Orientation angle in degrees for rotating the Voronoi pattern around (0, 0) (default: 0.0f). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -9187,7 +9233,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/jagged.cpp" line="66" column="7" bodyfile="HighMap/src/filters/jagged.cpp" bodystart="66" bodyend="87" declfile="HighMap/include/highmap/filters.hpp" declline="2451" declcolumn="7"/>
+        <location file="HighMap/src/filters/jagged.cpp" line="70" column="7" bodyfile="HighMap/src/filters/jagged.cpp" bodystart="70" bodyend="95" declfile="HighMap/include/highmap/filters.hpp" declline="2459" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a13625ec501979795138bac6499ac0f08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9216,7 +9262,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="140" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="140" bodyend="155" declfile="HighMap/include/highmap/filters.hpp" declline="2463" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="140" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="140" bodyend="155" declfile="HighMap/include/highmap/filters.hpp" declline="2473" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a65f49b330320b4c60d8ca5083eda8e86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9249,7 +9295,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="157" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="157" bodyend="165" declfile="HighMap/include/highmap/filters.hpp" declline="2464" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="157" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="157" bodyend="165" declfile="HighMap/include/highmap/filters.hpp" declline="2474" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a54dd015841925f624e6e2bed159f9d37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -9286,7 +9332,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="167" column="7" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="167" bodyend="200" declfile="HighMap/include/highmap/filters.hpp" declline="2470" declcolumn="7"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="167" column="7" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="167" bodyend="200" declfile="HighMap/include/highmap/filters.hpp" declline="2480" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ab2bb3f78e7b0943ad185213d52ab53b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -9326,7 +9372,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="202" column="7" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="202" bodyend="217" declfile="HighMap/include/highmap/filters.hpp" declline="2476" declcolumn="7"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="202" column="7" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="202" bodyend="217" declfile="HighMap/include/highmap/filters.hpp" declline="2486" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1aeb2e79274db3110eaa716f2472399bff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9345,7 +9391,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="219" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="219" bodyend="232" declfile="HighMap/include/highmap/filters.hpp" declline="2484" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="219" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="219" bodyend="232" declfile="HighMap/include/highmap/filters.hpp" declline="2494" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ad412a65a4ada057f8b51b631f332ea67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9368,7 +9414,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="234" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="234" bodyend="240" declfile="HighMap/include/highmap/filters.hpp" declline="2485" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="234" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="234" bodyend="240" declfile="HighMap/include/highmap/filters.hpp" declline="2495" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a2e2bccfafc05679f1762ba039df58dbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -9391,7 +9437,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="242" column="7" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="242" bodyend="249" declfile="HighMap/include/highmap/filters.hpp" declline="2488" declcolumn="7"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="242" column="7" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="242" bodyend="249" declfile="HighMap/include/highmap/filters.hpp" declline="2498" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a9aa4af458740db48fdcd55cc90238ce2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9425,7 +9471,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="251" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="251" bodyend="270" declfile="HighMap/include/highmap/filters.hpp" declline="2491" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="251" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="251" bodyend="270" declfile="HighMap/include/highmap/filters.hpp" declline="2501" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a638d2358ff4ea4cb6a4f24106aa3c94d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9463,7 +9509,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="272" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="272" bodyend="285" declfile="HighMap/include/highmap/filters.hpp" declline="2495" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="272" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="272" bodyend="285" declfile="HighMap/include/highmap/filters.hpp" declline="2505" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ae197a615380c768a5ce30df18397db52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9494,7 +9540,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="287" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="287" bodyend="316" declfile="HighMap/include/highmap/filters.hpp" declline="2502" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="287" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="287" bodyend="316" declfile="HighMap/include/highmap/filters.hpp" declline="2512" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1aa1d48aaeafd42970a2b0c9b6795d73b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9521,7 +9567,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="318" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="318" bodyend="322" declfile="HighMap/include/highmap/filters.hpp" declline="2503" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="318" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="318" bodyend="322" declfile="HighMap/include/highmap/filters.hpp" declline="2513" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a0925ea6d4015309249863be8076af45f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -9587,7 +9633,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="324" column="7" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="324" bodyend="373" declfile="HighMap/include/highmap/filters.hpp" declline="2527" declcolumn="7"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="324" column="7" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="324" bodyend="373" declfile="HighMap/include/highmap/filters.hpp" declline="2537" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ae6c94ff5fe464c75e5ef05b05d5ccacf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -9623,7 +9669,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="375" column="7" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="375" bodyend="390" declfile="HighMap/include/highmap/filters.hpp" declline="2532" declcolumn="7"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="375" column="7" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="375" bodyend="390" declfile="HighMap/include/highmap/filters.hpp" declline="2542" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1af3c4a498eabdcccc53e6ad750e069e79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9657,7 +9703,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="392" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="392" bodyend="411" declfile="HighMap/include/highmap/filters.hpp" declline="2539" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="392" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="392" bodyend="411" declfile="HighMap/include/highmap/filters.hpp" declline="2549" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a02adff51ac10629e93424abc5451d535" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9695,7 +9741,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="413" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="413" bodyend="426" declfile="HighMap/include/highmap/filters.hpp" declline="2545" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="413" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="413" bodyend="426" declfile="HighMap/include/highmap/filters.hpp" declline="2555" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a5639aa9dbe4048e12f83ff5c5660db07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9723,7 +9769,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="428" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="428" bodyend="434" declfile="HighMap/include/highmap/filters.hpp" declline="2552" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="428" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="428" bodyend="434" declfile="HighMap/include/highmap/filters.hpp" declline="2562" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a551b9d1203331ed95e472c57a6e439c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9755,7 +9801,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="436" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="436" bodyend="451" declfile="HighMap/include/highmap/filters.hpp" declline="2553" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="436" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="436" bodyend="451" declfile="HighMap/include/highmap/filters.hpp" declline="2563" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a95377c44e7202205d867d42fe4cfa93d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9783,7 +9829,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="453" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="453" bodyend="485" declfile="HighMap/include/highmap/filters.hpp" declline="2557" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="453" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="453" bodyend="485" declfile="HighMap/include/highmap/filters.hpp" declline="2567" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a11bc9aa25f858fb2587a8b6118570fa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9815,7 +9861,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="487" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="487" bodyend="499" declfile="HighMap/include/highmap/filters.hpp" declline="2560" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="487" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="487" bodyend="499" declfile="HighMap/include/highmap/filters.hpp" declline="2570" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a7d2aae253f1f67bbdbc718859f83ef0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9838,7 +9884,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="501" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="501" bodyend="549" declfile="HighMap/include/highmap/filters.hpp" declline="2566" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="501" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="501" bodyend="549" declfile="HighMap/include/highmap/filters.hpp" declline="2576" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ad201432c26c75bbab156a22c52b7121a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9865,7 +9911,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="551" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="551" bodyend="557" declfile="HighMap/include/highmap/filters.hpp" declline="2569" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="551" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="551" bodyend="557" declfile="HighMap/include/highmap/filters.hpp" declline="2579" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a4744808e10a1dfaf752cd68366824ee9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9896,7 +9942,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="559" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="559" bodyend="570" declfile="HighMap/include/highmap/filters.hpp" declline="2572" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="559" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="559" bodyend="570" declfile="HighMap/include/highmap/filters.hpp" declline="2582" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ab10a6dc3d92519c7bd3244571bcd6429" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9929,7 +9975,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="572" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="572" bodyend="582" declfile="HighMap/include/highmap/filters.hpp" declline="2578" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="572" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="572" bodyend="582" declfile="HighMap/include/highmap/filters.hpp" declline="2588" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1adc6356d5b5690f553d33810380417805" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9966,7 +10012,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="584" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="584" bodyend="597" declfile="HighMap/include/highmap/filters.hpp" declline="2582" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="584" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="584" bodyend="597" declfile="HighMap/include/highmap/filters.hpp" declline="2592" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a4d9bec907c550123aa7db34f4dadc3e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9989,7 +10035,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="599" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="599" bodyend="615" declfile="HighMap/include/highmap/filters.hpp" declline="2589" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="599" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="599" bodyend="615" declfile="HighMap/include/highmap/filters.hpp" declline="2599" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a249288f5956cedfaffefd7b0b8fba17d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -10016,7 +10062,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="617" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="617" bodyend="625" declfile="HighMap/include/highmap/filters.hpp" declline="2590" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="617" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="617" bodyend="625" declfile="HighMap/include/highmap/filters.hpp" declline="2600" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a37f556d4d43005e2d618f0aa6c3527bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -10039,7 +10085,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="627" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="627" bodyend="643" declfile="HighMap/include/highmap/filters.hpp" declline="2595" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="627" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="627" bodyend="643" declfile="HighMap/include/highmap/filters.hpp" declline="2605" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1acb80d6cda31177534d6e63c97675d46d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -10066,7 +10112,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/filters_gpu.cpp" line="645" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="645" bodyend="653" declfile="HighMap/include/highmap/filters.hpp" declline="2596" declcolumn="6"/>
+        <location file="HighMap/src/filters/filters_gpu.cpp" line="645" column="6" bodyfile="HighMap/src/filters/filters_gpu.cpp" bodystart="645" bodyend="653" declfile="HighMap/include/highmap/filters.hpp" declline="2606" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a302ad3eae3f0a06441915c2b97d56641" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -10136,7 +10182,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/spectral_equalizer.cpp" line="18" column="7" bodyfile="HighMap/src/filters/spectral_equalizer.cpp" bodystart="18" bodyend="91" declfile="HighMap/include/highmap/filters.hpp" declline="2618" declcolumn="7"/>
+        <location file="HighMap/src/filters/spectral_equalizer.cpp" line="18" column="7" bodyfile="HighMap/src/filters/spectral_equalizer.cpp" bodystart="18" bodyend="91" declfile="HighMap/include/highmap/filters.hpp" declline="2628" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ae94d740e0c470e8b8732bbb3a2498de4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -10171,7 +10217,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/spectral_equalizer.cpp" line="93" column="7" bodyfile="HighMap/src/filters/spectral_equalizer.cpp" bodystart="93" bodyend="113" declfile="HighMap/include/highmap/filters.hpp" declline="2623" declcolumn="7"/>
+        <location file="HighMap/src/filters/spectral_equalizer.cpp" line="93" column="7" bodyfile="HighMap/src/filters/spectral_equalizer.cpp" bodystart="93" bodyend="113" declfile="HighMap/include/highmap/filters.hpp" declline="2633" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ab4b68e1b48d16193615105656680ced8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
