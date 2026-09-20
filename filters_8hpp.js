@@ -130,6 +130,8 @@ var filters_8hpp =
     [ "gamma_correction_local", "filters_8hpp.html#a7725963a18b9fca522dec1ae74ad8c2f", null ],
     [ "jagged", "filters_8hpp.html#ac550caba08224346f8391ddfbce18e50", null ],
     [ "jagged", "filters_8hpp.html#aae1737b4b54691194ede75b375b9f880", null ],
+    [ "jagged_fbm", "filters_8hpp.html#a02ac9554036db8fdefca30103a5a4346", null ],
+    [ "jagged_fbm", "filters_8hpp.html#a87328ca31dde2a275af7be9cf0e31e96", null ],
     [ "laplace", "filters_8hpp.html#a13625ec501979795138bac6499ac0f08", null ],
     [ "laplace", "filters_8hpp.html#a65f49b330320b4c60d8ca5083eda8e86", null ],
     [ "mean_shift", "filters_8hpp.html#a54dd015841925f624e6e2bed159f9d37", null ],
