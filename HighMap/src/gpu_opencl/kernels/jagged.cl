@@ -14,9 +14,8 @@ void kernel jagged(read_only image2d_t  in,
                    const float          ky,
                    const uint           seed,
                    const float2         jitter,
+                   const float          amp,
                    const float          gamma,
-                   const float          shape_gamma,
-                   const float          factor,
                    const float          angle,
                    const int            has_mask,
                    const int            has_noise_x,
@@ -70,26 +69,28 @@ void kernel jagged(read_only image2d_t  in,
     }
 
   // pass 2: compute distance to cell edge
-  float w = 1.f;
-  if (shape_gamma > 0.f)
-  {
-    float d_edge = 8.f;
-    for (int dy_i = -2; dy_i <= 2; dy_i++)
-      for (int dx_i = -2; dx_i <= 2; dx_i++)
+  float d_edge = 8.f;
+  for (int dy_i = -2; dy_i <= 2; dy_i++)
+    for (int dx_i = -2; dx_i <= 2; dx_i++)
+    {
+      float2 b = mb + (float2)(dx_i, dy_i);
+      float2 r = b - f + jitter * hash22f(p + b, fseed);
+      if (dot(mr - r, mr - r) > 1e-5f)
       {
-        float2 b = mb + (float2)(dx_i, dy_i);
-        float2 r = b - f + jitter * hash22f(p + b, fseed);
-        if (dot(mr - r, mr - r) > 1e-5f)
-        {
-          float d = dot(0.5f * (mr + r), normalize(r - mr));
-          d_edge = min(d_edge, d);
-        }
+        float d = dot(0.5f * (mr + r), normalize(r - mr));
+        d_edge = min(d_edge, d);
       }
-    d_edge = max(0.f, d_edge);
-    float d_center = length(mr);
-    float tau = d_edge / (d_center + d_edge + 1e-6f);
-    tau = smoothstep3(clamp(tau, 0.f, 1.f));
-    w = pow_float(tau, shape_gamma);
+    }
+  d_edge = max(0.f, d_edge);
+  float d_center = length(mr);
+  float tau = d_edge / (d_center + d_edge + 1e-6f);
+  tau = clamp(tau, 0.f, 1.f);
+
+  // bubble dome profile
+  float profile = sin(0.5f * 3.14159265f * tau);
+  if (gamma > 0.f && gamma != 1.f)
+  {
+    profile = pow_float(profile, gamma);
   }
 
   const sampler_t sampler_unnorm = CLK_NORMALIZED_COORDS_FALSE |
@@ -97,12 +98,7 @@ void kernel jagged(read_only image2d_t  in,
                                    CLK_FILTER_NEAREST;
 
   float val_curr = read_imagef(in, sampler_unnorm, g).x;
-
-  float val_out = val_curr > 0.f
-                      ? val_curr +
-                            factor * w *
-                                (pow_float(val_curr, gamma) - val_curr)
-                      : val_curr;
+  float val_out = val_curr + amp * profile;
 
   if (has_mask > 0)
   {

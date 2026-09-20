@@ -18,38 +18,26 @@ int main(void)
   const float     kw = 8.f;
   const float     kw_fine = 16.f;
   const glm::vec2 jitter = {0.6f, 0.6f};
-  const float     gamma_mild = 0.5f;
-  const float     gamma_strong = 1.5f;
-  const float     shape_gamma_none = 0.f;
-  const float     shape_gamma_smooth = 0.5f;
-  const float     shape_gamma_accentuated = 1.5f;
+  const float     amp_mild = 0.12f;
+  const float     amp_strong = 0.22f;
+  const float     gamma_plateau = 0.5f;
+  const float     gamma_cusp = 2.0f;
   const float     mask_sigma = 0.25f;
 
-  // Jagged filter with hard cell boundaries (shape_gamma = 0.0)
-  auto z1 = hmap::gpu::jagged(z0,
-                              kw,
-                              seed,
-                              jitter,
-                              gamma_mild,
-                              shape_gamma_none);
+  // Jagged bubble domes with plateau profile (gamma = 0.5)
+  auto z1 = hmap::gpu::jagged(z0, kw, amp_mild, seed, jitter, gamma_plateau);
 
-  // Jagged filter with edge distance falloff (shape_gamma = 0.5)
-  auto z2 = hmap::gpu::jagged(z0,
-                              kw,
-                              seed,
-                              jitter,
-                              gamma_mild,
-                              shape_gamma_smooth);
+  // Jagged bubble domes with standard parabolic profile (gamma = 1.0)
+  auto z2 = hmap::gpu::jagged(z0, kw, amp_mild, seed, jitter, 1.0f);
 
-  // Jagged filter with higher frequency, angle, and mask
+  // Jagged bubble domes with cusp profile and mask (gamma = 2.0)
   hmap::Array mask = hmap::gaussian_pulse(shape, mask_sigma);
   auto        z3 = hmap::gpu::jagged(z0,
                               kw_fine,
+                              amp_strong,
                               seed,
                               jitter,
-                              gamma_strong,
-                              shape_gamma_accentuated,
-                              1.f,
+                              gamma_cusp,
                               30.f,
                               &mask);
 

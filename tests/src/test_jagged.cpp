@@ -18,71 +18,45 @@ protected:
   }
 };
 
-TEST_F(JaggedTest, ConstantFieldPreserved)
-{
-  Array input = Array(glm::ivec2(64, 64), 3.5f);
-
-  Array out = gpu::jagged(input,
-                          glm::vec2(4.f, 4.f),
-                          1,
-                          {0.5f, 0.5f},
-                          1.f,
-                          1.f);
-
-  EXPECT_TRUE(assert_almost_equal(out, input, 1e-4f));
-}
-
-TEST_F(JaggedTest, GammaOneReturnsInput)
+TEST_F(JaggedTest, AmpZeroReturnsInput)
 {
   glm::ivec2 shape = {64, 64};
   Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
-  remap(input, 0.1f, 0.9f);
 
-  // gamma = 1.0 means exponent = 1.0 (no effect)
-  Array out_g1 = gpu::jagged(input,
+  // amp = 0.0 means no bubble dome elevation added
+  Array out_a0 = gpu::jagged(input,
                              glm::vec2(4.f, 4.f),
+                             0.f,
                              1,
                              {0.5f, 0.5f},
-                             1.f,
-                             1.f);
-
-  EXPECT_EQ(out_g1.shape, shape);
-  EXPECT_TRUE(assert_almost_equal(out_g1, input, 1e-4f));
-}
-
-TEST_F(JaggedTest, FactorZeroReturnsInput)
-{
-  glm::ivec2 shape = {64, 64};
-  Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
-  remap(input, 0.1f, 0.9f);
-
-  // factor = 0.0 disables jagged effect
-  Array out_f0 = gpu::jagged(input,
-                             glm::vec2(4.f, 4.f),
-                             1,
-                             {0.5f, 0.5f},
-                             0.5f,
                              1.f,
                              0.f);
 
-  EXPECT_EQ(out_f0.shape, shape);
-  EXPECT_TRUE(assert_almost_equal(out_f0, input, 1e-4f));
+  EXPECT_EQ(out_a0.shape, shape);
+  EXPECT_TRUE(assert_almost_equal(out_a0, input, 1e-5f));
 }
 
-TEST_F(JaggedTest, ShapeGammaModulatesEffect)
+TEST_F(JaggedTest, AmpNonZeroModifies)
 {
   glm::ivec2 shape = {64, 64};
   Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
-  remap(input, 0.1f, 0.9f);
 
-  // Compare unmodulated shape_gamma = 0 vs modulated shape_gamma = 1.0 vs
-  // shape_gamma = 2.0 with gamma = 2.0 (quadratic compression towards 0)
-  Array out_sg0 = gpu::jagged(input, 6.f, 1, {0.5f, 0.5f}, 2.f, 0.f);
-  Array out_sg1 = gpu::jagged(input, 6.f, 1, {0.5f, 0.5f}, 2.f, 1.f);
-  Array out_sg2 = gpu::jagged(input, 6.f, 1, {0.5f, 0.5f}, 2.f, 2.f);
+  Array out = gpu::jagged(input, glm::vec2(4.f, 4.f), 0.2f);
 
-  EXPECT_FALSE(assert_almost_equal(out_sg0, out_sg1, 1e-3f));
-  EXPECT_FALSE(assert_almost_equal(out_sg1, out_sg2, 1e-3f));
+  EXPECT_FALSE(assert_almost_equal(out, input, 1e-3f));
+}
+
+TEST_F(JaggedTest, GammaModulatesDomeShape)
+{
+  glm::ivec2 shape = {64, 64};
+  Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
+
+  Array out_g05 = gpu::jagged(input, 6.f, 0.2f, 1, {0.5f, 0.5f}, 0.5f);
+  Array out_g10 = gpu::jagged(input, 6.f, 0.2f, 1, {0.5f, 0.5f}, 1.0f);
+  Array out_g20 = gpu::jagged(input, 6.f, 0.2f, 1, {0.5f, 0.5f}, 2.0f);
+
+  EXPECT_FALSE(assert_almost_equal(out_g05, out_g10, 1e-3f));
+  EXPECT_FALSE(assert_almost_equal(out_g10, out_g20, 1e-3f));
 }
 
 TEST_F(JaggedTest, MaskPreservesUnmaskedArea)
@@ -100,10 +74,9 @@ TEST_F(JaggedTest, MaskPreservesUnmaskedArea)
 
   Array out = gpu::jagged(input,
                           glm::vec2(6.f, 6.f),
+                          0.2f,
                           1,
                           {0.5f, 0.5f},
-                          1.5f,
-                          1.f,
                           1.f,
                           0.f,
                           &mask);
@@ -118,15 +91,15 @@ TEST_F(JaggedTest, ScalarKwOverloadEquivalence)
 {
   glm::ivec2 shape = {64, 64};
   Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 123);
-  remap(input, 0.1f, 0.9f);
 
-  Array out1 = gpu::jagged(input, 5.f, 7, {0.6f, 0.6f}, 1.5f, 1.5f);
+  Array out1 = gpu::jagged(input, 5.f, 0.15f, 7, {0.6f, 0.6f}, 1.5f, 30.f);
   Array out2 = gpu::jagged(input,
                            glm::vec2(5.f, 5.f),
+                           0.15f,
                            7,
                            {0.6f, 0.6f},
                            1.5f,
-                           1.5f);
+                           30.f);
 
   EXPECT_TRUE(assert_almost_equal(out1, out2, 1e-5f));
 }
@@ -135,10 +108,9 @@ TEST_F(JaggedTest, AngleRotatesPattern)
 {
   glm::ivec2 shape = {64, 64};
   Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
-  remap(input, 0.1f, 0.9f);
 
-  Array out_a0 = gpu::jagged(input, 6.f, 1, {0.5f, 0.5f}, 1.5f, 1.f, 1.f, 0.f);
-  Array out_a45 = gpu::jagged(input, 6.f, 1, {0.5f, 0.5f}, 1.5f, 1.f, 1.f, 45.f);
+  Array out_a0 = gpu::jagged(input, 6.f, 0.2f, 1, {0.5f, 0.5f}, 1.f, 0.f);
+  Array out_a45 = gpu::jagged(input, 6.f, 0.2f, 1, {0.5f, 0.5f}, 1.f, 45.f);
 
   EXPECT_FALSE(assert_almost_equal(out_a0, out_a45, 1e-3f));
 }
