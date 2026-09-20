@@ -24,13 +24,8 @@ TEST_F(JaggedTest, AmpZeroReturnsInput)
   Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
 
   // amp = 0.0 means no bubble dome elevation added
-  Array out_a0 = gpu::jagged(input,
-                             glm::vec2(4.f, 4.f),
-                             0.f,
-                             1,
-                             {0.5f, 0.5f},
-                             1.f,
-                             0.f);
+  Array out_a0 =
+      gpu::jagged(input, glm::vec2(4.f, 4.f), 0.f, 1, {0.5f, 0.5f}, 1.f, 0.f);
 
   EXPECT_EQ(out_a0.shape, shape);
   EXPECT_TRUE(assert_almost_equal(out_a0, input, 1e-5f));
