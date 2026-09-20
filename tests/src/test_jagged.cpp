@@ -158,6 +158,7 @@ TEST_F(JaggedTest, FbmSingleOctaveMatchesJagged)
                                   1,
                                   0.5f,
                                   2.f,
+                                  false,
                                   {0.6f, 0.6f},
                                   1.5f,
                                   25.f);
@@ -210,6 +211,7 @@ TEST_F(JaggedTest, FbmMaskPreservesUnmaskedArea)
                               3,
                               0.5f,
                               2.f,
+                              false,
                               {0.5f, 0.5f},
                               1.f,
                               0.f,
@@ -233,6 +235,7 @@ TEST_F(JaggedTest, FbmScalarKwOverloadEquivalence)
                                3,
                                0.6f,
                                2.2f,
+                               false,
                                {0.6f, 0.6f},
                                1.5f,
                                30.f);
@@ -243,6 +246,7 @@ TEST_F(JaggedTest, FbmScalarKwOverloadEquivalence)
                                3,
                                0.6f,
                                2.2f,
+                               false,
                                {0.6f, 0.6f},
                                1.5f,
                                30.f);
@@ -255,4 +259,53 @@ TEST_F(JaggedTest, FbmEmptyArrayReturnsEmpty)
   Array input;
   Array out = gpu::jagged_fbm(input, 4.f);
   EXPECT_TRUE(out.vector.empty());
+}
+
+TEST_F(JaggedTest, FbmSwitchKxKyAlternatesComponents)
+{
+  glm::ivec2 shape = {64, 64};
+  Array      input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
+
+  // Anisotropic kw: {8.f, 2.f}
+  glm::vec2 kw_aniso = {8.f, 2.f};
+  Array     out_no_switch = gpu::jagged_fbm(input,
+                                        kw_aniso,
+                                        0.2f,
+                                        1,
+                                        3,
+                                        0.5f,
+                                        2.f,
+                                        /* switch_kx_ky */ false);
+  Array     out_with_switch = gpu::jagged_fbm(input,
+                                          kw_aniso,
+                                          0.2f,
+                                          1,
+                                          3,
+                                          0.5f,
+                                          2.f,
+                                          /* switch_kx_ky */ true);
+
+  // Switching kx and ky at each octave should produce a distinct result
+  EXPECT_FALSE(assert_almost_equal(out_no_switch, out_with_switch, 1e-3f));
+
+  // Octave 1 with switch_kx_ky=true is equivalent to octave 1 with
+  // switch_kx_ky=false
+  Array out_oct1_no_switch = gpu::jagged_fbm(input,
+                                             kw_aniso,
+                                             0.2f,
+                                             1,
+                                             1,
+                                             0.5f,
+                                             2.f,
+                                             /* switch_kx_ky */ false);
+  Array out_oct1_with_switch = gpu::jagged_fbm(input,
+                                               kw_aniso,
+                                               0.2f,
+                                               1,
+                                               1,
+                                               0.5f,
+                                               2.f,
+                                               /* switch_kx_ky */ true);
+  EXPECT_TRUE(
+      assert_almost_equal(out_oct1_no_switch, out_oct1_with_switch, 1e-5f));
 }

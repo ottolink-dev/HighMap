@@ -97,6 +97,7 @@ Array jagged_fbm(const Array  &array,
                  int           octaves,
                  float         persistence,
                  float         lacunarity,
+                 bool          switch_kx_ky,
                  glm::vec2     jitter,
                  float         gamma,
                  float         angle,
@@ -132,6 +133,8 @@ Array jagged_fbm(const Array  &array,
                  bbox);
 
     current_kw *= lacunarity;
+    if (switch_kx_ky) std::swap(current_kw.x, current_kw.y);
+
     current_amp *= persistence;
     current_seed++;
   }
@@ -146,6 +149,7 @@ Array jagged_fbm(const Array  &array,
                  int           octaves,
                  float         persistence,
                  float         lacunarity,
+                 bool          switch_kx_ky,
                  glm::vec2     jitter,
                  float         gamma,
                  float         angle,
@@ -161,6 +165,7 @@ Array jagged_fbm(const Array  &array,
                     octaves,
                     persistence,
                     lacunarity,
+                    switch_kx_ky,
                     jitter,
                     gamma,
                     angle,
