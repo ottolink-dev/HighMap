@@ -1,0 +1,2 @@
+add_executable(ex_loose_symmetry ex_loose_symmetry.cpp)
+target_link_libraries(ex_loose_symmetry highmap)

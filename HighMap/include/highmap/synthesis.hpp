@@ -14,6 +14,8 @@
  * sampling.
  *
  * Functions provided:
+ * - `loose_symmetry`: Synthesizes a heightmap with natural, approximate
+ * symmetry using exemplar-based super-resolution.
  * - `non_parametric_sampling`: Generates a new heightmap using non-parametric
  * sampling.
  * - `quilting`: Synthesizes a new heightmap by stitching patches from a set of
@@ -32,9 +34,49 @@
 #pragma once
 
 #include "highmap/array.hpp"
+#include "highmap/transform.hpp"
 
 namespace hmap
 {
+
+/**
+ * @brief Synthesize a heightmap with natural, approximate symmetry using
+ * exemplar-based super-resolution.
+ *
+ * This function creates a heightmap with recognizable symmetrical macro
+ * features while retaining natural variation and avoiding strict geometric
+ * pixel-mirroring. It extracts the macro shape of the input (with optional
+ * pre-filtering), applies geometric symmetry to construct a guide field, and
+ * transfers the un-mirrored high-resolution features and textures of the input
+ * exemplar onto the symmetrical guide using sparse patch coding.
+ *
+ * @param  array            Input heightmap providing the exemplar features.
+ * @param  symmetry_type    Type of symmetry to apply to the guide field.
+ * @param  strength         Symmetry strength in [0, 1] controlling
+ * interpolation between the original macro base and the symmetrical guide.
+ *                          Default is 1.0.
+ * @param  factor           Super-resolution amplification factor (>= 1).
+ * @param  patch_size       Side of square patches for sparse coding (>= 2).
+ * @param  analysis_stride  Patch stride on the exemplar grid.
+ * @param  synthesis_stride Patch stride on the synthesis grid.
+ * @param  sparsity         Maximum number of atoms used to code each patch.
+ * @return                  Array Synthesized heightmap with loose symmetry.
+ *
+ * **Example**
+ * @include ex_loose_symmetry.cpp
+ *
+ * **Result**
+ * @image html ex_loose_symmetry.png
+ */
+Array loose_symmetry(
+    const Array &array,
+    SymmetryType symmetry_type = SymmetryType::SYMMETRY_LEFT_TO_RIGHT,
+    float        strength = 1.f,
+    int          factor = 4,
+    int          patch_size = 16,
+    int          analysis_stride = 2,
+    int          synthesis_stride = 8,
+    int          sparsity = 1);
 
 /**
  * @brief Synthesize a new heightmap based on an input array using a

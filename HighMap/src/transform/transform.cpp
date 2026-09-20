@@ -186,6 +186,70 @@ void scale_uv(Array &array, glm::vec2 uv_scale)
   array = std::move(array_out);
 }
 
+Array symmetrize(const Array &array, SymmetryType symmetry_type)
+{
+  if (!validate_non_empty(array)) return Array();
+
+  Array out = array;
+  int   nx = array.shape.x;
+  int   ny = array.shape.y;
+
+  switch (symmetry_type)
+  {
+  case SymmetryType::SYMMETRY_LEFT_TO_RIGHT:
+    for (int j = 0; j < ny; j++)
+      for (int i = (nx + 1) / 2; i < nx; i++)
+        out(i, j) = array(nx - 1 - i, j);
+    break;
+
+  case SymmetryType::SYMMETRY_RIGHT_TO_LEFT:
+    for (int j = 0; j < ny; j++)
+      for (int i = 0; i < nx / 2; i++)
+        out(i, j) = array(nx - 1 - i, j);
+    break;
+
+  case SymmetryType::SYMMETRY_TOP_TO_BOTTOM:
+    for (int j = 0; j < ny / 2; j++)
+      for (int i = 0; i < nx; i++)
+        out(i, j) = array(i, ny - 1 - j);
+    break;
+
+  case SymmetryType::SYMMETRY_BOTTOM_TO_TOP:
+    for (int j = (ny + 1) / 2; j < ny; j++)
+      for (int i = 0; i < nx; i++)
+        out(i, j) = array(i, ny - 1 - j);
+    break;
+
+  case SymmetryType::SYMMETRY_X:
+    for (int j = 0; j < ny; j++)
+      for (int i = 0; i < nx; i++)
+        out(i, j) = 0.5f * (array(i, j) + array(nx - 1 - i, j));
+    break;
+
+  case SymmetryType::SYMMETRY_Y:
+    for (int j = 0; j < ny; j++)
+      for (int i = 0; i < nx; i++)
+        out(i, j) = 0.5f * (array(i, j) + array(i, ny - 1 - j));
+    break;
+
+  case SymmetryType::SYMMETRY_XY:
+    for (int j = 0; j < ny; j++)
+      for (int i = 0; i < nx; i++)
+        out(i, j) = 0.25f *
+                    (array(i, j) + array(nx - 1 - i, j) + array(i, ny - 1 - j) +
+                     array(nx - 1 - i, ny - 1 - j));
+    break;
+
+  case SymmetryType::SYMMETRY_ROT180:
+    for (int j = 0; j < ny; j++)
+      for (int i = 0; i < nx; i++)
+        out(i, j) = 0.5f * (array(i, j) + array(nx - 1 - i, ny - 1 - j));
+    break;
+  }
+
+  return out;
+}
+
 Array translate(const Array &array,
                 float        dx,
                 float        dy,
