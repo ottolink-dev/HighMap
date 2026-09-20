@@ -15,5 +15,6 @@ var test__jagged_8cpp =
     [ "TEST_F", "test__jagged_8cpp.html#a58c970f4028d9de1b284340abeeee329", null ],
     [ "TEST_F", "test__jagged_8cpp.html#a4adbfb2488747047774497d91521618f", null ],
     [ "TEST_F", "test__jagged_8cpp.html#abed858f33e095109bba52fcd776adf30", null ],
-    [ "TEST_F", "test__jagged_8cpp.html#ad0c12fbd79e8e4d7fd2946e956b82415", null ]
+    [ "TEST_F", "test__jagged_8cpp.html#ad0c12fbd79e8e4d7fd2946e956b82415", null ],
+    [ "TEST_F", "test__jagged_8cpp.html#a9da977efd3fd25da8f96ee31e4a88746", null ]
 ];
