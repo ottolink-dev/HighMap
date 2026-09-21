@@ -183,3 +183,53 @@ TEST(LooseSymmetryTest, HasNaturalVariationComparedToStrictMirror)
 
   EXPECT_NEAR(left_sum, right_sum, 0.2f * (left_sum + right_sum));
 }
+
+TEST(SymmetrizeTest, FlattenCenterReducesCenterElevationToMinimum)
+{
+  Array input({33, 33}, 5.0f);
+  // set minimum value
+  input(0, 0) = 1.0f;
+  input(32, 32) = 1.0f;
+  // center is at index (16, 16)
+  input(16, 16) = 10.0f;
+
+  Array flat_x = symmetrize(input,
+                            SymmetryType::SYMMETRY_LEFT_TO_RIGHT,
+                            /* flatten_center */ true,
+                            /* flatten_radius */ 0.1f);
+  // Along the symmetry axis (i = 16), elevation should equal min elevation
+  // (1.0)
+  for (int j = 0; j < 33; j++)
+    EXPECT_NEAR(flat_x(16, j), 1.0f, 1e-5f);
+
+  // Far from center (e.g. i = 0), elevation should remain unflattened
+  EXPECT_NEAR(flat_x(0, 0), 1.0f, 1e-5f);
+  EXPECT_NEAR(flat_x(32, 16), input(0, 16), 1e-5f);
+
+  Array flat_rot = symmetrize(input,
+                              SymmetryType::SYMMETRY_ROT180,
+                              /* flatten_center */ true,
+                              /* flatten_radius */ 0.1f);
+  EXPECT_NEAR(flat_rot(16, 16), 1.0f, 1e-5f);
+}
+
+TEST(LooseSymmetryTest, FlattenCenterRunsAndFlattensCenterArea)
+{
+  Array input = make_test_terrain({64, 64}, 42);
+
+  Array flat_loose = loose_symmetry(input,
+                                    SymmetryType::SYMMETRY_LEFT_TO_RIGHT,
+                                    1.f,
+                                    2,
+                                    8,
+                                    2,
+                                    4,
+                                    1,
+                                    /* flatten_center */ true,
+                                    /* flatten_radius */ 0.1f);
+
+  ASSERT_EQ(flat_loose.shape.x, 64);
+  ASSERT_EQ(flat_loose.shape.y, 64);
+  for (float v : flat_loose.vector)
+    EXPECT_TRUE(std::isfinite(v));
+}

@@ -236,13 +236,19 @@ void scale_uv(Texture &texture, glm::vec2 uv_scale);
  * This function reflects or averages portions of the input array across the
  * specified symmetry axis or plane according to @p symmetry_type.
  *
- * @param  array         Input array to symmetrize.
- * @param  symmetry_type Type of symmetry operation to apply.
- * @return               Symmetrized array.
+ * @param  array          Input array to symmetrize.
+ * @param  symmetry_type  Type of symmetry operation to apply.
+ * @param  flatten_center If true, flattens the elevation along the symmetry
+ *                        axis or center point towards minimum elevation.
+ * @param  flatten_radius Radius (in normalized [0, 1] units) around the
+ *                        symmetry axis/center for the flattening transition.
+ * @return                Symmetrized array.
  */
 Array symmetrize(
     const Array &array,
-    SymmetryType symmetry_type = SymmetryType::SYMMETRY_LEFT_TO_RIGHT);
+    SymmetryType symmetry_type = SymmetryType::SYMMETRY_LEFT_TO_RIGHT,
+    bool         flatten_center = false,
+    float        flatten_radius = 0.05f);
 
 /**
  * @brief Translates a 2D array by a specified amount along the x and y axes.

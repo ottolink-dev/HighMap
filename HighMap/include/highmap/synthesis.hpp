@@ -60,6 +60,10 @@ namespace hmap
  * @param  analysis_stride  Patch stride on the exemplar grid.
  * @param  synthesis_stride Patch stride on the synthesis grid.
  * @param  sparsity         Maximum number of atoms used to code each patch.
+ * @param  flatten_center   If true, flattens the elevation along the symmetry
+ *                          axis or center point towards minimum elevation.
+ * @param  flatten_radius   Radius (in normalized [0, 1] units) around the
+ *                          symmetry axis/center for the flattening transition.
  * @return                  Array Synthesized heightmap with loose symmetry.
  *
  * **Example**
@@ -76,7 +80,9 @@ Array loose_symmetry(
     int          patch_size = 16,
     int          analysis_stride = 2,
     int          synthesis_stride = 8,
-    int          sparsity = 1);
+    int          sparsity = 1,
+    bool         flatten_center = false,
+    float        flatten_radius = 0.05f);
 
 /**
  * @brief Synthesize a new heightmap based on an input array using a

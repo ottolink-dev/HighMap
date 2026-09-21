@@ -43,7 +43,9 @@ Array loose_symmetry(const Array &array,
                      int          patch_size,
                      int          analysis_stride,
                      int          synthesis_stride,
-                     int          sparsity)
+                     int          sparsity,
+                     bool         flatten_center,
+                     float        flatten_radius)
 {
   if (!validate_non_empty(array)) return Array();
 
@@ -59,7 +61,10 @@ Array loose_symmetry(const Array &array,
 
   // --- Symmetrical guide construction with tunable strength
 
-  Array symmetrical = symmetrize(base, symmetry_type);
+  Array symmetrical = symmetrize(base,
+                                 symmetry_type,
+                                 flatten_center,
+                                 flatten_radius);
   Array guide = (strength >= 1.f)   ? symmetrical
                 : (strength <= 0.f) ? base
                                     : lerp(base, symmetrical, strength);

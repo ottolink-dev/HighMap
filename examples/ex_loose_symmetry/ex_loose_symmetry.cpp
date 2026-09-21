@@ -92,8 +92,22 @@ int main(void)
       analysis_stride,
       synthesis_stride);
 
-  hmap::export_banner_png("ex_loose_symmetry.png",
-                          {z, z_lr, z_rl, z_tb, z_bt, z_x, z_y, z_xy, z_rot180},
-                          hmap::Cmap::TERRAIN,
-                          true);
+  // loose symmetry with flatten_center enabled
+  hmap::Array z_lr_flat = hmap::loose_symmetry(
+      z,
+      hmap::SymmetryType::SYMMETRY_LEFT_TO_RIGHT,
+      strength,
+      factor,
+      patch_size,
+      analysis_stride,
+      synthesis_stride,
+      /* sparsity */ 1,
+      /* flatten_center */ true,
+      /* flatten_radius */ 0.08f);
+
+  hmap::export_banner_png(
+      "ex_loose_symmetry.png",
+      {z, z_lr, z_rl, z_tb, z_bt, z_x, z_y, z_xy, z_rot180, z_lr_flat},
+      hmap::Cmap::TERRAIN,
+      true);
 }
