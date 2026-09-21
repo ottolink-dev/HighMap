@@ -9,5 +9,7 @@ var searchData=
   ['dim_5flr_6',['dim_lr',['../terrain__super__resolution_8cpp.html#a90488dbe3bbed84860b4b851399b17a5',1,'terrain_super_resolution.cpp']]],
   ['distance_7',['distance',['../structhmap_1_1TerrainTriMesh_1_1ShortestPathResult.html#ad9901b3bb269976ef8b20b4d596eb06f',1,'hmap::TerrainTriMesh::ShortestPathResult']]],
   ['distance2d_8',['distance2d',['../structhmap_1_1TerrainTriMesh_1_1Neighbor.html#a1d8844b86573fc6e3e0037a6f9d4632c',1,'hmap::TerrainTriMesh::Neighbor']]],
-  ['dither_5famp_9',['dither_amp',['../structhmap_1_1ColorAdjust.html#a0d6901dbb470d8b91a91bbd741c95481',1,'hmap::ColorAdjust']]]
+  ['dither_5famp_9',['dither_amp',['../structhmap_1_1ColorAdjust.html#a0d6901dbb470d8b91a91bbd741c95481',1,'hmap::ColorAdjust']]],
+  ['dx_10',['dx',['../trench_8cpp.html#a9eae6c1f38db98ab568f3ed3771a969d',1,'trench.cpp']]],
+  ['dy_11',['dy',['../trench_8cpp.html#a8f461b6142ce8725218813abb23b06a3',1,'trench.cpp']]]
 ];

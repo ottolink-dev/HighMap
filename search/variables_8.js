@@ -9,5 +9,6 @@ var searchData=
   ['in_5fmin_6',['in_min',['../structhmap_1_1ColorAdjust.html#a093e91b19d2c4fbb10bdae6afd27aa0f',1,'hmap::ColorAdjust']]],
   ['index_7',['index',['../structhmap_1_1TerrainTriMesh_1_1Neighbor.html#a0cd8f7fd250b772c4c3445280a37a2b6',1,'hmap::TerrainTriMesh::Neighbor::index'],['../kd__tree_8cpp.html#ab650f61406e03c24cfefced2d5e9f449',1,'index:&#160;kd_tree.cpp']]],
   ['inputs_8',['inputs',['../structTileAccess.html#ae6fe4c80de5359b04f183ec826c7bb2e',1,'TileAccess']]],
-  ['ir_9',['ir',['../structhmap_1_1GaussianPush.html#ab175ce3efeb574ba75f9d7e3f75c7b3a',1,'hmap::GaussianPush::ir'],['../sls__deformation_8cpp.html#a108a1d0fcea4288c9e48f5dc4fa0a1b0',1,'ir:&#160;sls_deformation.cpp']]]
+  ['inv_5flen_5fsq_9',['inv_len_sq',['../trench_8cpp.html#a50c527e2d6a8abf7f919c04d17659ad5',1,'trench.cpp']]],
+  ['ir_10',['ir',['../structhmap_1_1GaussianPush.html#ab175ce3efeb574ba75f9d7e3f75c7b3a',1,'hmap::GaussianPush::ir'],['../sls__deformation_8cpp.html#a108a1d0fcea4288c9e48f5dc4fa0a1b0',1,'ir:&#160;sls_deformation.cpp']]]
 ];

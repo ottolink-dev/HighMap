@@ -76,7 +76,7 @@ var searchData=
   ['distancefunctionaxis_73',['DistanceFunctionAxis',['../namespacehmap.html#a0ac3576b72f3669bd39a7d6ef7d60a9b',1,'hmap']]],
   ['distancetransformtype_74',['DistanceTransformType',['../namespacehmap.html#a9e2493cec1a67b3140691e617ddc925a',1,'hmap']]],
   ['distributed_5ftile_5floop_75',['distributed_tile_loop',['../virtual__array_8inl.html#afb0e81819ec38d3f973035c263fa13df',1,'virtual_array.inl']]],
-  ['disttodomainimpl_76',['disttodomainimpl',['../classhmap_1_1XyControlFunction.html#a8f38798bd59177d4ab9dbe4f58250651',1,'hmap::XyControlFunction::DistToDomainImpl()'],['../classhmap_1_1ArrayControlFunction.html#a3c40696e8f26f0e6fbd66f0f97b83082',1,'hmap::ArrayControlFunction::DistToDomainImpl()']]],
+  ['disttodomainimpl_76',['disttodomainimpl',['../classhmap_1_1ArrayControlFunction.html#a3c40696e8f26f0e6fbd66f0f97b83082',1,'hmap::ArrayControlFunction::DistToDomainImpl()'],['../classhmap_1_1XyControlFunction.html#a8f38798bd59177d4ab9dbe4f58250651',1,'hmap::XyControlFunction::DistToDomainImpl()']]],
   ['dither_5famp_77',['dither_amp',['../structhmap_1_1ColorAdjust.html#a0d6901dbb470d8b91a91bbd741c95481',1,'hmap::ColorAdjust']]],
   ['divergence_5ffrom_5fgradients_78',['divergence_from_gradients',['../namespacehmap.html#a27518ea42feb447ad4eb83147663c24d',1,'hmap']]],
   ['divide_79',['divide',['../classhmap_1_1Path.html#a8650db137a1b4ecccf05cfd0fd7d320b',1,'hmap::Path']]],
@@ -91,7 +91,7 @@ var searchData=
   ['drainage_5fbasin_5fcell_5fbased_2ecpp_88',['drainage_basin_cell_based.cpp',['../drainage__basin__cell__based_8cpp.html',1,'']]],
   ['drainage_5fbasin_5fcell_5fbased_2ehpp_89',['drainage_basin_cell_based.hpp',['../drainage__basin__cell__based_8hpp.html',1,'']]],
   ['drainagebasin_90',['drainagebasin',['../classhmap_1_1DrainageBasin.html',1,'hmap::DrainageBasin'],['../classhmap_1_1DrainageBasin.html#ac28ba57c1b2b1bd25353aeb7dc9ac54c',1,'hmap::DrainageBasin::DrainageBasin()']]],
-  ['drainagebasincellbased_91',['drainagebasincellbased',['../classhmap_1_1DrainageBasinCellBased.html',1,'hmap::DrainageBasinCellBased'],['../classhmap_1_1DrainageBasinCellBased.html#aeb36d7eba63e150534906f2e924e7be8',1,'hmap::DrainageBasinCellBased::DrainageBasinCellBased()=default'],['../classhmap_1_1DrainageBasinCellBased.html#ad1d5250d216d7353f421056326daa86e',1,'hmap::DrainageBasinCellBased::DrainageBasinCellBased(const Array &amp;z_)']]],
+  ['drainagebasincellbased_91',['drainagebasincellbased',['../classhmap_1_1DrainageBasinCellBased.html',1,'hmap::DrainageBasinCellBased'],['../classhmap_1_1DrainageBasinCellBased.html#ad1d5250d216d7353f421056326daa86e',1,'hmap::DrainageBasinCellBased::DrainageBasinCellBased(const Array &amp;z_)'],['../classhmap_1_1DrainageBasinCellBased.html#aeb36d7eba63e150534906f2e924e7be8',1,'hmap::DrainageBasinCellBased::DrainageBasinCellBased()=default']]],
   ['dt_5fapprox_92',['DT_APPROX',['../namespacehmap.html#a9e2493cec1a67b3140691e617ddc925aa3b8bce8feaa179b9a546bbbe28c1d44a',1,'hmap']]],
   ['dt_5fexact_93',['DT_EXACT',['../namespacehmap.html#a9e2493cec1a67b3140691e617ddc925aa109b04de7ca555c0e4d17629e55e7ee3',1,'hmap']]],
   ['dt_5fjfa_94',['DT_JFA',['../namespacehmap.html#a9e2493cec1a67b3140691e617ddc925aaa09d87a577ce3a1b91c372aa051b0406',1,'hmap']]],
@@ -100,5 +100,7 @@ var searchData=
   ['dump_5fhistogram_97',['dump_histogram',['../classhmap_1_1Array.html#a36fa8104b8fe789f5035a1ddfa5b1519',1,'hmap::Array']]],
   ['dump_5fvisual_5fcheck_98',['dump_visual_check',['../namespacehmap.html#aa162bbea6fc85aa1403204af49364230',1,'hmap']]],
   ['dump_5fvisual_5fcheck_2ecpp_99',['dump_visual_check.cpp',['../dump__visual__check_8cpp.html',1,'']]],
-  ['dumpdurations_100',['DumpDurations',['../classhmap_1_1Timer.html#a61eaa1759a0b195fe512c276cc253eb9',1,'hmap::Timer']]]
+  ['dumpdurations_100',['DumpDurations',['../classhmap_1_1Timer.html#a61eaa1759a0b195fe512c276cc253eb9',1,'hmap::Timer']]],
+  ['dx_101',['dx',['../trench_8cpp.html#a9eae6c1f38db98ab568f3ed3771a969d',1,'trench.cpp']]],
+  ['dy_102',['dy',['../trench_8cpp.html#a8f461b6142ce8725218813abb23b06a3',1,'trench.cpp']]]
 ];
