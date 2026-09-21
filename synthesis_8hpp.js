@@ -1,6 +1,6 @@
 var synthesis_8hpp =
 [
-    [ "loose_symmetry", "synthesis_8hpp.html#a57f4446f0d199ae373e5c29a3fdd705a", null ],
+    [ "loose_symmetry", "synthesis_8hpp.html#a05c0228a6331234d1f415b8562b1dd4c", null ],
     [ "non_parametric_sampling", "synthesis_8hpp.html#afd029dcbec994bb60252eb7e126a4fb7", null ],
     [ "quilting", "synthesis_8hpp.html#ada12bd91a1719f64ff4b652bf1462d2a", null ],
     [ "quilting_blend", "synthesis_8hpp.html#a8407611dc51d0372c4626c6c6fa94acd", null ],

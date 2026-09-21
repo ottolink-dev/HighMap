@@ -166,5 +166,5 @@ var searchData=
   ['swap_163',['swap',['../namespacehmap.html#a81ae845564fe0e6f2f641451c063bc65',1,'hmap']]],
   ['swirl_164',['swirl',['../namespacehmap.html#a7a433480a8cd89be48bc9ce8cbb25ce8',1,'hmap']]],
   ['sym_5fborders_165',['sym_borders',['../namespacehmap.html#a2e43da799378e294ea448a498aa1d386',1,'hmap']]],
-  ['symmetrize_166',['symmetrize',['../namespacehmap.html#addaf4b4338e96fbca8a43146757f8c2b',1,'hmap']]]
+  ['symmetrize_166',['symmetrize',['../namespacehmap.html#a470d6335083e8263faaae05087078ffe',1,'hmap']]]
 ];

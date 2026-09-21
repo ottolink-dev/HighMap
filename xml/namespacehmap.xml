@@ -60919,10 +60919,10 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </inbodydescription>
         <location file="HighMap/src/statistics/statistics.cpp" line="10" column="7" bodyfile="HighMap/src/statistics/statistics.cpp" bodystart="10" bodyend="27" declfile="HighMap/include/highmap/statistics.hpp" declline="122" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a57f4446f0d199ae373e5c29a3fdd705a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a05c0228a6331234d1f415b8562b1dd4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::loose_symmetry</definition>
-        <argsstring>(const Array &amp;array, SymmetryType symmetry_type=SymmetryType::SYMMETRY_LEFT_TO_RIGHT, float strength=1.f, int factor=4, int patch_size=16, int analysis_stride=2, int synthesis_stride=8, int sparsity=1)</argsstring>
+        <argsstring>(const Array &amp;array, SymmetryType symmetry_type=SymmetryType::SYMMETRY_LEFT_TO_RIGHT, float strength=1.f, int factor=4, int patch_size=16, int analysis_stride=2, int synthesis_stride=8, int sparsity=1, bool flatten_center=false, float flatten_radius=0.05f)</argsstring>
         <name>loose_symmetry</name>
         <qualifiedname>hmap::loose_symmetry</qualifiedname>
         <param>
@@ -60963,6 +60963,16 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
           <type>int</type>
           <declname>sparsity</declname>
           <defval>1</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>flatten_center</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>flatten_radius</declname>
+          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <briefdescription>
 <para>Synthesize a heightmap with natural, approximate symmetry using exemplar-based super-resolution. </para>
@@ -61033,6 +61043,22 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <para>Maximum number of atoms used to code each patch. </para>
 </parameterdescription>
 </parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flatten_center</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, flattens the elevation along the symmetry axis or center point towards minimum elevation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flatten_radius</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Radius (in normalized [0, 1] units) around the symmetry axis/center for the flattening transition. </para>
+</parameterdescription>
+</parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> Synthesized heightmap with loose symmetry.</para>
 </simplesect>
@@ -61061,7 +61087,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>strength<sp/>=<sp/>0.8f;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>compute<sp/>loose<sp/>symmetry<sp/>for<sp/>all<sp/>symmetry<sp/>types</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_lr<sp/>=<sp/><ref refid="namespacehmap_1a57f4446f0d199ae373e5c29a3fdd705a" kindref="member">hmap::loose_symmetry</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_lr<sp/>=<sp/><ref refid="namespacehmap_1a05c0228a6331234d1f415b8562b1dd4c" kindref="member">hmap::loose_symmetry</ref>(</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>z,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85" kindref="member">hmap::SymmetryType::SYMMETRY_LEFT_TO_RIGHT</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
@@ -61070,7 +61096,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>analysis_stride,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>synthesis_stride);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_rl<sp/>=<sp/><ref refid="namespacehmap_1a57f4446f0d199ae373e5c29a3fdd705a" kindref="member">hmap::loose_symmetry</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_rl<sp/>=<sp/><ref refid="namespacehmap_1a05c0228a6331234d1f415b8562b1dd4c" kindref="member">hmap::loose_symmetry</ref>(</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>z,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f" kindref="member">hmap::SymmetryType::SYMMETRY_RIGHT_TO_LEFT</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
@@ -61079,7 +61105,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>analysis_stride,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>synthesis_stride);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_tb<sp/>=<sp/><ref refid="namespacehmap_1a57f4446f0d199ae373e5c29a3fdd705a" kindref="member">hmap::loose_symmetry</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_tb<sp/>=<sp/><ref refid="namespacehmap_1a05c0228a6331234d1f415b8562b1dd4c" kindref="member">hmap::loose_symmetry</ref>(</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>z,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a869e8b1294539de116023ed41279c455a3ddaa2a956cc883b21be2299aaf5b9e6" kindref="member">hmap::SymmetryType::SYMMETRY_TOP_TO_BOTTOM</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
@@ -61088,7 +61114,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>analysis_stride,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>synthesis_stride);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_bt<sp/>=<sp/><ref refid="namespacehmap_1a57f4446f0d199ae373e5c29a3fdd705a" kindref="member">hmap::loose_symmetry</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_bt<sp/>=<sp/><ref refid="namespacehmap_1a05c0228a6331234d1f415b8562b1dd4c" kindref="member">hmap::loose_symmetry</ref>(</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>z,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad" kindref="member">hmap::SymmetryType::SYMMETRY_BOTTOM_TO_TOP</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
@@ -61097,7 +61123,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>analysis_stride,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>synthesis_stride);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_x<sp/>=<sp/><ref refid="namespacehmap_1a57f4446f0d199ae373e5c29a3fdd705a" kindref="member">hmap::loose_symmetry</ref>(z,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_x<sp/>=<sp/><ref refid="namespacehmap_1a05c0228a6331234d1f415b8562b1dd4c" kindref="member">hmap::loose_symmetry</ref>(z,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a869e8b1294539de116023ed41279c455a920e2b98c2ac5a04a409d80e07987845" kindref="member">hmap::SymmetryType::SYMMETRY_X</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>factor,</highlight></codeline>
@@ -61105,7 +61131,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>analysis_stride,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>synthesis_stride);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_y<sp/>=<sp/><ref refid="namespacehmap_1a57f4446f0d199ae373e5c29a3fdd705a" kindref="member">hmap::loose_symmetry</ref>(z,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_y<sp/>=<sp/><ref refid="namespacehmap_1a05c0228a6331234d1f415b8562b1dd4c" kindref="member">hmap::loose_symmetry</ref>(z,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a869e8b1294539de116023ed41279c455a8517750a37931564bdebfecc33af5f8a" kindref="member">hmap::SymmetryType::SYMMETRY_Y</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>factor,</highlight></codeline>
@@ -61113,7 +61139,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>analysis_stride,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>synthesis_stride);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_xy<sp/>=<sp/><ref refid="namespacehmap_1a57f4446f0d199ae373e5c29a3fdd705a" kindref="member">hmap::loose_symmetry</ref>(z,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_xy<sp/>=<sp/><ref refid="namespacehmap_1a05c0228a6331234d1f415b8562b1dd4c" kindref="member">hmap::loose_symmetry</ref>(z,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e" kindref="member">hmap::SymmetryType::SYMMETRY_XY</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>factor,</highlight></codeline>
@@ -61121,7 +61147,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>analysis_stride,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>synthesis_stride);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_rot180<sp/>=<sp/><ref refid="namespacehmap_1a57f4446f0d199ae373e5c29a3fdd705a" kindref="member">hmap::loose_symmetry</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_rot180<sp/>=<sp/><ref refid="namespacehmap_1a05c0228a6331234d1f415b8562b1dd4c" kindref="member">hmap::loose_symmetry</ref>(</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>z,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351" kindref="member">hmap::SymmetryType::SYMMETRY_ROT180</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
@@ -61130,10 +61156,24 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>analysis_stride,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>synthesis_stride);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_loose_symmetry.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z,<sp/>z_lr,<sp/>z_rl,<sp/>z_tb,<sp/>z_bt,<sp/>z_x,<sp/>z_y,<sp/>z_xy,<sp/>z_rot180},</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9" kindref="member">hmap::Cmap::TERRAIN</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>loose<sp/>symmetry<sp/>with<sp/>flatten_center<sp/>enabled</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_lr_flat<sp/>=<sp/><ref refid="namespacehmap_1a05c0228a6331234d1f415b8562b1dd4c" kindref="member">hmap::loose_symmetry</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>z,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85" kindref="member">hmap::SymmetryType::SYMMETRY_LEFT_TO_RIGHT</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>factor,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>patch_size,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>analysis_stride,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>synthesis_stride,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>sparsity<sp/>*/</highlight><highlight class="normal"><sp/>1,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>flatten_center<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>flatten_radius<sp/>*/</highlight><highlight class="normal"><sp/>0.08f);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;ex_loose_symmetry.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{z,<sp/>z_lr,<sp/>z_rl,<sp/>z_tb,<sp/>z_bt,<sp/>z_x,<sp/>z_y,<sp/>z_xy,<sp/>z_rot180,<sp/>z_lr_flat},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9" kindref="member">hmap::Cmap::TERRAIN</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
 <para><bold>Result</bold> <image type="html" name="ex_loose_symmetry.png"></image>
@@ -61141,7 +61181,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/synthesis/loose_symmetry.cpp" line="39" column="7" bodyfile="HighMap/src/synthesis/loose_symmetry.cpp" bodystart="39" bodyend="76" declfile="HighMap/include/highmap/synthesis.hpp" declline="71" declcolumn="7"/>
+        <location file="HighMap/src/synthesis/loose_symmetry.cpp" line="39" column="7" bodyfile="HighMap/src/synthesis/loose_symmetry.cpp" bodystart="39" bodyend="81" declfile="HighMap/include/highmap/synthesis.hpp" declline="75" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1afd029dcbec994bb60252eb7e126a4fb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -61279,7 +61319,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/synthesis/non_parameteric_sampling.cpp" line="49" column="7" bodyfile="HighMap/src/synthesis/non_parameteric_sampling.cpp" bodystart="49" bodyend="188" declfile="HighMap/include/highmap/synthesis.hpp" declline="101" declcolumn="7"/>
+        <location file="HighMap/src/synthesis/non_parameteric_sampling.cpp" line="49" column="7" bodyfile="HighMap/src/synthesis/non_parameteric_sampling.cpp" bodystart="49" bodyend="188" declfile="HighMap/include/highmap/synthesis.hpp" declline="107" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ada12bd91a1719f64ff4b652bf1462d2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -61541,7 +61581,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/synthesis/quilting.cpp" line="20" column="7" bodyfile="HighMap/src/synthesis/quilting.cpp" bodystart="20" bodyend="223" declfile="HighMap/include/highmap/synthesis.hpp" declline="139" declcolumn="7"/>
+        <location file="HighMap/src/synthesis/quilting.cpp" line="20" column="7" bodyfile="HighMap/src/synthesis/quilting.cpp" bodystart="20" bodyend="223" declfile="HighMap/include/highmap/synthesis.hpp" declline="145" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8407611dc51d0372c4626c6c6fa94acd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -61786,7 +61826,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/synthesis/quilting.cpp" line="225" column="7" bodyfile="HighMap/src/synthesis/quilting.cpp" bodystart="225" bodyend="258" declfile="HighMap/include/highmap/synthesis.hpp" declline="182" declcolumn="7"/>
+        <location file="HighMap/src/synthesis/quilting.cpp" line="225" column="7" bodyfile="HighMap/src/synthesis/quilting.cpp" bodystart="225" bodyend="258" declfile="HighMap/include/highmap/synthesis.hpp" declline="188" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aad762d7a12d68d42ffd90e07be88fcb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -62061,7 +62101,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/synthesis/quilting.cpp" line="260" column="7" bodyfile="HighMap/src/synthesis/quilting.cpp" bodystart="260" bodyend="365" declfile="HighMap/include/highmap/synthesis.hpp" declline="228" declcolumn="7"/>
+        <location file="HighMap/src/synthesis/quilting.cpp" line="260" column="7" bodyfile="HighMap/src/synthesis/quilting.cpp" bodystart="260" bodyend="365" declfile="HighMap/include/highmap/synthesis.hpp" declline="234" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1adb1405cd7f9a219c82c149bcaa55cafc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -62311,7 +62351,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/synthesis/quilting.cpp" line="367" column="7" bodyfile="HighMap/src/synthesis/quilting.cpp" bodystart="367" bodyend="407" declfile="HighMap/include/highmap/synthesis.hpp" declline="273" declcolumn="7"/>
+        <location file="HighMap/src/synthesis/quilting.cpp" line="367" column="7" bodyfile="HighMap/src/synthesis/quilting.cpp" bodystart="367" bodyend="407" declfile="HighMap/include/highmap/synthesis.hpp" declline="279" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a580605e460b9b7573340233906b67517" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -62472,7 +62512,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/synthesis/terrain_super_resolution.cpp" line="328" column="7" bodyfile="HighMap/src/synthesis/terrain_super_resolution.cpp" bodystart="328" bodyend="517" declfile="HighMap/include/highmap/synthesis.hpp" declline="333" declcolumn="7"/>
+        <location file="HighMap/src/synthesis/terrain_super_resolution.cpp" line="328" column="7" bodyfile="HighMap/src/synthesis/terrain_super_resolution.cpp" bodystart="328" bodyend="517" declfile="HighMap/include/highmap/synthesis.hpp" declline="339" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aad6a39e70bf2ff70f8367e663d3027cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -62601,7 +62641,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="22" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="22" bodyend="29" declfile="HighMap/include/highmap/transform.hpp" declline="64" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="23" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="23" bodyend="30" declfile="HighMap/include/highmap/transform.hpp" declline="64" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1afda98f22fc66ebb9e1e48008f3f1a34c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -62680,7 +62720,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="31" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="31" bodyend="38" declfile="HighMap/include/highmap/transform.hpp" declline="87" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="32" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="32" bodyend="39" declfile="HighMap/include/highmap/transform.hpp" declline="87" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5a5ea9447876f3a080ab03cdd636e49a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -62820,7 +62860,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="40" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="40" bodyend="67" declfile="HighMap/include/highmap/transform.hpp" declline="112" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="41" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="41" bodyend="68" declfile="HighMap/include/highmap/transform.hpp" declline="112" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5a621a9b245b5f9a4c9e5aa3ba3bbee0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -62850,7 +62890,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="69" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="69" bodyend="75" declfile="HighMap/include/highmap/transform.hpp" declline="127" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="70" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="70" bodyend="76" declfile="HighMap/include/highmap/transform.hpp" declline="127" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8a5ff34f817dd9993eb2dc1df44373e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -62909,7 +62949,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="77" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="77" bodyend="83" declfile="HighMap/include/highmap/transform.hpp" declline="144" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="78" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="78" bodyend="84" declfile="HighMap/include/highmap/transform.hpp" declline="144" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a078f509a586adcdf1ff75eb828d7ceb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -62985,7 +63025,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="85" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="85" bodyend="91" declfile="HighMap/include/highmap/transform.hpp" declline="167" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="86" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="86" bodyend="92" declfile="HighMap/include/highmap/transform.hpp" declline="167" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a7d27d0392fb6850a212bee00cb58700c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -63107,7 +63147,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="93" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="93" bodyend="135" declfile="HighMap/include/highmap/transform.hpp" declline="196" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="94" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="94" bodyend="136" declfile="HighMap/include/highmap/transform.hpp" declline="196" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ad2d28babba03ed11cf115ab08009de64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -63173,7 +63213,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="137" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="137" bodyend="144" declfile="HighMap/include/highmap/transform.hpp" declline="215" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="138" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="138" bodyend="145" declfile="HighMap/include/highmap/transform.hpp" declline="215" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a66ec69d0e52dd23350bed20dbbcb0d08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -63214,7 +63254,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="146" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="146" bodyend="187" declfile="HighMap/include/highmap/transform.hpp" declline="223" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="147" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="147" bodyend="188" declfile="HighMap/include/highmap/transform.hpp" declline="223" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa6e0ddb5fd3b76e1ba7f18d8c4a45549" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -63257,10 +63297,10 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </inbodydescription>
         <location file="HighMap/src/transform/texture_transform.cpp" line="67" column="6" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="67" bodyend="75" declfile="HighMap/include/highmap/transform.hpp" declline="231" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1addaf4b4338e96fbca8a43146757f8c2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a470d6335083e8263faaae05087078ffe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::symmetrize</definition>
-        <argsstring>(const Array &amp;array, SymmetryType symmetry_type=SymmetryType::SYMMETRY_LEFT_TO_RIGHT)</argsstring>
+        <argsstring>(const Array &amp;array, SymmetryType symmetry_type=SymmetryType::SYMMETRY_LEFT_TO_RIGHT, bool flatten_center=false, float flatten_radius=0.05f)</argsstring>
         <name>symmetrize</name>
         <qualifiedname>hmap::symmetrize</qualifiedname>
         <param>
@@ -63271,6 +63311,16 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
           <type><ref refid="namespacehmap_1a869e8b1294539de116023ed41279c455" kindref="member">SymmetryType</ref></type>
           <declname>symmetry_type</declname>
           <defval><ref refid="namespacehmap_1a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85" kindref="member">SymmetryType::SYMMETRY_LEFT_TO_RIGHT</ref></defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>flatten_center</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>flatten_radius</declname>
+          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <briefdescription>
 <para>Enforces geometric symmetry on an array. </para>
@@ -63293,6 +63343,22 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <para>Type of symmetry operation to apply. </para>
 </parameterdescription>
 </parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flatten_center</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, flattens the elevation along the symmetry axis or center point towards minimum elevation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flatten_radius</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Radius (in normalized [0, 1] units) around the symmetry axis/center for the flattening transition. </para>
+</parameterdescription>
+</parameteritem>
 </parameterlist>
 <simplesect kind="return"><para>Symmetrized array. </para>
 </simplesect>
@@ -63300,7 +63366,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="189" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="189" bodyend="251" declfile="HighMap/include/highmap/transform.hpp" declline="243" declcolumn="7"/>
+        <location file="HighMap/src/transform/transform.cpp" line="190" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="190" bodyend="297" declfile="HighMap/include/highmap/transform.hpp" declline="247" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a6e52fd8e2580523aae968d76461c30b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -63424,7 +63490,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="253" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="253" bodyend="289" declfile="HighMap/include/highmap/transform.hpp" declline="282" declcolumn="7"/>
+        <location file="HighMap/src/transform/transform.cpp" line="299" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="299" bodyend="335" declfile="HighMap/include/highmap/transform.hpp" declline="288" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9b059a298d27843519baa3b6bfe291cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -63456,7 +63522,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="291" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="291" bodyend="302" declfile="HighMap/include/highmap/transform.hpp" declline="300" declcolumn="7"/>
+        <location file="HighMap/src/transform/transform.cpp" line="337" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="337" bodyend="348" declfile="HighMap/include/highmap/transform.hpp" declline="306" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa8ffb5a748ba6524f2b121c62819e892" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Texture" kindref="compound">Texture</ref></type>
@@ -63487,7 +63553,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/texture_transform.cpp" line="77" column="9" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="77" bodyend="88" declfile="HighMap/include/highmap/transform.hpp" declline="308" declcolumn="9"/>
+        <location file="HighMap/src/transform/texture_transform.cpp" line="77" column="9" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="77" bodyend="88" declfile="HighMap/include/highmap/transform.hpp" declline="314" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a19148ad2a95f7ad5b05161e9a0f0f732" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -63572,7 +63638,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/warp.cpp" line="17" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="17" bodyend="32" declfile="HighMap/include/highmap/transform.hpp" declline="328" declcolumn="6"/>
+        <location file="HighMap/src/transform/warp.cpp" line="17" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="17" bodyend="32" declfile="HighMap/include/highmap/transform.hpp" declline="334" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1accbbc6e5bedf98c7a7fa85fbe364194e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -63676,7 +63742,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/warp.cpp" line="34" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="34" bodyend="62" declfile="HighMap/include/highmap/transform.hpp" declline="352" declcolumn="6"/>
+        <location file="HighMap/src/transform/warp.cpp" line="34" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="34" bodyend="62" declfile="HighMap/include/highmap/transform.hpp" declline="358" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a6b780e74228ec5cca45602eb19b8975c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -63792,7 +63858,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/warp.cpp" line="64" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="64" bodyend="82" declfile="HighMap/include/highmap/transform.hpp" declline="382" declcolumn="6"/>
+        <location file="HighMap/src/transform/warp.cpp" line="64" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="64" bodyend="82" declfile="HighMap/include/highmap/transform.hpp" declline="388" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5d5baa80ff76a31a24e3b348edb0520a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -63883,7 +63949,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/warp.cpp" line="84" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="84" bodyend="104" declfile="HighMap/include/highmap/transform.hpp" declline="410" declcolumn="6"/>
+        <location file="HighMap/src/transform/warp.cpp" line="84" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="84" bodyend="104" declfile="HighMap/include/highmap/transform.hpp" declline="416" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2dba417aca5a0dcd02509617939d741b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -63986,7 +64052,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/warp.cpp" line="106" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="106" bodyend="123" declfile="HighMap/include/highmap/transform.hpp" declline="438" declcolumn="6"/>
+        <location file="HighMap/src/transform/warp.cpp" line="106" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="106" bodyend="123" declfile="HighMap/include/highmap/transform.hpp" declline="444" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2a16f2f687640ad47e3252d3350620f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -64118,7 +64184,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="304" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="304" bodyend="339" declfile="HighMap/include/highmap/transform.hpp" declline="489" declcolumn="7"/>
+        <location file="HighMap/src/transform/transform.cpp" line="350" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="350" bodyend="385" declfile="HighMap/include/highmap/transform.hpp" declline="495" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8be122241fa42b0f6a7ef67106391780" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; size_t &gt;</type>

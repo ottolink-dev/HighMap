@@ -220,7 +220,7 @@ var searchData=
   ['swirl_217',['swirl',['../namespacehmap.html#a7a433480a8cd89be48bc9ce8cbb25ce8',1,'hmap']]],
   ['swirl_2ecpp_218',['swirl.cpp',['../swirl_8cpp.html',1,'']]],
   ['sym_5fborders_219',['sym_borders',['../namespacehmap.html#a2e43da799378e294ea448a498aa1d386',1,'hmap']]],
-  ['symmetrize_220',['symmetrize',['../namespacehmap.html#addaf4b4338e96fbca8a43146757f8c2b',1,'hmap']]],
+  ['symmetrize_220',['symmetrize',['../namespacehmap.html#a470d6335083e8263faaae05087078ffe',1,'hmap']]],
   ['symmetry_5fbottom_5fto_5ftop_221',['SYMMETRY_BOTTOM_TO_TOP',['../namespacehmap.html#a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad',1,'hmap']]],
   ['symmetry_5fleft_5fto_5fright_222',['SYMMETRY_LEFT_TO_RIGHT',['../namespacehmap.html#a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85',1,'hmap']]],
   ['symmetry_5fright_5fto_5fleft_223',['SYMMETRY_RIGHT_TO_LEFT',['../namespacehmap.html#a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f',1,'hmap']]],

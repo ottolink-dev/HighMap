@@ -131,7 +131,7 @@ var NAVTREEINDEX13 =
 "logger_8hpp.html#af77839d575b634b05fbd64a66fc7f9b4":[5,0,1,0,0,32,6],
 "logger_8hpp_source.html":[5,0,1,0,0,32],
 "loose__symmetry_8cpp.html":[5,0,1,1,39,0],
-"loose__symmetry_8cpp.html#a57f4446f0d199ae373e5c29a3fdd705a":[5,0,1,1,39,0,0],
+"loose__symmetry_8cpp.html#a05c0228a6331234d1f415b8562b1dd4c":[5,0,1,1,39,0,0],
 "lru__tile__storage_8cpp.html":[5,0,1,1,45,4],
 "main_8cpp.html":[5,0,2,0,0],
 "main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627":[5,0,2,0,0,1],

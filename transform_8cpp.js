@@ -9,7 +9,7 @@ var transform_8cpp =
     [ "rotate", "transform_8cpp.html#a888dcfe5adb36448366400f04efcde04", null ],
     [ "rotate_displacement", "transform_8cpp.html#ad2d28babba03ed11cf115ab08009de64", null ],
     [ "scale_uv", "transform_8cpp.html#a66ec69d0e52dd23350bed20dbbcb0d08", null ],
-    [ "symmetrize", "transform_8cpp.html#addaf4b4338e96fbca8a43146757f8c2b", null ],
+    [ "symmetrize", "transform_8cpp.html#a470d6335083e8263faaae05087078ffe", null ],
     [ "translate", "transform_8cpp.html#a6e52fd8e2580523aae968d76461c30b8", null ],
     [ "transpose", "transform_8cpp.html#a9b059a298d27843519baa3b6bfe291cd", null ],
     [ "zoom", "transform_8cpp.html#a2a16f2f687640ad47e3252d3350620f9", null ]
