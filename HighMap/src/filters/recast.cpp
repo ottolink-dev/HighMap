@@ -109,7 +109,8 @@ void recast_cliff(Array &array,
                   float  talus,
                   int    ir,
                   float  amplitude,
-                  float  gain)
+                  float  gain,
+                  Array *p_cliff_mask)
 {
   if (!validate_non_empty(array)) return;
 
@@ -120,6 +121,9 @@ void recast_cliff(Array &array,
   dn *= array.shape.x;
   clamp_min(dn, 0.f);
   smooth_cpulse(dn, ir);
+
+  // output cliff mask if requested
+  if (p_cliff_mask) *p_cliff_mask = dn;
 
   Array vmin = local_mean(array, ir);
   Array vmax = vmin + amplitude * dn;
@@ -145,15 +149,19 @@ void recast_cliff(Array       &array,
                   int          ir,
                   float        amplitude,
                   const Array *p_mask,
-                  float        gain)
+                  float        gain,
+                  Array       *p_cliff_mask)
 {
   if (!validate_non_empty(array)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;
 
   apply_with_mask(array,
                   p_mask,
-                  [&](Array &a)
-                  { recast_cliff(a, talus, ir, amplitude, gain); });
+                  [&](Array &a) {
+                    recast_cliff(a, talus, ir, amplitude, gain, p_cliff_mask);
+                  });
+
+  if (p_mask && p_cliff_mask) *p_cliff_mask *= *p_mask;
 }
 
 void recast_cliff_directional(Array &array,
@@ -161,7 +169,8 @@ void recast_cliff_directional(Array &array,
                               int    ir,
                               float  amplitude,
                               float  angle,
-                              float  gain)
+                              float  gain,
+                              Array *p_cliff_mask)
 {
   if (!validate_non_empty(array)) return;
 
@@ -181,6 +190,9 @@ void recast_cliff_directional(Array &array,
   da = cos(da);
   clamp_min(da, 0.f);
   smooth_cpulse(da, ir);
+
+  // output cliff mask if requested
+  if (p_cliff_mask) *p_cliff_mask = dn * da;
 
   Array vmin = local_mean(array, ir);
   Array vmax = vmin + amplitude * dn * da;
@@ -207,16 +219,26 @@ void recast_cliff_directional(Array       &array,
                               float        amplitude,
                               float        angle,
                               const Array *p_mask,
-                              float        gain)
+                              float        gain,
+                              Array       *p_cliff_mask)
 {
   if (!validate_non_empty(array)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;
 
-  apply_with_mask(
-      array,
-      p_mask,
-      [&](Array &a)
-      { recast_cliff_directional(a, talus, ir, amplitude, angle, gain); });
+  apply_with_mask(array,
+                  p_mask,
+                  [&](Array &a)
+                  {
+                    recast_cliff_directional(a,
+                                             talus,
+                                             ir,
+                                             amplitude,
+                                             angle,
+                                             gain,
+                                             p_cliff_mask);
+                  });
+
+  if (p_mask && p_cliff_mask) *p_cliff_mask *= *p_mask;
 }
 
 void recast_cracks(Array &array,
