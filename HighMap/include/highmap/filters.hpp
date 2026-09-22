@@ -1088,16 +1088,17 @@ void recast_canyon(Array       &array,
  *                     cliff mask.
  *
  * **Example**
- * @include ex_recast.cpp
+ * @include ex_recast_cliff.cpp
  *
  * **Result**
- * @image html ex_recast.png
+ * @image html ex_recast_cliff.png
  */
 void recast_cliff(Array &array,
                   float  talus,
                   int    ir,
                   float  amplitude,
                   float  gain = 2.f,
+                  int    iterations = 500,
                   Array *p_cliff_mask = nullptr);
 
 void recast_cliff(Array       &array,
@@ -1106,6 +1107,7 @@ void recast_cliff(Array       &array,
                   float        amplitude,
                   const Array *p_mask,
                   float        gain = 2.f,
+                  int          iterations = 500,
                   Array       *p_cliff_mask = nullptr); ///< @overload
 
 /**
@@ -1131,6 +1133,7 @@ void recast_cliff(Array       &array,
  * @param gain         Gain factor for the gain filter, influencing the
  * steepness of the cliffs. Higher values result in steeper cliffs. The default
  * value is 2.0.
+ * @param iterations   Number of Poisson solver iterations (default: 500).
  * @param p_mask       Optional filter mask, with values expected in the range
  * [0, 1]. The mask specifies which parts of the heightmap are affected by the
  * cliff transformation.
@@ -1138,10 +1141,10 @@ void recast_cliff(Array       &array,
  *                     cliff mask.
  *
  * **Example**
- * @include ex_recast.cpp
+ * @include ex_recast_cliff.cpp
  *
  * **Result**
- * @image html ex_recast.png
+ * @image html ex_recast_cliff.png
  */
 void recast_cliff_directional(Array &array,
                               float  talus,
@@ -1149,6 +1152,7 @@ void recast_cliff_directional(Array &array,
                               float  amplitude,
                               float  angle,
                               float  gain = 2.f,
+                              int    iterations = 500,
                               Array *p_cliff_mask = nullptr); ///< @overload
 
 void recast_cliff_directional(Array       &array,
@@ -1158,6 +1162,26 @@ void recast_cliff_directional(Array       &array,
                               float        angle,
                               const Array *p_mask,
                               float        gain = 2.f,
+                              int          iterations = 500,
+                              Array *p_cliff_mask = nullptr); ///< @overload
+
+void recast_cliff_directional(Array       &array,
+                              float        talus,
+                              int          ir,
+                              float        amplitude,
+                              const Array &angle,
+                              float        gain = 2.f,
+                              int          iterations = 500,
+                              Array *p_cliff_mask = nullptr); ///< @overload
+
+void recast_cliff_directional(Array       &array,
+                              float        talus,
+                              int          ir,
+                              float        amplitude,
+                              const Array &angle,
+                              const Array *p_mask,
+                              float        gain = 2.f,
+                              int          iterations = 500,
                               Array *p_cliff_mask = nullptr); ///< @overload
 
 void recast_cracks(Array &array,

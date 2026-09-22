@@ -1,0 +1,2 @@
+add_executable(ex_recast_cliff ex_recast_cliff.cpp)
+target_link_libraries(ex_recast_cliff highmap)

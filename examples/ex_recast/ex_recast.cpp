@@ -2,6 +2,8 @@
 
 int main(void)
 {
+  hmap::gpu::init_opencl();
+
   glm::ivec2 shape = {256, 256};
   shape = {512, 512};
   glm::vec2 res = {2.f, 2.f};
