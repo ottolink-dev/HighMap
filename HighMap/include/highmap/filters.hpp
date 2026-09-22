@@ -1062,128 +1062,6 @@ void recast_canyon(Array       &array,
                    float        gamma = 4.f,
                    const Array *p_noise = nullptr); ///< @overload
 
-/**
- * @brief Transform heightmap to add cliffs where gradients are steep enough.
- *
- * This function modifies the heightmap to introduce cliffs based on a reference
- * talus angle. Cliffs are added where the gradient exceeds the specified talus
- * angle. The amplitude of the cliffs and the gain factor for steepness are
- * adjustable. Additionally, a filter mask can be applied to control which parts
- * of the heightmap are affected.
- *
- * @param array        Input array representing the heightmap to be modified.
- * @param talus        Reference talus angle. This angle determines the
- * threshold above which cliffs are formed.
- * @param ir           Filter radius used to smooth the heightmap before
- * applying the cliff effect.
- * @param amplitude    Amplitude of the cliffs. This value controls the height
- * of the cliffs.
- * @param gain         Gain factor for the gain filter, influencing the
- * steepness of the cliffs. Higher values result in steeper cliffs. The default
- * value is 2.0.
- * @param p_mask       Optional filter mask, with values expected in the range
- * [0, 1]. The mask specifies which parts of the heightmap are affected by the
- * cliff transformation.
- * @param p_cliff_mask [out] Optional pointer to an array that receives the
- *                     cliff mask.
- *
- * **Example**
- * @include ex_recast_cliff.cpp
- *
- * **Result**
- * @image html ex_recast_cliff.png
- */
-void recast_cliff(Array &array,
-                  float  talus,
-                  int    ir,
-                  float  amplitude,
-                  float  gain = 2.f,
-                  int    iterations = 500,
-                  Array *p_cliff_mask = nullptr);
-
-void recast_cliff(Array       &array,
-                  float        talus,
-                  int          ir,
-                  float        amplitude,
-                  const Array *p_mask,
-                  float        gain = 2.f,
-                  int          iterations = 500,
-                  Array       *p_cliff_mask = nullptr); ///< @overload
-
-/**
- * @brief Transform heightmap to add directional cliffs where gradients are
- * steep enough.
- *
- * This function modifies the heightmap to introduce cliffs in a specific
- * direction, based on a reference talus angle. The cliffs are added where the
- * gradient exceeds the specified talus angle, with the direction of the cliffs
- * controlled by the specified angle. The amplitude of the cliffs and the gain
- * factor for steepness are also adjustable. A filter mask can be used to
- * specify which parts of the heightmap are affected.
- *
- * @param array        Input array representing the heightmap to be modified.
- * @param talus        Reference talus angle. This angle determines the
- * threshold above which cliffs are formed.
- * @param ir           Filter radius used to smooth the heightmap before
- * applying the cliff effect.
- * @param amplitude    Amplitude of the cliffs. This value controls the height
- * of the cliffs.
- * @param angle        Angle (in degrees) determining the direction of the
- * cliffs.
- * @param gain         Gain factor for the gain filter, influencing the
- * steepness of the cliffs. Higher values result in steeper cliffs. The default
- * value is 2.0.
- * @param iterations   Number of Poisson solver iterations (default: 500).
- * @param p_mask       Optional filter mask, with values expected in the range
- * [0, 1]. The mask specifies which parts of the heightmap are affected by the
- * cliff transformation.
- * @param p_cliff_mask [out] Optional pointer to an array that receives the
- *                     cliff mask.
- *
- * **Example**
- * @include ex_recast_cliff.cpp
- *
- * **Result**
- * @image html ex_recast_cliff.png
- */
-void recast_cliff_directional(Array &array,
-                              float  talus,
-                              int    ir,
-                              float  amplitude,
-                              float  angle,
-                              float  gain = 2.f,
-                              int    iterations = 500,
-                              Array *p_cliff_mask = nullptr); ///< @overload
-
-void recast_cliff_directional(Array       &array,
-                              float        talus,
-                              int          ir,
-                              float        amplitude,
-                              float        angle,
-                              const Array *p_mask,
-                              float        gain = 2.f,
-                              int          iterations = 500,
-                              Array *p_cliff_mask = nullptr); ///< @overload
-
-void recast_cliff_directional(Array       &array,
-                              float        talus,
-                              int          ir,
-                              float        amplitude,
-                              const Array &angle,
-                              float        gain = 2.f,
-                              int          iterations = 500,
-                              Array *p_cliff_mask = nullptr); ///< @overload
-
-void recast_cliff_directional(Array       &array,
-                              float        talus,
-                              int          ir,
-                              float        amplitude,
-                              const Array &angle,
-                              const Array *p_mask,
-                              float        gain = 2.f,
-                              int          iterations = 500,
-                              Array *p_cliff_mask = nullptr); ///< @overload
-
 void recast_cracks(Array &array,
                    float  cut_min = 0.05f,
                    float  cut_max = 0.5f,
@@ -2668,6 +2546,104 @@ Array project_talus_along_direction(const Array &array,
                                     const Array *p_mask,
                                     int          direction = 0,
                                     float        vmin = -FLT_MAX);
+
+/**
+ * @brief Transform heightmap to add cliffs where gradients are steep enough
+ * using Poisson gradient amplification.
+ *
+ * @param array        Input array representing the heightmap to be modified.
+ * @param talus        Reference talus angle / slope threshold.
+ * @param ir           Filter radius used to smooth the heightmap before
+ *                     applying the cliff effect.
+ * @param amplitude    Amplitude of the cliffs.
+ * @param gain         Gain factor influencing the steepness of the cliffs.
+ * @param iterations   Number of Poisson solver iterations (default: 500).
+ * @param p_cliff_mask [out] Optional pointer to an array that receives the
+ *                     cliff mask.
+ *
+ * **Example**
+ * @include ex_recast_cliff.cpp
+ *
+ * **Result**
+ * @image html ex_recast_cliff.png
+ */
+void recast_cliff(Array &array,
+                  float  talus,
+                  int    ir,
+                  float  amplitude,
+                  float  gain = 2.f,
+                  int    iterations = 500,
+                  Array *p_cliff_mask = nullptr);
+
+void recast_cliff(Array       &array,
+                  float        talus,
+                  int          ir,
+                  float        amplitude,
+                  const Array *p_mask,
+                  float        gain = 2.f,
+                  int          iterations = 500,
+                  Array       *p_cliff_mask = nullptr); ///< @overload
+
+/**
+ * @brief Transform heightmap to add directional cliffs where gradients are
+ * steep enough using Poisson gradient amplification.
+ *
+ * @param array        Input array representing the heightmap to be modified.
+ * @param talus        Reference talus angle / slope threshold.
+ * @param ir           Filter radius used to smooth the heightmap before
+ *                     applying the cliff effect.
+ * @param amplitude    Amplitude of the cliffs.
+ * @param angle        Angle (in degrees) determining the direction of the
+ *                     cliffs.
+ * @param gain         Gain factor influencing the steepness of the cliffs.
+ * @param iterations   Number of Poisson solver iterations (default: 500).
+ * @param p_mask       Optional filter mask.
+ * @param p_cliff_mask [out] Optional pointer to an array that receives the
+ *                     cliff mask.
+ *
+ * **Example**
+ * @include ex_recast_cliff.cpp
+ *
+ * **Result**
+ * @image html ex_recast_cliff.png
+ */
+void recast_cliff_directional(Array &array,
+                              float  talus,
+                              int    ir,
+                              float  amplitude,
+                              float  angle,
+                              float  gain = 2.f,
+                              int    iterations = 500,
+                              Array *p_cliff_mask = nullptr); ///< @overload
+
+void recast_cliff_directional(Array       &array,
+                              float        talus,
+                              int          ir,
+                              float        amplitude,
+                              float        angle,
+                              const Array *p_mask,
+                              float        gain = 2.f,
+                              int          iterations = 500,
+                              Array *p_cliff_mask = nullptr); ///< @overload
+
+void recast_cliff_directional(Array       &array,
+                              float        talus,
+                              int          ir,
+                              float        amplitude,
+                              const Array &angle,
+                              float        gain = 2.f,
+                              int          iterations = 500,
+                              Array *p_cliff_mask = nullptr); ///< @overload
+
+void recast_cliff_directional(Array       &array,
+                              float        talus,
+                              int          ir,
+                              float        amplitude,
+                              const Array &angle,
+                              const Array *p_mask,
+                              float        gain = 2.f,
+                              int          iterations = 500,
+                              Array *p_cliff_mask = nullptr); ///< @overload
 
 /*! @brief See hmap::ridge_accentuate */
 void ridge_accentuate(Array &array,

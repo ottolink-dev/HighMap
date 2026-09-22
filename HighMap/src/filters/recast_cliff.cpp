@@ -17,7 +17,7 @@
 #include "highmap/operator.hpp"
 #include "highmap/range.hpp"
 
-namespace hmap
+namespace hmap::gpu
 {
 
 void recast_cliff(Array &array,
@@ -294,4 +294,4 @@ void recast_cliff_directional(Array       &array,
   array = std::move(array_out);
 }
 
-} // namespace hmap
+} // namespace hmap::gpu

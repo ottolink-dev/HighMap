@@ -13,7 +13,7 @@ TEST(RecastCliff, CliffMaskFlatTerrainIsZero)
   Array z = Array(glm::ivec2(64, 64), 0.5f);
   Array cliff_mask;
 
-  recast_cliff(z, 0.1f, 4, 0.2f, 2.f, &cliff_mask);
+  gpu::recast_cliff(z, 0.1f, 4, 0.2f, 2.f, 50, &cliff_mask);
 
   EXPECT_EQ(cliff_mask.shape.x, 64);
   EXPECT_EQ(cliff_mask.shape.y, 64);
@@ -34,7 +34,7 @@ TEST(RecastCliff, CliffMaskSteepTerrainIsPositive)
   float amplitude = 0.1f;
   float gain = 2.f;
 
-  recast_cliff(z_copy, talus, ir, amplitude, gain, &cliff_mask);
+  gpu::recast_cliff(z_copy, talus, ir, amplitude, gain, 50, &cliff_mask);
 
   EXPECT_EQ(cliff_mask.shape.x, shape.x);
   EXPECT_EQ(cliff_mask.shape.y, shape.y);
@@ -60,7 +60,7 @@ TEST(RecastCliff, CliffMaskWithInputMask)
   float amplitude = 0.1f;
   float gain = 2.f;
 
-  recast_cliff(z_copy, talus, ir, amplitude, &mask, gain, &cliff_mask);
+  gpu::recast_cliff(z_copy, talus, ir, amplitude, &mask, gain, 50, &cliff_mask);
 
   EXPECT_EQ(cliff_mask.shape.x, shape.x);
   EXPECT_EQ(cliff_mask.shape.y, shape.y);
@@ -86,13 +86,14 @@ TEST(RecastCliffDirectional, CliffMaskPositive)
   float angle = 45.f;
   float gain = 2.f;
 
-  recast_cliff_directional(z_copy,
-                           talus,
-                           ir,
-                           amplitude,
-                           angle,
-                           gain,
-                           &cliff_mask);
+  gpu::recast_cliff_directional(z_copy,
+                                talus,
+                                ir,
+                                amplitude,
+                                angle,
+                                gain,
+                                50,
+                                &cliff_mask);
 
   EXPECT_EQ(cliff_mask.shape.x, shape.x);
   EXPECT_EQ(cliff_mask.shape.y, shape.y);
@@ -119,14 +120,15 @@ TEST(RecastCliffDirectional, CliffMaskWithInputMask)
   float angle = 45.f;
   float gain = 2.f;
 
-  recast_cliff_directional(z_copy,
-                           talus,
-                           ir,
-                           amplitude,
-                           angle,
-                           &mask,
-                           gain,
-                           &cliff_mask);
+  gpu::recast_cliff_directional(z_copy,
+                                talus,
+                                ir,
+                                amplitude,
+                                angle,
+                                &mask,
+                                gain,
+                                50,
+                                &cliff_mask);
 
   EXPECT_EQ(cliff_mask.shape.x, shape.x);
   EXPECT_EQ(cliff_mask.shape.y, shape.y);
@@ -157,17 +159,18 @@ TEST(RecastCliffDirectional, CliffMaskWithVariableAngle)
   float amplitude = 0.1f;
   float gain = 2.f;
 
-  recast_cliff_directional(z_copy,
-                           talus,
-                           ir,
-                           amplitude,
-                           angle_field,
-                           gain,
-                           50,
-                           &cliff_mask);
+  gpu::recast_cliff_directional(z_copy,
+                                talus,
+                                ir,
+                                amplitude,
+                                angle_field,
+                                gain,
+                                50,
+                                &cliff_mask);
 
   EXPECT_EQ(cliff_mask.shape.x, shape.x);
   EXPECT_EQ(cliff_mask.shape.y, shape.y);
   EXPECT_GE(cliff_mask.min(), 0.f);
   EXPECT_GT(cliff_mask.max(), 0.f);
 }
+
