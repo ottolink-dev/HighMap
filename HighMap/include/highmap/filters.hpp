@@ -73,6 +73,82 @@ Array bulkify(const Array         &z,
               glm::vec4            bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
+ * @brief Applies a canyonize filter to a heightmap.
+ *
+ * Flattens the bottom with smooth minimum clamping and applies stratification
+ * with alternating concave and convex power laws across elevation intervals,
+ * with optional strata elevation noise and lateral noise modulation.
+ *
+ * @param array         The array of values to modify.
+ * @param seed          Random seed for strata level fluctuation.
+ * @param nlevels       Number of stratification levels.
+ * @param convex_ratio  Height ratio of convex strata relative to concave strata
+ * (e.g., 3.0).
+ * @param gamma_convex  Power law exponent for convex levels (> 1, e.g., 3.0).
+ * @param gamma_concave Power law exponent for concave levels (< 1, e.g., 0.3).
+ * @param clamp_min_val Elevation threshold for flattening the canyon bottom.
+ * @param k_smooth      Smoothing factor for clamp_min_smooth (0 for hard
+ * clamp).
+ * @param noise_ratio   Ratio of random elevation variation on strata levels.
+ * @param p_noise       Optional noise array for lateral modulation.
+ * @param vmin          Minimum elevation bounds (auto if vmin >= vmax).
+ * @param vmax          Maximum elevation bounds (auto if vmin >= vmax).
+ *
+ * **Example**
+ * @include ex_canyonize.cpp
+ *
+ * **Result**
+ * @image html ex_canyonize.png
+ */
+void canyonize(Array        &array,
+               std::uint32_t seed = 0,
+               int           nlevels = 6,
+               float         convex_ratio = 3.0f,
+               float         gamma_convex = 3.0f,
+               float         gamma_concave = 0.3f,
+               float clamp_min_val = -std::numeric_limits<float>::infinity(),
+               float k_smooth = 0.1f,
+               float noise_ratio = 0.2f,
+               const Array *p_noise = nullptr,
+               float        vmin = 1.f,
+               float        vmax = 0.f);
+
+/**
+ * @brief Applies a masked canyonize filter to a heightmap.
+ *
+ * @param array         The array of values to modify.
+ * @param seed          Random seed for strata level fluctuation.
+ * @param nlevels       Number of stratification levels.
+ * @param p_mask        Optional mask controlling the effect blending.
+ * @param convex_ratio  Height ratio of convex strata relative to concave strata
+ * (e.g., 3.0).
+ * @param gamma_convex  Power law exponent for convex levels (> 1, e.g., 3.0).
+ * @param gamma_concave Power law exponent for concave levels (< 1, e.g., 0.3).
+ * @param clamp_min_val Elevation threshold for flattening the canyon bottom.
+ * @param k_smooth      Smoothing factor for clamp_min_smooth (0 for hard
+ * clamp).
+ * @param noise_ratio   Ratio of random elevation variation on strata levels.
+ * @param p_noise       Optional noise array for lateral modulation.
+ * @param vmin          Minimum elevation bounds (auto if vmin >= vmax).
+ * @param vmax          Maximum elevation bounds (auto if vmin >= vmax).
+ *
+ * @overload
+ */
+void canyonize(Array        &array,
+               std::uint32_t seed,
+               int           nlevels,
+               const Array  *p_mask,
+               float         convex_ratio = 3.0f,
+               float         gamma_convex = 3.0f,
+               float         gamma_concave = 0.3f,
+               float clamp_min_val = -std::numeric_limits<float>::infinity(),
+               float k_smooth = 0.1f,
+               float noise_ratio = 0.2f,
+               const Array *p_noise = nullptr,
+               float        vmin = 1.f,
+               float        vmax = 0.f);
+
+/**
  * @brief Reduce quantization artifacts using dithering and smoothing.
  *
  * Adds white noise dithering to the input array and applies iterative Laplacian

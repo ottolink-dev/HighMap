@@ -1,0 +1,2 @@
+add_executable(ex_canyonize ex_canyonize.cpp)
+target_link_libraries(ex_canyonize highmap)
