@@ -53,12 +53,7 @@ int main(void)
     hmap::remap(z4);
 
     float angle = 0.f;
-    hmap::gpu::recast_cliff_directional(z5,
-                                        talus,
-                                        ir,
-                                        amplitude,
-                                        angle,
-                                        gain);
+    hmap::gpu::recast_cliff_directional(z5, talus, ir, amplitude, angle, gain);
     hmap::remap(z5);
   }
 

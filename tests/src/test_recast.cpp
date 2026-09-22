@@ -173,4 +173,3 @@ TEST(RecastCliffDirectional, CliffMaskWithVariableAngle)
   EXPECT_GE(cliff_mask.min(), 0.f);
   EXPECT_GT(cliff_mask.max(), 0.f);
 }
-

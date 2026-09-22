@@ -35,7 +35,7 @@ void recast_cliff(Array &array,
   if (ir > 0) gpu::smooth_cpulse(z_smooth, ir);
 
   // compute gradient norm on base
-  Array gn = gradient_norm(z_smooth);
+  Array gn = hmap::gradient_norm(z_smooth);
 
   // compute slope excess above talus
   Array dn = gn - talus;
@@ -227,7 +227,7 @@ void recast_cliff_directional(Array       &array,
   if (ir > 0) gpu::smooth_cpulse(z_smooth, ir);
 
   // compute gradient norm on base
-  Array gn = gradient_norm(z_smooth);
+  Array gn = hmap::gradient_norm(z_smooth);
 
   // compute slope excess above talus
   Array dn = gn - talus;
