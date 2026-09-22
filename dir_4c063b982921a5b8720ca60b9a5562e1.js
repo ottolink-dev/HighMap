@@ -10,6 +10,7 @@ var dir_4c063b982921a5b8720ca60b9a5562e1 =
     [ "filters_gpu.cpp", "filters__gpu_8cpp.html", "filters__gpu_8cpp" ],
     [ "jagged.cpp", "jagged_8cpp.html", "jagged_8cpp" ],
     [ "recast.cpp", "recast_8cpp.html", "recast_8cpp" ],
+    [ "recast_cliff.cpp", "recast__cliff_8cpp.html", "recast__cliff_8cpp" ],
     [ "recurve.cpp", "recurve_8cpp.html", "recurve_8cpp" ],
     [ "ridge_accentuate.cpp", "ridge__accentuate_8cpp.html", "ridge__accentuate_8cpp" ],
     [ "spectral_equalizer.cpp", "spectral__equalizer_8cpp.html", "spectral__equalizer_8cpp" ]
