@@ -742,6 +742,10 @@ void \mbox{\hyperlink{namespacehmap_a466d4275bb86ca9ca603c9d4192f931a}{write\+\_
 \begin{DoxyCompactList}\small\item\em Performs k-\/means clustering on three input arrays, providing more detailed cluster analysis by considering an additional dimension. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_ae3ecf5f88476c5d49978a130f8cab2f3}{bulkify}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, const \mbox{\hyperlink{namespacehmap_a55542a66f890ef9ecf5f82af2c23a0cf}{Primitive\+Type}} \&primitive\+\_\+type, float amp=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec2 center=\{0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Applies a primitive-\/based displacement to an array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a3db5616398edb199912cfc2972c2ec55}{canyonize}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, std\+::uint32\+\_\+t seed=0, int nlevels=6, float convex\+\_\+ratio=3.\+0f, float gamma\+\_\+convex=3.\+0f, float gamma\+\_\+concave=0.\+3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float clamp\+\_\+min\+\_\+val=-\/std\+::numeric\+\_\+limits$<$ float $>$\+::infinity(), float k\+\_\+smooth=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float noise\+\_\+ratio=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise=nullptr, float vmin=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float vmax=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Applies a canyonize filter to a heightmap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_aca3e5de61af1e6bac4786ec33d0c1398}{canyonize}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, std\+::uint32\+\_\+t seed, int nlevels, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask, float convex\+\_\+ratio=3.\+0f, float gamma\+\_\+convex=3.\+0f, float gamma\+\_\+concave=0.\+3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float clamp\+\_\+min\+\_\+val=-\/std\+::numeric\+\_\+limits$<$ float $>$\+::infinity(), float k\+\_\+smooth=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float noise\+\_\+ratio=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise=nullptr, float vmin=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float vmax=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Applies a masked canyonize filter to a heightmap. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a703bb7c67cc8998560798c104a46ce4d}{dequantize}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, std\+::uint32\+\_\+t seed, float dither\+\_\+amplitude=0.\+01\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int filtering\+\_\+iterations=1)
 \begin{DoxyCompactList}\small\item\em Reduce quantization artifacts using dithering and smoothing. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a1b08d9a5d25e6bcd9d080accd077cc98}{equalize}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
@@ -9329,7 +9333,129 @@ Resulting array after applying the displacement.
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a703bb7c67cc8998560798c104a46ce4d}\label{namespacehmap_a703bb7c67cc8998560798c104a46ce4d} 
+{\bfseries{Result}}  \Hypertarget{namespacehmap_a3db5616398edb199912cfc2972c2ec55}\label{namespacehmap_a3db5616398edb199912cfc2972c2ec55} 
+\index{hmap@{hmap}!canyonize@{canyonize}}
+\index{canyonize@{canyonize}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{canyonize()}{canyonize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void hmap\+::canyonize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{std\+::uint32\+\_\+t}]{seed = {\ttfamily 0},  }\item[{int}]{nlevels = {\ttfamily 6},  }\item[{float}]{convex\+\_\+ratio = {\ttfamily 3.0f},  }\item[{float}]{gamma\+\_\+convex = {\ttfamily 3.0f},  }\item[{float}]{gamma\+\_\+concave = {\ttfamily 0.3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{clamp\+\_\+min\+\_\+val = {\ttfamily -\/std\+:\+:numeric\+\_\+limits$<$float$>$\+:\+:infinity()},  }\item[{float}]{k\+\_\+smooth = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{noise\+\_\+ratio = {\ttfamily 0.2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise = {\ttfamily nullptr},  }\item[{float}]{vmin = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{vmax = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+
+
+
+Applies a canyonize filter to a heightmap. 
+
+Flattens the bottom with smooth minimum clamping and applies stratification with alternating concave and convex power laws across elevation intervals, with optional strata elevation noise and lateral noise modulation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & The array of values to modify. \\
+\hline
+{\em seed} & Random seed for strata level fluctuation. \\
+\hline
+{\em nlevels} & Number of stratification levels. \\
+\hline
+{\em convex\+\_\+ratio} & Height ratio of convex strata relative to concave strata (e.\+g., 3.\+0). \\
+\hline
+{\em gamma\+\_\+convex} & Power law exponent for convex levels (\texorpdfstring{$>$}{>} 1, e.\+g., 3.\+0). \\
+\hline
+{\em gamma\+\_\+concave} & Power law exponent for concave levels (\texorpdfstring{$<$}{<} 1, e.\+g., 0.\+3). \\
+\hline
+{\em clamp\+\_\+min\+\_\+val} & Elevation threshold for flattening the canyon bottom. \\
+\hline
+{\em k\+\_\+smooth} & Smoothing factor for clamp\+\_\+min\+\_\+smooth (0 for hard clamp). \\
+\hline
+{\em noise\+\_\+ratio} & Ratio of random elevation variation on strata levels. \\
+\hline
+{\em p\+\_\+noise} & Optional noise array for lateral modulation. \\
+\hline
+{\em vmin} & Minimum elevation bounds (auto if vmin \texorpdfstring{$>$}{>}= vmax). \\
+\hline
+{\em vmax} & Maximum elevation bounds (auto if vmin \texorpdfstring{$>$}{>}= vmax).\\
+\hline
+\end{DoxyParams}
+{\bfseries{Example}} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ glm::ivec2\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ =\ \{256,\ 256\};}
+\DoxyCodeLine{\ \ glm::vec2\ \ res\ =\ \{3.f,\ 3.f\};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ seed\ =\ 42;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Base\ terrain\ with\ ridges}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ res,\ seed++);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(z,\ 0.f,\ 1.f);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Optional\ high-\/frequency\ noise\ for\ lateral\ strata\ distortion}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ \mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{noise}}\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glm::vec2(2.f,\ 2.f),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed++);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(\mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{noise}},\ 0.f,\ 0.1f);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z\_canyon\ =\ z;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a3db5616398edb199912cfc2972c2ec55}{hmap::canyonize}}(z\_canyon,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed++,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 12,\ \ \ \ \textcolor{comment}{//\ 6\ strata\ levels}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2.f,\ \ \ \textcolor{comment}{//\ convex\ strata\ height\ ratio\ relative\ to\ concave}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2.f,\ \ \ \textcolor{comment}{//\ convex\ exponent\ for\ base\ and\ alternate\ levels}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.5f,\ \ \textcolor{comment}{//\ concave\ exponent\ for\ alternate\ levels}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.15f,\ \textcolor{comment}{//\ clamp\ min\ to\ flatten\ valley\ /\ river\ floor}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.08f,\ \textcolor{comment}{//\ smooth\ clamp\ transition}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.7f,\ \ \textcolor{comment}{//\ strata\ height\ fluctuation}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{noise}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ z\_canyon.dump();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_canyonize.png"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z,\ z\_canyon\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9}{hmap::Cmap::TERRAIN}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true});}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+{\bfseries{Result}}  \Hypertarget{namespacehmap_aca3e5de61af1e6bac4786ec33d0c1398}\label{namespacehmap_aca3e5de61af1e6bac4786ec33d0c1398} 
+\index{hmap@{hmap}!canyonize@{canyonize}}
+\index{canyonize@{canyonize}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{canyonize()}{canyonize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void hmap\+::canyonize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{std\+::uint32\+\_\+t}]{seed,  }\item[{int}]{nlevels,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+mask,  }\item[{float}]{convex\+\_\+ratio = {\ttfamily 3.0f},  }\item[{float}]{gamma\+\_\+convex = {\ttfamily 3.0f},  }\item[{float}]{gamma\+\_\+concave = {\ttfamily 0.3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{clamp\+\_\+min\+\_\+val = {\ttfamily -\/std\+:\+:numeric\+\_\+limits$<$float$>$\+:\+:infinity()},  }\item[{float}]{k\+\_\+smooth = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{noise\+\_\+ratio = {\ttfamily 0.2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise = {\ttfamily nullptr},  }\item[{float}]{vmin = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{vmax = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+
+
+
+Applies a masked canyonize filter to a heightmap. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & The array of values to modify. \\
+\hline
+{\em seed} & Random seed for strata level fluctuation. \\
+\hline
+{\em nlevels} & Number of stratification levels. \\
+\hline
+{\em p\+\_\+mask} & Optional mask controlling the effect blending. \\
+\hline
+{\em convex\+\_\+ratio} & Height ratio of convex strata relative to concave strata (e.\+g., 3.\+0). \\
+\hline
+{\em gamma\+\_\+convex} & Power law exponent for convex levels (\texorpdfstring{$>$}{>} 1, e.\+g., 3.\+0). \\
+\hline
+{\em gamma\+\_\+concave} & Power law exponent for concave levels (\texorpdfstring{$<$}{<} 1, e.\+g., 0.\+3). \\
+\hline
+{\em clamp\+\_\+min\+\_\+val} & Elevation threshold for flattening the canyon bottom. \\
+\hline
+{\em k\+\_\+smooth} & Smoothing factor for clamp\+\_\+min\+\_\+smooth (0 for hard clamp). \\
+\hline
+{\em noise\+\_\+ratio} & Ratio of random elevation variation on strata levels. \\
+\hline
+{\em p\+\_\+noise} & Optional noise array for lateral modulation. \\
+\hline
+{\em vmin} & Minimum elevation bounds (auto if vmin \texorpdfstring{$>$}{>}= vmax). \\
+\hline
+{\em vmax} & Maximum elevation bounds (auto if vmin \texorpdfstring{$>$}{>}= vmax).\\
+\hline
+\end{DoxyParams}
+This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. \Hypertarget{namespacehmap_a703bb7c67cc8998560798c104a46ce4d}\label{namespacehmap_a703bb7c67cc8998560798c104a46ce4d} 
 \index{hmap@{hmap}!dequantize@{dequantize}}
 \index{dequantize@{dequantize}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{dequantize()}{dequantize()}}

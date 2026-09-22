@@ -6,6 +6,8 @@ var filters_8hpp =
       [ "CROSS", "filters_8hpp.html#a9d00db2263b4b7b05245531c41c1b592a5a41d1fe35db5ea65c515f217e5df2af", null ]
     ] ],
     [ "bulkify", "filters_8hpp.html#ae3ecf5f88476c5d49978a130f8cab2f3", null ],
+    [ "canyonize", "filters_8hpp.html#a3db5616398edb199912cfc2972c2ec55", null ],
+    [ "canyonize", "filters_8hpp.html#aca3e5de61af1e6bac4786ec33d0c1398", null ],
     [ "dequantize", "filters_8hpp.html#a703bb7c67cc8998560798c104a46ce4d", null ],
     [ "equalize", "filters_8hpp.html#a1b08d9a5d25e6bcd9d080accd077cc98", null ],
     [ "equalize", "filters_8hpp.html#a1470c4d74892293e4974a319c6b17267", null ],

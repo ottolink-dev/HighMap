@@ -482,6 +482,8 @@ var namespacehmap =
     [ "kmeans_clustering2", "namespacehmap.html#ab79c564a249c41caec3367b3d82ebdbf", null ],
     [ "kmeans_clustering3", "namespacehmap.html#ab1bbddddf9ab88025a85668b66d68bdf", null ],
     [ "bulkify", "namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3", null ],
+    [ "canyonize", "namespacehmap.html#a3db5616398edb199912cfc2972c2ec55", null ],
+    [ "canyonize", "namespacehmap.html#aca3e5de61af1e6bac4786ec33d0c1398", null ],
     [ "dequantize", "namespacehmap.html#a703bb7c67cc8998560798c104a46ce4d", null ],
     [ "equalize", "namespacehmap.html#a1b08d9a5d25e6bcd9d080accd077cc98", null ],
     [ "equalize", "namespacehmap.html#a1470c4d74892293e4974a319c6b17267", null ],

@@ -2,6 +2,7 @@ var dir_4c063b982921a5b8720ca60b9a5562e1 =
 [
     [ "bilateral_filter.cpp", "bilateral__filter_8cpp.html", "bilateral__filter_8cpp" ],
     [ "bulkify.cpp", "bulkify_8cpp.html", "bulkify_8cpp" ],
+    [ "canyonize.cpp", "canyonize_8cpp.html", "canyonize_8cpp" ],
     [ "dequantize.cpp", "dequantize_8cpp.html", "dequantize_8cpp" ],
     [ "directional_blur.cpp", "directional__blur_8cpp.html", "directional__blur_8cpp" ],
     [ "expand_talus.cpp", "expand__talus_8cpp.html", "expand__talus_8cpp" ],

@@ -9,6 +9,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_band.cpp", "test__band_8cpp.html", "test__band_8cpp" ],
     [ "test_blending.cpp", "test__blending_8cpp.html", "test__blending_8cpp" ],
     [ "test_boundary.cpp", "test__boundary_8cpp.html", "test__boundary_8cpp" ],
+    [ "test_canyonize.cpp", "test__canyonize_8cpp.html", "test__canyonize_8cpp" ],
     [ "test_cell_path.cpp", "test__cell__path_8cpp.html", "test__cell__path_8cpp" ],
     [ "test_chebyshev.cpp", "test__chebyshev_8cpp.html", "test__chebyshev_8cpp" ],
     [ "test_circus.cpp", "test__circus_8cpp.html", "test__circus_8cpp" ],
