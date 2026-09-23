@@ -160,3 +160,17 @@ TEST(LocalMetrics, LocalMean_Linearity)
       EXPECT_NEAR(mean_b_gpu(i, j), 2.f * mean_a_gpu(i, j), 1e-5);
     }
 }
+
+// ------------------------------------------------------------
+// LOCAL RELIEF
+// ------------------------------------------------------------
+
+TEST(LocalMetrics, LocalRelief_Definition)
+{
+  Array input = Array({{1, 5, 2}, {4, 9, 3}, {2, 0, 7}});
+
+  Array relief_gpu = gpu::local_relief(input, 1);
+  Array expected_gpu = gpu::local_max(input, 1) - gpu::local_min(input, 1);
+
+  EXPECT_TRUE(assert_almost_equal(relief_gpu, expected_gpu));
+}

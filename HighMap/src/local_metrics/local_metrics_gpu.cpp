@@ -248,21 +248,7 @@ Array local_median_deviation(const Array &array, int ir)
 Array local_relief(const Array &array, int ir)
 {
   if (!validate_non_empty(array)) return Array();
-
-  Array out(array.shape);
-
-  auto run = clwrapper::Run("local_relief");
-
-  run.bind_imagef("array", array.vector, array.shape.x, array.shape.y);
-  run.bind_imagef("out", out.vector, array.shape.x, array.shape.y, true);
-
-  run.bind_arguments(array.shape.x, array.shape.y, ir);
-
-  run.execute({array.shape.x, array.shape.y});
-
-  run.read_imagef("out");
-
-  return out;
+  return gpu::local_max(array, ir) - gpu::local_min(array, ir);
 }
 
 Array local_skewness(const Array &array, int ir)
