@@ -44,6 +44,30 @@ Array local_max(const Array &array, int ir)
   return out;
 }
 
+Array local_max_square(const Array &array, int ir)
+{
+  if (!validate_non_empty(array)) return Array();
+
+  Array array_out = array;
+
+  auto run = clwrapper::Run("local_max_square");
+
+  run.bind_imagef("in", array_out.vector, array.shape.x, array.shape.y);
+  run.bind_imagef("out", array_out.vector, array.shape.x, array.shape.y, true);
+  run.bind_arguments(array.shape.x, array.shape.y, ir, 0);
+
+  run.set_argument(5, 0); // row pass
+  run.execute({array.shape.x, array.shape.y});
+  run.read_imagef("out");
+
+  run.set_argument(5, 1); // col pass
+  run.write_imagef("in");
+  run.execute({array.shape.x, array.shape.y});
+  run.read_imagef("out");
+
+  return array_out;
+}
+
 Array local_mean(const Array &array, int ir)
 {
   if (!validate_non_empty(array)) return Array();
@@ -86,6 +110,30 @@ Array local_min(const Array &array, int ir)
   run.read_imagef("out");
 
   return out;
+}
+
+Array local_min_square(const Array &array, int ir)
+{
+  if (!validate_non_empty(array)) return Array();
+
+  Array array_out = array;
+
+  auto run = clwrapper::Run("local_min_square");
+
+  run.bind_imagef("in", array_out.vector, array.shape.x, array.shape.y);
+  run.bind_imagef("out", array_out.vector, array.shape.x, array.shape.y, true);
+  run.bind_arguments(array.shape.x, array.shape.y, ir, 0);
+
+  run.set_argument(5, 0); // row pass
+  run.execute({array.shape.x, array.shape.y});
+  run.read_imagef("out");
+
+  run.set_argument(5, 1); // col pass
+  run.write_imagef("in");
+  run.execute({array.shape.x, array.shape.y});
+  run.read_imagef("out");
+
+  return array_out;
 }
 
 Array local_median_deviation(const Array &array, int ir)

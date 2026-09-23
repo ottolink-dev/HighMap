@@ -295,6 +295,16 @@ Array local_aspect_variance(const Array &array, int ir);
  */
 Array local_max(const Array &array, int ir);
 
+/**
+ * @brief Compute the local maximum using a square kernel with a 2-pass
+ * separable implementation.
+ *
+ * @param  array Input array.
+ * @param  ir    Radius of the square kernel footprint.
+ * @return       Array of local maximum values.
+ */
+Array local_max_square(const Array &array, int ir);
+
 /*! @brief See hmap::local_median_deviation */
 Array local_median_deviation(const Array &array, int ir);
 
@@ -315,6 +325,16 @@ Array local_median_deviation(const Array &array, int ir);
  * @image html ex_local_metrics.png
  */
 Array local_min(const Array &array, int ir);
+
+/**
+ * @brief Compute the local minimum using a square kernel with a 2-pass
+ * separable implementation.
+ *
+ * @param  array Input array.
+ * @param  ir    Radius of the square kernel footprint.
+ * @return       Array of local minimum values.
+ */
+Array local_min_square(const Array &array, int ir);
 
 /**
  * @brief Compute the local relief of an array.

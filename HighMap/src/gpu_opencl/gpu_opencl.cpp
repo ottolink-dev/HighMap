@@ -142,10 +142,16 @@ bool init_opencl()
 #include "kernels/local_max.cl"
   );
   add(
+#include "kernels/local_max_square.cl"
+  );
+  add(
 #include "kernels/local_mean.cl"
   );
   add(
 #include "kernels/local_min.cl"
+  );
+  add(
+#include "kernels/local_min_square.cl"
   );
   add(
 #include "kernels/local_relief.cl"
