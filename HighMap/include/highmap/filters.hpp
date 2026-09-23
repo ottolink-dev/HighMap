@@ -16,6 +16,8 @@
 #pragma once
 
 #include "highmap/array.hpp"
+#include "highmap/kernels.hpp"
+#include "highmap/local_metrics.hpp"
 #include "highmap/primitives.hpp"
 
 namespace hmap
@@ -2360,12 +2362,18 @@ void expand(Array       &array,
             int          iterations = 1); ///< @overload
 
 /*! @brief See hmap::gamma_correction_local */
-void gamma_correction_local(Array &array, float gamma, int ir, float k = 0.1f);
 void gamma_correction_local(Array       &array,
                             float        gamma,
                             int          ir,
-                            const Array *p_mask,
-                            float        k = 0.1f); ///< @overload
+                            float        k = 0.1f,
+                            MinMaxKernel kernel_type = MinMaxKernel::DISK);
+void gamma_correction_local(
+    Array       &array,
+    float        gamma,
+    int          ir,
+    const Array *p_mask,
+    float        k = 0.1f,
+    MinMaxKernel kernel_type = MinMaxKernel::DISK); ///< @overload
 
 /**
  * @brief Apply a Voronoi-based jagged bubble dome filter to an array.
@@ -2573,7 +2581,9 @@ void median_3x3(Array &array);
 void median_3x3(Array &array, const Array *p_mask); ///< @overload
 
 /*! @brief See hmap::median_pseudo */
-Array median_pseudo(const Array &array, int ir);
+Array median_pseudo(const Array &array,
+                    int          ir,
+                    MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::normal_displacement */
 void normal_displacement(Array &array,
@@ -2587,8 +2597,15 @@ void normal_displacement(Array       &array,
                          bool         reverse = false); ///< @overload
 
 /*! @brief See hmap::plateau */
-void plateau(Array &array, const Array *p_mask, int ir, float factor);
-void plateau(Array &array, int ir, float factor); ///< @overload
+void plateau(Array       &array,
+             const Array *p_mask,
+             int          ir,
+             float        factor,
+             MinMaxKernel kernel_type = MinMaxKernel::DISK);
+void plateau(Array       &array,
+             int          ir,
+             float        factor,
+             MinMaxKernel kernel_type = MinMaxKernel::DISK); ///< @overload
 
 /**
  * @brief Projects array values along a given direction using talus attenuation.

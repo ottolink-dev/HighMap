@@ -20,23 +20,30 @@
 namespace hmap::gpu
 {
 
-Array border(const Array &array, int ir)
+Array border(const Array &array, int ir, MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
-  return array - gpu::erosion(array, ir);
+  return array - gpu::erosion(array, ir, kernel_type);
 }
 
-Array closing(const Array &array, int ir)
+Array closing(const Array &array, int ir, MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
-  return gpu::erosion(gpu::dilation(array, ir), ir);
+  return gpu::erosion(gpu::dilation(array, ir, kernel_type), ir, kernel_type);
 }
 
-Array closing_by_reconstruction(const Array &array, int ir, float k_smooth_max)
+Array closing_by_reconstruction(const Array &array,
+                                int          ir,
+                                float        k_smooth_max,
+                                MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
-  Array marker = gpu::dilation(array, ir);
-  return gpu::reconstruction_by_erosion(marker, array, ir, k_smooth_max);
+  Array marker = gpu::dilation(array, ir, kernel_type);
+  return gpu::reconstruction_by_erosion(marker,
+                                        array,
+                                        ir,
+                                        k_smooth_max,
+                                        kernel_type);
 }
 
 Array contour_smoothing(const Array &array, int ir, float transition_ratio)
@@ -54,18 +61,20 @@ Array contour_smoothing(const Array &array, int ir, float transition_ratio)
   return edt;
 }
 
-Array dilation(const Array &array, int ir)
+Array dilation(const Array &array, int ir, MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
-  return gpu::local_max(array, ir);
+  return gpu::local_max(array, ir, kernel_type);
 }
 
-Array dilation_expand_border_only(const Array &array, int ir)
+Array dilation_expand_border_only(const Array &array,
+                                  int          ir,
+                                  MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
 
   const glm::ivec2 &shape = array.shape;
-  Array             out = gpu::dilation(array, ir);
+  Array             out = gpu::dilation(array, ir, kernel_type);
 
   // only keep result in the "background" to leave initial vlaues
   // untouched
@@ -78,56 +87,73 @@ Array dilation_expand_border_only(const Array &array, int ir)
   return out;
 }
 
-Array erosion(const Array &array, int ir)
+Array erosion(const Array &array, int ir, MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
-  return gpu::local_min(array, ir);
+  return gpu::local_min(array, ir, kernel_type);
 }
 
-Array morphological_black_hat(const Array &array, int ir)
+Array morphological_black_hat(const Array &array,
+                              int          ir,
+                              MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
-  return gpu::closing(array, ir) - array;
+  return gpu::closing(array, ir, kernel_type) - array;
 }
 
-Array morphological_gradient(const Array &array, int ir)
+Array morphological_gradient(const Array &array,
+                             int          ir,
+                             MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
   float vmin = array.min();
-  return gpu::dilation(array - vmin, ir) - gpu::erosion(array - vmin, ir);
+  return gpu::dilation(array - vmin, ir, kernel_type) -
+         gpu::erosion(array - vmin, ir, kernel_type);
 }
 
-Array morphological_laplacian(const Array &array, int ir)
+Array morphological_laplacian(const Array &array,
+                              int          ir,
+                              MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
   float vmin = array.min();
-  return gpu::dilation(array - vmin, ir) + gpu::erosion(array - vmin, ir) -
-         2.f * array;
+  return gpu::dilation(array - vmin, ir, kernel_type) +
+         gpu::erosion(array - vmin, ir, kernel_type) - 2.f * array;
 }
 
-Array morphological_top_hat(const Array &array, int ir)
+Array morphological_top_hat(const Array &array,
+                            int          ir,
+                            MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
-  return array - gpu::opening(array, ir);
+  return array - gpu::opening(array, ir, kernel_type);
 }
 
-Array opening(const Array &array, int ir)
+Array opening(const Array &array, int ir, MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
-  return gpu::dilation(gpu::erosion(array, ir), ir);
+  return gpu::dilation(gpu::erosion(array, ir, kernel_type), ir, kernel_type);
 }
 
-Array opening_by_reconstruction(const Array &array, int ir, float k_smooth_min)
+Array opening_by_reconstruction(const Array &array,
+                                int          ir,
+                                float        k_smooth_min,
+                                MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
-  Array marker = gpu::erosion(array, ir);
-  return gpu::reconstruction_by_dilation(marker, array, ir, k_smooth_min);
+  Array marker = gpu::erosion(array, ir, kernel_type);
+  return gpu::reconstruction_by_dilation(marker,
+                                         array,
+                                         ir,
+                                         k_smooth_min,
+                                         kernel_type);
 }
 
 Array reconstruction_by_dilation(const Array &marker,
                                  const Array &mask,
                                  int          ir,
-                                 float        k_smooth_min)
+                                 float        k_smooth_min,
+                                 MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(marker) || !validate_same_shape(marker, mask))
     return Array();
@@ -138,7 +164,7 @@ Array reconstruction_by_dilation(const Array &marker,
 
   while (true)
   {
-    next = gpu::dilation(current, ir);
+    next = gpu::dilation(current, ir, kernel_type);
     next = hmap::minimum_smooth(next, mask, k_smooth_min);
 
     float diff = 0.f;
@@ -155,7 +181,8 @@ Array reconstruction_by_dilation(const Array &marker,
 Array reconstruction_by_erosion(const Array &marker,
                                 const Array &mask,
                                 int          ir,
-                                float        k_smooth_max)
+                                float        k_smooth_max,
+                                MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(marker) || !validate_same_shape(marker, mask))
     return Array();
@@ -166,7 +193,7 @@ Array reconstruction_by_erosion(const Array &marker,
 
   while (true)
   {
-    next = gpu::erosion(current, ir);
+    next = gpu::erosion(current, ir, kernel_type);
     next = hmap::maximum_smooth(next, mask, k_smooth_max);
 
     float diff = 0.f;
