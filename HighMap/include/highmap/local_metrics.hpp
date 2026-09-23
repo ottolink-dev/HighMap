@@ -572,6 +572,9 @@ enum LocalMetrics : int
  *
  * See unit tests: @ref test_local_metrics.cpp
  */
-Array local_metrics(const Array &array, int ir, LocalMetrics metric);
+Array local_metrics(const Array &array,
+                    int          ir,
+                    LocalMetrics metric,
+                    MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 } // namespace hmap::gpu

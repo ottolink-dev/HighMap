@@ -778,7 +778,8 @@ enum MorphologyOperation : int
  */
 Array morphological_operators(const Array        &array,
                               int                 ir,
-                              MorphologyOperation operation);
+                              MorphologyOperation operation,
+                              MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 } // namespace hmap
 
@@ -788,6 +789,7 @@ namespace hmap::gpu
 /*! @brief See hmap::morphological_operators */
 Array morphological_operators(const Array        &array,
                               int                 ir,
-                              MorphologyOperation operation);
+                              MorphologyOperation operation,
+                              MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 } // namespace hmap::gpu
