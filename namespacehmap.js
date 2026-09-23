@@ -248,6 +248,11 @@ var namespacehmap =
       [ "TRICUBE", "namespacehmap.html#a4b6f135c6e81d313ca54ae1efac5f2c9abd845bef8f2959d8d9e7355aa9c44d86", null ],
       [ "CUPOLA", "namespacehmap.html#a4b6f135c6e81d313ca54ae1efac5f2c9a31894aedaf29906c8e2a82e7d562f537", null ]
     ] ],
+    [ "MinMaxKernel", "namespacehmap.html#a2ff2761f87976a24c39df7b6509576f1", [
+      [ "DISK", "namespacehmap.html#a2ff2761f87976a24c39df7b6509576f1a290d4b81f4e2b47d86fd1b0170e9aab7", null ],
+      [ "OCTAGON", "namespacehmap.html#a2ff2761f87976a24c39df7b6509576f1a4a3681cf3ab3ef50d24e5878361e1c52", null ],
+      [ "SQUARE", "namespacehmap.html#a2ff2761f87976a24c39df7b6509576f1a12dec4e1f7ec620651b2b95c440ffac0", null ]
+    ] ],
     [ "DistanceFunction", "namespacehmap.html#a670f50d6c08ecd639d42db9c75a5273a", [
       [ "CHEBYSHEV", "namespacehmap.html#a670f50d6c08ecd639d42db9c75a5273aa2a9fc119d00df5ec5de1c13a006921f2", null ],
       [ "EUCLIDIAN", "namespacehmap.html#a670f50d6c08ecd639d42db9c75a5273aab5937b3ae1efaa098f517fe7c761b781", null ],

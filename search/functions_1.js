@@ -26,7 +26,7 @@ var searchData=
   ['blend_5fpoisson_5fbf_23',['blend_poisson_bf',['../namespacehmap_1_1gpu.html#a65a176508b404f80e5f5abd31456712e',1,'hmap::gpu::blend_poisson_bf(const Array &amp;array1, const Array &amp;array2, const int iterations=500, const Array *p_mask=nullptr)'],['../namespacehmap_1_1gpu.html#a11510c63a1d13a6107720f6e220f13de',1,'hmap::gpu::blend_poisson_bf(const Texture &amp;texture1, const Texture &amp;texture2, const int iterations=500, const Array *p_mask=nullptr)']]],
   ['blend_5fpower_5flaw_24',['blend_power_law',['../namespacehmap.html#a01201c510915f9f10f26595c79a1220b',1,'hmap::blend_power_law(const Array &amp;array1, const Array &amp;array2, float alpha=0.f)'],['../namespacehmap.html#a85fd747437fd49e0fcfb770ad5f5851e',1,'hmap::blend_power_law(const std::vector&lt; const Array * &gt; &amp;arrays, float alpha=0.f)']]],
   ['blend_5fsoft_25',['blend_soft',['../namespacehmap.html#a91e52ae1178d54931a1729a2368a31f7',1,'hmap']]],
-  ['border_26',['border',['../namespacehmap.html#af80bcff234bf1482cf26896b9d21d270',1,'hmap::border()'],['../namespacehmap_1_1gpu.html#a335e4629532ba64049e0721bdcb5f3ba',1,'hmap::gpu::border()']]],
+  ['border_26',['border',['../namespacehmap.html#af80bcff234bf1482cf26896b9d21d270',1,'hmap::border()'],['../namespacehmap_1_1gpu.html#a06a37576327ff4cb06746711dbdfa0de',1,'hmap::gpu::border()']]],
   ['bspline_27',['bspline',['../namespacehmap.html#a281c9db00eef9735e8eea7bbf50f3e34',1,'hmap']]],
   ['build_28',['build',['../classhmap_1_1NaturalNeighborInterpolator.html#a9404f1043455692be64d35116a00742c',1,'hmap::NaturalNeighborInterpolator']]],
   ['bulkify_29',['bulkify',['../namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3',1,'hmap']]],

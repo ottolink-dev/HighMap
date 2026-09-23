@@ -37,7 +37,7 @@ var searchData=
   ['ep_5ftriangle_5fsmooth_34',['EP_TRIANGLE_SMOOTH',['../namespacehmap.html#a25a4e4775f3c0918ed75f0503f5ed0a6a4ac60b8049aacabb3b5546b20cc87e9e',1,'hmap']]],
   ['equalize_35',['equalize',['../namespacehmap.html#a1b08d9a5d25e6bcd9d080accd077cc98',1,'hmap::equalize(Array &amp;array)'],['../namespacehmap.html#a1470c4d74892293e4974a319c6b17267',1,'hmap::equalize(Array &amp;array, const Array *p_mask)']]],
   ['erase_36',['erase',['../classhmap_1_1Cloud.html#a9ac3c2b9b492c973236e1d693506a75a',1,'hmap::Cloud::erase(std::vector&lt; Point &gt;::const_iterator first, std::vector&lt; Point &gt;::const_iterator last)'],['../classhmap_1_1Cloud.html#af93934b0c344c81d0260680988643d32',1,'hmap::Cloud::erase(std::vector&lt; Point &gt;::const_iterator pos)']]],
-  ['erosion_37',['erosion',['../namespacehmap_1_1gpu.html#aed5416971461ddb7fb6427bdeb5cae86',1,'hmap::gpu::erosion()'],['../namespacehmap.html#a9cf7773f6141162bf60708a93acdfcee',1,'hmap::erosion()']]],
+  ['erosion_37',['erosion',['../namespacehmap_1_1gpu.html#a1ea1b9c11b5b2855d8b48925eb8bed4e',1,'hmap::gpu::erosion()'],['../namespacehmap.html#a9cf7773f6141162bf60708a93acdfcee',1,'hmap::erosion()']]],
   ['erosion_2ehpp_38',['erosion.hpp',['../erosion_8hpp.html',1,'']]],
   ['erosion_5fmaps_39',['erosion_maps',['../namespacehmap.html#af91e2b8638aab2c4357ce37812b8a99c',1,'hmap']]],
   ['erosion_5fmaps_2ecpp_40',['erosion_maps.cpp',['../erosion__maps_8cpp.html',1,'']]],

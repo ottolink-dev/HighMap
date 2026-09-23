@@ -371,6 +371,11 @@ enum \mbox{\hyperlink{namespacehmap_a4b6f135c6e81d313ca54ae1efac5f2c9}{Kernel\+T
 , \mbox{\hyperlink{namespacehmap_a4b6f135c6e81d313ca54ae1efac5f2c9a31894aedaf29906c8e2a82e7d562f537}{CUPOLA}}
  \}
 \begin{DoxyCompactList}\small\item\em Enumeration for different kernel functions used in various algorithms. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1}{Min\+Max\+Kernel}} \+: int \{ \mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a290d4b81f4e2b47d86fd1b0170e9aab7}{DISK}}
+, \mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a4a3681cf3ab3ef50d24e5878361e1c52}{OCTAGON}}
+, \mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a12dec4e1f7ec620651b2b95c440ffac0}{SQUARE}}
+ \}
+\begin{DoxyCompactList}\small\item\em Kernel footprint geometry for local minimum / maximum operations. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{namespacehmap_a670f50d6c08ecd639d42db9c75a5273a}{Distance\+Function}} \+: int \{ \mbox{\hyperlink{namespacehmap_a670f50d6c08ecd639d42db9c75a5273aa2a9fc119d00df5ec5de1c13a006921f2}{CHEBYSHEV}}
 , \mbox{\hyperlink{namespacehmap_a670f50d6c08ecd639d42db9c75a5273aab5937b3ae1efaa098f517fe7c761b781}{EUCLIDIAN}}
 , \mbox{\hyperlink{namespacehmap_a670f50d6c08ecd639d42db9c75a5273aa439184a2066b21b9ba0883b29efabfec}{EUCLISHEV}}
@@ -2859,6 +2864,30 @@ TRICUBE&Tricube kernel function. \\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CUPOLA@{CUPOLA}!hmap@{hmap}}\index{hmap@{hmap}!CUPOLA@{CUPOLA}}}\Hypertarget{namespacehmap_a4b6f135c6e81d313ca54ae1efac5f2c9a31894aedaf29906c8e2a82e7d562f537}\label{namespacehmap_a4b6f135c6e81d313ca54ae1efac5f2c9a31894aedaf29906c8e2a82e7d562f537} 
 CUPOLA&Cupola (reverse) kernel function. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{namespacehmap_a2ff2761f87976a24c39df7b6509576f1}\label{namespacehmap_a2ff2761f87976a24c39df7b6509576f1} 
+\index{hmap@{hmap}!MinMaxKernel@{MinMaxKernel}}
+\index{MinMaxKernel@{MinMaxKernel}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{MinMaxKernel}{MinMaxKernel}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1}{hmap\+::\+Min\+Max\+Kernel}} \+: int\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Kernel footprint geometry for local minimum / maximum operations. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DISK@{DISK}!hmap@{hmap}}\index{hmap@{hmap}!DISK@{DISK}}}\Hypertarget{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a290d4b81f4e2b47d86fd1b0170e9aab7}\label{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a290d4b81f4e2b47d86fd1b0170e9aab7} 
+DISK&Circular disk neighborhood. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OCTAGON@{OCTAGON}!hmap@{hmap}}\index{hmap@{hmap}!OCTAGON@{OCTAGON}}}\Hypertarget{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a4a3681cf3ab3ef50d24e5878361e1c52}\label{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a4a3681cf3ab3ef50d24e5878361e1c52} 
+OCTAGON&Octagonal neighborhood (separable 4-\/pass approximation) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SQUARE@{SQUARE}!hmap@{hmap}}\index{hmap@{hmap}!SQUARE@{SQUARE}}}\Hypertarget{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a12dec4e1f7ec620651b2b95c440ffac0}\label{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a12dec4e1f7ec620651b2b95c440ffac0} 
+SQUARE&Square neighborhood (separable 2-\/pass) \\
 \hline
 
 \end{DoxyEnumFields}
@@ -10724,7 +10753,7 @@ This method works best on images with impulsive noise (e.\+g., salt-\/and-\/pepp
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ gpu\ version}}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_adb8336ed4d83c15500872185dee45d50}{hmap::gpu::init\_opencl}}();}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z2\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a2e2bccfafc05679f1762ba039df58dbf}{hmap::gpu::median\_pseudo}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z2\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_ad899151ee039affa2137db4a0e01be56}{hmap::gpu::median\_pseudo}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_median\_pseudo.png"{}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z,\ z1,\ z2\},}
@@ -24277,14 +24306,14 @@ Iteratively dilates the marker image while constraining values to be less than o
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}}\ =\ 16;}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ marker\_d\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_aed5416971461ddb7fb6427bdeb5cae86}{hmap::gpu::erosion}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zd\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a4b010c9a58ba75a27467385a368f70ce}{hmap::gpu::reconstruction\_by\_dilation}}(marker\_d,\ z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ marker\_d\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a1ea1b9c11b5b2855d8b48925eb8bed4e}{hmap::gpu::erosion}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zd\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_ad4f4bf91f0acf068f5dbc4af926f3e07}{hmap::gpu::reconstruction\_by\_dilation}}(marker\_d,\ z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ marker\_e\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_aed49f777e8ad095bafc5dc014e548e6e}{hmap::gpu::dilation}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ ze\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_ad1813ae47f33d026b0c3e6f7e370b5c8}{hmap::gpu::reconstruction\_by\_erosion}}(marker\_e,\ z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ marker\_e\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a50af7071f8d382961eee35191b8cb7f3}{hmap::gpu::dilation}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ ze\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a77f3571b26c7283f13dbe3bd61756cf6}{hmap::gpu::reconstruction\_by\_erosion}}(marker\_e,\ z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zo\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a1afc69c95369f96477e049d657a15b3b}{hmap::gpu::opening\_by\_reconstruction}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zc\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a4da387d47e1096eb2297f4d72513e4ae}{hmap::gpu::closing\_by\_reconstruction}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zo\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a03d65935f9d2cfe81af1ec3865f91fdd}{hmap::gpu::opening\_by\_reconstruction}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zc\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_aa6af85d0d97b84f5112ce63b8ea2e46a}{hmap::gpu::closing\_by\_reconstruction}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_reconstruction\_by\_dilation.png"{}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z,\ zd,\ ze,\ zc,\ zo\},}
@@ -24339,14 +24368,14 @@ Iteratively erodes the marker image while constraining values to be greater than
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}}\ =\ 16;}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ marker\_d\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_aed5416971461ddb7fb6427bdeb5cae86}{hmap::gpu::erosion}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zd\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a4b010c9a58ba75a27467385a368f70ce}{hmap::gpu::reconstruction\_by\_dilation}}(marker\_d,\ z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ marker\_d\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a1ea1b9c11b5b2855d8b48925eb8bed4e}{hmap::gpu::erosion}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zd\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_ad4f4bf91f0acf068f5dbc4af926f3e07}{hmap::gpu::reconstruction\_by\_dilation}}(marker\_d,\ z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ marker\_e\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_aed49f777e8ad095bafc5dc014e548e6e}{hmap::gpu::dilation}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ ze\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_ad1813ae47f33d026b0c3e6f7e370b5c8}{hmap::gpu::reconstruction\_by\_erosion}}(marker\_e,\ z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ marker\_e\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a50af7071f8d382961eee35191b8cb7f3}{hmap::gpu::dilation}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ ze\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a77f3571b26c7283f13dbe3bd61756cf6}{hmap::gpu::reconstruction\_by\_erosion}}(marker\_e,\ z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zo\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a1afc69c95369f96477e049d657a15b3b}{hmap::gpu::opening\_by\_reconstruction}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zc\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a4da387d47e1096eb2297f4d72513e4ae}{hmap::gpu::closing\_by\_reconstruction}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zo\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a03d65935f9d2cfe81af1ec3865f91fdd}{hmap::gpu::opening\_by\_reconstruction}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zc\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_aa6af85d0d97b84f5112ce63b8ea2e46a}{hmap::gpu::closing\_by\_reconstruction}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_reconstruction\_by\_dilation.png"{}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z,\ zd,\ ze,\ zc,\ zo\},}
