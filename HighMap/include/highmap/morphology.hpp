@@ -19,6 +19,8 @@
 
 #include "highmap/algebra.hpp"
 #include "highmap/array.hpp"
+#include "highmap/kernels.hpp"
+#include "highmap/local_metrics.hpp"
 
 namespace hmap
 {
@@ -603,15 +605,20 @@ namespace hmap::gpu
 {
 
 /*! @brief See hmap::border */
-Array border(const Array &array, int ir);
+Array border(const Array &array,
+             int          ir,
+             MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::closing */
-Array closing(const Array &array, int ir);
+Array closing(const Array &array,
+              int          ir,
+              MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::closing_by_reconstruction */
 Array closing_by_reconstruction(const Array &array,
                                 int          ir,
-                                float        k_smooth_max = 0.f);
+                                float        k_smooth_max = 0.f,
+                                MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::contour_smoothing */
 Array contour_smoothing(const Array &array,
@@ -619,10 +626,15 @@ Array contour_smoothing(const Array &array,
                         float        transition_ratio = 0.1f);
 
 /*! @brief See hmap::dilation */
-Array dilation(const Array &array, int ir);
+Array dilation(const Array &array,
+               int          ir,
+               MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::dilation_expand_border_only */
-Array dilation_expand_border_only(const Array &array, int ir);
+Array dilation_expand_border_only(
+    const Array &array,
+    int          ir,
+    MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /**
  * @brief Return the Euclidean distance transform.
@@ -650,39 +662,54 @@ Array distance_transform_jfa(const Array &array,
                              bool         return_squared_distance = false);
 
 /*! @brief See hmap::erosion */
-Array erosion(const Array &array, int ir);
+Array erosion(const Array &array,
+              int          ir,
+              MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::morphological_black_hat */
-Array morphological_black_hat(const Array &array, int ir);
+Array morphological_black_hat(const Array &array,
+                              int          ir,
+                              MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::morphological_gradient */
-Array morphological_gradient(const Array &array, int ir);
+Array morphological_gradient(const Array &array,
+                             int          ir,
+                             MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::morphological_laplacian */
-Array morphological_laplacian(const Array &array, int ir);
+Array morphological_laplacian(const Array &array,
+                              int          ir,
+                              MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::morphological_top_hat */
-Array morphological_top_hat(const Array &array, int ir);
+Array morphological_top_hat(const Array &array,
+                            int          ir,
+                            MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::opening */
-Array opening(const Array &array, int ir);
+Array opening(const Array &array,
+              int          ir,
+              MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::opening_by_reconstruction */
 Array opening_by_reconstruction(const Array &array,
                                 int          ir,
-                                float        k_smooth_min = 0.f);
+                                float        k_smooth_min = 0.f,
+                                MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::reconstruction_by_dilation */
 Array reconstruction_by_dilation(const Array &marker,
                                  const Array &mask,
                                  int          ir,
-                                 float        k_smooth_min = 0.f);
+                                 float        k_smooth_min = 0.f,
+                                 MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::reconstruction_by_erosion */
 Array reconstruction_by_erosion(const Array &marker,
                                 const Array &mask,
                                 int          ir,
-                                float        k_smooth_max = 0.f);
+                                float        k_smooth_max = 0.f,
+                                MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::relative_distance_from_skeleton */
 Array relative_distance_from_skeleton(const Array &array,

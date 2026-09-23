@@ -24,7 +24,20 @@ Array local_aspect_variance(const Array &array, int ir)
   return local_variance(alpha, ir);
 }
 
-Array local_max(const Array &array, int ir)
+Array local_max(const Array &array, int ir, MinMaxKernel kernel_type)
+{
+  if (!validate_non_empty(array)) return Array();
+
+  switch (kernel_type)
+  {
+  case MinMaxKernel::DISK: return local_max_disk(array, ir);
+  case MinMaxKernel::OCTAGON: return local_max_octagon(array, ir);
+  case MinMaxKernel::SQUARE: return local_max_square(array, ir);
+  default: throw std::invalid_argument("Unknown MinMaxKernel type");
+  }
+}
+
+Array local_max_disk(const Array &array, int ir)
 {
   if (!validate_non_empty(array)) return Array();
 
@@ -142,7 +155,20 @@ Array local_mean(const Array &array, int ir)
   return array_out;
 }
 
-Array local_min(const Array &array, int ir)
+Array local_min(const Array &array, int ir, MinMaxKernel kernel_type)
+{
+  if (!validate_non_empty(array)) return Array();
+
+  switch (kernel_type)
+  {
+  case MinMaxKernel::DISK: return local_min_disk(array, ir);
+  case MinMaxKernel::OCTAGON: return local_min_octagon(array, ir);
+  case MinMaxKernel::SQUARE: return local_min_square(array, ir);
+  default: throw std::invalid_argument("Unknown MinMaxKernel type");
+  }
+}
+
+Array local_min_disk(const Array &array, int ir)
 {
   if (!validate_non_empty(array)) return Array();
 
@@ -245,10 +271,11 @@ Array local_median_deviation(const Array &array, int ir)
   return abs(mean - med);
 }
 
-Array local_relief(const Array &array, int ir)
+Array local_relief(const Array &array, int ir, MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
-  return gpu::local_max(array, ir) - gpu::local_min(array, ir);
+  return gpu::local_max(array, ir, kernel_type) -
+         gpu::local_min(array, ir, kernel_type);
 }
 
 Array local_skewness(const Array &array, int ir)
@@ -311,12 +338,12 @@ Array local_z_score(const Array &array, int ir)
   return out;
 }
 
-Array relative_elevation(const Array &array, int ir)
+Array relative_elevation(const Array &array, int ir, MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
 
-  Array amin = gpu::local_min(array, ir);
-  Array amax = gpu::local_max(array, ir);
+  Array amin = gpu::local_min(array, ir, kernel_type);
+  Array amax = gpu::local_max(array, ir, kernel_type);
 
   return (array - amin) / (amax - amin + std::numeric_limits<float>::min());
 }

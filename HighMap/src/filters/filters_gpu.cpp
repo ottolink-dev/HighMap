@@ -87,12 +87,16 @@ void expand(Array       &array,
                   [&](Array &a) { gpu::expand(a, kernel, iterations); });
 }
 
-void gamma_correction_local(Array &array, float gamma, int ir, float k)
+void gamma_correction_local(Array       &array,
+                            float        gamma,
+                            int          ir,
+                            float        k,
+                            MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return;
 
-  Array amin = gpu::local_min(array, ir);
-  Array amax = gpu::local_max(array, ir);
+  Array amin = gpu::local_min(array, ir, kernel_type);
+  Array amax = gpu::local_max(array, ir, kernel_type);
 
   gpu::smooth_cpulse(amin, ir);
   gpu::smooth_cpulse(amax, ir);
@@ -126,15 +130,17 @@ void gamma_correction_local(Array       &array,
                             float        gamma,
                             int          ir,
                             const Array *p_mask,
-                            float        k)
+                            float        k,
+                            MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;
 
   apply_with_mask(array,
                   p_mask,
-                  [&](Array &a)
-                  { gpu::gamma_correction_local(a, gamma, ir, k); });
+                  [&](Array &a) {
+                    gpu::gamma_correction_local(a, gamma, ir, k, kernel_type);
+                  });
 }
 
 void laplace(Array &array, float sigma, int iterations)
@@ -239,12 +245,12 @@ void median_3x3(Array &array, const Array *p_mask)
   apply_with_mask(array, p_mask, [&](Array &a) { gpu::median_3x3(a); });
 }
 
-Array median_pseudo(const Array &array, int ir)
+Array median_pseudo(const Array &array, int ir, MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
 
-  return (gpu::local_min(array, ir) + gpu::local_max(array, ir) +
-          gpu::local_mean(array, ir)) /
+  return (gpu::local_min(array, ir, kernel_type) +
+          gpu::local_max(array, ir, kernel_type) + gpu::local_mean(array, ir)) /
          3.f;
 }
 
@@ -284,13 +290,17 @@ void normal_displacement(Array       &array,
                   { gpu::normal_displacement(a, amount, ir, reverse); });
 }
 
-void plateau(Array &array, const Array *p_mask, int ir, float factor)
+void plateau(Array       &array,
+             const Array *p_mask,
+             int          ir,
+             float        factor,
+             MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;
 
-  Array amin = gpu::local_min(array, ir);
-  Array amax = gpu::local_max(array, ir);
+  Array amin = gpu::local_min(array, ir, kernel_type);
+  Array amax = gpu::local_max(array, ir, kernel_type);
 
   gpu::smooth_cpulse(amin, ir);
   gpu::smooth_cpulse(amax, ir);
@@ -315,10 +325,10 @@ void plateau(Array &array, const Array *p_mask, int ir, float factor)
   run.read_buffer("array");
 }
 
-void plateau(Array &array, int ir, float factor)
+void plateau(Array &array, int ir, float factor, MinMaxKernel kernel_type)
 {
   if (!validate_non_empty(array)) return;
-  gpu::plateau(array, nullptr, ir, factor);
+  gpu::plateau(array, nullptr, ir, factor, kernel_type);
 }
 
 Array project_talus_along_direction(const Array &array,
