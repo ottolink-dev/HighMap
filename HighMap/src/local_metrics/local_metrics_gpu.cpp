@@ -44,6 +44,56 @@ Array local_max(const Array &array, int ir)
   return out;
 }
 
+Array local_max_octagon(const Array &array, int ir)
+{
+  if (!validate_non_empty(array)) return Array();
+
+  // compute axis-aligned (a) and diagonal (b) decomposition radii
+  const int b = static_cast<int>(
+      std::round((std::sqrt(2.f) - 1.f) * static_cast<float>(ir)));
+  const int a = ir - b;
+
+  Array array_out = array;
+
+  auto run = clwrapper::Run("local_max_octagon");
+
+  run.bind_imagef("in", array_out.vector, array.shape.x, array.shape.y);
+  run.bind_imagef("out", array_out.vector, array.shape.x, array.shape.y, true);
+  run.bind_arguments(array.shape.x, array.shape.y, a, 0);
+
+  // pass 0: horizontal pass
+  run.set_argument(4, a);
+  run.set_argument(5, 0);
+  run.execute({array.shape.x, array.shape.y});
+  run.read_imagef("out");
+
+  // pass 1: vertical pass
+  run.set_argument(4, a);
+  run.set_argument(5, 1);
+  run.write_imagef("in");
+  run.execute({array.shape.x, array.shape.y});
+  run.read_imagef("out");
+
+  if (b > 0)
+  {
+    // pass 2: main diagonal (+1, +1)
+    run.set_argument(4, b);
+    run.set_argument(5, 2);
+    run.write_imagef("in");
+    run.execute({array.shape.x, array.shape.y});
+    run.read_imagef("out");
+
+    // pass 3: anti diagonal (+1, -1)
+    run.set_argument(4, b);
+    run.set_argument(5, 3);
+    run.write_imagef("in");
+    run.execute({array.shape.x, array.shape.y});
+    run.read_imagef("out");
+  }
+
+  return array_out;
+}
+
 Array local_max_square(const Array &array, int ir)
 {
   if (!validate_non_empty(array)) return Array();
@@ -110,6 +160,56 @@ Array local_min(const Array &array, int ir)
   run.read_imagef("out");
 
   return out;
+}
+
+Array local_min_octagon(const Array &array, int ir)
+{
+  if (!validate_non_empty(array)) return Array();
+
+  // compute axis-aligned (a) and diagonal (b) decomposition radii
+  const int b = static_cast<int>(
+      std::round((std::sqrt(2.f) - 1.f) * static_cast<float>(ir)));
+  const int a = ir - b;
+
+  Array array_out = array;
+
+  auto run = clwrapper::Run("local_min_octagon");
+
+  run.bind_imagef("in", array_out.vector, array.shape.x, array.shape.y);
+  run.bind_imagef("out", array_out.vector, array.shape.x, array.shape.y, true);
+  run.bind_arguments(array.shape.x, array.shape.y, a, 0);
+
+  // pass 0: horizontal pass
+  run.set_argument(4, a);
+  run.set_argument(5, 0);
+  run.execute({array.shape.x, array.shape.y});
+  run.read_imagef("out");
+
+  // pass 1: vertical pass
+  run.set_argument(4, a);
+  run.set_argument(5, 1);
+  run.write_imagef("in");
+  run.execute({array.shape.x, array.shape.y});
+  run.read_imagef("out");
+
+  if (b > 0)
+  {
+    // pass 2: main diagonal (+1, +1)
+    run.set_argument(4, b);
+    run.set_argument(5, 2);
+    run.write_imagef("in");
+    run.execute({array.shape.x, array.shape.y});
+    run.read_imagef("out");
+
+    // pass 3: anti diagonal (+1, -1)
+    run.set_argument(4, b);
+    run.set_argument(5, 3);
+    run.write_imagef("in");
+    run.execute({array.shape.x, array.shape.y});
+    run.read_imagef("out");
+  }
+
+  return array_out;
 }
 
 Array local_min_square(const Array &array, int ir)

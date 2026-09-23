@@ -109,6 +109,22 @@ static void BM_local_max_GPU(benchmark::State &state)
   state.SetItemsProcessed(int64_t(state.iterations()) * n * n);
 }
 
+static void BM_local_max_octagon_GPU(benchmark::State &state)
+{
+  const int n = state.range(0);
+  const int r = state.range(1);
+
+  Array input = white(glm::vec2(n, n), 0.f, 1.f, 42);
+
+  for (auto _ : state)
+  {
+    Array out = gpu::local_max_octagon(input, r);
+    benchmark::DoNotOptimize(out);
+  }
+
+  state.SetItemsProcessed(int64_t(state.iterations()) * n * n);
+}
+
 // ------------------------------------------------------------
 // Local Max Square (OpenCL 2-pass separable)
 // ------------------------------------------------------------
@@ -205,6 +221,7 @@ BENCHMARK(BM_convolve2d_CPU)->Apply(conv2d_cpu_args);
 BENCHMARK(BM_convolve2d_svd_CPU)->Apply(conv_scaling_args);
 BENCHMARK(BM_bilateral_filter_GPU)->Apply(conv_scaling_args);
 BENCHMARK(BM_local_max_GPU)->Apply(conv_scaling_args);
+BENCHMARK(BM_local_max_octagon_GPU)->Apply(conv_scaling_args);
 BENCHMARK(BM_local_max_square_GPU)->Apply(conv_scaling_args);
 BENCHMARK(BM_local_max_CPU)->Apply(conv_scaling_args);
 BENCHMARK(BM_ruggedness_GPU)->Apply(conv_scaling_args);

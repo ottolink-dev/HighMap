@@ -1,0 +1,2 @@
+add_executable(ex_local_max_kernels ex_local_max_kernels.cpp)
+target_link_libraries(ex_local_max_kernels highmap)

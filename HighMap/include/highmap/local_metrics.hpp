@@ -296,12 +296,34 @@ Array local_aspect_variance(const Array &array, int ir);
 Array local_max(const Array &array, int ir);
 
 /**
+ * @brief Compute the local maximum using an octagonal kernel approximation
+ * via 4 separable 1D passes (horizontal, vertical, and two diagonals).
+ *
+ * @param  array Input array.
+ * @param  ir    Radius of the octagonal neighborhood footprint.
+ * @return       Array of local maximum values.
+ *
+ * **Example**
+ * @include ex_local_max_kernels.cpp
+ *
+ * **Result**
+ * @image html ex_local_max_kernels.png
+ */
+Array local_max_octagon(const Array &array, int ir);
+
+/**
  * @brief Compute the local maximum using a square kernel with a 2-pass
  * separable implementation.
  *
  * @param  array Input array.
  * @param  ir    Radius of the square kernel footprint.
  * @return       Array of local maximum values.
+ *
+ * **Example**
+ * @include ex_local_max_kernels.cpp
+ *
+ * **Result**
+ * @image html ex_local_max_kernels.png
  */
 Array local_max_square(const Array &array, int ir);
 
@@ -327,12 +349,34 @@ Array local_median_deviation(const Array &array, int ir);
 Array local_min(const Array &array, int ir);
 
 /**
+ * @brief Compute the local minimum using an octagonal kernel approximation
+ * via 4 separable 1D passes (horizontal, vertical, and two diagonals).
+ *
+ * @param  array Input array.
+ * @param  ir    Radius of the octagonal neighborhood footprint.
+ * @return       Array of local minimum values.
+ *
+ * **Example**
+ * @include ex_local_max_kernels.cpp
+ *
+ * **Result**
+ * @image html ex_local_max_kernels.png
+ */
+Array local_min_octagon(const Array &array, int ir);
+
+/**
  * @brief Compute the local minimum using a square kernel with a 2-pass
  * separable implementation.
  *
  * @param  array Input array.
  * @param  ir    Radius of the square kernel footprint.
  * @return       Array of local minimum values.
+ *
+ * **Example**
+ * @include ex_local_max_kernels.cpp
+ *
+ * **Result**
+ * @image html ex_local_max_kernels.png
  */
 Array local_min_square(const Array &array, int ir);
 

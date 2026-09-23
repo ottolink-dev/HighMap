@@ -58,6 +58,7 @@ TEST(LocalMetrics, LocalMax_Monotonicity)
   Array cpu = local_max(input, 1);
   Array gpu = gpu::local_max(input, 1);
   Array gpu_sq = gpu::local_max_square(input, 1);
+  Array gpu_oct = gpu::local_max_octagon(input, 1);
 
   for (int i = 0; i < input.shape.x; ++i)
     for (int j = 0; j < input.shape.y; ++j)
@@ -65,6 +66,7 @@ TEST(LocalMetrics, LocalMax_Monotonicity)
       EXPECT_GE(cpu(i, j), input(i, j));
       EXPECT_GE(gpu(i, j), input(i, j));
       EXPECT_GE(gpu_sq(i, j), input(i, j));
+      EXPECT_GE(gpu_oct(i, j), input(i, j));
       EXPECT_FLOAT_EQ(cpu(i, j), gpu_sq(i, j));
     }
 }
@@ -80,15 +82,18 @@ TEST(LocalMetrics, LocalMin_DualityWithMax)
   Array cpu = local_min(input, 1);
   Array gpu = gpu::local_min(input, 1);
   Array gpu_sq = gpu::local_min_square(input, 1);
+  Array gpu_oct = gpu::local_min_octagon(input, 1);
 
   Array cpu_ref = -local_max(-input, 1);
   Array gpu_ref = -gpu::local_max(-input, 1);
   Array gpu_sq_ref = -gpu::local_max_square(-input, 1);
+  Array gpu_oct_ref = -gpu::local_max_octagon(-input, 1);
 
   EXPECT_TRUE(assert_almost_equal(cpu, cpu_ref));
   EXPECT_TRUE(assert_almost_equal(cpu, gpu_sq));
   EXPECT_TRUE(assert_almost_equal(gpu, gpu_ref));
   EXPECT_TRUE(assert_almost_equal(gpu_sq, gpu_sq_ref));
+  EXPECT_TRUE(assert_almost_equal(gpu_oct, gpu_oct_ref));
 }
 
 TEST(LocalMetrics, LocalMin_Monotonicity)
@@ -98,6 +103,7 @@ TEST(LocalMetrics, LocalMin_Monotonicity)
   Array cpu = local_min(input, 1);
   Array gpu = gpu::local_min(input, 1);
   Array gpu_sq = gpu::local_min_square(input, 1);
+  Array gpu_oct = gpu::local_min_octagon(input, 1);
 
   for (int i = 0; i < input.shape.x; ++i)
     for (int j = 0; j < input.shape.y; ++j)
@@ -105,6 +111,7 @@ TEST(LocalMetrics, LocalMin_Monotonicity)
       EXPECT_LE(cpu(i, j), input(i, j));
       EXPECT_LE(gpu(i, j), input(i, j));
       EXPECT_LE(gpu_sq(i, j), input(i, j));
+      EXPECT_LE(gpu_oct(i, j), input(i, j));
       EXPECT_FLOAT_EQ(cpu(i, j), gpu_sq(i, j));
     }
 }
