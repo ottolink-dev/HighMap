@@ -25,7 +25,7 @@ var gradient_8hpp =
     [ "gradient_angle_circular_smoothing", "gradient_8hpp.html#ab4b68e1b48d16193615105656680ced8", null ],
     [ "laplacian_fract", "gradient_8hpp.html#a64d64a2cdc264ab75ace5be6f4bc8972", null ],
     [ "phase_averaging", "gradient_8hpp.html#a8a89eb3b3dcbdd39e57abc1770420bf1", null ],
-    [ "phase_field", "gradient_8hpp.html#a68d4635800522ec6d31021c50fad784c", null ],
-    [ "phase_field", "gradient_8hpp.html#a964de5f7786fb818f2a2749b5141190a", null ],
-    [ "phase_field_angle", "gradient_8hpp.html#a5247f76dfc04a872dd5e53c7d2cab3ec", null ]
+    [ "phase_field", "gradient_8hpp.html#ad29529eaab868b87bfa7047dbe4bba5d", null ],
+    [ "phase_field", "gradient_8hpp.html#ae48f61cbb9bf94ccc5418bf2f81da966", null ],
+    [ "phase_field_angle", "gradient_8hpp.html#ac5795e7d509f085076f5aaa851fff025", null ]
 ];

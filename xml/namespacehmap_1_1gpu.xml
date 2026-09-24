@@ -11423,10 +11423,10 @@ This is an overloaded member function, provided for convenience. It differs from
         </inbodydescription>
         <location file="HighMap/src/gradient/phase_field.cpp" line="19" column="6" bodyfile="HighMap/src/gradient/phase_field.cpp" bodystart="19" bodyend="46" declfile="HighMap/include/highmap/gradient.hpp" declline="463" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a68d4635800522ec6d31021c50fad784c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1ad29529eaab868b87bfa7047dbe4bba5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::gpu::phase_field</definition>
-        <argsstring>(const Array &amp;array, const glm::vec2 &amp;kw, std::uint32_t seed, float kp, bool rotate90=false, int n_kernel_samples=8, const glm::vec2 &amp;jitter={0.5f, 0.5f}, int angle_filter_ir=8, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, Array *p_modulus=nullptr, Array *p_angle_jump_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(const Array &amp;array, const glm::vec2 &amp;kw, std::uint32_t seed, float kp, bool rotate90=false, float normalization=1.f, const glm::vec2 &amp;jitter={0.5f, 0.5f}, int angle_filter_ir=8, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, Array *p_modulus=nullptr, Array *p_angle_jump_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>phase_field</name>
         <qualifiedname>hmap::gpu::phase_field</qualifiedname>
         <param>
@@ -11451,9 +11451,9 @@ This is an overloaded member function, provided for convenience. It differs from
           <defval>false</defval>
         </param>
         <param>
-          <type>int</type>
-          <declname>n_kernel_samples</declname>
-          <defval>8</defval>
+          <type>float</type>
+          <declname>normalization</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>const glm::vec2 &amp;</type>
@@ -11541,10 +11541,10 @@ This is an overloaded member function, provided for convenience. It differs from
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>n_kernel_samples</parametername>
+<parametername>normalization</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Number of kernel samples. </para>
+<para>Degree of normalization applied [0, 1]. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -11622,8 +11622,8 @@ This is an overloaded member function, provided for convenience. It differs from
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>GPU<sp/>phase<sp/>field</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kp_global<sp/>=<sp/>64.f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>phi2<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a68d4635800522ec6d31021c50fad784c" kindref="member">hmap::gpu::phase_field</ref>(z,<sp/>seed,<sp/>kp_global);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kp_global<sp/>=<sp/>16.f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>phi2<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1ad29529eaab868b87bfa7047dbe4bba5d" kindref="member">hmap::gpu::phase_field</ref>(z,<sp/>seed,<sp/>kp_global);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(phi2);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_phase_field.png&quot;</highlight><highlight class="normal">,<sp/>{z,<sp/>phi2},<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>);</highlight></codeline>
@@ -11638,10 +11638,10 @@ This is an overloaded member function, provided for convenience. It differs from
         </inbodydescription>
         <location file="HighMap/src/gradient/phase_field.cpp" line="48" column="7" bodyfile="HighMap/src/gradient/phase_field.cpp" bodystart="48" bodyend="121" declfile="HighMap/include/highmap/gradient.hpp" declline="490" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a964de5f7786fb818f2a2749b5141190a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1ae48f61cbb9bf94ccc5418bf2f81da966" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::gpu::phase_field</definition>
-        <argsstring>(const Array &amp;array, std::uint32_t seed, float kp_global, bool rotate90=false, int n_kernel_samples=8, const glm::vec2 &amp;jitter={0.5f, 0.5f}, int angle_filter_ir=8, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, Array *p_modulus=nullptr, Array *p_angle_jump_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(const Array &amp;array, std::uint32_t seed, float kp_global, bool rotate90=false, float normalization=1.f, const glm::vec2 &amp;jitter={0.5f, 0.5f}, int angle_filter_ir=8, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, Array *p_modulus=nullptr, Array *p_angle_jump_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>phase_field</name>
         <qualifiedname>hmap::gpu::phase_field</qualifiedname>
         <param>
@@ -11662,9 +11662,9 @@ This is an overloaded member function, provided for convenience. It differs from
           <defval>false</defval>
         </param>
         <param>
-          <type>int</type>
-          <declname>n_kernel_samples</declname>
-          <defval>8</defval>
+          <type>float</type>
+          <declname>normalization</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>const glm::vec2 &amp;</type>
@@ -11744,10 +11744,10 @@ This is an overloaded member function, provided for convenience. It differs from
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>n_kernel_samples</parametername>
+<parametername>normalization</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Number of kernel samples. </para>
+<para>Degree of normalization applied [0, 1]. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -11825,8 +11825,8 @@ This is an overloaded member function, provided for convenience. It differs from
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>GPU<sp/>phase<sp/>field</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kp_global<sp/>=<sp/>64.f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>phi2<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a68d4635800522ec6d31021c50fad784c" kindref="member">hmap::gpu::phase_field</ref>(z,<sp/>seed,<sp/>kp_global);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kp_global<sp/>=<sp/>16.f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>phi2<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1ad29529eaab868b87bfa7047dbe4bba5d" kindref="member">hmap::gpu::phase_field</ref>(z,<sp/>seed,<sp/>kp_global);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(phi2);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_phase_field.png&quot;</highlight><highlight class="normal">,<sp/>{z,<sp/>phi2},<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>);</highlight></codeline>
@@ -11841,10 +11841,10 @@ This is an overloaded member function, provided for convenience. It differs from
         </inbodydescription>
         <location file="HighMap/src/gradient/phase_field.cpp" line="123" column="7" bodyfile="HighMap/src/gradient/phase_field.cpp" bodystart="123" bodyend="162" declfile="HighMap/include/highmap/gradient.hpp" declline="528" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a5247f76dfc04a872dd5e53c7d2cab3ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1ac5795e7d509f085076f5aaa851fff025" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::gpu::phase_field_angle</definition>
-        <argsstring>(const Array &amp;angle, const glm::vec2 &amp;kw, std::uint32_t seed, float kp, int n_kernel_samples=8, const glm::vec2 &amp;jitter={0.5f, 0.5f}, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, Array *p_modulus=nullptr, Array *p_angle_jump_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(const Array &amp;angle, const glm::vec2 &amp;kw, std::uint32_t seed, float kp, float normalization=1.f, const glm::vec2 &amp;jitter={0.5f, 0.5f}, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, Array *p_modulus=nullptr, Array *p_angle_jump_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>phase_field_angle</name>
         <qualifiedname>hmap::gpu::phase_field_angle</qualifiedname>
         <param>
@@ -11864,9 +11864,9 @@ This is an overloaded member function, provided for convenience. It differs from
           <declname>kp</declname>
         </param>
         <param>
-          <type>int</type>
-          <declname>n_kernel_samples</declname>
-          <defval>8</defval>
+          <type>float</type>
+          <declname>normalization</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>const glm::vec2 &amp;</type>
@@ -16634,10 +16634,10 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
         </inbodydescription>
         <location file="HighMap/src/primitives/coherent_noise/primitives_gpu.cpp" line="615" column="7" bodyfile="HighMap/src/primitives/coherent_noise/primitives_gpu.cpp" bodystart="615" bodyend="668" declfile="HighMap/include/highmap/primitives/coherent_noise.hpp" declline="809" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a90e6ec9c8db338b8d324c15676307de7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1a0916ece997b5f5586e3d07f2e0541ab4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::gpu::phasor</definition>
-        <argsstring>(PhasorProfile phasor_profile, glm::ivec2 shape, float kp_global, std::uint32_t seed, float angle_shift=0.f, int n_kernel_samples=8, const glm::vec2 jitter={1.f, 1.f}, float delta=0.01f, float phase_smoothing=10.f, const Array *p_angle=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(PhasorProfile phasor_profile, glm::ivec2 shape, float kp_global, std::uint32_t seed, float angle_shift=0.f, float normalization=1.f, const glm::vec2 jitter={1.f, 1.f}, float delta=0.01f, float phase_smoothing=10.f, const Array *p_angle=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>phasor</name>
         <qualifiedname>hmap::gpu::phasor</qualifiedname>
         <param>
@@ -16662,9 +16662,9 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
           <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
-          <type>int</type>
-          <declname>n_kernel_samples</declname>
-          <defval>8</defval>
+          <type>float</type>
+          <declname>normalization</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>const glm::vec2</type>
@@ -16836,7 +16836,7 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>p<sp/>:<sp/>profiles)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a90e6ec9c8db338b8d324c15676307de7" kindref="member">hmap::gpu::phasor</ref>(p,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a0916ece997b5f5586e3d07f2e0541ab4" kindref="member">hmap::gpu::phasor</ref>(p,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kp,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
@@ -16845,14 +16845,18 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>fbm<sp/>phasor</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a13da2bc3fb1938bbcbc55896d9db9a7d" kindref="member">hmap::gpu::phasor_fbm</ref>(<ref refid="namespacehmap_1a67d6620c147710ebb09b64f0f738241aafeda57dc66f5efb1d5f0fcc48ddb5319" kindref="member">hmap::PhasorProfile::PP_COSINE_STD</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a281b162da8e83f252eee2c15cc644f09" kindref="member">hmap::gpu::phasor_fbm</ref>(<ref refid="namespacehmap_1a67d6620c147710ebb09b64f0f738241aafeda57dc66f5efb1d5f0fcc48ddb5319" kindref="member">hmap::PhasorProfile::PP_COSINE_STD</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kp,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>angle_shift<sp/>*/</highlight><highlight class="normal"><sp/>15.f);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>arrays.push_back(z);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_phasor.png&quot;</highlight><highlight class="normal">,<sp/>arrays,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_phasor.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arrays,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
 <para><bold>Result</bold> <image type="html" name="ex_phasor.png"></image>
@@ -16862,10 +16866,10 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
         </inbodydescription>
         <location file="HighMap/src/primitives/coherent_noise/phasor.cpp" line="18" column="7" bodyfile="HighMap/src/primitives/coherent_noise/phasor.cpp" bodystart="18" bodyend="77" declfile="HighMap/include/highmap/primitives/coherent_noise.hpp" declline="850" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a13da2bc3fb1938bbcbc55896d9db9a7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1a281b162da8e83f252eee2c15cc644f09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::gpu::phasor_fbm</definition>
-        <argsstring>(PhasorProfile phasor_profile, glm::ivec2 shape, float kp_global, std::uint32_t seed, float angle_shift=0.f, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, int n_kernel_samples=8, const glm::vec2 jitter={1.f, 1.f}, float delta=0.01f, float phase_smoothing=10.f, const Array *p_angle=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(PhasorProfile phasor_profile, glm::ivec2 shape, float kp_global, std::uint32_t seed, float angle_shift=0.f, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, float normalization=1.f, const glm::vec2 jitter={1.f, 1.f}, float delta=0.01f, float phase_smoothing=10.f, const Array *p_angle=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>phasor_fbm</name>
         <qualifiedname>hmap::gpu::phasor_fbm</qualifiedname>
         <param>
@@ -16910,9 +16914,9 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
           <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
-          <type>int</type>
-          <declname>n_kernel_samples</declname>
-          <defval>8</defval>
+          <type>float</type>
+          <declname>normalization</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type>const glm::vec2</type>
@@ -17028,10 +17032,10 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>n_kernel_samples</parametername>
+<parametername>normalization</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Number of kernel samples. </para>
+<para>Degree of normalization applied [0, 1]. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -17116,7 +17120,7 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>p<sp/>:<sp/>profiles)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a90e6ec9c8db338b8d324c15676307de7" kindref="member">hmap::gpu::phasor</ref>(p,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a0916ece997b5f5586e3d07f2e0541ab4" kindref="member">hmap::gpu::phasor</ref>(p,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kp,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
@@ -17125,14 +17129,18 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>fbm<sp/>phasor</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a13da2bc3fb1938bbcbc55896d9db9a7d" kindref="member">hmap::gpu::phasor_fbm</ref>(<ref refid="namespacehmap_1a67d6620c147710ebb09b64f0f738241aafeda57dc66f5efb1d5f0fcc48ddb5319" kindref="member">hmap::PhasorProfile::PP_COSINE_STD</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a281b162da8e83f252eee2c15cc644f09" kindref="member">hmap::gpu::phasor_fbm</ref>(<ref refid="namespacehmap_1a67d6620c147710ebb09b64f0f738241aafeda57dc66f5efb1d5f0fcc48ddb5319" kindref="member">hmap::PhasorProfile::PP_COSINE_STD</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kp,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>angle_shift<sp/>*/</highlight><highlight class="normal"><sp/>15.f);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>arrays.push_back(z);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_phasor.png&quot;</highlight><highlight class="normal">,<sp/>arrays,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_phasor.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arrays,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
 <para><bold>Result</bold> <image type="html" name="ex_phasor.png"></image>
