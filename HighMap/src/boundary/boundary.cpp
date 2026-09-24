@@ -420,62 +420,6 @@ Array make_periodic_tiling(const Array &array, float overlap, glm::ivec2 tiling)
   return array_out;
 }
 
-void set_borders(Array &array, glm::vec4 border_values, glm::ivec4 buffer_sizes)
-{
-  if (!validate_non_empty(array)) return;
-
-  // west
-  for (int j = 0; j < array.shape.y; j++)
-    for (int i = 0; i < buffer_sizes.x; i++)
-    {
-      float r = (float)i / (float)buffer_sizes.x;
-      r = r * r * (3.f - 2.f * r);
-      array(i, j) = (1.f - r) * border_values.x + r * array(i, j);
-    }
-
-  // east
-  for (int j = 0; j < array.shape.y; j++)
-    for (int i = array.shape.x - buffer_sizes.y; i < array.shape.x; i++)
-    {
-      float r = 1.f - (float)(i - array.shape.x + buffer_sizes.y) /
-                          (float)buffer_sizes.y;
-      r = r * r * (3.f - 2.f * r);
-      array(i, j) = (1.f - r) * border_values.y + r * array(i, j);
-    }
-
-  // south
-  for (int j = 0; j < buffer_sizes.z; j++)
-    for (int i = 0; i < array.shape.x; i++)
-    {
-      float r = (float)j / (float)buffer_sizes.z;
-      r = r * r * (3.f - 2.f * r);
-      array(i, j) = (1.f - r) * border_values.z + r * array(i, j);
-    }
-
-  // north
-  for (int j = array.shape.y - buffer_sizes.w; j < array.shape.y; j++)
-    for (int i = 0; i < array.shape.x; i++)
-    {
-      float r = 1.f - (float)(j - array.shape.y + buffer_sizes.w) /
-                          (float)buffer_sizes.w;
-      r = r * r * (3.f - 2.f * r);
-      array(i, j) = (1.f - r) * border_values.w + r * array(i, j);
-    }
-}
-
-void set_borders(Array &array, float border_values, int buffer_sizes)
-{
-  glm::vec4  bv = glm::vec4(border_values,
-                           border_values,
-                           border_values,
-                           border_values);
-  glm::ivec4 bs = glm::ivec4(buffer_sizes,
-                             buffer_sizes,
-                             buffer_sizes,
-                             buffer_sizes);
-  set_borders(array, bv, bs);
-}
-
 void sym_borders(Array &array, glm::ivec4 buffer_sizes)
 {
   if (!validate_non_empty(array)) return;

@@ -285,6 +285,27 @@ void set_borders(Array     &array,
                  glm::ivec4 buffer_sizes);
 
 /**
+ * @brief Enforces specific values at the domain boundaries based on distance.
+ *
+ * This overloaded function sets values near the boundaries of the unit square
+ * domain [0, 1] x [0, 1] based on continuous distances. The array corresponds
+ * to the specified bounding box `bbox`.
+ *
+ * @param array         Reference to the input array whose borders are to be
+ *                      modified.
+ * @param border_values A vector specifying the values to set at the west, east,
+ *                      south, and north borders.
+ * @param buffer_sizes  A vector specifying the buffer distance at the west,
+ *                      east, south, and north borders.
+ * @param bbox          Domain bounding box {xmin, xmax, ymin, ymax}. Default is
+ *                      {0.f, 1.f, 0.f, 1.f}.
+ */
+void set_borders(Array    &array,
+                 glm::vec4 border_values,
+                 glm::vec4 buffer_sizes,
+                 glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
  * @brief Enforces a uniform value at all boundaries of the array.
  *
  * This overloaded function sets the same value at all borders of the input
@@ -298,6 +319,25 @@ void set_borders(Array     &array,
  *                      borders.
  */
 void set_borders(Array &array, float border_values, int buffer_sizes);
+
+/**
+ * @brief Enforces a uniform value at all domain boundaries based on distance.
+ *
+ * This overloaded function sets the same value at all borders of the unit
+ * square domain [0, 1] x [0, 1] based on a continuous buffer distance. The
+ * array corresponds to the specified bounding box `bbox`.
+ *
+ * @param array         Reference to the input array whose borders are to be
+ *                      modified.
+ * @param border_values The value to set at all borders.
+ * @param buffer_sizes  The buffer distance to apply uniformly at all borders.
+ * @param bbox          Domain bounding box {xmin, xmax, ymin, ymax}. Default is
+ *                      {0.f, 1.f, 0.f, 1.f}.
+ */
+void set_borders(Array    &array,
+                 float     border_values,
+                 float     buffer_sizes,
+                 glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Fills the values at the domain borders using symmetry over a specified
