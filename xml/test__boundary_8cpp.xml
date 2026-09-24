@@ -98,6 +98,44 @@
         </inbodydescription>
         <location file="tests/src/test_boundary.cpp" line="92" column="1" bodyfile="tests/src/test_boundary.cpp" bodystart="92" bodyend="112"/>
       </memberdef>
+      <memberdef kind="function" id="test__boundary_8cpp_1aeb7717394d9e23f1d74b712324123410" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(BoundaryTest, SetBordersBboxFullDomain)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>BoundaryTest</type>
+        </param>
+        <param>
+          <type>SetBordersBboxFullDomain</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_boundary.cpp" line="114" column="1" bodyfile="tests/src/test_boundary.cpp" bodystart="114" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="test__boundary_8cpp_1ab6d36db89c5f1ff0389f1188e9d22478" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(BoundaryTest, SetBordersBboxSubdomain)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>BoundaryTest</type>
+        </param>
+        <param>
+          <type>SetBordersBboxSubdomain</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_boundary.cpp" line="135" column="1" bodyfile="tests/src/test_boundary.cpp" bodystart="135" bodyend="174"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -216,6 +254,68 @@
 <codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(zp(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/>0),<sp/>zp(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/>zp.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y<sp/>-<sp/>1),<sp/>1e-2f);</highlight></codeline>
 <codeline lineno="111"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="112"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><ref refid="test__boundary_8cpp_1a638a9b40f5aa5d5761cb802b87596316" kindref="member">TEST</ref>(BoundaryTest,<sp/>SetBordersBboxFullDomain)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>a(glm::ivec2(65,<sp/>65),<sp/>1.0f);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>border_values<sp/>=<sp/>{0.0f,<sp/>2.0f,<sp/>-1.0f,<sp/>3.0f};</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>buffer_sizes<sp/>=<sp/>{0.2f,<sp/>0.2f,<sp/>0.2f,<sp/>0.2f};</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>bbox<sp/>=<sp/>{0.0f,<sp/>1.0f,<sp/>0.0f,<sp/>1.0f};</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1af3d5a6d239d30fe1698a524dfedcd63f" kindref="member">hmap::set_borders</ref>(a,<sp/>border_values,<sp/>buffer_sizes,<sp/>bbox);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>West<sp/>boundary<sp/>(i<sp/>=<sp/>0,<sp/>x<sp/>=<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a(0,<sp/>32),<sp/>0.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>East<sp/>boundary<sp/>(i<sp/>=<sp/>64,<sp/>x<sp/>=<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a(64,<sp/>32),<sp/>2.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>South<sp/>boundary<sp/>(j<sp/>=<sp/>0,<sp/>y<sp/>=<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a(32,<sp/>0),<sp/>-1.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>North<sp/>boundary<sp/>(j<sp/>=<sp/>64,<sp/>y<sp/>=<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a(32,<sp/>64),<sp/>3.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Center<sp/>(x<sp/>=<sp/>0.5,<sp/>y<sp/>=<sp/>0.5)<sp/>should<sp/>be<sp/>untouched</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a(32,<sp/>32),<sp/>1.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><ref refid="test__boundary_8cpp_1a638a9b40f5aa5d5761cb802b87596316" kindref="member">TEST</ref>(BoundaryTest,<sp/>SetBordersBboxSubdomain)</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Top-right<sp/>tile:<sp/>x<sp/>in<sp/>[0.5,<sp/>1.0],<sp/>y<sp/>in<sp/>[0.5,<sp/>1.0]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>a_tr(glm::ivec2(33,<sp/>33),<sp/>10.0f);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>border_values<sp/>=<sp/>{0.0f,<sp/>2.0f,<sp/>-1.0f,<sp/>3.0f};</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>buffer_sizes<sp/>=<sp/>{0.2f,<sp/>0.2f,<sp/>0.2f,<sp/>0.2f};</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>bbox_tr<sp/>=<sp/>{0.5f,<sp/>1.0f,<sp/>0.5f,<sp/>1.0f};</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1af3d5a6d239d30fe1698a524dfedcd63f" kindref="member">hmap::set_borders</ref>(a_tr,<sp/>border_values,<sp/>buffer_sizes,<sp/>bbox_tr);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Left<sp/>side<sp/>of<sp/>tile<sp/>(x<sp/>=<sp/>0.5)<sp/>is<sp/>far<sp/>from<sp/>west<sp/>boundary<sp/>(x<sp/>=<sp/>0),<sp/>so<sp/>untouched</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_tr(0,<sp/>16),<sp/>10.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Bottom<sp/>side<sp/>of<sp/>tile<sp/>(y<sp/>=<sp/>0.5)<sp/>is<sp/>far<sp/>from<sp/>south<sp/>boundary<sp/>(y<sp/>=<sp/>0),<sp/>so</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>untouched</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_tr(16,<sp/>0),<sp/>10.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Right<sp/>side<sp/>of<sp/>tile<sp/>(x<sp/>=<sp/>1.0)<sp/>touches<sp/>east<sp/>boundary</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_tr(32,<sp/>16),<sp/>2.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Top<sp/>side<sp/>of<sp/>tile<sp/>(y<sp/>=<sp/>1.0)<sp/>touches<sp/>north<sp/>boundary</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_tr(16,<sp/>32),<sp/>3.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Interior<sp/>tile:<sp/>x<sp/>in<sp/>[0.3,<sp/>0.7],<sp/>y<sp/>in<sp/>[0.3,<sp/>0.7]<sp/>(all<sp/>edges<sp/>&gt;<sp/>0.2<sp/>away<sp/>from</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>domain<sp/>boundaries)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>a_mid(glm::ivec2(33,<sp/>33),<sp/>5.0f);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>bbox_mid<sp/>=<sp/>{0.3f,<sp/>0.7f,<sp/>0.3f,<sp/>0.7f};</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1af3d5a6d239d30fe1698a524dfedcd63f" kindref="member">hmap::set_borders</ref>(a_mid,<sp/>border_values,<sp/>buffer_sizes,<sp/>bbox_mid);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>&lt;<sp/>33;<sp/>++<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>33;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_NEAR(a_mid(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>),<sp/>5.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Test<sp/>uniform<sp/>float<sp/>overload</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>a_uniform(glm::ivec2(65,<sp/>65),<sp/>1.0f);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>bbox<sp/>=<sp/>{0.0f,<sp/>1.0f,<sp/>0.0f,<sp/>1.0f};</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1af3d5a6d239d30fe1698a524dfedcd63f" kindref="member">hmap::set_borders</ref>(a_uniform,<sp/>0.0f,<sp/>0.2f,<sp/>bbox);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_uniform(0,<sp/>32),<sp/>0.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_uniform(64,<sp/>32),<sp/>0.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_uniform(32,<sp/>0),<sp/>0.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_uniform(32,<sp/>64),<sp/>0.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_uniform(32,<sp/>32),<sp/>1.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_boundary.cpp"/>
   </compounddef>

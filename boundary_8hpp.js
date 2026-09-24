@@ -21,7 +21,9 @@ var boundary_8hpp =
     [ "make_periodic_tiling", "boundary_8hpp.html#abef85b092005d7c5b1d2962c3ed27ef0", null ],
     [ "pick_boundary_cell", "boundary_8hpp.html#a7b12baa935f3ffb6a16e1809a85d0a6f", null ],
     [ "set_borders", "boundary_8hpp.html#af3d5a6d239d30fe1698a524dfedcd63f", null ],
+    [ "set_borders", "boundary_8hpp.html#a62f36bee998bb99b11120e1b02944169", null ],
     [ "set_borders", "boundary_8hpp.html#a403b405887b5cda6a1d6f8bcaeb4c5e8", null ],
+    [ "set_borders", "boundary_8hpp.html#a3c7f4660a1d160892fd28a41b7365d7d", null ],
     [ "sym_borders", "boundary_8hpp.html#a2e43da799378e294ea448a498aa1d386", null ],
     [ "zeroed_borders", "boundary_8hpp.html#ae8bdfc965780305d1d26ff8b84e1dced", null ],
     [ "zeroed_edges", "boundary_8hpp.html#a8e2364315f5b159daae10f508dd1d2a8", null ]

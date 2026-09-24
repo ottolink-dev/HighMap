@@ -1,5 +1,7 @@
 var NAVTREEINDEX22 =
 {
+"range_8hpp.html#ad4876bd26d1f3b33a1492645bfe50fbe":[5,0,1,0,0,41,0],
+"range_8hpp.html#ad4876bd26d1f3b33a1492645bfe50fbea10478d523fc507b9738e9cfdd5b7539c":[5,0,1,0,0,41,0,1],
 "range_8hpp.html#ad4876bd26d1f3b33a1492645bfe50fbea7ee5673a01d4215ae4ba9ba95268ed59":[5,0,1,0,0,41,0,0],
 "range_8hpp.html#ad4876bd26d1f3b33a1492645bfe50fbea8a618ee5b7e734d56e2d5957bd9893fd":[5,0,1,0,0,41,0,3],
 "range_8hpp.html#ad4876bd26d1f3b33a1492645bfe50fbead7d8162264f038302952e47ad5e7a2ed":[5,0,1,0,0,41,0,2],
@@ -150,6 +152,11 @@ var NAVTREEINDEX22 =
 "selector__gpu_8cpp.html":[5,0,1,1,35,5],
 "selector__gpu_8cpp.html#a13f97a9cf5f7f219e5ed9a32fefbfa1a":[5,0,1,1,35,5,1],
 "selector__gpu_8cpp.html#a9d2e42789abe01802177574660804fa1":[5,0,1,1,35,5,0],
+"set__borders_8cpp.html":[5,0,1,1,4,2],
+"set__borders_8cpp.html#a3c7f4660a1d160892fd28a41b7365d7d":[5,0,1,1,4,2,3],
+"set__borders_8cpp.html#a403b405887b5cda6a1d6f8bcaeb4c5e8":[5,0,1,1,4,2,2],
+"set__borders_8cpp.html#a62f36bee998bb99b11120e1b02944169":[5,0,1,1,4,2,1],
+"set__borders_8cpp.html#af3d5a6d239d30fe1698a524dfedcd63f":[5,0,1,1,4,2,0],
 "shadows_8cpp.html":[5,0,1,1,36,0],
 "shadows_8cpp.html#a03570be180e333d82101d31482e78829":[5,0,1,1,36,0,1],
 "shadows_8cpp.html#a12f76d80fee40f96dc5b6540bb83be80":[5,0,1,1,36,0,2],
@@ -242,12 +249,5 @@ var NAVTREEINDEX22 =
 "stitching__helpers_8cpp.html#a2675436fd50279a3f2f991204cc11195":[5,0,1,1,28,4,2],
 "stitching__helpers_8cpp.html#ae0a3c73cc23a288fe03bf5ed6ac73c3d":[5,0,1,1,28,4,0],
 "stitching__helpers_8cpp.html#ae6817ca5deb78b7edb959b3ea334b25b":[5,0,1,1,28,4,1],
-"strata_8cpp.html":[5,0,1,1,12,24],
-"strata_8cpp.html#a05cc60e4654cd2f0dbb5021bf7602bb9":[5,0,1,1,12,24,6],
-"strata_8cpp.html#a5b29dc1e29512877770fd208cd40b971":[5,0,1,1,12,24,3],
-"strata_8cpp.html#a740cd2ba7c58126ef27bfcddcb6f00b8":[5,0,1,1,12,24,2],
-"strata_8cpp.html#a7bfb87c4fc0f9f4fe3a043cb18e7f8fa":[5,0,1,1,12,24,5],
-"strata_8cpp.html#a924e3d46ccfbe374d34eeaaacc2f81fe":[5,0,1,1,12,24,1],
-"strata_8cpp.html#ab8f6820b9bd796b3283e763f4d872a51":[5,0,1,1,12,24,4],
-"strata_8cpp.html#acdb08d6ebb8ddb8e5595c11278cf81e0":[5,0,1,1,12,24,0]
+"strata_8cpp.html":[5,0,1,1,12,24]
 };

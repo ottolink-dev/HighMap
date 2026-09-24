@@ -593,8 +593,12 @@ glm\+::ivec2 \mbox{\hyperlink{namespacehmap_a7b12baa935f3ffb6a16e1809a85d0a6f}{p
 \begin{DoxyCompactList}\small\item\em Picks a boundary cell using weighted random selection. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_af3d5a6d239d30fe1698a524dfedcd63f}{set\+\_\+borders}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec4 border\+\_\+values, glm\+::ivec4 buffer\+\_\+sizes)
 \begin{DoxyCompactList}\small\item\em Enforces specific values at the boundaries of the array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a62f36bee998bb99b11120e1b02944169}{set\+\_\+borders}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec4 border\+\_\+values, glm\+::vec4 buffer\+\_\+sizes, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Enforces specific values at the domain boundaries based on distance. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a403b405887b5cda6a1d6f8bcaeb4c5e8}{set\+\_\+borders}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float border\+\_\+values, int buffer\+\_\+sizes)
 \begin{DoxyCompactList}\small\item\em Enforces a uniform value at all boundaries of the array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a3c7f4660a1d160892fd28a41b7365d7d}{set\+\_\+borders}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float border\+\_\+values, float buffer\+\_\+sizes, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Enforces a uniform value at all domain boundaries based on distance. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a2e43da799378e294ea448a498aa1d386}{sym\+\_\+borders}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::ivec4 buffer\+\_\+sizes)
 \begin{DoxyCompactList}\small\item\em Fills the values at the domain borders using symmetry over a specified buffer depth. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_ae8bdfc965780305d1d26ff8b84e1dced}{zeroed\+\_\+borders}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
@@ -5356,7 +5360,7 @@ Selected boundary cell coordinates.
 {\bfseries{Result}}  \Hypertarget{namespacehmap_af3d5a6d239d30fe1698a524dfedcd63f}\label{namespacehmap_af3d5a6d239d30fe1698a524dfedcd63f} 
 \index{hmap@{hmap}!set\_borders@{set\_borders}}
 \index{set\_borders@{set\_borders}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{set\_borders()}{set\_borders()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{set\_borders()}{set\_borders()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
 {\footnotesize\ttfamily void hmap\+::set\+\_\+borders (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{glm\+::vec4}]{border\+\_\+values,  }\item[{glm\+::ivec4}]{buffer\+\_\+sizes }\end{DoxyParamCaption})}
 
 
@@ -5395,10 +5399,33 @@ This function sets the values at the borders of the input array to specified val
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a403b405887b5cda6a1d6f8bcaeb4c5e8}\label{namespacehmap_a403b405887b5cda6a1d6f8bcaeb4c5e8} 
+{\bfseries{Result}}  \Hypertarget{namespacehmap_a62f36bee998bb99b11120e1b02944169}\label{namespacehmap_a62f36bee998bb99b11120e1b02944169} 
 \index{hmap@{hmap}!set\_borders@{set\_borders}}
 \index{set\_borders@{set\_borders}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{set\_borders()}{set\_borders()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsection{\texorpdfstring{set\_borders()}{set\_borders()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily void hmap\+::set\+\_\+borders (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{glm\+::vec4}]{border\+\_\+values,  }\item[{glm\+::vec4}]{buffer\+\_\+sizes,  }\item[{glm\+::vec4}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+
+
+
+Enforces specific values at the domain boundaries based on distance. 
+
+This overloaded function sets values near the boundaries of the unit square domain \mbox{[}0, 1\mbox{]} x \mbox{[}0, 1\mbox{]} based on continuous distances. The array corresponds to the specified bounding box {\ttfamily bbox}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & Reference to the input array whose borders are to be modified. \\
+\hline
+{\em border\+\_\+values} & A vector specifying the values to set at the west, east, south, and north borders. \\
+\hline
+{\em buffer\+\_\+sizes} & A vector specifying the buffer distance at the west, east, south, and north borders. \\
+\hline
+{\em bbox} & Domain bounding box \{xmin, xmax, ymin, ymax\}. Default is \{0.\+f, 1.\+f, 0.\+f, 1.\+f\}. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_a403b405887b5cda6a1d6f8bcaeb4c5e8}\label{namespacehmap_a403b405887b5cda6a1d6f8bcaeb4c5e8} 
+\index{hmap@{hmap}!set\_borders@{set\_borders}}
+\index{set\_borders@{set\_borders}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{set\_borders()}{set\_borders()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
 {\footnotesize\ttfamily void hmap\+::set\+\_\+borders (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{float}]{border\+\_\+values,  }\item[{int}]{buffer\+\_\+sizes }\end{DoxyParamCaption})}
 
 
@@ -5414,6 +5441,29 @@ This overloaded function sets the same value at all borders of the input array. 
 {\em border\+\_\+values} & The value to set at all borders. \\
 \hline
 {\em buffer\+\_\+sizes} & The size of the buffer zone to apply uniformly at all borders. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_a3c7f4660a1d160892fd28a41b7365d7d}\label{namespacehmap_a3c7f4660a1d160892fd28a41b7365d7d} 
+\index{hmap@{hmap}!set\_borders@{set\_borders}}
+\index{set\_borders@{set\_borders}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{set\_borders()}{set\_borders()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void hmap\+::set\+\_\+borders (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{float}]{border\+\_\+values,  }\item[{float}]{buffer\+\_\+sizes,  }\item[{glm\+::vec4}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+
+
+
+Enforces a uniform value at all domain boundaries based on distance. 
+
+This overloaded function sets the same value at all borders of the unit square domain \mbox{[}0, 1\mbox{]} x \mbox{[}0, 1\mbox{]} based on a continuous buffer distance. The array corresponds to the specified bounding box {\ttfamily bbox}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & Reference to the input array whose borders are to be modified. \\
+\hline
+{\em border\+\_\+values} & The value to set at all borders. \\
+\hline
+{\em buffer\+\_\+sizes} & The buffer distance to apply uniformly at all borders. \\
+\hline
+{\em bbox} & Domain bounding box \{xmin, xmax, ymin, ymax\}. Default is \{0.\+f, 1.\+f, 0.\+f, 1.\+f\}. \\
 \hline
 \end{DoxyParams}
 \Hypertarget{namespacehmap_a2e43da799378e294ea448a498aa1d386}\label{namespacehmap_a2e43da799378e294ea448a498aa1d386} 

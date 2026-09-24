@@ -8,8 +8,6 @@ var boundary_8cpp =
     [ "make_periodic", "boundary_8cpp.html#a3d23e9f95cfe4a8ceeecd6ea01d1d3e4", null ],
     [ "make_periodic_stitching", "boundary_8cpp.html#a0cfa879188da80b9e5bf16e8c325c9ba", null ],
     [ "make_periodic_tiling", "boundary_8cpp.html#abef85b092005d7c5b1d2962c3ed27ef0", null ],
-    [ "set_borders", "boundary_8cpp.html#af3d5a6d239d30fe1698a524dfedcd63f", null ],
-    [ "set_borders", "boundary_8cpp.html#a403b405887b5cda6a1d6f8bcaeb4c5e8", null ],
     [ "sym_borders", "boundary_8cpp.html#a2e43da799378e294ea448a498aa1d386", null ],
     [ "zeroed_borders", "boundary_8cpp.html#ae8bdfc965780305d1d26ff8b84e1dced", null ]
 ];
