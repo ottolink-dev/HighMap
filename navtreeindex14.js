@@ -1,7 +1,5 @@
 var NAVTREEINDEX14 =
 {
-"math_8hpp_source.html":[5,0,1,0,0,33],
-"methods_8cpp.html":[5,0,1,1,1,3],
 "morphology_8cpp.html":[5,0,1,1,25,3],
 "morphology_8cpp.html#a01f3be1fd053428ea67030e3736d15ca":[5,0,1,1,25,3,11],
 "morphology_8cpp.html#a11ddd5ab1aa625db9419d9b65c0eaa64":[5,0,1,1,25,3,23],
@@ -249,5 +247,7 @@ var NAVTREEINDEX14 =
 "namespacehmap.html#a2074cabb598086fe29f52247bfadceb9":[3,0,0,212],
 "namespacehmap.html#a208e935aeb1a6e615dd9dd067afe0a62":[3,0,0,426],
 "namespacehmap.html#a2091b67a724a6eb280a4ca99553b6edb":[3,0,0,686],
-"namespacehmap.html#a20cb460ecf96e4608610b5ab9fe8f1b0":[3,0,0,483]
+"namespacehmap.html#a20cb460ecf96e4608610b5ab9fe8f1b0":[3,0,0,483],
+"namespacehmap.html#a20e1b76be1649fd95660960f8f865854":[3,0,0,705],
+"namespacehmap.html#a20f9714aa8853d2971fa627750226985":[3,0,0,682]
 };

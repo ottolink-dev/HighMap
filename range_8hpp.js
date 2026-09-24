@@ -31,7 +31,5 @@ var range_8hpp =
     [ "minimum_smooth", "range_8hpp.html#a94d994f910d44a006acfae7ff453a53d", null ],
     [ "remap", "range_8hpp.html#a262e6495cb2d02598f36a2b46114b2b4", null ],
     [ "remap", "range_8hpp.html#ad470ab979489b088a4e8405830efdbe8", null ],
-    [ "rescale", "range_8hpp.html#ac126773f7c7af2364cfb4d7a6922ed96", null ],
-    [ "maximum_smooth", "range_8hpp.html#a9a3f272d7c8294ab3418be67e3c9b3eb", null ],
-    [ "minimum_smooth", "range_8hpp.html#a84e8cfef31aeb4ba10d4f7cbe04cb96d", null ]
+    [ "rescale", "range_8hpp.html#ac126773f7c7af2364cfb4d7a6922ed96", null ]
 ];

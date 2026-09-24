@@ -61,52 +61,30 @@
 <codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1abc58609556b107fdb1825a6c423efdce" kindref="member">atan2</ref>(v,<sp/>u);</highlight></codeline>
 <codeline lineno="51"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1a1c5e49734e49973fe1b275b6988dba12" kindref="member">gradient_norm</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1a64d64a2cdc264ab75ace5be6f4bc8972" kindref="member">laplacian_fract</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>s,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>)</highlight></codeline>
 <codeline lineno="54"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
 <codeline lineno="56"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/>Array<sp/>dm(array.shape);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>Array<sp/>out(array.shape);</highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>run<sp/>=<sp/>clwrapper::Run(</highlight><highlight class="stringliteral">&quot;gradient_norm&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>run<sp/>=<sp/>clwrapper::Run(</highlight><highlight class="stringliteral">&quot;laplacian_fract&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/>run.bind_buffer&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&gt;(</highlight><highlight class="stringliteral">&quot;array&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const_cast&lt;</highlight><highlight class="normal">std::vector&lt;float&gt;<sp/>&amp;</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(array.vector));</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/>run.bind_buffer&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&gt;(</highlight><highlight class="stringliteral">&quot;dm&quot;</highlight><highlight class="normal">,<sp/>dm.vector);</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/>run.bind_arguments(array.shape.x,<sp/>array.shape.y);</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/>run.write_buffer(</highlight><highlight class="stringliteral">&quot;array&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/>run.execute({array.shape.x,<sp/>array.shape.y});</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/>run.read_buffer(</highlight><highlight class="stringliteral">&quot;dm&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dm;</highlight></codeline>
-<codeline lineno="73"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1a64d64a2cdc264ab75ace5be6f4bc8972" kindref="member">laplacian_fract</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;array,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>s,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>)</highlight></codeline>
-<codeline lineno="76"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/>Array<sp/>out(array.shape);</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>run<sp/>=<sp/>clwrapper::Run(</highlight><highlight class="stringliteral">&quot;laplacian_fract&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/>run.bind_imagef(</highlight><highlight class="stringliteral">&quot;array&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const_cast&lt;</highlight><highlight class="normal">std::vector&lt;float&gt;<sp/>&amp;</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(array.vector),</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array.shape.x,</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array.shape.y);</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/>run.bind_imagef(</highlight><highlight class="stringliteral">&quot;out&quot;</highlight><highlight class="normal">,<sp/>out.vector,<sp/>array.shape.x,<sp/>array.shape.y,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/>run.bind_arguments(array.shape.x,<sp/>array.shape.y,<sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>,<sp/>s);</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/>run.execute({array.shape.x,<sp/>array.shape.y});</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"></highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/>run.read_imagef(</highlight><highlight class="stringliteral">&quot;out&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>out;</highlight></codeline>
-<codeline lineno="96"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap::gpu</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>run.bind_imagef(</highlight><highlight class="stringliteral">&quot;array&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const_cast&lt;</highlight><highlight class="normal">std::vector&lt;float&gt;<sp/>&amp;</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(array.vector),</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array.shape.x,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array.shape.y);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>run.bind_imagef(</highlight><highlight class="stringliteral">&quot;out&quot;</highlight><highlight class="normal">,<sp/>out.vector,<sp/>array.shape.x,<sp/>array.shape.y,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>run.bind_arguments(array.shape.x,<sp/>array.shape.y,<sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>,<sp/>s);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>run.execute({array.shape.x,<sp/>array.shape.y});</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>run.read_imagef(</highlight><highlight class="stringliteral">&quot;out&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>out;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap::gpu</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="HighMap/src/gradient/gradient_gpu.cpp"/>
   </compounddef>
