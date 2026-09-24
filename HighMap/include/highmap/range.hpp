@@ -450,14 +450,3 @@ void remap(Array &array, float vmin = 0, float vmax = 1); ///< @overload
 void rescale(Array &array, float scaling, float vref = 0.f);
 
 } // namespace hmap
-
-namespace hmap::gpu
-{
-
-/*! @brief See hmap::maximum_smooth */
-Array maximum_smooth(const Array &array1, const Array &array2, float k = 0.2f);
-
-/*! @brief See hmap::minimum_smooth */
-Array minimum_smooth(const Array &array1, const Array &array2, float k = 0.2f);
-
-} // namespace hmap::gpu

@@ -50,28 +50,6 @@ Array gradient_angle_circular_smoothing(const Array &array,
   return atan2(v, u);
 }
 
-Array gradient_norm(const Array &array)
-{
-  if (!validate_non_empty(array)) return Array();
-
-  Array dm(array.shape);
-
-  auto run = clwrapper::Run("gradient_norm");
-
-  run.bind_buffer<float>("array",
-                         const_cast<std::vector<float> &>(array.vector));
-  run.bind_buffer<float>("dm", dm.vector);
-  run.bind_arguments(array.shape.x, array.shape.y);
-
-  run.write_buffer("array");
-
-  run.execute({array.shape.x, array.shape.y});
-
-  run.read_buffer("dm");
-
-  return dm;
-}
-
 Array laplacian_fract(const Array &array, float s, int ir)
 {
   if (!validate_non_empty(array)) return Array();

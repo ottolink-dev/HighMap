@@ -586,7 +586,7 @@ void smooth_fill(Array &array, int ir, float k, Array *p_deposition_map)
   Array array_bckp = array;
 
   gpu::smooth_cpulse(array, ir);
-  array = gpu::maximum_smooth(array, array_bckp, k);
+  array = hmap::maximum_smooth(array, array_bckp, k);
 
   if (p_deposition_map) *p_deposition_map = maximum(array - array_bckp, 0.f);
 }

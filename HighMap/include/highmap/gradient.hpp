@@ -434,9 +434,6 @@ Array gradient_angle_circular_smoothing(const Array &array,
                                         int          ir,
                                         bool         downward = false);
 
-/*! @brief See hmap::gradient_norm */
-Array gradient_norm(const Array &array);
-
 /**
  * @brief Compute the fractional Laplacian of an array.
  *
