@@ -22,7 +22,7 @@ var searchData=
   ['local_5fmax_5fsquare_19',['local_max_square',['../namespacehmap_1_1gpu.html#ae009181cccaea0d4b151eca85b5d21dd',1,'hmap::gpu']]],
   ['local_5fmean_20',['local_mean',['../namespacehmap.html#ac297b8711e186ee1e5cdc7d1fc6a7972',1,'hmap::local_mean()'],['../namespacehmap_1_1gpu.html#a72341578d241e21b4c31d7497287cfc3',1,'hmap::gpu::local_mean()']]],
   ['local_5fmedian_5fdeviation_21',['local_median_deviation',['../namespacehmap.html#a9b6a1d2ca8ef58a4a0605d04bcbff038',1,'hmap::local_median_deviation()'],['../namespacehmap_1_1gpu.html#a022f5800d7e28f79f9e2d3abf687f490',1,'hmap::gpu::local_median_deviation(const Array &amp;array, int ir)']]],
-  ['local_5fmetrics_22',['local_metrics',['../namespacehmap_1_1gpu.html#a13719c4aafe9ffaabd767afe5a8bd44d',1,'hmap::gpu']]],
+  ['local_5fmetrics_22',['local_metrics',['../namespacehmap_1_1gpu.html#a7329432a304163cef4fedb8b6bb124c5',1,'hmap::gpu']]],
   ['local_5fmin_23',['local_min',['../namespacehmap.html#aa7ab501bae56bac2236a74ade5cd34a4',1,'hmap::local_min()'],['../namespacehmap_1_1gpu.html#ae64f19dccba3c247ebf45e8b1b65acd8',1,'hmap::gpu::local_min(const Array &amp;array, int ir, MinMaxKernel kernel_type=MinMaxKernel::DISK)']]],
   ['local_5fmin_5fdisk_24',['local_min_disk',['../namespacehmap_1_1gpu.html#a07ca1cc6d3e9693e25bb37b5a741c260',1,'hmap::gpu']]],
   ['local_5fmin_5foctagon_25',['local_min_octagon',['../namespacehmap_1_1gpu.html#a36a5f96566c4074dd1032c63bf95ee5e',1,'hmap::gpu']]],

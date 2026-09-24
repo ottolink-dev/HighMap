@@ -52,5 +52,5 @@ var local__metrics_8hpp =
     [ "ruggedness", "local__metrics_8hpp.html#a62292cc4bf9f6eb5c7b63b1e26f8cc88", null ],
     [ "rugosity", "local__metrics_8hpp.html#aa5a3e087822525c41f057a51255e2bad", null ],
     [ "valley_width", "local__metrics_8hpp.html#a3816b73c0f933147dc86ee9f8d2dd701", null ],
-    [ "local_metrics", "local__metrics_8hpp.html#a13719c4aafe9ffaabd767afe5a8bd44d", null ]
+    [ "local_metrics", "local__metrics_8hpp.html#a7329432a304163cef4fedb8b6bb124c5", null ]
 ];

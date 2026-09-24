@@ -69,6 +69,6 @@ var morphology_8hpp =
     [ "signed_curvature_from_distance", "morphology_8hpp.html#afffb85b7bc6b9884cd00254c122da8e6", null ],
     [ "signed_distance_transform", "morphology_8hpp.html#a76cfd96b971a288964561449d83e21aa", null ],
     [ "skeleton", "morphology_8hpp.html#a5287e8c6a324fa91bea6c7bf98aacd68", null ],
-    [ "morphological_operators", "morphology_8hpp.html#ad6e4d1cf34786ef4065fbc0a5fa03d6d", null ],
-    [ "morphological_operators", "morphology_8hpp.html#af427123c185935335c9d2e108c833c67", null ]
+    [ "morphological_operators", "morphology_8hpp.html#a0df2e693c1919b3f59ee98df040ff489", null ],
+    [ "morphological_operators", "morphology_8hpp.html#a15cc695501488300f5c2c939c9c9ee8d", null ]
 ];

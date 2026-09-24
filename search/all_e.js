@@ -72,7 +72,7 @@ var searchData=
   ['morphological_5fblack_5fhat_69',['morphological_black_hat',['../namespacehmap.html#a1cf22c68188d0e35aa74983f3a01c488',1,'hmap::morphological_black_hat()'],['../namespacehmap_1_1gpu.html#a882bdec9afc0f7e8b78ac4bde7957456',1,'hmap::gpu::morphological_black_hat()']]],
   ['morphological_5fgradient_70',['morphological_gradient',['../namespacehmap.html#a01f3be1fd053428ea67030e3736d15ca',1,'hmap::morphological_gradient()'],['../namespacehmap_1_1gpu.html#a6be78036c3fe35609275097cf2be54f7',1,'hmap::gpu::morphological_gradient()']]],
   ['morphological_5flaplacian_71',['morphological_laplacian',['../namespacehmap.html#aeb7c9ef8addab179badc77310cfde1b5',1,'hmap::morphological_laplacian()'],['../namespacehmap_1_1gpu.html#a6d7431d682de7d0e164d104581674f55',1,'hmap::gpu::morphological_laplacian()']]],
-  ['morphological_5foperators_72',['morphological_operators',['../namespacehmap.html#ad6e4d1cf34786ef4065fbc0a5fa03d6d',1,'hmap::morphological_operators()'],['../namespacehmap_1_1gpu.html#af427123c185935335c9d2e108c833c67',1,'hmap::gpu::morphological_operators()']]],
+  ['morphological_5foperators_72',['morphological_operators',['../namespacehmap.html#a0df2e693c1919b3f59ee98df040ff489',1,'hmap::morphological_operators()'],['../namespacehmap_1_1gpu.html#a15cc695501488300f5c2c939c9c9ee8d',1,'hmap::gpu::morphological_operators()']]],
   ['morphological_5ftop_5fhat_73',['morphological_top_hat',['../namespacehmap.html#a211108a73f7ebadb6ac87621c4e47301',1,'hmap::morphological_top_hat()'],['../namespacehmap_1_1gpu.html#aa26b7c1a14f0cbdac2649b1d2111091b',1,'hmap::gpu::morphological_top_hat()']]],
   ['morphology_2ecpp_74',['morphology.cpp',['../morphology_8cpp.html',1,'']]],
   ['morphology_2ehpp_75',['morphology.hpp',['../morphology_8hpp.html',1,'']]],

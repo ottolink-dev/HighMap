@@ -909,7 +909,7 @@ var namespacehmap =
     [ "signed_curvature_from_distance", "namespacehmap.html#ac56515202b30368216c7324b819cc838", null ],
     [ "signed_distance_transform", "namespacehmap.html#ad4ab7bb38b3ea37fa912190251c1ed76", null ],
     [ "skeleton", "namespacehmap.html#a11ddd5ab1aa625db9419d9b65c0eaa64", null ],
-    [ "morphological_operators", "namespacehmap.html#ad6e4d1cf34786ef4065fbc0a5fa03d6d", null ],
+    [ "morphological_operators", "namespacehmap.html#a0df2e693c1919b3f59ee98df040ff489", null ],
     [ "downscale_transform", "namespacehmap.html#a1fb8077215c98a741e0de5366c2f7ca3", null ],
     [ "downscale_transform_multi", "namespacehmap.html#a669a4f9586f3df4b018e321048c9bc7d", null ],
     [ "upscale_amplification", "namespacehmap.html#a868ae7c781d7e72af7b1416898a2f891", null ],

@@ -47,7 +47,7 @@ var searchData=
   ['local_5fmax_5fsquare_44',['local_max_square',['../namespacehmap_1_1gpu.html#ae009181cccaea0d4b151eca85b5d21dd',1,'hmap::gpu']]],
   ['local_5fmean_45',['local_mean',['../namespacehmap.html#ac297b8711e186ee1e5cdc7d1fc6a7972',1,'hmap::local_mean()'],['../namespacehmap_1_1gpu.html#a72341578d241e21b4c31d7497287cfc3',1,'hmap::gpu::local_mean()']]],
   ['local_5fmedian_5fdeviation_46',['local_median_deviation',['../namespacehmap.html#a9b6a1d2ca8ef58a4a0605d04bcbff038',1,'hmap::local_median_deviation()'],['../namespacehmap_1_1gpu.html#a022f5800d7e28f79f9e2d3abf687f490',1,'hmap::gpu::local_median_deviation(const Array &amp;array, int ir)']]],
-  ['local_5fmetrics_47',['local_metrics',['../namespacehmap_1_1gpu.html#a13719c4aafe9ffaabd767afe5a8bd44d',1,'hmap::gpu']]],
+  ['local_5fmetrics_47',['local_metrics',['../namespacehmap_1_1gpu.html#a7329432a304163cef4fedb8b6bb124c5',1,'hmap::gpu']]],
   ['local_5fmetrics_2ecpp_48',['local_metrics.cpp',['../local__metrics_8cpp.html',1,'']]],
   ['local_5fmetrics_2ehpp_49',['local_metrics.hpp',['../local__metrics_8hpp.html',1,'']]],
   ['local_5fmetrics_5fgpu_2ecpp_50',['local_metrics_gpu.cpp',['../local__metrics__gpu_8cpp.html',1,'']]],
