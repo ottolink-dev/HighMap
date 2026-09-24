@@ -164,8 +164,8 @@ void kernel erosion_filter(read_only image2d_t height_in,
   float3 height_and_slope = (float3)(base_h, slope.x, slope.y);
   float  cur_strength = strength * scale;
   float  freq = 1.f / (scale * cell_scale);
-  float  slope_len =
-      max(length(height_and_slope.yz) + curvature_scaling * curv, 1e-7f);
+  float  slope_len = max(length(height_and_slope.yz) + curvature_scaling * curv,
+                        1e-7f);
   float  rounding_mult = 1.f;
 
   float rounding_for_input = mix(rounding.y,

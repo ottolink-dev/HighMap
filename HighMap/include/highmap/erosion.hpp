@@ -806,10 +806,12 @@ void conv_erosion(Array        &z,
  *                                  waves.
  * @param         curvature_scaling Curvature scaling factor to sustain
  *                                  erosion onset near peaks and sinks.
- * @param         seed              Random seed for cell jitter and octave offsets.
- * @param         p_fade_target     Optional spatial fade target array in [-1, 1].
- * @param         p_ridge_map       Optional output array receiving the dendritic
- *                                  ridge/drainage map.
+ * @param         seed              Random seed for cell jitter and octave
+ * offsets.
+ * @param         p_fade_target     Optional spatial fade target array in [-1,
+ * 1].
+ * @param         p_ridge_map       Optional output array receiving the
+ * dendritic ridge/drainage map.
  * @param         bbox              World-space bounding box {xmin, xmax, ymin,
  *                                  ymax}.
  *
@@ -823,7 +825,7 @@ void erosion_filter(Array        &z,
                     float         scale = 0.15f,
                     float         strength = 0.22f,
                     float         gully_weight = 0.5f,
-                    float         detail = 1.5f,
+                    float         detail = 1.f,
                     glm::vec4     rounding = {0.1f, 0.0f, 0.1f, 2.0f},
                     glm::vec4     onset = {1.25f, 1.25f, 2.8f, 1.5f},
                     glm::vec2     assumed_slope = {0.7f, 1.0f},
