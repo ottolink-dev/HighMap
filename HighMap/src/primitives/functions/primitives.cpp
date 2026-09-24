@@ -317,7 +317,7 @@ Array quad_surface(glm::ivec2   shape,
   if (p_noise_y && !validate_same_shape(shape, *p_noise_y)) return Array(shape);
 
   Array               array = Array(shape);
-  QuadSurfaceFunction f = QuadSurfaceFunction(c00, c10, c01, c11, bbox);
+  QuadSurfaceFunction f = QuadSurfaceFunction(c00, c10, c01, c11);
 
   fill_array_using_xy_function(array,
                                bbox,

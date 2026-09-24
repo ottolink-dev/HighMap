@@ -207,22 +207,18 @@ GaussianPulseFunction::GaussianPulseFunction(float sigma, glm::vec2 center)
       });
 }
 
-QuadSurfaceFunction::QuadSurfaceFunction(float     c00,
-                                         float     c10,
-                                         float     c01,
-                                         float     c11,
-                                         glm::vec4 bbox)
-    : Function(), c00(c00), c10(c10), c01(c01), c11(c11), bbox(bbox)
+QuadSurfaceFunction::QuadSurfaceFunction(float c00,
+                                         float c10,
+                                         float c01,
+                                         float c11)
+    : Function(), c00(c00), c10(c10), c01(c01), c11(c11)
 {
   this->set_delegate(
       [this](float x, float y, float ctrl_param)
       {
-        float u = (x - this->bbox.x) / (this->bbox.y - this->bbox.x);
-        float v = (y - this->bbox.z) / (this->bbox.w - this->bbox.z);
-
-        float val = (1.f - u) * (1.f - v) * this->c00 +
-                    u * (1.f - v) * this->c10 + (1.f - u) * v * this->c01 +
-                    u * v * this->c11;
+        float val = (1.f - x) * (1.f - y) * this->c00 +
+                    x * (1.f - y) * this->c10 + (1.f - x) * y * this->c01 +
+                    x * y * this->c11;
         return val * ctrl_param;
       });
 }

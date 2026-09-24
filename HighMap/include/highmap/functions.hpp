@@ -336,14 +336,8 @@ public:
    * @param c10 Value at bottom-right corner (x=xmax, y=ymin).
    * @param c01 Value at top-left corner (x=xmin, y=ymax).
    * @param c11 Value at top-right corner (x=xmax, y=ymax).
-   * @param bbox Bounding box defining corner coordinates (xmin, xmax, ymin,
-   * ymax).
    */
-  QuadSurfaceFunction(float     c00,
-                      float     c10,
-                      float     c01,
-                      float     c11,
-                      glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
+  QuadSurfaceFunction(float c00, float c10, float c01, float c11);
 
 protected:
   float     c00;  ///< Bottom-left value.
