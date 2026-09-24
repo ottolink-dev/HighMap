@@ -296,3 +296,24 @@ TEST(ErosionFilter, CurvatureScalingPeakAndSink)
   EXPECT_GT(diff.max(), 0.01f);
 }
 
+TEST(ConvErosion, EmptyArray)
+{
+  Array empty;
+  gpu::conv_erosion(empty, 42, 5, 10, 1, 2);
+  EXPECT_TRUE(empty.vector.empty());
+}
+
+TEST(ConvErosion, BasicExecution)
+{
+  hmap::gpu::init_opencl();
+
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+  Array      z = z0;
+
+  gpu::conv_erosion(z, 42, 5, 200, 1, 4, 1.f, 0.05f);
+
+  EXPECT_EQ(z.shape, shape);
+  EXPECT_FALSE(assert_almost_equal(z, z0));
+}

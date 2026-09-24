@@ -95,8 +95,8 @@ public:
 
   /**
    * @brief Add an edge connecting two node indices with explicit weight.
-   * @param u Node 1 index.
-   * @param v Node 2 index.
+   * @param u      Node 1 index.
+   * @param v      Node 2 index.
    * @param weight Edge weight.
    */
   void add_edge(int u, int v, float weight);
@@ -111,7 +111,7 @@ public:
 
   /**
    * @brief Add an edge with explicit weight.
-   * @param edge Pair of node indices.
+   * @param edge   Pair of node indices.
    * @param weight Edge weight.
    */
   void add_edge(glm::ivec2 edge, float weight);
@@ -129,8 +129,8 @@ public:
 
   /**
    * @brief Get the degree (number of incident edges) of node `u`.
-   * @param u Node index.
-   * @return Degree of node `u`.
+   * @param  u Node index.
+   * @return   Degree of node `u`.
    */
   size_t degree(int u) const;
 
@@ -140,7 +140,8 @@ public:
    *
    * @param  source_point_index Starting point index.
    * @param  target_point_index Ending point index.
-   * @return std::vector<int> Path of node indices from source to target.
+   * @return                    std::vector<int> Path of node indices from
+   * source to target.
    *
    * **Example**
    * @include ex_graph_dijkstra.cpp
@@ -156,15 +157,15 @@ public:
 
   /**
    * @brief Get an edge by index.
-   * @param k Edge index.
-   * @return Edge structure.
+   * @param  k Edge index.
+   * @return   Edge structure.
    */
   Edge get_edge(size_t k) const;
 
   /**
    * @brief Get the Euclidean length of edge `k`.
-   * @param k Edge index.
-   * @return float Euclidean length of the edge.
+   * @param  k Edge index.
+   * @return   float Euclidean length of the edge.
    */
   float get_edge_length(size_t k) const;
 
@@ -209,8 +210,8 @@ public:
 
   /**
    * @brief Get the neighbors of node `u`.
-   * @param u Node index.
-   * @return List of Neighbor objects.
+   * @param  u Node index.
+   * @return   List of Neighbor objects.
    */
   const std::vector<Neighbor> &neighbors(int u) const;
 
@@ -233,23 +234,23 @@ public:
 
   /**
    * @brief Set the weight of edge `k`.
-   * @param k Edge index.
+   * @param k      Edge index.
    * @param weight New weight.
    */
   void set_edge_weight(size_t k, float weight);
 
   /**
    * @brief Set the weight of an edge between node `u` and node `v`.
-   * @param u Node 1 index.
-   * @param v Node 2 index.
+   * @param u      Node 1 index.
+   * @param v      Node 2 index.
    * @param weight New weight.
    */
   void set_edge_weight(int u, int v, float weight);
 
   /**
    * @brief Project the graph to an array and optionally color by edge weight.
-   * @param array The input array to project onto.
-   * @param bbox Bounding box for projection.
+   * @param array                The input array to project onto.
+   * @param bbox                 Bounding box for projection.
    * @param color_by_edge_weight Color lines by edge weight if true.
    */
   void to_array(Array    &array,
@@ -258,11 +259,11 @@ public:
 
   /**
    * @brief Apply fractalization to graph edges and project to an array.
-   * @param array Destination array.
-   * @param bbox Bounding box.
-   * @param iterations Number of fractal iterations.
-   * @param seed Random seed.
-   * @param sigma Displacement magnitude.
+   * @param array       Destination array.
+   * @param bbox        Bounding box.
+   * @param iterations  Number of fractal iterations.
+   * @param seed        Random seed.
+   * @param sigma       Displacement magnitude.
    * @param orientation Displacement orientation.
    * @param persistence Octave persistence.
    */
@@ -277,12 +278,12 @@ public:
   /**
    * @brief Generate an array filled with the Signed Distance Function (SDF) to
    * the graph.
-   * @param shape Output array dimensions.
-   * @param bbox Bounding box.
-   * @param p_noise_x Optional X noise array for domain warping.
-   * @param p_noise_y Optional Y noise array for domain warping.
-   * @param bbox_array Output array bounding box.
-   * @return Array SDF array.
+   * @param  shape      Output array dimensions.
+   * @param  bbox       Bounding box.
+   * @param  p_noise_x  Optional X noise array for domain warping.
+   * @param  p_noise_y  Optional Y noise array for domain warping.
+   * @param  bbox_array Output array bounding box.
+   * @return            Array SDF array.
    */
   Array to_array_sdf(glm::ivec2 shape,
                      glm::vec4  bbox,
@@ -292,7 +293,7 @@ public:
 
   /**
    * @brief Export graph data to CSV files.
-   * @param fname_xy Output CSV for node (x, y, v).
+   * @param fname_xy    Output CSV for node (x, y, v).
    * @param fname_edges Output CSV for edges (u, v, weight).
    */
   void to_csv(const std::string &fname_xy,

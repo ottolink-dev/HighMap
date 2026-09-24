@@ -2,6 +2,8 @@
 
 int main(void)
 {
+  hmap::gpu::init_opencl();
+
   glm::ivec2 shape = {256, 256};
   shape = {512, 512};
   glm::vec2 res = {2.f, 2.f};
@@ -47,11 +49,11 @@ int main(void)
     int   ir = 32;
     float amplitude = 0.05f;
     float gain = 1.5f;
-    hmap::recast_cliff(z4, talus, ir, amplitude, gain);
+    hmap::gpu::recast_cliff(z4, talus, ir, amplitude, gain);
     hmap::remap(z4);
 
     float angle = 0.f;
-    hmap::recast_cliff_directional(z5, talus, ir, amplitude, angle, gain);
+    hmap::gpu::recast_cliff_directional(z5, talus, ir, amplitude, angle, gain);
     hmap::remap(z5);
   }
 

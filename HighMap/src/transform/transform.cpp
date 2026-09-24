@@ -12,6 +12,7 @@
 #include "highmap/geometry/grids.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/interpolate/interpolate2d.hpp"
+#include "highmap/math/core.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/primitives/functions.hpp"
 #include "highmap/transform.hpp"
@@ -184,6 +185,115 @@ void scale_uv(Array &array, glm::vec2 uv_scale)
   }
 
   array = std::move(array_out);
+}
+
+Array symmetrize(const Array &array,
+                 SymmetryType symmetry_type,
+                 bool         flatten_center,
+                 float        flatten_radius)
+{
+  if (!validate_non_empty(array)) return Array();
+
+  Array out = array;
+  int   nx = array.shape.x;
+  int   ny = array.shape.y;
+
+  switch (symmetry_type)
+  {
+  case SymmetryType::SYMMETRY_LEFT_TO_RIGHT:
+    for (int j = 0; j < ny; j++)
+      for (int i = (nx + 1) / 2; i < nx; i++)
+        out(i, j) = array(nx - 1 - i, j);
+    break;
+
+  case SymmetryType::SYMMETRY_RIGHT_TO_LEFT:
+    for (int j = 0; j < ny; j++)
+      for (int i = 0; i < nx / 2; i++)
+        out(i, j) = array(nx - 1 - i, j);
+    break;
+
+  case SymmetryType::SYMMETRY_TOP_TO_BOTTOM:
+    for (int j = 0; j < ny / 2; j++)
+      for (int i = 0; i < nx; i++)
+        out(i, j) = array(i, ny - 1 - j);
+    break;
+
+  case SymmetryType::SYMMETRY_BOTTOM_TO_TOP:
+    for (int j = (ny + 1) / 2; j < ny; j++)
+      for (int i = 0; i < nx; i++)
+        out(i, j) = array(i, ny - 1 - j);
+    break;
+
+  case SymmetryType::SYMMETRY_X:
+    for (int j = 0; j < ny; j++)
+      for (int i = 0; i < nx; i++)
+        out(i, j) = 0.5f * (array(i, j) + array(nx - 1 - i, j));
+    break;
+
+  case SymmetryType::SYMMETRY_Y:
+    for (int j = 0; j < ny; j++)
+      for (int i = 0; i < nx; i++)
+        out(i, j) = 0.5f * (array(i, j) + array(i, ny - 1 - j));
+    break;
+
+  case SymmetryType::SYMMETRY_XY:
+    for (int j = 0; j < ny; j++)
+      for (int i = 0; i < nx; i++)
+        out(i, j) = 0.25f *
+                    (array(i, j) + array(nx - 1 - i, j) + array(i, ny - 1 - j) +
+                     array(nx - 1 - i, ny - 1 - j));
+    break;
+
+  case SymmetryType::SYMMETRY_ROT180:
+    for (int j = 0; j < ny; j++)
+      for (int i = 0; i < nx; i++)
+        out(i, j) = 0.5f * (array(i, j) + array(nx - 1 - i, ny - 1 - j));
+    break;
+  }
+
+  // --- Flattening along symmetry center / axis
+
+  if (flatten_center && flatten_radius > 0.f)
+  {
+    float min_val = out.min();
+    float cx = 0.5f * (float)(nx - 1);
+    float cy = 0.5f * (float)(ny - 1);
+    float extent_x = (nx > 1) ? (float)(nx - 1) : 1.f;
+    float extent_y = (ny > 1) ? (float)(ny - 1) : 1.f;
+
+    for (int j = 0; j < ny; j++)
+    {
+      float norm_dy = std::abs((float)j - cy) / extent_y;
+      for (int i = 0; i < nx; i++)
+      {
+        float norm_dx = std::abs((float)i - cx) / extent_x;
+        float d = 0.f;
+
+        switch (symmetry_type)
+        {
+        case SymmetryType::SYMMETRY_LEFT_TO_RIGHT:
+        case SymmetryType::SYMMETRY_RIGHT_TO_LEFT:
+        case SymmetryType::SYMMETRY_X: d = norm_dx; break;
+
+        case SymmetryType::SYMMETRY_TOP_TO_BOTTOM:
+        case SymmetryType::SYMMETRY_BOTTOM_TO_TOP:
+        case SymmetryType::SYMMETRY_Y: d = norm_dy; break;
+
+        case SymmetryType::SYMMETRY_XY: d = std::min(norm_dx, norm_dy); break;
+
+        case SymmetryType::SYMMETRY_ROT180:
+          d = std::sqrt(norm_dx * norm_dx + norm_dy * norm_dy);
+          break;
+        }
+
+        float t = std::clamp(d / flatten_radius, 0.f, 1.f);
+        float factor = smoothstep3(t);
+        out(i, j) = std::lerp(min_val, out(i, j), factor);
+      }
+    }
+  }
+
+  return out;
 }
 
 Array translate(const Array &array,

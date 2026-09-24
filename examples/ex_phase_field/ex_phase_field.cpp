@@ -13,7 +13,7 @@ int main(void)
 
   // --- GPU phase field
 
-  float       kp_global = 64.f;
+  float       kp_global = 16.f;
   hmap::Array phi2 = hmap::gpu::phase_field(z, seed, kp_global);
   hmap::remap(phi2);
 

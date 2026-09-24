@@ -434,9 +434,6 @@ Array gradient_angle_circular_smoothing(const Array &array,
                                         int          ir,
                                         bool         downward = false);
 
-/*! @brief See hmap::gradient_norm */
-Array gradient_norm(const Array &array);
-
 /**
  * @brief Compute the fractional Laplacian of an array.
  *
@@ -474,7 +471,7 @@ void phase_averaging(Array &field_real, Array &field_imag, int ir);
  * @param  seed             Random seed.
  * @param  kp               Phase gain.
  * @param  rotate90         Rotate local angle by 90 degrees if true.
- * @param  n_kernel_samples Number of kernel samples.
+ * @param  normalization    Degree of normalization applied [0, 1].
  * @param  jitter           Jitter applied to sampling.
  * @param  angle_filter_ir  Radius for angle filtering.
  * @param  p_ctrl_param     Optional control parameter field.
@@ -495,7 +492,7 @@ Array phase_field(const Array     &array,
                   std::uint32_t    seed,
                   float            kp,
                   bool             rotate90 = false,
-                  int              n_kernel_samples = 8,
+                  float            normalization = 1.f,
                   const glm::vec2 &jitter = {0.5f, 0.5f},
                   int              angle_filter_ir = 8,
                   const Array     *p_ctrl_param = nullptr,
@@ -512,7 +509,7 @@ Array phase_field(const Array     &array,
  * @param  seed             Random seed.
  * @param  kp_global        Global phase gain.
  * @param  rotate90         Rotate local angle by 90 degrees if true.
- * @param  n_kernel_samples Number of kernel samples.
+ * @param  normalization    Degree of normalization applied [0, 1].
  * @param  jitter           Jitter applied to sampling.
  * @param  angle_filter_ir  Radius for angle filtering.
  * @param  p_ctrl_param     Optional control parameter field.
@@ -532,7 +529,7 @@ Array phase_field(const Array     &array,
                   std::uint32_t    seed,
                   float            kp_global,
                   bool             rotate90 = false,
-                  int              n_kernel_samples = 8,
+                  float            normalization = 1.f,
                   const glm::vec2 &jitter = {0.5f, 0.5f},
                   int              angle_filter_ir = 8,
                   const Array     *p_ctrl_param = nullptr,
@@ -546,7 +543,7 @@ Array phase_field_angle(const Array     &angle, // rads
                         const glm::vec2 &kw,
                         std::uint32_t    seed,
                         float            kp,
-                        int              n_kernel_samples = 8,
+                        float            normalization = 1.f,
                         const glm::vec2 &jitter = {0.5f, 0.5f},
                         const Array     *p_ctrl_param = nullptr,
                         const Array     *p_noise_x = nullptr,

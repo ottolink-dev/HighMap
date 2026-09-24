@@ -30,6 +30,24 @@ namespace hmap
 class Texture;
 
 /**
+ * @enum SymmetryType
+ * @brief Describes the symmetry operation to apply to an array.
+ */
+// clang-format off
+enum SymmetryType : int
+{
+	SYMMETRY_LEFT_TO_RIGHT, ///< Mirror left half onto right half.
+	SYMMETRY_RIGHT_TO_LEFT, ///< Mirror right half onto left half.
+	SYMMETRY_TOP_TO_BOTTOM, ///< Mirror top half onto bottom half.
+	SYMMETRY_BOTTOM_TO_TOP, ///< Mirror bottom half onto top half.
+	SYMMETRY_X,             ///< Symmetric average across vertical axis.
+	SYMMETRY_Y,             ///< Symmetric average across horizontal axis.
+	SYMMETRY_XY,            ///< 4-quadrant symmetric average across both X and Y.
+	SYMMETRY_ROT180         ///< 180-degree rotational symmetry around center.
+};
+// clang-format on
+
+/**
  * @brief Flip the array horizontally (left/right).
  *
  * This function flips the input array along the vertical axis, resulting in a
@@ -211,6 +229,26 @@ void scale_uv(Array &array, glm::vec2 uv_scale);
  * @param uv_scale Scaling factors for U and V dimensions.
  */
 void scale_uv(Texture &texture, glm::vec2 uv_scale);
+
+/**
+ * @brief Enforces geometric symmetry on an array.
+ *
+ * This function reflects or averages portions of the input array across the
+ * specified symmetry axis or plane according to @p symmetry_type.
+ *
+ * @param  array          Input array to symmetrize.
+ * @param  symmetry_type  Type of symmetry operation to apply.
+ * @param  flatten_center If true, flattens the elevation along the symmetry
+ *                        axis or center point towards minimum elevation.
+ * @param  flatten_radius Radius (in normalized [0, 1] units) around the
+ *                        symmetry axis/center for the flattening transition.
+ * @return                Symmetrized array.
+ */
+Array symmetrize(
+    const Array &array,
+    SymmetryType symmetry_type = SymmetryType::SYMMETRY_LEFT_TO_RIGHT,
+    bool         flatten_center = false,
+    float        flatten_radius = 0.05f);
 
 /**
  * @brief Translates a 2D array by a specified amount along the x and y axes.

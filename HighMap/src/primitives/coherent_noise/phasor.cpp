@@ -20,7 +20,7 @@ Array phasor(PhasorProfile   phasor_profile,
              float           kp_global,
              std::uint32_t   seed,
              float           angle_shift,
-             int             n_kernel_samples,
+             float           normalization,
              const glm::vec2 jitter,
              float           delta,
              float           phase_smoothing,
@@ -35,8 +35,8 @@ Array phasor(PhasorProfile   phasor_profile,
   if (p_noise_y && !validate_same_shape(shape, *p_noise_y)) return Array(shape);
 
   // wavenumbers
-  float           kp = std::sqrt(kp_global);
-  const glm::vec2 kw = {kp, kp};
+  float           kp = 1.f;
+  const glm::vec2 kw = {kp_global, kp_global};
 
   // angle field
   Array angle(shape, angle_shift);
@@ -48,7 +48,7 @@ Array phasor(PhasorProfile   phasor_profile,
                                   kw,
                                   seed,
                                   kp,
-                                  n_kernel_samples,
+                                  normalization,
                                   jitter,
                                   /* p_ctrl_param */ nullptr,
                                   p_noise_x,
@@ -85,7 +85,7 @@ Array phasor_fbm(PhasorProfile   phasor_profile,
                  float           weight,
                  float           persistence,
                  float           lacunarity,
-                 int             n_kernel_samples,
+                 float           normalization,
                  const glm::vec2 jitter,
                  float           delta,
                  float           phase_smoothing,
@@ -109,7 +109,7 @@ Array phasor_fbm(PhasorProfile   phasor_profile,
                          kp_global,
                          seed,
                          angle_shift,
-                         n_kernel_samples,
+                         normalization,
                          jitter,
                          delta,
                          phase_smoothing,

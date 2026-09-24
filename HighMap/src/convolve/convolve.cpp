@@ -6,6 +6,8 @@
 #include <cmath>
 #include <vector>
 
+#include <opencv2/core.hpp>
+
 #include "highmap/array.hpp"
 #include "highmap/boundary.hpp"
 #include "highmap/convolve.hpp"
@@ -92,14 +94,73 @@ Array convolve2d_truncated(const Array &array, const Array &kernel)
     return Array();
   }
 
-  Array array_out = Array(glm::ivec2(array.shape.x - kernel.shape.x,
-                                     array.shape.y - kernel.shape.y));
+  const int out_x = array.shape.x - kernel.shape.x;
+  const int out_y = array.shape.y - kernel.shape.y;
+  Array     array_out = Array(glm::ivec2(out_x, out_y));
 
-  for (int j = 0; j < array_out.shape.y; j++)
-    for (int i = 0; i < array_out.shape.x; i++)
-      for (int q = 0; q < kernel.shape.y; q++)
-        for (int p = 0; p < kernel.shape.x; p++)
-          array_out(i, j) += array(i + p, j + q) * kernel(p, q);
+  // use direct spatial convolution for small kernels, FFT-based convolution
+  // otherwise
+  if (kernel.shape.x * kernel.shape.y < 64)
+  {
+    for (int j = 0; j < array_out.shape.y; j++)
+      for (int i = 0; i < array_out.shape.x; i++)
+        for (int q = 0; q < kernel.shape.y; q++)
+          for (int p = 0; p < kernel.shape.x; p++)
+            array_out(i, j) += array(i + p, j + q) * kernel(p, q);
+  }
+  else
+  {
+    // --- FFT-based 2D convolution using OpenCV DFT
+
+    const int dft_rows = cv::getOptimalDFTSize(array.shape.y);
+    const int dft_cols = cv::getOptimalDFTSize(array.shape.x);
+
+    cv::Mat mat_a(array.shape.y,
+                  array.shape.x,
+                  CV_32F,
+                  const_cast<float *>(array.vector.data()));
+    cv::Mat padded_a;
+    cv::copyMakeBorder(mat_a,
+                       padded_a,
+                       0,
+                       dft_rows - array.shape.y,
+                       0,
+                       dft_cols - array.shape.x,
+                       cv::BORDER_CONSTANT,
+                       cv::Scalar::all(0));
+
+    cv::Mat mat_k(kernel.shape.y,
+                  kernel.shape.x,
+                  CV_32F,
+                  const_cast<float *>(kernel.vector.data()));
+    cv::Mat flipped_k;
+    cv::flip(mat_k, flipped_k, -1);
+    cv::Mat padded_k;
+    cv::copyMakeBorder(flipped_k,
+                       padded_k,
+                       0,
+                       dft_rows - kernel.shape.y,
+                       0,
+                       dft_cols - kernel.shape.x,
+                       cv::BORDER_CONSTANT,
+                       cv::Scalar::all(0));
+
+    cv::Mat dft_a, dft_k, dft_out, conv_full;
+    cv::dft(padded_a, dft_a, cv::DFT_COMPLEX_OUTPUT);
+    cv::dft(padded_k, dft_k, cv::DFT_COMPLEX_OUTPUT);
+    cv::mulSpectrums(dft_a, dft_k, dft_out, 0, false);
+    cv::idft(dft_out, conv_full, cv::DFT_SCALE | cv::DFT_REAL_OUTPUT);
+
+    cv::Rect roi(kernel.shape.x - 1, kernel.shape.y - 1, out_x, out_y);
+    cv::Mat  valid_region = conv_full(roi);
+
+    for (int j = 0; j < out_y; ++j)
+    {
+      const float *row_ptr = valid_region.ptr<float>(j);
+      for (int i = 0; i < out_x; ++i)
+        array_out(i, j) = row_ptr[i];
+    }
+  }
 
   return array_out;
 }

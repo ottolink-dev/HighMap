@@ -526,31 +526,28 @@ Array flow_fixing_drainage_basin(
  * carves monotonic riverbeds along the MST paths using continuous trench
  * profiles.
  *
- * @param  z                        Input elevation array.
- * @param  riverbed_talus           Minimum talus (slope) along carved
- *                                  riverbeds.
- * @param  elevation_ratio          Balance factor between elevation level and
- *                                  slope in Dijkstra cost.
- * @param  distance_exponent        Exponent applied to elevation differences in
- *                                  Dijkstra cost.
- * @param  upward_penalization      Penalty factor for uphill moves in Dijkstra
- *                                  search.
- * @param  valley_affinity          Weight for valley/concavity affinity in
- *                                  cost.
- * @param  prefilter_ir             Radius of Gaussian/cpulse prefilter applied
- *                                  before sink detection.
- * @param  minimum_depth            Minimum incision depth below initial terrain
- *                                  elevation.
- * @param  carve_riverbed           Whether to apply riverbank carving and
- *                                  smoothing along altered paths.
- * @param  merging_distance         Distance (in pixels) for blending modified
- *                                  flow paths.
- * @param  radial_profile           Radial profile cross-section for trench
- *                                  carving.
- * @param  use_midpoint             Whether to use midpoint displacement
- *                                  pathfinding instead of classical Dijkstra.
- * @param  offset_ratio             Midpoint displacement amplitude ratio.
- * @return                          Array with unbroken flow paths.
+ * @param  z                   Input elevation array.
+ * @param  riverbed_talus      Minimum talus (slope) along carved riverbeds.
+ * @param  elevation_ratio     Balance factor between elevation level and slope
+ *                             in Dijkstra cost.
+ * @param  distance_exponent   Exponent applied to elevation differences in
+ *                             Dijkstra cost.
+ * @param  upward_penalization Penalty factor for uphill moves in Dijkstra
+ *                             search.
+ * @param  valley_affinity     Weight for valley/concavity affinity in cost.
+ * @param  prefilter_ir        Radius of Gaussian/cpulse prefilter applied
+ *                             before sink detection.
+ * @param  minimum_depth       Minimum incision depth below initial terrain
+ *                             elevation.
+ * @param  carve_riverbed      Whether to apply riverbank carving and smoothing
+ *                             along altered paths.
+ * @param  merging_distance    Distance (in pixels) for blending modified flow
+ *                             paths.
+ * @param  radial_profile      Radial profile cross-section for trench carving.
+ * @param  use_midpoint        Whether to use midpoint displacement pathfinding
+ *                             instead of classical Dijkstra.
+ * @param  offset_ratio        Midpoint displacement amplitude ratio.
+ * @return                     Array with unbroken flow paths.
  */
 Array flow_fixing_mst(
     const Array  &z,

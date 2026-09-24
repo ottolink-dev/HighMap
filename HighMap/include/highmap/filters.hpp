@@ -16,6 +16,8 @@
 #pragma once
 
 #include "highmap/array.hpp"
+#include "highmap/kernels.hpp"
+#include "highmap/local_metrics.hpp"
 #include "highmap/primitives.hpp"
 
 namespace hmap
@@ -71,6 +73,82 @@ Array bulkify(const Array         &z,
               const Array         *p_noise_y = nullptr,
               glm::vec2            center = {0.5f, 0.5f},
               glm::vec4            bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @brief Applies a canyonize filter to a heightmap.
+ *
+ * Flattens the bottom with smooth minimum clamping and applies stratification
+ * with alternating concave and convex power laws across elevation intervals,
+ * with optional strata elevation noise and lateral noise modulation.
+ *
+ * @param array         The array of values to modify.
+ * @param seed          Random seed for strata level fluctuation.
+ * @param nlevels       Number of stratification levels.
+ * @param convex_ratio  Height ratio of convex strata relative to concave strata
+ * (e.g., 3.0).
+ * @param gamma_convex  Power law exponent for convex levels (> 1, e.g., 3.0).
+ * @param gamma_concave Power law exponent for concave levels (< 1, e.g., 0.3).
+ * @param clamp_min_val Elevation threshold for flattening the canyon bottom.
+ * @param k_smooth      Smoothing factor for clamp_min_smooth (0 for hard
+ * clamp).
+ * @param noise_ratio   Ratio of random elevation variation on strata levels.
+ * @param p_noise       Optional noise array for lateral modulation.
+ * @param vmin          Minimum elevation bounds (auto if vmin >= vmax).
+ * @param vmax          Maximum elevation bounds (auto if vmin >= vmax).
+ *
+ * **Example**
+ * @include ex_canyonize.cpp
+ *
+ * **Result**
+ * @image html ex_canyonize.png
+ */
+void canyonize(Array        &array,
+               std::uint32_t seed = 0,
+               int           nlevels = 6,
+               float         convex_ratio = 3.0f,
+               float         gamma_convex = 3.0f,
+               float         gamma_concave = 0.3f,
+               float clamp_min_val = -std::numeric_limits<float>::infinity(),
+               float k_smooth = 0.1f,
+               float noise_ratio = 0.2f,
+               const Array *p_noise = nullptr,
+               float        vmin = 1.f,
+               float        vmax = 0.f);
+
+/**
+ * @brief Applies a masked canyonize filter to a heightmap.
+ *
+ * @param array         The array of values to modify.
+ * @param seed          Random seed for strata level fluctuation.
+ * @param nlevels       Number of stratification levels.
+ * @param p_mask        Optional mask controlling the effect blending.
+ * @param convex_ratio  Height ratio of convex strata relative to concave strata
+ * (e.g., 3.0).
+ * @param gamma_convex  Power law exponent for convex levels (> 1, e.g., 3.0).
+ * @param gamma_concave Power law exponent for concave levels (< 1, e.g., 0.3).
+ * @param clamp_min_val Elevation threshold for flattening the canyon bottom.
+ * @param k_smooth      Smoothing factor for clamp_min_smooth (0 for hard
+ * clamp).
+ * @param noise_ratio   Ratio of random elevation variation on strata levels.
+ * @param p_noise       Optional noise array for lateral modulation.
+ * @param vmin          Minimum elevation bounds (auto if vmin >= vmax).
+ * @param vmax          Maximum elevation bounds (auto if vmin >= vmax).
+ *
+ * @overload
+ */
+void canyonize(Array        &array,
+               std::uint32_t seed,
+               int           nlevels,
+               const Array  *p_mask,
+               float         convex_ratio = 3.0f,
+               float         gamma_convex = 3.0f,
+               float         gamma_concave = 0.3f,
+               float clamp_min_val = -std::numeric_limits<float>::infinity(),
+               float k_smooth = 0.1f,
+               float noise_ratio = 0.2f,
+               const Array *p_noise = nullptr,
+               float        vmin = 1.f,
+               float        vmax = 0.f);
 
 /**
  * @brief Reduce quantization artifacts using dithering and smoothing.
@@ -1061,95 +1139,6 @@ void recast_canyon(Array       &array,
                    float        vcut,
                    float        gamma = 4.f,
                    const Array *p_noise = nullptr); ///< @overload
-
-/**
- * @brief Transform heightmap to add cliffs where gradients are steep enough.
- *
- * This function modifies the heightmap to introduce cliffs based on a reference
- * talus angle. Cliffs are added where the gradient exceeds the specified talus
- * angle. The amplitude of the cliffs and the gain factor for steepness are
- * adjustable. Additionally, a filter mask can be applied to control which parts
- * of the heightmap are affected.
- *
- * @param array     Input array representing the heightmap to be modified.
- * @param talus     Reference talus angle. This angle determines the threshold
- *                  above which cliffs are formed.
- * @param ir        Filter radius used to smooth the heightmap before applying
- *                  the cliff effect.
- * @param amplitude Amplitude of the cliffs. This value controls the height of
- *                  the cliffs.
- * @param gain      Gain factor for the gain filter, influencing the steepness
- *                  of the cliffs. Higher values result in steeper cliffs. The
- *                  default value is 2.0.
- * @param p_mask    Optional filter mask, with values expected in the range [0,
- *                  1]. The mask specifies which parts of the heightmap are
- *                  affected by the cliff transformation.
- *
- * **Example**
- * @include ex_recast.cpp
- *
- * **Result**
- * @image html ex_recast.png
- */
-void recast_cliff(Array &array,
-                  float  talus,
-                  int    ir,
-                  float  amplitude,
-                  float  gain = 2.f);
-
-void recast_cliff(Array       &array,
-                  float        talus,
-                  int          ir,
-                  float        amplitude,
-                  const Array *p_mask,
-                  float        gain = 2.f); ///< @overload
-
-/**
- * @brief Transform heightmap to add directional cliffs where gradients are
- * steep enough.
- *
- * This function modifies the heightmap to introduce cliffs in a specific
- * direction, based on a reference talus angle. The cliffs are added where the
- * gradient exceeds the specified talus angle, with the direction of the cliffs
- * controlled by the specified angle. The amplitude of the cliffs and the gain
- * factor for steepness are also adjustable. A filter mask can be used to
- * specify which parts of the heightmap are affected.
- *
- * @param array     Input array representing the heightmap to be modified.
- * @param talus     Reference talus angle. This angle determines the threshold
- *                  above which cliffs are formed.
- * @param ir        Filter radius used to smooth the heightmap before applying
- *                  the cliff effect.
- * @param amplitude Amplitude of the cliffs. This value controls the height of
- *                  the cliffs.
- * @param angle     Angle (in degrees) determining the direction of the cliffs.
- * @param gain      Gain factor for the gain filter, influencing the steepness
- *                  of the cliffs. Higher values result in steeper cliffs. The
- *                  default value is 2.0.
- * @param p_mask    Optional filter mask, with values expected in the range [0,
- *                  1]. The mask specifies which parts of the heightmap are
- *                  affected by the cliff transformation.
- *
- * **Example**
- * @include ex_recast.cpp
- *
- * **Result**
- * @image html ex_recast.png
- */
-void recast_cliff_directional(Array &array,
-                              float  talus,
-                              int    ir,
-                              float  amplitude,
-                              float  angle,
-                              float  gain = 2.f); ///< @overload
-
-void recast_cliff_directional(Array       &array,
-                              float        talus,
-                              int          ir,
-                              float        amplitude,
-                              float        angle,
-                              const Array *p_mask,
-                              float        gain = 2.f); ///< @overload
 
 void recast_cracks(Array &array,
                    float  cut_min = 0.05f,
@@ -2373,12 +2362,198 @@ void expand(Array       &array,
             int          iterations = 1); ///< @overload
 
 /*! @brief See hmap::gamma_correction_local */
-void gamma_correction_local(Array &array, float gamma, int ir, float k = 0.1f);
 void gamma_correction_local(Array       &array,
                             float        gamma,
                             int          ir,
-                            const Array *p_mask,
-                            float        k = 0.1f); ///< @overload
+                            float        k = 0.1f,
+                            MinMaxKernel kernel_type = MinMaxKernel::DISK);
+void gamma_correction_local(
+    Array       &array,
+    float        gamma,
+    int          ir,
+    const Array *p_mask,
+    float        k = 0.1f,
+    MinMaxKernel kernel_type = MinMaxKernel::DISK); ///< @overload
+
+/**
+ * @brief Apply a Voronoi-based jagged bubble dome filter to an array.
+ *
+ * For each Voronoi cell, computes a smooth dome profile vanishing at cell
+ * boundaries and peaking at the cell center, added to the input elevation:
+ * \f[
+ * \tau = \frac{d_{\text{edge}}}{d_{\text{center}} + d_{\text{edge}}}
+ * \f]
+ * \f[
+ * Z_{\text{out}}(x) = Z(x) + \text{amp} \cdot \left( \sin\left(\frac{\pi}{2}
+ * \tau\right) \right)^\gamma \f]
+ *
+ * @param  array     Input array to be filtered.
+ * @param  kw        Frequency / wave numbers for Voronoi cells.
+ * @param  amp       Amplitude of the bubble dome elevation (default: 0.1f).
+ * @param  seed      Seed for random jitter of Voronoi cell centers.
+ * @param  jitter    Jitter amount controlling cell randomness (default:
+ *                   {0.5f, 0.5f}).
+ * @param  gamma     Shape exponent for the dome curvature (default: 1.0f).
+ * @param  angle     Orientation angle in degrees for rotating the Voronoi
+ *                   pattern around (0, 0) (default: 0.0f).
+ * @param  p_mask    Optional mask array for blending.
+ * @param  p_noise_x Optional noise array for X perturbation.
+ * @param  p_noise_y Optional noise array for Y perturbation.
+ * @param  bbox      Bounding box for domain mapping (default: {0.f, 1.f,
+ *                   0.f, 1.f}).
+ *
+ * @return           Filtered array.
+ *
+ * **Example**
+ * @include ex_jagged.cpp
+ *
+ * **Result**
+ * @image html ex_jagged.png
+ */
+Array jagged(const Array  &array,
+             glm::vec2     kw,
+             float         amp = 0.1f,
+             std::uint32_t seed = 0,
+             glm::vec2     jitter = {0.5f, 0.5f},
+             float         gamma = 1.f,
+             float         angle = 0.f,
+             const Array  *p_mask = nullptr,
+             const Array  *p_noise_x = nullptr,
+             const Array  *p_noise_y = nullptr,
+             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @brief Apply a Voronoi-based jagged bubble dome filter using an isotropic
+ * frequency.
+ *
+ * @param  array     Input array to be filtered.
+ * @param  kw        Isotropic frequency / wave number for Voronoi cells.
+ * @param  amp       Amplitude of the bubble dome elevation (default: 0.1f).
+ * @param  seed      Seed for random jitter of Voronoi cell centers.
+ * @param  jitter    Jitter amount controlling cell randomness (default:
+ *                   {0.5f, 0.5f}).
+ * @param  gamma     Shape exponent for the dome curvature (default: 1.0f).
+ * @param  angle     Orientation angle in degrees for rotating the Voronoi
+ *                   pattern around (0, 0) (default: 0.0f).
+ * @param  p_mask    Optional mask array for blending.
+ * @param  p_noise_x Optional noise array for X perturbation.
+ * @param  p_noise_y Optional noise array for Y perturbation.
+ * @param  bbox      Bounding box for domain mapping (default: {0.f, 1.f,
+ *                   0.f, 1.f}).
+ *
+ * @return           Filtered array.
+ *
+ * @overload
+ */
+Array jagged(const Array  &array,
+             float         kw,
+             float         amp = 0.1f,
+             std::uint32_t seed = 0,
+             glm::vec2     jitter = {0.5f, 0.5f},
+             float         gamma = 1.f,
+             float         angle = 0.f,
+             const Array  *p_mask = nullptr,
+             const Array  *p_noise_x = nullptr,
+             const Array  *p_noise_y = nullptr,
+             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @brief Apply a fractal Brownian motion (fBm) version of the Voronoi-based
+ * jagged bubble dome filter to an array.
+ *
+ * Applies sequential jagged filters across multiple octaves, scaling the
+ * frequency by `lacunarity` and the amplitude by `persistence` at each
+ * iteration.
+ *
+ * @param  array        Input array to be filtered.
+ * @param  kw           Frequency / wave numbers for Voronoi cells.
+ * @param  amp          Initial amplitude of the bubble dome elevation (default:
+ *                      0.1f).
+ * @param  seed         Seed for random jitter of Voronoi cell centers.
+ * @param  octaves      Number of fBm octaves (default: 8).
+ * @param  persistence  Amplitude multiplier per octave (default: 0.5f).
+ * @param  lacunarity   Frequency multiplier per octave (default: 2.0f).
+ * @param  switch_kx_ky If true, swaps kx and ky at each octave (default:
+ *                      false).
+ * @param  jitter       Jitter amount controlling cell randomness (default:
+ *                      {0.5f, 0.5f}).
+ * @param  gamma        Shape exponent for the dome curvature (default: 1.0f).
+ * @param  angle        Orientation angle in degrees for rotating the Voronoi
+ *                      pattern around (0, 0) (default: 0.0f).
+ * @param  p_mask       Optional mask array for blending.
+ * @param  p_noise_x    Optional noise array for X perturbation.
+ * @param  p_noise_y    Optional noise array for Y perturbation.
+ * @param  bbox         Bounding box for domain mapping (default: {0.f, 1.f,
+ *                      0.f, 1.f}).
+ *
+ * @return              Filtered array.
+ *
+ * **Example**
+ * @include ex_jagged_fbm.cpp
+ *
+ * **Result**
+ * @image html ex_jagged_fbm.png
+ */
+Array jagged_fbm(const Array  &array,
+                 glm::vec2     kw,
+                 float         amp = 0.1f,
+                 std::uint32_t seed = 0,
+                 int           octaves = 8,
+                 float         persistence = 0.5f,
+                 float         lacunarity = 2.f,
+                 bool          switch_kx_ky = false,
+                 glm::vec2     jitter = {0.5f, 0.5f},
+                 float         gamma = 1.f,
+                 float         angle = 0.f,
+                 const Array  *p_mask = nullptr,
+                 const Array  *p_noise_x = nullptr,
+                 const Array  *p_noise_y = nullptr,
+                 glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @brief Apply a fractal Brownian motion (fBm) version of the Voronoi-based
+ * jagged bubble dome filter using an isotropic frequency.
+ *
+ * @param  array        Input array to be filtered.
+ * @param  kw           Isotropic frequency / wave number for Voronoi cells.
+ * @param  amp          Initial amplitude of the bubble dome elevation (default:
+ *                      0.1f).
+ * @param  seed         Seed for random jitter of Voronoi cell centers.
+ * @param  octaves      Number of fBm octaves (default: 8).
+ * @param  persistence  Amplitude multiplier per octave (default: 0.5f).
+ * @param  lacunarity   Frequency multiplier per octave (default: 2.0f).
+ * @param  switch_kx_ky If true, swaps kx and ky at each octave (default:
+ * false).
+ * @param  jitter       Jitter amount controlling cell randomness (default:
+ *                      {0.5f, 0.5f}).
+ * @param  gamma        Shape exponent for the dome curvature (default: 1.0f).
+ * @param  angle        Orientation angle in degrees for rotating the Voronoi
+ *                      pattern around (0, 0) (default: 0.0f).
+ * @param  p_mask       Optional mask array for blending.
+ * @param  p_noise_x    Optional noise array for X perturbation.
+ * @param  p_noise_y    Optional noise array for Y perturbation.
+ * @param  bbox         Bounding box for domain mapping (default: {0.f, 1.f,
+ *                      0.f, 1.f}).
+ *
+ * @return              Filtered array.
+ *
+ * @overload
+ */
+Array jagged_fbm(const Array  &array,
+                 float         kw,
+                 float         amp = 0.1f,
+                 std::uint32_t seed = 0,
+                 int           octaves = 8,
+                 float         persistence = 0.5f,
+                 float         lacunarity = 2.f,
+                 bool          switch_kx_ky = false,
+                 glm::vec2     jitter = {0.5f, 0.5f},
+                 float         gamma = 1.f,
+                 float         angle = 0.f,
+                 const Array  *p_mask = nullptr,
+                 const Array  *p_noise_x = nullptr,
+                 const Array  *p_noise_y = nullptr,
+                 glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
 
 /*! @brief See hmap::laplace */
 void laplace(Array &array, float sigma = 0.2f, int iterations = 3);
@@ -2406,7 +2581,9 @@ void median_3x3(Array &array);
 void median_3x3(Array &array, const Array *p_mask); ///< @overload
 
 /*! @brief See hmap::median_pseudo */
-Array median_pseudo(const Array &array, int ir);
+Array median_pseudo(const Array &array,
+                    int          ir,
+                    MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::normal_displacement */
 void normal_displacement(Array &array,
@@ -2420,8 +2597,15 @@ void normal_displacement(Array       &array,
                          bool         reverse = false); ///< @overload
 
 /*! @brief See hmap::plateau */
-void plateau(Array &array, const Array *p_mask, int ir, float factor);
-void plateau(Array &array, int ir, float factor); ///< @overload
+void plateau(Array       &array,
+             const Array *p_mask,
+             int          ir,
+             float        factor,
+             MinMaxKernel kernel_type = MinMaxKernel::DISK);
+void plateau(Array       &array,
+             int          ir,
+             float        factor,
+             MinMaxKernel kernel_type = MinMaxKernel::DISK); ///< @overload
 
 /**
  * @brief Projects array values along a given direction using talus attenuation.
@@ -2455,6 +2639,104 @@ Array project_talus_along_direction(const Array &array,
                                     const Array *p_mask,
                                     int          direction = 0,
                                     float        vmin = -FLT_MAX);
+
+/**
+ * @brief Transform heightmap to add cliffs where gradients are steep enough
+ * using Poisson gradient amplification.
+ *
+ * @param array        Input array representing the heightmap to be modified.
+ * @param talus        Reference talus angle / slope threshold.
+ * @param ir           Filter radius used to smooth the heightmap before
+ *                     applying the cliff effect.
+ * @param amplitude    Amplitude of the cliffs.
+ * @param gain         Gain factor influencing the steepness of the cliffs.
+ * @param iterations   Number of Poisson solver iterations (default: 500).
+ * @param p_cliff_mask [out] Optional pointer to an array that receives the
+ *                     cliff mask.
+ *
+ * **Example**
+ * @include ex_recast_cliff.cpp
+ *
+ * **Result**
+ * @image html ex_recast_cliff.png
+ */
+void recast_cliff(Array &array,
+                  float  talus,
+                  int    ir,
+                  float  amplitude,
+                  float  gain = 2.f,
+                  int    iterations = 500,
+                  Array *p_cliff_mask = nullptr);
+
+void recast_cliff(Array       &array,
+                  float        talus,
+                  int          ir,
+                  float        amplitude,
+                  const Array *p_mask,
+                  float        gain = 2.f,
+                  int          iterations = 500,
+                  Array       *p_cliff_mask = nullptr); ///< @overload
+
+/**
+ * @brief Transform heightmap to add directional cliffs where gradients are
+ * steep enough using Poisson gradient amplification.
+ *
+ * @param array        Input array representing the heightmap to be modified.
+ * @param talus        Reference talus angle / slope threshold.
+ * @param ir           Filter radius used to smooth the heightmap before
+ *                     applying the cliff effect.
+ * @param amplitude    Amplitude of the cliffs.
+ * @param angle        Angle (in degrees) determining the direction of the
+ *                     cliffs.
+ * @param gain         Gain factor influencing the steepness of the cliffs.
+ * @param iterations   Number of Poisson solver iterations (default: 500).
+ * @param p_mask       Optional filter mask.
+ * @param p_cliff_mask [out] Optional pointer to an array that receives the
+ *                     cliff mask.
+ *
+ * **Example**
+ * @include ex_recast_cliff.cpp
+ *
+ * **Result**
+ * @image html ex_recast_cliff.png
+ */
+void recast_cliff_directional(Array &array,
+                              float  talus,
+                              int    ir,
+                              float  amplitude,
+                              float  angle,
+                              float  gain = 2.f,
+                              int    iterations = 500,
+                              Array *p_cliff_mask = nullptr); ///< @overload
+
+void recast_cliff_directional(Array       &array,
+                              float        talus,
+                              int          ir,
+                              float        amplitude,
+                              float        angle,
+                              const Array *p_mask,
+                              float        gain = 2.f,
+                              int          iterations = 500,
+                              Array *p_cliff_mask = nullptr); ///< @overload
+
+void recast_cliff_directional(Array       &array,
+                              float        talus,
+                              int          ir,
+                              float        amplitude,
+                              const Array &angle,
+                              float        gain = 2.f,
+                              int          iterations = 500,
+                              Array *p_cliff_mask = nullptr); ///< @overload
+
+void recast_cliff_directional(Array       &array,
+                              float        talus,
+                              int          ir,
+                              float        amplitude,
+                              const Array &angle,
+                              const Array *p_mask,
+                              float        gain = 2.f,
+                              int          iterations = 500,
+                              Array *p_cliff_mask = nullptr); ///< @overload
 
 /*! @brief See hmap::ridge_accentuate */
 void ridge_accentuate(Array &array,

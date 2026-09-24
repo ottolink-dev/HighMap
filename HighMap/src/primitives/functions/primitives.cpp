@@ -300,6 +300,35 @@ Array paraboloid(glm::ivec2   shape,
   return array;
 }
 
+Array quad_surface(glm::ivec2   shape,
+                   float        c00,
+                   float        c10,
+                   float        c01,
+                   float        c11,
+                   const Array *p_ctrl_param,
+                   const Array *p_noise_x,
+                   const Array *p_noise_y,
+                   glm::vec4    bbox)
+{
+  if (!validate_shape(shape)) return Array();
+  if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
+    return Array(shape);
+  if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
+  if (p_noise_y && !validate_same_shape(shape, *p_noise_y)) return Array(shape);
+
+  Array               array = Array(shape);
+  QuadSurfaceFunction f = QuadSurfaceFunction(c00, c10, c01, c11);
+
+  fill_array_using_xy_function(array,
+                               bbox,
+                               p_ctrl_param,
+                               p_noise_x,
+                               p_noise_y,
+                               nullptr,
+                               f.get_delegate());
+  return array;
+}
+
 Array rectangle(glm::ivec2   shape,
                 float        rx,
                 float        ry,

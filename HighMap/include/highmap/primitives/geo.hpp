@@ -65,20 +65,20 @@ Array caldera(glm::ivec2 shape,
  * defined low exit point, a central depression, and an elevated arc on the side
  * opposite the exit point.
  *
- * @param  shape           Output array shape.
- * @param  radius          Circus basin/ridge radius.
- * @param  angle           Exit point direction angle in degrees.
- * @param  exit_width      Angular opening/width factor of the low exit.
- * @param  exit_depth      Elevation at the low exit point.
- * @param  center_depth    Elevation in the central basin depression.
- * @param  ridge_height    Elevation of the opposite ridge arc.
- * @param  ridge_width     Radial width of the ridge crest.
- * @param  outer_falloff   Exponent controlling the outer slope falloff.
- * @param  p_noise_r       Optional radial noise distortion.
- * @param  center          Center position in normalized domain coordinates.
- * @param  bbox            Bounding box coordinates.
- * @param  p_mask          Optional output mask of the circus envelope.
- * @return                 Generated circus elevation envelope.
+ * @param  shape         Output array shape.
+ * @param  radius        Circus basin/ridge radius.
+ * @param  angle         Exit point direction angle in degrees.
+ * @param  exit_width    Angular opening/width factor of the low exit.
+ * @param  exit_depth    Elevation at the low exit point.
+ * @param  center_depth  Elevation in the central basin depression.
+ * @param  ridge_height  Elevation of the opposite ridge arc.
+ * @param  ridge_width   Radial width of the ridge crest.
+ * @param  outer_falloff Exponent controlling the outer slope falloff.
+ * @param  p_noise_r     Optional radial noise distortion.
+ * @param  center        Center position in normalized domain coordinates.
+ * @param  bbox          Bounding box coordinates.
+ * @param  p_mask        Optional output mask of the circus envelope.
+ * @return               Generated circus elevation envelope.
  *
  * **Example**
  * @include ex_circus.cpp

@@ -10,9 +10,12 @@ namespace hmap
 
 Array morphological_operators(const Array        &array,
                               int                 ir,
-                              MorphologyOperation operation)
+                              MorphologyOperation operation,
+                              MinMaxKernel        kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
+
+  (void)kernel_type;
 
   switch (operation)
   {
@@ -60,44 +63,45 @@ namespace hmap::gpu
 
 Array morphological_operators(const Array        &array,
                               int                 ir,
-                              MorphologyOperation operation)
+                              MorphologyOperation operation,
+                              MinMaxKernel        kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
 
   switch (operation)
   {
   case MorphologyOperation::MO_BORDER:
-    return gpu::border(array, ir);
+    return gpu::border(array, ir, kernel_type);
     //
   case MorphologyOperation::MO_CLOSING:
-    return gpu::closing(array, ir);
+    return gpu::closing(array, ir, kernel_type);
     //
   case MorphologyOperation::MO_DILATION:
-    return gpu::dilation(array, ir);
+    return gpu::dilation(array, ir, kernel_type);
     //
   case MorphologyOperation::MO_EROSION:
-    return gpu::erosion(array, ir);
+    return gpu::erosion(array, ir, kernel_type);
     //
   case MorphologyOperation::MO_OPENING:
-    return gpu::opening(array, ir);
+    return gpu::opening(array, ir, kernel_type);
     //
   case MorphologyOperation::MO_BLACK_HAT:
-    return gpu::morphological_black_hat(array, ir);
+    return gpu::morphological_black_hat(array, ir, kernel_type);
     //
   case MorphologyOperation::MO_TOP_HAT:
-    return gpu::morphological_top_hat(array, ir);
+    return gpu::morphological_top_hat(array, ir, kernel_type);
     //
   case MorphologyOperation::MO_GRADIENT:
-    return gpu::morphological_gradient(array, ir);
+    return gpu::morphological_gradient(array, ir, kernel_type);
     //
   case MorphologyOperation::MO_LAPLACIAN:
-    return gpu::morphological_laplacian(array, ir);
+    return gpu::morphological_laplacian(array, ir, kernel_type);
     //
   case MorphologyOperation::MO_CLOSING_BY_RECONSTRUCTION:
-    return gpu::closing_by_reconstruction(array, ir);
+    return gpu::closing_by_reconstruction(array, ir, 0.f, kernel_type);
     //
   case MorphologyOperation::MO_OPENING_BY_RECONSTRUCTION:
-    return gpu::opening_by_reconstruction(array, ir);
+    return gpu::opening_by_reconstruction(array, ir, 0.f, kernel_type);
     //
   default: return Array(array.shape);
   }

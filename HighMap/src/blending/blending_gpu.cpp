@@ -30,7 +30,7 @@ Array blend_gradients(const Array &array1, const Array &array2, int ir)
   gpu::smooth_cpulse(dn1, ir);
   gpu::smooth_cpulse(dn2, ir);
 
-  Array t = gpu::maximum_smooth(dn1, dn2, 0.1f / (float)array1.shape.x);
+  Array t = hmap::maximum_smooth(dn1, dn2, 0.1f / (float)array1.shape.x);
   remap(t);
 
   return lerp(array1, array2, t);

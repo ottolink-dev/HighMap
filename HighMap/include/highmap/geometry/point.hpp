@@ -463,7 +463,7 @@ Point scale(const Point &p, float scale, glm::vec2 center = {0.5f, 0.5f});
  * @param  q1 Start point of second segment.
  * @param  q2 End point of second segment.
  * @return    The intersection point if segments intersect; std::nullopt
- * otherwise.
+ *            otherwise.
  */
 std::optional<Point> segment_intersection(const Point &p1,
                                           const Point &p2,

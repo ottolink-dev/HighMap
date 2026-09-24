@@ -9,9 +9,21 @@
 #pragma once
 
 #include "highmap/array.hpp"
+#include "highmap/kernels.hpp"
 
 namespace hmap
 {
+
+/**
+ * @enum MinMaxKernel
+ * @brief Kernel footprint geometry for local minimum / maximum operations.
+ */
+enum class MinMaxKernel : int
+{
+  DISK,    ///< Circular disk neighborhood
+  OCTAGON, ///< Octagonal neighborhood (separable 4-pass approximation)
+  SQUARE   ///< Square neighborhood (separable 2-pass)
+};
 
 /**
  * @brief Computes the downstream path length to the domain outlet.
@@ -278,6 +290,18 @@ namespace hmap::gpu
 Array local_aspect_variance(const Array &array, int ir);
 
 /**
+ * @brief Compute the local maximum using the specified kernel footprint.
+ *
+ * @param  array       Input array.
+ * @param  ir          Radius of the kernel footprint.
+ * @param  kernel_type Kernel footprint type (default: MinMaxKernel::DISK).
+ * @return             Array of local maximum values.
+ */
+Array local_max(const Array &array,
+                int          ir,
+                MinMaxKernel kernel_type = MinMaxKernel::DISK);
+
+/**
  * @brief Compute the local maximum using a disk kernel.
  *
  * For each cell, returns the maximum value within a neighborhood of radius @p
@@ -293,10 +317,54 @@ Array local_aspect_variance(const Array &array, int ir);
  * **Result**
  * @image html ex_local_metrics.png
  */
-Array local_max(const Array &array, int ir);
+Array local_max_disk(const Array &array, int ir);
+
+/**
+ * @brief Compute the local maximum using an octagonal kernel approximation
+ * via 4 separable 1D passes (horizontal, vertical, and two diagonals).
+ *
+ * @param  array Input array.
+ * @param  ir    Radius of the octagonal neighborhood footprint.
+ * @return       Array of local maximum values.
+ *
+ * **Example**
+ * @include ex_local_max_kernels.cpp
+ *
+ * **Result**
+ * @image html ex_local_max_kernels.png
+ */
+Array local_max_octagon(const Array &array, int ir);
+
+/**
+ * @brief Compute the local maximum using a square kernel with a 2-pass
+ * separable implementation.
+ *
+ * @param  array Input array.
+ * @param  ir    Radius of the square kernel footprint.
+ * @return       Array of local maximum values.
+ *
+ * **Example**
+ * @include ex_local_max_kernels.cpp
+ *
+ * **Result**
+ * @image html ex_local_max_kernels.png
+ */
+Array local_max_square(const Array &array, int ir);
 
 /*! @brief See hmap::local_median_deviation */
 Array local_median_deviation(const Array &array, int ir);
+
+/**
+ * @brief Compute the local minimum using the specified kernel footprint.
+ *
+ * @param  array       Input array.
+ * @param  ir          Radius of the kernel footprint.
+ * @param  kernel_type Kernel footprint type (default: MinMaxKernel::DISK).
+ * @return             Array of local minimum values.
+ */
+Array local_min(const Array &array,
+                int          ir,
+                MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /**
  * @brief Compute the local minimum using a disk kernel.
@@ -314,7 +382,39 @@ Array local_median_deviation(const Array &array, int ir);
  * **Result**
  * @image html ex_local_metrics.png
  */
-Array local_min(const Array &array, int ir);
+Array local_min_disk(const Array &array, int ir);
+
+/**
+ * @brief Compute the local minimum using an octagonal kernel approximation
+ * via 4 separable 1D passes (horizontal, vertical, and two diagonals).
+ *
+ * @param  array Input array.
+ * @param  ir    Radius of the octagonal neighborhood footprint.
+ * @return       Array of local minimum values.
+ *
+ * **Example**
+ * @include ex_local_max_kernels.cpp
+ *
+ * **Result**
+ * @image html ex_local_max_kernels.png
+ */
+Array local_min_octagon(const Array &array, int ir);
+
+/**
+ * @brief Compute the local minimum using a square kernel with a 2-pass
+ * separable implementation.
+ *
+ * @param  array Input array.
+ * @param  ir    Radius of the square kernel footprint.
+ * @return       Array of local minimum values.
+ *
+ * **Example**
+ * @include ex_local_max_kernels.cpp
+ *
+ * **Result**
+ * @image html ex_local_max_kernels.png
+ */
+Array local_min_square(const Array &array, int ir);
 
 /**
  * @brief Compute the local relief of an array.
@@ -324,13 +424,15 @@ Array local_min(const Array &array, int ir);
  * provides a measure of local variation in the array (e.g., terrain
  * ruggedness).
  *
- * @param  array Input array representing scalar values (e.g., elevation map).
- * @param  ir    Radius of the neighborhood (in pixels) used to compute local
- *               extrema.
+ * @param  array       Input array representing scalar values (e.g., elevation
+ * map).
+ * @param  ir          Radius of the neighborhood (in pixels) used to compute
+ * local extrema.
+ * @param  kernel_type Kernel footprint type (default: MinMaxKernel::DISK).
  *
- * @return       Array An array of the same size as @p array, where each element
- *               contains the difference between the local maximum and minimum
- *               within the specified neighborhood.
+ * @return             Array An array of the same size as @p array, where each
+ * element contains the difference between the local maximum and minimum within
+ * the specified neighborhood.
  *
  * **Example**
  * @include ex_local_relief.cpp
@@ -338,7 +440,9 @@ Array local_min(const Array &array, int ir);
  * **Result**
  * @image html ex_local_relief.png
  */
-Array local_relief(const Array &array, int ir);
+Array local_relief(const Array &array,
+                   int          ir,
+                   MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /**
  * @brief Compute the average local variance of an array.
@@ -401,7 +505,9 @@ Array local_z_score(const Array &array, int ir);
 Array topographic_position_index(const Array &array, int ir);
 
 /*! @brief See hmap::relative_elevation */
-Array relative_elevation(const Array &array, int ir);
+Array relative_elevation(const Array &array,
+                         int          ir,
+                         MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /*! @brief See hmap::relative_elevation */
 Array relative_elevation_square_kernel(const Array &array, int ir);
@@ -466,6 +572,9 @@ enum LocalMetrics : int
  *
  * See unit tests: @ref test_local_metrics.cpp
  */
-Array local_metrics(const Array &array, int ir, LocalMetrics metric);
+Array local_metrics(const Array &array,
+                    int          ir,
+                    LocalMetrics metric,
+                    MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 } // namespace hmap::gpu

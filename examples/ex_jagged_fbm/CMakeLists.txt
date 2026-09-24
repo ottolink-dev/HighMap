@@ -1,0 +1,2 @@
+add_executable(ex_jagged_fbm ex_jagged_fbm.cpp)
+target_link_libraries(ex_jagged_fbm highmap)
