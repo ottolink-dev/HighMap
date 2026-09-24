@@ -54,6 +54,7 @@ var hierarchy =
         [ "hmap::WorleyDoubleFunction", "classhmap_1_1WorleyDoubleFunction.html", null ],
         [ "hmap::WorleyFunction", "classhmap_1_1WorleyFunction.html", null ]
       ] ],
+      [ "hmap::QuadSurfaceFunction", "classhmap_1_1QuadSurfaceFunction.html", null ],
       [ "hmap::RectangleFunction", "classhmap_1_1RectangleFunction.html", null ],
       [ "hmap::RiftFunction", "classhmap_1_1RiftFunction.html", null ],
       [ "hmap::SlopeFunction", "classhmap_1_1SlopeFunction.html", null ],

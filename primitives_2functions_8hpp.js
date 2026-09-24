@@ -26,6 +26,7 @@ var primitives_2functions_8hpp =
     [ "multisteps", "primitives_2functions_8hpp.html#aeeb8f48ea78cb59de79c16ab28d1d855", null ],
     [ "paraboloid", "primitives_2functions_8hpp.html#a1bdde74ca6ad37104c99c074f7a2387a", null ],
     [ "polar_shape", "primitives_2functions_8hpp.html#aa87cc983d6988499edca8311c09edd9a", null ],
+    [ "quad_surface", "primitives_2functions_8hpp.html#a96d1e72b568ef5f418db70b81ea42ffe", null ],
     [ "rectangle", "primitives_2functions_8hpp.html#aa7a5c39d07988b3dc0aaba918618ed93", null ],
     [ "slope", "primitives_2functions_8hpp.html#a04e7abe100708990e2464cc5df2ccafa", null ],
     [ "smooth_cosine", "primitives_2functions_8hpp.html#a41239b5831a88a5b2528f24e8c95a92a", null ],

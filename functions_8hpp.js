@@ -7,6 +7,7 @@ var functions_8hpp =
     [ "hmap::CraterFunction", "classhmap_1_1CraterFunction.html", "classhmap_1_1CraterFunction" ],
     [ "hmap::DiskFunction", "classhmap_1_1DiskFunction.html", "classhmap_1_1DiskFunction" ],
     [ "hmap::GaussianPulseFunction", "classhmap_1_1GaussianPulseFunction.html", "classhmap_1_1GaussianPulseFunction" ],
+    [ "hmap::QuadSurfaceFunction", "classhmap_1_1QuadSurfaceFunction.html", "classhmap_1_1QuadSurfaceFunction" ],
     [ "hmap::RectangleFunction", "classhmap_1_1RectangleFunction.html", "classhmap_1_1RectangleFunction" ],
     [ "hmap::RiftFunction", "classhmap_1_1RiftFunction.html", "classhmap_1_1RiftFunction" ],
     [ "hmap::SlopeFunction", "classhmap_1_1SlopeFunction.html", "classhmap_1_1SlopeFunction" ],

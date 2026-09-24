@@ -56,6 +56,7 @@
     <innerclass refid="classhmap_1_1PerlinMixFunction" prot="public">hmap::PerlinMixFunction</innerclass>
     <innerclass refid="classhmap_1_1Point" prot="public">hmap::Point</innerclass>
     <innerclass refid="classhmap_1_1PyramidDecomposition" prot="public">hmap::PyramidDecomposition</innerclass>
+    <innerclass refid="classhmap_1_1QuadSurfaceFunction" prot="public">hmap::QuadSurfaceFunction</innerclass>
     <innerclass refid="classhmap_1_1RamTileStorage" prot="public">hmap::RamTileStorage</innerclass>
     <innerclass refid="structhmap_1_1Recorder" prot="public">hmap::Recorder</innerclass>
     <innerclass refid="classhmap_1_1RectangleFunction" prot="public">hmap::RectangleFunction</innerclass>
@@ -22763,7 +22764,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/functions/noise_functions.cpp" line="344" column="17" bodyfile="HighMap/src/functions/noise_functions.cpp" bodystart="344" bodyend="389" declfile="HighMap/include/highmap/functions.hpp" declline="1790" declcolumn="17"/>
+        <location file="HighMap/src/functions/noise_functions.cpp" line="344" column="17" bodyfile="HighMap/src/functions/noise_functions.cpp" bodystart="344" bodyend="389" declfile="HighMap/include/highmap/functions.hpp" declline="1825" declcolumn="17"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2eb54fb6e51f35573926f9255bcd00e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -48550,7 +48551,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/functions/primitives.cpp" line="425" column="7" bodyfile="HighMap/src/primitives/functions/primitives.cpp" bodystart="425" bodyend="464" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="43" declcolumn="7"/>
+        <location file="HighMap/src/primitives/functions/primitives.cpp" line="454" column="7" bodyfile="HighMap/src/primitives/functions/primitives.cpp" bodystart="454" bodyend="493" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="43" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9b7b17b540fbec1501ba0e996897c1e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -50866,6 +50867,161 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </inbodydescription>
         <location file="HighMap/src/primitives/functions/polar_shape.cpp" line="17" column="7" bodyfile="HighMap/src/primitives/functions/polar_shape.cpp" bodystart="17" bodyend="113" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="573" declcolumn="7"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a96d1e72b568ef5f418db70b81ea42ffe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::quad_surface</definition>
+        <argsstring>(glm::ivec2 shape, float c00=0.f, float c10=0.f, float c01=0.f, float c11=0.f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>quad_surface</name>
+        <qualifiedname>hmap::quad_surface</qualifiedname>
+        <param>
+          <type>glm::ivec2</type>
+          <declname>shape</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>c00</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>c10</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>c01</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>c11</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_ctrl_param</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_noise_x</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_noise_y</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Generates a surface defined by the four corner values of the domain. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Interpolates values across the domain using a quadratic / bilinear surface function derived from the four corner elevations.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>shape</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dimensions of the output array (width, height). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c00</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Elevation at bottom-left corner (xmin, ymin). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c10</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Elevation at bottom-right corner (xmax, ymin). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c01</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Elevation at top-left corner (xmin, ymax). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c11</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Elevation at top-right corner (xmax, ymax). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_ctrl_param</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional pointer to a control parameter array (multiplier). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_noise_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional pointer to x-direction displacement noise array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_noise_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional pointer to y-direction displacement noise array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box defining the domain coordinates (xmin, xmax, ymin, ymax). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> containing the generated quadratic surface.</para>
+</simplesect>
+<bold>Example</bold> <programlisting filename="ex_quad_surface.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>surface<sp/>defined<sp/>by<sp/>4<sp/>corner<sp/>elevations:<sp/>c00,<sp/>c10,<sp/>c01,<sp/>c11</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z1<sp/>=<sp/><ref refid="namespacehmap_1a96d1e72b568ef5f418db70b81ea42ffe" kindref="member">hmap::quad_surface</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>0.f,<sp/>1.f,<sp/>0.5f,<sp/>0.f);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>another<sp/>surface<sp/>configuration</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z2<sp/>=<sp/><ref refid="namespacehmap_1a96d1e72b568ef5f418db70b81ea42ffe" kindref="member">hmap::quad_surface</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>1.f,<sp/>0.2f,<sp/>0.3f,<sp/>0.8f);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_quad_surface.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z1,<sp/>z2},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143" kindref="member">hmap::Cmap::INFERNO</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+<para><bold>Result</bold> <image type="html" name="ex_quad_surface.png"></image>
+ </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/primitives/functions/primitives.cpp" line="303" column="7" bodyfile="HighMap/src/primitives/functions/primitives.cpp" bodystart="303" bodyend="330" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="617" declcolumn="7"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa7a5c39d07988b3dc0aaba918618ed93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::rectangle</definition>
@@ -51052,7 +51208,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/functions/primitives.cpp" line="303" column="7" bodyfile="HighMap/src/primitives/functions/primitives.cpp" bodystart="303" bodyend="331" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="628" declcolumn="7"/>
+        <location file="HighMap/src/primitives/functions/primitives.cpp" line="332" column="7" bodyfile="HighMap/src/primitives/functions/primitives.cpp" bodystart="332" bodyend="360" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="665" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a04e7abe100708990e2464cc5df2ccafa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -51208,7 +51364,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/functions/primitives.cpp" line="333" column="7" bodyfile="HighMap/src/primitives/functions/primitives.cpp" bodystart="333" bodyend="359" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="658" declcolumn="7"/>
+        <location file="HighMap/src/primitives/functions/primitives.cpp" line="362" column="7" bodyfile="HighMap/src/primitives/functions/primitives.cpp" bodystart="362" bodyend="388" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="695" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a41239b5831a88a5b2528f24e8c95a92a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -51245,7 +51401,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/functions/primitives.cpp" line="361" column="7" bodyfile="HighMap/src/primitives/functions/primitives.cpp" bodystart="361" bodyend="393" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="669" declcolumn="7"/>
+        <location file="HighMap/src/primitives/functions/primitives.cpp" line="390" column="7" bodyfile="HighMap/src/primitives/functions/primitives.cpp" bodystart="390" bodyend="422" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="706" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1afedc080c1f8ff7cc785671291f1ad25c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -51399,7 +51555,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/functions/primitives.cpp" line="395" column="7" bodyfile="HighMap/src/primitives/functions/primitives.cpp" bodystart="395" bodyend="421" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="696" declcolumn="7"/>
+        <location file="HighMap/src/primitives/functions/primitives.cpp" line="424" column="7" bodyfile="HighMap/src/primitives/functions/primitives.cpp" bodystart="424" bodyend="450" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="733" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a7a433480a8cd89be48bc9ce8cbb25ce8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -51530,7 +51686,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/functions/swirl.cpp" line="12" column="6" bodyfile="HighMap/src/primitives/functions/swirl.cpp" bodystart="12" bodyend="58" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="722" declcolumn="6"/>
+        <location file="HighMap/src/primitives/functions/swirl.cpp" line="12" column="6" bodyfile="HighMap/src/primitives/functions/swirl.cpp" bodystart="12" bodyend="58" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="759" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8eaf2398554e987f506ed2d287b24acc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -51675,7 +51831,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/functions/wave.cpp" line="13" column="7" bodyfile="HighMap/src/primitives/functions/wave.cpp" bodystart="13" bodyend="44" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="746" declcolumn="7"/>
+        <location file="HighMap/src/primitives/functions/wave.cpp" line="13" column="7" bodyfile="HighMap/src/primitives/functions/wave.cpp" bodystart="13" bodyend="44" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="783" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ae65e0bfdf26b7cd12731ca80d4af6b92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -51833,7 +51989,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/functions/wave.cpp" line="46" column="7" bodyfile="HighMap/src/primitives/functions/wave.cpp" bodystart="46" bodyend="73" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="778" declcolumn="7"/>
+        <location file="HighMap/src/primitives/functions/wave.cpp" line="46" column="7" bodyfile="HighMap/src/primitives/functions/wave.cpp" bodystart="46" bodyend="73" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="815" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9c29bf793c38447f4375038546d258a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -51991,7 +52147,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/functions/wave.cpp" line="75" column="7" bodyfile="HighMap/src/primitives/functions/wave.cpp" bodystart="75" bodyend="102" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="807" declcolumn="7"/>
+        <location file="HighMap/src/primitives/functions/wave.cpp" line="75" column="7" bodyfile="HighMap/src/primitives/functions/wave.cpp" bodystart="75" bodyend="102" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="844" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1acbf9eb2aba9535d901c816ff33e8aa11" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -52161,7 +52317,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/functions/wave.cpp" line="104" column="7" bodyfile="HighMap/src/primitives/functions/wave.cpp" bodystart="104" bodyend="133" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="838" declcolumn="7"/>
+        <location file="HighMap/src/primitives/functions/wave.cpp" line="104" column="7" bodyfile="HighMap/src/primitives/functions/wave.cpp" bodystart="104" bodyend="133" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="875" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a505897da1d63ea7e613cdde55f68de29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

@@ -10,6 +10,7 @@ var primitives_8cpp =
     [ "disk", "primitives_8cpp.html#a65f78a9458d3d873ad5c6df94398b17c", null ],
     [ "gaussian_pulse", "primitives_8cpp.html#ab42ef2251b12bdbea69f71c31082505e", null ],
     [ "paraboloid", "primitives_8cpp.html#a1bdde74ca6ad37104c99c074f7a2387a", null ],
+    [ "quad_surface", "primitives_8cpp.html#a96d1e72b568ef5f418db70b81ea42ffe", null ],
     [ "rectangle", "primitives_8cpp.html#aa7a5c39d07988b3dc0aaba918618ed93", null ],
     [ "slope", "primitives_8cpp.html#a04e7abe100708990e2464cc5df2ccafa", null ],
     [ "smooth_cosine", "primitives_8cpp.html#a41239b5831a88a5b2528f24e8c95a92a", null ],
