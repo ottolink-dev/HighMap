@@ -319,6 +319,41 @@ private:
 };
 
 /**
+ * @class QuadSurfaceFunction
+ * @brief Quadratic surface function defined by four corner values.
+ *
+ * This class interpolates a surface across the bounding box domain
+ * using bilinear/quadratic interpolation from four corner elevations:
+ * c00 (bottom-left), c10 (bottom-right), c01 (top-left), and c11 (top-right).
+ */
+class QuadSurfaceFunction : public Function
+{
+public:
+  /**
+   * @brief Construct a new QuadSurface Function object.
+   *
+   * @param c00 Value at bottom-left corner (x=xmin, y=ymin).
+   * @param c10 Value at bottom-right corner (x=xmax, y=ymin).
+   * @param c01 Value at top-left corner (x=xmin, y=ymax).
+   * @param c11 Value at top-right corner (x=xmax, y=ymax).
+   * @param bbox Bounding box defining corner coordinates (xmin, xmax, ymin,
+   * ymax).
+   */
+  QuadSurfaceFunction(float     c00,
+                      float     c10,
+                      float     c01,
+                      float     c11,
+                      glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
+
+protected:
+  float     c00;  ///< Bottom-left value.
+  float     c10;  ///< Bottom-right value.
+  float     c01;  ///< Top-left value.
+  float     c11;  ///< Top-right value.
+  glm::vec4 bbox; ///< Domain bounding box.
+};
+
+/**
  * @class RectangleFunction
  * @brief RectangleFunction (x, y) function class.
  */
