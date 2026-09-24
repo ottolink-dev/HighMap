@@ -58,7 +58,7 @@ void hydraulic_procedural(Array         &z,
   const int        kp_ir = int(shape.x / kp_global);
   const int        angle_filter_ir = kp_ir;
   const bool       rotate90 = false;
-  const int        n_kernel_samples = 16;
+  const float      normalization = 1.f;
   const glm::vec2  jitter = {1.f, 1.f};
   const int        gradient_prefilter_ir = kp_ir;
 
@@ -108,7 +108,7 @@ void hydraulic_procedural(Array         &z,
                                  seed,
                                  kp_global,
                                  rotate90,
-                                 n_kernel_samples,
+                                 normalization,
                                  jitter,
                                  angle_filter_ir,
                                  // nullptr,

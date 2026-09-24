@@ -852,7 +852,7 @@ Array phasor(PhasorProfile   phasor_profile,
              float           kp_global,
              std::uint32_t   seed,
              float           angle_shift = 0.f,
-             int             n_kernel_samples = 8,
+             float           normalization = 1.f,
              const glm::vec2 jitter = {1.f, 1.f},
              float           delta = 0.01f,
              float           phase_smoothing = 10.f,
@@ -876,7 +876,7 @@ Array phasor(PhasorProfile   phasor_profile,
  * @param  weight           Initial octave weight.
  * @param  persistence      Amplitude multiplier per octave.
  * @param  lacunarity       Frequency multiplier per octave.
- * @param  n_kernel_samples Number of kernel samples.
+ * @param  normalization    Degree of normalization applied [0, 1].
  * @param  jitter           Sampling jitter (x,y).
  * @param  delta            Finite difference step.
  * @param  phase_smoothing  Phase smoothing factor.
@@ -901,7 +901,7 @@ Array phasor_fbm(PhasorProfile   phasor_profile,
                  float           weight = 0.7f,
                  float           persistence = 0.5f,
                  float           lacunarity = 2.f,
-                 int             n_kernel_samples = 8,
+                 float           normalization = 1.f,
                  const glm::vec2 jitter = {1.f, 1.f},
                  float           delta = 0.01f,
                  float           phase_smoothing = 10.f,

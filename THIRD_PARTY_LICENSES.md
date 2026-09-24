@@ -368,3 +368,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+## Project: https://www.shadertoy.com/view/w3ycRw
+- URL: https://www.shadertoy.com/view/w3ycRw
+- License: Mozilla Public License Version 2.0 (MPL-2.0)
+- Copyright: Copyright (c) 2025 Rune Skovbo Johansen
+
+### Notes
+Sampled Phacelle Noise implementation used in `phase_field.cl`.
+
+### License Text
+```
+Phacelle Noise function copyright (c) 2025 Rune Skovbo Johansen
+This Source Code Form is subject to the terms of the Mozilla Public
+License, v. 2.0. If a copy of the MPL was not distributed with this
+file, You can obtain one at https://mozilla.org/MPL/2.0/.
+```
