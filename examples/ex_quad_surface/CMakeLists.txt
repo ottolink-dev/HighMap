@@ -1,0 +1,2 @@
+add_executable(ex_quad_surface ex_quad_surface.cpp)
+target_link_libraries(ex_quad_surface highmap)
