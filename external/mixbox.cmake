@@ -1,8 +1,23 @@
-project(mixbox)
+include(FetchContent)
 
-set(MIXBOX_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mixbox/cpp)
+FetchContent_Declare(
+  mixbox
+  GIT_REPOSITORY https://github.com/scrtwpns/mixbox.git
+  GIT_TAG master
+  GIT_SHALLOW TRUE)
 
-add_library(${PROJECT_NAME} STATIC ${MIXBOX_DIR}/mixbox.cpp)
-add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+FetchContent_GetProperties(mixbox)
+if(NOT mixbox_POPULATED)
+  FetchContent_Populate(mixbox)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${MIXBOX_DIR})
+  if(EXISTS ${mixbox_SOURCE_DIR}/cpp/mixbox.cpp)
+    set(MIXBOX_DIR ${mixbox_SOURCE_DIR}/cpp)
+  else()
+    set(MIXBOX_DIR ${mixbox_SOURCE_DIR})
+  endif()
+
+  add_library(mixbox STATIC ${MIXBOX_DIR}/mixbox.cpp)
+  add_library(mixbox::mixbox ALIAS mixbox)
+
+  target_include_directories(mixbox PUBLIC ${MIXBOX_DIR})
+endif()

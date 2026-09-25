@@ -63,8 +63,8 @@ void set_borders(Array    &array,
 {
   if (!validate_non_empty(array)) return;
 
-  std::vector<float> x = linspace(bbox.x, bbox.y, array.shape.x, false);
-  std::vector<float> y = linspace(bbox.z, bbox.w, array.shape.y, false);
+  std::vector<float> x = linspace(bbox.x, bbox.y, array.shape.x, true);
+  std::vector<float> y = linspace(bbox.z, bbox.w, array.shape.y, true);
 
   // west
   if (buffer_sizes.x > 0.f)

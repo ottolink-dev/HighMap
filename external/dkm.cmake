@@ -1,8 +1,15 @@
-project(dkm)
+include(FetchContent)
 
-set(DKM_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dkm/include)
+FetchContent_Declare(
+  dkm
+  GIT_REPOSITORY https://github.com/genbattle/dkm.git
+  GIT_TAG master
+  GIT_SHALLOW TRUE)
 
-add_library(${PROJECT_NAME} INTERFACE)
-add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
-
-target_include_directories(${PROJECT_NAME} INTERFACE ${DKM_DIR})
+FetchContent_GetProperties(dkm)
+if(NOT dkm_POPULATED)
+  FetchContent_Populate(dkm)
+  add_library(dkm INTERFACE)
+  add_library(dkm::dkm ALIAS dkm)
+  target_include_directories(dkm INTERFACE ${dkm_SOURCE_DIR}/include)
+endif()
