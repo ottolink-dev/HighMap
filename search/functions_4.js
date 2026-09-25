@@ -26,7 +26,7 @@ var searchData=
   ['expand_5ftalus_23',['expand_talus',['../namespacehmap.html#a8c437f3963887949da7f4433cf26bf96',1,'hmap']]],
   ['expectvecnear_24',['expectVecNear',['../test__cloud_8cpp.html#afbb5b1c88e88a97044e5571bce02ddb0',1,'test_cloud.cpp']]],
   ['export_5fas_5fascii_25',['export_as_ascii',['../namespacehmap.html#a2f24b35f08d0ba5cce622c8896690fbd',1,'hmap']]],
-  ['export_5fas_5fcubemap_26',['export_as_cubemap',['../namespacehmap.html#a3aa96cd684efd827ce57ffd9fef3c950',1,'hmap']]],
+  ['export_5fas_5fcubemap_26',['export_as_cubemap',['../namespacehmap.html#ad880e48991b3beda92660d62c2bb0294',1,'hmap']]],
   ['export_5fasset_27',['export_asset',['../namespacehmap.html#a33c845361a82a1863a6a8a65f8027573',1,'hmap::export_asset(const std::string &amp;fname, const Array &amp;array, MeshType mesh_type=MeshType::TRI, AssetExportFormat export_format=AssetExportFormat::GLB2, float elevation_scaling=0.2f, const std::string &amp;texture_fname=&quot;&quot;, const std::string &amp;normal_map_fname=&quot;&quot;, float max_error=5e-4f, bool fit_boundaries=false)'],['../namespacehmap.html#a4f0b91aff70b29e8173cf4189a59bcad',1,'hmap::export_asset(const std::string &amp;fname, const Array &amp;array, const Array &amp;mask, AssetExportFormat export_format=AssetExportFormat::GLB2, float elevation_scaling=0.2f, const std::string &amp;texture_fname=&quot;&quot;, const std::string &amp;normal_map_fname=&quot;&quot;, bool fit_boundaries=false)']]],
   ['export_5fbanner_5fpng_28',['export_banner_png',['../namespacehmap.html#ac2452e568959bc21c9b7b09202e5977a',1,'hmap']]],
   ['export_5fnormal_5fmap_5fpng_29',['export_normal_map_png',['../namespacehmap.html#a9648a23e61a84a702d89159d516dd4ec',1,'hmap']]],

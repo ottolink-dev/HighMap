@@ -640,7 +640,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/export.hpp" line="40" column="1" bodyfile="HighMap/include/highmap/export.hpp" bodystart="41" bodyend="44"/>
+        <location file="HighMap/include/highmap/export/asset.hpp" line="34" column="1" bodyfile="HighMap/include/highmap/export/asset.hpp" bodystart="35" bodyend="38"/>
       </memberdef>
       <memberdef kind="enum" id="namespacehmap_1ac3d35efc6e5b596f508e2b17a5aa871b" prot="public" static="no" strong="no">
         <type>int</type>
@@ -806,7 +806,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/export.hpp" line="65" column="1" bodyfile="HighMap/include/highmap/export.hpp" bodystart="66" bodyend="86"/>
+        <location file="HighMap/include/highmap/export/asset.hpp" line="59" column="1" bodyfile="HighMap/include/highmap/export/asset.hpp" bodystart="60" bodyend="80"/>
       </memberdef>
       <memberdef kind="enum" id="namespacehmap_1a9d00db2263b4b7b05245531c41c1b592" prot="public" static="no" strong="no">
         <type>int</type>
@@ -2278,7 +2278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/export.hpp" line="54" column="17" bodyfile="HighMap/include/highmap/export.hpp" bodystart="54" bodyend="56"/>
+        <location file="HighMap/include/highmap/export/asset.hpp" line="48" column="17" bodyfile="HighMap/include/highmap/export/asset.hpp" bodystart="48" bodyend="50"/>
       </memberdef>
       <memberdef kind="variable" id="namespacehmap_1a53ee5c5907cfb58acb8f30d94f536b21" prot="public" static="yes" mutable="no">
         <type>std::map&lt; <ref refid="namespacehmap_1ac3d35efc6e5b596f508e2b17a5aa871b" kindref="member">AssetExportFormat</ref>, std::vector&lt; std::string &gt; &gt;</type>
@@ -2322,7 +2322,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/export.hpp" line="109" column="1" bodyfile="HighMap/include/highmap/export.hpp" bodystart="109" bodyend="129"/>
+        <location file="HighMap/include/highmap/export/asset.hpp" line="103" column="1" bodyfile="HighMap/include/highmap/export/asset.hpp" bodystart="103" bodyend="123"/>
       </memberdef>
       <memberdef kind="variable" id="namespacehmap_1a10e5f27f8bd4a9e5feecc7016f754ebb" prot="public" static="yes" mutable="no">
         <type>std::map&lt; std::string, int &gt;</type>
@@ -13106,7 +13106,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_asset.cpp" line="262" column="6" bodyfile="HighMap/src/export/export_asset.cpp" bodystart="262" bodyend="338" declfile="HighMap/include/highmap/export.hpp" declline="164" declcolumn="6"/>
+        <location file="HighMap/src/export/export_asset.cpp" line="262" column="6" bodyfile="HighMap/src/export/export_asset.cpp" bodystart="262" bodyend="338" declfile="HighMap/include/highmap/export/asset.hpp" declline="158" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a4f0b91aff70b29e8173cf4189a59bcad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -13157,7 +13157,151 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_asset.cpp" line="340" column="6" bodyfile="HighMap/src/export/export_asset.cpp" bodystart="340" bodyend="417" declfile="HighMap/include/highmap/export.hpp" declline="174" declcolumn="6"/>
+        <location file="HighMap/src/export/export_asset.cpp" line="340" column="6" bodyfile="HighMap/src/export/export_asset.cpp" bodystart="340" bodyend="417" declfile="HighMap/include/highmap/export/asset.hpp" declline="168" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ae01b5471d28a8f4a9104e2ffea4484a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::export_points_to_ply</definition>
+        <argsstring>(const std::string &amp;fname, const std::vector&lt; float &gt; &amp;x, const std::vector&lt; float &gt; &amp;y, const std::vector&lt; float &gt; &amp;z, const std::map&lt; std::string, std::vector&lt; float &gt; &gt; &amp;custom_fields={})</argsstring>
+        <name>export_points_to_ply</name>
+        <qualifiedname>hmap::export_points_to_ply</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fname</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const std::map&lt; std::string, std::vector&lt; float &gt; &gt; &amp;</type>
+          <declname>custom_fields</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Exports 3D points with optional custom fields to an ASCII PLY file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function writes vertex data (x, y, z) and optional additional per-point attributes to a PLY file in ASCII format. Each key in <computeroutput>custom_fields</computeroutput> defines a new property in the PLY header, and its associated vector provides per-point values for that property.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output file name. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of x coordinates. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of y coordinates. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of z coordinates. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>custom_fields</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A map of custom field names to their per-point float values.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<bold>Example</bold> <programlisting filename="ex_export_points_to_ply.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>npts<sp/>=<sp/>8;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::uint32_t<sp/>seed<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/><sp/><sp/>cloud<sp/>=<sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref>(npts,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>create<sp/>custom<sp/>properties<sp/>(optional)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::map&lt;std::string,<sp/>std::vector&lt;float&gt;&gt;<sp/>custom_fields;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>npts;<sp/>++k)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>custom_fields[</highlight><highlight class="stringliteral">&quot;some_field&quot;</highlight><highlight class="normal">].push_back(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(k));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>custom_fields[</highlight><highlight class="stringliteral">&quot;custom_prop&quot;</highlight><highlight class="normal">].push_back(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(k<sp/>*<sp/>k));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ae01b5471d28a8f4a9104e2ffea4484a9" kindref="member">hmap::export_points_to_ply</ref>(</highlight><highlight class="stringliteral">&quot;points.ply&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1aab450c9376e44def1d4e4465f0b1b691" kindref="member">get_x</ref>(),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1abf5f933e3506395b5369cb090119002e" kindref="member">get_y</ref>(),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a53cb47401f1e9d027a638f3680c3004d" kindref="member">get_values</ref>(),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>custom_fields);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/export/export_points_to_ply.cpp" line="17" column="6" bodyfile="HighMap/src/export/export_points_to_ply.cpp" bodystart="17" bodyend="84" declfile="HighMap/include/highmap/export/asset.hpp" declline="195" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a466d4275bb86ca9ca603c9d4192f931a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::write_raw_16bit</definition>
+        <argsstring>(const std::string &amp;fname, const Array &amp;array)</argsstring>
+        <name>write_raw_16bit</name>
+        <qualifiedname>hmap::write_raw_16bit</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fname</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>array</declname>
+        </param>
+        <briefdescription>
+<para>Exports an array to a 16-bit &apos;raw&apos; file format, commonly used for Unity terrain imports. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function saves the input array to a file in a 16-bit &apos;raw&apos; format, which is suitable for importing heightmaps into Unity or other applications that support this format. The array values are converted and written to the file specified by <computeroutput>fname</computeroutput>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the file to which the array will be exported. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input array containing the data to be exported. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/export/format_raw.cpp" line="15" column="6" bodyfile="HighMap/src/export/format_raw.cpp" bodystart="15" bodyend="49" declfile="HighMap/include/highmap/export/asset.hpp" declline="214" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2f24b35f08d0ba5cce622c8896690fbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -13219,12 +13363,12 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_as_ascii.cpp" line="14" column="13" bodyfile="HighMap/src/export/export_as_ascii.cpp" bodystart="14" bodyend="39" declfile="HighMap/include/highmap/export.hpp" declline="204" declcolumn="13"/>
+        <location file="HighMap/src/export/export_as_ascii.cpp" line="14" column="13" bodyfile="HighMap/src/export/export_as_ascii.cpp" bodystart="14" bodyend="39" declfile="HighMap/include/highmap/export/image.hpp" declline="50" declcolumn="13"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a3aa96cd684efd827ce57ffd9fef3c950" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1ad880e48991b3beda92660d62c2bb0294" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::export_as_cubemap</definition>
-        <argsstring>(const std::string &amp;fname, const Array &amp;z, int cubemap_resolution=128, float overlap=0.25f, int ir=16, Cmap cmap=Cmap::GRAY, bool splitted=false, Array *p_cubemap=nullptr)</argsstring>
+        <argsstring>(const std::string &amp;fname, const Array &amp;z, int cubemap_resolution=128, float overlap=0.25f, int ir=16, Cmap cmap=static_cast&lt; Cmap &gt;(0), bool splitted=false, Array *p_cubemap=nullptr)</argsstring>
         <name>export_as_cubemap</name>
         <qualifiedname>hmap::export_as_cubemap</qualifiedname>
         <param>
@@ -13253,7 +13397,7 @@ additional_depth)</computeroutput>.</para>
         <param>
           <type><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369" kindref="member">Cmap</ref></type>
           <declname>cmap</declname>
-          <defval><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a233f5593cf083495332bafd2607d154d" kindref="member">Cmap::GRAY</ref></defval>
+          <defval>static_cast&lt; <ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369" kindref="member">Cmap</ref> &gt;(0)</defval>
         </param>
         <param>
           <type>bool</type>
@@ -13348,7 +13492,7 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(z);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1acbf32c30d68183eb5522888af2ede316" kindref="member">hmap::hydraulic_stream</ref>(z,<sp/>&amp;z,<sp/>0.05f,<sp/>4.f<sp/>/<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a3aa96cd684efd827ce57ffd9fef3c950" kindref="member">hmap::export_as_cubemap</ref>(</highlight><highlight class="stringliteral">&quot;ex_export_as_cubemap.png&quot;</highlight><highlight class="normal">,<sp/>z);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ad880e48991b3beda92660d62c2bb0294" kindref="member">hmap::export_as_cubemap</ref>(</highlight><highlight class="stringliteral">&quot;ex_export_as_cubemap.png&quot;</highlight><highlight class="normal">,<sp/>z);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
 <para><bold>Result</bold> <image type="html" name="ex_export_as_cubemap.png"></image>
@@ -13356,7 +13500,7 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_as_cubemap.cpp" line="181" column="6" bodyfile="HighMap/src/export/export_as_cubemap.cpp" bodystart="181" bodyend="520" declfile="HighMap/include/highmap/export.hpp" declline="246" declcolumn="6"/>
+        <location file="HighMap/src/export/export_as_cubemap.cpp" line="181" column="6" bodyfile="HighMap/src/export/export_as_cubemap.cpp" bodystart="181" bodyend="520" declfile="HighMap/include/highmap/export/image.hpp" declline="92" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -13428,7 +13572,7 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_banner_png.cpp" line="16" column="6" bodyfile="HighMap/src/export/export_banner_png.cpp" bodystart="16" bodyend="54" declfile="HighMap/include/highmap/export.hpp" declline="271" declcolumn="6"/>
+        <location file="HighMap/src/export/export_banner_png.cpp" line="16" column="6" bodyfile="HighMap/src/export/export_banner_png.cpp" bodystart="16" bodyend="54" declfile="HighMap/include/highmap/export/image.hpp" declline="117" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9648a23e61a84a702d89159d516dd4ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -13499,7 +13643,7 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_normal_map.cpp" line="15" column="6" bodyfile="HighMap/src/export/export_normal_map.cpp" bodystart="15" bodyend="23" declfile="HighMap/include/highmap/export.hpp" declline="292" declcolumn="6"/>
+        <location file="HighMap/src/export/export_normal_map.cpp" line="15" column="6" bodyfile="HighMap/src/export/export_normal_map.cpp" bodystart="15" bodyend="23" declfile="HighMap/include/highmap/export/image.hpp" declline="138" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a32464922c39713910ebeab632e0e8fd1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -13621,109 +13765,7 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_splatmap.cpp" line="34" column="6" bodyfile="HighMap/src/export/export_splatmap.cpp" bodystart="34" bodyend="45" declfile="HighMap/include/highmap/export.hpp" declline="325" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1ae01b5471d28a8f4a9104e2ffea4484a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::export_points_to_ply</definition>
-        <argsstring>(const std::string &amp;fname, const std::vector&lt; float &gt; &amp;x, const std::vector&lt; float &gt; &amp;y, const std::vector&lt; float &gt; &amp;z, const std::map&lt; std::string, std::vector&lt; float &gt; &gt; &amp;custom_fields={})</argsstring>
-        <name>export_points_to_ply</name>
-        <qualifiedname>hmap::export_points_to_ply</qualifiedname>
-        <param>
-          <type>const std::string &amp;</type>
-          <declname>fname</declname>
-        </param>
-        <param>
-          <type>const std::vector&lt; float &gt; &amp;</type>
-          <declname>x</declname>
-        </param>
-        <param>
-          <type>const std::vector&lt; float &gt; &amp;</type>
-          <declname>y</declname>
-        </param>
-        <param>
-          <type>const std::vector&lt; float &gt; &amp;</type>
-          <declname>z</declname>
-        </param>
-        <param>
-          <type>const std::map&lt; std::string, std::vector&lt; float &gt; &gt; &amp;</type>
-          <declname>custom_fields</declname>
-          <defval>{}</defval>
-        </param>
-        <briefdescription>
-<para>Exports 3D points with optional custom fields to an ASCII PLY file. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>This function writes vertex data (x, y, z) and optional additional per-point attributes to a PLY file in ASCII format. Each key in <computeroutput>custom_fields</computeroutput> defines a new property in the PLY header, and its associated vector provides per-point values for that property.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>fname</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The output file name. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>x</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Vector of x coordinates. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>y</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Vector of y coordinates. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>z</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Vector of z coordinates. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>custom_fields</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>A map of custom field names to their per-point float values.</para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<bold>Example</bold> <programlisting filename="ex_export_points_to_ply.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline><highlight class="normal">{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>npts<sp/>=<sp/>8;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>std::uint32_t<sp/>seed<sp/>=<sp/>0;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/><sp/><sp/>cloud<sp/>=<sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref>(npts,<sp/>seed);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>create<sp/>custom<sp/>properties<sp/>(optional)</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>std::map&lt;std::string,<sp/>std::vector&lt;float&gt;&gt;<sp/>custom_fields;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>npts;<sp/>++k)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>custom_fields[</highlight><highlight class="stringliteral">&quot;some_field&quot;</highlight><highlight class="normal">].push_back(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(k));</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>custom_fields[</highlight><highlight class="stringliteral">&quot;custom_prop&quot;</highlight><highlight class="normal">].push_back(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(k<sp/>*<sp/>k));</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ae01b5471d28a8f4a9104e2ffea4484a9" kindref="member">hmap::export_points_to_ply</ref>(</highlight><highlight class="stringliteral">&quot;points.ply&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1aab450c9376e44def1d4e4465f0b1b691" kindref="member">get_x</ref>(),</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1abf5f933e3506395b5369cb090119002e" kindref="member">get_y</ref>(),</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a53cb47401f1e9d027a638f3680c3004d" kindref="member">get_values</ref>(),</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>custom_fields);</highlight></codeline>
-<codeline><highlight class="normal">}</highlight></codeline>
-</programlisting> </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/export/export_points_to_ply.cpp" line="17" column="6" bodyfile="HighMap/src/export/export_points_to_ply.cpp" bodystart="17" bodyend="84" declfile="HighMap/include/highmap/export.hpp" declline="350" declcolumn="6"/>
+        <location file="HighMap/src/export/export_splatmap.cpp" line="34" column="6" bodyfile="HighMap/src/export/export_splatmap.cpp" bodystart="34" bodyend="45" declfile="HighMap/include/highmap/export/image.hpp" declline="171" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a91708f107a53c4b8ef68bb1d0291c73f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -13872,7 +13914,49 @@ Each tile is extracted using slicing, adjusted for overlap if specified, and the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_tiled.cpp" line="46" column="6" bodyfile="HighMap/src/export/export_tiled.cpp" bodystart="46" bodyend="88" declfile="HighMap/include/highmap/export.hpp" declline="389" declcolumn="6"/>
+        <location file="HighMap/src/export/export_tiled.cpp" line="46" column="6" bodyfile="HighMap/src/export/export_tiled.cpp" bodystart="46" bodyend="88" declfile="HighMap/include/highmap/export/image.hpp" declline="210" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a09aeebc31234cb19376836a7009054d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::read_to_array</definition>
+        <argsstring>(const std::string &amp;fname, bool flip_j=false, bool remap=true)</argsstring>
+        <name>read_to_array</name>
+        <qualifiedname>hmap::read_to_array</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fname</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>flip_j</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>remap</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Reads an image file and converts it to a 2D array. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function uses the OpenCV <computeroutput>imread</computeroutput> function to load an image from the specified file. The supported file formats are those recognized by OpenCV&apos;s <computeroutput>imread</computeroutput> function, such as JPEG, PNG, BMP, and others. If the image is in color, it is automatically converted to grayscale using the built-in OpenCV codec converter. This conversion process may introduce artifacts depending on the image&apos;s original format and content.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the image file to be read. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> A 2D array containing the pixel values of the grayscale image. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/export/read_to_array.cpp" line="15" column="7" bodyfile="HighMap/src/export/read_to_array.cpp" bodystart="15" bodyend="28" declfile="HighMap/include/highmap/export/image.hpp" declline="233" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a44e7bc9494b71c4022e45ef9c2199075" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -14094,91 +14178,7 @@ Each tile is extracted using slicing, adjusted for overlap if specified, and the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_usd.cpp" line="190" column="6" bodyfile="HighMap/src/export/export_usd.cpp" bodystart="190" bodyend="281" declfile="HighMap/include/highmap/export.hpp" declline="426" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a09aeebc31234cb19376836a7009054d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
-        <definition>Array hmap::read_to_array</definition>
-        <argsstring>(const std::string &amp;fname, bool flip_j=false, bool remap=true)</argsstring>
-        <name>read_to_array</name>
-        <qualifiedname>hmap::read_to_array</qualifiedname>
-        <param>
-          <type>const std::string &amp;</type>
-          <declname>fname</declname>
-        </param>
-        <param>
-          <type>bool</type>
-          <declname>flip_j</declname>
-          <defval>false</defval>
-        </param>
-        <param>
-          <type>bool</type>
-          <declname>remap</declname>
-          <defval>true</defval>
-        </param>
-        <briefdescription>
-<para>Reads an image file and converts it to a 2D array. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>This function uses the OpenCV <computeroutput>imread</computeroutput> function to load an image from the specified file. The supported file formats are those recognized by OpenCV&apos;s <computeroutput>imread</computeroutput> function, such as JPEG, PNG, BMP, and others. If the image is in color, it is automatically converted to grayscale using the built-in OpenCV codec converter. This conversion process may introduce artifacts depending on the image&apos;s original format and content.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>fname</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The name of the image file to be read. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> A 2D array containing the pixel values of the grayscale image. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/export/read_to_array.cpp" line="15" column="7" bodyfile="HighMap/src/export/read_to_array.cpp" bodystart="15" bodyend="28" declfile="HighMap/include/highmap/export.hpp" declline="451" declcolumn="7"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a466d4275bb86ca9ca603c9d4192f931a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::write_raw_16bit</definition>
-        <argsstring>(const std::string &amp;fname, const Array &amp;array)</argsstring>
-        <name>write_raw_16bit</name>
-        <qualifiedname>hmap::write_raw_16bit</qualifiedname>
-        <param>
-          <type>const std::string &amp;</type>
-          <declname>fname</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>array</declname>
-        </param>
-        <briefdescription>
-<para>Exports an array to a 16-bit &apos;raw&apos; file format, commonly used for Unity terrain imports. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>This function saves the input array to a file in a 16-bit &apos;raw&apos; format, which is suitable for importing heightmaps into Unity or other applications that support this format. The array values are converted and written to the file specified by <computeroutput>fname</computeroutput>.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>fname</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The name of the file to which the array will be exported. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>array</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The input array containing the data to be exported. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/export/format_raw.cpp" line="15" column="6" bodyfile="HighMap/src/export/format_raw.cpp" bodystart="15" bodyend="49" declfile="HighMap/include/highmap/export.hpp" declline="467" declcolumn="6"/>
+        <location file="HighMap/src/export/export_usd.cpp" line="190" column="6" bodyfile="HighMap/src/export/export_usd.cpp" bodystart="190" bodyend="281" declfile="HighMap/include/highmap/export/scene.hpp" declline="56" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a34efdecd3db27a30c06537acda6d9457" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

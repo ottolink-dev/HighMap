@@ -725,9 +725,13 @@ bool \mbox{\hyperlink{namespacehmap_a33c845361a82a1863a6a8a65f8027573}{export\+\
 \begin{DoxyCompactList}\small\item\em Exports a heightmap to various 3D file formats. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{namespacehmap_a4f0b91aff70b29e8173cf4189a59bcad}{export\+\_\+asset}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&mask, \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871b}{Asset\+Export\+Format}} export\+\_\+format=\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba0766d2c2cb91f6e1e9a1b4dfcbffd562}{Asset\+Export\+Format\+::\+GLB2}}, float elevation\+\_\+scaling=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const std\+::string \&texture\+\_\+fname="{}"{}, const std\+::string \&normal\+\_\+map\+\_\+fname="{}"{}, bool fit\+\_\+boundaries=false)
 \item 
+void \mbox{\hyperlink{namespacehmap_ae01b5471d28a8f4a9104e2ffea4484a9}{export\+\_\+points\+\_\+to\+\_\+ply}} (const std\+::string \&fname, const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}, const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}}, const std\+::vector$<$ float $>$ \&z, const std\+::map$<$ std\+::string, std\+::vector$<$ float $>$ $>$ \&custom\+\_\+fields=\{\})
+\begin{DoxyCompactList}\small\item\em Exports 3D points with optional custom fields to an ASCII PLY file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a466d4275bb86ca9ca603c9d4192f931a}{write\+\_\+raw\+\_\+16bit}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Exports an array to a 16-\/bit \textquotesingle{}raw\textquotesingle{} file format, commonly used for Unity terrain imports. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{namespacehmap_a2f24b35f08d0ba5cce622c8896690fbd}{export\+\_\+as\+\_\+ascii}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const glm\+::ivec2 \&export\+\_\+shape=\{64, 64\}, const std\+::string chars\+\_\+map="{} .\+:-\/=+\texorpdfstring{$\ast$}{*}\#\%@"{})
 \begin{DoxyCompactList}\small\item\em Export a 2D array as an ASCII-\/art string representation. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a3aa96cd684efd827ce57ffd9fef3c950}{export\+\_\+as\+\_\+cubemap}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int cubemap\+\_\+resolution=128, float overlap=0.\+25\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}}=16, \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369}{Cmap}} cmap=\mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a233f5593cf083495332bafd2607d154d}{Cmap\+::\+GRAY}}, bool splitted=false, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+cubemap=nullptr)
+void \mbox{\hyperlink{namespacehmap_ad880e48991b3beda92660d62c2bb0294}{export\+\_\+as\+\_\+cubemap}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int cubemap\+\_\+resolution=128, float overlap=0.\+25\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}}=16, \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369}{Cmap}} cmap=static\+\_\+cast$<$ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369}{Cmap}} $>$(0), bool splitted=false, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+cubemap=nullptr)
 \begin{DoxyCompactList}\small\item\em Exports a 2D array as a cubemap texture with continuity enforcement and overlapping regions. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{export\+\_\+banner\+\_\+png}} (const std\+::string \&fname, const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Array}{Array}} $>$ \&arrays, int cmap, bool hillshading=false, bool normalize\+\_\+arrays=false)
 \begin{DoxyCompactList}\small\item\em Exports a set of arrays as a banner PNG image file. \end{DoxyCompactList}\item 
@@ -735,16 +739,12 @@ void \mbox{\hyperlink{namespacehmap_a9648a23e61a84a702d89159d516dd4ec}{export\+\
 \begin{DoxyCompactList}\small\item\em Exports the heightmap normal map as an 8-\/bit PNG file. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a32464922c39713910ebeab632e0e8fd1}{export\+\_\+splatmap\+\_\+png}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+r, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+g=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+b=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+a=nullptr, int depth=CV\+\_\+8U)
 \begin{DoxyCompactList}\small\item\em Exports four arrays as an RGBA PNG splatmap. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_ae01b5471d28a8f4a9104e2ffea4484a9}{export\+\_\+points\+\_\+to\+\_\+ply}} (const std\+::string \&fname, const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}, const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}}, const std\+::vector$<$ float $>$ \&z, const std\+::map$<$ std\+::string, std\+::vector$<$ float $>$ $>$ \&custom\+\_\+fields=\{\})
-\begin{DoxyCompactList}\small\item\em Exports 3D points with optional custom fields to an ASCII PLY file. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a91708f107a53c4b8ef68bb1d0291c73f}{export\+\_\+tiled}} (const std\+::string \&fname\+\_\+radical, const std\+::string \&fname\+\_\+extension, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const glm\+::ivec2 \&tiling, int leading\+\_\+zeros=0, int depth=CV\+\_\+8U, bool overlapping\+\_\+edges=false, bool reverse\+\_\+tile\+\_\+y\+\_\+indexing=false)
 \begin{DoxyCompactList}\small\item\em Exports a 2D array as a set of grayscale PNG image tiles. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacehmap_a44e7bc9494b71c4022e45ef9c2199075}{export\+\_\+usd}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&elevation, const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}} $>$ \&clouds=\{\}, const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Path}{Path}} $>$ \&paths=\{\}, \mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250}{Mesh\+Type}} mesh\+\_\+type=\mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14}{Mesh\+Type\+::\+TRI}}, float elevation\+\_\+scaling=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const std\+::string \&texture\+\_\+fname="{}"{}, const std\+::string \&normal\+\_\+map\+\_\+fname="{}"{}, float max\+\_\+error=5e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, bool fit\+\_\+boundaries=false)
-\begin{DoxyCompactList}\small\item\em Exports a composite scene (terrain, clouds, and paths) to Universal Scene Description (USD). \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a09aeebc31234cb19376836a7009054d3}{read\+\_\+to\+\_\+array}} (const std\+::string \&fname, bool flip\+\_\+j=false, bool \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{remap}}=true)
 \begin{DoxyCompactList}\small\item\em Reads an image file and converts it to a 2D array. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a466d4275bb86ca9ca603c9d4192f931a}{write\+\_\+raw\+\_\+16bit}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
-\begin{DoxyCompactList}\small\item\em Exports an array to a 16-\/bit \textquotesingle{}raw\textquotesingle{} file format, commonly used for Unity terrain imports. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a44e7bc9494b71c4022e45ef9c2199075}{export\+\_\+usd}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&elevation, const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}} $>$ \&clouds=\{\}, const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Path}{Path}} $>$ \&paths=\{\}, \mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250}{Mesh\+Type}} mesh\+\_\+type=\mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14}{Mesh\+Type\+::\+TRI}}, float elevation\+\_\+scaling=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const std\+::string \&texture\+\_\+fname="{}"{}, const std\+::string \&normal\+\_\+map\+\_\+fname="{}"{}, float max\+\_\+error=5e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, bool fit\+\_\+boundaries=false)
+\begin{DoxyCompactList}\small\item\em Exports a composite scene (terrain, clouds, and paths) to Universal Scene Description (USD). \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a34efdecd3db27a30c06537acda6d9457}{connected\+\_\+components}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float surface\+\_\+threshold=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float background\+\_\+value=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, std\+::map$<$ float, float $>$ \texorpdfstring{$\ast$}{*}p\+\_\+surfaces=nullptr, std\+::map$<$ float, std\+::array$<$ float, 2 $>$ $>$ \texorpdfstring{$\ast$}{*}p\+\_\+centroids=nullptr)
 \begin{DoxyCompactList}\small\item\em Identifies and labels connected components within a binary or labeled array, with optional filtering by size. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_aa60fa2d3f02d1e064b520fa1623200d0}{geomorphons}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int irmin, int irmax, float epsilon)
@@ -8651,6 +8651,77 @@ This function exports the input heightmap array as a 3D asset in the specified f
 \doxysubsubsection{\texorpdfstring{export\_asset()}{export\_asset()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily bool hmap\+::export\+\_\+asset (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{mask,  }\item[{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871b}{Asset\+Export\+Format}}}]{export\+\_\+format = {\ttfamily \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba0766d2c2cb91f6e1e9a1b4dfcbffd562}{Asset\+Export\+Format\+::\+GLB2}}},  }\item[{float}]{elevation\+\_\+scaling = {\ttfamily 0.2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{const std\+::string \&}]{texture\+\_\+fname = {\ttfamily "{}"{}},  }\item[{const std\+::string \&}]{normal\+\_\+map\+\_\+fname = {\ttfamily "{}"{}},  }\item[{bool}]{fit\+\_\+boundaries = {\ttfamily false} }\end{DoxyParamCaption})}
 
+\Hypertarget{namespacehmap_ae01b5471d28a8f4a9104e2ffea4484a9}\label{namespacehmap_ae01b5471d28a8f4a9104e2ffea4484a9} 
+\index{hmap@{hmap}!export\_points\_to\_ply@{export\_points\_to\_ply}}
+\index{export\_points\_to\_ply@{export\_points\_to\_ply}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{export\_points\_to\_ply()}{export\_points\_to\_ply()}}
+{\footnotesize\ttfamily void hmap\+::export\+\_\+points\+\_\+to\+\_\+ply (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname,  }\item[{const std\+::vector$<$ float $>$ \&}]{x,  }\item[{const std\+::vector$<$ float $>$ \&}]{y,  }\item[{const std\+::vector$<$ float $>$ \&}]{z,  }\item[{const std\+::map$<$ std\+::string, std\+::vector$<$ float $>$ $>$ \&}]{custom\+\_\+fields = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Exports 3D points with optional custom fields to an ASCII PLY file. 
+
+This function writes vertex data (x, y, z) and optional additional per-\/point attributes to a PLY file in ASCII format. Each key in {\ttfamily custom\+\_\+fields} defines a new property in the PLY header, and its associated vector provides per-\/point values for that property.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fname} & The output file name. \\
+\hline
+{\em x} & Vector of x coordinates. \\
+\hline
+{\em y} & Vector of y coordinates. \\
+\hline
+{\em z} & Vector of z coordinates. \\
+\hline
+{\em custom\+\_\+fields} & A map of custom field names to their per-\/point float values.\\
+\hline
+\end{DoxyParams}
+{\bfseries{Example}} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ npts\ =\ 8;}
+\DoxyCodeLine{\ \ std::uint32\_t\ seed\ =\ 0;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ \ \ cloud\ =\ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}(npts,\ seed);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ create\ custom\ properties\ (optional)}}
+\DoxyCodeLine{\ \ std::map<std::string,\ std::vector<float>>\ custom\_fields;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <\ npts;\ ++k)}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ custom\_fields[\textcolor{stringliteral}{"{}some\_field"{}}].push\_back(\textcolor{keywordtype}{float}(k));}
+\DoxyCodeLine{\ \ \ \ custom\_fields[\textcolor{stringliteral}{"{}custom\_prop"{}}].push\_back(\textcolor{keywordtype}{float}(k\ *\ k));}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ae01b5471d28a8f4a9104e2ffea4484a9}{hmap::export\_points\_to\_ply}}(\textcolor{stringliteral}{"{}points.ply"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_aab450c9376e44def1d4e4465f0b1b691}{get\_x}}(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_abf5f933e3506395b5369cb090119002e}{get\_y}}(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_a53cb47401f1e9d027a638f3680c3004d}{get\_values}}(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ custom\_fields);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ \Hypertarget{namespacehmap_a466d4275bb86ca9ca603c9d4192f931a}\label{namespacehmap_a466d4275bb86ca9ca603c9d4192f931a} 
+\index{hmap@{hmap}!write\_raw\_16bit@{write\_raw\_16bit}}
+\index{write\_raw\_16bit@{write\_raw\_16bit}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{write\_raw\_16bit()}{write\_raw\_16bit()}}
+{\footnotesize\ttfamily void hmap\+::write\+\_\+raw\+\_\+16bit (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array }\end{DoxyParamCaption})}
+
+
+
+Exports an array to a 16-\/bit \textquotesingle{}raw\textquotesingle{} file format, commonly used for Unity terrain imports. 
+
+This function saves the input array to a file in a 16-\/bit \textquotesingle{}raw\textquotesingle{} format, which is suitable for importing heightmaps into Unity or other applications that support this format. The array values are converted and written to the file specified by {\ttfamily fname}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fname} & The name of the file to which the array will be exported. \\
+\hline
+{\em array} & The input array containing the data to be exported. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{namespacehmap_a2f24b35f08d0ba5cce622c8896690fbd}\label{namespacehmap_a2f24b35f08d0ba5cce622c8896690fbd} 
 \index{hmap@{hmap}!export\_as\_ascii@{export\_as\_ascii}}
 \index{export\_as\_ascii@{export\_as\_ascii}!hmap@{hmap}}
@@ -8680,11 +8751,11 @@ The function resamples the array using nearest-\/neighbor interpolation.
 
 The y-\/axis is flipped so that higher indices appear lower in the text output. 
 \end{DoxyNote}
-\Hypertarget{namespacehmap_a3aa96cd684efd827ce57ffd9fef3c950}\label{namespacehmap_a3aa96cd684efd827ce57ffd9fef3c950} 
+\Hypertarget{namespacehmap_ad880e48991b3beda92660d62c2bb0294}\label{namespacehmap_ad880e48991b3beda92660d62c2bb0294} 
 \index{hmap@{hmap}!export\_as\_cubemap@{export\_as\_cubemap}}
 \index{export\_as\_cubemap@{export\_as\_cubemap}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{export\_as\_cubemap()}{export\_as\_cubemap()}}
-{\footnotesize\ttfamily void hmap\+::export\+\_\+as\+\_\+cubemap (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{int}]{cubemap\+\_\+resolution = {\ttfamily 128},  }\item[{float}]{overlap = {\ttfamily 0.25\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{int}]{ir = {\ttfamily 16},  }\item[{\mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369}{Cmap}}}]{cmap = {\ttfamily \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a233f5593cf083495332bafd2607d154d}{Cmap\+::\+GRAY}}},  }\item[{bool}]{splitted = {\ttfamily false},  }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+cubemap = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void hmap\+::export\+\_\+as\+\_\+cubemap (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{int}]{cubemap\+\_\+resolution = {\ttfamily 128},  }\item[{float}]{overlap = {\ttfamily 0.25\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{int}]{ir = {\ttfamily 16},  }\item[{\mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369}{Cmap}}}]{cmap = {\ttfamily static\+\_\+cast$<$\mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369}{Cmap}}$>$(0)},  }\item[{bool}]{splitted = {\ttfamily false},  }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+cubemap = {\ttfamily nullptr} }\end{DoxyParamCaption})}
 
 
 
@@ -8727,7 +8798,7 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(z);}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_acbf32c30d68183eb5522888af2ede316}{hmap::hydraulic\_stream}}(z,\ \&z,\ 0.05f,\ 4.f\ /\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x);}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a3aa96cd684efd827ce57ffd9fef3c950}{hmap::export\_as\_cubemap}}(\textcolor{stringliteral}{"{}ex\_export\_as\_cubemap.png"{}},\ z);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ad880e48991b3beda92660d62c2bb0294}{hmap::export\_as\_cubemap}}(\textcolor{stringliteral}{"{}ex\_export\_as\_cubemap.png"{}},\ z);}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}
@@ -8855,59 +8926,7 @@ This function combines four input arrays, representing the red (R), green (G), b
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}   \Hypertarget{namespacehmap_ae01b5471d28a8f4a9104e2ffea4484a9}\label{namespacehmap_ae01b5471d28a8f4a9104e2ffea4484a9} 
-\index{hmap@{hmap}!export\_points\_to\_ply@{export\_points\_to\_ply}}
-\index{export\_points\_to\_ply@{export\_points\_to\_ply}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{export\_points\_to\_ply()}{export\_points\_to\_ply()}}
-{\footnotesize\ttfamily void hmap\+::export\+\_\+points\+\_\+to\+\_\+ply (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname,  }\item[{const std\+::vector$<$ float $>$ \&}]{x,  }\item[{const std\+::vector$<$ float $>$ \&}]{y,  }\item[{const std\+::vector$<$ float $>$ \&}]{z,  }\item[{const std\+::map$<$ std\+::string, std\+::vector$<$ float $>$ $>$ \&}]{custom\+\_\+fields = {\ttfamily \{\}} }\end{DoxyParamCaption})}
-
-
-
-Exports 3D points with optional custom fields to an ASCII PLY file. 
-
-This function writes vertex data (x, y, z) and optional additional per-\/point attributes to a PLY file in ASCII format. Each key in {\ttfamily custom\+\_\+fields} defines a new property in the PLY header, and its associated vector provides per-\/point values for that property.
-
-
-\begin{DoxyParams}{Parameters}
-{\em fname} & The output file name. \\
-\hline
-{\em x} & Vector of x coordinates. \\
-\hline
-{\em y} & Vector of y coordinates. \\
-\hline
-{\em z} & Vector of z coordinates. \\
-\hline
-{\em custom\+\_\+fields} & A map of custom field names to their per-\/point float values.\\
-\hline
-\end{DoxyParams}
-{\bfseries{Example}} 
-\begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
-\DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ npts\ =\ 8;}
-\DoxyCodeLine{\ \ std::uint32\_t\ seed\ =\ 0;}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ \ \ cloud\ =\ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}(npts,\ seed);}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{comment}{//\ create\ custom\ properties\ (optional)}}
-\DoxyCodeLine{\ \ std::map<std::string,\ std::vector<float>>\ custom\_fields;}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <\ npts;\ ++k)}
-\DoxyCodeLine{\ \ \{}
-\DoxyCodeLine{\ \ \ \ custom\_fields[\textcolor{stringliteral}{"{}some\_field"{}}].push\_back(\textcolor{keywordtype}{float}(k));}
-\DoxyCodeLine{\ \ \ \ custom\_fields[\textcolor{stringliteral}{"{}custom\_prop"{}}].push\_back(\textcolor{keywordtype}{float}(k\ *\ k));}
-\DoxyCodeLine{\ \ \}}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ae01b5471d28a8f4a9104e2ffea4484a9}{hmap::export\_points\_to\_ply}}(\textcolor{stringliteral}{"{}points.ply"{}},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_aab450c9376e44def1d4e4465f0b1b691}{get\_x}}(),}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_abf5f933e3506395b5369cb090119002e}{get\_y}}(),}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_a53cb47401f1e9d027a638f3680c3004d}{get\_values}}(),}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ custom\_fields);}
-\DoxyCodeLine{\}}
-
-\end{DoxyCodeInclude}
- \Hypertarget{namespacehmap_a91708f107a53c4b8ef68bb1d0291c73f}\label{namespacehmap_a91708f107a53c4b8ef68bb1d0291c73f} 
+{\bfseries{Result}}   \Hypertarget{namespacehmap_a91708f107a53c4b8ef68bb1d0291c73f}\label{namespacehmap_a91708f107a53c4b8ef68bb1d0291c73f} 
 \index{hmap@{hmap}!export\_tiled@{export\_tiled}}
 \index{export\_tiled@{export\_tiled}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{export\_tiled()}{export\_tiled()}}
@@ -8974,7 +8993,27 @@ Each tile is extracted using slicing, adjusted for overlap if specified, and the
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}
- \Hypertarget{namespacehmap_a44e7bc9494b71c4022e45ef9c2199075}\label{namespacehmap_a44e7bc9494b71c4022e45ef9c2199075} 
+ \Hypertarget{namespacehmap_a09aeebc31234cb19376836a7009054d3}\label{namespacehmap_a09aeebc31234cb19376836a7009054d3} 
+\index{hmap@{hmap}!read\_to\_array@{read\_to\_array}}
+\index{read\_to\_array@{read\_to\_array}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{read\_to\_array()}{read\_to\_array()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::read\+\_\+to\+\_\+array (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname,  }\item[{bool}]{flip\+\_\+j = {\ttfamily false},  }\item[{bool}]{remap = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Reads an image file and converts it to a 2D array. 
+
+This function uses the Open\+CV {\ttfamily imread} function to load an image from the specified file. The supported file formats are those recognized by Open\+CV\textquotesingle{}s {\ttfamily imread} function, such as JPEG, PNG, BMP, and others. If the image is in color, it is automatically converted to grayscale using the built-\/in Open\+CV codec converter. This conversion process may introduce artifacts depending on the image\textquotesingle{}s original format and content.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fname} & The name of the image file to be read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Array}{Array} A 2D array containing the pixel values of the grayscale image. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a44e7bc9494b71c4022e45ef9c2199075}\label{namespacehmap_a44e7bc9494b71c4022e45ef9c2199075} 
 \index{hmap@{hmap}!export\_usd@{export\_usd}}
 \index{export\_usd@{export\_usd}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{export\_usd()}{export\_usd()}}
@@ -9090,46 +9129,7 @@ Generates a USD stage (.usda, .usdc, or .usdz) containing\+:
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}
- \Hypertarget{namespacehmap_a09aeebc31234cb19376836a7009054d3}\label{namespacehmap_a09aeebc31234cb19376836a7009054d3} 
-\index{hmap@{hmap}!read\_to\_array@{read\_to\_array}}
-\index{read\_to\_array@{read\_to\_array}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{read\_to\_array()}{read\_to\_array()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::read\+\_\+to\+\_\+array (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname,  }\item[{bool}]{flip\+\_\+j = {\ttfamily false},  }\item[{bool}]{remap = {\ttfamily true} }\end{DoxyParamCaption})}
-
-
-
-Reads an image file and converts it to a 2D array. 
-
-This function uses the Open\+CV {\ttfamily imread} function to load an image from the specified file. The supported file formats are those recognized by Open\+CV\textquotesingle{}s {\ttfamily imread} function, such as JPEG, PNG, BMP, and others. If the image is in color, it is automatically converted to grayscale using the built-\/in Open\+CV codec converter. This conversion process may introduce artifacts depending on the image\textquotesingle{}s original format and content.
-
-
-\begin{DoxyParams}{Parameters}
-{\em fname} & The name of the image file to be read. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\doxylink{classhmap_1_1Array}{Array} A 2D array containing the pixel values of the grayscale image. 
-\end{DoxyReturn}
-\Hypertarget{namespacehmap_a466d4275bb86ca9ca603c9d4192f931a}\label{namespacehmap_a466d4275bb86ca9ca603c9d4192f931a} 
-\index{hmap@{hmap}!write\_raw\_16bit@{write\_raw\_16bit}}
-\index{write\_raw\_16bit@{write\_raw\_16bit}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{write\_raw\_16bit()}{write\_raw\_16bit()}}
-{\footnotesize\ttfamily void hmap\+::write\+\_\+raw\+\_\+16bit (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array }\end{DoxyParamCaption})}
-
-
-
-Exports an array to a 16-\/bit \textquotesingle{}raw\textquotesingle{} file format, commonly used for Unity terrain imports. 
-
-This function saves the input array to a file in a 16-\/bit \textquotesingle{}raw\textquotesingle{} format, which is suitable for importing heightmaps into Unity or other applications that support this format. The array values are converted and written to the file specified by {\ttfamily fname}.
-
-
-\begin{DoxyParams}{Parameters}
-{\em fname} & The name of the file to which the array will be exported. \\
-\hline
-{\em array} & The input array containing the data to be exported. \\
-\hline
-\end{DoxyParams}
-\Hypertarget{namespacehmap_a34efdecd3db27a30c06537acda6d9457}\label{namespacehmap_a34efdecd3db27a30c06537acda6d9457} 
+ \Hypertarget{namespacehmap_a34efdecd3db27a30c06537acda6d9457}\label{namespacehmap_a34efdecd3db27a30c06537acda6d9457} 
 \index{hmap@{hmap}!connected\_components@{connected\_components}}
 \index{connected\_components@{connected\_components}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{connected\_components()}{connected\_components()}}

@@ -1,6 +1,7 @@
 var dir_06646b66eb831be9a0698496dc1137c9 =
 [
     [ "dbg", "dir_4b50d38dbb9a706f2e01389671935eb1.html", "dir_4b50d38dbb9a706f2e01389671935eb1" ],
+    [ "export", "dir_07f2faa4e22ffdd0f0e180fc1afb0d60.html", "dir_07f2faa4e22ffdd0f0e180fc1afb0d60" ],
     [ "geometry", "dir_e3886812acc4a770a1eeec0ffad797b7.html", "dir_e3886812acc4a770a1eeec0ffad797b7" ],
     [ "hydrology", "dir_0c2217d67f0f45456a10a49c14bfb708.html", "dir_0c2217d67f0f45456a10a49c14bfb708" ],
     [ "internal", "dir_82014d7f7e4330eda10391193d6d8c10.html", "dir_82014d7f7e4330eda10391193d6d8c10" ],
@@ -22,7 +23,7 @@ var dir_06646b66eb831be9a0698496dc1137c9 =
     [ "coord_frame.hpp", "coord__frame_8hpp.html", "coord__frame_8hpp" ],
     [ "curvature.hpp", "curvature_8hpp.html", "curvature_8hpp" ],
     [ "erosion.hpp", "erosion_8hpp.html", "erosion_8hpp" ],
-    [ "export.hpp", "export_8hpp.html", "export_8hpp" ],
+    [ "export.hpp", "export_8hpp.html", null ],
     [ "features.hpp", "features_8hpp.html", "features_8hpp" ],
     [ "filters.hpp", "filters_8hpp.html", "filters_8hpp" ],
     [ "functions.hpp", "functions_8hpp.html", "functions_8hpp" ],

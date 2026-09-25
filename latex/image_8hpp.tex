@@ -1,0 +1,42 @@
+\doxysection{High\+Map/include/highmap/export/image.hpp File Reference}
+\hypertarget{image_8hpp}{}\label{image_8hpp}\index{HighMap/include/highmap/export/image.hpp@{HighMap/include/highmap/export/image.hpp}}
+
+
+Header file for 2D image and raster export functionalities.  
+
+
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacehmap}{hmap}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{namespacehmap_a2f24b35f08d0ba5cce622c8896690fbd}{hmap\+::export\+\_\+as\+\_\+ascii}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const glm\+::ivec2 \&export\+\_\+shape=\{64, 64\}, const std\+::string chars\+\_\+map="{} .\+:-\/=+\texorpdfstring{$\ast$}{*}\#\%@"{})
+\begin{DoxyCompactList}\small\item\em Export a 2D array as an ASCII-\/art string representation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_ad880e48991b3beda92660d62c2bb0294}{hmap\+::export\+\_\+as\+\_\+cubemap}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int cubemap\+\_\+resolution=128, float overlap=0.\+25\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}}=16, \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369}{Cmap}} cmap=static\+\_\+cast$<$ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369}{Cmap}} $>$(0), bool splitted=false, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+cubemap=nullptr)
+\begin{DoxyCompactList}\small\item\em Exports a 2D array as a cubemap texture with continuity enforcement and overlapping regions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap\+::export\+\_\+banner\+\_\+png}} (const std\+::string \&fname, const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Array}{Array}} $>$ \&arrays, int cmap, bool hillshading=false, bool normalize\+\_\+arrays=false)
+\begin{DoxyCompactList}\small\item\em Exports a set of arrays as a banner PNG image file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a9648a23e61a84a702d89159d516dd4ec}{hmap\+::export\+\_\+normal\+\_\+map\+\_\+png}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int depth=CV\+\_\+8U)
+\begin{DoxyCompactList}\small\item\em Exports the heightmap normal map as an 8-\/bit PNG file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a32464922c39713910ebeab632e0e8fd1}{hmap\+::export\+\_\+splatmap\+\_\+png}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+r, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+g=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+b=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+a=nullptr, int depth=CV\+\_\+8U)
+\begin{DoxyCompactList}\small\item\em Exports four arrays as an RGBA PNG splatmap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a91708f107a53c4b8ef68bb1d0291c73f}{hmap\+::export\+\_\+tiled}} (const std\+::string \&fname\+\_\+radical, const std\+::string \&fname\+\_\+extension, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const glm\+::ivec2 \&tiling, int leading\+\_\+zeros=0, int depth=CV\+\_\+8U, bool overlapping\+\_\+edges=false, bool reverse\+\_\+tile\+\_\+y\+\_\+indexing=false)
+\begin{DoxyCompactList}\small\item\em Exports a 2D array as a set of grayscale PNG image tiles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a09aeebc31234cb19376836a7009054d3}{hmap\+::read\+\_\+to\+\_\+array}} (const std\+::string \&fname, bool flip\+\_\+j=false, bool \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{remap}}=true)
+\begin{DoxyCompactList}\small\item\em Reads an image file and converts it to a 2D array. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for 2D image and raster export functionalities. 
+
+\begin{DoxyAuthor}{Author}
+Otto Link (\href{mailto:otto.link.bv@gmail.com}{\texttt{ otto.\+link.\+bv@gmail.\+com}}) 
+\end{DoxyAuthor}
+This header declares functions for exporting heightmaps and arrays to image formats (PNG, cubemaps, banners, splatmaps, tiled textures, ASCII art) and reading raster images into arrays.
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2023 Otto Link 
+\end{DoxyCopyright}

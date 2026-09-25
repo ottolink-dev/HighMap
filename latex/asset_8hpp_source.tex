@@ -1,0 +1,108 @@
+\doxysection{asset.\+hpp}
+\hypertarget{asset_8hpp_source}{}\label{asset_8hpp_source}\index{HighMap/include/highmap/export/asset.hpp@{HighMap/include/highmap/export/asset.hpp}}
+\mbox{\hyperlink{asset_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Copyright\ (c)\ 2023\ Otto\ Link.\ Distributed\ under\ the\ terms\ of\ the\ GNU\ General}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ Public\ License.\ The\ full\ license\ is\ in\ the\ file\ LICENSE,\ distributed\ with}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ this\ software.\ */}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <filesystem>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{array_8hpp}{highmap/array.hpp}}"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250}{MeshType}}\ :\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250a64d964458b2812e59ec68af2ee53a8ae}{TRI\_OPTIMIZED}},\ }
+\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14}{TRI}},\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{static}\ std::map<MeshType,\ std::string>\ mesh\_type\_as\_string\ =\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250a64d964458b2812e59ec68af2ee53a8ae}{TRI\_OPTIMIZED}},\ \textcolor{stringliteral}{"{}triangles\ (optimized)"{}}\},}
+\DoxyCodeLine{00050\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14}{TRI}},\ \textcolor{stringliteral}{"{}triangles"{}}\}\};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871b}{AssetExportFormat}}\ :\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00060\ \{}
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871baf10b3b024fd2327370b4c8c45f6ae310}{\_3DS}},\ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba2c204df8ef8fa0dc1eb38995cad3bc0f}{\_3MF}},\ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba332f2a26193b501879c33538df5f62e1}{ASSBIN}},\ \ }
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871bab090c9d0931d522e426c4c3e852ab725}{ASSXML}},\ \ }
+\DoxyCodeLine{00065\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871bab8e641a60a539570cba93410908467ee}{FXBA}},\ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba006b1f81b483f6b3e26dd4a4668ee6dc}{FBX}},\ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba83492c49190ded5f6cffeab29a42e77d}{COLLADA}},\ }
+\DoxyCodeLine{00068\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba6e6f01ac3d64e1cfe9d5257fdf3093df}{X3D}},\ \ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871bab9d58e353a90ade3e7bb101339d747bc}{GLTF}},\ \ \ \ }
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871baa7c7a874805813166a55e3d5b75b620c}{GLB}},\ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba3efd2608af3057bde072badad31513ac}{GTLF2}},\ \ \ }
+\DoxyCodeLine{00072\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba0766d2c2cb91f6e1e9a1b4dfcbffd562}{GLB2}},\ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba01b4a6af39216cb5ba424ef1bd4f66f7}{PLY}},\ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871bae0ce3a88364042b24f65140c351fb6e8}{PLYB}},\ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba95e433ab6ec047421d332a80d727fd29}{STP}},\ \ \ \ \ }
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba255d4f7c6ccaff8e1dbba731b721c118}{STL}},\ \ \ \ \ }
+\DoxyCodeLine{00077\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871bac692212c784096efd35f54c700a039f6}{STLB}},\ \ \ \ }
+\DoxyCodeLine{00078\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871bad7b6b74b201392410caefcc4933811e0}{OBJ}},\ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871baf1ff28325bd7912ef3267a9ed0049efe}{OBJNOMTL}}\ }
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{//\ clang-\/format\ off}}
+\DoxyCodeLine{00102\ \textcolor{keyword}{static}\ std::map<AssetExportFormat,\ std::vector<std::string>\ >}
+\DoxyCodeLine{00103\ asset\_export\_format\_as\_string\ =\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871baf10b3b024fd2327370b4c8c45f6ae310}{\_3DS}},\ \{\textcolor{stringliteral}{"{}Autodesk\ 3DS\ (legacy)\ -\/\ *.3ds"{}},\ \textcolor{stringliteral}{"{}3ds"{}},\ \textcolor{stringliteral}{"{}3ds"{}}\}\},}
+\DoxyCodeLine{00105\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba2c204df8ef8fa0dc1eb38995cad3bc0f}{\_3MF}},\ \{\textcolor{stringliteral}{"{}The\ 3MF-\/File-\/Format\ -\/\ *.3mf"{}},\ \textcolor{stringliteral}{"{}3mf"{}},\ \textcolor{stringliteral}{"{}3mf"{}}\}\},}
+\DoxyCodeLine{00106\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba332f2a26193b501879c33538df5f62e1}{ASSBIN}},\ \{\textcolor{stringliteral}{"{}Assimp\ Binary\ -\/\ *.assbin"{}},\ \textcolor{stringliteral}{"{}assbin"{}},\ \textcolor{stringliteral}{"{}assbin"{}}\}\},}
+\DoxyCodeLine{00107\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871bab090c9d0931d522e426c4c3e852ab725}{ASSXML}},\ \{\textcolor{stringliteral}{"{}Assxml\ Document\ -\/\ *.assxml"{}},\ \textcolor{stringliteral}{"{}assxml"{}},\ \textcolor{stringliteral}{"{}assxml"{}}\}\},}
+\DoxyCodeLine{00108\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871bab8e641a60a539570cba93410908467ee}{FXBA}},\ \{\textcolor{stringliteral}{"{}Autodesk\ FBX\ (ascii)\ -\/\ *.fbx"{}},\ \textcolor{stringliteral}{"{}fbxa"{}},\ \textcolor{stringliteral}{"{}fbx"{}}\}\},}
+\DoxyCodeLine{00109\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba006b1f81b483f6b3e26dd4a4668ee6dc}{FBX}},\ \{\textcolor{stringliteral}{"{}Autodesk\ FBX\ (binary)\ -\/\ *.fbx"{}},\ \textcolor{stringliteral}{"{}fbx"{}},\ \textcolor{stringliteral}{"{}fbx"{}}\}\},}
+\DoxyCodeLine{00110\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba83492c49190ded5f6cffeab29a42e77d}{COLLADA}},\ \{\textcolor{stringliteral}{"{}COLLADA\ -\/\ Digital\ Asset\ Exchange\ Schema\ -\/\ *.dae"{}},\ \textcolor{stringliteral}{"{}collada"{}},\ \textcolor{stringliteral}{"{}dae"{}}\}\},}
+\DoxyCodeLine{00111\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba6e6f01ac3d64e1cfe9d5257fdf3093df}{X3D}},\ \{\textcolor{stringliteral}{"{}Extensible\ 3D\ -\/\ *.x3d"{}},\ \textcolor{stringliteral}{"{}x3d"{}},\ \textcolor{stringliteral}{"{}x3d"{}}\}\},}
+\DoxyCodeLine{00112\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871bab9d58e353a90ade3e7bb101339d747bc}{GLTF}},\ \{\textcolor{stringliteral}{"{}GL\ Transmission\ Format\ -\/\ *.gltf"{}},\ \textcolor{stringliteral}{"{}gltf"{}},\ \textcolor{stringliteral}{"{}gltf"{}}\}\},}
+\DoxyCodeLine{00113\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871baa7c7a874805813166a55e3d5b75b620c}{GLB}},\ \{\textcolor{stringliteral}{"{}GL\ Transmission\ Format\ (binary)\ -\/\ *.glb"{}},\ \textcolor{stringliteral}{"{}glb"{}},\ \textcolor{stringliteral}{"{}glb"{}}\}\},}
+\DoxyCodeLine{00114\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba3efd2608af3057bde072badad31513ac}{GTLF2}},\ \{\textcolor{stringliteral}{"{}GL\ Transmission\ Format\ v.\ 2\ -\/\ *.gltf"{}},\ \textcolor{stringliteral}{"{}gltf2"{}},\ \textcolor{stringliteral}{"{}gltf"{}}\}\},}
+\DoxyCodeLine{00115\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba0766d2c2cb91f6e1e9a1b4dfcbffd562}{GLB2}},\ \{\textcolor{stringliteral}{"{}GL\ Transmission\ Format\ v.\ 2\ (binary)\ -\/\ *.glb"{}},\ \textcolor{stringliteral}{"{}glb2"{}},\ \textcolor{stringliteral}{"{}glb"{}}\}\},}
+\DoxyCodeLine{00116\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba01b4a6af39216cb5ba424ef1bd4f66f7}{PLY}},\ \{\textcolor{stringliteral}{"{}Stanford\ Polygon\ Library\ -\/\ *.ply"{}},\ \textcolor{stringliteral}{"{}ply"{}},\ \textcolor{stringliteral}{"{}ply"{}}\}\},}
+\DoxyCodeLine{00117\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871bae0ce3a88364042b24f65140c351fb6e8}{PLYB}},\ \{\textcolor{stringliteral}{"{}Stanford\ Polygon\ Library\ (binary)\ -\/\ *.ply"{}},\ \textcolor{stringliteral}{"{}plyb"{}},\ \textcolor{stringliteral}{"{}ply"{}}\}\},}
+\DoxyCodeLine{00118\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba95e433ab6ec047421d332a80d727fd29}{STP}},\ \{\textcolor{stringliteral}{"{}Step\ Files\ -\/\ *.stp"{}},\ \textcolor{stringliteral}{"{}stp"{}},\ \textcolor{stringliteral}{"{}stp"{}}\}\},}
+\DoxyCodeLine{00119\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba255d4f7c6ccaff8e1dbba731b721c118}{STL}},\ \{\textcolor{stringliteral}{"{}Stereolithography\ -\/\ *.stl"{}},\ \textcolor{stringliteral}{"{}stl"{}},\ \textcolor{stringliteral}{"{}stl"{}}\}\},}
+\DoxyCodeLine{00120\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871bac692212c784096efd35f54c700a039f6}{STLB}},\ \{\textcolor{stringliteral}{"{}Stereolithography\ (binary)\ -\/\ *.stl"{}},\ \textcolor{stringliteral}{"{}stlb"{}},\ \textcolor{stringliteral}{"{}stl"{}}\}\},}
+\DoxyCodeLine{00121\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871bad7b6b74b201392410caefcc4933811e0}{OBJ}},\ \{\textcolor{stringliteral}{"{}Wavefront\ OBJ\ format\ -\/\ *.obj"{}},\ \textcolor{stringliteral}{"{}obj"{}},\ \textcolor{stringliteral}{"{}obj"{}}\}\},}
+\DoxyCodeLine{00122\ \ \ \ \ \{\mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871baf1ff28325bd7912ef3267a9ed0049efe}{OBJNOMTL}},\ \{\textcolor{stringliteral}{"{}Wavefront\ OBJ\ format\ without\ material\ file\ -\/\ *.obj"{}},\ \textcolor{stringliteral}{"{}objnomtl"{}},\ \textcolor{stringliteral}{"{}obj"{}}\}\},}
+\DoxyCodeLine{00123\ \};}
+\DoxyCodeLine{00124\ \textcolor{comment}{//\ clang-\/format\ on}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00158\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacehmap_a33c845361a82a1863a6a8a65f8027573}{export\_asset}}(\textcolor{keyword}{const}\ std::string\ \&fname,}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \ \ \ \ \ \ \&array,}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250}{MeshType}}\ \ \ \ \ \ \ \ \ \ \ mesh\_type\ =\ \mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14}{MeshType::TRI}},}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871b}{AssetExportFormat}}\ \ export\_format\ =\ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba0766d2c2cb91f6e1e9a1b4dfcbffd562}{AssetExportFormat::GLB2}},}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ elevation\_scaling\ =\ 0.2f,}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&texture\_fname\ =\ \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&normal\_map\_fname\ =\ \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_error\ =\ 5e-\/4f,}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit\_boundaries\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacehmap_a33c845361a82a1863a6a8a65f8027573}{export\_asset}}(\textcolor{keyword}{const}\ std::string\ \&fname,}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \ \ \ \ \ \ \&array,}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \ \ \ \ \ \ \&mask,}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871b}{AssetExportFormat}}\ \ export\_format\ =\ \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871ba0766d2c2cb91f6e1e9a1b4dfcbffd562}{AssetExportFormat::GLB2}},}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ elevation\_scaling\ =\ 0.2f,}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&texture\_fname\ =\ \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&normal\_map\_fname\ =\ \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit\_boundaries\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00195\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_ae01b5471d28a8f4a9104e2ffea4484a9}{export\_points\_to\_ply}}(}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&fname,}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<float>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}},}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<float>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}},}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<float>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&z,}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keyword}{const}\ std::map<std::string,\ std::vector<float>>\ \&custom\_fields\ =\ \{\});}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00214\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_a466d4275bb86ca9ca603c9d4192f931a}{write\_raw\_16bit}}(\textcolor{keyword}{const}\ std::string\ \&fname,\ \textcolor{keyword}{const}\ Array\ \&array);}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+
+\end{DoxyCode}
