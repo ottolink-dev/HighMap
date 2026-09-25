@@ -34,6 +34,58 @@ namespace hmap
 namespace
 {
 
+lightusd::GeomBasisCurves build_usd_curves(const Path &path,
+                                           size_t      path_idx,
+                                           float       elevation_scaling,
+                                           float       x_max,
+                                           float       y_max)
+{
+  lightusd::GeomBasisCurves curves_prim;
+  curves_prim.name = "Path_" + std::to_string(path_idx);
+  curves_prim.type = lightusd::GeomBasisCurves::Type::Linear;
+
+  const auto &x = path.get_x();
+  const auto &y = path.get_y();
+  const auto &v = path.get_values();
+
+  std::vector<lightusd::value::point3f> pts(path.size());
+  for (size_t i = 0; i < path.size(); ++i)
+  {
+    float val = (i < v.size()) ? v[i] : 0.f;
+    pts[i] = {(1.f - y[i]) * y_max, elevation_scaling * val, x[i] * x_max};
+  }
+
+  curves_prim.points.set_value(pts);
+  curves_prim.curveVertexCounts.set_value(
+      std::vector<int>{static_cast<int>(path.size())});
+
+  return curves_prim;
+}
+
+lightusd::GeomPoints build_usd_points(const Cloud &cloud,
+                                      size_t       cloud_idx,
+                                      float        elevation_scaling,
+                                      float        x_max,
+                                      float        y_max)
+{
+  lightusd::GeomPoints points_prim;
+  points_prim.name = "Cloud_" + std::to_string(cloud_idx);
+
+  const auto &x = cloud.get_x();
+  const auto &y = cloud.get_y();
+  const auto &v = cloud.get_values();
+
+  std::vector<lightusd::value::point3f> pts(cloud.size());
+  for (size_t i = 0; i < cloud.size(); ++i)
+  {
+    float val = (i < v.size()) ? v[i] : 0.f;
+    pts[i] = {(1.f - y[i]) * y_max, elevation_scaling * val, x[i] * x_max};
+  }
+
+  points_prim.points.set_value(pts);
+  return points_prim;
+}
+
 lightusd::GeomMesh build_usd_terrain_mesh(const Array &array,
                                           MeshType     mesh_type,
                                           float        elevation_scaling,
@@ -137,54 +189,6 @@ lightusd::GeomMesh build_usd_terrain_mesh(const Array &array,
   return mesh;
 }
 
-lightusd::GeomPoints build_usd_points(const Cloud &cloud,
-                                      size_t       cloud_idx,
-                                      float        elevation_scaling)
-{
-  lightusd::GeomPoints points_prim;
-  points_prim.name = "Cloud_" + std::to_string(cloud_idx);
-
-  const auto &x = cloud.get_x();
-  const auto &y = cloud.get_y();
-  const auto &v = cloud.get_values();
-
-  std::vector<lightusd::value::point3f> pts(cloud.size());
-  for (size_t i = 0; i < cloud.size(); ++i)
-  {
-    float val = (i < v.size()) ? v[i] : 0.f;
-    pts[i] = {y[i], elevation_scaling * val, x[i]};
-  }
-
-  points_prim.points.set_value(pts);
-  return points_prim;
-}
-
-lightusd::GeomBasisCurves build_usd_curves(const Path &path,
-                                           size_t      path_idx,
-                                           float       elevation_scaling)
-{
-  lightusd::GeomBasisCurves curves_prim;
-  curves_prim.name = "Path_" + std::to_string(path_idx);
-  curves_prim.type = lightusd::GeomBasisCurves::Type::Linear;
-
-  const auto &x = path.get_x();
-  const auto &y = path.get_y();
-  const auto &v = path.get_values();
-
-  std::vector<lightusd::value::point3f> pts(path.size());
-  for (size_t i = 0; i < path.size(); ++i)
-  {
-    float val = (i < v.size()) ? v[i] : 0.f;
-    pts[i] = {y[i], elevation_scaling * val, x[i]};
-  }
-
-  curves_prim.points.set_value(pts);
-  curves_prim.curveVertexCounts.set_value(
-      std::vector<int>{static_cast<int>(path.size())});
-
-  return curves_prim;
-}
-
 } // namespace
 
 bool export_usd(const std::string        &fname,
@@ -205,6 +209,15 @@ bool export_usd(const std::string        &fname,
 
   hmap::log::trace("exporting USD scene to [{}]", fname);
 
+  float x_max = fit_boundaries ? 1.f
+                               : (elevation.shape.x > 0
+                                      ? 1.f - 1.f / (float)elevation.shape.x
+                                      : 1.f);
+  float y_max = fit_boundaries ? 1.f
+                               : (elevation.shape.y > 0
+                                      ? 1.f - 1.f / (float)elevation.shape.y
+                                      : 1.f);
+
   lightusd::Stage stage;
 
   // --- Terrain mesh
@@ -222,7 +235,9 @@ bool export_usd(const std::string        &fname,
     {
       lightusd::GeomPoints pts = build_usd_points(clouds[i],
                                                   i,
-                                                  elevation_scaling);
+                                                  elevation_scaling,
+                                                  x_max,
+                                                  y_max);
       stage.add_root_prim(lightusd::Prim(pts));
     }
   }
@@ -234,7 +249,9 @@ bool export_usd(const std::string        &fname,
     {
       lightusd::GeomBasisCurves cur = build_usd_curves(paths[i],
                                                        i,
-                                                       elevation_scaling);
+                                                       elevation_scaling,
+                                                       x_max,
+                                                       y_max);
       stage.add_root_prim(lightusd::Prim(cur));
     }
   }
