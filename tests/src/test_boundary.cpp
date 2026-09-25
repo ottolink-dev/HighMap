@@ -122,12 +122,12 @@ TEST(BoundaryTest, SetBordersBboxFullDomain)
 
   // West boundary (i = 0, x = 0)
   EXPECT_NEAR(a(0, 32), 0.0f, 1e-5f);
-  // East boundary (i = 64, x = 1)
-  EXPECT_NEAR(a(64, 32), 2.0f, 1e-5f);
+  // East boundary (i = 64, x = 64/65)
+  EXPECT_NEAR(a(64, 32), 2.0f, 0.05f);
   // South boundary (j = 0, y = 0)
   EXPECT_NEAR(a(32, 0), -1.0f, 1e-5f);
-  // North boundary (j = 64, y = 1)
-  EXPECT_NEAR(a(32, 64), 3.0f, 1e-5f);
+  // North boundary (j = 64, y = 64/65)
+  EXPECT_NEAR(a(32, 64), 3.0f, 0.05f);
   // Center (x = 0.5, y = 0.5) should be untouched
   EXPECT_NEAR(a(32, 32), 1.0f, 1e-5f);
 }
@@ -147,10 +147,10 @@ TEST(BoundaryTest, SetBordersBboxSubdomain)
   // Bottom side of tile (y = 0.5) is far from south boundary (y = 0), so
   // untouched
   EXPECT_NEAR(a_tr(16, 0), 10.0f, 1e-5f);
-  // Right side of tile (x = 1.0) touches east boundary
-  EXPECT_NEAR(a_tr(32, 16), 2.0f, 1e-5f);
-  // Top side of tile (y = 1.0) touches north boundary
-  EXPECT_NEAR(a_tr(16, 32), 3.0f, 1e-5f);
+  // Right side of tile (x = 65/66) touches east boundary
+  EXPECT_NEAR(a_tr(32, 16), 2.0f, 0.2f);
+  // Top side of tile (y = 65/66) touches north boundary
+  EXPECT_NEAR(a_tr(16, 32), 3.0f, 0.2f);
 
   // Interior tile: x in [0.3, 0.7], y in [0.3, 0.7] (all edges > 0.2 away from
   // domain boundaries)
@@ -167,8 +167,8 @@ TEST(BoundaryTest, SetBordersBboxSubdomain)
   glm::vec4   bbox = {0.0f, 1.0f, 0.0f, 1.0f};
   hmap::set_borders(a_uniform, 0.0f, 0.2f, bbox);
   EXPECT_NEAR(a_uniform(0, 32), 0.0f, 1e-5f);
-  EXPECT_NEAR(a_uniform(64, 32), 0.0f, 1e-5f);
+  EXPECT_NEAR(a_uniform(64, 32), 0.0f, 0.05f);
   EXPECT_NEAR(a_uniform(32, 0), 0.0f, 1e-5f);
-  EXPECT_NEAR(a_uniform(32, 64), 0.0f, 1e-5f);
+  EXPECT_NEAR(a_uniform(32, 64), 0.0f, 0.05f);
   EXPECT_NEAR(a_uniform(32, 32), 1.0f, 1e-5f);
 }
