@@ -5,7 +5,8 @@
 /**
  * @file export.hpp
  * @author Otto Link (otto.link.bv@gmail.com)
- * @brief Umbrella header file for asset, image, and scene export functionalities.
+ * @brief Umbrella header file for asset, image, and scene export
+ * functionalities.
  *
  * @copyright Copyright (c) 2023 Otto Link
  */
