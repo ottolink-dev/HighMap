@@ -266,12 +266,12 @@
 <codeline lineno="122"><highlight class="normal"></highlight></codeline>
 <codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>West<sp/>boundary<sp/>(i<sp/>=<sp/>0,<sp/>x<sp/>=<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="124"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a(0,<sp/>32),<sp/>0.0f,<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>East<sp/>boundary<sp/>(i<sp/>=<sp/>64,<sp/>x<sp/>=<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a(64,<sp/>32),<sp/>2.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>East<sp/>boundary<sp/>(i<sp/>=<sp/>64,<sp/>x<sp/>=<sp/>64/65)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a(64,<sp/>32),<sp/>2.0f,<sp/>0.05f);</highlight></codeline>
 <codeline lineno="127"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>South<sp/>boundary<sp/>(j<sp/>=<sp/>0,<sp/>y<sp/>=<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="128"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a(32,<sp/>0),<sp/>-1.0f,<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>North<sp/>boundary<sp/>(j<sp/>=<sp/>64,<sp/>y<sp/>=<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a(32,<sp/>64),<sp/>3.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>North<sp/>boundary<sp/>(j<sp/>=<sp/>64,<sp/>y<sp/>=<sp/>64/65)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a(32,<sp/>64),<sp/>3.0f,<sp/>0.05f);</highlight></codeline>
 <codeline lineno="131"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Center<sp/>(x<sp/>=<sp/>0.5,<sp/>y<sp/>=<sp/>0.5)<sp/>should<sp/>be<sp/>untouched</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="132"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a(32,<sp/>32),<sp/>1.0f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="133"><highlight class="normal">}</highlight></codeline>
@@ -291,10 +291,10 @@
 <codeline lineno="147"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Bottom<sp/>side<sp/>of<sp/>tile<sp/>(y<sp/>=<sp/>0.5)<sp/>is<sp/>far<sp/>from<sp/>south<sp/>boundary<sp/>(y<sp/>=<sp/>0),<sp/>so</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="148"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>untouched</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="149"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_tr(16,<sp/>0),<sp/>10.0f,<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Right<sp/>side<sp/>of<sp/>tile<sp/>(x<sp/>=<sp/>1.0)<sp/>touches<sp/>east<sp/>boundary</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_tr(32,<sp/>16),<sp/>2.0f,<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Top<sp/>side<sp/>of<sp/>tile<sp/>(y<sp/>=<sp/>1.0)<sp/>touches<sp/>north<sp/>boundary</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_tr(16,<sp/>32),<sp/>3.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Right<sp/>side<sp/>of<sp/>tile<sp/>(x<sp/>=<sp/>65/66)<sp/>touches<sp/>east<sp/>boundary</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_tr(32,<sp/>16),<sp/>2.0f,<sp/>0.2f);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Top<sp/>side<sp/>of<sp/>tile<sp/>(y<sp/>=<sp/>65/66)<sp/>touches<sp/>north<sp/>boundary</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_tr(16,<sp/>32),<sp/>3.0f,<sp/>0.2f);</highlight></codeline>
 <codeline lineno="154"><highlight class="normal"></highlight></codeline>
 <codeline lineno="155"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Interior<sp/>tile:<sp/>x<sp/>in<sp/>[0.3,<sp/>0.7],<sp/>y<sp/>in<sp/>[0.3,<sp/>0.7]<sp/>(all<sp/>edges<sp/>&gt;<sp/>0.2<sp/>away<sp/>from</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="156"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>domain<sp/>boundaries)</highlight><highlight class="normal"></highlight></codeline>
@@ -311,9 +311,9 @@
 <codeline lineno="167"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>bbox<sp/>=<sp/>{0.0f,<sp/>1.0f,<sp/>0.0f,<sp/>1.0f};</highlight></codeline>
 <codeline lineno="168"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1af3d5a6d239d30fe1698a524dfedcd63f" kindref="member">hmap::set_borders</ref>(a_uniform,<sp/>0.0f,<sp/>0.2f,<sp/>bbox);</highlight></codeline>
 <codeline lineno="169"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_uniform(0,<sp/>32),<sp/>0.0f,<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_uniform(64,<sp/>32),<sp/>0.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_uniform(64,<sp/>32),<sp/>0.0f,<sp/>0.05f);</highlight></codeline>
 <codeline lineno="171"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_uniform(32,<sp/>0),<sp/>0.0f,<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_uniform(32,<sp/>64),<sp/>0.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_uniform(32,<sp/>64),<sp/>0.0f,<sp/>0.05f);</highlight></codeline>
 <codeline lineno="173"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a_uniform(32,<sp/>32),<sp/>1.0f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="174"><highlight class="normal">}</highlight></codeline>
     </programlisting>
