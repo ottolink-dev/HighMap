@@ -739,6 +739,8 @@ void \mbox{\hyperlink{namespacehmap_ae01b5471d28a8f4a9104e2ffea4484a9}{export\+\
 \begin{DoxyCompactList}\small\item\em Exports 3D points with optional custom fields to an ASCII PLY file. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a91708f107a53c4b8ef68bb1d0291c73f}{export\+\_\+tiled}} (const std\+::string \&fname\+\_\+radical, const std\+::string \&fname\+\_\+extension, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const glm\+::ivec2 \&tiling, int leading\+\_\+zeros=0, int depth=CV\+\_\+8U, bool overlapping\+\_\+edges=false, bool reverse\+\_\+tile\+\_\+y\+\_\+indexing=false)
 \begin{DoxyCompactList}\small\item\em Exports a 2D array as a set of grayscale PNG image tiles. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a44e7bc9494b71c4022e45ef9c2199075}{export\+\_\+usd}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&elevation, const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}} $>$ \&clouds=\{\}, const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Path}{Path}} $>$ \&paths=\{\}, \mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250}{Mesh\+Type}} mesh\+\_\+type=\mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14}{Mesh\+Type\+::\+TRI}}, float elevation\+\_\+scaling=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const std\+::string \&texture\+\_\+fname="{}"{}, const std\+::string \&normal\+\_\+map\+\_\+fname="{}"{}, float max\+\_\+error=5e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, bool fit\+\_\+boundaries=false)
+\begin{DoxyCompactList}\small\item\em Exports a composite scene (terrain, clouds, and paths) to Universal Scene Description (USD). \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a09aeebc31234cb19376836a7009054d3}{read\+\_\+to\+\_\+array}} (const std\+::string \&fname, bool flip\+\_\+j=false, bool \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{remap}}=true)
 \begin{DoxyCompactList}\small\item\em Reads an image file and converts it to a 2D array. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a466d4275bb86ca9ca603c9d4192f931a}{write\+\_\+raw\+\_\+16bit}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
@@ -8969,6 +8971,122 @@ Each tile is extracted using slicing, adjusted for overlap if specified, and the
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ depth,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ overlapping\_edges,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reverse\_tile\_y\_indexing);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ \Hypertarget{namespacehmap_a44e7bc9494b71c4022e45ef9c2199075}\label{namespacehmap_a44e7bc9494b71c4022e45ef9c2199075} 
+\index{hmap@{hmap}!export\_usd@{export\_usd}}
+\index{export\_usd@{export\_usd}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{export\_usd()}{export\_usd()}}
+{\footnotesize\ttfamily bool hmap\+::export\+\_\+usd (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{elevation,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}} $>$ \&}]{clouds = {\ttfamily \{\}},  }\item[{const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Path}{Path}} $>$ \&}]{paths = {\ttfamily \{\}},  }\item[{\mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250}{Mesh\+Type}}}]{mesh\+\_\+type = {\ttfamily \mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14}{Mesh\+Type\+::\+TRI}}},  }\item[{float}]{elevation\+\_\+scaling = {\ttfamily 0.2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{const std\+::string \&}]{texture\+\_\+fname = {\ttfamily "{}"{}},  }\item[{const std\+::string \&}]{normal\+\_\+map\+\_\+fname = {\ttfamily "{}"{}},  }\item[{float}]{max\+\_\+error = {\ttfamily 5e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{bool}]{fit\+\_\+boundaries = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Exports a composite scene (terrain, clouds, and paths) to Universal Scene Description (USD). 
+
+Generates a USD stage (.usda, .usdc, or .usdz) containing\+:
+\begin{DoxyItemize}
+\item Terrain mesh from {\ttfamily elevation} (with optional UV coordinates and elevation scaling)
+\item \doxylink{classhmap_1_1Point}{Point} collections from {\ttfamily clouds} as Usd\+Geom\+Points
+\item Polylines/splines from {\ttfamily paths} as Usd\+Geom\+Basis\+Curves
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em fname} & Output file name (.usda, .usdc, or .usdz). \\
+\hline
+{\em elevation} & The heightmap array representing terrain elevation. \\
+\hline
+{\em clouds} & Vector of \doxylink{classhmap_1_1Cloud}{Cloud} objects to export as points primitives. \\
+\hline
+{\em paths} & Vector of \doxylink{classhmap_1_1Path}{Path} objects to export as curve primitives. \\
+\hline
+{\em mesh\+\_\+type} & The type of mesh to generate for the terrain. \\
+\hline
+{\em elevation\+\_\+scaling} & Elevation scaling factor applied to the terrain and 3D points. \\
+\hline
+{\em texture\+\_\+fname} & Optional diffuse texture filename. \\
+\hline
+{\em normal\+\_\+map\+\_\+fname} & Optional normal map filename. \\
+\hline
+{\em max\+\_\+error} & Maximum error for optimized Delaunay triangulation. \\
+\hline
+{\em fit\+\_\+boundaries} & Scale domain coordinates to \mbox{[}0, 1\mbox{]}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if export succeeded, {\ttfamily false} otherwise.
+\end{DoxyReturn}
+{\bfseries{Example}} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ -\/-\/-\/\ Terrain\ heightmap}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ glm::ivec2\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ =\ \{128,\ 128\};}
+\DoxyCodeLine{\ \ glm::vec2\ \ kv\ =\ \{2.f,\ 2.f\};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ seed\ =\ 42;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ terrain\ =\ \mbox{\hyperlink{namespacehmap_a0f94056bb01fb9798ce72d3c4b1be4d2}{hmap::noise}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed}{hmap::NoiseType::SIMPLEX2}},\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ kv,\ seed);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(terrain);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ -\/-\/-\/\ Clouds\ (scattered\ 3D\ point\ features)}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ trees(50,\ seed\ +\ 1);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ rocks(30,\ seed\ +\ 2);}
+\DoxyCodeLine{\ \ std::vector<hmap::Cloud>\ clouds\ =\ \{trees,\ rocks\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ -\/-\/-\/\ Paths\ (polylines\ /\ roads\ /\ rivers)}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::vector<hmap::Point>\ road\_points\ =\ \{\mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(0.1f,\ 0.1f,\ 0.2f),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(0.3f,\ 0.4f,\ 0.35f),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(0.6f,\ 0.5f,\ 0.45f),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(0.9f,\ 0.85f,\ 0.25f)\};}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Path}{hmap::Path}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ road(road\_points);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::vector<hmap::Point>\ river\_points\ =\ \{\mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(0.05f,\ 0.85f,\ 0.15f),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(0.45f,\ 0.55f,\ 0.22f),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(0.85f,\ 0.15f,\ 0.1f)\};}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Path}{hmap::Path}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ river(river\_points);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::vector<hmap::Path>\ paths\ =\ \{road,\ river\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ -\/-\/-\/\ Export\ composite\ scenes\ to\ USD\ formats}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Exporting\ to\ scene.usda\ (ASCII\ USD)...\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a44e7bc9494b71c4022e45ef9c2199075}{hmap::export\_usd}}(\textcolor{stringliteral}{"{}scene.usda"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ terrain,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ clouds,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ paths,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14}{hmap::MeshType::TRI}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.25f);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Exporting\ to\ scene.usdc\ (Binary\ Crate\ USD)...\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a44e7bc9494b71c4022e45ef9c2199075}{hmap::export\_usd}}(\textcolor{stringliteral}{"{}scene.usdc"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ terrain,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ clouds,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ paths,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14}{hmap::MeshType::TRI}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.25f);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Exporting\ to\ scene\_opt.usda\ (Delaunay\ optimized\ terrain)...\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a44e7bc9494b71c4022e45ef9c2199075}{hmap::export\_usd}}(\textcolor{stringliteral}{"{}scene\_opt.usda"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ terrain,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ clouds,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ paths,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250a64d964458b2812e59ec68af2ee53a8ae}{hmap::MeshType::TRI\_OPTIMIZED}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.25f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1e-\/2f);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::cout\ <<\ \textcolor{stringliteral}{"{}USD\ export\ completed\ successfully.\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}

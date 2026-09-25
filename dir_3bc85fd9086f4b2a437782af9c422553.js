@@ -8,6 +8,7 @@ var dir_3bc85fd9086f4b2a437782af9c422553 =
     [ "export_points_to_ply.cpp", "export__points__to__ply_8cpp.html", "export__points__to__ply_8cpp" ],
     [ "export_splatmap.cpp", "export__splatmap_8cpp.html", "export__splatmap_8cpp" ],
     [ "export_tiled.cpp", "export__tiled_8cpp.html", "export__tiled_8cpp" ],
+    [ "export_usd.cpp", "export__usd_8cpp.html", "export__usd_8cpp" ],
     [ "format_raw.cpp", "format__raw_8cpp.html", "format__raw_8cpp" ],
     [ "read_to_array.cpp", "read__to__array_8cpp.html", "read__to__array_8cpp" ]
 ];
