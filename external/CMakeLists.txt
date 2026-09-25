@@ -14,3 +14,5 @@ add_subdirectory(terrain-descriptors/lib)
 if(NOT TARGET nanoflann) # to avoid duplicate from PointSampler
   add_subdirectory(nanoflann)
 endif()
+
+include(lightusd.cmake)

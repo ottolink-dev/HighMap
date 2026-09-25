@@ -1,0 +1,2 @@
+add_executable(ex_export_usd ex_export_usd.cpp)
+target_link_libraries(ex_export_usd highmap)
