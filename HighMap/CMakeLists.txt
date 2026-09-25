@@ -43,6 +43,7 @@ target_link_libraries(
          point_sampler
          clwrapper
          ${OpenCL_LIBRARIES}
+         lightusd_static
   PRIVATE nn-c::nn-c)
 
 if(HIGHMAP_ENABLE_PCH)
