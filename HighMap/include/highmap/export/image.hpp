@@ -20,11 +20,15 @@
 #include <opencv2/imgcodecs.hpp>
 
 #include "highmap/array.hpp"
+#include "highmap/export/image_writer.hpp"
 
 namespace hmap
 {
 
 enum Cmap : int; // highmap/colormaps.hpp
+
+struct ComputeMode;  // highmap/virtual_array/virtual_array.hpp
+struct VirtualArray; // highmap/virtual_array/virtual_array.hpp
 
 /**
  * @brief Export a 2D array as an ASCII-art string representation.
@@ -119,6 +123,68 @@ void export_banner_png(const std::string        &fname,
                        int                       cmap,
                        bool                      hillshading = false,
                        bool                      normalize_arrays = false);
+
+/**
+ * @brief Exports an array using the generic ImageWriter pipeline.
+ *
+ * @param array  Input 2D array.
+ * @param fname  Output file or directory path.
+ * @param config Optional writer configuration.
+ * @return       True if successful, false otherwise.
+ */
+bool export_image(const Array             &array,
+                  const std::string       &fname,
+                  const ImageWriterConfig &config = {});
+
+/**
+ * @brief Exports a VirtualArray incrementally using the generic ImageWriter
+ * pipeline.
+ *
+ * @param va     Input VirtualArray.
+ * @param fname  Output file or directory path.
+ * @param config Optional writer configuration.
+ * @return       True if successful, false otherwise.
+ */
+bool export_image(const VirtualArray      &va,
+                  const std::string       &fname,
+                  const ImageWriterConfig &config = {});
+
+/**
+ * @brief Exports a VirtualArray incrementally with custom compute mode.
+ *
+ * @param va     Input VirtualArray.
+ * @param fname  Output file or directory path.
+ * @param config Writer configuration.
+ * @param cm     Compute mode for tile processing.
+ * @return       True if successful, false otherwise.
+ */
+bool export_image(const VirtualArray      &va,
+                  const std::string       &fname,
+                  const ImageWriterConfig &config,
+                  const ComputeMode       &cm);
+
+/**
+ * @brief Streams a VirtualArray tile-by-tile into an already opened
+ * ImageWriter.
+ *
+ * @param va     Input VirtualArray.
+ * @param writer Reference to target ImageWriter.
+ * @return       True if successful, false otherwise.
+ */
+bool export_virtual_array(const VirtualArray &va, ImageWriter &writer);
+
+/**
+ * @brief Streams a VirtualArray tile-by-tile into an already opened ImageWriter
+ * with custom compute mode.
+ *
+ * @param va     Input VirtualArray.
+ * @param writer Reference to target ImageWriter.
+ * @param cm     Compute mode for tile processing.
+ * @return       True if successful, false otherwise.
+ */
+bool export_virtual_array(const VirtualArray &va,
+                          ImageWriter        &writer,
+                          const ComputeMode  &cm);
 
 /**
  * @brief Exports the heightmap normal map as an 8-bit PNG file.

@@ -113,6 +113,10 @@ find_package(glm REQUIRED)
 find_package(OpenMP REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(OpenCL REQUIRED)
+find_package(OpenEXR REQUIRED)
+find_package(TIFF REQUIRED)
+find_package(nlohmann_json REQUIRED)
+find_package(zstd REQUIRED)
 
 include_directories(${OpenCV_INCLUDE_DIRS})
 
