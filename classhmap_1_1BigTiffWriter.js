@@ -10,6 +10,7 @@ var classhmap_1_1BigTiffWriter =
     [ "write_chunk", "classhmap_1_1BigTiffWriter.html#a04baab61cb5eb5262f6dcb7aaeeba66c", null ],
     [ "write_chunk", "classhmap_1_1BigTiffWriter.html#a2839a71b6fdfe2385f27b1946f47c940", null ],
     [ "write_tile", "classhmap_1_1BigTiffWriter.html#abbab9a2a8b08e22330be1a3b128f5028", null ],
+    [ "write_tile", "classhmap_1_1BigTiffWriter.html#a987e894b5f2e516dfd74ba2a9640c020", null ],
     [ "config", "classhmap_1_1BigTiffWriter.html#a3422dd8f98d4d25bafd991d2813b1ab2", null ],
     [ "filepath", "classhmap_1_1BigTiffWriter.html#a926e460c63ccc4afb02600c234861ebc", null ]
 ];

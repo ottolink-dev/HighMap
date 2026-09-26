@@ -10,6 +10,7 @@ var classhmap_1_1OpenEXRWriter =
     [ "write_chunk", "classhmap_1_1OpenEXRWriter.html#a6017e271fbf0e59b4ad5ecbfab3aab15", null ],
     [ "write_chunk", "classhmap_1_1OpenEXRWriter.html#a62bf73e43712e7e3ce7fa00b1ce55bd8", null ],
     [ "write_tile", "classhmap_1_1OpenEXRWriter.html#ab446e034c83bbe292e7cdf6877bbb147", null ],
+    [ "write_tile", "classhmap_1_1OpenEXRWriter.html#a4a36130077e4137cd9e58edfac11886b", null ],
     [ "config", "classhmap_1_1OpenEXRWriter.html#ab0455654e795fefdd0c9449f6f69cc9f", null ],
     [ "filepath", "classhmap_1_1OpenEXRWriter.html#a27bc16f819e9b96f5384ccd3e5940772", null ]
 ];

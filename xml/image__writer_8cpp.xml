@@ -60,33 +60,61 @@
 <codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="classhmap_1_1ImageWriter_1abac1c1837ab63ef5adefde2b9f140341" kindref="member">write_chunk</ref>(core_x,<sp/>core_y,<sp/>data);</highlight></codeline>
 <codeline lineno="51"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal">std::unique_ptr&lt;ImageWriter&gt;<sp/><ref refid="classhmap_1_1ImageWriter_1a54bfca22e4a9a05d23c6da20cf82ba40" kindref="member">ImageWriter::create</ref>(</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;filepath,</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ImageWriterConfig<sp/>&amp;config)</highlight></codeline>
-<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/>std::string<sp/>ext<sp/>=<sp/>std::filesystem::path(<ref refid="classhmap_1_1ImageWriter_1a9149ee485668dd3fae101b062e1554e6" kindref="member">filepath</ref>).extension().string();</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/>std::transform(ext.begin(),<sp/>ext.end(),<sp/>ext.begin(),<sp/>::tolower);</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/>std::unique_ptr&lt;ImageWriter&gt;<sp/>writer;</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ext<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;.exr&quot;</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>writer<sp/>=<sp/>std::make_unique&lt;OpenEXRWriter&gt;(<ref refid="classhmap_1_1ImageWriter_1a9149ee485668dd3fae101b062e1554e6" kindref="member">filepath</ref>,<sp/><ref refid="classhmap_1_1ImageWriter_1a878923af3c99d236d90dfc1e7eeffdf0" kindref="member">config</ref>);</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ext<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;.tif&quot;</highlight><highlight class="normal"><sp/>||<sp/>ext<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;.tiff&quot;</highlight><highlight class="normal"><sp/>||<sp/>ext<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;.btif&quot;</highlight><highlight class="normal"><sp/>||</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ext<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;.bigtiff&quot;</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>writer<sp/>=<sp/>std::make_unique&lt;BigTiffWriter&gt;(<ref refid="classhmap_1_1ImageWriter_1a9149ee485668dd3fae101b062e1554e6" kindref="member">filepath</ref>,<sp/><ref refid="classhmap_1_1ImageWriter_1a878923af3c99d236d90dfc1e7eeffdf0" kindref="member">config</ref>);</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>writer<sp/>=<sp/>std::make_unique&lt;OpenCVWriter&gt;(<ref refid="classhmap_1_1ImageWriter_1a9149ee485668dd3fae101b062e1554e6" kindref="member">filepath</ref>,<sp/><ref refid="classhmap_1_1ImageWriter_1a878923af3c99d236d90dfc1e7eeffdf0" kindref="member">config</ref>);</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>writer;</highlight></codeline>
-<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1ImageWriter_1aa336190df6cc93ebec25255ddd116578" kindref="member">ImageWriter::write_tile</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TileRegion<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;region,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;Array&gt;<sp/>&amp;channels)</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>core_x<sp/>=<sp/>region.key.tx<sp/>*<sp/>this-&gt;<ref refid="classhmap_1_1ImageWriter_1a878923af3c99d236d90dfc1e7eeffdf0" kindref="member">config</ref>().<ref refid="structhmap_1_1ImageWriterConfig_1a4ac6d4d2808bb0ad060df78f9cbb8a38" kindref="member">tile_shape</ref>.x;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>core_y<sp/>=<sp/>region.key.ty<sp/>*<sp/>this-&gt;<ref refid="classhmap_1_1ImageWriter_1a878923af3c99d236d90dfc1e7eeffdf0" kindref="member">config</ref>().<ref refid="structhmap_1_1ImageWriterConfig_1a4ac6d4d2808bb0ad060df78f9cbb8a38" kindref="member">tile_shape</ref>.y;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>core_w<sp/>=<sp/>region.shape.x<sp/>-<sp/>region.halo.x<sp/>-<sp/>region.halo.y;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>core_h<sp/>=<sp/>region.shape.y<sp/>-<sp/>region.halo.z<sp/>-<sp/>region.halo.w;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(core_w<sp/>&lt;=<sp/>0<sp/>||<sp/>core_h<sp/>&lt;=<sp/>0)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(region.halo.x<sp/>&gt;<sp/>0<sp/>||<sp/>region.halo.y<sp/>&gt;<sp/>0<sp/>||<sp/>region.halo.z<sp/>&gt;<sp/>0<sp/>||</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>region.halo.w<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Array&gt;<sp/>core_tiles;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>core_tiles.reserve(channels.size());</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;ch<sp/>:<sp/>channels)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>core_tiles.push_back(ch.extract_slice(region.halo.x,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>region.halo.x<sp/>+<sp/>core_w,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>region.halo.z,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>region.halo.z<sp/>+<sp/>core_h));</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="classhmap_1_1ImageWriter_1abac1c1837ab63ef5adefde2b9f140341" kindref="member">write_chunk</ref>(core_x,<sp/>core_y,<sp/>core_tiles);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="classhmap_1_1ImageWriter_1abac1c1837ab63ef5adefde2b9f140341" kindref="member">write_chunk</ref>(core_x,<sp/>core_y,<sp/>channels);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal">std::unique_ptr&lt;ImageWriter&gt;<sp/><ref refid="classhmap_1_1ImageWriter_1a54bfca22e4a9a05d23c6da20cf82ba40" kindref="member">ImageWriter::create</ref>(</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;filepath,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ImageWriterConfig<sp/>&amp;config)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/>std::string<sp/>ext<sp/>=<sp/>std::filesystem::path(<ref refid="classhmap_1_1ImageWriter_1a9149ee485668dd3fae101b062e1554e6" kindref="member">filepath</ref>).extension().string();</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>std::transform(ext.begin(),<sp/>ext.end(),<sp/>ext.begin(),<sp/>::tolower);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>std::unique_ptr&lt;ImageWriter&gt;<sp/>writer;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ext<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;.exr&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>writer<sp/>=<sp/>std::make_unique&lt;OpenEXRWriter&gt;(<ref refid="classhmap_1_1ImageWriter_1a9149ee485668dd3fae101b062e1554e6" kindref="member">filepath</ref>,<sp/><ref refid="classhmap_1_1ImageWriter_1a878923af3c99d236d90dfc1e7eeffdf0" kindref="member">config</ref>);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ext<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;.tif&quot;</highlight><highlight class="normal"><sp/>||<sp/>ext<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;.tiff&quot;</highlight><highlight class="normal"><sp/>||<sp/>ext<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;.btif&quot;</highlight><highlight class="normal"><sp/>||</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ext<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;.bigtiff&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>writer<sp/>=<sp/>std::make_unique&lt;BigTiffWriter&gt;(<ref refid="classhmap_1_1ImageWriter_1a9149ee485668dd3fae101b062e1554e6" kindref="member">filepath</ref>,<sp/><ref refid="classhmap_1_1ImageWriter_1a878923af3c99d236d90dfc1e7eeffdf0" kindref="member">config</ref>);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>writer<sp/>=<sp/>std::make_unique&lt;OpenCVWriter&gt;(<ref refid="classhmap_1_1ImageWriter_1a9149ee485668dd3fae101b062e1554e6" kindref="member">filepath</ref>,<sp/><ref refid="classhmap_1_1ImageWriter_1a878923af3c99d236d90dfc1e7eeffdf0" kindref="member">config</ref>);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>writer;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="HighMap/src/export/image_writer.cpp"/>
   </compounddef>

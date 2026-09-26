@@ -10,6 +10,7 @@ var classhmap_1_1OpenCVWriter =
     [ "write_chunk", "classhmap_1_1OpenCVWriter.html#a6f6b7be0051b400d527b5c45742d4261", null ],
     [ "write_chunk", "classhmap_1_1OpenCVWriter.html#ab005e8fd7eefcfc70a6826d5f99db540", null ],
     [ "write_tile", "classhmap_1_1OpenCVWriter.html#a52a9108df86802b8897b9ff575773ee8", null ],
+    [ "write_tile", "classhmap_1_1OpenCVWriter.html#a634550e7dc7d69901a26d2cbbe81e779", null ],
     [ "config", "classhmap_1_1OpenCVWriter.html#a8498ab7f2f43d85753399681f2fa1f5a", null ],
     [ "filepath", "classhmap_1_1OpenCVWriter.html#a636b3480ebf65f1b48157bb29020317d", null ]
 ];

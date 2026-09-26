@@ -33,6 +33,36 @@
         </inbodydescription>
         <location file="HighMap/include/highmap/virtual_array/virtual_texture.inl" line="7" column="6" bodyfile="HighMap/include/highmap/virtual_array/virtual_texture.inl" bodystart="7" bodyend="16"/>
       </memberdef>
+      <memberdef kind="function" id="virtual__texture_8inl_1ac8177181b343f820027e9c46cc22f146" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void for_each_tile</definition>
+        <argsstring>(const VirtualTexture &amp;tex, Func &amp;&amp;func, const ComputeMode &amp;cm)</argsstring>
+        <name>for_each_tile</name>
+        <param>
+          <type>const VirtualTexture &amp;</type>
+          <declname>tex</declname>
+        </param>
+        <param>
+          <type>Func &amp;&amp;</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>const ComputeMode &amp;</type>
+          <declname>cm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/virtual_texture.inl" line="19" column="6" bodyfile="HighMap/include/highmap/virtual_array/virtual_texture.inl" bodystart="19" bodyend="25"/>
+      </memberdef>
       <memberdef kind="function" id="virtual__texture_8inl_1a4d40066bfc89c4a99adf4b09355ec709" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
           <param>
@@ -61,7 +91,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/virtual_array/virtual_texture.inl" line="19" column="6" bodyfile="HighMap/include/highmap/virtual_array/virtual_texture.inl" bodystart="19" bodyend="44"/>
+        <location file="HighMap/include/highmap/virtual_array/virtual_texture.inl" line="28" column="6" bodyfile="HighMap/include/highmap/virtual_array/virtual_texture.inl" bodystart="28" bodyend="53"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -87,32 +117,41 @@
 <codeline lineno="16"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
 <codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func&gt;</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="virtual__texture_8inl_1a4d40066bfc89c4a99adf4b09355ec709" kindref="member">for_each_pixel</ref>(VirtualTexture<sp/>&amp;tex,<sp/>Func<sp/>&amp;&amp;func,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ComputeMode<sp/>&amp;cm)</highlight></codeline>
-<codeline lineno="20"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="virtual__texture_8inl_1a4c715b27b6eb8b36e1caccdcc86687ec" kindref="member">for_each_tile</ref>(</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tex,</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](std::vector&lt;Array<sp/>*&gt;<sp/>&amp;chs,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TileRegion<sp/>&amp;region)</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>w<sp/>=<sp/>region.shape.x;</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>h<sp/>=<sp/>region.shape.y;</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c<sp/>=<sp/>int(chs.size());</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>px(c);</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref><sp/>=<sp/>0;<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref><sp/>&lt;<sp/>h;<sp/>++<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>)</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref><sp/>=<sp/>0;<sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref><sp/>&lt;<sp/>w;<sp/>++<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>)</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>c;<sp/>++k)</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>px[k]<sp/>=<sp/>(*chs[k])(<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>);</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>func(px,<sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>region);</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>c;<sp/>++k)</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*chs[k])(<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>)<sp/>=<sp/>px[k];</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
-<codeline lineno="44"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="virtual__texture_8inl_1a4c715b27b6eb8b36e1caccdcc86687ec" kindref="member">for_each_tile</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>VirtualTexture<sp/>&amp;tex,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Func<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;&amp;func,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ComputeMode<sp/><sp/><sp/><sp/>&amp;cm)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;mutable_tex<sp/>=<sp/></highlight><highlight class="keyword">const_cast&lt;</highlight><highlight class="normal">VirtualTexture<sp/>&amp;</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(tex);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><ref refid="virtual__texture_8inl_1a4c715b27b6eb8b36e1caccdcc86687ec" kindref="member">for_each_tile</ref>(mutable_tex,<sp/>std::forward&lt;Func&gt;(func),<sp/>cm);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func&gt;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="virtual__texture_8inl_1a4d40066bfc89c4a99adf4b09355ec709" kindref="member">for_each_pixel</ref>(VirtualTexture<sp/>&amp;tex,<sp/>Func<sp/>&amp;&amp;func,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ComputeMode<sp/>&amp;cm)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><ref refid="virtual__texture_8inl_1a4c715b27b6eb8b36e1caccdcc86687ec" kindref="member">for_each_tile</ref>(</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tex,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](std::vector&lt;Array<sp/>*&gt;<sp/>&amp;chs,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TileRegion<sp/>&amp;region)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>w<sp/>=<sp/>region.shape.x;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>h<sp/>=<sp/>region.shape.y;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c<sp/>=<sp/>int(chs.size());</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>px(c);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref><sp/>=<sp/>0;<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref><sp/>&lt;<sp/>h;<sp/>++<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref><sp/>=<sp/>0;<sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref><sp/>&lt;<sp/>w;<sp/>++<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>c;<sp/>++k)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>px[k]<sp/>=<sp/>(*chs[k])(<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>func(px,<sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>region);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>c;<sp/>++k)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*chs[k])(<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>)<sp/>=<sp/>px[k];</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="HighMap/include/highmap/virtual_array/virtual_texture.inl"/>
   </compounddef>
