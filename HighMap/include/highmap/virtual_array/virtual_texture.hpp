@@ -268,6 +268,11 @@ template <typename Func>
 void for_each_tile(VirtualTexture &tex, Func &&func, const ComputeMode &cm);
 
 template <typename Func>
+void for_each_tile(const VirtualTexture &tex,
+                   Func                &&func,
+                   const ComputeMode    &cm);
+
+template <typename Func>
 void for_each_pixel(VirtualTexture &tex, Func &&func, const ComputeMode &cm);
 
 #include "highmap/virtual_array/virtual_texture.inl"

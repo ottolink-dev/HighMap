@@ -50,6 +50,34 @@ bool ImageWriter::write_tile(const TileRegion &region, const Array &data)
   return this->write_chunk(core_x, core_y, data);
 }
 
+bool ImageWriter::write_tile(const TileRegion         &region,
+                             const std::vector<Array> &channels)
+{
+  int core_x = region.key.tx * this->config().tile_shape.x;
+  int core_y = region.key.ty * this->config().tile_shape.y;
+  int core_w = region.shape.x - region.halo.x - region.halo.y;
+  int core_h = region.shape.y - region.halo.z - region.halo.w;
+
+  if (core_w <= 0 || core_h <= 0) return false;
+
+  if (region.halo.x > 0 || region.halo.y > 0 || region.halo.z > 0 ||
+      region.halo.w > 0)
+  {
+    std::vector<Array> core_tiles;
+    core_tiles.reserve(channels.size());
+    for (const auto &ch : channels)
+    {
+      core_tiles.push_back(ch.extract_slice(region.halo.x,
+                                            region.halo.x + core_w,
+                                            region.halo.z,
+                                            region.halo.z + core_h));
+    }
+    return this->write_chunk(core_x, core_y, core_tiles);
+  }
+
+  return this->write_chunk(core_x, core_y, channels);
+}
+
 std::unique_ptr<ImageWriter> ImageWriter::create(
     const std::string       &filepath,
     const ImageWriterConfig &config)

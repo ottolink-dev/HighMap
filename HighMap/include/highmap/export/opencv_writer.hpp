@@ -43,6 +43,8 @@ public:
                    int                       offset_y,
                    const std::vector<Array> &channels) override;
   bool write_tile(const TileRegion &region, const Array &data) override;
+  bool write_tile(const TileRegion         &region,
+                  const std::vector<Array> &channels) override;
 
   // --- Properties
 

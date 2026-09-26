@@ -68,6 +68,8 @@ public:
                            int                       offset_y,
                            const std::vector<Array> &channels);
   virtual bool write_tile(const TileRegion &region, const Array &data);
+  virtual bool write_tile(const TileRegion         &region,
+                          const std::vector<Array> &channels);
 
   // --- Properties
 

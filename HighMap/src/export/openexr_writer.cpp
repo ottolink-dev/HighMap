@@ -282,4 +282,10 @@ bool OpenEXRWriter::write_tile(const TileRegion &region, const Array &data)
   return ImageWriter::write_tile(region, data);
 }
 
+bool OpenEXRWriter::write_tile(const TileRegion         &region,
+                               const std::vector<Array> &channels)
+{
+  return ImageWriter::write_tile(region, channels);
+}
+
 } // namespace hmap

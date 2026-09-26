@@ -16,6 +16,15 @@ void for_each_tile(VirtualTexture &tex, Func &&func, const ComputeMode &cm)
 }
 
 template <typename Func>
+void for_each_tile(const VirtualTexture &tex,
+                   Func                &&func,
+                   const ComputeMode    &cm)
+{
+  auto &mutable_tex = const_cast<VirtualTexture &>(tex);
+  for_each_tile(mutable_tex, std::forward<Func>(func), cm);
+}
+
+template <typename Func>
 void for_each_pixel(VirtualTexture &tex, Func &&func, const ComputeMode &cm)
 {
   for_each_tile(

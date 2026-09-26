@@ -6,6 +6,7 @@
 #include "highmap/export.hpp"
 #include "highmap/primitives.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
+#include "highmap/virtual_array/virtual_texture.hpp"
 
 #include <gtest/gtest.h>
 #include <nlohmann/json.hpp>
@@ -156,6 +157,36 @@ TEST(ImageWriterTest, VirtualArrayExportImage)
   EXPECT_EQ(loaded.shape.y, shape.y);
   EXPECT_NEAR(loaded(0, 0), 42.5f, 1e-4f);
   EXPECT_NEAR(loaded(100, 100), 42.5f, 1e-4f);
+
+  std::filesystem::remove(fname);
+}
+
+TEST(ImageWriterTest, ExportImageVirtualTexture)
+{
+  std::string fname = "test_export_vt.exr";
+  if (std::filesystem::exists(fname)) std::filesystem::remove(fname);
+
+  glm::ivec2 shape = {128, 128};
+  glm::ivec2 tile_shape = {64, 64};
+  int        halo = 4;
+  int        channels = 3;
+
+  VirtualTexture vt(shape,
+                    {-1.f, 1.f, -1.f, 1.f},
+                    tile_shape,
+                    halo,
+                    channels,
+                    StorageMode::VA_RAM);
+  ComputeMode    cm;
+  cm.mode = ForEachMode::VA_DISTRIBUTED;
+
+  vt.fill(10.0f, cm);
+
+  ImageWriterConfig cfg;
+  cfg.data_type = ImageDataType::FLOAT32;
+
+  EXPECT_TRUE(export_image(vt, fname, cfg, cm));
+  ASSERT_TRUE(std::filesystem::exists(fname));
 
   std::filesystem::remove(fname);
 }

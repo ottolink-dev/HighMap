@@ -10,6 +10,7 @@
 #include "highmap/internal/validation.hpp"
 #include "highmap/logger.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
+#include "highmap/virtual_array/virtual_texture.hpp"
 
 namespace hmap
 {
@@ -76,6 +77,48 @@ bool export_image(const VirtualArray      &va,
   return export_virtual_array(va, *writer, cm);
 }
 
+bool export_image(const VirtualTexture    &vt,
+                  const std::string       &fname,
+                  const ImageWriterConfig &config)
+{
+  ComputeMode cm;
+  cm.mode = ForEachMode::VA_DISTRIBUTED;
+  return export_image(vt, fname, config, cm);
+}
+
+bool export_image(const VirtualTexture    &vt,
+                  const std::string       &fname,
+                  const ImageWriterConfig &config,
+                  const ComputeMode       &cm)
+{
+  ImageWriterConfig cfg = config;
+  if (cfg.image_shape.x <= 0 || cfg.image_shape.y <= 0)
+  {
+    cfg.image_shape = vt.shape;
+  }
+  if (cfg.tile_shape.x <= 0 || cfg.tile_shape.y <= 0)
+  {
+    cfg.tile_shape = vt.tile_shape;
+  }
+  if (config.channels <= 1 && vt.channels() > 1)
+  {
+    cfg.channels = vt.channels();
+  }
+  else if (cfg.channels <= 0)
+  {
+    cfg.channels = vt.channels();
+  }
+
+  std::unique_ptr<ImageWriter> writer = ImageWriter::create(fname, cfg);
+  if (!writer || !writer->open(fname, cfg))
+  {
+    hmap::log::error("export_image failed to open writer for {}", fname);
+    return false;
+  }
+
+  return export_virtual_array(vt, *writer, cm);
+}
+
 bool export_virtual_array(const VirtualArray &va, ImageWriter &writer)
 {
   ComputeMode cm;
@@ -97,6 +140,41 @@ bool export_virtual_array(const VirtualArray &va,
       va,
       [&](const Array &tile, const TileRegion &region)
       { writer.write_tile(region, tile); },
+      cm);
+
+  writer.close();
+  return true;
+}
+
+bool export_virtual_array(const VirtualTexture &vt, ImageWriter &writer)
+{
+  ComputeMode cm;
+  cm.mode = ForEachMode::VA_DISTRIBUTED;
+  return export_virtual_array(vt, writer, cm);
+}
+
+bool export_virtual_array(const VirtualTexture &vt,
+                          ImageWriter          &writer,
+                          const ComputeMode    &cm)
+{
+  if (!writer.is_open())
+  {
+    hmap::log::error("export_virtual_array called with closed writer");
+    return false;
+  }
+
+  for_each_tile(
+      vt,
+      [&](const std::vector<Array *> &tiles, const TileRegion &region)
+      {
+        std::vector<Array> ch_tiles;
+        ch_tiles.reserve(tiles.size());
+        for (const auto *t : tiles)
+        {
+          if (t) ch_tiles.push_back(*t);
+        }
+        writer.write_tile(region, ch_tiles);
+      },
       cm);
 
   writer.close();

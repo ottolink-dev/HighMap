@@ -27,8 +27,9 @@ namespace hmap
 
 enum Cmap : int; // highmap/colormaps.hpp
 
-struct ComputeMode;  // highmap/virtual_array/virtual_array.hpp
-struct VirtualArray; // highmap/virtual_array/virtual_array.hpp
+struct ComputeMode;   // highmap/virtual_array/virtual_array.hpp
+struct VirtualArray;  // highmap/virtual_array/virtual_array.hpp
+class VirtualTexture; // highmap/virtual_array/virtual_texture.hpp
 
 /**
  * @brief Export a 2D array as an ASCII-art string representation.
@@ -164,6 +165,33 @@ bool export_image(const VirtualArray      &va,
                   const ComputeMode       &cm);
 
 /**
+ * @brief Exports a VirtualTexture incrementally using the generic ImageWriter
+ * pipeline.
+ *
+ * @param vt     Input VirtualTexture.
+ * @param fname  Output file or directory path.
+ * @param config Optional writer configuration.
+ * @return       True if successful, false otherwise.
+ */
+bool export_image(const VirtualTexture    &vt,
+                  const std::string       &fname,
+                  const ImageWriterConfig &config = {});
+
+/**
+ * @brief Exports a VirtualTexture incrementally with custom compute mode.
+ *
+ * @param vt     Input VirtualTexture.
+ * @param fname  Output file or directory path.
+ * @param config Writer configuration.
+ * @param cm     Compute mode for tile processing.
+ * @return       True if successful, false otherwise.
+ */
+bool export_image(const VirtualTexture    &vt,
+                  const std::string       &fname,
+                  const ImageWriterConfig &config,
+                  const ComputeMode       &cm);
+
+/**
  * @brief Streams a VirtualArray tile-by-tile into an already opened
  * ImageWriter.
  *
@@ -185,6 +213,29 @@ bool export_virtual_array(const VirtualArray &va, ImageWriter &writer);
 bool export_virtual_array(const VirtualArray &va,
                           ImageWriter        &writer,
                           const ComputeMode  &cm);
+
+/**
+ * @brief Streams a VirtualTexture tile-by-tile into an already opened
+ * ImageWriter.
+ *
+ * @param vt     Input VirtualTexture.
+ * @param writer Reference to target ImageWriter.
+ * @return       True if successful, false otherwise.
+ */
+bool export_virtual_array(const VirtualTexture &vt, ImageWriter &writer);
+
+/**
+ * @brief Streams a VirtualTexture tile-by-tile into an already opened
+ * ImageWriter with custom compute mode.
+ *
+ * @param vt     Input VirtualTexture.
+ * @param writer Reference to target ImageWriter.
+ * @param cm     Compute mode for tile processing.
+ * @return       True if successful, false otherwise.
+ */
+bool export_virtual_array(const VirtualTexture &vt,
+                          ImageWriter          &writer,
+                          const ComputeMode    &cm);
 
 /**
  * @brief Exports the heightmap normal map as an 8-bit PNG file.
