@@ -65,7 +65,16 @@ var hierarchy =
       [ "hmap::WaveTriangularFunction", "classhmap_1_1WaveTriangularFunction.html", null ]
     ] ],
     [ "hmap::GaussianPush", "structhmap_1_1GaussianPush.html", null ],
+    [ "hmap::ImageWriter", "classhmap_1_1ImageWriter.html", [
+      [ "hmap::BigTiffWriter", "classhmap_1_1BigTiffWriter.html", null ],
+      [ "hmap::OpenCVWriter", "classhmap_1_1OpenCVWriter.html", null ],
+      [ "hmap::OpenEXRWriter", "classhmap_1_1OpenEXRWriter.html", null ]
+    ] ],
+    [ "hmap::ImageWriterConfig", "structhmap_1_1ImageWriterConfig.html", null ],
+    [ "hmap::BigTiffWriter::Impl", "structhmap_1_1BigTiffWriter_1_1Impl.html", null ],
     [ "hmap::KDTree::Impl", "structhmap_1_1KDTree_1_1Impl.html", null ],
+    [ "hmap::OpenCVWriter::Impl", "structhmap_1_1OpenCVWriter_1_1Impl.html", null ],
+    [ "hmap::OpenEXRWriter::Impl", "structhmap_1_1OpenEXRWriter_1_1Impl.html", null ],
     [ "hmap::Interpolator1D", "classhmap_1_1Interpolator1D.html", null ],
     [ "hmap::InterpolatorCurve", "classhmap_1_1InterpolatorCurve.html", null ],
     [ "hmap::IVec2Eq", "structhmap_1_1IVec2Eq.html", null ],

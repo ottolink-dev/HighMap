@@ -1,12 +1,9 @@
 var searchData=
 [
-  ['terraintrimesh_0',['TerrainTriMesh',['../classhmap_1_1TerrainTriMesh.html',1,'hmap']]],
-  ['texture_1',['Texture',['../classhmap_1_1Texture.html',1,'hmap']]],
-  ['tileaccess_2',['TileAccess',['../structTileAccess.html',1,'']]],
-  ['tilekey_3',['TileKey',['../structhmap_1_1TileKey.html',1,'hmap']]],
-  ['tilekeyhash_4',['TileKeyHash',['../structhmap_1_1TileKeyHash.html',1,'hmap']]],
-  ['tileregion_5',['TileRegion',['../structhmap_1_1TileRegion.html',1,'hmap']]],
-  ['tilestorage_6',['TileStorage',['../classhmap_1_1TileStorage.html',1,'hmap']]],
-  ['timer_7',['Timer',['../classhmap_1_1Timer.html',1,'hmap']]],
-  ['triangle_8',['Triangle',['../structhmap_1_1TerrainTriMesh_1_1Triangle.html',1,'hmap::TerrainTriMesh']]]
+  ['scopedtimer_0',['ScopedTimer',['../structhmap_1_1ScopedTimer.html',1,'hmap']]],
+  ['shortestpathresult_1',['ShortestPathResult',['../structhmap_1_1TerrainTriMesh_1_1ShortestPathResult.html',1,'hmap::TerrainTriMesh']]],
+  ['simplex2function_2',['Simplex2Function',['../classhmap_1_1Simplex2Function.html',1,'hmap']]],
+  ['simplex2sfunction_3',['Simplex2SFunction',['../classhmap_1_1Simplex2SFunction.html',1,'hmap']]],
+  ['slopefunction_4',['SlopeFunction',['../classhmap_1_1SlopeFunction.html',1,'hmap']]],
+  ['stepfunction_5',['StepFunction',['../classhmap_1_1StepFunction.html',1,'hmap']]]
 ];

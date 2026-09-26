@@ -18,6 +18,8 @@ class \mbox{\hyperlink{classhmap_1_1ArrayFunction}{Array\+Function}}
 \begin{DoxyCompactList}\small\item\em \doxylink{classhmap_1_1Array}{Array} (x, y) function class. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1AssertResults}{Assert\+Results}}
 \item 
+class \mbox{\hyperlink{classhmap_1_1BigTiffWriter}{Big\+Tiff\+Writer}}
+\item 
 class \mbox{\hyperlink{classhmap_1_1BiquadFunction}{Biquad\+Function}}
 \begin{DoxyCompactList}\small\item\em Biquad (x, y) function class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1BumpFunction}{Bump\+Function}}
@@ -74,6 +76,10 @@ class \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{Generic\+Fractal\+Fu
 \begin{DoxyCompactList}\small\item\em A class for generating fractal noise functions based on an underlying noise function. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1Graph}{Graph}}
 \begin{DoxyCompactList}\small\item\em \doxylink{classhmap_1_1Graph}{Graph} class, to manipulate graphs in 2D. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1ImageWriter}{Image\+Writer}}
+\item 
+struct \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}}
+\item 
 class \mbox{\hyperlink{classhmap_1_1Interpolator1D}{Interpolator1D}}
 \begin{DoxyCompactList}\small\item\em A class for performing 1D interpolation using the GSL library. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1InterpolatorCurve}{Interpolator\+Curve}}
@@ -100,6 +106,10 @@ struct \mbox{\hyperlink{structhmap_1_1Neighbor}{Neighbor}}
 \begin{DoxyCompactList}\small\item\em \doxylink{classhmap_1_1Graph}{Graph} neighbor information for adjacency representation. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1NoiseFunction}{Noise\+Function}}
 \begin{DoxyCompactList}\small\item\em A class for generating noise functions. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1OpenCVWriter}{Open\+CVWriter}}
+\item 
+class \mbox{\hyperlink{classhmap_1_1OpenEXRWriter}{Open\+EXRWriter}}
+\item 
 class \mbox{\hyperlink{classhmap_1_1ParberryFunction}{Parberry\+Function}}
 \begin{DoxyCompactList}\small\item\em Parberry (x, y) function class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1Path}{Path}}
@@ -294,6 +304,12 @@ enum \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871b}{Asset\+Ex
 , \mbox{\hyperlink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871baf1ff28325bd7912ef3267a9ed0049efe}{OBJNOMTL}}
  \}
 \begin{DoxyCompactList}\small\item\em Enumeration for asset export formats supported by Assimp. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{namespacehmap_a451ad02eb796f23b2f68e062e8de9875}{Image\+Data\+Type}} \+: int \{ \mbox{\hyperlink{namespacehmap_a451ad02eb796f23b2f68e062e8de9875a967d280b5c16d95f2947647dd2ca6cc2}{FLOAT32}}
+, \mbox{\hyperlink{namespacehmap_a451ad02eb796f23b2f68e062e8de9875ac49f280a5ad551ccc77be0b01a2f386a}{FLOAT16}}
+, \mbox{\hyperlink{namespacehmap_a451ad02eb796f23b2f68e062e8de9875a48d8f1a723d44ff4a87db1bb6c551c62}{UINT16}}
+, \mbox{\hyperlink{namespacehmap_a451ad02eb796f23b2f68e062e8de9875aecfc091ed2a607335524c8389cfa41b5}{UINT8}}
+ \}
+\item 
 enum \mbox{\hyperlink{namespacehmap_a9d00db2263b4b7b05245531c41c1b592}{neighborhood}} \+: int \{ \mbox{\hyperlink{namespacehmap_a9d00db2263b4b7b05245531c41c1b592af1e94018e1eb59b107f1adfa66a97929}{MOORE}}
 , \mbox{\hyperlink{namespacehmap_a9d00db2263b4b7b05245531c41c1b592a5814c956cc15b9764d586bb86912c364}{VON\+\_\+\+NEUMANN}}
 , \mbox{\hyperlink{namespacehmap_a9d00db2263b4b7b05245531c41c1b592a5a41d1fe35db5ea65c515f217e5df2af}{CROSS}}
@@ -735,6 +751,16 @@ void \mbox{\hyperlink{namespacehmap_ad880e48991b3beda92660d62c2bb0294}{export\+\
 \begin{DoxyCompactList}\small\item\em Exports a 2D array as a cubemap texture with continuity enforcement and overlapping regions. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{export\+\_\+banner\+\_\+png}} (const std\+::string \&fname, const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Array}{Array}} $>$ \&arrays, int cmap, bool hillshading=false, bool normalize\+\_\+arrays=false)
 \begin{DoxyCompactList}\small\item\em Exports a set of arrays as a banner PNG image file. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_ae45c9c8f938fb4f94a3a3816d16bcc36}{export\+\_\+image}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const std\+::string \&fname, const \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}} \&config=\{\})
+\begin{DoxyCompactList}\small\item\em Exports an array using the generic \doxylink{classhmap_1_1ImageWriter}{Image\+Writer} pipeline. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_ad497dd32ecb09e688cd8434317295e4d}{export\+\_\+image}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&va, const std\+::string \&fname, const \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}} \&config=\{\})
+\begin{DoxyCompactList}\small\item\em Exports a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} incrementally using the generic \doxylink{classhmap_1_1ImageWriter}{Image\+Writer} pipeline. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a58f42f7215851ada5235f7088cad2d27}{export\+\_\+image}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&va, const std\+::string \&fname, const \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}} \&config, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm)
+\begin{DoxyCompactList}\small\item\em Exports a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} incrementally with custom compute mode. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a126f0152947cde103de88d789edcadc2}{export\+\_\+virtual\+\_\+array}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&va, \mbox{\hyperlink{classhmap_1_1ImageWriter}{Image\+Writer}} \&writer)
+\begin{DoxyCompactList}\small\item\em Streams a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} tile-\/by-\/tile into an already opened \doxylink{classhmap_1_1ImageWriter}{Image\+Writer}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a1add8a2d0a618e4ac8e67dc1a9c0b1a3}{export\+\_\+virtual\+\_\+array}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&va, \mbox{\hyperlink{classhmap_1_1ImageWriter}{Image\+Writer}} \&writer, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm)
+\begin{DoxyCompactList}\small\item\em Streams a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} tile-\/by-\/tile into an already opened \doxylink{classhmap_1_1ImageWriter}{Image\+Writer} with custom compute mode. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a9648a23e61a84a702d89159d516dd4ec}{export\+\_\+normal\+\_\+map\+\_\+png}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int depth=CV\+\_\+8U)
 \begin{DoxyCompactList}\small\item\em Exports the heightmap normal map as an 8-\/bit PNG file. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a32464922c39713910ebeab632e0e8fd1}{export\+\_\+splatmap\+\_\+png}} (const std\+::string \&fname, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+r, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+g=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+b=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+a=nullptr, int depth=CV\+\_\+8U)
@@ -2569,6 +2595,30 @@ OBJ&Wavefront OBJ format -\/ \texorpdfstring{$\ast$}{*}.obj. \\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{OBJNOMTL@{OBJNOMTL}!hmap@{hmap}}\index{hmap@{hmap}!OBJNOMTL@{OBJNOMTL}}}\Hypertarget{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871baf1ff28325bd7912ef3267a9ed0049efe}\label{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871baf1ff28325bd7912ef3267a9ed0049efe} 
 OBJNOMTL&Wavefront OBJ format without material file -\/ \texorpdfstring{$\ast$}{*}.obj. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{namespacehmap_a451ad02eb796f23b2f68e062e8de9875}\label{namespacehmap_a451ad02eb796f23b2f68e062e8de9875} 
+\index{hmap@{hmap}!ImageDataType@{ImageDataType}}
+\index{ImageDataType@{ImageDataType}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{ImageDataType}{ImageDataType}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{namespacehmap_a451ad02eb796f23b2f68e062e8de9875}{hmap\+::\+Image\+Data\+Type}} \+: int\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLOAT32@{FLOAT32}!hmap@{hmap}}\index{hmap@{hmap}!FLOAT32@{FLOAT32}}}\Hypertarget{namespacehmap_a451ad02eb796f23b2f68e062e8de9875a967d280b5c16d95f2947647dd2ca6cc2}\label{namespacehmap_a451ad02eb796f23b2f68e062e8de9875a967d280b5c16d95f2947647dd2ca6cc2} 
+FLOAT32&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLOAT16@{FLOAT16}!hmap@{hmap}}\index{hmap@{hmap}!FLOAT16@{FLOAT16}}}\Hypertarget{namespacehmap_a451ad02eb796f23b2f68e062e8de9875ac49f280a5ad551ccc77be0b01a2f386a}\label{namespacehmap_a451ad02eb796f23b2f68e062e8de9875ac49f280a5ad551ccc77be0b01a2f386a} 
+FLOAT16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UINT16@{UINT16}!hmap@{hmap}}\index{hmap@{hmap}!UINT16@{UINT16}}}\Hypertarget{namespacehmap_a451ad02eb796f23b2f68e062e8de9875a48d8f1a723d44ff4a87db1bb6c551c62}\label{namespacehmap_a451ad02eb796f23b2f68e062e8de9875a48d8f1a723d44ff4a87db1bb6c551c62} 
+UINT16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UINT8@{UINT8}!hmap@{hmap}}\index{hmap@{hmap}!UINT8@{UINT8}}}\Hypertarget{namespacehmap_a451ad02eb796f23b2f68e062e8de9875aecfc091ed2a607335524c8389cfa41b5}\label{namespacehmap_a451ad02eb796f23b2f68e062e8de9875aecfc091ed2a607335524c8389cfa41b5} 
+UINT8&\\
 \hline
 
 \end{DoxyEnumFields}
@@ -8827,6 +8877,116 @@ This function takes a vector of arrays and exports them as a single banner PNG i
 {\em hillshading} & A boolean flag to activate hillshading for enhanced visual depth. Default is {\ttfamily false}. \\
 \hline
 \end{DoxyParams}
+\Hypertarget{namespacehmap_ae45c9c8f938fb4f94a3a3816d16bcc36}\label{namespacehmap_ae45c9c8f938fb4f94a3a3816d16bcc36} 
+\index{hmap@{hmap}!export\_image@{export\_image}}
+\index{export\_image@{export\_image}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{export\_image()}{export\_image()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily bool hmap\+::export\+\_\+image (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{const std\+::string \&}]{fname,  }\item[{const \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}} \&}]{config = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Exports an array using the generic \doxylink{classhmap_1_1ImageWriter}{Image\+Writer} pipeline. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & Input 2D array. \\
+\hline
+{\em fname} & Output file or directory path. \\
+\hline
+{\em config} & Optional writer configuration. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_ad497dd32ecb09e688cd8434317295e4d}\label{namespacehmap_ad497dd32ecb09e688cd8434317295e4d} 
+\index{hmap@{hmap}!export\_image@{export\_image}}
+\index{export\_image@{export\_image}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{export\_image()}{export\_image()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily bool hmap\+::export\+\_\+image (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{va,  }\item[{const std\+::string \&}]{fname,  }\item[{const \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}} \&}]{config = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Exports a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} incrementally using the generic \doxylink{classhmap_1_1ImageWriter}{Image\+Writer} pipeline. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em va} & Input \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array}. \\
+\hline
+{\em fname} & Output file or directory path. \\
+\hline
+{\em config} & Optional writer configuration. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a58f42f7215851ada5235f7088cad2d27}\label{namespacehmap_a58f42f7215851ada5235f7088cad2d27} 
+\index{hmap@{hmap}!export\_image@{export\_image}}
+\index{export\_image@{export\_image}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{export\_image()}{export\_image()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily bool hmap\+::export\+\_\+image (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{va,  }\item[{const std\+::string \&}]{fname,  }\item[{const \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}} \&}]{config,  }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm }\end{DoxyParamCaption})}
+
+
+
+Exports a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} incrementally with custom compute mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em va} & Input \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array}. \\
+\hline
+{\em fname} & Output file or directory path. \\
+\hline
+{\em config} & Writer configuration. \\
+\hline
+{\em cm} & Compute mode for tile processing. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a126f0152947cde103de88d789edcadc2}\label{namespacehmap_a126f0152947cde103de88d789edcadc2} 
+\index{hmap@{hmap}!export\_virtual\_array@{export\_virtual\_array}}
+\index{export\_virtual\_array@{export\_virtual\_array}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{export\_virtual\_array()}{export\_virtual\_array()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool hmap\+::export\+\_\+virtual\+\_\+array (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{va,  }\item[{\mbox{\hyperlink{classhmap_1_1ImageWriter}{Image\+Writer}} \&}]{writer }\end{DoxyParamCaption})}
+
+
+
+Streams a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} tile-\/by-\/tile into an already opened \doxylink{classhmap_1_1ImageWriter}{Image\+Writer}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em va} & Input \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array}. \\
+\hline
+{\em writer} & Reference to target \doxylink{classhmap_1_1ImageWriter}{Image\+Writer}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a1add8a2d0a618e4ac8e67dc1a9c0b1a3}\label{namespacehmap_a1add8a2d0a618e4ac8e67dc1a9c0b1a3} 
+\index{hmap@{hmap}!export\_virtual\_array@{export\_virtual\_array}}
+\index{export\_virtual\_array@{export\_virtual\_array}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{export\_virtual\_array()}{export\_virtual\_array()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool hmap\+::export\+\_\+virtual\+\_\+array (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{va,  }\item[{\mbox{\hyperlink{classhmap_1_1ImageWriter}{Image\+Writer}} \&}]{writer,  }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm }\end{DoxyParamCaption})}
+
+
+
+Streams a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} tile-\/by-\/tile into an already opened \doxylink{classhmap_1_1ImageWriter}{Image\+Writer} with custom compute mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em va} & Input \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array}. \\
+\hline
+{\em writer} & Reference to target \doxylink{classhmap_1_1ImageWriter}{Image\+Writer}. \\
+\hline
+{\em cm} & Compute mode for tile processing. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false otherwise. 
+\end{DoxyReturn}
 \Hypertarget{namespacehmap_a9648a23e61a84a702d89159d516dd4ec}\label{namespacehmap_a9648a23e61a84a702d89159d516dd4ec} 
 \index{hmap@{hmap}!export\_normal\_map\_png@{export\_normal\_map\_png}}
 \index{export\_normal\_map\_png@{export\_normal\_map\_png}!hmap@{hmap}}

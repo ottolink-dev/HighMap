@@ -1,0 +1,267 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classhmap_1_1ImageWriter" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>hmap::ImageWriter</compoundname>
+    <derivedcompoundref refid="classhmap_1_1BigTiffWriter" prot="public" virt="non-virtual">hmap::BigTiffWriter</derivedcompoundref>
+    <derivedcompoundref refid="classhmap_1_1OpenCVWriter" prot="public" virt="non-virtual">hmap::OpenCVWriter</derivedcompoundref>
+    <derivedcompoundref refid="classhmap_1_1OpenEXRWriter" prot="public" virt="non-virtual">hmap::OpenEXRWriter</derivedcompoundref>
+    <includes refid="image__writer_8hpp" local="no">image_writer.hpp</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhmap_1_1ImageWriter_1aee2b05e67482163a53863955c788d8bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual hmap::ImageWriter::~ImageWriter</definition>
+        <argsstring>()=default</argsstring>
+        <name>~ImageWriter</name>
+        <qualifiedname>hmap::ImageWriter::~ImageWriter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/export/image_writer.hpp" line="55" column="11"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1ImageWriter_1ad74cf97c9e2efc803681226e46bcd7ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool hmap::ImageWriter::open</definition>
+        <argsstring>(const std::string &amp;filepath, const ImageWriterConfig &amp;config)=0</argsstring>
+        <name>open</name>
+        <qualifiedname>hmap::ImageWriter::open</qualifiedname>
+        <reimplementedby refid="classhmap_1_1BigTiffWriter_1ae4cc55e3fa4015a5bb35205d137cba4d">open</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenCVWriter_1a40a006fbeaf756c1f7ffd0d71057dd2b">open</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenEXRWriter_1a759aac76b0d93b9dad417f45b9f29116">open</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filepath</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref> &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/export/image_writer.hpp" line="59" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1ImageWriter_1a8ba258dfd487b00ab5f6337cd755e2d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void hmap::ImageWriter::close</definition>
+        <argsstring>()=0</argsstring>
+        <name>close</name>
+        <qualifiedname>hmap::ImageWriter::close</qualifiedname>
+        <reimplementedby refid="classhmap_1_1BigTiffWriter_1a82f4cd33c936daaf0da9c419971c7152">close</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenCVWriter_1aaafda3960fe8ae11f7723ca12bd4efcd">close</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenEXRWriter_1a0f0a710bb59bff2d72aa41943efbb40a">close</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/export/image_writer.hpp" line="61" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1ImageWriter_1a5881e0ad5c4022d064bd5a3e0247e0b3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool hmap::ImageWriter::is_open</definition>
+        <argsstring>() const =0</argsstring>
+        <name>is_open</name>
+        <qualifiedname>hmap::ImageWriter::is_open</qualifiedname>
+        <reimplementedby refid="classhmap_1_1BigTiffWriter_1af56cb8b320ef3472e31130df96f17080">is_open</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenCVWriter_1aae69e0665ccbc557fc7fb224334aa6ed">is_open</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenEXRWriter_1ace67cf1c91b43ed0a3270459d7ea3c0f">is_open</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/export/image_writer.hpp" line="62" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1ImageWriter_1abac1c1837ab63ef5adefde2b9f140341" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool hmap::ImageWriter::write_chunk</definition>
+        <argsstring>(int offset_x, int offset_y, const Array &amp;data)=0</argsstring>
+        <name>write_chunk</name>
+        <qualifiedname>hmap::ImageWriter::write_chunk</qualifiedname>
+        <reimplementedby refid="classhmap_1_1BigTiffWriter_1a04baab61cb5eb5262f6dcb7aaeeba66c">write_chunk</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenCVWriter_1a6f6b7be0051b400d527b5c45742d4261">write_chunk</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenEXRWriter_1a6017e271fbf0e59b4ad5ecbfab3aab15">write_chunk</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>offset_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset_y</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/export/image_writer.hpp" line="66" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1ImageWriter_1af52835d3a85ae22dbac7721cec209ea7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool hmap::ImageWriter::write_chunk</definition>
+        <argsstring>(int offset_x, int offset_y, const std::vector&lt; Array &gt; &amp;channels)</argsstring>
+        <name>write_chunk</name>
+        <qualifiedname>hmap::ImageWriter::write_chunk</qualifiedname>
+        <reimplementedby refid="classhmap_1_1BigTiffWriter_1a2839a71b6fdfe2385f27b1946f47c940">write_chunk</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenCVWriter_1ab005e8fd7eefcfc70a6826d5f99db540">write_chunk</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenEXRWriter_1a62bf73e43712e7e3ce7fa00b1ce55bd8">write_chunk</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>offset_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset_y</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &gt; &amp;</type>
+          <declname>channels</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/export/image_writer.hpp" line="67" column="16" bodyfile="HighMap/src/export/image_writer.cpp" bodystart="23" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1ImageWriter_1aa336190df6cc93ebec25255ddd116578" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool hmap::ImageWriter::write_tile</definition>
+        <argsstring>(const TileRegion &amp;region, const Array &amp;data)</argsstring>
+        <name>write_tile</name>
+        <qualifiedname>hmap::ImageWriter::write_tile</qualifiedname>
+        <reimplementedby refid="classhmap_1_1BigTiffWriter_1abbab9a2a8b08e22330be1a3b128f5028">write_tile</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenCVWriter_1a52a9108df86802b8897b9ff575773ee8">write_tile</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenEXRWriter_1ab446e034c83bbe292e7cdf6877bbb147">write_tile</reimplementedby>
+        <param>
+          <type>const <ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref> &amp;</type>
+          <declname>region</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/export/image_writer.hpp" line="70" column="16" bodyfile="HighMap/src/export/image_writer.cpp" bodystart="31" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1ImageWriter_1a878923af3c99d236d90dfc1e7eeffdf0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>const <ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref> &amp;</type>
+        <definition>virtual const ImageWriterConfig &amp; hmap::ImageWriter::config</definition>
+        <argsstring>() const =0</argsstring>
+        <name>config</name>
+        <qualifiedname>hmap::ImageWriter::config</qualifiedname>
+        <reimplementedby refid="classhmap_1_1BigTiffWriter_1a3422dd8f98d4d25bafd991d2813b1ab2">config</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenCVWriter_1a8498ab7f2f43d85753399681f2fa1f5a">config</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenEXRWriter_1ab0455654e795fefdd0c9449f6f69cc9f">config</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/export/image_writer.hpp" line="74" column="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1ImageWriter_1a9149ee485668dd3fae101b062e1554e6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string &amp; hmap::ImageWriter::filepath</definition>
+        <argsstring>() const =0</argsstring>
+        <name>filepath</name>
+        <qualifiedname>hmap::ImageWriter::filepath</qualifiedname>
+        <reimplementedby refid="classhmap_1_1BigTiffWriter_1a926e460c63ccc4afb02600c234861ebc">filepath</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenCVWriter_1a636b3480ebf65f1b48157bb29020317d">filepath</reimplementedby>
+        <reimplementedby refid="classhmap_1_1OpenEXRWriter_1a27bc16f819e9b96f5384ccd3e5940772">filepath</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/export/image_writer.hpp" line="75" column="35"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classhmap_1_1ImageWriter_1a54bfca22e4a9a05d23c6da20cf82ba40" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; <ref refid="classhmap_1_1ImageWriter" kindref="compound">ImageWriter</ref> &gt;</type>
+        <definition>std::unique_ptr&lt; ImageWriter &gt; hmap::ImageWriter::create</definition>
+        <argsstring>(const std::string &amp;filepath, const ImageWriterConfig &amp;config)</argsstring>
+        <name>create</name>
+        <qualifiedname>hmap::ImageWriter::create</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filepath</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref> &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/export/image_writer.hpp" line="79" column="26" bodyfile="HighMap/src/export/image_writer.cpp" bodystart="53" bodyend="77"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>hmap::BigTiffWriter</label>
+        <link refid="classhmap_1_1BigTiffWriter"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>hmap::ImageWriter</label>
+        <link refid="classhmap_1_1ImageWriter"/>
+      </node>
+      <node id="3">
+        <label>hmap::OpenCVWriter</label>
+        <link refid="classhmap_1_1OpenCVWriter"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>hmap::OpenEXRWriter</label>
+        <link refid="classhmap_1_1OpenEXRWriter"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="HighMap/include/highmap/export/image_writer.hpp" line="52" column="1" bodyfile="HighMap/include/highmap/export/image_writer.hpp" bodystart="53" bodyend="81"/>
+    <listofallmembers>
+      <member refid="classhmap_1_1ImageWriter_1a8ba258dfd487b00ab5f6337cd755e2d3" prot="public" virt="pure-virtual"><scope>hmap::ImageWriter</scope><name>close</name></member>
+      <member refid="classhmap_1_1ImageWriter_1a878923af3c99d236d90dfc1e7eeffdf0" prot="public" virt="pure-virtual"><scope>hmap::ImageWriter</scope><name>config</name></member>
+      <member refid="classhmap_1_1ImageWriter_1a54bfca22e4a9a05d23c6da20cf82ba40" prot="public" virt="non-virtual"><scope>hmap::ImageWriter</scope><name>create</name></member>
+      <member refid="classhmap_1_1ImageWriter_1a9149ee485668dd3fae101b062e1554e6" prot="public" virt="pure-virtual"><scope>hmap::ImageWriter</scope><name>filepath</name></member>
+      <member refid="classhmap_1_1ImageWriter_1a5881e0ad5c4022d064bd5a3e0247e0b3" prot="public" virt="pure-virtual"><scope>hmap::ImageWriter</scope><name>is_open</name></member>
+      <member refid="classhmap_1_1ImageWriter_1ad74cf97c9e2efc803681226e46bcd7ff" prot="public" virt="pure-virtual"><scope>hmap::ImageWriter</scope><name>open</name></member>
+      <member refid="classhmap_1_1ImageWriter_1abac1c1837ab63ef5adefde2b9f140341" prot="public" virt="pure-virtual"><scope>hmap::ImageWriter</scope><name>write_chunk</name></member>
+      <member refid="classhmap_1_1ImageWriter_1af52835d3a85ae22dbac7721cec209ea7" prot="public" virt="virtual"><scope>hmap::ImageWriter</scope><name>write_chunk</name></member>
+      <member refid="classhmap_1_1ImageWriter_1aa336190df6cc93ebec25255ddd116578" prot="public" virt="virtual"><scope>hmap::ImageWriter</scope><name>write_tile</name></member>
+      <member refid="classhmap_1_1ImageWriter_1aee2b05e67482163a53863955c788d8bc" prot="public" virt="virtual"><scope>hmap::ImageWriter</scope><name>~ImageWriter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

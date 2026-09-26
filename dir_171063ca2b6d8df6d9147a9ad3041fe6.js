@@ -34,6 +34,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_gradient.cpp", "test__gradient_8cpp.html", "test__gradient_8cpp" ],
     [ "test_graph.cpp", "test__graph_8cpp.html", "test__graph_8cpp" ],
     [ "test_grids.cpp", "test__grids_8cpp.html", "test__grids_8cpp" ],
+    [ "test_image_writer.cpp", "test__image__writer_8cpp.html", "test__image__writer_8cpp" ],
     [ "test_interpolate1d.cpp", "test__interpolate1d_8cpp.html", "test__interpolate1d_8cpp" ],
     [ "test_interpolate_array_empty_source.cpp", "test__interpolate__array__empty__source_8cpp.html", "test__interpolate__array__empty__source_8cpp" ],
     [ "test_island_chain.cpp", "test__island__chain_8cpp.html", "test__island__chain_8cpp" ],

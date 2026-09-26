@@ -1,0 +1,56 @@
+\doxysection{bigtiff\+\_\+writer.\+hpp}
+\hypertarget{bigtiff__writer_8hpp_source}{}\label{bigtiff__writer_8hpp_source}\index{HighMap/include/highmap/export/bigtiff\_writer.hpp@{HighMap/include/highmap/export/bigtiff\_writer.hpp}}
+\mbox{\hyperlink{bigtiff__writer_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Copyright\ (c)\ 2026\ Otto\ Link.\ Distributed\ under\ the\ terms\ of\ the\ GNU\ General}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ Public\ License.\ The\ full\ license\ is\ in\ the\ file\ LICENSE,\ distributed\ with}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ this\ software.\ */}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{image__writer_8hpp}{highmap/export/image\_writer.hpp}}"{}}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1BigTiffWriter}{BigTiffWriter}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1ImageWriter}{ImageWriter}}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \mbox{\hyperlink{classhmap_1_1BigTiffWriter_af72d24265a29184067936186fc39881a}{BigTiffWriter}}();}
+\DoxyCodeLine{00028\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classhmap_1_1BigTiffWriter_af72d24265a29184067936186fc39881a}{BigTiffWriter}}(\textcolor{keyword}{const}\ std::string\ \ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1BigTiffWriter_a926e460c63ccc4afb02600c234861ebc}{filepath}},}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{ImageWriterConfig}}\ \&\mbox{\hyperlink{classhmap_1_1BigTiffWriter_a3422dd8f98d4d25bafd991d2813b1ab2}{config}});}
+\DoxyCodeLine{00030\ \ \ \mbox{\hyperlink{classhmap_1_1BigTiffWriter_ab76555869ed2459371d5187374ebb557}{\string~BigTiffWriter}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \textcolor{comment}{//\ -\/-\/-\/\ Lifecycle}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classhmap_1_1BigTiffWriter_ae4cc55e3fa4015a5bb35205d137cba4d}{open}}(\textcolor{keyword}{const}\ std::string\ \ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1BigTiffWriter_a926e460c63ccc4afb02600c234861ebc}{filepath}},}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{ImageWriterConfig}}\ \&\mbox{\hyperlink{classhmap_1_1BigTiffWriter_a3422dd8f98d4d25bafd991d2813b1ab2}{config}})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1BigTiffWriter_a82f4cd33c936daaf0da9c419971c7152}{close}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classhmap_1_1BigTiffWriter_af56cb8b320ef3472e31130df96f17080}{is\_open}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \textcolor{comment}{//\ -\/-\/-\/\ Chunk\ /\ tile\ writing}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classhmap_1_1BigTiffWriter_a04baab61cb5eb5262f6dcb7aaeeba66c}{write\_chunk}}(\textcolor{keywordtype}{int}\ offset\_x,\ \textcolor{keywordtype}{int}\ offset\_y,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&data)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classhmap_1_1BigTiffWriter_a04baab61cb5eb5262f6dcb7aaeeba66c}{write\_chunk}}(\textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offset\_x,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offset\_y,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Array>\ \&channels)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classhmap_1_1BigTiffWriter_abbab9a2a8b08e22330be1a3b128f5028}{write\_tile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&data)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \textcolor{comment}{//\ -\/-\/-\/\ Properties}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{ImageWriterConfig}}\ \&\mbox{\hyperlink{classhmap_1_1BigTiffWriter_a3422dd8f98d4d25bafd991d2813b1ab2}{config}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{const}\ std::string\ \ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1BigTiffWriter_a926e460c63ccc4afb02600c234861ebc}{filepath}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1BigTiffWriter_1_1Impl}{Impl}};}
+\DoxyCodeLine{00054\ \ \ std::unique\_ptr<Impl>\ p\_impl;}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+
+\end{DoxyCode}

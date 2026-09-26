@@ -1,0 +1,146 @@
+\doxysection{hmap\+::Image\+Writer Class Reference}
+\hypertarget{classhmap_1_1ImageWriter}{}\label{classhmap_1_1ImageWriter}\index{hmap::ImageWriter@{hmap::ImageWriter}}
+
+
+{\ttfamily \#include $<$image\+\_\+writer.\+hpp$>$}
+
+
+
+Inheritance diagram for hmap\+::Image\+Writer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classhmap_1_1ImageWriter__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classhmap_1_1ImageWriter_aee2b05e67482163a53863955c788d8bc}{\texorpdfstring{$\sim$}{\string~}\+Image\+Writer}} ()=default
+\item 
+virtual bool \mbox{\hyperlink{classhmap_1_1ImageWriter_ad74cf97c9e2efc803681226e46bcd7ff}{open}} (const std\+::string \&\mbox{\hyperlink{classhmap_1_1ImageWriter_a9149ee485668dd3fae101b062e1554e6}{filepath}}, const \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}} \&\mbox{\hyperlink{classhmap_1_1ImageWriter_a878923af3c99d236d90dfc1e7eeffdf0}{config}})=0
+\item 
+virtual void \mbox{\hyperlink{classhmap_1_1ImageWriter_a8ba258dfd487b00ab5f6337cd755e2d3}{close}} ()=0
+\item 
+virtual bool \mbox{\hyperlink{classhmap_1_1ImageWriter_a5881e0ad5c4022d064bd5a3e0247e0b3}{is\+\_\+open}} () const =0
+\item 
+virtual bool \mbox{\hyperlink{classhmap_1_1ImageWriter_abac1c1837ab63ef5adefde2b9f140341}{write\+\_\+chunk}} (int offset\+\_\+x, int offset\+\_\+y, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&data)=0
+\item 
+virtual bool \mbox{\hyperlink{classhmap_1_1ImageWriter_af52835d3a85ae22dbac7721cec209ea7}{write\+\_\+chunk}} (int offset\+\_\+x, int offset\+\_\+y, const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Array}{Array}} $>$ \&channels)
+\item 
+virtual bool \mbox{\hyperlink{classhmap_1_1ImageWriter_aa336190df6cc93ebec25255ddd116578}{write\+\_\+tile}} (const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \&region, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&data)
+\item 
+virtual const \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}} \& \mbox{\hyperlink{classhmap_1_1ImageWriter_a878923af3c99d236d90dfc1e7eeffdf0}{config}} () const =0
+\item 
+virtual const std\+::string \& \mbox{\hyperlink{classhmap_1_1ImageWriter_a9149ee485668dd3fae101b062e1554e6}{filepath}} () const =0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1ImageWriter}{Image\+Writer}} $>$ \mbox{\hyperlink{classhmap_1_1ImageWriter_a54bfca22e4a9a05d23c6da20cf82ba40}{create}} (const std\+::string \&\mbox{\hyperlink{classhmap_1_1ImageWriter_a9149ee485668dd3fae101b062e1554e6}{filepath}}, const \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}} \&\mbox{\hyperlink{classhmap_1_1ImageWriter_a878923af3c99d236d90dfc1e7eeffdf0}{config}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classhmap_1_1ImageWriter_aee2b05e67482163a53863955c788d8bc}\label{classhmap_1_1ImageWriter_aee2b05e67482163a53863955c788d8bc} 
+\index{hmap::ImageWriter@{hmap::ImageWriter}!````~ImageWriter@{\texorpdfstring{$\sim$}{\string~}ImageWriter}}
+\index{````~ImageWriter@{\texorpdfstring{$\sim$}{\string~}ImageWriter}!hmap::ImageWriter@{hmap::ImageWriter}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ImageWriter()}{\string~ImageWriter()}}
+{\footnotesize\ttfamily virtual hmap\+::\+Image\+Writer\+::\texorpdfstring{$\sim$}{\string~}\+Image\+Writer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classhmap_1_1ImageWriter_ad74cf97c9e2efc803681226e46bcd7ff}\label{classhmap_1_1ImageWriter_ad74cf97c9e2efc803681226e46bcd7ff} 
+\index{hmap::ImageWriter@{hmap::ImageWriter}!open@{open}}
+\index{open@{open}!hmap::ImageWriter@{hmap::ImageWriter}}
+\doxysubsubsection{\texorpdfstring{open()}{open()}}
+{\footnotesize\ttfamily virtual bool hmap\+::\+Image\+Writer\+::open (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filepath,  }\item[{const \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}} \&}]{config }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classhmap_1_1BigTiffWriter_ae4cc55e3fa4015a5bb35205d137cba4d}{hmap\+::\+Big\+Tiff\+Writer}}, \mbox{\hyperlink{classhmap_1_1OpenCVWriter_a40a006fbeaf756c1f7ffd0d71057dd2b}{hmap\+::\+Open\+CVWriter}}, and \mbox{\hyperlink{classhmap_1_1OpenEXRWriter_a759aac76b0d93b9dad417f45b9f29116}{hmap\+::\+Open\+EXRWriter}}.
+
+\Hypertarget{classhmap_1_1ImageWriter_a8ba258dfd487b00ab5f6337cd755e2d3}\label{classhmap_1_1ImageWriter_a8ba258dfd487b00ab5f6337cd755e2d3} 
+\index{hmap::ImageWriter@{hmap::ImageWriter}!close@{close}}
+\index{close@{close}!hmap::ImageWriter@{hmap::ImageWriter}}
+\doxysubsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily virtual void hmap\+::\+Image\+Writer\+::close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classhmap_1_1BigTiffWriter_a82f4cd33c936daaf0da9c419971c7152}{hmap\+::\+Big\+Tiff\+Writer}}, \mbox{\hyperlink{classhmap_1_1OpenCVWriter_aaafda3960fe8ae11f7723ca12bd4efcd}{hmap\+::\+Open\+CVWriter}}, and \mbox{\hyperlink{classhmap_1_1OpenEXRWriter_a0f0a710bb59bff2d72aa41943efbb40a}{hmap\+::\+Open\+EXRWriter}}.
+
+\Hypertarget{classhmap_1_1ImageWriter_a5881e0ad5c4022d064bd5a3e0247e0b3}\label{classhmap_1_1ImageWriter_a5881e0ad5c4022d064bd5a3e0247e0b3} 
+\index{hmap::ImageWriter@{hmap::ImageWriter}!is\_open@{is\_open}}
+\index{is\_open@{is\_open}!hmap::ImageWriter@{hmap::ImageWriter}}
+\doxysubsubsection{\texorpdfstring{is\_open()}{is\_open()}}
+{\footnotesize\ttfamily virtual bool hmap\+::\+Image\+Writer\+::is\+\_\+open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classhmap_1_1BigTiffWriter_af56cb8b320ef3472e31130df96f17080}{hmap\+::\+Big\+Tiff\+Writer}}, \mbox{\hyperlink{classhmap_1_1OpenCVWriter_aae69e0665ccbc557fc7fb224334aa6ed}{hmap\+::\+Open\+CVWriter}}, and \mbox{\hyperlink{classhmap_1_1OpenEXRWriter_ace67cf1c91b43ed0a3270459d7ea3c0f}{hmap\+::\+Open\+EXRWriter}}.
+
+\Hypertarget{classhmap_1_1ImageWriter_abac1c1837ab63ef5adefde2b9f140341}\label{classhmap_1_1ImageWriter_abac1c1837ab63ef5adefde2b9f140341} 
+\index{hmap::ImageWriter@{hmap::ImageWriter}!write\_chunk@{write\_chunk}}
+\index{write\_chunk@{write\_chunk}!hmap::ImageWriter@{hmap::ImageWriter}}
+\doxysubsubsection{\texorpdfstring{write\_chunk()}{write\_chunk()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual bool hmap\+::\+Image\+Writer\+::write\+\_\+chunk (\begin{DoxyParamCaption}\item[{int}]{offset\+\_\+x,  }\item[{int}]{offset\+\_\+y,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classhmap_1_1BigTiffWriter_a04baab61cb5eb5262f6dcb7aaeeba66c}{hmap\+::\+Big\+Tiff\+Writer}}, \mbox{\hyperlink{classhmap_1_1OpenCVWriter_a6f6b7be0051b400d527b5c45742d4261}{hmap\+::\+Open\+CVWriter}}, and \mbox{\hyperlink{classhmap_1_1OpenEXRWriter_a6017e271fbf0e59b4ad5ecbfab3aab15}{hmap\+::\+Open\+EXRWriter}}.
+
+\Hypertarget{classhmap_1_1ImageWriter_af52835d3a85ae22dbac7721cec209ea7}\label{classhmap_1_1ImageWriter_af52835d3a85ae22dbac7721cec209ea7} 
+\index{hmap::ImageWriter@{hmap::ImageWriter}!write\_chunk@{write\_chunk}}
+\index{write\_chunk@{write\_chunk}!hmap::ImageWriter@{hmap::ImageWriter}}
+\doxysubsubsection{\texorpdfstring{write\_chunk()}{write\_chunk()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool hmap\+::\+Image\+Writer\+::write\+\_\+chunk (\begin{DoxyParamCaption}\item[{int}]{offset\+\_\+x,  }\item[{int}]{offset\+\_\+y,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Array}{Array}} $>$ \&}]{channels }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classhmap_1_1BigTiffWriter_a2839a71b6fdfe2385f27b1946f47c940}{hmap\+::\+Big\+Tiff\+Writer}}, \mbox{\hyperlink{classhmap_1_1OpenCVWriter_ab005e8fd7eefcfc70a6826d5f99db540}{hmap\+::\+Open\+CVWriter}}, and \mbox{\hyperlink{classhmap_1_1OpenEXRWriter_a62bf73e43712e7e3ce7fa00b1ce55bd8}{hmap\+::\+Open\+EXRWriter}}.
+
+\Hypertarget{classhmap_1_1ImageWriter_aa336190df6cc93ebec25255ddd116578}\label{classhmap_1_1ImageWriter_aa336190df6cc93ebec25255ddd116578} 
+\index{hmap::ImageWriter@{hmap::ImageWriter}!write\_tile@{write\_tile}}
+\index{write\_tile@{write\_tile}!hmap::ImageWriter@{hmap::ImageWriter}}
+\doxysubsubsection{\texorpdfstring{write\_tile()}{write\_tile()}}
+{\footnotesize\ttfamily bool hmap\+::\+Image\+Writer\+::write\+\_\+tile (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \&}]{region,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classhmap_1_1BigTiffWriter_abbab9a2a8b08e22330be1a3b128f5028}{hmap\+::\+Big\+Tiff\+Writer}}, \mbox{\hyperlink{classhmap_1_1OpenCVWriter_a52a9108df86802b8897b9ff575773ee8}{hmap\+::\+Open\+CVWriter}}, and \mbox{\hyperlink{classhmap_1_1OpenEXRWriter_ab446e034c83bbe292e7cdf6877bbb147}{hmap\+::\+Open\+EXRWriter}}.
+
+\Hypertarget{classhmap_1_1ImageWriter_a878923af3c99d236d90dfc1e7eeffdf0}\label{classhmap_1_1ImageWriter_a878923af3c99d236d90dfc1e7eeffdf0} 
+\index{hmap::ImageWriter@{hmap::ImageWriter}!config@{config}}
+\index{config@{config}!hmap::ImageWriter@{hmap::ImageWriter}}
+\doxysubsubsection{\texorpdfstring{config()}{config()}}
+{\footnotesize\ttfamily virtual const \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}} \& hmap\+::\+Image\+Writer\+::config (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classhmap_1_1BigTiffWriter_a3422dd8f98d4d25bafd991d2813b1ab2}{hmap\+::\+Big\+Tiff\+Writer}}, \mbox{\hyperlink{classhmap_1_1OpenCVWriter_a8498ab7f2f43d85753399681f2fa1f5a}{hmap\+::\+Open\+CVWriter}}, and \mbox{\hyperlink{classhmap_1_1OpenEXRWriter_ab0455654e795fefdd0c9449f6f69cc9f}{hmap\+::\+Open\+EXRWriter}}.
+
+\Hypertarget{classhmap_1_1ImageWriter_a9149ee485668dd3fae101b062e1554e6}\label{classhmap_1_1ImageWriter_a9149ee485668dd3fae101b062e1554e6} 
+\index{hmap::ImageWriter@{hmap::ImageWriter}!filepath@{filepath}}
+\index{filepath@{filepath}!hmap::ImageWriter@{hmap::ImageWriter}}
+\doxysubsubsection{\texorpdfstring{filepath()}{filepath()}}
+{\footnotesize\ttfamily virtual const std\+::string \& hmap\+::\+Image\+Writer\+::filepath (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classhmap_1_1BigTiffWriter_a926e460c63ccc4afb02600c234861ebc}{hmap\+::\+Big\+Tiff\+Writer}}, \mbox{\hyperlink{classhmap_1_1OpenCVWriter_a636b3480ebf65f1b48157bb29020317d}{hmap\+::\+Open\+CVWriter}}, and \mbox{\hyperlink{classhmap_1_1OpenEXRWriter_a27bc16f819e9b96f5384ccd3e5940772}{hmap\+::\+Open\+EXRWriter}}.
+
+\Hypertarget{classhmap_1_1ImageWriter_a54bfca22e4a9a05d23c6da20cf82ba40}\label{classhmap_1_1ImageWriter_a54bfca22e4a9a05d23c6da20cf82ba40} 
+\index{hmap::ImageWriter@{hmap::ImageWriter}!create@{create}}
+\index{create@{create}!hmap::ImageWriter@{hmap::ImageWriter}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1ImageWriter}{Image\+Writer}} $>$ hmap\+::\+Image\+Writer\+::create (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filepath,  }\item[{const \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}} \&}]{config }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+High\+Map/include/highmap/export/\mbox{\hyperlink{image__writer_8hpp}{image\+\_\+writer.\+hpp}}\item 
+High\+Map/src/export/\mbox{\hyperlink{image__writer_8cpp}{image\+\_\+writer.\+cpp}}\end{DoxyCompactItemize}

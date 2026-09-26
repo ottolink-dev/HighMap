@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="export__image_8cpp" kind="file" language="C++">
+    <compoundname>export_image.cpp</compoundname>
+    <innernamespace refid="namespacehmap">hmap</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Otto<sp/>Link.<sp/>Distributed<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>GNU<sp/>General</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/><sp/><sp/>Public<sp/>License.<sp/>The<sp/>full<sp/>license<sp/>is<sp/>in<sp/>the<sp/>file<sp/>LICENSE,<sp/>distributed<sp/>with</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/><sp/><sp/>this<sp/>software.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="array_8hpp" kindref="compound">highmap/array.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="image_8hpp" kindref="compound">highmap/export/image.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="image__writer_8hpp" kindref="compound">highmap/export/image_writer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="validation_8hpp" kindref="compound">highmap/internal/validation.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="logger_8hpp" kindref="compound">highmap/logger.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="virtual__array_2virtual__array_8hpp" kindref="compound">highmap/virtual_array/virtual_array.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref></highlight></codeline>
+<codeline lineno="15"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1ae45c9c8f938fb4f94a3a3816d16bcc36" kindref="member">export_image</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;array,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;fname,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ImageWriterConfig<sp/>&amp;config)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>ImageWriterConfig<sp/>cfg<sp/>=<sp/>config;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cfg.image_shape.x<sp/>&lt;=<sp/>0<sp/>||<sp/>cfg.image_shape.y<sp/>&lt;=<sp/>0)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>cfg.image_shape<sp/>=<sp/>array.shape;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cfg.tile_shape.x<sp/>&lt;=<sp/>0<sp/>||<sp/>cfg.tile_shape.y<sp/>&lt;=<sp/>0)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>cfg.tile_shape<sp/>=<sp/>array.shape;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>std::unique_ptr&lt;ImageWriter&gt;<sp/>writer<sp/>=<sp/><ref refid="classhmap_1_1ImageWriter_1a54bfca22e4a9a05d23c6da20cf82ba40" kindref="member">ImageWriter::create</ref>(fname,<sp/>cfg);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!writer<sp/>||<sp/>!writer-&gt;open(fname,<sp/>cfg))</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1log_1a8329d2e0f083133cd0e3ff79fb74f2d9" kindref="member">hmap::log::error</ref>(</highlight><highlight class="stringliteral">&quot;export_image<sp/>failed<sp/>to<sp/>open<sp/>writer<sp/>for<sp/>{}&quot;</highlight><highlight class="normal">,<sp/>fname);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ok<sp/>=<sp/>writer-&gt;write_chunk(0,<sp/>0,<sp/>array);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>writer-&gt;close();</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ok;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1ae45c9c8f938fb4f94a3a3816d16bcc36" kindref="member">export_image</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>VirtualArray<sp/><sp/><sp/><sp/><sp/><sp/>&amp;va,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;fname,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ImageWriterConfig<sp/>&amp;config)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>ComputeMode<sp/>cm;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>cm.mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5" kindref="member">ForEachMode::VA_DISTRIBUTED</ref>;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1ae45c9c8f938fb4f94a3a3816d16bcc36" kindref="member">export_image</ref>(va,<sp/>fname,<sp/>config,<sp/>cm);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1ae45c9c8f938fb4f94a3a3816d16bcc36" kindref="member">export_image</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>VirtualArray<sp/><sp/><sp/><sp/><sp/><sp/>&amp;va,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;fname,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ImageWriterConfig<sp/>&amp;config,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ComputeMode<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;cm)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>ImageWriterConfig<sp/>cfg<sp/>=<sp/>config;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cfg.image_shape.x<sp/>&lt;=<sp/>0<sp/>||<sp/>cfg.image_shape.y<sp/>&lt;=<sp/>0)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>cfg.image_shape<sp/>=<sp/>va.shape;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cfg.tile_shape.x<sp/>&lt;=<sp/>0<sp/>||<sp/>cfg.tile_shape.y<sp/>&lt;=<sp/>0)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>cfg.tile_shape<sp/>=<sp/>va.tile_shape;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>std::unique_ptr&lt;ImageWriter&gt;<sp/>writer<sp/>=<sp/><ref refid="classhmap_1_1ImageWriter_1a54bfca22e4a9a05d23c6da20cf82ba40" kindref="member">ImageWriter::create</ref>(fname,<sp/>cfg);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!writer<sp/>||<sp/>!writer-&gt;open(fname,<sp/>cfg))</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1log_1a8329d2e0f083133cd0e3ff79fb74f2d9" kindref="member">hmap::log::error</ref>(</highlight><highlight class="stringliteral">&quot;export_image<sp/>failed<sp/>to<sp/>open<sp/>writer<sp/>for<sp/>{}&quot;</highlight><highlight class="normal">,<sp/>fname);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a126f0152947cde103de88d789edcadc2" kindref="member">export_virtual_array</ref>(va,<sp/>*writer,<sp/>cm);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a126f0152947cde103de88d789edcadc2" kindref="member">export_virtual_array</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>VirtualArray<sp/>&amp;va,<sp/>ImageWriter<sp/>&amp;writer)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>ComputeMode<sp/>cm;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>cm.mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5" kindref="member">ForEachMode::VA_DISTRIBUTED</ref>;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a126f0152947cde103de88d789edcadc2" kindref="member">export_virtual_array</ref>(va,<sp/>writer,<sp/>cm);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1a126f0152947cde103de88d789edcadc2" kindref="member">export_virtual_array</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>VirtualArray<sp/>&amp;va,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ImageWriter<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;writer,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ComputeMode<sp/><sp/>&amp;cm)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!writer.is_open())</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1log_1a8329d2e0f083133cd0e3ff79fb74f2d9" kindref="member">hmap::log::error</ref>(</highlight><highlight class="stringliteral">&quot;export_virtual_array<sp/>called<sp/>with<sp/>closed<sp/>writer&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">for_each_tile</ref>(</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>va,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;tile,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TileRegion<sp/>&amp;region)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>writer.write_tile(region,<sp/>tile);<sp/>},</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>writer.close();</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="HighMap/src/export/export_image.cpp"/>
+  </compounddef>
+</doxygen>

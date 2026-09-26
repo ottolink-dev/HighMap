@@ -6,6 +6,7 @@
     <innerclass refid="classhmap_1_1ArrayControlFunction" prot="public">hmap::ArrayControlFunction</innerclass>
     <innerclass refid="classhmap_1_1ArrayFunction" prot="public">hmap::ArrayFunction</innerclass>
     <innerclass refid="structhmap_1_1AssertResults" prot="public">hmap::AssertResults</innerclass>
+    <innerclass refid="classhmap_1_1BigTiffWriter" prot="public">hmap::BigTiffWriter</innerclass>
     <innerclass refid="classhmap_1_1BiquadFunction" prot="public">hmap::BiquadFunction</innerclass>
     <innerclass refid="classhmap_1_1BumpFunction" prot="public">hmap::BumpFunction</innerclass>
     <innerclass refid="classhmap_1_1CellPath" prot="public">hmap::CellPath</innerclass>
@@ -34,6 +35,8 @@
     <innerclass refid="structhmap_1_1GaussianPush" prot="public">hmap::GaussianPush</innerclass>
     <innerclass refid="classhmap_1_1GenericFractalFunction" prot="public">hmap::GenericFractalFunction</innerclass>
     <innerclass refid="classhmap_1_1Graph" prot="public">hmap::Graph</innerclass>
+    <innerclass refid="classhmap_1_1ImageWriter" prot="public">hmap::ImageWriter</innerclass>
+    <innerclass refid="structhmap_1_1ImageWriterConfig" prot="public">hmap::ImageWriterConfig</innerclass>
     <innerclass refid="classhmap_1_1Interpolator1D" prot="public">hmap::Interpolator1D</innerclass>
     <innerclass refid="classhmap_1_1InterpolatorCurve" prot="public">hmap::InterpolatorCurve</innerclass>
     <innerclass refid="structhmap_1_1IVec2Eq" prot="public">hmap::IVec2Eq</innerclass>
@@ -47,6 +50,8 @@
     <innerclass refid="classhmap_1_1NaturalNeighborInterpolator" prot="public">hmap::NaturalNeighborInterpolator</innerclass>
     <innerclass refid="structhmap_1_1Neighbor" prot="public">hmap::Neighbor</innerclass>
     <innerclass refid="classhmap_1_1NoiseFunction" prot="public">hmap::NoiseFunction</innerclass>
+    <innerclass refid="classhmap_1_1OpenCVWriter" prot="public">hmap::OpenCVWriter</innerclass>
+    <innerclass refid="classhmap_1_1OpenEXRWriter" prot="public">hmap::OpenEXRWriter</innerclass>
     <innerclass refid="classhmap_1_1ParberryFunction" prot="public">hmap::ParberryFunction</innerclass>
     <innerclass refid="classhmap_1_1Path" prot="public">hmap::Path</innerclass>
     <innerclass refid="classhmap_1_1PdfSampler" prot="public">hmap::PdfSampler</innerclass>
@@ -807,6 +812,46 @@
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/include/highmap/export/asset.hpp" line="59" column="1" bodyfile="HighMap/include/highmap/export/asset.hpp" bodystart="60" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="enum" id="namespacehmap_1a451ad02eb796f23b2f68e062e8de9875" prot="public" static="no" strong="yes">
+        <type>int</type>
+        <name>ImageDataType</name>
+        <qualifiedname>hmap::ImageDataType</qualifiedname>
+        <enumvalue id="namespacehmap_1a451ad02eb796f23b2f68e062e8de9875a967d280b5c16d95f2947647dd2ca6cc2" prot="public">
+          <name>FLOAT32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a451ad02eb796f23b2f68e062e8de9875ac49f280a5ad551ccc77be0b01a2f386a" prot="public">
+          <name>FLOAT16</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a451ad02eb796f23b2f68e062e8de9875a48d8f1a723d44ff4a87db1bb6c551c62" prot="public">
+          <name>UINT16</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a451ad02eb796f23b2f68e062e8de9875aecfc091ed2a607335524c8389cfa41b5" prot="public">
+          <name>UINT8</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/export/image_writer.hpp" line="28" column="1" bodyfile="HighMap/include/highmap/export/image_writer.hpp" bodystart="29" bodyend="34"/>
       </memberdef>
       <memberdef kind="enum" id="namespacehmap_1a9d00db2263b4b7b05245531c41c1b592" prot="public" static="no" strong="no">
         <type>int</type>
@@ -13363,7 +13408,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_as_ascii.cpp" line="14" column="13" bodyfile="HighMap/src/export/export_as_ascii.cpp" bodystart="14" bodyend="39" declfile="HighMap/include/highmap/export/image.hpp" declline="50" declcolumn="13"/>
+        <location file="HighMap/src/export/export_as_ascii.cpp" line="14" column="13" bodyfile="HighMap/src/export/export_as_ascii.cpp" bodystart="14" bodyend="39" declfile="HighMap/include/highmap/export/image.hpp" declline="54" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ad880e48991b3beda92660d62c2bb0294" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -13500,7 +13545,7 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_as_cubemap.cpp" line="181" column="6" bodyfile="HighMap/src/export/export_as_cubemap.cpp" bodystart="181" bodyend="520" declfile="HighMap/include/highmap/export/image.hpp" declline="92" declcolumn="6"/>
+        <location file="HighMap/src/export/export_as_cubemap.cpp" line="181" column="6" bodyfile="HighMap/src/export/export_as_cubemap.cpp" bodystart="181" bodyend="520" declfile="HighMap/include/highmap/export/image.hpp" declline="96" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -13572,7 +13617,284 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_banner_png.cpp" line="16" column="6" bodyfile="HighMap/src/export/export_banner_png.cpp" bodystart="16" bodyend="54" declfile="HighMap/include/highmap/export/image.hpp" declline="117" declcolumn="6"/>
+        <location file="HighMap/src/export/export_banner_png.cpp" line="16" column="6" bodyfile="HighMap/src/export/export_banner_png.cpp" bodystart="16" bodyend="54" declfile="HighMap/include/highmap/export/image.hpp" declline="121" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ae45c9c8f938fb4f94a3a3816d16bcc36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hmap::export_image</definition>
+        <argsstring>(const Array &amp;array, const std::string &amp;fname, const ImageWriterConfig &amp;config={})</argsstring>
+        <name>export_image</name>
+        <qualifiedname>hmap::export_image</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>array</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fname</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref> &amp;</type>
+          <declname>config</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Exports an array using the generic <ref refid="classhmap_1_1ImageWriter" kindref="compound">ImageWriter</ref> pipeline. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input 2D array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output file or directory path. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional writer configuration. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if successful, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/export/export_image.cpp" line="17" column="6" bodyfile="HighMap/src/export/export_image.cpp" bodystart="17" bodyend="43" declfile="HighMap/include/highmap/export/image.hpp" declline="135" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ad497dd32ecb09e688cd8434317295e4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hmap::export_image</definition>
+        <argsstring>(const VirtualArray &amp;va, const std::string &amp;fname, const ImageWriterConfig &amp;config={})</argsstring>
+        <name>export_image</name>
+        <qualifiedname>hmap::export_image</qualifiedname>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>va</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fname</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref> &amp;</type>
+          <declname>config</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Exports a <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> incrementally using the generic <ref refid="classhmap_1_1ImageWriter" kindref="compound">ImageWriter</ref> pipeline. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>va</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output file or directory path. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional writer configuration. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if successful, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/export/export_image.cpp" line="45" column="6" bodyfile="HighMap/src/export/export_image.cpp" bodystart="45" bodyend="52" declfile="HighMap/include/highmap/export/image.hpp" declline="148" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a58f42f7215851ada5235f7088cad2d27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hmap::export_image</definition>
+        <argsstring>(const VirtualArray &amp;va, const std::string &amp;fname, const ImageWriterConfig &amp;config, const ComputeMode &amp;cm)</argsstring>
+        <name>export_image</name>
+        <qualifiedname>hmap::export_image</qualifiedname>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>va</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fname</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref> &amp;</type>
+          <declname>config</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+        </param>
+        <briefdescription>
+<para>Exports a <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> incrementally with custom compute mode. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>va</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output file or directory path. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Writer configuration. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Compute mode for tile processing. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if successful, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/export/export_image.cpp" line="54" column="6" bodyfile="HighMap/src/export/export_image.cpp" bodystart="54" bodyend="77" declfile="HighMap/include/highmap/export/image.hpp" declline="161" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a126f0152947cde103de88d789edcadc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hmap::export_virtual_array</definition>
+        <argsstring>(const VirtualArray &amp;va, ImageWriter &amp;writer)</argsstring>
+        <name>export_virtual_array</name>
+        <qualifiedname>hmap::export_virtual_array</qualifiedname>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>va</declname>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1ImageWriter" kindref="compound">ImageWriter</ref> &amp;</type>
+          <declname>writer</declname>
+        </param>
+        <briefdescription>
+<para>Streams a <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> tile-by-tile into an already opened <ref refid="classhmap_1_1ImageWriter" kindref="compound">ImageWriter</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>va</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>writer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference to target <ref refid="classhmap_1_1ImageWriter" kindref="compound">ImageWriter</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if successful, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/export/export_image.cpp" line="79" column="6" bodyfile="HighMap/src/export/export_image.cpp" bodystart="79" bodyend="84" declfile="HighMap/include/highmap/export/image.hpp" declline="174" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a1add8a2d0a618e4ac8e67dc1a9c0b1a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hmap::export_virtual_array</definition>
+        <argsstring>(const VirtualArray &amp;va, ImageWriter &amp;writer, const ComputeMode &amp;cm)</argsstring>
+        <name>export_virtual_array</name>
+        <qualifiedname>hmap::export_virtual_array</qualifiedname>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>va</declname>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1ImageWriter" kindref="compound">ImageWriter</ref> &amp;</type>
+          <declname>writer</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+        </param>
+        <briefdescription>
+<para>Streams a <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> tile-by-tile into an already opened <ref refid="classhmap_1_1ImageWriter" kindref="compound">ImageWriter</ref> with custom compute mode. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>va</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>writer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference to target <ref refid="classhmap_1_1ImageWriter" kindref="compound">ImageWriter</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Compute mode for tile processing. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if successful, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/export/export_image.cpp" line="86" column="6" bodyfile="HighMap/src/export/export_image.cpp" bodystart="86" bodyend="104" declfile="HighMap/include/highmap/export/image.hpp" declline="185" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9648a23e61a84a702d89159d516dd4ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -13643,7 +13965,7 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_normal_map.cpp" line="15" column="6" bodyfile="HighMap/src/export/export_normal_map.cpp" bodystart="15" bodyend="23" declfile="HighMap/include/highmap/export/image.hpp" declline="138" declcolumn="6"/>
+        <location file="HighMap/src/export/export_normal_map.cpp" line="15" column="6" bodyfile="HighMap/src/export/export_normal_map.cpp" bodystart="15" bodyend="23" declfile="HighMap/include/highmap/export/image.hpp" declline="204" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a32464922c39713910ebeab632e0e8fd1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -13765,7 +14087,7 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_splatmap.cpp" line="34" column="6" bodyfile="HighMap/src/export/export_splatmap.cpp" bodystart="34" bodyend="45" declfile="HighMap/include/highmap/export/image.hpp" declline="171" declcolumn="6"/>
+        <location file="HighMap/src/export/export_splatmap.cpp" line="34" column="6" bodyfile="HighMap/src/export/export_splatmap.cpp" bodystart="34" bodyend="45" declfile="HighMap/include/highmap/export/image.hpp" declline="237" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a91708f107a53c4b8ef68bb1d0291c73f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -13914,7 +14236,7 @@ Each tile is extracted using slicing, adjusted for overlap if specified, and the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_tiled.cpp" line="46" column="6" bodyfile="HighMap/src/export/export_tiled.cpp" bodystart="46" bodyend="88" declfile="HighMap/include/highmap/export/image.hpp" declline="210" declcolumn="6"/>
+        <location file="HighMap/src/export/export_tiled.cpp" line="46" column="6" bodyfile="HighMap/src/export/export_tiled.cpp" bodystart="46" bodyend="88" declfile="HighMap/include/highmap/export/image.hpp" declline="276" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a09aeebc31234cb19376836a7009054d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -13956,7 +14278,7 @@ Each tile is extracted using slicing, adjusted for overlap if specified, and the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/read_to_array.cpp" line="15" column="7" bodyfile="HighMap/src/export/read_to_array.cpp" bodystart="15" bodyend="28" declfile="HighMap/include/highmap/export/image.hpp" declline="233" declcolumn="7"/>
+        <location file="HighMap/src/export/read_to_array.cpp" line="15" column="7" bodyfile="HighMap/src/export/read_to_array.cpp" bodystart="15" bodyend="28" declfile="HighMap/include/highmap/export/image.hpp" declline="299" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a44e7bc9494b71c4022e45ef9c2199075" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>

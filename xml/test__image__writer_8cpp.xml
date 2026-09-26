@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="test__image__writer_8cpp" kind="file" language="C++">
+    <compoundname>test_image_writer.cpp</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="test__image__writer_8cpp_1a3e806faba173bf5b2ab90f60ccabce30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ImageWriterTest, FactoryCreation)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ImageWriterTest</type>
+        </param>
+        <param>
+          <type>FactoryCreation</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_image_writer.cpp" line="15" column="1" bodyfile="tests/src/test_image_writer.cpp" bodystart="15" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="test__image__writer_8cpp_1a5a6a012c4774cd0d423370736923eb64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ImageWriterTest, OpenEXRTiledRoundTrip)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ImageWriterTest</type>
+        </param>
+        <param>
+          <type>OpenEXRTiledRoundTrip</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_image_writer.cpp" line="39" column="1" bodyfile="tests/src/test_image_writer.cpp" bodystart="39" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="test__image__writer_8cpp_1a3b502cb1346e606fe565d851449bedcf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ImageWriterTest, BigTiffTiledWrite)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ImageWriterTest</type>
+        </param>
+        <param>
+          <type>BigTiffTiledWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_image_writer.cpp" line="85" column="1" bodyfile="tests/src/test_image_writer.cpp" bodystart="85" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="test__image__writer_8cpp_1a3659bf3bd77ed33676baf533f62bb463" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ImageWriterTest, VirtualArrayExportImage)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ImageWriterTest</type>
+        </param>
+        <param>
+          <type>VirtualArrayExportImage</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_image_writer.cpp" line="127" column="1" bodyfile="tests/src/test_image_writer.cpp" bodystart="127" bodyend="161"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;filesystem&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="array_8hpp" kindref="compound">highmap/array.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="assert_8hpp" kindref="compound">highmap/dbg/assert.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="export_8hpp" kindref="compound">highmap/export.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="primitives_8hpp" kindref="compound">highmap/primitives.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="virtual__array_2virtual__array_8hpp" kindref="compound">highmap/virtual_array/virtual_array.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;nlohmann/json.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><ref refid="test__image__writer_8cpp_1a3e806faba173bf5b2ab90f60ccabce30" kindref="member">TEST</ref>(ImageWriterTest,<sp/>FactoryCreation)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref><sp/>config;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>config.<ref refid="structhmap_1_1ImageWriterConfig_1a3f5fb7f5ebdce590634d38e7b13591e8" kindref="member">image_shape</ref><sp/>=<sp/>{128,<sp/>128};</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>config.<ref refid="structhmap_1_1ImageWriterConfig_1a4ac6d4d2808bb0ad060df78f9cbb8a38" kindref="member">tile_shape</ref><sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>exr_writer<sp/>=<sp/><ref refid="classhmap_1_1ImageWriter_1a54bfca22e4a9a05d23c6da20cf82ba40" kindref="member">ImageWriter::create</ref>(</highlight><highlight class="stringliteral">&quot;test.exr&quot;</highlight><highlight class="normal">,<sp/>config);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>EXPECT_NE(</highlight><highlight class="keyword">dynamic_cast&lt;</highlight><highlight class="normal"><ref refid="classhmap_1_1OpenEXRWriter" kindref="compound">OpenEXRWriter</ref><sp/>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(exr_writer.get()),<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>tiff_writer<sp/>=<sp/><ref refid="classhmap_1_1ImageWriter_1a54bfca22e4a9a05d23c6da20cf82ba40" kindref="member">ImageWriter::create</ref>(</highlight><highlight class="stringliteral">&quot;test.tif&quot;</highlight><highlight class="normal">,<sp/>config);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>EXPECT_NE(</highlight><highlight class="keyword">dynamic_cast&lt;</highlight><highlight class="normal"><ref refid="classhmap_1_1BigTiffWriter" kindref="compound">BigTiffWriter</ref><sp/>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(tiff_writer.get()),<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>png_writer<sp/>=<sp/><ref refid="classhmap_1_1ImageWriter_1a54bfca22e4a9a05d23c6da20cf82ba40" kindref="member">ImageWriter::create</ref>(</highlight><highlight class="stringliteral">&quot;test.png&quot;</highlight><highlight class="normal">,<sp/>config);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/>EXPECT_NE(</highlight><highlight class="keyword">dynamic_cast&lt;</highlight><highlight class="normal"><ref refid="classhmap_1_1OpenCVWriter" kindref="compound">OpenCVWriter</ref><sp/>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(png_writer.get()),<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>exr_writer-&gt;close();</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/>tiff_writer-&gt;close();</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>png_writer-&gt;close();</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::filesystem::exists(</highlight><highlight class="stringliteral">&quot;test.exr&quot;</highlight><highlight class="normal">))<sp/>std::filesystem::remove(</highlight><highlight class="stringliteral">&quot;test.exr&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::filesystem::exists(</highlight><highlight class="stringliteral">&quot;test.tif&quot;</highlight><highlight class="normal">))<sp/>std::filesystem::remove(</highlight><highlight class="stringliteral">&quot;test.tif&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::filesystem::exists(</highlight><highlight class="stringliteral">&quot;test.png&quot;</highlight><highlight class="normal">))<sp/>std::filesystem::remove(</highlight><highlight class="stringliteral">&quot;test.png&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><ref refid="test__image__writer_8cpp_1a3e806faba173bf5b2ab90f60ccabce30" kindref="member">TEST</ref>(ImageWriterTest,<sp/>OpenEXRTiledRoundTrip)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>fname<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;tmp_tiled_test.exr&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::filesystem::exists(fname))<sp/>std::filesystem::remove(fname);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>img_shape<sp/>=<sp/>{128,<sp/>128};</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>tile_shape<sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>full_array(img_shape);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>&lt;<sp/>img_shape.y;<sp/>++<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>img_shape.x;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>full_array(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>+<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>*<sp/>img_shape.x);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref><sp/>config;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>config.<ref refid="structhmap_1_1ImageWriterConfig_1a3f5fb7f5ebdce590634d38e7b13591e8" kindref="member">image_shape</ref><sp/>=<sp/>img_shape;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>config.<ref refid="structhmap_1_1ImageWriterConfig_1a4ac6d4d2808bb0ad060df78f9cbb8a38" kindref="member">tile_shape</ref><sp/>=<sp/>tile_shape;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>config.<ref refid="structhmap_1_1ImageWriterConfig_1a481586b28e6d78db02843fcb819e0583" kindref="member">data_type</ref><sp/>=<sp/>ImageDataType::FLOAT32;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1OpenEXRWriter" kindref="compound">OpenEXRWriter</ref><sp/>writer;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>ASSERT_TRUE(writer.<ref refid="classhmap_1_1OpenEXRWriter_1a759aac76b0d93b9dad417f45b9f29116" kindref="member">open</ref>(fname,<sp/>config));</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ty<sp/>=<sp/>0;<sp/>ty<sp/>&lt;<sp/>2;<sp/>++ty)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tx<sp/>=<sp/>0;<sp/>tx<sp/>&lt;<sp/>2;<sp/>++tx)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>ox<sp/>=<sp/>tx<sp/>*<sp/>tile_shape.x;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>oy<sp/>=<sp/>ty<sp/>*<sp/>tile_shape.y;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>tile<sp/>=<sp/>full_array.<ref refid="classhmap_1_1Array_1a2cb7491733f41de0f72f132c0ecff188" kindref="member">extract_slice</ref>(ox,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ox<sp/>+<sp/>tile_shape.x,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>oy,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>oy<sp/>+<sp/>tile_shape.y);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_TRUE(writer.<ref refid="classhmap_1_1OpenEXRWriter_1a6017e271fbf0e59b4ad5ecbfab3aab15" kindref="member">write_chunk</ref>(ox,<sp/>oy,<sp/>tile));</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>writer.<ref refid="classhmap_1_1OpenEXRWriter_1a0f0a710bb59bff2d72aa41943efbb40a" kindref="member">close</ref>();</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>ASSERT_TRUE(std::filesystem::exists(fname));</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>loaded(fname,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.shape.x,<sp/>img_shape.x);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.shape.y,<sp/>img_shape.y);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(full_array,<sp/>loaded,<sp/>1e-4f));</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>std::filesystem::remove(fname);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><ref refid="test__image__writer_8cpp_1a3e806faba173bf5b2ab90f60ccabce30" kindref="member">TEST</ref>(ImageWriterTest,<sp/>BigTiffTiledWrite)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>fname<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;tmp_tiled_test.tif&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::filesystem::exists(fname))<sp/>std::filesystem::remove(fname);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>img_shape<sp/>=<sp/>{128,<sp/>128};</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>tile_shape<sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>full_array<sp/>=<sp/><ref refid="namespacehmap_1a5db6d20fe4a5e243dc67a713cb3ac419" kindref="member">white</ref>(img_shape,<sp/>0.f,<sp/>1.f,<sp/>42);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref><sp/>config;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/>config.<ref refid="structhmap_1_1ImageWriterConfig_1a3f5fb7f5ebdce590634d38e7b13591e8" kindref="member">image_shape</ref><sp/>=<sp/>img_shape;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>config.<ref refid="structhmap_1_1ImageWriterConfig_1a4ac6d4d2808bb0ad060df78f9cbb8a38" kindref="member">tile_shape</ref><sp/>=<sp/>tile_shape;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>config.<ref refid="structhmap_1_1ImageWriterConfig_1a481586b28e6d78db02843fcb819e0583" kindref="member">data_type</ref><sp/>=<sp/>ImageDataType::FLOAT32;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1BigTiffWriter" kindref="compound">BigTiffWriter</ref><sp/>writer;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>ASSERT_TRUE(writer.<ref refid="classhmap_1_1BigTiffWriter_1ae4cc55e3fa4015a5bb35205d137cba4d" kindref="member">open</ref>(fname,<sp/>config));</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ty<sp/>=<sp/>0;<sp/>ty<sp/>&lt;<sp/>2;<sp/>++ty)</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tx<sp/>=<sp/>0;<sp/>tx<sp/>&lt;<sp/>2;<sp/>++tx)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>ox<sp/>=<sp/>tx<sp/>*<sp/>tile_shape.x;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>oy<sp/>=<sp/>ty<sp/>*<sp/>tile_shape.y;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>tile<sp/>=<sp/>full_array.<ref refid="classhmap_1_1Array_1a2cb7491733f41de0f72f132c0ecff188" kindref="member">extract_slice</ref>(ox,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ox<sp/>+<sp/>tile_shape.x,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>oy,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>oy<sp/>+<sp/>tile_shape.y);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_TRUE(writer.<ref refid="classhmap_1_1BigTiffWriter_1a04baab61cb5eb5262f6dcb7aaeeba66c" kindref="member">write_chunk</ref>(ox,<sp/>oy,<sp/>tile));</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>writer.<ref refid="classhmap_1_1BigTiffWriter_1a82f4cd33c936daaf0da9c419971c7152" kindref="member">close</ref>();</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/>ASSERT_TRUE(std::filesystem::exists(fname));</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>loaded<sp/>=<sp/><ref refid="namespacehmap_1a09aeebc31234cb19376836a7009054d3" kindref="member">read_to_array</ref>(fname,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x,<sp/>img_shape.x);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y,<sp/>img_shape.y);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/>std::filesystem::remove(fname);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><ref refid="test__image__writer_8cpp_1a3e806faba173bf5b2ab90f60ccabce30" kindref="member">TEST</ref>(ImageWriterTest,<sp/>VirtualArrayExportImage)</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>fname<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;tmp_va_export.exr&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::filesystem::exists(fname))<sp/>std::filesystem::remove(fname);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{128,<sp/>128};</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>tile_shape<sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>src(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>42.5f);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>va(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{-1.f,<sp/>1.f,<sp/>-1.f,<sp/>1.f},</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_shape,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StorageMode::VA_RAM);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/>cm;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/>cm.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/>ForEachMode::VA_DISTRIBUTED;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>va.fill(42.5f,<sp/>cm);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref><sp/>cfg;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/>cfg.<ref refid="structhmap_1_1ImageWriterConfig_1a481586b28e6d78db02843fcb819e0583" kindref="member">data_type</ref><sp/>=<sp/>ImageDataType::FLOAT32;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ae45c9c8f938fb4f94a3a3816d16bcc36" kindref="member">export_image</ref>(va,<sp/>fname,<sp/>cfg,<sp/>cm));</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/>ASSERT_TRUE(std::filesystem::exists(fname));</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>loaded(fname,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.shape.x,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.shape.y,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(loaded(0,<sp/>0),<sp/>42.5f,<sp/>1e-4f);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(loaded(100,<sp/>100),<sp/>42.5f,<sp/>1e-4f);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/>std::filesystem::remove(fname);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="tests/src/test_image_writer.cpp"/>
+  </compounddef>
+</doxygen>

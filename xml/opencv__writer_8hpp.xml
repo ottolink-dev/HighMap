@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="opencv__writer_8hpp" kind="file" language="C++">
+    <compoundname>opencv_writer.hpp</compoundname>
+    <innerclass refid="classhmap_1_1OpenCVWriter" prot="public">hmap::OpenCVWriter</innerclass>
+    <innernamespace refid="namespacehmap">hmap</innernamespace>
+    <briefdescription>
+<para>OpenCV-based image writer implementing ImageWriter interface. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Otto Link (<ulink url="mailto:otto.link.bv@gmail.com">otto.link.bv@gmail.com</ulink>) </para>
+</simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2026 Otto Link </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Otto<sp/>Link.<sp/>Distributed<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>GNU<sp/>General</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/><sp/><sp/>Public<sp/>License.<sp/>The<sp/>full<sp/>license<sp/>is<sp/>in<sp/>the<sp/>file<sp/>LICENSE,<sp/>distributed<sp/>with</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/><sp/><sp/>this<sp/>software.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;mutex&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="image__writer_8hpp" kindref="compound">highmap/export/image_writer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref></highlight></codeline>
+<codeline lineno="22"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="classhmap_1_1OpenCVWriter" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classhmap_1_1OpenCVWriter" kindref="compound">OpenCVWriter</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1ImageWriter" kindref="compound">ImageWriter</ref></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1OpenCVWriter_1a5519da958f69eeedc2629c706b28d6cc" kindref="member">OpenCVWriter</ref>();</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1OpenCVWriter_1a5519da958f69eeedc2629c706b28d6cc" kindref="member">OpenCVWriter</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="classhmap_1_1OpenCVWriter_1a636b3480ebf65f1b48157bb29020317d" kindref="member">filepath</ref>,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref><sp/>&amp;<ref refid="classhmap_1_1OpenCVWriter_1a8498ab7f2f43d85753399681f2fa1f5a" kindref="member">config</ref>);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1OpenCVWriter_1af193f837b1c291597f52272a60f95e34" kindref="member">~OpenCVWriter</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Lifecycle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1OpenCVWriter_1a40a006fbeaf756c1f7ffd0d71057dd2b" kindref="member">open</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="classhmap_1_1OpenCVWriter_1a636b3480ebf65f1b48157bb29020317d" kindref="member">filepath</ref>,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref><sp/>&amp;<ref refid="classhmap_1_1OpenCVWriter_1a8498ab7f2f43d85753399681f2fa1f5a" kindref="member">config</ref>)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1OpenCVWriter_1aaafda3960fe8ae11f7723ca12bd4efcd" kindref="member">close</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1OpenCVWriter_1aae69e0665ccbc557fc7fb224334aa6ed" kindref="member">is_open</ref>()<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Chunk<sp/>/<sp/>tile<sp/>writing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1OpenCVWriter_1a6f6b7be0051b400d527b5c45742d4261" kindref="member">write_chunk</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset_y,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>&amp;data)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1OpenCVWriter_1a6f6b7be0051b400d527b5c45742d4261" kindref="member">write_chunk</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>offset_x,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>offset_y,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;Array&gt;<sp/>&amp;channels)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1OpenCVWriter_1a52a9108df86802b8897b9ff575773ee8" kindref="member">write_tile</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>&amp;region,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>&amp;data)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Properties</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref><sp/>&amp;<ref refid="classhmap_1_1OpenCVWriter_1a8498ab7f2f43d85753399681f2fa1f5a" kindref="member">config</ref>()<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="classhmap_1_1OpenCVWriter_1a636b3480ebf65f1b48157bb29020317d" kindref="member">filepath</ref>()<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structhmap_1_1OpenCVWriter_1_1Impl" kindref="compound">Impl</ref>;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>std::unique_ptr&lt;Impl&gt;<sp/>p_impl;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="HighMap/include/highmap/export/opencv_writer.hpp"/>
+  </compounddef>
+</doxygen>
