@@ -13,5 +13,9 @@
 #pragma once
 
 #include "highmap/export/asset.hpp"
+#include "highmap/export/bigtiff_writer.hpp"
 #include "highmap/export/image.hpp"
+#include "highmap/export/image_writer.hpp"
+#include "highmap/export/opencv_writer.hpp"
+#include "highmap/export/openexr_writer.hpp"
 #include "highmap/export/scene.hpp"

@@ -1,0 +1,2 @@
+add_executable(ex_export_all_formats ex_export_all_formats.cpp)
+target_link_libraries(ex_export_all_formats highmap)

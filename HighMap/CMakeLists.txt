@@ -25,25 +25,30 @@ target_compile_definitions(
 
 target_link_libraries(
   ${PROJECT_NAME}
-  PUBLIC assimp::assimp
-         delaunator::delaunator
-         glm::glm
-         GSL::gsl
-         GSL::gslcblas
-         dkm::dkm
-         FastNoiseLite::FastNoiseLite
-         hmm::hmm
-         libnpy::libnpy
-         nanoflann::nanoflann
-         mixbox
-         NoiseLib
-         terrain-descriptors
-         OpenMP::OpenMP_CXX
-         ${OpenCV_LIBS}
-         point_sampler
-         clwrapper
-         ${OpenCL_LIBRARIES}
-         lightusd_static
+  PUBLIC
+    assimp::assimp
+    delaunator::delaunator
+    glm::glm
+    GSL::gsl
+    GSL::gslcblas
+    dkm::dkm
+    FastNoiseLite::FastNoiseLite
+    hmm::hmm
+    libnpy::libnpy
+    nanoflann::nanoflann
+    mixbox
+    NoiseLib
+    terrain-descriptors
+    OpenMP::OpenMP_CXX
+    ${OpenCV_LIBS}
+    point_sampler
+    clwrapper
+    ${OpenCL_LIBRARIES}
+    lightusd_static
+    OpenEXR::OpenEXR
+    TIFF::TIFF
+    nlohmann_json::nlohmann_json
+    $<IF:$<TARGET_EXISTS:zstd::libzstd_shared>,zstd::libzstd_shared,zstd::libzstd_static>
   PRIVATE nn-c::nn-c)
 
 if(HIGHMAP_ENABLE_PCH)
