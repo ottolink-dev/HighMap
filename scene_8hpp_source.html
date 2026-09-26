@@ -114,31 +114,32 @@ $(document).ready(function(){initNavTree('scene_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="array_8hpp.html">highmap/array.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="asset_8hpp.html">highmap/export/asset.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmap.html">hmap</a></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">class </span>Cloud;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">class </span>Path;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keywordtype">bool</span> <a class="code hl_function" href="namespacehmap.html#a44e7bc9494b71c4022e45ef9c2199075">export_usd</a>(<span class="keyword">const</span> std::string        &amp;fname,</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <span class="keyword">const</span> Array              &amp;elevation,</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                <span class="keyword">const</span> std::vector&lt;Cloud&gt; &amp;clouds = {},</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <span class="keyword">const</span> std::vector&lt;Path&gt;  &amp;paths = {},</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                <a class="code hl_enumeration" href="namespacehmap.html#ac81a92060b89699c4eb9826495d87250">MeshType</a>                  mesh_type = <a class="code hl_enumvalue" href="namespacehmap.html#ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14">MeshType::TRI</a>,</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                <span class="keywordtype">float</span>                     elevation_scaling = 0.2f,</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                <span class="keyword">const</span> std::string        &amp;texture_fname = <span class="stringliteral">&quot;&quot;</span>,</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                <span class="keyword">const</span> std::string        &amp;normal_map_fname = <span class="stringliteral">&quot;&quot;</span>,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                <span class="keywordtype">float</span>                     max_error = 5e-4f,</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                <span class="keywordtype">bool</span>                      fit_boundaries = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>} <span class="comment">// namespace hmap</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="cloud_8hpp.html">highmap/geometry/cloud.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="path_8hpp.html">highmap/geometry/path.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmap.html">hmap</a></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keywordtype">bool</span> <a class="code hl_function" href="namespacehmap.html#a44e7bc9494b71c4022e45ef9c2199075">export_usd</a>(<span class="keyword">const</span> std::string        &amp;fname,</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                <span class="keyword">const</span> Array              &amp;elevation,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <span class="keyword">const</span> std::vector&lt;Cloud&gt; &amp;clouds = {},</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                <span class="keyword">const</span> std::vector&lt;Path&gt;  &amp;paths = {},</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <a class="code hl_enumeration" href="namespacehmap.html#ac81a92060b89699c4eb9826495d87250">MeshType</a>                  mesh_type = <a class="code hl_enumvalue" href="namespacehmap.html#ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14">MeshType::TRI</a>,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                <span class="keywordtype">float</span>                     elevation_scaling = 0.2f,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                <span class="keyword">const</span> std::string        &amp;texture_fname = <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                <span class="keyword">const</span> std::string        &amp;normal_map_fname = <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                <span class="keywordtype">float</span>                     max_error = 5e-4f,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                <span class="keywordtype">bool</span>                      fit_boundaries = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>} <span class="comment">// namespace hmap</span></div>
 <div class="ttc" id="aarray_8hpp_html"><div class="ttname"><a href="array_8hpp.html">array.hpp</a></div><div class="ttdoc">Declaration of the Array class for 2D floating-point arrays with various mathematical operations and ...</div></div>
 <div class="ttc" id="aasset_8hpp_html"><div class="ttname"><a href="asset_8hpp.html">asset.hpp</a></div><div class="ttdoc">Header file for 3D asset export functionalities.</div></div>
+<div class="ttc" id="acloud_8hpp_html"><div class="ttname"><a href="cloud_8hpp.html">cloud.hpp</a></div><div class="ttdoc">Definition of the Cloud class for manipulating sets of 2D points.</div></div>
 <div class="ttc" id="anamespacehmap_html"><div class="ttname"><a href="namespacehmap.html">hmap</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:23</div></div>
 <div class="ttc" id="anamespacehmap_html_a44e7bc9494b71c4022e45ef9c2199075"><div class="ttname"><a href="namespacehmap.html#a44e7bc9494b71c4022e45ef9c2199075">hmap::export_usd</a></div><div class="ttdeci">bool export_usd(const std::string &amp;fname, const Array &amp;elevation, const std::vector&lt; Cloud &gt; &amp;clouds={}, const std::vector&lt; Path &gt; &amp;paths={}, MeshType mesh_type=MeshType::TRI, float elevation_scaling=0.2f, const std::string &amp;texture_fname=&quot;&quot;, const std::string &amp;normal_map_fname=&quot;&quot;, float max_error=5e-4f, bool fit_boundaries=false)</div><div class="ttdoc">Exports a composite scene (terrain, clouds, and paths) to Universal Scene Description (USD).</div><div class="ttdef"><b>Definition</b> export_usd.cpp:194</div></div>
 <div class="ttc" id="anamespacehmap_html_ac81a92060b89699c4eb9826495d87250"><div class="ttname"><a href="namespacehmap.html#ac81a92060b89699c4eb9826495d87250">hmap::MeshType</a></div><div class="ttdeci">MeshType</div><div class="ttdoc">Enumeration for different mesh types.</div><div class="ttdef"><b>Definition</b> asset.hpp:35</div></div>
 <div class="ttc" id="anamespacehmap_html_ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14"><div class="ttname"><a href="namespacehmap.html#ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14">hmap::TRI</a></div><div class="ttdeci">@ TRI</div><div class="ttdoc">Triangle elements.</div><div class="ttdef"><b>Definition</b> asset.hpp:37</div></div>
+<div class="ttc" id="apath_8hpp_html"><div class="ttname"><a href="path_8hpp.html">path.hpp</a></div><div class="ttdoc">Path class for manipulating and analyzing paths in 2D space.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
