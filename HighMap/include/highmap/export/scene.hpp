@@ -18,12 +18,11 @@
 
 #include "highmap/array.hpp"
 #include "highmap/export/asset.hpp"
+#include "highmap/geometry/cloud.hpp"
+#include "highmap/geometry/path.hpp"
 
 namespace hmap
 {
-
-class Cloud;
-class Path;
 
 /**
  * @brief Exports a composite scene (terrain, clouds, and paths) to Universal
