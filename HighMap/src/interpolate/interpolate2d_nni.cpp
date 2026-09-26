@@ -31,7 +31,7 @@ Array interpolate2d_nni(glm::ivec2                shape,
   std::vector<float> xg, yg;
   grid_xy_vector(xg, yg, shape, bbox, /* endpoint */ false);
 
-  std::vector<double> xout, yout;
+  std::vector<float> xout, yout;
   xout.reserve(shape.x * shape.y);
   yout.reserve(shape.x * shape.y);
 
@@ -43,8 +43,8 @@ Array interpolate2d_nni(glm::ivec2                shape,
         float dx = p_noise_x ? (*p_noise_x)(i, j) : 0.f;
         float dy = p_noise_y ? (*p_noise_y)(i, j) : 0.f;
 
-        xout.push_back(static_cast<double>(xg[i] + dx));
-        yout.push_back(static_cast<double>(yg[j] + dy));
+        xout.push_back(xg[i] + dx);
+        yout.push_back(yg[j] + dy);
       }
   }
   else
@@ -52,13 +52,13 @@ Array interpolate2d_nni(glm::ivec2                shape,
     for (int j = 0; j < shape.y; j++)
       for (int i = 0; i < shape.x; i++)
       {
-        xout.push_back(static_cast<double>(xg[i]));
-        yout.push_back(static_cast<double>(yg[j]));
+        xout.push_back(xg[i]);
+        yout.push_back(yg[j]);
       }
   }
 
   NaturalNeighborInterpolator nn;
-  nn.setup_output_points(std::move(xout), std::move(yout));
+  nn.setup_output_points(xout, yout);
   nn.build(x, y);
 
   std::vector<float> result;
