@@ -1,15 +1,6 @@
 var dir_f3face59d46858be97e2b2d179788010 =
 [
-    [ "colorize_virtual_texture.cpp", "colorize__virtual__texture_8cpp.html", "colorize__virtual__texture_8cpp" ],
-    [ "convert_texture_channels.cpp", "convert__texture__channels_8cpp.html", "convert__texture__channels_8cpp" ],
-    [ "disk_lru_storage.cpp", "disk__lru__storage_8cpp.html", null ],
-    [ "disk_sequential_storage.cpp", "disk__sequential__storage_8cpp.html", null ],
-    [ "lru_tile_storage.cpp", "lru__tile__storage_8cpp.html", null ],
-    [ "ram_tile_storage.cpp", "ram__tile__storage_8cpp.html", null ],
-    [ "tile_region.cpp", "tile__region_8cpp.html", null ],
-    [ "tile_storage.cpp", "tile__storage_8cpp.html", "tile__storage_8cpp" ],
-    [ "virtual_array.cpp", "virtual__array_8cpp.html", "virtual__array_8cpp" ],
-    [ "virtual_array_processing.cpp", "virtual__array__processing_8cpp.html", null ],
-    [ "virtual_texture.cpp", "virtual__texture_8cpp.html", null ],
-    [ "virtual_texture_storage.cpp", "virtual__texture__storage_8cpp.html", null ]
+    [ "array", "dir_285ba2bff60ba0fba674768a1df078d0.html", "dir_285ba2bff60ba0fba674768a1df078d0" ],
+    [ "storage", "dir_e1ced724de8bbafa6c2f4842675e302d.html", "dir_e1ced724de8bbafa6c2f4842675e302d" ],
+    [ "texture", "dir_46a6f70bc2201b7bbbca6eb81f09d9df.html", "dir_46a6f70bc2201b7bbbca6eb81f09d9df" ]
 ];
