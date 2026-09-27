@@ -48,7 +48,7 @@ var namespacehmap_1_1gpu =
     [ "mudslide", "namespacehmap_1_1gpu.html#a3faa3e769849fbcc7784d130c05f99a2", null ],
     [ "mudslide", "namespacehmap_1_1gpu.html#ac726e3e56563a153c2c62f0603d53381", null ],
     [ "rifts", "namespacehmap_1_1gpu.html#ace06af8ac4d53033c221b1e0f7462a54", null ],
-    [ "sediment_deposition", "namespacehmap_1_1gpu.html#a1c2651f7a65e696e8b444364abf0b3cc", null ],
+    [ "sediment_deposition", "namespacehmap_1_1gpu.html#a3ce50c0ae884fda9291545ca40ab36c1", null ],
     [ "sediment_deposition", "namespacehmap_1_1gpu.html#a26ed284f1df761074c2a49a2fbbd582e", null ],
     [ "sediment_layer", "namespacehmap_1_1gpu.html#aec782e6aba3f4cfbbd97aafa46cc700b", null ],
     [ "strata", "namespacehmap_1_1gpu.html#acdb08d6ebb8ddb8e5595c11278cf81e0", null ],

@@ -3503,7 +3503,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
           <defval>nullptr</defval>
         </param>
         <briefdescription>
-<para>See <ref refid="namespacehmap_1a37caab05db1b9791bf8a8ca10852c0da" kindref="member">hmap::hydraulic_stream_log</ref>. </para>
+<para>See <ref refid="namespacehmap_1a5d8b448836d569c0f72b668ca1268ef9" kindref="member">hmap::hydraulic_stream_log</ref>. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -4181,10 +4181,10 @@ Results are reproducible up to atomic scheduling order (particles read fields th
         </inbodydescription>
         <location file="HighMap/src/erosion/rifts_gpu.cpp" line="16" column="6" bodyfile="HighMap/src/erosion/rifts_gpu.cpp" bodystart="16" bodyend="75" declfile="HighMap/include/highmap/erosion.hpp" declline="1448" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a1c2651f7a65e696e8b444364abf0b3cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1a3ce50c0ae884fda9291545ca40ab36c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::gpu::sediment_deposition</definition>
-        <argsstring>(Array &amp;z, Array *p_mask, const Array &amp;talus, Array *p_deposition_map=nullptr, float max_deposition=0.01, int iterations=5, int thermal_subiterations=10)</argsstring>
+        <argsstring>(Array &amp;z, const Array *p_mask, const Array &amp;talus, Array *p_deposition_map=nullptr, float max_deposition=0.01, int iterations=5, int thermal_subiterations=10)</argsstring>
         <name>sediment_deposition</name>
         <qualifiedname>hmap::gpu::sediment_deposition</qualifiedname>
         <param>
@@ -4192,7 +4192,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
           <declname>z</declname>
         </param>
         <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_mask</declname>
         </param>
         <param>
@@ -4297,7 +4297,7 @@ Results are reproducible up to atomic scheduling order (particles read fields th
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>talus<sp/>limit<sp/>defined<sp/>locally</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>talus<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>2.f<sp/>/<sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a1c2651f7a65e696e8b444364abf0b3cc" kindref="member">hmap::gpu::sediment_deposition</ref>(z,<sp/>talus,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>0.01f,<sp/>10,<sp/>50);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a3ce50c0ae884fda9291545ca40ab36c1" kindref="member">hmap::gpu::sediment_deposition</ref>(z,<sp/>talus,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>0.01f,<sp/>10,<sp/>50);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_sediment_deposition.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z0,<sp/>z},</highlight></codeline>

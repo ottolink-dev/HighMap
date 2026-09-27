@@ -12193,10 +12193,10 @@ additional_depth)</computeroutput>.</para>
         </inbodydescription>
         <location file="HighMap/src/erosion/hydraulic_saleve.cpp" line="195" column="7" bodyfile="HighMap/src/erosion/hydraulic_saleve.cpp" bodystart="195" bodyend="245" declfile="HighMap/include/highmap/erosion.hpp" declline="494" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1acbf32c30d68183eb5522888af2ede316" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::hydraulic_stream</definition>
-        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, Array *p_bedrock=nullptr, Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, int ir=1, float clipping_ratio=10.f)</argsstring>
+        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, int ir=1, float clipping_ratio=10.f)</argsstring>
         <name>hydraulic_stream</name>
         <qualifiedname>hmap::hydraulic_stream</qualifiedname>
         <param>
@@ -12212,12 +12212,12 @@ additional_depth)</computeroutput>.</para>
           <declname>talus_ref</declname>
         </param>
         <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_bedrock</declname>
           <defval>nullptr</defval>
         </param>
         <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_moisture_map</declname>
           <defval>nullptr</defval>
         </param>
@@ -12335,7 +12335,7 @@ additional_depth)</computeroutput>.</para>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_bedrock<sp/>=<sp/><ref refid="namespacehmap_1aa7ab501bae56bac2236a74ade5cd34a4" kindref="member">hmap::local_min</ref>(z,<sp/>iradius);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/>z;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1acbf32c30d68183eb5522888af2ede316" kindref="member">hmap::hydraulic_stream</ref>(z1,<sp/>c_erosion,<sp/>talus_ref);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" kindref="member">hmap::hydraulic_stream</ref>(z1,<sp/>c_erosion,<sp/>talus_ref);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z2<sp/>=<sp/>z;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref><sp/>=<sp/>5;</highlight></codeline>
@@ -12343,7 +12343,7 @@ additional_depth)</computeroutput>.</para>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>erosion_map<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>moisture_map<sp/>=<sp/>z;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1acbf32c30d68183eb5522888af2ede316" kindref="member">hmap::hydraulic_stream</ref>(z2,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" kindref="member">hmap::hydraulic_stream</ref>(z2,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c_erosion,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_ref,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;z_bedrock,</highlight></codeline>
@@ -12375,10 +12375,10 @@ additional_depth)</computeroutput>.</para>
         </inbodydescription>
         <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="22" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="22" bodyend="70" declfile="HighMap/include/highmap/erosion.hpp" declline="543" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1ae3bc02b89f4e7d0bdb221e13b66ad91e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a19dc770c90b02c1f4664bde14ee764f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::hydraulic_stream</definition>
-        <argsstring>(Array &amp;z, Array *p_mask, float c_erosion, float talus_ref, Array *p_bedrock=nullptr, Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, int ir=1, float clipping_ratio=10.f)</argsstring>
+        <argsstring>(Array &amp;z, const Array *p_mask, float c_erosion, float talus_ref, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, int ir=1, float clipping_ratio=10.f)</argsstring>
         <name>hydraulic_stream</name>
         <qualifiedname>hmap::hydraulic_stream</qualifiedname>
         <param>
@@ -12386,7 +12386,7 @@ additional_depth)</computeroutput>.</para>
           <declname>z</declname>
         </param>
         <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_mask</declname>
         </param>
         <param>
@@ -12398,12 +12398,12 @@ additional_depth)</computeroutput>.</para>
           <declname>talus_ref</declname>
         </param>
         <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_bedrock</declname>
           <defval>nullptr</defval>
         </param>
         <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_moisture_map</declname>
           <defval>nullptr</defval>
         </param>
@@ -12431,10 +12431,10 @@ additional_depth)</computeroutput>.</para>
         </inbodydescription>
         <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="72" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="72" bodyend="109" declfile="HighMap/include/highmap/erosion.hpp" declline="552" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a37caab05db1b9791bf8a8ca10852c0da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a5d8b448836d569c0f72b668ca1268ef9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::hydraulic_stream_log</definition>
-        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, Array *p_bedrock=nullptr, Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</argsstring>
+        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</argsstring>
         <name>hydraulic_stream_log</name>
         <qualifiedname>hmap::hydraulic_stream_log</qualifiedname>
         <param>
@@ -12480,12 +12480,12 @@ additional_depth)</computeroutput>.</para>
           <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_bedrock</declname>
           <defval>nullptr</defval>
         </param>
         <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_moisture_map</declname>
           <defval>nullptr</defval>
         </param>
@@ -12643,7 +12643,7 @@ additional_depth)</computeroutput>.</para>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_bedrock<sp/>=<sp/><ref refid="namespacehmap_1aa7ab501bae56bac2236a74ade5cd34a4" kindref="member">hmap::local_min</ref>(z,<sp/>iradius);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/>z;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1acbf32c30d68183eb5522888af2ede316" kindref="member">hmap::hydraulic_stream</ref>(z1,<sp/>c_erosion,<sp/>talus_ref);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" kindref="member">hmap::hydraulic_stream</ref>(z1,<sp/>c_erosion,<sp/>talus_ref);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z2<sp/>=<sp/>z;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref><sp/>=<sp/>5;</highlight></codeline>
@@ -12651,7 +12651,7 @@ additional_depth)</computeroutput>.</para>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>erosion_map<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>moisture_map<sp/>=<sp/>z;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1acbf32c30d68183eb5522888af2ede316" kindref="member">hmap::hydraulic_stream</ref>(z2,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" kindref="member">hmap::hydraulic_stream</ref>(z2,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c_erosion,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_ref,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;z_bedrock,</highlight></codeline>
@@ -12683,10 +12683,10 @@ additional_depth)</computeroutput>.</para>
         </inbodydescription>
         <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="111" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="111" bodyend="190" declfile="HighMap/include/highmap/erosion.hpp" declline="600" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a98290631d4a1247b31b11ee1f42cd6e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1ab4ba44ccbb8dbdb8af4ff4e50dd90885" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::hydraulic_stream_log</definition>
-        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, const Array *p_mask, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, Array *p_bedrock=nullptr, Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</argsstring>
+        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, const Array *p_mask, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</argsstring>
         <name>hydraulic_stream_log</name>
         <qualifiedname>hmap::hydraulic_stream_log</qualifiedname>
         <param>
@@ -12736,12 +12736,12 @@ additional_depth)</computeroutput>.</para>
           <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_bedrock</declname>
           <defval>nullptr</defval>
         </param>
         <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_moisture_map</declname>
           <defval>nullptr</defval>
         </param>
@@ -12887,7 +12887,7 @@ additional_depth)</computeroutput>.</para>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>talus_ref<sp/>=<sp/>5.f<sp/>/<sp/>(float)<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/>z;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1acbf32c30d68183eb5522888af2ede316" kindref="member">hmap::hydraulic_stream</ref>(z1,<sp/>c_erosion,<sp/>talus_ref);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" kindref="member">hmap::hydraulic_stream</ref>(z1,<sp/>c_erosion,<sp/>talus_ref);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z2<sp/>=<sp/>z;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>upscaling_levels<sp/>=<sp/>2;</highlight></codeline>
@@ -12918,10 +12918,10 @@ additional_depth)</computeroutput>.</para>
         </inbodydescription>
         <location file="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" line="16" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" bodystart="16" bodyend="41" declfile="HighMap/include/highmap/erosion.hpp" declline="663" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1af975837e0f5b169dcb6d3f5f58c95fe9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1af298a6897a2becf0ae24f3de900081f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::hydraulic_stream_upscale_amplification</definition>
-        <argsstring>(Array &amp;z, Array *p_mask, float c_erosion, float talus_ref, int upscaling_levels=1, float persistence=1.f, int ir=1, float clipping_ratio=10.f)</argsstring>
+        <argsstring>(Array &amp;z, const Array *p_mask, float c_erosion, float talus_ref, int upscaling_levels=1, float persistence=1.f, int ir=1, float clipping_ratio=10.f)</argsstring>
         <name>hydraulic_stream_upscale_amplification</name>
         <qualifiedname>hmap::hydraulic_stream_upscale_amplification</qualifiedname>
         <param>
@@ -12929,7 +12929,7 @@ additional_depth)</computeroutput>.</para>
           <declname>z</declname>
         </param>
         <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_mask</declname>
         </param>
         <param>
@@ -13048,7 +13048,7 @@ additional_depth)</computeroutput>.</para>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>talus_ref<sp/>=<sp/>5.f<sp/>/<sp/>(float)<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/>z;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1acbf32c30d68183eb5522888af2ede316" kindref="member">hmap::hydraulic_stream</ref>(z1,<sp/>c_erosion,<sp/>talus_ref);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" kindref="member">hmap::hydraulic_stream</ref>(z1,<sp/>c_erosion,<sp/>talus_ref);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z2<sp/>=<sp/>z;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>upscaling_levels<sp/>=<sp/>2;</highlight></codeline>
@@ -13596,7 +13596,7 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1ae75e563471c02f0c7620f3385be26a18" kindref="member">hmap::noise_ridged</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>res,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(z);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1acbf32c30d68183eb5522888af2ede316" kindref="member">hmap::hydraulic_stream</ref>(z,<sp/>&amp;z,<sp/>0.05f,<sp/>4.f<sp/>/<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" kindref="member">hmap::hydraulic_stream</ref>(z,<sp/>&amp;z,<sp/>0.05f,<sp/>4.f<sp/>/<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ad880e48991b3beda92660d62c2bb0294" kindref="member">hmap::export_as_cubemap</ref>(</highlight><highlight class="stringliteral">&quot;ex_export_as_cubemap.png&quot;</highlight><highlight class="normal">,<sp/>z);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
@@ -44382,7 +44382,7 @@ See unit tests: <ref refid="test__distance__transform_8cpp" kindref="compound">t
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>kc<sp/>=<sp/>64.f;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>lambda<sp/>=<sp/>[](<ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>&amp;<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>{<sp/><ref refid="namespacehmap_1a37caab05db1b9791bf8a8ca10852c0da" kindref="member">hmap::hydraulic_stream_log</ref>(<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>0.1f,<sp/>0.001f);<sp/>};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{<sp/><ref refid="namespacehmap_1a5d8b448836d569c0f72b668ca1268ef9" kindref="member">hmap::hydraulic_stream_log</ref>(<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>0.1f,<sp/>0.001f);<sp/>};</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>apply<sp/>the<sp/>erosion<sp/>to<sp/>each<sp/>array<sp/>with<sp/>different<sp/>resolutions</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>(results<sp/>should<sp/>be<sp/>the<sp/>same)</highlight><highlight class="normal"></highlight></codeline>
