@@ -376,6 +376,15 @@ var namespacehmap =
       [ "VA_DISK_LRU_MIN", "namespacehmap.html#ad21b93a34c88a47d6b54f3a4d5b65e6ea3696aa48b93c260deb79c830ae605781", null ],
       [ "VA_DISK_SEQUENTIAL", "namespacehmap.html#ad21b93a34c88a47d6b54f3a4d5b65e6eac3fa4d259d437f79a95c11d38da93b8a", null ]
     ] ],
+    [ "SyncOperation", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8", [
+      [ "Average", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8ab1897515d548a960afe49ecf66a29021", null ],
+      [ "CopyFirst", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a2acc11db629257b2f64fff4429c45539", null ],
+      [ "CopySecond", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a7d46a7568c3814519ecbe11966f17d55", null ],
+      [ "Min", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a78d811e98514cd165dda532286610fd2", null ],
+      [ "Max", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a6a061313d22e51e0f25b7cd4dc065233", null ],
+      [ "Mean", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a3d6c9ac08ada31c184094bbc67afe00d", null ],
+      [ "SmoothBlend", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d", null ]
+    ] ],
     [ "ForEachMode", "namespacehmap.html#ae383414b46ae8992e621c407f09ce7c5", [
       [ "VA_SEQUENTIAL", "namespacehmap.html#ae383414b46ae8992e621c407f09ce7c5ad610a3b158cd10452fc144bda389aa19", null ],
       [ "VA_DISTRIBUTED", "namespacehmap.html#ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5", null ],

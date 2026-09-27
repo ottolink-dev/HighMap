@@ -1,5 +1,14 @@
 var NAVTREEINDEX27 =
 {
+"test__logger_8cpp.html#acfaf7091403bf7bff33d37e9ed5fd5ef":[5,0,2,0,42,2],
+"test__logger_8cpp.html#aeacb350ec295f3d5f049d0a594213232":[5,0,2,0,42,1],
+"test__loose__symmetry_8cpp.html":[5,0,2,0,43],
+"test__loose__symmetry_8cpp.html#a5b7ef3aa03321f357be4bb27a23d16e6":[5,0,2,0,43,5],
+"test__loose__symmetry_8cpp.html#a690553a6c4e24e27e752aa61481edc8b":[5,0,2,0,43,6],
+"test__loose__symmetry_8cpp.html#a76b00a6b9f318b62b1c39bc68848663f":[5,0,2,0,43,4],
+"test__loose__symmetry_8cpp.html#ab2c37bcb434ddc8d46688f9f4e3c860a":[5,0,2,0,43,2],
+"test__loose__symmetry_8cpp.html#ab818c4abce7e7f31f0e072ff96def10e":[5,0,2,0,43,3],
+"test__loose__symmetry_8cpp.html#ac9c1f6d09b6e1b0e1b22e084bbb299ff":[5,0,2,0,43,7],
 "test__loose__symmetry_8cpp.html#acd91e6b67ccd106165ce88705e12ab4d":[5,0,2,0,43,1],
 "test__loose__symmetry_8cpp.html#af27c5d60eb628d3b3c74f34e9dd171a1":[5,0,2,0,43,0],
 "test__math_8cpp.html":[5,0,2,0,44],
@@ -240,14 +249,5 @@ var NAVTREEINDEX27 =
 "test__smooth__cpulse_8cpp.html#a9e355ba4af1cebd53ce3acaea257952e":[5,0,2,0,65,4],
 "test__smooth__cpulse_8cpp.html#ab37cc06859cedd84c5a6529c28bb92b9":[5,0,2,0,65,2],
 "test__smooth__cpulse_8cpp.html#ab4798cfd31d1559e1c6565aed8832da7":[5,0,2,0,65,1],
-"test__smooth__cpulse_8cpp.html#aba1ee19b21833a6033a2b1d065165603":[5,0,2,0,65,0],
-"test__smooth__cpulse_8cpp.html#aeef7d3dfd4814189da5fcd1d523597d1":[5,0,2,0,65,5],
-"test__snow__simulation_8cpp.html":[5,0,2,0,66],
-"test__snow__simulation_8cpp.html#a1a919a8cbfebfca5ed4611a8494f81c1":[5,0,2,0,66,1],
-"test__snow__simulation_8cpp.html#a4849a487c5b17dda6349e46abf233f1a":[5,0,2,0,66,0],
-"test__snow__simulation_8cpp.html#a88881ae9f672577ebec9ee06bab41aa2":[5,0,2,0,66,2],
-"test__snow__simulation_8cpp.html#aaeb8e01ef938cdf77eccbd31945edd0f":[5,0,2,0,66,3],
-"test__splines_8cpp.html":[5,0,2,0,67],
-"test__splines_8cpp.html#a581dc48c6aaf8eab38fb9c27b6b0008a":[5,0,2,0,67,1],
-"test__splines_8cpp.html#a7752e7ffef70e632fa7347dbcd4597d7":[5,0,2,0,67,2]
+"test__smooth__cpulse_8cpp.html#aba1ee19b21833a6033a2b1d065165603":[5,0,2,0,65,0]
 };

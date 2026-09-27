@@ -193,6 +193,25 @@
         </inbodydescription>
         <location file="tests/src/test_virtual_array.cpp" line="208" column="1" bodyfile="tests/src/test_virtual_array.cpp" bodystart="208" bodyend="246"/>
       </memberdef>
+      <memberdef kind="function" id="test__virtual__array_8cpp_1a47da2db1583289bfe375c1af2f180533" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(VirtualArrayTest, SyncOverlapBuffersOperations)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>VirtualArrayTest</type>
+        </param>
+        <param>
+          <type>SyncOverlapBuffersOperations</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_virtual_array.cpp" line="248" column="1" bodyfile="tests/src/test_virtual_array.cpp" bodystart="248" bodyend="381"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -445,6 +464,141 @@
 <codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_EQ(va.live_memory_bytes(),<sp/>0);</highlight></codeline>
 <codeline lineno="245"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="246"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><ref refid="test__virtual__array_8cpp_1a1540243cd16ca9c2c8ebb80b18faed93" kindref="member">TEST</ref>(VirtualArrayTest,<sp/>SyncOverlapBuffersOperations)</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>{32,<sp/>32};</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>tile_shape{16,<sp/>16};</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>setup_va<sp/>=<sp/>[&amp;]()</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>va(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>tile_shape,<sp/>halo,<sp/>StorageMode::VA_RAM);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/>cm{.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/>ForEachMode::VA_SEQUENTIAL};</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">for_each_tile</ref>(</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>va,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[](<ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>&amp;tile,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>&amp;region)</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>base_val<sp/>=<sp/>float(region.<ref refid="structhmap_1_1TileRegion_1afb89981844bdc0270441e8464f00ccdc" kindref="member">key</ref>.<ref refid="structhmap_1_1TileKey_1aa1b61a92a4562444455e7461cd65d642" kindref="member">tx</ref><sp/>+<sp/>region.<ref refid="structhmap_1_1TileRegion_1afb89981844bdc0270441e8464f00ccdc" kindref="member">key</ref>.<ref refid="structhmap_1_1TileKey_1a0c2bad93215283eb8baedc5cbc2fa2f1" kindref="member">ty</ref><sp/>*<sp/>10);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile<sp/>=<sp/>base_val;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>va;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Test<sp/>Average<sp/>/<sp/>Mean</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>op<sp/>:<sp/>{SyncOperation::Average,<sp/>SyncOperation::Mean})</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>va<sp/>=<sp/>setup_va();</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1a65a40d1856e329e39d341fb459ac2df7" kindref="member">sync_overlap_buffers</ref>(op);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r0<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(0,<sp/>0);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r1<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(1,<sp/>0);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t0<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(r0);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t1<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(r1);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pbuf<sp/>=<sp/>t0.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x<sp/>-<sp/>2<sp/>*<sp/>halo;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t0(pbuf,<sp/>0),<sp/>0.5f);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t1(0,<sp/>0),<sp/>0.5f);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(r0);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(r1);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Test<sp/>CopyFirst</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>va<sp/>=<sp/>setup_va();</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1a65a40d1856e329e39d341fb459ac2df7" kindref="member">sync_overlap_buffers</ref>(SyncOperation::CopyFirst);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r0<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(0,<sp/>0);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r1<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(1,<sp/>0);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t0<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(r0);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t1<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(r1);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pbuf<sp/>=<sp/>t0.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x<sp/>-<sp/>2<sp/>*<sp/>halo;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t0(pbuf,<sp/>0),<sp/>0.f);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t1(0,<sp/>0),<sp/>0.f);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(r0);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(r1);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Test<sp/>CopySecond</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>va<sp/>=<sp/>setup_va();</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1a65a40d1856e329e39d341fb459ac2df7" kindref="member">sync_overlap_buffers</ref>(SyncOperation::CopySecond);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r0<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(0,<sp/>0);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r1<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(1,<sp/>0);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t0<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(r0);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t1<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(r1);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pbuf<sp/>=<sp/>t0.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x<sp/>-<sp/>2<sp/>*<sp/>halo;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t0(pbuf,<sp/>0),<sp/>1.f);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t1(0,<sp/>0),<sp/>1.f);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(r0);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(r1);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Test<sp/>Min</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>va<sp/>=<sp/>setup_va();</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1a65a40d1856e329e39d341fb459ac2df7" kindref="member">sync_overlap_buffers</ref>(SyncOperation::Min);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r0<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(0,<sp/>0);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r1<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(1,<sp/>0);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t0<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(r0);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t1<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(r1);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pbuf<sp/>=<sp/>t0.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x<sp/>-<sp/>2<sp/>*<sp/>halo;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t0(pbuf,<sp/>0),<sp/>0.f);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t1(0,<sp/>0),<sp/>0.f);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(r0);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(r1);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Test<sp/>Max</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>va<sp/>=<sp/>setup_va();</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1a65a40d1856e329e39d341fb459ac2df7" kindref="member">sync_overlap_buffers</ref>(SyncOperation::Max);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r0<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(0,<sp/>0);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r1<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(1,<sp/>0);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t0<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(r0);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t1<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(r1);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pbuf<sp/>=<sp/>t0.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x<sp/>-<sp/>2<sp/>*<sp/>halo;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t0(pbuf,<sp/>0),<sp/>1.f);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t1(0,<sp/>0),<sp/>1.f);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(r0);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(r1);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Test<sp/>SmoothBlend</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>va<sp/>=<sp/>setup_va();</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1a65a40d1856e329e39d341fb459ac2df7" kindref="member">sync_overlap_buffers</ref>(SyncOperation::SmoothBlend);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r0<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(0,<sp/>0);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r1<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(1,<sp/>0);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t0<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(r0);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t1<sp/>=<sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(r1);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pbuf<sp/>=<sp/>t0.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x<sp/>-<sp/>2<sp/>*<sp/>halo;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t0(pbuf,<sp/>0),<sp/>t1(0,<sp/>0));</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t0(pbuf,<sp/>0),<sp/>0.f);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pbuf_end<sp/>=<sp/>t0.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x<sp/>-<sp/>halo<sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t0(pbuf_end,<sp/>0),<sp/>t1(halo<sp/>-<sp/>1,<sp/>0));</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t0(pbuf_end,<sp/>0),<sp/>1.f);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(r0);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/>va.<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(r1);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="381"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_virtual_array.cpp"/>
   </compounddef>

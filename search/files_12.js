@@ -32,5 +32,6 @@ var searchData=
   ['string_5futils_2ecpp_29',['string_utils.cpp',['../string__utils_8cpp.html',1,'']]],
   ['string_5futils_2ehpp_30',['string_utils.hpp',['../string__utils_8hpp.html',1,'']]],
   ['swirl_2ecpp_31',['swirl.cpp',['../swirl_8cpp.html',1,'']]],
-  ['synthesis_2ehpp_32',['synthesis.hpp',['../synthesis_8hpp.html',1,'']]]
+  ['sync_5foverlap_5fbuffers_2ecpp_32',['sync_overlap_buffers.cpp',['../sync__overlap__buffers_8cpp.html',1,'']]],
+  ['synthesis_2ehpp_33',['synthesis.hpp',['../synthesis_8hpp.html',1,'']]]
 ];

@@ -30,7 +30,7 @@ var structhmap_1_1VirtualArray =
     [ "remap", "structhmap_1_1VirtualArray.html#ab040e57e20ecafbe4dbb0a3076560314", null ],
     [ "remap", "structhmap_1_1VirtualArray.html#a98bfd2a46fdaebd580d44ea766c5829f", null ],
     [ "unique_values", "structhmap_1_1VirtualArray.html#a8d74c7c6a84b8c54985a5fdeb4e805f0", null ],
-    [ "smooth_overlap_buffers", "structhmap_1_1VirtualArray.html#a7112a736d8497a4b65d5056209f04077", null ],
+    [ "sync_overlap_buffers", "structhmap_1_1VirtualArray.html#a65a40d1856e329e39d341fb459ac2df7", null ],
     [ "tile_region_global_position", "structhmap_1_1VirtualArray.html#ace64d9290dd6116a38ac034f6b72dc91", null ],
     [ "tile_region_global_indices", "structhmap_1_1VirtualArray.html#afd55182a2230d4e68cd542f2bef2ad9e", null ],
     [ "tile_region_from_global_index", "structhmap_1_1VirtualArray.html#a307123a81d2ea77c85ae28612a1c06c2", null ],

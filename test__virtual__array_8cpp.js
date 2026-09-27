@@ -9,5 +9,6 @@ var test__virtual__array_8cpp =
     [ "TEST", "test__virtual__array_8cpp.html#ac90531cadd492a5d59d2826a92de9819", null ],
     [ "TEST", "test__virtual__array_8cpp.html#a5c2aa3e4a13437515162fc46fad59101", null ],
     [ "TEST", "test__virtual__array_8cpp.html#ab3e3f4d1f882feed7201bde39825551b", null ],
-    [ "TEST", "test__virtual__array_8cpp.html#ae76e6b32b142c69a3df66a2aa697737d", null ]
+    [ "TEST", "test__virtual__array_8cpp.html#ae76e6b32b142c69a3df66a2aa697737d", null ],
+    [ "TEST", "test__virtual__array_8cpp.html#a47da2db1583289bfe375c1af2f180533", null ]
 ];

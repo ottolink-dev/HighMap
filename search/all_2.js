@@ -71,5 +71,6 @@ var searchData=
   ['authoring_2ehpp_68',['authoring.hpp',['../authoring_8hpp.html',1,'']]],
   ['autocorr_5flength_5fscale_69',['autocorr_length_scale',['../namespacehmap.html#a414c6fe47e8dadbab8ad532a0538be40',1,'hmap']]],
   ['autocorr_5flength_5fscale_2ecpp_70',['autocorr_length_scale.cpp',['../autocorr__length__scale_8cpp.html',1,'']]],
-  ['autocorr_5flength_5fscale_5faxial_71',['autocorr_length_scale_axial',['../namespacehmap.html#ab83b1277c6a2909787cd39988d9f762b',1,'hmap']]]
+  ['autocorr_5flength_5fscale_5faxial_71',['autocorr_length_scale_axial',['../namespacehmap.html#ab83b1277c6a2909787cd39988d9f762b',1,'hmap']]],
+  ['average_72',['Average',['../namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8ab1897515d548a960afe49ecf66a29021',1,'hmap']]]
 ];
