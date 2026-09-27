@@ -237,34 +237,103 @@
 <codeline lineno="227"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1VirtualArray_1af98faefefaaeb9ffc84bcc5997fbae8e" kindref="member">sum</ref>;</highlight></codeline>
 <codeline lineno="228"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="229"><highlight class="normal"></highlight></codeline>
-<codeline lineno="230"><highlight class="normal">std::vector&lt;float&gt;<sp/><ref refid="structhmap_1_1VirtualArray_1a8d74c7c6a84b8c54985a5fdeb4e805f0" kindref="member">VirtualArray::unique_values</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ComputeMode<sp/>&amp;cm)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="231"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="232"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>nt<sp/>=<sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1ac6e25f58944e813be9da550257a33a52" kindref="member">get_max_tiles</ref>();</highlight></codeline>
-<codeline lineno="233"><highlight class="normal"></highlight></codeline>
-<codeline lineno="234"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(nt.x<sp/>*<sp/>nt.y<sp/>==<sp/>0)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{0.f};</highlight></codeline>
-<codeline lineno="235"><highlight class="normal"></highlight></codeline>
-<codeline lineno="236"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>unique_per_tile(nt.x<sp/>*<sp/>nt.y);</highlight></codeline>
-<codeline lineno="237"><highlight class="normal"></highlight></codeline>
-<codeline lineno="238"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>lambda<sp/>=</highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;unique_per_tile,<sp/>nt](</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;tile,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TileRegion<sp/>&amp;region)</highlight></codeline>
-<codeline lineno="240"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tile_idx<sp/>=<sp/>region.key.ty<sp/>*<sp/>nt.x<sp/>+<sp/>region.key.tx;</highlight></codeline>
-<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/>unique_per_tile[tile_idx]<sp/>=<sp/>tile.unique_values();</highlight></codeline>
-<codeline lineno="243"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="244"><highlight class="normal"></highlight></codeline>
-<codeline lineno="245"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">for_each_tile</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>lambda,<sp/>cm);</highlight></codeline>
-<codeline lineno="246"><highlight class="normal"></highlight></codeline>
-<codeline lineno="247"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>flatten</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="248"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><ref refid="structhmap_1_1VirtualArray_1a8d74c7c6a84b8c54985a5fdeb4e805f0" kindref="member">unique_values</ref><sp/>=<sp/>{};</highlight></codeline>
-<codeline lineno="249"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;vec<sp/>:<sp/>unique_per_tile)</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>(const<sp/>auto<sp/>&amp;v<sp/>:<sp/>vec)</highlight></codeline>
-<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1VirtualArray_1a8d74c7c6a84b8c54985a5fdeb4e805f0" kindref="member">unique_values</ref>.push_back(v);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1VirtualArray_1a7112a736d8497a4b65d5056209f04077" kindref="member">VirtualArray::smooth_overlap_buffers</ref>()</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this-&gt;<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;max_live_tiles()<sp/>&lt;<sp/>2)</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1log_1a8329d2e0f083133cd0e3ff79fb74f2d9" kindref="member">hmap::log::error</ref>(</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;smooth_overlap_buffers<sp/>requires<sp/>at<sp/>least<sp/>2<sp/>tiles<sp/>in<sp/>memory,<sp/>skipping&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nx<sp/>=<sp/><ref refid="namespacehmap_1a6294951db2b05d8b1081e4d865c11244" kindref="member">ceil_div</ref>(this-&gt;<ref refid="structhmap_1_1VirtualArray_1ab4cb9cb20eb23bc7b1026da3486be975" kindref="member">shape</ref>.x,<sp/>this-&gt;tile_shape.x);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ny<sp/>=<sp/><ref refid="namespacehmap_1a6294951db2b05d8b1081e4d865c11244" kindref="member">ceil_div</ref>(this-&gt;<ref refid="structhmap_1_1VirtualArray_1ab4cb9cb20eb23bc7b1026da3486be975" kindref="member">shape</ref>.y,<sp/>this-&gt;tile_shape.y);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>x-direction</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ty<sp/>=<sp/>0;<sp/>ty<sp/>&lt;<sp/>ny;<sp/>++ty)</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tx<sp/>=<sp/>0;<sp/>tx<sp/>&lt;<sp/>nx<sp/>-<sp/>1;<sp/>++tx)</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>load</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>TileRegion<sp/>region0<sp/>=<sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(tx,<sp/>ty);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>TileRegion<sp/>region1<sp/>=<sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(tx<sp/>+<sp/>1,<sp/>ty);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/>&amp;tile0<sp/>=<sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(region0);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/>&amp;tile1<sp/>=<sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(region1);</highlight></codeline>
 <codeline lineno="252"><highlight class="normal"></highlight></codeline>
-<codeline lineno="253"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac95d63662a6878f27011c0b4c7c70078" kindref="member">vector_unique_values</ref>(<ref refid="structhmap_1_1VirtualArray_1a8d74c7c6a84b8c54985a5fdeb4e805f0" kindref="member">unique_values</ref>);</highlight></codeline>
-<codeline lineno="254"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1VirtualArray_1a8d74c7c6a84b8c54985a5fdeb4e805f0" kindref="member">unique_values</ref>;</highlight></codeline>
-<codeline lineno="255"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="256"><highlight class="normal"></highlight></codeline>
-<codeline lineno="257"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>average<sp/>overlap</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>p<sp/>=<sp/>0;<sp/>p<sp/>&lt;<sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1a2b173300623c38c8083654ad095217f2" kindref="member">halo</ref>;<sp/>p++)</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>q<sp/>=<sp/>0;<sp/>q<sp/>&lt;<sp/>tile0.shape.y;<sp/>q++)</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r<sp/>=<sp/>float(p)<sp/>/<sp/>float(this-&gt;halo<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>r<sp/>=<sp/><ref refid="namespacehmap_1aa4468d1e57ee67ba0be8fb1ab931045a" kindref="member">smoothstep5</ref>(r);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pbuf<sp/>=<sp/>tile0.shape.x<sp/>-<sp/>2<sp/>*<sp/>this-&gt;halo<sp/>+<sp/>p;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile1(p,<sp/>q)<sp/>=<sp/><ref refid="namespacehmap_1ac14815cf025b7430d31d08125a5c6f0d" kindref="member">lerp</ref>(tile0(pbuf,<sp/>q),<sp/>tile1(p,<sp/>q),<sp/>r);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile0(pbuf,<sp/>q)<sp/>=<sp/>tile1(p,<sp/>q);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>release</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(region0);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(region1);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>y-direction</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ty<sp/>=<sp/>0;<sp/>ty<sp/>&lt;<sp/>ny<sp/>-<sp/>1;<sp/>++ty)</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tx<sp/>=<sp/>0;<sp/>tx<sp/>&lt;<sp/>nx;<sp/>++tx)</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>load</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>TileRegion<sp/>region0<sp/>=<sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(tx,<sp/>ty);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>TileRegion<sp/>region1<sp/>=<sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1a157b5a589d01cb7da7fd9b9b759f94c6" kindref="member">tile_region_from_tile_coords</ref>(tx,<sp/>ty<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/>&amp;tile0<sp/>=<sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(region0);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/>&amp;tile1<sp/>=<sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;get_tile(region1);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>average<sp/>overlap</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>p<sp/>=<sp/>0;<sp/>p<sp/>&lt;<sp/>tile0.shape.x;<sp/>p++)</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>q<sp/>=<sp/>0;<sp/>q<sp/>&lt;<sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1a2b173300623c38c8083654ad095217f2" kindref="member">halo</ref>;<sp/>q++)</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r<sp/>=<sp/>float(q)<sp/>/<sp/>float(this-&gt;halo<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>r<sp/>=<sp/><ref refid="namespacehmap_1aa4468d1e57ee67ba0be8fb1ab931045a" kindref="member">smoothstep5</ref>(r);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>qbuf<sp/>=<sp/>tile0.shape.y<sp/>-<sp/>2<sp/>*<sp/>this-&gt;halo<sp/>+<sp/>q;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile1(p,<sp/>q)<sp/>=<sp/><ref refid="namespacehmap_1ac14815cf025b7430d31d08125a5c6f0d" kindref="member">lerp</ref>(tile0(p,<sp/>qbuf),<sp/>tile1(p,<sp/>q),<sp/>r);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile0(p,<sp/>qbuf)<sp/>=<sp/>tile1(p,<sp/>q);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>release</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(region0);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1ac46202fbde3f529ab290f38e73b529d6" kindref="member">storage</ref>-&gt;release_tile(region1);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="297"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal">std::vector&lt;float&gt;<sp/><ref refid="structhmap_1_1VirtualArray_1a8d74c7c6a84b8c54985a5fdeb4e805f0" kindref="member">VirtualArray::unique_values</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ComputeMode<sp/>&amp;cm)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="300"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>nt<sp/>=<sp/>this-&gt;<ref refid="structhmap_1_1VirtualArray_1ac6e25f58944e813be9da550257a33a52" kindref="member">get_max_tiles</ref>();</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(nt.x<sp/>*<sp/>nt.y<sp/>==<sp/>0)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{0.f};</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>unique_per_tile(nt.x<sp/>*<sp/>nt.y);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>lambda<sp/>=</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;unique_per_tile,<sp/>nt](</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;tile,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TileRegion<sp/>&amp;region)</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tile_idx<sp/>=<sp/>region.key.ty<sp/>*<sp/>nt.x<sp/>+<sp/>region.key.tx;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/>unique_per_tile[tile_idx]<sp/>=<sp/>tile.unique_values();</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">for_each_tile</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>lambda,<sp/>cm);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>flatten</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><ref refid="structhmap_1_1VirtualArray_1a8d74c7c6a84b8c54985a5fdeb4e805f0" kindref="member">unique_values</ref><sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;vec<sp/>:<sp/>unique_per_tile)</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>(const<sp/>auto<sp/>&amp;v<sp/>:<sp/>vec)</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1VirtualArray_1a8d74c7c6a84b8c54985a5fdeb4e805f0" kindref="member">unique_values</ref>.push_back(v);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac95d63662a6878f27011c0b4c7c70078" kindref="member">vector_unique_values</ref>(<ref refid="structhmap_1_1VirtualArray_1a8d74c7c6a84b8c54985a5fdeb4e805f0" kindref="member">unique_values</ref>);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1VirtualArray_1a8d74c7c6a84b8c54985a5fdeb4e805f0" kindref="member">unique_values</ref>;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="HighMap/src/virtual_array/array/virtual_array_processing.cpp"/>
   </compounddef>
