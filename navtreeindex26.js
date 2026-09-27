@@ -95,6 +95,7 @@ var NAVTREEINDEX26 =
 "test__elevation__from__sparse__constraints_8cpp.html#ae01a41365739664176cd25d7859f9b7f":[5,0,2,0,21,3],
 "test__erosion_8cpp.html":[5,0,2,0,22],
 "test__erosion_8cpp.html#a1382e3d989bd3718e7a084d73d7cdb1a":[5,0,2,0,22,3],
+"test__erosion_8cpp.html#a1d12d1a4dac78a1d88bec43c63a8809a":[5,0,2,0,22,11],
 "test__erosion_8cpp.html#a1e5de5d91da744faa13da148620c6d34":[5,0,2,0,22,7],
 "test__erosion_8cpp.html#a4daeba7e2c0d24db1f415b987072d9c6":[5,0,2,0,22,1],
 "test__erosion_8cpp.html#a4fe8bd6a607002564f2875aebf0b5def":[5,0,2,0,22,8],
@@ -103,6 +104,7 @@ var NAVTREEINDEX26 =
 "test__erosion_8cpp.html#a9007dd0d6e8b6ed3b0c354528ffe5e51":[5,0,2,0,22,10],
 "test__erosion_8cpp.html#aba17a5f762f6d6d008fdb3c4c5559702":[5,0,2,0,22,5],
 "test__erosion_8cpp.html#abc3d4c545d6d7957bf2237c1a272a30d":[5,0,2,0,22,0],
+"test__erosion_8cpp.html#acd4bbcc4c08effb2f839165b2a3fc997":[5,0,2,0,22,12],
 "test__erosion_8cpp.html#ae5f644f8b48305b246106031ea45c9fa":[5,0,2,0,22,6],
 "test__erosion_8cpp.html#ae955754ab3f4d2e274b7198941632d96":[5,0,2,0,22,4],
 "test__export__asset_8cpp.html":[5,0,2,0,23],
@@ -247,7 +249,5 @@ var NAVTREEINDEX26 =
 "test__local__metrics_8cpp.html#ae8f968d6ecdf69657629dc6670c48be8":[5,0,2,0,41,8],
 "test__local__metrics_8cpp.html#afa354b590b34bf8a57162c0cc251d3b1":[5,0,2,0,41,6],
 "test__logger_8cpp.html":[5,0,2,0,42],
-"test__logger_8cpp.html#a494d50264d4f08120cd14fddfb14de7e":[5,0,2,0,42,4],
-"test__logger_8cpp.html#a8591b7fc9deec43485140aae090a0938":[5,0,2,0,42,0],
-"test__logger_8cpp.html#acceab1ab6cd3fb4dea226c1427964db1":[5,0,2,0,42,3]
+"test__logger_8cpp.html#a494d50264d4f08120cd14fddfb14de7e":[5,0,2,0,42,4]
 };

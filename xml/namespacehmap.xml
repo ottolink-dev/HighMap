@@ -10271,10 +10271,10 @@ additional_depth)</computeroutput>.</para>
         </inbodydescription>
         <location file="HighMap/src/erosion/coastal_erosion.cpp" line="197" column="6" bodyfile="HighMap/src/erosion/coastal_erosion.cpp" bodystart="197" bodyend="278" declfile="HighMap/include/highmap/erosion.hpp" declline="139" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1aa64448e4b5640d90570e53249907c98a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1aa8c5cbc750a368764e2a26409c2427a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::depression_filling</definition>
-        <argsstring>(Array &amp;z, int iterations=1000, float epsilon=1e-4f)</argsstring>
+        <argsstring>(Array &amp;z, int iterations=1000, float epsilon=1e-4f, bool outflow_left=true, bool outflow_right=true, bool outflow_bottom=true, bool outflow_top=true)</argsstring>
         <name>depression_filling</name>
         <qualifiedname>hmap::depression_filling</qualifiedname>
         <param>
@@ -10290,6 +10290,26 @@ additional_depth)</computeroutput>.</para>
           <type>float</type>
           <declname>epsilon</declname>
           <defval>1e-4<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>outflow_left</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>outflow_right</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>outflow_bottom</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>outflow_top</declname>
+          <defval>true</defval>
         </param>
         <briefdescription>
 <para>Fill the depressions of the heightmap using the Planchon-Darboux algorithm. </para>
@@ -10331,28 +10351,99 @@ additional_depth)</computeroutput>.</para>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z0<sp/>=<sp/><ref refid="namespacehmap_1a7d699a468a18be16c70654958ee13b41" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>res,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/>z0;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aa64448e4b5640d90570e53249907c98a" kindref="member">hmap::depression_filling</ref>(z1);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aa8c5cbc750a368764e2a26409c2427a5" kindref="member">hmap::depression_filling</ref>(z1);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z2<sp/>=<sp/>z0;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ae55614038f40b4069a09a2993d195a6e" kindref="member">hmap::depression_filling_priority_flood</ref>(z2);<sp/></highlight><highlight class="comment">//<sp/>much<sp/>faster</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aeb94e692639d1644e7a6d2809fb5681f" kindref="member">hmap::depression_filling_priority_flood</ref>(z2);<sp/></highlight><highlight class="comment">//<sp/>much<sp/>faster</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>with<sp/>BC:<sp/>left<sp/>/<sp/>right<sp/>/<sp/>bottom<sp/>/<sp/>top</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z3<sp/>=<sp/>z0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aa8c5cbc750a368764e2a26409c2427a5" kindref="member">hmap::depression_filling</ref>(z3,<sp/>1000,<sp/>1e-4f,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z4<sp/>=<sp/>z0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aeb94e692639d1644e7a6d2809fb5681f" kindref="member">hmap::depression_filling_priority_flood</ref>(z4,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">/*<sp/>filter<sp/>*/</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_depression_filling.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z0,<sp/>z1,<sp/>z2},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z0,<sp/>z1,<sp/>z2,<sp/>z3,<sp/>z4},</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9" kindref="member">hmap::Cmap::TERRAIN</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
 <para><bold>Result</bold> <image type="html" name="ex_depression_filling.png"></image>
- </para>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iterations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of iterations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>epsilon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Epsilon slope parameter. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outflow_left</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allow outflow on left boundary (i = 0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outflow_right</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allow outflow on right boundary (i = nx - 1). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outflow_bottom</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allow outflow on bottom boundary (j = 0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outflow_top</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allow outflow on top boundary (j = ny - 1). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/depression_filling.cpp" line="15" column="6" bodyfile="HighMap/src/erosion/depression_filling.cpp" bodystart="15" bodyend="53" declfile="HighMap/include/highmap/erosion.hpp" declline="172" declcolumn="6"/>
+        <location file="HighMap/src/erosion/depression_filling.cpp" line="15" column="6" bodyfile="HighMap/src/erosion/depression_filling.cpp" bodystart="15" bodyend="91" declfile="HighMap/include/highmap/erosion.hpp" declline="180" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1ae55614038f40b4069a09a2993d195a6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1aeb94e692639d1644e7a6d2809fb5681f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::depression_filling_priority_flood</definition>
-        <argsstring>(Array &amp;z, bool apply_post_filter=false)</argsstring>
+        <argsstring>(Array &amp;z, bool apply_post_filter=false, bool outflow_left=true, bool outflow_right=true, bool outflow_bottom=true, bool outflow_top=true)</argsstring>
         <name>depression_filling_priority_flood</name>
         <qualifiedname>hmap::depression_filling_priority_flood</qualifiedname>
         <param>
@@ -10364,13 +10455,84 @@ additional_depth)</computeroutput>.</para>
           <declname>apply_post_filter</declname>
           <defval>false</defval>
         </param>
+        <param>
+          <type>bool</type>
+          <declname>outflow_left</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>outflow_right</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>outflow_bottom</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>outflow_top</declname>
+          <defval>true</defval>
+        </param>
         <briefdescription>
+<para>Fill depressions in a heightmap using the Priority-Flood algorithm. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input heightmap array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>apply_post_filter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Apply Laplacian smoothing to deposition. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outflow_left</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allow outflow on left boundary (i = 0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outflow_right</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allow outflow on right boundary (i = nx - 1). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outflow_bottom</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allow outflow on bottom boundary (j = 0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outflow_top</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allow outflow on top boundary (j = ny - 1). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/depression_filling_priority_flood.cpp" line="18" column="6" bodyfile="HighMap/src/erosion/depression_filling_priority_flood.cpp" bodystart="18" bodyend="47" declfile="HighMap/include/highmap/erosion.hpp" declline="174" declcolumn="6"/>
+        <location file="HighMap/src/erosion/depression_filling_priority_flood.cpp" line="18" column="6" bodyfile="HighMap/src/erosion/depression_filling_priority_flood.cpp" bodystart="18" bodyend="67" declfile="HighMap/include/highmap/erosion.hpp" declline="198" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1af91e2b8638aab2c4357ce37812b8a99c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -10450,7 +10612,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/erosion_maps.cpp" line="12" column="6" bodyfile="HighMap/src/erosion/erosion_maps.cpp" bodystart="12" bodyend="26" declfile="HighMap/include/highmap/erosion.hpp" declline="193" declcolumn="6"/>
+        <location file="HighMap/src/erosion/erosion_maps.cpp" line="12" column="6" bodyfile="HighMap/src/erosion/erosion_maps.cpp" bodystart="12" bodyend="26" declfile="HighMap/include/highmap/erosion.hpp" declline="221" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ae80026143790cc7a8f0dd1f4c7bc8e24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -10643,7 +10805,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/generate_bedrock.cpp" line="12" column="7" bodyfile="HighMap/src/erosion/generate_bedrock.cpp" bodystart="12" bodyend="45" declfile="HighMap/include/highmap/erosion.hpp" declline="222" declcolumn="7"/>
+        <location file="HighMap/src/erosion/generate_bedrock.cpp" line="12" column="7" bodyfile="HighMap/src/erosion/generate_bedrock.cpp" bodystart="12" bodyend="45" declfile="HighMap/include/highmap/erosion.hpp" declline="250" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac4f3c8b3d5f766b15c0ac64359fdc219" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -10821,7 +10983,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_algebric.cpp" line="74" column="6" bodyfile="HighMap/src/erosion/hydraulic_algebric.cpp" bodystart="74" bodyend="113" declfile="HighMap/include/highmap/erosion.hpp" declline="253" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_algebric.cpp" line="74" column="6" bodyfile="HighMap/src/erosion/hydraulic_algebric.cpp" bodystart="74" bodyend="113" declfile="HighMap/include/highmap/erosion.hpp" declline="281" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa9fd3c429dfa135cb80376aabcf66c2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -10878,7 +11040,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_algebric.cpp" line="16" column="6" bodyfile="HighMap/src/erosion/hydraulic_algebric.cpp" bodystart="16" bodyend="72" declfile="HighMap/include/highmap/erosion.hpp" declline="264" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_algebric.cpp" line="16" column="6" bodyfile="HighMap/src/erosion/hydraulic_algebric.cpp" bodystart="16" bodyend="72" declfile="HighMap/include/highmap/erosion.hpp" declline="292" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ae791758f736d5ed3e164262f3b1c5d20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -11084,7 +11246,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_benes.cpp" line="212" column="6" bodyfile="HighMap/src/erosion/hydraulic_benes.cpp" bodystart="212" bodyend="261" declfile="HighMap/include/highmap/erosion.hpp" declline="304" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_benes.cpp" line="212" column="6" bodyfile="HighMap/src/erosion/hydraulic_benes.cpp" bodystart="212" bodyend="261" declfile="HighMap/include/highmap/erosion.hpp" declline="332" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ab36a27b4c79ad5b201d79ac92388caa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -11158,7 +11320,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_benes.cpp" line="25" column="6" bodyfile="HighMap/src/erosion/hydraulic_benes.cpp" bodystart="25" bodyend="210" declfile="HighMap/include/highmap/erosion.hpp" declline="318" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_benes.cpp" line="25" column="6" bodyfile="HighMap/src/erosion/hydraulic_benes.cpp" bodystart="25" bodyend="210" declfile="HighMap/include/highmap/erosion.hpp" declline="346" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2074cabb598086fe29f52247bfadceb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -11249,7 +11411,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_blur.cpp" line="15" column="6" bodyfile="HighMap/src/erosion/hydraulic_blur.cpp" bodystart="15" bodyend="31" declfile="HighMap/include/highmap/erosion.hpp" declline="344" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_blur.cpp" line="15" column="6" bodyfile="HighMap/src/erosion/hydraulic_blur.cpp" bodystart="15" bodyend="31" declfile="HighMap/include/highmap/erosion.hpp" declline="372" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a7b2c04c0b2cd0da363d2382f5a753a81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -11341,7 +11503,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_diffusion.cpp" line="13" column="6" bodyfile="HighMap/src/erosion/hydraulic_diffusion.cpp" bodystart="13" bodyend="42" declfile="HighMap/include/highmap/erosion.hpp" declline="366" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_diffusion.cpp" line="13" column="6" bodyfile="HighMap/src/erosion/hydraulic_diffusion.cpp" bodystart="13" bodyend="42" declfile="HighMap/include/highmap/erosion.hpp" declline="394" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5aceac22b926cbff676c323e1aca4db0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -11481,7 +11643,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_musgrave.cpp" line="26" column="6" bodyfile="HighMap/src/erosion/hydraulic_musgrave.cpp" bodystart="26" bodyend="102" declfile="HighMap/include/highmap/erosion.hpp" declline="393" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_musgrave.cpp" line="26" column="6" bodyfile="HighMap/src/erosion/hydraulic_musgrave.cpp" bodystart="26" bodyend="102" declfile="HighMap/include/highmap/erosion.hpp" declline="421" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8c20cd6c2b1cd1ec20ffb2ce86ed0ecb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -11530,7 +11692,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_musgrave.cpp" line="104" column="6" bodyfile="HighMap/src/erosion/hydraulic_musgrave.cpp" bodystart="104" bodyend="123" declfile="HighMap/include/highmap/erosion.hpp" declline="402" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_musgrave.cpp" line="104" column="6" bodyfile="HighMap/src/erosion/hydraulic_musgrave.cpp" bodystart="104" bodyend="123" declfile="HighMap/include/highmap/erosion.hpp" declline="430" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ada51d6f53d06fa3a592223e5f6137e03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -11758,7 +11920,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_saleve.cpp" line="24" column="6" bodyfile="HighMap/src/erosion/hydraulic_saleve.cpp" bodystart="24" bodyend="67" declfile="HighMap/include/highmap/erosion.hpp" declline="430" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_saleve.cpp" line="24" column="6" bodyfile="HighMap/src/erosion/hydraulic_saleve.cpp" bodystart="24" bodyend="67" declfile="HighMap/include/highmap/erosion.hpp" declline="458" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a437dbeb7f3349ea6b5622ffcf5d3b6a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -12080,7 +12242,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_saleve.cpp" line="69" column="7" bodyfile="HighMap/src/erosion/hydraulic_saleve.cpp" bodystart="69" bodyend="193" declfile="HighMap/include/highmap/erosion.hpp" declline="473" declcolumn="7"/>
+        <location file="HighMap/src/erosion/hydraulic_saleve.cpp" line="69" column="7" bodyfile="HighMap/src/erosion/hydraulic_saleve.cpp" bodystart="69" bodyend="193" declfile="HighMap/include/highmap/erosion.hpp" declline="501" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5ec83fc1497f653486bc4cc22ecee87b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -12191,7 +12353,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_saleve.cpp" line="195" column="7" bodyfile="HighMap/src/erosion/hydraulic_saleve.cpp" bodystart="195" bodyend="245" declfile="HighMap/include/highmap/erosion.hpp" declline="494" declcolumn="7"/>
+        <location file="HighMap/src/erosion/hydraulic_saleve.cpp" line="195" column="7" bodyfile="HighMap/src/erosion/hydraulic_saleve.cpp" bodystart="195" bodyend="245" declfile="HighMap/include/highmap/erosion.hpp" declline="522" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -12373,7 +12535,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="22" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="22" bodyend="70" declfile="HighMap/include/highmap/erosion.hpp" declline="543" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="22" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="22" bodyend="70" declfile="HighMap/include/highmap/erosion.hpp" declline="571" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a19dc770c90b02c1f4664bde14ee764f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -12429,7 +12591,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="72" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="72" bodyend="109" declfile="HighMap/include/highmap/erosion.hpp" declline="552" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="72" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="72" bodyend="109" declfile="HighMap/include/highmap/erosion.hpp" declline="580" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5d8b448836d569c0f72b668ca1268ef9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -12681,7 +12843,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="111" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="111" bodyend="190" declfile="HighMap/include/highmap/erosion.hpp" declline="600" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="111" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="111" bodyend="190" declfile="HighMap/include/highmap/erosion.hpp" declline="628" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ab4ba44ccbb8dbdb8af4ff4e50dd90885" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -12767,7 +12929,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="192" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="192" bodyend="247" declfile="HighMap/include/highmap/erosion.hpp" declline="615" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="192" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="192" bodyend="247" declfile="HighMap/include/highmap/erosion.hpp" declline="643" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a66355f091aa60d97d5a7c7eeb08c51cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -12916,7 +13078,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" line="16" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" bodystart="16" bodyend="41" declfile="HighMap/include/highmap/erosion.hpp" declline="663" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" line="16" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" bodystart="16" bodyend="41" declfile="HighMap/include/highmap/erosion.hpp" declline="691" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1af298a6897a2becf0ae24f3de900081f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -13077,7 +13239,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" line="43" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" bodystart="43" bodyend="75" declfile="HighMap/include/highmap/erosion.hpp" declline="704" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" line="43" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" bodystart="43" bodyend="75" declfile="HighMap/include/highmap/erosion.hpp" declline="732" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a33c845361a82a1863a6a8a65f8027573" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -32499,7 +32661,7 @@ See unit tests: <ref refid="test__gradient_8cpp" kindref="compound">test_gradien
 </parameterlist>
 <simplesect kind="return"><para>A 2D array representing the water depth for each cell. Values are zero where no lake is present and positive where water accumulates in depressions.</para>
 </simplesect>
-<simplesect kind="see"><para><ref refid="namespacehmap_1aa64448e4b5640d90570e53249907c98a" kindref="member">depression_filling</ref></para>
+<simplesect kind="see"><para><ref refid="namespacehmap_1aa8c5cbc750a368764e2a26409c2427a5" kindref="member">depression_filling</ref></para>
 </simplesect>
 <bold>Example</bold> <programlisting filename="ex_flooding_lake_system.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>

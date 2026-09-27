@@ -212,6 +212,44 @@
         </inbodydescription>
         <location file="tests/src/test_erosion.cpp" line="203" column="1" bodyfile="tests/src/test_erosion.cpp" bodystart="203" bodyend="216"/>
       </memberdef>
+      <memberdef kind="function" id="test__erosion_8cpp_1a1d12d1a4dac78a1d88bec43c63a8809a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(DepressionFilling, BoundaryConditions)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>DepressionFilling</type>
+        </param>
+        <param>
+          <type>BoundaryConditions</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_erosion.cpp" line="218" column="1" bodyfile="tests/src/test_erosion.cpp" bodystart="218" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="test__erosion_8cpp_1acd4bbcc4c08effb2f839165b2a3fc997" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(DepressionFillingPriorityFlood, BoundaryConditions)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>DepressionFillingPriorityFlood</type>
+        </param>
+        <param>
+          <type>BoundaryConditions</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_erosion.cpp" line="250" column="1" bodyfile="tests/src/test_erosion.cpp" bodystart="250" bodyend="280"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -434,6 +472,70 @@
 <codeline lineno="214"><highlight class="normal"><sp/><sp/>EXPECT_EQ(z.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
 <codeline lineno="215"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(z,<sp/>z0));</highlight></codeline>
 <codeline lineno="216"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><ref refid="test__erosion_8cpp_1abc3d4c545d6d7957bf2237c1a272a30d" kindref="member">TEST</ref>(DepressionFilling,<sp/>BoundaryConditions)</highlight></codeline>
+<codeline lineno="219"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>A<sp/>5x5<sp/>bowl<sp/>with<sp/>a<sp/>pit<sp/>in<sp/>the<sp/>center<sp/>and<sp/>high<sp/>borders</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z({{5.f,<sp/>5.f,<sp/>5.f,<sp/>5.f,<sp/>5.f},</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{5.f,<sp/>1.f,<sp/>1.f,<sp/>1.f,<sp/>5.f},</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{5.f,<sp/>1.f,<sp/>0.f,<sp/>1.f,<sp/>5.f},</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{5.f,<sp/>1.f,<sp/>1.f,<sp/>1.f,<sp/>5.f},</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{5.f,<sp/>5.f,<sp/>5.f,<sp/>5.f,<sp/>5.f}});</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>an<sp/>outlet<sp/>on<sp/>the<sp/>right<sp/>boundary<sp/>(i<sp/>=<sp/>4,<sp/>j<sp/>=<sp/>2)<sp/>and<sp/>lower<sp/>the<sp/>lip<sp/>at</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>(3,<sp/>2)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/>z(3,<sp/>2)<sp/>=<sp/>0.2f;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/>z(4,<sp/>2)<sp/>=<sp/>0.1f;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Case<sp/>1:<sp/>outflow<sp/>allowed<sp/>on<sp/>all<sp/>boundaries</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z_test<sp/>=<sp/>z;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1aa8c5cbc750a368764e2a26409c2427a5" kindref="member">depression_filling</ref>(z_test,<sp/>100,<sp/>1e-4f,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Pit<sp/>(2,<sp/>2)<sp/>fills<sp/>up<sp/>to<sp/>the<sp/>outlet<sp/>level<sp/>(approx<sp/>0.2f)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(z_test(2,<sp/>2),<sp/>0.2f,<sp/>0.01f);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Case<sp/>2:<sp/>outflow<sp/>closed<sp/>on<sp/>the<sp/>right<sp/>boundary<sp/>(where<sp/>the<sp/>outlet<sp/>is)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z_test<sp/>=<sp/>z;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1aa8c5cbc750a368764e2a26409c2427a5" kindref="member">depression_filling</ref>(z_test,<sp/>100,<sp/>1e-4f,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Since<sp/>right<sp/>boundary<sp/>is<sp/>closed<sp/>and<sp/>all<sp/>other<sp/>boundaries<sp/>are<sp/>5.0f,<sp/>the<sp/>pit</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>fills<sp/>up<sp/>to<sp/>5.0f</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(z_test(2,<sp/>2),<sp/>5.0f,<sp/>0.01f);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><ref refid="test__erosion_8cpp_1abc3d4c545d6d7957bf2237c1a272a30d" kindref="member">TEST</ref>(DepressionFillingPriorityFlood,<sp/>BoundaryConditions)</highlight></codeline>
+<codeline lineno="251"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>A<sp/>5x5<sp/>bowl<sp/>with<sp/>a<sp/>pit<sp/>in<sp/>the<sp/>center<sp/>and<sp/>high<sp/>borders</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z({{5.f,<sp/>5.f,<sp/>5.f,<sp/>5.f,<sp/>5.f},</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{5.f,<sp/>1.f,<sp/>1.f,<sp/>1.f,<sp/>5.f},</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{5.f,<sp/>1.f,<sp/>0.f,<sp/>1.f,<sp/>5.f},</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{5.f,<sp/>1.f,<sp/>1.f,<sp/>1.f,<sp/>5.f},</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{5.f,<sp/>5.f,<sp/>5.f,<sp/>5.f,<sp/>5.f}});</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>an<sp/>outlet<sp/>on<sp/>the<sp/>right<sp/>boundary<sp/>(i<sp/>=<sp/>4,<sp/>j<sp/>=<sp/>2)<sp/>and<sp/>lower<sp/>the<sp/>lip<sp/>at</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>(3,<sp/>2)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/>z(3,<sp/>2)<sp/>=<sp/>0.2f;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/>z(4,<sp/>2)<sp/>=<sp/>0.1f;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Case<sp/>1:<sp/>outflow<sp/>allowed<sp/>on<sp/>all<sp/>boundaries</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z_test<sp/>=<sp/>z;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1aeb94e692639d1644e7a6d2809fb5681f" kindref="member">depression_filling_priority_flood</ref>(z_test,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Pit<sp/>(2,<sp/>2)<sp/>fills<sp/>up<sp/>to<sp/>the<sp/>outlet<sp/>level<sp/>(approx<sp/>0.2f)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(z_test(2,<sp/>2),<sp/>0.2f,<sp/>0.01f);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Case<sp/>2:<sp/>outflow<sp/>closed<sp/>on<sp/>the<sp/>right<sp/>boundary<sp/>(where<sp/>the<sp/>outlet<sp/>is)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z_test<sp/>=<sp/>z;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1aeb94e692639d1644e7a6d2809fb5681f" kindref="member">depression_filling_priority_flood</ref>(z_test,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Since<sp/>right<sp/>boundary<sp/>is<sp/>closed<sp/>and<sp/>all<sp/>other<sp/>boundaries<sp/>are<sp/>5.0f,<sp/>the<sp/>pit</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>fills<sp/>up<sp/>to<sp/>5.0f</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(z_test(2,<sp/>2),<sp/>5.0f,<sp/>0.01f);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="280"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_erosion.cpp"/>
   </compounddef>

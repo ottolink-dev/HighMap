@@ -706,10 +706,10 @@ void \mbox{\hyperlink{namespacehmap_a4911ba93b495bd3f66b9f7185d5e0a23}{coastal\+
 \begin{DoxyCompactList}\small\item\em Applies a coastal erosion profile to a terrain elevation field. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_add0285443bb5059eca752eaf07202ef3}{coastal\+\_\+erosion\+\_\+profile}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&water\+\_\+depth, float shore\+\_\+ground\+\_\+extent, float shore\+\_\+water\+\_\+extent, float slope\+\_\+shore=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float slope\+\_\+shore\+\_\+water=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float scarp\+\_\+extent\+\_\+ratio=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, bool apply\+\_\+post\+\_\+filter=true, int post\+\_\+filter\+\_\+iterations=3, bool solid\+\_\+shore\+\_\+mask=true, float scarp\+\_\+mask\+\_\+transition\+\_\+ratio=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+shore\+\_\+mask=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+scarp\+\_\+mask=nullptr)
 \item 
-void \mbox{\hyperlink{namespacehmap_aa64448e4b5640d90570e53249907c98a}{depression\+\_\+filling}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int iterations=1000, float epsilon=1e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+void \mbox{\hyperlink{namespacehmap_aa8c5cbc750a368764e2a26409c2427a5}{depression\+\_\+filling}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int iterations=1000, float epsilon=1e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, bool outflow\+\_\+left=true, bool outflow\+\_\+right=true, bool outflow\+\_\+bottom=true, bool outflow\+\_\+top=true)
 \begin{DoxyCompactList}\small\item\em Fill the depressions of the heightmap using the Planchon-\/\+Darboux algorithm. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_ae55614038f40b4069a09a2993d195a6e}{depression\+\_\+filling\+\_\+priority\+\_\+flood}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, bool apply\+\_\+post\+\_\+filter=false)
-\item 
+void \mbox{\hyperlink{namespacehmap_aeb94e692639d1644e7a6d2809fb5681f}{depression\+\_\+filling\+\_\+priority\+\_\+flood}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, bool apply\+\_\+post\+\_\+filter=false, bool outflow\+\_\+left=true, bool outflow\+\_\+right=true, bool outflow\+\_\+bottom=true, bool outflow\+\_\+top=true)
+\begin{DoxyCompactList}\small\item\em Fill depressions in a heightmap using the Priority-\/\+Flood algorithm. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_af91e2b8638aab2c4357ce37812b8a99c}{erosion\+\_\+maps}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z\+\_\+before, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z\+\_\+after, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&erosion\+\_\+map, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&deposition\+\_\+map, float tolerance=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_ae80026143790cc7a8f0dd1f4c7bc8e24}{generate\+\_\+bedrock}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, float elevation\+\_\+strength, float slope\+\_\+strength, float slope\+\_\+limit, float zmin=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float zmax=-\/1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
@@ -7529,11 +7529,11 @@ Optionally, a shoreline mask can be returned describing the region influenced by
 \doxysubsubsection{\texorpdfstring{coastal\_erosion\_profile()}{coastal\_erosion\_profile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily void hmap\+::coastal\+\_\+erosion\+\_\+profile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+mask,  }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{water\+\_\+depth,  }\item[{float}]{shore\+\_\+ground\+\_\+extent,  }\item[{float}]{shore\+\_\+water\+\_\+extent,  }\item[{float}]{slope\+\_\+shore = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{slope\+\_\+shore\+\_\+water = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{scarp\+\_\+extent\+\_\+ratio = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{bool}]{apply\+\_\+post\+\_\+filter = {\ttfamily true},  }\item[{int}]{post\+\_\+filter\+\_\+iterations = {\ttfamily 3},  }\item[{bool}]{solid\+\_\+shore\+\_\+mask = {\ttfamily true},  }\item[{float}]{scarp\+\_\+mask\+\_\+transition\+\_\+ratio = {\ttfamily 0.2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise = {\ttfamily nullptr},  }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+shore\+\_\+mask = {\ttfamily nullptr},  }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+scarp\+\_\+mask = {\ttfamily nullptr} }\end{DoxyParamCaption})}
 
-\Hypertarget{namespacehmap_aa64448e4b5640d90570e53249907c98a}\label{namespacehmap_aa64448e4b5640d90570e53249907c98a} 
+\Hypertarget{namespacehmap_aa8c5cbc750a368764e2a26409c2427a5}\label{namespacehmap_aa8c5cbc750a368764e2a26409c2427a5} 
 \index{hmap@{hmap}!depression\_filling@{depression\_filling}}
 \index{depression\_filling@{depression\_filling}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{depression\_filling()}{depression\_filling()}}
-{\footnotesize\ttfamily void hmap\+::depression\+\_\+filling (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{int}]{iterations = {\ttfamily 1000},  }\item[{float}]{epsilon = {\ttfamily 1e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void hmap\+::depression\+\_\+filling (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{int}]{iterations = {\ttfamily 1000},  }\item[{float}]{epsilon = {\ttfamily 1e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{bool}]{outflow\+\_\+left = {\ttfamily true},  }\item[{bool}]{outflow\+\_\+right = {\ttfamily true},  }\item[{bool}]{outflow\+\_\+bottom = {\ttfamily true},  }\item[{bool}]{outflow\+\_\+top = {\ttfamily true} }\end{DoxyParamCaption})}
 
 
 
@@ -7563,13 +7563,26 @@ Fill heightmap depressions to ensure that every cell can be connected to the bou
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z0\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ res,\ seed);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z1\ =\ z0;}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_aa64448e4b5640d90570e53249907c98a}{hmap::depression\_filling}}(z1);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_aa8c5cbc750a368764e2a26409c2427a5}{hmap::depression\_filling}}(z1);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z2\ =\ z0;}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ae55614038f40b4069a09a2993d195a6e}{hmap::depression\_filling\_priority\_flood}}(z2);\ \textcolor{comment}{//\ much\ faster}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_aeb94e692639d1644e7a6d2809fb5681f}{hmap::depression\_filling\_priority\_flood}}(z2);\ \textcolor{comment}{//\ much\ faster}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ with\ BC:\ left\ /\ right\ /\ bottom\ /\ top}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z3\ =\ z0;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_aa8c5cbc750a368764e2a26409c2427a5}{hmap::depression\_filling}}(z3,\ 1000,\ 1e-\/4f,\ \textcolor{keyword}{false},\ \textcolor{keyword}{true},\ \textcolor{keyword}{true},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z4\ =\ z0;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_aeb94e692639d1644e7a6d2809fb5681f}{hmap::depression\_filling\_priority\_flood}}(z4,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{false}\ \textcolor{comment}{/*\ filter\ */},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{false},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_depression\_filling.png"{}},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z0,\ z1,\ z2\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z0,\ z1,\ z2,\ z3,\ z4\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9}{hmap::Cmap::TERRAIN}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true});}
 \DoxyCodeLine{\}}
@@ -7577,12 +7590,50 @@ Fill heightmap depressions to ensure that every cell can be connected to the bou
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_ae55614038f40b4069a09a2993d195a6e}\label{namespacehmap_ae55614038f40b4069a09a2993d195a6e} 
+{\bfseries{Result}} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em z} & Input array. \\
+\hline
+{\em iterations} & Number of iterations. \\
+\hline
+{\em epsilon} & Epsilon slope parameter. \\
+\hline
+{\em outflow\+\_\+left} & Allow outflow on left boundary (i = 0). \\
+\hline
+{\em outflow\+\_\+right} & Allow outflow on right boundary (i = nx -\/ 1). \\
+\hline
+{\em outflow\+\_\+bottom} & Allow outflow on bottom boundary (j = 0). \\
+\hline
+{\em outflow\+\_\+top} & Allow outflow on top boundary (j = ny -\/ 1). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_aeb94e692639d1644e7a6d2809fb5681f}\label{namespacehmap_aeb94e692639d1644e7a6d2809fb5681f} 
 \index{hmap@{hmap}!depression\_filling\_priority\_flood@{depression\_filling\_priority\_flood}}
 \index{depression\_filling\_priority\_flood@{depression\_filling\_priority\_flood}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{depression\_filling\_priority\_flood()}{depression\_filling\_priority\_flood()}}
-{\footnotesize\ttfamily void hmap\+::depression\+\_\+filling\+\_\+priority\+\_\+flood (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{bool}]{apply\+\_\+post\+\_\+filter = {\ttfamily false} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void hmap\+::depression\+\_\+filling\+\_\+priority\+\_\+flood (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{bool}]{apply\+\_\+post\+\_\+filter = {\ttfamily false},  }\item[{bool}]{outflow\+\_\+left = {\ttfamily true},  }\item[{bool}]{outflow\+\_\+right = {\ttfamily true},  }\item[{bool}]{outflow\+\_\+bottom = {\ttfamily true},  }\item[{bool}]{outflow\+\_\+top = {\ttfamily true} }\end{DoxyParamCaption})}
 
+
+
+Fill depressions in a heightmap using the Priority-\/\+Flood algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em z} & Input heightmap array. \\
+\hline
+{\em apply\+\_\+post\+\_\+filter} & Apply Laplacian smoothing to deposition. \\
+\hline
+{\em outflow\+\_\+left} & Allow outflow on left boundary (i = 0). \\
+\hline
+{\em outflow\+\_\+right} & Allow outflow on right boundary (i = nx -\/ 1). \\
+\hline
+{\em outflow\+\_\+bottom} & Allow outflow on bottom boundary (j = 0). \\
+\hline
+{\em outflow\+\_\+top} & Allow outflow on top boundary (j = ny -\/ 1). \\
+\hline
+\end{DoxyParams}
 \Hypertarget{namespacehmap_af91e2b8638aab2c4357ce37812b8a99c}\label{namespacehmap_af91e2b8638aab2c4357ce37812b8a99c} 
 \index{hmap@{hmap}!erosion\_maps@{erosion\_maps}}
 \index{erosion\_maps@{erosion\_maps}!hmap@{hmap}}
@@ -18833,7 +18884,7 @@ This function identifies depressions in a terrain elevation model and simulates 
 A 2D array representing the water depth for each cell. Values are zero where no lake is present and positive where water accumulates in depressions.
 \end{DoxyReturn}
 \begin{DoxySeeAlso}{See also}
-\doxylink{namespacehmap_aa64448e4b5640d90570e53249907c98a}{depression\+\_\+filling}
+\doxylink{namespacehmap_aa8c5cbc750a368764e2a26409c2427a5}{depression\+\_\+filling}
 \end{DoxySeeAlso}
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
