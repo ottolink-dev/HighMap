@@ -1,5 +1,7 @@
 var erosion_8hpp =
 [
+    [ "hmap::gpu::McDonaldParams", "structhmap_1_1gpu_1_1McDonaldParams.html", "structhmap_1_1gpu_1_1McDonaldParams" ],
+    [ "hmap::gpu::McDonaldParams::PhysicalParams", "structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html", "structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams" ],
     [ "coastal_erosion_diffusion", "erosion_8hpp.html#a18a33814eb6bc286dfe516a9781819cf", null ],
     [ "coastal_erosion_profile", "erosion_8hpp.html#a4911ba93b495bd3f66b9f7185d5e0a23", null ],
     [ "coastal_erosion_profile", "erosion_8hpp.html#add0285443bb5059eca752eaf07202ef3", null ],
@@ -31,7 +33,9 @@ var erosion_8hpp =
     [ "hydraulic_particle", "erosion_8hpp.html#a896738bf580453d50668885176c3371a", null ],
     [ "hydraulic_particle_multiscale", "erosion_8hpp.html#a6bf71c5a5b9e73d823bab65dc40c0287", null ],
     [ "hydraulic_particle_multiscale", "erosion_8hpp.html#aef2fdf67297395cdbe6e86991580f7da", null ],
+    [ "hydraulic_mcdonald", "erosion_8hpp.html#a52c85df11ab7344210ea04d1847482cc", null ],
     [ "hydraulic_mcdonald", "erosion_8hpp.html#a95d94b88a44f0b1c6b21a020d8779b1f", null ],
+    [ "hydraulic_mcdonald_multiscale", "erosion_8hpp.html#ab2a0e0f041c292e74829b402604f3347", null ],
     [ "hydraulic_mcdonald_multiscale", "erosion_8hpp.html#a33b7748b6322b458482b3a60c6a3a7c6", null ],
     [ "hydraulic_procedural", "erosion_8hpp.html#a99e82fd045db7e5fddd177449289c3b6", null ],
     [ "hydraulic_procedural_fbm", "erosion_8hpp.html#a79e45a2a4f3a41739ee49c722cded536", null ],

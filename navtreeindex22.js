@@ -1,5 +1,11 @@
 var NAVTREEINDEX22 =
 {
+"primitives_2functions_8hpp.html#a05f15dbf656e6f7ae36542c48a7d2980":[5,0,1,0,0,9,1,4],
+"primitives_2functions_8hpp.html#a0b06b24568140dc46bacb4132cd35e4a":[5,0,1,0,0,9,1,32],
+"primitives_2functions_8hpp.html#a1bdde74ca6ad37104c99c074f7a2387a":[5,0,1,0,0,9,1,17],
+"primitives_2functions_8hpp.html#a244398042a7032506bf76ca61805094a":[5,0,1,0,0,9,1,30],
+"primitives_2functions_8hpp.html#a2b25a71f7da0b8324df986e01e5b08dc":[5,0,1,0,0,9,1,12],
+"primitives_2functions_8hpp.html#a32035fe3ef18a31240ace195c721ecd7":[5,0,1,0,0,9,1,6],
 "primitives_2functions_8hpp.html#a342e86d5f5b6da70427e3c66c25b419d":[5,0,1,0,0,9,1,31],
 "primitives_2functions_8hpp.html#a41239b5831a88a5b2528f24e8c95a92a":[5,0,1,0,0,9,1,22],
 "primitives_2functions_8hpp.html#a4af0bde798f0266db4dfe24e1134a506":[5,0,1,0,0,9,1,7],
@@ -243,11 +249,5 @@ var NAVTREEINDEX22 =
 "reverse__midpoint_8cpp.html":[5,0,1,1,2,4],
 "reverse__midpoint_8cpp.html#a3d953aa5fcf59193b3b8b98db3f5a872":[5,0,1,1,2,4,0],
 "reverse__midpoint_8cpp.html#a6f7e6e0cffaf7d03cfe1eef62b1c3575":[5,0,1,1,2,4,2],
-"reverse__midpoint_8cpp.html#af5440364a346b297246885e95793ef45":[5,0,1,1,2,4,1],
-"ridge__accentuate_8cpp.html":[5,0,1,1,15,13],
-"ridge__accentuate_8cpp.html#a99a2046c1536aef27a965709811898fc":[5,0,1,1,15,13,0],
-"ridge__accentuate_8cpp.html#ae9761a6d8d3b32eda18f767d10489e73":[5,0,1,1,15,13,1],
-"ridgelines_8cpp.html":[5,0,1,1,2,5],
-"ridgelines_8cpp.html#a4e7db58b8b58def3b862476f18b6005e":[5,0,1,1,2,5,1],
-"ridgelines_8cpp.html#a74f6ef0464e0ec67df5179f49e14e35a":[5,0,1,1,2,5,0]
+"reverse__midpoint_8cpp.html#af5440364a346b297246885e95793ef45":[5,0,1,1,2,4,1]
 };

@@ -7,6 +7,7 @@ var searchData=
   ['perlinfunction_4',['PerlinFunction',['../classhmap_1_1PerlinFunction.html',1,'hmap']]],
   ['perlinhalffunction_5',['PerlinHalfFunction',['../classhmap_1_1PerlinHalfFunction.html',1,'hmap']]],
   ['perlinmixfunction_6',['PerlinMixFunction',['../classhmap_1_1PerlinMixFunction.html',1,'hmap']]],
-  ['point_7',['Point',['../classhmap_1_1Point.html',1,'hmap']]],
-  ['pyramiddecomposition_8',['PyramidDecomposition',['../classhmap_1_1PyramidDecomposition.html',1,'hmap']]]
+  ['physicalparams_7',['PhysicalParams',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html',1,'hmap::gpu::McDonaldParams']]],
+  ['point_8',['Point',['../classhmap_1_1Point.html',1,'hmap']]],
+  ['pyramiddecomposition_9',['PyramidDecomposition',['../classhmap_1_1PyramidDecomposition.html',1,'hmap']]]
 ];

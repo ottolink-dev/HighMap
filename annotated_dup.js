@@ -1,6 +1,9 @@
 var annotated_dup =
 [
     [ "hmap", "namespacehmap.html", [
+      [ "gpu", "namespacehmap_1_1gpu.html", [
+        [ "McDonaldParams", "structhmap_1_1gpu_1_1McDonaldParams.html", "structhmap_1_1gpu_1_1McDonaldParams" ]
+      ] ],
       [ "log", "namespacehmap_1_1log.html", [
         [ "format_string_with_loc", "structhmap_1_1log_1_1format__string__with__loc.html", "structhmap_1_1log_1_1format__string__with__loc" ]
       ] ],

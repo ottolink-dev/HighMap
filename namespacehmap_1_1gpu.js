@@ -3,6 +3,7 @@ var namespacehmap_1_1gpu =
     [ "detail", "namespacehmap_1_1gpu_1_1detail.html", [
       [ "mcdonald_run_steps", "namespacehmap_1_1gpu_1_1detail.html#a7f0fb6c386fb84a72714bbc74a003b6f", null ]
     ] ],
+    [ "McDonaldParams", "structhmap_1_1gpu_1_1McDonaldParams.html", "structhmap_1_1gpu_1_1McDonaldParams" ],
     [ "LocalMetrics", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895f", [
       [ "LM_LOCAL_ASPECT_VARIANCE", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa6302a2239490ba9a2f3cd152d55e50d7", null ],
       [ "LM_LOCAL_MAX", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa919b512837145887c412526966767a9f", null ],
@@ -34,7 +35,9 @@ var namespacehmap_1_1gpu =
     [ "hydraulic_particle", "namespacehmap_1_1gpu.html#a896738bf580453d50668885176c3371a", null ],
     [ "hydraulic_particle_multiscale", "namespacehmap_1_1gpu.html#a6bf71c5a5b9e73d823bab65dc40c0287", null ],
     [ "hydraulic_particle_multiscale", "namespacehmap_1_1gpu.html#aef2fdf67297395cdbe6e86991580f7da", null ],
+    [ "hydraulic_mcdonald", "namespacehmap_1_1gpu.html#a52c85df11ab7344210ea04d1847482cc", null ],
     [ "hydraulic_mcdonald", "namespacehmap_1_1gpu.html#a95d94b88a44f0b1c6b21a020d8779b1f", null ],
+    [ "hydraulic_mcdonald_multiscale", "namespacehmap_1_1gpu.html#ab2a0e0f041c292e74829b402604f3347", null ],
     [ "hydraulic_mcdonald_multiscale", "namespacehmap_1_1gpu.html#a33b7748b6322b458482b3a60c6a3a7c6", null ],
     [ "hydraulic_procedural", "namespacehmap_1_1gpu.html#a99e82fd045db7e5fddd177449289c3b6", null ],
     [ "hydraulic_procedural_fbm", "namespacehmap_1_1gpu.html#a79e45a2a4f3a41739ee49c722cded536", null ],

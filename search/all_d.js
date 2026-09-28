@@ -1,13 +1,13 @@
 var searchData=
 [
   ['lacunarity_0',['lacunarity',['../classhmap_1_1GenericFractalFunction.html#a9a205468c861c5f142b738d514b2d9ce',1,'hmap::GenericFractalFunction']]],
-  ['laplace_1',['laplace',['../namespacehmap.html#a62f3ce1778309a90b37d34e727e4f040',1,'hmap::laplace(Array &amp;array, float sigma=0.125f, int iterations=3)'],['../namespacehmap.html#af2851ea650ce411e47bac5ba4327c652',1,'hmap::laplace(Array &amp;array, const Array *p_mask, float sigma=0.125f, int iterations=3)'],['../namespacehmap_1_1gpu.html#a65f49b330320b4c60d8ca5083eda8e86',1,'hmap::gpu::laplace(Array &amp;array, const Array *p_mask, float sigma=0.2f, int iterations=3)'],['../namespacehmap_1_1gpu.html#a13625ec501979795138bac6499ac0f08',1,'hmap::gpu::laplace(Array &amp;array, float sigma=0.2f, int iterations=3)']]],
+  ['laplace_1',['laplace',['../namespacehmap_1_1gpu.html#a65f49b330320b4c60d8ca5083eda8e86',1,'hmap::gpu::laplace(Array &amp;array, const Array *p_mask, float sigma=0.2f, int iterations=3)'],['../namespacehmap_1_1gpu.html#a13625ec501979795138bac6499ac0f08',1,'hmap::gpu::laplace(Array &amp;array, float sigma=0.2f, int iterations=3)'],['../namespacehmap.html#af2851ea650ce411e47bac5ba4327c652',1,'hmap::laplace(Array &amp;array, const Array *p_mask, float sigma=0.125f, int iterations=3)'],['../namespacehmap.html#a62f3ce1778309a90b37d34e727e4f040',1,'hmap::laplace(Array &amp;array, float sigma=0.125f, int iterations=3)']]],
   ['laplace1d_2',['laplace1d',['../namespacehmap.html#abf9521082ba09eb022834306bc6c354b',1,'hmap']]],
   ['laplace_5fedge_5fpreserving_3',['laplace_edge_preserving',['../namespacehmap.html#aa3154bd93dda630a0d17f1b75ab6b3c5',1,'hmap::laplace_edge_preserving(Array &amp;array, float talus, const Array *p_mask, float sigma=0.2f, int iterations=3)'],['../namespacehmap.html#a120b7a6f8941d783c52acf799d3cb7b2',1,'hmap::laplace_edge_preserving(Array &amp;array, float talus, float sigma=0.2f, int iterations=3)']]],
   ['laplacian_4',['laplacian',['../namespacehmap.html#a893bb80f635c4711c075e078cde18cf5',1,'hmap']]],
   ['laplacian_5ffract_5',['laplacian_fract',['../namespacehmap_1_1gpu.html#a64d64a2cdc264ab75ace5be6f4bc8972',1,'hmap::gpu']]],
   ['layering_20etc_6',['Generate classical coherent noises (Perlin, Simplex, fractal layering, etc...)',['../index.html#autotoc_md8',1,'']]],
-  ['lerp_7',['lerp',['../namespacehmap.html#ad78d0f991f4f0eee67929b00469aea39',1,'hmap::lerp(const Array &amp;array1, const Array &amp;array2, const Array &amp;t)'],['../namespacehmap.html#a1d5e665c9e945b8ad9a6b5f0c1b673ad',1,'hmap::lerp(float a, float b, float t)'],['../namespacehmap.html#a6d85b2b635d15a4361344451619253f7',1,'hmap::lerp(const Array &amp;array1, const Array &amp;array2, float t)'],['../namespacehmap.html#ac14815cf025b7430d31d08125a5c6f0d',1,'hmap::lerp(const Point &amp;p1, const Point &amp;p2, float t)']]],
+  ['lerp_7',['lerp',['../namespacehmap.html#ac14815cf025b7430d31d08125a5c6f0d',1,'hmap::lerp(const Point &amp;p1, const Point &amp;p2, float t)'],['../namespacehmap.html#a1d5e665c9e945b8ad9a6b5f0c1b673ad',1,'hmap::lerp(float a, float b, float t)'],['../namespacehmap.html#a6d85b2b635d15a4361344451619253f7',1,'hmap::lerp(const Array &amp;array1, const Array &amp;array2, float t)'],['../namespacehmap.html#ad78d0f991f4f0eee67929b00469aea39',1,'hmap::lerp(const Array &amp;array1, const Array &amp;array2, const Array &amp;t)']]],
   ['level_8',['Level',['../namespacehmap_1_1log_1_1detail.html#af3c0cdbd7ebc57f0a2d879d475f55cb9',1,'hmap::log::detail']]],
   ['level_5fset_5fcurvature_9',['level_set_curvature',['../namespacehmap.html#aa1f2e119a09d246fe0cf27e859ddb2e6',1,'hmap::level_set_curvature()'],['../namespacehmap_1_1gpu.html#a125118b55d309727ff0b46d686fd3829',1,'hmap::gpu::level_set_curvature()']]],
   ['level_5fto_5fstring_10',['level_to_string',['../namespacehmap_1_1log_1_1detail.html#af77839d575b634b05fbd64a66fc7f9b4',1,'hmap::log::detail']]],
@@ -73,10 +73,11 @@ var searchData=
   ['low_5fpass_5ffilter_5ffunction_70',['low_pass_filter_function',['../classhmap_1_1PyramidDecomposition.html#ab7684296d0993168de59ca6938d30cd2',1,'hmap::PyramidDecomposition']]],
   ['low_5fpass_5fhigh_5forder_71',['low_pass_high_order',['../namespacehmap.html#a81842482472ceecc660913388219bb77',1,'hmap']]],
   ['lowpass_5fonly_72',['LOWPASS_ONLY',['../namespacehmap.html#ae84abe9052dcb9c88f3c50716addfe44ab02b262c560a970e4f082d4edee376fb',1,'hmap']]],
-  ['lru_73',['lru',['../classhmap_1_1LruTileStorage.html#a503160ae137678b2255088de204a5d7c',1,'hmap::LruTileStorage']]],
-  ['lru_5fit_74',['lru_it',['../structhmap_1_1LruTileEntry.html#a4b419114b2a041fe2e303cf6dbea4c39',1,'hmap::LruTileEntry']]],
-  ['lru_5ftile_5fstorage_2ecpp_75',['lru_tile_storage.cpp',['../lru__tile__storage_8cpp.html',1,'']]],
-  ['lrutileentry_76',['LruTileEntry',['../structhmap_1_1LruTileEntry.html',1,'hmap']]],
-  ['lrutilestorage_77',['lrutilestorage',['../classhmap_1_1LruTileStorage.html#a18948b97db31797b0fe45c58d2da883b',1,'hmap::LruTileStorage::LruTileStorage()'],['../classhmap_1_1LruTileStorage.html',1,'hmap::LruTileStorage']]],
-  ['luminance_78',['luminance',['../namespacehmap.html#a051c3f6f1ceda0feaf3c36c97bd7fef9',1,'hmap::luminance(VirtualArray &amp;out, VirtualTexture &amp;tex, const ComputeMode &amp;cm)'],['../namespacehmap.html#af57ba0aebe498d0b79b91159d7e600b5',1,'hmap::luminance(const Texture &amp;tex)']]]
+  ['lrate_73',['lrate',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a9d7d3bf7812591411cbb92a28f30f540',1,'hmap::gpu::McDonaldParams::PhysicalParams']]],
+  ['lru_74',['lru',['../classhmap_1_1LruTileStorage.html#a503160ae137678b2255088de204a5d7c',1,'hmap::LruTileStorage']]],
+  ['lru_5fit_75',['lru_it',['../structhmap_1_1LruTileEntry.html#a4b419114b2a041fe2e303cf6dbea4c39',1,'hmap::LruTileEntry']]],
+  ['lru_5ftile_5fstorage_2ecpp_76',['lru_tile_storage.cpp',['../lru__tile__storage_8cpp.html',1,'']]],
+  ['lrutileentry_77',['LruTileEntry',['../structhmap_1_1LruTileEntry.html',1,'hmap']]],
+  ['lrutilestorage_78',['lrutilestorage',['../classhmap_1_1LruTileStorage.html#a18948b97db31797b0fe45c58d2da883b',1,'hmap::LruTileStorage::LruTileStorage()'],['../classhmap_1_1LruTileStorage.html',1,'hmap::LruTileStorage']]],
+  ['luminance_79',['luminance',['../namespacehmap.html#a051c3f6f1ceda0feaf3c36c97bd7fef9',1,'hmap::luminance(VirtualArray &amp;out, VirtualTexture &amp;tex, const ComputeMode &amp;cm)'],['../namespacehmap.html#af57ba0aebe498d0b79b91159d7e600b5',1,'hmap::luminance(const Texture &amp;tex)']]]
 ];

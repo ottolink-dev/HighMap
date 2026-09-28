@@ -1,0 +1,228 @@
+\doxysection{hmap\+::gpu\+::Mc\+Donald\+Params Struct Reference}
+\hypertarget{structhmap_1_1gpu_1_1McDonaldParams}{}\label{structhmap_1_1gpu_1_1McDonaldParams}\index{hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}}
+
+
+Particle-\/based hydraulic erosion with flow-\/field coupling (Mc\+Donald\textquotesingle{}s model)\+: persistent per-\/cell discharge and momentum fields, exponentially filtered across iterations, couple particles through the mean local flow, producing coherent drainage networks; a bank-\/stability debris flow runs in the same solver loop against a separate sediment layer. Clean-\/room port of erosiv/soillib (LGPL-\/3, Nicholas Mc\+Donald), \href{https://github.com/erosiv/soillib}{\texttt{ https\+://github.\+com/erosiv/soillib}}.  
+
+
+
+
+{\ttfamily \#include $<$erosion.\+hpp$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams}{Physical\+Params}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams}{Physical\+Params}} \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a153ea9cbc50dcb176ecabad849eb4159}{to\+\_\+physical}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a3d202fa7479bc8acf4c421b5c1a7ca6d}{strength}}
+\item 
+float \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_ade24cbf1c7e3dac028493914320f9a9f}{deposition}} = 0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\item 
+float \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a15250e4ae46007787eadad79bad7f2d0}{crit\+\_\+slope}} = 0.\+57\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\item 
+float \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a2d0dbf68b65cd73c703153fb2a25fd77}{meandering}} = 0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\item 
+float \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a26d29e62a57c78296be778046fbd4a79}{scale}} = 1.\+0f
+\item 
+float \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a37f6ecca05e08dd313553aa601023d08}{relief\+\_\+scale}} = 1.\+0f
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Particle-\/based hydraulic erosion with flow-\/field coupling (Mc\+Donald\textquotesingle{}s model)\+: persistent per-\/cell discharge and momentum fields, exponentially filtered across iterations, couple particles through the mean local flow, producing coherent drainage networks; a bank-\/stability debris flow runs in the same solver loop against a separate sediment layer. Clean-\/room port of erosiv/soillib (LGPL-\/3, Nicholas Mc\+Donald), \href{https://github.com/erosiv/soillib}{\texttt{ https\+://github.\+com/erosiv/soillib}}. 
+
+Parameters are physical\+: the terrain is interpreted as a world\+\_\+extent\+\_\+km x world\+\_\+extent\+\_\+km domain with height range z\+\_\+scale\+\_\+km. This makes behavior consistent across resolutions.
+
+\begin{DoxyWarning}{Warning}
+Single-\/resolution runs numerically diverge at high resolutions (\texorpdfstring{$>$}{>}= 1024\texorpdfstring{$^\wedge$}{\string^}2) beyond a few hundred steps with default parameters — use hydraulic\+\_\+mcdonald\+\_\+multiscale for high-\/resolution terrain.
+\end{DoxyWarning}
+Results are reproducible up to atomic scheduling order (particles read fields that other particles concurrently modify via atomic adds — a property shared with the reference implementation).
+
+
+\begin{DoxyParams}{Parameters}
+{\em z} & Input/output heightmap. In\+: bedrock. Out\+: bedrock plus sediment (total surface). \\
+\hline
+{\em steps} & Number of erosion iterations. \\
+\hline
+{\em seed} & Random seed number. \\
+\hline
+{\em p\+\_\+sediment\+\_\+map} & Optional output\+: final sediment layer. \\
+\hline
+{\em p\+\_\+discharge\+\_\+map} & Optional output\+: water discharge field (usable as a river / water mask). \\
+\hline
+{\em world\+\_\+extent\+\_\+km} & Physical domain edge length \mbox{[}km\mbox{]}. \\
+\hline
+{\em z\+\_\+scale\+\_\+km} & Physical height range of z\textquotesingle{}s \mbox{[}0, 1\mbox{]} span \mbox{[}km\mbox{]}. \\
+\hline
+{\em samples} & Particles per iteration. \\
+\hline
+{\em maxage} & Maximum particle age (steps along a trajectory). \\
+\hline
+{\em lrate} & Exponential filter rate for the flow fields. \\
+\hline
+{\em time\+\_\+step} & Geological timestep \mbox{[}y\mbox{]}. \\
+\hline
+{\em rainfall} & Rainfall rate \mbox{[}m/y\mbox{]}. \\
+\hline
+{\em evap\+\_\+rate} & Evaporation rate. \\
+\hline
+{\em gravity} & Gravity \mbox{[}m/s\texorpdfstring{$^\wedge$}{\string^}2\mbox{]}. \\
+\hline
+{\em viscosity} & Kinematic viscosity (flow-\/coupling strength). \\
+\hline
+{\em bed\+\_\+shear} & Bed shear coefficient. \\
+\hline
+{\em crit\+\_\+slope} & Critical (stable bank) slope \mbox{[}m/m\mbox{]}. \\
+\hline
+{\em settle\+\_\+rate} & Debris settling rate. \\
+\hline
+{\em thermal\+\_\+rate} & Thermal erosion rate. \\
+\hline
+{\em deposition\+\_\+rate} & Fluvial deposition rate. \\
+\hline
+{\em suspension\+\_\+rate} & Fluvial suspension rate. \\
+\hline
+{\em exit\+\_\+slope} & Boundary exit slope \mbox{[}m/m\mbox{]}.\\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_adb8336ed4d83c15500872185dee45d50}{hmap::gpu::init\_opencl}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ glm::ivec2\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ =\ \{256,\ 256\};}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ shape\ =\ \{1024,\ 1024\};}}
+\DoxyCodeLine{\ \ glm::vec2\ res\ =\ \{3.f,\ 3.f\};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ seed\ =\ 1;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ steps\ =\ 64;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ res,\ seed);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(z);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z0\ =\ z;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ sediment,\ discharge;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams}{hmap::gpu::McDonaldParams}}\ params\ =\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ .\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a3d202fa7479bc8acf4c421b5c1a7ca6d}{strength}}\ =\ 0.5f,}
+\DoxyCodeLine{\ \ \ \ \ \ .deposition\ =\ 0.5f,}
+\DoxyCodeLine{\ \ \ \ \ \ .crit\_slope\ =\ 0.5f,}
+\DoxyCodeLine{\ \ \ \ \ \ .meandering\ =\ 1.f,}
+\DoxyCodeLine{\ \ \ \ \ \ .scale\ =\ 1.f,}
+\DoxyCodeLine{\ \ \ \ \ \ .relief\_scale\ =\ 1.f}
+\DoxyCodeLine{\ \ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_a52c85df11ab7344210ea04d1847482cc}{hmap::gpu::hydraulic\_mcdonald}}(z,\ steps,\ seed,\ params,\ \&sediment,\ \&discharge);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ output}}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}z\ min/max:\ "{}}\ <<\ z.\mbox{\hyperlink{classhmap_1_1Array_a56c77f78e4864f5c6f2cbd6de8100556}{min}}()\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ z.\mbox{\hyperlink{classhmap_1_1Array_a68aac609ccba8f581da1cdf5cee671b9}{max}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}discharge\ min/max:\ "{}}\ <<\ discharge.\mbox{\hyperlink{classhmap_1_1Array_a56c77f78e4864f5c6f2cbd6de8100556}{min}}()\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ discharge.\mbox{\hyperlink{classhmap_1_1Array_a68aac609ccba8f581da1cdf5cee671b9}{max}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ z0.\mbox{\hyperlink{classhmap_1_1Array_a9ff7b2c0be8f2b5dd9fc33085cd647d1}{to\_png}}(\textcolor{stringliteral}{"{}ex\_hydraulic\_mcdonald0.png"{}},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9}{hmap::Cmap::TERRAIN}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\ \ \ \ z.\mbox{\hyperlink{classhmap_1_1Array_a9ff7b2c0be8f2b5dd9fc33085cd647d1}{to\_png}}(\textcolor{stringliteral}{"{}ex\_hydraulic\_mcdonald1.png"{}},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9}{hmap::Cmap::TERRAIN}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ log-\/scale\ the\ discharge\ for\ visibility\ (spans\ orders\ of\ magnitude)}}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ dlog\ =\ discharge;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&v\ :\ dlog.vector)}
+\DoxyCodeLine{\ \ \ \ \ \ v\ =\ std::\mbox{\hyperlink{namespacehmap_a75475b6109023ce0ad64f6f9f7c4c525}{log10}}(1.f\ +\ v);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ dlog.\mbox{\hyperlink{classhmap_1_1Array_a9ff7b2c0be8f2b5dd9fc33085cd647d1}{to\_png}}(\textcolor{stringliteral}{"{}ex\_hydraulic\_mcdonald2.png"{}},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a320107cf3138d908a78d3c6d97705717}{hmap::Cmap::HOT}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ zm\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ res,\ seed);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(zm);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ sediment\_m,\ discharge\_m;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::vector<int>\ steps\_per\_level\ =\ \{steps\ /\ 4,\ steps\ /\ 2,\ steps\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab2a0e0f041c292e74829b402604f3347}{hmap::gpu::hydraulic\_mcdonald\_multiscale}}(zm,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ steps\_per\_level,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&sediment\_m,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&discharge\_m);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::cout\ <<\ \textcolor{stringliteral}{"{}multiscale\ z\ min/max:\ "{}}\ <<\ zm.\mbox{\hyperlink{classhmap_1_1Array_a56c77f78e4864f5c6f2cbd6de8100556}{min}}()\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ zm.\mbox{\hyperlink{classhmap_1_1Array_a68aac609ccba8f581da1cdf5cee671b9}{max}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ zm.\mbox{\hyperlink{classhmap_1_1Array_a9ff7b2c0be8f2b5dd9fc33085cd647d1}{to\_png}}(\textcolor{stringliteral}{"{}ex\_hydraulic\_mcdonald3.png"{}},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9}{hmap::Cmap::TERRAIN}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+{\bfseries{Result}}    
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structhmap_1_1gpu_1_1McDonaldParams_a153ea9cbc50dcb176ecabad849eb4159}\label{structhmap_1_1gpu_1_1McDonaldParams_a153ea9cbc50dcb176ecabad849eb4159} 
+\index{hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}!to\_physical@{to\_physical}}
+\index{to\_physical@{to\_physical}!hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}}
+\doxysubsubsection{\texorpdfstring{to\_physical()}{to\_physical()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams}{Physical\+Params}} hmap\+::gpu\+::\+Mc\+Donald\+Params\+::to\+\_\+physical (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structhmap_1_1gpu_1_1McDonaldParams_a3d202fa7479bc8acf4c421b5c1a7ca6d}\label{structhmap_1_1gpu_1_1McDonaldParams_a3d202fa7479bc8acf4c421b5c1a7ca6d} 
+\index{hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}!strength@{strength}}
+\index{strength@{strength}!hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}}
+\doxysubsubsection{\texorpdfstring{strength}{strength}}
+{\footnotesize\ttfamily float hmap\+::gpu\+::\+Mc\+Donald\+Params\+::strength}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \ \ 0.5f}
+
+\end{DoxyCode}
+\Hypertarget{structhmap_1_1gpu_1_1McDonaldParams_ade24cbf1c7e3dac028493914320f9a9f}\label{structhmap_1_1gpu_1_1McDonaldParams_ade24cbf1c7e3dac028493914320f9a9f} 
+\index{hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}!deposition@{deposition}}
+\index{deposition@{deposition}!hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}}
+\doxysubsubsection{\texorpdfstring{deposition}{deposition}}
+{\footnotesize\ttfamily float hmap\+::gpu\+::\+Mc\+Donald\+Params\+::deposition = 0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}
+
+\Hypertarget{structhmap_1_1gpu_1_1McDonaldParams_a15250e4ae46007787eadad79bad7f2d0}\label{structhmap_1_1gpu_1_1McDonaldParams_a15250e4ae46007787eadad79bad7f2d0} 
+\index{hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}!crit\_slope@{crit\_slope}}
+\index{crit\_slope@{crit\_slope}!hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}}
+\doxysubsubsection{\texorpdfstring{crit\_slope}{crit\_slope}}
+{\footnotesize\ttfamily float hmap\+::gpu\+::\+Mc\+Donald\+Params\+::crit\+\_\+slope = 0.\+57\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}
+
+\Hypertarget{structhmap_1_1gpu_1_1McDonaldParams_a2d0dbf68b65cd73c703153fb2a25fd77}\label{structhmap_1_1gpu_1_1McDonaldParams_a2d0dbf68b65cd73c703153fb2a25fd77} 
+\index{hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}!meandering@{meandering}}
+\index{meandering@{meandering}!hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}}
+\doxysubsubsection{\texorpdfstring{meandering}{meandering}}
+{\footnotesize\ttfamily float hmap\+::gpu\+::\+Mc\+Donald\+Params\+::meandering = 0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}
+
+\Hypertarget{structhmap_1_1gpu_1_1McDonaldParams_a26d29e62a57c78296be778046fbd4a79}\label{structhmap_1_1gpu_1_1McDonaldParams_a26d29e62a57c78296be778046fbd4a79} 
+\index{hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}!scale@{scale}}
+\index{scale@{scale}!hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}}
+\doxysubsubsection{\texorpdfstring{scale}{scale}}
+{\footnotesize\ttfamily float hmap\+::gpu\+::\+Mc\+Donald\+Params\+::scale = 1.\+0f}
+
+\Hypertarget{structhmap_1_1gpu_1_1McDonaldParams_a37f6ecca05e08dd313553aa601023d08}\label{structhmap_1_1gpu_1_1McDonaldParams_a37f6ecca05e08dd313553aa601023d08} 
+\index{hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}!relief\_scale@{relief\_scale}}
+\index{relief\_scale@{relief\_scale}!hmap::gpu::McDonaldParams@{hmap::gpu::McDonaldParams}}
+\doxysubsubsection{\texorpdfstring{relief\_scale}{relief\_scale}}
+{\footnotesize\ttfamily float hmap\+::gpu\+::\+Mc\+Donald\+Params\+::relief\+\_\+scale = 1.\+0f}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+High\+Map/include/highmap/\mbox{\hyperlink{erosion_8hpp}{erosion.\+hpp}}\end{DoxyCompactItemize}
