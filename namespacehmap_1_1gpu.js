@@ -40,6 +40,8 @@ var namespacehmap_1_1gpu =
     [ "hydraulic_mcdonald", "namespacehmap_1_1gpu.html#af8893c7f1ae300a5bd801d4e8a2bf425", null ],
     [ "hydraulic_mcdonald_multiscale", "namespacehmap_1_1gpu.html#a44a762380f00cd1edc09f98468095215", null ],
     [ "hydraulic_mcdonald_multiscale", "namespacehmap_1_1gpu.html#a3cda61667294854da3121eb533b5e09f", null ],
+    [ "hydraulic_musgrave", "namespacehmap_1_1gpu.html#a4f8838aa7fe59a353b60e3d03e0d5a8f", null ],
+    [ "hydraulic_musgrave", "namespacehmap_1_1gpu.html#a7b00e9d4012a7026230454d0d5528760", null ],
     [ "hydraulic_procedural", "namespacehmap_1_1gpu.html#a99e82fd045db7e5fddd177449289c3b6", null ],
     [ "hydraulic_procedural_fbm", "namespacehmap_1_1gpu.html#a79e45a2a4f3a41739ee49c722cded536", null ],
     [ "hydraulic_procedural_fbm", "namespacehmap_1_1gpu.html#a0cf61fdf1248cd9cc4da40f510e13973", null ],

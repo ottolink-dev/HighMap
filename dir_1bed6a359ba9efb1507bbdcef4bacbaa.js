@@ -14,6 +14,7 @@ var dir_1bed6a359ba9efb1507bbdcef4bacbaa =
     [ "hydraulic_diffusion.cpp", "hydraulic__diffusion_8cpp.html", "hydraulic__diffusion_8cpp" ],
     [ "hydraulic_mcdonald_gpu.cpp", "hydraulic__mcdonald__gpu_8cpp.html", "hydraulic__mcdonald__gpu_8cpp" ],
     [ "hydraulic_musgrave.cpp", "hydraulic__musgrave_8cpp.html", "hydraulic__musgrave_8cpp" ],
+    [ "hydraulic_musgrave_gpu.cpp", "hydraulic__musgrave__gpu_8cpp.html", "hydraulic__musgrave__gpu_8cpp" ],
     [ "hydraulic_particle.cpp", "hydraulic__particle_8cpp.html", "hydraulic__particle_8cpp" ],
     [ "hydraulic_procedural.cpp", "hydraulic__procedural_8cpp.html", "hydraulic__procedural_8cpp" ],
     [ "hydraulic_saleve.cpp", "hydraulic__saleve_8cpp.html", "hydraulic__saleve_8cpp" ],

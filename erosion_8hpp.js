@@ -37,6 +37,8 @@ var erosion_8hpp =
     [ "hydraulic_mcdonald", "erosion_8hpp.html#af8893c7f1ae300a5bd801d4e8a2bf425", null ],
     [ "hydraulic_mcdonald_multiscale", "erosion_8hpp.html#a44a762380f00cd1edc09f98468095215", null ],
     [ "hydraulic_mcdonald_multiscale", "erosion_8hpp.html#a3cda61667294854da3121eb533b5e09f", null ],
+    [ "hydraulic_musgrave", "erosion_8hpp.html#a4f8838aa7fe59a353b60e3d03e0d5a8f", null ],
+    [ "hydraulic_musgrave", "erosion_8hpp.html#a7b00e9d4012a7026230454d0d5528760", null ],
     [ "hydraulic_procedural", "erosion_8hpp.html#a99e82fd045db7e5fddd177449289c3b6", null ],
     [ "hydraulic_procedural_fbm", "erosion_8hpp.html#a79e45a2a4f3a41739ee49c722cded536", null ],
     [ "hydraulic_procedural_fbm", "erosion_8hpp.html#a0cf61fdf1248cd9cc4da40f510e13973", null ],
