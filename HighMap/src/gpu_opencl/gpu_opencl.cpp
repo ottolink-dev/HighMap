@@ -115,6 +115,9 @@ bool init_opencl()
 #include "kernels/hydraulic_particle.cl"
   );
   add(
+#include "kernels/hydraulic_particle_trail.cl"
+  );
+  add(
 #include "kernels/hydraulic_schott.cl"
   );
   add(

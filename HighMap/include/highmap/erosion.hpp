@@ -961,6 +961,90 @@ void hydraulic_particle_multiscale(
     float                   mix = 1.f);
 
 /**
+ * @brief Simulates hydraulic erosion using ant colony optimization (ACO) trail
+ * dynamics.
+ *
+ * Particles leave a decaying pheromone trail in a 2D cell grid as they traverse
+ * the terrain. Subsequent particles are attracted towards the most used trails,
+ * reinforcing flow corridors and encouraging tributary branching and merging.
+ *
+ * @param z                  Heightmap array to modify.
+ * @param nparticles         Number of erosion particles to simulate.
+ * @param seed               Random seed for particle initialization.
+ * @param p_bedrock          Optional bedrock array to limit erosion.
+ * @param p_moisture_map     Optional moisture map affecting erosion/deposition.
+ * @param p_elevation_shift  Optional elevation shift map.
+ * @param p_erosion_map      Optional output array recording total erosion.
+ * @param p_deposition_map   Optional output array recording deposition.
+ * @param p_trail_map        Optional input/output array storing the trail map.
+ * @param c_capacity         Sediment capacity of each particle.
+ * @param c_erosion          Erosion rate coefficient.
+ * @param c_deposition       Deposition rate coefficient.
+ * @param c_inertia          Particle inertia factor.
+ * @param c_gravity          Gravity effect on particle movement.
+ * @param drag_rate          Particle velocity damping per step.
+ * @param evap_rate          Sediment evaporation rate.
+ * @param talus_slope        Talus slope threshold for bank collapse.
+ * @param collapse_rate      Bank collapse rate.
+ * @param c_trail_deposit    Trail (pheromone) deposition strength per step.
+ * @param c_trail_attraction Attraction factor towards accumulated trails.
+ * @param trail_evap_rate    Decay / evaporation rate of trails between passes.
+ * @param iterations         Number of multi-pass iterations.
+ *
+ * **Example**
+ * @include ex_hydraulic_particle_trail.cpp
+ *
+ * **Result**
+ * @image html ex_hydraulic_particle_trail.png
+ */
+void hydraulic_particle_trail(Array        &z,
+                              int           nparticles,
+                              std::uint32_t seed,
+                              const Array  *p_bedrock = nullptr,
+                              const Array  *p_moisture_map = nullptr,
+                              const Array  *p_elevation_shift = nullptr,
+                              Array        *p_erosion_map = nullptr,
+                              Array        *p_deposition_map = nullptr,
+                              Array        *p_trail_map = nullptr,
+                              float         c_capacity = 10.f,
+                              float         c_erosion = 0.05f,
+                              float         c_deposition = 0.05f,
+                              float         c_inertia = 0.01f,
+                              float         c_gravity = 1.f,
+                              float         drag_rate = 0.001f,
+                              float         evap_rate = 0.001f,
+                              float         talus_slope = 2.f,
+                              float         collapse_rate = 0.1f,
+                              float         c_trail_deposit = 1.f,
+                              float         c_trail_attraction = 0.5f,
+                              float         trail_evap_rate = 0.1f,
+                              int           iterations = 10);
+
+void hydraulic_particle_trail(Array        &z,
+                              const Array  *p_mask,
+                              int           nparticles,
+                              std::uint32_t seed,
+                              const Array  *p_bedrock = nullptr,
+                              const Array  *p_moisture_map = nullptr,
+                              const Array  *p_elevation_shift = nullptr,
+                              Array        *p_erosion_map = nullptr,
+                              Array        *p_deposition_map = nullptr,
+                              Array        *p_trail_map = nullptr,
+                              float         c_capacity = 10.f,
+                              float         c_erosion = 0.05f,
+                              float         c_deposition = 0.05f,
+                              float         c_inertia = 0.01f,
+                              float         c_gravity = 1.f,
+                              float         drag_rate = 0.001f,
+                              float         evap_rate = 0.001f,
+                              float         talus_slope = 2.f,
+                              float         collapse_rate = 0.1f,
+                              float         c_trail_deposit = 1.f,
+                              float         c_trail_attraction = 0.5f,
+                              float         trail_evap_rate = 0.1f,
+                              int           iterations = 10);
+
+/**
  * @brief Particle-based hydraulic erosion with flow-field coupling (McDonald's
  * model): persistent per-cell discharge and momentum fields, exponentially
  * filtered across iterations, couple particles through the mean local flow,

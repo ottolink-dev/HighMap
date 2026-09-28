@@ -1,0 +1,2 @@
+add_executable(ex_hydraulic_particle_trail ex_hydraulic_particle_trail.cpp)
+target_link_libraries(ex_hydraulic_particle_trail highmap)

@@ -278,3 +278,41 @@ TEST(DepressionFillingPriorityFlood, BoundaryConditions)
     EXPECT_NEAR(z_test(2, 2), 5.0f, 0.01f);
   }
 }
+
+TEST(HydraulicParticleTrail, ModifiesElevationAndTrail)
+{
+  hmap::gpu::init_opencl();
+
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+  Array      z = z0;
+  Array      trail(shape, 0.f);
+
+  gpu::hydraulic_particle_trail(z,
+                                500,
+                                42,
+                                nullptr,
+                                nullptr,
+                                nullptr,
+                                nullptr,
+                                nullptr,
+                                &trail,
+                                10.f,
+                                0.05f,
+                                0.05f,
+                                0.01f,
+                                1.f,
+                                0.001f,
+                                0.001f,
+                                2.f,
+                                0.1f,
+                                1.f,
+                                0.5f,
+                                0.1f,
+                                5);
+
+  EXPECT_EQ(z.shape, shape);
+  EXPECT_FALSE(assert_almost_equal(z, z0));
+  EXPECT_GT(trail.sum(), 0.f);
+}
