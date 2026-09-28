@@ -17,6 +17,7 @@ var local__metrics_8hpp =
       [ "LM_LOCAL_Z_SCORE", "local__metrics_8hpp.html#ab0737b29664736928a86f0755493895fa64d519d05dec2198a42425ce0c402bff", null ],
       [ "LM_TOPOGRAPHIC_POSITION_INDEX", "local__metrics_8hpp.html#ab0737b29664736928a86f0755493895fa8f5a70d0a562337ca689b0ce7ee3fff6", null ],
       [ "LM_RELATIVE_ELEVATION", "local__metrics_8hpp.html#ab0737b29664736928a86f0755493895fa46f15a0ffd71deff0ddbc5599acfff87", null ],
+      [ "LM_ROUGHNESS", "local__metrics_8hpp.html#ab0737b29664736928a86f0755493895faa7240132569a9a3cf8a45541d9c041b1", null ],
       [ "LM_RUGGEDNESS", "local__metrics_8hpp.html#ab0737b29664736928a86f0755493895fa568c1c82b138902b43e26249e63d8618", null ],
       [ "LM_RUGOSITY_CONCAVE", "local__metrics_8hpp.html#ab0737b29664736928a86f0755493895fa892abed7945357817b7504339fdcee14", null ],
       [ "LM_RUGOSITY_CONVEX", "local__metrics_8hpp.html#ab0737b29664736928a86f0755493895fac1321c034ba09831f5b5a040058f9477", null ]
@@ -28,6 +29,7 @@ var local__metrics_8hpp =
     [ "local_min", "local__metrics_8hpp.html#aa7ab501bae56bac2236a74ade5cd34a4", null ],
     [ "local_mean", "local__metrics_8hpp.html#ac297b8711e186ee1e5cdc7d1fc6a7972", null ],
     [ "relative_elevation", "local__metrics_8hpp.html#a941d446cad19c166f4f6c4df857dba65", null ],
+    [ "roughness", "local__metrics_8hpp.html#ac65c42efcba153819ca88a01bca23434", null ],
     [ "ruggedness", "local__metrics_8hpp.html#af4ec8b5be149e6749fdf09759daf1e9e", null ],
     [ "rugosity", "local__metrics_8hpp.html#a85e411c67e97deb8459f25d4440546c3", null ],
     [ "valley_width", "local__metrics_8hpp.html#ab4d8048b79080012b8e60c270de8137f", null ],
@@ -49,6 +51,7 @@ var local__metrics_8hpp =
     [ "topographic_position_index", "local__metrics_8hpp.html#a74594cae7628bcfb1c038ac6930fe97d", null ],
     [ "relative_elevation", "local__metrics_8hpp.html#a778cf36acffc481571ad51d607a1719e", null ],
     [ "relative_elevation_square_kernel", "local__metrics_8hpp.html#aebca5a0fef9c05a0e2378aef452707ed", null ],
+    [ "roughness", "local__metrics_8hpp.html#ab7698c2ed65e59a06231e0a84838165c", null ],
     [ "ruggedness", "local__metrics_8hpp.html#a62292cc4bf9f6eb5c7b63b1e26f8cc88", null ],
     [ "rugosity", "local__metrics_8hpp.html#aa5a3e087822525c41f057a51255e2bad", null ],
     [ "valley_width", "local__metrics_8hpp.html#a3816b73c0f933147dc86ee9f8d2dd701", null ],

@@ -16,6 +16,7 @@ var namespacehmap_1_1gpu =
       [ "LM_LOCAL_Z_SCORE", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa64d519d05dec2198a42425ce0c402bff", null ],
       [ "LM_TOPOGRAPHIC_POSITION_INDEX", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa8f5a70d0a562337ca689b0ce7ee3fff6", null ],
       [ "LM_RELATIVE_ELEVATION", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa46f15a0ffd71deff0ddbc5599acfff87", null ],
+      [ "LM_ROUGHNESS", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895faa7240132569a9a3cf8a45541d9c041b1", null ],
       [ "LM_RUGGEDNESS", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa568c1c82b138902b43e26249e63d8618", null ],
       [ "LM_RUGOSITY_CONCAVE", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa892abed7945357817b7504339fdcee14", null ],
       [ "LM_RUGOSITY_CONVEX", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fac1321c034ba09831f5b5a040058f9477", null ]
@@ -182,6 +183,7 @@ var namespacehmap_1_1gpu =
     [ "topographic_position_index", "namespacehmap_1_1gpu.html#a74594cae7628bcfb1c038ac6930fe97d", null ],
     [ "relative_elevation", "namespacehmap_1_1gpu.html#a778cf36acffc481571ad51d607a1719e", null ],
     [ "relative_elevation_square_kernel", "namespacehmap_1_1gpu.html#aebca5a0fef9c05a0e2378aef452707ed", null ],
+    [ "roughness", "namespacehmap_1_1gpu.html#ab7698c2ed65e59a06231e0a84838165c", null ],
     [ "ruggedness", "namespacehmap_1_1gpu.html#a62292cc4bf9f6eb5c7b63b1e26f8cc88", null ],
     [ "rugosity", "namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad", null ],
     [ "valley_width", "namespacehmap_1_1gpu.html#a3816b73c0f933147dc86ee9f8d2dd701", null ],

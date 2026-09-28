@@ -600,7 +600,7 @@ void \mbox{\hyperlink{namespacehmap_a127e7abc79d661d10705158a312c550c}{apply\+\_
 \begin{DoxyCompactList}\small\item\em Return the mixing of a set of arrays based on a parameter {\ttfamily t}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a6786fe2ccf9bd2ceb294927c88bd898d}{transfer}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&source, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}}, int \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}}, float \mbox{\hyperlink{sls__deformation_8cpp_a31bef58f966d97b1ace9bd3a58ffd9a6}{amplitude}}, bool target\+\_\+prefiltering=false)
 \begin{DoxyCompactList}\small\item\em Transfers spatial details from a source array onto a target array. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a8802e95ba76a252d2098bdb3fb5cfc28}{extrapolate\+\_\+borders}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int nbuffer=1, float sigma=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+void \mbox{\hyperlink{namespacehmap_a1e4edcaea744a4a364839905693ee9e3}{extrapolate\+\_\+borders}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int nbuffer=1, float sigma=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float vmin=-\/FLT\+\_\+\+MAX)
 \begin{DoxyCompactList}\small\item\em Performs linear extrapolation of values at the borders of an array (e.\+g., {\ttfamily i = 0}, {\ttfamily j = 0}, etc.) based on the inner values of the array. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a9dd09c08e06c1144910d3fa30250643c}{falloff}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float strength=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, \mbox{\hyperlink{namespacehmap_a670f50d6c08ecd639d42db9c75a5273a}{Distance\+Function}} dist\+\_\+fct=\mbox{\hyperlink{namespacehmap_a670f50d6c08ecd639d42db9c75a5273aab5937b3ae1efaa098f517fe7c761b781}{Distance\+Function\+::\+EUCLIDIAN}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Applies a falloff effect to the input array based on distance. \end{DoxyCompactList}\item 
@@ -1448,6 +1448,8 @@ std\+::vector$<$ float $>$ \mbox{\hyperlink{namespacehmap_a0b3237f9cc015299bf3e4
 \begin{DoxyCompactList}\small\item\em Return the local mean based on a mean filter with a square kernel. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a941d446cad19c166f4f6c4df857dba65}{relative\+\_\+elevation}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}})
 \begin{DoxyCompactList}\small\item\em Calculates the relative elevation within a specified radius, helping to identify local highs and lows. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_ac65c42efcba153819ca88a01bca23434}{roughness}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}})
+\begin{DoxyCompactList}\small\item\em Measures the local surface roughness within a given radius. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_af4ec8b5be149e6749fdf09759daf1e9e}{ruggedness}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}})
 \begin{DoxyCompactList}\small\item\em Computes the ruggedness of each element in the input array. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a85e411c67e97deb8459f25d4440546c3}{rugosity}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}}, bool convex=true)
@@ -5094,11 +5096,11 @@ A new \doxylink{classhmap_1_1Array}{Array} containing the target data enhanced b
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a8802e95ba76a252d2098bdb3fb5cfc28}\label{namespacehmap_a8802e95ba76a252d2098bdb3fb5cfc28} 
+{\bfseries{Result}}  \Hypertarget{namespacehmap_a1e4edcaea744a4a364839905693ee9e3}\label{namespacehmap_a1e4edcaea744a4a364839905693ee9e3} 
 \index{hmap@{hmap}!extrapolate\_borders@{extrapolate\_borders}}
 \index{extrapolate\_borders@{extrapolate\_borders}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{extrapolate\_borders()}{extrapolate\_borders()}}
-{\footnotesize\ttfamily void hmap\+::extrapolate\+\_\+borders (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{int}]{nbuffer = {\ttfamily 1},  }\item[{float}]{sigma = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void hmap\+::extrapolate\+\_\+borders (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{int}]{nbuffer = {\ttfamily 1},  }\item[{float}]{sigma = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{vmin = {\ttfamily -\/FLT\+\_\+MAX} }\end{DoxyParamCaption})}
 
 
 
@@ -5193,7 +5195,7 @@ This function modifies the border values of the input array by copying values fr
 \hline
 \end{DoxyParams}
 \begin{DoxySeeAlso}{See also}
-\doxylink{namespacehmap_a8802e95ba76a252d2098bdb3fb5cfc28}{extrapolate\+\_\+borders()} 
+\doxylink{namespacehmap_a1e4edcaea744a4a364839905693ee9e3}{extrapolate\+\_\+borders()} 
 \end{DoxySeeAlso}
 \Hypertarget{namespacehmap_a8b7bdf4f052ba72e3dc8150d324a53b6}\label{namespacehmap_a8b7bdf4f052ba72e3dc8150d324a53b6} 
 \index{hmap@{hmap}!fill\_borders@{fill\_borders}}
@@ -21804,6 +21806,90 @@ Relative elevation analysis determines how high or low a point is relative to it
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_relative\_elevation.png"{}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z,\ zr\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9}{hmap::Cmap::TERRAIN}});}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+{\bfseries{Result}}  \Hypertarget{namespacehmap_ac65c42efcba153819ca88a01bca23434}\label{namespacehmap_ac65c42efcba153819ca88a01bca23434} 
+\index{hmap@{hmap}!roughness@{roughness}}
+\index{roughness@{roughness}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{roughness()}{roughness()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::roughness (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{int}]{ir }\end{DoxyParamCaption})}
+
+
+
+Measures the local surface roughness within a given radius. 
+
+Compares the original heightmap with a locally smoothed version (using a smooth cubic pulse filter) within the specified radius {\ttfamily ir}. The result is the magnitude of the local deviation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & The input array representing the terrain elevation data. \\
+\hline
+{\em ir} & The radius within which local roughness is computed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Array}{Array} An output array containing roughness values.
+\end{DoxyReturn}
+{\bfseries{Example}} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_adb8336ed4d83c15500872185dee45d50}{hmap::gpu::init\_opencl}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ glm::ivec2\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ =\ \{256,\ 256\};}
+\DoxyCodeLine{\ \ glm::vec2\ \ res\ =\ \{2.f,\ 2.f\};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ seed\ =\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}}\ =\ 16;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.f);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(z);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ smooth\ lower\ elevations}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ mask\ =\ 1.f\ -\/\ z;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_a7d2aae253f1f67bbdbc718859f83ef0a}{hmap::gpu::smooth\_cpulse}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}},\ \&mask);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::vector<hmap::Array>\ arrays\ =\ \{z\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::vector<hmap::gpu::LocalMetrics>\ metrics\ =\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa6302a2239490ba9a2f3cd152d55e50d7}{hmap::gpu::LocalMetrics::LM\_LOCAL\_ASPECT\_VARIANCE}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa919b512837145887c412526966767a9f}{hmap::gpu::LocalMetrics::LM\_LOCAL\_MAX}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fad839ce8cff6bd20c67432d651776b569}{hmap::gpu::LocalMetrics::LM\_LOCAL\_MEDIAN\_DEVIATION}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa3fb8064f9087e5af79c85dce2c655112}{hmap::gpu::LocalMetrics::LM\_LOCAL\_MIN}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa5a6dccee984676ced1eb1ac2a546761e}{hmap::gpu::LocalMetrics::LM\_LOCAL\_RELIEF}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa9633368152d1a5c7cabbd67607305162}{hmap::gpu::LocalMetrics::LM\_LOCAL\_VARIANCE}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fad5818c578f7164c55a879326e4a88b53}{hmap::gpu::LocalMetrics::LM\_LOCAL\_MEAN}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fafad6a20433412feb877a9e8ebb76633c}{hmap::gpu::LocalMetrics::LM\_LOCAL\_SKEWNESS}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa64d519d05dec2198a42425ce0c402bff}{hmap::gpu::LocalMetrics::LM\_LOCAL\_Z\_SCORE}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa8f5a70d0a562337ca689b0ce7ee3fff6}{hmap::gpu::LocalMetrics::LM\_TOPOGRAPHIC\_POSITION\_INDEX}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa46f15a0ffd71deff0ddbc5599acfff87}{hmap::gpu::LocalMetrics::LM\_RELATIVE\_ELEVATION}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895faa7240132569a9a3cf8a45541d9c041b1}{hmap::gpu::LocalMetrics::LM\_ROUGHNESS}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa568c1c82b138902b43e26249e63d8618}{hmap::gpu::LocalMetrics::LM\_RUGGEDNESS}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa892abed7945357817b7504339fdcee14}{hmap::gpu::LocalMetrics::LM\_RUGOSITY\_CONCAVE}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fac1321c034ba09831f5b5a040058f9477}{hmap::gpu::LocalMetrics::LM\_RUGOSITY\_CONVEX}},}
+\DoxyCodeLine{\ \ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ metric\ :\ metrics)}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ out\ =\ \mbox{\hyperlink{namespacehmap_1_1gpu_a7329432a304163cef4fedb8b6bb124c5}{hmap::gpu::local\_metrics}}(z,\ \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}},\ metric);}
+\DoxyCodeLine{\ \ \ \ arrays.push\_back(out);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_local\_metrics.png"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arrays,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced}{hmap::Cmap::JET}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{false},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true});}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}

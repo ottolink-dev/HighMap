@@ -17,6 +17,7 @@ var local__metrics__gpu_8cpp =
     [ "local_z_score", "local__metrics__gpu_8cpp.html#ad6ef648576e9339058037a28ce17d225", null ],
     [ "relative_elevation", "local__metrics__gpu_8cpp.html#a778cf36acffc481571ad51d607a1719e", null ],
     [ "relative_elevation_square_kernel", "local__metrics__gpu_8cpp.html#aebca5a0fef9c05a0e2378aef452707ed", null ],
+    [ "roughness", "local__metrics__gpu_8cpp.html#ab7698c2ed65e59a06231e0a84838165c", null ],
     [ "ruggedness", "local__metrics__gpu_8cpp.html#a62292cc4bf9f6eb5c7b63b1e26f8cc88", null ],
     [ "rugosity", "local__metrics__gpu_8cpp.html#aa5a3e087822525c41f057a51255e2bad", null ],
     [ "topographic_position_index", "local__metrics__gpu_8cpp.html#a74594cae7628bcfb1c038ac6930fe97d", null ]

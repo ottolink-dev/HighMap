@@ -5462,10 +5462,10 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </inbodydescription>
         <location file="HighMap/src/blending/blending.cpp" line="185" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="185" bodyend="211" declfile="HighMap/include/highmap/blending.hpp" declline="216" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a8802e95ba76a252d2098bdb3fb5cfc28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a1e4edcaea744a4a364839905693ee9e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::extrapolate_borders</definition>
-        <argsstring>(Array &amp;array, int nbuffer=1, float sigma=0.f)</argsstring>
+        <argsstring>(Array &amp;array, int nbuffer=1, float sigma=0.f, float vmin=-FLT_MAX)</argsstring>
         <name>extrapolate_borders</name>
         <qualifiedname>hmap::extrapolate_borders</qualifiedname>
         <param>
@@ -5481,6 +5481,11 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
           <type>float</type>
           <declname>sigma</declname>
           <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>vmin</declname>
+          <defval>-FLT_MAX</defval>
         </param>
         <briefdescription>
 <para>Performs linear extrapolation of values at the borders of an array (e.g., <computeroutput>i = 0</computeroutput>, <computeroutput>j = 0</computeroutput>, etc.) based on the inner values of the array. </para>
@@ -5518,7 +5523,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/boundary.cpp" line="20" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="20" bodyend="84" declfile="HighMap/include/highmap/boundary.hpp" declline="71" declcolumn="6"/>
+        <location file="HighMap/src/boundary/boundary.cpp" line="20" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="20" bodyend="92" declfile="HighMap/include/highmap/boundary.hpp" declline="71" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9dd09c08e06c1144910d3fa30250643c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -5628,7 +5633,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/boundary.cpp" line="86" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="86" bodyend="126" declfile="HighMap/include/highmap/boundary.hpp" declline="101" declcolumn="6"/>
+        <location file="HighMap/src/boundary/boundary.cpp" line="94" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="94" bodyend="134" declfile="HighMap/include/highmap/boundary.hpp" declline="104" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a072f0c93c6e3e5e0f8f88c760850dce8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -5654,13 +5659,13 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="see"><para><ref refid="namespacehmap_1a8802e95ba76a252d2098bdb3fb5cfc28" kindref="member">extrapolate_borders()</ref> </para>
+<simplesect kind="see"><para><ref refid="namespacehmap_1a1e4edcaea744a4a364839905693ee9e3" kindref="member">extrapolate_borders()</ref> </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/boundary.cpp" line="128" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="128" bodyend="148" declfile="HighMap/include/highmap/boundary.hpp" declline="120" declcolumn="6"/>
+        <location file="HighMap/src/boundary/boundary.cpp" line="136" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="136" bodyend="156" declfile="HighMap/include/highmap/boundary.hpp" declline="123" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8b7bdf4f052ba72e3dc8150d324a53b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -5683,7 +5688,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/boundary.cpp" line="150" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="150" bodyend="177" declfile="HighMap/include/highmap/boundary.hpp" declline="122" declcolumn="6"/>
+        <location file="HighMap/src/boundary/boundary.cpp" line="158" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="158" bodyend="185" declfile="HighMap/include/highmap/boundary.hpp" declline="125" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9254ab903bd000631c5f5216e21f7caa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -5740,7 +5745,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/boundary.cpp" line="179" column="7" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="179" bodyend="219" declfile="HighMap/include/highmap/boundary.hpp" declline="143" declcolumn="7"/>
+        <location file="HighMap/src/boundary/boundary.cpp" line="187" column="7" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="187" bodyend="227" declfile="HighMap/include/highmap/boundary.hpp" declline="146" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a3d23e9f95cfe4a8ceeecd6ea01d1d3e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -5821,7 +5826,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/boundary.cpp" line="221" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="221" bodyend="290" declfile="HighMap/include/highmap/boundary.hpp" declline="166" declcolumn="6"/>
+        <location file="HighMap/src/boundary/boundary.cpp" line="229" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="229" bodyend="298" declfile="HighMap/include/highmap/boundary.hpp" declline="169" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a0cfa879188da80b9e5bf16e8c325c9ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -5894,7 +5899,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/boundary.cpp" line="292" column="7" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="292" bodyend="395" declfile="HighMap/include/highmap/boundary.hpp" declline="196" declcolumn="7"/>
+        <location file="HighMap/src/boundary/boundary.cpp" line="300" column="7" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="300" bodyend="403" declfile="HighMap/include/highmap/boundary.hpp" declline="199" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1abef85b092005d7c5b1d2962c3ed27ef0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -5971,7 +5976,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/boundary.cpp" line="397" column="7" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="397" bodyend="421" declfile="HighMap/include/highmap/boundary.hpp" declline="222" declcolumn="7"/>
+        <location file="HighMap/src/boundary/boundary.cpp" line="405" column="7" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="405" bodyend="429" declfile="HighMap/include/highmap/boundary.hpp" declline="225" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a7b12baa935f3ffb6a16e1809a85d0a6f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>glm::ivec2</type>
@@ -6108,7 +6113,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/pick_boundary_cell.cpp" line="17" column="12" bodyfile="HighMap/src/boundary/pick_boundary_cell.cpp" bodystart="17" bodyend="115" declfile="HighMap/include/highmap/boundary.hpp" declline="255" declcolumn="12"/>
+        <location file="HighMap/src/boundary/pick_boundary_cell.cpp" line="17" column="12" bodyfile="HighMap/src/boundary/pick_boundary_cell.cpp" bodystart="17" bodyend="115" declfile="HighMap/include/highmap/boundary.hpp" declline="258" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1af3d5a6d239d30fe1698a524dfedcd63f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6179,7 +6184,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/set_borders.cpp" line="16" column="6" bodyfile="HighMap/src/boundary/set_borders.cpp" bodystart="16" bodyend="57" declfile="HighMap/include/highmap/boundary.hpp" declline="283" declcolumn="6"/>
+        <location file="HighMap/src/boundary/set_borders.cpp" line="16" column="6" bodyfile="HighMap/src/boundary/set_borders.cpp" bodystart="16" bodyend="57" declfile="HighMap/include/highmap/boundary.hpp" declline="286" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a62f36bee998bb99b11120e1b02944169" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6246,7 +6251,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/set_borders.cpp" line="59" column="6" bodyfile="HighMap/src/boundary/set_borders.cpp" bodystart="59" bodyend="128" declfile="HighMap/include/highmap/boundary.hpp" declline="303" declcolumn="6"/>
+        <location file="HighMap/src/boundary/set_borders.cpp" line="59" column="6" bodyfile="HighMap/src/boundary/set_borders.cpp" bodystart="59" bodyend="128" declfile="HighMap/include/highmap/boundary.hpp" declline="306" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a403b405887b5cda6a1d6f8bcaeb4c5e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6300,7 +6305,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/set_borders.cpp" line="130" column="6" bodyfile="HighMap/src/boundary/set_borders.cpp" bodystart="130" bodyend="141" declfile="HighMap/include/highmap/boundary.hpp" declline="321" declcolumn="6"/>
+        <location file="HighMap/src/boundary/set_borders.cpp" line="130" column="6" bodyfile="HighMap/src/boundary/set_borders.cpp" bodystart="130" bodyend="141" declfile="HighMap/include/highmap/boundary.hpp" declline="324" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a3c7f4660a1d160892fd28a41b7365d7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6367,7 +6372,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/set_borders.cpp" line="143" column="6" bodyfile="HighMap/src/boundary/set_borders.cpp" bodystart="143" bodyend="157" declfile="HighMap/include/highmap/boundary.hpp" declline="337" declcolumn="6"/>
+        <location file="HighMap/src/boundary/set_borders.cpp" line="143" column="6" bodyfile="HighMap/src/boundary/set_borders.cpp" bodystart="143" bodyend="157" declfile="HighMap/include/highmap/boundary.hpp" declline="340" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2e43da799378e294ea448a498aa1d386" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6409,7 +6414,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/boundary.cpp" line="423" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="423" bodyend="448" declfile="HighMap/include/highmap/boundary.hpp" declline="355" declcolumn="6"/>
+        <location file="HighMap/src/boundary/boundary.cpp" line="431" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="431" bodyend="456" declfile="HighMap/include/highmap/boundary.hpp" declline="358" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ae8bdfc965780305d1d26ff8b84e1dced" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6441,7 +6446,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/boundary.cpp" line="450" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="450" bodyend="468" declfile="HighMap/include/highmap/boundary.hpp" declline="369" declcolumn="6"/>
+        <location file="HighMap/src/boundary/boundary.cpp" line="458" column="6" bodyfile="HighMap/src/boundary/boundary.cpp" bodystart="458" bodyend="476" declfile="HighMap/include/highmap/boundary.hpp" declline="372" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8e2364315f5b159daae10f508dd1d2a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6608,7 +6613,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/boundary/zeroed_edges.cpp" line="18" column="6" bodyfile="HighMap/src/boundary/zeroed_edges.cpp" bodystart="18" bodyend="58" declfile="HighMap/include/highmap/boundary.hpp" declline="393" declcolumn="6"/>
+        <location file="HighMap/src/boundary/zeroed_edges.cpp" line="18" column="6" bodyfile="HighMap/src/boundary/zeroed_edges.cpp" bodystart="18" bodyend="58" declfile="HighMap/include/highmap/boundary.hpp" declline="396" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a3a29e127d53bc5b547af422da36da1cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -38687,6 +38692,108 @@ The output path consists of:<itemizedlist>
         </inbodydescription>
         <location file="HighMap/src/local_metrics/local_metrics.cpp" line="119" column="7" bodyfile="HighMap/src/local_metrics/local_metrics.cpp" bodystart="119" bodyend="127" declfile="HighMap/include/highmap/local_metrics.hpp" declline="185" declcolumn="7"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ac65c42efcba153819ca88a01bca23434" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::roughness</definition>
+        <argsstring>(const Array &amp;array, int ir)</argsstring>
+        <name>roughness</name>
+        <qualifiedname>hmap::roughness</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>array</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ir</declname>
+        </param>
+        <briefdescription>
+<para>Measures the local surface roughness within a given radius. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Compares the original heightmap with a locally smoothed version (using a smooth cubic pulse filter) within the specified radius <computeroutput>ir</computeroutput>. The result is the magnitude of the local deviation.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input array representing the terrain elevation data. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The radius within which local roughness is computed. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> An output array containing roughness values.</para>
+</simplesect>
+<bold>Example</bold> <programlisting filename="ex_local_metrics.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1adb8336ed4d83c15500872185dee45d50" kindref="member">hmap::gpu::init_opencl</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>glm::vec2<sp/><sp/>res<sp/>=<sp/>{2.f,<sp/>2.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref><sp/>=<sp/>16;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1a7d699a468a18be16c70654958ee13b41" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.f);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(z);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>smooth<sp/>lower<sp/>elevations</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>mask<sp/>=<sp/>1.f<sp/>-<sp/>z;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a7d2aae253f1f67bbdbc718859f83ef0a" kindref="member">hmap::gpu::smooth_cpulse</ref>(z,<sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>,<sp/>&amp;mask);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::vector&lt;hmap::Array&gt;<sp/>arrays<sp/>=<sp/>{z};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::vector&lt;hmap::gpu::LocalMetrics&gt;<sp/>metrics<sp/>=<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa6302a2239490ba9a2f3cd152d55e50d7" kindref="member">hmap::gpu::LocalMetrics::LM_LOCAL_ASPECT_VARIANCE</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa919b512837145887c412526966767a9f" kindref="member">hmap::gpu::LocalMetrics::LM_LOCAL_MAX</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fad839ce8cff6bd20c67432d651776b569" kindref="member">hmap::gpu::LocalMetrics::LM_LOCAL_MEDIAN_DEVIATION</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa3fb8064f9087e5af79c85dce2c655112" kindref="member">hmap::gpu::LocalMetrics::LM_LOCAL_MIN</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa5a6dccee984676ced1eb1ac2a546761e" kindref="member">hmap::gpu::LocalMetrics::LM_LOCAL_RELIEF</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa9633368152d1a5c7cabbd67607305162" kindref="member">hmap::gpu::LocalMetrics::LM_LOCAL_VARIANCE</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fad5818c578f7164c55a879326e4a88b53" kindref="member">hmap::gpu::LocalMetrics::LM_LOCAL_MEAN</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fafad6a20433412feb877a9e8ebb76633c" kindref="member">hmap::gpu::LocalMetrics::LM_LOCAL_SKEWNESS</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa64d519d05dec2198a42425ce0c402bff" kindref="member">hmap::gpu::LocalMetrics::LM_LOCAL_Z_SCORE</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa8f5a70d0a562337ca689b0ce7ee3fff6" kindref="member">hmap::gpu::LocalMetrics::LM_TOPOGRAPHIC_POSITION_INDEX</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa46f15a0ffd71deff0ddbc5599acfff87" kindref="member">hmap::gpu::LocalMetrics::LM_RELATIVE_ELEVATION</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895faa7240132569a9a3cf8a45541d9c041b1" kindref="member">hmap::gpu::LocalMetrics::LM_ROUGHNESS</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa568c1c82b138902b43e26249e63d8618" kindref="member">hmap::gpu::LocalMetrics::LM_RUGGEDNESS</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa892abed7945357817b7504339fdcee14" kindref="member">hmap::gpu::LocalMetrics::LM_RUGOSITY_CONCAVE</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fac1321c034ba09831f5b5a040058f9477" kindref="member">hmap::gpu::LocalMetrics::LM_RUGOSITY_CONVEX</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>metric<sp/>:<sp/>metrics)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a7329432a304163cef4fedb8b6bb124c5" kindref="member">hmap::gpu::local_metrics</ref>(z,<sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>,<sp/>metric);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>arrays.push_back(out);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_local_metrics.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arrays,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+<para><bold>Result</bold> <image type="html" name="ex_local_metrics.png"></image>
+ </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/local_metrics/local_metrics.cpp" line="129" column="7" bodyfile="HighMap/src/local_metrics/local_metrics.cpp" bodystart="129" bodyend="136" declfile="HighMap/include/highmap/local_metrics.hpp" declline="204" declcolumn="7"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1af4ec8b5be149e6749fdf09759daf1e9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::ruggedness</definition>
@@ -38749,7 +38856,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/local_metrics/local_metrics.cpp" line="129" column="7" bodyfile="HighMap/src/local_metrics/local_metrics.cpp" bodystart="129" bodyend="156" declfile="HighMap/include/highmap/local_metrics.hpp" declline="208" declcolumn="7"/>
+        <location file="HighMap/src/local_metrics/local_metrics.cpp" line="138" column="7" bodyfile="HighMap/src/local_metrics/local_metrics.cpp" bodystart="138" bodyend="165" declfile="HighMap/include/highmap/local_metrics.hpp" declline="227" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a85e411c67e97deb8459f25d4440546c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -38824,7 +38931,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/local_metrics/local_metrics.cpp" line="158" column="7" bodyfile="HighMap/src/local_metrics/local_metrics.cpp" bodystart="158" bodyend="201" declfile="HighMap/include/highmap/local_metrics.hpp" declline="234" declcolumn="7"/>
+        <location file="HighMap/src/local_metrics/local_metrics.cpp" line="167" column="7" bodyfile="HighMap/src/local_metrics/local_metrics.cpp" bodystart="167" bodyend="210" declfile="HighMap/include/highmap/local_metrics.hpp" declline="253" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ab4d8048b79080012b8e60c270de8137f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -38911,7 +39018,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/local_metrics/valley_width.cpp" line="12" column="7" bodyfile="HighMap/src/local_metrics/valley_width.cpp" bodystart="12" bodyend="24" declfile="HighMap/include/highmap/local_metrics.hpp" declline="270" declcolumn="7"/>
+        <location file="HighMap/src/local_metrics/valley_width.cpp" line="12" column="7" bodyfile="HighMap/src/local_metrics/valley_width.cpp" bodystart="12" bodyend="24" declfile="HighMap/include/highmap/local_metrics.hpp" declline="289" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a527cfdcf7f7e2ca0e270875526c9b1ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

@@ -92,5 +92,5 @@ var searchData=
   ['exposure_89',['exposure',['../structhmap_1_1ColorAdjust.html#acd22feabf5d46054cd4f4fd9771c0d26',1,'hmap::ColorAdjust']]],
   ['exr_90',['Image formats (png, tiff, exr...)',['../index.html#autotoc_md13',1,'']]],
   ['extract_5fslice_91',['extract_slice',['../classhmap_1_1Array.html#a7d552a649bcc47445b11d2e42d193492',1,'hmap::Array::extract_slice(int i1, int i2, int j1, int j2) const'],['../classhmap_1_1Array.html#a2cb7491733f41de0f72f132c0ecff188',1,'hmap::Array::extract_slice(glm::ivec4 idx) const']]],
-  ['extrapolate_5fborders_92',['extrapolate_borders',['../namespacehmap.html#a8802e95ba76a252d2098bdb3fb5cfc28',1,'hmap']]]
+  ['extrapolate_5fborders_92',['extrapolate_borders',['../namespacehmap.html#a1e4edcaea744a4a364839905693ee9e3',1,'hmap']]]
 ];

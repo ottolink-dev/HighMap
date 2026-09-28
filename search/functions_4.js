@@ -38,5 +38,5 @@ var searchData=
   ['export_5fusd_35',['export_usd',['../namespacehmap.html#a44e7bc9494b71c4022e45ef9c2199075',1,'hmap']]],
   ['export_5fvirtual_5farray_36',['export_virtual_array',['../namespacehmap.html#a1add8a2d0a618e4ac8e67dc1a9c0b1a3',1,'hmap::export_virtual_array(const VirtualArray &amp;va, ImageWriter &amp;writer, const ComputeMode &amp;cm)'],['../namespacehmap.html#a1aa09f318d1dbe53c09727fe200eb9cb',1,'hmap::export_virtual_array(const VirtualTexture &amp;vt, ImageWriter &amp;writer)'],['../namespacehmap.html#a126f0152947cde103de88d789edcadc2',1,'hmap::export_virtual_array(const VirtualArray &amp;va, ImageWriter &amp;writer)'],['../namespacehmap.html#ac03889bf117b31a2593da9d4b7b64716',1,'hmap::export_virtual_array(const VirtualTexture &amp;vt, ImageWriter &amp;writer, const ComputeMode &amp;cm)']]],
   ['extract_5fslice_37',['extract_slice',['../classhmap_1_1Array.html#a2cb7491733f41de0f72f132c0ecff188',1,'hmap::Array::extract_slice(glm::ivec4 idx) const'],['../classhmap_1_1Array.html#a7d552a649bcc47445b11d2e42d193492',1,'hmap::Array::extract_slice(int i1, int i2, int j1, int j2) const']]],
-  ['extrapolate_5fborders_38',['extrapolate_borders',['../namespacehmap.html#a8802e95ba76a252d2098bdb3fb5cfc28',1,'hmap']]]
+  ['extrapolate_5fborders_38',['extrapolate_borders',['../namespacehmap.html#a1e4edcaea744a4a364839905693ee9e3',1,'hmap']]]
 ];
