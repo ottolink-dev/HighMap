@@ -1,5 +1,8 @@
 var namespacehmap_1_1gpu =
 [
+    [ "detail", "namespacehmap_1_1gpu_1_1detail.html", [
+      [ "mcdonald_run_steps", "namespacehmap_1_1gpu_1_1detail.html#abb035c47e52efb592dea2146b5708897", null ]
+    ] ],
     [ "McDonaldParams", "structhmap_1_1gpu_1_1McDonaldParams.html", "structhmap_1_1gpu_1_1McDonaldParams" ],
     [ "LocalMetrics", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895f", [
       [ "LM_LOCAL_ASPECT_VARIANCE", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa6302a2239490ba9a2f3cd152d55e50d7", null ],

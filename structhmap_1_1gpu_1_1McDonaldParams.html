@@ -188,16 +188,20 @@ Public Attributes</h2></td></tr>
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z0 = z;</div>
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> sediment, discharge;</div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_struct" href="structhmap_1_1gpu_1_1McDonaldParams.html">hmap::gpu::McDonaldParams</a> params = {</div>
-<div class="line">      .<a class="code hl_variable" href="structhmap_1_1gpu_1_1McDonaldParams.html#a3d202fa7479bc8acf4c421b5c1a7ca6d">strength</a> = 0.5f,</div>
-<div class="line">      .deposition = 0.5f,</div>
-<div class="line">      .crit_slope = 0.5f,</div>
-<div class="line">      .meandering = 1.f,</div>
-<div class="line">      .scale = 1.f,</div>
-<div class="line">      .relief_scale = 1.f</div>
-<div class="line">  };</div>
+<div class="line">  <a class="code hl_struct" href="structhmap_1_1gpu_1_1McDonaldParams.html">hmap::gpu::McDonaldParams</a> params = {.<a class="code hl_variable" href="structhmap_1_1gpu_1_1McDonaldParams.html#a3d202fa7479bc8acf4c421b5c1a7ca6d">strength</a> = 0.5f,</div>
+<div class="line">                                      .deposition = 0.5f,</div>
+<div class="line">                                      .crit_slope = 0.5f,</div>
+<div class="line">                                      .meandering = 1.f,</div>
+<div class="line">                                      .scale = 1.f,</div>
+<div class="line">                                      .relief_scale = 1.f};</div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#a824f35d738bc4854524ede1f5663ab39">hmap::gpu::hydraulic_mcdonald</a>(z, steps, seed, params, &amp;sediment, &amp;discharge);</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#a824f35d738bc4854524ede1f5663ab39">hmap::gpu::hydraulic_mcdonald</a>(z,</div>
+<div class="line">                                steps,</div>
+<div class="line">                                seed,</div>
+<div class="line">                                params,</div>
+<div class="line">                                <span class="keyword">nullptr</span>,</div>
+<div class="line">                                &amp;sediment,</div>
+<div class="line">                                &amp;discharge);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// output</span></div>
 <div class="line">  {</div>
@@ -229,6 +233,7 @@ Public Attributes</h2></td></tr>
 <div class="line">                                           seed,</div>
 <div class="line">                                           steps_per_level,</div>
 <div class="line">                                           params,</div>
+<div class="line">                                           <span class="keyword">nullptr</span>,</div>
 <div class="line">                                           &amp;sediment_m,</div>
 <div class="line">                                           &amp;discharge_m);</div>
 <div class="line"> </div>
@@ -242,8 +247,8 @@ Public Attributes</h2></td></tr>
 <div class="ttc" id="aelevation__from__contours_8cpp_html_af339e609a44f3516574ffecaf5245fa3"><div class="ttname"><a href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a></div><div class="ttdeci">glm::ivec2 shape</div><div class="ttdef"><b>Definition</b> elevation_from_contours.cpp:273</div></div>
 <div class="ttc" id="ahighmap_8hpp_html"><div class="ttname"><a href="highmap_8hpp.html">highmap.hpp</a></div></div>
 <div class="ttc" id="amain_8cpp_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition</b> main.cpp:12</div></div>
-<div class="ttc" id="anamespacehmap_1_1gpu_html_a44a762380f00cd1edc09f98468095215"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a44a762380f00cd1edc09f98468095215">hmap::gpu::hydraulic_mcdonald_multiscale</a></div><div class="ttdeci">void hydraulic_mcdonald_multiscale(Array &amp;z, std::uint32_t seed, const std::vector&lt; int &gt; &amp;steps_per_level, const McDonaldParams &amp;params, const Array *p_moisture_map=nullptr, Array *p_sediment_map=nullptr, Array *p_discharge_map=nullptr)</div><div class="ttdoc">Multiscale driver for hydraulic_mcdonald: erodes on a halving resolution ladder derived from z....</div></div>
-<div class="ttc" id="anamespacehmap_1_1gpu_html_a824f35d738bc4854524ede1f5663ab39"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a824f35d738bc4854524ede1f5663ab39">hmap::gpu::hydraulic_mcdonald</a></div><div class="ttdeci">void hydraulic_mcdonald(Array &amp;z, int steps, std::uint32_t seed, const McDonaldParams &amp;params, const Array *p_moisture_map=nullptr, Array *p_sediment_map=nullptr, Array *p_discharge_map=nullptr)</div></div>
+<div class="ttc" id="anamespacehmap_1_1gpu_html_a44a762380f00cd1edc09f98468095215"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a44a762380f00cd1edc09f98468095215">hmap::gpu::hydraulic_mcdonald_multiscale</a></div><div class="ttdeci">void hydraulic_mcdonald_multiscale(Array &amp;z, std::uint32_t seed, const std::vector&lt; int &gt; &amp;steps_per_level, const McDonaldParams &amp;params, const Array *p_moisture_map=nullptr, Array *p_sediment_map=nullptr, Array *p_discharge_map=nullptr)</div><div class="ttdoc">Multiscale driver for hydraulic_mcdonald: erodes on a halving resolution ladder derived from z....</div><div class="ttdef"><b>Definition</b> hydraulic_mcdonald_gpu.cpp:263</div></div>
+<div class="ttc" id="anamespacehmap_1_1gpu_html_a824f35d738bc4854524ede1f5663ab39"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a824f35d738bc4854524ede1f5663ab39">hmap::gpu::hydraulic_mcdonald</a></div><div class="ttdeci">void hydraulic_mcdonald(Array &amp;z, int steps, std::uint32_t seed, const McDonaldParams &amp;params, const Array *p_moisture_map=nullptr, Array *p_sediment_map=nullptr, Array *p_discharge_map=nullptr)</div><div class="ttdef"><b>Definition</b> hydraulic_mcdonald_gpu.cpp:166</div></div>
 <div class="ttc" id="anamespacehmap_1_1gpu_html_adb8336ed4d83c15500872185dee45d50"><div class="ttname"><a href="namespacehmap_1_1gpu.html#adb8336ed4d83c15500872185dee45d50">hmap::gpu::init_opencl</a></div><div class="ttdeci">bool init_opencl()</div><div class="ttdef"><b>Definition</b> gpu_opencl.cpp:32</div></div>
 <div class="ttc" id="anamespacehmap_html_a262e6495cb2d02598f36a2b46114b2b4"><div class="ttname"><a href="namespacehmap.html#a262e6495cb2d02598f36a2b46114b2b4">hmap::remap</a></div><div class="ttdeci">void remap(Array &amp;array, float vmin, float vmax, float from_min, float from_max)</div><div class="ttdoc">Remap array elements from a starting range to a target range.</div><div class="ttdef"><b>Definition</b> range.cpp:409</div></div>
 <div class="ttc" id="anamespacehmap_html_a75475b6109023ce0ad64f6f9f7c4c525"><div class="ttname"><a href="namespacehmap.html#a75475b6109023ce0ad64f6f9f7c4c525">hmap::log10</a></div><div class="ttdeci">Array log10(const Array &amp;array)</div><div class="ttdoc">Base-10 logarithm.</div><div class="ttdef"><b>Definition</b> math.cpp:248</div></div>
