@@ -1,5 +1,7 @@
 var NAVTREEINDEX27 =
 {
+"test__gpu__cpu_8cpp.html#afcc19e2cd5708d3686cc1643568c4bd0":[5,0,2,0,30,0],
+"test__gradient_8cpp.html":[5,0,2,0,31],
 "test__gradient_8cpp.html#a15394ac9c4dd69eda29482464f8d131f":[5,0,2,0,31,5],
 "test__gradient_8cpp.html#a181143c157346a644cacce4bbabc5a8b":[5,0,2,0,31,3],
 "test__gradient_8cpp.html#a20ea8c3252331571d45ccda6f3308653":[5,0,2,0,31,9],
@@ -247,7 +249,5 @@ var NAVTREEINDEX27 =
 "test__quilting_8cpp.html#a3080ad8ce411f35b52c886ff88c18101":[5,0,2,0,56,0],
 "test__quilting_8cpp.html#a47e75a7f308babce50b4f43aee25fbb4":[5,0,2,0,56,3],
 "test__quilting_8cpp.html#a4af28d5eb57c91479bd17e3ca0da9760":[5,0,2,0,56,4],
-"test__quilting_8cpp.html#a5bd650ff0e15c586d4b898379bebe8c8":[5,0,2,0,56,6],
-"test__quilting_8cpp.html#a9abea68bb794ea363a865d6a69e6df59":[5,0,2,0,56,2],
-"test__quilting_8cpp.html#ac9399fd7c4853c7e61692ffb432fc21f":[5,0,2,0,56,1]
+"test__quilting_8cpp.html#a5bd650ff0e15c586d4b898379bebe8c8":[5,0,2,0,56,6]
 };
