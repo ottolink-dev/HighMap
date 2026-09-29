@@ -487,3 +487,49 @@ TEST(CloudTest, InverseSamplingPointsAndCloud)
   EXPECT_TRUE(random_points_inverse_sampling(count, empty_arr, 123)[0].empty());
   EXPECT_TRUE(random_cloud_inverse_sampling(count, empty_arr, 123).empty());
 }
+
+TEST(CloudTest, InverseSampler2DSequentialAndRegionUpdate)
+{
+  glm::ivec2 shape = {32, 32};
+  Array      density(shape, 1.f);
+
+  InverseSampler2D sampler(density, 42, {0.f, 1.f, 0.f, 1.f});
+  EXPECT_GT(sampler.get_total_weight(), 0.f);
+
+  // Single sample
+  glm::vec2 p = sampler.sample();
+  EXPECT_GE(p.x, 0.f);
+  EXPECT_LE(p.x, 1.f);
+  EXPECT_GE(p.y, 0.f);
+  EXPECT_LE(p.y, 1.f);
+
+  // Depress density in region [0, 15] x [0, 15] (bottom-left) to zero
+  sampler.update_region([](int, int, float) { return 0.f; }, {0, 15}, {0, 15});
+
+  // Sample 200 points: none should fall in [0, 15/31] x [0, 15/31]
+  for (int k = 0; k < 200; ++k)
+  {
+    glm::vec2 pt = sampler.sample();
+    EXPECT_GE(pt.x, 0.f);
+    EXPECT_LE(pt.x, 1.f);
+    EXPECT_GE(pt.y, 0.f);
+    EXPECT_LE(pt.y, 1.f);
+    // Should not be inside the suppressed region
+    bool inside_zero_region = (pt.x < 14.f / 31.f && pt.y < 14.f / 31.f);
+    EXPECT_FALSE(inside_zero_region);
+  }
+
+  // Update region from another array
+  Array updated(shape, 0.f);
+  for (int y = 0; y < 16; ++y)
+    for (int x = 0; x < 16; ++x)
+      updated(x, y) = 10.f;
+
+  sampler.update_region(updated, {0, 15}, {0, 15});
+  EXPECT_GT(sampler.get_total_weight(), 0.f);
+
+  // Batch sample
+  auto batch = sampler.sample(100);
+  EXPECT_EQ(batch[0].size(), 100u);
+  EXPECT_EQ(batch[1].size(), 100u);
+}

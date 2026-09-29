@@ -52,7 +52,7 @@ int main(void)
 
     std::cout << "cloud_density count: " << cloud.size() << "\n";
 
-    // inverse transform sampling
+    // inverse transform sampling (batch)
     raster = 0.f;
     hmap::Cloud cloud_inv = hmap::random_cloud_inverse_sampling(count,
                                                                 density,
@@ -61,6 +61,42 @@ int main(void)
     zs.push_back(raster);
 
     std::cout << "cloud_inv count: " << cloud_inv.size() << "\n";
+
+    // sequential inverse transform sampling with dynamic local updates (e.g.
+    // repelling radius)
+    raster = 0.f;
+    hmap::InverseSampler2D seq_sampler(density, seed);
+    hmap::Cloud            cloud_seq;
+    int inhibit_r = 4; // grid radius to depress after each point
+    for (size_t k = 0; k < count; ++k)
+    {
+      glm::vec2 p = seq_sampler.sample();
+      cloud_seq.push_back(hmap::Point(p.x, p.y, 1.f));
+
+      // Depress density around the sampled point on the grid
+      int cx = static_cast<int>(p.x * (shape.x - 1));
+      int cy = static_cast<int>(p.y * (shape.y - 1));
+      seq_sampler.update_region(
+          [cx, cy, inhibit_r](int i, int j, float cur)
+          {
+            float d2 = static_cast<float>((i - cx) * (i - cx) +
+                                          (j - cy) * (j - cy));
+            float r2 = static_cast<float>(inhibit_r * inhibit_r);
+            if (d2 < r2)
+            {
+              float factor = d2 / r2;
+              return cur * factor;
+            }
+            return cur;
+          },
+          {cx - inhibit_r, cx + inhibit_r},
+          {cy - inhibit_r, cy + inhibit_r});
+    }
+
+    cloud_seq.to_array(raster);
+    zs.push_back(raster);
+
+    std::cout << "cloud_seq count: " << cloud_seq.size() << "\n";
 
     // filter
     cloud = hmap::random_cloud(count,

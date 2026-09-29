@@ -9,6 +9,7 @@
 #pragma once
 #include <array>
 #include <cstddef>
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <string>
@@ -20,6 +21,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/functions.hpp"
+#include "highmap/geometry/inverse_sampler_2d.hpp"
 #include "highmap/geometry/point.hpp"
 
 namespace hmap
