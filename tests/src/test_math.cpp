@@ -339,3 +339,78 @@ TEST(ConvolveSvdTest, ReturnInputWhenKernelNullOrFlat)
   Array res_flat = convolve2d_svd(input, flat_kernel);
   EXPECT_TRUE(assert_almost_equal(res_flat, input));
 }
+
+// --- Build density
+
+TEST(MathTest, BuildDensityLinearBasic)
+{
+  Array a = Array({{0.5f, 0.2f}});
+  Array b = Array({{0.8f, 0.4f}});
+
+  // default weights (all 1.0)
+  Array out1 = build_density_linear({&a, &b});
+  EXPECT_NEAR(out1(0, 0), 0.5f * 0.8f, 1e-6f);
+  EXPECT_NEAR(out1(0, 1), 0.2f * 0.4f, 1e-6f);
+
+  // custom weights
+  Array out2 = build_density_linear({&a, &b}, {1.f, 0.5f});
+  EXPECT_NEAR(out2(0, 0), 0.5f * 0.9f, 1e-6f);
+  EXPECT_NEAR(out2(0, 1), 0.2f * (1.f - 0.5f + 0.5f * 0.4f), 1e-6f);
+
+  // zero weight
+  Array out3 = build_density_linear({&a, &b}, {1.f, 0.f});
+  EXPECT_NEAR(out3(0, 0), 0.5f, 1e-6f);
+  EXPECT_NEAR(out3(0, 1), 0.2f, 1e-6f);
+}
+
+TEST(MathTest, BuildDensityLinearEmptyAndMismatched)
+{
+  Array empty_arr;
+  EXPECT_TRUE(build_density_linear({}).vector.empty());
+  EXPECT_TRUE(build_density_linear({&empty_arr}).vector.empty());
+
+  Array a = Array(glm::ivec2(2, 2), 1.f);
+  Array b = Array(glm::ivec2(3, 3), 1.f);
+  EXPECT_TRUE(build_density_linear({&a, &b}).vector.empty());
+  EXPECT_TRUE(build_density_linear({&a}, {1.f, 0.5f}).vector.empty());
+}
+
+TEST(MathTest, BuildDensityLogBasic)
+{
+  Array a = Array({{0.5f, 0.2f}});
+  Array b = Array({{0.8f, 0.4f}});
+
+  // default weights (all 1.0)
+  Array out1 = build_density_log({&a, &b});
+  EXPECT_NEAR(out1(0, 0), 0.5f * 0.8f, 1e-5f);
+  EXPECT_NEAR(out1(0, 1), 0.2f * 0.4f, 1e-5f);
+
+  // custom weights
+  Array out2 = build_density_log({&a, &b}, {1.f, 0.5f});
+  EXPECT_NEAR(out2(0, 0), 0.5f * std::sqrt(0.8f), 1e-5f);
+  EXPECT_NEAR(out2(0, 1), 0.2f * std::sqrt(0.4f), 1e-5f);
+
+  // zero clamp with log_safe
+  Array c = Array({{0.0f, 0.5f}});
+  Array out3 = build_density_log({&c}, {1.f}, 1e-4f);
+  EXPECT_NEAR(out3(0, 0), 1e-4f, 1e-6f);
+  EXPECT_NEAR(out3(0, 1), 0.5f, 1e-5f);
+}
+
+// --- Log safe
+
+TEST(MathTest, LogSafeScalar)
+{
+  EXPECT_NEAR(log_safe(1.f), 0.f, 1e-6f);
+  EXPECT_NEAR(log_safe(std::exp(2.f)), 2.f, 1e-5f);
+  EXPECT_NEAR(log_safe(0.f, 1e-4f), std::log(1e-4f), 1e-6f);
+  EXPECT_NEAR(log_safe(-5.f, 1e-4f), std::log(1e-4f), 1e-6f);
+}
+
+TEST(MathTest, LogSafeArray)
+{
+  Array a = Array({{1.f, 0.f}});
+  Array out = log_safe(a, 1e-3f);
+  EXPECT_NEAR(out(0, 0), 0.f, 1e-6f);
+  EXPECT_NEAR(out(0, 1), std::log(1e-3f), 1e-6f);
+}

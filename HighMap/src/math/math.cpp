@@ -125,6 +125,79 @@ Array atan2(const Array &y, const Array &array)
   return array_out;
 }
 
+Array build_density_linear(const std::vector<const Array *> &layers,
+                           const std::vector<float>         &weights)
+{
+  if (layers.empty()) return Array();
+  if (layers[0] == nullptr || !validate_non_empty(*layers[0])) return Array();
+  if (!weights.empty() && weights.size() != layers.size()) return Array();
+
+  for (size_t k = 1; k < layers.size(); ++k)
+  {
+    if (layers[k] == nullptr || !validate_same_shape(*layers[0], *layers[k]))
+      return Array();
+  }
+
+  const glm::ivec2 shape = layers[0]->shape;
+  Array            array_out(shape, 1.f);
+  const size_t     n = layers[0]->vector.size();
+
+  for (size_t k = 0; k < layers.size(); ++k)
+  {
+    float w = weights.empty() ? 1.f : weights[k];
+    if (w == 0.f) continue;
+
+    const auto &vec = layers[k]->vector;
+    if (w == 1.f)
+    {
+      for (size_t i = 0; i < n; ++i)
+        array_out.vector[i] *= vec[i];
+    }
+    else
+    {
+      for (size_t i = 0; i < n; ++i)
+        array_out.vector[i] *= std::lerp(1.f, vec[i], w);
+    }
+  }
+
+  return array_out;
+}
+
+Array build_density_log(const std::vector<const Array *> &layers,
+                        const std::vector<float>         &weights,
+                        float                             eps)
+{
+  if (layers.empty()) return Array();
+  if (layers[0] == nullptr || !validate_non_empty(*layers[0])) return Array();
+  if (!weights.empty() && weights.size() != layers.size()) return Array();
+
+  for (size_t k = 1; k < layers.size(); ++k)
+  {
+    if (layers[k] == nullptr || !validate_same_shape(*layers[0], *layers[k]))
+      return Array();
+  }
+
+  const glm::ivec2   shape = layers[0]->shape;
+  const size_t       n = layers[0]->vector.size();
+  std::vector<float> sum_log(n, 0.f);
+
+  for (size_t k = 0; k < layers.size(); ++k)
+  {
+    float w = weights.empty() ? 1.f : weights[k];
+    if (w == 0.f) continue;
+
+    const auto &vec = layers[k]->vector;
+    for (size_t i = 0; i < n; ++i)
+      sum_log[i] += w * log_safe(vec[i], eps);
+  }
+
+  Array array_out(shape);
+  for (size_t i = 0; i < n; ++i)
+    array_out.vector[i] = std::exp(sum_log[i]);
+
+  return array_out;
+}
+
 Array cos(const Array &array)
 {
   if (!validate_non_empty(array)) return Array();
@@ -254,6 +327,18 @@ Array log10(const Array &array)
                  array.vector.end(),
                  array_out.vector.begin(),
                  [](float v) { return std::log10(v); });
+  return array_out;
+}
+
+Array log_safe(const Array &array, float eps)
+{
+  if (!validate_non_empty(array)) return Array();
+
+  Array array_out = Array(array.shape);
+  std::transform(array.vector.begin(),
+                 array.vector.end(),
+                 array_out.vector.begin(),
+                 [eps](float v) { return log_safe(v, eps); });
   return array_out;
 }
 

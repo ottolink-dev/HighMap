@@ -9,6 +9,8 @@
  */
 #pragma once
 
+#include <vector>
+
 #include "highmap/array.hpp"
 
 namespace hmap
@@ -79,6 +81,38 @@ Array atan(const Array &array);
  * @return   Output array.
  */
 Array atan2(const Array &y, const Array &array);
+
+/**
+ * @brief Combine a list of layers in linear space.
+ *
+ * Multiplies layer values blended with weights:
+ * \f[
+ * \text{result} = \prod_{i=0}^{N-1} \text{lerp}(1, L_i, w_i)
+ * \f]
+ *
+ * @param  layers  List of layer arrays (pointers).
+ * @param  weights Per-layer weights (defaults to 1.0 for each layer).
+ * @return         Combined density array.
+ */
+Array build_density_linear(const std::vector<const Array *> &layers,
+                           const std::vector<float>         &weights = {});
+
+/**
+ * @brief Combine a list of layers in log space.
+ *
+ * Computes the weighted geometric combination in log space:
+ * \f[
+ * \text{result} = \exp\left(\sum_{i=0}^{N-1} w_i \log_{\text{safe}}(L_i,
+ * \epsilon)\right) \f]
+ *
+ * @param  layers  List of layer arrays (pointers).
+ * @param  weights Per-layer weights (defaults to 1.0 for each layer).
+ * @param  eps     Small epsilon value for numerical stability (default: 1e-6).
+ * @return         Combined density array.
+ */
+Array build_density_log(const std::vector<const Array *> &layers,
+                        const std::vector<float>         &weights = {},
+                        float                             eps = 1e-6f);
 
 /**
  * @brief Cosine.
@@ -165,6 +199,17 @@ Array lerp(const Array &array1, const Array &array2, float t); ///< @overload
  * @return       Output array.
  */
 Array log10(const Array &array);
+
+/**
+ * @brief Safe natural logarithm with lower clamp.
+ *
+ * Computes std::log(std::max(v, eps)) element-wise.
+ *
+ * @param  array Input array.
+ * @param  eps   Minimum threshold (default: 1e-6).
+ * @return       Output array.
+ */
+Array log_safe(const Array &array, float eps = 1e-6f);
 
 /**
  * @brief Power function.

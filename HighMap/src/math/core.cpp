@@ -65,6 +65,11 @@ float lerp(float a, float b, float t)
   return std::lerp(a, b, t);
 }
 
+float log_safe(float x, float eps)
+{
+  return std::log(std::max(x, eps));
+}
+
 float power_curve(float x, float a, float b)
 {
   // https://iquilezles.org/articles/functions/

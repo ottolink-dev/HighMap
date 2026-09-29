@@ -127,6 +127,15 @@ int highest_power_of_2(int n);
 float lerp(float a, float b, float t);
 
 /**
+ * @brief Safe natural logarithm with lower clamp.
+ *
+ * @param  x   Input value.
+ * @param  eps Minimum value threshold (default: 1e-6).
+ * @return     log(max(x, eps)).
+ */
+float log_safe(float x, float eps = 1e-6f);
+
+/**
  * @brief Smooth asymmetric bell-shaped curve on [0,1].
  *
  * Parameters @p a and @p b control left and right curvature. The function is
