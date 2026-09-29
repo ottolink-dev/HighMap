@@ -1,5 +1,7 @@
 var NAVTREEINDEX10 =
 {
+"expand__talus_8cpp.html":[5,0,1,1,15,5],
+"expand__talus_8cpp.html#a8c437f3963887949da7f4433cf26bf96":[5,0,1,1,15,5,0],
 "export_8hpp.html":[5,0,1,0,0,23],
 "export_8hpp_source.html":[5,0,1,0,0,23],
 "export__as__ascii_8cpp.html":[5,0,1,1,13,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX10 =
 "filters_8hpp.html#ab46e625ea919327a4e2899dd53fff18d":[5,0,1,0,0,25,109],
 "filters_8hpp.html#ab79b21593238cc836f4dd32fecf63a58":[5,0,1,0,0,25,72],
 "filters_8hpp.html#ab92f0fe4baf9678ac1c1d6f454725038":[5,0,1,0,0,25,135],
-"filters_8hpp.html#ab9926efb5c9c3859a0407b8fb9dbe4f7":[5,0,1,0,0,25,71],
-"filters_8hpp.html#aba3674787d520af15267ee7d1e46d220":[5,0,1,0,0,25,21],
-"filters_8hpp.html#abe223a120cbca1cedc1eb8b8392a93b8":[5,0,1,0,0,25,115]
+"filters_8hpp.html#ab9926efb5c9c3859a0407b8fb9dbe4f7":[5,0,1,0,0,25,71]
 };

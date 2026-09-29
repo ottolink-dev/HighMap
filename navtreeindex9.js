@@ -1,5 +1,7 @@
 var NAVTREEINDEX9 =
 {
+"dig__path_8cpp.html#a3a29e127d53bc5b547af422da36da1cc":[5,0,1,1,5,0,0],
+"dig__river_8cpp.html":[5,0,1,1,5,1],
 "dig__river_8cpp.html#aa0407e8bf3d06ffb4d8d1e97809d3665":[5,0,1,1,5,1,0],
 "dig__river_8cpp.html#ada12e6cab4577326964d00fac3aa1077":[5,0,1,1,5,1,1],
 "dijsktra_8cpp.html":[5,0,1,1,37,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX9 =
 "erosion__profile__function_8cpp.html#a18d33562e8ffbb8be79e2ec87bcf285f":[5,0,1,1,24,2,0],
 "erosion__profile__function_8cpp.html#ad3535c9e25ba863fcfe5931ccc556ac8":[5,0,1,1,24,2,1],
 "ex_mixbox_8cpp-example.html":[6,0],
-"examples.html":[6],
-"expand__talus_8cpp.html":[5,0,1,1,15,5],
-"expand__talus_8cpp.html#a8c437f3963887949da7f4433cf26bf96":[5,0,1,1,15,5,0]
+"examples.html":[6]
 };
