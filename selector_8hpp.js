@@ -2,7 +2,7 @@ var selector_8hpp =
 [
     [ "perturb_mask_contour", "selector_8hpp.html#a0524c28c03b2976dae0da680a55fec5f", null ],
     [ "scan_mask", "selector_8hpp.html#a6c6abf2b8bd3161610e273ef97ee4771", null ],
-    [ "select_angle", "selector_8hpp.html#a17edf2c011829f4eed9f45152b3f8eb9", null ],
+    [ "select_angle", "selector_8hpp.html#a6482a57b7ab3fa5ce2d763c7e2fce5a6", null ],
     [ "select_blob_log", "selector_8hpp.html#aeaaf7a8ae8cf8de1dad3a82950879473", null ],
     [ "select_cavities", "selector_8hpp.html#ac3436096f5ea39274658f503d7c950c1", null ],
     [ "select_elevation_slope", "selector_8hpp.html#a13c7f71c6fa727ee090e483c328270a0", null ],

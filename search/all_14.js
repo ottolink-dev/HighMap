@@ -25,7 +25,7 @@ var searchData=
   ['seed_22',['seed',['../classhmap_1_1NoiseFunction.html#afcc0d96413b1b200fc0ec671e43dcbc3',1,'hmap::NoiseFunction']]],
   ['segment_5fintersection_23',['segment_intersection',['../namespacehmap.html#ae6135d0c9d4716e3edbd06bb67f26fb2',1,'hmap']]],
   ['seismic_24',['SEISMIC',['../namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a33b23b52304fbaecc91bdc4090afbd20',1,'hmap']]],
-  ['select_5fangle_25',['select_angle',['../namespacehmap.html#a17edf2c011829f4eed9f45152b3f8eb9',1,'hmap']]],
+  ['select_5fangle_25',['select_angle',['../namespacehmap.html#a6482a57b7ab3fa5ce2d763c7e2fce5a6',1,'hmap']]],
   ['select_5fblob_5flog_26',['select_blob_log',['../namespacehmap.html#aeaaf7a8ae8cf8de1dad3a82950879473',1,'hmap']]],
   ['select_5fcavities_27',['select_cavities',['../namespacehmap.html#ac3436096f5ea39274658f503d7c950c1',1,'hmap::select_cavities()'],['../namespacehmap_1_1gpu.html#a9d2e42789abe01802177574660804fa1',1,'hmap::gpu::select_cavities()']]],
   ['select_5felevation_5fslope_28',['select_elevation_slope',['../namespacehmap.html#a13c7f71c6fa727ee090e483c328270a0',1,'hmap::select_elevation_slope(const Array &amp;array, float gradient_scale)'],['../namespacehmap.html#aee36bf04c8ae880814a5341d4ea262f4',1,'hmap::select_elevation_slope(const Array &amp;array, float gradient_scale, float vmax)']]],

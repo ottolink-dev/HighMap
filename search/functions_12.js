@@ -15,7 +15,7 @@ var searchData=
   ['sediment_5fdeposition_12',['sediment_deposition',['../namespacehmap_1_1gpu.html#a26ed284f1df761074c2a49a2fbbd582e',1,'hmap::gpu::sediment_deposition(Array &amp;z, const Array &amp;talus, Array *p_deposition_map=nullptr, float max_deposition=0.01, int iterations=5, int thermal_subiterations=10)'],['../namespacehmap_1_1gpu.html#a3ce50c0ae884fda9291545ca40ab36c1',1,'hmap::gpu::sediment_deposition(Array &amp;z, const Array *p_mask, const Array &amp;talus, Array *p_deposition_map=nullptr, float max_deposition=0.01, int iterations=5, int thermal_subiterations=10)']]],
   ['sediment_5flayer_13',['sediment_layer',['../namespacehmap_1_1gpu.html#aec782e6aba3f4cfbbd97aafa46cc700b',1,'hmap::gpu']]],
   ['segment_5fintersection_14',['segment_intersection',['../namespacehmap.html#ae6135d0c9d4716e3edbd06bb67f26fb2',1,'hmap']]],
-  ['select_5fangle_15',['select_angle',['../namespacehmap.html#a17edf2c011829f4eed9f45152b3f8eb9',1,'hmap']]],
+  ['select_5fangle_15',['select_angle',['../namespacehmap.html#a6482a57b7ab3fa5ce2d763c7e2fce5a6',1,'hmap']]],
   ['select_5fblob_5flog_16',['select_blob_log',['../namespacehmap.html#aeaaf7a8ae8cf8de1dad3a82950879473',1,'hmap']]],
   ['select_5fcavities_17',['select_cavities',['../namespacehmap.html#ac3436096f5ea39274658f503d7c950c1',1,'hmap::select_cavities()'],['../namespacehmap_1_1gpu.html#a9d2e42789abe01802177574660804fa1',1,'hmap::gpu::select_cavities()']]],
   ['select_5felevation_5fslope_18',['select_elevation_slope',['../namespacehmap.html#a13c7f71c6fa727ee090e483c328270a0',1,'hmap::select_elevation_slope(const Array &amp;array, float gradient_scale)'],['../namespacehmap.html#aee36bf04c8ae880814a5341d4ea262f4',1,'hmap::select_elevation_slope(const Array &amp;array, float gradient_scale, float vmax)']]],

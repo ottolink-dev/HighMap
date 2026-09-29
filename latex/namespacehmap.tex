@@ -1888,7 +1888,7 @@ void \mbox{\hyperlink{namespacehmap_ac126773f7c7af2364cfb4d7a6922ed96}{rescale}}
 \begin{DoxyCompactList}\small\item\em Perturb the contour of a binary mask using a displacement field, while trying to preserve a single connected component without holes. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a6c6abf2b8bd3161610e273ef97ee4771}{scan\+\_\+mask}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float contrast=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float brightness=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Mask adjustement using a \textquotesingle{}scanning\textquotesingle{} method. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a17edf2c011829f4eed9f45152b3f8eb9}{select\+\_\+angle}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}, float sigma, int \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}}=0)
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a6482a57b7ab3fa5ce2d763c7e2fce5a6}{select\+\_\+angle}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}, float sigma)
 \begin{DoxyCompactList}\small\item\em Return angle selection for a given angle and a tolerance half-\/width on this value. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_aeaaf7a8ae8cf8de1dad3a82950879473}{select\+\_\+blob\+\_\+log}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}})
 \begin{DoxyCompactList}\small\item\em Return blob detection using the Laplacian of Gaussian (LoG) approach. \end{DoxyCompactList}\item 
@@ -31362,11 +31362,11 @@ Ouput array.
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a17edf2c011829f4eed9f45152b3f8eb9}\label{namespacehmap_a17edf2c011829f4eed9f45152b3f8eb9} 
+{\bfseries{Result}}  \Hypertarget{namespacehmap_a6482a57b7ab3fa5ce2d763c7e2fce5a6}\label{namespacehmap_a6482a57b7ab3fa5ce2d763c7e2fce5a6} 
 \index{hmap@{hmap}!select\_angle@{select\_angle}}
 \index{select\_angle@{select\_angle}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{select\_angle()}{select\_angle()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::select\+\_\+angle (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{float}]{angle,  }\item[{float}]{sigma,  }\item[{int}]{ir = {\ttfamily 0} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::select\+\_\+angle (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{float}]{angle,  }\item[{float}]{sigma }\end{DoxyParamCaption})}
 
 
 
@@ -31379,8 +31379,6 @@ Return angle selection for a given angle and a tolerance half-\/width on this va
 {\em angle} & Selected angle (degree). \\
 \hline
 {\em sigma} & Selected angle tolerance (degree). \\
-\hline
-{\em ir} & Prefilter radius. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -31403,7 +31401,7 @@ Output array.
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}\ =\ 90.f;}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{float}\ sigma\ =\ 30.f;}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ c\ =\ \mbox{\hyperlink{namespacehmap_a17edf2c011829f4eed9f45152b3f8eb9}{hmap::select\_angle}}(z,\ \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}},\ sigma);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ c\ =\ \mbox{\hyperlink{namespacehmap_a6482a57b7ab3fa5ce2d763c7e2fce5a6}{hmap::select\_angle}}(z,\ \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}},\ sigma);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_select\_angle.png"{}},\ \{z,\ c\},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced}{hmap::Cmap::JET}});}
 \DoxyCodeLine{\}}

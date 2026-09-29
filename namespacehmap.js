@@ -1065,7 +1065,7 @@ var namespacehmap =
     [ "sdf_2d_polyline_bezier", "namespacehmap.html#a93d9f75a0af0e7e76e77851efd36c804", null ],
     [ "perturb_mask_contour", "namespacehmap.html#a0524c28c03b2976dae0da680a55fec5f", null ],
     [ "scan_mask", "namespacehmap.html#a6c6abf2b8bd3161610e273ef97ee4771", null ],
-    [ "select_angle", "namespacehmap.html#a17edf2c011829f4eed9f45152b3f8eb9", null ],
+    [ "select_angle", "namespacehmap.html#a6482a57b7ab3fa5ce2d763c7e2fce5a6", null ],
     [ "select_blob_log", "namespacehmap.html#aeaaf7a8ae8cf8de1dad3a82950879473", null ],
     [ "select_cavities", "namespacehmap.html#ac3436096f5ea39274658f503d7c950c1", null ],
     [ "select_elevation_slope", "namespacehmap.html#a13c7f71c6fa727ee090e483c328270a0", null ],
