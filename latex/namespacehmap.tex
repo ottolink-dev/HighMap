@@ -1456,6 +1456,8 @@ std\+::vector$<$ float $>$ \mbox{\hyperlink{namespacehmap_a0b3237f9cc015299bf3e4
 \begin{DoxyCompactList}\small\item\em Computes the ruggedness of each element in the input array. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a85e411c67e97deb8459f25d4440546c3}{rugosity}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}}, bool convex=true)
 \begin{DoxyCompactList}\small\item\em Estimates the rugosity of a surface by analyzing the skewness of the elevation data, which reflects surface roughness. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_af34b234c6d2327f9018f239e12889e3d}{topographic\+\_\+wetness\+\_\+index}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, float talus\+\_\+ref=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float min\+\_\+slope=1e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Computes the Topographic Wetness Index (TWI). \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_ab4d8048b79080012b8e60c270de8137f}{valley\+\_\+width}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int \mbox{\hyperlink{sls__deformation_8cpp_a108a1d0fcea4288c9e48f5dc4fa0a1b0}{ir}}=0, bool ridge\+\_\+select=false)
 \begin{DoxyCompactList}\small\item\em Measures the valley width by calculating the distance from each point in a concave region to the frontier of that region. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a527cfdcf7f7e2ca0e270875526c9b1ee}{abs}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
@@ -21972,6 +21974,7 @@ Compares the original heightmap with a locally smoothed version (using a smooth 
 \DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fafad6a20433412feb877a9e8ebb76633c}{hmap::gpu::LocalMetrics::LM\_LOCAL\_SKEWNESS}},}
 \DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa64d519d05dec2198a42425ce0c402bff}{hmap::gpu::LocalMetrics::LM\_LOCAL\_Z\_SCORE}},}
 \DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa8f5a70d0a562337ca689b0ce7ee3fff6}{hmap::gpu::LocalMetrics::LM\_TOPOGRAPHIC\_POSITION\_INDEX}},}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fad5eb4b55090fe7801d15a141769965fd}{hmap::gpu::LocalMetrics::LM\_TOPOGRAPHIC\_WETNESS\_INDEX}},}
 \DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa46f15a0ffd71deff0ddbc5599acfff87}{hmap::gpu::LocalMetrics::LM\_RELATIVE\_ELEVATION}},}
 \DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895faa7240132569a9a3cf8a45541d9c041b1}{hmap::gpu::LocalMetrics::LM\_ROUGHNESS}},}
 \DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_1_1gpu_ab0737b29664736928a86f0755493895fa568c1c82b138902b43e26249e63d8618}{hmap::gpu::LocalMetrics::LM\_RUGGEDNESS}},}
@@ -22086,7 +22089,39 @@ Rugosity is a measure of terrain roughness, often used in ecological studies and
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}   \Hypertarget{namespacehmap_ab4d8048b79080012b8e60c270de8137f}\label{namespacehmap_ab4d8048b79080012b8e60c270de8137f} 
+{\bfseries{Result}}   \Hypertarget{namespacehmap_af34b234c6d2327f9018f239e12889e3d}\label{namespacehmap_af34b234c6d2327f9018f239e12889e3d} 
+\index{hmap@{hmap}!topographic\_wetness\_index@{topographic\_wetness\_index}}
+\index{topographic\_wetness\_index@{topographic\_wetness\_index}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{topographic\_wetness\_index()}{topographic\_wetness\_index()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::topographic\+\_\+wetness\+\_\+index (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{float}]{talus\+\_\+ref = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{min\+\_\+slope = {\ttfamily 1e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+
+
+
+Computes the Topographic Wetness Index (TWI). 
+
+TWI (compound topographic index) is a steady-\/state hydrological indicator estimating the tendency of terrain to accumulate water based on its topography\+:  \[
+    \text{TWI} = \ln\left(\frac{a}{\tan(\beta)}\right)
+\] where $a$ is the upslope contributing area computed via $D_\infty$ flow accumulation, and $\beta$ is the local slope.
+
+
+\begin{DoxyParams}{Parameters}
+{\em z} & Input elevation array. \\
+\hline
+{\em talus\+\_\+ref} & Reference talus slope for flow partitioning in D-\/infinity accumulation (if \texorpdfstring{$<$}{<}= 0, automatically determined from max talus). \\
+\hline
+{\em min\+\_\+slope} & Minimum slope threshold $\tan(\beta)$ to prevent division by zero in flat areas (default\+: 1e-\/4f). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Array}{Array} Resulting array containing the TWI values.
+\end{DoxyReturn}
+{\bfseries{Example}} 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+
+{\bfseries{Result}}  \Hypertarget{namespacehmap_ab4d8048b79080012b8e60c270de8137f}\label{namespacehmap_ab4d8048b79080012b8e60c270de8137f} 
 \index{hmap@{hmap}!valley\_width@{valley\_width}}
 \index{valley\_width@{valley\_width}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{valley\_width()}{valley\_width()}}

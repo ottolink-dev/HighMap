@@ -10,5 +10,8 @@ var test__local__metrics_8cpp =
     [ "TEST", "test__local__metrics_8cpp.html#a6792a8666aabc5f4865c4ea459c7447f", null ],
     [ "TEST", "test__local__metrics_8cpp.html#ae8f968d6ecdf69657629dc6670c48be8", null ],
     [ "TEST", "test__local__metrics_8cpp.html#a2b1db71f733c3947c5f9ed15b9e9c089", null ],
-    [ "TEST", "test__local__metrics_8cpp.html#a58471970a78e9ac84fad4d1296238452", null ]
+    [ "TEST", "test__local__metrics_8cpp.html#a58471970a78e9ac84fad4d1296238452", null ],
+    [ "TEST", "test__local__metrics_8cpp.html#a40c5787a9861f31baa715a83c446a9e3", null ],
+    [ "TEST", "test__local__metrics_8cpp.html#af63bbcabd1a911e7ede59b2494378a22", null ],
+    [ "TEST", "test__local__metrics_8cpp.html#a47ee7b761db0210f372456ff7db6da40", null ]
 ];

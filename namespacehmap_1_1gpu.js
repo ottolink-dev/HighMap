@@ -15,6 +15,7 @@ var namespacehmap_1_1gpu =
       [ "LM_LOCAL_SKEWNESS", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fafad6a20433412feb877a9e8ebb76633c", null ],
       [ "LM_LOCAL_Z_SCORE", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa64d519d05dec2198a42425ce0c402bff", null ],
       [ "LM_TOPOGRAPHIC_POSITION_INDEX", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa8f5a70d0a562337ca689b0ce7ee3fff6", null ],
+      [ "LM_TOPOGRAPHIC_WETNESS_INDEX", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fad5eb4b55090fe7801d15a141769965fd", null ],
       [ "LM_RELATIVE_ELEVATION", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa46f15a0ffd71deff0ddbc5599acfff87", null ],
       [ "LM_ROUGHNESS", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895faa7240132569a9a3cf8a45541d9c041b1", null ],
       [ "LM_RUGGEDNESS", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa568c1c82b138902b43e26249e63d8618", null ],

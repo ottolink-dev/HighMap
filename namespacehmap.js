@@ -851,6 +851,7 @@ var namespacehmap =
     [ "roughness", "namespacehmap.html#ac65c42efcba153819ca88a01bca23434", null ],
     [ "ruggedness", "namespacehmap.html#af4ec8b5be149e6749fdf09759daf1e9e", null ],
     [ "rugosity", "namespacehmap.html#a85e411c67e97deb8459f25d4440546c3", null ],
+    [ "topographic_wetness_index", "namespacehmap.html#af34b234c6d2327f9018f239e12889e3d", null ],
     [ "valley_width", "namespacehmap.html#ab4d8048b79080012b8e60c270de8137f", null ],
     [ "abs", "namespacehmap.html#a527cfdcf7f7e2ca0e270875526c9b1ee", null ],
     [ "abs_smooth", "namespacehmap.html#aa99a114cc6073cf7368c927afd9b4f87", null ],

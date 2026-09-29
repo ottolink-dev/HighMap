@@ -38862,6 +38862,7 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fafad6a20433412feb877a9e8ebb76633c" kindref="member">hmap::gpu::LocalMetrics::LM_LOCAL_SKEWNESS</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa64d519d05dec2198a42425ce0c402bff" kindref="member">hmap::gpu::LocalMetrics::LM_LOCAL_Z_SCORE</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa8f5a70d0a562337ca689b0ce7ee3fff6" kindref="member">hmap::gpu::LocalMetrics::LM_TOPOGRAPHIC_POSITION_INDEX</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fad5eb4b55090fe7801d15a141769965fd" kindref="member">hmap::gpu::LocalMetrics::LM_TOPOGRAPHIC_WETNESS_INDEX</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa46f15a0ffd71deff0ddbc5599acfff87" kindref="member">hmap::gpu::LocalMetrics::LM_RELATIVE_ELEVATION</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895faa7240132569a9a3cf8a45541d9c041b1" kindref="member">hmap::gpu::LocalMetrics::LM_ROUGHNESS</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895fa568c1c82b138902b43e26249e63d8618" kindref="member">hmap::gpu::LocalMetrics::LM_RUGGEDNESS</ref>,</highlight></codeline>
@@ -39028,6 +39029,68 @@ The output path consists of:<itemizedlist>
         </inbodydescription>
         <location file="HighMap/src/local_metrics/local_metrics.cpp" line="167" column="7" bodyfile="HighMap/src/local_metrics/local_metrics.cpp" bodystart="167" bodyend="210" declfile="HighMap/include/highmap/local_metrics.hpp" declline="253" declcolumn="7"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1af34b234c6d2327f9018f239e12889e3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::topographic_wetness_index</definition>
+        <argsstring>(const Array &amp;z, float talus_ref=0.f, float min_slope=1e-4f)</argsstring>
+        <name>topographic_wetness_index</name>
+        <qualifiedname>hmap::topographic_wetness_index</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>talus_ref</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>min_slope</declname>
+          <defval>1e-4<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+<para>Computes the Topographic Wetness Index (TWI). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>TWI (compound topographic index) is a steady-state hydrological indicator estimating the tendency of terrain to accumulate water based on its topography:  <formula id="25">\[
+    \text{TWI} = \ln\left(\frac{a}{\tan(\beta)}\right)
+\]</formula> where <formula id="26">$a$</formula> is the upslope contributing area computed via <formula id="27">$D_\infty$</formula> flow accumulation, and <formula id="28">$\beta$</formula> is the local slope.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input elevation array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>talus_ref</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference talus slope for flow partitioning in D-infinity accumulation (if &lt;= 0, automatically determined from max talus). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min_slope</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum slope threshold <formula id="29">$\tan(\beta)$</formula> to prevent division by zero in flat areas (default: 1e-4f). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> Resulting array containing the TWI values.</para>
+</simplesect>
+<bold>Example</bold> <programlisting filename="ex_topographic_wetness_index.cpp"></programlisting></para>
+<para><bold>Result</bold> <image type="html" name="ex_topographic_wetness_index.png"></image>
+ </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/local_metrics/topographic_wetness_index.cpp" line="16" column="7" bodyfile="HighMap/src/local_metrics/topographic_wetness_index.cpp" bodystart="16" bodyend="40" declfile="HighMap/include/highmap/local_metrics.hpp" declline="281" declcolumn="7"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1ab4d8048b79080012b8e60c270de8137f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::valley_width</definition>
@@ -39113,7 +39176,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/local_metrics/valley_width.cpp" line="12" column="7" bodyfile="HighMap/src/local_metrics/valley_width.cpp" bodystart="12" bodyend="24" declfile="HighMap/include/highmap/local_metrics.hpp" declline="289" declcolumn="7"/>
+        <location file="HighMap/src/local_metrics/valley_width.cpp" line="12" column="7" bodyfile="HighMap/src/local_metrics/valley_width.cpp" bodystart="12" bodyend="24" declfile="HighMap/include/highmap/local_metrics.hpp" declline="319" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a527cfdcf7f7e2ca0e270875526c9b1ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -39992,7 +40055,7 @@ The output path consists of:<itemizedlist>
 <para>Sigmoid function. </para>
         </briefdescription>
         <detaileddescription>
-<para>Applies the generalized sigmoid transformation element-wise:  <formula id="25">\[
+<para>Applies the generalized sigmoid transformation element-wise:  <formula id="30">\[
 y = v_{\min} + \frac{v_{\max} - v_{\min}}
     {1 + \exp\left(-\frac{x - x_0}{\text{width}}\right)}
 \]</formula></para>
@@ -41090,7 +41153,7 @@ y = v_{\min} + \frac{v_{\max} - v_{\min}}
 <para>Generalized Rvachev R-function for smooth minimum / intersection (exact zero-set). </para>
         </briefdescription>
         <detaileddescription>
-<para><formula id="26">\[
+<para><formula id="31">\[
 R_{\min}(f_1, f_2, \alpha) = \frac{f_1 + f_2 - \sqrt{f_1^2 + f_2^2 - 2\alpha
 f_1 f_2}}{1 + \alpha} \]</formula></para>
 <para><parameterlist kind="param"><parameteritem>
@@ -41149,7 +41212,7 @@ f_1 f_2}}{1 + \alpha} \]</formula></para>
 <para>Generalized Rvachev R-function for smooth maximum / union (exact zero-set). </para>
         </briefdescription>
         <detaileddescription>
-<para><formula id="27">\[
+<para><formula id="32">\[
 R_{\max}(f_1, f_2, \alpha) = \frac{f_1 + f_2 + \sqrt{f_1^2 + f_2^2 - 2\alpha
 f_1 f_2}}{1 + \alpha} \]</formula></para>
 <para><parameterlist kind="param"><parameteritem>
@@ -41219,7 +41282,7 @@ f_1 f_2}}{1 + \alpha} \]</formula></para>
 <para>Sigmoid function. </para>
         </briefdescription>
         <detaileddescription>
-<para>Generalized logistic function:  <formula id="25">\[
+<para>Generalized logistic function:  <formula id="30">\[
 y = v_{\min} + \frac{v_{\max} - v_{\min}}
     {1 + \exp\left(-\frac{x - x_0}{\text{width}}\right)}
 \]</formula></para>
