@@ -3,7 +3,9 @@ var namespacehmap =
     [ "gpu", "namespacehmap_1_1gpu.html", "namespacehmap_1_1gpu" ],
     [ "log", "namespacehmap_1_1log.html", "namespacehmap_1_1log" ],
     [ "va", "namespacehmap_1_1va.html", [
-      [ "hydraulic_saleve", "namespacehmap_1_1va.html#ac0d43b69e78ba45a62795d90f1f453fe", null ]
+      [ "hydraulic_saleve", "namespacehmap_1_1va.html#ac0d43b69e78ba45a62795d90f1f453fe", null ],
+      [ "smooth_cpulse", "namespacehmap_1_1va.html#aec2c193932c4d5d1fe00d09b81e243d8", null ],
+      [ "smooth_cpulse", "namespacehmap_1_1va.html#a3df8c2c762d79f38e07069e47063fade", null ]
     ] ],
     [ "Array", "classhmap_1_1Array.html", "classhmap_1_1Array" ],
     [ "ArrayControlFunction", "classhmap_1_1ArrayControlFunction.html", "classhmap_1_1ArrayControlFunction" ],

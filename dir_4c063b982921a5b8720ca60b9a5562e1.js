@@ -9,6 +9,7 @@ var dir_4c063b982921a5b8720ca60b9a5562e1 =
     [ "fill_talus.cpp", "fill__talus_8cpp.html", "fill__talus_8cpp" ],
     [ "filters.cpp", "filters_8cpp.html", "filters_8cpp" ],
     [ "filters_gpu.cpp", "filters__gpu_8cpp.html", "filters__gpu_8cpp" ],
+    [ "filters_va.cpp", "filters__va_8cpp.html", "filters__va_8cpp" ],
     [ "jagged.cpp", "jagged_8cpp.html", "jagged_8cpp" ],
     [ "recast.cpp", "recast_8cpp.html", "recast_8cpp" ],
     [ "recast_cliff.cpp", "recast__cliff_8cpp.html", "recast__cliff_8cpp" ],

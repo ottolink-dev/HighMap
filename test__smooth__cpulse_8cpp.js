@@ -5,5 +5,8 @@ var test__smooth__cpulse_8cpp =
     [ "TEST", "test__smooth__cpulse_8cpp.html#ab37cc06859cedd84c5a6529c28bb92b9", null ],
     [ "TEST", "test__smooth__cpulse_8cpp.html#a49df21194c3cba665de691fd42cf3ca6", null ],
     [ "TEST", "test__smooth__cpulse_8cpp.html#a9e355ba4af1cebd53ce3acaea257952e", null ],
-    [ "TEST", "test__smooth__cpulse_8cpp.html#aeef7d3dfd4814189da5fcd1d523597d1", null ]
+    [ "TEST", "test__smooth__cpulse_8cpp.html#aeef7d3dfd4814189da5fcd1d523597d1", null ],
+    [ "TEST", "test__smooth__cpulse_8cpp.html#adb47f7b95cc0a147a6f6668e93d2bdf3", null ],
+    [ "TEST", "test__smooth__cpulse_8cpp.html#a342e08742aa11ac8e9f1bdf684d10d9b", null ],
+    [ "TEST", "test__smooth__cpulse_8cpp.html#ade60522c454ddb98bdc73835cfb7926b", null ]
 ];
