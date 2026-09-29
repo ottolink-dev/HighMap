@@ -11,6 +11,7 @@ var core_8hpp =
     [ "gain", "core_8hpp.html#a0db2ecdc6ca69af1e6eb3402b1147cb6", null ],
     [ "highest_power_of_2", "core_8hpp.html#a9ae209ce5746e99078078259955c7421", null ],
     [ "lerp", "core_8hpp.html#a1d5e665c9e945b8ad9a6b5f0c1b673ad", null ],
+    [ "log_safe", "core_8hpp.html#acb218fa542cacfe85d22265ef7beec66", null ],
     [ "power_curve", "core_8hpp.html#ad22bdd7a9091286a11b872dc4de2ce9d", null ],
     [ "r_min", "core_8hpp.html#a17d79628c2c9a191e2e06c551bbd7f08", null ],
     [ "r_max", "core_8hpp.html#ab377ce7a4af4de11fdfe14e250c34663", null ],

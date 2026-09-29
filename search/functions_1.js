@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['back_0',['back',['../classhmap_1_1CellPath.html#ab593f92f2381e48216cc16c57f3d3c1c',1,'hmap::CellPath::back()'],['../classhmap_1_1Cloud.html#a0ccd5b43ebbf2d1f1ef4777f66943553',1,'hmap::Cloud::back()'],['../classhmap_1_1Cloud.html#aa342e6ad28fc89f534163b511dd96a95',1,'hmap::Cloud::back() const'],['../classhmap_1_1CellPath.html#a9a3ba1f4d75d4644db5314767a428b2c',1,'hmap::CellPath::back()']]],
+  ['back_0',['back',['../classhmap_1_1CellPath.html#ab593f92f2381e48216cc16c57f3d3c1c',1,'hmap::CellPath::back() const'],['../classhmap_1_1CellPath.html#a9a3ba1f4d75d4644db5314767a428b2c',1,'hmap::CellPath::back()'],['../classhmap_1_1Cloud.html#aa342e6ad28fc89f534163b511dd96a95',1,'hmap::Cloud::back() const'],['../classhmap_1_1Cloud.html#a0ccd5b43ebbf2d1f1ef4777f66943553',1,'hmap::Cloud::back()']]],
   ['badlands_1',['badlands',['../namespacehmap_1_1gpu.html#a54906b55a1c4e4efe938a780c1fb348e',1,'hmap::gpu']]],
   ['band_2',['band',['../namespacehmap.html#a9b7b17b540fbec1501ba0e996897c1e5',1,'hmap']]],
   ['barycentric_3',['barycentric',['../classhmap_1_1TerrainTriMesh.html#a3da697b9cfb9dc0c8b6ff8f5759021c4',1,'hmap::TerrainTriMesh']]],
@@ -24,14 +24,16 @@ var searchData=
   ['blend_5fgradients_21',['blend_gradients',['../namespacehmap.html#af91a60a9fcbed7e38f53df57631a5298',1,'hmap::blend_gradients()'],['../namespacehmap_1_1gpu.html#a3a43696b1d6b8f0d966f9f05e5085edf',1,'hmap::gpu::blend_gradients()']]],
   ['blend_5fnegate_22',['blend_negate',['../namespacehmap.html#a183cf8de980d1886130cac97fd41bcc5',1,'hmap']]],
   ['blend_5foverlay_23',['blend_overlay',['../namespacehmap.html#a3d311d682d431e21c6d7063539a0db8e',1,'hmap']]],
-  ['blend_5fpoisson_5fbf_24',['blend_poisson_bf',['../namespacehmap_1_1gpu.html#a11510c63a1d13a6107720f6e220f13de',1,'hmap::gpu::blend_poisson_bf(const Texture &amp;texture1, const Texture &amp;texture2, const int iterations=500, const Array *p_mask=nullptr)'],['../namespacehmap_1_1gpu.html#a65a176508b404f80e5f5abd31456712e',1,'hmap::gpu::blend_poisson_bf(const Array &amp;array1, const Array &amp;array2, const int iterations=500, const Array *p_mask=nullptr)']]],
-  ['blend_5fpower_5flaw_25',['blend_power_law',['../namespacehmap.html#a85fd747437fd49e0fcfb770ad5f5851e',1,'hmap::blend_power_law(const std::vector&lt; const Array * &gt; &amp;arrays, float alpha=0.f)'],['../namespacehmap.html#a01201c510915f9f10f26595c79a1220b',1,'hmap::blend_power_law(const Array &amp;array1, const Array &amp;array2, float alpha=0.f)']]],
+  ['blend_5fpoisson_5fbf_24',['blend_poisson_bf',['../namespacehmap_1_1gpu.html#a65a176508b404f80e5f5abd31456712e',1,'hmap::gpu::blend_poisson_bf(const Array &amp;array1, const Array &amp;array2, const int iterations=500, const Array *p_mask=nullptr)'],['../namespacehmap_1_1gpu.html#a11510c63a1d13a6107720f6e220f13de',1,'hmap::gpu::blend_poisson_bf(const Texture &amp;texture1, const Texture &amp;texture2, const int iterations=500, const Array *p_mask=nullptr)']]],
+  ['blend_5fpower_5flaw_25',['blend_power_law',['../namespacehmap.html#a01201c510915f9f10f26595c79a1220b',1,'hmap::blend_power_law(const Array &amp;array1, const Array &amp;array2, float alpha=0.f)'],['../namespacehmap.html#a85fd747437fd49e0fcfb770ad5f5851e',1,'hmap::blend_power_law(const std::vector&lt; const Array * &gt; &amp;arrays, float alpha=0.f)']]],
   ['blend_5fsoft_26',['blend_soft',['../namespacehmap.html#a91e52ae1178d54931a1729a2368a31f7',1,'hmap']]],
   ['border_27',['border',['../namespacehmap.html#af80bcff234bf1482cf26896b9d21d270',1,'hmap::border()'],['../namespacehmap_1_1gpu.html#a06a37576327ff4cb06746711dbdfa0de',1,'hmap::gpu::border()']]],
   ['bspline_28',['bspline',['../namespacehmap.html#a281c9db00eef9735e8eea7bbf50f3e34',1,'hmap']]],
   ['build_29',['build',['../classhmap_1_1NaturalNeighborInterpolator.html#a9404f1043455692be64d35116a00742c',1,'hmap::NaturalNeighborInterpolator']]],
-  ['bulkify_30',['bulkify',['../namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3',1,'hmap']]],
-  ['bump_31',['bump',['../namespacehmap.html#a32035fe3ef18a31240ace195c721ecd7',1,'hmap']]],
-  ['bump_5florentzian_32',['bump_lorentzian',['../namespacehmap.html#a4af0bde798f0266db4dfe24e1134a506',1,'hmap']]],
-  ['bumpfunction_33',['BumpFunction',['../classhmap_1_1BumpFunction.html#a80e2476cc674ff1e15c5135829484c68',1,'hmap::BumpFunction']]]
+  ['build_5fdensity_5flinear_30',['build_density_linear',['../namespacehmap.html#aeb287bebf689e973b6b5ed1020968d8f',1,'hmap']]],
+  ['build_5fdensity_5flog_31',['build_density_log',['../namespacehmap.html#aeb27a88fc257ddfb11aa587eb7a796df',1,'hmap']]],
+  ['bulkify_32',['bulkify',['../namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3',1,'hmap']]],
+  ['bump_33',['bump',['../namespacehmap.html#a32035fe3ef18a31240ace195c721ecd7',1,'hmap']]],
+  ['bump_5florentzian_34',['bump_lorentzian',['../namespacehmap.html#a4af0bde798f0266db4dfe24e1134a506',1,'hmap']]],
+  ['bumpfunction_35',['BumpFunction',['../classhmap_1_1BumpFunction.html#a80e2476cc674ff1e15c5135829484c68',1,'hmap::BumpFunction']]]
 ];
