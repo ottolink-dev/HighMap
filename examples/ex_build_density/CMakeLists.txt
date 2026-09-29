@@ -1,0 +1,2 @@
+add_executable(ex_build_density ex_build_density.cpp)
+target_link_libraries(ex_build_density highmap)
