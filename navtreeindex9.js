@@ -164,6 +164,7 @@ var NAVTREEINDEX9 =
 "erosion_8hpp.html#a2bb49a523386fcb8fc34f27741c520a8":[5,0,1,0,0,22,74],
 "erosion_8hpp.html#a2ce8ecd08ace98c21dfb354bab5451a2":[5,0,1,0,0,22,63],
 "erosion_8hpp.html#a36a2eba6d158e44d0ef917d9582987fe":[5,0,1,0,0,22,65],
+"erosion_8hpp.html#a3adeba07cda0636b18fd80371eb59f03":[5,0,1,0,0,22,89],
 "erosion_8hpp.html#a3cda61667294854da3121eb533b5e09f":[5,0,1,0,0,22,36],
 "erosion_8hpp.html#a3ce50c0ae884fda9291545ca40ab36c1":[5,0,1,0,0,22,51],
 "erosion_8hpp.html#a3faa3e769849fbcc7784d130c05f99a2":[5,0,1,0,0,22,48],
@@ -248,6 +249,5 @@ var NAVTREEINDEX9 =
 "ex_mixbox_8cpp-example.html":[6,0],
 "examples.html":[6],
 "expand__talus_8cpp.html":[5,0,1,1,15,5],
-"expand__talus_8cpp.html#a8c437f3963887949da7f4433cf26bf96":[5,0,1,1,15,5,0],
-"export_8hpp.html":[5,0,1,0,0,23]
+"expand__talus_8cpp.html#a8c437f3963887949da7f4433cf26bf96":[5,0,1,1,15,5,0]
 };

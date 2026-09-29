@@ -6,6 +6,8 @@
 namespace \mbox{\hyperlink{namespacehmap_1_1gpu}{gpu}}
 \item 
 namespace \mbox{\hyperlink{namespacehmap_1_1log}{log}}
+\item 
+namespace \mbox{\hyperlink{namespacehmap_1_1va}{va}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
@@ -2084,7 +2086,11 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1TileStorage}{Tile\+Stora
 \item 
 std\+::string \mbox{\hyperlink{namespacehmap_af8dc7ce1ae44750316d846345854c408}{to\+\_\+string}} (\mbox{\hyperlink{namespacehmap_ae383414b46ae8992e621c407f09ce7c5}{For\+Each\+Mode}} m)
 \item 
-void \mbox{\hyperlink{namespacehmap_a4216f86be919aeb4a2cb6aab44609a71}{copy\+\_\+data}} (\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&src, \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&dst, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm)
+void \mbox{\hyperlink{namespacehmap_a4f31242a99ef8fd6e098eb319438eca4}{copy\+\_\+data}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&src, \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&dst, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm)
+\item 
+{\footnotesize template$<$std\+::size\+\_\+t N, typename T , std\+::size\+\_\+t... Is$>$ }\\auto \mbox{\hyperlink{namespacehmap_abc392f1014a9b32b8d2c760b58940e06}{unpack\+\_\+impl}} (const std\+::vector$<$ T \texorpdfstring{$\ast$}{*} $>$ \&v, std\+::index\+\_\+sequence$<$ Is... $>$)
+\item 
+{\footnotesize template$<$std\+::size\+\_\+t N, typename T $>$ }\\auto \mbox{\hyperlink{namespacehmap_a5b780b7b211653ed8a279ab553e7651f}{unpack}} (const std\+::vector$<$ T \texorpdfstring{$\ast$}{*} $>$ \&v)
 \item 
 \mbox{\hyperlink{classhmap_1_1VirtualTexture}{Virtual\+Texture}} \mbox{\hyperlink{namespacehmap_af66b37de86e8de6261ab902110b118a0}{convert\+\_\+texture\+\_\+channels}} (const \mbox{\hyperlink{classhmap_1_1VirtualTexture}{Virtual\+Texture}} \&src, int dst\+\_\+channels, float fill\+\_\+value, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm)
 \item 
@@ -8245,6 +8251,53 @@ Iteratively updates elevations using a drainage model with uplift, slope constra
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z0,\ z1\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9}{hmap::Cmap::TERRAIN}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ -\/-\/-\/\ virtual\ array\ version}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \ bbox\{0.f,\ 1.f,\ 0.f,\ 1.f\};}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ glm::ivec2\ tile\_shape\{220,\ 312\};}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \ \ \ \ halo\ =\ 32;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ const\ auto\ storage\_mode\ =\ hmap::StorageMode::VA\_RAM;}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ storage\_mode\ =\ \mbox{\hyperlink{namespacehmap_ad21b93a34c88a47d6b54f3a4d5b65e6ea671262171ccce9633cc42db046ea63d4}{hmap::StorageMode::VA\_DISK\_LRU}};}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ const\ auto\ storage\_mode\ =\ hmap::StorageMode::VA\_DISK\_LRU\_MIN;}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ const\ auto\ storage\_mode\ =\ hmap::StorageMode::VA\_DISK\_SEQUENTIAL;}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ foreach\_mode\ =\ \mbox{\hyperlink{namespacehmap_ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5}{hmap::ForEachMode::VA\_DISTRIBUTED}};}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ const\ auto\ foreach\_mode\ =\ hmap::ForEachMode::VA\_SEQUENTIAL;}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ const\ auto\ foreach\_mode\ =\ hmap::ForEachMode::VA\_SINGLE\_ARRAY;}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ const\ auto\ foreach\_mode\ =\ hmap::ForEachMode::VA\_SINGLE\_ARRAY\_DOWNSCALED;}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ComputeMode}{hmap::ComputeMode}}\ cm\{.\mbox{\hyperlink{structhmap_1_1ComputeMode_a88f263de26dea2af6e22e2d4f5f02cab}{mode}}\ =\ foreach\_mode,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .trim\_storage\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .stride\ =\ 1\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{structhmap_1_1VirtualArray}{hmap::VirtualArray}}\ z0\_va(\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ bbox,\ tile\_shape,\ halo,\ storage\_mode);}
+\DoxyCodeLine{\ \ \ \ z0\_va.from\_array(z0,\ cm);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ ze\_va\ =\ \mbox{\hyperlink{namespacehmap_1_1va_a3adeba07cda0636b18fd80371eb59f03}{hmap::va::hydraulic\_saleve}}(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ cm,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ z0\_va,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ++seed,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ control\_points\_count,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ m\_exp,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ uplift\_rate,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ tolerance,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ max\_iterations,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ smin,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ smax,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ strength,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ scale\_erodibility\_with\_z,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ erodibility\_distrib\_exp,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ noise\_strength,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ enable\_post\_slope\_limiter\ */}\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ post\_slope\_limit\ */}\ 0.f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ enable\_post\_smoothing\ */}\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278}{hmap::InterpolationMethod2D::ITP2D\_DELAUNAY\_GRADIENT}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ ze\_va.to\_array(cm).to\_png(\textcolor{stringliteral}{"{}out\_ze\_va.png"{}},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced}{hmap::Cmap::JET}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\ \ \}}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}
@@ -8392,6 +8445,53 @@ Eroded heightmap.
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{z0,\ z1\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9}{hmap::Cmap::TERRAIN}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ -\/-\/-\/\ virtual\ array\ version}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \ bbox\{0.f,\ 1.f,\ 0.f,\ 1.f\};}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ glm::ivec2\ tile\_shape\{220,\ 312\};}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \ \ \ \ halo\ =\ 32;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ const\ auto\ storage\_mode\ =\ hmap::StorageMode::VA\_RAM;}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ storage\_mode\ =\ \mbox{\hyperlink{namespacehmap_ad21b93a34c88a47d6b54f3a4d5b65e6ea671262171ccce9633cc42db046ea63d4}{hmap::StorageMode::VA\_DISK\_LRU}};}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ const\ auto\ storage\_mode\ =\ hmap::StorageMode::VA\_DISK\_LRU\_MIN;}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ const\ auto\ storage\_mode\ =\ hmap::StorageMode::VA\_DISK\_SEQUENTIAL;}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ foreach\_mode\ =\ \mbox{\hyperlink{namespacehmap_ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5}{hmap::ForEachMode::VA\_DISTRIBUTED}};}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ const\ auto\ foreach\_mode\ =\ hmap::ForEachMode::VA\_SEQUENTIAL;}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ const\ auto\ foreach\_mode\ =\ hmap::ForEachMode::VA\_SINGLE\_ARRAY;}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ const\ auto\ foreach\_mode\ =\ hmap::ForEachMode::VA\_SINGLE\_ARRAY\_DOWNSCALED;}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ComputeMode}{hmap::ComputeMode}}\ cm\{.\mbox{\hyperlink{structhmap_1_1ComputeMode_a88f263de26dea2af6e22e2d4f5f02cab}{mode}}\ =\ foreach\_mode,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .trim\_storage\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .stride\ =\ 1\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{structhmap_1_1VirtualArray}{hmap::VirtualArray}}\ z0\_va(\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ bbox,\ tile\_shape,\ halo,\ storage\_mode);}
+\DoxyCodeLine{\ \ \ \ z0\_va.from\_array(z0,\ cm);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ ze\_va\ =\ \mbox{\hyperlink{namespacehmap_1_1va_a3adeba07cda0636b18fd80371eb59f03}{hmap::va::hydraulic\_saleve}}(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ cm,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ z0\_va,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ++seed,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ control\_points\_count,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ m\_exp,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ uplift\_rate,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ tolerance,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ max\_iterations,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ smin,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ smax,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ strength,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ scale\_erodibility\_with\_z,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ erodibility\_distrib\_exp,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ noise\_strength,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ enable\_post\_slope\_limiter\ */}\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ post\_slope\_limit\ */}\ 0.f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ enable\_post\_smoothing\ */}\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278}{hmap::InterpolationMethod2D::ITP2D\_DELAUNAY\_GRADIENT}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ ze\_va.to\_array(cm).to\_png(\textcolor{stringliteral}{"{}out\_ze\_va.png"{}},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced}{hmap::Cmap::JET}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\ \ \}}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}
@@ -35512,11 +35612,25 @@ The resulting order is not guaranteed to be preserved.
 \doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily std\+::string hmap\+::to\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacehmap_ae383414b46ae8992e621c407f09ce7c5}{For\+Each\+Mode}}}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\Hypertarget{namespacehmap_a4216f86be919aeb4a2cb6aab44609a71}\label{namespacehmap_a4216f86be919aeb4a2cb6aab44609a71} 
+\Hypertarget{namespacehmap_a4f31242a99ef8fd6e098eb319438eca4}\label{namespacehmap_a4f31242a99ef8fd6e098eb319438eca4} 
 \index{hmap@{hmap}!copy\_data@{copy\_data}}
 \index{copy\_data@{copy\_data}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{copy\_data()}{copy\_data()}}
-{\footnotesize\ttfamily void hmap\+::copy\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{src,  }\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{dst,  }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void hmap\+::copy\+\_\+data (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{src,  }\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{dst,  }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacehmap_abc392f1014a9b32b8d2c760b58940e06}\label{namespacehmap_abc392f1014a9b32b8d2c760b58940e06} 
+\index{hmap@{hmap}!unpack\_impl@{unpack\_impl}}
+\index{unpack\_impl@{unpack\_impl}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{unpack\_impl()}{unpack\_impl()}}
+{\footnotesize\ttfamily template$<$std\+::size\+\_\+t N, typename T , std\+::size\+\_\+t... Is$>$ \\
+auto hmap\+::unpack\+\_\+impl (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ T \texorpdfstring{$\ast$}{*} $>$ \&}]{v,  }\item[{std\+::index\+\_\+sequence$<$ Is... $>$}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacehmap_a5b780b7b211653ed8a279ab553e7651f}\label{namespacehmap_a5b780b7b211653ed8a279ab553e7651f} 
+\index{hmap@{hmap}!unpack@{unpack}}
+\index{unpack@{unpack}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{unpack()}{unpack()}}
+{\footnotesize\ttfamily template$<$std\+::size\+\_\+t N, typename T $>$ \\
+auto hmap\+::unpack (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ T \texorpdfstring{$\ast$}{*} $>$ \&}]{v }\end{DoxyParamCaption})}
 
 \Hypertarget{namespacehmap_af66b37de86e8de6261ab902110b118a0}\label{namespacehmap_af66b37de86e8de6261ab902110b118a0} 
 \index{hmap@{hmap}!convert\_texture\_channels@{convert\_texture\_channels}}

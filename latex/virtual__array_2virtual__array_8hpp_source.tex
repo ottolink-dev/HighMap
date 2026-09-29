@@ -101,9 +101,9 @@
 \DoxyCodeLine{00102\ }
 \DoxyCodeLine{00103\ \ \ std::unique\_ptr<VirtualArray>\ \mbox{\hyperlink{structhmap_1_1VirtualArray_ab62c06317c15b733a4274a11eba5c8e7}{clone}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ComputeMode}{ComputeMode}}\ \&cm,}
 \DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ deep\_copy\ =\ \textcolor{keyword}{false});}
-\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1VirtualArray_a480907077a0c4748ed6f5894226471ac}{copy\_from}}(\mbox{\hyperlink{structhmap_1_1VirtualArray}{VirtualArray}}\ \ \ \ \ \ \&src,}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ComputeMode}{ComputeMode}}\ \&cm,}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ copy\_src\_data\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1VirtualArray_a9ce3eecae0639f28b2784e9e1003d1bb}{copy\_from}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1VirtualArray}{VirtualArray}}\ \&src,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ComputeMode}{ComputeMode}}\ \ \&cm,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ copy\_src\_data\ =\ \textcolor{keyword}{true});}
 \DoxyCodeLine{00108\ }
 \DoxyCodeLine{00109\ \ \ \textcolor{comment}{//\ -\/-\/-\/\ Access\ individual\ cells\ (slower)}}
 \DoxyCodeLine{00110\ }
@@ -174,8 +174,23 @@
 \DoxyCodeLine{00175\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{virtual__array_8inl}{highmap/virtual\_array/virtual\_array.inl}}"{}}}
 \DoxyCodeLine{00176\ }
 \DoxyCodeLine{00177\ \textcolor{comment}{//\ functions}}
-\DoxyCodeLine{00178\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_a4216f86be919aeb4a2cb6aab44609a71}{copy\_data}}(\mbox{\hyperlink{structhmap_1_1VirtualArray}{VirtualArray}}\ \&src,\ \mbox{\hyperlink{structhmap_1_1VirtualArray}{VirtualArray}}\ \&dst,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ComputeMode}{ComputeMode}}\ \&cm);}
-\DoxyCodeLine{00179\ }
-\DoxyCodeLine{00180\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+\DoxyCodeLine{00178\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_a4f31242a99ef8fd6e098eb319438eca4}{copy\_data}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1VirtualArray}{VirtualArray}}\ \&src,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1VirtualArray}{VirtualArray}}\ \ \ \ \ \ \ \&dst,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ComputeMode}{ComputeMode}}\ \ \&cm);}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{comment}{//\ unpack\ vectors\ helper}}
+\DoxyCodeLine{00183\ \textcolor{keyword}{template}\ <std::size\_t\ N,\ \textcolor{keyword}{typename}\ T,\ std::size\_t...\ Is>}
+\DoxyCodeLine{00184\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespacehmap_abc392f1014a9b32b8d2c760b58940e06}{unpack\_impl}}(\textcolor{keyword}{const}\ std::vector<T\ *>\ \&v,\ std::index\_sequence<Is...>)}
+\DoxyCodeLine{00185\ \{}
+\DoxyCodeLine{00186\ \ \ assert(v.size()\ >=\ N);}
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordflow}{return}\ std::make\_tuple(v[Is]...);}
+\DoxyCodeLine{00188\ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{keyword}{template}\ <std::\textcolor{keywordtype}{size\_t}\ N,\ \textcolor{keyword}{typename}\ T>\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespacehmap_a5b780b7b211653ed8a279ab553e7651f}{unpack}}(\textcolor{keyword}{const}\ std::vector<T\ *>\ \&v)}
+\DoxyCodeLine{00191\ \{}
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordflow}{return}\ unpack\_impl<N>(v,\ std::make\_index\_sequence<N>\{\});}
+\DoxyCodeLine{00193\ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
 
 \end{DoxyCode}

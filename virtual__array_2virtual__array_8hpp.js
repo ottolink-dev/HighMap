@@ -18,5 +18,7 @@ var virtual__array_2virtual__array_8hpp =
       [ "VA_SINGLE_ARRAY_DOWNSCALED", "virtual__array_2virtual__array_8hpp.html#ae383414b46ae8992e621c407f09ce7c5a3c2aed0c2a4eb46f0bd37dc7741b17c8", null ]
     ] ],
     [ "to_string", "virtual__array_2virtual__array_8hpp.html#af8dc7ce1ae44750316d846345854c408", null ],
-    [ "copy_data", "virtual__array_2virtual__array_8hpp.html#a4216f86be919aeb4a2cb6aab44609a71", null ]
+    [ "copy_data", "virtual__array_2virtual__array_8hpp.html#a4f31242a99ef8fd6e098eb319438eca4", null ],
+    [ "unpack_impl", "virtual__array_2virtual__array_8hpp.html#abc392f1014a9b32b8d2c760b58940e06", null ],
+    [ "unpack", "virtual__array_2virtual__array_8hpp.html#a5b780b7b211653ed8a279ab553e7651f", null ]
 ];
