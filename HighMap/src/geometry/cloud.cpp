@@ -825,6 +825,18 @@ Cloud random_cloud_density(size_t           count,
   return Cloud(xy[0], xy[1], v);
 }
 
+Cloud random_cloud_inverse_sampling(size_t           count,
+                                    const Array     &density,
+                                    std::uint32_t    seed,
+                                    const glm::vec4 &bbox)
+{
+  if (!validate_non_empty(density)) return Cloud();
+
+  auto xy = random_points_inverse_sampling(count, density, seed, bbox);
+  auto v = random_vector(0.f, 1.f, xy[0].size(), ++seed);
+  return Cloud(xy[0], xy[1], v);
+}
+
 Cloud random_cloud_distance(float            min_dist,
                             std::uint32_t    seed,
                             const glm::vec4 &bbox)

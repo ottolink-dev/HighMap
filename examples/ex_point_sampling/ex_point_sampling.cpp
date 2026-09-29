@@ -44,10 +44,23 @@ int main(void)
     // auto        xy = hmap::random_points_density(count, density, seed);
     // hmap::Cloud cloud(xy[0], xy[1], 1.f /* value */);
 
+    // rejection sampling
     hmap::Cloud cloud = hmap::random_cloud_density(count, density, seed);
 
     cloud.to_array(raster);
     zs.push_back(raster);
+
+    std::cout << "cloud_density count: " << cloud.size() << "\n";
+
+    // inverse transform sampling
+    raster = 0.f;
+    hmap::Cloud cloud_inv = hmap::random_cloud_inverse_sampling(count,
+                                                                density,
+                                                                seed);
+    cloud_inv.to_array(raster);
+    zs.push_back(raster);
+
+    std::cout << "cloud_inv count: " << cloud_inv.size() << "\n";
 
     // filter
     cloud = hmap::random_cloud(count,
@@ -56,8 +69,11 @@ int main(void)
 
     hmap::rejection_filter_density(cloud, density, seed);
 
+    raster = 0.f;
     cloud.to_array(raster);
     zs.push_back(raster);
+
+    std::cout << "cloud_rejection count: " << cloud.size() << "\n";
 
     hmap::export_banner_png("ex_point_sampling1.png", zs, hmap::Cmap::BONE);
   }

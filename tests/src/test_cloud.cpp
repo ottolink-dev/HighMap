@@ -448,3 +448,42 @@ TEST(CloudTest, ToArrayDegenerateBBoxSafe)
   // Degenerate bbox (width = 0, height = 0)
   EXPECT_NO_THROW(cloud.to_array(array, {0.f, 0.f, 0.f, 0.f}));
 }
+
+TEST(CloudTest, InverseSamplingPointsAndCloud)
+{
+  glm::ivec2 shape = {32, 32};
+  Array      density(shape, 0.f);
+
+  // Set non-zero density in top-right quadrant
+  for (int y = 16; y < 32; ++y)
+    for (int x = 16; x < 32; ++x)
+      density(x, y) = 1.f;
+
+  size_t count = 500;
+  auto   pts = random_points_inverse_sampling(count,
+                                            density,
+                                            123,
+                                              {0.f, 1.f, 0.f, 1.f});
+
+  EXPECT_EQ(pts[0].size(), count);
+  EXPECT_EQ(pts[1].size(), count);
+
+  for (size_t k = 0; k < count; ++k)
+  {
+    EXPECT_GE(pts[0][k], 0.f);
+    EXPECT_LE(pts[0][k], 1.f);
+    EXPECT_GE(pts[1][k], 0.f);
+    EXPECT_LE(pts[1][k], 1.f);
+  }
+
+  Cloud cloud = random_cloud_inverse_sampling(count,
+                                              density,
+                                              123,
+                                              {0.f, 1.f, 0.f, 1.f});
+  EXPECT_EQ(cloud.size(), count);
+
+  // Empty array case
+  Array empty_arr;
+  EXPECT_TRUE(random_points_inverse_sampling(count, empty_arr, 123)[0].empty());
+  EXPECT_TRUE(random_cloud_inverse_sampling(count, empty_arr, 123).empty());
+}
