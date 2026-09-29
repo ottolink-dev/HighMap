@@ -39,6 +39,7 @@
     <innerclass refid="structhmap_1_1ImageWriterConfig" prot="public">hmap::ImageWriterConfig</innerclass>
     <innerclass refid="classhmap_1_1Interpolator1D" prot="public">hmap::Interpolator1D</innerclass>
     <innerclass refid="classhmap_1_1InterpolatorCurve" prot="public">hmap::InterpolatorCurve</innerclass>
+    <innerclass refid="classhmap_1_1InverseSampler2D" prot="public">hmap::InverseSampler2D</innerclass>
     <innerclass refid="structhmap_1_1IVec2Eq" prot="public">hmap::IVec2Eq</innerclass>
     <innerclass refid="structhmap_1_1IVec2Hash" prot="public">hmap::IVec2Hash</innerclass>
     <innerclass refid="structhmap_1_1IVec4Eq" prot="public">hmap::IVec4Eq</innerclass>
@@ -1053,7 +1054,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/point_sampling.hpp" line="31" column="1" bodyfile="HighMap/include/highmap/geometry/point_sampling.hpp" bodystart="32" bodyend="37"/>
+        <location file="HighMap/include/highmap/geometry/point_sampling.hpp" line="33" column="1" bodyfile="HighMap/include/highmap/geometry/point_sampling.hpp" bodystart="34" bodyend="39"/>
       </memberdef>
       <memberdef kind="enum" id="namespacehmap_1a0c714c7fa78e9384806de52a5d039f2f" prot="public" static="no" strong="no">
         <type>int</type>
@@ -2451,7 +2452,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/point_sampling.hpp" line="45" column="17" bodyfile="HighMap/include/highmap/geometry/point_sampling.hpp" bodystart="45" bodyend="50"/>
+        <location file="HighMap/include/highmap/geometry/point_sampling.hpp" line="47" column="17" bodyfile="HighMap/include/highmap/geometry/point_sampling.hpp" bodystart="47" bodyend="52"/>
       </memberdef>
       <memberdef kind="variable" id="namespacehmap_1a2828152429273d081863dfafb293b0b6" prot="public" static="yes" mutable="no">
         <type>std::map&lt; std::string, int &gt;</type>
@@ -24660,7 +24661,7 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_density<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling<sp/>(batch)</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud_inv<sp/>=<sp/><ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">hmap::random_cloud_inverse_sampling</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>density,</highlight></codeline>
@@ -24669,6 +24670,42 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_inv<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_inv.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>sequential<sp/>inverse<sp/>transform<sp/>sampling<sp/>with<sp/>dynamic<sp/>local<sp/>updates<sp/>(e.g.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>repelling<sp/>radius)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1InverseSampler2D" kindref="compound">hmap::InverseSampler2D</ref><sp/>seq_sampler(density,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>inhibit_r<sp/>=<sp/>4;<sp/></highlight><highlight class="comment">//<sp/>grid<sp/>radius<sp/>to<sp/>depress<sp/>after<sp/>each<sp/>point</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/><ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>;<sp/>++k)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec2<sp/>p<sp/>=<sp/>seq_sampler.sample();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">hmap::Point</ref>(p.x,<sp/>p.y,<sp/>1.f));</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Depress<sp/>density<sp/>around<sp/>the<sp/>sampled<sp/>point<sp/>on<sp/>the<sp/>grid</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cx<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.x<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cy<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.y<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seq_sampler.update_region(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[cx,<sp/>cy,<sp/>inhibit_r](</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cur)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">((<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(inhibit_r<sp/>*<sp/>inhibit_r);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(d2<sp/>&lt;<sp/>r2)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>factor<sp/>=<sp/>d2<sp/>/<sp/>r2;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur<sp/>*<sp/>factor;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cx<sp/>-<sp/>inhibit_r,<sp/>cx<sp/>+<sp/>inhibit_r},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cy<sp/>-<sp/>inhibit_r,<sp/>cy<sp/>+<sp/>inhibit_r});</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1a36e47d4857108c56193755e32374184d" kindref="member">to_array</ref>(raster);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_seq<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>filter</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud<sp/>=<sp/><ref refid="namespacehmap_1ac56218126b8f4fafd161848508bb040b" kindref="member">hmap::random_cloud</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
@@ -24883,7 +24920,7 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_density<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling<sp/>(batch)</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud_inv<sp/>=<sp/><ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">hmap::random_cloud_inverse_sampling</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>density,</highlight></codeline>
@@ -24892,6 +24929,42 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_inv<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_inv.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>sequential<sp/>inverse<sp/>transform<sp/>sampling<sp/>with<sp/>dynamic<sp/>local<sp/>updates<sp/>(e.g.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>repelling<sp/>radius)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1InverseSampler2D" kindref="compound">hmap::InverseSampler2D</ref><sp/>seq_sampler(density,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>inhibit_r<sp/>=<sp/>4;<sp/></highlight><highlight class="comment">//<sp/>grid<sp/>radius<sp/>to<sp/>depress<sp/>after<sp/>each<sp/>point</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/><ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>;<sp/>++k)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec2<sp/>p<sp/>=<sp/>seq_sampler.sample();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">hmap::Point</ref>(p.x,<sp/>p.y,<sp/>1.f));</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Depress<sp/>density<sp/>around<sp/>the<sp/>sampled<sp/>point<sp/>on<sp/>the<sp/>grid</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cx<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.x<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cy<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.y<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seq_sampler.update_region(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[cx,<sp/>cy,<sp/>inhibit_r](</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cur)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">((<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(inhibit_r<sp/>*<sp/>inhibit_r);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(d2<sp/>&lt;<sp/>r2)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>factor<sp/>=<sp/>d2<sp/>/<sp/>r2;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur<sp/>*<sp/>factor;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cx<sp/>-<sp/>inhibit_r,<sp/>cx<sp/>+<sp/>inhibit_r},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cy<sp/>-<sp/>inhibit_r,<sp/>cy<sp/>+<sp/>inhibit_r});</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1a36e47d4857108c56193755e32374184d" kindref="member">to_array</ref>(raster);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_seq<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>filter</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud<sp/>=<sp/><ref refid="namespacehmap_1ac56218126b8f4fafd161848508bb040b" kindref="member">hmap::random_cloud</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
@@ -25162,7 +25235,7 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_density<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling<sp/>(batch)</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud_inv<sp/>=<sp/><ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">hmap::random_cloud_inverse_sampling</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>density,</highlight></codeline>
@@ -25171,6 +25244,42 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_inv<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_inv.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>sequential<sp/>inverse<sp/>transform<sp/>sampling<sp/>with<sp/>dynamic<sp/>local<sp/>updates<sp/>(e.g.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>repelling<sp/>radius)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1InverseSampler2D" kindref="compound">hmap::InverseSampler2D</ref><sp/>seq_sampler(density,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>inhibit_r<sp/>=<sp/>4;<sp/></highlight><highlight class="comment">//<sp/>grid<sp/>radius<sp/>to<sp/>depress<sp/>after<sp/>each<sp/>point</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/><ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>;<sp/>++k)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec2<sp/>p<sp/>=<sp/>seq_sampler.sample();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">hmap::Point</ref>(p.x,<sp/>p.y,<sp/>1.f));</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Depress<sp/>density<sp/>around<sp/>the<sp/>sampled<sp/>point<sp/>on<sp/>the<sp/>grid</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cx<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.x<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cy<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.y<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seq_sampler.update_region(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[cx,<sp/>cy,<sp/>inhibit_r](</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cur)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">((<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(inhibit_r<sp/>*<sp/>inhibit_r);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(d2<sp/>&lt;<sp/>r2)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>factor<sp/>=<sp/>d2<sp/>/<sp/>r2;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur<sp/>*<sp/>factor;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cx<sp/>-<sp/>inhibit_r,<sp/>cx<sp/>+<sp/>inhibit_r},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cy<sp/>-<sp/>inhibit_r,<sp/>cy<sp/>+<sp/>inhibit_r});</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1a36e47d4857108c56193755e32374184d" kindref="member">to_array</ref>(raster);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_seq<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>filter</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud<sp/>=<sp/><ref refid="namespacehmap_1ac56218126b8f4fafd161848508bb040b" kindref="member">hmap::random_cloud</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
@@ -25397,7 +25506,7 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_density<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling<sp/>(batch)</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud_inv<sp/>=<sp/><ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">hmap::random_cloud_inverse_sampling</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>density,</highlight></codeline>
@@ -25406,6 +25515,42 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_inv<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_inv.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>sequential<sp/>inverse<sp/>transform<sp/>sampling<sp/>with<sp/>dynamic<sp/>local<sp/>updates<sp/>(e.g.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>repelling<sp/>radius)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1InverseSampler2D" kindref="compound">hmap::InverseSampler2D</ref><sp/>seq_sampler(density,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>inhibit_r<sp/>=<sp/>4;<sp/></highlight><highlight class="comment">//<sp/>grid<sp/>radius<sp/>to<sp/>depress<sp/>after<sp/>each<sp/>point</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/><ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>;<sp/>++k)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec2<sp/>p<sp/>=<sp/>seq_sampler.sample();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">hmap::Point</ref>(p.x,<sp/>p.y,<sp/>1.f));</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Depress<sp/>density<sp/>around<sp/>the<sp/>sampled<sp/>point<sp/>on<sp/>the<sp/>grid</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cx<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.x<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cy<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.y<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seq_sampler.update_region(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[cx,<sp/>cy,<sp/>inhibit_r](</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cur)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">((<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(inhibit_r<sp/>*<sp/>inhibit_r);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(d2<sp/>&lt;<sp/>r2)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>factor<sp/>=<sp/>d2<sp/>/<sp/>r2;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur<sp/>*<sp/>factor;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cx<sp/>-<sp/>inhibit_r,<sp/>cx<sp/>+<sp/>inhibit_r},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cy<sp/>-<sp/>inhibit_r,<sp/>cy<sp/>+<sp/>inhibit_r});</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1a36e47d4857108c56193755e32374184d" kindref="member">to_array</ref>(raster);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_seq<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>filter</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud<sp/>=<sp/><ref refid="namespacehmap_1ac56218126b8f4fafd161848508bb040b" kindref="member">hmap::random_cloud</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
@@ -25632,7 +25777,7 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_density<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling<sp/>(batch)</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud_inv<sp/>=<sp/><ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">hmap::random_cloud_inverse_sampling</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>density,</highlight></codeline>
@@ -25641,6 +25786,42 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_inv<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_inv.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>sequential<sp/>inverse<sp/>transform<sp/>sampling<sp/>with<sp/>dynamic<sp/>local<sp/>updates<sp/>(e.g.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>repelling<sp/>radius)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1InverseSampler2D" kindref="compound">hmap::InverseSampler2D</ref><sp/>seq_sampler(density,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>inhibit_r<sp/>=<sp/>4;<sp/></highlight><highlight class="comment">//<sp/>grid<sp/>radius<sp/>to<sp/>depress<sp/>after<sp/>each<sp/>point</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/><ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>;<sp/>++k)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec2<sp/>p<sp/>=<sp/>seq_sampler.sample();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">hmap::Point</ref>(p.x,<sp/>p.y,<sp/>1.f));</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Depress<sp/>density<sp/>around<sp/>the<sp/>sampled<sp/>point<sp/>on<sp/>the<sp/>grid</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cx<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.x<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cy<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.y<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seq_sampler.update_region(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[cx,<sp/>cy,<sp/>inhibit_r](</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cur)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">((<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(inhibit_r<sp/>*<sp/>inhibit_r);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(d2<sp/>&lt;<sp/>r2)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>factor<sp/>=<sp/>d2<sp/>/<sp/>r2;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur<sp/>*<sp/>factor;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cx<sp/>-<sp/>inhibit_r,<sp/>cx<sp/>+<sp/>inhibit_r},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cy<sp/>-<sp/>inhibit_r,<sp/>cy<sp/>+<sp/>inhibit_r});</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1a36e47d4857108c56193755e32374184d" kindref="member">to_array</ref>(raster);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_seq<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>filter</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud<sp/>=<sp/><ref refid="namespacehmap_1ac56218126b8f4fafd161848508bb040b" kindref="member">hmap::random_cloud</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
@@ -25867,7 +26048,7 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_density<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling<sp/>(batch)</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud_inv<sp/>=<sp/><ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">hmap::random_cloud_inverse_sampling</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>density,</highlight></codeline>
@@ -25876,6 +26057,42 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_inv<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_inv.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>sequential<sp/>inverse<sp/>transform<sp/>sampling<sp/>with<sp/>dynamic<sp/>local<sp/>updates<sp/>(e.g.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>repelling<sp/>radius)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1InverseSampler2D" kindref="compound">hmap::InverseSampler2D</ref><sp/>seq_sampler(density,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>inhibit_r<sp/>=<sp/>4;<sp/></highlight><highlight class="comment">//<sp/>grid<sp/>radius<sp/>to<sp/>depress<sp/>after<sp/>each<sp/>point</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/><ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>;<sp/>++k)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec2<sp/>p<sp/>=<sp/>seq_sampler.sample();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">hmap::Point</ref>(p.x,<sp/>p.y,<sp/>1.f));</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Depress<sp/>density<sp/>around<sp/>the<sp/>sampled<sp/>point<sp/>on<sp/>the<sp/>grid</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cx<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.x<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cy<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.y<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seq_sampler.update_region(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[cx,<sp/>cy,<sp/>inhibit_r](</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cur)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">((<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(inhibit_r<sp/>*<sp/>inhibit_r);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(d2<sp/>&lt;<sp/>r2)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>factor<sp/>=<sp/>d2<sp/>/<sp/>r2;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur<sp/>*<sp/>factor;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cx<sp/>-<sp/>inhibit_r,<sp/>cx<sp/>+<sp/>inhibit_r},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cy<sp/>-<sp/>inhibit_r,<sp/>cy<sp/>+<sp/>inhibit_r});</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1a36e47d4857108c56193755e32374184d" kindref="member">to_array</ref>(raster);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_seq<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>filter</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud<sp/>=<sp/><ref refid="namespacehmap_1ac56218126b8f4fafd161848508bb040b" kindref="member">hmap::random_cloud</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
@@ -26102,7 +26319,7 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_density<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>inverse<sp/>transform<sp/>sampling<sp/>(batch)</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud_inv<sp/>=<sp/><ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">hmap::random_cloud_inverse_sampling</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>density,</highlight></codeline>
@@ -26111,6 +26328,42 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_inv<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_inv.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>sequential<sp/>inverse<sp/>transform<sp/>sampling<sp/>with<sp/>dynamic<sp/>local<sp/>updates<sp/>(e.g.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>repelling<sp/>radius)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>raster<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1InverseSampler2D" kindref="compound">hmap::InverseSampler2D</ref><sp/>seq_sampler(density,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>inhibit_r<sp/>=<sp/>4;<sp/></highlight><highlight class="comment">//<sp/>grid<sp/>radius<sp/>to<sp/>depress<sp/>after<sp/>each<sp/>point</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/><ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>;<sp/>++k)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec2<sp/>p<sp/>=<sp/>seq_sampler.sample();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">hmap::Point</ref>(p.x,<sp/>p.y,<sp/>1.f));</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Depress<sp/>density<sp/>around<sp/>the<sp/>sampled<sp/>point<sp/>on<sp/>the<sp/>grid</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cx<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.x<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cy<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(p.y<sp/>*<sp/>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y<sp/>-<sp/>1));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seq_sampler.update_region(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[cx,<sp/>cy,<sp/>inhibit_r](</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cur)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">((<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>cx)<sp/>+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy)<sp/>*<sp/>(<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>-<sp/>cy));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r2<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(inhibit_r<sp/>*<sp/>inhibit_r);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(d2<sp/>&lt;<sp/>r2)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>factor<sp/>=<sp/>d2<sp/>/<sp/>r2;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur<sp/>*<sp/>factor;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cur;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cx<sp/>-<sp/>inhibit_r,<sp/>cx<sp/>+<sp/>inhibit_r},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{cy<sp/>-<sp/>inhibit_r,<sp/>cy<sp/>+<sp/>inhibit_r});</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1a36e47d4857108c56193755e32374184d" kindref="member">to_array</ref>(raster);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>zs.push_back(raster);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;cloud_seq<sp/>count:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cloud_seq.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>filter</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cloud<sp/>=<sp/><ref refid="namespacehmap_1ac56218126b8f4fafd161848508bb040b" kindref="member">hmap::random_cloud</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
@@ -29684,7 +29937,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="37" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="37" bodyend="43" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="65" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="37" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="37" bodyend="43" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="67" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a549a837963a123060e2d7622d313fb57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -29750,7 +30003,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/grid.cpp" line="29" column="6" bodyfile="HighMap/src/geometry/grid.cpp" bodystart="29" bodyend="55" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="75" declcolumn="6"/>
+        <location file="HighMap/src/geometry/grid.cpp" line="29" column="6" bodyfile="HighMap/src/geometry/grid.cpp" bodystart="29" bodyend="55" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="77" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aaaa3b5f379755d9595ed061a17acb4f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -29829,7 +30082,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/grid.cpp" line="57" column="6" bodyfile="HighMap/src/geometry/grid.cpp" bodystart="57" bodyend="89" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="89" declcolumn="6"/>
+        <location file="HighMap/src/geometry/grid.cpp" line="57" column="6" bodyfile="HighMap/src/geometry/grid.cpp" bodystart="57" bodyend="89" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="91" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a65287c503ca74fa5c00201404f4e0aca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -29908,7 +30161,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/grid.cpp" line="91" column="6" bodyfile="HighMap/src/geometry/grid.cpp" bodystart="91" bodyend="109" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="104" declcolumn="6"/>
+        <location file="HighMap/src/geometry/grid.cpp" line="91" column="6" bodyfile="HighMap/src/geometry/grid.cpp" bodystart="91" bodyend="109" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="106" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a0d2c7cec42fe990f214a1b74da57cd00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::function&lt; float(const ps::Point&lt; float, 2 &gt; &amp;)&gt;</type>
@@ -29961,7 +30214,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="46" column="1" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="46" bodyend="69" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="137" declcolumn="1"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="46" column="1" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="46" bodyend="69" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="139" declcolumn="1"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ad8f245a50151b4e2216e97eaaa786ad7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
@@ -30030,7 +30283,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="71" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="71" bodyend="109" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="152" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="71" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="71" bodyend="109" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="154" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a208e935aeb1a6e615dd9dd067afe0a62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
@@ -30099,7 +30352,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="111" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="111" bodyend="127" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="172" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="111" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="111" bodyend="127" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="174" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ae12837cb378af86d9842f43cf248b7d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
@@ -30168,7 +30421,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="129" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="129" bodyend="238" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="193" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="129" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="129" bodyend="140" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="195" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aca9e5ce3b366a082ed8c329bf15b09d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
@@ -30225,7 +30478,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="240" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="240" bodyend="252" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="212" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="142" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="142" bodyend="154" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="214" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac8b167ac3c9b716b0a20f6b9f669dd8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
@@ -30306,7 +30559,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="254" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="254" bodyend="279" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="233" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="156" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="156" bodyend="181" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="235" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ade5a657c15f8f2461c5300e32ca697c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
@@ -30387,7 +30640,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="281" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="281" bodyend="298" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="256" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="183" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="183" bodyend="200" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="258" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9cd51142544036bc8ce9c679547e9c65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
@@ -30468,7 +30721,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="300" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="300" bodyend="317" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="279" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="202" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="202" bodyend="219" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="281" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ae392bc0ed44e2a201a9e42e28305debf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
@@ -30549,7 +30802,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="319" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="319" bodyend="332" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="301" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="221" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="221" bodyend="234" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="303" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aaab30ec56f0dbaf1879a5be0ab32280b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -30615,7 +30868,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/point_sampling.hpp" line="315" column="6" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="315" declcolumn="6"/>
+        <location file="HighMap/include/highmap/geometry/point_sampling.hpp" line="317" column="6" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="317" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a22d70a0b62d7e1d8eeb9bc5e50bc5fe9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -30670,7 +30923,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/grid.cpp" line="162" column="6" bodyfile="HighMap/src/geometry/grid.cpp" bodystart="162" bodyend="190" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="327" declcolumn="6"/>
+        <location file="HighMap/src/geometry/grid.cpp" line="162" column="6" bodyfile="HighMap/src/geometry/grid.cpp" bodystart="162" bodyend="190" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="329" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a27518ea42feb447ad4eb83147663c24d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

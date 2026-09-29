@@ -1,0 +1,567 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classhmap_1_1InverseSampler2D" kind="class" language="C++" prot="public">
+    <compoundname>hmap::InverseSampler2D</compoundname>
+    <includes refid="inverse__sampler__2d_8hpp" local="no">inverse_sampler_2d.hpp</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhmap_1_1InverseSampler2D_1ad7cf94cb70567be20c947cf136f0a645" prot="private" static="no" mutable="no">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::InverseSampler2D::density_</definition>
+        <argsstring></argsstring>
+        <name>density_</name>
+        <qualifiedname>hmap::InverseSampler2D::density_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="153" column="41" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1InverseSampler2D_1a1d0bef910bee68d12d28f440407d6a94" prot="private" static="no" mutable="no">
+        <type>glm::vec4</type>
+        <definition>glm::vec4 hmap::InverseSampler2D::bbox_</definition>
+        <argsstring></argsstring>
+        <name>bbox_</name>
+        <qualifiedname>hmap::InverseSampler2D::bbox_</qualifiedname>
+        <initializer>= {0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="154" column="41" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="154" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1InverseSampler2D_1a6b640f1d045520982d7b0edf22dc42f4" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; hmap::InverseSampler2D::row_sums_</definition>
+        <argsstring></argsstring>
+        <name>row_sums_</name>
+        <qualifiedname>hmap::InverseSampler2D::row_sums_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="155" column="34" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1InverseSampler2D_1a9663f0185e557598c628b5c1a4a5859e" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; hmap::InverseSampler2D::r_cdf_</definition>
+        <argsstring></argsstring>
+        <name>r_cdf_</name>
+        <qualifiedname>hmap::InverseSampler2D::r_cdf_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="156" column="34" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1InverseSampler2D_1ae5172a1bc659b26edb1c5d0061487bbb" prot="private" static="no" mutable="no">
+        <type>std::mt19937</type>
+        <definition>std::mt19937 hmap::InverseSampler2D::rng_</definition>
+        <argsstring></argsstring>
+        <name>rng_</name>
+        <qualifiedname>hmap::InverseSampler2D::rng_</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="157" column="41" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="157" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1InverseSampler2D_1aed53ad9c099d99915ddeac338643d121" prot="private" static="no" mutable="no">
+        <type>std::uniform_real_distribution&lt; float &gt;</type>
+        <definition>std::uniform_real_distribution&lt;float&gt; hmap::InverseSampler2D::dist_</definition>
+        <argsstring></argsstring>
+        <name>dist_</name>
+        <qualifiedname>hmap::InverseSampler2D::dist_</qualifiedname>
+        <initializer>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="158" column="34" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="158" bodyend="158"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1a954da8aa0eeb1a0309093f793a521ea5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hmap::InverseSampler2D::InverseSampler2D</definition>
+        <argsstring>()=default</argsstring>
+        <name>InverseSampler2D</name>
+        <qualifiedname>hmap::InverseSampler2D::InverseSampler2D</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="40" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1afebac5bcbfe00b292dfc4d60842d9cab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hmap::InverseSampler2D::InverseSampler2D</definition>
+        <argsstring>(const Array &amp;density, std::uint32_t seed=0, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>InverseSampler2D</name>
+        <qualifiedname>hmap::InverseSampler2D::InverseSampler2D</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>density</declname>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const glm::vec4 &amp;</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Constructs an inverse sampler for a 2D density array. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>2D density array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random number generator seed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box (xmin, xmax, ymin, ymax). Defaults to unit square. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="50" column="3" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="13" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1ac41cafc646d29404842e7a8158431a49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>glm::vec2</type>
+        <definition>glm::vec2 hmap::InverseSampler2D::sample</definition>
+        <argsstring>()</argsstring>
+        <name>sample</name>
+        <qualifiedname>hmap::InverseSampler2D::sample</qualifiedname>
+        <briefdescription>
+<para>Samples a single point sequentially using the internal RNG. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>2D point coordinates within the bounding box. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="63" column="13" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="74" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1ae9b20270190b81dc01a5f8607fc46f40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>glm::vec2</type>
+        <definition>glm::vec2 hmap::InverseSampler2D::sample</definition>
+        <argsstring>(float u, float u2)</argsstring>
+        <name>sample</name>
+        <qualifiedname>hmap::InverseSampler2D::sample</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>u</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>u2</declname>
+        </param>
+        <briefdescription>
+<para>Samples a single point with user-provided uniform random numbers. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>u</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Uniform random number in [0, 1) for row selection. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>u2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Uniform random number in [0, 1) for column selection. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>2D point coordinates within the bounding box. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="72" column="13" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="79" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1a6fbe2c9ce84700619ce50914111a13d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
+        <definition>std::array&lt; std::vector&lt; float &gt;, 2 &gt; hmap::InverseSampler2D::sample</definition>
+        <argsstring>(size_t count)</argsstring>
+        <name>sample</name>
+        <qualifiedname>hmap::InverseSampler2D::sample</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+<para>Samples multiple points sequentially. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of points to sample. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pair of coordinate vectors {x_coords, y_coords}. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="80" column="14" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="160" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1af79e583520d87ace8894e28e06f20d71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::InverseSampler2D::update_region</definition>
+        <argsstring>(const Array &amp;updated_array, const glm::ivec2 &amp;range_i, const glm::ivec2 &amp;range_j)</argsstring>
+        <name>update_region</name>
+        <qualifiedname>hmap::InverseSampler2D::update_region</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>updated_array</declname>
+        </param>
+        <param>
+          <type>const glm::ivec2 &amp;</type>
+          <declname>range_i</declname>
+        </param>
+        <param>
+          <type>const glm::ivec2 &amp;</type>
+          <declname>range_j</declname>
+        </param>
+        <briefdescription>
+<para>Updates the density in the sub-region [imin, imax] x [jmin, jmax] from another array. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>updated_array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> containing updated density values. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>range_i</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column index range {imin, imax} (inclusive). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>range_j</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row index range {jmin, jmax} (inclusive). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="94" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="185" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1aecc916072e42ac4a42a8d447f26723d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::InverseSampler2D::update_region</definition>
+        <argsstring>(const std::function&lt; float(int i, int j, float current)&gt; &amp;updater, const glm::ivec2 &amp;range_i, const glm::ivec2 &amp;range_j)</argsstring>
+        <name>update_region</name>
+        <qualifiedname>hmap::InverseSampler2D::update_region</qualifiedname>
+        <param>
+          <type>const std::function&lt; float(int <ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>, int <ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>, float current)&gt; &amp;</type>
+          <declname>updater</declname>
+        </param>
+        <param>
+          <type>const glm::ivec2 &amp;</type>
+          <declname>range_i</declname>
+        </param>
+        <param>
+          <type>const glm::ivec2 &amp;</type>
+          <declname>range_j</declname>
+        </param>
+        <briefdescription>
+<para>Updates the density in the sub-region [imin, imax] x [jmin, jmax] using a modifier function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>updater</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback f(i, j, current_val) returning the new density value. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>range_i</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column index range {imin, imax} (inclusive). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>range_j</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row index range {jmin, jmax} (inclusive). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="107" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="218" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1a81b37fb1f46c4b21f838727dd579b897" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::InverseSampler2D::reset</definition>
+        <argsstring>(const Array &amp;density, std::uint32_t seed=0, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>reset</name>
+        <qualifiedname>hmap::InverseSampler2D::reset</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>density</declname>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const glm::vec4 &amp;</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Reinitializes the sampler with a new density array. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>2D density array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random number generator seed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box (xmin, xmax, ymin, ymax). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="119" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="64" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1a4e68f18b865ea72b234a475a506e3d07" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const glm::vec4 &amp;</type>
+        <definition>const glm::vec4 &amp; hmap::InverseSampler2D::get_bbox</definition>
+        <argsstring>() const</argsstring>
+        <name>get_bbox</name>
+        <qualifiedname>hmap::InverseSampler2D::get_bbox</qualifiedname>
+        <briefdescription>
+<para>Gets the bounding box. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="130" column="19" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="21" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1ad2987746ad3c556f2404e688ffc31bf7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+        <definition>const Array &amp; hmap::InverseSampler2D::get_density</definition>
+        <argsstring>() const</argsstring>
+        <name>get_density</name>
+        <qualifiedname>hmap::InverseSampler2D::get_density</qualifiedname>
+        <briefdescription>
+<para>Gets the current density array. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="135" column="15" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="26" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1ae33248c92a5bd80e35291f1e1cea16f8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float hmap::InverseSampler2D::get_total_weight</definition>
+        <argsstring>() const</argsstring>
+        <name>get_total_weight</name>
+        <qualifiedname>hmap::InverseSampler2D::get_total_weight</qualifiedname>
+        <briefdescription>
+<para>Gets the total integrated weight. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="140" column="9" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="31" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1a09b0e81d2bf53b91b95ba3c5f67b5850" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::InverseSampler2D::set_bbox</definition>
+        <argsstring>(const glm::vec4 &amp;bbox)</argsstring>
+        <name>set_bbox</name>
+        <qualifiedname>hmap::InverseSampler2D::set_bbox</qualifiedname>
+        <param>
+          <type>const glm::vec4 &amp;</type>
+          <declname>bbox</declname>
+        </param>
+        <briefdescription>
+<para>Sets the bounding box. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="145" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="175" bodyend="178"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1a13be72189caeb33d362350218aa091f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::InverseSampler2D::set_seed</definition>
+        <argsstring>(std::uint32_t seed)</argsstring>
+        <name>set_seed</name>
+        <qualifiedname>hmap::InverseSampler2D::set_seed</qualifiedname>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+        </param>
+        <briefdescription>
+<para>Sets the RNG seed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="150" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="180" bodyend="183"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1a840b4297f4eeac1e69f79f26d1a1c9be" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::InverseSampler2D::rebuild_cdf</definition>
+        <argsstring>()</argsstring>
+        <name>rebuild_cdf</name>
+        <qualifiedname>hmap::InverseSampler2D::rebuild_cdf</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="160" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="37" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1ade502d3408e8ae3070e33e5f48c43f76" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::InverseSampler2D::update_row_cdf_from</definition>
+        <argsstring>(int jmin)</argsstring>
+        <name>update_row_cdf_from</name>
+        <qualifiedname>hmap::InverseSampler2D::update_row_cdf_from</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>jmin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="161" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="252" bodyend="263"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Sequential 2D inverse transform point sampler based on a 2D density array. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Supports generating points one-by-one and dynamically updating density in local bounding box or index sub-regions [imin, imax] x [jmin, jmax]. </para>
+    </detaileddescription>
+    <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="33" column="1" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="34" bodyend="162"/>
+    <listofallmembers>
+      <member refid="classhmap_1_1InverseSampler2D_1a1d0bef910bee68d12d28f440407d6a94" prot="private" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>bbox_</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1ad7cf94cb70567be20c947cf136f0a645" prot="private" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>density_</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1aed53ad9c099d99915ddeac338643d121" prot="private" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>dist_</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1a4e68f18b865ea72b234a475a506e3d07" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>get_bbox</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1ad2987746ad3c556f2404e688ffc31bf7" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>get_density</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1ae33248c92a5bd80e35291f1e1cea16f8" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>get_total_weight</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1a954da8aa0eeb1a0309093f793a521ea5" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>InverseSampler2D</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1afebac5bcbfe00b292dfc4d60842d9cab" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>InverseSampler2D</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1a9663f0185e557598c628b5c1a4a5859e" prot="private" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>r_cdf_</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1a840b4297f4eeac1e69f79f26d1a1c9be" prot="private" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>rebuild_cdf</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1a81b37fb1f46c4b21f838727dd579b897" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>reset</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1ae5172a1bc659b26edb1c5d0061487bbb" prot="private" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>rng_</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1a6b640f1d045520982d7b0edf22dc42f4" prot="private" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>row_sums_</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1ac41cafc646d29404842e7a8158431a49" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>sample</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1ae9b20270190b81dc01a5f8607fc46f40" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>sample</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1a6fbe2c9ce84700619ce50914111a13d7" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>sample</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1a09b0e81d2bf53b91b95ba3c5f67b5850" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>set_bbox</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1a13be72189caeb33d362350218aa091f0" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>set_seed</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1af79e583520d87ace8894e28e06f20d71" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>update_region</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1aecc916072e42ac4a42a8d447f26723d3" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>update_region</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1ade502d3408e8ae3070e33e5f48c43f76" prot="private" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>update_row_cdf_from</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

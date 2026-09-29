@@ -77,6 +77,7 @@ var hierarchy =
     [ "hmap::OpenEXRWriter::Impl", "structhmap_1_1OpenEXRWriter_1_1Impl.html", null ],
     [ "hmap::Interpolator1D", "classhmap_1_1Interpolator1D.html", null ],
     [ "hmap::InterpolatorCurve", "classhmap_1_1InterpolatorCurve.html", null ],
+    [ "hmap::InverseSampler2D", "classhmap_1_1InverseSampler2D.html", null ],
     [ "hmap::IVec2Eq", "structhmap_1_1IVec2Eq.html", null ],
     [ "hmap::IVec2Hash", "structhmap_1_1IVec2Hash.html", null ],
     [ "hmap::IVec4Eq", "structhmap_1_1IVec4Eq.html", null ],

@@ -679,6 +679,25 @@
         </inbodydescription>
         <location file="tests/src/test_cloud.cpp" line="452" column="1" bodyfile="tests/src/test_cloud.cpp" bodystart="452" bodyend="489"/>
       </memberdef>
+      <memberdef kind="function" id="test__cloud_8cpp_1a32b6a086db4cf0e6569402e0bd273c99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(CloudTest, InverseSampler2DSequentialAndRegionUpdate)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>CloudTest</type>
+        </param>
+        <param>
+          <type>InverseSampler2DSequentialAndRegionUpdate</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_cloud.cpp" line="491" column="1" bodyfile="tests/src/test_cloud.cpp" bodystart="491" bodyend="535"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -1174,6 +1193,52 @@
 <codeline lineno="487"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ae12837cb378af86d9842f43cf248b7d3" kindref="member">random_points_inverse_sampling</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,<sp/>empty_arr,<sp/>123)[0].empty());</highlight></codeline>
 <codeline lineno="488"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">random_cloud_inverse_sampling</ref>(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,<sp/>empty_arr,<sp/>123).empty());</highlight></codeline>
 <codeline lineno="489"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><ref refid="test__cloud_8cpp_1ad2fb29c6c499be88712ced2359b13832" kindref="member">TEST</ref>(CloudTest,<sp/>InverseSampler2DSequentialAndRegionUpdate)</highlight></codeline>
+<codeline lineno="492"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{32,<sp/>32};</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>density(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>1.f);</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"></highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1InverseSampler2D" kindref="compound">InverseSampler2D</ref><sp/>sampler(density,<sp/>42,<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f});</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/>EXPECT_GT(sampler.get_total_weight(),<sp/>0.f);</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"></highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Single<sp/>sample</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>p<sp/>=<sp/>sampler.sample();</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/>EXPECT_GE(p.x,<sp/>0.f);</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/>EXPECT_LE(p.x,<sp/>1.f);</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/>EXPECT_GE(p.y,<sp/>0.f);</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/>EXPECT_LE(p.y,<sp/>1.f);</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Depress<sp/>density<sp/>in<sp/>region<sp/>[0,<sp/>15]<sp/>x<sp/>[0,<sp/>15]<sp/>(bottom-left)<sp/>to<sp/>zero</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/>sampler.update_region([](</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0.f;<sp/>},<sp/>{0,<sp/>15},<sp/>{0,<sp/>15});</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"></highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Sample<sp/>200<sp/>points:<sp/>none<sp/>should<sp/>fall<sp/>in<sp/>[0,<sp/>15/31]<sp/>x<sp/>[0,<sp/>15/31]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>200;<sp/>++k)</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/>glm::vec2<sp/>pt<sp/>=<sp/>sampler.sample();</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_GE(pt.x,<sp/>0.f);</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_LE(pt.x,<sp/>1.f);</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_GE(pt.y,<sp/>0.f);</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_LE(pt.y,<sp/>1.f);</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Should<sp/>not<sp/>be<sp/>inside<sp/>the<sp/>suppressed<sp/>region</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>inside_zero_region<sp/>=<sp/>(pt.x<sp/>&lt;<sp/>14.f<sp/>/<sp/>31.f<sp/>&amp;&amp;<sp/>pt.y<sp/>&lt;<sp/>14.f<sp/>/<sp/>31.f);</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FALSE(inside_zero_region);</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"></highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Update<sp/>region<sp/>from<sp/>another<sp/>array</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>updated(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>0.f);</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref><sp/>=<sp/>0;<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref><sp/>&lt;<sp/>16;<sp/>++<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>)</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref><sp/>=<sp/>0;<sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref><sp/>&lt;<sp/>16;<sp/>++<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>)</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>updated(<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>)<sp/>=<sp/>10.f;</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"></highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/>sampler.update_region(updated,<sp/>{0,<sp/>15},<sp/>{0,<sp/>15});</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/>EXPECT_GT(sampler.get_total_weight(),<sp/>0.f);</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"></highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Batch<sp/>sample</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>batch<sp/>=<sp/>sampler.sample(100);</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/>EXPECT_EQ(batch[0].size(),<sp/>100u);</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/>EXPECT_EQ(batch[1].size(),<sp/>100u);</highlight></codeline>
+<codeline lineno="535"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_cloud.cpp"/>
   </compounddef>

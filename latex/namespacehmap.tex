@@ -86,6 +86,8 @@ class \mbox{\hyperlink{classhmap_1_1Interpolator1D}{Interpolator1D}}
 \begin{DoxyCompactList}\small\item\em A class for performing 1D interpolation using the GSL library. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1InterpolatorCurve}{Interpolator\+Curve}}
 \begin{DoxyCompactList}\small\item\em Class for performing curve interpolation on a set of points. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1InverseSampler2D}{Inverse\+Sampler2D}}
+\begin{DoxyCompactList}\small\item\em Sequential 2D inverse transform point sampler based on a 2D density array. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1IVec2Eq}{IVec2\+Eq}}
 \item 
 struct \mbox{\hyperlink{structhmap_1_1IVec2Hash}{IVec2\+Hash}}
@@ -14583,7 +14585,7 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_density\ count:\ "{}}\ <<\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling\ (batch)}}
 \DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ cloud\_inv\ =\ \mbox{\hyperlink{namespacehmap_a388bc10e3be92ca51045709f8715c3cc}{hmap::random\_cloud\_inverse\_sampling}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ density,}
@@ -14592,6 +14594,42 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_inv\ count:\ "{}}\ <<\ cloud\_inv.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ sequential\ inverse\ transform\ sampling\ with\ dynamic\ local\ updates\ (e.g.}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ repelling\ radius)}}
+\DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1InverseSampler2D}{hmap::InverseSampler2D}}\ seq\_sampler(density,\ seed);}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ \ \ \ \ \ \ \ \ \ \ \ cloud\_seq;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ inhibit\_r\ =\ 4;\ \textcolor{comment}{//\ grid\ radius\ to\ depress\ after\ each\ point}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ k\ =\ 0;\ k\ <\ \mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}};\ ++k)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ glm::vec2\ p\ =\ seq\_sampler.sample();}
+\DoxyCodeLine{\ \ \ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_ac9ab31444357a0a0c3922b4d16ccef7f}{push\_back}}(\mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(p.x,\ p.y,\ 1.f));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ Depress\ density\ around\ the\ sampled\ point\ on\ the\ grid}}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cx\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.x\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cy\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.y\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.y\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ seq\_sampler.update\_region(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ [cx,\ cy,\ inhibit\_r](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}},\ \textcolor{keywordtype}{float}\ cur)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ d2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}((\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ +}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ r2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(inhibit\_r\ *\ inhibit\_r);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d2\ <\ r2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ factor\ =\ d2\ /\ r2;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur\ *\ factor;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cx\ -\/\ inhibit\_r,\ cx\ +\ inhibit\_r\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cy\ -\/\ inhibit\_r,\ cy\ +\ inhibit\_r\});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_a36e47d4857108c56193755e32374184d}{to\_array}}(raster);}
+\DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_seq\ count:\ "{}}\ <<\ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ filter}}
 \DoxyCodeLine{\ \ \ \ cloud\ =\ \mbox{\hyperlink{namespacehmap_ac56218126b8f4fafd161848508bb040b}{hmap::random\_cloud}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
@@ -14764,7 +14802,7 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_density\ count:\ "{}}\ <<\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling\ (batch)}}
 \DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ cloud\_inv\ =\ \mbox{\hyperlink{namespacehmap_a388bc10e3be92ca51045709f8715c3cc}{hmap::random\_cloud\_inverse\_sampling}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ density,}
@@ -14773,6 +14811,42 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_inv\ count:\ "{}}\ <<\ cloud\_inv.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ sequential\ inverse\ transform\ sampling\ with\ dynamic\ local\ updates\ (e.g.}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ repelling\ radius)}}
+\DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1InverseSampler2D}{hmap::InverseSampler2D}}\ seq\_sampler(density,\ seed);}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ \ \ \ \ \ \ \ \ \ \ \ cloud\_seq;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ inhibit\_r\ =\ 4;\ \textcolor{comment}{//\ grid\ radius\ to\ depress\ after\ each\ point}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ k\ =\ 0;\ k\ <\ \mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}};\ ++k)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ glm::vec2\ p\ =\ seq\_sampler.sample();}
+\DoxyCodeLine{\ \ \ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_ac9ab31444357a0a0c3922b4d16ccef7f}{push\_back}}(\mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(p.x,\ p.y,\ 1.f));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ Depress\ density\ around\ the\ sampled\ point\ on\ the\ grid}}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cx\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.x\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cy\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.y\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.y\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ seq\_sampler.update\_region(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ [cx,\ cy,\ inhibit\_r](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}},\ \textcolor{keywordtype}{float}\ cur)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ d2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}((\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ +}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ r2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(inhibit\_r\ *\ inhibit\_r);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d2\ <\ r2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ factor\ =\ d2\ /\ r2;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur\ *\ factor;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cx\ -\/\ inhibit\_r,\ cx\ +\ inhibit\_r\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cy\ -\/\ inhibit\_r,\ cy\ +\ inhibit\_r\});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_a36e47d4857108c56193755e32374184d}{to\_array}}(raster);}
+\DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_seq\ count:\ "{}}\ <<\ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ filter}}
 \DoxyCodeLine{\ \ \ \ cloud\ =\ \mbox{\hyperlink{namespacehmap_ac56218126b8f4fafd161848508bb040b}{hmap::random\_cloud}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
@@ -14967,7 +15041,7 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_density\ count:\ "{}}\ <<\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling\ (batch)}}
 \DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ cloud\_inv\ =\ \mbox{\hyperlink{namespacehmap_a388bc10e3be92ca51045709f8715c3cc}{hmap::random\_cloud\_inverse\_sampling}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ density,}
@@ -14976,6 +15050,42 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_inv\ count:\ "{}}\ <<\ cloud\_inv.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ sequential\ inverse\ transform\ sampling\ with\ dynamic\ local\ updates\ (e.g.}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ repelling\ radius)}}
+\DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1InverseSampler2D}{hmap::InverseSampler2D}}\ seq\_sampler(density,\ seed);}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ \ \ \ \ \ \ \ \ \ \ \ cloud\_seq;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ inhibit\_r\ =\ 4;\ \textcolor{comment}{//\ grid\ radius\ to\ depress\ after\ each\ point}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ k\ =\ 0;\ k\ <\ \mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}};\ ++k)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ glm::vec2\ p\ =\ seq\_sampler.sample();}
+\DoxyCodeLine{\ \ \ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_ac9ab31444357a0a0c3922b4d16ccef7f}{push\_back}}(\mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(p.x,\ p.y,\ 1.f));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ Depress\ density\ around\ the\ sampled\ point\ on\ the\ grid}}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cx\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.x\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cy\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.y\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.y\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ seq\_sampler.update\_region(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ [cx,\ cy,\ inhibit\_r](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}},\ \textcolor{keywordtype}{float}\ cur)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ d2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}((\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ +}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ r2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(inhibit\_r\ *\ inhibit\_r);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d2\ <\ r2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ factor\ =\ d2\ /\ r2;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur\ *\ factor;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cx\ -\/\ inhibit\_r,\ cx\ +\ inhibit\_r\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cy\ -\/\ inhibit\_r,\ cy\ +\ inhibit\_r\});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_a36e47d4857108c56193755e32374184d}{to\_array}}(raster);}
+\DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_seq\ count:\ "{}}\ <<\ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ filter}}
 \DoxyCodeLine{\ \ \ \ cloud\ =\ \mbox{\hyperlink{namespacehmap_ac56218126b8f4fafd161848508bb040b}{hmap::random\_cloud}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
@@ -15150,7 +15260,7 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_density\ count:\ "{}}\ <<\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling\ (batch)}}
 \DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ cloud\_inv\ =\ \mbox{\hyperlink{namespacehmap_a388bc10e3be92ca51045709f8715c3cc}{hmap::random\_cloud\_inverse\_sampling}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ density,}
@@ -15159,6 +15269,42 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_inv\ count:\ "{}}\ <<\ cloud\_inv.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ sequential\ inverse\ transform\ sampling\ with\ dynamic\ local\ updates\ (e.g.}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ repelling\ radius)}}
+\DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1InverseSampler2D}{hmap::InverseSampler2D}}\ seq\_sampler(density,\ seed);}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ \ \ \ \ \ \ \ \ \ \ \ cloud\_seq;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ inhibit\_r\ =\ 4;\ \textcolor{comment}{//\ grid\ radius\ to\ depress\ after\ each\ point}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ k\ =\ 0;\ k\ <\ \mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}};\ ++k)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ glm::vec2\ p\ =\ seq\_sampler.sample();}
+\DoxyCodeLine{\ \ \ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_ac9ab31444357a0a0c3922b4d16ccef7f}{push\_back}}(\mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(p.x,\ p.y,\ 1.f));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ Depress\ density\ around\ the\ sampled\ point\ on\ the\ grid}}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cx\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.x\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cy\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.y\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.y\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ seq\_sampler.update\_region(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ [cx,\ cy,\ inhibit\_r](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}},\ \textcolor{keywordtype}{float}\ cur)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ d2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}((\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ +}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ r2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(inhibit\_r\ *\ inhibit\_r);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d2\ <\ r2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ factor\ =\ d2\ /\ r2;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur\ *\ factor;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cx\ -\/\ inhibit\_r,\ cx\ +\ inhibit\_r\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cy\ -\/\ inhibit\_r,\ cy\ +\ inhibit\_r\});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_a36e47d4857108c56193755e32374184d}{to\_array}}(raster);}
+\DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_seq\ count:\ "{}}\ <<\ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ filter}}
 \DoxyCodeLine{\ \ \ \ cloud\ =\ \mbox{\hyperlink{namespacehmap_ac56218126b8f4fafd161848508bb040b}{hmap::random\_cloud}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
@@ -15333,7 +15479,7 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_density\ count:\ "{}}\ <<\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling\ (batch)}}
 \DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ cloud\_inv\ =\ \mbox{\hyperlink{namespacehmap_a388bc10e3be92ca51045709f8715c3cc}{hmap::random\_cloud\_inverse\_sampling}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ density,}
@@ -15342,6 +15488,42 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_inv\ count:\ "{}}\ <<\ cloud\_inv.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ sequential\ inverse\ transform\ sampling\ with\ dynamic\ local\ updates\ (e.g.}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ repelling\ radius)}}
+\DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1InverseSampler2D}{hmap::InverseSampler2D}}\ seq\_sampler(density,\ seed);}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ \ \ \ \ \ \ \ \ \ \ \ cloud\_seq;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ inhibit\_r\ =\ 4;\ \textcolor{comment}{//\ grid\ radius\ to\ depress\ after\ each\ point}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ k\ =\ 0;\ k\ <\ \mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}};\ ++k)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ glm::vec2\ p\ =\ seq\_sampler.sample();}
+\DoxyCodeLine{\ \ \ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_ac9ab31444357a0a0c3922b4d16ccef7f}{push\_back}}(\mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(p.x,\ p.y,\ 1.f));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ Depress\ density\ around\ the\ sampled\ point\ on\ the\ grid}}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cx\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.x\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cy\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.y\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.y\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ seq\_sampler.update\_region(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ [cx,\ cy,\ inhibit\_r](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}},\ \textcolor{keywordtype}{float}\ cur)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ d2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}((\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ +}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ r2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(inhibit\_r\ *\ inhibit\_r);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d2\ <\ r2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ factor\ =\ d2\ /\ r2;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur\ *\ factor;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cx\ -\/\ inhibit\_r,\ cx\ +\ inhibit\_r\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cy\ -\/\ inhibit\_r,\ cy\ +\ inhibit\_r\});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_a36e47d4857108c56193755e32374184d}{to\_array}}(raster);}
+\DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_seq\ count:\ "{}}\ <<\ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ filter}}
 \DoxyCodeLine{\ \ \ \ cloud\ =\ \mbox{\hyperlink{namespacehmap_ac56218126b8f4fafd161848508bb040b}{hmap::random\_cloud}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
@@ -15516,7 +15698,7 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_density\ count:\ "{}}\ <<\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling\ (batch)}}
 \DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ cloud\_inv\ =\ \mbox{\hyperlink{namespacehmap_a388bc10e3be92ca51045709f8715c3cc}{hmap::random\_cloud\_inverse\_sampling}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ density,}
@@ -15525,6 +15707,42 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_inv\ count:\ "{}}\ <<\ cloud\_inv.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ sequential\ inverse\ transform\ sampling\ with\ dynamic\ local\ updates\ (e.g.}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ repelling\ radius)}}
+\DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1InverseSampler2D}{hmap::InverseSampler2D}}\ seq\_sampler(density,\ seed);}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ \ \ \ \ \ \ \ \ \ \ \ cloud\_seq;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ inhibit\_r\ =\ 4;\ \textcolor{comment}{//\ grid\ radius\ to\ depress\ after\ each\ point}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ k\ =\ 0;\ k\ <\ \mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}};\ ++k)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ glm::vec2\ p\ =\ seq\_sampler.sample();}
+\DoxyCodeLine{\ \ \ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_ac9ab31444357a0a0c3922b4d16ccef7f}{push\_back}}(\mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(p.x,\ p.y,\ 1.f));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ Depress\ density\ around\ the\ sampled\ point\ on\ the\ grid}}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cx\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.x\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cy\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.y\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.y\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ seq\_sampler.update\_region(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ [cx,\ cy,\ inhibit\_r](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}},\ \textcolor{keywordtype}{float}\ cur)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ d2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}((\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ +}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ r2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(inhibit\_r\ *\ inhibit\_r);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d2\ <\ r2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ factor\ =\ d2\ /\ r2;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur\ *\ factor;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cx\ -\/\ inhibit\_r,\ cx\ +\ inhibit\_r\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cy\ -\/\ inhibit\_r,\ cy\ +\ inhibit\_r\});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_a36e47d4857108c56193755e32374184d}{to\_array}}(raster);}
+\DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_seq\ count:\ "{}}\ <<\ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ filter}}
 \DoxyCodeLine{\ \ \ \ cloud\ =\ \mbox{\hyperlink{namespacehmap_ac56218126b8f4fafd161848508bb040b}{hmap::random\_cloud}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
@@ -15699,7 +15917,7 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_density\ count:\ "{}}\ <<\ cloud.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ inverse\ transform\ sampling\ (batch)}}
 \DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ cloud\_inv\ =\ \mbox{\hyperlink{namespacehmap_a388bc10e3be92ca51045709f8715c3cc}{hmap::random\_cloud\_inverse\_sampling}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ density,}
@@ -15708,6 +15926,42 @@ A \doxylink{classhmap_1_1Cloud}{Cloud} containing the generated points.
 \DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_inv\ count:\ "{}}\ <<\ cloud\_inv.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ sequential\ inverse\ transform\ sampling\ with\ dynamic\ local\ updates\ (e.g.}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ repelling\ radius)}}
+\DoxyCodeLine{\ \ \ \ raster\ =\ 0.f;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1InverseSampler2D}{hmap::InverseSampler2D}}\ seq\_sampler(density,\ seed);}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classhmap_1_1Cloud}{hmap::Cloud}}\ \ \ \ \ \ \ \ \ \ \ \ cloud\_seq;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ inhibit\_r\ =\ 4;\ \textcolor{comment}{//\ grid\ radius\ to\ depress\ after\ each\ point}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ k\ =\ 0;\ k\ <\ \mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}};\ ++k)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ glm::vec2\ p\ =\ seq\_sampler.sample();}
+\DoxyCodeLine{\ \ \ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_ac9ab31444357a0a0c3922b4d16ccef7f}{push\_back}}(\mbox{\hyperlink{classhmap_1_1Point}{hmap::Point}}(p.x,\ p.y,\ 1.f));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ Depress\ density\ around\ the\ sampled\ point\ on\ the\ grid}}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cx\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.x\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{int}\ cy\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p.y\ *\ (\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.y\ -\/\ 1));}
+\DoxyCodeLine{\ \ \ \ \ \ seq\_sampler.update\_region(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ [cx,\ cy,\ inhibit\_r](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}},\ \textcolor{keywordtype}{float}\ cur)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ d2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}((\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ cx)\ +}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy)\ *\ (\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ -\/\ cy));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ r2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(inhibit\_r\ *\ inhibit\_r);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d2\ <\ r2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ factor\ =\ d2\ /\ r2;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur\ *\ factor;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cur;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cx\ -\/\ inhibit\_r,\ cx\ +\ inhibit\_r\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{cy\ -\/\ inhibit\_r,\ cy\ +\ inhibit\_r\});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_a36e47d4857108c56193755e32374184d}{to\_array}}(raster);}
+\DoxyCodeLine{\ \ \ \ zs.push\_back(raster);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cloud\_seq\ count:\ "{}}\ <<\ cloud\_seq.\mbox{\hyperlink{classhmap_1_1Cloud_adc675e8b2769a94b4c23bf7e69348f84}{size}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ filter}}
 \DoxyCodeLine{\ \ \ \ cloud\ =\ \mbox{\hyperlink{namespacehmap_ac56218126b8f4fafd161848508bb040b}{hmap::random\_cloud}}(\mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}

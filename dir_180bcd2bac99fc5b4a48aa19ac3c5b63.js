@@ -5,6 +5,7 @@ var dir_180bcd2bac99fc5b4a48aa19ac3c5b63 =
     [ "cloud_functions.cpp", "cloud__functions_8cpp.html", "cloud__functions_8cpp" ],
     [ "graph.cpp", "graph_8cpp.html", null ],
     [ "grid.cpp", "grid_8cpp.html", "grid_8cpp" ],
+    [ "inverse_sampler_2d.cpp", "inverse__sampler__2d_8cpp.html", null ],
     [ "kd_tree.cpp", "kd__tree_8cpp.html", "kd__tree_8cpp" ],
     [ "path.cpp", "path_8cpp.html", null ],
     [ "path_functions.cpp", "path__functions_8cpp.html", "path__functions_8cpp" ],
