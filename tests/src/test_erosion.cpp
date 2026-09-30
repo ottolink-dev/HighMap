@@ -4,6 +4,7 @@
 #include "highmap/morphology.hpp"
 #include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/primitives.hpp"
+#include "highmap/range.hpp"
 
 #include <gtest/gtest.h>
 
@@ -450,4 +451,91 @@ TEST(HydraulicMusgraveGPU, FlatRegionUnchanged)
   gpu::hydraulic_musgrave(z, 10);
 
   EXPECT_TRUE(assert_almost_equal(z, z0));
+}
+
+TEST(HydraulicFastScape, BasicExecution)
+{
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+  remap(z0, 0.f, 1.f);
+  Array z = z0;
+
+  Array erosion_map(shape, 0.f);
+  Array flow_map(shape, 0.f);
+
+  hydraulic_fastscape(z,
+                      15,
+                      1e-2f,
+                      1.f,
+                      0.5f,
+                      1.f,
+                      1e-3f,
+                      0.f,
+                      true,
+                      1.f,
+                      1e-3f,
+                      nullptr,
+                      nullptr,
+                      &erosion_map,
+                      &flow_map);
+
+  EXPECT_EQ(z.shape, shape);
+  EXPECT_FALSE(assert_almost_equal(z, z0));
+
+  for (int j = 0; j < z.shape.y; j++)
+    for (int i = 0; i < z.shape.x; i++)
+    {
+      EXPECT_FALSE(std::isnan(z(i, j)));
+      EXPECT_FALSE(std::isinf(z(i, j)));
+      EXPECT_GE(flow_map(i, j), 1.f);
+      EXPECT_GE(erosion_map(i, j), 0.f);
+    }
+}
+
+TEST(HydraulicFastScape, FlatRegionUnchanged)
+{
+  Array z = constant(glm::ivec2(16, 16), 5.f);
+  Array z0 = z;
+
+  hydraulic_fastscape(z, 10, 1e-2f, 1.f, 0.5f, 1.f, 0.f, 0.f);
+
+  EXPECT_TRUE(assert_almost_equal(z, z0));
+}
+
+TEST(HydraulicFastScape, NonlinearExponent)
+{
+  glm::ivec2 shape = {32, 32};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 123);
+  remap(z0, 0.f, 1.f);
+  Array z = z0;
+
+  hydraulic_fastscape(z, 5, 1e-2f, 1.f, 0.5f, 2.f, 1e-3f, 0.f);
+
+  EXPECT_EQ(z.shape, shape);
+  for (int j = 0; j < z.shape.y; j++)
+    for (int i = 0; i < z.shape.x; i++)
+    {
+      EXPECT_FALSE(std::isnan(z(i, j)));
+      EXPECT_FALSE(std::isinf(z(i, j)));
+    }
+}
+
+TEST(HydraulicFastScape, VirtualArrayExecution)
+{
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+  remap(z0, 0.f, 1.f);
+
+  ComputeMode  cm = {ForEachMode::VA_SINGLE_ARRAY};
+  VirtualArray va(shape, {32, 32}, 4);
+  va.from_array(z0, cm);
+
+  VirtualArray va_eroded = va::hydraulic_fastscape(cm, va, 10);
+  Array        z_res = va_eroded.to_array(cm);
+
+  EXPECT_EQ(z_res.shape, shape);
+  EXPECT_FALSE(assert_almost_equal(z_res, z0));
 }

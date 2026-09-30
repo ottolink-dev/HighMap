@@ -160,8 +160,8 @@ void coastal_erosion_profile(Array       &z,
  * Fill heightmap depressions to ensure that every cell can be connected to the
  * boundaries following a downward slope @cite Planchon2002.
  *
- * @param z          Input array.
- * @param iterations Number of iterations.
+ * @param z              Input array.
+ * @param iterations     Number of iterations.
  * @param epsilon
  *
  * **Example**
@@ -396,6 +396,109 @@ void hydraulic_diffusion(Array &z,
                          float  c_diffusion,
                          float  talus,
                          int    iterations);
+
+/**
+ * @brief Simulates landscape evolution using the FastScape algorithm.
+ *
+ * Implements the numerical scheme from Braun & Willett (2013) solving the
+ * Stream Power Law (SPL) with an implicit $O(n)$ method, coupled with
+ * priority-flood depression resolution, hillslope linear diffusion (ADI), and
+ * tectonic uplift.
+ *
+ * SPL equation:
+ * \f[
+ * \frac{\partial z}{\partial t} = U - K A^m (\nabla z)^n + K_d \nabla^2 z
+ * \f]
+ *
+ * @param[in,out] z              Terrain elevation array (modified in place).
+ * @param         iterations     Number of time step iterations.
+ * @param         dt             Time step duration.
+ * @param         k_erosion      Stream power law bedrock erodibility
+ *                               coefficient (K).
+ * @param         m_exp          Drainage area exponent (m).
+ * @param         n_exp          Slope gradient exponent (n). When n = 1, uses
+ *                               fast linear solver.
+ * @param         k_diff         Hillslope diffusion transport coefficient (Kd).
+ * @param         uplift_rate    Constant uplift rate applied per time step (U).
+ * @param         tolerance      Convergence tolerance for Newton-Raphson
+ *                               non-linear SPL solver (when n != 1).
+ * @param         p_bedrock      Optional bedrock elevation mask array
+ *                               preventing erosion below bedrock.
+ * @param         p_moisture_map Optional moisture/precipitation map scaling
+ *                               local erosion and drainage area.
+ * @param[out]    p_erosion_map  Optional output array storing cumulative
+ *                               erosion.
+ * @param[out]    p_flow_map     Optional output array storing drainage flow
+ *                               accumulation.
+ *
+ * **Example**
+ * @include ex_hydraulic_fastscape.cpp
+ *
+ * **Result**
+ * @image html ex_hydraulic_fastscape.png
+ */
+void hydraulic_fastscape(Array       &z,
+                         int          iterations = 10,
+                         float        dt = 1e-2f,
+                         float        k_erosion = 1.f,
+                         float        m_exp = 0.5f,
+                         float        n_exp = 1.f,
+                         float        k_diff = 1e-3f,
+                         float        uplift_rate = 0.f,
+                         bool         multiple_flow = true,
+                         float        flow_partition_exp = 1.f,
+                         float        tolerance = 1e-3f,
+                         const Array *p_bedrock = nullptr,
+                         const Array *p_moisture_map = nullptr,
+                         Array       *p_erosion_map = nullptr,
+                         Array       *p_flow_map = nullptr);
+
+/**
+ * @brief Masked variant of FastScape hydraulic erosion.
+ *
+ * @param[in,out] z                  Terrain elevation array (modified in
+ * place).
+ * @param         p_mask             Spatial blend mask array in [0, 1].
+ * @param         iterations         Number of time step iterations.
+ * @param         dt                 Time step duration.
+ * @param         k_erosion          Stream power law bedrock erodibility
+ *                                   coefficient (K).
+ * @param         m_exp              Drainage area exponent (m).
+ * @param         n_exp              Slope gradient exponent (n).
+ * @param         k_diff             Hillslope diffusion transport coefficient
+ * (Kd).
+ * @param         uplift_rate        Constant uplift rate applied per time step
+ * (U).
+ * @param         multiple_flow      Whether to use multiple flow direction
+ * (MFD) routing.
+ * @param         flow_partition_exp Flow partition slope exponent for MFD
+ * routing.
+ * @param         tolerance          Convergence tolerance for Newton-Raphson
+ *                                   non-linear SPL solver.
+ * @param         p_bedrock          Optional bedrock elevation mask array.
+ * @param         p_moisture_map     Optional moisture/precipitation map.
+ * @param[out]    p_erosion_map      Optional output array storing cumulative
+ *                                   erosion.
+ * @param[out]    p_flow_map         Optional output array storing drainage flow
+ *                                   accumulation.
+ */
+void hydraulic_fastscape(Array       &z,
+                         const Array *p_mask,
+                         int          iterations = 10,
+                         float        dt = 1e-2f,
+                         float        k_erosion = 1.f,
+                         float        m_exp = 0.5f,
+                         float        n_exp = 1.f,
+                         float        k_diff = 1e-3f,
+                         float        uplift_rate = 0.f,
+                         bool         multiple_flow = true,
+                         float        flow_partition_exp = 1.f,
+                         float        tolerance = 1e-3f,
+                         const Array *p_bedrock = nullptr,
+                         const Array *p_moisture_map = nullptr,
+                         Array       *p_erosion_map = nullptr,
+                         Array       *p_flow_map = nullptr);
+
 /**
  * @brief Apply cell-based hydraulic erosion/deposition of Musgrave et al.
  * (1989).
@@ -1016,13 +1119,14 @@ void hydraulic_particle_multiscale(
  */
 struct McDonaldParams
 {
-  float strength =
-      0.5f; // overall erosion power (scales suspension & thermal rates)
-  float deposition = 0.5f;  // sediment retention vs transport
-  float crit_slope = 0.57f; // critical slope [m/m]
-  float meandering = 0.5f;  // flow-coupling & momentum inertia
-  float scale = 1.0f; // domain extent multiplier (scales world_extent_km and
-                      // base z_scale_km)
+  float strength = 0.5f;   // overall erosion power (scales suspension & thermal
+                           // rates)
+  float deposition = 0.5f; // sediment retention vs transport
+  float crit_slope = 0.57f;  // critical slope [m/m]
+  float meandering = 0.5f;   // flow-coupling & momentum inertia
+  float scale = 1.0f;        // domain extent multiplier (scales world_extent_km
+                             // and
+                             // base z_scale_km)
   float relief_scale = 1.0f; // relative vertical relief scale multiplier
 
   struct PhysicalParams
@@ -2441,17 +2545,35 @@ namespace hmap::va
 /**
  * @brief Fill depressions in a VirtualArray using the Priority-Flood algorithm.
  *
- * @param z                 Input heightmap.
- * @param apply_post_filter Apply Laplacian smoothing to deposition.
- * @param p_fill_map        Optional output fill map (z_after - z_before).
- * @param cm                Compute mode configuration.
- * @return                  Filled heightmap.
+ * @param  z                 Input heightmap.
+ * @param  apply_post_filter Apply Laplacian smoothing to deposition.
+ * @param  p_fill_map        Optional output fill map (z_after - z_before).
+ * @param  cm                Compute mode configuration.
+ * @return                   Filled heightmap.
  */
 VirtualArray depression_filling_priority_flood(
     const VirtualArray &z,
     bool                apply_post_filter = false,
     VirtualArray       *p_fill_map = nullptr,
     const ComputeMode  &cm = {});
+
+VirtualArray hydraulic_fastscape(const ComputeMode  &cm,
+                                 const VirtualArray &z,
+                                 int                 iterations = 10,
+                                 float               dt = 1e-2f,
+                                 float               k_erosion = 1.f,
+                                 float               m_exp = 0.5f,
+                                 float               n_exp = 1.f,
+                                 float               k_diff = 1e-3f,
+                                 float               uplift_rate = 0.f,
+                                 bool                multiple_flow = true,
+                                 float               flow_partition_exp = 1.f,
+                                 float               tolerance = 1e-3f,
+                                 const VirtualArray *p_bedrock = nullptr,
+                                 const VirtualArray *p_moisture_map = nullptr,
+                                 VirtualArray       *p_erosion_map = nullptr,
+                                 VirtualArray       *p_flow_map = nullptr,
+                                 const VirtualArray *p_mask = nullptr);
 
 VirtualArray hydraulic_saleve(
     const ComputeMode    &cm,
