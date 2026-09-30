@@ -103,10 +103,12 @@ int main()
   // ===========================================================================
 
   const auto binarize_copy =
-      [](std::vector<hmap::Array *> arrays, const hmap::TileRegion &)
+      [](const std::vector<const hmap::Array *> &in,
+         std::vector<hmap::Array *>             &out,
+         const hmap::TileRegion                 &)
   {
-    auto &src = *arrays[0];
-    auto &dst = *arrays[1];
+    auto &src = *in[0];
+    auto &dst = *out[0];
 
     dst = src;
     hmap::make_binary(dst, 0.5f);
@@ -114,7 +116,7 @@ int main()
 
   varray.trim_storage();
 
-  hmap::for_each_tile({&varray, &varray_binary}, binarize_copy, cm);
+  hmap::for_each_tile({&varray}, {&varray_binary}, binarize_copy, cm);
 
   varray_binary.to_array(cm_local).to_png("out_binary.png", hmap::Cmap::JET);
 

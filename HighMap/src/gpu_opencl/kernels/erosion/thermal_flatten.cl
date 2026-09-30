@@ -2,10 +2,6 @@ R""(
 /* Copyright (c) 2023 Otto Link. Distributed under the terms of the GNU General
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
-__constant const int   thermal_flatten_di[8] = {-1, 0, 0, 1, -1, -1, 1, 1};
-__constant const int   thermal_flatten_dj[8] = {0, 1, -1, 0, -1, 1, -1, 1};
-__constant const float thermal_flatten_c[8] =
-    {1.f, 1.f, 1.f, 1.f, 1.41421356f, 1.41421356f, 1.41421356f, 1.41421356f};
 
 void kernel thermal_flatten(global const float *z_in,
                             global float       *z_out,
@@ -36,10 +32,9 @@ void kernel thermal_flatten(global const float *z_in,
   for (int n = 0; n < 8; ++n)
   {
     const int   k = (n + rotation_offset) & 7;
-    const int   ni = g.x + thermal_flatten_di[k];
-    const int   nj = g.y + thermal_flatten_dj[k];
-    const float dz = (zc - z_in[linear_index(ni, nj, nx)]) /
-                     thermal_flatten_c[k];
+    const int   ni = g.x + d8_di[k];
+    const int   nj = g.y + d8_dj[k];
+    const float dz = (zc - z_in[linear_index(ni, nj, nx)]) / d8_dist[k];
 
     if (dz > dmax)
     {
@@ -59,8 +54,8 @@ void kernel thermal_flatten(global const float *z_in,
   for (int n = 0; n < 8; ++n)
   {
     const int   k = (n + rotation_offset) & 7;
-    const int   pi = g.x - thermal_flatten_di[k];
-    const int   pj = g.y - thermal_flatten_dj[k];
+    const int   pi = g.x - d8_di[k];
+    const int   pj = g.y - d8_dj[k];
     const int   pidx = linear_index(pi, pj, nx);
     const float zp = z_in[pidx];
 
@@ -72,10 +67,9 @@ void kernel thermal_flatten(global const float *z_in,
     for (int m = 0; m < 8; ++m)
     {
       const int   kk = (m + rotation_offset) & 7;
-      const int   qi = pi + thermal_flatten_di[kk];
-      const int   qj = pj + thermal_flatten_dj[kk];
-      const float dz = (zp - z_in[linear_index(qi, qj, nx)]) /
-                       thermal_flatten_c[kk];
+      const int   qi = pi + d8_di[kk];
+      const int   qj = pj + d8_dj[kk];
+      const float dz = (zp - z_in[linear_index(qi, qj, nx)]) / d8_dist[kk];
 
       if (dz > dmax_p)
       {

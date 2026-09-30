@@ -2,10 +2,6 @@ R""(
 /* Copyright (c) 2023 Otto Link. Distributed under the terms of the GNU General
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
-__constant const int   thermal_di[8] = {-1, 0, 0, 1, -1, -1, 1, 1};
-__constant const int   thermal_dj[8] = {0, 1, -1, 0, -1, 1, -1, 1};
-__constant const float thermal_c[8] =
-    {1.f, 1.f, 1.f, 1.f, 1.41421356f, 1.41421356f, 1.41421356f, 1.41421356f};
 
 float helper_thermal_exchange(float self, float other, float dist, float talus)
 {
@@ -52,8 +48,8 @@ void kernel thermal(global const float *z_in,
   for (int k = 0; k < 8; k++)
     amount += helper_thermal_exchange(
         val,
-        z_in[linear_index(g.x + thermal_di[k], g.y + thermal_dj[k], nx)],
-        thermal_c[k],
+        z_in[linear_index(g.x + d8_di[k], g.y + d8_dj[k], nx)],
+        d8_dist[k],
         talus_val);
 
   z_out[index] = val + amount;
@@ -89,8 +85,8 @@ void kernel thermal_with_bedrock(global const float *z_in,
     for (int k = 0; k < 8; k++)
       amount += helper_thermal_exchange(
           val,
-          z_in[linear_index(g.x + thermal_di[k], g.y + thermal_dj[k], nx)],
-          thermal_c[k],
+          z_in[linear_index(g.x + d8_di[k], g.y + d8_dj[k], nx)],
+          d8_dist[k],
           talus_val);
 
     res = val + amount;
@@ -131,8 +127,8 @@ void kernel thermal_auto_bedrock(global const float *z_in,
     for (int k = 0; k < 8; k++)
       amount += helper_thermal_exchange(
           val,
-          z_in[linear_index(g.x + thermal_di[k], g.y + thermal_dj[k], nx)],
-          thermal_c[k],
+          z_in[linear_index(g.x + d8_di[k], g.y + d8_dj[k], nx)],
+          d8_dist[k],
           talus_val);
 
     float new_z = max(max(val + amount, z_init), z_bedrock);
@@ -170,18 +166,7 @@ void kernel thermal_conserve(read_only image2d_t  z_in,
     return;
   }
 
-  const int   di[8] = {-1, 0, 0, 1, -1, -1, 1, 1};
-  const int   dj[8] = {0, 1, -1, 0, -1, 1, -1, 1};
-  const float dist[8] = {1.f,
-                         1.f,
-                         1.f,
-                         1.f,
-                         1.414213562f,
-                         1.414213562f,
-                         1.414213562f,
-                         1.414213562f};
-  // reverse direction index: from neighbor k back to center
-  const int rev[8] = {3, 2, 1, 0, 7, 6, 5, 4};
+  // use shared D8 tables (d8_di, d8_dj, d8_dist, d8_rev)
 
   float talus_c = TGET(talus, g.x, g.y);
 
@@ -193,8 +178,8 @@ void kernel thermal_conserve(read_only image2d_t  z_in,
 
   for (int k = 0; k < 8; ++k)
   {
-    int ni = g.x + di[k];
-    int nj = g.y + dj[k];
+    int ni = g.x + d8_di[k];
+    int nj = g.y + d8_dj[k];
 
     // only exchange with other active interior cells (closed boundary
     // condition)
@@ -205,7 +190,7 @@ void kernel thermal_conserve(read_only image2d_t  z_in,
     }
 
     float z_n = TGET(z_in, ni, nj);
-    float e = z_c - z_n - dist[k] * talus_c;
+    float e = z_c - z_n - d8_dist[k] * talus_c;
 
     if (e > 0.f)
     {
@@ -229,8 +214,8 @@ void kernel thermal_conserve(read_only image2d_t  z_in,
 
   for (int k = 0; k < 8; ++k)
   {
-    int ni = g.x + di[k];
-    int nj = g.y + dj[k];
+    int ni = g.x + d8_di[k];
+    int nj = g.y + d8_dj[k];
 
     // skip boundary neighbors (they are inactive)
     if (ni <= 0 || ni >= nx - 1 || nj <= 0 || nj >= ny - 1) continue;
@@ -245,22 +230,22 @@ void kernel thermal_conserve(read_only image2d_t  z_in,
 
     for (int p = 0; p < 8; ++p)
     {
-      int qi = ni + di[p];
-      int qj = nj + dj[p];
+      int qi = ni + d8_di[p];
+      int qj = nj + d8_dj[p];
 
       // only consider active neighbors
       if (qi <= 0 || qi >= nx - 1 || qj <= 0 || qj >= ny - 1) continue;
 
       float z_q = TGET(z_in, qi, qj);
-      float e = z_n - z_q - dist[p] * talus_n;
+      float e = z_n - z_q - d8_dist[p] * talus_n;
 
       if (e > 0.f)
       {
         n_excess_sum += e;
         n_excess_max = max(n_excess_max, e);
 
-        // direction from neighbor back to center is rev[k]
-        if (p == rev[k]) n_excess_to_c = e;
+        // direction from neighbor back to center is d8_rev[k]
+        if (p == d8_rev[k]) n_excess_to_c = e;
       }
     }
 

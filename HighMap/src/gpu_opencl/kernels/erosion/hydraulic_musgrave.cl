@@ -16,15 +16,14 @@ inline void musgrave_cell_outflow(const float w_curr,
                                   float      *out_s_kept,
                                   float      *out_dz)
 {
-  const float c_dist[8] =
-      {1.f, 1.f, 1.f, 1.f, 0.70710678f, 0.70710678f, 0.70710678f, 0.70710678f};
+  // using d8_inv_dist
 
   float dh_tot = 0.f;
   float dh[8];
 
   for (int k = 0; k < 8; ++k)
   {
-    float diff = (h_curr - h_nbrs[k]) * c_dist[k];
+    float diff = (h_curr - h_nbrs[k]) * d8_inv_dist[k];
     dh[k] = max(0.f, diff);
     dh_tot += dh[k];
   }
@@ -113,9 +112,7 @@ void kernel hydraulic_musgrave(read_only image2d_t  z,
     return;
   }
 
-  const int dx[8] = {-1, 0, 0, 1, -1, -1, 1, 1};
-  const int dy[8] = {0, 1, -1, 0, -1, 1, -1, 1};
-  const int opp[8] = {3, 2, 1, 0, 7, 6, 5, 4};
+  // using d8_di, d8_dj, d8_rev
 
   // effective current water and surface height with rain / evaporation
   float w_center = (1.f - evap_rate) * TGET(w, i, j) +
@@ -128,8 +125,8 @@ void kernel hydraulic_musgrave(read_only image2d_t  z,
   float h_nbrs_center[8];
   for (int k = 0; k < 8; ++k)
   {
-    int   ni = i + dx[k];
-    int   nj = j + dy[k];
+    int   ni = i + d8_di[k];
+    int   nj = j + d8_dj[k];
     float w_nbr = (1.f - evap_rate) * TGET(w, ni, nj) +
                   evap_rate * TGET(moisture_map, ni, nj) * water_level;
     h_nbrs_center[k] = TGET(z, ni, nj) + w_nbr;
@@ -160,8 +157,8 @@ void kernel hydraulic_musgrave(read_only image2d_t  z,
 
   for (int k = 0; k < 8; ++k)
   {
-    int ni = i + dx[k];
-    int nj = j + dy[k];
+    int ni = i + d8_di[k];
+    int nj = j + d8_dj[k];
 
     if (ni > 0 && ni < nx - 1 && nj > 0 && nj < ny - 1)
     {
@@ -174,8 +171,8 @@ void kernel hydraulic_musgrave(read_only image2d_t  z,
       float h_nbrs_of_nbr[8];
       for (int m = 0; m < 8; ++m)
       {
-        int   nni = ni + dx[m];
-        int   nnj = nj + dy[m];
+        int   nni = ni + d8_di[m];
+        int   nnj = nj + d8_dj[m];
         float w_nnbr = (1.f - evap_rate) * TGET(w, nni, nnj) +
                        evap_rate * TGET(moisture_map, nni, nnj) * water_level;
         h_nbrs_of_nbr[m] = TGET(z, nni, nnj) + w_nnbr;
@@ -200,7 +197,7 @@ void kernel hydraulic_musgrave(read_only image2d_t  z,
                             &nbr_s_kept,
                             &nbr_dz);
 
-      int k_to_me = opp[k];
+      int k_to_me = d8_rev[k];
       w_in_tot += nbr_dw_out[k_to_me];
       s_in_tot += nbr_ds_out[k_to_me];
     }
