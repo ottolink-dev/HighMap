@@ -15,6 +15,8 @@ var test__erosion_8cpp =
     [ "TEST", "test__erosion_8cpp.html#acd4bbcc4c08effb2f839165b2a3fc997", null ],
     [ "TEST", "test__erosion_8cpp.html#a02224b8409dc78c139e1b039d7afea73", null ],
     [ "TEST", "test__erosion_8cpp.html#ac99f56242c3a11099af5f0501d4eab6e", null ],
+    [ "TEST", "test__erosion_8cpp.html#ad7d9daa5e49f0786579363f9bb7deaf4", null ],
+    [ "TEST", "test__erosion_8cpp.html#a252b2def3dc0b1630b406be8c3974ea2", null ],
     [ "TEST", "test__erosion_8cpp.html#ac56f880cb7929f8126a6dd927e06a9a1", null ],
     [ "TEST", "test__erosion_8cpp.html#aabca7a5db65fdf35f03d75416c48644f", null ],
     [ "TEST", "test__erosion_8cpp.html#a35647cb53ade192cf6d3f4329c133148", null ],

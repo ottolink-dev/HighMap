@@ -45,5 +45,6 @@ var hydrology_2hydrology_8hpp =
     [ "snow_simulation", "hydrology_2hydrology_8hpp.html#ab2b13ab0053ffacaf2d2da56a59f1781", null ],
     [ "water_depth_filter", "hydrology_2hydrology_8hpp.html#a687d85d20bee065ffabeecea9124f432", null ],
     [ "water_frontier_curvature", "hydrology_2hydrology_8hpp.html#a4b9ba3dd7bc6c093329b262fd4ca8f6c", null ],
-    [ "water_depth_from_mask", "hydrology_2hydrology_8hpp.html#a703eaf095338c94f1b6589a5b8a650fe", null ]
+    [ "water_depth_from_mask", "hydrology_2hydrology_8hpp.html#a703eaf095338c94f1b6589a5b8a650fe", null ],
+    [ "flooding_lake_system", "hydrology_2hydrology_8hpp.html#ae8000dce23f7622c2ba67910124bc353", null ]
 ];
