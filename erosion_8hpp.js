@@ -89,5 +89,6 @@ var erosion_8hpp =
     [ "valley_fill", "erosion_8hpp.html#aa7ce5c44914d54ec7fa0162c5ccbab86", null ],
     [ "watershed_ridge", "erosion_8hpp.html#a52a653b3b3be84e8ff2330f30a6b5bf3", null ],
     [ "watershed_ridge", "erosion_8hpp.html#a04047f16ece68b32c1c8e68b4780f0df", null ],
+    [ "depression_filling_priority_flood", "erosion_8hpp.html#aa868400f1abe17aca41bb488f65032da", null ],
     [ "hydraulic_saleve", "erosion_8hpp.html#ac0d43b69e78ba45a62795d90f1f453fe", null ]
 ];

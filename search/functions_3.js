@@ -12,7 +12,7 @@ var searchData=
   ['depose_5famount_5fkernel_5fbilinear_5fat_9',['depose_amount_kernel_bilinear_at',['../classhmap_1_1Array.html#a8bc07abfedb22639797124b951331ddf',1,'hmap::Array']]],
   ['deposition_5ffill_5fholes_10',['deposition_fill_holes',['../namespacehmap_1_1gpu.html#a67fee4e11fb0b003d0ebb091e85533fe',1,'hmap::gpu::deposition_fill_holes(Array &amp;z, int deposition_ir, float deposition_strength, const Array *p_mask, int iterations=1)'],['../namespacehmap_1_1gpu.html#a8497e2fce595293ea07e68eac1e5bce2',1,'hmap::gpu::deposition_fill_holes(Array &amp;z, int deposition_ir, float deposition_strength, int iterations=1)']]],
   ['depression_5ffilling_11',['depression_filling',['../namespacehmap.html#aa8c5cbc750a368764e2a26409c2427a5',1,'hmap']]],
-  ['depression_5ffilling_5fpriority_5fflood_12',['depression_filling_priority_flood',['../namespacehmap.html#aeb94e692639d1644e7a6d2809fb5681f',1,'hmap']]],
+  ['depression_5ffilling_5fpriority_5fflood_12',['depression_filling_priority_flood',['../namespacehmap_1_1va.html#aa868400f1abe17aca41bb488f65032da',1,'hmap::va::depression_filling_priority_flood()'],['../namespacehmap.html#aeb94e692639d1644e7a6d2809fb5681f',1,'hmap::depression_filling_priority_flood(Array &amp;z, bool apply_post_filter=false, bool outflow_left=true, bool outflow_right=true, bool outflow_bottom=true, bool outflow_top=true)']]],
   ['dequantize_13',['dequantize',['../namespacehmap.html#a703bb7c67cc8998560798c104a46ce4d',1,'hmap']]],
   ['detrend_5freg_14',['detrend_reg',['../namespacehmap.html#a000840cf4916102db68d6428c8c8c7e2',1,'hmap']]],
   ['diffusion_5flimited_5faggregation_15',['diffusion_limited_aggregation',['../namespacehmap.html#a43cf2b960fc4f48be0548d87e78cdcb2',1,'hmap']]],
@@ -44,7 +44,7 @@ var searchData=
   ['downscale_5ftransform_5fmulti_41',['downscale_transform_multi',['../namespacehmap.html#a669a4f9586f3df4b018e321048c9bc7d',1,'hmap']]],
   ['drainagebasin_42',['DrainageBasin',['../classhmap_1_1DrainageBasin.html#ac28ba57c1b2b1bd25353aeb7dc9ac54c',1,'hmap::DrainageBasin']]],
   ['drainagebasincellbased_43',['drainagebasincellbased',['../classhmap_1_1DrainageBasinCellBased.html#aeb36d7eba63e150534906f2e924e7be8',1,'hmap::DrainageBasinCellBased::DrainageBasinCellBased()=default'],['../classhmap_1_1DrainageBasinCellBased.html#ad1d5250d216d7353f421056326daa86e',1,'hmap::DrainageBasinCellBased::DrainageBasinCellBased(const Array &amp;z_)']]],
-  ['dump_44',['dump',['../classhmap_1_1Timer.html#a5bc931885a549c561740f39cea91dd5f',1,'hmap::Timer::Dump()'],['../structhmap_1_1Recorder.html#ac5bd6628a256636229047bbc12ced680',1,'hmap::Recorder::dump()'],['../classhmap_1_1Array.html#a00b8f7462c1e22b1da8a67ec62d4c8c8',1,'hmap::Array::dump(const std::string &amp;fname=&quot;out.png&quot;) const']]],
+  ['dump_44',['dump',['../classhmap_1_1Array.html#a00b8f7462c1e22b1da8a67ec62d4c8c8',1,'hmap::Array::dump()'],['../structhmap_1_1Recorder.html#ac5bd6628a256636229047bbc12ced680',1,'hmap::Recorder::dump()'],['../classhmap_1_1Timer.html#a5bc931885a549c561740f39cea91dd5f',1,'hmap::Timer::Dump()']]],
   ['dump_5fhistogram_45',['dump_histogram',['../classhmap_1_1Array.html#a36fa8104b8fe789f5035a1ddfa5b1519',1,'hmap::Array']]],
   ['dump_5fvisual_5fcheck_46',['dump_visual_check',['../namespacehmap.html#aa162bbea6fc85aa1403204af49364230',1,'hmap']]],
   ['dumpdurations_47',['DumpDurations',['../classhmap_1_1Timer.html#a61eaa1759a0b195fe512c276cc253eb9',1,'hmap::Timer']]]

@@ -1,5 +1,7 @@
 var NAVTREEINDEX21 =
 {
+"namespacehmap_1_1log.html#ac1f788088d44cb9a96d647f3f2ff1d7b":[3,0,0,1,9],
+"namespacehmap_1_1log.html#ac29d830f735240af262dff98a4821bdb":[3,0,0,1,15],
 "namespacehmap_1_1log.html#ad7b9788c1dd51443be90a32e894b24b7":[3,0,0,1,8],
 "namespacehmap_1_1log.html#ade28c3e96ca40d92596c8109f7240b92":[3,0,0,1,10],
 "namespacehmap_1_1log.html#aee4cc0c85345f25728f30b8bde71f90e":[3,0,0,1,12],
@@ -15,9 +17,10 @@ var NAVTREEINDEX21 =
 "namespacehmap_1_1log_1_1detail.html#af3c0cdbd7ebc57f0a2d879d475f55cb9add4ec0ac4e58f7c32a01244ae91150b1":[3,0,0,1,0,0,0],
 "namespacehmap_1_1log_1_1detail.html#af77839d575b634b05fbd64a66fc7f9b4":[3,0,0,1,0,1],
 "namespacehmap_1_1va.html":[3,0,0,2],
-"namespacehmap_1_1va.html#a3df8c2c762d79f38e07069e47063fade":[3,0,0,2,2],
-"namespacehmap_1_1va.html#ac0d43b69e78ba45a62795d90f1f453fe":[3,0,0,2,0],
-"namespacehmap_1_1va.html#aec2c193932c4d5d1fe00d09b81e243d8":[3,0,0,2,1],
+"namespacehmap_1_1va.html#a3df8c2c762d79f38e07069e47063fade":[3,0,0,2,3],
+"namespacehmap_1_1va.html#aa868400f1abe17aca41bb488f65032da":[3,0,0,2,0],
+"namespacehmap_1_1va.html#ac0d43b69e78ba45a62795d90f1f453fe":[3,0,0,2,1],
+"namespacehmap_1_1va.html#aec2c193932c4d5d1fe00d09b81e243d8":[3,0,0,2,2],
 "namespacemembers.html":[3,1,0],
 "namespacemembers.html":[3,1,0,0],
 "namespacemembers_a.html":[3,1,0,1],
@@ -50,8 +53,8 @@ var NAVTREEINDEX21 =
 "namespacemembers_eval_w.html":[3,1,3,20],
 "namespacemembers_eval_x.html":[3,1,3,21],
 "namespacemembers_f.html":[3,1,0,6],
-"namespacemembers_func.html":[3,1,1],
 "namespacemembers_func.html":[3,1,1,0],
+"namespacemembers_func.html":[3,1,1],
 "namespacemembers_func_b.html":[3,1,1,1],
 "namespacemembers_func_c.html":[3,1,1,2],
 "namespacemembers_func_d.html":[3,1,1,3],
@@ -246,8 +249,5 @@ var NAVTREEINDEX21 =
 "point_8hpp.html#a4db26523148bcbdedc64cd342a122964":[5,0,1,0,0,2,7,20],
 "point_8hpp.html#a520a1e42c4e492e81b334914807abc22":[5,0,1,0,0,2,7,18],
 "point_8hpp.html#a567410971127d39a9e3c2d7b75364def":[5,0,1,0,0,2,7,8],
-"point_8hpp.html#a5dc01b8ec213bc19fc4800e1286b0975":[5,0,1,0,0,2,7,25],
-"point_8hpp.html#a62068967763814bfbf05a505993c544a":[5,0,1,0,0,2,7,14],
-"point_8hpp.html#a62b55fdc2fbc76c4938a6b49a10cfd65":[5,0,1,0,0,2,7,3],
-"point_8hpp.html#a69877ef43645c767daa0735fde59821c":[5,0,1,0,0,2,7,23]
+"point_8hpp.html#a5dc01b8ec213bc19fc4800e1286b0975":[5,0,1,0,0,2,7,25]
 };
