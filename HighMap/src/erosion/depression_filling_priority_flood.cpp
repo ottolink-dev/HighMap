@@ -11,6 +11,8 @@
 #include "highmap/filters.hpp"
 #include "highmap/hydrology/drainage_basin_cell_based.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
 {
@@ -67,3 +69,63 @@ void depression_filling_priority_flood(Array &z,
 }
 
 } // namespace hmap
+
+namespace hmap::va
+{
+
+VirtualArray depression_filling_priority_flood(const VirtualArray &z,
+                                               bool          apply_post_filter,
+                                               VirtualArray *p_fill_map,
+                                               const ComputeMode &cm)
+{
+  VirtualArray out;
+  if (z.empty()) return out;
+
+  out.copy_from(z, cm);
+
+  // iterative multi-pass tile filling
+  glm::ivec2 tiling = out.get_max_tiles();
+  int        nit = std::max(tiling.x, tiling.y);
+
+  for (int it = 0; it < nit; ++it)
+  {
+    hmap::for_each_tile(
+        {},
+        {&out},
+        [&](std::vector<const hmap::Array *>,
+            std::vector<hmap::Array *> p_arrays_out,
+            const hmap::TileRegion &)
+        {
+          auto [pa_out] = unpack<1>(p_arrays_out);
+
+          hmap::depression_filling_priority_flood(*pa_out, apply_post_filter);
+        },
+        cm);
+
+    out.sync_overlap_buffers(hmap::SyncOperation::Max);
+  }
+
+  // compute fill map
+  if (p_fill_map)
+  {
+    p_fill_map->copy_from(z, cm, /* copy_src_data */ false);
+
+    hmap::for_each_tile(
+        {&z, &out},
+        {p_fill_map},
+        [&](std::vector<const hmap::Array *> p_arrays_in,
+            std::vector<hmap::Array *>       p_arrays_out,
+            const hmap::TileRegion &)
+        {
+          auto [pa_in, pa_out] = unpack<2>(p_arrays_in);
+          auto [pa_fill_map] = unpack<1>(p_arrays_out);
+
+          *pa_fill_map = *pa_out - *pa_in;
+        },
+        cm);
+  }
+
+  return out;
+}
+
+} // namespace hmap::va

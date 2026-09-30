@@ -2438,6 +2438,21 @@ Array watershed_ridge(
 namespace hmap::va
 {
 
+/**
+ * @brief Fill depressions in a VirtualArray using the Priority-Flood algorithm.
+ *
+ * @param z                 Input heightmap.
+ * @param apply_post_filter Apply Laplacian smoothing to deposition.
+ * @param p_fill_map        Optional output fill map (z_after - z_before).
+ * @param cm                Compute mode configuration.
+ * @return                  Filled heightmap.
+ */
+VirtualArray depression_filling_priority_flood(
+    const VirtualArray &z,
+    bool                apply_post_filter = false,
+    VirtualArray       *p_fill_map = nullptr,
+    const ComputeMode  &cm = {});
+
 VirtualArray hydraulic_saleve(
     const ComputeMode    &cm,
     const VirtualArray   &z,
@@ -2462,4 +2477,4 @@ VirtualArray hydraulic_saleve(
     const VirtualArray *p_noise_y = nullptr,
     const VirtualArray *p_mask = nullptr);
 
-}
+} // namespace hmap::va
