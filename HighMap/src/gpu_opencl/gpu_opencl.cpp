@@ -47,262 +47,286 @@ bool init_opencl()
   // load and build kernels
   auto add = [&](const std::string &src) { km.add_kernel(src, false, false); };
 
+  // --- Common utilities
+
   add(
-#include "kernels/_common_index.cl"
+#include "kernels/common/_common_index.cl"
   );
   add(
-#include "kernels/_common_math.cl"
+#include "kernels/common/_common_math.cl"
   );
   add(
-#include "kernels/_common_rand.cl"
+#include "kernels/common/_common_rand.cl"
   );
   add(
-#include "kernels/_common_sort.cl"
+#include "kernels/common/_common_sort.cl"
   );
-  //
   add(
-#include "kernels/advection_particle.cl"
+#include "kernels/common/_common_d8.cl"
   );
+
+  // --- Noise and procedural primitives
+
   add(
-#include "kernels/advection_warp.cl"
+#include "kernels/noise/noise_a.cl"
   );
   add(
-#include "kernels/bilateral_filter.cl"
+#include "kernels/noise/noise_b.cl"
   );
   add(
-#include "kernels/blend_poisson_bf.cl"
+#include "kernels/noise/gabor_wave.cl"
   );
   add(
-#include "kernels/coastal_fetch.cl"
+#include "kernels/noise/gavoronoise.cl"
   );
   add(
-#include "kernels/curvature_quadric.cl"
+#include "kernels/noise/hemisphere_field.cl"
   );
   add(
-#include "kernels/directional_blur.cl"
+#include "kernels/noise/laplacian_fract.cl"
   );
   add(
-#include "kernels/eulerian_transport.cl"
+#include "kernels/noise/mountain_range_radial.cl"
   );
   add(
-#include "kernels/expand.cl"
+#include "kernels/noise/phase_averaging.cl"
   );
   add(
-#include "kernels/flow_accum_stochastic.cl"
+#include "kernels/noise/phase_field.cl"
   );
   add(
-#include "kernels/flow_direction_d8.cl"
+#include "kernels/noise/polygon_field.cl"
   );
   add(
-#include "kernels/gabor_wave.cl"
+#include "kernels/noise/wavelet_noise.cl"
   );
+
+  // --- Voronoi diagrams and patterns
+
   add(
-#include "kernels/gavoronoise.cl"
+#include "kernels/voronoi/voronoi_base.cl"
   );
   add(
-#include "kernels/generate_riverbed.cl"
+#include "kernels/voronoi/vorolines.cl"
   );
   add(
-#include "kernels/harmonic_interpolation.cl"
+#include "kernels/voronoi/voronoi_edge_distance.cl"
   );
   add(
-#include "kernels/hemisphere_field.cl"
+#include "kernels/voronoi/voronoi_fbm.cl"
   );
   add(
-#include "kernels/hydraulic_mcdonald.cl"
+#include "kernels/voronoi/voronoi_main.cl"
   );
   add(
-#include "kernels/hydraulic_musgrave.cl"
+#include "kernels/voronoi/voronoise.cl"
   );
   add(
-#include "kernels/hydraulic_particle.cl"
+#include "kernels/voronoi/vororand_main.cl"
   );
+
+  // --- Erosion and geomorphology
+
   add(
-#include "kernels/hydraulic_schott.cl"
+#include "kernels/erosion/hydraulic_mcdonald.cl"
   );
   add(
-#include "kernels/hydraulic_vpipes.cl"
+#include "kernels/erosion/hydraulic_musgrave.cl"
   );
   add(
-#include "kernels/interpolate_array.cl"
+#include "kernels/erosion/hydraulic_particle.cl"
   );
   add(
-#include "kernels/jagged.cl"
+#include "kernels/erosion/hydraulic_schott.cl"
   );
   add(
-#include "kernels/jump_flooding.cl"
+#include "kernels/erosion/hydraulic_vpipes.cl"
   );
   add(
-#include "kernels/laplace.cl"
+#include "kernels/erosion/rifts.cl"
   );
   add(
-#include "kernels/laplacian_fract.cl"
+#include "kernels/erosion/strata.cl"
   );
   add(
-#include "kernels/local_max.cl"
+#include "kernels/erosion/strata_cells.cl"
   );
   add(
-#include "kernels/local_max_octagon.cl"
+#include "kernels/erosion/strata_terrace.cl"
   );
   add(
-#include "kernels/local_max_square.cl"
+#include "kernels/erosion/thermal.cl"
   );
   add(
-#include "kernels/local_mean.cl"
+#include "kernels/erosion/thermal_flatten.cl"
   );
   add(
-#include "kernels/local_min.cl"
+#include "kernels/erosion/thermal_inflate.cl"
   );
   add(
-#include "kernels/local_min_octagon.cl"
+#include "kernels/erosion/thermal_olsen.cl"
   );
   add(
-#include "kernels/local_min_square.cl"
+#include "kernels/erosion/thermal_rib.cl"
   );
   add(
-#include "kernels/local_relief.cl"
+#include "kernels/erosion/thermal_ridge.cl"
   );
   add(
-#include "kernels/local_skewness.cl"
+#include "kernels/erosion/thermal_schott.cl"
   );
   add(
-#include "kernels/local_variance.cl"
+#include "kernels/erosion/thermal_scree.cl"
   );
+
+  // --- Filters
+
   add(
-#include "kernels/local_z_score.cl"
+#include "kernels/filters/bilateral_filter.cl"
   );
   add(
-#include "kernels/mean_shift.cl"
+#include "kernels/filters/directional_blur.cl"
   );
   add(
-#include "kernels/median_3x3.cl"
+#include "kernels/filters/expand.cl"
   );
   add(
-#include "kernels/mountain_range_radial.cl"
+#include "kernels/filters/laplace.cl"
   );
   add(
-#include "kernels/noise_a.cl"
+#include "kernels/filters/mean_shift.cl"
   );
   add(
-#include "kernels/noise_b.cl"
+#include "kernels/filters/median_3x3.cl"
   );
   add(
-#include "kernels/normal_displacement.cl"
+#include "kernels/filters/normal_displacement.cl"
   );
   add(
-#include "kernels/phase_averaging.cl"
+#include "kernels/filters/plateau.cl"
   );
   add(
-#include "kernels/phase_field.cl"
+#include "kernels/filters/smooth_cpulse.cl"
   );
   add(
-#include "kernels/plateau.cl"
+#include "kernels/filters/sparse_max_convolution.cl"
   );
   add(
-#include "kernels/polygon_field.cl"
+#include "kernels/filters/water_depth_filter.cl"
   );
+
+  // --- Flow and hydrology
+
   add(
-#include "kernels/project_slope_along_direction.cl"
+#include "kernels/flow/coastal_fetch.cl"
   );
   add(
-#include "kernels/ridge_accentuate.cl"
+#include "kernels/flow/flow_accum_stochastic.cl"
   );
   add(
-#include "kernels/rotate.cl"
+#include "kernels/flow/flow_direction_d8.cl"
   );
   add(
-#include "kernels/ruggedness.cl"
+#include "kernels/flow/generate_riverbed.cl"
   );
   add(
-#include "kernels/rugosity.cl"
+#include "kernels/flow/shallow_viscous_flow.cl"
   );
   add(
-#include "kernels/sdf_2d_polyline.cl"
+#include "kernels/flow/snow_simulation.cl"
   );
+
+  // --- Local metrics
+
   add(
-#include "kernels/shallow_viscous_flow.cl"
+#include "kernels/local_metrics/curvature_quadric.cl"
   );
   add(
-#include "kernels/skeleton.cl"
+#include "kernels/local_metrics/local_max.cl"
   );
   add(
-#include "kernels/smooth_cpulse.cl"
+#include "kernels/local_metrics/local_max_octagon.cl"
   );
   add(
-#include "kernels/snow_simulation.cl"
+#include "kernels/local_metrics/local_max_square.cl"
   );
   add(
-#include "kernels/sparse_max_convolution.cl"
+#include "kernels/local_metrics/local_mean.cl"
   );
   add(
-#include "kernels/thermal.cl"
+#include "kernels/local_metrics/local_min.cl"
   );
   add(
-#include "kernels/thermal_flatten.cl"
+#include "kernels/local_metrics/local_min_octagon.cl"
   );
   add(
-#include "kernels/thermal_inflate.cl"
+#include "kernels/local_metrics/local_min_square.cl"
   );
   add(
-#include "kernels/thermal_olsen.cl"
+#include "kernels/local_metrics/local_relief.cl"
   );
   add(
-#include "kernels/thermal_rib.cl"
+#include "kernels/local_metrics/local_skewness.cl"
   );
   add(
-#include "kernels/thermal_ridge.cl"
+#include "kernels/local_metrics/local_variance.cl"
   );
   add(
-#include "kernels/thermal_schott.cl"
+#include "kernels/local_metrics/local_z_score.cl"
   );
   add(
-#include "kernels/thermal_scree.cl"
+#include "kernels/local_metrics/ridge_accentuate.cl"
   );
   add(
-#include "kernels/topographic_position_index.cl"
+#include "kernels/local_metrics/ruggedness.cl"
   );
   add(
-#include "kernels/vorolines.cl"
+#include "kernels/local_metrics/rugosity.cl"
   );
   add(
-#include "kernels/voronoi_base.cl"
+#include "kernels/local_metrics/topographic_position_index.cl"
   );
+
+  // --- Transformations, transport, and interpolation
+
   add(
-#include "kernels/voronoi_edge_distance.cl"
+#include "kernels/transform/advection_particle.cl"
   );
   add(
-#include "kernels/voronoi_fbm.cl"
+#include "kernels/transform/advection_warp.cl"
   );
   add(
-#include "kernels/voronoi_main.cl"
+#include "kernels/transform/blend_poisson_bf.cl"
   );
   add(
-#include "kernels/voronoise.cl"
+#include "kernels/transform/eulerian_transport.cl"
   );
   add(
-#include "kernels/vororand_main.cl"
+#include "kernels/transform/harmonic_interpolation.cl"
   );
   add(
-#include "kernels/warp.cl"
+#include "kernels/transform/interpolate_array.cl"
   );
   add(
-#include "kernels/water_depth_filter.cl"
+#include "kernels/transform/jagged.cl"
   );
   add(
-#include "kernels/wavelet_noise.cl"
+#include "kernels/transform/jump_flooding.cl"
   );
-  //
   add(
-#include "kernels/rifts.cl"
+#include "kernels/transform/project_slope_along_direction.cl"
   );
   add(
-#include "kernels/strata.cl"
+#include "kernels/transform/rotate.cl"
   );
   add(
-#include "kernels/strata_cells.cl"
+#include "kernels/transform/sdf_2d_polyline.cl"
   );
   add(
-#include "kernels/strata_terrace.cl"
+#include "kernels/transform/skeleton.cl"
+  );
+  add(
+#include "kernels/transform/warp.cl"
   );
 
   km.build_program();

@@ -2,10 +2,6 @@ R""(
 /* Copyright (c) 2023 Otto Link. Distributed under the terms of the GNU General
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
-__constant const int   thermal_scree_di[8] = {-1, 0, 0, 1, -1, -1, 1, 1};
-__constant const int   thermal_scree_dj[8] = {0, 1, -1, 0, -1, 1, -1, 1};
-__constant const float thermal_scree_c[8] =
-    {1.f, 1.f, 1.f, 1.f, 1.41421356f, 1.41421356f, 1.41421356f, 1.41421356f};
 
 void kernel thermal_scree(global const float *z_in,
                           global float       *z_out,
@@ -29,10 +25,8 @@ void kernel thermal_scree(global const float *z_in,
 #pragma unroll
   for (int k = 0; k < 8; k++)
   {
-    float dz = (val - z_in[linear_index(g.x + thermal_scree_di[k],
-                                        g.y + thermal_scree_dj[k],
-                                        nx)]) /
-               thermal_scree_c[k];
+    float dz = (val - z_in[linear_index(g.x + d8_di[k], g.y + d8_dj[k], nx)]) /
+               d8_dist[k];
 
     if (dz < 0.f) sum += dz;
 

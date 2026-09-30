@@ -56,7 +56,7 @@ int main()
       }
   };
 
-  hmap::for_each_tile(tex.channels_ptr(), fill_channels, cm);
+  hmap::for_each_tile(tex, fill_channels, cm);
   tex.to_png("out0.png", cm);
 
   // ===========================================================================
@@ -195,7 +195,7 @@ int main()
                                    3,
                                    storage_mode);
 
-    hmap::for_each_tile(tex_small.channels_ptr(), fill_channels, cm);
+    hmap::for_each_tile(tex_small, fill_channels, cm);
 
     auto R = tex_small.channel(0).to_array(cm);
     auto B = tex_small.channel(2).to_array(cm);

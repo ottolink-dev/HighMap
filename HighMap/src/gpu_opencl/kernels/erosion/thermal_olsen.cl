@@ -2,17 +2,6 @@ R""(
 /* Copyright (c) 2025 Otto Link. Distributed under the terms of the GNU General
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
-__constant const int   thermal_olsen_di[8] = {-1, 0, 0, 1, -1, -1, 1, 1};
-__constant const int   thermal_olsen_dj[8] = {0, 1, -1, 0, -1, 1, -1, 1};
-__constant const float thermal_olsen_c[8] = {1.f,
-                                             1.f,
-                                             1.f,
-                                             1.f,
-                                             1.414213562f,
-                                             1.414213562f,
-                                             1.414213562f,
-                                             1.414213562f};
-__constant const int   thermal_olsen_rev[8] = {3, 2, 1, 0, 7, 6, 5, 4};
 
 void kernel thermal_olsen(global const float *z_in,
                           global float       *z_out,
@@ -40,11 +29,11 @@ void kernel thermal_olsen(global const float *z_in,
 #pragma unroll
   for (int p = 0; p < 8; ++p)
   {
-    int2  gp = (int2)(g.x + thermal_olsen_di[p], g.y + thermal_olsen_dj[p]);
+    int2  gp = (int2)(g.x + d8_di[p], g.y + d8_dj[p]);
     float diff = z_val - z_in[linear_index(gp.x, gp.y, nx)];
     dz[p] = diff;
 
-    if (diff > talus_val * thermal_olsen_c[p])
+    if (diff > talus_val * d8_dist[p])
     {
       dsum += diff;
       dmax = max(dmax, diff);
@@ -56,10 +45,9 @@ void kernel thermal_olsen(global const float *z_in,
 #pragma unroll
     for (int p = 0; p < 8; ++p)
     {
-      if (dz[p] > talus_val * thermal_olsen_c[p])
+      if (dz[p] > talus_val * d8_dist[p])
       {
-        float amount = 0.25f * (dmax - talus_val * thermal_olsen_c[p]) * dz[p] /
-                       dsum;
+        float amount = 0.25f * (dmax - talus_val * d8_dist[p]) * dz[p] / dsum;
         delta -= amount;
       }
     }
@@ -71,7 +59,7 @@ void kernel thermal_olsen(global const float *z_in,
   for (int k = 0; k < 8; ++k)
   {
     int  s = (k + shift) & 7;
-    int2 gk = (int2)(g.x + thermal_olsen_di[s], g.y + thermal_olsen_dj[s]);
+    int2 gk = (int2)(g.x + d8_di[s], g.y + d8_dj[s]);
     int  gk_idx = linear_index(gk.x, gk.y, nx);
 
     float talus_k = talus[gk_idx];
@@ -84,11 +72,11 @@ void kernel thermal_olsen(global const float *z_in,
 #pragma unroll
     for (int p = 0; p < 8; ++p)
     {
-      int2  gp = (int2)(gk.x + thermal_olsen_di[p], gk.y + thermal_olsen_dj[p]);
+      int2  gp = (int2)(gk.x + d8_di[p], gk.y + d8_dj[p]);
       float diff = z_k - z_in[linear_index(gp.x, gp.y, nx)];
       dz_k[p] = diff;
 
-      if (diff > talus_k * thermal_olsen_c[p])
+      if (diff > talus_k * d8_dist[p])
       {
         dsum_k += diff;
         dmax_k = max(dmax_k, diff);
@@ -97,12 +85,12 @@ void kernel thermal_olsen(global const float *z_in,
 
     if (dmax_k > 0.f && dsum_k > 0.f)
     {
-      int   rev_p = thermal_olsen_rev[s];
+      int   rev_p = d8_rev[s];
       float diff_to_c = dz_k[rev_p];
-      if (diff_to_c > talus_k * thermal_olsen_c[rev_p])
+      if (diff_to_c > talus_k * d8_dist[rev_p])
       {
-        float amount = 0.25f * (dmax_k - talus_k * thermal_olsen_c[rev_p]) *
-                       diff_to_c / dsum_k;
+        float amount = 0.25f * (dmax_k - talus_k * d8_dist[rev_p]) * diff_to_c /
+                       dsum_k;
         delta += amount;
       }
     }
