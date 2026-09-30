@@ -12,6 +12,8 @@
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/range.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
 {
@@ -204,3 +206,41 @@ Array flooding_lake_system(const Array &z, float surface_threshold)
 }
 
 } // namespace hmap
+
+namespace hmap::va
+{
+
+VirtualArray flooding_lake_system(const VirtualArray &z,
+                                  float               surface_threshold,
+                                  const ComputeMode  &cm)
+{
+  if (z.empty()) return VirtualArray();
+
+  VirtualArray water_depth;
+
+  // use depression filling algo to get lake zones and depths
+  depression_filling_priority_flood(z, false, &water_depth, cm);
+
+  // use connected components analysis to remove small spots if requested
+  if (surface_threshold > 0.f)
+  {
+    hmap::for_each_tile(
+        {},
+        {&water_depth},
+        [surface_threshold](std::vector<const hmap::Array *>,
+                            std::vector<hmap::Array *> p_arrays_out,
+                            const hmap::TileRegion &)
+        {
+          auto [pa_water] = unpack<1>(p_arrays_out);
+          Array labels = connected_components(*pa_water, surface_threshold);
+          for (int j = 0; j < pa_water->shape.y; j++)
+            for (int i = 0; i < pa_water->shape.x; i++)
+              if (labels(i, j) == 0.f) (*pa_water)(i, j) = 0.f;
+        },
+        cm);
+  }
+
+  return water_depth;
+}
+
+} // namespace hmap::va

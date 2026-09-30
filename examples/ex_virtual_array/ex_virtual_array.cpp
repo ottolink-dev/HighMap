@@ -102,10 +102,9 @@ int main()
   // Multi-array operation
   // ===========================================================================
 
-  const auto binarize_copy =
-      [](const std::vector<const hmap::Array *> &in,
-         std::vector<hmap::Array *>             &out,
-         const hmap::TileRegion                 &)
+  const auto binarize_copy = [](const std::vector<const hmap::Array *> &in,
+                                std::vector<hmap::Array *>             &out,
+                                const hmap::TileRegion &)
   {
     auto &src = *in[0];
     auto &dst = *out[0];

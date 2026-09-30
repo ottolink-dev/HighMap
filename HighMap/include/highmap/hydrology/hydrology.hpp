@@ -29,6 +29,7 @@
 #include "highmap/geometry/path.hpp"
 #include "highmap/hydrology/drainage_basin_cell_based.hpp"
 #include "highmap/math/profiles.hpp"
+#include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
 {
@@ -1207,3 +1208,23 @@ Array water_depth_from_mask(const Array &z,
                             float        tolerance = 1e-2f);
 
 } // namespace hmap::gpu
+
+namespace hmap::va
+{
+
+/**
+ * @brief Identifies and floods depression systems (lakes) in a VirtualArray.
+ *
+ * @param z                 Input heightmap VirtualArray.
+ * @param surface_threshold Minimum surface area (in pixels) for a lake region
+ *                          to be retained. Default is 0 (no filtering).
+ * @param cm                Compute mode configuration.
+ * @return                  VirtualArray representing the water depth field.
+ *
+ * @see                     depression_filling_priority_flood
+ */
+VirtualArray flooding_lake_system(const VirtualArray &z,
+                                  float               surface_threshold = 0.f,
+                                  const ComputeMode  &cm = {});
+
+} // namespace hmap::va
