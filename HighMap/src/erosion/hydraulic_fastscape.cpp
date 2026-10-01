@@ -578,6 +578,171 @@ void hydraulic_fastscape(Array       &z,
   }
 }
 
+void hydraulic_fastscape_multiscale(Array                  &z,
+                                    const std::vector<int> &steps_per_level,
+                                    float                   dt,
+                                    float                   k_erosion,
+                                    float                   m_exp,
+                                    float                   n_exp,
+                                    float                   k_diff,
+                                    float                   uplift_rate,
+                                    bool                    multiple_flow,
+                                    float                   flow_partition_exp,
+                                    float                   tolerance,
+                                    const Array            *p_bedrock,
+                                    const Array            *p_moisture_map,
+                                    Array                  *p_erosion_map,
+                                    Array                  *p_flow_map,
+                                    float                   mix)
+{
+  if (!validate_non_empty(z)) return;
+
+  int nlevels = static_cast<int>(steps_per_level.size());
+  if (nlevels == 0) return;
+
+  Array z_orig = z;
+  Array z_initial;
+  if (p_erosion_map) z_initial = z;
+
+  // Build halving pyramid ladder (coarsest first, final level == z.shape)
+  std::vector<glm::ivec2> ladder(nlevels);
+  for (int i = 0; i < nlevels; ++i)
+  {
+    int shift = nlevels - 1 - i;
+    ladder[i] = {std::max(2, z.shape.x >> shift),
+                 std::max(2, z.shape.y >> shift)};
+  }
+
+  Array current_z = z_orig.resample_to_shape_bicubic(ladder[0]);
+
+  for (int i = 0; i < nlevels; ++i)
+  {
+    if (i > 0)
+    {
+      current_z = current_z.resample_to_shape_bicubic(ladder[i]);
+
+      // Blend with the original input heightmap resampled at the current level
+      // resolution to preserve high-frequency structures
+      if (mix < 1.f)
+      {
+        Array z_input_level = z_orig.resample_to_shape(ladder[i]);
+        current_z = hmap::lerp(z_input_level,
+                               current_z,
+                               std::clamp(mix, 0.f, 1.f));
+      }
+    }
+
+    int level_iterations = std::max(1, steps_per_level[i]);
+
+    // Resample optional input maps to level shape if provided
+    Array        level_bedrock, level_moisture;
+    const Array *p_lvl_bedrock = nullptr;
+    const Array *p_lvl_moisture = nullptr;
+
+    if (p_bedrock)
+    {
+      level_bedrock = p_bedrock->resample_to_shape_bicubic(ladder[i]);
+      p_lvl_bedrock = &level_bedrock;
+    }
+    if (p_moisture_map)
+    {
+      level_moisture = p_moisture_map->resample_to_shape_bicubic(ladder[i]);
+      p_lvl_moisture = &level_moisture;
+    }
+
+    // Intermediate passes do not write out cumulative maps
+    Array *p_lvl_erosion = (i == nlevels - 1) ? p_erosion_map : nullptr;
+    Array *p_lvl_flow = (i == nlevels - 1) ? p_flow_map : nullptr;
+
+    hydraulic_fastscape(current_z,
+                        level_iterations,
+                        dt,
+                        k_erosion,
+                        m_exp,
+                        n_exp,
+                        k_diff,
+                        uplift_rate,
+                        multiple_flow,
+                        flow_partition_exp,
+                        tolerance,
+                        p_lvl_bedrock,
+                        p_lvl_moisture,
+                        p_lvl_erosion,
+                        p_lvl_flow);
+  }
+
+  z = current_z;
+
+  if (p_erosion_map)
+  {
+    *p_erosion_map = z_initial - z;
+    clamp_min(*p_erosion_map, 0.f);
+  }
+}
+
+void hydraulic_fastscape_multiscale(Array                  &z,
+                                    const Array            *p_mask,
+                                    const std::vector<int> &steps_per_level,
+                                    float                   dt,
+                                    float                   k_erosion,
+                                    float                   m_exp,
+                                    float                   n_exp,
+                                    float                   k_diff,
+                                    float                   uplift_rate,
+                                    bool                    multiple_flow,
+                                    float                   flow_partition_exp,
+                                    float                   tolerance,
+                                    const Array            *p_bedrock,
+                                    const Array            *p_moisture_map,
+                                    Array                  *p_erosion_map,
+                                    Array                  *p_flow_map,
+                                    float                   mix)
+{
+  if (!validate_non_empty(z)) return;
+  if (p_mask && !validate_same_shape(z, *p_mask)) return;
+
+  if (!p_mask)
+  {
+    hydraulic_fastscape_multiscale(z,
+                                   steps_per_level,
+                                   dt,
+                                   k_erosion,
+                                   m_exp,
+                                   n_exp,
+                                   k_diff,
+                                   uplift_rate,
+                                   multiple_flow,
+                                   flow_partition_exp,
+                                   tolerance,
+                                   p_bedrock,
+                                   p_moisture_map,
+                                   p_erosion_map,
+                                   p_flow_map,
+                                   mix);
+  }
+  else
+  {
+    Array z_eroded = z;
+    hydraulic_fastscape_multiscale(z_eroded,
+                                   steps_per_level,
+                                   dt,
+                                   k_erosion,
+                                   m_exp,
+                                   n_exp,
+                                   k_diff,
+                                   uplift_rate,
+                                   multiple_flow,
+                                   flow_partition_exp,
+                                   tolerance,
+                                   p_bedrock,
+                                   p_moisture_map,
+                                   p_erosion_map,
+                                   p_flow_map,
+                                   mix);
+    z = lerp(z, z_eroded, *p_mask);
+  }
+}
+
 } // namespace hmap
 
 namespace hmap::va

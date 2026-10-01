@@ -539,3 +539,44 @@ TEST(HydraulicFastScape, VirtualArrayExecution)
   EXPECT_EQ(z_res.shape, shape);
   EXPECT_FALSE(assert_almost_equal(z_res, z0));
 }
+
+TEST(HydraulicFastScape, MultiscaleExecution)
+{
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+  remap(z0, 0.f, 1.f);
+  Array z = z0;
+
+  Array erosion_map(shape, 0.f);
+  Array flow_map(shape, 0.f);
+
+  hydraulic_fastscape_multiscale(z,
+                                 {8, 4, 2},
+                                 1e-2f,
+                                 1.f,
+                                 0.5f,
+                                 1.f,
+                                 1e-3f,
+                                 0.f,
+                                 true,
+                                 1.f,
+                                 1e-3f,
+                                 nullptr,
+                                 nullptr,
+                                 &erosion_map,
+                                 &flow_map,
+                                 0.8f);
+
+  EXPECT_EQ(z.shape, shape);
+  EXPECT_FALSE(assert_almost_equal(z, z0));
+
+  for (int j = 0; j < z.shape.y; j++)
+    for (int i = 0; i < z.shape.x; i++)
+    {
+      EXPECT_FALSE(std::isnan(z(i, j)));
+      EXPECT_FALSE(std::isinf(z(i, j)));
+      EXPECT_GE(flow_map(i, j), 1.f);
+      EXPECT_GE(erosion_map(i, j), 0.f);
+    }
+}

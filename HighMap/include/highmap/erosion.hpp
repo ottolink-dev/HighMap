@@ -70,8 +70,8 @@ namespace hmap
  */
 void coastal_erosion_diffusion(Array       &z,
                                Array       &water_depth,
-                               float        additional_depth,
-                               int          iterations = 10,
+                               float additional_depth,
+                               int iterations = 10,
                                const Array *p_mask = nullptr,
                                Array       *p_water_mask = nullptr);
 
@@ -124,15 +124,15 @@ void coastal_erosion_diffusion(Array       &z,
  */
 void coastal_erosion_profile(Array &z,
                              Array &water_depth,
-                             float  shore_ground_extent, // pixels
-                             float  shore_water_extent,
-                             float  slope_shore = 0.5f,
-                             float  slope_shore_water = 0.5f,
-                             float  scarp_extent_ratio = 0.5f, // in [0, 1]
-                             bool   apply_post_filter = true,
-                             int    post_filter_iterations = 3,
-                             bool   solid_shore_mask = true,
-                             float  scarp_mask_transition_ratio = 0.2f,
+                             float shore_ground_extent,  // pixels
+                             float shore_water_extent,
+                             float slope_shore = 0.5f,
+                             float slope_shore_water = 0.5f,
+                             float scarp_extent_ratio = 0.5f,  // in [0, 1]
+                             bool apply_post_filter = true,
+                             int post_filter_iterations = 3,
+                             bool solid_shore_mask = true,
+                             float scarp_mask_transition_ratio = 0.2f,
                              const Array *p_noise = nullptr,
                              Array       *p_shore_mask = nullptr,
                              Array       *p_scarp_mask = nullptr);
@@ -140,14 +140,14 @@ void coastal_erosion_profile(Array &z,
 void coastal_erosion_profile(Array       &z,
                              const Array *p_mask,
                              Array       &water_depth,
-                             float        shore_ground_extent, // pixels
-                             float        shore_water_extent,
-                             float        slope_shore = 0.5f,
-                             float        slope_shore_water = 0.5f,
+                             float shore_ground_extent,        // pixels
+                             float shore_water_extent,
+                             float slope_shore = 0.5f,
+                             float slope_shore_water = 0.5f,
                              float scarp_extent_ratio = 0.5f, // in [0, 1]
-                             bool  apply_post_filter = true,
-                             int   post_filter_iterations = 3,
-                             bool  solid_shore_mask = true,
+                             bool apply_post_filter = true,
+                             int post_filter_iterations = 3,
+                             bool solid_shore_mask = true,
                              float scarp_mask_transition_ratio = 0.2f,
                              const Array *p_noise = nullptr,
                              Array       *p_shore_mask = nullptr,
@@ -179,12 +179,12 @@ void coastal_erosion_profile(Array       &z,
  * @param outflow_top    Allow outflow on top boundary (j = ny - 1).
  */
 void depression_filling(Array &z,
-                        int    iterations = 1000,
-                        float  epsilon = 1e-4f,
-                        bool   outflow_left = true,
-                        bool   outflow_right = true,
-                        bool   outflow_bottom = true,
-                        bool   outflow_top = true);
+                        int iterations = 1000,
+                        float epsilon = 1e-4f,
+                        bool outflow_left = true,
+                        bool outflow_right = true,
+                        bool outflow_bottom = true,
+                        bool outflow_top = true);
 
 /**
  * @brief Fill depressions in a heightmap using the Priority-Flood algorithm.
@@ -197,11 +197,11 @@ void depression_filling(Array &z,
  * @param outflow_top       Allow outflow on top boundary (j = ny - 1).
  */
 void depression_filling_priority_flood(Array &z,
-                                       bool   apply_post_filter = false,
-                                       bool   outflow_left = true,
-                                       bool   outflow_right = true,
-                                       bool   outflow_bottom = true,
-                                       bool   outflow_top = true);
+                                       bool apply_post_filter = false,
+                                       bool outflow_left = true,
+                                       bool outflow_right = true,
+                                       bool outflow_bottom = true,
+                                       bool outflow_top = true);
 
 /**
  * @brief
@@ -223,7 +223,7 @@ void erosion_maps(Array &z_before,
                   Array &z_after,
                   Array &erosion_map,
                   Array &deposition_map,
-                  float  tolerance = 0.f);
+                  float tolerance = 0.f);
 
 /**
  * @brief Generates a modified bedrock heightmap from an input elevation array.
@@ -249,11 +249,11 @@ void erosion_maps(Array &z_before,
  * @image html ex_hydraulic_particle.png
  */
 Array generate_bedrock(const Array &z,
-                       float        elevation_strength,
-                       float        slope_strength,
-                       float        slope_limit,
-                       float        zmin = 0.f,
-                       float        zmax = -1.f);
+                       float elevation_strength,
+                       float slope_strength,
+                       float slope_limit,
+                       float zmin = 0.f,
+                       float zmax = -1.f);
 
 /**
  * @brief Apply an algerbic formula based on the local gradient to perform
@@ -281,24 +281,24 @@ Array generate_bedrock(const Array &z,
  */
 void hydraulic_algebric(Array &z,
                         Array *p_mask,
-                        float  talus_ref,
-                        int    ir,
+                        float talus_ref,
+                        int ir,
                         Array *p_bedrock = nullptr,
                         Array *p_erosion_map = nullptr,
                         Array *p_deposition_map = nullptr,
-                        float  c_erosion = 0.05f,
-                        float  c_deposition = 0.05f,
-                        int    iterations = 1);
+                        float c_erosion = 0.05f,
+                        float c_deposition = 0.05f,
+                        int iterations = 1);
 
 void hydraulic_algebric(Array &z,
-                        float  talus_ref,
-                        int    ir,
+                        float talus_ref,
+                        int ir,
                         Array *p_bedrock = nullptr,
                         Array *p_erosion_map = nullptr,
                         Array *p_deposition_map = nullptr,
-                        float  c_erosion = 0.05f,
-                        float  c_deposition = 0.05f,
-                        int    iterations = 1); ///< @overload
+                        float c_erosion = 0.05f,
+                        float c_deposition = 0.05f,
+                        int iterations = 1);    ///< @overload
 
 /**
  * @brief Apply cell-based hydraulic erosion/deposition based on Benes et al.
@@ -332,30 +332,30 @@ void hydraulic_algebric(Array &z,
  */
 void hydraulic_benes(Array &z,
                      Array *p_mask,
-                     int    iterations = 50,
+                     int iterations = 50,
                      Array *p_bedrock = nullptr,
                      Array *p_moisture_map = nullptr,
                      Array *p_erosion_map = nullptr,
                      Array *p_deposition_map = nullptr,
-                     float  c_capacity = 40.f,
-                     float  c_erosion = 0.2f,
-                     float  c_deposition = 0.8f,
-                     float  water_level = 0.005f,
-                     float  evap_rate = 0.01f,
-                     float  rain_rate = 0.5f);
+                     float c_capacity = 40.f,
+                     float c_erosion = 0.2f,
+                     float c_deposition = 0.8f,
+                     float water_level = 0.005f,
+                     float evap_rate = 0.01f,
+                     float rain_rate = 0.5f);
 
 void hydraulic_benes(Array &z,
-                     int    iterations = 50,
+                     int iterations = 50,
                      Array *p_bedrock = nullptr,
                      Array *p_moisture_map = nullptr,
                      Array *p_erosion_map = nullptr,
                      Array *p_deposition_map = nullptr,
-                     float  c_capacity = 40.f,
-                     float  c_erosion = 0.2f,
-                     float  c_deposition = 0.8f,
-                     float  water_level = 0.005f,
-                     float  evap_rate = 0.01f,
-                     float  rain_rate = 0.5f); ///< @overload
+                     float c_capacity = 40.f,
+                     float c_erosion = 0.2f,
+                     float c_deposition = 0.8f,
+                     float water_level = 0.005f,
+                     float evap_rate = 0.01f,
+                     float rain_rate = 0.5f);  ///< @overload
 
 /**
  * @brief Apply cell-based hydraulic erosion using a nonlinear diffusion model.
@@ -371,9 +371,9 @@ void hydraulic_benes(Array &z,
  * @image html ex_hydraulic_blur.png
  */
 void hydraulic_blur(Array &z,
-                    float  radius,
-                    float  vmax,
-                    float  k_smoothing = 0.1f);
+                    float radius,
+                    float vmax,
+                    float k_smoothing = 0.1f);
 
 /**
  * @brief Apply cell-based hydraulic erosion using a nonlinear diffusion model.
@@ -393,9 +393,9 @@ void hydraulic_blur(Array &z,
  * @image html ex_hydraulic_diffusion.png
  */
 void hydraulic_diffusion(Array &z,
-                         float  c_diffusion,
-                         float  talus,
-                         int    iterations);
+                         float c_diffusion,
+                         float talus,
+                         int iterations);
 
 /**
  * @brief Simulates landscape evolution using the FastScape algorithm.
@@ -438,16 +438,16 @@ void hydraulic_diffusion(Array &z,
  * @image html ex_hydraulic_fastscape.png
  */
 void hydraulic_fastscape(Array       &z,
-                         int          iterations = 10,
-                         float        dt = 1e-2f,
-                         float        k_erosion = 1.f,
-                         float        m_exp = 0.5f,
-                         float        n_exp = 1.f,
-                         float        k_diff = 1e-3f,
-                         float        uplift_rate = 0.f,
-                         bool         multiple_flow = true,
-                         float        flow_partition_exp = 1.f,
-                         float        tolerance = 1e-3f,
+                         int iterations = 10,
+                         float dt = 1e-2f,
+                         float k_erosion = 1.f,
+                         float m_exp = 0.5f,
+                         float n_exp = 1.f,
+                         float k_diff = 1e-3f,
+                         float uplift_rate = 0.f,
+                         bool multiple_flow = true,
+                         float flow_partition_exp = 1.f,
+                         float tolerance = 1e-3f,
                          const Array *p_bedrock = nullptr,
                          const Array *p_moisture_map = nullptr,
                          Array       *p_erosion_map = nullptr,
@@ -457,7 +457,7 @@ void hydraulic_fastscape(Array       &z,
  * @brief Masked variant of FastScape hydraulic erosion.
  *
  * @param[in,out] z                  Terrain elevation array (modified in
- * place).
+ *                                   place).
  * @param         p_mask             Spatial blend mask array in [0, 1].
  * @param         iterations         Number of time step iterations.
  * @param         dt                 Time step duration.
@@ -466,13 +466,13 @@ void hydraulic_fastscape(Array       &z,
  * @param         m_exp              Drainage area exponent (m).
  * @param         n_exp              Slope gradient exponent (n).
  * @param         k_diff             Hillslope diffusion transport coefficient
- * (Kd).
+ *                                   (Kd).
  * @param         uplift_rate        Constant uplift rate applied per time step
- * (U).
+ *                                   (U).
  * @param         multiple_flow      Whether to use multiple flow direction
- * (MFD) routing.
+ *                                   (MFD) routing.
  * @param         flow_partition_exp Flow partition slope exponent for MFD
- * routing.
+ *                                   routing.
  * @param         tolerance          Convergence tolerance for Newton-Raphson
  *                                   non-linear SPL solver.
  * @param         p_bedrock          Optional bedrock elevation mask array.
@@ -484,20 +484,129 @@ void hydraulic_fastscape(Array       &z,
  */
 void hydraulic_fastscape(Array       &z,
                          const Array *p_mask,
-                         int          iterations = 10,
-                         float        dt = 1e-2f,
-                         float        k_erosion = 1.f,
-                         float        m_exp = 0.5f,
-                         float        n_exp = 1.f,
-                         float        k_diff = 1e-3f,
-                         float        uplift_rate = 0.f,
-                         bool         multiple_flow = true,
-                         float        flow_partition_exp = 1.f,
-                         float        tolerance = 1e-3f,
+                         int iterations = 10,
+                         float dt = 1e-2f,
+                         float k_erosion = 1.f,
+                         float m_exp = 0.5f,
+                         float n_exp = 1.f,
+                         float k_diff = 1e-3f,
+                         float uplift_rate = 0.f,
+                         bool multiple_flow = true,
+                         float flow_partition_exp = 1.f,
+                         float tolerance = 1e-3f,
                          const Array *p_bedrock = nullptr,
                          const Array *p_moisture_map = nullptr,
                          Array       *p_erosion_map = nullptr,
                          Array       *p_flow_map = nullptr);
+
+/**
+ * @brief Multiscale FastScape hydraulic erosion across hierarchical resolution
+ * levels.
+ *
+ * Runs FastScape across a pyramid ladder of decreasing downscaling factors
+ * (coarsest resolution to full resolution) to establish large-scale valley and
+ * drainage networks before refining fine-scale tributary structures.
+ *
+ * @param[in,out] z                  Terrain elevation array (modified in
+ *                                   place).
+ * @param         steps_per_level    Vector specifying iteration count per
+ *                                   pyramid level (from coarsest to full
+ *                                   resolution).
+ * @param         dt                 Time step duration.
+ * @param         k_erosion          Stream power law bedrock erodibility
+ *                                   coefficient (K).
+ * @param         m_exp              Drainage area exponent (m).
+ * @param         n_exp              Slope gradient exponent (n).
+ * @param         k_diff             Hillslope diffusion transport coefficient
+ *                                   (Kd).
+ * @param         uplift_rate        Constant uplift rate applied per time step
+ *                                   (U).
+ * @param         multiple_flow      Whether to use multiple flow direction
+ *                                   (MFD) routing.
+ * @param         flow_partition_exp Flow partition slope exponent for MFD
+ *                                   routing.
+ * @param         tolerance          Convergence tolerance for Newton-Raphson
+ *                                   non-linear SPL solver.
+ * @param         p_bedrock          Optional bedrock elevation mask array.
+ * @param         p_moisture_map     Optional moisture/precipitation map.
+ * @param[out]    p_erosion_map      Optional output array storing cumulative
+ *                                   erosion.
+ * @param[out]    p_flow_map         Optional output array storing drainage flow
+ *                                   accumulation.
+ * @param         mix                Blend factor in [0, 1] between original
+ *                                   input terrain resampled at level resolution
+ *                                   (0) and upsampled eroded terrain (1).
+ */
+void hydraulic_fastscape_multiscale(
+	Array                  &z,
+	const std::vector<int> &steps_per_level = {10, 5, 2},
+	float dt = 1e-2f,
+	float k_erosion = 1.f,
+	float m_exp = 0.5f,
+	float n_exp = 1.f,
+	float k_diff = 1e-3f,
+	float uplift_rate = 0.f,
+	bool multiple_flow = true,
+	float flow_partition_exp = 1.f,
+	float tolerance = 1e-3f,
+	const Array            *p_bedrock = nullptr,
+	const Array            *p_moisture_map = nullptr,
+	Array                  *p_erosion_map = nullptr,
+	Array                  *p_flow_map = nullptr,
+	float mix = 1.f);
+
+/**
+ * @brief Masked variant of multiscale FastScape hydraulic erosion.
+ *
+ * @param[in,out] z                  Terrain elevation array (modified in
+ *                                   place).
+ * @param         p_mask             Spatial blend mask array in [0, 1].
+ * @param         steps_per_level    Vector specifying iteration count per
+ *                                   pyramid level (from coarsest to full
+ *                                   resolution).
+ * @param         dt                 Time step duration.
+ * @param         k_erosion          Stream power law bedrock erodibility
+ *                                   coefficient (K).
+ * @param         m_exp              Drainage area exponent (m).
+ * @param         n_exp              Slope gradient exponent (n).
+ * @param         k_diff             Hillslope diffusion transport coefficient
+ *                                   (Kd).
+ * @param         uplift_rate        Constant uplift rate applied per time step
+ *                                   (U).
+ * @param         multiple_flow      Whether to use multiple flow direction
+ *                                   (MFD) routing.
+ * @param         flow_partition_exp Flow partition slope exponent for MFD
+ *                                   routing.
+ * @param         tolerance          Convergence tolerance for Newton-Raphson
+ *                                   non-linear SPL solver.
+ * @param         p_bedrock          Optional bedrock elevation mask array.
+ * @param         p_moisture_map     Optional moisture/precipitation map.
+ * @param[out]    p_erosion_map      Optional output array storing cumulative
+ *                                   erosion.
+ * @param[out]    p_flow_map         Optional output array storing drainage flow
+ *                                   accumulation.
+ * @param         mix                Blend factor in [0, 1] between original
+ *                                   input terrain resampled at level resolution
+ *                                   (0) and upsampled eroded terrain (1).
+ */
+void hydraulic_fastscape_multiscale(
+	Array                  &z,
+	const Array            *p_mask,
+	const std::vector<int> &steps_per_level = {10, 5, 2},
+	float dt = 1e-2f,
+	float k_erosion = 1.f,
+	float m_exp = 0.5f,
+	float n_exp = 1.f,
+	float k_diff = 1e-3f,
+	float uplift_rate = 0.f,
+	bool multiple_flow = true,
+	float flow_partition_exp = 1.f,
+	float tolerance = 1e-3f,
+	const Array            *p_bedrock = nullptr,
+	const Array            *p_moisture_map = nullptr,
+	Array                  *p_erosion_map = nullptr,
+	Array                  *p_flow_map = nullptr,
+	float mix = 1.f);
 
 /**
  * @brief Apply cell-based hydraulic erosion/deposition of Musgrave et al.
@@ -524,20 +633,20 @@ void hydraulic_fastscape(Array       &z,
  */
 void hydraulic_musgrave(Array &z,
                         Array &moisture_map,
-                        int    iterations = 100,
-                        float  c_capacity = 1.f,
-                        float  c_erosion = 0.1f,
-                        float  c_deposition = 0.1f,
-                        float  water_level = 0.01f,
-                        float  evap_rate = 0.01f);
+                        int iterations = 100,
+                        float c_capacity = 1.f,
+                        float c_erosion = 0.1f,
+                        float c_deposition = 0.1f,
+                        float water_level = 0.01f,
+                        float evap_rate = 0.01f);
 
 void hydraulic_musgrave(Array &z,
-                        int    iterations = 100,
-                        float  c_capacity = 1.f,
-                        float  c_erosion = 0.1f,
-                        float  c_deposition = 0.1f,
-                        float  water_level = 0.01f,
-                        float  evap_rate = 0.01f); ///< @overload
+                        int iterations = 100,
+                        float c_capacity = 1.f,
+                        float c_erosion = 0.1f,
+                        float c_deposition = 0.1f,
+                        float water_level = 0.01f,
+                        float evap_rate = 0.01f);  ///< @overload
 
 /**
  * @brief Perform hydraulic erosion on a triangulated terrain mesh.
@@ -562,15 +671,15 @@ void hydraulic_musgrave(Array &z,
 void hydraulic_saleve(TerrainTriMesh           &mesh,
                       const std::vector<float> &erodibility,
                       const std::vector<float> &max_slope,
-                      float                     m_exp = 0.8f,
-                      float                     uplift_rate = 1.f,
-                      float                     tolerance = 1e-3f,
-                      int                       max_iterations = 200,
-                      float                     noise_strength = 0.f,
-                      std::uint32_t             seed = 0,
-                      bool  enable_post_slope_limiter = false,
+                      float m_exp = 0.8f,
+                      float uplift_rate = 1.f,
+                      float tolerance = 1e-3f,
+                      int max_iterations = 200,
+                      float noise_strength = 0.f,
+                      std::uint32_t seed = 0,
+                      bool enable_post_slope_limiter = false,
                       float post_slope_limit = 0.f,
-                      bool  enable_post_smoothing = false);
+                      bool enable_post_smoothing = false);
 
 /**
  * @brief Apply hydraulic erosion to a heightmap using an adaptive mesh.
@@ -603,45 +712,45 @@ void hydraulic_saleve(TerrainTriMesh           &mesh,
  * @image html ex_hydraulic_saleve.png
  */
 Array hydraulic_saleve(const Array          &z,
-                       std::uint32_t         seed,
-                       size_t                control_points_count = 10000,
-                       float                 m_exp = 0.8f,
-                       float                 uplift_rate = 1.f,
-                       float                 tolerance = 1e-3f,
-                       int                   max_iterations = 200,
-                       float                 smin = 0.f,
-                       float                 smax = 6.f,
-                       float                 strength = 0.5f,
-                       bool                  scale_erodibility_with_z = true,
-                       float                 erodibility_distrib_exp = 1.f,
-                       float                 noise_strength = 0.f,
-                       bool                  enable_post_slope_limiter = false,
-                       float                 post_slope_limit = 0.f,
-                       bool                  enable_post_smoothing = false,
+                       std::uint32_t seed,
+                       size_t control_points_count = 10000,
+                       float m_exp = 0.8f,
+                       float uplift_rate = 1.f,
+                       float tolerance = 1e-3f,
+                       int max_iterations = 200,
+                       float smin = 0.f,
+                       float smax = 6.f,
+                       float strength = 0.5f,
+                       bool scale_erodibility_with_z = true,
+                       float erodibility_distrib_exp = 1.f,
+                       float noise_strength = 0.f,
+                       bool enable_post_slope_limiter = false,
+                       float post_slope_limit = 0.f,
+                       bool enable_post_smoothing = false,
                        InterpolationMethod2D interpolation_method =
-                           InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT,
+                       InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT,
                        const Array *p_noise_x = nullptr,
                        const Array *p_noise_y = nullptr);
 
 Array hydraulic_saleve(const Array          &z,
                        const Array          *p_mask,
-                       std::uint32_t         seed,
-                       size_t                control_points_count = 10000,
-                       float                 m_exp = 0.8f,
-                       float                 uplift_rate = 1.f,
-                       float                 tolerance = 1e-3f,
-                       int                   max_iterations = 200,
-                       float                 smin = 0.f,
-                       float                 smax = 6.f,
-                       float                 strength = 0.5f,
-                       bool                  scale_erodibility_with_z = true,
-                       float                 erodibility_distrib_exp = 1.f,
-                       float                 noise_strength = 0.f,
-                       bool                  enable_post_slope_limiter = false,
-                       float                 post_slope_limit = 0.f,
-                       bool                  enable_post_smoothing = false,
+                       std::uint32_t seed,
+                       size_t control_points_count = 10000,
+                       float m_exp = 0.8f,
+                       float uplift_rate = 1.f,
+                       float tolerance = 1e-3f,
+                       int max_iterations = 200,
+                       float smin = 0.f,
+                       float smax = 6.f,
+                       float strength = 0.5f,
+                       bool scale_erodibility_with_z = true,
+                       float erodibility_distrib_exp = 1.f,
+                       float noise_strength = 0.f,
+                       bool enable_post_slope_limiter = false,
+                       float post_slope_limit = 0.f,
+                       bool enable_post_smoothing = false,
                        InterpolationMethod2D interpolation_method =
-                           InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT,
+                       InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT,
                        const Array *p_noise_x = nullptr,
                        const Array *p_noise_y = nullptr);
 
@@ -673,23 +782,23 @@ Array hydraulic_saleve(const Array          &z,
  * @image html ex_hydraulic_stream1.png
  */
 void hydraulic_stream(Array       &z,
-                      float        c_erosion,
-                      float        talus_ref,
+                      float c_erosion,
+                      float talus_ref,
                       const Array *p_bedrock = nullptr,
                       const Array *p_moisture_map = nullptr,
                       Array       *p_erosion_map = nullptr, // -> out
-                      int          ir = 1,
-                      float        clipping_ratio = 10.f);
+                      int ir = 1,
+                      float clipping_ratio = 10.f);
 
 void hydraulic_stream(Array       &z,
                       const Array *p_mask,
-                      float        c_erosion,
-                      float        talus_ref,
+                      float c_erosion,
+                      float talus_ref,
                       const Array *p_bedrock = nullptr,
                       const Array *p_moisture_map = nullptr,
                       Array       *p_erosion_map = nullptr, // -> out
-                      int          ir = 1,
-                      float        clipping_ratio = 10.f); ///< @overload
+                      int ir = 1,
+                      float clipping_ratio = 10.f);        ///< @overload
 
 /**
  * @brief Apply hydraulic erosion based on a flow accumulation map, alternative
@@ -730,14 +839,14 @@ void hydraulic_stream(Array       &z,
  * @image html ex_hydraulic_stream1.png
  */
 void hydraulic_stream_log(Array       &z,
-                          float        c_erosion,
-                          float        talus_ref,
-                          int          deposition_ir = 32,
-                          float        deposition_scale_ratio = 1.f,
-                          float        gradient_power = 0.8f,
-                          float        gradient_scaling_ratio = 1.f,
-                          int          gradient_prefilter_ir = 16,
-                          float        saturation_ratio = 1.f,
+                          float c_erosion,
+                          float talus_ref,
+                          int deposition_ir = 32,
+                          float deposition_scale_ratio = 1.f,
+                          float gradient_power = 0.8f,
+                          float gradient_scaling_ratio = 1.f,
+                          int gradient_prefilter_ir = 16,
+                          float saturation_ratio = 1.f,
                           const Array *p_bedrock = nullptr,
                           const Array *p_moisture_map = nullptr,
                           Array       *p_erosion_map = nullptr,
@@ -745,15 +854,15 @@ void hydraulic_stream_log(Array       &z,
                           Array       *p_flow_map = nullptr);
 
 void hydraulic_stream_log(Array       &z,
-                          float        c_erosion,
-                          float        talus_ref,
+                          float c_erosion,
+                          float talus_ref,
                           const Array *p_mask,
-                          int          deposition_ir = 32,
-                          float        deposition_scale_ratio = 1.f,
-                          float        gradient_power = 0.8f,
-                          float        gradient_scaling_ratio = 1.f,
-                          int          gradient_prefilter_ir = 16,
-                          float        saturation_ratio = 1.f,
+                          int deposition_ir = 32,
+                          float deposition_scale_ratio = 1.f,
+                          float gradient_power = 0.8f,
+                          float gradient_scaling_ratio = 1.f,
+                          int gradient_prefilter_ir = 16,
+                          float saturation_ratio = 1.f,
                           const Array *p_bedrock = nullptr,
                           const Array *p_moisture_map = nullptr,
                           Array       *p_erosion_map = nullptr,
@@ -793,12 +902,12 @@ void hydraulic_stream_log(Array       &z,
  * @image html ex_hydraulic_stream_upscale_amplification.png
  */
 void hydraulic_stream_upscale_amplification(Array &z,
-                                            float  c_erosion,
-                                            float  talus_ref,
-                                            int    upscaling_levels = 1,
-                                            float  persistence = 1.f,
-                                            int    ir = 1,
-                                            float  clipping_ratio = 10.f);
+                                            float c_erosion,
+                                            float talus_ref,
+                                            int upscaling_levels = 1,
+                                            float persistence = 1.f,
+                                            int ir = 1,
+                                            float clipping_ratio = 10.f);
 
 /**
  * @brief Applies hydraulic erosion with upscaling amplification, with a
@@ -834,14 +943,14 @@ void hydraulic_stream_upscale_amplification(Array &z,
  * @image html ex_hydraulic_stream_upscale_amplification.png
  */
 void hydraulic_stream_upscale_amplification(
-    Array       &z,
-    const Array *p_mask,
-    float        c_erosion,
-    float        talus_ref,
-    int          upscaling_levels = 1,
-    float        persistence = 1.f,
-    int          ir = 1,
-    float        clipping_ratio = 10.f); ///< @overload
+	Array       &z,
+	const Array *p_mask,
+	float c_erosion,
+	float talus_ref,
+	int upscaling_levels = 1,
+	float persistence = 1.f,
+	int ir = 1,
+	float clipping_ratio = 10.f);    ///< @overload
 
 } // namespace hmap
 
@@ -876,17 +985,17 @@ namespace hmap::gpu
  */
 void conv_erosion(Array        &z,
                   std::uint32_t seed,
-                  int           iterations = 20,
-                  int           particle_count = 1000,
-                  int           ir_min = 8,
-                  int           ir_max = 64,
-                  float         size_distrib_exp = 1.f,
-                  float         erosion_strength = 0.02f,
-                  float         randomness = 0.01f,
-                  float         exit_forcing = 0.05f,
-                  int           gradient_ir = 16,
-                  float         gradient_exp = 0.5f,
-                  float         gradient_strength_min = 0.f);
+                  int iterations = 20,
+                  int particle_count = 1000,
+                  int ir_min = 8,
+                  int ir_max = 64,
+                  float size_distrib_exp = 1.f,
+                  float erosion_strength = 0.02f,
+                  float randomness = 0.01f,
+                  float exit_forcing = 0.05f,
+                  int gradient_ir = 16,
+                  float gradient_exp = 0.5f,
+                  float gradient_strength_min = 0.f);
 
 /**
  * @brief Fill holes using Gaussian-based deposition.
@@ -900,15 +1009,15 @@ void conv_erosion(Array        &z,
  * @param iterations          Number of successive deposition passes.
  */
 void deposition_fill_holes(Array &z,
-                           int    deposition_ir,
-                           float  deposition_strength,
-                           int    iterations = 1);
+                           int deposition_ir,
+                           float deposition_strength,
+                           int iterations = 1);
 
 void deposition_fill_holes(Array       &z,
-                           int          deposition_ir,
-                           float        deposition_strength,
+                           int deposition_ir,
+                           float deposition_strength,
                            const Array *p_mask,
-                           int          iterations = 1); ///< @overload
+                           int iterations = 1);          ///< @overload
 
 /**
  * @brief Simulates hydraulic erosion on a heightmap using particle-based flow.
@@ -950,43 +1059,43 @@ void deposition_fill_holes(Array       &z,
  * @image html ex_hydraulic_particle.png
  */
 void hydraulic_particle(Array        &z,
-                        int           nparticles,
+                        int nparticles,
                         std::uint32_t seed,
                         const Array  *p_bedrock = nullptr,
                         const Array  *p_moisture_map = nullptr,
                         const Array  *p_elevation_shift = nullptr,
                         Array        *p_erosion_map = nullptr,
                         Array        *p_deposition_map = nullptr,
-                        float         c_capacity = 10.f,
-                        float         c_erosion = 0.05f,
-                        float         c_deposition = 0.05f,
-                        float         c_inertia = 0.01f,
-                        float         c_gravity = 1.f,
-                        float         drag_rate = 0.001f,
-                        float         evap_rate = 0.001f,
-                        float         talus_slope = 2.f,
-                        float         collapse_rate = 0.1f,
-                        int           iterations = 1);
+                        float c_capacity = 10.f,
+                        float c_erosion = 0.05f,
+                        float c_deposition = 0.05f,
+                        float c_inertia = 0.01f,
+                        float c_gravity = 1.f,
+                        float drag_rate = 0.001f,
+                        float evap_rate = 0.001f,
+                        float talus_slope = 2.f,
+                        float collapse_rate = 0.1f,
+                        int iterations = 1);
 
 void hydraulic_particle(Array        &z,
                         const Array  *p_mask,
-                        int           nparticles,
+                        int nparticles,
                         std::uint32_t seed,
                         const Array  *p_bedrock = nullptr,
                         const Array  *p_moisture_map = nullptr,
                         const Array  *p_elevation_shift = nullptr,
                         Array        *p_erosion_map = nullptr,
                         Array        *p_deposition_map = nullptr,
-                        float         c_capacity = 10.f,
-                        float         c_erosion = 0.05f,
-                        float         c_deposition = 0.05f,
-                        float         c_inertia = 0.01f,
-                        float         c_gravity = 1.f,
-                        float         drag_rate = 0.001f,
-                        float         evap_rate = 0.001f,
-                        float         talus_slope = 2.f,
-                        float         collapse_rate = 0.1f,
-                        int           iterations = 1);
+                        float c_capacity = 10.f,
+                        float c_erosion = 0.05f,
+                        float c_deposition = 0.05f,
+                        float c_inertia = 0.01f,
+                        float c_gravity = 1.f,
+                        float drag_rate = 0.001f,
+                        float evap_rate = 0.001f,
+                        float talus_slope = 2.f,
+                        float collapse_rate = 0.1f,
+                        int iterations = 1);
 
 /**
  * @brief Multiscale particle-based hydraulic erosion cascade.
@@ -1022,47 +1131,47 @@ void hydraulic_particle(Array        &z,
  *                          high-frequency details.
  */
 void hydraulic_particle_multiscale(
-    Array                  &z,
-    std::uint32_t           seed,
-    const std::vector<int> &steps_per_level = {4, 2, 1},
-    const Array            *p_bedrock = nullptr,
-    const Array            *p_moisture_map = nullptr,
-    const Array            *p_elevation_shift = nullptr,
-    Array                  *p_erosion_map = nullptr,
-    Array                  *p_deposition_map = nullptr,
-    float                   particles_ratio = 0.5f,
-    float                   c_capacity = 10.f,
-    float                   c_erosion = 0.05f,
-    float                   c_deposition = 0.05f,
-    float                   c_inertia = 0.01f,
-    float                   c_gravity = 1.f,
-    float                   drag_rate = 0.001f,
-    float                   evap_rate = 0.001f,
-    float                   talus_slope = 2.f,
-    float                   collapse_rate = 0.1f,
-    float                   mix = 1.f);
+	Array                  &z,
+	std::uint32_t seed,
+	const std::vector<int> &steps_per_level = {4, 2, 1},
+	const Array            *p_bedrock = nullptr,
+	const Array            *p_moisture_map = nullptr,
+	const Array            *p_elevation_shift = nullptr,
+	Array                  *p_erosion_map = nullptr,
+	Array                  *p_deposition_map = nullptr,
+	float particles_ratio = 0.5f,
+	float c_capacity = 10.f,
+	float c_erosion = 0.05f,
+	float c_deposition = 0.05f,
+	float c_inertia = 0.01f,
+	float c_gravity = 1.f,
+	float drag_rate = 0.001f,
+	float evap_rate = 0.001f,
+	float talus_slope = 2.f,
+	float collapse_rate = 0.1f,
+	float mix = 1.f);
 
 void hydraulic_particle_multiscale(
-    Array                  &z,
-    const Array            *p_mask,
-    std::uint32_t           seed,
-    const std::vector<int> &steps_per_level = {4, 2, 1},
-    const Array            *p_bedrock = nullptr,
-    const Array            *p_moisture_map = nullptr,
-    const Array            *p_elevation_shift = nullptr,
-    Array                  *p_erosion_map = nullptr,
-    Array                  *p_deposition_map = nullptr,
-    float                   particles_ratio = 0.5f,
-    float                   c_capacity = 10.f,
-    float                   c_erosion = 0.05f,
-    float                   c_deposition = 0.05f,
-    float                   c_inertia = 0.01f,
-    float                   c_gravity = 1.f,
-    float                   drag_rate = 0.001f,
-    float                   evap_rate = 0.001f,
-    float                   talus_slope = 2.f,
-    float                   collapse_rate = 0.1f,
-    float                   mix = 1.f);
+	Array                  &z,
+	const Array            *p_mask,
+	std::uint32_t seed,
+	const std::vector<int> &steps_per_level = {4, 2, 1},
+	const Array            *p_bedrock = nullptr,
+	const Array            *p_moisture_map = nullptr,
+	const Array            *p_elevation_shift = nullptr,
+	Array                  *p_erosion_map = nullptr,
+	Array                  *p_deposition_map = nullptr,
+	float particles_ratio = 0.5f,
+	float c_capacity = 10.f,
+	float c_erosion = 0.05f,
+	float c_deposition = 0.05f,
+	float c_inertia = 0.01f,
+	float c_gravity = 1.f,
+	float drag_rate = 0.001f,
+	float evap_rate = 0.001f,
+	float talus_slope = 2.f,
+	float collapse_rate = 0.1f,
+	float mix = 1.f);
 
 /**
  * @brief Particle-based hydraulic erosion with flow-field coupling (McDonald's
@@ -1119,98 +1228,99 @@ void hydraulic_particle_multiscale(
  */
 struct McDonaldParams
 {
-  float strength = 0.5f;   // overall erosion power (scales suspension & thermal
-                           // rates)
-  float deposition = 0.5f; // sediment retention vs transport
-  float crit_slope = 0.57f;  // critical slope [m/m]
-  float meandering = 0.5f;   // flow-coupling & momentum inertia
-  float scale = 1.0f;        // domain extent multiplier (scales world_extent_km
-                             // and
-                             // base z_scale_km)
-  float relief_scale = 1.0f; // relative vertical relief scale multiplier
+	float strength = 0.5f; // overall erosion power (scales suspension &
+	                       // thermal
+	                       // rates)
+	float deposition = 0.5f; // sediment retention vs transport
+	float crit_slope = 0.57f; // critical slope [m/m]
+	float meandering = 0.5f; // flow-coupling & momentum inertia
+	float scale = 1.0f;  // domain extent multiplier (scales world_extent_km
+	                     // and
+	                     // base z_scale_km)
+	float relief_scale = 1.0f; // relative vertical relief scale multiplier
 
-  struct PhysicalParams
-  {
-    float world_extent_km;
-    float z_scale_km;
-    int   samples;
-    int   maxage;
-    float lrate;
-    float time_step;
-    float rainfall;
-    float evap_rate;
-    float gravity;
-    float viscosity;
-    float bed_shear;
-    float crit_slope;
-    float settle_rate;
-    float thermal_rate;
-    float deposition_rate;
-    float suspension_rate;
-    float exit_slope;
-  };
+	struct PhysicalParams
+	{
+		float world_extent_km;
+		float z_scale_km;
+		int samples;
+		int maxage;
+		float lrate;
+		float time_step;
+		float rainfall;
+		float evap_rate;
+		float gravity;
+		float viscosity;
+		float bed_shear;
+		float crit_slope;
+		float settle_rate;
+		float thermal_rate;
+		float deposition_rate;
+		float suspension_rate;
+		float exit_slope;
+	};
 
-  PhysicalParams to_physical() const
-  {
-    PhysicalParams p;
-    float          s = std::max(1e-4f, this->scale);
-    float          r = std::max(1e-4f, this->relief_scale);
-    p.world_extent_km = 40.f * s;
-    p.z_scale_km = 4.f * s * r;
-    p.samples = 8192;
-    p.maxage = 512;
-    p.lrate = 0.1f + 0.8f * std::clamp(this->meandering, 0.f, 1.f);
-    p.time_step = 10.f;
-    p.rainfall = 1.f;
-    p.evap_rate = 1e-9f;
-    p.gravity = 9.81f;
-    p.viscosity = 0.01f + 0.03f * std::clamp(this->meandering, 0.f, 1.f);
-    p.bed_shear = 0.02f - 0.015f * std::clamp(this->meandering, 0.f, 1.f);
-    p.crit_slope = std::max(1e-4f, this->crit_slope);
-    p.settle_rate = 0.1f *
-                    (0.2f + 1.6f * std::clamp(this->deposition, 0.f, 1.f));
-    p.thermal_rate = 2.5e-3f *
-                     (0.2f + 1.6f * std::clamp(this->strength, 0.f, 1.f));
-    p.deposition_rate = 5e-3f *
-                        (0.2f + 1.6f * std::clamp(this->deposition, 0.f, 1.f));
-    p.suspension_rate = 2.5e-4f *
-                        (0.2f + 1.6f * std::clamp(this->strength, 0.f, 1.f));
-    p.exit_slope = 0.01f;
-    return p;
-  }
+	PhysicalParams to_physical() const
+	{
+		PhysicalParams p;
+		float s = std::max(1e-4f, this->scale);
+		float r = std::max(1e-4f, this->relief_scale);
+		p.world_extent_km = 40.f * s;
+		p.z_scale_km = 4.f * s * r;
+		p.samples = 8192;
+		p.maxage = 512;
+		p.lrate = 0.1f + 0.8f * std::clamp(this->meandering, 0.f, 1.f);
+		p.time_step = 10.f;
+		p.rainfall = 1.f;
+		p.evap_rate = 1e-9f;
+		p.gravity = 9.81f;
+		p.viscosity = 0.01f + 0.03f * std::clamp(this->meandering, 0.f, 1.f);
+		p.bed_shear = 0.02f - 0.015f * std::clamp(this->meandering, 0.f, 1.f);
+		p.crit_slope = std::max(1e-4f, this->crit_slope);
+		p.settle_rate = 0.1f *
+		                (0.2f + 1.6f * std::clamp(this->deposition, 0.f, 1.f));
+		p.thermal_rate = 2.5e-3f *
+		                 (0.2f + 1.6f * std::clamp(this->strength, 0.f, 1.f));
+		p.deposition_rate = 5e-3f *
+		                    (0.2f + 1.6f * std::clamp(this->deposition, 0.f, 1.f));
+		p.suspension_rate = 2.5e-4f *
+		                    (0.2f + 1.6f * std::clamp(this->strength, 0.f, 1.f));
+		p.exit_slope = 0.01f;
+		return p;
+	}
 };
 
 void hydraulic_mcdonald(Array                &z,
-                        int                   steps,
-                        std::uint32_t         seed,
+                        int steps,
+                        std::uint32_t seed,
                         const McDonaldParams &params,
                         const Array          *p_moisture_map = nullptr,
                         Array                *p_sediment_map = nullptr,
                         Array                *p_discharge_map = nullptr);
 
 void hydraulic_mcdonald(Array        &z,
-                        int           steps,
+                        int steps,
                         std::uint32_t seed,
                         const Array  *p_moisture_map = nullptr,
                         Array        *p_sediment_map = nullptr,
                         Array        *p_discharge_map = nullptr,
-                        float         world_extent_km = 40.f,
-                        float         z_scale_km = 4.f,
-                        int           samples = 8192,
-                        int           maxage = 512,
-                        float         lrate = 0.2f,
-                        float         time_step = 10.f,
-                        float         rainfall = 1.f,
-                        float         evap_rate = 1e-4f,
-                        float         gravity = 9.81f,
-                        float         viscosity = 0.025f,
-                        float         bed_shear = 0.01f,
-                        float         crit_slope = 0.57f,
-                        float         settle_rate = 0.1f,
-                        float         thermal_rate = 2.5e-3f,
-                        float         deposition_rate = 5e-3f,
-                        float         suspension_rate = 2.5e-4f,
-                        float         exit_slope = 0.01f);
+                        float world_extent_km = 40.f,
+                        float z_scale_km = 4.f,
+                        int samples = 8192,
+                        int maxage = 512,
+                        float lrate = 0.2f,
+                        float time_step = 10.f,
+                        float rainfall = 1.f,
+                        float evap_rate = 1e-4f,
+                        float gravity = 9.81f,
+                        float viscosity = 0.025f,
+                        float bed_shear = 0.01f,
+                        float crit_slope = 0.57f,
+                        float settle_rate = 0.1f,
+                        float thermal_rate = 2.5e-3f,
+                        float deposition_rate = 5e-3f,
+                        float suspension_rate = 2.5e-4f,
+                        float exit_slope = 0.01f);
 
 /**
  * @brief Multiscale driver for hydraulic_mcdonald: erodes on a halving
@@ -1227,7 +1337,7 @@ void hydraulic_mcdonald(Array        &z,
  * @image html ex_hydraulic_mcdonald3.png
  */
 void hydraulic_mcdonald_multiscale(Array                  &z,
-                                   std::uint32_t           seed,
+                                   std::uint32_t seed,
                                    const std::vector<int> &steps_per_level,
                                    const McDonaldParams   &params,
                                    const Array *p_moisture_map = nullptr,
@@ -1235,29 +1345,29 @@ void hydraulic_mcdonald_multiscale(Array                  &z,
                                    Array       *p_discharge_map = nullptr);
 
 void hydraulic_mcdonald_multiscale(
-    Array                  &z,
-    std::uint32_t           seed,
-    const std::vector<int> &steps_per_level = {512, 256, 128},
-    const Array            *p_moisture_map = nullptr,
-    Array                  *p_sediment_map = nullptr,
-    Array                  *p_discharge_map = nullptr,
-    float                   world_extent_km = 40.f,
-    float                   z_scale_km = 4.f,
-    int                     samples = 8192,
-    int                     maxage = 512,
-    float                   lrate = 0.2f,
-    float                   time_step = 10.f,
-    float                   rainfall = 1.f,
-    float                   evap_rate = 1e-4f,
-    float                   gravity = 9.81f,
-    float                   viscosity = 0.025f,
-    float                   bed_shear = 0.01f,
-    float                   crit_slope = 0.57f,
-    float                   settle_rate = 0.1f,
-    float                   thermal_rate = 2.5e-3f,
-    float                   deposition_rate = 5e-3f,
-    float                   suspension_rate = 2.5e-4f,
-    float                   exit_slope = 0.01f);
+	Array                  &z,
+	std::uint32_t seed,
+	const std::vector<int> &steps_per_level = {512, 256, 128},
+	const Array            *p_moisture_map = nullptr,
+	Array                  *p_sediment_map = nullptr,
+	Array                  *p_discharge_map = nullptr,
+	float world_extent_km = 40.f,
+	float z_scale_km = 4.f,
+	int samples = 8192,
+	int maxage = 512,
+	float lrate = 0.2f,
+	float time_step = 10.f,
+	float rainfall = 1.f,
+	float evap_rate = 1e-4f,
+	float gravity = 9.81f,
+	float viscosity = 0.025f,
+	float bed_shear = 0.01f,
+	float crit_slope = 0.57f,
+	float settle_rate = 0.1f,
+	float thermal_rate = 2.5e-3f,
+	float deposition_rate = 5e-3f,
+	float suspension_rate = 2.5e-4f,
+	float exit_slope = 0.01f);
 
 /**
  * @brief Apply cell-based hydraulic erosion/deposition of Musgrave et al.
@@ -1281,20 +1391,20 @@ void hydraulic_mcdonald_multiscale(
  */
 void hydraulic_musgrave(Array &z,
                         Array &moisture_map,
-                        int    iterations = 100,
-                        float  c_capacity = 1.f,
-                        float  c_erosion = 0.1f,
-                        float  c_deposition = 0.1f,
-                        float  water_level = 0.01f,
-                        float  evap_rate = 0.01f);
+                        int iterations = 100,
+                        float c_capacity = 1.f,
+                        float c_erosion = 0.1f,
+                        float c_deposition = 0.1f,
+                        float water_level = 0.01f,
+                        float evap_rate = 0.01f);
 
 void hydraulic_musgrave(Array &z,
-                        int    iterations = 100,
-                        float  c_capacity = 1.f,
-                        float  c_erosion = 0.1f,
-                        float  c_deposition = 0.1f,
-                        float  water_level = 0.01f,
-                        float  evap_rate = 0.01f); ///< @overload
+                        int iterations = 100,
+                        float c_capacity = 1.f,
+                        float c_erosion = 0.1f,
+                        float c_deposition = 0.1f,
+                        float water_level = 0.01f,
+                        float evap_rate = 0.01f);  ///< @overload
 
 /**
  * @brief Apply phase-guided hydraulic procedural erosion to a heightmap.
@@ -1345,28 +1455,28 @@ void hydraulic_musgrave(Array &z,
  * @image html ex_hydraulic_procedural.png
  */
 void hydraulic_procedural(
-    Array         &z,
-    float          kp_global,
-    float          c_erosion,
-    std::uint32_t  seed,
-    ErosionProfile erosion_profile = ErosionProfile::EP_TRIANGLE_GRENIER,
-    float          erosion_profile_parameter = 0.01f,
-    float          angle_shift = 0.f, // degs
-    float          phase_smoothing = 0.1f,
-    float          talus_ref = 0.001f,
-    float          gradient_scaling_ratio = 1.f,
-    float          gradient_power = 0.8f,
-    bool           exclude_ridges = true,
-    bool           apply_deposition = false,
-    float          deposition_strength = 1.f,
-    bool           enable_default_noise = true,
-    float          noise_amp = 0.01f,
-    const Array   *p_kp_multiplier = nullptr,
-    const Array   *p_angle_shift = nullptr,
-    const Array   *p_noise_x = nullptr,
-    const Array   *p_noise_y = nullptr,
-    Array         *p_ridge_mask = nullptr, // ouptput
-    glm::vec4      bbox = {0.f, 1.f, 0.f, 1.f});
+	Array         &z,
+	float kp_global,
+	float c_erosion,
+	std::uint32_t seed,
+	ErosionProfile erosion_profile = ErosionProfile::EP_TRIANGLE_GRENIER,
+	float erosion_profile_parameter = 0.01f,
+	float angle_shift = 0.f,      // degs
+	float phase_smoothing = 0.1f,
+	float talus_ref = 0.001f,
+	float gradient_scaling_ratio = 1.f,
+	float gradient_power = 0.8f,
+	bool exclude_ridges = true,
+	bool apply_deposition = false,
+	float deposition_strength = 1.f,
+	bool enable_default_noise = true,
+	float noise_amp = 0.01f,
+	const Array   *p_kp_multiplier = nullptr,
+	const Array   *p_angle_shift = nullptr,
+	const Array   *p_noise_x = nullptr,
+	const Array   *p_noise_y = nullptr,
+	Array         *p_ridge_mask = nullptr,// ouptput
+	glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Multi-octave (fBm) variant of hydraulic_procedural().
@@ -1407,59 +1517,59 @@ void hydraulic_procedural(
  * @image html ex_hydraulic_procedural.png
  */
 void hydraulic_procedural_fbm(
-    Array         &z,
-    float          kp_global,
-    float          c_erosion,
-    std::uint32_t  seed,
-    ErosionProfile erosion_profile = ErosionProfile::EP_TRIANGLE_GRENIER,
-    int            octaves = 3,
-    float          persistence = 0.5f,
-    float          lacunarity = 2.f,
-    float          erosion_profile_parameter = 0.01f,
-    float          angle_shift = 0.f, // degs
-    float          phase_smoothing = 0.1f,
-    float          talus_ref = 0.001f,
-    float          gradient_scaling_ratio = 1.f,
-    float          gradient_power = 0.8f,
-    bool           exclude_ridges = true,
-    bool           apply_deposition = false,
-    float          deposition_strength = 1.f,
-    bool           enable_default_noise = true,
-    float          noise_amp = 0.01f,
-    const Array   *p_kp_multiplier = nullptr,
-    const Array   *p_angle_shift = nullptr,
-    const Array   *p_noise_x = nullptr,
-    const Array   *p_noise_y = nullptr,
-    Array         *p_ridge_mask = nullptr, // ouptput
-    glm::vec4      bbox = {0.f, 1.f, 0.f, 1.f});
+	Array         &z,
+	float kp_global,
+	float c_erosion,
+	std::uint32_t seed,
+	ErosionProfile erosion_profile = ErosionProfile::EP_TRIANGLE_GRENIER,
+	int octaves = 3,
+	float persistence = 0.5f,
+	float lacunarity = 2.f,
+	float erosion_profile_parameter = 0.01f,
+	float angle_shift = 0.f,      // degs
+	float phase_smoothing = 0.1f,
+	float talus_ref = 0.001f,
+	float gradient_scaling_ratio = 1.f,
+	float gradient_power = 0.8f,
+	bool exclude_ridges = true,
+	bool apply_deposition = false,
+	float deposition_strength = 1.f,
+	bool enable_default_noise = true,
+	float noise_amp = 0.01f,
+	const Array   *p_kp_multiplier = nullptr,
+	const Array   *p_angle_shift = nullptr,
+	const Array   *p_noise_x = nullptr,
+	const Array   *p_noise_y = nullptr,
+	Array         *p_ridge_mask = nullptr,// ouptput
+	glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
 
 void hydraulic_procedural_fbm(
-    Array         &z,
-    float          kp_global,
-    float          c_erosion,
-    std::uint32_t  seed,
-    const Array   *p_mask,
-    ErosionProfile erosion_profile = ErosionProfile::EP_TRIANGLE_GRENIER,
-    int            octaves = 3,
-    float          persistence = 0.5f,
-    float          lacunarity = 2.f,
-    float          erosion_profile_parameter = 0.01f,
-    float          angle_shift = 0.f, // degs
-    float          phase_smoothing = 0.1f,
-    float          talus_ref = 0.001f,
-    float          gradient_scaling_ratio = 1.f,
-    float          gradient_power = 0.8f,
-    bool           exclude_ridges = true,
-    bool           apply_deposition = false,
-    float          deposition_strength = 1.f,
-    bool           enable_default_noise = true,
-    float          noise_amp = 0.01f,
-    const Array   *p_kp_multiplier = nullptr,
-    const Array   *p_angle_shift = nullptr,
-    const Array   *p_noise_x = nullptr,
-    const Array   *p_noise_y = nullptr,
-    Array         *p_ridge_mask = nullptr, // ouptput
-    glm::vec4      bbox = {0.f, 1.f, 0.f, 1.f});
+	Array         &z,
+	float kp_global,
+	float c_erosion,
+	std::uint32_t seed,
+	const Array   *p_mask,
+	ErosionProfile erosion_profile = ErosionProfile::EP_TRIANGLE_GRENIER,
+	int octaves = 3,
+	float persistence = 0.5f,
+	float lacunarity = 2.f,
+	float erosion_profile_parameter = 0.01f,
+	float angle_shift = 0.f,      // degs
+	float phase_smoothing = 0.1f,
+	float talus_ref = 0.001f,
+	float gradient_scaling_ratio = 1.f,
+	float gradient_power = 0.8f,
+	bool exclude_ridges = true,
+	bool apply_deposition = false,
+	float deposition_strength = 1.f,
+	bool enable_default_noise = true,
+	float noise_amp = 0.01f,
+	const Array   *p_kp_multiplier = nullptr,
+	const Array   *p_angle_shift = nullptr,
+	const Array   *p_noise_x = nullptr,
+	const Array   *p_noise_y = nullptr,
+	Array         *p_ridge_mask = nullptr,// ouptput
+	glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Simulates hydraulic erosion and deposition on a heightmap using the
@@ -1509,51 +1619,51 @@ void hydraulic_procedural_fbm(
  * @image html ex_hydraulic_schott.png
  */
 void hydraulic_schott(Array       &z,
-                      int          iterations,
+                      int iterations,
                       const Array &talus,
-                      float        c_erosion = 1.f,
-                      float        c_thermal = 0.1f,
-                      float        c_deposition = 0.2f,
-                      float        flow_acc_exponent = 0.8f,
-                      float        flow_acc_exponent_depo = 0.8f,
-                      float        flow_routing_exponent = 1.3f,
-                      float        thermal_weight = 1.5f,
-                      float        deposition_weight = 2.5f,
+                      float c_erosion = 1.f,
+                      float c_thermal = 0.1f,
+                      float c_deposition = 0.2f,
+                      float flow_acc_exponent = 0.8f,
+                      float flow_acc_exponent_depo = 0.8f,
+                      float flow_routing_exponent = 1.3f,
+                      float thermal_weight = 1.5f,
+                      float deposition_weight = 2.5f,
                       Array       *p_flow = nullptr);
 
 void hydraulic_schott(Array       &z,
-                      int          iterations,
+                      int iterations,
                       const Array &talus,
                       Array       *p_mask,
-                      float        c_erosion = 1.f,
-                      float        c_thermal = 0.1f,
-                      float        c_deposition = 0.2f,
-                      float        flow_acc_exponent = 0.8f,
-                      float        flow_acc_exponent_depo = 0.8f,
-                      float        flow_routing_exponent = 1.3f,
-                      float        thermal_weight = 1.5f,
-                      float        deposition_weight = 2.5f,
+                      float c_erosion = 1.f,
+                      float c_thermal = 0.1f,
+                      float c_deposition = 0.2f,
+                      float flow_acc_exponent = 0.8f,
+                      float flow_acc_exponent_depo = 0.8f,
+                      float flow_routing_exponent = 1.3f,
+                      float thermal_weight = 1.5f,
+                      float deposition_weight = 2.5f,
                       Array       *p_flow = nullptr); ///< @overload
 
 /*! @brief See hmap::hydraulic_schott */
 void hydraulic_schott_erosion(Array       &z,
-                              int          iterations,
-                              float        c_erosion = 1.f,
-                              float        flow_acc_exponent = 0.8f,
-                              float        flow_routing_exponent = 1.3f,
+                              int iterations,
+                              float c_erosion = 1.f,
+                              float flow_acc_exponent = 0.8f,
+                              float flow_routing_exponent = 1.3f,
                               const Array *p_moisture_map = nullptr,
                               Array       *p_flow = nullptr);
 
 /*! @brief See hmap::hydraulic_stream_log */
 void hydraulic_stream_log(Array &z,
-                          float  c_erosion,
-                          float  talus_ref,
-                          int    deposition_ir = 32,
-                          float  deposition_scale_ratio = 1.f,
-                          float  gradient_power = 0.8f,
-                          float  gradient_scaling_ratio = 1.f,
-                          int    gradient_prefilter_ir = 16,
-                          float  saturation_ratio = 1.f,
+                          float c_erosion,
+                          float talus_ref,
+                          int deposition_ir = 32,
+                          float deposition_scale_ratio = 1.f,
+                          float gradient_power = 0.8f,
+                          float gradient_scaling_ratio = 1.f,
+                          int gradient_prefilter_ir = 16,
+                          float saturation_ratio = 1.f,
                           Array *p_bedrock = nullptr,
                           Array *p_moisture_map = nullptr,
                           Array *p_erosion_map = nullptr,
@@ -1561,15 +1671,15 @@ void hydraulic_stream_log(Array &z,
                           Array *p_flow_map = nullptr);
 
 void hydraulic_stream_log(Array       &z,
-                          float        c_erosion,
-                          float        talus_ref,
+                          float c_erosion,
+                          float talus_ref,
                           const Array *p_mask,
-                          int          deposition_ir = 32,
-                          float        deposition_scale_ratio = 1.f,
-                          float        gradient_power = 0.8f,
-                          float        gradient_scaling_ratio = 1.f,
-                          int          gradient_prefilter_ir = 16,
-                          float        saturation_ratio = 1.f,
+                          int deposition_ir = 32,
+                          float deposition_scale_ratio = 1.f,
+                          float gradient_power = 0.8f,
+                          float gradient_scaling_ratio = 1.f,
+                          int gradient_prefilter_ir = 16,
+                          float saturation_ratio = 1.f,
                           Array       *p_bedrock = nullptr,
                           Array       *p_moisture_map = nullptr,
                           Array       *p_erosion_map = nullptr,
@@ -1578,18 +1688,18 @@ void hydraulic_stream_log(Array       &z,
 
 /*! @brief See hmap::hydraulic_vpipes */
 void hydraulic_vpipes(Array &z,
-                      float  water_height = 1e-2f,
-                      bool   maintain_water_volume = true,
-                      float  evap_rate = 0.1f,
-                      int    iterations = 50,
-                      float  dt = 0.5f,
-                      float  k_capacity = 0.5f,
-                      float  k_erode = 0.001f,
-                      float  k_depose = 0.01f,
-                      float  k_discharge_exp = 1.f,
-                      float  downcutting_max_depth_ratio = 10.f,
-                      bool   flux_diffusion = true,
-                      float  flux_diffusion_strength = 0.01f,
+                      float water_height = 1e-2f,
+                      bool maintain_water_volume = true,
+                      float evap_rate = 0.1f,
+                      int iterations = 50,
+                      float dt = 0.5f,
+                      float k_capacity = 0.5f,
+                      float k_erode = 0.001f,
+                      float k_depose = 0.01f,
+                      float k_discharge_exp = 1.f,
+                      float downcutting_max_depth_ratio = 10.f,
+                      bool flux_diffusion = true,
+                      float flux_diffusion_strength = 0.01f,
                       Array *p_rain_map = nullptr,
                       Array *p_water_depth = nullptr,
                       Array *p_sediment = nullptr,
@@ -1626,20 +1736,20 @@ void hydraulic_vpipes(Array &z,
  */
 void mudslide(Array       &z,
               const Array &landslide_mask,
-              float        depth,
-              int          iterations,
-              float        depth_map_exponent = 0.5f,
-              float        viscosity_law_power = 1.5f,
+              float depth,
+              int iterations,
+              float depth_map_exponent = 0.5f,
+              float viscosity_law_power = 1.5f,
               Array       *p_depth_end = nullptr,
               Array       *p_depth_init = nullptr);
 
 /*! @brief See hmap::mudslide */
 void mudslide(Array &z,
-              float  talus_limit,
-              float  depth,
-              int    iterations,
-              float  depth_map_exponent = 0.5f,
-              float  viscosity_law_power = 1.5f,
+              float talus_limit,
+              float depth,
+              int iterations,
+              float depth_map_exponent = 0.5f,
+              float viscosity_law_power = 1.5f,
               Array *p_depth_end = nullptr,
               Array *p_depth_init = nullptr);
 
@@ -1696,19 +1806,19 @@ void mudslide(Array &z,
  */
 void rifts(Array           &z,
            const glm::vec2 &kw,    //  = {4.f, 1.2f},
-           float            angle, // degs
-           float            amplitude,
-           std::uint32_t    seed,
-           float            elevation_noise_shift = 0.f,
-           float            k_smooth_bottom = 0.05f,
-           float            k_smooth_top = 0.05f,
-           float            radial_spread_amp = 0.2f,
-           float            elevation_noise_amp = 0.1f,
-           float            clamp_vmin = 0.f,
-           float            remap_vmin = 0.f,
-           bool             apply_mask = true,
-           bool             reverse_mask = false,
-           float            mask_gamma = 1.f,
+           float angle,            // degs
+           float amplitude,
+           std::uint32_t seed,
+           float elevation_noise_shift = 0.f,
+           float k_smooth_bottom = 0.05f,
+           float k_smooth_top = 0.05f,
+           float radial_spread_amp = 0.2f,
+           float elevation_noise_amp = 0.1f,
+           float clamp_vmin = 0.f,
+           float remap_vmin = 0.f,
+           bool apply_mask = true,
+           bool reverse_mask = false,
+           float mask_gamma = 1.f,
            const Array     *p_noise_x = nullptr,
            const Array     *p_noise_y = nullptr,
            const Array     *p_mask = nullptr,
@@ -1741,16 +1851,16 @@ void sediment_deposition(Array       &z,
                          const Array *p_mask,
                          const Array &talus,
                          Array       *p_deposition_map = nullptr,
-                         float        max_deposition = 0.01,
-                         int          iterations = 5,
-                         int          thermal_subiterations = 10);
+                         float max_deposition = 0.01,
+                         int iterations = 5,
+                         int thermal_subiterations = 10);
 
 void sediment_deposition(Array       &z,
                          const Array &talus,
                          Array       *p_deposition_map = nullptr,
-                         float        max_deposition = 0.01,
-                         int          iterations = 5,
-                         int          thermal_subiterations = 10);
+                         float max_deposition = 0.01,
+                         int iterations = 5,
+                         int thermal_subiterations = 10);
 
 /**
  * @brief Applies a talus-based sediment deposition layer.
@@ -1776,8 +1886,8 @@ void sediment_deposition(Array       &z,
 void sediment_layer(Array       &z,
                     const Array &talus_layer,
                     const Array &talus_upper_limit,
-                    int          iterations,
-                    bool         apply_post_filter = true,
+                    int iterations,
+                    bool apply_post_filter = true,
                     Array       *p_deposition_map = nullptr);
 
 /**
@@ -1838,26 +1948,26 @@ void sediment_layer(Array       &z,
  * @image html ex_strata.png
  */
 void strata(Array           &z,
-            float            angle,
-            float            slope,
-            float            gamma, // e.g 0.5f or 1.5f
-            std::uint32_t    seed,
-            bool             linear_gamma = true,
-            float            kz = 1.f,
-            int              octaves = 4,
-            float            lacunarity = 2.f,
-            float            gamma_noise_ratio = 0.5f,
-            float            noise_amp = 0.4f,
+            float angle,
+            float slope,
+            float gamma,            // e.g 0.5f or 1.5f
+            std::uint32_t seed,
+            bool linear_gamma = true,
+            float kz = 1.f,
+            int octaves = 4,
+            float lacunarity = 2.f,
+            float gamma_noise_ratio = 0.5f,
+            float noise_amp = 0.4f,
             const glm::vec2 &noise_kw = {4.f, 4.f},
-            bool             enable_ridge_noise = true,
+            bool enable_ridge_noise = true,
             const glm::vec2 &ridge_noise_kw = {4.f, 1.2f},
-            float            ridge_angle_shift = 45.f,
-            float            ridge_noise_amp = 0.5f,
-            float            ridge_clamp_vmin = 0.f,
-            float            ridge_remap_vmin = 0.f,
-            bool             apply_elevation_mask = true,
-            bool             apply_ridge_mask = true,
-            float            mask_gamma = 0.4f,
+            float ridge_angle_shift = 45.f,
+            float ridge_noise_amp = 0.5f,
+            float ridge_clamp_vmin = 0.f,
+            float ridge_remap_vmin = 0.f,
+            bool apply_elevation_mask = true,
+            bool apply_ridge_mask = true,
+            float mask_gamma = 0.4f,
             const Array     *p_mask = nullptr,
             const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
 
@@ -1888,18 +1998,18 @@ void strata(Array           &z,
  * @image html ex_strata_cells.png
  */
 void strata_cells(Array        &z,
-                  glm::vec2     kw,
-                  float         amp,
+                  glm::vec2 kw,
+                  float amp,
                   std::uint32_t seed,
-                  float         gamma = 0.5f,
-                  float         gamma_lateral = 0.4f,
-                  float         angle = 0.f,
-                  float         noise_amp = 0.5f,
-                  bool          absolute_displacement = true,
-                  float         occurence_probability = 0.5f,
+                  float gamma = 0.5f,
+                  float gamma_lateral = 0.4f,
+                  float angle = 0.f,
+                  float noise_amp = 0.5f,
+                  bool absolute_displacement = true,
+                  float occurence_probability = 0.5f,
                   const Array  *p_noise_x = nullptr,
                   const Array  *p_noise_y = nullptr,
-                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Applies stratified cell displacement with optional masking.
@@ -1929,19 +2039,19 @@ void strata_cells(Array        &z,
  * @image html ex_strata_cells.png
  */
 void strata_cells(Array        &z,
-                  glm::vec2     kw,
-                  float         amp,
+                  glm::vec2 kw,
+                  float amp,
                   std::uint32_t seed,
                   const Array  *p_mask,
-                  float         gamma = 0.5f,
-                  float         gamma_lateral = 0.4f,
-                  float         angle = 0.f,
-                  float         noise_amp = 0.5f,
-                  bool          absolute_displacement = true,
-                  float         occurence_probability = 0.5f,
+                  float gamma = 0.5f,
+                  float gamma_lateral = 0.4f,
+                  float angle = 0.f,
+                  float noise_amp = 0.5f,
+                  bool absolute_displacement = true,
+                  float occurence_probability = 0.5f,
                   const Array  *p_noise_x = nullptr,
                   const Array  *p_noise_y = nullptr,
-                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Applies multi-octave (fBm) stratified cell displacement.
@@ -1974,22 +2084,22 @@ void strata_cells(Array        &z,
  * @image html ex_strata_cells.png
  */
 void strata_cells_fbm(Array        &z,
-                      glm::vec2     kw,
-                      float         amp,
+                      glm::vec2 kw,
+                      float amp,
                       std::uint32_t seed,
-                      float         gamma = 0.5f,
-                      float         gamma_lateral = 0.4f,
-                      float         angle = 0.f,
-                      bool          enable_default_noise = true,
-                      float         default_noise_amp = 0.05f,
-                      bool          absolute_displacement = true,
-                      float         occurence_probability = 0.5f,
-                      int           octaves = 8,
-                      float         persistence = 0.4f,
-                      float         lacunarity = 2.2f,
+                      float gamma = 0.5f,
+                      float gamma_lateral = 0.4f,
+                      float angle = 0.f,
+                      bool enable_default_noise = true,
+                      float default_noise_amp = 0.05f,
+                      bool absolute_displacement = true,
+                      float occurence_probability = 0.5f,
+                      int octaves = 8,
+                      float persistence = 0.4f,
+                      float lacunarity = 2.2f,
                       const Array  *p_noise_x = nullptr,
                       const Array  *p_noise_y = nullptr,
-                      glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                      glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Applies masked multi-octave stratified cell displacement.
@@ -2023,23 +2133,23 @@ void strata_cells_fbm(Array        &z,
  * @image html ex_strata_cells.png
  */
 void strata_cells_fbm(Array        &z,
-                      glm::vec2     kw,
-                      float         amp,
+                      glm::vec2 kw,
+                      float amp,
                       std::uint32_t seed,
                       const Array  *p_mask,
-                      float         gamma = 0.5f,
-                      float         gamma_lateral = 0.4f,
-                      float         angle = 0.f,
-                      bool          enable_default_noise = true,
-                      float         default_noise_amp = 0.05f,
-                      bool          absolute_displacement = true,
-                      float         occurence_probability = 0.5f,
-                      int           octaves = 8,
-                      float         persistence = 0.4f,
-                      float         lacunarity = 2.2f,
+                      float gamma = 0.5f,
+                      float gamma_lateral = 0.4f,
+                      float angle = 0.f,
+                      bool enable_default_noise = true,
+                      float default_noise_amp = 0.05f,
+                      bool absolute_displacement = true,
+                      float occurence_probability = 0.5f,
+                      int octaves = 8,
+                      float persistence = 0.4f,
+                      float lacunarity = 2.2f,
                       const Array  *p_noise_x = nullptr,
                       const Array  *p_noise_y = nullptr,
-                      glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                      glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Apply stratified talus projection along multiple directions.
@@ -2066,13 +2176,13 @@ void strata_cells_fbm(Array        &z,
  */
 void strata_plates(Array        &z,
                    const Array  &talus,
-                   int           direction_offset = 0,
-                   int           direction_count = 3,
-                   bool          random_directions = false,
+                   int direction_offset = 0,
+                   int direction_count = 3,
+                   bool random_directions = false,
                    std::uint32_t seed = 0,
-                   float         vmin = -FLT_MAX,
-                   float         skew = 0.f,
-                   float         mix_ratio = 0.9f,
+                   float vmin = -FLT_MAX,
+                   float skew = 0.f,
+                   float mix_ratio = 0.9f,
                    const Array  *p_mask = nullptr,
                    const Array  *p_dx = nullptr,
                    const Array  *p_dy = nullptr);
@@ -2103,15 +2213,15 @@ void strata_plates(Array        &z,
  * @image html ex_strata_terrace.png
  */
 void strata_terrace(Array        &z,
-                    float         gamma, // e.g 0.5f or 1.5f
+                    float gamma,         // e.g 0.5f or 1.5f
                     std::uint32_t seed,
-                    float         kz = 4.f, // 4-layers
-                    bool          linear_gamma = true,
-                    float         gamma_noise_ratio = 0.5f,
-                    float         slope = 0.f,
-                    float         angle = 0.f,
+                    float kz = 4.f,         // 4-layers
+                    bool linear_gamma = true,
+                    float gamma_noise_ratio = 0.5f,
+                    float slope = 0.f,
+                    float angle = 0.f,
                     const Array  *p_noise = nullptr,
-                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                    glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Applies a masked terrace (stratification) filter to a heightmap.
@@ -2139,16 +2249,16 @@ void strata_terrace(Array        &z,
  * @image html ex_strata_terrace.png
  */
 void strata_terrace(Array        &z,
-                    float         gamma, // e.g 0.5f or 1.5f
+                    float gamma,         // e.g 0.5f or 1.5f
                     std::uint32_t seed,
                     const Array  *p_mask,
-                    float         kz = 4.f, // 4-layers
-                    bool          linear_gamma = true,
-                    float         gamma_noise_ratio = 0.5f,
-                    float         slope = 0.f,
-                    float         angle = 0.f,
+                    float kz = 4.f,         // 4-layers
+                    bool linear_gamma = true,
+                    float gamma_noise_ratio = 0.5f,
+                    float slope = 0.f,
+                    float angle = 0.f,
                     const Array  *p_noise = nullptr,
-                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                    glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Apply thermal weathering erosion.
@@ -2171,20 +2281,20 @@ void strata_terrace(Array        &z,
  */
 void thermal(Array       &z,
              const Array &talus,
-             int          iterations = 10,
+             int iterations = 10,
              const Array *p_bedrock = nullptr,
              Array       *p_deposition_map = nullptr);
 
 void thermal(Array       &z,
              const Array *p_mask,
              const Array &talus,
-             int          iterations = 10,
+             int iterations = 10,
              const Array *p_bedrock = nullptr,
              Array       *p_deposition_map = nullptr); ///< @overload
 
 void thermal(Array       &z,
-             float        talus,
-             int          iterations = 10,
+             float talus,
+             int iterations = 10,
              const Array *p_bedrock = nullptr,
              Array       *p_deposition_map = nullptr); ///< @overload
 
@@ -2211,18 +2321,18 @@ void thermal(Array       &z,
  */
 void thermal_auto_bedrock(Array       &z,
                           const Array &talus,
-                          int          iterations = 10,
+                          int iterations = 10,
                           Array       *p_deposition_map = nullptr);
 
 void thermal_auto_bedrock(Array       &z,
                           const Array *p_mask,
                           const Array &talus,
-                          int          iterations = 10,
+                          int iterations = 10,
                           Array *p_deposition_map = nullptr); ///< @overload
 
 void thermal_auto_bedrock(Array &z,
                           float,
-                          int    iterations = 10,
+                          int iterations = 10,
                           Array *p_deposition_map = nullptr); ///< @overload
 
 /**
@@ -2238,23 +2348,23 @@ void thermal_auto_bedrock(Array &z,
  */
 void thermal_conserve(Array       &z,
                       const Array &talus,
-                      int          iterations = 10,
-                      float        rate = 0.5f,
+                      int iterations = 10,
+                      float rate = 0.5f,
                       const Array *p_bedrock = nullptr,
                       Array       *p_deposition_map = nullptr);
 
 void thermal_conserve(Array       &z,
                       const Array *p_mask,
                       const Array &talus,
-                      int          iterations = 10,
-                      float        rate = 0.5f,
+                      int iterations = 10,
+                      float rate = 0.5f,
                       const Array *p_bedrock = nullptr,
                       Array       *p_deposition_map = nullptr); ///< @overload
 
 void thermal_conserve(Array       &z,
-                      float        talus,
-                      int          iterations = 10,
-                      float        rate = 0.5f,
+                      float talus,
+                      int iterations = 10,
+                      float rate = 0.5f,
                       const Array *p_bedrock = nullptr,
                       Array       *p_deposition_map = nullptr); ///< @overload
 
@@ -2275,16 +2385,16 @@ void thermal_conserve(Array       &z,
  */
 void thermal_flatten(Array       &z,
                      const Array &talus,
-                     int          iterations,
-                     float        sigma_inf = 0.5f,
-                     float        sigma_sup = 0.f);
+                     int iterations,
+                     float sigma_inf = 0.5f,
+                     float sigma_sup = 0.f);
 
 void thermal_flatten(Array       &z,
                      const Array *p_mask,
                      const Array &talus,
-                     int          iterations,
-                     float        sigma_inf = 0.5f,
-                     float        sigma_sup = 0.f); ///< @overload
+                     int iterations,
+                     float sigma_inf = 0.5f,
+                     float sigma_sup = 0.f);        ///< @overload
 
 /**
  * @brief Apply thermal weathering erosion.
@@ -2310,7 +2420,7 @@ void thermal_olsen(Array &z, const Array &talus, int iterations);
 void thermal_olsen(Array       &z,
                    const Array *p_mask,
                    const Array &talus,
-                   int          iterations); ///< @overload
+                   int iterations);          ///< @overload
 
 /**
  * @brief Apply thermal weathering erosion to give a scree like effect.
@@ -2334,7 +2444,7 @@ void thermal_inflate(Array &z, const Array &talus, int iterations = 10);
 void thermal_inflate(Array       &z,
                      const Array *p_mask,
                      const Array &talus,
-                     int          iterations = 10); ///< @overload
+                     int iterations = 10);          ///< @overload
 
 /**
  * @brief Apply thermal erosion using a 'rib' algorithm (taken from Geomorph).
@@ -2373,13 +2483,13 @@ void thermal_rib(Array &z, const Array *p_mask, int iterations); ///< @overload
  */
 void thermal_ridge(Array       &z,
                    const Array &talus,
-                   int          iterations = 10,
+                   int iterations = 10,
                    Array       *p_deposition_map = nullptr);
 
 void thermal_ridge(Array       &z,
                    const Array *p_mask,
                    const Array &talus,
-                   int          iterations = 10,
+                   int iterations = 10,
                    Array       *p_deposition_map = nullptr); ///< @overload
 
 /**
@@ -2405,15 +2515,15 @@ void thermal_ridge(Array       &z,
  */
 void thermal_schott(Array       &z,
                     const Array &talus,
-                    int          iterations = 10,
-                    float        intensity = 0.2f,
+                    int iterations = 10,
+                    float intensity = 0.2f,
                     Array       *p_deposition_map = nullptr);
 
 void thermal_schott(Array       &z,
                     const Array *p_mask,
                     const Array &talus,
-                    int          iterations = 10,
-                    float        intensity = 0.2f,
+                    int iterations = 10,
+                    float intensity = 0.2f,
                     Array       *p_deposition_map = nullptr); ///< @overload
 
 /**
@@ -2438,14 +2548,14 @@ void thermal_schott(Array       &z,
 void thermal_scree(Array       &z,
                    const Array &talus,
                    const Array &zmax,
-                   int          iterations = 10,
+                   int iterations = 10,
                    Array       *p_deposition_map = nullptr);
 
 void thermal_scree(Array       &z,
                    const Array *p_mask,
                    const Array &talus,
                    const Array &zmax,
-                   int          iterations = 10,
+                   int iterations = 10,
                    Array       *p_deposition_map = nullptr); ///< @overload
 
 /**
@@ -2470,26 +2580,26 @@ void thermal_scree(Array       &z,
  */
 void valley_fill(Array       &z,
                  const Array &talus,
-                 int          iterations = 100,
-                 float        gamma = 2.f,
-                 float        ratio = 0.8f,
-                 float        zmin = 0.f,
-                 float        zmax = 0.f,
-                 float        elevation_max_ratio = 1.f,
-                 bool         preserve_elevation_range = true,
+                 int iterations = 100,
+                 float gamma = 2.f,
+                 float ratio = 0.8f,
+                 float zmin = 0.f,
+                 float zmax = 0.f,
+                 float elevation_max_ratio = 1.f,
+                 bool preserve_elevation_range = true,
                  const Array *p_noise = nullptr,
                  Array       *p_deposition_map = nullptr);
 
 void valley_fill(Array       &z,
                  const Array *p_mask,
                  const Array &talus,
-                 int          iterations = 100,
-                 float        gamma = 2.f,
-                 float        ratio = 0.8f,
-                 float        zmin = 0.f,
-                 float        zmax = 0.f,
-                 float        elevation_max_ratio = 1.f,
-                 bool         preserve_elevation_range = true,
+                 int iterations = 100,
+                 float gamma = 2.f,
+                 float ratio = 0.8f,
+                 float zmin = 0.f,
+                 float zmax = 0.f,
+                 float elevation_max_ratio = 1.f,
+                 bool preserve_elevation_range = true,
                  const Array *p_noise = nullptr,
                  Array       *p_deposition_map = nullptr);
 
@@ -2515,27 +2625,27 @@ void valley_fill(Array       &z,
  * @image html ex_watershed_ridge.png
  */
 Array watershed_ridge(
-    const Array        &z,
-    float               amplitude = 0.2f,
-    float               width = 32.f, // pixels
-    float               edt_exponent = 0.5f,
-    int                 prefilter_ir = 0,
-    FlowDirectionMethod fd_method = FlowDirectionMethod::FDM_D8,
-    const Array        *p_noise_x = nullptr,
-    const Array        *p_noise_y = nullptr,
-    const Array        *p_scaling = nullptr);
+	const Array        &z,
+	float amplitude = 0.2f,
+	float width = 32.f,           // pixels
+	float edt_exponent = 0.5f,
+	int prefilter_ir = 0,
+	FlowDirectionMethod fd_method = FlowDirectionMethod::FDM_D8,
+	const Array        *p_noise_x = nullptr,
+	const Array        *p_noise_y = nullptr,
+	const Array        *p_scaling = nullptr);
 
 Array watershed_ridge(
-    const Array        &z,
-    const Array        *p_mask,
-    float               amplitude = 0.2f,
-    float               width = 32.f,
-    float               edt_exponent = 0.5f,
-    int                 prefilter_ir = 0,
-    FlowDirectionMethod fd_method = FlowDirectionMethod::FDM_D8,
-    const Array        *p_noise_x = nullptr,
-    const Array        *p_noise_y = nullptr,
-    const Array        *p_scaling = nullptr);
+	const Array        &z,
+	const Array        *p_mask,
+	float amplitude = 0.2f,
+	float width = 32.f,
+	float edt_exponent = 0.5f,
+	int prefilter_ir = 0,
+	FlowDirectionMethod fd_method = FlowDirectionMethod::FDM_D8,
+	const Array        *p_noise_x = nullptr,
+	const Array        *p_noise_y = nullptr,
+	const Array        *p_scaling = nullptr);
 
 } // namespace hmap::gpu
 
@@ -2552,23 +2662,23 @@ namespace hmap::va
  * @return                   Filled heightmap.
  */
 VirtualArray depression_filling_priority_flood(
-    const VirtualArray &z,
-    bool                apply_post_filter = false,
-    VirtualArray       *p_fill_map = nullptr,
-    const ComputeMode  &cm = {});
+	const VirtualArray &z,
+	bool apply_post_filter = false,
+	VirtualArray       *p_fill_map = nullptr,
+	const ComputeMode  &cm = {});
 
 VirtualArray hydraulic_fastscape(const ComputeMode  &cm,
                                  const VirtualArray &z,
-                                 int                 iterations = 10,
-                                 float               dt = 1e-2f,
-                                 float               k_erosion = 1.f,
-                                 float               m_exp = 0.5f,
-                                 float               n_exp = 1.f,
-                                 float               k_diff = 1e-3f,
-                                 float               uplift_rate = 0.f,
-                                 bool                multiple_flow = true,
-                                 float               flow_partition_exp = 1.f,
-                                 float               tolerance = 1e-3f,
+                                 int iterations = 10,
+                                 float dt = 1e-2f,
+                                 float k_erosion = 1.f,
+                                 float m_exp = 0.5f,
+                                 float n_exp = 1.f,
+                                 float k_diff = 1e-3f,
+                                 float uplift_rate = 0.f,
+                                 bool multiple_flow = true,
+                                 float flow_partition_exp = 1.f,
+                                 float tolerance = 1e-3f,
                                  const VirtualArray *p_bedrock = nullptr,
                                  const VirtualArray *p_moisture_map = nullptr,
                                  VirtualArray       *p_erosion_map = nullptr,
@@ -2576,27 +2686,27 @@ VirtualArray hydraulic_fastscape(const ComputeMode  &cm,
                                  const VirtualArray *p_mask = nullptr);
 
 VirtualArray hydraulic_saleve(
-    const ComputeMode    &cm,
-    const VirtualArray   &z,
-    std::uint32_t         seed,
-    size_t                control_points_count = 10000,
-    float                 m_exp = 0.8f,
-    float                 uplift_rate = 1.f,
-    float                 tolerance = 1e-3f,
-    int                   max_iterations = 200,
-    float                 smin = 0.f,
-    float                 smax = 6.f,
-    float                 strength = 0.5f,
-    bool                  scale_erodibility_with_z = true,
-    float                 erodibility_distrib_exp = 1.f,
-    float                 noise_strength = 0.f,
-    bool                  enable_post_slope_limiter = false,
-    float                 post_slope_limit = 0.f,
-    bool                  enable_post_smoothing = false,
-    InterpolationMethod2D interpolation_method =
-        InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT,
-    const VirtualArray *p_noise_x = nullptr,
-    const VirtualArray *p_noise_y = nullptr,
-    const VirtualArray *p_mask = nullptr);
+	const ComputeMode    &cm,
+	const VirtualArray   &z,
+	std::uint32_t seed,
+	size_t control_points_count = 10000,
+	float m_exp = 0.8f,
+	float uplift_rate = 1.f,
+	float tolerance = 1e-3f,
+	int max_iterations = 200,
+	float smin = 0.f,
+	float smax = 6.f,
+	float strength = 0.5f,
+	bool scale_erodibility_with_z = true,
+	float erodibility_distrib_exp = 1.f,
+	float noise_strength = 0.f,
+	bool enable_post_slope_limiter = false,
+	float post_slope_limit = 0.f,
+	bool enable_post_smoothing = false,
+	InterpolationMethod2D interpolation_method =
+	InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT,
+	const VirtualArray *p_noise_x = nullptr,
+	const VirtualArray *p_noise_y = nullptr,
+	const VirtualArray *p_mask = nullptr);
 
 } // namespace hmap::va

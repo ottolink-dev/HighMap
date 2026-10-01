@@ -197,19 +197,19 @@ void hydraulic_particle_multiscale(Array                  &z,
                  std::max(2, z.shape.y >> shift)};
   }
 
-  Array current_z = z_orig.resample_to_shape(ladder[0]);
+  Array current_z = z_orig.resample_to_shape_bicubic(ladder[0]);
 
   for (int i = 0; i < nlevels; ++i)
   {
     if (i > 0)
     {
-      current_z = current_z.resample_to_shape(ladder[i]);
+      current_z = current_z.resample_to_shape_bicubic(ladder[i]);
 
       // Blend with the original input heightmap resampled at the current level
       // resolution to preserve high-frequency structures
       if (mix < 1.f)
       {
-        Array z_input_level = z_orig.resample_to_shape(ladder[i]);
+        Array z_input_level = z_orig.resample_to_shape_bicubic(ladder[i]);
         current_z = hmap::lerp(z_input_level,
                                current_z,
                                std::clamp(mix, 0.f, 1.f));
@@ -228,17 +228,17 @@ void hydraulic_particle_multiscale(Array                  &z,
 
     if (p_bedrock)
     {
-      level_bedrock = p_bedrock->resample_to_shape(ladder[i]);
+      level_bedrock = p_bedrock->resample_to_shape_bicubic(ladder[i]);
       p_lvl_bedrock = &level_bedrock;
     }
     if (p_moisture_map)
     {
-      level_moisture = p_moisture_map->resample_to_shape(ladder[i]);
+      level_moisture = p_moisture_map->resample_to_shape_bicubic(ladder[i]);
       p_lvl_moisture = &level_moisture;
     }
     if (p_elevation_shift)
     {
-      level_shift = p_elevation_shift->resample_to_shape(ladder[i]);
+      level_shift = p_elevation_shift->resample_to_shape_bicubic(ladder[i]);
       p_lvl_shift = &level_shift;
     }
 
