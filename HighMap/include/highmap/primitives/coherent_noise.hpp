@@ -867,24 +867,24 @@ Array phasor(PhasorProfile   phasor_profile,
  * Accumulates several scaled `phasor` layers using persistence and lacunarity
  * for richer multi-scale structure.
  *
- * @param  phasor_profile   Phasor shaping profile.
- * @param  shape            Output array dimensions.
- * @param  kp_global        Base frequency factor.
- * @param  seed             Random seed.
- * @param  angle_shift      Global phase angle offset (degrees).
- * @param  octaves          Number of fBm layers.
- * @param  weight           Initial octave weight.
- * @param  persistence      Amplitude multiplier per octave.
- * @param  lacunarity       Frequency multiplier per octave.
- * @param  normalization    Degree of normalization applied [0, 1].
- * @param  jitter           Sampling jitter (x,y).
- * @param  delta            Finite difference step.
- * @param  phase_smoothing  Phase smoothing factor.
- * @param  p_angle          Optional external angle field.
- * @param  p_noise_x        Optional X distortion field.
- * @param  p_noise_y        Optional Y distortion field.
- * @param  bbox             Domain bounding box.
- * @return                  Array Generated multi-scale phasor field.
+ * @param  phasor_profile  Phasor shaping profile.
+ * @param  shape           Output array dimensions.
+ * @param  kp_global       Base frequency factor.
+ * @param  seed            Random seed.
+ * @param  angle_shift     Global phase angle offset (degrees).
+ * @param  octaves         Number of fBm layers.
+ * @param  weight          Initial octave weight.
+ * @param  persistence     Amplitude multiplier per octave.
+ * @param  lacunarity      Frequency multiplier per octave.
+ * @param  normalization   Degree of normalization applied [0, 1].
+ * @param  jitter          Sampling jitter (x,y).
+ * @param  delta           Finite difference step.
+ * @param  phase_smoothing Phase smoothing factor.
+ * @param  p_angle         Optional external angle field.
+ * @param  p_noise_x       Optional X distortion field.
+ * @param  p_noise_y       Optional Y distortion field.
+ * @param  bbox            Domain bounding box.
+ * @return                 Array Generated multi-scale phasor field.
  *
  * **Example**
  * @include ex_phasor.cpp

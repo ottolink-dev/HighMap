@@ -322,8 +322,8 @@ private:
  * @class QuadSurfaceFunction
  * @brief Quadratic surface function defined by four corner values.
  *
- * This class interpolates a surface across the bounding box domain
- * using bilinear/quadratic interpolation from four corner elevations:
+ * This class interpolates a surface across the bounding box domain using
+ * bilinear/quadratic interpolation from four corner elevations:
  * c00 (bottom-left), c10 (bottom-right), c01 (top-left), and c11 (top-right).
  */
 class QuadSurfaceFunction : public Function

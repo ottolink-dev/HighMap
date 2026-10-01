@@ -88,12 +88,12 @@ Array bulkify(const Array         &z,
  * @param seed          Random seed for strata level fluctuation.
  * @param nlevels       Number of stratification levels.
  * @param convex_ratio  Height ratio of convex strata relative to concave strata
- * (e.g., 3.0).
+ *                      (e.g., 3.0).
  * @param gamma_convex  Power law exponent for convex levels (> 1, e.g., 3.0).
  * @param gamma_concave Power law exponent for concave levels (< 1, e.g., 0.3).
  * @param clamp_min_val Elevation threshold for flattening the canyon bottom.
  * @param k_smooth      Smoothing factor for clamp_min_smooth (0 for hard
- * clamp).
+ *                      clamp).
  * @param noise_ratio   Ratio of random elevation variation on strata levels.
  * @param p_noise       Optional noise array for lateral modulation.
  * @param vmin          Minimum elevation bounds (auto if vmin >= vmax).
@@ -126,12 +126,12 @@ void canyonize(Array        &array,
  * @param nlevels       Number of stratification levels.
  * @param p_mask        Optional mask controlling the effect blending.
  * @param convex_ratio  Height ratio of convex strata relative to concave strata
- * (e.g., 3.0).
+ *                      (e.g., 3.0).
  * @param gamma_convex  Power law exponent for convex levels (> 1, e.g., 3.0).
  * @param gamma_concave Power law exponent for concave levels (< 1, e.g., 0.3).
  * @param clamp_min_val Elevation threshold for flattening the canyon bottom.
  * @param k_smooth      Smoothing factor for clamp_min_smooth (0 for hard
- * clamp).
+ *                      clamp).
  * @param noise_ratio   Ratio of random elevation variation on strata levels.
  * @param p_noise       Optional noise array for lateral modulation.
  * @param vmin          Minimum elevation bounds (auto if vmin >= vmax).
@@ -2402,8 +2402,8 @@ void gamma_correction_local(
  * @param  p_mask    Optional mask array for blending.
  * @param  p_noise_x Optional noise array for X perturbation.
  * @param  p_noise_y Optional noise array for Y perturbation.
- * @param  bbox      Bounding box for domain mapping (default: {0.f, 1.f,
- *                   0.f, 1.f}).
+ * @param  bbox      Bounding box for domain mapping (default: {0.f, 1.f, 0.f,
+ *                   1.f}).
  *
  * @return           Filtered array.
  *
@@ -2441,8 +2441,8 @@ Array jagged(const Array  &array,
  * @param  p_mask    Optional mask array for blending.
  * @param  p_noise_x Optional noise array for X perturbation.
  * @param  p_noise_y Optional noise array for Y perturbation.
- * @param  bbox      Bounding box for domain mapping (default: {0.f, 1.f,
- *                   0.f, 1.f}).
+ * @param  bbox      Bounding box for domain mapping (default: {0.f, 1.f, 0.f,
+ *                   1.f}).
  *
  * @return           Filtered array.
  *

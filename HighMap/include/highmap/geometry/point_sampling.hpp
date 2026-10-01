@@ -184,13 +184,12 @@ std::array<std::vector<float>, 2> random_points_density(
  * Points are sampled according to continuous row-marginal and conditional
  * column cumulative distributions interpolated from the 2D array.
  *
- * @param  count   Number of points to generate.
- * @param  array   2D array representing spatial density / probability field.
- * @param  seed    Random number generator seed.
- * @param  bbox    Bounding box in which to generate the points (xmin, xmax,
- *                 ymin, ymax). Defaults to the unit square {0.f, 1.f, 0.f,
- *                 1.f}.
- * @return         A pair of float vectors {x_coords, y_coords}.
+ * @param  count Number of points to generate.
+ * @param  array 2D array representing spatial density / probability field.
+ * @param  seed  Random number generator seed.
+ * @param  bbox  Bounding box in which to generate the points (xmin, xmax, ymin,
+ *               ymax). Defaults to the unit square {0.f, 1.f, 0.f, 1.f}.
+ * @return       A pair of float vectors {x_coords, y_coords}.
  */
 std::array<std::vector<float>, 2> random_points_inverse_sampling(
     size_t           count,

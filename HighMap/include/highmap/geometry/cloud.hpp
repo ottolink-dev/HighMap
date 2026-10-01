@@ -758,8 +758,8 @@ Cloud random_cloud_density(size_t           count,
                            const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
- * @brief Generates a random cloud of points using inverse transform sampling
- * on a 2D density array.
+ * @brief Generates a random cloud of points using inverse transform sampling on
+ * a 2D density array.
  *
  * @param  count   Number of points to generate.
  * @param  density 2D array representing spatial density values.

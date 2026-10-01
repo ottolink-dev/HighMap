@@ -260,16 +260,16 @@ Array rugosity(const Array &z, int ir, bool convex = true);
  * topography:
  * \f[
  *     \text{TWI} = \ln\left(\frac{a}{\tan(\beta)}\right)
- * \f]
- * where \f$a\f$ is the upslope contributing area computed via \f$D_\infty\f$
+ * \f] where \f$a\f$ is the upslope contributing area computed via
+ * \f$D_\infty\f$
  * flow accumulation, and \f$\beta\f$ is the local slope.
  *
  * @param  z         Input elevation array.
  * @param  talus_ref Reference talus slope for flow partitioning in D-infinity
  *                   accumulation (if <= 0, automatically determined from max
- * talus).
+ *                   talus).
  * @param  min_slope Minimum slope threshold \f$\tan(\beta)\f$ to prevent
- * division by zero in flat areas (default: 1e-4f).
+ *                   division by zero in flat areas (default: 1e-4f).
  * @return           Array Resulting array containing the TWI values.
  *
  * **Example**
@@ -369,8 +369,8 @@ Array local_max(const Array &array,
 Array local_max_disk(const Array &array, int ir);
 
 /**
- * @brief Compute the local maximum using an octagonal kernel approximation
- * via 4 separable 1D passes (horizontal, vertical, and two diagonals).
+ * @brief Compute the local maximum using an octagonal kernel approximation via
+ * 4 separable 1D passes (horizontal, vertical, and two diagonals).
  *
  * @param  array Input array.
  * @param  ir    Radius of the octagonal neighborhood footprint.
@@ -434,8 +434,8 @@ Array local_min(const Array &array,
 Array local_min_disk(const Array &array, int ir);
 
 /**
- * @brief Compute the local minimum using an octagonal kernel approximation
- * via 4 separable 1D passes (horizontal, vertical, and two diagonals).
+ * @brief Compute the local minimum using an octagonal kernel approximation via
+ * 4 separable 1D passes (horizontal, vertical, and two diagonals).
  *
  * @param  array Input array.
  * @param  ir    Radius of the octagonal neighborhood footprint.
@@ -474,14 +474,14 @@ Array local_min_square(const Array &array, int ir);
  * ruggedness).
  *
  * @param  array       Input array representing scalar values (e.g., elevation
- * map).
+ *                     map).
  * @param  ir          Radius of the neighborhood (in pixels) used to compute
- * local extrema.
+ *                     local extrema.
  * @param  kernel_type Kernel footprint type (default: MinMaxKernel::DISK).
  *
  * @return             Array An array of the same size as @p array, where each
- * element contains the difference between the local maximum and minimum within
- * the specified neighborhood.
+ *                     element contains the difference between the local maximum
+ *                     and minimum within the specified neighborhood.
  *
  * **Example**
  * @include ex_local_relief.cpp

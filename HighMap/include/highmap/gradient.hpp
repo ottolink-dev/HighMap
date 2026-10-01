@@ -466,20 +466,20 @@ void phase_averaging(Array &field_real, Array &field_imag, int ir);
  * @brief Compute a phase field from an input array using local orientation and
  * noise.
  *
- * @param  array            Input scalar field.
- * @param  kw               Wave vector.
- * @param  seed             Random seed.
- * @param  kp               Phase gain.
- * @param  rotate90         Rotate local angle by 90 degrees if true.
- * @param  normalization    Degree of normalization applied [0, 1].
- * @param  jitter           Jitter applied to sampling.
- * @param  angle_filter_ir  Radius for angle filtering.
- * @param  p_ctrl_param     Optional control parameter field.
- * @param  p_noise_x        Optional noise field (x).
- * @param  p_noise_y        Optional noise field (y).
- * @param  p_modulus        Optional output.
- * @param  bbox             Bounding box for evaluation.
- * @return                  Computed phase field.
+ * @param  array           Input scalar field.
+ * @param  kw              Wave vector.
+ * @param  seed            Random seed.
+ * @param  kp              Phase gain.
+ * @param  rotate90        Rotate local angle by 90 degrees if true.
+ * @param  normalization   Degree of normalization applied [0, 1].
+ * @param  jitter          Jitter applied to sampling.
+ * @param  angle_filter_ir Radius for angle filtering.
+ * @param  p_ctrl_param    Optional control parameter field.
+ * @param  p_noise_x       Optional noise field (x).
+ * @param  p_noise_y       Optional noise field (y).
+ * @param  p_modulus       Optional output.
+ * @param  bbox            Bounding box for evaluation.
+ * @return                 Computed phase field.
  *
  * * **Example**
  * @include ex_phase_field.cpp
@@ -505,19 +505,19 @@ Array phase_field(const Array     &array,
 /**
  * @brief Compute a phase field using a global isotropic kp value.
  *
- * @param  array            Input scalar field.
- * @param  seed             Random seed.
- * @param  kp_global        Global phase gain.
- * @param  rotate90         Rotate local angle by 90 degrees if true.
- * @param  normalization    Degree of normalization applied [0, 1].
- * @param  jitter           Jitter applied to sampling.
- * @param  angle_filter_ir  Radius for angle filtering.
- * @param  p_ctrl_param     Optional control parameter field.
- * @param  p_noise_x        Optional noise field (x).
- * @param  p_noise_y        Optional noise field (y).
- * @param  p_modulus        Optional output.
- * @param  bbox             Bounding box for evaluation.
- * @return                  Computed phase field.
+ * @param  array           Input scalar field.
+ * @param  seed            Random seed.
+ * @param  kp_global       Global phase gain.
+ * @param  rotate90        Rotate local angle by 90 degrees if true.
+ * @param  normalization   Degree of normalization applied [0, 1].
+ * @param  jitter          Jitter applied to sampling.
+ * @param  angle_filter_ir Radius for angle filtering.
+ * @param  p_ctrl_param    Optional control parameter field.
+ * @param  p_noise_x       Optional noise field (x).
+ * @param  p_noise_y       Optional noise field (y).
+ * @param  p_modulus       Optional output.
+ * @param  bbox            Bounding box for evaluation.
+ * @return                 Computed phase field.
  *
  * * **Example**
  * @include ex_phase_field.cpp

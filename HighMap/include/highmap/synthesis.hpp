@@ -53,8 +53,8 @@ namespace hmap
  * @param  array            Input heightmap providing the exemplar features.
  * @param  symmetry_type    Type of symmetry to apply to the guide field.
  * @param  strength         Symmetry strength in [0, 1] controlling
- * interpolation between the original macro base and the symmetrical guide.
- *                          Default is 1.0.
+ *                          interpolation between the original macro base and
+ *                          the symmetrical guide. Default is 1.0.
  * @param  factor           Super-resolution amplification factor (>= 1).
  * @param  patch_size       Side of square patches for sparse coding (>= 2).
  * @param  analysis_stride  Patch stride on the exemplar grid.

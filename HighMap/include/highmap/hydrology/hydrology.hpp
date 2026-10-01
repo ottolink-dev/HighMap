@@ -1215,13 +1215,13 @@ namespace hmap::va
 /**
  * @brief Identifies and floods depression systems (lakes) in a VirtualArray.
  *
- * @param z                 Input heightmap VirtualArray.
- * @param surface_threshold Minimum surface area (in pixels) for a lake region
- *                          to be retained. Default is 0 (no filtering).
- * @param cm                Compute mode configuration.
- * @return                  VirtualArray representing the water depth field.
+ * @param  z                 Input heightmap VirtualArray.
+ * @param  surface_threshold Minimum surface area (in pixels) for a lake region
+ *                           to be retained. Default is 0 (no filtering).
+ * @param  cm                Compute mode configuration.
+ * @return                   VirtualArray representing the water depth field.
  *
- * @see                     depression_filling_priority_flood
+ * @see                      depression_filling_priority_flood
  */
 VirtualArray flooding_lake_system(const VirtualArray &z,
                                   float               surface_threshold = 0.f,

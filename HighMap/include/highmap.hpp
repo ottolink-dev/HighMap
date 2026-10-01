@@ -26,6 +26,7 @@
 #include "highmap/export.hpp"
 #include "highmap/features.hpp"
 #include "highmap/filters.hpp"
+#include "highmap/flora.hpp"
 #include "highmap/functions.hpp"
 #include "highmap/geometry.hpp"
 #include "highmap/gradient.hpp"

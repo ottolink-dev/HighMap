@@ -45,7 +45,7 @@ public:
    * @param density 2D density array.
    * @param seed    Random number generator seed.
    * @param bbox    Bounding box (xmin, xmax, ymin, ymax). Defaults to unit
-   * square.
+   *                square.
    */
   InverseSampler2D(const Array     &density,
                    std::uint32_t    seed = 0,
@@ -65,17 +65,17 @@ public:
   /**
    * @brief Samples a single point with user-provided uniform random numbers.
    *
-   * @param u  Uniform random number in [0, 1) for row selection.
-   * @param u2 Uniform random number in [0, 1) for column selection.
-   * @return   2D point coordinates within the bounding box.
+   * @param  u  Uniform random number in [0, 1) for row selection.
+   * @param  u2 Uniform random number in [0, 1) for column selection.
+   * @return    2D point coordinates within the bounding box.
    */
   glm::vec2 sample(float u, float u2);
 
   /**
    * @brief Samples multiple points sequentially.
    *
-   * @param count Number of points to sample.
-   * @return      A pair of coordinate vectors {x_coords, y_coords}.
+   * @param  count Number of points to sample.
+   * @return       A pair of coordinate vectors {x_coords, y_coords}.
    */
   std::array<std::vector<float>, 2> sample(size_t count);
 

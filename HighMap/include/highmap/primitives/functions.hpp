@@ -599,13 +599,13 @@ Array polar_shape(glm::ivec2   shape,
  * @param  c01          Elevation at top-left corner (xmin, ymax).
  * @param  c11          Elevation at top-right corner (xmax, ymax).
  * @param  p_ctrl_param Optional pointer to a control parameter array
- * (multiplier).
+ *                      (multiplier).
  * @param  p_noise_x    Optional pointer to x-direction displacement noise
- * array.
+ *                      array.
  * @param  p_noise_y    Optional pointer to y-direction displacement noise
- * array.
+ *                      array.
  * @param  bbox         Bounding box defining the domain coordinates (xmin,
- * xmax, ymin, ymax).
+ *                      xmax, ymin, ymax).
  * @return              Array containing the generated quadratic surface.
  *
  * **Example**

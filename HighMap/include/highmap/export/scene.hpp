@@ -34,20 +34,20 @@ namespace hmap
  * - Point collections from `clouds` as UsdGeomPoints
  * - Polylines/splines from `paths` as UsdGeomBasisCurves
  *
- * @param fname             Output file name (.usda, .usdc, or .usdz).
- * @param elevation         The heightmap array representing terrain elevation.
- * @param clouds            Vector of Cloud objects to export as points
- * primitives.
- * @param paths             Vector of Path objects to export as curve
- * primitives.
- * @param mesh_type         The type of mesh to generate for the terrain.
- * @param elevation_scaling Elevation scaling factor applied to the terrain and
- * 3D points.
- * @param texture_fname     Optional diffuse texture filename.
- * @param normal_map_fname  Optional normal map filename.
- * @param max_error         Maximum error for optimized Delaunay triangulation.
- * @param fit_boundaries    Scale domain coordinates to [0, 1].
- * @return                  `true` if export succeeded, `false` otherwise.
+ * @param  fname             Output file name (.usda, .usdc, or .usdz).
+ * @param  elevation         The heightmap array representing terrain elevation.
+ * @param  clouds            Vector of Cloud objects to export as points
+ *                           primitives.
+ * @param  paths             Vector of Path objects to export as curve
+ *                           primitives.
+ * @param  mesh_type         The type of mesh to generate for the terrain.
+ * @param  elevation_scaling Elevation scaling factor applied to the terrain and
+ *                           3D points.
+ * @param  texture_fname     Optional diffuse texture filename.
+ * @param  normal_map_fname  Optional normal map filename.
+ * @param  max_error         Maximum error for optimized Delaunay triangulation.
+ * @param  fit_boundaries    Scale domain coordinates to [0, 1].
+ * @return                   `true` if export succeeded, `false` otherwise.
  *
  * **Example**
  * @include ex_export_usd.cpp

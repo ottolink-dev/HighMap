@@ -128,10 +128,10 @@ void export_banner_png(const std::string        &fname,
 /**
  * @brief Exports an array using the generic ImageWriter pipeline.
  *
- * @param array  Input 2D array.
- * @param fname  Output file or directory path.
- * @param config Optional writer configuration.
- * @return       True if successful, false otherwise.
+ * @param  array  Input 2D array.
+ * @param  fname  Output file or directory path.
+ * @param  config Optional writer configuration.
+ * @return        True if successful, false otherwise.
  */
 bool export_image(const Array             &array,
                   const std::string       &fname,
@@ -141,10 +141,10 @@ bool export_image(const Array             &array,
  * @brief Exports a VirtualArray incrementally using the generic ImageWriter
  * pipeline.
  *
- * @param va     Input VirtualArray.
- * @param fname  Output file or directory path.
- * @param config Optional writer configuration.
- * @return       True if successful, false otherwise.
+ * @param  va     Input VirtualArray.
+ * @param  fname  Output file or directory path.
+ * @param  config Optional writer configuration.
+ * @return        True if successful, false otherwise.
  */
 bool export_image(const VirtualArray      &va,
                   const std::string       &fname,
@@ -153,11 +153,11 @@ bool export_image(const VirtualArray      &va,
 /**
  * @brief Exports a VirtualArray incrementally with custom compute mode.
  *
- * @param va     Input VirtualArray.
- * @param fname  Output file or directory path.
- * @param config Writer configuration.
- * @param cm     Compute mode for tile processing.
- * @return       True if successful, false otherwise.
+ * @param  va     Input VirtualArray.
+ * @param  fname  Output file or directory path.
+ * @param  config Writer configuration.
+ * @param  cm     Compute mode for tile processing.
+ * @return        True if successful, false otherwise.
  */
 bool export_image(const VirtualArray      &va,
                   const std::string       &fname,
@@ -168,10 +168,10 @@ bool export_image(const VirtualArray      &va,
  * @brief Exports a VirtualTexture incrementally using the generic ImageWriter
  * pipeline.
  *
- * @param vt     Input VirtualTexture.
- * @param fname  Output file or directory path.
- * @param config Optional writer configuration.
- * @return       True if successful, false otherwise.
+ * @param  vt     Input VirtualTexture.
+ * @param  fname  Output file or directory path.
+ * @param  config Optional writer configuration.
+ * @return        True if successful, false otherwise.
  */
 bool export_image(const VirtualTexture    &vt,
                   const std::string       &fname,
@@ -180,11 +180,11 @@ bool export_image(const VirtualTexture    &vt,
 /**
  * @brief Exports a VirtualTexture incrementally with custom compute mode.
  *
- * @param vt     Input VirtualTexture.
- * @param fname  Output file or directory path.
- * @param config Writer configuration.
- * @param cm     Compute mode for tile processing.
- * @return       True if successful, false otherwise.
+ * @param  vt     Input VirtualTexture.
+ * @param  fname  Output file or directory path.
+ * @param  config Writer configuration.
+ * @param  cm     Compute mode for tile processing.
+ * @return        True if successful, false otherwise.
  */
 bool export_image(const VirtualTexture    &vt,
                   const std::string       &fname,
@@ -195,9 +195,9 @@ bool export_image(const VirtualTexture    &vt,
  * @brief Streams a VirtualArray tile-by-tile into an already opened
  * ImageWriter.
  *
- * @param va     Input VirtualArray.
- * @param writer Reference to target ImageWriter.
- * @return       True if successful, false otherwise.
+ * @param  va     Input VirtualArray.
+ * @param  writer Reference to target ImageWriter.
+ * @return        True if successful, false otherwise.
  */
 bool export_virtual_array(const VirtualArray &va, ImageWriter &writer);
 
@@ -205,10 +205,10 @@ bool export_virtual_array(const VirtualArray &va, ImageWriter &writer);
  * @brief Streams a VirtualArray tile-by-tile into an already opened ImageWriter
  * with custom compute mode.
  *
- * @param va     Input VirtualArray.
- * @param writer Reference to target ImageWriter.
- * @param cm     Compute mode for tile processing.
- * @return       True if successful, false otherwise.
+ * @param  va     Input VirtualArray.
+ * @param  writer Reference to target ImageWriter.
+ * @param  cm     Compute mode for tile processing.
+ * @return        True if successful, false otherwise.
  */
 bool export_virtual_array(const VirtualArray &va,
                           ImageWriter        &writer,
@@ -218,9 +218,9 @@ bool export_virtual_array(const VirtualArray &va,
  * @brief Streams a VirtualTexture tile-by-tile into an already opened
  * ImageWriter.
  *
- * @param vt     Input VirtualTexture.
- * @param writer Reference to target ImageWriter.
- * @return       True if successful, false otherwise.
+ * @param  vt     Input VirtualTexture.
+ * @param  writer Reference to target ImageWriter.
+ * @return        True if successful, false otherwise.
  */
 bool export_virtual_array(const VirtualTexture &vt, ImageWriter &writer);
 
@@ -228,10 +228,10 @@ bool export_virtual_array(const VirtualTexture &vt, ImageWriter &writer);
  * @brief Streams a VirtualTexture tile-by-tile into an already opened
  * ImageWriter with custom compute mode.
  *
- * @param vt     Input VirtualTexture.
- * @param writer Reference to target ImageWriter.
- * @param cm     Compute mode for tile processing.
- * @return       True if successful, false otherwise.
+ * @param  vt     Input VirtualTexture.
+ * @param  writer Reference to target ImageWriter.
+ * @param  cm     Compute mode for tile processing.
+ * @return        True if successful, false otherwise.
  */
 bool export_virtual_array(const VirtualTexture &vt,
                           ImageWriter          &writer,

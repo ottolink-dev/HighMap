@@ -160,8 +160,8 @@ void coastal_erosion_profile(Array       &z,
  * Fill heightmap depressions to ensure that every cell can be connected to the
  * boundaries following a downward slope @cite Planchon2002.
  *
- * @param z          Input array.
- * @param iterations Number of iterations.
+ * @param z              Input array.
+ * @param iterations     Number of iterations.
  * @param epsilon
  *
  * **Example**
@@ -1016,13 +1016,14 @@ void hydraulic_particle_multiscale(
  */
 struct McDonaldParams
 {
-  float strength =
-      0.5f; // overall erosion power (scales suspension & thermal rates)
-  float deposition = 0.5f;  // sediment retention vs transport
-  float crit_slope = 0.57f; // critical slope [m/m]
-  float meandering = 0.5f;  // flow-coupling & momentum inertia
-  float scale = 1.0f; // domain extent multiplier (scales world_extent_km and
-                      // base z_scale_km)
+  float strength = 0.5f;   // overall erosion power (scales suspension & thermal
+                           // rates)
+  float deposition = 0.5f; // sediment retention vs transport
+  float crit_slope = 0.57f;  // critical slope [m/m]
+  float meandering = 0.5f;   // flow-coupling & momentum inertia
+  float scale = 1.0f;        // domain extent multiplier (scales world_extent_km
+                             // and
+                             // base z_scale_km)
   float relief_scale = 1.0f; // relative vertical relief scale multiplier
 
   struct PhysicalParams
@@ -2441,11 +2442,11 @@ namespace hmap::va
 /**
  * @brief Fill depressions in a VirtualArray using the Priority-Flood algorithm.
  *
- * @param z                 Input heightmap.
- * @param apply_post_filter Apply Laplacian smoothing to deposition.
- * @param p_fill_map        Optional output fill map (z_after - z_before).
- * @param cm                Compute mode configuration.
- * @return                  Filled heightmap.
+ * @param  z                 Input heightmap.
+ * @param  apply_post_filter Apply Laplacian smoothing to deposition.
+ * @param  p_fill_map        Optional output fill map (z_after - z_before).
+ * @param  cm                Compute mode configuration.
+ * @return                   Filled heightmap.
  */
 VirtualArray depression_filling_priority_flood(
     const VirtualArray &z,
