@@ -3,6 +3,8 @@
    this software. */
 #include <algorithm>
 #include <cmath>
+#include <fstream>
+#include <iomanip>
 #include <set>
 #include <stdexcept>
 
@@ -154,6 +156,22 @@ Cloud Forest::to_cloud() const
   for (const auto &tree : trees)
     pts.push_back(tree.to_point());
   return Cloud(std::move(pts));
+}
+
+void Forest::to_csv(const std::string &fname) const
+{
+  std::ofstream f(fname, std::ios::out);
+  if (!f.is_open()) throw std::runtime_error("Failed to open file: " + fname);
+
+  // use C locale for consistent number formatting
+  f.imbue(std::locale("C"));
+  f << std::fixed << std::setprecision(9);
+
+  for (const auto &tree : trees)
+  {
+    f << tree.position.x << ',' << tree.position.y << ',' << tree.position.z
+      << ',' << tree.species_id << ',' << tree.radius << '\n';
+  }
 }
 
 } // namespace hmap

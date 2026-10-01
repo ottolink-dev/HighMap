@@ -1,0 +1,2 @@
+add_executable(ex_forest_seeding ex_forest_seeding.cpp)
+target_link_libraries(ex_forest_seeding highmap)

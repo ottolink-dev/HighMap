@@ -199,6 +199,13 @@ public:
    */
   Cloud to_cloud() const;
 
+  /**
+   * @brief Exports the forest trees to a CSV file (x, y, z, species_id,
+   * radius).
+   * @param fname Output file path.
+   */
+  void to_csv(const std::string &fname) const;
+
 protected:
   std::vector<Tree> trees = {}; ///< List of tree instances.
 };

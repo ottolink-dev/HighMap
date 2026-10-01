@@ -23,12 +23,11 @@ namespace hmap
 class Tree
 {
 public:
-  glm::vec3 position = {0.f, 0.f, 0.f}; ///< Tree 3D position (x, y, elevation
-                                        // z).
-  uint32_t species_id = 0;              ///< Species identifier or category
-                                        // mark.
-  float radius = 1.0f;                  ///< Canopy / collision radius (global
-                                        // scale).
+  glm::vec3 position = {0.f,
+                        0.f,
+                        0.f}; ///< Tree 3D position (x, y, elevation z).
+  uint32_t  species_id = 0;   ///< Species identifier or category mark.
+  float     radius = 1.0f;    ///< Canopy / collision radius (global scale).
 
   // ==========================================================================
   //  Constructors

@@ -208,3 +208,27 @@ TEST(ForestTest, SetElevationFromTerrain)
   EXPECT_TRUE(float_eq(forest[1].position.z, 100.f));
   EXPECT_TRUE(float_eq(forest[2].position.z, 200.f));
 }
+
+TEST(ForestTest, ToCsv)
+{
+  Forest forest;
+  forest.push_back(Tree(1.5f, 2.5f, 3.5f, 1u, 4.5f));
+  forest.push_back(Tree(6.0f, 7.0f, 8.0f, 2u, 0.5f));
+
+  std::string csv_path = "test_forest_output.csv";
+  forest.to_csv(csv_path);
+
+  std::ifstream f(csv_path);
+  ASSERT_TRUE(f.is_open());
+
+  std::string line1, line2;
+  std::getline(f, line1);
+  std::getline(f, line2);
+  f.close();
+
+  EXPECT_FALSE(line1.empty());
+  EXPECT_FALSE(line2.empty());
+  EXPECT_NE(line1.find("1.5"), std::string::npos);
+  EXPECT_NE(line1.find("2.5"), std::string::npos);
+  EXPECT_NE(line2.find("6.0"), std::string::npos);
+}
