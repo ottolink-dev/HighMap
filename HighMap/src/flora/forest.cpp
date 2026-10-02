@@ -151,26 +151,83 @@ std::vector<uint32_t> Forest::get_species_ids() const
   return std::vector<uint32_t>(unique_species.begin(), unique_species.end());
 }
 
-void Forest::rejection_filter_density(const Array     &density_mask,
-                                      uint32_t         seed,
-                                      const glm::vec4 &bbox)
+void Forest::prune_density(const Array     &density_mask,
+                           float            target_ratio,
+                           uint32_t         seed,
+                           const glm::vec4 &bbox)
 {
-  if (!validate_non_empty(density_mask)) return;
+  if (!validate_non_empty(density_mask) || trees.empty()) return;
 
-  std::mt19937                          gen(seed);
-  std::uniform_real_distribution<float> dis(0.f, 1.f);
+  float r_target = std::clamp(target_ratio, 0.0f, 1.0f);
+  if (r_target <= 1e-6f)
+  {
+    trees.clear();
+    return;
+  }
+  if (r_target >= 1.0f - 1e-6f)
+  {
+    return;
+  }
+
+  // --- Sample Local Density at Tree Positions
 
   auto density_fct = make_xy_function_from_array(density_mask, bbox);
+  std::vector<float> sampled_densities(trees.size());
+  for (size_t i = 0; i < trees.size(); ++i)
+  {
+    sampled_densities[i] = std::max(
+        0.0f,
+        density_fct(trees[i].position.x, trees[i].position.y));
+  }
 
-  trees.erase(std::remove_if(trees.begin(),
-                             trees.end(),
-                             [&](const Tree &tree)
-                             {
-                               float rnd = dis(gen);
-                               return (rnd > density_fct(tree.position.x,
-                                                         tree.position.y));
-                             }),
-              trees.end());
+  // --- Remap Acceptance Probabilities to Match Target Keep Ratio
+
+  // find shift c in [-1, 1] such that expected ratio
+  // mean(clamp(d + c, 0, 1)) approximately equals r_target
+  float low = -1.0f;
+  float high = 1.0f;
+  float c_best = 0.0f;
+
+  for (int iter = 0; iter < 40; ++iter)
+  {
+    float mid = 0.5f * (low + high);
+    float sum_p = 0.0f;
+    for (float d : sampled_densities)
+    {
+      sum_p += std::clamp(d + mid, 0.0f, 1.0f);
+    }
+    float expected_ratio = sum_p / static_cast<float>(trees.size());
+
+    if (expected_ratio < r_target)
+    {
+      low = mid;
+    }
+    else
+    {
+      high = mid;
+    }
+    c_best = mid;
+  }
+
+  // --- Perform Density-Modulated Pruning
+
+  std::mt19937                          gen(seed);
+  std::uniform_real_distribution<float> dis(0.0f, 1.0f);
+
+  std::vector<Tree> retained;
+  retained.reserve(
+      static_cast<size_t>(std::ceil(r_target * float(trees.size()))));
+
+  for (size_t i = 0; i < trees.size(); ++i)
+  {
+    float p_accept = std::clamp(sampled_densities[i] + c_best, 0.0f, 1.0f);
+    if (dis(gen) <= p_accept)
+    {
+      retained.push_back(trees[i]);
+    }
+  }
+
+  trees = std::move(retained);
 }
 
 void Forest::set_elevation_from_terrain(const Array     &elevation,
@@ -348,7 +405,8 @@ std::string Forest::to_string() const
     ss << " species breakdown :\n";
     for (const auto &[sp_id, count] : species_counts)
     {
-      float avg_r = (count > 0) ? (species_radii_sum[sp_id] / float(count)) : 0.f;
+      float avg_r = (count > 0) ? (species_radii_sum[sp_id] / float(count))
+                                : 0.f;
       float pct = (trees.empty())
                       ? 0.f
                       : (100.f * float(count) / float(trees.size()));

@@ -183,16 +183,22 @@ public:
   std::vector<uint32_t> get_species_ids() const;
 
   /**
-   * @brief Filters trees in the forest using rejection sampling based on a
-   * density mask.
+   * @brief Prunes trees in the forest using density-based acceptance sampling
+   * modulated to reach an approximate target retention ratio.
+   *
+   * @note The retention ratio is achieved in expectation (approximate) via
+   *       probabilistic Bernoulli sampling biased by local density values.
    *
    * @param density_mask 2D array defining the spatial density field.
-   * @param seed         Random seed for reproducible rejection sampling.
+   * @param target_ratio Approximate target fraction of trees to retain in [0,
+   * 1].
+   * @param seed         Random seed for reproducible pruning.
    * @param bbox         Bounding box defining the domain of the density mask.
    */
-  void rejection_filter_density(const Array     &density_mask,
-                                uint32_t         seed,
-                                const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+  void prune_density(const Array     &density_mask,
+                     float            target_ratio = 0.8f,
+                     uint32_t         seed = 0,
+                     const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
 
   /**
    * @brief Sets the elevation (z-coordinate) of all trees by sampling a terrain

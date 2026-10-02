@@ -254,25 +254,29 @@ TEST(ForestTest, ToCsv)
   EXPECT_NE(line2.find("6.0"), std::string::npos);
 }
 
-TEST(ForestTest, RejectionFilterDensity)
+TEST(ForestTest, PruneDensity)
 {
   Forest forest;
-  for (int i = 0; i < 20; ++i)
+  for (int i = 0; i < 100; ++i)
     forest.push_back(Tree(0.5f, 0.5f, 0.f, 0u, 1.0f));
 
-  // zero density -> all pruned
-  Array zero_mask({10, 10}, 0.f);
-  forest.rejection_filter_density(zero_mask, 42);
+  // ratio 0.0 -> all pruned
+  Array mask({10, 10}, 0.5f);
+  forest.prune_density(mask, 0.0f, 42);
   EXPECT_EQ(forest.size(), 0u);
   EXPECT_TRUE(forest.empty());
 
-  // one density -> all kept
-  for (int i = 0; i < 20; ++i)
+  // ratio 1.0 -> all kept
+  for (int i = 0; i < 100; ++i)
     forest.push_back(Tree(0.5f, 0.5f, 0.f, 0u, 1.0f));
 
-  Array full_mask({10, 10}, 1.f);
-  forest.rejection_filter_density(full_mask, 42);
-  EXPECT_EQ(forest.size(), 20u);
+  forest.prune_density(mask, 1.0f, 42);
+  EXPECT_EQ(forest.size(), 100u);
+
+  // ratio 0.5 -> ~50% kept with density modulation
+  forest.prune_density(mask, 0.5f, 42);
+  EXPECT_GT(forest.size(), 35u);
+  EXPECT_LT(forest.size(), 65u);
 }
 
 TEST(ForestTest, ToPng)
