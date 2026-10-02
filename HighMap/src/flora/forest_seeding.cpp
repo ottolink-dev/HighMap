@@ -64,11 +64,25 @@ Forest seed_forest_clusters(size_t                      species_count,
 
   // --- Determine Species Quotas
 
+  std::vector<float> effective_weights;
+  std::vector<float> effective_radii;
+
+  if (!options.species.empty())
+  {
+    effective_weights.reserve(options.species.size());
+    effective_radii.reserve(options.species.size());
+    for (const auto &sp : options.species)
+    {
+      effective_weights.push_back(sp.weight);
+      effective_radii.push_back(sp.radius);
+    }
+  }
+
   std::vector<size_t> species_tree_counts(species_count, 0);
-  if (options.species_weights.size() == species_count)
+  if (effective_weights.size() == species_count)
   {
     float total_w = 0.0f;
-    for (float w : options.species_weights)
+    for (float w : effective_weights)
       total_w += std::max(0.0f, w);
 
     if (total_w > 1e-6f)
@@ -76,7 +90,7 @@ Forest seed_forest_clusters(size_t                      species_count,
       size_t allocated = 0;
       for (size_t s = 0; s < species_count; ++s)
       {
-        float norm_w = std::max(0.0f, options.species_weights[s]) / total_w;
+        float norm_w = std::max(0.0f, effective_weights[s]) / total_w;
         species_tree_counts[s] = static_cast<size_t>(
             std::round(static_cast<float>(tree_count) * norm_w));
         allocated += species_tree_counts[s];
@@ -114,8 +128,8 @@ Forest seed_forest_clusters(size_t                      species_count,
 
     auto parent_samples = sampler.sample(cluster_count);
 
-    float default_radius = (s < options.species_radii.size())
-                               ? options.species_radii[s]
+    float default_radius = (s < effective_radii.size())
+                               ? effective_radii[s]
                                : HMAP_DEFAULT_TREE_RADIUS;
 
     size_t count_for_s = 0;
@@ -191,6 +205,14 @@ Forest seed_forest_kmeans(size_t                      species_count,
 
   // --- Sample Coordinates Using 2D Inverse Sampling
 
+  std::vector<float> effective_radii;
+  if (!options.species.empty())
+  {
+    effective_radii.reserve(options.species.size());
+    for (const auto &sp : options.species)
+      effective_radii.push_back(sp.radius);
+  }
+
   // generate candidate point positions based on the 2d probability density
   auto   samples = sampler.sample(tree_count);
   size_t actual_count = samples[0].size();
@@ -204,8 +226,8 @@ Forest seed_forest_kmeans(size_t                      species_count,
   if (species_count == 1 || actual_count == 1)
   {
     // single species: assign all sampled points to species 0
-    float default_radius = (!options.species_radii.empty())
-                               ? options.species_radii[0]
+    float default_radius = (!effective_radii.empty())
+                               ? effective_radii[0]
                                : HMAP_DEFAULT_TREE_RADIUS;
 
     for (size_t i = 0; i < actual_count; ++i)
@@ -307,8 +329,7 @@ Forest seed_forest_kmeans(size_t                      species_count,
       cluster_to_species[c] = static_cast<uint32_t>(c);
     }
 
-    if (!options.species_radii.empty() &&
-        options.species_radii.size() == k_clusters)
+    if (!effective_radii.empty() && effective_radii.size() == k_clusters)
     {
       // sort cluster indices by centroid distance in compactness feature space
       std::vector<size_t> cluster_order(k_clusters);
@@ -323,15 +344,13 @@ Forest seed_forest_kmeans(size_t                      species_count,
                 });
 
       // sort available species indices by their radii ascending
-      size_t              num_species = std::min(species_count,
-                                    options.species_radii.size());
+      size_t num_species = std::min(species_count, effective_radii.size());
       std::vector<size_t> species_order(num_species);
       std::iota(species_order.begin(), species_order.end(), 0);
       std::sort(species_order.begin(),
                 species_order.end(),
-                [&options](size_t a, size_t b) {
-                  return options.species_radii[a] < options.species_radii[b];
-                });
+                [&effective_radii](size_t a, size_t b)
+                { return effective_radii[a] < effective_radii[b]; });
 
       for (size_t rank = 0; rank < k_clusters; ++rank)
       {
@@ -348,8 +367,8 @@ Forest seed_forest_kmeans(size_t                      species_count,
       uint32_t species_id = (cluster_id < cluster_to_species.size())
                                 ? cluster_to_species[cluster_id]
                                 : static_cast<uint32_t>(cluster_id);
-      float    radius = (species_id < options.species_radii.size())
-                            ? options.species_radii[species_id]
+      float    radius = (species_id < effective_radii.size())
+                            ? effective_radii[species_id]
                             : HMAP_DEFAULT_TREE_RADIUS;
 
       candidate_trees.emplace_back(samples[0][i],

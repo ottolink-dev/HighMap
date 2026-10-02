@@ -16,6 +16,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/flora/forest.hpp"
+#include "highmap/flora/species.hpp"
 
 namespace hmap
 {
@@ -26,18 +27,12 @@ namespace hmap
  */
 struct ForestSeedingOptions
 {
-  // clang-format off
-	glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}; ///< Bounding box {xmin, xmax,
-	// ymin, ymax}.
-	uint32_t seed = 0;                 ///< Random number generator seed.
-	float exclusion_threshold = 0.5f;  ///< Threshold for exclusion map
-	// masking.
-	std::vector<float> species_weights = {}; ///< Optional relative
-	// abundance weights per
-	// species.
-	std::vector<float> species_radii = {}; ///< Optional default canopy
-	// radii per species.
-  // clang-format on
+  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}; ///< Bounding box {xmin, xmax,
+  // ymin, ymax}.
+  uint32_t seed = 0;                   ///< Random number generator seed.
+  float    exclusion_threshold = 0.5f; ///< Threshold for exclusion map
+  // masking.
+  std::vector<Species> species = {}; ///< Optional Species definitions.
 };
 
 // ============================================================================
@@ -72,8 +67,8 @@ Forest seed_forest_clusters(size_t                      species_count,
  * species.
  *
  * @note Species abundance is governed by spatial cluster partitioning in the
- * compactness feature space; @p options.species_weights is not taken into
- * account by this function.
+ * compactness feature space; species weights in @p options.species are not
+ * taken into account by this function.
  *
  * @param  species_count      Number of distinct tree species.
  * @param  tree_count         Target total number of trees.

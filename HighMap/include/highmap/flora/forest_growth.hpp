@@ -16,6 +16,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/flora/forest.hpp"
+#include "highmap/flora/species.hpp"
 
 namespace hmap
 {
@@ -107,6 +108,21 @@ struct InteractionMatrix
                                       float multiplier = 2.0f);
 
   /**
+   * @brief Creates an interaction matrix computed from Species
+   * definitions.
+   *
+   * Each entry (s1, s2) is set to multiplier * (species[s1].radius +
+   * species[s2].radius).
+   *
+   * @param  species    Vector of Species definitions.
+   * @param  multiplier Scaling factor applied to the sum of radii
+   *                    (defaults to 2.0f).
+   * @return            InteractionMatrix Resulting matrix.
+   */
+  static InteractionMatrix from_species(const std::vector<Species> &species,
+                                        float multiplier = 2.0f);
+
+  /**
    * @brief Creates a matrix initialized with random values perturbed
    * around 1.0.
    *
@@ -137,6 +153,47 @@ struct InteractionMatrix
 // ============================================================================
 //  Growth & Thinning Functions (Alphabetically Sorted)
 // ============================================================================
+
+/**
+ * @brief Adjusts tree radii based on nearest-neighbor distances and species
+ * competition constraints.
+ *
+ * For each tree $i$ with nearest neighbor $j$ at Euclidean distance $d_i =
+ * \|p_i - p_j\|$:
+ * - Looks up competition factor $\alpha = \text{competition\_matrix.get}(s_i,
+ * s_j)$ (or species $[s_i].\text{competition\_factor}$).
+ * - Calculates estimated radius $r_i = \alpha \cdot d_i$.
+ * - Linearly scales effective maximum radius:
+ *   $r_{\max,\text{eff}} = r_{\min}(s_i) + s \cdot (r_{\max}(s_i) -
+ * r_{\min}(s_i))$, where $s \in [0, 1]$ is sampled from @p max_radius_scale (if
+ * provided, default $s = 1.0$).
+ * - Clamps $r_i \in [\text{radius\_min}(s_i), r_{\max,\text{eff}}]$.
+ * - If @p prune_unviable is true and raw calculated radius $r_i <
+ * \text{radius\_min}(s_i)$, the tree is removed.
+ *
+ * @param  forest                  Input forest container.
+ * @param  species                 Vector of Species definitions.
+ * @param  competition_matrix      Optional pairwise S x S competition factors
+ *                                 (alpha).
+ * @param  max_radius_scale        Optional 2D array in [0, 1] scaling maximum
+ * radius locally (0 -> rmax = rmin, 1 -> rmax = rmax).
+ * @param  max_radius_scale_strength Blend strength for max_radius_scale in [0,
+ * 1] (0 -> no scaling/full rmax, 1 -> full scale array modulation).
+ * @param  prune_unviable          Whether to remove trees unable to reach
+ *                                 radius_min.
+ * @param  bbox                    Bounding box {xmin, xmax, ymin, ymax} for
+ * sampling
+ *                                 @p max_radius_scale.
+ * @return                         Forest Grown forest with updated tree radii.
+ */
+Forest grow_forest_competition_nn(
+    const Forest               &forest,
+    const std::vector<Species> &species = {},
+    const InteractionMatrix    &competition_matrix = {},
+    const Array                &max_radius_scale = {},
+    float                       max_radius_scale_strength = 1.0f,
+    bool                        prune_unviable = false,
+    const glm::vec4            &bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Performs multi-species Strauss soft-core thinning on an input forest.

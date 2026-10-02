@@ -80,6 +80,40 @@ TEST(InteractionMatrixTest, FactoryMethods)
   EXPECT_TRUE(float_eq(from_r.get(0, 0), 4.0f)); // 2.0 * (1.0 + 1.0)
   EXPECT_TRUE(float_eq(from_r.get(0, 1), 6.0f)); // 2.0 * (1.0 + 2.0)
   EXPECT_TRUE(float_eq(from_r.get(1, 2), 5.0f)); // 2.0 * (2.0 + 0.5)
+
+  // from_species
+  std::vector<Species> spec_list = {Species(0, 1.0f), Species(1, 2.0f)};
+  InteractionMatrix from_sp = InteractionMatrix::from_species(spec_list, 1.0f);
+  EXPECT_EQ(from_sp.size, 2u);
+  EXPECT_TRUE(float_eq(from_sp.get(0, 0), 2.0f));
+  EXPECT_TRUE(float_eq(from_sp.get(0, 1), 3.0f));
+}
+
+// --- Species Class Tests
+
+TEST(SpeciesTest, DefaultAndCustomConstructors)
+{
+  Species s0;
+  EXPECT_EQ(s0.id, 0u);
+  EXPECT_TRUE(float_eq(s0.radius, HMAP_DEFAULT_TREE_RADIUS));
+  EXPECT_TRUE(float_eq(s0.weight, 1.0f));
+  EXPECT_TRUE(float_eq(s0.radius_min, 0.5f * HMAP_DEFAULT_TREE_RADIUS));
+  EXPECT_TRUE(float_eq(s0.radius_max, 1.5f * HMAP_DEFAULT_TREE_RADIUS));
+  EXPECT_TRUE(float_eq(s0.competition_factor, 0.4f));
+
+  Species s1(2u, 0.01f, 2.5f, 0.005f, 0.02f, 0.35f, "Oak");
+  EXPECT_EQ(s1.id, 2u);
+  EXPECT_EQ(s1.name, "Oak");
+  EXPECT_TRUE(float_eq(s1.radius, 0.01f));
+  EXPECT_TRUE(float_eq(s1.weight, 2.5f));
+  EXPECT_TRUE(float_eq(s1.radius_min, 0.005f));
+  EXPECT_TRUE(float_eq(s1.radius_max, 0.02f));
+  EXPECT_TRUE(float_eq(s1.competition_factor, 0.35f));
+
+  // auto default radius_min / radius_max when negative
+  Species s2(1u, 0.02f, 1.0f, -1.0f, -1.0f);
+  EXPECT_TRUE(float_eq(s2.radius_min, 0.01f));
+  EXPECT_TRUE(float_eq(s2.radius_max, 0.03f));
 }
 
 // --- Forest Seeding Tests
@@ -166,7 +200,7 @@ TEST(ForestSeedingTest, BasicKMeansSeeding)
   ForestSeedingOptions options;
   options.seed = 42;
   options.bbox = {0.0f, 100.0f, 0.0f, 100.0f};
-  options.species_radii = {0.5f, 1.0f, 1.5f};
+  options.species = {Species(0, 0.5f), Species(1, 1.0f), Species(2, 1.5f)};
 
   size_t species_count = 3;
   size_t tree_count = 100;
@@ -186,7 +220,7 @@ TEST(ForestSeedingTest, BasicKMeansSeeding)
     EXPECT_GE(tree.position.y, 0.0f);
     EXPECT_LE(tree.position.y, 100.0f);
     EXPECT_LT(tree.species_id, species_count);
-    EXPECT_FLOAT_EQ(tree.radius, options.species_radii[tree.species_id]);
+    EXPECT_FLOAT_EQ(tree.radius, options.species[tree.species_id].radius);
   }
 
   auto species_ids = forest.get_species_ids();
@@ -206,15 +240,15 @@ TEST(ForestSeedingTest, BasicKMeansSeeding)
   Forest f1 = seed_forest_kmeans(3, 500, density, exclusion, 0.5f, options);
   Forest f2 = seed_forest_kmeans(3, 500, density, exclusion, 1.0f, options);
 
-  // test with empty species_radii
-  ForestSeedingOptions options_empty_radii = options;
-  options_empty_radii.species_radii = {};
+  // test with empty species definitions
+  ForestSeedingOptions options_empty_species = options;
+  options_empty_species.species = {};
   Forest forest_empty_r = seed_forest_kmeans(species_count,
                                              tree_count,
                                              density,
                                              exclusion,
                                              0.2f,
-                                             options_empty_radii);
+                                             options_empty_species);
   EXPECT_EQ(forest_empty_r.size(), tree_count);
   for (const auto &tree : forest_empty_r)
   {
@@ -303,7 +337,7 @@ TEST(ForestSeedingTest, SpeciesWeights)
   options.seed = 777;
   options.bbox = {0.0f, 10.0f, 0.0f, 10.0f};
   // 90% species 0, 10% species 1
-  options.species_weights = {9.0f, 1.0f};
+  options.species = {Species(0, 0.001f, 9.0f), Species(1, 0.001f, 1.0f)};
 
   Forest forest =
       seed_forest_clusters(2, 50, density, exclusion, 0.05f, 16, options);
@@ -340,4 +374,119 @@ TEST(ForestSeedingTest, SoftCoreThinning)
   // tree count
   EXPECT_LT(thinned.size(), dense_forest.size());
   EXPECT_GT(thinned.size(), 0u);
+}
+
+// --- Nearest-Neighbor Competition Growth Tests
+
+TEST(ForestGrowthTest, CompetitionNN)
+{
+  // Create two trees separated by distance = 2.0
+  Forest forest;
+  forest.push_back(Tree(0.0f, 0.0f, 0.0f, 0u, 0.01f));
+  forest.push_back(Tree(2.0f, 0.0f, 0.0f, 1u, 0.01f));
+
+  // Species 0: alpha = 0.4, r_min = 0.1, r_max = 2.0 -> r_est = 0.4 * 2.0 = 0.8
+  // Species 1: alpha = 0.3, r_min = 0.1, r_max = 0.5 -> r_est = 0.3 * 2.0 = 0.6
+  // -> clamped to 0.5
+  std::vector<Species> species = {
+      Species(0u, 0.8f, 1.0f, 0.1f, 2.0f, 0.4f),
+      Species(1u, 0.5f, 1.0f, 0.1f, 0.5f, 0.3f),
+  };
+
+  Forest grown = grow_forest_competition_nn(forest, species);
+  ASSERT_EQ(grown.size(), 2u);
+  EXPECT_TRUE(float_eq(grown[0].radius, 0.8f));
+  EXPECT_TRUE(float_eq(grown[1].radius, 0.5f));
+}
+
+TEST(ForestGrowthTest, CompetitionNNPruneUnviable)
+{
+  // 3 trees: tree 0 and tree 1 are very close (dist = 0.02), tree 2 is far
+  // (dist = 5.0)
+  Forest forest;
+  forest.push_back(Tree(0.0f, 0.0f, 0.0f, 0u, 0.01f));
+  forest.push_back(Tree(0.02f, 0.0f, 0.0f, 0u, 0.01f));
+  forest.push_back(Tree(5.0f, 0.0f, 0.0f, 0u, 0.01f));
+
+  // Species 0: alpha = 0.5, r_min = 0.1, r_max = 1.0
+  // For trees 0 & 1: r_est = 0.5 * 0.02 = 0.01 < r_min (0.1) -> should be
+  // culled if prune_unviable = true For tree 2: nearest neighbor is tree 1 at
+  // dist ~4.98 -> r_est = 0.5 * 4.98 = 2.49 -> clamped to 1.0
+  std::vector<Species> species = {
+      Species(0u, 0.5f, 1.0f, 0.1f, 1.0f, 0.5f),
+  };
+
+  Forest grown = grow_forest_competition_nn(forest,
+                                            species,
+                                            {},
+                                            {},
+                                            1.0f,
+                                            true);
+  ASSERT_EQ(grown.size(), 1u);
+  EXPECT_TRUE(float_eq(grown[0].position.x, 5.0f));
+  EXPECT_TRUE(float_eq(grown[0].radius, 1.0f));
+}
+
+TEST(ForestGrowthTest, CompetitionNNMaxRadiusScale)
+{
+  // 2 widely separated trees (dist = 10.0)
+  Forest forest;
+  forest.push_back(Tree(0.0f, 0.5f, 0.0f, 0u, 0.01f)); // at x = 0.0
+  forest.push_back(Tree(1.0f, 0.5f, 0.0f, 0u, 0.01f)); // at x = 1.0
+
+  // Species 0: r_min = 0.1, r_max = 1.0, alpha = 0.5 -> r_est = 0.5 * 1.0 = 0.5
+  std::vector<Species> species = {
+      Species(0u, 0.5f, 1.0f, 0.1f, 1.0f, 0.5f),
+  };
+
+  // Scale map: left (x=0) has value 0.0 => r_max_eff = r_min = 0.1
+  //            right (x=1) has value 1.0 => r_max_eff = r_max = 1.0
+  Array scale_map({2, 1}, 0.0f);
+  scale_map(0, 0) = 0.0f;
+  scale_map(1, 0) = 1.0f;
+
+  glm::vec4 bbox = {0.0f, 1.0f, 0.0f, 1.0f};
+
+  // Full strength (1.0)
+  Forest grown_full = grow_forest_competition_nn(forest,
+                                                 species,
+                                                 {},
+                                                 scale_map,
+                                                 1.0f,
+                                                 false,
+                                                 bbox);
+
+  ASSERT_EQ(grown_full.size(), 2u);
+  // Tree at x = 0.0: r_max_eff = 0.1 + 0.0 * (1.0 - 0.1) = 0.1 -> clamped to
+  // 0.1
+  EXPECT_TRUE(float_eq(grown_full[0].radius, 0.1f));
+  // Tree at x = 1.0: r_max_eff = 0.1 + 1.0 * (1.0 - 0.1) = 1.0 -> r_est = 0.5
+  // fits
+  EXPECT_TRUE(float_eq(grown_full[1].radius, 0.5f));
+
+  // Zero strength (0.0): scale array ignored -> r_max_eff = r_max = 1.0
+  // everywhere
+  Forest grown_zero = grow_forest_competition_nn(forest,
+                                                 species,
+                                                 {},
+                                                 scale_map,
+                                                 0.0f,
+                                                 false,
+                                                 bbox);
+
+  ASSERT_EQ(grown_zero.size(), 2u);
+  EXPECT_TRUE(float_eq(grown_zero[0].radius, 0.5f));
+  EXPECT_TRUE(float_eq(grown_zero[1].radius, 0.5f));
+
+  // Half strength (0.5): at x = 0.0, s_raw = 0.0 -> s_eff = 1.0 + 0.5 * (0 - 1)
+  // = 0.5 r_max_eff = 0.1 + 0.5 * (1.0 - 0.1) = 0.55 -> r_est = 0.5 fits
+  Forest grown_half = grow_forest_competition_nn(forest,
+                                                 species,
+                                                 {},
+                                                 scale_map,
+                                                 0.5f,
+                                                 false,
+                                                 bbox);
+  ASSERT_EQ(grown_half.size(), 2u);
+  EXPECT_TRUE(float_eq(grown_half[0].radius, 0.5f));
 }

@@ -342,7 +342,7 @@ TEST(ForestSeedingTest, SeedForestClustersWithRejection)
 
   ForestSeedingOptions options;
   options.seed = 1234;
-  options.species_weights = {1.0f, 1.0f};
+  options.species = {Species(0, 0.001f, 1.0f), Species(1, 0.001f, 1.0f)};
 
   size_t tree_count = 200;
 
