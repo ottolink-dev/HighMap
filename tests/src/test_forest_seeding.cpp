@@ -101,6 +101,26 @@ TEST(ForestSeedingTest, EmptyAndInvalidInputs)
   // empty density
   Forest f3 = seed_forest_clusters(2, 50, empty_array, exclusion);
   EXPECT_EQ(f3.size(), 0u);
+
+  // kmeans seeding 0 species
+  Forest f4 = seed_forest_kmeans(0, 50, density, exclusion);
+  EXPECT_EQ(f4.size(), 0u);
+
+  // kmeans seeding 0 trees
+  Forest f5 = seed_forest_kmeans(2, 0, density, exclusion);
+  EXPECT_EQ(f5.size(), 0u);
+
+  // kmeans seeding empty density
+  Forest f6 = seed_forest_kmeans(2, 50, empty_array, exclusion);
+  EXPECT_EQ(f6.size(), 0u);
+
+  // shape mismatch between density and exclusion
+  Array  mismatched_exclusion(glm::ivec2(8, 8), 0.0f);
+  Forest f7 = seed_forest_clusters(2, 50, density, mismatched_exclusion);
+  EXPECT_EQ(f7.size(), 0u);
+
+  Forest f8 = seed_forest_kmeans(2, 50, density, mismatched_exclusion);
+  EXPECT_EQ(f8.size(), 0u);
 }
 
 TEST(ForestSeedingTest, BasicClusterSeeding)
@@ -136,6 +156,74 @@ TEST(ForestSeedingTest, BasicClusterSeeding)
 
   auto species_ids = forest.get_species_ids();
   EXPECT_GT(species_ids.size(), 0u);
+}
+
+TEST(ForestSeedingTest, BasicKMeansSeeding)
+{
+  Array density(glm::ivec2(32, 32), 1.0f);
+  Array exclusion(glm::ivec2(32, 32), 0.0f);
+
+  ForestSeedingOptions options;
+  options.seed = 42;
+  options.bbox = {0.0f, 100.0f, 0.0f, 100.0f};
+  options.species_radii = {0.5f, 1.0f, 1.5f};
+
+  size_t species_count = 3;
+  size_t tree_count = 100;
+
+  Forest forest = seed_forest_kmeans(species_count,
+                                     tree_count,
+                                     density,
+                                     exclusion,
+                                     0.0f,
+                                     options);
+  EXPECT_EQ(forest.size(), tree_count);
+
+  for (const auto &tree : forest)
+  {
+    EXPECT_GE(tree.position.x, 0.0f);
+    EXPECT_LE(tree.position.x, 100.0f);
+    EXPECT_GE(tree.position.y, 0.0f);
+    EXPECT_LE(tree.position.y, 100.0f);
+    EXPECT_LT(tree.species_id, species_count);
+    EXPECT_FLOAT_EQ(tree.radius, options.species_radii[tree.species_id]);
+  }
+
+  auto species_ids = forest.get_species_ids();
+  EXPECT_EQ(species_ids.size(), species_count);
+
+  // test with cluster_randomness > 0
+  Forest forest_rand = seed_forest_kmeans(species_count,
+                                          tree_count,
+                                          density,
+                                          exclusion,
+                                          0.5f,
+                                          options);
+  EXPECT_EQ(forest_rand.size(), tree_count);
+  EXPECT_EQ(forest_rand.get_species_ids().size(), species_count);
+
+  Forest f0 = seed_forest_kmeans(3, 500, density, exclusion, 0.0f, options);
+  Forest f1 = seed_forest_kmeans(3, 500, density, exclusion, 0.5f, options);
+  Forest f2 = seed_forest_kmeans(3, 500, density, exclusion, 1.0f, options);
+
+  // test with empty species_radii
+  ForestSeedingOptions options_empty_radii = options;
+  options_empty_radii.species_radii = {};
+  Forest forest_empty_r = seed_forest_kmeans(species_count,
+                                             tree_count,
+                                             density,
+                                             exclusion,
+                                             0.2f,
+                                             options_empty_radii);
+  EXPECT_EQ(forest_empty_r.size(), tree_count);
+  for (const auto &tree : forest_empty_r)
+  {
+    EXPECT_FALSE(std::isnan(tree.position.x));
+    EXPECT_FALSE(std::isnan(tree.position.y));
+    EXPECT_FALSE(std::isnan(tree.position.z));
+    EXPECT_FALSE(std::isnan(tree.radius));
+    EXPECT_FLOAT_EQ(tree.radius, 1e-3f);
+  }
 }
 
 TEST(ForestSeedingTest, DensityAdherence)
@@ -187,6 +275,20 @@ TEST(ForestSeedingTest, ExclusionMapMasking)
   EXPECT_GT(forest.size(), 0u);
 
   for (const auto &tree : forest)
+  {
+    EXPECT_LT(tree.position.y, 0.55f);
+  }
+
+  // Also test KMeans seeding with exclusion
+  Forest forest_km = seed_forest_kmeans(2,
+                                        50,
+                                        density,
+                                        exclusion,
+                                        0.0f,
+                                        options);
+  EXPECT_GT(forest_km.size(), 0u);
+
+  for (const auto &tree : forest_km)
   {
     EXPECT_LT(tree.position.y, 0.55f);
   }

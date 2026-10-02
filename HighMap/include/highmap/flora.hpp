@@ -9,5 +9,6 @@
 #pragma once
 
 #include "highmap/flora/forest.hpp"
+#include "highmap/flora/forest_growth.hpp"
 #include "highmap/flora/forest_seeding.hpp"
 #include "highmap/flora/tree.hpp"

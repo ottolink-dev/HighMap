@@ -8,129 +8,19 @@
 #include <random>
 #include <vector>
 
+#include "point_sampler/kmeans_clustering.hpp"
+#include "point_sampler/metrics.hpp"
+#include "point_sampler/utils.hpp"
+
 #include "highmap/flora/forest_seeding.hpp"
 #include "highmap/geometry/inverse_sampler_2d.hpp"
 #include "highmap/internal/validation.hpp"
-
-#include <unordered_map>
 
 namespace hmap
 {
 
 // ============================================================================
-//  InteractionMatrix Implementation
-// ============================================================================
-
-InteractionMatrix::InteractionMatrix(size_t num_species, float default_val)
-    : size(num_species), values(num_species * num_species, default_val)
-{
-}
-
-void InteractionMatrix::fill(float value)
-{
-  std::fill(values.begin(), values.end(), value);
-}
-
-float InteractionMatrix::get(size_t s1, size_t s2) const
-{
-  if (s1 >= size || s2 >= size) return 0.0f;
-  return values[s1 * size + s2];
-}
-
-void InteractionMatrix::set(size_t s1, size_t s2, float value)
-{
-  if (s1 < size && s2 < size) values[s1 * size + s2] = value;
-}
-
-void InteractionMatrix::set_symmetric(size_t s1, size_t s2, float value)
-{
-  set(s1, s2, value);
-  set(s2, s1, value);
-}
-
-InteractionMatrix InteractionMatrix::diagonal(const std::vector<float> &diag,
-                                              float off_diag_val)
-{
-  InteractionMatrix mat(diag.size(), off_diag_val);
-  for (size_t i = 0; i < diag.size(); ++i)
-    mat.set(i, i, diag[i]);
-  return mat;
-}
-
-InteractionMatrix InteractionMatrix::from_radii(const std::vector<float> &radii,
-                                                float multiplier)
-{
-  size_t            num_species = radii.size();
-  InteractionMatrix mat(num_species);
-
-  for (size_t s1 = 0; s1 < num_species; ++s1)
-  {
-    for (size_t s2 = 0; s2 < num_species; ++s2)
-    {
-      mat.set(s1, s2, multiplier * (radii[s1] + radii[s2]));
-    }
-  }
-
-  return mat;
-}
-
-InteractionMatrix InteractionMatrix::random(size_t   num_species,
-                                            uint32_t seed,
-                                            float    random_offset,
-                                            bool     symmetric)
-{
-  InteractionMatrix                     mat(num_species);
-  std::mt19937                          rng(seed);
-  std::uniform_real_distribution<float> dist(1.0f - random_offset,
-                                             1.0f + random_offset);
-
-  if (symmetric)
-  {
-    for (size_t i = 0; i < num_species; ++i)
-    {
-      mat.set(i, i, dist(rng));
-      for (size_t j = i + 1; j < num_species; ++j)
-      {
-        float val = dist(rng);
-        mat.set_symmetric(i, j, val);
-      }
-    }
-  }
-  else
-  {
-    for (size_t i = 0; i < num_species; ++i)
-    {
-      for (size_t j = 0; j < num_species; ++j)
-      {
-        mat.set(i, j, dist(rng));
-      }
-    }
-  }
-
-  return mat;
-}
-
-InteractionMatrix InteractionMatrix::uniform(size_t num_species, float val)
-{
-  return InteractionMatrix(num_species, val);
-}
-
-// --- Helper Functions
-
-static float sample_array_bilinear(const Array &arr, float un, float vn)
-{
-  if (!validate_non_empty(arr)) return 0.0f;
-  float xn = std::clamp(un, 0.0f, 1.0f) * static_cast<float>(arr.shape.x - 1);
-  float yn = std::clamp(vn, 0.0f, 1.0f) * static_cast<float>(arr.shape.y - 1);
-  int   i = std::min(static_cast<int>(xn), arr.shape.x - 1);
-  int   j = std::min(static_cast<int>(yn), arr.shape.y - 1);
-  float u = xn - static_cast<float>(i);
-  float v = yn - static_cast<float>(j);
-  return arr.get_value_bilinear_at(i, j, u, v);
-}
-
-// ============================================================================
-//  Seeding & Thinning Functions (Alphabetically Sorted)
+//  Seeding Functions (Alphabetically Sorted)
 // ============================================================================
 
 Forest seed_forest_clusters(size_t                      species_count,
@@ -153,35 +43,20 @@ Forest seed_forest_clusters(size_t                      species_count,
   // --- Modulate Density by Exclusion Map
 
   Array effective_density = density;
-  bool  has_exclusion = validate_non_empty(exclusion);
+  bool  has_exclusion = !exclusion.vector.empty() || exclusion.shape.x > 0;
 
   if (has_exclusion)
   {
-    if (exclusion.shape == density.shape)
-    {
-      for (int j = 0; j < density.shape.y; ++j)
-        for (int i = 0; i < density.shape.x; ++i)
-        {
-          if (exclusion(i, j) >= options.exclusion_threshold)
-            effective_density(i, j) = 0.0f;
-        }
-    }
-    else
-    {
-      for (int j = 0; j < density.shape.y; ++j)
+    if (!validate_non_empty(exclusion) ||
+        !validate_same_shape(density, exclusion))
+      return Forest();
+
+    for (int j = 0; j < density.shape.y; ++j)
+      for (int i = 0; i < density.shape.x; ++i)
       {
-        float v_coord = static_cast<float>(j) /
-                        static_cast<float>(std::max(1, density.shape.y - 1));
-        for (int i = 0; i < density.shape.x; ++i)
-        {
-          float u_coord = static_cast<float>(i) /
-                          static_cast<float>(std::max(1, density.shape.x - 1));
-          float ex_val = sample_array_bilinear(exclusion, u_coord, v_coord);
-          if (ex_val >= options.exclusion_threshold)
-            effective_density(i, j) = 0.0f;
-        }
+        if (exclusion(i, j) >= options.exclusion_threshold)
+          effective_density(i, j) = 0.0f;
       }
-    }
   }
 
   InverseSampler2D sampler(effective_density, options.seed, options.bbox);
@@ -241,7 +116,7 @@ Forest seed_forest_clusters(size_t                      species_count,
 
     float default_radius = (s < options.species_radii.size())
                                ? options.species_radii[s]
-                               : 1.0f;
+                               : HMAP_DEFAULT_TREE_RADIUS;
 
     size_t count_for_s = 0;
     for (size_t c = 0; c < cluster_count && count_for_s < target_s; ++c)
@@ -277,117 +152,216 @@ Forest seed_forest_clusters(size_t                      species_count,
   return forest;
 }
 
-Forest thin_forest_soft_core(const Forest            &forest,
-                             const InteractionMatrix &repulsion_distances,
-                             const InteractionMatrix &repulsion_strengths,
-                             size_t                   target_count,
-                             uint32_t                 seed,
-                             const glm::vec4         &bbox)
+Forest seed_forest_kmeans(size_t                      species_count,
+                          size_t                      tree_count,
+                          const Array                &density,
+                          const Array                &exclusion,
+                          float                       cluster_randomness,
+                          const ForestSeedingOptions &options)
 {
-  if (forest.empty()) return Forest();
+  // validate inputs
+  if (species_count == 0 || tree_count == 0 || !validate_non_empty(density))
+    return Forest();
 
-  size_t max_target = (target_count == 0) ? forest.size() : target_count;
+  float width = options.bbox.y - options.bbox.x;
+  float height = options.bbox.w - options.bbox.z;
+  if (width <= 1e-7f || height <= 1e-7f) return Forest();
 
-  // determine maximum interaction distance
-  float max_r = 0.0f;
-  for (float r : repulsion_distances.values)
-    max_r = std::max(max_r, r);
+  // --- Modulate Density by Exclusion Map
 
-  // prioritize candidates randomly
-  std::mt19937                          rng(seed);
-  std::uniform_real_distribution<float> dist_uni(0.0f, 1.0f);
+  Array effective_density = density;
+  bool  has_exclusion = !exclusion.vector.empty() || exclusion.shape.x > 0;
 
-  std::vector<size_t> indices(forest.size());
-  std::iota(indices.begin(), indices.end(), 0);
-
-  std::vector<float> priorities(forest.size());
-  for (size_t i = 0; i < forest.size(); ++i)
-    priorities[i] = dist_uni(rng);
-
-  std::sort(indices.begin(),
-            indices.end(),
-            [&](size_t a, size_t b) { return priorities[a] < priorities[b]; });
-
-  if (max_r <= 1e-6f)
+  if (has_exclusion)
   {
-    std::vector<Tree> accepted;
-    accepted.reserve(std::min(max_target, forest.size()));
-    for (size_t i = 0; i < std::min(max_target, indices.size()); ++i)
-      accepted.push_back(forest[indices[i]]);
-    return Forest(std::move(accepted));
+    if (!validate_non_empty(exclusion) ||
+        !validate_same_shape(density, exclusion))
+      return Forest();
+
+    for (int j = 0; j < density.shape.y; ++j)
+      for (int i = 0; i < density.shape.x; ++i)
+      {
+        if (exclusion(i, j) >= options.exclusion_threshold)
+          effective_density(i, j) = 0.0f;
+      }
   }
 
-  // --- Spatial Hash Grid for Neighbor Lookup
+  InverseSampler2D sampler(effective_density, options.seed, options.bbox);
+  if (sampler.get_total_weight() <= 1e-7f) return Forest();
 
-  float                                            cell_size = max_r;
-  std::unordered_map<int64_t, std::vector<size_t>> grid;
+  // --- Sample Coordinates Using 2D Inverse Sampling
 
-  auto compute_cell = [&](float x, float y) -> std::pair<int, int>
+  // generate candidate point positions based on the 2d probability density
+  auto   samples = sampler.sample(tree_count);
+  size_t actual_count = samples[0].size();
+  if (actual_count == 0) return Forest();
+
+  // --- Cluster and Tag Species
+
+  std::vector<Tree> candidate_trees;
+  candidate_trees.reserve(actual_count);
+
+  if (species_count == 1 || actual_count == 1)
   {
-    int gx = static_cast<int>(std::floor((x - bbox.x) / cell_size));
-    int gy = static_cast<int>(std::floor((y - bbox.z) / cell_size));
-    return {gx, gy};
-  };
+    // single species: assign all sampled points to species 0
+    float default_radius = (!options.species_radii.empty())
+                               ? options.species_radii[0]
+                               : HMAP_DEFAULT_TREE_RADIUS;
 
-  auto make_key = [](int gx, int gy) -> int64_t
-  {
-    return (static_cast<int64_t>(gx) << 32) ^
-           (static_cast<int64_t>(gy) & 0xFFFFFFFF);
-  };
-
-  std::vector<Tree> accepted;
-  accepted.reserve(std::min(max_target, forest.size()));
-
-  for (size_t idx : indices)
-  {
-    const Tree &p = forest[idx];
-    auto [gx, gy] = compute_cell(p.position.x, p.position.y);
-
-    float survival_prob = 1.0f;
-
-    for (int dy = -1; dy <= 1; ++dy)
+    for (size_t i = 0; i < actual_count; ++i)
     {
-      for (int dx = -1; dx <= 1; ++dx)
+      candidate_trees.emplace_back(samples[0][i],
+                                   samples[1][i],
+                                   0.0f,
+                                   0u,
+                                   default_radius);
+    }
+  }
+  else
+  {
+    // construct point list for spatial neighbor analysis
+    std::vector<ps::Point<float, 2>> points;
+    points.reserve(actual_count);
+    for (size_t i = 0; i < actual_count; ++i)
+    {
+      points.push_back(ps::Point<float, 2>({samples[0][i], samples[1][i]}));
+    }
+
+    // extract local compactness features using k-nearest neighbors:
+    // rather than clustering on raw (x, y) coordinates (which would partition
+    // space into geometric voronoi cells), we compute the minimum distance
+    // (dmin) and average distance (davg) to nearest neighbors. this
+    // characterizes whether a point is in a dense cluster core, transition
+    // zone, or isolated. note that species abundance emerges from cluster
+    // geometry and options.species_weights is not taken into account.
+    size_t k_neighbors = 4;
+    size_t safe_k_neighbors = std::min(k_neighbors, actual_count - 1);
+
+    auto idx = ps::nearest_neighbors_indices(points, safe_k_neighbors);
+
+    std::vector<float> dist_min;
+    std::vector<float> dist_avg;
+    dist_min.reserve(idx.size());
+    dist_avg.reserve(idx.size());
+
+    float min_dmin = 1e9f, max_dmin = 0.f;
+    float min_davg = 1e9f, max_davg = 0.f;
+
+    for (size_t k = 0; k < idx.size(); ++k)
+    {
+      float  dmin = 1e9f;
+      float  davg = 0.f;
+      size_t n_nbrs = idx[k].size();
+
+      for (size_t r = 0; r < n_nbrs; ++r)
       {
-        int64_t key = make_key(gx + dx, gy + dy);
-        auto    it = grid.find(key);
-        if (it == grid.end()) continue;
+        float dist = ps::distance_squared(points[k], points[idx[k][r]]);
+        dmin = std::min(dist, dmin);
+        davg += dist;
+      }
 
-        for (size_t accepted_idx : it->second)
-        {
-          const Tree &q = accepted[accepted_idx];
+      dist_min.push_back(dmin);
+      dist_avg.push_back(davg);
 
-          float dist_sq = (p.position.x - q.position.x) *
-                              (p.position.x - q.position.x) +
-                          (p.position.y - q.position.y) *
-                              (p.position.y - q.position.y);
+      min_dmin = std::min(min_dmin, dmin);
+      max_dmin = std::max(max_dmin, dmin);
+      min_davg = std::min(min_davg, davg);
+      max_davg = std::max(max_davg, davg);
+    }
 
-          float r = repulsion_distances.get(p.species_id, q.species_id);
-          float theta = repulsion_strengths.get(p.species_id, q.species_id);
+    // add scalable random component in [0, 1] to features if requested
+    float rand_amount = std::clamp(cluster_randomness, 0.0f, 1.0f);
 
-          if (r > 1e-6f && theta > 1e-6f)
-          {
-            float r_sq = r * r;
-            if (dist_sq < 9.0f * r_sq)
-            {
-              float factor = 1.0f - theta * std::exp(-dist_sq / r_sq);
-              survival_prob *= std::max(0.0f, factor);
-            }
-          }
-        }
+    if (rand_amount > 0.0f)
+    {
+      std::mt19937                          rng(options.seed + 1);
+      std::uniform_real_distribution<float> dist_uni(-0.5f, 0.5f);
+
+      float span_min = std::max(1e-6f, max_dmin - min_dmin);
+      float span_avg = std::max(1e-6f, max_davg - min_davg);
+
+      for (size_t k = 0; k < idx.size(); ++k)
+      {
+        dist_min[k] += rand_amount * span_min * dist_uni(rng);
+        dist_avg[k] += rand_amount * span_avg * dist_uni(rng);
       }
     }
 
-    if (dist_uni(rng) < survival_prob)
-    {
-      accepted.push_back(p);
-      grid[make_key(gx, gy)].push_back(accepted.size() - 1);
+    // merge [dmin, davg] into 2d feature points for k-means partitioning
+    std::vector<ps::Point<float, 2>> data = ps::merge_by_dimension<float, 2>(
+        {dist_min, dist_avg});
 
-      if (accepted.size() >= max_target) break;
+    // cluster points in the compactness feature space (data is normalized
+    // internally)
+    size_t k_clusters = std::min(species_count, actual_count);
+    auto [centroids, labels] = ps::kmeans_clustering(data, k_clusters);
+
+    // establish correspondence between cluster compactness and species radii:
+    // clusters with smaller neighbor distances (dmin/davg, dense areas)
+    // correspond to species with smaller radii, while clusters with larger
+    // neighbor distances (sparse areas) correspond to species with larger
+    // radii.
+    std::vector<uint32_t> cluster_to_species(k_clusters);
+    for (size_t c = 0; c < k_clusters; ++c)
+    {
+      cluster_to_species[c] = static_cast<uint32_t>(c);
+    }
+
+    if (!options.species_radii.empty() &&
+        options.species_radii.size() == k_clusters)
+    {
+      // sort cluster indices by centroid distance in compactness feature space
+      std::vector<size_t> cluster_order(k_clusters);
+      std::iota(cluster_order.begin(), cluster_order.end(), 0);
+      std::sort(cluster_order.begin(),
+                cluster_order.end(),
+                [&centroids](size_t a, size_t b)
+                {
+                  float norm_a = centroids[a][0] + centroids[a][1];
+                  float norm_b = centroids[b][0] + centroids[b][1];
+                  return norm_a < norm_b;
+                });
+
+      // sort available species indices by their radii ascending
+      size_t              num_species = std::min(species_count,
+                                    options.species_radii.size());
+      std::vector<size_t> species_order(num_species);
+      std::iota(species_order.begin(), species_order.end(), 0);
+      std::sort(species_order.begin(),
+                species_order.end(),
+                [&options](size_t a, size_t b) {
+                  return options.species_radii[a] < options.species_radii[b];
+                });
+
+      for (size_t rank = 0; rank < k_clusters; ++rank)
+      {
+        size_t c_idx = cluster_order[rank];
+        size_t sp_idx = (rank < num_species) ? species_order[rank] : rank;
+        cluster_to_species[c_idx] = static_cast<uint32_t>(sp_idx);
+      }
+    }
+
+    // populate tree objects with assigned species tags and radii
+    for (size_t i = 0; i < actual_count; ++i)
+    {
+      size_t   cluster_id = labels[i];
+      uint32_t species_id = (cluster_id < cluster_to_species.size())
+                                ? cluster_to_species[cluster_id]
+                                : static_cast<uint32_t>(cluster_id);
+      float    radius = (species_id < options.species_radii.size())
+                            ? options.species_radii[species_id]
+                            : HMAP_DEFAULT_TREE_RADIUS;
+
+      candidate_trees.emplace_back(samples[0][i],
+                                   samples[1][i],
+                                   0.0f,
+                                   species_id,
+                                   radius);
     }
   }
 
-  return Forest(std::move(accepted));
+  Forest forest(std::move(candidate_trees));
+  return forest;
 }
 
 } // namespace hmap

@@ -61,7 +61,7 @@ public:
    */
   Forest(const Cloud &cloud,
          uint32_t     species_id = 0,
-         float        default_radius = 1.0f);
+         float        default_radius = HMAP_DEFAULT_TREE_RADIUS);
 
   // ==========================================================================
   //  Container Interface

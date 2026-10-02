@@ -32,7 +32,7 @@ int main(void)
 
     // combine linear density
     std::vector<const hmap::Array *> vec = {&cz, &cg, &ca, &cw};
-    std::vector<float>               w = {1.f, 1.f, 0.5f, 0.5f};
+    std::vector<float>               w = {1.f, 1.f, 0.8f, 0.5f};
 
     density = hmap::build_density_linear(vec, w);
 
@@ -48,43 +48,26 @@ int main(void)
   hmap::ForestSeedingOptions options;
   options.seed = static_cast<uint32_t>(seed);
   options.species_weights = {1.f, 0.8f, 0.2f};
-  options.species_radii = {0.003f, 0.001f, 0.0008f};
+  options.species_radii = {}; // 0.005f, 0.003f, 0.002f};
   options.exclusion_threshold = 0.5f;
 
-  // step 1: generate clustered distribution using local inverse sampling
-  hmap::Forest raw_forest = hmap::seed_forest_clusters(species_count,
-                                                       tree_count,
-                                                       density,
-                                                       exclusion,
-                                                       0.05f,
-                                                       16,
-                                                       options);
+  float cluster_randomness = 0.2f;
 
-  std::cout << "raw_forest size: " << raw_forest.size() << "\n";
-
-  // --- Soft-Core Thinning (Strauss Repulsion)
-
-  // step 2: configure multi-species interaction matrices
-  auto repulsion_distances = hmap::InteractionMatrix::from_radii(
-      options.species_radii,
-      2.0f);
-
-  // repulsion strengths in [0, 1]
-  hmap::InteractionMatrix repulsion_strengths =
-      hmap::InteractionMatrix::uniform(species_count, 1.f);
-
-  // repulsion_strengths =
-  //   hmap::InteractionMatrix::random(species_count, 0, 0.5f);
-
-  // step 3: perform multi-species soft-core thinning
-  hmap::Forest forest = hmap::thin_forest_soft_core(raw_forest,
-                                                    repulsion_distances,
-                                                    repulsion_strengths,
-                                                    tree_count,
-                                                    options.seed,
-                                                    options.bbox);
+  // generate forest distribution using 2D inverse sampling and k-means
+  // clustering
+  hmap::Forest forest = hmap::seed_forest_kmeans(species_count,
+                                                 tree_count,
+                                                 density,
+                                                 exclusion,
+                                                 cluster_randomness,
+                                                 options);
 
   std::cout << "forest size: " << forest.size() << "\n";
+  for (size_t s = 0; s < species_count; ++s)
+  {
+    auto sp = forest.filter_by_species(static_cast<uint32_t>(s));
+    std::cout << "  species " << s << " count: " << sp.size() << "\n";
+  }
 
   // sample z elevation from terrain
   forest.set_elevation_from_terrain(z);
@@ -115,11 +98,18 @@ int main(void)
                      0.15f);
   }
 
-  hmap::Cloud all_cloud = forest.to_cloud();
+  // export point cloud colored by species ID
+  hmap::Cloud all_cloud;
+  all_cloud.reserve(forest.size());
+  for (const auto &tree : forest)
+  {
+    all_cloud.emplace_back(tree.position.x,
+                           tree.position.y,
+                           static_cast<float>(tree.species_id));
+  }
   all_cloud.to_png("forest_cloud.png", hmap::Cmap::JET);
 
   // visual debug export with terrain background
-  raw_forest.to_png("forest_raw_debug.png", shape, density);
   forest.to_png("forest_debug.png", shape, density);
 
   hmap::export_banner_png("ex_forest_seeding.png",

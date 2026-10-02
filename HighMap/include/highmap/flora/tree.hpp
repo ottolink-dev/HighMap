@@ -12,6 +12,8 @@
 
 #include "highmap/geometry/point.hpp"
 
+#define HMAP_DEFAULT_TREE_RADIUS 1e-3f
+
 namespace hmap
 {
 
@@ -27,7 +29,7 @@ public:
                         0.f,
                         0.f}; ///< Tree 3D position (x, y, elevation z).
   uint32_t  species_id = 0;   ///< Species identifier or category mark.
-  float     radius = 1.0f;    ///< Canopy / collision radius (global scale).
+  float     radius = HMAP_DEFAULT_TREE_RADIUS; ///< Canopy / collision radius.
 
   // ==========================================================================
   //  Constructors
@@ -44,7 +46,9 @@ public:
    * @param species_id Species identifier.
    * @param radius     Canopy / collision radius (global scale).
    */
-  Tree(const glm::vec3 &position, uint32_t species_id = 0, float radius = 1.0f);
+  Tree(const glm::vec3 &position,
+       uint32_t         species_id = 0,
+       float            radius = HMAP_DEFAULT_TREE_RADIUS);
 
   /**
    * @brief Constructs a Tree from 2D position (z = 0), species, and radius.
@@ -54,7 +58,7 @@ public:
    */
   Tree(const glm::vec2 &position_2d,
        uint32_t         species_id = 0,
-       float            radius = 1.0f);
+       float            radius = HMAP_DEFAULT_TREE_RADIUS);
 
   /**
    * @brief Constructs a Tree from coordinate components.
@@ -68,7 +72,7 @@ public:
        float    y,
        float    z = 0.0f,
        uint32_t species_id = 0,
-       float    radius = 1.0f);
+       float    radius = HMAP_DEFAULT_TREE_RADIUS);
 
   // ==========================================================================
   //  Conversions
