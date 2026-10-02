@@ -7,11 +7,9 @@
 #include <vector>
 
 #include "highmap/flora/forest_growth.hpp"
-#include "highmap/internal/validation.hpp"
+#include "highmap/internal/flora_utils.hpp"
 #include "highmap/math.hpp"
 #include "highmap/terrain_tri_mesh.hpp"
-
-#include <unordered_map>
 
 namespace hmap
 {
@@ -27,57 +25,10 @@ Forest grow_forest_competition_voronoi(
 {
   if (forest.empty()) return Forest();
 
-  bool has_scale_array = !max_radius_scale.vector.empty() &&
-                         validate_non_empty(max_radius_scale);
-  float bbox_dx = bbox.y - bbox.x;
-  float bbox_dy = bbox.w - bbox.z;
-  bool  valid_bbox = (std::abs(bbox_dx) > 1e-7f && std::abs(bbox_dy) > 1e-7f);
-  float strength = std::clamp(max_radius_scale_strength, 0.0f, 1.0f);
-
-  auto sample_scale = [&](float x, float y) -> float
-  {
-    if (!has_scale_array || !valid_bbox || strength <= 0.0f) return 1.0f;
-
-    float u_norm = std::clamp((x - bbox.x) / bbox_dx, 0.0f, 1.0f);
-    float v_norm = std::clamp((y - bbox.z) / bbox_dy, 0.0f, 1.0f);
-
-    float xn = u_norm * static_cast<float>(max_radius_scale.shape.x - 1);
-    float yn = v_norm * static_cast<float>(max_radius_scale.shape.y - 1);
-
-    int i = static_cast<int>(xn);
-    int j = static_cast<int>(yn);
-
-    float u = xn - static_cast<float>(i);
-    float v = yn - static_cast<float>(j);
-    float s_raw = std::clamp(max_radius_scale.get_value_bilinear_at(i, j, u, v),
-                             0.0f,
-                             1.0f);
-    // blend: strength = 0 -> 1.0 (unchanged rmax), strength = 1 -> s_raw
-    return lerp(1.f, s_raw, strength);
-  };
-
-  // --- Map Species Definitions for Fast Lookup
-
-  std::unordered_map<uint32_t, Species> species_map;
-  for (const auto &sp : species)
-  {
-    species_map[sp.id] = sp;
-  }
-
-  auto get_species_traits = [&](const Tree &tree) -> Species
-  {
-    size_t s_i = tree.species_id;
-    auto   it = species_map.find(tree.species_id);
-    if (it != species_map.end())
-    {
-      return it->second;
-    }
-    if (s_i < species.size())
-    {
-      return species[s_i];
-    }
-    return Species(tree.species_id, tree.radius);
-  };
+  ForestScaleSampler sampler(max_radius_scale,
+                             max_radius_scale_strength,
+                             bbox);
+  SpeciesLookup      lookup(species);
 
   // if fewer than 3 trees, triangulate cannot form triangles -> fallback to
   // species clamping
@@ -87,8 +38,8 @@ Forest grow_forest_competition_voronoi(
     result.reserve(forest.size());
     for (const auto &t : forest)
     {
-      Species sp_i = get_species_traits(t);
-      float   s = sample_scale(t.position.x, t.position.y);
+      Species sp_i = lookup.get(t);
+      float   s = sampler.sample(t.position.x, t.position.y);
       float   r_max_eff = lerp(sp_i.radius_min, sp_i.radius_max, s);
       Tree    grown_tree = t;
       grown_tree.radius = std::clamp(t.radius, sp_i.radius_min, r_max_eff);
@@ -116,8 +67,8 @@ Forest grow_forest_competition_voronoi(
     result.reserve(forest.size());
     for (const auto &t : forest)
     {
-      Species sp_i = get_species_traits(t);
-      float   s = sample_scale(t.position.x, t.position.y);
+      Species sp_i = lookup.get(t);
+      float   s = sampler.sample(t.position.x, t.position.y);
       float   r_max_eff = lerp(sp_i.radius_min, sp_i.radius_max, s);
       Tree    grown_tree = t;
       grown_tree.radius = std::clamp(t.radius, sp_i.radius_min, r_max_eff);
@@ -136,23 +87,17 @@ Forest grow_forest_competition_voronoi(
   for (size_t i = 0; i < forest.size(); ++i)
   {
     const Tree &tree = forest[i];
-    Species     sp_i = get_species_traits(tree);
-    size_t      s_i = tree.species_id;
+    Species     sp_i = lookup.get(tree);
 
     // determine species competition factor alpha
-    float alpha = sp_i.competition_factor;
-    if (competition_matrix.size > 0)
-    {
-      float mat_val = competition_matrix.get(s_i, s_i);
-      if (mat_val > 0.0f) alpha = mat_val;
-    }
+    float alpha = lookup.get_alpha(sp_i, sp_i.id, competition_matrix);
 
     // territory area and unconstrained equivalent radius
     float area_i = std::max(0.0f, vertex_areas[i]);
     float r_raw = std::sqrt(area_i * inv_pi);
 
     // scale max_radius locally if array is provided
-    float s = sample_scale(tree.position.x, tree.position.y);
+    float s = sampler.sample(tree.position.x, tree.position.y);
     float r_max_eff = lerp(sp_i.radius_min, sp_i.radius_max, s);
 
     // estimated crown radius
