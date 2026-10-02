@@ -65,6 +65,7 @@ int main(void)
                                                         density,
                                                         exclusion,
                                                         cluster_randomness,
+                                                        4,
                                                         options);
 
   std::cout << "--- K-Means Forest ---\n"

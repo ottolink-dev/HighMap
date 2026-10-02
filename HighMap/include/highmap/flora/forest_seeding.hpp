@@ -58,7 +58,7 @@ Forest seed_forest_clusters(size_t                      species_count,
                             const Array                &density,
                             const Array                &exclusion,
                             float                       cluster_spread = 0.05f,
-                            size_t                      points_per_cluster = 16,
+                            size_t                      points_per_cluster = 8,
                             const ForestSeedingOptions &options = {});
 
 /**
@@ -76,6 +76,8 @@ Forest seed_forest_clusters(size_t                      species_count,
  * @param  exclusion          Exclusion map array.
  * @param  cluster_randomness Randomness factor in [0, 1] added to cluster
  *                            features.
+ * @param  k_neighbors        Number of nearest spatial neighbors used to
+ * extract compactness features.
  * @param  options            Seeding options.
  * @return                    Forest Sampled forest container.
  */
@@ -84,6 +86,7 @@ Forest seed_forest_kmeans(size_t                      species_count,
                           const Array                &density,
                           const Array                &exclusion,
                           float                       cluster_randomness = 0.0f,
+                          size_t                      k_neighbors = 4,
                           const ForestSeedingOptions &options = {});
 
 } // namespace hmap

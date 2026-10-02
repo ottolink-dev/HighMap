@@ -210,6 +210,7 @@ TEST(ForestSeedingTest, BasicKMeansSeeding)
                                      density,
                                      exclusion,
                                      0.0f,
+                                     4,
                                      options);
   EXPECT_EQ(forest.size(), tree_count);
 
@@ -232,13 +233,14 @@ TEST(ForestSeedingTest, BasicKMeansSeeding)
                                           density,
                                           exclusion,
                                           0.5f,
+                                          4,
                                           options);
   EXPECT_EQ(forest_rand.size(), tree_count);
   EXPECT_EQ(forest_rand.get_species_ids().size(), species_count);
 
-  Forest f0 = seed_forest_kmeans(3, 500, density, exclusion, 0.0f, options);
-  Forest f1 = seed_forest_kmeans(3, 500, density, exclusion, 0.5f, options);
-  Forest f2 = seed_forest_kmeans(3, 500, density, exclusion, 1.0f, options);
+  Forest f0 = seed_forest_kmeans(3, 500, density, exclusion, 0.0f, 4, options);
+  Forest f1 = seed_forest_kmeans(3, 500, density, exclusion, 0.5f, 4, options);
+  Forest f2 = seed_forest_kmeans(3, 500, density, exclusion, 1.0f, 4, options);
 
   // test with empty species definitions
   ForestSeedingOptions options_empty_species = options;
@@ -248,6 +250,7 @@ TEST(ForestSeedingTest, BasicKMeansSeeding)
                                              density,
                                              exclusion,
                                              0.2f,
+                                             4,
                                              options_empty_species);
   EXPECT_EQ(forest_empty_r.size(), tree_count);
   for (const auto &tree : forest_empty_r)
@@ -258,6 +261,17 @@ TEST(ForestSeedingTest, BasicKMeansSeeding)
     EXPECT_FALSE(std::isnan(tree.radius));
     EXPECT_FLOAT_EQ(tree.radius, 1e-3f);
   }
+
+  // test with custom k_neighbors
+  Forest forest_k8 = seed_forest_kmeans(species_count,
+                                        tree_count,
+                                        density,
+                                        exclusion,
+                                        0.0f,
+                                        8,
+                                        options);
+  EXPECT_EQ(forest_k8.size(), tree_count);
+  EXPECT_EQ(forest_k8.get_species_ids().size(), species_count);
 }
 
 TEST(ForestSeedingTest, DensityAdherence)
@@ -319,6 +333,7 @@ TEST(ForestSeedingTest, ExclusionMapMasking)
                                         density,
                                         exclusion,
                                         0.0f,
+                                        4,
                                         options);
   EXPECT_GT(forest_km.size(), 0u);
 
