@@ -1042,6 +1042,8 @@ void \mbox{\hyperlink{namespacehmap_a12781eab09d5662bd5490c167c03c8d5}{terrace}}
 \begin{DoxyCompactList}\small\item\em Adjusts tree radii based on nearest-\/neighbor distances and species competition constraints. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \mbox{\hyperlink{namespacehmap_a51ec3fd21f74bdaae31c1403c88cae4a}{grow\+\_\+forest\+\_\+competition\+\_\+voronoi}} (const \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \&forest, const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Species}{Species}} $>$ \&species=\{\}, const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&competition\+\_\+matrix=\{\}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&max\+\_\+radius\+\_\+scale=\{\}, float max\+\_\+radius\+\_\+scale\+\_\+strength=1.\+0f, bool prune\+\_\+unviable=true, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Adjusts tree radii based on Voronoi cell areas and species competition constraints. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \mbox{\hyperlink{namespacehmap_a0c6fb1e2c79fb841680cee1e39bb74cb}{grow\+\_\+forest\+\_\+iterative}} (const \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \&forest, const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Species}{Species}} $>$ \&species=\{\}, size\+\_\+t iterations=10, float growth\+\_\+rate=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&competition\+\_\+matrix=\{\}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&max\+\_\+radius\+\_\+scale=\{\}, float max\+\_\+radius\+\_\+scale\+\_\+strength=1.\+0f, bool prune\+\_\+unviable=true, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Simulates iterative plant growth with neighborhood competition and mortality. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \mbox{\hyperlink{namespacehmap_a65fd70222ae504828208b3575ed719f1}{thin\+\_\+forest\+\_\+soft\+\_\+core}} (const \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \&forest, const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&repulsion\+\_\+distances, const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&repulsion\+\_\+strengths, size\+\_\+t target\+\_\+count=0, uint32\+\_\+t seed=0, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Performs multi-\/species Strauss soft-\/core thinning on an input forest. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \mbox{\hyperlink{namespacehmap_a395c1a2f15f7114fac122c864a1e78e6}{seed\+\_\+forest\+\_\+clusters}} (size\+\_\+t species\+\_\+count, size\+\_\+t tree\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exclusion, float cluster\+\_\+spread=0.\+05\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t points\+\_\+per\+\_\+cluster=8, const \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{Forest\+Seeding\+Options}} \&options=\{\})
@@ -14329,6 +14331,42 @@ Builds a Delaunay triangulation (\doxylink{classhmap_1_1TerrainTriMesh}{Terrain\
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 \doxylink{classhmap_1_1Forest}{Forest} Grown forest with updated tree radii. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a0c6fb1e2c79fb841680cee1e39bb74cb}\label{namespacehmap_a0c6fb1e2c79fb841680cee1e39bb74cb} 
+\index{hmap@{hmap}!grow\_forest\_iterative@{grow\_forest\_iterative}}
+\index{grow\_forest\_iterative@{grow\_forest\_iterative}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{grow\_forest\_iterative()}{grow\_forest\_iterative()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} hmap\+::grow\+\_\+forest\+\_\+iterative (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \&}]{forest,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Species}{Species}} $>$ \&}]{species = {\ttfamily \{\}},  }\item[{size\+\_\+t}]{iterations = {\ttfamily 10},  }\item[{float}]{growth\+\_\+rate = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&}]{competition\+\_\+matrix = {\ttfamily \{\}},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{max\+\_\+radius\+\_\+scale = {\ttfamily \{\}},  }\item[{float}]{max\+\_\+radius\+\_\+scale\+\_\+strength = {\ttfamily 1.0f},  }\item[{bool}]{prune\+\_\+unviable = {\ttfamily true},  }\item[{const glm\+::vec4 \&}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+
+
+
+Simulates iterative plant growth with neighborhood competition and mortality. 
+
+Progressively expands plant crowns over multiple time steps according to\+: r\+\_\+i\texorpdfstring{$^\wedge$}{\string^}\{t+1\} = min(r\+\_\+max\+\_\+eff, r\+\_\+i\texorpdfstring{$^\wedge$}{\string^}t + G\+\_\+i \texorpdfstring{$\ast$}{*} max(0, 1 -\/ C\+\_\+i)) where G\+\_\+i is the growth increment and C\+\_\+i is the neighborhood competition factor. Suppressed plants falling below species viability or suffocated by larger crowns are pruned.
+
+
+\begin{DoxyParams}{Parameters}
+{\em forest} & Input forest container. \\
+\hline
+{\em species} & Vector of \doxylink{structhmap_1_1Species}{Species} definitions. \\
+\hline
+{\em iterations} & Maximum number of growth iterations. \\
+\hline
+{\em growth\+\_\+rate} & Base growth fraction per iteration in \mbox{[}0, 1\mbox{]}. \\
+\hline
+{\em competition\+\_\+matrix} & Optional pairwise competition matrix. \\
+\hline
+{\em max\+\_\+radius\+\_\+scale} & Optional 2D heightmap array to modulate max radius locally. \\
+\hline
+{\em max\+\_\+radius\+\_\+scale\+\_\+strength} & Strength factor for max\+\_\+radius\+\_\+scale in \mbox{[}0, 1\mbox{]}. \\
+\hline
+{\em prune\+\_\+unviable} & Whether to remove suppressed/non-\/viable plants. \\
+\hline
+{\em bbox} & Spatial bounding box for sampling max\+\_\+radius\+\_\+scale. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Forest}{Forest} Grown and thinned forest container. 
 \end{DoxyReturn}
 \Hypertarget{namespacehmap_a65fd70222ae504828208b3575ed719f1}\label{namespacehmap_a65fd70222ae504828208b3575ed719f1} 
 \index{hmap@{hmap}!thin\_forest\_soft\_core@{thin\_forest\_soft\_core}}

@@ -24129,6 +24129,142 @@ This function:<itemizedlist>
         </inbodydescription>
         <location file="HighMap/src/flora/grow_forest_competition_voronoi.cpp" line="17" column="8" bodyfile="HighMap/src/flora/grow_forest_competition_voronoi.cpp" bodystart="17" bodyend="120" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="239" declcolumn="8"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a0c6fb1e2c79fb841680cee1e39bb74cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
+        <definition>Forest hmap::grow_forest_iterative</definition>
+        <argsstring>(const Forest &amp;forest, const std::vector&lt; Species &gt; &amp;species={}, size_t iterations=10, float growth_rate=0.1f, const InteractionMatrix &amp;competition_matrix={}, const Array &amp;max_radius_scale={}, float max_radius_scale_strength=1.0f, bool prune_unviable=true, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>grow_forest_iterative</name>
+        <qualifiedname>hmap::grow_forest_iterative</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> &amp;</type>
+          <declname>forest</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> &gt; &amp;</type>
+          <declname>species</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>iterations</declname>
+          <defval>10</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>growth_rate</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
+          <declname>competition_matrix</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>max_radius_scale</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_radius_scale_strength</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>prune_unviable</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>const glm::vec4 &amp;</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Simulates iterative plant growth with neighborhood competition and mortality. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Progressively expands plant crowns over multiple time steps according to: r_i^{t+1} = min(r_max_eff, r_i^t + G_i * max(0, 1 - C_i)) where G_i is the growth increment and C_i is the neighborhood competition factor. Suppressed plants falling below species viability or suffocated by larger crowns are pruned.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>forest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input forest container. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>species</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iterations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of growth iterations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>growth_rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base growth fraction per iteration in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>competition_matrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional pairwise competition matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional 2D heightmap array to modulate max radius locally. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale_strength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Strength factor for max_radius_scale in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>prune_unviable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether to remove suppressed/non-viable plants. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Spatial bounding box for sampling max_radius_scale. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Grown and thinned forest container. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/flora/grow_forest_iterative.cpp" line="18" column="8" bodyfile="HighMap/src/flora/grow_forest_iterative.cpp" bodystart="18" bodyend="154" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="274" declcolumn="8"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a65fd70222ae504828208b3575ed719f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
         <definition>Forest hmap::thin_forest_soft_core</definition>
@@ -24221,7 +24357,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/flora/forest_growth.cpp" line="141" column="8" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="141" bodyend="252" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="261" declcolumn="8"/>
+        <location file="HighMap/src/flora/forest_growth.cpp" line="141" column="8" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="141" bodyend="252" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="297" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a395c1a2f15f7114fac122c864a1e78e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
