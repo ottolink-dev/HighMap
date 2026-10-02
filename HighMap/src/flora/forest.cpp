@@ -320,4 +320,46 @@ void Forest::to_png(const std::string &fname,
   cv::imwrite(fname, img);
 }
 
+std::string Forest::to_string() const
+{
+  std::ostringstream ss;
+  ss.imbue(std::locale("C"));
+
+  glm::vec4 bbox = get_bbox();
+
+  // count trees and collect average radius per species
+  std::map<uint32_t, size_t> species_counts;
+  std::map<uint32_t, float>  species_radii_sum;
+  for (const auto &tree : trees)
+  {
+    species_counts[tree.species_id]++;
+    species_radii_sum[tree.species_id] += tree.radius;
+  }
+
+  ss << "Forest Infos\n";
+  ss << "--------------------------------\n";
+  ss << " total trees : " << trees.size() << "\n";
+  ss << " species count : " << species_counts.size() << "\n";
+  ss << " bbox : {" << bbox.x << ", " << bbox.y << ", " << bbox.z << ", "
+     << bbox.w << "}\n";
+
+  if (!species_counts.empty())
+  {
+    ss << " species breakdown :\n";
+    for (const auto &[sp_id, count] : species_counts)
+    {
+      float avg_r = (count > 0) ? (species_radii_sum[sp_id] / float(count)) : 0.f;
+      float pct = (trees.empty())
+                      ? 0.f
+                      : (100.f * float(count) / float(trees.size()));
+      ss << "   - species " << sp_id << ": " << count << " trees ("
+         << std::fixed << std::setprecision(1) << pct << "%, avg radius "
+         << std::setprecision(4) << avg_r << ")\n";
+    }
+  }
+  ss << "--------------------------------";
+
+  return ss.str();
+}
+
 } // namespace hmap

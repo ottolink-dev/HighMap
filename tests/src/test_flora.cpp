@@ -29,7 +29,7 @@ TEST(TreeTest, DefaultConstructor)
   EXPECT_TRUE(float_eq(tree.position.y, 0.f));
   EXPECT_TRUE(float_eq(tree.position.z, 0.f));
   EXPECT_EQ(tree.species_id, 0u);
-  EXPECT_TRUE(float_eq(tree.radius, 1.0f));
+  EXPECT_TRUE(float_eq(tree.radius, HMAP_DEFAULT_TREE_RADIUS));
 }
 
 TEST(TreeTest, ParameterizedConstructors)
@@ -75,12 +75,33 @@ TEST(TreeTest, ConversionsAndOperators)
   EXPECT_TRUE(float_eq(v3.y, 2.f));
   EXPECT_TRUE(float_eq(v3.z, 3.f));
 
+  std::string s = t.to_string();
+  EXPECT_FALSE(s.empty());
+  EXPECT_NE(s.find("Tree("), std::string::npos);
+  EXPECT_NE(s.find("species=1"), std::string::npos);
+
   Tree same(1.f, 2.f, 3.f, 1u, 2.5f);
   Tree diff(1.f, 2.f, 3.f, 2u, 2.5f);
 
   EXPECT_TRUE(t == same);
   EXPECT_FALSE(t == diff);
   EXPECT_TRUE(t != diff);
+}
+
+TEST(ForestTest, ToString)
+{
+  Forest forest;
+  forest.push_back(Tree(1.f, 2.f, 0.f, 0u, 0.005f));
+  forest.push_back(Tree(3.f, 4.f, 0.f, 1u, 0.003f));
+  forest.push_back(Tree(5.f, 6.f, 0.f, 0u, 0.005f));
+
+  std::string str = forest.to_string();
+  EXPECT_FALSE(str.empty());
+  EXPECT_NE(str.find("Forest Infos"), std::string::npos);
+  EXPECT_NE(str.find("total trees : 3"), std::string::npos);
+  EXPECT_NE(str.find("species count : 2"), std::string::npos);
+  EXPECT_NE(str.find("species 0: 2 trees"), std::string::npos);
+  EXPECT_NE(str.find("species 1: 1 trees"), std::string::npos);
 }
 
 // --- Forest Unit Tests

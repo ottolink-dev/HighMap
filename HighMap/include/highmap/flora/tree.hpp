@@ -8,6 +8,8 @@
  */
 #pragma once
 
+#include <string>
+
 #include <glm/glm.hpp>
 
 #include "highmap/geometry/point.hpp"
@@ -83,6 +85,12 @@ public:
    * @return Point Point representation.
    */
   Point to_point() const;
+
+  /**
+   * @brief Returns a formatted string representation of the tree.
+   * @return std::string Formatted string with tree properties.
+   */
+  std::string to_string() const;
 
   /**
    * @brief Converts the tree position to glm::vec2 (x, y).

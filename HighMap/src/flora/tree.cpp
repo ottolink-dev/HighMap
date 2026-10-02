@@ -1,6 +1,6 @@
-/* Copyright (c) 2025 Otto Link. Distributed under the terms of the GNU General
-   Public License. The full license is in the file LICENSE, distributed with
-   this software. */
+#include <locale>
+#include <sstream>
+
 #include "highmap/flora/tree.hpp"
 
 namespace hmap
@@ -34,6 +34,15 @@ Tree::Tree(float x, float y, float z, uint32_t species_id, float radius)
 Point Tree::to_point() const
 {
   return Point(position.x, position.y, radius);
+}
+
+std::string Tree::to_string() const
+{
+  std::ostringstream ss;
+  ss.imbue(std::locale("C"));
+  ss << "Tree(pos=[" << position.x << ", " << position.y << ", " << position.z
+     << "], species=" << species_id << ", radius=" << radius << ")";
+  return ss.str();
 }
 
 glm::vec2 Tree::to_vec2() const

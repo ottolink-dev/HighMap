@@ -232,6 +232,12 @@ public:
               const Array       &background = {},
               glm::vec4          bbox = {0.f, 1.f, 0.f, 1.f}) const;
 
+  /**
+   * @brief Returns a multi-line formatted summary string of the forest.
+   * @return std::string Pretty-printed summary.
+   */
+  std::string to_string() const;
+
 protected:
   std::vector<Tree> trees = {}; ///< List of tree instances.
 };
