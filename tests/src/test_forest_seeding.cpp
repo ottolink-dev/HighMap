@@ -490,3 +490,94 @@ TEST(ForestGrowthTest, CompetitionNNMaxRadiusScale)
   ASSERT_EQ(grown_half.size(), 2u);
   EXPECT_TRUE(float_eq(grown_half[0].radius, 0.5f));
 }
+
+TEST(ForestGrowthTest, CompetitionVoronoiBasic)
+{
+  // 4 points forming a square [0, 10] x [0, 10] -> total area = 100
+  Forest forest;
+  forest.push_back(Tree(0.0f, 0.0f, 0.0f, 0u, 0.01f));
+  forest.push_back(Tree(10.0f, 0.0f, 0.0f, 0u, 0.01f));
+  forest.push_back(Tree(10.0f, 10.0f, 0.0f, 0u, 0.01f));
+  forest.push_back(Tree(0.0f, 10.0f, 0.0f, 0u, 0.01f));
+
+  // Species 0: alpha = 0.5, r_min = 0.1, r_max = 5.0
+  std::vector<Species> species = {
+      Species(0u, 1.0f, 1.0f, 0.1f, 5.0f, 0.5f),
+  };
+
+  Forest grown = grow_forest_competition_voronoi(forest, species);
+  ASSERT_EQ(grown.size(), 4u);
+
+  // Each corner vertex receives non-zero vertex area and positive radius within
+  // [r_min, r_max]
+  for (const auto &tree : grown)
+  {
+    EXPECT_GE(tree.radius, 0.1f);
+    EXPECT_LE(tree.radius, 5.0f);
+  }
+}
+
+TEST(ForestGrowthTest, CompetitionVoronoiPrune)
+{
+  // Dense cluster of 3 points with very small triangle area, plus 1 distant
+  // point
+  Forest forest;
+  forest.push_back(Tree(0.0f, 0.0f, 0.0f, 0u, 0.01f));
+  forest.push_back(Tree(0.01f, 0.0f, 0.0f, 0u, 0.01f));
+  forest.push_back(Tree(0.0f, 0.01f, 0.0f, 0u, 0.01f));
+  forest.push_back(Tree(10.0f, 10.0f, 0.0f, 0u, 0.01f));
+
+  // Species 0: alpha = 1.0, r_min = 0.5, r_max = 5.0
+  // Dense cluster points have area ~ 1e-4 / 3, r_raw ~ sqrt(1e-4 / (3*pi)) ~
+  // 0.003 < r_min (0.5)
+  std::vector<Species> species = {
+      Species(0u, 1.0f, 1.0f, 0.5f, 5.0f, 1.0f),
+  };
+
+  Forest grown = grow_forest_competition_voronoi(forest,
+                                                 species,
+                                                 {},
+                                                 {},
+                                                 1.0f,
+                                                 true);
+  // Dense points should be pruned
+  EXPECT_LT(grown.size(), forest.size());
+}
+
+TEST(ForestGrowthTest, CompetitionVoronoiMaxRadiusScale)
+{
+  // 4 corners of a large square
+  Forest forest;
+  forest.push_back(Tree(0.0f, 0.0f, 0.0f, 0u, 0.01f));
+  forest.push_back(Tree(1.0f, 0.0f, 0.0f, 0u, 0.01f));
+  forest.push_back(Tree(1.0f, 1.0f, 0.0f, 0u, 0.01f));
+  forest.push_back(Tree(0.0f, 1.0f, 0.0f, 0u, 0.01f));
+
+  std::vector<Species> species = {
+      Species(0u, 0.5f, 1.0f, 0.1f, 2.0f, 1.0f),
+  };
+
+  Array scale_map({2, 1}, 0.0f);
+  scale_map(0, 0) = 0.0f; // left side scale = 0 -> r_max_eff = r_min = 0.1
+  scale_map(1, 0) = 1.0f; // right side scale = 1 -> r_max_eff = r_max = 2.0
+
+  glm::vec4 bbox = {0.0f, 1.0f, 0.0f, 1.0f};
+
+  Forest grown_full = grow_forest_competition_voronoi(forest,
+                                                      species,
+                                                      {},
+                                                      scale_map,
+                                                      1.0f,
+                                                      false,
+                                                      bbox);
+  ASSERT_EQ(grown_full.size(), 4u);
+
+  // Left trees (x=0) must be clamped to r_min = 0.1
+  for (const auto &t : grown_full)
+  {
+    if (t.position.x == 0.0f)
+    {
+      EXPECT_TRUE(float_eq(t.radius, 0.1f));
+    }
+  }
+}

@@ -196,6 +196,50 @@ Forest grow_forest_competition_nn(
     const glm::vec4            &bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
+ * @brief Adjusts tree radii based on Voronoi cell areas and species
+ * competition constraints.
+ *
+ * Builds a Delaunay triangulation (TerrainTriMesh) on the tree positions in the
+ * XY plane to compute the local Voronoi/dual cell territory area $A_i$ of each
+ * tree:
+ * - Computes equivalent circular territory radius $r_i = \sqrt{A_i / \pi}$.
+ * - Multiplies by competition factor $\alpha =
+ * \text{species}[s_i].\text{competition\_factor}$ (or pairwise $\alpha =
+ * \text{competition\_matrix.get}(s_i, s_i)$): $r_{\text{est}} = \alpha \cdot
+ * r_i$.
+ * - Linearly scales effective maximum radius:
+ *   $r_{\max,\text{eff}} = r_{\min}(s_i) + s \cdot (r_{\max}(s_i) -
+ * r_{\min}(s_i))$, where $s \in [0, 1]$ is sampled from @p max_radius_scale (if
+ * provided, default $s = 1.0$).
+ * - Clamps $r_i \in [\text{radius\_min}(s_i), r_{\max,\text{eff}}]$.
+ * - If @p prune_unviable is true and raw calculated radius $r_{\text{est}} <
+ * \text{radius\_min}(s_i)$, the tree is removed.
+ *
+ * @param  forest                  Input forest container.
+ * @param  species                 Vector of Species definitions.
+ * @param  competition_matrix      Optional pairwise S x S competition factors
+ *                                 (alpha).
+ * @param  max_radius_scale        Optional 2D array in [0, 1] scaling maximum
+ * radius locally (0 -> rmax = rmin, 1 -> rmax = rmax).
+ * @param  max_radius_scale_strength Blend strength for max_radius_scale in [0,
+ * 1] (0 -> no scaling/full rmax, 1 -> full scale array modulation).
+ * @param  prune_unviable          Whether to remove trees unable to reach
+ *                                 radius_min.
+ * @param  bbox                    Bounding box {xmin, xmax, ymin, ymax} for
+ * sampling
+ *                                 @p max_radius_scale.
+ * @return                         Forest Grown forest with updated tree radii.
+ */
+Forest grow_forest_competition_voronoi(
+    const Forest               &forest,
+    const std::vector<Species> &species = {},
+    const InteractionMatrix    &competition_matrix = {},
+    const Array                &max_radius_scale = {},
+    float                       max_radius_scale_strength = 1.0f,
+    bool                        prune_unviable = true,
+    const glm::vec4            &bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
  * @brief Performs multi-species Strauss soft-core thinning on an input forest.
  *
  * @param  forest              Input candidate forest.
