@@ -43,7 +43,7 @@ int main(void)
   // --- Multi-Species Forest Seeding
   // (Method A: k-means spatial partitioning)
 
-  size_t species_count = 3;
+  size_t species_count = 4;
   size_t tree_count = 10000;
 
   hmap::ForestSeedingOptions options;
@@ -52,6 +52,7 @@ int main(void)
       hmap::Species(0, 0.003f, 1.0f), // id | radius | weight
       hmap::Species(1, 0.002f, 0.8f),
       hmap::Species(2, 0.001f, 0.5f),
+      hmap::Species(3, 0.001f, 0.5f),
   };
   options.exclusion_threshold = 0.5f;
 
@@ -84,18 +85,23 @@ int main(void)
                                                             points_per_cluster,
                                                             options);
 
+  // sample z elevation from terrain
+  forest_clusters.set_elevation_from_terrain(z);
+
   std::cout << "--- Clustered Forest ---\n"
             << forest_clusters.to_string() << "\n";
 
-  hmap::Forest forest_grown = hmap::grow_forest_competition_nn(
+  // --- Grow forest
+
+  hmap::Forest forest_grown_nn = hmap::grow_forest_competition_nn(
       forest_clusters,
       options.species,
       hmap::InteractionMatrix{},
       density,
-      0.5f);
+      0.8f);
 
-  // sample z elevation from terrain
-  forest_clusters.set_elevation_from_terrain(z);
+  std::cout << "--- Clustered Forest Grown NN ---\n"
+            << forest_grown_nn.to_string() << "\n";
 
   // --- Export & Visualization
 
@@ -105,7 +111,7 @@ int main(void)
 
   forest_kmeans.to_png("forest_kmeans.png", shape, density);
   forest_clusters.to_png("forest_clusters.png", shape, density);
-  forest_grown.to_png("forest_grown.png", shape, z);
+  forest_grown_nn.to_png("forest_grown_nn.png", shape, z);
 
   hmap::export_banner_png("ex_forest_seeding.png",
                           {z, density, exclusion},

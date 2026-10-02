@@ -159,27 +159,22 @@ Forest grow_forest_competition_nn(const Forest               &forest,
   {
     if (!has_scale_array || !valid_bbox || strength <= 0.0f) return 1.0f;
 
-    float xn = (x - bbox.x) / bbox_dx *
-               static_cast<float>(max_radius_scale.shape.x - 1);
-    float yn = (y - bbox.z) / bbox_dy *
-               static_cast<float>(max_radius_scale.shape.y - 1);
+    float u_norm = std::clamp((x - bbox.x) / bbox_dx, 0.0f, 1.0f);
+    float v_norm = std::clamp((y - bbox.z) / bbox_dy, 0.0f, 1.0f);
+
+    float xn = u_norm * static_cast<float>(max_radius_scale.shape.x - 1);
+    float yn = v_norm * static_cast<float>(max_radius_scale.shape.y - 1);
 
     int i = static_cast<int>(xn);
     int j = static_cast<int>(yn);
 
-    if (i >= 0 && i < max_radius_scale.shape.x && j >= 0 &&
-        j < max_radius_scale.shape.y)
-    {
-      float u = xn - static_cast<float>(i);
-      float v = yn - static_cast<float>(j);
-      float s_raw = std::clamp(
-          max_radius_scale.get_value_bilinear_at(i, j, u, v),
-          0.0f,
-          1.0f);
-      // blend: strength = 0 -> 1.0 (unchanged rmax), strength = 1 -> s_raw
-      return 1.0f + strength * (s_raw - 1.0f);
-    }
-    return 1.0f;
+    float u = xn - static_cast<float>(i);
+    float v = yn - static_cast<float>(j);
+    float s_raw = std::clamp(max_radius_scale.get_value_bilinear_at(i, j, u, v),
+                             0.0f,
+                             1.0f);
+    // blend: strength = 0 -> 1.0 (unchanged rmax), strength = 1 -> s_raw
+    return lerp(1.f, s_raw, strength);
   };
 
   // if only 1 tree, clamp according to its species if available
@@ -190,8 +185,9 @@ Forest grow_forest_competition_nn(const Forest               &forest,
     if (sid < species.size())
     {
       float s = sample_scale(t.position.x, t.position.y);
-      float r_max_eff = species[sid].radius_min +
-                        s * (species[sid].radius_max - species[sid].radius_min);
+      float r_max_eff = lerp(species[sid].radius_min,
+                             species[sid].radius_max,
+                             s);
       t.radius = std::clamp(t.radius, species[sid].radius_min, r_max_eff);
     }
     return Forest(std::vector<Tree>{t});
@@ -255,7 +251,7 @@ Forest grow_forest_competition_nn(const Forest               &forest,
 
     // scale max_radius locally if array is provided
     float s = sample_scale(tree.position.x, tree.position.y);
-    float r_max_eff = sp_i.radius_min + s * (sp_i.radius_max - sp_i.radius_min);
+    float r_max_eff = lerp(sp_i.radius_min, sp_i.radius_max, s);
 
     // estimated crown radius
     float r_est = alpha * d_nn;

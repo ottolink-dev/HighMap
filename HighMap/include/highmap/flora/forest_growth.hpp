@@ -192,7 +192,7 @@ Forest grow_forest_competition_nn(
     const InteractionMatrix    &competition_matrix = {},
     const Array                &max_radius_scale = {},
     float                       max_radius_scale_strength = 1.0f,
-    bool                        prune_unviable = false,
+    bool                        prune_unviable = true,
     const glm::vec4            &bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
