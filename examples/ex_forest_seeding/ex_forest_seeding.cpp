@@ -129,7 +129,25 @@ int main(void)
       0.8f);
 
   std::cout << "--- Clustered Forest Grown Iterative ---\n"
-            << forest_grown_iterative.to_string() << "\n";
+            << forest_grown_iterative.to_string() << "\n\n";
+
+  // (Strauss Soft-Core Growth)
+  hmap::InteractionMatrix repulsion_distances =
+      hmap::InteractionMatrix::from_species(options.species, 2.0f);
+  hmap::InteractionMatrix repulsion_strengths =
+      hmap::InteractionMatrix::uniform(species_count, 0.85f);
+
+  hmap::Forest forest_thinned_soft_core = hmap::grow_forest_soft_core(
+      forest_clusters,
+      options.species,
+      repulsion_distances,
+      repulsion_strengths,
+      0,
+      density,
+      0.8f);
+
+  std::cout << "--- Clustered Forest Grown Soft Core ---\n"
+            << forest_thinned_soft_core.to_string() << "\n";
 
   // --- Export & Visualization
 
@@ -142,6 +160,7 @@ int main(void)
   forest_grown_nn.to_png("forest_grown_nn.png", shape, z);
   forest_grown_voronoi.to_png("forest_grown_voronoi.png", shape, z);
   forest_grown_iterative.to_png("forest_grown_iterative.png", shape, z);
+  forest_thinned_soft_core.to_png("forest_thinned_soft_core.png", shape, z);
 
   hmap::export_banner_png("ex_forest_seeding.png",
                           {z, density, exclusion},

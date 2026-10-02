@@ -282,23 +282,37 @@ Forest grow_forest_iterative(const Forest               &forest,
                              const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
- * @brief Performs multi-species Strauss soft-core thinning on an input forest.
+ * @brief Performs multi-species Strauss soft-core growth and thinning on an
+ * input forest.
  *
- * @param  forest              Input candidate forest.
- * @param  repulsion_distances Interaction distance matrix between species.
- * @param  repulsion_strengths Repulsion strength matrix between species in [0,
- *                             1].
- * @param  target_count        Optional target number of trees (0 means keep all
- *                             accepted).
- * @param  seed                Random number generator seed.
- * @param  bbox                Bounding box {xmin, xmax, ymin, ymax}.
- * @return                     Forest Thinned forest.
+ * Repels and thins neighboring trees probabilistically based on species
+ * pairwise interaction distances and strengths, and clamps resulting crown
+ * radii according to species traits and local spatial scale.
+ *
+ * @param  forest                    Input candidate forest.
+ * @param  species                   Vector of Species definitions.
+ * @param  repulsion_distances       Interaction distance matrix between
+ *                                   species.
+ * @param  repulsion_strengths       Repulsion strength matrix between species
+ *                                   in [0, 1].
+ * @param  target_count              Optional target number of trees (0 means
+ *                                   keep all accepted).
+ * @param  max_radius_scale          Optional 2D array scaling maximum radius
+ *                                   locally.
+ * @param  max_radius_scale_strength Blend strength for max_radius_scale in [0,
+ *                                   1].
+ * @param  seed                      Random number generator seed.
+ * @param  bbox                      Bounding box {xmin, xmax, ymin, ymax}.
+ * @return                           Forest Grown and thinned forest.
  */
-Forest thin_forest_soft_core(const Forest            &forest,
-                             const InteractionMatrix &repulsion_distances,
-                             const InteractionMatrix &repulsion_strengths,
+Forest grow_forest_soft_core(const Forest               &forest,
+                             const std::vector<Species> &species = {},
+                             const InteractionMatrix &repulsion_distances = {},
+                             const InteractionMatrix &repulsion_strengths = {},
                              size_t                   target_count = 0,
-                             uint32_t                 seed = 0,
+                             const Array             &max_radius_scale = {},
+                             float            max_radius_scale_strength = 1.0f,
+                             uint32_t         seed = 0,
                              const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
 
 } // namespace hmap

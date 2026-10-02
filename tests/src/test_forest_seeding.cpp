@@ -359,7 +359,7 @@ TEST(ForestSeedingTest, SpeciesWeights)
   EXPECT_GT(sp0.size(), sp1.size());
 }
 
-TEST(ForestSeedingTest, SoftCoreThinning)
+TEST(ForestGrowthTest, SoftCoreGrowth)
 {
   // Create a tight cluster of overlapping trees
   Forest dense_forest;
@@ -369,13 +369,20 @@ TEST(ForestSeedingTest, SoftCoreThinning)
     dense_forest.push_back(Tree(5.0f + offset, 5.0f + offset, 0.0f, 0u, 1.0f));
   }
 
+  std::vector<Species> species = {
+      Species(0u, 0.5f, 1.0f, 0.1f, 1.0f, 0.5f),
+  };
+
   InteractionMatrix dist = InteractionMatrix::uniform(1, 0.5f);
   InteractionMatrix strength = InteractionMatrix::uniform(1, 1.0f);
 
-  Forest thinned = thin_forest_soft_core(dense_forest,
+  Forest thinned = grow_forest_soft_core(dense_forest,
+                                         species,
                                          dist,
                                          strength,
                                          20,
+                                         {},
+                                         1.0f,
                                          42,
                                          {0.f, 10.f, 0.f, 10.f});
 
@@ -384,6 +391,11 @@ TEST(ForestSeedingTest, SoftCoreThinning)
   // tree count
   EXPECT_LT(thinned.size(), dense_forest.size());
   EXPECT_GT(thinned.size(), 0u);
+  for (const auto &t : thinned)
+  {
+    EXPECT_GE(t.radius, 0.1f);
+    EXPECT_LE(t.radius, 1.0f);
+  }
 }
 
 // --- Nearest-Neighbor Competition Growth Tests
