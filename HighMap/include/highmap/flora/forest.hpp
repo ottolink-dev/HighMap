@@ -233,6 +233,19 @@ public:
                       bool                        prune_collisions = true);
 
   /**
+   * @brief Reinforces spatial clustering of species by iteratively assigning
+   * each tree the dominant species among its nearest neighbors.
+   *
+   * @param iterations   Number of smoothing/reinforcement iterations.
+   * @param k_neighbors  Number of spatial nearest neighbors to query.
+   * @param include_self If true, considers the tree's own current species in
+   * the majority vote.
+   */
+  void reinforce_species_clusters(size_t iterations = 1,
+                                  size_t k_neighbors = 4,
+                                  bool   include_self = true);
+
+  /**
    * @brief Sets the elevation (z-coordinate) of all trees by sampling a terrain
    * heightmap.
    *

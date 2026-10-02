@@ -459,6 +459,75 @@ void Forest::prune_unviable(const std::vector<Species> &species,
   trees = std::move(retained);
 }
 
+void Forest::reinforce_species_clusters(size_t iterations,
+                                        size_t k_neighbors,
+                                        bool   include_self)
+{
+  if (trees.size() < 2 || k_neighbors == 0 || iterations == 0) return;
+
+  // --- Query Nearest Neighbors Graph Once (Static Positions)
+
+  std::vector<ps::Point<float, 2>> points;
+  points.reserve(trees.size());
+  for (const auto &tree : trees)
+  {
+    points.push_back({tree.position.x, tree.position.y});
+  }
+
+  size_t safe_k = std::min(k_neighbors, trees.size() - 1);
+  auto   neighbors_idx = ps::nearest_neighbors_indices(points, safe_k);
+
+  // --- Iterative Majority Species Assignment
+
+  std::vector<uint32_t> next_species(trees.size());
+
+  for (size_t iter = 0; iter < iterations; ++iter)
+  {
+    for (size_t i = 0; i < trees.size(); ++i)
+    {
+      std::unordered_map<uint32_t, size_t> counts;
+
+      if (include_self)
+      {
+        counts[trees[i].species_id]++;
+      }
+
+      for (size_t neighbor_idx : neighbors_idx[i])
+      {
+        counts[trees[neighbor_idx].species_id]++;
+      }
+
+      // Pick dominant species (majority vote)
+      uint32_t best_species = trees[i].species_id;
+      size_t   max_count = 0;
+
+      // Check current tree species first to favor status quo in case of ties
+      auto self_it = counts.find(trees[i].species_id);
+      if (self_it != counts.end())
+      {
+        best_species = self_it->first;
+        max_count = self_it->second;
+      }
+
+      for (const auto &[sp_id, count] : counts)
+      {
+        if (count > max_count)
+        {
+          max_count = count;
+          best_species = sp_id;
+        }
+      }
+
+      next_species[i] = best_species;
+    }
+
+    for (size_t i = 0; i < trees.size(); ++i)
+    {
+      trees[i].species_id = next_species[i];
+    }
+  }
+}
+
 void Forest::set_elevation_from_terrain(const Array     &elevation,
                                         const glm::vec4 &bbox)
 {
