@@ -56,12 +56,11 @@ var NAVTREEINDEX12 =
 "forest_8hpp.html":[5,0,1,0,0,2,0],
 "forest_8hpp_source.html":[5,0,1,0,0,2,0],
 "forest__growth_8cpp.html":[5,0,1,1,16,1],
-"forest__growth_8cpp.html#a65fd70222ae504828208b3575ed719f1":[5,0,1,1,16,1,0],
 "forest__growth_8hpp.html":[5,0,1,0,0,2,1],
 "forest__growth_8hpp.html#a0c6fb1e2c79fb841680cee1e39bb74cb":[5,0,1,0,0,2,1,3],
+"forest__growth_8hpp.html#a12b36f2c693eff09dda2732199468fe8":[5,0,1,0,0,2,1,4],
 "forest__growth_8hpp.html#a1d6994f2c75c90011f096035df3b4f87":[5,0,1,0,0,2,1,1],
 "forest__growth_8hpp.html#a51ec3fd21f74bdaae31c1403c88cae4a":[5,0,1,0,0,2,1,2],
-"forest__growth_8hpp.html#a65fd70222ae504828208b3575ed719f1":[5,0,1,0,0,2,1,4],
 "forest__growth_8hpp_source.html":[5,0,1,0,0,2,1],
 "forest__seeding_8cpp.html":[5,0,1,1,16,2],
 "forest__seeding_8cpp.html#a395c1a2f15f7114fac122c864a1e78e6":[5,0,1,1,16,2,0],
@@ -100,8 +99,8 @@ var NAVTREEINDEX12 =
 "functions_e.html":[4,3,0,4],
 "functions_enum.html":[4,3,4],
 "functions_f.html":[4,3,0,5],
-"functions_func.html":[4,3,1,0],
 "functions_func.html":[4,3,1],
+"functions_func.html":[4,3,1,0],
 "functions_func_b.html":[4,3,1,1],
 "functions_func_c.html":[4,3,1,2],
 "functions_func_d.html":[4,3,1,3],
@@ -249,5 +248,6 @@ var NAVTREEINDEX12 =
 "gpu__opencl_8hpp.html#aae6131a978635eb515958f41584bcbfc":[5,0,1,0,0,9,0,0],
 "gpu__opencl_8hpp.html#adb8336ed4d83c15500872185dee45d50":[5,0,1,0,0,9,0,1],
 "gpu__opencl_8hpp_source.html":[5,0,1,0,0,9,0],
-"gradient_8cpp.html":[5,0,1,1,20,0]
+"gradient_8cpp.html":[5,0,1,1,20,0],
+"gradient_8cpp.html#a11c1600c2d67387c1b037fadcca9a069":[5,0,1,1,20,0,11]
 };

@@ -24265,28 +24265,45 @@ This function:<itemizedlist>
         </inbodydescription>
         <location file="HighMap/src/flora/grow_forest_iterative.cpp" line="18" column="8" bodyfile="HighMap/src/flora/grow_forest_iterative.cpp" bodystart="18" bodyend="154" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="274" declcolumn="8"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a65fd70222ae504828208b3575ed719f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a12b36f2c693eff09dda2732199468fe8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
-        <definition>Forest hmap::thin_forest_soft_core</definition>
-        <argsstring>(const Forest &amp;forest, const InteractionMatrix &amp;repulsion_distances, const InteractionMatrix &amp;repulsion_strengths, size_t target_count=0, uint32_t seed=0, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
-        <name>thin_forest_soft_core</name>
-        <qualifiedname>hmap::thin_forest_soft_core</qualifiedname>
+        <definition>Forest hmap::grow_forest_soft_core</definition>
+        <argsstring>(const Forest &amp;forest, const std::vector&lt; Species &gt; &amp;species={}, const InteractionMatrix &amp;repulsion_distances={}, const InteractionMatrix &amp;repulsion_strengths={}, size_t target_count=0, const Array &amp;max_radius_scale={}, float max_radius_scale_strength=1.0f, uint32_t seed=0, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>grow_forest_soft_core</name>
+        <qualifiedname>hmap::grow_forest_soft_core</qualifiedname>
         <param>
           <type>const <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> &amp;</type>
           <declname>forest</declname>
         </param>
         <param>
+          <type>const std::vector&lt; <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> &gt; &amp;</type>
+          <declname>species</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
           <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
           <declname>repulsion_distances</declname>
+          <defval>{}</defval>
         </param>
         <param>
           <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
           <declname>repulsion_strengths</declname>
+          <defval>{}</defval>
         </param>
         <param>
           <type>size_t</type>
           <declname>target_count</declname>
           <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>max_radius_scale</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_radius_scale_strength</declname>
+          <defval>1.0f</defval>
         </param>
         <param>
           <type>uint32_t</type>
@@ -24299,15 +24316,24 @@ This function:<itemizedlist>
           <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
         </param>
         <briefdescription>
-<para>Performs multi-species Strauss soft-core thinning on an input forest. </para>
+<para>Performs multi-species Strauss soft-core growth and thinning on an input forest. </para>
         </briefdescription>
         <detaileddescription>
+<para>Repels and thins neighboring trees probabilistically based on species pairwise interaction distances and strengths, and clamps resulting crown radii according to species traits and local spatial scale.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>forest</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Input candidate forest. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>species</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -24336,6 +24362,22 @@ This function:<itemizedlist>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
+<parametername>max_radius_scale</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional 2D array scaling maximum radius locally. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale_strength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Blend strength for max_radius_scale in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
 <parametername>seed</parametername>
 </parameternamelist>
 <parameterdescription>
@@ -24351,13 +24393,13 @@ This function:<itemizedlist>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Thinned forest. </para>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Grown and thinned forest. </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/flora/forest_growth.cpp" line="141" column="8" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="141" bodyend="252" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="297" declcolumn="8"/>
+        <location file="HighMap/src/flora/grow_forest_soft_core.cpp" line="21" column="8" bodyfile="HighMap/src/flora/grow_forest_soft_core.cpp" bodystart="21" bodyend="177" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="308" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a395c1a2f15f7114fac122c864a1e78e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>

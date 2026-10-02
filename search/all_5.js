@@ -7,7 +7,7 @@ var searchData=
   ['data_20structure_4',['Basic principle and data structure',['../index.html#autotoc_md5',1,'']]],
   ['data_20structure_20for_20building_20heightmaps_5',['&quot;Array&quot; - Elementary Data Structure for Building Heightmaps',['../index.html#autotoc_md6',1,'']]],
   ['data_5ftype_6',['data_type',['../structhmap_1_1ImageWriterConfig.html#a481586b28e6d78db02843fcb819e0583',1,'hmap::ImageWriterConfig']]],
-  ['decasteljau_7',['decasteljau',['../namespacehmap.html#af9b55527f8d0f1c01d110b3144ee7d91',1,'hmap::decasteljau(const Path &amp;path, int edge_divisions=10, Path::EdgeDivisionMode edm=Path::EdgeDivisionMode::EDM_PER_EDGE)'],['../namespacehmap.html#aa78bf111867e13c63d8bd2ec005ad6c8a29d7faf9b49a89c11c9bc3e3f2190e23',1,'hmap::DECASTELJAU']]],
+  ['decasteljau_7',['decasteljau',['../namespacehmap.html#aa78bf111867e13c63d8bd2ec005ad6c8a29d7faf9b49a89c11c9bc3e3f2190e23',1,'hmap::DECASTELJAU'],['../namespacehmap.html#af9b55527f8d0f1c01d110b3144ee7d91',1,'hmap::decasteljau(const Path &amp;path, int edge_divisions=10, Path::EdgeDivisionMode edm=Path::EdgeDivisionMode::EDM_PER_EDGE)']]],
   ['decimate_5fvw_8',['decimate_vw',['../namespacehmap.html#a862fef5e0387bea9358648fc7aa5680b',1,'hmap']]],
   ['decompose_9',['decompose',['../classhmap_1_1PyramidDecomposition.html#a620e9d62b2613f30c23b3d87b766d0bc',1,'hmap::PyramidDecomposition']]],
   ['deformationconstraint_10',['DeformationConstraint',['../structhmap_1_1DeformationConstraint.html',1,'hmap']]],

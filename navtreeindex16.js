@@ -1,5 +1,6 @@
 var NAVTREEINDEX16 =
 {
+"mountain__inselberg_8cpp.html#af90fe4d4bbdac5b7425c9a95dd912406":[5,0,1,1,31,2,8,0],
 "mountain__stump_8cpp.html":[5,0,1,1,31,2,9],
 "mountain__stump_8cpp.html#a3cac6320779d6623497e665082f96d5e":[5,0,1,1,31,2,9,0],
 "mountain__tibesti_8cpp.html":[5,0,1,1,31,2,10],
@@ -82,6 +83,7 @@ var NAVTREEINDEX16 =
 "namespacehmap.html#a126f0152947cde103de88d789edcadc2":[3,0,0,253],
 "namespacehmap.html#a12781eab09d5662bd5490c167c03c8d5":[3,0,0,376],
 "namespacehmap.html#a127e7abc79d661d10705158a312c550c":[3,0,0,148],
+"namespacehmap.html#a12b36f2c693eff09dda2732199468fe8":[3,0,0,380],
 "namespacehmap.html#a12f76d80fee40f96dc5b6540bb83be80":[3,0,0,846],
 "namespacehmap.html#a1321283ca30e8f6203345e272ef3530b":[3,0,0,187],
 "namespacehmap.html#a136f042ce2ad8c14033f4d839f56265d":[3,0,0,524],
@@ -247,7 +249,5 @@ var NAVTREEINDEX16 =
 "namespacehmap.html#a321149eda3417aa485a010c31267818caa6a0098d7d9f4eaae196f3f721464806":[3,0,0,128,10],
 "namespacehmap.html#a321149eda3417aa485a010c31267818cacf16fa7af982861a53abb15071452ab2":[3,0,0,128,6],
 "namespacehmap.html#a321149eda3417aa485a010c31267818cad2e58516e7657971e3e16cd131089055":[3,0,0,128,2],
-"namespacehmap.html#a321149eda3417aa485a010c31267818cae6ea35f492be86e8686ddcf0440aebba":[3,0,0,128,9],
-"namespacehmap.html#a3215e4b5edc94421956595835fb986f6":[3,0,0,366],
-"namespacehmap.html#a32464922c39713910ebeab632e0e8fd1":[3,0,0,258]
+"namespacehmap.html#a321149eda3417aa485a010c31267818cae6ea35f492be86e8686ddcf0440aebba":[3,0,0,128,9]
 };
