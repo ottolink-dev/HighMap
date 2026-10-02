@@ -22,6 +22,10 @@ glm\+::vec2 \mbox{\hyperlink{classhmap_1_1InverseSampler2D_ae9b20270190b81dc01a5
 \begin{DoxyCompactList}\small\item\em Samples a single point with user-\/provided uniform random numbers. \end{DoxyCompactList}\item 
 std\+::array$<$ std\+::vector$<$ float $>$, 2 $>$ \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a6fbe2c9ce84700619ce50914111a13d7}{sample}} (size\+\_\+t \mbox{\hyperlink{kd__tree_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}})
 \begin{DoxyCompactList}\small\item\em Samples multiple points sequentially. \end{DoxyCompactList}\item 
+glm\+::vec2 \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a4615c1c193ea85c46bd6c86379aaa1c2}{sample}} (const glm\+::vec4 \&restricted\+\_\+bbox)
+\begin{DoxyCompactList}\small\item\em Samples a single point sequentially within a restricted bounding box. \end{DoxyCompactList}\item 
+glm\+::vec2 \mbox{\hyperlink{classhmap_1_1InverseSampler2D_aafeffda960bdd2bfa4bcc33237321426}{sample}} (const glm\+::vec4 \&restricted\+\_\+bbox, float u, float u2)
+\begin{DoxyCompactList}\small\item\em Samples a single point within a restricted bounding box with user-\/provided uniform random numbers. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_af79e583520d87ace8894e28e06f20d71}{update\+\_\+region}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&updated\+\_\+array, const glm\+::ivec2 \&range\+\_\+i, const glm\+::ivec2 \&range\+\_\+j)
 \begin{DoxyCompactList}\small\item\em Updates the density in the sub-\/region \mbox{[}imin, imax\mbox{]} x \mbox{[}jmin, jmax\mbox{]} from another array. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_aecc916072e42ac4a42a8d447f26723d3}{update\+\_\+region}} (const std\+::function$<$ float(int \mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}, int \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}, float current)$>$ \&updater, const glm\+::ivec2 \&range\+\_\+i, const glm\+::ivec2 \&range\+\_\+j)
@@ -77,7 +81,7 @@ Constructs an inverse sampler for a 2D density array.
 \Hypertarget{classhmap_1_1InverseSampler2D_ac41cafc646d29404842e7a8158431a49}\label{classhmap_1_1InverseSampler2D_ac41cafc646d29404842e7a8158431a49} 
 \index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
 \index{sample@{sample}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
-\doxysubsubsection{\texorpdfstring{sample()}{sample()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+\doxysubsubsection{\texorpdfstring{sample()}{sample()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
 {\footnotesize\ttfamily glm\+::vec2 hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
@@ -90,7 +94,7 @@ Samples a single point sequentially using the internal RNG.
 \Hypertarget{classhmap_1_1InverseSampler2D_ae9b20270190b81dc01a5f8607fc46f40}\label{classhmap_1_1InverseSampler2D_ae9b20270190b81dc01a5f8607fc46f40} 
 \index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
 \index{sample@{sample}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
-\doxysubsubsection{\texorpdfstring{sample()}{sample()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+\doxysubsubsection{\texorpdfstring{sample()}{sample()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
 {\footnotesize\ttfamily glm\+::vec2 hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}\item[{float}]{u,  }\item[{float}]{u2 }\end{DoxyParamCaption})}
 
 
@@ -110,7 +114,7 @@ Samples a single point with user-\/provided uniform random numbers.
 \Hypertarget{classhmap_1_1InverseSampler2D_a6fbe2c9ce84700619ce50914111a13d7}\label{classhmap_1_1InverseSampler2D_a6fbe2c9ce84700619ce50914111a13d7} 
 \index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
 \index{sample@{sample}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
-\doxysubsubsection{\texorpdfstring{sample()}{sample()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+\doxysubsubsection{\texorpdfstring{sample()}{sample()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
 {\footnotesize\ttfamily std\+::array$<$ std\+::vector$<$ float $>$, 2 $>$ hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
 
 
@@ -124,6 +128,46 @@ Samples multiple points sequentially.
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 A pair of coordinate vectors \{x\+\_\+coords, y\+\_\+coords\}. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1InverseSampler2D_a4615c1c193ea85c46bd6c86379aaa1c2}\label{classhmap_1_1InverseSampler2D_a4615c1c193ea85c46bd6c86379aaa1c2} 
+\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
+\index{sample@{sample}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
+\doxysubsubsection{\texorpdfstring{sample()}{sample()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily glm\+::vec2 hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}\item[{const glm\+::vec4 \&}]{restricted\+\_\+bbox }\end{DoxyParamCaption})}
+
+
+
+Samples a single point sequentially within a restricted bounding box. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em restricted\+\_\+bbox} & Bounding box \{xmin, xmax, ymin, ymax\} defining the sub-\/region. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+2D point coordinates within the restricted bounding box. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1InverseSampler2D_aafeffda960bdd2bfa4bcc33237321426}\label{classhmap_1_1InverseSampler2D_aafeffda960bdd2bfa4bcc33237321426} 
+\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
+\index{sample@{sample}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
+\doxysubsubsection{\texorpdfstring{sample()}{sample()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily glm\+::vec2 hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}\item[{const glm\+::vec4 \&}]{restricted\+\_\+bbox,  }\item[{float}]{u,  }\item[{float}]{u2 }\end{DoxyParamCaption})}
+
+
+
+Samples a single point within a restricted bounding box with user-\/provided uniform random numbers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em restricted\+\_\+bbox} & Bounding box \{xmin, xmax, ymin, ymax\} defining the sub-\/region. \\
+\hline
+{\em u} & Uniform random number in \mbox{[}0, 1) for row selection. \\
+\hline
+{\em u2} & Uniform random number in \mbox{[}0, 1) for column selection. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+2D point coordinates within the restricted bounding box. 
 \end{DoxyReturn}
 \Hypertarget{classhmap_1_1InverseSampler2D_af79e583520d87ace8894e28e06f20d71}\label{classhmap_1_1InverseSampler2D_af79e583520d87ace8894e28e06f20d71} 
 \index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!update\_region@{update\_region}}

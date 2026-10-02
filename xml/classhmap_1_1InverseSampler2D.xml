@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="153" column="41" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="153" bodyend="-1"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="178" column="41" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="178" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classhmap_1_1InverseSampler2D_1a1d0bef910bee68d12d28f440407d6a94" prot="private" static="no" mutable="no">
         <type>glm::vec4</type>
@@ -31,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="154" column="41" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="154" bodyend="154"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="179" column="41" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="179" bodyend="179"/>
       </memberdef>
       <memberdef kind="variable" id="classhmap_1_1InverseSampler2D_1a6b640f1d045520982d7b0edf22dc42f4" prot="private" static="no" mutable="no">
         <type>std::vector&lt; float &gt;</type>
@@ -45,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="155" column="34" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="155" bodyend="-1"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="180" column="34" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="180" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classhmap_1_1InverseSampler2D_1a9663f0185e557598c628b5c1a4a5859e" prot="private" static="no" mutable="no">
         <type>std::vector&lt; float &gt;</type>
@@ -59,7 +59,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="156" column="34" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="156" bodyend="-1"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="181" column="34" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="181" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classhmap_1_1InverseSampler2D_1ae5172a1bc659b26edb1c5d0061487bbb" prot="private" static="no" mutable="no">
         <type>std::mt19937</type>
@@ -74,7 +74,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="157" column="41" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="157" bodyend="157"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="182" column="41" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="182" bodyend="182"/>
       </memberdef>
       <memberdef kind="variable" id="classhmap_1_1InverseSampler2D_1aed53ad9c099d99915ddeac338643d121" prot="private" static="no" mutable="no">
         <type>std::uniform_real_distribution&lt; float &gt;</type>
@@ -89,7 +89,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="158" column="34" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="158" bodyend="158"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="183" column="34" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="183" bodyend="183"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -254,6 +254,92 @@
         </inbodydescription>
         <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="80" column="14" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="160" bodyend="173"/>
       </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1a4615c1c193ea85c46bd6c86379aaa1c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>glm::vec2</type>
+        <definition>glm::vec2 hmap::InverseSampler2D::sample</definition>
+        <argsstring>(const glm::vec4 &amp;restricted_bbox)</argsstring>
+        <name>sample</name>
+        <qualifiedname>hmap::InverseSampler2D::sample</qualifiedname>
+        <param>
+          <type>const glm::vec4 &amp;</type>
+          <declname>restricted_bbox</declname>
+        </param>
+        <briefdescription>
+<para>Samples a single point sequentially within a restricted bounding box. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>restricted_bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box {xmin, xmax, ymin, ymax} defining the sub-region. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>2D point coordinates within the restricted bounding box. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="91" column="13" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="175" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1aafeffda960bdd2bfa4bcc33237321426" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>glm::vec2</type>
+        <definition>glm::vec2 hmap::InverseSampler2D::sample</definition>
+        <argsstring>(const glm::vec4 &amp;restricted_bbox, float u, float u2)</argsstring>
+        <name>sample</name>
+        <qualifiedname>hmap::InverseSampler2D::sample</qualifiedname>
+        <param>
+          <type>const glm::vec4 &amp;</type>
+          <declname>restricted_bbox</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>u</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>u2</declname>
+        </param>
+        <briefdescription>
+<para>Samples a single point within a restricted bounding box with user-provided uniform random numbers. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>restricted_bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box {xmin, xmax, ymin, ymax} defining the sub-region. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>u</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Uniform random number in [0, 1) for row selection. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>u2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Uniform random number in [0, 1) for column selection. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>2D point coordinates within the restricted bounding box. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="105" column="13" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="182" bodyend="321"/>
+      </memberdef>
       <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1af79e583520d87ace8894e28e06f20d71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::InverseSampler2D::update_region</definition>
@@ -305,7 +391,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="94" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="185" bodyend="216"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="119" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="333" bodyend="364"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1aecc916072e42ac4a42a8d447f26723d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -358,7 +444,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="107" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="218" bodyend="250"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="132" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="366" bodyend="398"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1a81b37fb1f46c4b21f838727dd579b897" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -413,7 +499,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="119" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="64" bodyend="72"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="144" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="64" bodyend="72"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1a4e68f18b865ea72b234a475a506e3d07" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const glm::vec4 &amp;</type>
@@ -428,7 +514,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="130" column="19" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="21" bodyend="24"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="155" column="19" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="21" bodyend="24"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1ad2987746ad3c556f2404e688ffc31bf7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
@@ -443,7 +529,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="135" column="15" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="26" bodyend="29"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="160" column="15" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="26" bodyend="29"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1ae33248c92a5bd80e35291f1e1cea16f8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>float</type>
@@ -458,7 +544,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="140" column="9" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="31" bodyend="35"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="165" column="9" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="31" bodyend="35"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1a09b0e81d2bf53b91b95ba3c5f67b5850" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -477,7 +563,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="145" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="175" bodyend="178"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="170" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="323" bodyend="326"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1a13be72189caeb33d362350218aa091f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -496,7 +582,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="150" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="180" bodyend="183"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="175" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="328" bodyend="331"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-func">
@@ -512,7 +598,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="160" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="37" bodyend="62"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="185" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="37" bodyend="62"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1InverseSampler2D_1ade502d3408e8ae3070e33e5f48c43f76" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -530,7 +616,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="161" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="252" bodyend="263"/>
+        <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="186" column="8" bodyfile="HighMap/src/geometry/inverse_sampler_2d.cpp" bodystart="400" bodyend="411"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -539,7 +625,7 @@
     <detaileddescription>
 <para>Supports generating points one-by-one and dynamically updating density in local bounding box or index sub-regions [imin, imax] x [jmin, jmax]. </para>
     </detaileddescription>
-    <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="33" column="1" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="34" bodyend="162"/>
+    <location file="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" line="33" column="1" bodyfile="HighMap/include/highmap/geometry/inverse_sampler_2d.hpp" bodystart="34" bodyend="187"/>
     <listofallmembers>
       <member refid="classhmap_1_1InverseSampler2D_1a1d0bef910bee68d12d28f440407d6a94" prot="private" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>bbox_</name></member>
       <member refid="classhmap_1_1InverseSampler2D_1ad7cf94cb70567be20c947cf136f0a645" prot="private" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>density_</name></member>
@@ -557,6 +643,8 @@
       <member refid="classhmap_1_1InverseSampler2D_1ac41cafc646d29404842e7a8158431a49" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>sample</name></member>
       <member refid="classhmap_1_1InverseSampler2D_1ae9b20270190b81dc01a5f8607fc46f40" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>sample</name></member>
       <member refid="classhmap_1_1InverseSampler2D_1a6fbe2c9ce84700619ce50914111a13d7" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>sample</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1a4615c1c193ea85c46bd6c86379aaa1c2" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>sample</name></member>
+      <member refid="classhmap_1_1InverseSampler2D_1aafeffda960bdd2bfa4bcc33237321426" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>sample</name></member>
       <member refid="classhmap_1_1InverseSampler2D_1a09b0e81d2bf53b91b95ba3c5f67b5850" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>set_bbox</name></member>
       <member refid="classhmap_1_1InverseSampler2D_1a13be72189caeb33d362350218aa091f0" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>set_seed</name></member>
       <member refid="classhmap_1_1InverseSampler2D_1af79e583520d87ace8894e28e06f20d71" prot="public" virt="non-virtual"><scope>hmap::InverseSampler2D</scope><name>update_region</name></member>

@@ -8,5 +8,6 @@ var searchData=
   ['tileregion_5',['TileRegion',['../structhmap_1_1TileRegion.html',1,'hmap']]],
   ['tilestorage_6',['TileStorage',['../classhmap_1_1TileStorage.html',1,'hmap']]],
   ['timer_7',['Timer',['../classhmap_1_1Timer.html',1,'hmap']]],
-  ['triangle_8',['Triangle',['../structhmap_1_1TerrainTriMesh_1_1Triangle.html',1,'hmap::TerrainTriMesh']]]
+  ['tree_8',['Tree',['../classhmap_1_1Tree.html',1,'hmap']]],
+  ['triangle_9',['Triangle',['../structhmap_1_1TerrainTriMesh_1_1Triangle.html',1,'hmap::TerrainTriMesh']]]
 ];

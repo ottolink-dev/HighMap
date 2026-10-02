@@ -10,11 +10,12 @@ var searchData=
   ['channels_7',['channels',['../structhmap_1_1ImageWriterConfig.html#aa40e252246ea357b6cc3c6f795651856',1,'hmap::ImageWriterConfig::channels'],['../classhmap_1_1Texture.html#aa47eecec5ca81b281c39164e5a4b562f',1,'hmap::Texture::channels']]],
   ['children_8',['children',['../classhmap_1_1DrainageBasinCellBased.html#ab881041e84158253cc375d9661162472',1,'hmap::DrainageBasinCellBased']]],
   ['coeffs_9',['coeffs',['../terrain__super__resolution_8cpp.html#a7f0a7ab07d0cf2936dcebe1e2c473049',1,'terrain_super_resolution.cpp']]],
-  ['components_10',['components',['../classhmap_1_1PyramidDecomposition.html#ae28c747403f67117823f3bf6ad1b931f',1,'hmap::PyramidDecomposition']]],
-  ['compression_11',['compression',['../structhmap_1_1ImageWriterConfig.html#ab6e00e3fe5dc9baa354785c317cea9b8',1,'hmap::ImageWriterConfig']]],
-  ['config_12',['config',['../structhmap_1_1BigTiffWriter_1_1Impl.html#a8bf913a264952038398bca582e956847',1,'hmap::BigTiffWriter::Impl::config'],['../structhmap_1_1OpenCVWriter_1_1Impl.html#ac849629dde1ec2d35b849704685027ef',1,'hmap::OpenCVWriter::Impl::config'],['../structhmap_1_1OpenEXRWriter_1_1Impl.html#aa052a4d977058befcbafdee5746321c5',1,'hmap::OpenEXRWriter::Impl::config']]],
-  ['contour_5fof_13',['contour_of',['../elevation__from__contours_8cpp.html#a76484755dc39e22e7979cd1c93dc5bcc',1,'elevation_from_contours.cpp']]],
-  ['contrast_14',['contrast',['../structhmap_1_1ColorAdjust.html#a9d4b1c3d2a6af81d3d5c61491782a74d',1,'hmap::ColorAdjust']]],
-  ['count_15',['count',['../structhmap_1_1AssertResults.html#a4c628df3519b0272201adac2607573a9',1,'hmap::AssertResults::count'],['../kd__tree_8cpp.html#a76d971a3c552bc58ba9f0d5fceae9806',1,'count:&#160;kd_tree.cpp']]],
-  ['crit_5fslope_16',['crit_slope',['../structhmap_1_1gpu_1_1McDonaldParams.html#a15250e4ae46007787eadad79bad7f2d0',1,'hmap::gpu::McDonaldParams::crit_slope'],['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a0263976fe02450aa64b248927d359582',1,'hmap::gpu::McDonaldParams::PhysicalParams::crit_slope']]]
+  ['competition_5ffactor_10',['competition_factor',['../structhmap_1_1Species.html#a71647d386d74d6444b1c6bd69a7664c4',1,'hmap::Species']]],
+  ['components_11',['components',['../classhmap_1_1PyramidDecomposition.html#ae28c747403f67117823f3bf6ad1b931f',1,'hmap::PyramidDecomposition']]],
+  ['compression_12',['compression',['../structhmap_1_1ImageWriterConfig.html#ab6e00e3fe5dc9baa354785c317cea9b8',1,'hmap::ImageWriterConfig']]],
+  ['config_13',['config',['../structhmap_1_1BigTiffWriter_1_1Impl.html#a8bf913a264952038398bca582e956847',1,'hmap::BigTiffWriter::Impl::config'],['../structhmap_1_1OpenCVWriter_1_1Impl.html#ac849629dde1ec2d35b849704685027ef',1,'hmap::OpenCVWriter::Impl::config'],['../structhmap_1_1OpenEXRWriter_1_1Impl.html#aa052a4d977058befcbafdee5746321c5',1,'hmap::OpenEXRWriter::Impl::config']]],
+  ['contour_5fof_14',['contour_of',['../elevation__from__contours_8cpp.html#a76484755dc39e22e7979cd1c93dc5bcc',1,'elevation_from_contours.cpp']]],
+  ['contrast_15',['contrast',['../structhmap_1_1ColorAdjust.html#a9d4b1c3d2a6af81d3d5c61491782a74d',1,'hmap::ColorAdjust']]],
+  ['count_16',['count',['../structhmap_1_1AssertResults.html#a4c628df3519b0272201adac2607573a9',1,'hmap::AssertResults::count'],['../kd__tree_8cpp.html#a76d971a3c552bc58ba9f0d5fceae9806',1,'count:&#160;kd_tree.cpp']]],
+  ['crit_5fslope_17',['crit_slope',['../structhmap_1_1gpu_1_1McDonaldParams.html#a15250e4ae46007787eadad79bad7f2d0',1,'hmap::gpu::McDonaldParams::crit_slope'],['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a0263976fe02450aa64b248927d359582',1,'hmap::gpu::McDonaldParams::PhysicalParams::crit_slope']]]
 ];

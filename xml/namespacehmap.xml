@@ -30,6 +30,9 @@
     <innerclass refid="classhmap_1_1FbmRidgedFunction" prot="public">hmap::FbmRidgedFunction</innerclass>
     <innerclass refid="classhmap_1_1FbmSwissFunction" prot="public">hmap::FbmSwissFunction</innerclass>
     <innerclass refid="classhmap_1_1FieldFunction" prot="public">hmap::FieldFunction</innerclass>
+    <innerclass refid="classhmap_1_1Forest" prot="public">hmap::Forest</innerclass>
+    <innerclass refid="structhmap_1_1ForestScaleSampler" prot="public">hmap::ForestScaleSampler</innerclass>
+    <innerclass refid="structhmap_1_1ForestSeedingOptions" prot="public">hmap::ForestSeedingOptions</innerclass>
     <innerclass refid="classhmap_1_1Function" prot="public">hmap::Function</innerclass>
     <innerclass refid="classhmap_1_1GaussianPulseFunction" prot="public">hmap::GaussianPulseFunction</innerclass>
     <innerclass refid="structhmap_1_1GaussianPush" prot="public">hmap::GaussianPush</innerclass>
@@ -37,6 +40,7 @@
     <innerclass refid="classhmap_1_1Graph" prot="public">hmap::Graph</innerclass>
     <innerclass refid="classhmap_1_1ImageWriter" prot="public">hmap::ImageWriter</innerclass>
     <innerclass refid="structhmap_1_1ImageWriterConfig" prot="public">hmap::ImageWriterConfig</innerclass>
+    <innerclass refid="structhmap_1_1InteractionMatrix" prot="public">hmap::InteractionMatrix</innerclass>
     <innerclass refid="classhmap_1_1Interpolator1D" prot="public">hmap::Interpolator1D</innerclass>
     <innerclass refid="classhmap_1_1InterpolatorCurve" prot="public">hmap::InterpolatorCurve</innerclass>
     <innerclass refid="classhmap_1_1InverseSampler2D" prot="public">hmap::InverseSampler2D</innerclass>
@@ -71,6 +75,8 @@
     <innerclass refid="classhmap_1_1Simplex2Function" prot="public">hmap::Simplex2Function</innerclass>
     <innerclass refid="classhmap_1_1Simplex2SFunction" prot="public">hmap::Simplex2SFunction</innerclass>
     <innerclass refid="classhmap_1_1SlopeFunction" prot="public">hmap::SlopeFunction</innerclass>
+    <innerclass refid="structhmap_1_1Species" prot="public">hmap::Species</innerclass>
+    <innerclass refid="structhmap_1_1SpeciesLookup" prot="public">hmap::SpeciesLookup</innerclass>
     <innerclass refid="classhmap_1_1StepFunction" prot="public">hmap::StepFunction</innerclass>
     <innerclass refid="classhmap_1_1TerrainTriMesh" prot="public">hmap::TerrainTriMesh</innerclass>
     <innerclass refid="classhmap_1_1Texture" prot="public">hmap::Texture</innerclass>
@@ -79,6 +85,7 @@
     <innerclass refid="structhmap_1_1TileRegion" prot="public">hmap::TileRegion</innerclass>
     <innerclass refid="classhmap_1_1TileStorage" prot="public">hmap::TileStorage</innerclass>
     <innerclass refid="classhmap_1_1Timer" prot="public">hmap::Timer</innerclass>
+    <innerclass refid="classhmap_1_1Tree" prot="public">hmap::Tree</innerclass>
     <innerclass refid="classhmap_1_1ValueCubicNoiseFunction" prot="public">hmap::ValueCubicNoiseFunction</innerclass>
     <innerclass refid="classhmap_1_1ValueDelaunayNoiseFunction" prot="public">hmap::ValueDelaunayNoiseFunction</innerclass>
     <innerclass refid="classhmap_1_1ValueLinearNoiseFunction" prot="public">hmap::ValueLinearNoiseFunction</innerclass>
@@ -2150,7 +2157,7 @@
         <enumvalue id="namespacehmap_1a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e" prot="public">
           <name>SYMMETRY_XY</name>
           <briefdescription>
-<para>4-quadrant symmetric average across both X and Y. </para>
+<para>4-quadrant symmetric average across both X </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -2158,7 +2165,7 @@
         <enumvalue id="namespacehmap_1a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351" prot="public">
           <name>SYMMETRY_ROT180</name>
           <briefdescription>
-<para>180-degree rotational symmetry around center. </para>
+<para>180-degree rotational symmetry around </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -2170,7 +2177,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/transform.hpp" line="37" column="1" bodyfile="HighMap/include/highmap/transform.hpp" bodystart="38" bodyend="47"/>
+        <location file="HighMap/include/highmap/transform.hpp" line="37" column="1" bodyfile="HighMap/include/highmap/transform.hpp" bodystart="38" bodyend="49"/>
       </memberdef>
       <memberdef kind="enum" id="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6e" prot="public" static="no" strong="no">
         <type>int</type>
@@ -23888,6 +23895,548 @@ This function:<itemizedlist>
         </inbodydescription>
         <location file="HighMap/src/filters/filters.cpp" line="1350" column="6" bodyfile="HighMap/src/filters/filters.cpp" bodystart="1350" bodyend="1369" declfile="HighMap/include/highmap/filters.hpp" declline="2254" declcolumn="6"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a1d6994f2c75c90011f096035df3b4f87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
+        <definition>Forest hmap::grow_forest_competition_nn</definition>
+        <argsstring>(const Forest &amp;forest, const std::vector&lt; Species &gt; &amp;species={}, const InteractionMatrix &amp;competition_matrix={}, const Array &amp;max_radius_scale={}, float max_radius_scale_strength=1.0f, bool prune_unviable=true, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>grow_forest_competition_nn</name>
+        <qualifiedname>hmap::grow_forest_competition_nn</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> &amp;</type>
+          <declname>forest</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> &gt; &amp;</type>
+          <declname>species</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
+          <declname>competition_matrix</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>max_radius_scale</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_radius_scale_strength</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>prune_unviable</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>const glm::vec4 &amp;</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Adjusts tree radii based on nearest-neighbor distances and species competition constraints. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>For each tree $i$ with nearest neighbor $j$ at Euclidean distance $d_i = |p_i - p_j|$:<itemizedlist>
+<listitem><para>Looks up competition factor $\alpha = \text{competition_matrix.get}(s_i, s_j)$ (or species $[s_i].\text{competition_factor}$).</para>
+</listitem><listitem><para>Calculates estimated radius $r_i = \alpha \cdot d_i$.</para>
+</listitem><listitem><para>Linearly scales effective maximum radius: $r_{\max,\text{eff}} = r_{\min}(s_i) + s \cdot (r_{\max}(s_i) - r_{\min}(s_i))$, where $s \in [0, 1]$ is sampled from <computeroutput>max_radius_scale</computeroutput> (if provided, default $s = 1.0$).</para>
+</listitem><listitem><para>Clamps $r_i \in [\text{radius_min}(s_i), r_{\max,\text{eff}}]$.</para>
+</listitem><listitem><para>If <computeroutput>prune_unviable</computeroutput> is true and raw calculated radius $r_i &lt; \text{radius_min}(s_i)$, the tree is removed.</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>forest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input forest container. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>species</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>competition_matrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional pairwise S x S competition factors (alpha). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional 2D array in [0, 1] scaling maximum radius locally (0 -&gt; rmax = rmin, 1 -&gt; rmax = rmax). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale_strength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Blend strength for max_radius_scale in [0, 1] (0 -&gt; no scaling/full rmax, 1 -&gt; full scale array modulation). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>prune_unviable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether to remove trees unable to reach radius_min. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box {xmin, xmax, ymin, ymax} for sampling <computeroutput>max_radius_scale</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Grown forest with updated tree radii. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/flora/grow_forest_competition_nn.cpp" line="18" column="8" bodyfile="HighMap/src/flora/grow_forest_competition_nn.cpp" bodystart="18" bodyend="93" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="192" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a51ec3fd21f74bdaae31c1403c88cae4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
+        <definition>Forest hmap::grow_forest_competition_voronoi</definition>
+        <argsstring>(const Forest &amp;forest, const std::vector&lt; Species &gt; &amp;species={}, const InteractionMatrix &amp;competition_matrix={}, const Array &amp;max_radius_scale={}, float max_radius_scale_strength=1.0f, bool prune_unviable=true, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>grow_forest_competition_voronoi</name>
+        <qualifiedname>hmap::grow_forest_competition_voronoi</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> &amp;</type>
+          <declname>forest</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> &gt; &amp;</type>
+          <declname>species</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
+          <declname>competition_matrix</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>max_radius_scale</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_radius_scale_strength</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>prune_unviable</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>const glm::vec4 &amp;</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Adjusts tree radii based on Voronoi cell areas and species competition constraints. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Builds a Delaunay triangulation (<ref refid="classhmap_1_1TerrainTriMesh" kindref="compound">TerrainTriMesh</ref>) on the tree positions in the XY plane to compute the local Voronoi/dual cell territory area $A_i$ of each tree:<itemizedlist>
+<listitem><para>Computes equivalent circular territory radius $r_i = \sqrt{A_i / \pi}$.</para>
+</listitem><listitem><para>Multiplies by competition factor $\alpha = \text{species}[s_i].\text{competition_factor}$ (or pairwise $\alpha = \text{competition_matrix.get}(s_i, s_i)$): $r_{\text{est}} = \alpha \cdot r_i$.</para>
+</listitem><listitem><para>Linearly scales effective maximum radius: $r_{\max,\text{eff}} = r_{\min}(s_i) + s \cdot (r_{\max}(s_i) - r_{\min}(s_i))$, where $s \in [0, 1]$ is sampled from <computeroutput>max_radius_scale</computeroutput> (if provided, default $s = 1.0$).</para>
+</listitem><listitem><para>Clamps $r_i \in [\text{radius_min}(s_i), r_{\max,\text{eff}}]$.</para>
+</listitem><listitem><para>If <computeroutput>prune_unviable</computeroutput> is true and raw calculated radius $r_{\text{est}} &lt; \text{radius_min}(s_i)$, the tree is removed.</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>forest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input forest container. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>species</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>competition_matrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional pairwise S x S competition factors (alpha). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional 2D array in [0, 1] scaling maximum radius locally (0 -&gt; rmax = rmin, 1 -&gt; rmax = rmax). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale_strength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Blend strength for max_radius_scale in [0, 1] (0 -&gt; no scaling/full rmax, 1 -&gt; full scale array modulation). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>prune_unviable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether to remove trees unable to reach radius_min. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box {xmin, xmax, ymin, ymax} for sampling <computeroutput>max_radius_scale</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Grown forest with updated tree radii. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/flora/grow_forest_competition_voronoi.cpp" line="17" column="8" bodyfile="HighMap/src/flora/grow_forest_competition_voronoi.cpp" bodystart="17" bodyend="120" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="239" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a65fd70222ae504828208b3575ed719f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
+        <definition>Forest hmap::thin_forest_soft_core</definition>
+        <argsstring>(const Forest &amp;forest, const InteractionMatrix &amp;repulsion_distances, const InteractionMatrix &amp;repulsion_strengths, size_t target_count=0, uint32_t seed=0, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>thin_forest_soft_core</name>
+        <qualifiedname>hmap::thin_forest_soft_core</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> &amp;</type>
+          <declname>forest</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
+          <declname>repulsion_distances</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
+          <declname>repulsion_strengths</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>target_count</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>seed</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const glm::vec4 &amp;</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Performs multi-species Strauss soft-core thinning on an input forest. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>forest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input candidate forest. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repulsion_distances</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interaction distance matrix between species. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repulsion_strengths</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Repulsion strength matrix between species in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>target_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional target number of trees (0 means keep all accepted). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random number generator seed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box {xmin, xmax, ymin, ymax}. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Thinned forest. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/flora/forest_growth.cpp" line="141" column="8" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="141" bodyend="252" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="261" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a395c1a2f15f7114fac122c864a1e78e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
+        <definition>Forest hmap::seed_forest_clusters</definition>
+        <argsstring>(size_t species_count, size_t tree_count, const Array &amp;density, const Array &amp;exclusion, float cluster_spread=0.05f, size_t points_per_cluster=8, const ForestSeedingOptions &amp;options={})</argsstring>
+        <name>seed_forest_clusters</name>
+        <qualifiedname>hmap::seed_forest_clusters</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>species_count</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>tree_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>density</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>cluster_spread</declname>
+          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>points_per_cluster</declname>
+          <defval>8</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ForestSeedingOptions" kindref="compound">ForestSeedingOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Generates a clustered forest distribution using inverse transform sampling for cluster centers and local cluster regions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>species_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of distinct tree species. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tree_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target total number of trees. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Global density map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exclusion map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cluster_spread</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Half-extent of the bounding box surrounding each cluster center. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>points_per_cluster</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of child points sampled per parent cluster. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seeding options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Sampled forest container. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/flora/forest_seeding.cpp" line="26" column="8" bodyfile="HighMap/src/flora/forest_seeding.cpp" bodystart="26" bodyend="167" declfile="HighMap/include/highmap/flora/forest_seeding.hpp" declline="56" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1aa6ba2bd6f00bf38f87b87f1179dcc70a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
+        <definition>Forest hmap::seed_forest_kmeans</definition>
+        <argsstring>(size_t species_count, size_t tree_count, const Array &amp;density, const Array &amp;exclusion, float cluster_randomness=0.0f, size_t k_neighbors=4, const ForestSeedingOptions &amp;options={})</argsstring>
+        <name>seed_forest_kmeans</name>
+        <qualifiedname>hmap::seed_forest_kmeans</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>species_count</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>tree_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>density</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>cluster_randomness</declname>
+          <defval>0.0f</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>k_neighbors</declname>
+          <defval>4</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ForestSeedingOptions" kindref="compound">ForestSeedingOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Generates a multi-species forest distribution using 2D inverse transform sampling for positions and PointSampler k-means clustering to tag species. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para><ref refid="structhmap_1_1Species" kindref="compound">Species</ref> abundance is governed by spatial cluster partitioning in the compactness feature space; species weights in <computeroutput>options.species</computeroutput> are not taken into account by this function.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>species_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of distinct tree species. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tree_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target total number of trees. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Global density map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exclusion map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cluster_randomness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Randomness factor in [0, 1] added to cluster features. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>k_neighbors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of nearest spatial neighbors used to extract compactness features. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seeding options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Sampled forest container. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/flora/forest_seeding.cpp" line="169" column="8" bodyfile="HighMap/src/flora/forest_seeding.cpp" bodystart="169" bodyend="385" declfile="HighMap/include/highmap/flora/forest_seeding.hpp" declline="84" declcolumn="8"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a84ca1f41de32e4beacb10787127b4b8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::function&lt; float(float, float)&gt;</type>
         <definition>std::function&lt; float(float, float)&gt; hmap::make_xy_function_from_array</definition>
@@ -30421,7 +30970,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="129" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="129" bodyend="140" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="195" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="129" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="129" bodyend="140" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="194" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aca9e5ce3b366a082ed8c329bf15b09d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
@@ -30478,7 +31027,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="142" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="142" bodyend="154" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="214" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="142" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="142" bodyend="154" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="213" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac8b167ac3c9b716b0a20f6b9f669dd8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
@@ -30559,7 +31108,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="156" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="156" bodyend="181" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="235" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="156" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="156" bodyend="181" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="234" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ade5a657c15f8f2461c5300e32ca697c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
@@ -30640,7 +31189,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="183" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="183" bodyend="200" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="258" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="183" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="183" bodyend="200" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="257" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9cd51142544036bc8ce9c679547e9c65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
@@ -30721,7 +31270,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="202" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="202" bodyend="219" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="281" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="202" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="202" bodyend="219" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="280" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ae392bc0ed44e2a201a9e42e28305debf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::array&lt; std::vector&lt; float &gt;, 2 &gt;</type>
@@ -30802,7 +31351,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/point_sampling.cpp" line="221" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="221" bodyend="234" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="303" declcolumn="12"/>
+        <location file="HighMap/src/geometry/point_sampling.cpp" line="221" column="12" bodyfile="HighMap/src/geometry/point_sampling.cpp" bodystart="221" bodyend="234" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="302" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aaab30ec56f0dbaf1879a5be0ab32280b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -30868,7 +31417,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/geometry/point_sampling.hpp" line="317" column="6" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="317" declcolumn="6"/>
+        <location file="HighMap/include/highmap/geometry/point_sampling.hpp" line="316" column="6" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="316" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a22d70a0b62d7e1d8eeb9bc5e50bc5fe9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -30923,7 +31472,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/grid.cpp" line="162" column="6" bodyfile="HighMap/src/geometry/grid.cpp" bodystart="162" bodyend="190" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="329" declcolumn="6"/>
+        <location file="HighMap/src/geometry/grid.cpp" line="162" column="6" bodyfile="HighMap/src/geometry/grid.cpp" bodystart="162" bodyend="190" declfile="HighMap/include/highmap/geometry/point_sampling.hpp" declline="328" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a27518ea42feb447ad4eb83147663c24d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -34158,10 +34707,10 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
           <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <briefdescription>
-<para>Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning Tree (MST) over sinks and boundary outlets. </para>
+<para>Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning <ref refid="classhmap_1_1Tree" kindref="compound">Tree</ref> (MST) over sinks and boundary outlets. </para>
         </briefdescription>
         <detaileddescription>
-<para>This function identifies all flow sinks and boundary outlets, computes candidate optimal path connections via multi-source Dijkstra search, constructs a Minimum Spanning Forest (Kruskal&apos;s algorithm) guaranteeing that each sink connects to an outlet through the lowest-effort saddle pass, and carves monotonic riverbeds along the MST paths using continuous trench profiles.</para>
+<para>This function identifies all flow sinks and boundary outlets, computes candidate optimal path connections via multi-source Dijkstra search, constructs a Minimum Spanning <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> (Kruskal&apos;s algorithm) guaranteeing that each sink connects to an outlet through the lowest-effort saddle pass, and carves monotonic riverbeds along the MST paths using continuous trench profiles.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>z</parametername>
@@ -64882,7 +65431,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="23" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="23" bodyend="30" declfile="HighMap/include/highmap/transform.hpp" declline="64" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="23" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="23" bodyend="30" declfile="HighMap/include/highmap/transform.hpp" declline="66" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1afda98f22fc66ebb9e1e48008f3f1a34c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -64911,7 +65460,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/texture_transform.cpp" line="15" column="6" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="15" bodyend="23" declfile="HighMap/include/highmap/transform.hpp" declline="71" declcolumn="6"/>
+        <location file="HighMap/src/transform/texture_transform.cpp" line="15" column="6" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="15" bodyend="23" declfile="HighMap/include/highmap/transform.hpp" declline="73" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2c304fc0d8cefe164e3070c885b43aaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -64961,7 +65510,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="32" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="32" bodyend="39" declfile="HighMap/include/highmap/transform.hpp" declline="87" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="32" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="32" bodyend="39" declfile="HighMap/include/highmap/transform.hpp" declline="89" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5a5ea9447876f3a080ab03cdd636e49a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -64990,7 +65539,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/texture_transform.cpp" line="25" column="6" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="25" bodyend="33" declfile="HighMap/include/highmap/transform.hpp" declline="94" declcolumn="6"/>
+        <location file="HighMap/src/transform/texture_transform.cpp" line="25" column="6" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="25" bodyend="33" declfile="HighMap/include/highmap/transform.hpp" declline="96" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1af9ae05bbdab06ce61f1385ef4231d03b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65101,7 +65650,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="41" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="41" bodyend="68" declfile="HighMap/include/highmap/transform.hpp" declline="112" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="41" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="41" bodyend="68" declfile="HighMap/include/highmap/transform.hpp" declline="114" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5a621a9b245b5f9a4c9e5aa3ba3bbee0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65131,7 +65680,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="70" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="70" bodyend="76" declfile="HighMap/include/highmap/transform.hpp" declline="127" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="70" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="70" bodyend="76" declfile="HighMap/include/highmap/transform.hpp" declline="129" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8a5ff34f817dd9993eb2dc1df44373e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65160,7 +65709,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/texture_transform.cpp" line="46" column="6" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="46" bodyend="54" declfile="HighMap/include/highmap/transform.hpp" declline="134" declcolumn="6"/>
+        <location file="HighMap/src/transform/texture_transform.cpp" line="46" column="6" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="46" bodyend="54" declfile="HighMap/include/highmap/transform.hpp" declline="136" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a836dbf6645c0e60bd887d6f14210b9d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65190,7 +65739,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="78" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="78" bodyend="84" declfile="HighMap/include/highmap/transform.hpp" declline="144" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="78" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="78" bodyend="84" declfile="HighMap/include/highmap/transform.hpp" declline="146" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a078f509a586adcdf1ff75eb828d7ceb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65219,7 +65768,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/texture_transform.cpp" line="56" column="6" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="56" bodyend="65" declfile="HighMap/include/highmap/transform.hpp" declline="151" declcolumn="6"/>
+        <location file="HighMap/src/transform/texture_transform.cpp" line="56" column="6" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="56" bodyend="65" declfile="HighMap/include/highmap/transform.hpp" declline="153" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ab2362d8dcac398c859dd4ec37214af01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65266,7 +65815,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="86" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="86" bodyend="92" declfile="HighMap/include/highmap/transform.hpp" declline="167" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="86" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="86" bodyend="92" declfile="HighMap/include/highmap/transform.hpp" declline="169" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a7d27d0392fb6850a212bee00cb58700c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65295,7 +65844,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/texture_transform.cpp" line="35" column="6" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="35" bodyend="44" declfile="HighMap/include/highmap/transform.hpp" declline="174" declcolumn="6"/>
+        <location file="HighMap/src/transform/texture_transform.cpp" line="35" column="6" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="35" bodyend="44" declfile="HighMap/include/highmap/transform.hpp" declline="176" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a888dcfe5adb36448366400f04efcde04" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65388,7 +65937,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="94" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="94" bodyend="136" declfile="HighMap/include/highmap/transform.hpp" declline="196" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="94" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="94" bodyend="136" declfile="HighMap/include/highmap/transform.hpp" declline="198" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ad2d28babba03ed11cf115ab08009de64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65454,7 +66003,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="138" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="138" bodyend="145" declfile="HighMap/include/highmap/transform.hpp" declline="215" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="138" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="138" bodyend="145" declfile="HighMap/include/highmap/transform.hpp" declline="217" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a66ec69d0e52dd23350bed20dbbcb0d08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65495,7 +66044,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="147" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="147" bodyend="188" declfile="HighMap/include/highmap/transform.hpp" declline="223" declcolumn="6"/>
+        <location file="HighMap/src/transform/transform.cpp" line="147" column="6" bodyfile="HighMap/src/transform/transform.cpp" bodystart="147" bodyend="188" declfile="HighMap/include/highmap/transform.hpp" declline="225" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa6e0ddb5fd3b76e1ba7f18d8c4a45549" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65536,7 +66085,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/texture_transform.cpp" line="67" column="6" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="67" bodyend="75" declfile="HighMap/include/highmap/transform.hpp" declline="231" declcolumn="6"/>
+        <location file="HighMap/src/transform/texture_transform.cpp" line="67" column="6" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="67" bodyend="75" declfile="HighMap/include/highmap/transform.hpp" declline="233" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a470d6335083e8263faaae05087078ffe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65607,7 +66156,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="190" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="190" bodyend="297" declfile="HighMap/include/highmap/transform.hpp" declline="247" declcolumn="7"/>
+        <location file="HighMap/src/transform/transform.cpp" line="190" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="190" bodyend="297" declfile="HighMap/include/highmap/transform.hpp" declline="249" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a6e52fd8e2580523aae968d76461c30b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65731,7 +66280,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="299" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="299" bodyend="335" declfile="HighMap/include/highmap/transform.hpp" declline="288" declcolumn="7"/>
+        <location file="HighMap/src/transform/transform.cpp" line="299" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="299" bodyend="335" declfile="HighMap/include/highmap/transform.hpp" declline="290" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9b059a298d27843519baa3b6bfe291cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65763,7 +66312,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="337" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="337" bodyend="348" declfile="HighMap/include/highmap/transform.hpp" declline="306" declcolumn="7"/>
+        <location file="HighMap/src/transform/transform.cpp" line="337" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="337" bodyend="348" declfile="HighMap/include/highmap/transform.hpp" declline="308" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa8ffb5a748ba6524f2b121c62819e892" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Texture" kindref="compound">Texture</ref></type>
@@ -65794,7 +66343,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/texture_transform.cpp" line="77" column="9" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="77" bodyend="88" declfile="HighMap/include/highmap/transform.hpp" declline="314" declcolumn="9"/>
+        <location file="HighMap/src/transform/texture_transform.cpp" line="77" column="9" bodyfile="HighMap/src/transform/texture_transform.cpp" bodystart="77" bodyend="88" declfile="HighMap/include/highmap/transform.hpp" declline="316" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a19148ad2a95f7ad5b05161e9a0f0f732" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65879,7 +66428,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/warp.cpp" line="17" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="17" bodyend="32" declfile="HighMap/include/highmap/transform.hpp" declline="334" declcolumn="6"/>
+        <location file="HighMap/src/transform/warp.cpp" line="17" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="17" bodyend="32" declfile="HighMap/include/highmap/transform.hpp" declline="336" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1accbbc6e5bedf98c7a7fa85fbe364194e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65983,7 +66532,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/warp.cpp" line="34" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="34" bodyend="62" declfile="HighMap/include/highmap/transform.hpp" declline="358" declcolumn="6"/>
+        <location file="HighMap/src/transform/warp.cpp" line="34" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="34" bodyend="62" declfile="HighMap/include/highmap/transform.hpp" declline="360" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a6b780e74228ec5cca45602eb19b8975c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -66099,7 +66648,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/warp.cpp" line="64" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="64" bodyend="82" declfile="HighMap/include/highmap/transform.hpp" declline="388" declcolumn="6"/>
+        <location file="HighMap/src/transform/warp.cpp" line="64" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="64" bodyend="82" declfile="HighMap/include/highmap/transform.hpp" declline="390" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5d5baa80ff76a31a24e3b348edb0520a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -66190,7 +66739,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/warp.cpp" line="84" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="84" bodyend="104" declfile="HighMap/include/highmap/transform.hpp" declline="416" declcolumn="6"/>
+        <location file="HighMap/src/transform/warp.cpp" line="84" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="84" bodyend="104" declfile="HighMap/include/highmap/transform.hpp" declline="418" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2dba417aca5a0dcd02509617939d741b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -66293,7 +66842,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/warp.cpp" line="106" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="106" bodyend="123" declfile="HighMap/include/highmap/transform.hpp" declline="444" declcolumn="6"/>
+        <location file="HighMap/src/transform/warp.cpp" line="106" column="6" bodyfile="HighMap/src/transform/warp.cpp" bodystart="106" bodyend="123" declfile="HighMap/include/highmap/transform.hpp" declline="446" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2a16f2f687640ad47e3252d3350620f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -66425,7 +66974,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/transform/transform.cpp" line="350" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="350" bodyend="385" declfile="HighMap/include/highmap/transform.hpp" declline="495" declcolumn="7"/>
+        <location file="HighMap/src/transform/transform.cpp" line="350" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="350" bodyend="385" declfile="HighMap/include/highmap/transform.hpp" declline="497" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8be122241fa42b0f6a7ef67106391780" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; size_t &gt;</type>
@@ -69675,6 +70224,24 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/src/filters/recurve.cpp" line="98" column="6" bodyfile="HighMap/src/filters/recurve.cpp" bodystart="98" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a8301a829dbf30fe0fefecbc46019433e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cv::Scalar</type>
+        <definition>static cv::Scalar hmap::get_species_color</definition>
+        <argsstring>(uint32_t species_id)</argsstring>
+        <name>get_species_color</name>
+        <qualifiedname>hmap::get_species_color</qualifiedname>
+        <param>
+          <type>uint32_t</type>
+          <declname>species_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/flora/forest.cpp" line="30" column="19" bodyfile="HighMap/src/flora/forest.cpp" bodystart="30" bodyend="53"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1acb8406087111cf178e5721b45b995db4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>

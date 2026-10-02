@@ -22,6 +22,9 @@ var hierarchy =
     [ "hmap::Edge", "structhmap_1_1Edge.html", null ],
     [ "hmap::TerrainTriMesh::Edge", "structhmap_1_1TerrainTriMesh_1_1Edge.html", null ],
     [ "hmap::TerrainTriMesh::EdgeHash", "structhmap_1_1TerrainTriMesh_1_1EdgeHash.html", null ],
+    [ "hmap::Forest", "classhmap_1_1Forest.html", null ],
+    [ "hmap::ForestScaleSampler", "structhmap_1_1ForestScaleSampler.html", null ],
+    [ "hmap::ForestSeedingOptions", "structhmap_1_1ForestSeedingOptions.html", null ],
     [ "hmap::log::format_string_with_loc< Args >", "structhmap_1_1log_1_1format__string__with__loc.html", null ],
     [ "hmap::Function", "classhmap_1_1Function.html", [
       [ "hmap::ArrayFunction", "classhmap_1_1ArrayFunction.html", null ],
@@ -75,6 +78,7 @@ var hierarchy =
     [ "hmap::KDTree::Impl", "structhmap_1_1KDTree_1_1Impl.html", null ],
     [ "hmap::OpenCVWriter::Impl", "structhmap_1_1OpenCVWriter_1_1Impl.html", null ],
     [ "hmap::OpenEXRWriter::Impl", "structhmap_1_1OpenEXRWriter_1_1Impl.html", null ],
+    [ "hmap::InteractionMatrix", "structhmap_1_1InteractionMatrix.html", null ],
     [ "hmap::Interpolator1D", "classhmap_1_1Interpolator1D.html", null ],
     [ "hmap::InterpolatorCurve", "classhmap_1_1InterpolatorCurve.html", null ],
     [ "hmap::InverseSampler2D", "classhmap_1_1InverseSampler2D.html", null ],
@@ -100,6 +104,8 @@ var hierarchy =
     [ "hmap::Recorder", "structhmap_1_1Recorder.html", null ],
     [ "hmap::ScopedTimer", "structhmap_1_1ScopedTimer.html", null ],
     [ "hmap::TerrainTriMesh::ShortestPathResult", "structhmap_1_1TerrainTriMesh_1_1ShortestPathResult.html", null ],
+    [ "hmap::Species", "structhmap_1_1Species.html", null ],
+    [ "hmap::SpeciesLookup", "structhmap_1_1SpeciesLookup.html", null ],
     [ "hmap::TerrainTriMesh", "classhmap_1_1TerrainTriMesh.html", null ],
     [ "testing::Test", null, [
       [ "JaggedTest", "classJaggedTest.html", null ]
@@ -117,6 +123,7 @@ var hierarchy =
       [ "hmap::RamTileStorage", "classhmap_1_1RamTileStorage.html", null ]
     ] ],
     [ "hmap::Timer", "classhmap_1_1Timer.html", null ],
+    [ "hmap::Tree", "classhmap_1_1Tree.html", null ],
     [ "hmap::TerrainTriMesh::Triangle", "structhmap_1_1TerrainTriMesh_1_1Triangle.html", null ],
     [ "hmap::VirtualArray", "structhmap_1_1VirtualArray.html", null ],
     [ "hmap::VirtualTexture", "classhmap_1_1VirtualTexture.html", null ],

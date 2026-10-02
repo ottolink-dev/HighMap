@@ -1,0 +1,559 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structhmap_1_1InteractionMatrix" kind="struct" language="C++" prot="public">
+    <compoundname>hmap::InteractionMatrix</compoundname>
+    <includes refid="forest__growth_8hpp" local="no">forest_growth.hpp</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structhmap_1_1InteractionMatrix_1a5c525d07269bf6ca6696d6030c32a57f" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hmap::InteractionMatrix::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <qualifiedname>hmap::InteractionMatrix::size</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>Number of species (matrix dimension). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="31" column="22" bodyfile="HighMap/include/highmap/flora/forest_growth.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhmap_1_1InteractionMatrix_1a7c486745d36fc7e001b88d6d0f3ae1fe" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; hmap::InteractionMatrix::values</definition>
+        <argsstring></argsstring>
+        <name>values</name>
+        <qualifiedname>hmap::InteractionMatrix::values</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+<para>Row-major matrix elements. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="32" column="15" bodyfile="HighMap/include/highmap/flora/forest_growth.hpp" bodystart="32" bodyend="32"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structhmap_1_1InteractionMatrix_1a2baa48e0ec4a6b532f28bdc546d1fea2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hmap::InteractionMatrix::InteractionMatrix</definition>
+        <argsstring>()=default</argsstring>
+        <name>InteractionMatrix</name>
+        <qualifiedname>hmap::InteractionMatrix::InteractionMatrix</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="38" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="structhmap_1_1InteractionMatrix_1a54e7700fa717b7f4bfd2b94ec7962da0" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hmap::InteractionMatrix::InteractionMatrix</definition>
+        <argsstring>(size_t num_species, float default_val=0.0f)</argsstring>
+        <name>InteractionMatrix</name>
+        <qualifiedname>hmap::InteractionMatrix::InteractionMatrix</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>num_species</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>default_val</declname>
+          <defval>0.0f</defval>
+        </param>
+        <briefdescription>
+<para>Constructs an <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> of size num_species x num_species. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>num_species</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of species. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default_val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial value for all elements. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="46" column="12" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="structhmap_1_1InteractionMatrix_1aaa44f8ba46b2b974d4040d709168346f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::InteractionMatrix::fill</definition>
+        <argsstring>(float value)</argsstring>
+        <name>fill</name>
+        <qualifiedname>hmap::InteractionMatrix::fill</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Fills the entire matrix with a constant value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to fill. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="56" column="8" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="30" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="structhmap_1_1InteractionMatrix_1a27bf16b58ba7ab1d5cd2056cc2ece7bc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float hmap::InteractionMatrix::get</definition>
+        <argsstring>(size_t s1, size_t s2) const</argsstring>
+        <name>get</name>
+        <qualifiedname>hmap::InteractionMatrix::get</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>s1</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>s2</declname>
+        </param>
+        <briefdescription>
+<para>Gets the value at entry (s1, s2). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row species index. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>s2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column species index. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>float Matrix value. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="64" column="9" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="35" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="structhmap_1_1InteractionMatrix_1a4b30fc4963599c21faf102847a0a3a76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::InteractionMatrix::set</definition>
+        <argsstring>(size_t s1, size_t s2, float value)</argsstring>
+        <name>set</name>
+        <qualifiedname>hmap::InteractionMatrix::set</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>s1</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>s2</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Sets the value at entry (s1, s2). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row species index. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>s2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column species index. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Matrix value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="72" column="8" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="41" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="structhmap_1_1InteractionMatrix_1aa66fb98eb4a53c6d6a0539aae4fbe1fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::InteractionMatrix::set_symmetric</definition>
+        <argsstring>(size_t s1, size_t s2, float value)</argsstring>
+        <name>set_symmetric</name>
+        <qualifiedname>hmap::InteractionMatrix::set_symmetric</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>s1</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>s2</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Sets symmetric values at (s1, s2) and (s2, s1). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>First species index. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>s2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Second species index. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Matrix value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="80" column="8" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="46" bodyend="50"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structhmap_1_1InteractionMatrix_1a05683075e2c249c4b67a1f6bcaf5d683" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref></type>
+        <definition>InteractionMatrix hmap::InteractionMatrix::diagonal</definition>
+        <argsstring>(const std::vector&lt; float &gt; &amp;diag, float off_diag_val=0.0f)</argsstring>
+        <name>diagonal</name>
+        <qualifiedname>hmap::InteractionMatrix::diagonal</qualifiedname>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>diag</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>off_diag_val</declname>
+          <defval>0.0f</defval>
+        </param>
+        <briefdescription>
+<para>Creates a matrix with specified diagonal values and constant off-diagonal values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>diag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of diagonal elements. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>off_diag_val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Off-diagonal value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> Resulting matrix. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="93" column="28" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="52" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="structhmap_1_1InteractionMatrix_1a181a06017f7a95bfb1839cd1dc40ac74" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref></type>
+        <definition>InteractionMatrix hmap::InteractionMatrix::from_radii</definition>
+        <argsstring>(const std::vector&lt; float &gt; &amp;radii, float multiplier=2.0f)</argsstring>
+        <name>from_radii</name>
+        <qualifiedname>hmap::InteractionMatrix::from_radii</qualifiedname>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>radii</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>multiplier</declname>
+          <defval>2.0f</defval>
+        </param>
+        <briefdescription>
+<para>Creates an interaction matrix computed from individual species radii. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Each entry (s1, s2) is set to multiplier * (radii[s1] + radii[s2]).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>radii</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of species radii. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>multiplier</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Scaling factor applied to the sum of radii (defaults to 2.0f). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> Resulting matrix. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="107" column="28" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="61" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="structhmap_1_1InteractionMatrix_1ab5f8f3591c9edeed91e083a4f69db595" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref></type>
+        <definition>InteractionMatrix hmap::InteractionMatrix::from_species</definition>
+        <argsstring>(const std::vector&lt; Species &gt; &amp;species, float multiplier=2.0f)</argsstring>
+        <name>from_species</name>
+        <qualifiedname>hmap::InteractionMatrix::from_species</qualifiedname>
+        <param>
+          <type>const std::vector&lt; <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> &gt; &amp;</type>
+          <declname>species</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>multiplier</declname>
+          <defval>2.0f</defval>
+        </param>
+        <briefdescription>
+<para>Creates an interaction matrix computed from <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Each entry (s1, s2) is set to multiplier * (species[s1].radius + species[s2].radius).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>species</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>multiplier</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Scaling factor applied to the sum of radii (defaults to 2.0f). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> Resulting matrix. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="122" column="28" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="78" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="structhmap_1_1InteractionMatrix_1a8191d72780f41cbec47426753a2d91b9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref></type>
+        <definition>InteractionMatrix hmap::InteractionMatrix::random</definition>
+        <argsstring>(size_t num_species, uint32_t seed, float random_offset=0.1f, bool symmetric=true)</argsstring>
+        <name>random</name>
+        <qualifiedname>hmap::InteractionMatrix::random</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>num_species</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>seed</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>random_offset</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>symmetric</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Creates a matrix initialized with random values perturbed around 1.0. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Each entry is sampled uniformly in [1.0 - random_offset, 1.0 + random_offset].</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>num_species</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of species. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random seed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>random_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum random variation relative to 1.0. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>symmetric</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether to enforce symmetric values (A_ij = A_ji). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> Resulting matrix. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="139" column="28" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="96" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="structhmap_1_1InteractionMatrix_1a8a04335b100cac5a44d4eefb1419db6d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref></type>
+        <definition>InteractionMatrix hmap::InteractionMatrix::uniform</definition>
+        <argsstring>(size_t num_species, float val)</argsstring>
+        <name>uniform</name>
+        <qualifiedname>hmap::InteractionMatrix::uniform</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>num_species</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>Creates a matrix initialized to a uniform value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>num_species</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of species. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Uniform value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> Resulting matrix. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="150" column="28" bodyfile="HighMap/src/flora/forest_growth.cpp" bodystart="132" bodyend="135"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Generic S x S matrix representing pair-wise interaction properties between species. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>hmap::InteractionMatrix</label>
+        <link refid="structhmap_1_1InteractionMatrix"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>values</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::vector&lt; float &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="HighMap/include/highmap/flora/forest_growth.hpp" line="29" column="1" bodyfile="HighMap/include/highmap/flora/forest_growth.hpp" bodystart="30" bodyend="151"/>
+    <listofallmembers>
+      <member refid="structhmap_1_1InteractionMatrix_1a05683075e2c249c4b67a1f6bcaf5d683" prot="public" virt="non-virtual"><scope>hmap::InteractionMatrix</scope><name>diagonal</name></member>
+      <member refid="structhmap_1_1InteractionMatrix_1aaa44f8ba46b2b974d4040d709168346f" prot="public" virt="non-virtual"><scope>hmap::InteractionMatrix</scope><name>fill</name></member>
+      <member refid="structhmap_1_1InteractionMatrix_1a181a06017f7a95bfb1839cd1dc40ac74" prot="public" virt="non-virtual"><scope>hmap::InteractionMatrix</scope><name>from_radii</name></member>
+      <member refid="structhmap_1_1InteractionMatrix_1ab5f8f3591c9edeed91e083a4f69db595" prot="public" virt="non-virtual"><scope>hmap::InteractionMatrix</scope><name>from_species</name></member>
+      <member refid="structhmap_1_1InteractionMatrix_1a27bf16b58ba7ab1d5cd2056cc2ece7bc" prot="public" virt="non-virtual"><scope>hmap::InteractionMatrix</scope><name>get</name></member>
+      <member refid="structhmap_1_1InteractionMatrix_1a2baa48e0ec4a6b532f28bdc546d1fea2" prot="public" virt="non-virtual"><scope>hmap::InteractionMatrix</scope><name>InteractionMatrix</name></member>
+      <member refid="structhmap_1_1InteractionMatrix_1a54e7700fa717b7f4bfd2b94ec7962da0" prot="public" virt="non-virtual"><scope>hmap::InteractionMatrix</scope><name>InteractionMatrix</name></member>
+      <member refid="structhmap_1_1InteractionMatrix_1a8191d72780f41cbec47426753a2d91b9" prot="public" virt="non-virtual"><scope>hmap::InteractionMatrix</scope><name>random</name></member>
+      <member refid="structhmap_1_1InteractionMatrix_1a4b30fc4963599c21faf102847a0a3a76" prot="public" virt="non-virtual"><scope>hmap::InteractionMatrix</scope><name>set</name></member>
+      <member refid="structhmap_1_1InteractionMatrix_1aa66fb98eb4a53c6d6a0539aae4fbe1fe" prot="public" virt="non-virtual"><scope>hmap::InteractionMatrix</scope><name>set_symmetric</name></member>
+      <member refid="structhmap_1_1InteractionMatrix_1a5c525d07269bf6ca6696d6030c32a57f" prot="public" virt="non-virtual"><scope>hmap::InteractionMatrix</scope><name>size</name></member>
+      <member refid="structhmap_1_1InteractionMatrix_1a8a04335b100cac5a44d4eefb1419db6d" prot="public" virt="non-virtual"><scope>hmap::InteractionMatrix</scope><name>uniform</name></member>
+      <member refid="structhmap_1_1InteractionMatrix_1a7c486745d36fc7e001b88d6d0f3ae1fe" prot="public" virt="non-virtual"><scope>hmap::InteractionMatrix</scope><name>values</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

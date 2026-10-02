@@ -1,0 +1,300 @@
+\doxysection{hmap\+::Interaction\+Matrix Struct Reference}
+\hypertarget{structhmap_1_1InteractionMatrix}{}\label{structhmap_1_1InteractionMatrix}\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+
+
+Generic S x S matrix representing pair-\/wise interaction properties between species.  
+
+
+
+
+{\ttfamily \#include $<$forest\+\_\+growth.\+hpp$>$}
+
+
+
+Collaboration diagram for hmap\+::Interaction\+Matrix\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{structhmap_1_1InteractionMatrix__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{Interaction\+Matrix}} ()=default
+\item 
+\mbox{\hyperlink{structhmap_1_1InteractionMatrix_a54e7700fa717b7f4bfd2b94ec7962da0}{Interaction\+Matrix}} (size\+\_\+t num\+\_\+species, float default\+\_\+val=0.\+0f)
+\begin{DoxyCompactList}\small\item\em Constructs an \doxylink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix} of size num\+\_\+species x num\+\_\+species. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structhmap_1_1InteractionMatrix_aaa44f8ba46b2b974d4040d709168346f}{fill}} (float value)
+\begin{DoxyCompactList}\small\item\em Fills the entire matrix with a constant value. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a27bf16b58ba7ab1d5cd2056cc2ece7bc}{get}} (size\+\_\+t \mbox{\hyperlink{trench_8cpp_a2b10e3ff8ddc612278a30549f2ee0255}{s1}}, size\+\_\+t s2) const
+\begin{DoxyCompactList}\small\item\em Gets the value at entry (s1, s2). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a4b30fc4963599c21faf102847a0a3a76}{set}} (size\+\_\+t \mbox{\hyperlink{trench_8cpp_a2b10e3ff8ddc612278a30549f2ee0255}{s1}}, size\+\_\+t s2, float value)
+\begin{DoxyCompactList}\small\item\em Sets the value at entry (s1, s2). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structhmap_1_1InteractionMatrix_aa66fb98eb4a53c6d6a0539aae4fbe1fe}{set\+\_\+symmetric}} (size\+\_\+t \mbox{\hyperlink{trench_8cpp_a2b10e3ff8ddc612278a30549f2ee0255}{s1}}, size\+\_\+t s2, float value)
+\begin{DoxyCompactList}\small\item\em Sets symmetric values at (s1, s2) and (s2, s1). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a05683075e2c249c4b67a1f6bcaf5d683}{diagonal}} (const std\+::vector$<$ float $>$ \&diag, float off\+\_\+diag\+\_\+val=0.\+0f)
+\begin{DoxyCompactList}\small\item\em Creates a matrix with specified diagonal values and constant off-\/diagonal values. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a181a06017f7a95bfb1839cd1dc40ac74}{from\+\_\+radii}} (const std\+::vector$<$ float $>$ \&radii, float multiplier=2.\+0f)
+\begin{DoxyCompactList}\small\item\em Creates an interaction matrix computed from individual species radii. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \mbox{\hyperlink{structhmap_1_1InteractionMatrix_ab5f8f3591c9edeed91e083a4f69db595}{from\+\_\+species}} (const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Species}{Species}} $>$ \&species, float multiplier=2.\+0f)
+\begin{DoxyCompactList}\small\item\em Creates an interaction matrix computed from \doxylink{structhmap_1_1Species}{Species} definitions. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a8191d72780f41cbec47426753a2d91b9}{random}} (size\+\_\+t num\+\_\+species, uint32\+\_\+t seed, float random\+\_\+offset=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, bool symmetric=true)
+\begin{DoxyCompactList}\small\item\em Creates a matrix initialized with random values perturbed around 1.\+0. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a8a04335b100cac5a44d4eefb1419db6d}{uniform}} (size\+\_\+t num\+\_\+species, float val)
+\begin{DoxyCompactList}\small\item\em Creates a matrix initialized to a uniform value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a5c525d07269bf6ca6696d6030c32a57f}{size}} = 0
+\begin{DoxyCompactList}\small\item\em Number of species (matrix dimension). \end{DoxyCompactList}\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a7c486745d36fc7e001b88d6d0f3ae1fe}{values}} = \{\}
+\begin{DoxyCompactList}\small\item\em Row-\/major matrix elements. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Generic S x S matrix representing pair-\/wise interaction properties between species. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}\label{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2} 
+\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}!InteractionMatrix@{InteractionMatrix}}
+\index{InteractionMatrix@{InteractionMatrix}!hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+\doxysubsubsection{\texorpdfstring{InteractionMatrix()}{InteractionMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily hmap\+::\+Interaction\+Matrix\+::\+Interaction\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{structhmap_1_1InteractionMatrix_a54e7700fa717b7f4bfd2b94ec7962da0}\label{structhmap_1_1InteractionMatrix_a54e7700fa717b7f4bfd2b94ec7962da0} 
+\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}!InteractionMatrix@{InteractionMatrix}}
+\index{InteractionMatrix@{InteractionMatrix}!hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+\doxysubsubsection{\texorpdfstring{InteractionMatrix()}{InteractionMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily hmap\+::\+Interaction\+Matrix\+::\+Interaction\+Matrix (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{num\+\_\+species,  }\item[{float}]{default\+\_\+val = {\ttfamily 0.0f} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs an \doxylink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix} of size num\+\_\+species x num\+\_\+species. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+\_\+species} & Number of species. \\
+\hline
+{\em default\+\_\+val} & Initial value for all elements. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structhmap_1_1InteractionMatrix_aaa44f8ba46b2b974d4040d709168346f}\label{structhmap_1_1InteractionMatrix_aaa44f8ba46b2b974d4040d709168346f} 
+\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}!fill@{fill}}
+\index{fill@{fill}!hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+\doxysubsubsection{\texorpdfstring{fill()}{fill()}}
+{\footnotesize\ttfamily void hmap\+::\+Interaction\+Matrix\+::fill (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})}
+
+
+
+Fills the entire matrix with a constant value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Value to fill. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structhmap_1_1InteractionMatrix_a27bf16b58ba7ab1d5cd2056cc2ece7bc}\label{structhmap_1_1InteractionMatrix_a27bf16b58ba7ab1d5cd2056cc2ece7bc} 
+\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}!get@{get}}
+\index{get@{get}!hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily float hmap\+::\+Interaction\+Matrix\+::get (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{s1,  }\item[{size\+\_\+t}]{s2 }\end{DoxyParamCaption}) const}
+
+
+
+Gets the value at entry (s1, s2). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & Row species index. \\
+\hline
+{\em s2} & Column species index. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float Matrix value. 
+\end{DoxyReturn}
+\Hypertarget{structhmap_1_1InteractionMatrix_a4b30fc4963599c21faf102847a0a3a76}\label{structhmap_1_1InteractionMatrix_a4b30fc4963599c21faf102847a0a3a76} 
+\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}!set@{set}}
+\index{set@{set}!hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+\doxysubsubsection{\texorpdfstring{set()}{set()}}
+{\footnotesize\ttfamily void hmap\+::\+Interaction\+Matrix\+::set (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{s1,  }\item[{size\+\_\+t}]{s2,  }\item[{float}]{value }\end{DoxyParamCaption})}
+
+
+
+Sets the value at entry (s1, s2). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & Row species index. \\
+\hline
+{\em s2} & Column species index. \\
+\hline
+{\em value} & Matrix value. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structhmap_1_1InteractionMatrix_aa66fb98eb4a53c6d6a0539aae4fbe1fe}\label{structhmap_1_1InteractionMatrix_aa66fb98eb4a53c6d6a0539aae4fbe1fe} 
+\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}!set\_symmetric@{set\_symmetric}}
+\index{set\_symmetric@{set\_symmetric}!hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+\doxysubsubsection{\texorpdfstring{set\_symmetric()}{set\_symmetric()}}
+{\footnotesize\ttfamily void hmap\+::\+Interaction\+Matrix\+::set\+\_\+symmetric (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{s1,  }\item[{size\+\_\+t}]{s2,  }\item[{float}]{value }\end{DoxyParamCaption})}
+
+
+
+Sets symmetric values at (s1, s2) and (s2, s1). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & First species index. \\
+\hline
+{\em s2} & Second species index. \\
+\hline
+{\em value} & Matrix value. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structhmap_1_1InteractionMatrix_a05683075e2c249c4b67a1f6bcaf5d683}\label{structhmap_1_1InteractionMatrix_a05683075e2c249c4b67a1f6bcaf5d683} 
+\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}!diagonal@{diagonal}}
+\index{diagonal@{diagonal}!hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+\doxysubsubsection{\texorpdfstring{diagonal()}{diagonal()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} hmap\+::\+Interaction\+Matrix\+::diagonal (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{diag,  }\item[{float}]{off\+\_\+diag\+\_\+val = {\ttfamily 0.0f} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates a matrix with specified diagonal values and constant off-\/diagonal values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em diag} & Vector of diagonal elements. \\
+\hline
+{\em off\+\_\+diag\+\_\+val} & Off-\/diagonal value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix} Resulting matrix. 
+\end{DoxyReturn}
+\Hypertarget{structhmap_1_1InteractionMatrix_a181a06017f7a95bfb1839cd1dc40ac74}\label{structhmap_1_1InteractionMatrix_a181a06017f7a95bfb1839cd1dc40ac74} 
+\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}!from\_radii@{from\_radii}}
+\index{from\_radii@{from\_radii}!hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+\doxysubsubsection{\texorpdfstring{from\_radii()}{from\_radii()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} hmap\+::\+Interaction\+Matrix\+::from\+\_\+radii (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{radii,  }\item[{float}]{multiplier = {\ttfamily 2.0f} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates an interaction matrix computed from individual species radii. 
+
+Each entry (s1, s2) is set to multiplier \texorpdfstring{$\ast$}{*} (radii\mbox{[}s1\mbox{]} + radii\mbox{[}s2\mbox{]}).
+
+
+\begin{DoxyParams}{Parameters}
+{\em radii} & Vector of species radii. \\
+\hline
+{\em multiplier} & Scaling factor applied to the sum of radii (defaults to 2.\+0f). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix} Resulting matrix. 
+\end{DoxyReturn}
+\Hypertarget{structhmap_1_1InteractionMatrix_ab5f8f3591c9edeed91e083a4f69db595}\label{structhmap_1_1InteractionMatrix_ab5f8f3591c9edeed91e083a4f69db595} 
+\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}!from\_species@{from\_species}}
+\index{from\_species@{from\_species}!hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+\doxysubsubsection{\texorpdfstring{from\_species()}{from\_species()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} hmap\+::\+Interaction\+Matrix\+::from\+\_\+species (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Species}{Species}} $>$ \&}]{species,  }\item[{float}]{multiplier = {\ttfamily 2.0f} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates an interaction matrix computed from \doxylink{structhmap_1_1Species}{Species} definitions. 
+
+Each entry (s1, s2) is set to multiplier \texorpdfstring{$\ast$}{*} (species\mbox{[}s1\mbox{]}.radius + species\mbox{[}s2\mbox{]}.radius).
+
+
+\begin{DoxyParams}{Parameters}
+{\em species} & Vector of \doxylink{structhmap_1_1Species}{Species} definitions. \\
+\hline
+{\em multiplier} & Scaling factor applied to the sum of radii (defaults to 2.\+0f). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix} Resulting matrix. 
+\end{DoxyReturn}
+\Hypertarget{structhmap_1_1InteractionMatrix_a8191d72780f41cbec47426753a2d91b9}\label{structhmap_1_1InteractionMatrix_a8191d72780f41cbec47426753a2d91b9} 
+\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}!random@{random}}
+\index{random@{random}!hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+\doxysubsubsection{\texorpdfstring{random()}{random()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} hmap\+::\+Interaction\+Matrix\+::random (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{num\+\_\+species,  }\item[{uint32\+\_\+t}]{seed,  }\item[{float}]{random\+\_\+offset = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{bool}]{symmetric = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates a matrix initialized with random values perturbed around 1.\+0. 
+
+Each entry is sampled uniformly in \mbox{[}1.\+0 -\/ random\+\_\+offset, 1.\+0 + random\+\_\+offset\mbox{]}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+\_\+species} & Number of species. \\
+\hline
+{\em seed} & Random seed. \\
+\hline
+{\em random\+\_\+offset} & Maximum random variation relative to 1.\+0. \\
+\hline
+{\em symmetric} & Whether to enforce symmetric values (A\+\_\+ij = A\+\_\+ji). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix} Resulting matrix. 
+\end{DoxyReturn}
+\Hypertarget{structhmap_1_1InteractionMatrix_a8a04335b100cac5a44d4eefb1419db6d}\label{structhmap_1_1InteractionMatrix_a8a04335b100cac5a44d4eefb1419db6d} 
+\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}!uniform@{uniform}}
+\index{uniform@{uniform}!hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+\doxysubsubsection{\texorpdfstring{uniform()}{uniform()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} hmap\+::\+Interaction\+Matrix\+::uniform (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{num\+\_\+species,  }\item[{float}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates a matrix initialized to a uniform value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+\_\+species} & Number of species. \\
+\hline
+{\em val} & Uniform value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix} Resulting matrix. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structhmap_1_1InteractionMatrix_a5c525d07269bf6ca6696d6030c32a57f}\label{structhmap_1_1InteractionMatrix_a5c525d07269bf6ca6696d6030c32a57f} 
+\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}!size@{size}}
+\index{size@{size}!hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+\doxysubsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily size\+\_\+t hmap\+::\+Interaction\+Matrix\+::size = 0}
+
+
+
+Number of species (matrix dimension). 
+
+\Hypertarget{structhmap_1_1InteractionMatrix_a7c486745d36fc7e001b88d6d0f3ae1fe}\label{structhmap_1_1InteractionMatrix_a7c486745d36fc7e001b88d6d0f3ae1fe} 
+\index{hmap::InteractionMatrix@{hmap::InteractionMatrix}!values@{values}}
+\index{values@{values}!hmap::InteractionMatrix@{hmap::InteractionMatrix}}
+\doxysubsubsection{\texorpdfstring{values}{values}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ hmap\+::\+Interaction\+Matrix\+::values = \{\}}
+
+
+
+Row-\/major matrix elements. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+High\+Map/include/highmap/flora/\mbox{\hyperlink{forest__growth_8hpp}{forest\+\_\+growth.\+hpp}}\item 
+High\+Map/src/flora/\mbox{\hyperlink{forest__growth_8cpp}{forest\+\_\+growth.\+cpp}}\end{DoxyCompactItemize}

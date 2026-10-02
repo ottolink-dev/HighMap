@@ -16,6 +16,7 @@ var dir_f63c6611b1023abbeb7e0b5a0bccaf92 =
     [ "export", "dir_3bc85fd9086f4b2a437782af9c422553.html", "dir_3bc85fd9086f4b2a437782af9c422553" ],
     [ "features", "dir_7ea3d0e8e962d2de34184481d2ce5fca.html", "dir_7ea3d0e8e962d2de34184481d2ce5fca" ],
     [ "filters", "dir_4c063b982921a5b8720ca60b9a5562e1.html", "dir_4c063b982921a5b8720ca60b9a5562e1" ],
+    [ "flora", "dir_d8003049156228e1ccbd993c95db5a13.html", "dir_d8003049156228e1ccbd993c95db5a13" ],
     [ "functions", "dir_e3af41376e16c5b089bdc3c85ae3f870.html", "dir_e3af41376e16c5b089bdc3c85ae3f870" ],
     [ "geometry", "dir_180bcd2bac99fc5b4a48aa19ac3c5b63.html", "dir_180bcd2bac99fc5b4a48aa19ac3c5b63" ],
     [ "gpu_opencl", "dir_3c4172100491f31b556c8f9a4d709dfc.html", "dir_3c4172100491f31b556c8f9a4d709dfc" ],

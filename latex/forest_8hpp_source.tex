@@ -1,0 +1,185 @@
+\doxysection{forest.\+hpp}
+\hypertarget{forest_8hpp_source}{}\label{forest_8hpp_source}\index{HighMap/include/highmap/flora/forest.hpp@{HighMap/include/highmap/flora/forest.hpp}}
+\mbox{\hyperlink{forest_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Copyright\ (c)\ 2025\ Otto\ Link.\ Distributed\ under\ the\ terms\ of\ the\ GNU\ General}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ Public\ License.\ The\ full\ license\ is\ in\ the\ file\ LICENSE,\ distributed\ with}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ this\ software.\ */}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{array_8hpp}{highmap/array.hpp}}"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tree_8hpp}{highmap/flora/tree.hpp}}"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{cloud_8hpp}{highmap/geometry/cloud.hpp}}"{}}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }Species;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1Forest}{Forest}}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00034\ \ \ \textcolor{comment}{//\ \ Constructors}}
+\DoxyCodeLine{00035\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{classhmap_1_1Forest_a37dee264f422bb2af2450782852875e2}{Forest}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{classhmap_1_1Forest_a37dee264f422bb2af2450782852875e2}{Forest}}(\textcolor{keyword}{const}\ std::vector<Tree>\ \&\mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}});}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{classhmap_1_1Forest_a37dee264f422bb2af2450782852875e2}{Forest}}(std::vector<Tree>\ \&\&\mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}})\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{classhmap_1_1Forest_a37dee264f422bb2af2450782852875e2}{Forest}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}}\ \&cloud,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ species\_id\ =\ 0,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ default\_radius\ =\ HMAP\_DEFAULT\_TREE\_RADIUS);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00069\ \ \ \textcolor{comment}{//\ \ Container\ Interface}}
+\DoxyCodeLine{00070\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}\ \ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1Forest_a5e462b6b0747ba8c715334e9f0f5cf97}{at}}(\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}});}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}\ \&\mbox{\hyperlink{classhmap_1_1Forest_a5e462b6b0747ba8c715334e9f0f5cf97}{at}}(\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}\ \ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1Forest_af29a082fb47f90555e1283b615a6f351}{back}}();}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}\ \&\mbox{\hyperlink{classhmap_1_1Forest_af29a082fb47f90555e1283b615a6f351}{back}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classhmap_1_1Forest_a3d302cdc0e2e3578662cca1e8890fc24}{begin}}()\ noexcept}
+\DoxyCodeLine{00079\ \ \ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.begin();}
+\DoxyCodeLine{00081\ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classhmap_1_1Forest_a30e72b47f061750c6f56e26d6da948e6}{begin}}()\ const\ noexcept}
+\DoxyCodeLine{00083\ \ \ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.begin();}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classhmap_1_1Forest_a8bd24f0c2e5c229b6a1ce91f139e167e}{cbegin}}()\ const\ noexcept}
+\DoxyCodeLine{00087\ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.cbegin();}
+\DoxyCodeLine{00089\ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classhmap_1_1Forest_a84ff39f97326df9d0c99b1d556491065}{capacity}}()\ const\ noexcept}
+\DoxyCodeLine{00092\ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.capacity();}
+\DoxyCodeLine{00094\ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Forest_a8c734266a13d59c4c1fc392608f45420}{clear}}()\ noexcept}
+\DoxyCodeLine{00096\ \ \ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.clear();}
+\DoxyCodeLine{00098\ \ \ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}\ *\mbox{\hyperlink{classhmap_1_1Forest_aea392c1ab0d96724c2e4a696a436a3a1}{data}}()\ noexcept}
+\DoxyCodeLine{00101\ \ \ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.data();}
+\DoxyCodeLine{00103\ \ \ \}}
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}\ *\mbox{\hyperlink{classhmap_1_1Forest_ad215e83e5155c48a16b2d00b9d6fb561}{data}}()\ const\ noexcept}
+\DoxyCodeLine{00105\ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.data();}
+\DoxyCodeLine{00107\ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>\ \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}\ \&\mbox{\hyperlink{classhmap_1_1Forest_a7f146c09970c861c05566006ea02e536}{emplace\_back}}(Args\ \&\&...args)}
+\DoxyCodeLine{00110\ \ \ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.emplace\_back(std::forward<Args>(args)...);}
+\DoxyCodeLine{00112\ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classhmap_1_1Forest_aec67d524b68da9c55ef1bc54b28ca357}{empty}}()\ const\ noexcept}
+\DoxyCodeLine{00115\ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.empty();}
+\DoxyCodeLine{00117\ \ \ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classhmap_1_1Forest_a705282467923537c9c54cfd1cf5da197}{end}}()\ noexcept}
+\DoxyCodeLine{00120\ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.end();}
+\DoxyCodeLine{00122\ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classhmap_1_1Forest_a8192910e177272e10b1ae3101b1369da}{end}}()\ const\ noexcept}
+\DoxyCodeLine{00124\ \ \ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.end();}
+\DoxyCodeLine{00126\ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classhmap_1_1Forest_a161bea605cda3466c00d73490fe280a1}{cend}}()\ const\ noexcept}
+\DoxyCodeLine{00128\ \ \ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.cend();}
+\DoxyCodeLine{00130\ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}\ \ \ \ \ \ \ \&\mbox{\hyperlink{classhmap_1_1Forest_a94aeec45070c5f936ab9f8a3304ed8fa}{front}}();}
+\DoxyCodeLine{00133\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}\ \&\mbox{\hyperlink{classhmap_1_1Forest_a94aeec45070c5f936ab9f8a3304ed8fa}{front}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}\ \&\mbox{\hyperlink{classhmap_1_1Forest_afe9a61eed404a1c5a35c2ea145b77a29}{operator[]}}(\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}})}
+\DoxyCodeLine{00136\ \ \ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}[\mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}}];}
+\DoxyCodeLine{00138\ \ \ \}}
+\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}\ \&\mbox{\hyperlink{classhmap_1_1Forest_a2b9ca4d9d7b62881e37254868bf468ed}{operator[]}}(\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00140\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}[\mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}}];}
+\DoxyCodeLine{00142\ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Forest_a39d837211c18fce7b7e3751c7a8aa187}{push\_back}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}\ \&tree)}
+\DoxyCodeLine{00145\ \ \ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.push\_back(tree);}
+\DoxyCodeLine{00147\ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Forest_a55ec92607eabbd3149b1a5fefe9172a0}{push\_back}}(\mbox{\hyperlink{classhmap_1_1Tree}{Tree}}\ \&\&tree)}
+\DoxyCodeLine{00149\ \ \ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.push\_back(std::move(tree));}
+\DoxyCodeLine{00151\ \ \ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Forest_afb8aa1f65c023afe4a42185d2bfd9b8a}{reserve}}(\textcolor{keywordtype}{size\_t}\ new\_cap)}
+\DoxyCodeLine{00154\ \ \ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.reserve(new\_cap);}
+\DoxyCodeLine{00156\ \ \ \}}
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classhmap_1_1Forest_aa65785de835f9313f257eaa21dd85b6c}{size}}()\ const\ noexcept}
+\DoxyCodeLine{00158\ \ \ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}.size();}
+\DoxyCodeLine{00160\ \ \ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00163\ \ \ \textcolor{comment}{//\ \ Operations}}
+\DoxyCodeLine{00164\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00177\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Forest_a34cc059dfe1d4094c8d62913f01bb047}{densify}}(\textcolor{keywordtype}{float}\ default\_radius\ =\ HMAP\_DEFAULT\_TREE\_RADIUS);}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00185\ \ \ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \mbox{\hyperlink{classhmap_1_1Forest_a3a6417ab4a0b26585a988b95b9336de3}{filter\_by\_species}}(uint32\_t\ species\_id)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00191\ \ \ glm::vec4\ \mbox{\hyperlink{classhmap_1_1Forest_af9798058d16a8c59ea432fc4501e9854}{get\_bbox}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00198\ \ \ std::vector<uint32\_t>\ \mbox{\hyperlink{classhmap_1_1Forest_a333f5b3f9359626c8196eb357db04480}{get\_species\_ids}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00213\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Forest_a8ba021642afc871ddb5969150b5b3d82}{prune\_density}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \&density\_mask,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ target\_ratio\ =\ 0.8f,}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ seed\ =\ 0,}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\ =\ \{0.f,\ 1.f,\ 0.f,\ 1.f\});}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00232\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Forest_a714e9c8030f95420d082b95a7790d8f7}{prune\_unviable}}(\textcolor{keyword}{const}\ std::vector<Species>\ \&species\ =\ \{\},}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prune\_collisions\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00244\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Forest_ad341b7ee61b6f5bf790022c95cc3d205}{reinforce\_species\_clusters}}(\textcolor{keywordtype}{size\_t}\ iterations\ =\ 2,}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ k\_neighbors\ =\ 4,}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ include\_self\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00255\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Forest_a0730ea6042461129986c1b3139c27afb}{set\_elevation\_from\_terrain}}(\textcolor{keyword}{const}\ Array\ \ \ \ \ \&elevation,}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\ =\ \{0.f,\ 1.f,\ 0.f,\ 1.f\});}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00270\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Forest_a49534726754f35ac1cb13d8e1aa45a78}{shuffle\_species}}(\textcolor{keywordtype}{float}\ \ \ \ ratio\ =\ 0.1f,}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ k\_neighbors\ =\ 4,}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ seed\ =\ 0);}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00279\ \ \ Cloud\ \mbox{\hyperlink{classhmap_1_1Forest_ad96bd349b6bdd55f415c06a781388fc6}{to\_cloud}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00286\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Forest_a2bd95192b6e9c5310ec4fa952bd7fff0}{to\_csv}}(\textcolor{keyword}{const}\ std::string\ \&fname)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00297\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1Forest_a2a53fb9ae361f5d56f302a22404872c7}{to\_png}}(\textcolor{keyword}{const}\ std::string\ \&fname,}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glm::ivec2\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \ \ \ \ \ \ \&background\ =\ \{\},}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glm::vec4\ \ \ \ \ \ \ \ \ \ bbox\ =\ \{0.f,\ 1.f,\ 0.f,\ 1.f\})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00306\ \ \ std::string\ \mbox{\hyperlink{classhmap_1_1Forest_af8e00a0f82cfe9ba25ccc16b96f19c67}{to\_string}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00309\ \ \ std::vector<Tree>\ \mbox{\hyperlink{classhmap_1_1Forest_aac2f282718a2c4f00ac2f0bbd317a581}{trees}}\ =\ \{\};\ }
+\DoxyCodeLine{00310\ \};}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+
+\end{DoxyCode}

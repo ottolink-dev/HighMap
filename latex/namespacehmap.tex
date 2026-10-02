@@ -68,6 +68,12 @@ class \mbox{\hyperlink{classhmap_1_1FbmSwissFunction}{Fbm\+Swiss\+Function}}
 \begin{DoxyCompactList}\small\item\em Swiss layering function class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1FieldFunction}{Field\+Function}}
 \begin{DoxyCompactList}\small\item\em Field function class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}
+\begin{DoxyCompactList}\small\item\em Container class representing a collection of \doxylink{classhmap_1_1Tree}{Tree} instances. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhmap_1_1ForestScaleSampler}{Forest\+Scale\+Sampler}}
+\begin{DoxyCompactList}\small\item\em Helper for sampling spatial scaling maps over a 2D bounding box with blending. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{Forest\+Seeding\+Options}}
+\begin{DoxyCompactList}\small\item\em Configuration parameters for forest seeding algorithms. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1Function}{Function}}
 \begin{DoxyCompactList}\small\item\em A class that wraps a callable entity taking three floats and returning a float. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1GaussianPulseFunction}{Gaussian\+Pulse\+Function}}
@@ -82,6 +88,8 @@ class \mbox{\hyperlink{classhmap_1_1ImageWriter}{Image\+Writer}}
 \item 
 struct \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{Image\+Writer\+Config}}
 \item 
+struct \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}}
+\begin{DoxyCompactList}\small\item\em Generic S x S matrix representing pair-\/wise interaction properties between species. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1Interpolator1D}{Interpolator1D}}
 \begin{DoxyCompactList}\small\item\em A class for performing 1D interpolation using the GSL library. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1InterpolatorCurve}{Interpolator\+Curve}}
@@ -150,6 +158,10 @@ class \mbox{\hyperlink{classhmap_1_1Simplex2SFunction}{Simplex2\+SFunction}}
 \begin{DoxyCompactList}\small\item\em Open\+Simplex2S (x, y) function class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1SlopeFunction}{Slope\+Function}}
 \begin{DoxyCompactList}\small\item\em Slope (x, y) function class. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhmap_1_1Species}{Species}}
+\begin{DoxyCompactList}\small\item\em Encapsulates biological and geometric traits of a tree species. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhmap_1_1SpeciesLookup}{Species\+Lookup}}
+\begin{DoxyCompactList}\small\item\em Helper for querying species traits and pairwise competition factors. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1StepFunction}{Step\+Function}}
 \begin{DoxyCompactList}\small\item\em Step (x, y) function class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}}
@@ -166,6 +178,8 @@ class \mbox{\hyperlink{classhmap_1_1TileStorage}{Tile\+Storage}}
 \item 
 class \mbox{\hyperlink{classhmap_1_1Timer}{Timer}}
 \begin{DoxyCompactList}\small\item\em The \doxylink{classhmap_1_1Timer}{Timer} class is a singleton that manages multiple Recorders and provides an interface for timing events. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}
+\begin{DoxyCompactList}\small\item\em Represents a single tree instance with position, species mark, and radius. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1ValueCubicNoiseFunction}{Value\+Cubic\+Noise\+Function}}
 \begin{DoxyCompactList}\small\item\em Value Cubic noise (x, y) function class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1ValueDelaunayNoiseFunction}{Value\+Delaunay\+Noise\+Function}}
@@ -1024,6 +1038,16 @@ void \mbox{\hyperlink{namespacehmap_a28f780839b065c2ec7243fa40b6c74e7}{terrace}}
 \begin{DoxyCompactList}\small\item\em Applies a terrace effect to the values in an array. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a12781eab09d5662bd5490c167c03c8d5}{terrace}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, std\+::uint32\+\_\+t seed, int nlevels, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask, float \mbox{\hyperlink{namespacehmap_ab1e1b26c0c1eb51d0b256db94d6ca22e}{gain}}=0.\+9\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float noise\+\_\+ratio=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise=nullptr, float vmin=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float vmax=-\/1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Applies a terrace effect to an array with optional masking. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \mbox{\hyperlink{namespacehmap_a1d6994f2c75c90011f096035df3b4f87}{grow\+\_\+forest\+\_\+competition\+\_\+nn}} (const \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \&forest, const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Species}{Species}} $>$ \&species=\{\}, const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&competition\+\_\+matrix=\{\}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&max\+\_\+radius\+\_\+scale=\{\}, float max\+\_\+radius\+\_\+scale\+\_\+strength=1.\+0f, bool prune\+\_\+unviable=true, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Adjusts tree radii based on nearest-\/neighbor distances and species competition constraints. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \mbox{\hyperlink{namespacehmap_a51ec3fd21f74bdaae31c1403c88cae4a}{grow\+\_\+forest\+\_\+competition\+\_\+voronoi}} (const \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \&forest, const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Species}{Species}} $>$ \&species=\{\}, const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&competition\+\_\+matrix=\{\}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&max\+\_\+radius\+\_\+scale=\{\}, float max\+\_\+radius\+\_\+scale\+\_\+strength=1.\+0f, bool prune\+\_\+unviable=true, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Adjusts tree radii based on Voronoi cell areas and species competition constraints. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \mbox{\hyperlink{namespacehmap_a65fd70222ae504828208b3575ed719f1}{thin\+\_\+forest\+\_\+soft\+\_\+core}} (const \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \&forest, const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&repulsion\+\_\+distances, const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&repulsion\+\_\+strengths, size\+\_\+t target\+\_\+count=0, uint32\+\_\+t seed=0, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Performs multi-\/species Strauss soft-\/core thinning on an input forest. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \mbox{\hyperlink{namespacehmap_a395c1a2f15f7114fac122c864a1e78e6}{seed\+\_\+forest\+\_\+clusters}} (size\+\_\+t species\+\_\+count, size\+\_\+t tree\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exclusion, float cluster\+\_\+spread=0.\+05\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t points\+\_\+per\+\_\+cluster=8, const \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{Forest\+Seeding\+Options}} \&options=\{\})
+\begin{DoxyCompactList}\small\item\em Generates a clustered forest distribution using inverse transform sampling for cluster centers and local cluster regions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \mbox{\hyperlink{namespacehmap_aa6ba2bd6f00bf38f87b87f1179dcc70a}{seed\+\_\+forest\+\_\+kmeans}} (size\+\_\+t species\+\_\+count, size\+\_\+t tree\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exclusion, float cluster\+\_\+randomness=0.\+0f, size\+\_\+t k\+\_\+neighbors=4, const \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{Forest\+Seeding\+Options}} \&options=\{\})
+\begin{DoxyCompactList}\small\item\em Generates a multi-\/species forest distribution using 2D inverse transform sampling for positions and Point\+Sampler k-\/means clustering to tag species. \end{DoxyCompactList}\item 
 std\+::function$<$ float(float, float)$>$ \mbox{\hyperlink{namespacehmap_a84ca1f41de32e4beacb10787127b4b8a}{make\+\_\+xy\+\_\+function\+\_\+from\+\_\+array}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Create a continuous 2D function from a sampled array. \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction}{hmap\+::\+Noise\+Function}} $>$ \mbox{\hyperlink{namespacehmap_a0139c2cbbb516591c54fe8a743dc139d}{create\+\_\+noise\+\_\+function\+\_\+from\+\_\+type}} (\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195}{Noise\+Type}} noise\+\_\+type, glm\+::vec2 kw, std\+::uint32\+\_\+t seed)
@@ -1293,7 +1317,7 @@ std\+::vector$<$ float $>$ \mbox{\hyperlink{namespacehmap_aa84fc9cbd0704c16abf21
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a62e937a8e394092689481bb392bc15cf}{flow\+\_\+fixing\+\_\+drainage\+\_\+basin}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, \mbox{\hyperlink{namespacehmap_a0c714c7fa78e9384806de52a5d039f2f}{Flow\+Direction\+Method}} fd\+\_\+method=\mbox{\hyperlink{namespacehmap_a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894}{Flow\+Direction\+Method\+::\+FDM\+\_\+\+D8}}, float riverbed\+\_\+talus=1e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int iterations=3, bool \mbox{\hyperlink{namespacehmap_a70e5aa1009c3de1d301e0a8994dd8b03}{carve\+\_\+riverbed}}=false, float talus\+\_\+riverbank=0.\+01\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float merging\+\_\+distance=8.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, std\+::uint32\+\_\+t seed=0, float noise\+\_\+strength=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr)
 \begin{DoxyCompactList}\small\item\em Fixes flow paths and unwanted upslopes using a cell-\/based drainage basin tree network and elevation updates. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a20cb460ecf96e4608610b5ab9fe8f1b0}{flow\+\_\+fixing\+\_\+mst}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, float riverbed\+\_\+talus=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float elevation\+\_\+ratio=0.\+95\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float distance\+\_\+exponent=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float upward\+\_\+penalization=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float valley\+\_\+affinity=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int prefilter\+\_\+ir=8, float minimum\+\_\+depth=1e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, bool \mbox{\hyperlink{namespacehmap_a70e5aa1009c3de1d301e0a8994dd8b03}{carve\+\_\+riverbed}}=true, float merging\+\_\+distance=8.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, \mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90}{Radial\+Profile}} radial\+\_\+profile=\mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90acedc11502bd1441e893fdc5a699b6d59}{Radial\+Profile\+::\+RP\+\_\+\+SMOOTHSTEP\+\_\+\+UPPER}}, float radial\+\_\+profile\+\_\+parameter=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+r=nullptr, bool use\+\_\+midpoint=false, float offset\+\_\+ratio=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
-\begin{DoxyCompactList}\small\item\em Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning Tree (MST) over sinks and boundary outlets. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning \doxylink{classhmap_1_1Tree}{Tree} (MST) over sinks and boundary outlets. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Path}{Path}} \mbox{\hyperlink{namespacehmap_a948b4703486f175cd2681bd9bc7b5a88}{flow\+\_\+stream}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, const glm\+::ivec2 ij\+\_\+start, const float elevation\+\_\+ratio=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const float distance\+\_\+exponent=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const float upward\+\_\+penalization=100.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Computes the optimal flow path from a starting point to the boundary of a given elevation array. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a30d55fae5c75a1c45a005a3f9a9467eb}{generate\+\_\+riverbed}} (const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&path, glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, bool bezier\+\_\+smoothing=false, float depth\+\_\+start=0.\+01\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float depth\+\_\+end=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float slope\+\_\+start=64.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float slope\+\_\+end=32.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float shape\+\_\+exponent\+\_\+start=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float shape\+\_\+exponent\+\_\+end=10.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float k\+\_\+smoothing=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int post\+\_\+filter\+\_\+ir=0, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+r=nullptr)
@@ -3456,11 +3480,11 @@ SYMMETRY\+\_\+Y&Symmetric average across horizontal axis. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYMMETRY\_XY@{SYMMETRY\_XY}!hmap@{hmap}}\index{hmap@{hmap}!SYMMETRY\_XY@{SYMMETRY\_XY}}}\Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e}\label{namespacehmap_a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e} 
-SYMMETRY\+\_\+\+XY&4-\/quadrant symmetric average across both X and Y. \\
+SYMMETRY\+\_\+\+XY&4-\/quadrant symmetric average across both X \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYMMETRY\_ROT180@{SYMMETRY\_ROT180}!hmap@{hmap}}\index{hmap@{hmap}!SYMMETRY\_ROT180@{SYMMETRY\_ROT180}}}\Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351}\label{namespacehmap_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351} 
-SYMMETRY\+\_\+\+ROT180&180-\/degree rotational symmetry around center. \\
+SYMMETRY\+\_\+\+ROT180&180-\/degree rotational symmetry around \\
 \hline
 
 \end{DoxyEnumFields}
@@ -14228,7 +14252,176 @@ The mask array allows for blending the terrace effect with the original array fo
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a84ca1f41de32e4beacb10787127b4b8a}\label{namespacehmap_a84ca1f41de32e4beacb10787127b4b8a} 
+{\bfseries{Result}}  \Hypertarget{namespacehmap_a1d6994f2c75c90011f096035df3b4f87}\label{namespacehmap_a1d6994f2c75c90011f096035df3b4f87} 
+\index{hmap@{hmap}!grow\_forest\_competition\_nn@{grow\_forest\_competition\_nn}}
+\index{grow\_forest\_competition\_nn@{grow\_forest\_competition\_nn}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{grow\_forest\_competition\_nn()}{grow\_forest\_competition\_nn()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} hmap\+::grow\+\_\+forest\+\_\+competition\+\_\+nn (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \&}]{forest,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Species}{Species}} $>$ \&}]{species = {\ttfamily \{\}},  }\item[{const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&}]{competition\+\_\+matrix = {\ttfamily \{\}},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{max\+\_\+radius\+\_\+scale = {\ttfamily \{\}},  }\item[{float}]{max\+\_\+radius\+\_\+scale\+\_\+strength = {\ttfamily 1.0f},  }\item[{bool}]{prune\+\_\+unviable = {\ttfamily true},  }\item[{const glm\+::vec4 \&}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+
+
+
+Adjusts tree radii based on nearest-\/neighbor distances and species competition constraints. 
+
+For each tree \$i\$ with nearest neighbor \$j\$ at Euclidean distance \$d\+\_\+i = $|$p\+\_\+i -\/ p\+\_\+j$|$\$\+:
+\begin{DoxyItemize}
+\item Looks up competition factor \$\textbackslash{}alpha = \textbackslash{}text\{competition\+\_\+matrix.\+get\}(s\+\_\+i, s\+\_\+j)\$ (or species \$\mbox{[}s\+\_\+i\mbox{]}.\textbackslash{}text\{competition\+\_\+factor\}\$).
+\item Calculates estimated radius \$r\+\_\+i = \textbackslash{}alpha \textbackslash{}cdot d\+\_\+i\$.
+\item Linearly scales effective maximum radius\+: \$r\+\_\+\{\textbackslash{}max,\textbackslash{}text\{eff\}\} = r\+\_\+\{\textbackslash{}min\}(s\+\_\+i) + s \textbackslash{}cdot (r\+\_\+\{\textbackslash{}max\}(s\+\_\+i) -\/ r\+\_\+\{\textbackslash{}min\}(s\+\_\+i))\$, where \$s \textbackslash{}in \mbox{[}0, 1\mbox{]}\$ is sampled from {\ttfamily max\+\_\+radius\+\_\+scale} (if provided, default \$s = 1.\+0\$).
+\item Clamps \$r\+\_\+i \textbackslash{}in \mbox{[}\textbackslash{}text\{radius\+\_\+min\}(s\+\_\+i), r\+\_\+\{\textbackslash{}max,\textbackslash{}text\{eff\}\}\mbox{]}\$.
+\item If {\ttfamily prune\+\_\+unviable} is true and raw calculated radius \$r\+\_\+i \texorpdfstring{$<$}{<} \textbackslash{}text\{radius\+\_\+min\}(s\+\_\+i)\$, the tree is removed.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em forest} & Input forest container. \\
+\hline
+{\em species} & Vector of \doxylink{structhmap_1_1Species}{Species} definitions. \\
+\hline
+{\em competition\+\_\+matrix} & Optional pairwise S x S competition factors (alpha). \\
+\hline
+{\em max\+\_\+radius\+\_\+scale} & Optional 2D array in \mbox{[}0, 1\mbox{]} scaling maximum radius locally (0 -\/\texorpdfstring{$>$}{>} rmax = rmin, 1 -\/\texorpdfstring{$>$}{>} rmax = rmax). \\
+\hline
+{\em max\+\_\+radius\+\_\+scale\+\_\+strength} & Blend strength for max\+\_\+radius\+\_\+scale in \mbox{[}0, 1\mbox{]} (0 -\/\texorpdfstring{$>$}{>} no scaling/full rmax, 1 -\/\texorpdfstring{$>$}{>} full scale array modulation). \\
+\hline
+{\em prune\+\_\+unviable} & Whether to remove trees unable to reach radius\+\_\+min. \\
+\hline
+{\em bbox} & Bounding box \{xmin, xmax, ymin, ymax\} for sampling {\ttfamily max\+\_\+radius\+\_\+scale}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Forest}{Forest} Grown forest with updated tree radii. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a51ec3fd21f74bdaae31c1403c88cae4a}\label{namespacehmap_a51ec3fd21f74bdaae31c1403c88cae4a} 
+\index{hmap@{hmap}!grow\_forest\_competition\_voronoi@{grow\_forest\_competition\_voronoi}}
+\index{grow\_forest\_competition\_voronoi@{grow\_forest\_competition\_voronoi}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{grow\_forest\_competition\_voronoi()}{grow\_forest\_competition\_voronoi()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} hmap\+::grow\+\_\+forest\+\_\+competition\+\_\+voronoi (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \&}]{forest,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Species}{Species}} $>$ \&}]{species = {\ttfamily \{\}},  }\item[{const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&}]{competition\+\_\+matrix = {\ttfamily \{\}},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{max\+\_\+radius\+\_\+scale = {\ttfamily \{\}},  }\item[{float}]{max\+\_\+radius\+\_\+scale\+\_\+strength = {\ttfamily 1.0f},  }\item[{bool}]{prune\+\_\+unviable = {\ttfamily true},  }\item[{const glm\+::vec4 \&}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+
+
+
+Adjusts tree radii based on Voronoi cell areas and species competition constraints. 
+
+Builds a Delaunay triangulation (\doxylink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}) on the tree positions in the XY plane to compute the local Voronoi/dual cell territory area \$\+A\+\_\+i\$ of each tree\+:
+\begin{DoxyItemize}
+\item Computes equivalent circular territory radius \$r\+\_\+i = \textbackslash{}sqrt\{A\+\_\+i / \textbackslash{}pi\}\$.
+\item Multiplies by competition factor \$\textbackslash{}alpha = \textbackslash{}text\{species\}\mbox{[}s\+\_\+i\mbox{]}.\textbackslash{}text\{competition\+\_\+factor\}\$ (or pairwise \$\textbackslash{}alpha = \textbackslash{}text\{competition\+\_\+matrix.\+get\}(s\+\_\+i, s\+\_\+i)\$)\+: \$r\+\_\+\{\textbackslash{}text\{est\}\} = \textbackslash{}alpha \textbackslash{}cdot r\+\_\+i\$.
+\item Linearly scales effective maximum radius\+: \$r\+\_\+\{\textbackslash{}max,\textbackslash{}text\{eff\}\} = r\+\_\+\{\textbackslash{}min\}(s\+\_\+i) + s \textbackslash{}cdot (r\+\_\+\{\textbackslash{}max\}(s\+\_\+i) -\/ r\+\_\+\{\textbackslash{}min\}(s\+\_\+i))\$, where \$s \textbackslash{}in \mbox{[}0, 1\mbox{]}\$ is sampled from {\ttfamily max\+\_\+radius\+\_\+scale} (if provided, default \$s = 1.\+0\$).
+\item Clamps \$r\+\_\+i \textbackslash{}in \mbox{[}\textbackslash{}text\{radius\+\_\+min\}(s\+\_\+i), r\+\_\+\{\textbackslash{}max,\textbackslash{}text\{eff\}\}\mbox{]}\$.
+\item If {\ttfamily prune\+\_\+unviable} is true and raw calculated radius \$r\+\_\+\{\textbackslash{}text\{est\}\} \texorpdfstring{$<$}{<} \textbackslash{}text\{radius\+\_\+min\}(s\+\_\+i)\$, the tree is removed.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em forest} & Input forest container. \\
+\hline
+{\em species} & Vector of \doxylink{structhmap_1_1Species}{Species} definitions. \\
+\hline
+{\em competition\+\_\+matrix} & Optional pairwise S x S competition factors (alpha). \\
+\hline
+{\em max\+\_\+radius\+\_\+scale} & Optional 2D array in \mbox{[}0, 1\mbox{]} scaling maximum radius locally (0 -\/\texorpdfstring{$>$}{>} rmax = rmin, 1 -\/\texorpdfstring{$>$}{>} rmax = rmax). \\
+\hline
+{\em max\+\_\+radius\+\_\+scale\+\_\+strength} & Blend strength for max\+\_\+radius\+\_\+scale in \mbox{[}0, 1\mbox{]} (0 -\/\texorpdfstring{$>$}{>} no scaling/full rmax, 1 -\/\texorpdfstring{$>$}{>} full scale array modulation). \\
+\hline
+{\em prune\+\_\+unviable} & Whether to remove trees unable to reach radius\+\_\+min. \\
+\hline
+{\em bbox} & Bounding box \{xmin, xmax, ymin, ymax\} for sampling {\ttfamily max\+\_\+radius\+\_\+scale}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Forest}{Forest} Grown forest with updated tree radii. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a65fd70222ae504828208b3575ed719f1}\label{namespacehmap_a65fd70222ae504828208b3575ed719f1} 
+\index{hmap@{hmap}!thin\_forest\_soft\_core@{thin\_forest\_soft\_core}}
+\index{thin\_forest\_soft\_core@{thin\_forest\_soft\_core}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{thin\_forest\_soft\_core()}{thin\_forest\_soft\_core()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} hmap\+::thin\+\_\+forest\+\_\+soft\+\_\+core (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \&}]{forest,  }\item[{const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&}]{repulsion\+\_\+distances,  }\item[{const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&}]{repulsion\+\_\+strengths,  }\item[{size\+\_\+t}]{target\+\_\+count = {\ttfamily 0},  }\item[{uint32\+\_\+t}]{seed = {\ttfamily 0},  }\item[{const glm\+::vec4 \&}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+
+
+
+Performs multi-\/species Strauss soft-\/core thinning on an input forest. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em forest} & Input candidate forest. \\
+\hline
+{\em repulsion\+\_\+distances} & Interaction distance matrix between species. \\
+\hline
+{\em repulsion\+\_\+strengths} & Repulsion strength matrix between species in \mbox{[}0, 1\mbox{]}. \\
+\hline
+{\em target\+\_\+count} & Optional target number of trees (0 means keep all accepted). \\
+\hline
+{\em seed} & Random number generator seed. \\
+\hline
+{\em bbox} & Bounding box \{xmin, xmax, ymin, ymax\}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Forest}{Forest} Thinned forest. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a395c1a2f15f7114fac122c864a1e78e6}\label{namespacehmap_a395c1a2f15f7114fac122c864a1e78e6} 
+\index{hmap@{hmap}!seed\_forest\_clusters@{seed\_forest\_clusters}}
+\index{seed\_forest\_clusters@{seed\_forest\_clusters}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{seed\_forest\_clusters()}{seed\_forest\_clusters()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} hmap\+::seed\+\_\+forest\+\_\+clusters (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{species\+\_\+count,  }\item[{size\+\_\+t}]{tree\+\_\+count,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{density,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{exclusion,  }\item[{float}]{cluster\+\_\+spread = {\ttfamily 0.05\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{size\+\_\+t}]{points\+\_\+per\+\_\+cluster = {\ttfamily 8},  }\item[{const \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{Forest\+Seeding\+Options}} \&}]{options = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Generates a clustered forest distribution using inverse transform sampling for cluster centers and local cluster regions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em species\+\_\+count} & Number of distinct tree species. \\
+\hline
+{\em tree\+\_\+count} & Target total number of trees. \\
+\hline
+{\em density} & Global density map array. \\
+\hline
+{\em exclusion} & Exclusion map array. \\
+\hline
+{\em cluster\+\_\+spread} & Half-\/extent of the bounding box surrounding each cluster center. \\
+\hline
+{\em points\+\_\+per\+\_\+cluster} & Number of child points sampled per parent cluster. \\
+\hline
+{\em options} & Seeding options. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Forest}{Forest} Sampled forest container. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_aa6ba2bd6f00bf38f87b87f1179dcc70a}\label{namespacehmap_aa6ba2bd6f00bf38f87b87f1179dcc70a} 
+\index{hmap@{hmap}!seed\_forest\_kmeans@{seed\_forest\_kmeans}}
+\index{seed\_forest\_kmeans@{seed\_forest\_kmeans}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{seed\_forest\_kmeans()}{seed\_forest\_kmeans()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} hmap\+::seed\+\_\+forest\+\_\+kmeans (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{species\+\_\+count,  }\item[{size\+\_\+t}]{tree\+\_\+count,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{density,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{exclusion,  }\item[{float}]{cluster\+\_\+randomness = {\ttfamily 0.0f},  }\item[{size\+\_\+t}]{k\+\_\+neighbors = {\ttfamily 4},  }\item[{const \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{Forest\+Seeding\+Options}} \&}]{options = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Generates a multi-\/species forest distribution using 2D inverse transform sampling for positions and Point\+Sampler k-\/means clustering to tag species. 
+
+\begin{DoxyNote}{Note}
+\doxylink{structhmap_1_1Species}{Species} abundance is governed by spatial cluster partitioning in the compactness feature space; species weights in {\ttfamily options.\+species} are not taken into account by this function.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em species\+\_\+count} & Number of distinct tree species. \\
+\hline
+{\em tree\+\_\+count} & Target total number of trees. \\
+\hline
+{\em density} & Global density map array. \\
+\hline
+{\em exclusion} & Exclusion map array. \\
+\hline
+{\em cluster\+\_\+randomness} & Randomness factor in \mbox{[}0, 1\mbox{]} added to cluster features. \\
+\hline
+{\em k\+\_\+neighbors} & Number of nearest spatial neighbors used to extract compactness features. \\
+\hline
+{\em options} & Seeding options. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Forest}{Forest} Sampled forest container. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a84ca1f41de32e4beacb10787127b4b8a}\label{namespacehmap_a84ca1f41de32e4beacb10787127b4b8a} 
 \index{hmap@{hmap}!make\_xy\_function\_from\_array@{make\_xy\_function\_from\_array}}
 \index{make\_xy\_function\_from\_array@{make\_xy\_function\_from\_array}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{make\_xy\_function\_from\_array()}{make\_xy\_function\_from\_array()}}
@@ -19848,9 +20041,9 @@ This function constructs a stream tree network on the heightmap, resolves intern
 
 
 
-Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning Tree (MST) over sinks and boundary outlets. 
+Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning \doxylink{classhmap_1_1Tree}{Tree} (MST) over sinks and boundary outlets. 
 
-This function identifies all flow sinks and boundary outlets, computes candidate optimal path connections via multi-\/source Dijkstra search, constructs a Minimum Spanning Forest (Kruskal\textquotesingle{}s algorithm) guaranteeing that each sink connects to an outlet through the lowest-\/effort saddle pass, and carves monotonic riverbeds along the MST paths using continuous trench profiles.
+This function identifies all flow sinks and boundary outlets, computes candidate optimal path connections via multi-\/source Dijkstra search, constructs a Minimum Spanning \doxylink{classhmap_1_1Forest}{Forest} (Kruskal\textquotesingle{}s algorithm) guaranteeing that each sink connects to an outlet through the lowest-\/effort saddle pass, and carves monotonic riverbeds along the MST paths using continuous trench profiles.
 
 
 \begin{DoxyParams}{Parameters}

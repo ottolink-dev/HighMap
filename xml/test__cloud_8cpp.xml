@@ -696,7 +696,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="tests/src/test_cloud.cpp" line="491" column="1" bodyfile="tests/src/test_cloud.cpp" bodystart="491" bodyend="535"/>
+        <location file="tests/src/test_cloud.cpp" line="491" column="1" bodyfile="tests/src/test_cloud.cpp" bodystart="491" bodyend="546"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -1238,7 +1238,18 @@
 <codeline lineno="532"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>batch<sp/>=<sp/>sampler.sample(100);</highlight></codeline>
 <codeline lineno="533"><highlight class="normal"><sp/><sp/>EXPECT_EQ(batch[0].size(),<sp/>100u);</highlight></codeline>
 <codeline lineno="534"><highlight class="normal"><sp/><sp/>EXPECT_EQ(batch[1].size(),<sp/>100u);</highlight></codeline>
-<codeline lineno="535"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"></highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Restricted<sp/>bbox<sp/>sampling</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/>glm::vec4<sp/>restricted_bbox<sp/>=<sp/>{0.6f,<sp/>0.8f,<sp/>0.6f,<sp/>0.8f};</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>50;<sp/>++k)</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/>glm::vec2<sp/>pt<sp/>=<sp/>sampler.sample(restricted_bbox);</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_GE(pt.x,<sp/>0.6f);</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_LE(pt.x,<sp/>0.8f);</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_GE(pt.y,<sp/>0.6f);</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_LE(pt.y,<sp/>0.8f);</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="546"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_cloud.cpp"/>
   </compounddef>
