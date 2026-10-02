@@ -17,6 +17,7 @@
 #include "point_sampler/metrics.hpp"
 
 #include "highmap/flora/forest.hpp"
+#include "highmap/flora/species.hpp"
 #include "highmap/functions.hpp"
 #include "highmap/internal/validation.hpp"
 
@@ -226,6 +227,157 @@ void Forest::prune_density(const Array     &density_mask,
     if (dis(gen) <= p_accept)
     {
       retained.push_back(trees[i]);
+    }
+  }
+
+  trees = std::move(retained);
+}
+
+void Forest::prune_unviable(const std::vector<Species> &species,
+                            bool                        prune_collisions)
+{
+  if (trees.size() < 2) return;
+
+  // --- Map Species Definitions for Fast Lookup
+
+  std::unordered_map<uint32_t, Species> species_map;
+  for (const auto &sp : species)
+  {
+    species_map[sp.id] = sp;
+  }
+
+  auto get_species_traits = [&](const Tree &tree) -> Species
+  {
+    size_t s_i = tree.species_id;
+    auto   it = species_map.find(tree.species_id);
+    if (it != species_map.end())
+    {
+      return it->second;
+    }
+    if (s_i < species.size())
+    {
+      return species[s_i];
+    }
+    return Species(tree.species_id, tree.radius);
+  };
+
+  // --- KD-Tree Nearest Neighbor Query
+
+  std::vector<ps::Point<float, 2>> points;
+  points.reserve(trees.size());
+  for (const auto &tree : trees)
+  {
+    points.push_back({tree.position.x, tree.position.y});
+  }
+
+  auto neighbors_idx = ps::nearest_neighbors_indices(points, 1);
+
+  // --- Check Minimum Radius / Viability
+
+  std::vector<Tree> viable;
+  viable.reserve(trees.size());
+
+  for (size_t i = 0; i < trees.size(); ++i)
+  {
+    const Tree &tree = trees[i];
+    Species     sp_i = get_species_traits(tree);
+
+    size_t neighbor_idx = neighbors_idx[i].empty() ? i : neighbors_idx[i][0];
+    const Tree &neighbor_tree = trees[neighbor_idx];
+
+    float dx = tree.position.x - neighbor_tree.position.x;
+    float dy = tree.position.y - neighbor_tree.position.y;
+    float d_nn = std::sqrt(dx * dx + dy * dy);
+
+    float r_est = sp_i.competition_factor * d_nn;
+
+    // cull choked plants that cannot meet species radius_min
+    if (r_est < sp_i.radius_min)
+    {
+      continue;
+    }
+
+    viable.push_back(tree);
+  }
+
+  // --- Collision Pruning (Optional)
+
+  if (!prune_collisions || viable.size() < 2)
+  {
+    trees = std::move(viable);
+    return;
+  }
+
+  // Sort candidates by radius descending
+  std::vector<size_t> order(viable.size());
+  std::iota(order.begin(), order.end(), 0);
+  std::stable_sort(order.begin(),
+                   order.end(),
+                   [&](size_t a, size_t b)
+                   { return viable[a].radius > viable[b].radius; });
+
+  float max_r = 0.0f;
+  for (const auto &t : viable)
+  {
+    max_r = std::max(max_r, t.radius);
+  }
+
+  float                                            cell_size = 2.0f * max_r;
+  std::unordered_map<int64_t, std::vector<size_t>> grid;
+
+  auto compute_cell = [&](float x, float y) -> std::pair<int, int>
+  {
+    if (cell_size <= 1e-7f) return {0, 0};
+    int gx = static_cast<int>(std::floor(x / cell_size));
+    int gy = static_cast<int>(std::floor(y / cell_size));
+    return {gx, gy};
+  };
+
+  auto make_key = [](int gx, int gy) -> int64_t
+  {
+    return (static_cast<int64_t>(gx) << 32) ^
+           (static_cast<int64_t>(gy) & 0xFFFFFFFF);
+  };
+
+  std::vector<Tree> retained;
+  retained.reserve(viable.size());
+
+  for (size_t idx : order)
+  {
+    const Tree &cand = viable[idx];
+    auto [gx, gy] = compute_cell(cand.position.x, cand.position.y);
+
+    bool collides = false;
+
+    for (int dy = -1; dy <= 1 && !collides; ++dy)
+    {
+      for (int dx = -1; dx <= 1 && !collides; ++dx)
+      {
+        int64_t key = make_key(gx + dx, gy + dy);
+        auto    it = grid.find(key);
+        if (it == grid.end()) continue;
+
+        for (size_t ret_idx : it->second)
+        {
+          const Tree &other = retained[ret_idx];
+          float       dist_x = cand.position.x - other.position.x;
+          float       dist_y = cand.position.y - other.position.y;
+          float       dist_sq = dist_x * dist_x + dist_y * dist_y;
+
+          float min_dist = cand.radius + other.radius;
+          if (dist_sq < min_dist * min_dist)
+          {
+            collides = true;
+            break;
+          }
+        }
+      }
+    }
+
+    if (!collides)
+    {
+      retained.push_back(cand);
+      grid[make_key(gx, gy)].push_back(retained.size() - 1);
     }
   }
 

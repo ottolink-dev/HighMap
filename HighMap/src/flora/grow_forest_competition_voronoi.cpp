@@ -169,7 +169,11 @@ Forest grow_forest_competition_voronoi(
     result.push_back(grown_tree);
   }
 
-  return Forest(std::move(result));
+  Forest grown_forest(std::move(result));
+
+  if (prune_unviable) grown_forest.prune_unviable(species, true);
+
+  return grown_forest;
 }
 
 } // namespace hmap

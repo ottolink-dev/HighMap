@@ -21,6 +21,8 @@
 namespace hmap
 {
 
+struct Species;
+
 /**
  * @class Forest
  * @brief Container class representing a collection of Tree instances.
@@ -199,6 +201,23 @@ public:
                      float            target_ratio = 0.8f,
                      uint32_t         seed = 0,
                      const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+
+  /**
+   * @brief Prunes unviable trees whose distance to their nearest neighbor is
+   * insufficient to meet their species' minimum radius requirement or pairwise
+   * collision distance.
+   *
+   * Uses a KD-Tree / nearest-neighbor search to find the distance $d_{nn}$ to
+   * the closest neighbor. If estimated radius $\alpha \cdot d_{nn} < r_{\min}$
+   * (or if overlapping with a larger tree), the tree is pruned.
+   *
+   * @param species Vector of species definitions (with radius_min, radius_max,
+   *                competition_factor).
+   * @param prune_collisions If true, also resolves overlapping tree crowns
+   *                         by discarding the smaller tree.
+   */
+  void prune_unviable(const std::vector<Species> &species = {},
+                      bool                        prune_collisions = true);
 
   /**
    * @brief Sets the elevation (z-coordinate) of all trees by sampling a terrain

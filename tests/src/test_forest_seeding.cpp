@@ -581,3 +581,43 @@ TEST(ForestGrowthTest, CompetitionVoronoiMaxRadiusScale)
     }
   }
 }
+
+TEST(ForestGrowthTest, CompetitionVoronoiCollisionPruning)
+{
+  // 4 trees in a rectangle where two trees are close and their grown radii will
+  // overlap
+  Forest forest;
+  forest.push_back(Tree(0.0f, 0.0f, 0.0f, 0u, 0.01f));
+  forest.push_back(
+      Tree(1.0f, 0.0f, 0.0f, 1u, 0.01f)); // species 1 will have smaller radius
+  forest.push_back(Tree(10.0f, 10.0f, 0.0f, 0u, 0.01f));
+  forest.push_back(Tree(0.0f, 10.0f, 0.0f, 0u, 0.01f));
+
+  // Species 0: alpha = 1.0, r_min = 0.5, r_max = 5.0
+  // Species 1: alpha = 0.1, r_min = 0.1, r_max = 0.2
+  // Distance between (0,0) and (1,0) is 1.0. Tree 0 will grow larger, e.g.
+  // radius > 0.9, causing r0 + r1 > 1.0 -> tree 1 (smaller) should be removed
+  // due to collision.
+  std::vector<Species> species = {
+      Species(0u, 1.0f, 1.0f, 0.5f, 5.0f, 1.0f),
+      Species(1u, 0.2f, 1.0f, 0.1f, 0.2f, 0.1f),
+  };
+
+  Forest grown = grow_forest_competition_voronoi(forest,
+                                                 species,
+                                                 {},
+                                                 {},
+                                                 1.0f,
+                                                 true);
+  // Ensure no colliding pairs remain in grown forest
+  for (size_t i = 0; i < grown.size(); ++i)
+  {
+    for (size_t j = i + 1; j < grown.size(); ++j)
+    {
+      float dx = grown[i].position.x - grown[j].position.x;
+      float dy = grown[i].position.y - grown[j].position.y;
+      float dist = std::sqrt(dx * dx + dy * dy);
+      EXPECT_GE(dist, grown[i].radius + grown[j].radius - 1e-5f);
+    }
+  }
+}

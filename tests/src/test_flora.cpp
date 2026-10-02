@@ -335,6 +335,26 @@ TEST(ForestTest, ShuffleSpecies)
   EXPECT_EQ(mono_forest[2].species_id, 0u);
 }
 
+TEST(ForestTest, PruneUnviable)
+{
+  Forest forest;
+  // Two trees very close (dist = 0.05), one tree far (dist = 5.0)
+  forest.push_back(Tree(0.0f, 0.0f, 0.0f, 0u, 0.5f));
+  forest.push_back(Tree(0.05f, 0.0f, 0.0f, 0u, 0.5f));
+  forest.push_back(Tree(5.0f, 0.0f, 0.0f, 0u, 0.5f));
+
+  // Species 0: alpha = 0.5, r_min = 0.1
+  // For the two close trees: alpha * d_nn = 0.5 * 0.05 = 0.025 < 0.1 -> pruned
+  // For the distant tree: d_nn = 4.95, alpha * d_nn = 2.475 >= 0.1 -> retained
+  std::vector<Species> species = {
+      Species(0u, 0.5f, 1.0f, 0.1f, 1.0f, 0.5f),
+  };
+
+  forest.prune_unviable(species, false);
+  ASSERT_EQ(forest.size(), 1u);
+  EXPECT_TRUE(float_eq(forest[0].position.x, 5.0f));
+}
+
 TEST(ForestSeedingTest, SeedForestClustersWithRejection)
 {
   Array density({64, 64}, 1.0f);
