@@ -14,6 +14,8 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
 
+#include "point_sampler/metrics.hpp"
+
 #include "highmap/flora/forest.hpp"
 #include "highmap/functions.hpp"
 #include "highmap/internal/validation.hpp"
@@ -259,6 +261,63 @@ void Forest::set_elevation_from_terrain(const Array     &elevation,
       float v = yn - static_cast<float>(j);
       tree.position.z = elevation.get_value_bilinear_at(i, j, u, v);
     }
+  }
+}
+
+void Forest::shuffle_species(float ratio, size_t k_neighbors, uint32_t seed)
+{
+  if (trees.size() < 2 || ratio <= 0.0f || k_neighbors == 0) return;
+
+  // --- Build 2D Point List and Query Nearest Neighbors
+
+  std::vector<ps::Point<float, 2>> points;
+  points.reserve(trees.size());
+  for (const auto &tree : trees)
+  {
+    points.push_back({tree.position.x, tree.position.y});
+  }
+
+  size_t safe_k = std::min(k_neighbors, trees.size() - 1);
+  auto   neighbors_idx = ps::nearest_neighbors_indices(points, safe_k);
+
+  // --- Select Candidate Trees to Shuffle
+
+  std::mt19937 gen(seed);
+
+  std::vector<size_t> perm(trees.size());
+  std::iota(perm.begin(), perm.end(), 0);
+  std::shuffle(perm.begin(), perm.end(), gen);
+
+  size_t target_count = std::min(
+      trees.size(),
+      static_cast<size_t>(
+          std::round(ratio * static_cast<float>(trees.size()))));
+
+  // --- Perform Neighbor Species Swaps with Failsafe
+
+  for (size_t c = 0; c < target_count; ++c)
+  {
+    size_t i = perm[c];
+
+    // find neighbors with a differing species
+    std::vector<size_t> valid_neighbors;
+    for (size_t neighbor_idx : neighbors_idx[i])
+    {
+      if (trees[neighbor_idx].species_id != trees[i].species_id)
+      {
+        valid_neighbors.push_back(neighbor_idx);
+      }
+    }
+
+    // if all neighbors share the same species, skip candidate
+    if (valid_neighbors.empty()) continue;
+
+    // pick one differing neighbor at random and swap species & radius
+    std::uniform_int_distribution<size_t> dis(0, valid_neighbors.size() - 1);
+    size_t chosen_neighbor = valid_neighbors[dis(gen)];
+
+    std::swap(trees[i].species_id, trees[chosen_neighbor].species_id);
+    std::swap(trees[i].radius, trees[chosen_neighbor].radius);
   }
 }
 

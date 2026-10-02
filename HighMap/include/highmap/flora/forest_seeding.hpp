@@ -28,15 +28,15 @@ struct ForestSeedingOptions
 {
   // clang-format off
 	glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}; ///< Bounding box {xmin, xmax,
-		                               // ymin, ymax}.
+	// ymin, ymax}.
 	uint32_t seed = 0;                 ///< Random number generator seed.
 	float exclusion_threshold = 0.5f;  ///< Threshold for exclusion map
-		                           // masking.
+	// masking.
 	std::vector<float> species_weights = {}; ///< Optional relative
-		                                 // abundance weights per
-		                                 // species.
+	// abundance weights per
+	// species.
 	std::vector<float> species_radii = {}; ///< Optional default canopy
-		                               // radii per species.
+	// radii per species.
   // clang-format on
 };
 
@@ -54,8 +54,7 @@ struct ForestSeedingOptions
  * @param  exclusion          Exclusion map array.
  * @param  cluster_spread     Half-extent of the bounding box surrounding each
  *                            cluster center.
- * @param  points_per_cluster Number of child points sampled per parent
- *                            cluster.
+ * @param  points_per_cluster Number of child points sampled per parent cluster.
  * @param  options            Seeding options.
  * @return                    Forest Sampled forest container.
  */
@@ -73,17 +72,17 @@ Forest seed_forest_clusters(size_t                      species_count,
  * species.
  *
  * @note Species abundance is governed by spatial cluster partitioning in the
- *       compactness feature space; @p options.species_weights is not taken
- *       into account by this function.
+ * compactness feature space; @p options.species_weights is not taken into
+ * account by this function.
  *
- * @param  species_count       Number of distinct tree species.
- * @param  tree_count          Target total number of trees.
- * @param  density             Global density map array.
- * @param  exclusion           Exclusion map array.
- * @param  cluster_randomness  Randomness factor in [0, 1] added to cluster
- *                             features.
- * @param  options             Seeding options.
- * @return                     Forest Sampled forest container.
+ * @param  species_count      Number of distinct tree species.
+ * @param  tree_count         Target total number of trees.
+ * @param  density            Global density map array.
+ * @param  exclusion          Exclusion map array.
+ * @param  cluster_randomness Randomness factor in [0, 1] added to cluster
+ *                            features.
+ * @param  options            Seeding options.
+ * @return                    Forest Sampled forest container.
  */
 Forest seed_forest_kmeans(size_t                      species_count,
                           size_t                      tree_count,

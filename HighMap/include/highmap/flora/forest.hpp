@@ -187,7 +187,7 @@ public:
    * modulated to reach an approximate target retention ratio.
    *
    * @note The retention ratio is achieved in expectation (approximate) via
-   *       probabilistic Bernoulli sampling biased by local density values.
+   * probabilistic Bernoulli sampling biased by local density values.
    *
    * @param density_mask 2D array defining the spatial density field.
    * @param target_ratio Approximate target fraction of trees to retain in [0,
@@ -209,6 +209,22 @@ public:
    */
   void set_elevation_from_terrain(const Array     &elevation,
                                   const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+
+  /**
+   * @brief Randomly shuffles species identifiers between neighboring trees.
+   *
+   * For a randomly selected ratio of trees, a tree swaps its species with one
+   * of its @p k_neighbors. If all neighbors have the same species as the
+   * candidate node, no swap is made.
+   *
+   * @param ratio       Fraction of trees to attempt species shuffling on in [0,
+   *                    1].
+   * @param k_neighbors Number of nearest spatial neighbors to consider.
+   * @param seed        Random seed for reproducibility.
+   */
+  void shuffle_species(float    ratio = 0.1f,
+                       size_t   k_neighbors = 4,
+                       uint32_t seed = 0);
 
   /**
    * @brief Converts the forest into a Cloud of 2D points (x, y) with value set
