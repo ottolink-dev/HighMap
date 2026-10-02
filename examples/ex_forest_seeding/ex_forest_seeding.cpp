@@ -41,13 +41,14 @@ int main(void)
   }
 
   // --- Multi-Species Forest Seeding
+  // (Method A: k-means spatial partitioning)
 
   size_t species_count = 3;
   size_t tree_count = 5000;
 
   hmap::ForestSeedingOptions options;
   options.seed = static_cast<uint32_t>(seed);
-  options.species_weights = {1.f, 0.8f, 0.2f};
+  options.species_weights = {1.f, 1.f, 1.f};
   options.species_radii = {0.005f, 0.003f, 0.002f};
   options.exclusion_threshold = 0.5f;
 
@@ -55,17 +56,36 @@ int main(void)
 
   // generate forest distribution using 2D inverse sampling and k-means
   // clustering
-  hmap::Forest forest = hmap::seed_forest_kmeans(species_count,
-                                                 tree_count,
-                                                 density,
-                                                 exclusion,
-                                                 cluster_randomness,
-                                                 options);
+  hmap::Forest forest_kmeans = hmap::seed_forest_kmeans(species_count,
+                                                        tree_count,
+                                                        density,
+                                                        exclusion,
+                                                        cluster_randomness,
+                                                        options);
 
-  std::cout << forest.to_string() << "\n";
+  std::cout << "--- K-Means Forest ---\n"
+            << forest_kmeans.to_string() << "\n\n";
 
   // sample z elevation from terrain
-  forest.set_elevation_from_terrain(z);
+  forest_kmeans.set_elevation_from_terrain(z);
+
+  // (Method B: parent-child cluster hierarchy)
+  float  cluster_spread = 0.05f;
+  size_t points_per_cluster = 32;
+
+  hmap::Forest forest_clusters = hmap::seed_forest_clusters(species_count,
+                                                            tree_count,
+                                                            density,
+                                                            exclusion,
+                                                            cluster_spread,
+                                                            points_per_cluster,
+                                                            options);
+
+  std::cout << "--- Clustered Forest ---\n"
+            << forest_clusters.to_string() << "\n";
+
+  // sample z elevation from terrain
+  forest_clusters.set_elevation_from_terrain(z);
 
   // --- Export & Visualization
 
@@ -73,7 +93,8 @@ int main(void)
   density.dump("density_linear.png");
   exclusion.dump("exclusion.png");
 
-  forest.to_png("forest_debug.png", shape, density);
+  forest_kmeans.to_png("forest_kmeans.png", shape, density);
+  forest_clusters.to_png("forest_clusters.png", shape, density);
 
   hmap::export_banner_png("ex_forest_seeding.png",
                           {z, density, exclusion},
