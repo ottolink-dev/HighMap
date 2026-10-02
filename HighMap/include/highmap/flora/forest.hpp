@@ -183,6 +183,18 @@ public:
   std::vector<uint32_t> get_species_ids() const;
 
   /**
+   * @brief Filters trees in the forest using rejection sampling based on a
+   * density mask.
+   *
+   * @param density_mask 2D array defining the spatial density field.
+   * @param seed         Random seed for reproducible rejection sampling.
+   * @param bbox         Bounding box defining the domain of the density mask.
+   */
+  void rejection_filter_density(const Array     &density_mask,
+                                uint32_t         seed,
+                                const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+
+  /**
    * @brief Sets the elevation (z-coordinate) of all trees by sampling a terrain
    * heightmap.
    *
@@ -205,6 +217,20 @@ public:
    * @param fname Output file path.
    */
   void to_csv(const std::string &fname) const;
+
+  /**
+   * @brief Exports a visual representation of the forest as a PNG image.
+   *
+   * @param fname      Output PNG file path.
+   * @param shape      Image dimensions {width, height}.
+   * @param background Optional background terrain array (rendered as grayscale,
+   *                   resampled if needed).
+   * @param bbox       Bounding box {xmin, xmax, ymin, ymax} of the domain.
+   */
+  void to_png(const std::string &fname,
+              glm::ivec2         shape,
+              const Array       &background = {},
+              glm::vec4          bbox = {0.f, 1.f, 0.f, 1.f}) const;
 
 protected:
   std::vector<Tree> trees = {}; ///< List of tree instances.

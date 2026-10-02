@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "highmap.hpp"
 
 int main(void)
@@ -41,23 +43,24 @@ int main(void)
   // --- Multi-Species Forest Seeding
 
   size_t species_count = 3;
-  size_t candidate_tree_count = 6000;
-  size_t target_tree_count = 4000;
+  size_t tree_count = 5000;
 
   hmap::ForestSeedingOptions options;
   options.seed = static_cast<uint32_t>(seed);
-  options.species_weights = {1.f, 0.3f, 0.2f};
-  options.species_radii = {0.0015f, 0.001f, 0.0008f};
+  options.species_weights = {1.f, 0.8f, 0.2f};
+  options.species_radii = {0.003f, 0.001f, 0.0008f};
   options.exclusion_threshold = 0.5f;
 
-  // step 1: generate candidate clustered distribution
+  // step 1: generate clustered distribution using local inverse sampling
   hmap::Forest raw_forest = hmap::seed_forest_clusters(species_count,
-                                                       candidate_tree_count,
+                                                       tree_count,
                                                        density,
                                                        exclusion,
-                                                       0.04f,
+                                                       0.05f,
                                                        16,
                                                        options);
+
+  std::cout << "raw_forest size: " << raw_forest.size() << "\n";
 
   // --- Soft-Core Thinning (Strauss Repulsion)
 
@@ -77,9 +80,11 @@ int main(void)
   hmap::Forest forest = hmap::thin_forest_soft_core(raw_forest,
                                                     repulsion_distances,
                                                     repulsion_strengths,
-                                                    target_tree_count,
+                                                    tree_count,
                                                     options.seed,
                                                     options.bbox);
+
+  std::cout << "forest size: " << forest.size() << "\n";
 
   // sample z elevation from terrain
   forest.set_elevation_from_terrain(z);
@@ -112,6 +117,10 @@ int main(void)
 
   hmap::Cloud all_cloud = forest.to_cloud();
   all_cloud.to_png("forest_cloud.png", hmap::Cmap::JET);
+
+  // visual debug export with terrain background
+  raw_forest.to_png("forest_raw_debug.png", shape, density);
+  forest.to_png("forest_debug.png", shape, density);
 
   hmap::export_banner_png("ex_forest_seeding.png",
                           {z, density, exclusion},

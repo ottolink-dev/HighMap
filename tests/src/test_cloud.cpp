@@ -532,4 +532,15 @@ TEST(CloudTest, InverseSampler2DSequentialAndRegionUpdate)
   auto batch = sampler.sample(100);
   EXPECT_EQ(batch[0].size(), 100u);
   EXPECT_EQ(batch[1].size(), 100u);
+
+  // Restricted bbox sampling
+  glm::vec4 restricted_bbox = {0.6f, 0.8f, 0.6f, 0.8f};
+  for (int k = 0; k < 50; ++k)
+  {
+    glm::vec2 pt = sampler.sample(restricted_bbox);
+    EXPECT_GE(pt.x, 0.6f);
+    EXPECT_LE(pt.x, 0.8f);
+    EXPECT_GE(pt.y, 0.6f);
+    EXPECT_LE(pt.y, 0.8f);
+  }
 }

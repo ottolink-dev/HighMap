@@ -79,6 +79,31 @@ public:
    */
   std::array<std::vector<float>, 2> sample(size_t count);
 
+  /**
+   * @brief Samples a single point sequentially within a restricted bounding
+   * box.
+   *
+   * @param  restricted_bbox Bounding box {xmin, xmax, ymin, ymax} defining the
+   *                         sub-region.
+   * @return                 2D point coordinates within the restricted bounding
+   *                         box.
+   */
+  glm::vec2 sample(const glm::vec4 &restricted_bbox);
+
+  /**
+   * @brief Samples a single point within a restricted bounding box with
+   * user-provided uniform random numbers.
+   *
+   * @param  restricted_bbox Bounding box {xmin, xmax, ymin, ymax} defining the
+   *                         sub-region.
+   * @param  u               Uniform random number in [0, 1) for row selection.
+   * @param  u2              Uniform random number in [0, 1) for column
+   * selection.
+   * @return                 2D point coordinates within the restricted bounding
+   *                         box.
+   */
+  glm::vec2 sample(const glm::vec4 &restricted_bbox, float u, float u2);
+
   // ==========================================================================
   //  Updates & Modifiers
   // ==========================================================================

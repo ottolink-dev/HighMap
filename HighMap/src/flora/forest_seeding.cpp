@@ -8,9 +8,6 @@
 #include <random>
 #include <vector>
 
-#include "point_sampler/gaussian_clusters.hpp"
-#include "point_sampler/point.hpp"
-
 #include "highmap/flora/forest_seeding.hpp"
 #include "highmap/geometry/inverse_sampler_2d.hpp"
 #include "highmap/internal/validation.hpp"
@@ -145,7 +142,8 @@ Forest seed_forest_clusters(size_t                      species_count,
                             const ForestSeedingOptions &options)
 {
   // validate inputs
-  if (species_count == 0 || tree_count == 0 || !validate_non_empty(density))
+  if (species_count == 0 || tree_count == 0 || points_per_cluster == 0 ||
+      !validate_non_empty(density))
     return Forest();
 
   float width = options.bbox.y - options.bbox.x;
@@ -162,13 +160,11 @@ Forest seed_forest_clusters(size_t                      species_count,
     if (exclusion.shape == density.shape)
     {
       for (int j = 0; j < density.shape.y; ++j)
-      {
         for (int i = 0; i < density.shape.x; ++i)
         {
           if (exclusion(i, j) >= options.exclusion_threshold)
             effective_density(i, j) = 0.0f;
         }
-      }
     }
     else
     {
@@ -230,6 +226,7 @@ Forest seed_forest_clusters(size_t                      species_count,
   // --- Generate Clusters per Species
 
   std::vector<Tree> candidate_trees;
+  candidate_trees.reserve(tree_count);
 
   for (size_t s = 0; s < species_count; ++s)
   {
@@ -242,58 +239,42 @@ Forest seed_forest_clusters(size_t                      species_count,
 
     auto parent_samples = sampler.sample(cluster_count);
 
-    std::vector<ps::Point<float, 2>> parent_centers;
-    parent_centers.reserve(cluster_count);
-    for (size_t i = 0; i < parent_samples[0].size(); ++i)
-    {
-      parent_centers.push_back({parent_samples[0][i], parent_samples[1][i]});
-    }
-
-    // sample child clusters
-    uint32_t cluster_seed = options.seed + static_cast<uint32_t>(s * 7919 + 31);
-    auto     cluster_points = ps::gaussian_clusters<float, 2>(parent_centers,
-                                                          points_per_cluster,
-                                                          cluster_spread,
-                                                          cluster_seed);
-
     float default_radius = (s < options.species_radii.size())
                                ? options.species_radii[s]
                                : 1.0f;
 
     size_t count_for_s = 0;
-    for (const auto &p : cluster_points)
+    for (size_t c = 0; c < cluster_count && count_for_s < target_s; ++c)
     {
-      if (count_for_s >= target_s) break;
+      float cx = parent_samples[0][c];
+      float cy = parent_samples[1][c];
 
-      float px = p[0];
-      float py = p[1];
+      size_t pts_to_sample = std::min(points_per_cluster,
+                                      target_s - count_for_s);
+      if (pts_to_sample == 0) break;
 
-      // clip to bounding box
-      if (px < options.bbox.x || px > options.bbox.y || py < options.bbox.z ||
-          py > options.bbox.w)
+      glm::vec4 cluster_bbox = {
+          cx - cluster_spread,
+          cx + cluster_spread,
+          cy - cluster_spread,
+          cy + cluster_spread,
+      };
+
+      for (size_t k = 0; k < pts_to_sample; ++k)
       {
-        continue;
+        glm::vec2 pt = sampler.sample(cluster_bbox);
+        candidate_trees.emplace_back(pt.x,
+                                     pt.y,
+                                     0.0f,
+                                     static_cast<uint32_t>(s),
+                                     default_radius);
+        count_for_s++;
       }
-
-      // verify exclusion map
-      if (has_exclusion)
-      {
-        float un = (px - options.bbox.x) / width;
-        float vn = (py - options.bbox.z) / height;
-        float ex = sample_array_bilinear(exclusion, un, vn);
-        if (ex >= options.exclusion_threshold) continue;
-      }
-
-      candidate_trees.emplace_back(px,
-                                   py,
-                                   0.0f,
-                                   static_cast<uint32_t>(s),
-                                   default_radius);
-      count_for_s++;
     }
   }
 
-  return Forest(std::move(candidate_trees));
+  Forest forest(std::move(candidate_trees));
+  return forest;
 }
 
 Forest thin_forest_soft_core(const Forest            &forest,

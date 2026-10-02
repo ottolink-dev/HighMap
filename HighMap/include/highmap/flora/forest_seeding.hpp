@@ -159,18 +159,19 @@ struct ForestSeedingOptions
 // ============================================================================
 
 /**
- * @brief Generates a clustered forest distribution using a Neyman-Scott /
- * Thomas point process with Strauss soft-core thinning.
+ * @brief Generates a clustered forest distribution using inverse transform
+ * sampling for cluster centers and local cluster regions.
  *
  * @param  species_count      Number of distinct tree species.
  * @param  tree_count         Target total number of trees.
  * @param  density            Global density map array.
  * @param  exclusion          Exclusion map array.
- * @param  cluster_spread     Gaussian dispersion standard deviation for
- *                            clusters.
- * @param  points_per_cluster Number of child points sampled per parent cluster.
+ * @param  cluster_spread     Half-extent of the bounding box surrounding each
+ *                            cluster center.
+ * @param  points_per_cluster Number of child points sampled per parent
+ *                            cluster.
  * @param  options            Seeding options.
- * @return                    Forest             Sampled forest container.
+ * @return                    Forest Sampled forest container.
  */
 Forest seed_forest_clusters(size_t                      species_count,
                             size_t                      tree_count,

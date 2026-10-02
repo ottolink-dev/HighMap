@@ -232,3 +232,71 @@ TEST(ForestTest, ToCsv)
   EXPECT_NE(line1.find("2.5"), std::string::npos);
   EXPECT_NE(line2.find("6.0"), std::string::npos);
 }
+
+TEST(ForestTest, RejectionFilterDensity)
+{
+  Forest forest;
+  for (int i = 0; i < 20; ++i)
+    forest.push_back(Tree(0.5f, 0.5f, 0.f, 0u, 1.0f));
+
+  // zero density -> all pruned
+  Array zero_mask({10, 10}, 0.f);
+  forest.rejection_filter_density(zero_mask, 42);
+  EXPECT_EQ(forest.size(), 0u);
+  EXPECT_TRUE(forest.empty());
+
+  // one density -> all kept
+  for (int i = 0; i < 20; ++i)
+    forest.push_back(Tree(0.5f, 0.5f, 0.f, 0u, 1.0f));
+
+  Array full_mask({10, 10}, 1.f);
+  forest.rejection_filter_density(full_mask, 42);
+  EXPECT_EQ(forest.size(), 20u);
+}
+
+TEST(ForestTest, ToPng)
+{
+  Forest forest;
+  forest.push_back(Tree(0.2f, 0.3f, 0.f, 0u, 0.05f));
+  forest.push_back(Tree(0.7f, 0.8f, 0.f, 1u, 0.08f));
+  forest.push_back(Tree(0.5f, 0.5f, 0.f, 2u, 0.03f));
+
+  // without background
+  std::string png_no_bg = "test_forest_no_bg.png";
+  forest.to_png(png_no_bg, {256, 256});
+
+  std::ifstream f1(png_no_bg, std::ios::binary);
+  EXPECT_TRUE(f1.is_open());
+  f1.close();
+
+  // with background array
+  Array       bg({128, 128}, 0.5f);
+  std::string png_with_bg = "test_forest_with_bg.png";
+  forest.to_png(png_with_bg, {256, 256}, bg);
+
+  std::ifstream f2(png_with_bg, std::ios::binary);
+  EXPECT_TRUE(f2.is_open());
+  f2.close();
+}
+
+TEST(ForestSeedingTest, SeedForestClustersWithRejection)
+{
+  Array density({64, 64}, 1.0f);
+  Array exclusion({64, 64}, 0.0f);
+
+  ForestSeedingOptions options;
+  options.seed = 1234;
+  options.species_weights = {1.0f, 1.0f};
+
+  size_t tree_count = 200;
+
+  Forest f = seed_forest_clusters(2,
+                                  tree_count,
+                                  density,
+                                  exclusion,
+                                  0.05f,
+                                  16,
+                                  options);
+
+  EXPECT_EQ(f.size(), tree_count);
+}

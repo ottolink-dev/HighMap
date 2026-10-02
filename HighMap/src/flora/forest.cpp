@@ -5,14 +5,48 @@
 #include <cmath>
 #include <fstream>
 #include <iomanip>
+#include <random>
 #include <set>
 #include <stdexcept>
+#include <vector>
+
+#include <opencv2/core.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 
 #include "highmap/flora/forest.hpp"
+#include "highmap/functions.hpp"
 #include "highmap/internal/validation.hpp"
 
 namespace hmap
 {
+
+// --- Helper Functions
+
+static cv::Scalar get_species_color(uint32_t species_id)
+{
+  static const std::vector<cv::Scalar> palette = {
+      cv::Scalar(60, 200, 60),   // vibrant green
+      cv::Scalar(40, 140, 245),  // warm orange
+      cv::Scalar(235, 205, 50),  // cyan / teal
+      cv::Scalar(210, 60, 200),  // magenta
+      cv::Scalar(50, 230, 255),  // yellow
+      cv::Scalar(240, 90, 70),   // blue
+      cv::Scalar(90, 80, 240),   // coral / red
+      cv::Scalar(180, 230, 100), // lime
+      cv::Scalar(200, 130, 250), // pink / lilac
+  };
+
+  if (species_id < palette.size()) return palette[species_id];
+
+  // golden ratio hue rotation for arbitrary species counts
+  float   hue = std::fmod(static_cast<float>(species_id) * 137.508f, 180.0f);
+  cv::Mat hsv(1, 1, CV_8UC3, cv::Scalar(static_cast<uint8_t>(hue), 220, 240));
+  cv::Mat bgr;
+  cv::cvtColor(hsv, bgr, cv::COLOR_HSV2BGR);
+  cv::Vec3b vec = bgr.at<cv::Vec3b>(0, 0);
+  return cv::Scalar(vec[0], vec[1], vec[2]);
+}
 
 // ==========================================================================
 //  Constructors
@@ -117,6 +151,28 @@ std::vector<uint32_t> Forest::get_species_ids() const
   return std::vector<uint32_t>(unique_species.begin(), unique_species.end());
 }
 
+void Forest::rejection_filter_density(const Array     &density_mask,
+                                      uint32_t         seed,
+                                      const glm::vec4 &bbox)
+{
+  if (!validate_non_empty(density_mask)) return;
+
+  std::mt19937                          gen(seed);
+  std::uniform_real_distribution<float> dis(0.f, 1.f);
+
+  auto density_fct = make_xy_function_from_array(density_mask, bbox);
+
+  trees.erase(std::remove_if(trees.begin(),
+                             trees.end(),
+                             [&](const Tree &tree)
+                             {
+                               float rnd = dis(gen);
+                               return (rnd > density_fct(tree.position.x,
+                                                         tree.position.y));
+                             }),
+              trees.end());
+}
+
 void Forest::set_elevation_from_terrain(const Array     &elevation,
                                         const glm::vec4 &bbox)
 {
@@ -172,6 +228,96 @@ void Forest::to_csv(const std::string &fname) const
     f << tree.position.x << ',' << tree.position.y << ',' << tree.position.z
       << ',' << tree.species_id << ',' << tree.radius << '\n';
   }
+}
+
+void Forest::to_png(const std::string &fname,
+                    glm::ivec2         shape,
+                    const Array       &background,
+                    glm::vec4          bbox) const
+{
+  if (!validate_shape(shape)) return;
+
+  cv::Mat img;
+
+  if (validate_non_empty(background))
+  {
+    float vmin = background.min();
+    float vmax = background.max();
+    float range = (std::abs(vmax - vmin) > 1e-6f) ? (vmax - vmin) : 1.0f;
+
+    cv::Mat bg_float(background.shape.y,
+                     background.shape.x,
+                     CV_32FC1,
+                     const_cast<float *>(background.vector.data()));
+
+    cv::Mat bg_resized;
+    if (background.shape.x != shape.x || background.shape.y != shape.y)
+    {
+      cv::resize(bg_float,
+                 bg_resized,
+                 cv::Size(shape.x, shape.y),
+                 0,
+                 0,
+                 cv::INTER_LINEAR);
+    }
+    else
+    {
+      bg_resized = bg_float.clone();
+    }
+
+    cv::Mat bg_8u;
+    bg_resized.convertTo(bg_8u, CV_8UC1, 255.0 / range, -vmin * 255.0 / range);
+
+    // flip vertically so row 0 is top
+    cv::flip(bg_8u, bg_8u, 0);
+
+    cv::cvtColor(bg_8u, img, cv::COLOR_GRAY2BGR);
+  }
+  else
+  {
+    img = cv::Mat(shape.y, shape.x, CV_8UC3, cv::Scalar(35, 35, 35));
+  }
+
+  // --- Draw Trees
+
+  float width = bbox.y - bbox.x;
+  float height = bbox.w - bbox.z;
+  if (width <= 1e-7f) width = 1.0f;
+  if (height <= 1e-7f) height = 1.0f;
+
+  float scale_x = static_cast<float>(shape.x) / width;
+  float scale_y = static_cast<float>(shape.y) / height;
+  float scale = 0.5f * (scale_x + scale_y);
+
+  for (const auto &tree : trees)
+  {
+    float u = (tree.position.x - bbox.x) / width;
+    float v = (tree.position.y - bbox.z) / height;
+
+    int px = static_cast<int>(std::round(u * static_cast<float>(shape.x - 1)));
+    int py = static_cast<int>(
+        std::round((1.0f - v) * static_cast<float>(shape.y - 1)));
+
+    int r_px = std::max(1, static_cast<int>(std::round(tree.radius * scale)));
+
+    cv::Scalar fill_color = get_species_color(tree.species_id);
+    cv::Scalar edge_color = cv::Scalar(fill_color[0] * 0.5,
+                                       fill_color[1] * 0.5,
+                                       fill_color[2] * 0.5);
+
+    cv::circle(img,
+               cv::Point(px, py),
+               r_px,
+               fill_color,
+               cv::FILLED,
+               cv::LINE_AA);
+    if (r_px > 1)
+    {
+      cv::circle(img, cv::Point(px, py), r_px, edge_color, 1, cv::LINE_AA);
+    }
+  }
+
+  cv::imwrite(fname, img);
 }
 
 } // namespace hmap

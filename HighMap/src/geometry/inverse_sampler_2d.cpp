@@ -172,6 +172,154 @@ std::array<std::vector<float>, 2> InverseSampler2D::sample(size_t count)
   return {std::move(x_coords), std::move(y_coords)};
 }
 
+glm::vec2 InverseSampler2D::sample(const glm::vec4 &restricted_bbox)
+{
+  return this->sample(restricted_bbox,
+                      this->dist_(this->rng_),
+                      this->dist_(this->rng_));
+}
+
+glm::vec2 InverseSampler2D::sample(const glm::vec4 &restricted_bbox,
+                                   float            u_in,
+                                   float            u2_in)
+{
+  const int nx = this->density_.shape.x;
+  const int ny = this->density_.shape.y;
+
+  if (nx <= 0 || ny <= 0)
+    return glm::vec2(0.5f * (restricted_bbox.x + restricted_bbox.y),
+                     0.5f * (restricted_bbox.z + restricted_bbox.w));
+
+  const float bbox_dx = this->bbox_.y - this->bbox_.x;
+  const float bbox_dy = this->bbox_.w - this->bbox_.z;
+
+  if (bbox_dx <= 1e-7f || bbox_dy <= 1e-7f)
+    return glm::vec2(this->bbox_.x, this->bbox_.z);
+
+  // clamp restricted bbox to the sampler domain
+  float xmin = std::clamp(std::min(restricted_bbox.x, restricted_bbox.y),
+                          this->bbox_.x,
+                          this->bbox_.y);
+  float xmax = std::clamp(std::max(restricted_bbox.x, restricted_bbox.y),
+                          this->bbox_.x,
+                          this->bbox_.y);
+  float ymin = std::clamp(std::min(restricted_bbox.z, restricted_bbox.w),
+                          this->bbox_.z,
+                          this->bbox_.w);
+  float ymax = std::clamp(std::max(restricted_bbox.z, restricted_bbox.w),
+                          this->bbox_.z,
+                          this->bbox_.w);
+
+  if (xmax <= xmin || ymax <= ymin) return glm::vec2(xmin, ymin);
+
+  const float denom_x = (nx > 1) ? static_cast<float>(nx - 1) : 1.f;
+  const float denom_y = (ny > 1) ? static_cast<float>(ny - 1) : 1.f;
+
+  float norm_xmin = (xmin - this->bbox_.x) / bbox_dx;
+  float norm_xmax = (xmax - this->bbox_.x) / bbox_dx;
+  float norm_ymin = (ymin - this->bbox_.z) / bbox_dy;
+  float norm_ymax = (ymax - this->bbox_.z) / bbox_dy;
+
+  float x0_min = norm_xmin * denom_x;
+  float x0_max = norm_xmax * denom_x;
+  float y0_min = norm_ymin * denom_y;
+  float y0_max = norm_ymax * denom_y;
+
+  int jmin = std::clamp(static_cast<int>(std::floor(x0_min)), 0, nx - 1);
+  int jmax = std::clamp(static_cast<int>(std::ceil(x0_max)), 0, nx - 1);
+  int imin = std::clamp(static_cast<int>(std::floor(y0_min)), 0, ny - 1);
+  int imax = std::clamp(static_cast<int>(std::ceil(y0_max)), 0, ny - 1);
+
+  int num_rows = imax - imin + 1;
+  int num_cols = jmax - jmin + 1;
+
+  std::vector<float> local_r_cdf(num_rows, 0.f);
+
+  float running_r = 0.f;
+  for (int r = imin; r <= imax; ++r)
+  {
+    float row_sum = 0.f;
+    for (int c = jmin; c <= jmax; ++c)
+    {
+      row_sum += std::max(0.f, this->density_(c, r));
+    }
+    int idx = r - imin;
+    running_r += row_sum;
+    local_r_cdf[idx] = running_r;
+  }
+
+  float total_sub_weight = local_r_cdf.empty() ? 0.f : local_r_cdf.back();
+
+  if (total_sub_weight <= 0.f)
+  {
+    float u1_c = std::clamp(u_in, 0.f, 1.f);
+    float u2_c = std::clamp(u2_in, 0.f, 1.f);
+    return glm::vec2(xmin + u1_c * (xmax - xmin), ymin + u2_c * (ymax - ymin));
+  }
+
+  // Row sampling within restricted region
+  float u = std::clamp(u_in, 0.f, 1.f) * total_sub_weight;
+  auto  it_y = std::upper_bound(local_r_cdf.begin(), local_r_cdf.end(), u);
+  int   local_i = static_cast<int>(std::distance(local_r_cdf.begin(), it_y));
+  if (local_i >= num_rows) local_i = num_rows - 1;
+
+  int global_i = imin + local_i;
+
+  float lo = (local_i > 0) ? local_r_cdf[local_i - 1] : 0.f;
+  float hi = local_r_cdf[local_i];
+  float delta_r = hi - lo;
+  float y0 = (delta_r > 0.f)
+                 ? (static_cast<float>(global_i) + (u - lo) / delta_r)
+                 : static_cast<float>(global_i);
+
+  y0 = std::clamp(y0, y0_min, y0_max);
+
+  // Column sampling within restricted region
+  int   r0 = std::clamp(static_cast<int>(std::floor(y0)), 0, ny - 1);
+  int   r1 = std::min(r0 + 1, ny - 1);
+  float t = std::clamp(y0 - static_cast<float>(r0), 0.f, 1.f);
+
+  std::vector<float> c_cdf(num_cols, 0.f);
+  float              acc = 0.f;
+  for (int c = jmin; c <= jmax; ++c)
+  {
+    float v0 = std::max(0.f, this->density_(c, r0));
+    float v1 = std::max(0.f, this->density_(c, r1));
+    acc += (1.f - t) * v0 + t * v1;
+    c_cdf[c - jmin] = acc;
+  }
+
+  float row_weight = c_cdf.empty() ? 0.f : c_cdf.back();
+  float x0 = 0.f;
+  if (row_weight > 0.f)
+  {
+    float u2 = std::clamp(u2_in, 0.f, 1.f) * row_weight;
+    auto  it_x = std::upper_bound(c_cdf.begin(), c_cdf.end(), u2);
+    int   local_j = static_cast<int>(std::distance(c_cdf.begin(), it_x));
+    if (local_j >= num_cols) local_j = num_cols - 1;
+
+    int global_j = jmin + local_j;
+
+    float lo2 = (local_j > 0) ? c_cdf[local_j - 1] : 0.f;
+    float hi2 = c_cdf[local_j];
+    float delta_c = hi2 - lo2;
+    x0 = (delta_c > 0.f) ? (static_cast<float>(global_j) + (u2 - lo2) / delta_c)
+                         : static_cast<float>(global_j);
+  }
+  else
+  {
+    x0 = x0_min + u2_in * (x0_max - x0_min);
+  }
+
+  x0 = std::clamp(x0, x0_min, x0_max);
+
+  float norm_x = (nx > 1) ? std::clamp(x0 / denom_x, 0.f, 1.f) : 0.5f;
+  float norm_y = (ny > 1) ? std::clamp(y0 / denom_y, 0.f, 1.f) : 0.5f;
+
+  return glm::vec2(this->bbox_.x + norm_x * bbox_dx,
+                   this->bbox_.z + norm_y * bbox_dy);
+}
+
 void InverseSampler2D::set_bbox(const glm::vec4 &bbox)
 {
   this->bbox_ = bbox;
