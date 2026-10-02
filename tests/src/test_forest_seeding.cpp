@@ -328,13 +328,8 @@ TEST(ForestSeedingTest, ExclusionMapMasking)
   }
 
   // Also test KMeans seeding with exclusion
-  Forest forest_km = seed_forest_kmeans(2,
-                                        50,
-                                        density,
-                                        exclusion,
-                                        0.0f,
-                                        4,
-                                        options);
+  Forest forest_km =
+      seed_forest_kmeans(2, 50, density, exclusion, 0.0f, 4, options);
   EXPECT_GT(forest_km.size(), 0u);
 
   for (const auto &tree : forest_km)
@@ -634,5 +629,61 @@ TEST(ForestGrowthTest, CompetitionVoronoiCollisionPruning)
       float dist = std::sqrt(dx * dx + dy * dy);
       EXPECT_GE(dist, grown[i].radius + grown[j].radius - 1e-5f);
     }
+  }
+}
+
+// --- Forest::densify Tests
+
+TEST(ForestTest, DensifyBasic)
+{
+  // A single right triangle with vertices at (0, 0), (2, 0), (0, 2)
+  // Circumcenter is at (1, 1)
+  Forest forest;
+  forest.push_back(Tree(0.0f, 0.0f, 0.0f, 1u, 0.5f));
+  forest.push_back(Tree(2.0f, 0.0f, 0.0f, 1u, 0.5f));
+  forest.push_back(Tree(0.0f, 2.0f, 0.0f, 2u, 0.5f));
+
+  forest.densify(0.05f);
+
+  // Expect 3 original trees + 1 new tree at (1, 1)
+  ASSERT_EQ(forest.size(), 4u);
+
+  const Tree &new_tree = forest.back();
+  EXPECT_TRUE(float_eq(new_tree.position.x, 1.0f));
+  EXPECT_TRUE(float_eq(new_tree.position.y, 1.0f));
+  EXPECT_EQ(new_tree.species_id,
+            1u); // species 1 has count 2 vs species 2 count 1
+  EXPECT_TRUE(float_eq(new_tree.radius, 0.05f));
+}
+
+TEST(ForestTest, DensifySmallForest)
+{
+  Forest forest;
+  forest.push_back(Tree(0.0f, 0.0f, 0.0f, 0u, 0.1f));
+  forest.push_back(Tree(1.0f, 1.0f, 0.0f, 0u, 0.1f));
+
+  // Fewer than 3 trees: densify should be a no-op
+  forest.densify();
+  EXPECT_EQ(forest.size(), 2u);
+}
+
+TEST(ForestTest, DensifyGridSpeciesMajority)
+{
+  // 4 trees forming a square with species 0, 0, 1, 2
+  Forest forest;
+  forest.push_back(Tree(0.0f, 0.0f, 0.0f, 0u, 0.1f));
+  forest.push_back(Tree(1.0f, 0.0f, 0.0f, 0u, 0.1f));
+  forest.push_back(Tree(1.0f, 1.0f, 0.0f, 1u, 0.1f));
+  forest.push_back(Tree(0.0f, 1.0f, 0.0f, 2u, 0.1f));
+
+  size_t initial_count = forest.size();
+  forest.densify(0.02f);
+
+  // Delaunay of 4 points forms 2 triangles -> 2 new trees added
+  EXPECT_EQ(forest.size(), initial_count + 2);
+
+  for (size_t i = initial_count; i < forest.size(); ++i)
+  {
+    EXPECT_TRUE(float_eq(forest[i].radius, 0.02f));
   }
 }

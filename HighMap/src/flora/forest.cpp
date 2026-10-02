@@ -14,6 +14,7 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
 
+#include "delaunator-cpp.hpp"
 #include "point_sampler/metrics.hpp"
 
 #include "highmap/flora/forest.hpp"
@@ -114,6 +115,80 @@ const Tree &Forest::front() const
 // ==========================================================================
 //  Operations
 // ==========================================================================
+
+void Forest::densify(float default_radius)
+{
+  if (trees.size() < 3) return;
+
+  // --- Prepare 2D Coordinates for Delaunay Triangulation
+
+  std::vector<double> coords;
+  coords.reserve(2 * trees.size());
+  for (const auto &tree : trees)
+  {
+    coords.push_back(static_cast<double>(tree.position.x));
+    coords.push_back(static_cast<double>(tree.position.y));
+  }
+
+  delaunator::Delaunator d(coords);
+  const auto            &tri = d.triangles;
+  if (tri.empty()) return;
+
+  // --- Compute Circumcenters & Assign Majority Species
+
+  std::vector<Tree> new_trees;
+  new_trees.reserve(tri.size() / 3);
+
+  for (size_t k = 0; k < tri.size(); k += 3)
+  {
+    size_t i0 = tri[k];
+    size_t i1 = tri[k + 1];
+    size_t i2 = tri[k + 2];
+
+    double ax = coords[2 * i0];
+    double ay = coords[2 * i0 + 1];
+    double bx = coords[2 * i1];
+    double by = coords[2 * i1 + 1];
+    double cx = coords[2 * i2];
+    double cy = coords[2 * i2 + 1];
+
+    auto [cx_center,
+          cy_center] = delaunator::circumcenter(ax, ay, bx, by, cx, cy);
+
+    if (!std::isfinite(cx_center) || !std::isfinite(cy_center)) continue;
+
+    // Determine majority species id among the 3 triangle vertices
+    uint32_t s0 = trees[i0].species_id;
+    uint32_t s1 = trees[i1].species_id;
+    uint32_t s2 = trees[i2].species_id;
+
+    uint32_t majority_species = s0;
+    if (s0 == s1 || s0 == s2)
+    {
+      majority_species = s0;
+    }
+    else if (s1 == s2)
+    {
+      majority_species = s1;
+    }
+    else
+    {
+      majority_species = s0;
+    }
+
+    new_trees.emplace_back(static_cast<float>(cx_center),
+                           static_cast<float>(cy_center),
+                           0.0f,
+                           majority_species,
+                           default_radius);
+  }
+
+  // --- Append New Trees to Forest
+
+  trees.insert(trees.end(),
+               std::make_move_iterator(new_trees.begin()),
+               std::make_move_iterator(new_trees.end()));
+}
 
 Forest Forest::filter_by_species(uint32_t species_id) const
 {

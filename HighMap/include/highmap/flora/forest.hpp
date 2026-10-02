@@ -164,6 +164,19 @@ public:
   // ==========================================================================
 
   /**
+   * @brief Densifies the forest by adding Voronoi vertices (circumcenters of
+   * Delaunay triangles).
+   *
+   * Computes the Delaunay triangulation of the existing trees. For each
+   * triangle, computes its circumcenter (a Voronoi vertex) and inserts a new
+   * tree with the majority species identifier among the triangle's 3 vertices
+   * and the specified default radius.
+   *
+   * @param default_radius Default radius assigned to newly added trees.
+   */
+  void densify(float default_radius = HMAP_DEFAULT_TREE_RADIUS);
+
+  /**
    * @brief Returns a new Forest containing only trees matching the given
    * species.
    * @param  species_id Species identifier to filter by.
@@ -211,10 +224,10 @@ public:
    * the closest neighbor. If estimated radius $\alpha \cdot d_{nn} < r_{\min}$
    * (or if overlapping with a larger tree), the tree is pruned.
    *
-   * @param species Vector of species definitions (with radius_min, radius_max,
-   *                competition_factor).
-   * @param prune_collisions If true, also resolves overlapping tree crowns
-   *                         by discarding the smaller tree.
+   * @param species          Vector of species definitions (with radius_min,
+   *                         radius_max, competition_factor).
+   * @param prune_collisions If true, also resolves overlapping tree crowns by
+   *                         discarding the smaller tree.
    */
   void prune_unviable(const std::vector<Species> &species = {},
                       bool                        prune_collisions = true);
