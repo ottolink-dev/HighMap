@@ -228,8 +228,8 @@ Forest seed_forest_kmeans(size_t                      species_count,
   {
     // single species: assign all sampled points to species 0
     float default_radius = (!effective_radii.empty())
-                                ? effective_radii[0]
-                                : HMAP_DEFAULT_TREE_RADIUS;
+                               ? effective_radii[0]
+                               : HMAP_DEFAULT_TREE_RADIUS;
 
     for (size_t i = 0; i < actual_count; ++i)
     {

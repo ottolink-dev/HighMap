@@ -28,7 +28,7 @@ struct Species
   // radius.
   float weight = 1.0f; ///< Relative abundance weight for seeding.
   float radius_min = 0.5f * HMAP_DEFAULT_TREE_RADIUS; ///< Minimum viable
-                                                      // crown
+  // crown
   // radius.
   float radius_max = 1.5f * HMAP_DEFAULT_TREE_RADIUS; ///< Maximum crown
   // radius.

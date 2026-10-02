@@ -86,6 +86,9 @@ int main(void)
                                                             points_per_cluster,
                                                             options);
 
+  // forest_clusters.densify();
+  forest_clusters.reinforce_species_clusters();
+
   // sample z elevation from terrain
   forest_clusters.set_elevation_from_terrain(z);
 

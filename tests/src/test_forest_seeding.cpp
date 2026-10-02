@@ -730,4 +730,3 @@ TEST(ForestTest, ReinforceSpeciesClustersMultiIteration)
     EXPECT_TRUE(t.species_id == 1u || t.species_id == 2u);
   }
 }
-

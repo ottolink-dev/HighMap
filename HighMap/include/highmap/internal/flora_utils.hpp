@@ -6,7 +6,6 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
-#include <unordered_map>
 #include <vector>
 
 #include <glm/glm.hpp>
@@ -18,21 +17,24 @@
 #include "highmap/internal/validation.hpp"
 #include "highmap/math.hpp"
 
+#include <unordered_map>
+
 namespace hmap
 {
 
 /**
  * @struct ForestScaleSampler
- * @brief Helper for sampling spatial scaling maps over a 2D bounding box with blending.
+ * @brief Helper for sampling spatial scaling maps over a 2D bounding box with
+ * blending.
  */
 struct ForestScaleSampler
 {
-  const Array    *scale_array = nullptr;
-  glm::vec4       bbox = {0.f, 1.f, 0.f, 1.f};
-  float           strength = 1.0f;
-  float           bbox_dx = 1.0f;
-  float           bbox_dy = 1.0f;
-  bool            active = false;
+  const Array *scale_array = nullptr;
+  glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f};
+  float        strength = 1.0f;
+  float        bbox_dx = 1.0f;
+  float        bbox_dy = 1.0f;
+  bool         active = false;
 
   ForestScaleSampler(const Array     &array,
                      float            strength_factor,
@@ -44,8 +46,7 @@ struct ForestScaleSampler
         bbox_dy(bounds.w - bounds.z)
   {
     bool has_data = !array.vector.empty() && validate_non_empty(array);
-    bool valid_bbox =
-        (std::abs(bbox_dx) > 1e-7f && std::abs(bbox_dy) > 1e-7f);
+    bool valid_bbox = (std::abs(bbox_dx) > 1e-7f && std::abs(bbox_dy) > 1e-7f);
     active = (has_data && valid_bbox && strength > 0.0f);
   }
 
@@ -64,10 +65,9 @@ struct ForestScaleSampler
 
     float u = xn - static_cast<float>(i);
     float v = yn - static_cast<float>(j);
-    float s_raw = std::clamp(
-        scale_array->get_value_bilinear_at(i, j, u, v),
-        0.0f,
-        1.0f);
+    float s_raw = std::clamp(scale_array->get_value_bilinear_at(i, j, u, v),
+                             0.0f,
+                             1.0f);
     return lerp(1.f, s_raw, strength);
   }
 };

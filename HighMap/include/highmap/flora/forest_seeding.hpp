@@ -77,7 +77,7 @@ Forest seed_forest_clusters(size_t                      species_count,
  * @param  cluster_randomness Randomness factor in [0, 1] added to cluster
  *                            features.
  * @param  k_neighbors        Number of nearest spatial neighbors used to
- * extract compactness features.
+ *                            extract compactness features.
  * @param  options            Seeding options.
  * @return                    Forest Sampled forest container.
  */

@@ -25,9 +25,7 @@ Forest grow_forest_competition_nn(const Forest               &forest,
 {
   if (forest.empty()) return Forest();
 
-  ForestScaleSampler sampler(max_radius_scale,
-                             max_radius_scale_strength,
-                             bbox);
+  ForestScaleSampler sampler(max_radius_scale, max_radius_scale_strength, bbox);
   SpeciesLookup      lookup(species);
 
   // if only 1 tree, clamp according to its species if available

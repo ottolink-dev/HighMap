@@ -43,9 +43,9 @@ enum SymmetryType : int
 	SYMMETRY_X,             ///< Symmetric average across vertical axis.
 	SYMMETRY_Y,             ///< Symmetric average across horizontal axis.
 	SYMMETRY_XY,            ///< 4-quadrant symmetric average across both X
-		                // and Y.
+	// and Y.
 	SYMMETRY_ROT180         ///< 180-degree rotational symmetry around
-		                // center.
+	// center.
 };
 // clang-format on
 

@@ -241,7 +241,7 @@ public:
    * @param include_self If true, considers the tree's own current species in
    * the majority vote.
    */
-  void reinforce_species_clusters(size_t iterations = 1,
+  void reinforce_species_clusters(size_t iterations = 2,
                                   size_t k_neighbors = 4,
                                   bool   include_self = true);
 

@@ -25,9 +25,7 @@ Forest grow_forest_competition_voronoi(
 {
   if (forest.empty()) return Forest();
 
-  ForestScaleSampler sampler(max_radius_scale,
-                             max_radius_scale_strength,
-                             bbox);
+  ForestScaleSampler sampler(max_radius_scale, max_radius_scale_strength, bbox);
   SpeciesLookup      lookup(species);
 
   // if fewer than 3 trees, triangulate cannot form triangles -> fallback to

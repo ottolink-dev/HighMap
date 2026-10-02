@@ -1016,9 +1016,10 @@ void hydraulic_particle_multiscale(
  */
 struct McDonaldParams
 {
-  float strength = 0.5f;   // overall erosion power (scales suspension & thermal
-                           // rates)
-  float deposition = 0.5f; // sediment retention vs transport
+  float strength = 0.5f;     // overall erosion power (scales suspension &
+                             // thermal
+                             // rates)
+  float deposition = 0.5f;   // sediment retention vs transport
   float crit_slope = 0.57f;  // critical slope [m/m]
   float meandering = 0.5f;   // flow-coupling & momentum inertia
   float scale = 1.0f;        // domain extent multiplier (scales world_extent_km

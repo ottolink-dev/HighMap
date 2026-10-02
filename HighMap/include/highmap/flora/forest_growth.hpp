@@ -171,20 +171,23 @@ struct InteractionMatrix
  * - If @p prune_unviable is true and raw calculated radius $r_i <
  * \text{radius\_min}(s_i)$, the tree is removed.
  *
- * @param  forest                  Input forest container.
- * @param  species                 Vector of Species definitions.
- * @param  competition_matrix      Optional pairwise S x S competition factors
- *                                 (alpha).
- * @param  max_radius_scale        Optional 2D array in [0, 1] scaling maximum
- * radius locally (0 -> rmax = rmin, 1 -> rmax = rmax).
+ * @param  forest                    Input forest container.
+ * @param  species                   Vector of Species definitions.
+ * @param  competition_matrix        Optional pairwise S x S competition factors
+ *                                   (alpha).
+ * @param  max_radius_scale          Optional 2D array in [0, 1] scaling maximum
+ *                                   radius locally (0 -> rmax = rmin, 1 -> rmax
+ *                                   = rmax).
  * @param  max_radius_scale_strength Blend strength for max_radius_scale in [0,
- * 1] (0 -> no scaling/full rmax, 1 -> full scale array modulation).
- * @param  prune_unviable          Whether to remove trees unable to reach
- *                                 radius_min.
- * @param  bbox                    Bounding box {xmin, xmax, ymin, ymax} for
- * sampling
+ *                                   1] (0 -> no scaling/full rmax, 1 -> full
+ *                                   scale array modulation).
+ * @param  prune_unviable            Whether to remove trees unable to reach
+ *                                   radius_min.
+ * @param  bbox                      Bounding box {xmin, xmax, ymin, ymax} for
+ *                                   sampling
  *                                 @p max_radius_scale.
- * @return                         Forest Grown forest with updated tree radii.
+ * @return                           Forest Grown forest with updated tree
+ *                                   radii.
  */
 Forest grow_forest_competition_nn(
     const Forest               &forest,
@@ -196,8 +199,8 @@ Forest grow_forest_competition_nn(
     const glm::vec4            &bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
- * @brief Adjusts tree radii based on Voronoi cell areas and species
- * competition constraints.
+ * @brief Adjusts tree radii based on Voronoi cell areas and species competition
+ * constraints.
  *
  * Builds a Delaunay triangulation (TerrainTriMesh) on the tree positions in the
  * XY plane to compute the local Voronoi/dual cell territory area $A_i$ of each
@@ -215,20 +218,23 @@ Forest grow_forest_competition_nn(
  * - If @p prune_unviable is true and raw calculated radius $r_{\text{est}} <
  * \text{radius\_min}(s_i)$, the tree is removed.
  *
- * @param  forest                  Input forest container.
- * @param  species                 Vector of Species definitions.
- * @param  competition_matrix      Optional pairwise S x S competition factors
- *                                 (alpha).
- * @param  max_radius_scale        Optional 2D array in [0, 1] scaling maximum
- * radius locally (0 -> rmax = rmin, 1 -> rmax = rmax).
+ * @param  forest                    Input forest container.
+ * @param  species                   Vector of Species definitions.
+ * @param  competition_matrix        Optional pairwise S x S competition factors
+ *                                   (alpha).
+ * @param  max_radius_scale          Optional 2D array in [0, 1] scaling maximum
+ *                                   radius locally (0 -> rmax = rmin, 1 -> rmax
+ *                                   = rmax).
  * @param  max_radius_scale_strength Blend strength for max_radius_scale in [0,
- * 1] (0 -> no scaling/full rmax, 1 -> full scale array modulation).
- * @param  prune_unviable          Whether to remove trees unable to reach
- *                                 radius_min.
- * @param  bbox                    Bounding box {xmin, xmax, ymin, ymax} for
- * sampling
+ *                                   1] (0 -> no scaling/full rmax, 1 -> full
+ *                                   scale array modulation).
+ * @param  prune_unviable            Whether to remove trees unable to reach
+ *                                   radius_min.
+ * @param  bbox                      Bounding box {xmin, xmax, ymin, ymax} for
+ *                                   sampling
  *                                 @p max_radius_scale.
- * @return                         Forest Grown forest with updated tree radii.
+ * @return                           Forest Grown forest with updated tree
+ *                                   radii.
  */
 Forest grow_forest_competition_voronoi(
     const Forest               &forest,
