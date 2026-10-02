@@ -116,7 +116,20 @@ int main(void)
       0.8f);
 
   std::cout << "--- Clustered Forest Grown Voronoi ---\n"
-            << forest_grown_voronoi.to_string() << "\n";
+            << forest_grown_voronoi.to_string() << "\n\n";
+
+  // (Iterative Growth)
+  hmap::Forest forest_grown_iterative = hmap::grow_forest_iterative(
+      forest_clusters,
+      options.species,
+      15,
+      0.1f,
+      hmap::InteractionMatrix{},
+      density,
+      0.8f);
+
+  std::cout << "--- Clustered Forest Grown Iterative ---\n"
+            << forest_grown_iterative.to_string() << "\n";
 
   // --- Export & Visualization
 
@@ -128,6 +141,7 @@ int main(void)
   forest_clusters.to_png("forest_clusters.png", shape, density);
   forest_grown_nn.to_png("forest_grown_nn.png", shape, z);
   forest_grown_voronoi.to_png("forest_grown_voronoi.png", shape, z);
+  forest_grown_iterative.to_png("forest_grown_iterative.png", shape, z);
 
   hmap::export_banner_png("ex_forest_seeding.png",
                           {z, density, exclusion},

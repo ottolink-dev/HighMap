@@ -632,6 +632,72 @@ TEST(ForestGrowthTest, CompetitionVoronoiCollisionPruning)
   }
 }
 
+TEST(ForestGrowthTest, IterativeGrowthBasic)
+{
+  Forest forest;
+  forest.push_back(Tree(0.0f, 0.0f, 0.0f, 0u, 0.1f));
+  forest.push_back(Tree(10.0f, 10.0f, 0.0f, 0u, 0.1f)); // isolated tree
+
+  std::vector<Species> species = {
+      Species(0u, 1.0f, 1.0f, 0.1f, 1.0f, 0.5f),
+  };
+
+  // Grow for 20 iterations with rate 0.2
+  Forest grown = grow_forest_iterative(forest, species, 20, 0.2f);
+  ASSERT_EQ(grown.size(), 2u);
+
+  // Both isolated trees should grow toward r_max (1.0)
+  for (const auto &t : grown)
+  {
+    EXPECT_GT(t.radius, 0.5f);
+    EXPECT_LE(t.radius, 1.0f);
+  }
+}
+
+TEST(ForestGrowthTest, IterativeGrowthCompetitionAndSuppression)
+{
+  Forest forest;
+  // Two close trees: one dominant species 0, one smaller species 1
+  forest.push_back(Tree(0.0f, 0.0f, 0.0f, 0u, 0.2f));
+  forest.push_back(Tree(0.5f, 0.0f, 0.0f, 1u, 0.1f));
+
+  // One isolated tree
+  forest.push_back(Tree(10.0f, 10.0f, 0.0f, 0u, 0.2f));
+
+  std::vector<Species> species = {
+      Species(0u, 1.0f, 1.0f, 0.2f, 2.0f, 1.0f),
+      Species(1u, 0.3f, 1.0f, 0.1f, 0.3f, 1.0f),
+  };
+
+  // Grow iteratively with collision and suppression pruning
+  Forest grown =
+      grow_forest_iterative(forest, species, 30, 0.1f, {}, {}, 1.0f, true);
+
+  // The isolated tree at (10, 10) must survive and grow
+  bool found_isolated = false;
+  for (const auto &t : grown)
+  {
+    if (t.position.x > 5.0f)
+    {
+      found_isolated = true;
+      EXPECT_GT(t.radius, 0.2f);
+    }
+  }
+  EXPECT_TRUE(found_isolated);
+
+  // Check no colliding pairs remain in the resulting forest
+  for (size_t i = 0; i < grown.size(); ++i)
+  {
+    for (size_t j = i + 1; j < grown.size(); ++j)
+    {
+      float dx = grown[i].position.x - grown[j].position.x;
+      float dy = grown[i].position.y - grown[j].position.y;
+      float dist = std::sqrt(dx * dx + dy * dy);
+      EXPECT_GE(dist, grown[i].radius + grown[j].radius - 1e-5f);
+    }
+  }
+}
+
 // --- Forest::densify Tests
 
 TEST(ForestTest, DensifyBasic)

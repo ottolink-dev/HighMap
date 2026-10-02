@@ -246,6 +246,42 @@ Forest grow_forest_competition_voronoi(
     const glm::vec4            &bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
+ * @brief Simulates iterative plant growth with neighborhood competition and
+ * mortality.
+ *
+ * Progressively expands plant crowns over multiple time steps according to:
+ *   r_i^{t+1} = min(r_max_eff, r_i^t + G_i * max(0, 1 - C_i)) where G_i is the
+ * growth increment and C_i is the neighborhood competition factor. Suppressed
+ * plants falling below species viability or suffocated by larger crowns are
+ * pruned.
+ *
+ * @param  forest                    Input forest container.
+ * @param  species                   Vector of Species definitions.
+ * @param  iterations                Maximum number of growth iterations.
+ * @param  growth_rate               Base growth fraction per iteration in [0,
+ *                                   1].
+ * @param  competition_matrix        Optional pairwise competition matrix.
+ * @param  max_radius_scale          Optional 2D heightmap array to modulate max
+ *                                   radius locally.
+ * @param  max_radius_scale_strength Strength factor for max_radius_scale in [0,
+ *                                   1].
+ * @param  prune_unviable            Whether to remove suppressed/non-viable
+ *                                   plants.
+ * @param  bbox                      Spatial bounding box for sampling
+ *                                   max_radius_scale.
+ * @return                           Forest Grown and thinned forest container.
+ */
+Forest grow_forest_iterative(const Forest               &forest,
+                             const std::vector<Species> &species = {},
+                             size_t                      iterations = 10,
+                             float                       growth_rate = 0.1f,
+                             const InteractionMatrix &competition_matrix = {},
+                             const Array             &max_radius_scale = {},
+                             float            max_radius_scale_strength = 1.0f,
+                             bool             prune_unviable = true,
+                             const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
  * @brief Performs multi-species Strauss soft-core thinning on an input forest.
  *
  * @param  forest              Input candidate forest.
