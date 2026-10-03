@@ -29,13 +29,13 @@
 <codeline lineno="19"><highlight class="normal"></highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/>nbuffer<sp/>=<sp/>std::max(1,<sp/>nbuffer);</highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nx<sp/>=<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x;</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ny<sp/>=<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="hydraulic__mise_8cpp_1a02d47a4f36ec0bcce348696534567e30" kindref="member">nx</ref><sp/>=<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="hydraulic__mise_8cpp_1a9f4e20a91b26459133b83992e9d8d381" kindref="member">ny</ref><sp/>=<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y;</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>top_area<sp/>=<sp/>nx<sp/>*<sp/>nbuffer;</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>bottom_area<sp/>=<sp/>nx<sp/>*<sp/>nbuffer;</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>left_area<sp/>=<sp/>(ny<sp/>-<sp/>2<sp/>*<sp/>nbuffer)<sp/>*<sp/>nbuffer;</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>right_area<sp/>=<sp/>(ny<sp/>-<sp/>2<sp/>*<sp/>nbuffer)<sp/>*<sp/>nbuffer;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>top_area<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1a02d47a4f36ec0bcce348696534567e30" kindref="member">nx</ref><sp/>*<sp/>nbuffer;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>bottom_area<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1a02d47a4f36ec0bcce348696534567e30" kindref="member">nx</ref><sp/>*<sp/>nbuffer;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>left_area<sp/>=<sp/>(<ref refid="hydraulic__mise_8cpp_1a9f4e20a91b26459133b83992e9d8d381" kindref="member">ny</ref><sp/>-<sp/>2<sp/>*<sp/>nbuffer)<sp/>*<sp/>nbuffer;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>right_area<sp/>=<sp/>(<ref refid="hydraulic__mise_8cpp_1a9f4e20a91b26459133b83992e9d8d381" kindref="member">ny</ref><sp/>-<sp/>2<sp/>*<sp/>nbuffer)<sp/>*<sp/>nbuffer;</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"></highlight></codeline>
 <codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>total_area<sp/>=<sp/>top_area<sp/>+<sp/>bottom_area<sp/>+<sp/>left_area<sp/>+<sp/>right_area;</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
@@ -46,7 +46,7 @@
 <codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>top</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(r<sp/>&lt;<sp/>top_area)</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_x(0,<sp/>nx<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_x(0,<sp/><ref refid="hydraulic__mise_8cpp_1a02d47a4f36ec0bcce348696534567e30" kindref="member">nx</ref><sp/>-<sp/>1);</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_y(0,<sp/>nbuffer<sp/>-<sp/>1);</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{dist_x(rng),<sp/>dist_y(rng)};</highlight></codeline>
@@ -57,8 +57,8 @@
 <codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>bottom</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="48"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(r<sp/>&lt;<sp/>bottom_area)</highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_x(0,<sp/>nx<sp/>-<sp/>1);</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_y(ny<sp/>-<sp/>nbuffer,<sp/>ny<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_x(0,<sp/><ref refid="hydraulic__mise_8cpp_1a02d47a4f36ec0bcce348696534567e30" kindref="member">nx</ref><sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_y(<ref refid="hydraulic__mise_8cpp_1a9f4e20a91b26459133b83992e9d8d381" kindref="member">ny</ref><sp/>-<sp/>nbuffer,<sp/><ref refid="hydraulic__mise_8cpp_1a9f4e20a91b26459133b83992e9d8d381" kindref="member">ny</ref><sp/>-<sp/>1);</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{dist_x(rng),<sp/>dist_y(rng)};</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
@@ -69,14 +69,14 @@
 <codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(r<sp/>&lt;<sp/>left_area)</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
 <codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_x(0,<sp/>nbuffer<sp/>-<sp/>1);</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_y(nbuffer,<sp/>ny<sp/>-<sp/>nbuffer<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_y(nbuffer,<sp/><ref refid="hydraulic__mise_8cpp_1a9f4e20a91b26459133b83992e9d8d381" kindref="member">ny</ref><sp/>-<sp/>nbuffer<sp/>-<sp/>1);</highlight></codeline>
 <codeline lineno="63"><highlight class="normal"></highlight></codeline>
 <codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{dist_x(rng),<sp/>dist_y(rng)};</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="66"><highlight class="normal"></highlight></codeline>
 <codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>right</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_x(nx<sp/>-<sp/>nbuffer,<sp/>nx<sp/>-<sp/>1);</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_y(nbuffer,<sp/>ny<sp/>-<sp/>nbuffer<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_x(<ref refid="hydraulic__mise_8cpp_1a02d47a4f36ec0bcce348696534567e30" kindref="member">nx</ref><sp/>-<sp/>nbuffer,<sp/><ref refid="hydraulic__mise_8cpp_1a02d47a4f36ec0bcce348696534567e30" kindref="member">nx</ref><sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>std::uniform_int_distribution&lt;int&gt;<sp/>dist_y(nbuffer,<sp/><ref refid="hydraulic__mise_8cpp_1a9f4e20a91b26459133b83992e9d8d381" kindref="member">ny</ref><sp/>-<sp/>nbuffer<sp/>-<sp/>1);</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"></highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{dist_x(rng),<sp/>dist_y(rng)};</highlight></codeline>
 <codeline lineno="72"><highlight class="normal">}</highlight></codeline>

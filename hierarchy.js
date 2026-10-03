@@ -93,6 +93,7 @@ var hierarchy =
     [ "hmap::Mat< int >", "structhmap_1_1Mat.html", null ],
     [ "hmap::Mat< std::vector< glm::ivec2 > >", "structhmap_1_1Mat.html", null ],
     [ "hmap::gpu::McDonaldParams", "structhmap_1_1gpu_1_1McDonaldParams.html", null ],
+    [ "hmap::MiseParams", "structhmap_1_1MiseParams.html", null ],
     [ "hmap::NaturalNeighborInterpolator", "classhmap_1_1NaturalNeighborInterpolator.html", null ],
     [ "hmap::Neighbor", "structhmap_1_1Neighbor.html", null ],
     [ "hmap::TerrainTriMesh::Neighbor", "structhmap_1_1TerrainTriMesh_1_1Neighbor.html", null ],

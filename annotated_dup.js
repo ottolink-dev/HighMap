@@ -57,6 +57,7 @@ var annotated_dup =
       [ "LruTileEntry", "structhmap_1_1LruTileEntry.html", "structhmap_1_1LruTileEntry" ],
       [ "LruTileStorage", "classhmap_1_1LruTileStorage.html", "classhmap_1_1LruTileStorage" ],
       [ "Mat", "structhmap_1_1Mat.html", "structhmap_1_1Mat" ],
+      [ "MiseParams", "structhmap_1_1MiseParams.html", "structhmap_1_1MiseParams" ],
       [ "NaturalNeighborInterpolator", "classhmap_1_1NaturalNeighborInterpolator.html", "classhmap_1_1NaturalNeighborInterpolator" ],
       [ "Neighbor", "structhmap_1_1Neighbor.html", "structhmap_1_1Neighbor" ],
       [ "NoiseFunction", "classhmap_1_1NoiseFunction.html", "classhmap_1_1NoiseFunction" ],

@@ -137,7 +137,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Per-vertex penalty term used by <a class="el" href="namespacehmap.html#abec90e80c5d42318a7aadf6dd1016fec">sls_deformation</a>. </p>
-<p>Each constraint contributes <code>scale * <a class="el" href="structhmap_1_1DeformationConstraint.html#af0e2e25f46be9570214dcfa57bc83083" title="per-vertex weight (0 = free)">weight(x, y)</a> * (z(x, y) - <a class="el" href="structhmap_1_1DeformationConstraint.html#a8f3ae7134e1a09cedb0f8e67a5a0040b" title="desired height field">target(x,
+<p>Each constraint contributes <code>scale * <a class="el" href="structhmap_1_1DeformationConstraint.html#af0e2e25f46be9570214dcfa57bc83083" title="per-vertex weight (0 = free)">weight(x, y)</a> * (<a class="el" href="hydraulic__mise_8cpp.html#aa14e04bff7de9e968e46a953f71f29f3">z(x, y)</a> - <a class="el" href="structhmap_1_1DeformationConstraint.html#a8f3ae7134e1a09cedb0f8e67a5a0040b" title="desired height field">target(x,
 y)</a>)^2</code> to the fitness of a vertex, gated by its type: for <code>MATCH</code> the penalty always applies, for <code>ABOVE</code> only where <code>z &lt; target</code>, for <code>BELOW</code> only where <code>z &gt; target</code>. Vertices with a zero weight are unconstrained by that term. Several constraints are summed, so the <code>scale</code> factor can be used to normalize competing terms.</p>
 <p>Typical uses (after Stachniak &amp; Stuerzlinger, 2005):</p><ul>
 <li>match a reference height map: <code>target = ref, weight = 1, MATCH</code>;</li>

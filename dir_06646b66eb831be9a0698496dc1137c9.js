@@ -1,6 +1,7 @@
 var dir_06646b66eb831be9a0698496dc1137c9 =
 [
     [ "dbg", "dir_4b50d38dbb9a706f2e01389671935eb1.html", "dir_4b50d38dbb9a706f2e01389671935eb1" ],
+    [ "erosion", "dir_1996643133fe3e10fa0b8aa245e991d6.html", "dir_1996643133fe3e10fa0b8aa245e991d6" ],
     [ "export", "dir_07f2faa4e22ffdd0f0e180fc1afb0d60.html", "dir_07f2faa4e22ffdd0f0e180fc1afb0d60" ],
     [ "flora", "dir_6867546fde6399e94aa2fb612128875b.html", "dir_6867546fde6399e94aa2fb612128875b" ],
     [ "geometry", "dir_e3886812acc4a770a1eeec0ffad797b7.html", "dir_e3886812acc4a770a1eeec0ffad797b7" ],
@@ -23,7 +24,7 @@ var dir_06646b66eb831be9a0698496dc1137c9 =
     [ "convolve.hpp", "convolve_8hpp.html", "convolve_8hpp" ],
     [ "coord_frame.hpp", "coord__frame_8hpp.html", "coord__frame_8hpp" ],
     [ "curvature.hpp", "curvature_8hpp.html", "curvature_8hpp" ],
-    [ "erosion.hpp", "erosion_8hpp.html", "erosion_8hpp" ],
+    [ "erosion.hpp", "erosion_8hpp.html", null ],
     [ "export.hpp", "export_8hpp.html", null ],
     [ "features.hpp", "features_8hpp.html", "features_8hpp" ],
     [ "filters.hpp", "filters_8hpp.html", "filters_8hpp" ],

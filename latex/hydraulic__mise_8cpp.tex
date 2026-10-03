@@ -1,0 +1,251 @@
+\doxysection{High\+Map/src/erosion/hydraulic\+\_\+mise.cpp File Reference}
+\hypertarget{hydraulic__mise_8cpp}{}\label{hydraulic__mise_8cpp}\index{HighMap/src/erosion/hydraulic\_mise.cpp@{HighMap/src/erosion/hydraulic\_mise.cpp}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacehmap}{hmap}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacehmap_a7b0c1711fe9d99ae8bb573e099ddd5c8}{hmap\+::hydraulic\+\_\+mise}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}, const \mbox{\hyperlink{structhmap_1_1MiseParams}{Mise\+Params}} \&params=\mbox{\hyperlink{structhmap_1_1MiseParams}{Mise\+Params}}(), const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+bedrock=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+erodibility=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+moisture\+\_\+map=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+outlet=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+sediment=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+flow=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+erosion\+\_\+map=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+deposition\+\_\+map=nullptr)
+\begin{DoxyCompactList}\small\item\em Simulates multiscale implicit stream-\/power hydraulic erosion (MISE). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a7596adf5cfdf28ff37dbf1dcda09bb75}{hmap\+::hydraulic\+\_\+mise}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask, const \mbox{\hyperlink{structhmap_1_1MiseParams}{Mise\+Params}} \&params=\mbox{\hyperlink{structhmap_1_1MiseParams}{Mise\+Params}}(), const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+bedrock=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+erodibility=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+moisture\+\_\+map=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+outlet=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+sediment=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+flow=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+erosion\+\_\+map=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+deposition\+\_\+map=nullptr)
+\begin{DoxyCompactList}\small\item\em Simulates multiscale implicit stream-\/power hydraulic erosion (MISE) with an intensity mask. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{hydraulic__mise_8cpp_aa5ab47ad0bc88cdca7443a52473e9482}\label{hydraulic__mise_8cpp_aa5ab47ad0bc88cdca7443a52473e9482} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!bucket@{bucket}}
+\index{bucket@{bucket}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{bucket}{bucket}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::pair$<$uint32\+\_\+t, int$>$ $>$ bucket\mbox{[}33\mbox{]}}
+
+\Hypertarget{hydraulic__mise_8cpp_aedb3b1dd400beea17e86f1184bc0dd6c}\label{hydraulic__mise_8cpp_aedb3b1dd400beea17e86f1184bc0dd6c} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!last@{last}}
+\index{last@{last}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{last}{last}}
+{\footnotesize\ttfamily uint32\+\_\+t last = 0}
+
+\Hypertarget{hydraulic__mise_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}\label{hydraulic__mise_8cpp_a76d971a3c552bc58ba9f0d5fceae9806} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!count@{count}}
+\index{count@{count}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{count}{count}}
+{\footnotesize\ttfamily size\+\_\+t count = 0}
+
+\Hypertarget{hydraulic__mise_8cpp_a02d47a4f36ec0bcce348696534567e30}\label{hydraulic__mise_8cpp_a02d47a4f36ec0bcce348696534567e30} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!nx@{nx}}
+\index{nx@{nx}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{nx}{nx}}
+{\footnotesize\ttfamily int nx = 0}
+
+\Hypertarget{hydraulic__mise_8cpp_a9f4e20a91b26459133b83992e9d8d381}\label{hydraulic__mise_8cpp_a9f4e20a91b26459133b83992e9d8d381} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!ny@{ny}}
+\index{ny@{ny}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{ny}{ny}}
+{\footnotesize\ttfamily int ny = 0}
+
+\Hypertarget{hydraulic__mise_8cpp_a76f11d9a0a47b94f72c2d0e77fb32240}\label{hydraulic__mise_8cpp_a76f11d9a0a47b94f72c2d0e77fb32240} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!n@{n}}
+\index{n@{n}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{n}{n}}
+{\footnotesize\ttfamily int n = 0}
+
+\Hypertarget{hydraulic__mise_8cpp_a6fa43bb426753ec35d096e82fc2cab61}\label{hydraulic__mise_8cpp_a6fa43bb426753ec35d096e82fc2cab61} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!zf@{zf}}
+\index{zf@{zf}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{zf}{zf}}
+{\footnotesize\ttfamily Field zf}
+
+\Hypertarget{hydraulic__mise_8cpp_a75a1634d2dab77d47af4eb58e6dc965e}\label{hydraulic__mise_8cpp_a75a1634d2dab77d47af4eb58e6dc965e} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!order@{order}}
+\index{order@{order}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{order}{order}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ order}
+
+\Hypertarget{hydraulic__mise_8cpp_a7103bde565cfac40b7653f88a0d7c7c4}\label{hydraulic__mise_8cpp_a7103bde565cfac40b7653f88a0d7c7c4} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!rank@{rank}}
+\index{rank@{rank}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{rank}{rank}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ rank}
+
+\Hypertarget{hydraulic__mise_8cpp_a2514142a54add982da998b4a82d76820}\label{hydraulic__mise_8cpp_a2514142a54add982da998b4a82d76820} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!rcv@{rcv}}
+\index{rcv@{rcv}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{rcv}{rcv}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ rcv}
+
+\Hypertarget{hydraulic__mise_8cpp_a6be9967a33e3b44db7b49aeb5a473343}\label{hydraulic__mise_8cpp_a6be9967a33e3b44db7b49aeb5a473343} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!flag@{flag}}
+\index{flag@{flag}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{flag}{flag}}
+{\footnotesize\ttfamily std\+::vector$<$uint8\+\_\+t$>$ flag}
+
+\Hypertarget{hydraulic__mise_8cpp_aaf398867f4e5a34468f33eb7755c55a6}\label{hydraulic__mise_8cpp_aaf398867f4e5a34468f33eb7755c55a6} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!area@{area}}
+\index{area@{area}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{area}{area}}
+{\footnotesize\ttfamily Field area}
+
+\Hypertarget{hydraulic__mise_8cpp_a9fcc7f55292bbdeebe70c01203afbc6f}\label{hydraulic__mise_8cpp_a9fcc7f55292bbdeebe70c01203afbc6f} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!steep@{steep}}
+\index{steep@{steep}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{steep}{steep}}
+{\footnotesize\ttfamily Field steep}
+
+\Hypertarget{hydraulic__mise_8cpp_a73344886040efe7cd0cdbdcaee4cdab1}\label{hydraulic__mise_8cpp_a73344886040efe7cd0cdbdcaee4cdab1} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!lake@{lake}}
+\index{lake@{lake}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{lake}{lake}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ lake}
+
+\Hypertarget{hydraulic__mise_8cpp_ab016c7f77b7c32011c2a8b4ad054fd45}\label{hydraulic__mise_8cpp_ab016c7f77b7c32011c2a8b4ad054fd45} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!lake\_outlet@{lake\_outlet}}
+\index{lake\_outlet@{lake\_outlet}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{lake\_outlet}{lake\_outlet}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ lake\+\_\+outlet}
+
+\Hypertarget{hydraulic__mise_8cpp_a60d8699cea9f40a2869ec853ae54cf3f}\label{hydraulic__mise_8cpp_a60d8699cea9f40a2869ec853ae54cf3f} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!lake\_root@{lake\_root}}
+\index{lake\_root@{lake\_root}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{lake\_root}{lake\_root}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ lake\+\_\+root}
+
+\Hypertarget{hydraulic__mise_8cpp_a46412a7b0a903d622cd2cd070d164926}\label{hydraulic__mise_8cpp_a46412a7b0a903d622cd2cd070d164926} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!lake\_volume@{lake\_volume}}
+\index{lake\_volume@{lake\_volume}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{lake\_volume}{lake\_volume}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ lake\+\_\+volume}
+
+\Hypertarget{hydraulic__mise_8cpp_afadab6824d2d8666b24527e35b441167}\label{hydraulic__mise_8cpp_afadab6824d2d8666b24527e35b441167} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!lake\_sediment@{lake\_sediment}}
+\index{lake\_sediment@{lake\_sediment}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{lake\_sediment}{lake\_sediment}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ lake\+\_\+sediment}
+
+\Hypertarget{hydraulic__mise_8cpp_ac5ced29b615b1488585f27df2abea189}\label{hydraulic__mise_8cpp_ac5ced29b615b1488585f27df2abea189} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!lake\_target@{lake\_target}}
+\index{lake\_target@{lake\_target}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{lake\_target}{lake\_target}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ lake\+\_\+target}
+
+\Hypertarget{hydraulic__mise_8cpp_ad399cc6055875f7eab0ddcd190523391}\label{hydraulic__mise_8cpp_ad399cc6055875f7eab0ddcd190523391} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!lake\_lo@{lake\_lo}}
+\index{lake\_lo@{lake\_lo}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{lake\_lo}{lake\_lo}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ lake\+\_\+lo}
+
+\Hypertarget{hydraulic__mise_8cpp_a00dd77ecd89335b8a1a71ffb0bd1b531}\label{hydraulic__mise_8cpp_a00dd77ecd89335b8a1a71ffb0bd1b531} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!lake\_hi@{lake\_hi}}
+\index{lake\_hi@{lake\_hi}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{lake\_hi}{lake\_hi}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ lake\+\_\+hi}
+
+\Hypertarget{hydraulic__mise_8cpp_a1effb5d836a1e8430aa360ac11a4e0e8}\label{hydraulic__mise_8cpp_a1effb5d836a1e8430aa360ac11a4e0e8} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!lake\_level@{lake\_level}}
+\index{lake\_level@{lake\_level}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{lake\_level}{lake\_level}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ lake\+\_\+level}
+
+\Hypertarget{hydraulic__mise_8cpp_a305c8e0a28bd14461dda33a1978df63e}\label{hydraulic__mise_8cpp_a305c8e0a28bd14461dda33a1978df63e} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!lake\_acc@{lake\_acc}}
+\index{lake\_acc@{lake\_acc}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{lake\_acc}{lake\_acc}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ lake\+\_\+acc}
+
+\Hypertarget{hydraulic__mise_8cpp_a4f046b5e9f75c715b44c15da2f13d8ed}\label{hydraulic__mise_8cpp_a4f046b5e9f75c715b44c15da2f13d8ed} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!pitq@{pitq}}
+\index{pitq@{pitq}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{pitq}{pitq}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ pitq}
+
+\Hypertarget{hydraulic__mise_8cpp_adc3d53f46ea2af00b9117f202b362dc4}\label{hydraulic__mise_8cpp_adc3d53f46ea2af00b9117f202b362dc4} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!pit\_cells@{pit\_cells}}
+\index{pit\_cells@{pit\_cells}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{pit\_cells}{pit\_cells}}
+{\footnotesize\ttfamily int pit\+\_\+cells = 0}
+
+\Hypertarget{hydraulic__mise_8cpp_ab7b4855bfaed4a8f3b7e58f033fd7b81}\label{hydraulic__mise_8cpp_ab7b4855bfaed4a8f3b7e58f033fd7b81} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!heap@{heap}}
+\index{heap@{heap}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{heap}{heap}}
+{\footnotesize\ttfamily Radix\+Heap heap}
+
+\Hypertarget{hydraulic__mise_8cpp_a7a5dcbf1ee87dd3c79068bfff522a6ed}\label{hydraulic__mise_8cpp_a7a5dcbf1ee87dd3c79068bfff522a6ed} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!bhead@{bhead}}
+\index{bhead@{bhead}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{bhead}{bhead}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ bhead}
+
+\Hypertarget{hydraulic__mise_8cpp_aa5eba7d9e64211ca66cef16db4723475}\label{hydraulic__mise_8cpp_aa5eba7d9e64211ca66cef16db4723475} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!bnext@{bnext}}
+\index{bnext@{bnext}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{bnext}{bnext}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ bnext}
+
+\Hypertarget{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}\label{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!z@{z}}
+\index{z@{z}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{z}{z}}
+{\footnotesize\ttfamily Field\texorpdfstring{$\ast$}{*} z = nullptr}
+
+\Hypertarget{hydraulic__mise_8cpp_a948708c576e7a02ba2473d1e21aa6883}\label{hydraulic__mise_8cpp_a948708c576e7a02ba2473d1e21aa6883} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!sed@{sed}}
+\index{sed@{sed}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{sed}{sed}}
+{\footnotesize\ttfamily Field\texorpdfstring{$\ast$}{*} sed = nullptr}
+
+\Hypertarget{hydraulic__mise_8cpp_aea391a706628d8001fa6d048d4a28ef5}\label{hydraulic__mise_8cpp_aea391a706628d8001fa6d048d4a28ef5} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!erodibility@{erodibility}}
+\index{erodibility@{erodibility}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{erodibility}{erodibility}}
+{\footnotesize\ttfamily const float\texorpdfstring{$\ast$}{*} erodibility = nullptr}
+
+\Hypertarget{hydraulic__mise_8cpp_ac2ba01864cf73417b85986a23eadb64c}\label{hydraulic__mise_8cpp_ac2ba01864cf73417b85986a23eadb64c} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!rain@{rain}}
+\index{rain@{rain}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{rain}{rain}}
+{\footnotesize\ttfamily const float\texorpdfstring{$\ast$}{*} rain = nullptr}
+
+\Hypertarget{hydraulic__mise_8cpp_abf130fcd985b61918da6234c9d89b5be}\label{hydraulic__mise_8cpp_abf130fcd985b61918da6234c9d89b5be} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!bedrock@{bedrock}}
+\index{bedrock@{bedrock}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{bedrock}{bedrock}}
+{\footnotesize\ttfamily const float\texorpdfstring{$\ast$}{*} bedrock = nullptr}
+
+\Hypertarget{hydraulic__mise_8cpp_a04ae352a41e6a2fb1296b478e5881a66}\label{hydraulic__mise_8cpp_a04ae352a41e6a2fb1296b478e5881a66} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!outlet@{outlet}}
+\index{outlet@{outlet}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{outlet}{outlet}}
+{\footnotesize\ttfamily const uint8\+\_\+t\texorpdfstring{$\ast$}{*} outlet = nullptr}
+
+\Hypertarget{hydraulic__mise_8cpp_ab295f982f9bdacbc9b2fe90e32c5cb30}\label{hydraulic__mise_8cpp_ab295f982f9bdacbc9b2fe90e32c5cb30} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!ero@{ero}}
+\index{ero@{ero}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{ero}{ero}}
+{\footnotesize\ttfamily Field ero}
+
+\Hypertarget{hydraulic__mise_8cpp_ad5c488f9406a6c7b92122e11639568ce}\label{hydraulic__mise_8cpp_ad5c488f9406a6c7b92122e11639568ce} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!qs@{qs}}
+\index{qs@{qs}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{qs}{qs}}
+{\footnotesize\ttfamily Field qs}
+
+\Hypertarget{hydraulic__mise_8cpp_abc53bf3af6cc63e8924fd6510602dd0b}\label{hydraulic__mise_8cpp_abc53bf3af6cc63e8924fd6510602dd0b} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!zdon@{zdon}}
+\index{zdon@{zdon}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{zdon}{zdon}}
+{\footnotesize\ttfamily Field zdon}
+
+\Hypertarget{hydraulic__mise_8cpp_aca83790abf7dd42cf3e835653762d804}\label{hydraulic__mise_8cpp_aca83790abf7dd42cf3e835653762d804} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!delta@{delta}}
+\index{delta@{delta}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{delta}{delta}}
+{\footnotesize\ttfamily Field delta}
+
+\Hypertarget{hydraulic__mise_8cpp_a77245844cd988bd7ba04a026fbbcb872}\label{hydraulic__mise_8cpp_a77245844cd988bd7ba04a026fbbcb872} 
+\index{hydraulic\_mise.cpp@{hydraulic\_mise.cpp}!powlut@{powlut}}
+\index{powlut@{powlut}!hydraulic\_mise.cpp@{hydraulic\_mise.cpp}}
+\doxysubsubsection{\texorpdfstring{powlut}{powlut}}
+{\footnotesize\ttfamily Field powlut}
+

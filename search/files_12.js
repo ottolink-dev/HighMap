@@ -29,10 +29,11 @@ var searchData=
   ['statistics_2ehpp_26',['statistics.hpp',['../statistics_8hpp.html',1,'']]],
   ['stitching_5fhelpers_2ecpp_27',['stitching_helpers.cpp',['../stitching__helpers_8cpp.html',1,'']]],
   ['strata_2ecpp_28',['strata.cpp',['../strata_8cpp.html',1,'']]],
-  ['strata_5fplates_2ecpp_29',['strata_plates.cpp',['../strata__plates_8cpp.html',1,'']]],
-  ['string_5futils_2ecpp_30',['string_utils.cpp',['../string__utils_8cpp.html',1,'']]],
-  ['string_5futils_2ehpp_31',['string_utils.hpp',['../string__utils_8hpp.html',1,'']]],
-  ['swirl_2ecpp_32',['swirl.cpp',['../swirl_8cpp.html',1,'']]],
-  ['sync_5foverlap_5fbuffers_2ecpp_33',['sync_overlap_buffers.cpp',['../sync__overlap__buffers_8cpp.html',1,'']]],
-  ['synthesis_2ehpp_34',['synthesis.hpp',['../synthesis_8hpp.html',1,'']]]
+  ['strata_5ferosion_2ehpp_29',['strata_erosion.hpp',['../strata__erosion_8hpp.html',1,'']]],
+  ['strata_5fplates_2ecpp_30',['strata_plates.cpp',['../strata__plates_8cpp.html',1,'']]],
+  ['string_5futils_2ecpp_31',['string_utils.cpp',['../string__utils_8cpp.html',1,'']]],
+  ['string_5futils_2ehpp_32',['string_utils.hpp',['../string__utils_8hpp.html',1,'']]],
+  ['swirl_2ecpp_33',['swirl.cpp',['../swirl_8cpp.html',1,'']]],
+  ['sync_5foverlap_5fbuffers_2ecpp_34',['sync_overlap_buffers.cpp',['../sync__overlap__buffers_8cpp.html',1,'']]],
+  ['synthesis_2ehpp_35',['synthesis.hpp',['../synthesis_8hpp.html',1,'']]]
 ];

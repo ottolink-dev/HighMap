@@ -71,7 +71,7 @@
 <para>Per-vertex penalty term used by <ref refid="namespacehmap_1abec90e80c5d42318a7aadf6dd1016fec" kindref="member">sls_deformation</ref>. </para>
     </briefdescription>
     <detaileddescription>
-<para>Each constraint contributes <computeroutput>scale * <ref refid="structhmap_1_1DeformationConstraint_1af0e2e25f46be9570214dcfa57bc83083" kindref="member">weight(x, y)</ref> * (z(x, y) - <ref refid="structhmap_1_1DeformationConstraint_1a8f3ae7134e1a09cedb0f8e67a5a0040b" kindref="member">target(x,
+<para>Each constraint contributes <computeroutput>scale * <ref refid="structhmap_1_1DeformationConstraint_1af0e2e25f46be9570214dcfa57bc83083" kindref="member">weight(x, y)</ref> * (<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z(x, y)</ref> - <ref refid="structhmap_1_1DeformationConstraint_1a8f3ae7134e1a09cedb0f8e67a5a0040b" kindref="member">target(x,
 y)</ref>)^2</computeroutput> to the fitness of a vertex, gated by its type: for <computeroutput>MATCH</computeroutput> the penalty always applies, for <computeroutput>ABOVE</computeroutput> only where <computeroutput>z &lt; target</computeroutput>, for <computeroutput>BELOW</computeroutput> only where <computeroutput>z &gt; target</computeroutput>. Vertices with a zero weight are unconstrained by that term. Several constraints are summed, so the <computeroutput>scale</computeroutput> factor can be used to normalize competing terms.</para>
 <para>Typical uses (after Stachniak &amp; Stuerzlinger, 2005):<itemizedlist>
 <listitem><para>match a reference height map: <computeroutput>target = ref, weight = 1, MATCH</computeroutput>;</para>

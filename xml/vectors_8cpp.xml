@@ -238,15 +238,15 @@
 <codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>end<sp/>=<sp/>std::min&lt;int&gt;(input.size()<sp/>-<sp/>1,<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>+<sp/>radius);</highlight></codeline>
 <codeline lineno="229"><highlight class="normal"></highlight></codeline>
 <codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sum<sp/>=<sp/>0.0f;</highlight></codeline>
-<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="232"><highlight class="normal"></highlight></codeline>
 <codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>=<sp/>start;<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>&lt;=<sp/>end;<sp/>++<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)</highlight></codeline>
 <codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>sum<sp/>+=<sp/>input[<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>];</highlight></codeline>
-<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>++;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>++;</highlight></codeline>
 <codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="238"><highlight class="normal"></highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/>output[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>]<sp/>=<sp/>sum<sp/>/<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(<ref refid="kd__tree_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/>output[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>]<sp/>=<sp/>sum<sp/>/<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(<ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>);</highlight></codeline>
 <codeline lineno="240"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="241"><highlight class="normal"></highlight></codeline>
 <codeline lineno="242"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>output;</highlight></codeline>
@@ -298,11 +298,11 @@
 <codeline lineno="288"><highlight class="normal"></highlight></codeline>
 <codeline lineno="289"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1ac95d63662a6878f27011c0b4c7c70078" kindref="member">vector_unique_values</ref>(std::vector&lt;float&gt;<sp/>&amp;v)</highlight></codeline>
 <codeline lineno="290"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="291"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>last<sp/>=<sp/>std::unique(v.begin(),<sp/>v.end());</highlight></codeline>
-<codeline lineno="292"><highlight class="normal"><sp/><sp/>v.erase(last,<sp/>v.end());</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="hydraulic__mise_8cpp_1aedb3b1dd400beea17e86f1184bc0dd6c" kindref="member">last</ref><sp/>=<sp/>std::unique(v.begin(),<sp/>v.end());</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/>v.erase(<ref refid="hydraulic__mise_8cpp_1aedb3b1dd400beea17e86f1184bc0dd6c" kindref="member">last</ref>,<sp/>v.end());</highlight></codeline>
 <codeline lineno="293"><highlight class="normal"><sp/><sp/>std::sort(v.begin(),<sp/>v.end());</highlight></codeline>
-<codeline lineno="294"><highlight class="normal"><sp/><sp/>last<sp/>=<sp/>std::unique(v.begin(),<sp/>v.end());</highlight></codeline>
-<codeline lineno="295"><highlight class="normal"><sp/><sp/>v.erase(last,<sp/>v.end());</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><ref refid="hydraulic__mise_8cpp_1aedb3b1dd400beea17e86f1184bc0dd6c" kindref="member">last</ref><sp/>=<sp/>std::unique(v.begin(),<sp/>v.end());</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/>v.erase(<ref refid="hydraulic__mise_8cpp_1aedb3b1dd400beea17e86f1184bc0dd6c" kindref="member">last</ref>,<sp/>v.end());</highlight></codeline>
 <codeline lineno="296"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="297"><highlight class="normal"></highlight></codeline>
 <codeline lineno="298"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
