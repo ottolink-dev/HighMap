@@ -72,7 +72,7 @@ void thermal_auto_bedrock(Array       &z,
                           const Array &talus,
                           int          iterations = 10,
                           Array       *p_deposition_map = nullptr); ///<
-                                                              // @overload
+// @overload
 
 void thermal_auto_bedrock(Array &z,
                           float,

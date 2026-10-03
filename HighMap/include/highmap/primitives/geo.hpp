@@ -779,7 +779,7 @@ Array mountain_inselberg(glm::ivec2    shape,
  *                            mountain range. Default is 0.5f.
  * @param  center             The center point of the radial mountain range as
  *                            normalized coordinates within [0, 1]. Default is
- *                           {0.5f, 0.5f}.
+ *                            {0.5f, 0.5f}.
  * @param  octaves            The number of octaves for fractal noise
  *                            generation. Default is 8.
  * @param  weight             The initial weight for noise contribution. Default

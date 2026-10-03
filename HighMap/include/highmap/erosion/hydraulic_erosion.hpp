@@ -404,7 +404,7 @@ Array hydraulic_saleve(const Array          &z,
  * @param talus_ref          Reference talus used to localy define the
  *                           flow-partition exponent (small values of
  *                           `talus_ref` will lead to thinner flow streams, see
- * {@link flow_accumulation_dinf}).
+ *                           {@link flow_accumulation_dinf}).
  * @param p_bedrock          Lower elevation limit.
  * @param p_moisture_map     Reference to the moisture map (quantity of rain),
  *                           expected to be in [0, 1].
@@ -450,7 +450,7 @@ void hydraulic_stream(Array       &z,
  * @param talus_ref              Reference talus used to locally define the
  *                               flow-partition exponent. Small values lead to
  *                               thinner flow streams (see
- * {@link flow_accumulation_dinf}).
+ *                               {@link flow_accumulation_dinf}).
  * @param deposition_ir          Kernel radius for sediment deposition. If
  *                               greater than 1, a smoothing effect is applied.
  * @param deposition_scale_ratio Scaling factor for sediment deposition.

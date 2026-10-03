@@ -151,7 +151,8 @@ Array geomorphons(const Array &array, int irmin, int irmax, float epsilon);
  *                                 stored. Pass nullptr if not required.
  * @param[in]  weights             A vector of two floats representing the
  *                                 weight given to
- * `array1` and `array2`. The default weights are {1.f, 1.f}.
+ *                                 `array1` and `array2`. The default weights
+ *                                 are {1.f, 1.f}.
  * @param[in]  seed                A seed value for random number generation,
  *                                 ensuring reproducibility of the clustering
  *                                 results. The default value is 1.
@@ -205,7 +206,8 @@ Array kmeans_clustering2(const Array        &array1,
  *                                 stored. Pass nullptr if not required.
  * @param[in]  weights             A vector of three floats representing the
  *                                 weight given to
- * `array1`, `array2`, and `array3`. The default weights are {1.f, 1.f, 1.f}.
+ *                                 `array1`, `array2`, and `array3`. The default
+ *                                 weights are {1.f, 1.f, 1.f}.
  * @param[in]  seed                A seed value for random number generation,
  *                                 ensuring reproducibility of the clustering
  *                                 results. The default value is 1.

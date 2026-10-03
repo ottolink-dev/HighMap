@@ -87,7 +87,7 @@ void extrapolate_borders(Array &array,
  *                 a stronger falloff. Default is 1.0f.
  * @param dist_fct The distance function to be used for calculating the falloff.
  *                 Options include Euclidian and others, with
- * `DistanceFunction::EUCLIDIAN` as the default.
+ *                 `DistanceFunction::EUCLIDIAN` as the default.
  * @param p_noise  Optional pointer to an array that provides noise to be added
  *                 to the falloff effect. If nullptr (default), no noise is
  *                 added.

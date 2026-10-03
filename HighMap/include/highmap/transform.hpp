@@ -42,10 +42,8 @@ enum SymmetryType : int
 	SYMMETRY_BOTTOM_TO_TOP, ///< Mirror bottom half onto top half.
 	SYMMETRY_X,             ///< Symmetric average across vertical axis.
 	SYMMETRY_Y,             ///< Symmetric average across horizontal axis.
-	SYMMETRY_XY,            ///< 4-quadrant symmetric average across both X
-	// and Y.
-	SYMMETRY_ROT180         ///< 180-degree rotational symmetry around
-	// center.
+	SYMMETRY_XY,            ///< 4-quadrant symmetric average across both X and Y.
+	SYMMETRY_ROT180         ///< 180-degree rotational symmetry around center.
 };
 // clang-format on
 
@@ -471,8 +469,9 @@ void warp_downslope(Array       &array,
  *                     default is `false`.
  * @param  center      The center of the zoom operation, specified as a
  *                     `glm::vec2`
- * with coordinates in the range [0, 1], where {0.5f, 0.5f} represents the
- * center of the array. The default center is {0.5f, 0.5f}.
+ *                     with coordinates in the range [0, 1], where {0.5f, 0.5f}
+ *                     represents the center of the array. The default center is
+ *                     {0.5f, 0.5f}.
  * @param  p_noise_x   Optional pointer to a 2D array that contains x-direction
  *                     noise to be added during the zoom operation. If provided,
  *                     the noise values are applied to the x-coordinates of the
@@ -486,7 +485,7 @@ void warp_downslope(Array       &array,
  * @return             A new 2D array that is the result of applying the zoom
  *                     effect to the input `array` by the specified
  *                     `zoom_factor` and centered at the specified
- * `center`.
+ *                     `center`.
  *
  * **Example**
  * @include ex_zoom.cpp

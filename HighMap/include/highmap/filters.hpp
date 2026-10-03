@@ -38,10 +38,8 @@ struct VirtualArray;
 enum neighborhood : int
 {
 	MOORE, ///< Moore neighborhood: includes all eight surrounding cells.
-	VON_NEUMANN, ///< Von Neumann neighborhood: includes only the four
-	// orthogonal neighbors (N, S, E, W).
-	CROSS  ///< Cross-shaped neighborhood: includes only the diagonal
-	// neighbors.
+	VON_NEUMANN, ///< Von Neumann neighborhood: includes only the four orthogonal neighbors (N, S, E, W).
+	CROSS  ///< Cross-shaped neighborhood: includes only the diagonal neighbors.
 };
 // clang-format on
 
@@ -654,7 +652,7 @@ void kuwahara(Array &array, int ir, float mix_ratio = 1.f);
  * @param p_mask    A pointer to an array representing the mask. The values in
  *                  the mask range from 0.0 to 1.0, specifying the blending
  *                  ratio for each pixel. If
- * `nullptr`, the filter is applied without masking.
+ *                  `nullptr`, the filter is applied without masking.
  * @param mix_ratio A blending factor between the original and filtered arrays
  *                  when `p_mask` is `nullptr`. Ignored if `p_mask` is provided.
  *
@@ -689,7 +687,7 @@ void kuwahara(Array &array, int ir, const Array *p_mask, float mix_ratio = 1.f);
  *
  * @param array      The 2D array to be smoothed (modified in place).
  * @param sigma      Diffusion coefficient (small positive value, e.g.
- * 0.05–0.25).
+ *                   0.05–0.25).
  * @param iterations Number of diffusion iterations to apply.
  *
  * **Example**
@@ -1431,8 +1429,8 @@ void recurve(Array                    &array,
  *               applied to the entire heightmap.
  * @param tau    Exponential decay parameter that defines the shape of the
  *               "bumpy"
- * curve. Higher values of `tau` result in a sharper curve. The default value is
- * 0.5.
+ *               curve. Higher values of `tau` result in a sharper curve. The
+ *               default value is 0.5.
  *
  * **Example**
  * @include ex_recurve_xxx.cpp
@@ -1464,8 +1462,8 @@ void recurve_bexp(Array       &array,
  *               applied to the entire heightmap.
  * @param tau    Exponential decay parameter that defines the shape of the
  *               "sharp"
- * curve. Higher values of `tau` result in a steeper curve. The default value is
- * 0.5.
+ *               curve. Higher values of `tau` result in a steeper curve. The
+ *               default value is 0.5.
  *
  * **Example**
  * @include ex_recurve_xxx.cpp
@@ -2526,7 +2524,7 @@ Array jagged_fbm(const Array  &array,
  * @param  persistence  Amplitude multiplier per octave (default: 0.5f).
  * @param  lacunarity   Frequency multiplier per octave (default: 2.0f).
  * @param  switch_kx_ky If true, swaps kx and ky at each octave (default:
- * false).
+ *                      false).
  * @param  jitter       Jitter amount controlling cell randomness (default:
  *                      {0.5f, 0.5f}).
  * @param  gamma        Shape exponent for the dome curvature (default: 1.0f).

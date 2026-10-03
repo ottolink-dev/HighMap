@@ -238,7 +238,7 @@ public:
    *
    * @param array The input `Array` from which the value is interpolated.
    * @param bbox  Bounding box used for normalizing coordinates {xmin, xmax,
-   * ymin, ymax}.
+   *              ymin, ymax}.
    */
   void set_value_from_array(const Array &array, const glm::vec4 &bbox);
 };

@@ -207,7 +207,7 @@ public:
    *
    * @param density_mask 2D array defining the spatial density field.
    * @param target_ratio Approximate target fraction of trees to retain in [0,
-   * 1].
+   *                     1].
    * @param seed         Random seed for reproducible pruning.
    * @param bbox         Bounding box defining the domain of the density mask.
    */
@@ -240,7 +240,7 @@ public:
    * @param iterations   Number of smoothing/reinforcement iterations.
    * @param k_neighbors  Number of spatial nearest neighbors to query.
    * @param include_self If true, considers the tree's own current species in
-   * the majority vote.
+   *                     the majority vote.
    */
   void reinforce_species_clusters(size_t iterations = 2,
                                   size_t k_neighbors = 4,
@@ -293,11 +293,11 @@ public:
    *                           world/domain coordinates. If <= 0, automatically
    *                           derived from the bounding box and grid shape.
    * @param  species_id        Optional species identifier to compute density
-   * for a specific species only.
+   *                           for a specific species only.
    * @param  weighted_by_crown If true, weights tree density by crown surface
    *                           ($\pi r^2$).
    * @param  bbox              Bounding box defining the domain {xmin, xmax,
-   * ymin, ymax}.
+   *                           ymin, ymax}.
    * @return                   Array 2D continuous density map array.
    */
   Array to_density_map(glm::ivec2              shape,

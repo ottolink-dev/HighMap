@@ -805,7 +805,7 @@ void water_depth_dry_out(Array       &water_depth,
  *
  * @param  water_depth      Input array representing the initial water depth.
  * @param  z                Elevation array corresponding to the same grid as
- *                         `water_depth`.
+ *                          `water_depth`.
  * @param  additional_depth Additional water depth to propagate from the
  *                          existing water region.
  * @return                  An Array containing the updated water depth after
@@ -843,7 +843,7 @@ Array water_depth_increase(const Array &water_depth,
  *
  * @param  water_depth      Input array representing the initial water depth.
  * @param  z                Elevation array corresponding to the same grid as
- *                         `water_depth`.
+ *                          `water_depth`.
  * @param  additional_depth Additional water depth used to raise the global
  *                          water level.
  * @return                  An Array containing the updated flooded state after

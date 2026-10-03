@@ -48,7 +48,7 @@ enum VoronoiReturnType : int
  * @param  seed                        Random seed number.
  * @param  control_array               Control array (can be of any shape,
  *                                     different from
- * `shape`).
+ *                                     `shape`).
  * @param  eps                         Epsilon used to bias the area where
  *                                     points are generated in cells.
  * @param  resolution                  Number of resolutions in the noise
@@ -1068,7 +1068,7 @@ Array vorolines_fbm(
  * @param  bbox         (Optional) The bounding box for the Voronoi computation,
  *                      given as a 4D vector of floats representing {min_x,
  *                      max_x, min_y, max_y}. Defaults to
- * {0.f, 1.f, 0.f, 1.f}.
+ *                      {0.f, 1.f, 0.f, 1.f}.
  *
  * @return              A 2D array representing the generated Voronoi diagram.
  *
@@ -1126,7 +1126,7 @@ Array voronoi(glm::ivec2        shape,
  * @param  bbox         (Optional) The bounding box for the Voronoi computation,
  *                      given as a 4D vector of floats representing {min_x,
  *                      max_x, min_y, max_y}. Defaults to
- * {0.f, 1.f, 0.f, 1.f}.
+ *                      {0.f, 1.f, 0.f, 1.f}.
  *
  * @return              A 2D array representing the generated Voronoi diagram.
  *
@@ -1171,8 +1171,8 @@ Array voronoi_fbm(glm::ivec2        shape,
  *                             nullptr).
  * @param p_noise_x, p_noise_y Reference to the input noise arrays.
  * @param bbox                 The bounding box for the Voronoi diagram as
- *                            {x_min, x_max, y_min, y_max} (default is {0.f,
- * 1.f, 0.f, 1.f}).
+ *                             {x_min, x_max, y_min, y_max} (default is {0.f,
+ *                             1.f, 0.f, 1.f}).
  *
  * @note Taken from https://www.shadertoy.com/view/llG3zy
  *
@@ -1305,7 +1305,7 @@ Array voronoise_fbm(glm::ivec2    shape,
  * @param  bbox        Bounding box of the domain in which the field is
  *                     computed: {xmin, xmax, ymin, ymax}.
  * @param  bbox_points Bounding box for point generation, usually larger than
- * `bbox` to avoid edge effects.
+ *                     `bbox` to avoid edge effects.
  *
  * @return             An `Array` object containing the computed scalar field.
  *

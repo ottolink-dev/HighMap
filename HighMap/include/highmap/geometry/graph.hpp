@@ -141,7 +141,7 @@ public:
    * @param  source_point_index Starting point index.
    * @param  target_point_index Ending point index.
    * @return                    std::vector<int> Path of node indices from
-   * source to target.
+   *                            source to target.
    *
    * **Example**
    * @include ex_graph_dijkstra.cpp

@@ -151,7 +151,7 @@ asset_export_format_as_string = {
  * @param  fit_boundaries    If true, domain coordinates are scaled to [0, 1] x
  *                           [0, 1]. Default is false (domain scaled to [0, 1 -
  *                           1/shape.x] x [0, 1 -
- * 1/shape.y]).
+ *                           1/shape.y]).
  * @return                   `true` if the export is successful, `false`
  *                           otherwise.
  */

@@ -98,7 +98,7 @@ Array compare(const Array &a,
  * @param  array1 The first array to stack.
  * @param  array2 The second array to stack.
  * @return        Array The resulting array obtained by horizontally stacking
- * `array1` and `array2`.
+ *                `array1` and `array2`.
  */
 Array hstack(const Array &array1, const Array &array2);
 

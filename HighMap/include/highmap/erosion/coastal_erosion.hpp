@@ -90,8 +90,8 @@ void coastal_erosion_diffusion(Array       &z,
  *                                    @p slope_shore.
  * @param scarp_extent_ratio          Ratio defining the relative extent of the
  *                                    scarp region. A value in [0,1]:
- *                             - 0 → no scarp, only slope
- *                             - 1 → all scarp
+ *                                    - 0 → no scarp, only slope
+ *                                    - 1 → all scarp
  * @param apply_post_filter           If true, applies Laplacian smoothing to @p
  *                                    z restricted to shoreline areas.
  * @param post_filter_iterations      Iterations for post-smoothing filter.

@@ -65,7 +65,7 @@ public:
    * @param array   Reference to the input array.
    * @param nlevels Number of levels (if set to a null or negative value, the
    *                maximum number of levels is taken minus the number
-   * provided).
+   *                provided).
    *
    * **Example**
    * @include ex_pyramid_decomposition.cpp

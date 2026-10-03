@@ -47,7 +47,7 @@ namespace hmap
  * @param distance_exponent Exponent used in the Dijkstra weight function to
  *                          adjust the influence of distance.
  * @param p_mask_nogo       Optional mask array defining areas to avoid;
- * points in these areas will not be considered.
+ *                          points in these areas will not be considered.
  *
  * @see                     Array::find_path_dijkstra
  */

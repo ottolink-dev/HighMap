@@ -165,7 +165,7 @@ public:
   /**
    * @brief Find subroots of the flow network.
    * @return A pair containing a vector of subroots indices and a boolean
-   * status.
+   *         status.
    */
   std::pair<std::vector<size_t>, bool> find_subroots();
 

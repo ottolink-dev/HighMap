@@ -327,8 +327,8 @@ Array quilting_shuffle(const Array         &array,
  *                          1).
  * @return                  Array Synthesized heightmap of shape `array.shape *
  *                          factor`, or an empty array if the inputs are invalid
- * (e.g. the downsampled exemplar is smaller than a patch, or the exemplar is
- * flat).
+ *                          (e.g. the downsampled exemplar is smaller than a
+ *                          patch, or the exemplar is flat).
  *
  * **Example**
  * @include ex_terrain_super_resolution.cpp

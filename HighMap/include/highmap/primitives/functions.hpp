@@ -411,8 +411,8 @@ Array cubic_pulse(glm::ivec2   shape,
  * @param  center       Center of the disk in normalized coordinates (0.0 to
  *                      1.0). Defaults to {0.5, 0.5}.
  * @param  bbox         Bounding box for the disk in normalized coordinates
- *                     {x_min, x_max, y_min, y_max}. Defaults to {0.0, 1.0, 0.0,
- * 1.0}.
+ *                      {x_min, x_max, y_min, y_max}. Defaults to {0.0, 1.0,
+ *                      0.0, 1.0}.
  *
  * @return              A 2D array representing the generated disk shape.
  *
@@ -651,12 +651,12 @@ Array quad_surface(glm::ivec2   shape,
  * @param  center       Center of the rectangle in normalized coordinates (0.0
  *                      to 1.0). Defaults to {0.5, 0.5}.
  * @param  bbox         Bounding box for the rectangle in normalized coordinates
- *                     {x_min, x_max, y_min, y_max}. Defaults to {0.0, 1.0, 0.0,
- * 1.0}.
+ *                      {x_min, x_max, y_min, y_max}. Defaults to {0.0, 1.0,
+ *                      0.0, 1.0}.
  *
  * @return              A 2D array representing the generated rectangle shape.
- *    *
- * **Example**
+ *                      *
+ *                      **Example**
  * @include ex_rectangle.cpp
  *
  * **Result**

@@ -238,7 +238,7 @@ Array blend_gradients(const Array &array1, const Array &array2, int ir = 4);
  * @param  array2     The second input array.
  * @param  iterations The number of iterations for the blending process
  *                    (default:
- * 500).
+ *                    500).
  * @param  p_mask     Optional pointer to an array defining the blending mask.
  *                    If null, blending is applied globally.
  * @return            The blended array resulting from the Poisson blending

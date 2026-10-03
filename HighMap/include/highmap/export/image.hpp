@@ -247,7 +247,7 @@ bool export_virtual_array(const VirtualTexture &vt,
  * @param fname The name of the file to which the normal map will be exported.
  * @param array The input heightmap array from which the normal map is derived.
  * @param depth The depth of the PNG image, e.g., `CV_8U` for 8-bit or `CV_16U`
- * for 16-bit. Default is `CV_8U`.
+ *              for 16-bit. Default is `CV_8U`.
  *
  * **Example**
  * @include ex_export_normal_map.cpp
@@ -272,11 +272,11 @@ void export_normal_map_png(const std::string &fname,
  *              is `nullptr`.
  * @param p_b   Pointer to the array representing the blue (B) channel. Default
  *              is
- * `nullptr`.
+ *              `nullptr`.
  * @param p_a   Pointer to the array representing the alpha (A) channel. Default
  *              is `nullptr`.
  * @param depth The depth of the PNG image, e.g., `CV_8U` for 8-bit or `CV_16U`
- * for 16-bit. Default is `CV_8U`.
+ *              for 16-bit. Default is `CV_8U`.
  *
  * **Example**
  * @include ex_export_splatmap_png_16bit.cpp
@@ -303,7 +303,7 @@ void export_splatmap_png(const std::string &fname,
  * @param fname_radical           Base name (radical) for output image files.
  * @param fname_extension         File extension to use for exported images
  *                                (e.g.,
- * "png").
+ *                                "png").
  * @param array                   The input 2D array to be tiled and exported.
  * @param tiling                  A 2D vector specifying the number of tiles in
  *                                the x and y directions.

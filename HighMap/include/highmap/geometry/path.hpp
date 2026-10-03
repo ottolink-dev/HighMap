@@ -276,8 +276,8 @@ public:
    * parameter.
    *
    * @param decreasing If true, enforces a monotonically decreasing order for
-   * the values. If false, enforces a monotonically increasing order for the
-   * values.
+   *                   the values. If false, enforces a monotonically increasing
+   *                   order for the values.
    *
    * @note This method modifies the path in place.
    */
@@ -412,7 +412,7 @@ public:
    * @param array  The array to which the path points will be projected.
    * @param bbox   Bounding box defining the domain of the array.
    * @param filled Boolean flag indicating whether to perform flood filling of
-   * the path's contour.
+   *               the path's contour.
    */
   void to_array(Array    &array,
                 glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f},
@@ -440,7 +440,7 @@ public:
    *
    * @param fname The filename for the output PNG image.
    * @param shape Resolution of the image, specified as width and height.
-   * Default is {512, 512}.
+   *              Default is {512, 512}.
    */
   void to_png(std::string fname, glm::ivec2 shape = {512, 512});
 
@@ -611,7 +611,7 @@ Path decasteljau(
  * @param n_points_target The desired number of points to retain in the path. If
  *                        the current number of points is less than
  *                        `n_points_target` or the path contains fewer than 3
- * points, the method returns without modifying the path.
+ *                        points, the method returns without modifying the path.
  *
  * **Example**
  * @include ex_path_decimate.cpp
@@ -641,7 +641,7 @@ Path decimate_vw(const Path &path, int n_points_target = 3);
  * @param sigma         Standard deviation of the Gaussian displacement,
  *                      relative to the distance between points.
  * @param orientation   Determines the displacement direction: `0` for random,
- * `1` for inflation, `-1` for deflation.
+ *                      `1` for inflation, `-1` for deflation.
  * @param persistence   Factor that adjusts the noise intensity across
  *                      iterations.
  * @param control_field Optional pointer to an array that locally modifies the
@@ -847,7 +847,7 @@ Path smooth(const Path &path,
  *                      bias path progression.
  * @param  p_mask       Optional pointer to a binary/mask Array (1 = allowed, 0
  *                      = forbidden) preventing the path from entering forbidden
- * areas.
+ *                      areas.
  * @param  bbox         Bounding box for spatial sampling.
  * @return              Generated continuous Path.
  *

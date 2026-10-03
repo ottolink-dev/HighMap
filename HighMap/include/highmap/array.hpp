@@ -565,7 +565,7 @@ public:
    * @param  x    Coordinate along the x-axis.
    * @param  y    Coordinate along the y-axis.
    * @param  bbox Bounding box defining the domain of the array. It is expected
-   * to be in the form of {xmin, xmax, ymin, ymax}.
+   *              to be in the form of {xmin, xmax, ymin, ymax}.
    * @return      float The nearest value at the clamped location (x, y).
    */
   float get_value_nearest(float x, float y, glm::vec4 bbox) const;
@@ -611,7 +611,7 @@ public:
    *
    * @param  k The linear index.
    * @return   glm::ivec2 The (i, j) coordinates corresponding to the linear
-   * index `k`.
+   *           index `k`.
    */
   glm::ivec2 linear_index_reverse(int k) const;
 
@@ -673,7 +673,7 @@ public:
    * @param  vmin Lower bound of the desired range.
    * @param  vmax Upper bound of the desired range.
    * @return      glm::vec2 Normalization coefficients (a, b) where `a` scales
-   * the values and `b` shifts them.
+   *              the values and `b` shifts them.
    */
   glm::vec2 normalization_coeff(float vmin = 0.f, float vmax = 1.f) const;
 
@@ -702,7 +702,7 @@ public:
    * @brief Computes the minimum and maximum values of the array.
    *
    * @return glm::vec2 A vector where x contains the minimum value and y
-   * contains the maximum value.
+   *         contains the maximum value.
    */
   glm::vec2 range() const;
 
@@ -717,7 +717,7 @@ public:
    * @param  p_low  Lower percentile in [0, 1]
    * @param  p_high Upper percentile in [0, 1]
    * @param  bins   Number of bins used for the histogram (higher = more
-   * precise)
+   *                precise)
    *
    * @return        glm::vec2 A vector where x contains the approximated lower
    *                percentile value and y contains the approximated upper
@@ -918,7 +918,7 @@ public:
    *
    * @param fname       The name of the PNG file to be created or overwritten.
    * @param cmap        The colormap to be used for visualizing the data. Refer
-   * to `cmap` for available options.
+   *                    to `cmap` for available options.
    * @param hillshading Boolean flag to enable or disable hillshading. If true,
    *                    hillshading will be applied.
    *
@@ -1024,11 +1024,13 @@ size_t count_zero(const Array &array);
  * @param  mat          Reference to the OpenCV `cv::Mat` object that will be
  *                      converted.
  * @param  remap_values A boolean flag indicating whether to scale the values to
- * \[0, 1\]. If `true`, the values will be scaled; if `false`, they will be
- * copied directly. Default is `true`.
+ *                      \[0, 1\]. If `true`, the values will be scaled; if
+ *                      `false`, they will be copied directly. Default is
+ *                      `true`.
  * @return              A 2D `Array` object containing a copy of the data from
  *                      the input
- * `cv::Mat`, with optional scaling to the interval \[0, 1\].
+ *                      `cv::Mat`, with optional scaling to the interval \[0,
+ *                      1\].
  *
  * **Example**
  * @include ex_cv_mat_to_array.cpp

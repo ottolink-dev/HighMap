@@ -31,8 +31,7 @@ enum StampingBlendMethod : int
 enum DeformationConstraintType : int
 {
   MATCH, ///< penalize any deviation from the target height
-  ABOVE, ///< penalize only heights below the target (target acts as a
-  // floor)
+  ABOVE, ///< penalize only heights below the target (target acts as a floor)
   BELOW, ///< penalize only heights above the target (target acts as a
          ///< ceiling)
 };
@@ -235,7 +234,7 @@ Array base_elevation(glm::ivec2                             shape,
  * @param  shape         Output array shape.
  * @param  contours      Closed contour polygons (at least 3 points each), in
  *                       `bbox` coordinates. The `closed` flag of the paths is
- * ignored, every path is closed.
+ *                       ignored, every path is closed.
  * @param  elevations    Elevation of each contour (same size as `contours`).
  * @param  p_probability Optional probability map in [0, 1] with shape `shape`.
  *                       Where it is high the rising front advances fast and the

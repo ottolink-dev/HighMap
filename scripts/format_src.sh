@@ -26,6 +26,13 @@ for D in ${DIRS}; do
     done
 done
 
+# fix headers
+for D in ${DIRS}; do
+    for F in `find ${D}/. -type f \( -iname \*.hpp -o -iname \*.inl \)`; do
+	echo ${F}
+	scripts/fix_format_doxygen.py ${F}
+    done
+done
 
 # format cmake files
 echo "- cmake-format"

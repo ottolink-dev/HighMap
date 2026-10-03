@@ -94,7 +94,7 @@ Array convolve2d(const Array &array, const Array &kernel);
  * @return        Array Resulting array after applying the truncated 2D
  *                convolution. Shape: {array.shape[0] - kernel.shape[0],
  *                array.shape[1] -
- * kernel.shape[1]}.
+ *                kernel.shape[1]}.
  */
 Array convolve2d_truncated(const Array &array, const Array &kernel);
 
