@@ -16,6 +16,7 @@
 #include "highmap/algebra.hpp"
 #include "highmap/array.hpp"
 #include "highmap/export.hpp"
+#include "highmap/flora/forest.hpp"
 #include "highmap/geometry/cloud.hpp"
 #include "highmap/geometry/path.hpp"
 #include "highmap/internal/validation.hpp"
@@ -60,6 +61,45 @@ lightusd::GeomBasisCurves build_usd_curves(const Path &path,
       std::vector<int>{static_cast<int>(path.size())});
 
   return curves_prim;
+}
+
+std::vector<lightusd::GeomPoints> build_usd_forest_points(
+    const Forest &forest,
+    float         elevation_scaling,
+    float         x_max,
+    float         y_max)
+{
+  std::vector<lightusd::GeomPoints> species_prims;
+  std::vector<uint32_t>             species_ids = forest.get_species_ids();
+
+  for (uint32_t sp_id : species_ids)
+  {
+    lightusd::GeomPoints points_prim;
+    points_prim.name = "Forest_Species_" + std::to_string(sp_id);
+
+    std::vector<lightusd::value::point3f> pts;
+    std::vector<float>                    widths;
+
+    for (const auto &tree : forest)
+    {
+      if (tree.species_id == sp_id)
+      {
+        pts.push_back({(1.f - tree.position.y) * y_max,
+                       elevation_scaling * tree.position.z,
+                       tree.position.x * x_max});
+        widths.push_back(2.f * tree.radius);
+      }
+    }
+
+    if (!pts.empty())
+    {
+      points_prim.points.set_value(pts);
+      points_prim.widths.set_value(widths);
+      species_prims.push_back(std::move(points_prim));
+    }
+  }
+
+  return species_prims;
 }
 
 lightusd::GeomPoints build_usd_points(const Cloud &cloud,
@@ -189,73 +229,8 @@ lightusd::GeomMesh build_usd_terrain_mesh(const Array &array,
   return mesh;
 }
 
-} // namespace
-
-bool export_usd(const std::string        &fname,
-                const Array              &elevation,
-                const std::vector<Cloud> &clouds,
-                const std::vector<Path>  &paths,
-                MeshType                  mesh_type,
-                float                     elevation_scaling,
-                const std::string        &texture_fname,
-                const std::string        &normal_map_fname,
-                float                     max_error,
-                bool                      fit_boundaries)
+bool save_usd_stage(const std::string &fname, lightusd::Stage &stage)
 {
-  if (!validate_non_empty(elevation)) return false;
-
-  (void)texture_fname;
-  (void)normal_map_fname;
-
-  hmap::log::trace("exporting USD scene to [{}]", fname);
-
-  float x_max = fit_boundaries ? 1.f
-                               : (elevation.shape.x > 0
-                                      ? 1.f - 1.f / (float)elevation.shape.x
-                                      : 1.f);
-  float y_max = fit_boundaries ? 1.f
-                               : (elevation.shape.y > 0
-                                      ? 1.f - 1.f / (float)elevation.shape.y
-                                      : 1.f);
-
-  lightusd::Stage stage;
-
-  // --- Terrain mesh
-  lightusd::GeomMesh terrain = build_usd_terrain_mesh(elevation,
-                                                      mesh_type,
-                                                      elevation_scaling,
-                                                      max_error,
-                                                      fit_boundaries);
-  stage.add_root_prim(lightusd::Prim(terrain));
-
-  // --- Clouds
-  for (size_t i = 0; i < clouds.size(); ++i)
-  {
-    if (clouds[i].size() > 0)
-    {
-      lightusd::GeomPoints pts = build_usd_points(clouds[i],
-                                                  i,
-                                                  elevation_scaling,
-                                                  x_max,
-                                                  y_max);
-      stage.add_root_prim(lightusd::Prim(pts));
-    }
-  }
-
-  // --- Paths
-  for (size_t i = 0; i < paths.size(); ++i)
-  {
-    if (paths[i].size() > 0)
-    {
-      lightusd::GeomBasisCurves cur = build_usd_curves(paths[i],
-                                                       i,
-                                                       elevation_scaling,
-                                                       x_max,
-                                                       y_max);
-      stage.add_root_prim(lightusd::Prim(cur));
-    }
-  }
-
   std::filesystem::path fpath(fname);
   std::string           ext = fpath.extension().string();
   std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
@@ -295,6 +270,101 @@ bool export_usd(const std::string        &fname,
   }
 
   return true;
+}
+
+} // namespace
+
+bool export_usd(const std::string        &fname,
+                const Array              &elevation,
+                const Forest             &forest,
+                const std::vector<Cloud> &clouds,
+                const std::vector<Path>  &paths,
+                MeshType                  mesh_type,
+                float                     elevation_scaling,
+                const std::string        &texture_fname,
+                const std::string        &normal_map_fname,
+                float                     max_error,
+                bool                      fit_boundaries)
+{
+  bool has_elevation = (elevation.shape.x > 0 && elevation.shape.y > 0 &&
+                        !elevation.vector.empty());
+  bool has_forest = !forest.empty();
+  bool has_clouds = !clouds.empty();
+  bool has_paths = !paths.empty();
+
+  if (!has_elevation && !has_forest && !has_clouds && !has_paths)
+  {
+    hmap::log::warn("USD export skipped: no geometry to export");
+    return false;
+  }
+
+  (void)texture_fname;
+  (void)normal_map_fname;
+
+  hmap::log::trace("exporting USD scene to [{}]", fname);
+
+  float x_max = (has_elevation && !fit_boundaries && elevation.shape.x > 0)
+                    ? (1.f - 1.f / (float)elevation.shape.x)
+                    : 1.f;
+  float y_max = (has_elevation && !fit_boundaries && elevation.shape.y > 0)
+                    ? (1.f - 1.f / (float)elevation.shape.y)
+                    : 1.f;
+
+  lightusd::Stage stage;
+
+  // --- Terrain mesh
+  if (has_elevation)
+  {
+    lightusd::GeomMesh terrain = build_usd_terrain_mesh(elevation,
+                                                        mesh_type,
+                                                        elevation_scaling,
+                                                        max_error,
+                                                        fit_boundaries);
+    stage.add_root_prim(lightusd::Prim(terrain));
+  }
+
+  // --- Forest points by species
+  if (has_forest)
+  {
+    auto forest_prims = build_usd_forest_points(forest,
+                                                elevation_scaling,
+                                                x_max,
+                                                y_max);
+    for (auto &prim : forest_prims)
+    {
+      stage.add_root_prim(lightusd::Prim(prim));
+    }
+  }
+
+  // --- Clouds
+  for (size_t i = 0; i < clouds.size(); ++i)
+  {
+    if (clouds[i].size() > 0)
+    {
+      lightusd::GeomPoints pts = build_usd_points(clouds[i],
+                                                  i,
+                                                  elevation_scaling,
+                                                  x_max,
+                                                  y_max);
+      stage.add_root_prim(lightusd::Prim(pts));
+    }
+  }
+
+  // --- Paths
+  for (size_t i = 0; i < paths.size(); ++i)
+  {
+    if (paths[i].size() > 0)
+    {
+      lightusd::GeomBasisCurves cur = build_usd_curves(paths[i],
+                                                       i,
+                                                       elevation_scaling,
+                                                       x_max,
+                                                       y_max);
+      stage.add_root_prim(lightusd::Prim(cur));
+    }
+  }
+
+  return save_usd_stage(fname, stage);
 }
 
 } // namespace hmap

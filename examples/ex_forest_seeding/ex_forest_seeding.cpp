@@ -56,7 +56,7 @@ int main(void)
   };
   options.exclusion_threshold = 0.5f;
 
-  float cluster_randomness = 0.2f;
+  float cluster_randomness = 0.f;
 
   // generate forest distribution using 2D inverse sampling and k-means
   // clustering
@@ -167,6 +167,14 @@ int main(void)
   forest_grown_voronoi.to_png("forest_grown_voronoi.png", shape, z);
   forest_grown_iterative.to_png("forest_grown_iterative.png", shape, z);
   forest_thinned_soft_core.to_png("forest_thinned_soft_core.png", shape, z);
+
+  hmap::export_usd("scene_forest.usdc",
+                   z,
+                   forest_thinned_soft_core,
+                   {},
+                   {},
+                   hmap::MeshType::TRI_OPTIMIZED,
+                   0.25f);
 
   hmap::export_banner_png("ex_forest_seeding.png",
                           {z, density, exclusion},

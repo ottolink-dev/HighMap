@@ -18,6 +18,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/export/asset.hpp"
+#include "highmap/flora/forest.hpp"
 #include "highmap/geometry/cloud.hpp"
 #include "highmap/geometry/path.hpp"
 
@@ -25,20 +26,25 @@ namespace hmap
 {
 
 /**
- * @brief Exports a composite scene (terrain, clouds, and paths) to Universal
- * Scene Description (USD).
+ * @brief Exports a composite scene (terrain, forest, clouds, and paths) to
+ * Universal Scene Description (USD).
  *
  * Generates a USD stage (.usda, .usdc, or .usdz) containing:
- * - Terrain mesh from `elevation` (with optional UV coordinates and elevation
- * scaling)
- * - Point collections from `clouds` as UsdGeomPoints
- * - Polylines/splines from `paths` as UsdGeomBasisCurves
+ * - Optional terrain mesh from `elevation` (with optional UV coordinates and
+ * elevation scaling)
+ * - Optional point collections from `forest` grouped by species as
+ * UsdGeomPoints with tree radii (widths)
+ * - Optional point collections from `clouds` as UsdGeomPoints
+ * - Optional polylines/splines from `paths` as UsdGeomBasisCurves
  *
  * @param  fname             Output file name (.usda, .usdc, or .usdz).
- * @param  elevation         The heightmap array representing terrain elevation.
- * @param  clouds            Vector of Cloud objects to export as points
- *                           primitives.
- * @param  paths             Vector of Path objects to export as curve
+ * @param  elevation         Optional heightmap array representing terrain
+ *                           elevation.
+ * @param  forest            Optional Forest container whose trees are exported
+ *                           as points.
+ * @param  clouds            Optional vector of Cloud objects to export as
+ *                           points primitives.
+ * @param  paths             Optional vector of Path objects to export as curve
  *                           primitives.
  * @param  mesh_type         The type of mesh to generate for the terrain.
  * @param  elevation_scaling Elevation scaling factor applied to the terrain and
@@ -53,7 +59,8 @@ namespace hmap
  * @include ex_export_usd.cpp
  */
 bool export_usd(const std::string        &fname,
-                const Array              &elevation,
+                const Array              &elevation = {},
+                const Forest             &forest = {},
                 const std::vector<Cloud> &clouds = {},
                 const std::vector<Path>  &paths = {},
                 MeshType                  mesh_type = MeshType::TRI,

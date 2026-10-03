@@ -43,7 +43,13 @@ int main(void)
   cloud.set_values_from_array(z);
   cloud.to_png("cloud.png", hmap::Cmap::INFERNO);
 
-  hmap::export_usd("scene.usdc", z, {cloud}, {}, hmap::MeshType::TRI, 0.15f);
+  hmap::export_usd("scene.usdc",
+                   z,
+                   {},
+                   {cloud},
+                   {},
+                   hmap::MeshType::TRI,
+                   0.15f);
 
   hmap::export_banner_png("ex_build_density.png", {z, dl, dg}, hmap::Cmap::JET);
 }
