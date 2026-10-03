@@ -108,5 +108,6 @@ var annotated_dup =
       [ "XyControlFunction", "classhmap_1_1XyControlFunction.html", "classhmap_1_1XyControlFunction" ]
     ] ],
     [ "JaggedTest", "classJaggedTest.html", "classJaggedTest" ],
-    [ "TileAccess", "structTileAccess.html", "structTileAccess" ]
+    [ "TileAccess", "structTileAccess.html", "structTileAccess" ],
+    [ "VoronoiShrinkTest", "classVoronoiShrinkTest.html", "classVoronoiShrinkTest" ]
 ];

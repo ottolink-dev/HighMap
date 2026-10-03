@@ -15,5 +15,6 @@ var dir_4c063b982921a5b8720ca60b9a5562e1 =
     [ "recast_cliff.cpp", "recast__cliff_8cpp.html", "recast__cliff_8cpp" ],
     [ "recurve.cpp", "recurve_8cpp.html", "recurve_8cpp" ],
     [ "ridge_accentuate.cpp", "ridge__accentuate_8cpp.html", "ridge__accentuate_8cpp" ],
-    [ "spectral_equalizer.cpp", "spectral__equalizer_8cpp.html", "spectral__equalizer_8cpp" ]
+    [ "spectral_equalizer.cpp", "spectral__equalizer_8cpp.html", "spectral__equalizer_8cpp" ],
+    [ "voronoi_shrink.cpp", "voronoi__shrink_8cpp.html", "voronoi__shrink_8cpp" ]
 ];

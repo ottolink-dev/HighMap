@@ -6,5 +6,6 @@ var searchData=
   ['valuenoisefunction_3',['ValueNoiseFunction',['../classhmap_1_1ValueNoiseFunction.html',1,'hmap']]],
   ['virtualarray_4',['VirtualArray',['../structhmap_1_1VirtualArray.html',1,'hmap']]],
   ['virtualtexture_5',['VirtualTexture',['../classhmap_1_1VirtualTexture.html',1,'hmap']]],
-  ['virtualtexturestorage_6',['VirtualTextureStorage',['../structhmap_1_1VirtualTextureStorage.html',1,'hmap']]]
+  ['virtualtexturestorage_6',['VirtualTextureStorage',['../structhmap_1_1VirtualTextureStorage.html',1,'hmap']]],
+  ['voronoishrinktest_7',['VoronoiShrinkTest',['../classVoronoiShrinkTest.html',1,'']]]
 ];

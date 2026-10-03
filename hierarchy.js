@@ -109,7 +109,8 @@ var hierarchy =
     [ "hmap::SpeciesLookup", "structhmap_1_1SpeciesLookup.html", null ],
     [ "hmap::TerrainTriMesh", "classhmap_1_1TerrainTriMesh.html", null ],
     [ "testing::Test", null, [
-      [ "JaggedTest", "classJaggedTest.html", null ]
+      [ "JaggedTest", "classJaggedTest.html", null ],
+      [ "VoronoiShrinkTest", "classVoronoiShrinkTest.html", null ]
     ] ],
     [ "hmap::Texture", "classhmap_1_1Texture.html", null ],
     [ "TileAccess", "structTileAccess.html", null ],

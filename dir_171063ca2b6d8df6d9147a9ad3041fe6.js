@@ -78,5 +78,6 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_valley_head.cpp", "test__valley__head_8cpp.html", "test__valley__head_8cpp" ],
     [ "test_variance.cpp", "test__variance_8cpp.html", "test__variance_8cpp" ],
     [ "test_virtual_array.cpp", "test__virtual__array_8cpp.html", "test__virtual__array_8cpp" ],
-    [ "test_virtual_texture.cpp", "test__virtual__texture_8cpp.html", "test__virtual__texture_8cpp" ]
+    [ "test_virtual_texture.cpp", "test__virtual__texture_8cpp.html", "test__virtual__texture_8cpp" ],
+    [ "test_voronoi_shrink.cpp", "test__voronoi__shrink_8cpp.html", "test__voronoi__shrink_8cpp" ]
 ];

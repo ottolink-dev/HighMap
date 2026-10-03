@@ -166,6 +166,11 @@ var filters_8hpp =
     [ "smooth_fill_smear_peaks", "filters_8hpp.html#acb80d6cda31177534d6e63c97675d46d", null ],
     [ "spectral_equalizer", "filters_8hpp.html#a302ad3eae3f0a06441915c2b97d56641", null ],
     [ "spectral_equalizer", "filters_8hpp.html#ae94d740e0c470e8b8732bbb3a2498de4", null ],
+    [ "voronoi_shrink", "filters_8hpp.html#aa51712f5cbff96e7704de3813cfa3435", null ],
+    [ "voronoi_shrink", "filters_8hpp.html#aa50d24313a1c63bd4d8c600694d8e975", null ],
+    [ "voronoi_shrink", "filters_8hpp.html#a554b6936e8c62dbed7e739e2445ca55e", null ],
+    [ "voronoi_shrink", "filters_8hpp.html#aacbd12e3b183582c60c965f4195b7dcd", null ],
+    [ "voronoi_shrink", "filters_8hpp.html#a9fcb56e237c17a1a9d57c025d6aac5d9", null ],
     [ "smooth_cpulse", "filters_8hpp.html#aec2c193932c4d5d1fe00d09b81e243d8", null ],
     [ "smooth_cpulse", "filters_8hpp.html#a3df8c2c762d79f38e07069e47063fade", null ]
 ];
