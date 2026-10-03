@@ -200,7 +200,7 @@ var searchData=
   ['stamping_197',['stamping',['../namespacehmap.html#ae7ea4f9f968fc3a4aa706ea3b9cc1f0a',1,'hmap']]],
   ['stamping_2ecpp_198',['stamping.cpp',['../stamping_8cpp.html',1,'']]],
   ['stampingblendmethod_199',['StampingBlendMethod',['../namespacehmap.html#a5101273ec456f5267dddc3e22dae223b',1,'hmap']]],
-  ['start_200',['start',['../structhmap_1_1Recorder.html#ad758a2382f097ff1fb636744e902aa49',1,'hmap::Recorder::start()'],['../classhmap_1_1Timer.html#ae9248cf01bfd4d8f680a6c7d5b80f45b',1,'hmap::Timer::Start()']]],
+  ['start_200',['start',['../classhmap_1_1Timer.html#ae9248cf01bfd4d8f680a6c7d5b80f45b',1,'hmap::Timer::Start()'],['../structhmap_1_1Recorder.html#ad758a2382f097ff1fb636744e902aa49',1,'hmap::Recorder::start()']]],
   ['started_201',['Getting started',['../index.html#autotoc_md3',1,'']]],
   ['statistics_2ecpp_202',['statistics.cpp',['../statistics_8cpp.html',1,'']]],
   ['statistics_2ehpp_203',['statistics.hpp',['../statistics_8hpp.html',1,'']]],

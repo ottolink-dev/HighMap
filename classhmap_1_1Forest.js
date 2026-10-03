@@ -38,6 +38,7 @@ var classhmap_1_1Forest =
     [ "set_elevation_from_terrain", "classhmap_1_1Forest.html#a0730ea6042461129986c1b3139c27afb", null ],
     [ "shuffle_species", "classhmap_1_1Forest.html#a49534726754f35ac1cb13d8e1aa45a78", null ],
     [ "to_cloud", "classhmap_1_1Forest.html#ad96bd349b6bdd55f415c06a781388fc6", null ],
+    [ "to_density_map", "classhmap_1_1Forest.html#a4f04e4c6369c336136b71dfee398d742", null ],
     [ "to_csv", "classhmap_1_1Forest.html#a2bd95192b6e9c5310ec4fa952bd7fff0", null ],
     [ "to_png", "classhmap_1_1Forest.html#a2a53fb9ae361f5d56f302a22404872c7", null ],
     [ "to_string", "classhmap_1_1Forest.html#af8e00a0f82cfe9ba25ccc16b96f19c67", null ],

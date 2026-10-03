@@ -214,6 +214,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad96bd349b6bdd55f415c06a781388fc6" id="r_ad96bd349b6bdd55f415c06a781388fc6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Cloud.html">Cloud</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1Forest.html#ad96bd349b6bdd55f415c06a781388fc6">to_cloud</a> () const</td></tr>
 <tr class="memdesc:ad96bd349b6bdd55f415c06a781388fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the forest into a <a class="el" href="classhmap_1_1Cloud.html" title="Represents a collection of unordered points in 2D space.">Cloud</a> of 2D points (x, y) with value set to radius.  <br /></td></tr>
 <tr class="separator:ad96bd349b6bdd55f415c06a781388fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f04e4c6369c336136b71dfee398d742" id="r_a4f04e4c6369c336136b71dfee398d742"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1Forest.html#a4f04e4c6369c336136b71dfee398d742">to_density_map</a> (glm::ivec2 <a class="el" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, float sigma=0.0f, std::optional&lt; uint32_t &gt; species_id=std::nullopt, bool weighted_by_crown=false, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}) const</td></tr>
+<tr class="memdesc:a4f04e4c6369c336136b71dfee398d742"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exports the local density map of the forest as a 2D <a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> using 2D Kernel Density Estimation (Gaussian splatting / KDE).  <br /></td></tr>
+<tr class="separator:a4f04e4c6369c336136b71dfee398d742"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bd95192b6e9c5310ec4fa952bd7fff0" id="r_a2bd95192b6e9c5310ec4fa952bd7fff0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1Forest.html#a2bd95192b6e9c5310ec4fa952bd7fff0">to_csv</a> (const std::string &amp;fname) const</td></tr>
 <tr class="memdesc:a2bd95192b6e9c5310ec4fa952bd7fff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exports the forest trees to a CSV file (x, y, z, species_id, radius).  <br /></td></tr>
 <tr class="separator:a2bd95192b6e9c5310ec4fa952bd7fff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1255,6 +1258,66 @@ template&lt;typename... Args&gt; </div>
 
 <p>Converts the forest into a <a class="el" href="classhmap_1_1Cloud.html" title="Represents a collection of unordered points in 2D space.">Cloud</a> of 2D points (x, y) with value set to radius. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Cloud.html" title="Represents a collection of unordered points in 2D space.">Cloud</a> <a class="el" href="classhmap_1_1Point.html" title="A class to represent and manipulate 2D points that can carry a value.">Point</a> cloud representation. </dd></dl>
+
+</div>
+</div>
+<a id="a4f04e4c6369c336136b71dfee398d742" name="a4f04e4c6369c336136b71dfee398d742"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f04e4c6369c336136b71dfee398d742">&#9670;&#160;</a></span>to_density_map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1Array.html">Array</a> hmap::Forest::to_density_map </td>
+          <td>(</td>
+          <td class="paramtype">glm::ivec2&#160;</td>
+          <td class="paramname"><em>shape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>sigma</em> = <code>0.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; uint32_t &gt;&#160;</td>
+          <td class="paramname"><em>species_id</em> = <code>std::nullopt</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>weighted_by_crown</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec4&#160;</td>
+          <td class="paramname"><em>bbox</em> = <code>{0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Exports the local density map of the forest as a 2D <a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> using 2D Kernel Density Estimation (Gaussian splatting / KDE). </p>
+<p>Splats each tree into the regular grid and accumulates smooth 2D Gaussian kernels with bandwidth <code>sigma</code>. If <code>weighted_by_crown</code> is true, each contribution is weighted by the tree crown surface ($\pi r^2$) instead of unit count.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shape</td><td>Dimensions of the output density map {nx, ny}. </td></tr>
+    <tr><td class="paramname">sigma</td><td>Gaussian kernel standard deviation (bandwidth) in world/domain coordinates. If &lt;= 0, automatically derived from the bounding box and grid shape. </td></tr>
+    <tr><td class="paramname">species_id</td><td>Optional species identifier to compute density for a specific species only. </td></tr>
+    <tr><td class="paramname">weighted_by_crown</td><td>If true, weights tree density by crown surface ($\pi r^2$). </td></tr>
+    <tr><td class="paramname">bbox</td><td>Bounding box defining the domain {xmin, xmax, ymin, ymax}. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> 2D continuous density map array. </dd></dl>
 
 </div>
 </div>

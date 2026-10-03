@@ -1,5 +1,7 @@
 var NAVTREEINDEX22 =
 {
+"namespacemembers_s.html":[3,1,0,19],
+"namespacemembers_t.html":[3,1,0,20],
 "namespacemembers_u.html":[3,1,0,21],
 "namespacemembers_v.html":[3,1,0,22],
 "namespacemembers_w.html":[3,1,0,23],
@@ -247,7 +249,5 @@ var NAVTREEINDEX22 =
 "primitives_2functions_8hpp.html#a1bdde74ca6ad37104c99c074f7a2387a":[5,0,1,0,0,10,1,17],
 "primitives_2functions_8hpp.html#a244398042a7032506bf76ca61805094a":[5,0,1,0,0,10,1,30],
 "primitives_2functions_8hpp.html#a2b25a71f7da0b8324df986e01e5b08dc":[5,0,1,0,0,10,1,12],
-"primitives_2functions_8hpp.html#a32035fe3ef18a31240ace195c721ecd7":[5,0,1,0,0,10,1,6],
-"primitives_2functions_8hpp.html#a342e86d5f5b6da70427e3c66c25b419d":[5,0,1,0,0,10,1,31],
-"primitives_2functions_8hpp.html#a41239b5831a88a5b2528f24e8c95a92a":[5,0,1,0,0,10,1,22]
+"primitives_2functions_8hpp.html#a32035fe3ef18a31240ace195c721ecd7":[5,0,1,0,0,10,1,6]
 };

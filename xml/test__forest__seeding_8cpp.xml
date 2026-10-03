@@ -501,6 +501,25 @@
         </inbodydescription>
         <location file="tests/src/test_forest_seeding.cpp" line="788" column="1" bodyfile="tests/src/test_forest_seeding.cpp" bodystart="788" bodyend="810"/>
       </memberdef>
+      <memberdef kind="function" id="test__forest__seeding_8cpp_1acdc117713d5de688af200a7e0a1173f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ForestTest, ToDensityMap)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ForestTest</type>
+        </param>
+        <param>
+          <type>ToDensityMap</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_forest_seeding.cpp" line="814" column="1" bodyfile="tests/src/test_forest_seeding.cpp" bodystart="814" bodyend="867"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -1317,6 +1336,63 @@
 <codeline lineno="808"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_TRUE(<ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>.species_id<sp/>==<sp/>1u<sp/>||<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>.species_id<sp/>==<sp/>2u);</highlight></codeline>
 <codeline lineno="809"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="810"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="811"><highlight class="normal"></highlight></codeline>
+<codeline lineno="812"><highlight class="normal"></highlight><highlight class="comment">//<sp/>---<sp/>Forest::to_density_map<sp/>Tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="813"><highlight class="normal"></highlight></codeline>
+<codeline lineno="814"><highlight class="normal"><ref refid="test__forest__seeding_8cpp_1a508b48f75c592a7523f87cb524228d9e" kindref="member">TEST</ref>(ForestTest,<sp/>ToDensityMap)</highlight></codeline>
+<codeline lineno="815"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="816"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref><sp/>forest;</highlight></codeline>
+<codeline lineno="817"><highlight class="normal"></highlight></codeline>
+<codeline lineno="818"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Empty<sp/>forest<sp/>test</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="819"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>empty_density<sp/>=<sp/>forest.<ref refid="classhmap_1_1Forest_1a4f04e4c6369c336136b71dfee398d742" kindref="member">to_density_map</ref>({32,<sp/>32});</highlight></codeline>
+<codeline lineno="820"><highlight class="normal"><sp/><sp/>EXPECT_EQ(empty_density.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x,<sp/>32);</highlight></codeline>
+<codeline lineno="821"><highlight class="normal"><sp/><sp/>EXPECT_EQ(empty_density.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y,<sp/>32);</highlight></codeline>
+<codeline lineno="822"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(empty_density.<ref refid="classhmap_1_1Array_1a56c77f78e4864f5c6f2cbd6de8100556" kindref="member">min</ref>(),<sp/>0.0f);</highlight></codeline>
+<codeline lineno="823"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(empty_density.<ref refid="classhmap_1_1Array_1a68aac609ccba8f581da1cdf5cee671b9" kindref="member">max</ref>(),<sp/>0.0f);</highlight></codeline>
+<codeline lineno="824"><highlight class="normal"></highlight></codeline>
+<codeline lineno="825"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>trees<sp/>(species<sp/>0<sp/>and<sp/>species<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="826"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Cluster<sp/>around<sp/>(0.2,<sp/>0.2)<sp/>for<sp/>species<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="827"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>20;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="828"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="829"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" kindref="member">angle</ref><sp/>=<sp/>float(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)<sp/>*<sp/>0.314f;</highlight></codeline>
+<codeline lineno="830"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r<sp/>=<sp/>0.05f<sp/>*<sp/>(float(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>%<sp/>5)<sp/>/<sp/>5.0f);</highlight></codeline>
+<codeline lineno="831"><highlight class="normal"><sp/><sp/><sp/><sp/>forest.<ref refid="classhmap_1_1Forest_1a39d837211c18fce7b7e3751c7a8aa187" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Tree" kindref="compound">Tree</ref>(0.2f<sp/>+<sp/>r<sp/>*<sp/>std::cos(<ref refid="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" kindref="member">angle</ref>),</highlight></codeline>
+<codeline lineno="832"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.2f<sp/>+<sp/>r<sp/>*<sp/>std::sin(<ref refid="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" kindref="member">angle</ref>),</highlight></codeline>
+<codeline lineno="833"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.0f,</highlight></codeline>
+<codeline lineno="834"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0u,</highlight></codeline>
+<codeline lineno="835"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.01f));</highlight></codeline>
+<codeline lineno="836"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="837"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Sparse<sp/>trees<sp/>for<sp/>species<sp/>1<sp/>around<sp/>(0.8,<sp/>0.8)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="838"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>5;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="839"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="840"><highlight class="normal"><sp/><sp/><sp/><sp/>forest.<ref refid="classhmap_1_1Forest_1a39d837211c18fce7b7e3751c7a8aa187" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Tree" kindref="compound">Tree</ref>(0.75f<sp/>+<sp/>0.05f<sp/>*<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>),</highlight></codeline>
+<codeline lineno="841"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.75f<sp/>+<sp/>0.05f<sp/>*<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>),</highlight></codeline>
+<codeline lineno="842"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.0f,</highlight></codeline>
+<codeline lineno="843"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1u,</highlight></codeline>
+<codeline lineno="844"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.01f));</highlight></codeline>
+<codeline lineno="845"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="846"><highlight class="normal"></highlight></codeline>
+<codeline lineno="847"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>KDE<sp/>total<sp/>density<sp/>map<sp/>(auto<sp/>bandwidth)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="848"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>density_total<sp/>=<sp/>forest.<ref refid="classhmap_1_1Forest_1a4f04e4c6369c336136b71dfee398d742" kindref="member">to_density_map</ref>({64,<sp/>64});</highlight></codeline>
+<codeline lineno="849"><highlight class="normal"><sp/><sp/>EXPECT_EQ(density_total.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x,<sp/>64);</highlight></codeline>
+<codeline lineno="850"><highlight class="normal"><sp/><sp/>EXPECT_EQ(density_total.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y,<sp/>64);</highlight></codeline>
+<codeline lineno="851"><highlight class="normal"><sp/><sp/>EXPECT_GT(density_total.<ref refid="classhmap_1_1Array_1a68aac609ccba8f581da1cdf5cee671b9" kindref="member">max</ref>(),<sp/>0.0f);</highlight></codeline>
+<codeline lineno="852"><highlight class="normal"></highlight></codeline>
+<codeline lineno="853"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Species-filtered<sp/>density<sp/>map<sp/>for<sp/>species<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="854"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>density_sp0<sp/>=<sp/>forest.<ref refid="classhmap_1_1Forest_1a4f04e4c6369c336136b71dfee398d742" kindref="member">to_density_map</ref>({64,<sp/>64},<sp/>0.05f,<sp/>0u);</highlight></codeline>
+<codeline lineno="855"><highlight class="normal"><sp/><sp/>EXPECT_GT(density_sp0.<ref refid="classhmap_1_1Array_1a68aac609ccba8f581da1cdf5cee671b9" kindref="member">max</ref>(),<sp/>0.0f);</highlight></codeline>
+<codeline lineno="856"><highlight class="normal"></highlight></codeline>
+<codeline lineno="857"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Species-filtered<sp/>density<sp/>map<sp/>for<sp/>non-existing<sp/>species</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="858"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>density_sp99<sp/>=<sp/>forest.<ref refid="classhmap_1_1Forest_1a4f04e4c6369c336136b71dfee398d742" kindref="member">to_density_map</ref>({64,<sp/>64},<sp/>0.05f,<sp/>99u);</highlight></codeline>
+<codeline lineno="859"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(density_sp99.<ref refid="classhmap_1_1Array_1a68aac609ccba8f581da1cdf5cee671b9" kindref="member">max</ref>(),<sp/>0.0f);</highlight></codeline>
+<codeline lineno="860"><highlight class="normal"></highlight></codeline>
+<codeline lineno="861"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Crown-weighted<sp/>density<sp/>map</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="862"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>density_crown<sp/>=<sp/>forest.<ref refid="classhmap_1_1Forest_1a4f04e4c6369c336136b71dfee398d742" kindref="member">to_density_map</ref>({64,<sp/>64},</highlight></codeline>
+<codeline lineno="863"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.05f,</highlight></codeline>
+<codeline lineno="864"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::nullopt,</highlight></codeline>
+<codeline lineno="865"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="866"><highlight class="normal"><sp/><sp/>EXPECT_GT(density_crown.<ref refid="classhmap_1_1Array_1a68aac609ccba8f581da1cdf5cee671b9" kindref="member">max</ref>(),<sp/>0.0f);</highlight></codeline>
+<codeline lineno="867"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_forest_seeding.cpp"/>
   </compounddef>
