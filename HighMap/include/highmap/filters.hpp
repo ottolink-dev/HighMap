@@ -23,6 +23,8 @@
 namespace hmap
 {
 
+class Cloud;
+class Point;
 struct ComputeMode;
 struct VirtualArray;
 
@@ -2829,6 +2831,163 @@ Array spectral_equalizer(const Array              &array,
                          int                       ir_min,
                          int                       ir_max,
                          const Array              *p_mask); ///< @overload
+
+} // namespace hmap::gpu
+
+namespace hmap::gpu
+{
+
+/**
+ * @brief Apply a Voronoi shrinker filter to an input heightmap.
+ *
+ * Within each Voronoi cell, the input elevation field is shrunk towards the
+ * cell center, preserving the shape within the cell while creating rifts or
+ * gaps between adjacent Voronoi cells filled with @p fill_value.
+ *
+ * @param  array         Input array representing the heightmap to be filtered.
+ * @param  kw            Frequency / wave numbers for the Voronoi grid.
+ * @param  shrink_factor Linear shrinking factor in (0, 1] towards cell centers.
+ * @param  fill_value    Value used to fill the rifts/gaps between shrunken
+ *                       cells.
+ * @param  seed          Seed for random jitter of Voronoi cell centers.
+ * @param  jitter        Jitter amount controlling cell randomness (default:
+ *                       {0.5f, 0.5f}).
+ * @param  angle         Orientation angle in degrees for rotating the Voronoi
+ *                       pattern (default: 0.0f).
+ * @param  p_mask        Optional mask array for blending.
+ * @param  p_noise_x     Optional noise array for X perturbation.
+ * @param  p_noise_y     Optional noise array for Y perturbation.
+ * @param  bbox          Bounding box for domain mapping (default: {0.f, 1.f,
+ *                       0.f, 1.f}).
+ *
+ * @return               Filtered array with shrunken Voronoi cells.
+ */
+Array voronoi_shrink(const Array  &array,
+                     glm::vec2     kw,
+                     float         shrink_factor = 0.8f,
+                     float         fill_value = 0.f,
+                     std::uint32_t seed = 0,
+                     glm::vec2     jitter = {0.5f, 0.5f},
+                     float         angle = 0.f,
+                     const Array  *p_mask = nullptr,
+                     const Array  *p_noise_x = nullptr,
+                     const Array  *p_noise_y = nullptr,
+                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @brief Apply a Voronoi shrinker filter using an isotropic frequency.
+ *
+ * @param  array         Input array representing the heightmap to be filtered.
+ * @param  kw            Isotropic frequency / wave number for the Voronoi grid.
+ * @param  shrink_factor Linear shrinking factor in (0, 1] towards cell centers.
+ * @param  fill_value    Value used to fill the rifts/gaps between shrunken
+ *                       cells.
+ * @param  seed          Seed for random jitter of Voronoi cell centers.
+ * @param  jitter        Jitter amount controlling cell randomness (default:
+ *                       {0.5f, 0.5f}).
+ * @param  angle         Orientation angle in degrees for rotating the Voronoi
+ *                       pattern (default: 0.0f).
+ * @param  p_mask        Optional mask array for blending.
+ * @param  p_noise_x     Optional noise array for X perturbation.
+ * @param  p_noise_y     Optional noise array for Y perturbation.
+ * @param  bbox          Bounding box for domain mapping (default: {0.f, 1.f,
+ *                       0.f, 1.f}).
+ *
+ * @return               Filtered array with shrunken Voronoi cells.
+ *
+ * @overload
+ */
+Array voronoi_shrink(const Array  &array,
+                     float         kw,
+                     float         shrink_factor = 0.8f,
+                     float         fill_value = 0.f,
+                     std::uint32_t seed = 0,
+                     glm::vec2     jitter = {0.5f, 0.5f},
+                     float         angle = 0.f,
+                     const Array  *p_mask = nullptr,
+                     const Array  *p_noise_x = nullptr,
+                     const Array  *p_noise_y = nullptr,
+                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @brief Apply a Voronoi shrinker filter using a custom cloud of points.
+ *
+ * @param  array         Input array representing the heightmap to be filtered.
+ * @param  cloud         Cloud of 2D points defining the Voronoi cell centers.
+ * @param  shrink_factor Linear shrinking factor in (0, 1] towards cell centers.
+ * @param  fill_value    Value used to fill the rifts/gaps between shrunken
+ *                       cells.
+ * @param  p_mask        Optional mask array for blending.
+ * @param  p_noise_x     Optional noise array for X perturbation.
+ * @param  p_noise_y     Optional noise array for Y perturbation.
+ * @param  bbox          Bounding box for domain mapping (default: {0.f, 1.f,
+ *                       0.f, 1.f}).
+ *
+ * @return               Filtered array with shrunken Voronoi cells.
+ */
+Array voronoi_shrink(const Array &array,
+                     const Cloud &cloud,
+                     float        shrink_factor = 0.8f,
+                     float        fill_value = 0.f,
+                     const Array *p_mask = nullptr,
+                     const Array *p_noise_x = nullptr,
+                     const Array *p_noise_y = nullptr,
+                     glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @brief Apply a Voronoi shrinker filter using a list of Point objects.
+ *
+ * @param  array         Input array representing the heightmap to be filtered.
+ * @param  points        Vector of Point objects defining Voronoi cell centers.
+ * @param  shrink_factor Linear shrinking factor in (0, 1] towards cell centers.
+ * @param  fill_value    Value used to fill the rifts/gaps between shrunken
+ *                       cells.
+ * @param  p_mask        Optional mask array for blending.
+ * @param  p_noise_x     Optional noise array for X perturbation.
+ * @param  p_noise_y     Optional noise array for Y perturbation.
+ * @param  bbox          Bounding box for domain mapping (default: {0.f, 1.f,
+ *                       0.f, 1.f}).
+ *
+ * @return               Filtered array with shrunken Voronoi cells.
+ *
+ * @overload
+ */
+Array voronoi_shrink(const Array              &array,
+                     const std::vector<Point> &points,
+                     float                     shrink_factor = 0.8f,
+                     float                     fill_value = 0.f,
+                     const Array              *p_mask = nullptr,
+                     const Array              *p_noise_x = nullptr,
+                     const Array              *p_noise_y = nullptr,
+                     glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @brief Apply a Voronoi shrinker filter using a list of glm::vec2 coordinates.
+ *
+ * @param  array         Input array representing the heightmap to be filtered.
+ * @param  points        Vector of glm::vec2 coordinates defining Voronoi cell
+ *                       centers.
+ * @param  shrink_factor Linear shrinking factor in (0, 1] towards cell centers.
+ * @param  fill_value    Value used to fill the rifts/gaps between shrunken
+ *                       cells.
+ * @param  p_mask        Optional mask array for blending.
+ * @param  p_noise_x     Optional noise array for X perturbation.
+ * @param  p_noise_y     Optional noise array for Y perturbation.
+ * @param  bbox          Bounding box for domain mapping (default: {0.f, 1.f,
+ *                       0.f, 1.f}).
+ *
+ * @return               Filtered array with shrunken Voronoi cells.
+ *
+ * @overload
+ */
+Array voronoi_shrink(const Array                  &array,
+                     const std::vector<glm::vec2> &points,
+                     float                         shrink_factor = 0.8f,
+                     float                         fill_value = 0.f,
+                     const Array                  *p_mask = nullptr,
+                     const Array                  *p_noise_x = nullptr,
+                     const Array                  *p_noise_y = nullptr,
+                     glm::vec4                     bbox = {0.f, 1.f, 0.f, 1.f});
 
 } // namespace hmap::gpu
 

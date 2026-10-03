@@ -1,0 +1,2 @@
+add_executable(ex_voronoi_shrink ex_voronoi_shrink.cpp)
+target_link_libraries(ex_voronoi_shrink highmap)

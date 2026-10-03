@@ -326,6 +326,9 @@ bool init_opencl()
 #include "kernels/transform/skeleton.cl"
   );
   add(
+#include "kernels/transform/voronoi_shrink.cl"
+  );
+  add(
 #include "kernels/transform/warp.cl"
   );
 
