@@ -808,3 +808,60 @@ TEST(ForestTest, ReinforceSpeciesClustersMultiIteration)
     EXPECT_TRUE(t.species_id == 1u || t.species_id == 2u);
   }
 }
+
+// --- Forest::to_density_map Tests
+
+TEST(ForestTest, ToDensityMap)
+{
+  Forest forest;
+
+  // Empty forest test
+  Array empty_density = forest.to_density_map({32, 32});
+  EXPECT_EQ(empty_density.shape.x, 32);
+  EXPECT_EQ(empty_density.shape.y, 32);
+  EXPECT_FLOAT_EQ(empty_density.min(), 0.0f);
+  EXPECT_FLOAT_EQ(empty_density.max(), 0.0f);
+
+  // Add trees (species 0 and species 1)
+  // Cluster around (0.2, 0.2) for species 0
+  for (int i = 0; i < 20; ++i)
+  {
+    float angle = float(i) * 0.314f;
+    float r = 0.05f * (float(i % 5) / 5.0f);
+    forest.push_back(Tree(0.2f + r * std::cos(angle),
+                          0.2f + r * std::sin(angle),
+                          0.0f,
+                          0u,
+                          0.01f));
+  }
+  // Sparse trees for species 1 around (0.8, 0.8)
+  for (int i = 0; i < 5; ++i)
+  {
+    forest.push_back(Tree(0.75f + 0.05f * float(i),
+                          0.75f + 0.05f * float(i),
+                          0.0f,
+                          1u,
+                          0.01f));
+  }
+
+  // KDE total density map (auto bandwidth)
+  Array density_total = forest.to_density_map({64, 64});
+  EXPECT_EQ(density_total.shape.x, 64);
+  EXPECT_EQ(density_total.shape.y, 64);
+  EXPECT_GT(density_total.max(), 0.0f);
+
+  // Species-filtered density map for species 0
+  Array density_sp0 = forest.to_density_map({64, 64}, 0.05f, 0u);
+  EXPECT_GT(density_sp0.max(), 0.0f);
+
+  // Species-filtered density map for non-existing species
+  Array density_sp99 = forest.to_density_map({64, 64}, 0.05f, 99u);
+  EXPECT_FLOAT_EQ(density_sp99.max(), 0.0f);
+
+  // Crown-weighted density map
+  Array density_crown = forest.to_density_map({64, 64},
+                                              0.05f,
+                                              std::nullopt,
+                                              true);
+  EXPECT_GT(density_crown.max(), 0.0f);
+}

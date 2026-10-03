@@ -149,11 +149,17 @@ int main(void)
   std::cout << "--- Clustered Forest Grown Soft Core ---\n"
             << forest_thinned_soft_core.to_string() << "\n";
 
+  // --- Resulting densities
+
+  auto density_soft_core = forest_thinned_soft_core.to_density_map(shape);
+
   // --- Export & Visualization
 
   z.dump("terrain.png");
   density.dump("density_linear.png");
   exclusion.dump("exclusion.png");
+
+  density_soft_core.dump("density_soft_core.png");
 
   forest_kmeans.to_png("forest_kmeans.png", shape, density);
   forest_clusters.to_png("forest_clusters.png", shape, density);

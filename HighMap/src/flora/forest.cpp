@@ -642,6 +642,102 @@ void Forest::to_csv(const std::string &fname) const
   }
 }
 
+Array Forest::to_density_map(glm::ivec2              shape,
+                             float                   sigma,
+                             std::optional<uint32_t> species_id,
+                             bool                    weighted_by_crown,
+                             glm::vec4               bbox) const
+{
+  if (!validate_shape(shape)) return Array();
+
+  float dx = bbox.y - bbox.x;
+  float dy = bbox.w - bbox.z;
+  if (std::abs(dx) < 1e-9f || std::abs(dy) < 1e-9f) return Array(shape, 0.0f);
+
+  // --- Determine effective Gaussian sigma (in world coordinates)
+
+  float pixel_size_x = dx / static_cast<float>(shape.x);
+  float pixel_size_y = dy / static_cast<float>(shape.y);
+  float mean_pixel_size = 0.5f * (pixel_size_x + pixel_size_y);
+
+  float effective_sigma = sigma;
+  if (effective_sigma <= 0.0f)
+  {
+    // Auto bandwidth: Silverman's rule of thumb heuristic or 2.5 grid cells
+    effective_sigma = std::max(2.5f * mean_pixel_size,
+                               0.03f * std::min(dx, dy));
+  }
+
+  float sigma_sq = effective_sigma * effective_sigma;
+  float inv_2sigma_sq = 1.0f / (2.0f * sigma_sq);
+  float norm_factor = 1.0f / (2.0f * static_cast<float>(M_PI) * sigma_sq);
+
+  // Splat footprint radius (3 sigma in pixels)
+  int radius_px_x = static_cast<int>(
+      std::ceil(3.0f * effective_sigma / pixel_size_x));
+  int radius_px_y = static_cast<int>(
+      std::ceil(3.0f * effective_sigma / pixel_size_y));
+
+  Array density(shape, 0.0f);
+
+  for (const auto &tree : trees)
+  {
+    if (species_id.has_value() && tree.species_id != species_id.value())
+    {
+      continue;
+    }
+
+    float weight = 1.0f;
+    if (weighted_by_crown)
+    {
+      weight = static_cast<float>(M_PI) * tree.radius * tree.radius;
+    }
+
+    // Tree center in continuous pixel coordinates
+    float u = (tree.position.x - bbox.x) / dx;
+    float v = (tree.position.y - bbox.z) / dy;
+
+    float center_px_x = u * static_cast<float>(shape.x - 1);
+    float center_px_y = v * static_cast<float>(shape.y - 1);
+
+    int min_i = std::max(
+        0,
+        static_cast<int>(std::floor(center_px_x - float(radius_px_x))));
+    int max_i = std::min(
+        shape.x - 1,
+        static_cast<int>(std::ceil(center_px_x + float(radius_px_x))));
+    int min_j = std::max(
+        0,
+        static_cast<int>(std::floor(center_px_y - float(radius_px_y))));
+    int max_j = std::min(
+        shape.y - 1,
+        static_cast<int>(std::ceil(center_px_y + float(radius_px_y))));
+
+    for (int j = min_j; j <= max_j; ++j)
+    {
+      float y_world = bbox.z + (static_cast<float>(j) /
+                                static_cast<float>(shape.y - 1)) *
+                                   dy;
+      float diff_y = y_world - tree.position.y;
+      float diff_y_sq = diff_y * diff_y;
+
+      for (int i = min_i; i <= max_i; ++i)
+      {
+        float x_world = bbox.x + (static_cast<float>(i) /
+                                  static_cast<float>(shape.x - 1)) *
+                                     dx;
+        float diff_x = x_world - tree.position.x;
+        float dist_sq = diff_x * diff_x + diff_y_sq;
+
+        float g = norm_factor * std::exp(-dist_sq * inv_2sigma_sq);
+        density(i, j) += weight * g;
+      }
+    }
+  }
+
+  return density;
+}
+
 void Forest::to_png(const std::string &fname,
                     glm::ivec2         shape,
                     const Array       &background,

@@ -10,6 +10,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <optional>
 #include <vector>
 
 #include <glm/glm.hpp>
@@ -277,6 +278,33 @@ public:
    * @return Cloud Point cloud representation.
    */
   Cloud to_cloud() const;
+
+  /**
+   * @brief Exports the local density map of the forest as a 2D Array using 2D
+   * Kernel Density Estimation (Gaussian splatting / KDE).
+   *
+   * Splats each tree into the regular grid and accumulates smooth 2D Gaussian
+   * kernels with bandwidth @p sigma. If @p weighted_by_crown is true, each
+   * contribution is weighted by the tree crown surface ($\pi r^2$) instead of
+   * unit count.
+   *
+   * @param  shape             Dimensions of the output density map {nx, ny}.
+   * @param  sigma             Gaussian kernel standard deviation (bandwidth) in
+   *                           world/domain coordinates. If <= 0, automatically
+   *                           derived from the bounding box and grid shape.
+   * @param  species_id        Optional species identifier to compute density
+   * for a specific species only.
+   * @param  weighted_by_crown If true, weights tree density by crown surface
+   *                           ($\pi r^2$).
+   * @param  bbox              Bounding box defining the domain {xmin, xmax,
+   * ymin, ymax}.
+   * @return                   Array 2D continuous density map array.
+   */
+  Array to_density_map(glm::ivec2              shape,
+                       float                   sigma = 0.0f,
+                       std::optional<uint32_t> species_id = std::nullopt,
+                       bool                    weighted_by_crown = false,
+                       glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}) const;
 
   /**
    * @brief Exports the forest trees to a CSV file (x, y, z, species_id,
