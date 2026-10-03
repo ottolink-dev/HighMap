@@ -35,7 +35,7 @@ var searchData=
   ['export_5fpoints_5fto_5fply_32',['export_points_to_ply',['../namespacehmap.html#ae01b5471d28a8f4a9104e2ffea4484a9',1,'hmap']]],
   ['export_5fsplatmap_5fpng_33',['export_splatmap_png',['../namespacehmap.html#a32464922c39713910ebeab632e0e8fd1',1,'hmap']]],
   ['export_5ftiled_34',['export_tiled',['../namespacehmap.html#a91708f107a53c4b8ef68bb1d0291c73f',1,'hmap']]],
-  ['export_5fusd_35',['export_usd',['../namespacehmap.html#a44e7bc9494b71c4022e45ef9c2199075',1,'hmap']]],
+  ['export_5fusd_35',['export_usd',['../namespacehmap.html#ab7e1d2a21a220c996c8d560a05c95b59',1,'hmap']]],
   ['export_5fvirtual_5farray_36',['export_virtual_array',['../namespacehmap.html#a1add8a2d0a618e4ac8e67dc1a9c0b1a3',1,'hmap::export_virtual_array(const VirtualArray &amp;va, ImageWriter &amp;writer, const ComputeMode &amp;cm)'],['../namespacehmap.html#a1aa09f318d1dbe53c09727fe200eb9cb',1,'hmap::export_virtual_array(const VirtualTexture &amp;vt, ImageWriter &amp;writer)'],['../namespacehmap.html#a126f0152947cde103de88d789edcadc2',1,'hmap::export_virtual_array(const VirtualArray &amp;va, ImageWriter &amp;writer)'],['../namespacehmap.html#ac03889bf117b31a2593da9d4b7b64716',1,'hmap::export_virtual_array(const VirtualTexture &amp;vt, ImageWriter &amp;writer, const ComputeMode &amp;cm)']]],
   ['extract_5fslice_37',['extract_slice',['../classhmap_1_1Array.html#a2cb7491733f41de0f72f132c0ecff188',1,'hmap::Array::extract_slice(glm::ivec4 idx) const'],['../classhmap_1_1Array.html#a7d552a649bcc47445b11d2e42d193492',1,'hmap::Array::extract_slice(int i1, int i2, int j1, int j2) const']]],
   ['extrapolate_5fborders_38',['extrapolate_borders',['../namespacehmap.html#a1e4edcaea744a4a364839905693ee9e3',1,'hmap']]]

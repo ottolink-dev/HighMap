@@ -20,7 +20,26 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="tests/src/test_export_usd.cpp" line="7" column="1" bodyfile="tests/src/test_export_usd.cpp" bodystart="7" bodyend="59"/>
+        <location file="tests/src/test_export_usd.cpp" line="7" column="1" bodyfile="tests/src/test_export_usd.cpp" bodystart="7" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="test__export__usd_8cpp_1a76a38dc58e04a5c60bc71e91cd4305db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ExportUsd, ForestExport)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ExportUsd</type>
+        </param>
+        <param>
+          <type>ForestExport</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_export_usd.cpp" line="70" column="1" bodyfile="tests/src/test_export_usd.cpp" bodystart="70" bodyend="120"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -60,33 +79,94 @@
 <codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;test_highmap_scene.usdc&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
 <codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Export<sp/>USDA<sp/>(ASCII)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ok_usda<sp/>=<sp/><ref refid="namespacehmap_1a44e7bc9494b71c4022e45ef9c2199075" kindref="member">hmap::export_usd</ref>(temp_usda.string(),<sp/>terrain,<sp/>clouds,<sp/>paths);</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(ok_usda);</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(std::filesystem::exists(temp_usda));</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/>EXPECT_GT(std::filesystem::file_size(temp_usda),<sp/>0u);</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Export<sp/>USDC<sp/>(Binary<sp/>Crate)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ok_usdc<sp/>=<sp/><ref refid="namespacehmap_1a44e7bc9494b71c4022e45ef9c2199075" kindref="member">hmap::export_usd</ref>(temp_usdc.string(),<sp/>terrain,<sp/>clouds,<sp/>paths);</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(ok_usdc);</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(std::filesystem::exists(temp_usdc));</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/>EXPECT_GT(std::filesystem::file_size(temp_usdc),<sp/>0u);</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Optimized<sp/>triangulation<sp/>export</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/>std::filesystem::path<sp/>temp_opt<sp/>=<sp/>std::filesystem::temp_directory_path()<sp/>/</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;test_highmap_opt.usda&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ok_opt<sp/>=<sp/><ref refid="namespacehmap_1a44e7bc9494b71c4022e45ef9c2199075" kindref="member">hmap::export_usd</ref>(temp_opt.string(),</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>terrain,</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>clouds,</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>paths,</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac81a92060b89699c4eb9826495d87250a64d964458b2812e59ec68af2ee53a8ae" kindref="member">hmap::MeshType::TRI_OPTIMIZED</ref>);</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(ok_opt);</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(std::filesystem::exists(temp_opt));</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Clean<sp/>up</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/>std::filesystem::remove(temp_usda);</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/>std::filesystem::remove(temp_usdc);</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/>std::filesystem::remove(temp_opt);</highlight></codeline>
-<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ok_usda<sp/>=<sp/><ref refid="namespacehmap_1ab7e1d2a21a220c996c8d560a05c95b59" kindref="member">hmap::export_usd</ref>(temp_usda.string(),</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>terrain,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{},</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>clouds,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>paths);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(ok_usda);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(std::filesystem::exists(temp_usda));</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>EXPECT_GT(std::filesystem::file_size(temp_usda),<sp/>0u);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Export<sp/>USDC<sp/>(Binary<sp/>Crate)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ok_usdc<sp/>=<sp/><ref refid="namespacehmap_1ab7e1d2a21a220c996c8d560a05c95b59" kindref="member">hmap::export_usd</ref>(temp_usdc.string(),</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>terrain,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{},</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>clouds,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>paths);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(ok_usdc);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(std::filesystem::exists(temp_usdc));</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>EXPECT_GT(std::filesystem::file_size(temp_usdc),<sp/>0u);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Optimized<sp/>triangulation<sp/>export</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>std::filesystem::path<sp/>temp_opt<sp/>=<sp/>std::filesystem::temp_directory_path()<sp/>/</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;test_highmap_opt.usda&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ok_opt<sp/>=<sp/><ref refid="namespacehmap_1ab7e1d2a21a220c996c8d560a05c95b59" kindref="member">hmap::export_usd</ref>(temp_opt.string(),</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>terrain,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{},</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>clouds,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>paths,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac81a92060b89699c4eb9826495d87250a64d964458b2812e59ec68af2ee53a8ae" kindref="member">hmap::MeshType::TRI_OPTIMIZED</ref>);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(ok_opt);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(std::filesystem::exists(temp_opt));</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Clean<sp/>up</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>std::filesystem::remove(temp_usda);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>std::filesystem::remove(temp_usdc);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>std::filesystem::remove(temp_opt);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><ref refid="test__export__usd_8cpp_1aee00fe35f2b7d808a0a9d8a92e7d6f82" kindref="member">TEST</ref>(ExportUsd,<sp/>ForestExport)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{32,<sp/>32};</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>terrain<sp/>=<sp/><ref refid="namespacehmap_1a0f94056bb01fb9798ce72d3c4b1be4d2" kindref="member">hmap::noise</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed" kindref="member">hmap::NoiseType::SIMPLEX2</ref>,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{2.f,<sp/>2.f},</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(terrain);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>forest<sp/>with<sp/>multiple<sp/>species<sp/>and<sp/>radii</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>std::vector&lt;hmap::Tree&gt;<sp/>trees<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Tree" kindref="compound">hmap::Tree</ref>({0.2f,<sp/>0.3f,<sp/>0.4f},<sp/>0,<sp/>0.05f),</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Tree" kindref="compound">hmap::Tree</ref>({0.6f,<sp/>0.7f,<sp/>0.8f},<sp/>0,<sp/>0.08f),</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Tree" kindref="compound">hmap::Tree</ref>({0.4f,<sp/>0.5f,<sp/>0.6f},<sp/>1,<sp/>0.03f),</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Tree" kindref="compound">hmap::Tree</ref>({0.8f,<sp/>0.1f,<sp/>0.2f},<sp/>2,<sp/>0.10f),</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Forest" kindref="compound">hmap::Forest</ref><sp/>forest(trees);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>std::filesystem::path<sp/>temp_usda<sp/>=<sp/>std::filesystem::temp_directory_path()<sp/>/</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;test_highmap_forest.usda&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>std::filesystem::path<sp/>temp_usdc<sp/>=<sp/>std::filesystem::temp_directory_path()<sp/>/</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;test_highmap_forest.usdc&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Export<sp/>USDA<sp/>(ASCII)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ok_usda<sp/>=<sp/><ref refid="namespacehmap_1ab7e1d2a21a220c996c8d560a05c95b59" kindref="member">hmap::export_usd</ref>(temp_usda.string(),<sp/>terrain,<sp/>forest);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(ok_usda);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(std::filesystem::exists(temp_usda));</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>EXPECT_GT(std::filesystem::file_size(temp_usda),<sp/>0u);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Export<sp/>USDC<sp/>(Binary<sp/>Crate)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ok_usdc<sp/>=<sp/><ref refid="namespacehmap_1ab7e1d2a21a220c996c8d560a05c95b59" kindref="member">hmap::export_usd</ref>(temp_usdc.string(),<sp/>terrain,<sp/>forest);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(ok_usdc);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(std::filesystem::exists(temp_usdc));</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>EXPECT_GT(std::filesystem::file_size(temp_usdc),<sp/>0u);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Export<sp/>standalone<sp/>forest<sp/>(no<sp/>elevation<sp/>array)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>std::filesystem::path<sp/>temp_usda_standalone<sp/>=</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::filesystem::temp_directory_path()<sp/>/</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;test_highmap_forest_standalone.usda&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ok_standalone<sp/>=<sp/><ref refid="namespacehmap_1ab7e1d2a21a220c996c8d560a05c95b59" kindref="member">hmap::export_usd</ref>(temp_usda_standalone.string(),</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{},</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>forest);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(ok_standalone);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(std::filesystem::exists(temp_usda_standalone));</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>EXPECT_GT(std::filesystem::file_size(temp_usda_standalone),<sp/>0u);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Clean<sp/>up</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>std::filesystem::remove(temp_usda);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/>std::filesystem::remove(temp_usdc);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>std::filesystem::remove(temp_usda_standalone);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_export_usd.cpp"/>
   </compounddef>
