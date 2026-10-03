@@ -1,0 +1,2 @@
+add_executable(ex_hydraulic_mise ex_hydraulic_mise.cpp)
+target_link_libraries(ex_hydraulic_mise highmap)

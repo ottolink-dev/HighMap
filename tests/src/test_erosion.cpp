@@ -451,3 +451,103 @@ TEST(HydraulicMusgraveGPU, FlatRegionUnchanged)
 
   EXPECT_TRUE(assert_almost_equal(z, z0));
 }
+
+TEST(HydraulicMise, BasicExecution)
+{
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+  Array      z = z0;
+  Array      sediment;
+  Array      flow;
+  Array      erosion_map;
+  Array      deposition_map;
+
+  MiseParams params;
+  params.base_res = 32;
+
+  hydraulic_mise(z,
+                 params,
+                 nullptr,
+                 nullptr,
+                 nullptr,
+                 nullptr,
+                 &sediment,
+                 &flow,
+                 &erosion_map,
+                 &deposition_map);
+
+  EXPECT_EQ(z.shape, shape);
+  EXPECT_FALSE(assert_almost_equal(z, z0));
+  EXPECT_EQ(sediment.shape, shape);
+  EXPECT_EQ(flow.shape, shape);
+  EXPECT_EQ(erosion_map.shape, shape);
+  EXPECT_EQ(deposition_map.shape, shape);
+
+  for (int j = 0; j < z.shape.y; j++)
+    for (int i = 0; i < z.shape.x; i++)
+    {
+      EXPECT_FALSE(std::isnan(z(i, j)));
+      EXPECT_FALSE(std::isinf(z(i, j)));
+      EXPECT_GE(sediment(i, j), 0.f);
+      EXPECT_GE(flow(i, j), 0.f);
+      EXPECT_LE(flow(i, j), 1.f);
+      EXPECT_GE(erosion_map(i, j), 0.f);
+      EXPECT_GE(deposition_map(i, j), 0.f);
+    }
+}
+
+TEST(HydraulicMise, MaskedExecution)
+{
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+  Array      z = z0;
+  Array      mask = constant(shape, 0.f);
+
+  // mask is zero everywhere, so result should be identical to z0
+  MiseParams params;
+  params.base_res = 32;
+  hydraulic_mise(z, &mask, params);
+
+  EXPECT_TRUE(assert_almost_equal(z, z0));
+}
+
+TEST(HydraulicMise, BedrockConstraint)
+{
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+  Array      z = z0;
+  Array      bedrock = z0 - 0.05f;
+
+  MiseParams params;
+  params.base_res = 32;
+  params.strength = 1.0f;
+
+  hydraulic_mise(z, params, &bedrock);
+
+  for (int j = 0; j < z.shape.y; j++)
+    for (int i = 0; i < z.shape.x; i++)
+    {
+      EXPECT_GE(z(i, j), bedrock(i, j) - 1e-5f);
+    }
+}
+
+TEST(HydraulicMise, Determinism)
+{
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+  Array      z1 = z0;
+  Array      z2 = z0;
+
+  MiseParams params;
+  params.base_res = 32;
+  params.seed = 12345;
+
+  hydraulic_mise(z1, params);
+  hydraulic_mise(z2, params);
+
+  EXPECT_TRUE(assert_almost_equal(z1, z2));
+}
