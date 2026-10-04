@@ -70,19 +70,19 @@ std::vector<lightusd::GeomPoints> build_usd_forest_points(
     float         y_max)
 {
   std::vector<lightusd::GeomPoints> species_prims;
-  std::vector<uint32_t>             species_ids = forest.get_species_ids();
+  std::vector<uint32_t>             class_ids = forest.get_class_ids();
 
-  for (uint32_t sp_id : species_ids)
+  for (uint32_t class_id : class_ids)
   {
     lightusd::GeomPoints points_prim;
-    points_prim.name = "Forest_Species_" + std::to_string(sp_id);
+    points_prim.name = "Forest_Class_" + std::to_string(class_id);
 
     std::vector<lightusd::value::point3f> pts;
     std::vector<float>                    widths;
 
     for (const auto &tree : forest)
     {
-      if (tree.species_id == sp_id)
+      if (tree.class_id == class_id)
       {
         pts.push_back({(1.f - tree.position.y) * y_max,
                        elevation_scaling * tree.position.z,

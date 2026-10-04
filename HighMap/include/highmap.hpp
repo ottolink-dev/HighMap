@@ -46,6 +46,8 @@
 #include "highmap/random.hpp"
 #include "highmap/range.hpp"
 #include "highmap/roads.hpp"
+#include "highmap/rocks.hpp"
+#include "highmap/scatter.hpp"
 #include "highmap/sdf.hpp"
 #include "highmap/selector.hpp"
 #include "highmap/shadows.hpp"

@@ -1742,8 +1742,7 @@ public:
    * @param yr     Vector of y coordinates representing the centers of the
    *               primitive.
    * @param zr     Vector of z coordinates used to scale the primitive in x and
-   *               y directions, and also to scale the primitive amplitude if
-   *               requested.
+   *               y directions, and also to scale the primitive amplitude if requested.
    */
   FieldFunction(std::unique_ptr<Function> p_base,
                 std::vector<float>        xr,

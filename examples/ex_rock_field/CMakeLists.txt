@@ -1,0 +1,2 @@
+add_executable(ex_rock_field ex_rock_field.cpp)
+target_link_libraries(ex_rock_field highmap)

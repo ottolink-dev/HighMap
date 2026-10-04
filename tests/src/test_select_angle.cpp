@@ -106,3 +106,79 @@ TEST(SelectAngle, ValidationEmpty)
   Array sel = select_angle(empty, 0.f, 10.f);
   EXPECT_EQ(sel.size(), 0);
 }
+
+// --- SelectRange Unit Tests
+
+TEST(SelectRange, InsideRange)
+{
+  Array a(glm::ivec2(5, 5), 0.5f);
+  Array sel = select_range(a, 0.3f, 0.7f, 0.1f);
+
+  for (int j = 0; j < sel.shape.y; ++j)
+    for (int i = 0; i < sel.shape.x; ++i)
+      EXPECT_FLOAT_EQ(sel(i, j), 1.0f);
+}
+
+TEST(SelectRange, OutsideRange)
+{
+  Array a(glm::ivec2(5, 5), 0.1f);
+  // Range [0.4, 0.8] with width 0.1 -> transition lower is [0.3, 0.4] -> 0.1 is
+  // strictly outside
+  Array sel = select_range(a, 0.4f, 0.8f, 0.1f);
+
+  for (int j = 0; j < sel.shape.y; ++j)
+    for (int i = 0; i < sel.shape.x; ++i)
+      EXPECT_FLOAT_EQ(sel(i, j), 0.0f);
+
+  // Upper outside test
+  Array a_high(glm::ivec2(5, 5), 0.95f);
+  Array sel_high = select_range(a_high, 0.4f, 0.8f, 0.1f);
+  for (int j = 0; j < sel_high.shape.y; ++j)
+    for (int i = 0; i < sel_high.shape.x; ++i)
+      EXPECT_FLOAT_EQ(sel_high(i, j), 0.0f);
+}
+
+TEST(SelectRange, SmoothTransition)
+{
+  // vmin = 0.4, vmax = 0.6, width = 0.2
+  // Lower transition: [0.2, 0.4] -> at 0.3 (midpoint of transition):
+  // left = threshold_smooth(0.3, 0.2, 0.4) = smoothstep3(0.5) = 0.5
+  // right = 1.0 - threshold_smooth(0.3, 0.6, 0.8) = 1.0 - 0 = 1.0
+  // result = 0.5
+  Array a(glm::ivec2(3, 3), 0.3f);
+  Array sel = select_range(a, 0.4f, 0.6f, 0.2f);
+  EXPECT_NEAR(sel(1, 1), 0.5f, 1e-5f);
+
+  // Upper transition midpoint: at 0.7:
+  // left = 1.0
+  // right = 1.0 - threshold_smooth(0.7, 0.6, 0.8) = 1.0 - smoothstep3(0.5) =
+  // 0.5
+  Array a2(glm::ivec2(3, 3), 0.7f);
+  Array sel2 = select_range(a2, 0.4f, 0.6f, 0.2f);
+  EXPECT_NEAR(sel2(1, 1), 0.5f, 1e-5f);
+}
+
+TEST(SelectRange, ZeroWidthStep)
+{
+  Array a(glm::ivec2(3, 3), 0.5f);
+  Array sel_inside = select_range(a, 0.4f, 0.6f, 0.0f);
+  EXPECT_FLOAT_EQ(sel_inside(1, 1), 1.0f);
+
+  Array sel_outside = select_range(a, 0.6f, 0.8f, 0.0f);
+  EXPECT_FLOAT_EQ(sel_outside(1, 1), 0.0f);
+}
+
+TEST(SelectRange, InvertedVminVmax)
+{
+  Array a(glm::ivec2(3, 3), 0.5f);
+  Array sel1 = select_range(a, 0.3f, 0.7f, 0.1f);
+  Array sel2 = select_range(a, 0.7f, 0.3f, 0.1f);
+  EXPECT_FLOAT_EQ(sel1(1, 1), sel2(1, 1));
+}
+
+TEST(SelectRange, ValidationEmpty)
+{
+  Array empty;
+  Array sel = select_range(empty, 0.2f, 0.8f, 0.1f);
+  EXPECT_EQ(sel.size(), 0);
+}

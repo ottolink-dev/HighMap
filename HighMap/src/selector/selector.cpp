@@ -366,6 +366,39 @@ Array select_pulse(const Array &array, float value, float sigma)
   return c;
 }
 
+Array select_range(const Array &array, float vmin, float vmax, float width)
+{
+  if (!validate_non_empty(array)) return Array();
+
+  float low = std::min(vmin, vmax);
+  float high = std::max(vmin, vmax);
+  float w = std::max(0.0f, width);
+
+  Array out(array.shape);
+
+  if (w <= 1e-7f)
+  {
+    for (int j = 0; j < array.shape.y; ++j)
+      for (int i = 0; i < array.shape.x; ++i)
+      {
+        float v = array(i, j);
+        out(i, j) = (v >= low && v <= high) ? 1.0f : 0.0f;
+      }
+    return out;
+  }
+
+  for (int j = 0; j < array.shape.y; ++j)
+    for (int i = 0; i < array.shape.x; ++i)
+    {
+      float v = array(i, j);
+      float left = threshold_smooth(v, low - w, low);
+      float right = 1.0f - threshold_smooth(v, high, high + w);
+      out(i, j) = left * right;
+    }
+
+  return out;
+}
+
 Array select_rivers(const Array &array, float talus_ref, float clipping_ratio)
 {
   if (!validate_non_empty(array)) return Array();

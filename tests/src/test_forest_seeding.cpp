@@ -185,11 +185,11 @@ TEST(ForestSeedingTest, BasicClusterSeeding)
     EXPECT_LE(tree.position.x, 100.0f);
     EXPECT_GE(tree.position.y, 0.0f);
     EXPECT_LE(tree.position.y, 100.0f);
-    EXPECT_LT(tree.species_id, species_count);
+    EXPECT_LT(tree.class_id, species_count);
   }
 
-  auto species_ids = forest.get_species_ids();
-  EXPECT_GT(species_ids.size(), 0u);
+  auto class_ids = forest.get_class_ids();
+  EXPECT_GT(class_ids.size(), 0u);
 }
 
 TEST(ForestSeedingTest, BasicKMeansSeeding)
@@ -220,12 +220,12 @@ TEST(ForestSeedingTest, BasicKMeansSeeding)
     EXPECT_LE(tree.position.x, 100.0f);
     EXPECT_GE(tree.position.y, 0.0f);
     EXPECT_LE(tree.position.y, 100.0f);
-    EXPECT_LT(tree.species_id, species_count);
-    EXPECT_FLOAT_EQ(tree.radius, options.species[tree.species_id].radius);
+    EXPECT_LT(tree.class_id, species_count);
+    EXPECT_FLOAT_EQ(tree.radius, options.species[tree.class_id].radius);
   }
 
-  auto species_ids = forest.get_species_ids();
-  EXPECT_EQ(species_ids.size(), species_count);
+  auto class_ids = forest.get_class_ids();
+  EXPECT_EQ(class_ids.size(), species_count);
 
   // test with cluster_randomness > 0
   Forest forest_rand = seed_forest_kmeans(species_count,
@@ -236,7 +236,7 @@ TEST(ForestSeedingTest, BasicKMeansSeeding)
                                           4,
                                           options);
   EXPECT_EQ(forest_rand.size(), tree_count);
-  EXPECT_EQ(forest_rand.get_species_ids().size(), species_count);
+  EXPECT_EQ(forest_rand.get_class_ids().size(), species_count);
 
   Forest f0 = seed_forest_kmeans(3, 500, density, exclusion, 0.0f, 4, options);
   Forest f1 = seed_forest_kmeans(3, 500, density, exclusion, 0.5f, 4, options);
@@ -271,7 +271,7 @@ TEST(ForestSeedingTest, BasicKMeansSeeding)
                                         8,
                                         options);
   EXPECT_EQ(forest_k8.size(), tree_count);
-  EXPECT_EQ(forest_k8.get_species_ids().size(), species_count);
+  EXPECT_EQ(forest_k8.get_class_ids().size(), species_count);
 }
 
 TEST(ForestSeedingTest, DensityAdherence)
@@ -353,8 +353,8 @@ TEST(ForestSeedingTest, SpeciesWeights)
       seed_forest_clusters(2, 50, density, exclusion, 0.05f, 16, options);
   EXPECT_GT(forest.size(), 0u);
 
-  Forest sp0 = forest.filter_by_species(0);
-  Forest sp1 = forest.filter_by_species(1);
+  Forest sp0 = forest.filter_by_class(0);
+  Forest sp1 = forest.filter_by_class(1);
 
   EXPECT_GT(sp0.size(), sp1.size());
 }
@@ -729,7 +729,7 @@ TEST(ForestTest, DensifyBasic)
   const Tree &new_tree = forest.back();
   EXPECT_TRUE(float_eq(new_tree.position.x, 1.0f));
   EXPECT_TRUE(float_eq(new_tree.position.y, 1.0f));
-  EXPECT_EQ(new_tree.species_id,
+  EXPECT_EQ(new_tree.class_id,
             1u); // species 1 has count 2 vs species 2 count 1
   EXPECT_TRUE(float_eq(new_tree.radius, 0.05f));
 }
@@ -782,7 +782,7 @@ TEST(ForestTest, ReinforceSpeciesClustersBasic)
   forest.reinforce_species_clusters(1, 4, true);
 
   // Center tree should now have species 1 (4 votes vs 1 vote)
-  EXPECT_EQ(forest[0].species_id, 1u);
+  EXPECT_EQ(forest[0].class_id, 1u);
 }
 
 TEST(ForestTest, ReinforceSpeciesClustersMultiIteration)
@@ -797,15 +797,15 @@ TEST(ForestTest, ReinforceSpeciesClustersMultiIteration)
 
   // Trivial edge cases
   forest.reinforce_species_clusters(0, 2);
-  EXPECT_EQ(forest[0].species_id, 1u);
-  EXPECT_EQ(forest[2].species_id, 2u);
+  EXPECT_EQ(forest[0].class_id, 1u);
+  EXPECT_EQ(forest[2].class_id, 2u);
 
   // With k=2 and multiple iterations
   forest.reinforce_species_clusters(3, 2, true);
   // All should have valid species
   for (const auto &t : forest)
   {
-    EXPECT_TRUE(t.species_id == 1u || t.species_id == 2u);
+    EXPECT_TRUE(t.class_id == 1u || t.class_id == 2u);
   }
 }
 

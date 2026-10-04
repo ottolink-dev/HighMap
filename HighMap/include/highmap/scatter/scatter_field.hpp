@@ -1,0 +1,284 @@
+/* Copyright (c) 2026 Otto Link. Distributed under the terms of the GNU General
+   Public License. The full license is in the file LICENSE, distributed with
+   this software. */
+
+/**
+ * @file scatter_field.hpp
+ * @copyright Copyright (c) 2026 Otto Link.
+ */
+#pragma once
+
+#include <cstddef>
+#include <cstdint>
+#include <optional>
+#include <vector>
+
+#include <glm/glm.hpp>
+
+#include "highmap/array.hpp"
+#include "highmap/geometry/cloud.hpp"
+#include "highmap/scatter/scatter_item.hpp"
+
+namespace hmap
+{
+
+/**
+ * @class ScatterField
+ * @brief Container and processor for spatial ScatterItem collections.
+ */
+class ScatterField
+{
+public:
+  // ==========================================================================
+  //  Constructors
+  // ==========================================================================
+
+  /**
+   * @brief Default constructor initializing an empty field.
+   */
+  ScatterField() = default;
+
+  /**
+   * @brief Constructs a ScatterField from a vector of items.
+   * @param items Vector of ScatterItem instances.
+   */
+  ScatterField(const std::vector<ScatterItem> &items);
+
+  /**
+   * @brief Move-constructs a ScatterField from a vector of items.
+   * @param items Rvalue vector of ScatterItem instances.
+   */
+  ScatterField(std::vector<ScatterItem> &&items) noexcept;
+
+  /**
+   * @brief Constructs a ScatterField from a Cloud of 2D points.
+   *
+   * If a point's value `v` is non-zero, it is used as the item's radius;
+   * otherwise @p default_radius is assigned.
+   *
+   * @param cloud          Input point cloud.
+   * @param class_id       Class identifier assigned to all imported items.
+   * @param default_radius Default radius assigned if point value is 0.
+   */
+  ScatterField(const Cloud &cloud,
+               uint32_t     class_id = 0,
+               float        default_radius = HMAP_DEFAULT_SCATTER_RADIUS);
+
+  virtual ~ScatterField() = default;
+
+  // ==========================================================================
+  //  Container Interface
+  // ==========================================================================
+
+  ScatterItem       &at(size_t index);
+  const ScatterItem &at(size_t index) const;
+
+  ScatterItem       &back();
+  const ScatterItem &back() const;
+
+  auto begin() noexcept
+  {
+    return items.begin();
+  }
+  auto begin() const noexcept
+  {
+    return items.begin();
+  }
+  auto cbegin() const noexcept
+  {
+    return items.cbegin();
+  }
+
+  size_t capacity() const noexcept
+  {
+    return items.capacity();
+  }
+  void clear() noexcept
+  {
+    items.clear();
+  }
+
+  ScatterItem *data() noexcept
+  {
+    return items.data();
+  }
+  const ScatterItem *data() const noexcept
+  {
+    return items.data();
+  }
+
+  template <typename... Args> ScatterItem &emplace_back(Args &&...args)
+  {
+    return items.emplace_back(std::forward<Args>(args)...);
+  }
+
+  bool empty() const noexcept
+  {
+    return items.empty();
+  }
+
+  auto end() noexcept
+  {
+    return items.end();
+  }
+  auto end() const noexcept
+  {
+    return items.end();
+  }
+  auto cend() const noexcept
+  {
+    return items.cend();
+  }
+
+  ScatterItem       &front();
+  const ScatterItem &front() const;
+
+  ScatterItem &operator[](size_t index)
+  {
+    return items[index];
+  }
+  const ScatterItem &operator[](size_t index) const
+  {
+    return items[index];
+  }
+
+  void push_back(const ScatterItem &item)
+  {
+    items.push_back(item);
+  }
+  void push_back(ScatterItem &&item)
+  {
+    items.push_back(std::move(item));
+  }
+
+  void reserve(size_t new_cap)
+  {
+    items.reserve(new_cap);
+  }
+  size_t size() const noexcept
+  {
+    return items.size();
+  }
+
+  // ==========================================================================
+  //  Operations
+  // ==========================================================================
+
+  /**
+   * @brief Densifies the scatter field by adding Voronoi vertices
+   * (circumcenters of Delaunay triangles).
+   *
+   * @param default_radius Default radius assigned to newly added items.
+   */
+  void densify(float default_radius = HMAP_DEFAULT_SCATTER_RADIUS);
+
+  /**
+   * @brief Returns a new ScatterField containing only items matching the given
+   * class_id.
+   * @param  class_id Class identifier to filter by.
+   * @return          ScatterField Filtered field.
+   */
+  ScatterField filter_by_class(uint32_t class_id) const;
+
+  /**
+   * @brief Computes the 2D bounding box enclosing all item positions.
+   * @return glm::vec4 Bounding box as {xmin, xmax, ymin, ymax}.
+   */
+  glm::vec4 get_bbox() const;
+
+  /**
+   * @brief Returns a sorted list of unique class identifiers present in the
+   * field.
+   * @return std::vector<uint32_t> Unique class IDs.
+   */
+  std::vector<uint32_t> get_class_ids() const;
+
+  /**
+   * @brief Resolves overlapping items by discarding smaller items in collision.
+   */
+  void prune_collisions();
+
+  /**
+   * @brief Prunes items in the field using density-based acceptance sampling
+   * modulated to reach an approximate target retention ratio.
+   *
+   * @param density_mask 2D array defining the spatial density field.
+   * @param target_ratio Approximate target fraction of items to retain in [0,
+   *                     1].
+   * @param seed         Random seed for reproducible pruning.
+   * @param bbox         Bounding box defining the domain of the density mask.
+   */
+  void prune_density(const Array     &density_mask,
+                     float            target_ratio = 0.8f,
+                     uint32_t         seed = 0,
+                     const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+
+  /**
+   * @brief Sets the elevation (z-coordinate) of all items by sampling a terrain
+   * heightmap.
+   *
+   * @param elevation Terrain heightmap array.
+   * @param bbox      Bounding box defining the domain of the elevation array.
+   */
+  void set_elevation_from_terrain(const Array     &elevation,
+                                  const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+
+  /**
+   * @brief Converts the field into a Cloud of 2D points (x, y) with value set
+   * to radius.
+   * @return Cloud Point cloud representation.
+   */
+  Cloud to_cloud() const;
+
+  /**
+   * @brief Exports the local density map of the field as a 2D Array using 2D
+   * Kernel Density Estimation (Gaussian splatting / KDE).
+   *
+   * @param  shape            Dimensions of the output density map {nx, ny}.
+   * @param  sigma            Gaussian kernel standard deviation (bandwidth) in
+   *                          world/domain coordinates. If <= 0, automatically
+   *                          derived.
+   * @param  class_id         Optional class identifier to compute density for a
+   *                          specific class only.
+   * @param  weighted_by_area If true, weights density by footprint area ($\pi
+   *                          r^2$).
+   * @param  bbox             Bounding box defining the domain {xmin, xmax,
+   *                          ymin, ymax}.
+   * @return                  Array 2D continuous density map array.
+   */
+  Array to_density_map(glm::ivec2              shape,
+                       float                   sigma = 0.0f,
+                       std::optional<uint32_t> class_id = std::nullopt,
+                       bool                    weighted_by_area = false,
+                       glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}) const;
+
+  /**
+   * @brief Exports the items to a CSV file (x, y, z, class_id, radius).
+   * @param fname Output file path.
+   */
+  void to_csv(const std::string &fname) const;
+
+  /**
+   * @brief Exports a visual representation of the scatter field as a PNG image.
+   *
+   * @param fname      Output PNG file path.
+   * @param shape      Image dimensions {width, height}.
+   * @param background Optional background terrain array.
+   * @param bbox       Bounding box {xmin, xmax, ymin, ymax} of the domain.
+   */
+  void to_png(const std::string &fname,
+              glm::ivec2         shape,
+              const Array       &background = {},
+              glm::vec4          bbox = {0.f, 1.f, 0.f, 1.f}) const;
+
+  /**
+   * @brief Returns a multi-line formatted summary string of the scatter field.
+   * @return std::string Pretty-printed summary.
+   */
+  virtual std::string to_string() const;
+
+protected:
+  std::vector<ScatterItem> items = {}; ///< List of scatter item instances.
+};
+
+} // namespace hmap

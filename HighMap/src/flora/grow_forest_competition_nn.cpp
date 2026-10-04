@@ -68,7 +68,7 @@ Forest grow_forest_competition_nn(const Forest               &forest,
 
     // determine pairwise competition factor alpha
     float alpha = lookup.get_alpha(sp_i,
-                                   neighbor_tree.species_id,
+                                   neighbor_tree.class_id,
                                    competition_matrix);
 
     // scale max_radius locally if array is provided

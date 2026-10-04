@@ -28,7 +28,7 @@ TEST(TreeTest, DefaultConstructor)
   EXPECT_TRUE(float_eq(tree.position.x, 0.f));
   EXPECT_TRUE(float_eq(tree.position.y, 0.f));
   EXPECT_TRUE(float_eq(tree.position.z, 0.f));
-  EXPECT_EQ(tree.species_id, 0u);
+  EXPECT_EQ(tree.class_id, 0u);
   EXPECT_TRUE(float_eq(tree.radius, HMAP_DEFAULT_TREE_RADIUS));
 }
 
@@ -39,7 +39,7 @@ TEST(TreeTest, ParameterizedConstructors)
   EXPECT_TRUE(float_eq(t1.position.x, 1.f));
   EXPECT_TRUE(float_eq(t1.position.y, 2.f));
   EXPECT_TRUE(float_eq(t1.position.z, 3.f));
-  EXPECT_EQ(t1.species_id, 2u);
+  EXPECT_EQ(t1.class_id, 2u);
   EXPECT_TRUE(float_eq(t1.radius, 4.5f));
 
   // 2D vector constructor
@@ -47,14 +47,14 @@ TEST(TreeTest, ParameterizedConstructors)
   EXPECT_TRUE(float_eq(t2.position.x, 5.f));
   EXPECT_TRUE(float_eq(t2.position.y, 6.f));
   EXPECT_TRUE(float_eq(t2.position.z, 0.f));
-  EXPECT_EQ(t2.species_id, 1u);
+  EXPECT_EQ(t2.class_id, 1u);
 
   // Component constructor
   Tree t3(7.f, 8.f, 9.f, 3u, 1.5f);
   EXPECT_TRUE(float_eq(t3.position.x, 7.f));
   EXPECT_TRUE(float_eq(t3.position.y, 8.f));
   EXPECT_TRUE(float_eq(t3.position.z, 9.f));
-  EXPECT_EQ(t3.species_id, 3u);
+  EXPECT_EQ(t3.class_id, 3u);
 }
 
 TEST(TreeTest, ConversionsAndOperators)
@@ -77,8 +77,8 @@ TEST(TreeTest, ConversionsAndOperators)
 
   std::string s = t.to_string();
   EXPECT_FALSE(s.empty());
-  EXPECT_NE(s.find("Tree("), std::string::npos);
-  EXPECT_NE(s.find("species=1"), std::string::npos);
+  EXPECT_NE(s.find("pos="), std::string::npos);
+  EXPECT_NE(s.find("class_id=1"), std::string::npos);
 
   Tree same(1.f, 2.f, 3.f, 1u, 2.5f);
   Tree diff(1.f, 2.f, 3.f, 2u, 2.5f);
@@ -146,13 +146,13 @@ TEST(ForestTest, FromAndToCloud)
   EXPECT_TRUE(float_eq(forest[0].position.x, 10.f));
   EXPECT_TRUE(float_eq(forest[0].position.y, 20.f));
   EXPECT_TRUE(float_eq(forest[0].radius, 3.5f));
-  EXPECT_EQ(forest[0].species_id, 4u);
+  EXPECT_EQ(forest[0].class_id, 4u);
 
   // second point had v = 0.0, so it gets default_radius 2.0
   EXPECT_TRUE(float_eq(forest[1].position.x, 30.f));
   EXPECT_TRUE(float_eq(forest[1].position.y, 40.f));
   EXPECT_TRUE(float_eq(forest[1].radius, 2.0f));
-  EXPECT_EQ(forest[1].species_id, 4u);
+  EXPECT_EQ(forest[1].class_id, 4u);
 
   Cloud exported = forest.to_cloud();
   ASSERT_EQ(exported.size(), 2u);
@@ -161,7 +161,7 @@ TEST(ForestTest, FromAndToCloud)
   EXPECT_TRUE(float_eq(exported[0].v, 3.5f));
 }
 
-TEST(ForestTest, FilterBySpeciesAndSpeciesIds)
+TEST(ForestTest, FilterByClassAndClassIds)
 {
   Forest forest;
   forest.push_back(Tree(1.f, 1.f, 0.f, 1u, 2.f));
@@ -169,18 +169,18 @@ TEST(ForestTest, FilterBySpeciesAndSpeciesIds)
   forest.push_back(Tree(3.f, 3.f, 0.f, 1u, 2.f));
   forest.push_back(Tree(4.f, 4.f, 0.f, 3u, 1.f));
 
-  auto species_ids = forest.get_species_ids();
-  ASSERT_EQ(species_ids.size(), 3u);
-  EXPECT_EQ(species_ids[0], 1u);
-  EXPECT_EQ(species_ids[1], 2u);
-  EXPECT_EQ(species_ids[2], 3u);
+  auto class_ids = forest.get_class_ids();
+  ASSERT_EQ(class_ids.size(), 3u);
+  EXPECT_EQ(class_ids[0], 1u);
+  EXPECT_EQ(class_ids[1], 2u);
+  EXPECT_EQ(class_ids[2], 3u);
 
-  Forest sp1 = forest.filter_by_species(1u);
+  Forest sp1 = forest.filter_by_class(1u);
   EXPECT_EQ(sp1.size(), 2u);
-  EXPECT_EQ(sp1[0].species_id, 1u);
-  EXPECT_EQ(sp1[1].species_id, 1u);
+  EXPECT_EQ(sp1[0].class_id, 1u);
+  EXPECT_EQ(sp1[1].class_id, 1u);
 
-  Forest sp99 = forest.filter_by_species(99u);
+  Forest sp99 = forest.filter_by_class(99u);
   EXPECT_EQ(sp99.size(), 0u);
 }
 
@@ -317,8 +317,8 @@ TEST(ForestTest, ShuffleSpecies)
   forest.shuffle_species(1.0f, 2, 42);
 
   // Total species counts should remain invariant
-  auto sp0 = forest.filter_by_species(0u);
-  auto sp1 = forest.filter_by_species(1u);
+  auto sp0 = forest.filter_by_class(0u);
+  auto sp1 = forest.filter_by_class(1u);
   EXPECT_EQ(sp0.size(), 2u);
   EXPECT_EQ(sp1.size(), 2u);
 
@@ -330,9 +330,9 @@ TEST(ForestTest, ShuffleSpecies)
   mono_forest.push_back(Tree(0.2f, 0.0f, 0.0f, 0u, 1.0f));
 
   mono_forest.shuffle_species(1.0f, 2, 42);
-  EXPECT_EQ(mono_forest[0].species_id, 0u);
-  EXPECT_EQ(mono_forest[1].species_id, 0u);
-  EXPECT_EQ(mono_forest[2].species_id, 0u);
+  EXPECT_EQ(mono_forest[0].class_id, 0u);
+  EXPECT_EQ(mono_forest[1].class_id, 0u);
+  EXPECT_EQ(mono_forest[2].class_id, 0u);
 }
 
 TEST(ForestTest, PruneUnviable)

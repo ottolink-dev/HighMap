@@ -91,16 +91,16 @@ struct SpeciesLookup
 
   [[nodiscard]] Species get(const Tree &tree) const
   {
-    auto it = map.find(tree.species_id);
+    auto it = map.find(tree.class_id);
     if (it != map.end())
     {
       return it->second;
     }
-    if (list && tree.species_id < list->size())
+    if (list && tree.class_id < list->size())
     {
-      return (*list)[tree.species_id];
+      return (*list)[tree.class_id];
     }
-    return Species(tree.species_id, tree.radius);
+    return Species(tree.class_id, tree.radius);
   }
 
   [[nodiscard]] float get_alpha(const Species           &sp_i,

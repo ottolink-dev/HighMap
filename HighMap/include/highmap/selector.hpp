@@ -414,6 +414,22 @@ void select_multiband3(const Array &array,
 Array select_pulse(const Array &array, float value, float sigma);
 
 /**
+ * @brief Return a selection mask for a value range [vmin, vmax] with smooth
+ * transitions of specified width at both ends.
+ *
+ * The output value is 1.0 inside [vmin, vmax], 0.0 outside [vmin - width, vmax
+ * + width], and smoothly transitions using smoothstep (threshold_smooth)
+ * between 0 and 1.
+ *
+ * @param  array Input array.
+ * @param  vmin  Lower range bound.
+ * @param  vmax  Upper range bound.
+ * @param  width Transition width at the boundaries.
+ * @return       Array Output mask with values in [0, 1].
+ */
+Array select_range(const Array &array, float vmin, float vmax, float width);
+
+/**
  * @brief Return an array filled with a criterion based on the occurence of a
  * river bed.
  *

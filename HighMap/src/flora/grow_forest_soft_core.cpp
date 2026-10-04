@@ -148,8 +148,8 @@ Forest grow_forest_soft_core(const Forest               &forest,
                           (p.position.y - q.position.y) *
                               (p.position.y - q.position.y);
 
-          float r = eff_repulsion_dist.get(p.species_id, q.species_id);
-          float theta = eff_repulsion_str.get(p.species_id, q.species_id);
+          float r = eff_repulsion_dist.get(p.class_id, q.class_id);
+          float theta = eff_repulsion_str.get(p.class_id, q.class_id);
 
           if (r > 1e-6f && theta > 1e-6f)
           {

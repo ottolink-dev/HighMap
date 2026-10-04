@@ -65,7 +65,34 @@ Provided data structures are:
 
   - \ref hmap.Path for set of ordered points (i.e. open or closed polylines),
 
-  - \ref hmap.Graph.
+  - \ref hmap.Graph,
+
+- object scattering and placement,
+
+  - \ref hmap.ScatterItem and \ref hmap.ScatterField for generic 2D/3D object scattering with spatial queries and classification,
+
+  - \ref hmap.Tree and \ref hmap.Forest for botanical vegetation modeling and multi-species growth simulations,
+
+  - \ref hmap.Rock and \ref hmap.RockField for geomorphological rock placement, scree fields, and talus slopes.
+
+### Uniform Scatter Design
+
+HighMap provides a unified architecture for scattering entities across terrain (vegetation, boulders, debris, buildings, etc.). All scattered entities share the same lightweight item representation and container interface, while domain-specific behaviors (biological growth vs. gravitational slope sorting) are encapsulated in dedicated modules and descriptors.
+
+| Level | Flora | Rocks | General Scatter |
+| :--- | :--- | :--- | :--- |
+| **Descriptor Struct** | `Species` (`id`, `radius`, `weight`, ...) | `RockDistribution` (`class_id`, `radius_min`, `radius_max`, ...) | Generic seeding options |
+| **Item** | `Tree = ScatterItem` (`position`, `class_id`, `radius`) | `Rock = ScatterItem` (`position`, `class_id`, `radius`) | `ScatterItem` (`position`, `class_id`, `radius`) |
+| **Container** | `Forest : public ScatterField` | `RockField : public ScatterField` | `ScatterField` |
+| **Queries / Filtering** | `forest.filter_by_class(id)`<br>`forest.get_class_ids()` | `rocks.filter_by_class(id)`<br>`rocks.get_class_ids()` | `scatter.filter_by_class(id)`<br>`scatter.get_class_ids()` |
+| **Domain Operations** | Multi-species growth simulations (`grow_forest_*`), canopy competition, crown overlaps | Pareto power-law radius sampling, gravitational slope sorting, interstitial pebble packing | Spatial collision pruning, density map projection, Delaunay densification, terrain elevation projection |
+
+#### Design Principles
+
+1. **Uniform Data Model**: Every scattered entity is represented by \ref hmap::ScatterItem containing `position` (`glm::vec3`), `class_id` (`uint32_t`), and `radius` (`float`).
+2. **Consistent Container Interface**: \ref hmap::ScatterField provides generic operations such as collision pruning (`prune_collisions`), Delaunay densification (`densify`), density rasterization (`to_density_map`), terrain elevation snapping (`set_elevation_from_terrain`), and classification filtering (`filter_by_class`, `get_class_ids`).
+3. **Domain Descriptors**: Specialized classes like `Species` retain biological and ecological definitions (growth rates, shade tolerance, collision profiles), while `RockDistribution` defines geomorphological parameters (Pareto power-law alpha, embed ratios). Seeding and growth algorithms use these descriptors to populate fields tagged with the corresponding `class_id`.
+
 
 ### "Array" - Elementary Data Structure for Building Heightmaps
 

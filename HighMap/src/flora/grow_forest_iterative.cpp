@@ -101,7 +101,7 @@ Forest grow_forest_iterative(const Forest               &forest,
         float       dist = std::sqrt(dx * dx + dy * dy);
 
         float alpha = lookup.get_alpha(sp_i,
-                                       neighbor_tree.species_id,
+                                       neighbor_tree.class_id,
                                        competition_matrix);
 
         // crown overlap / encroachment interaction
