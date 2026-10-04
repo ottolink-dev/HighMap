@@ -1,6 +1,5 @@
 var NAVTREEINDEX24 =
 {
-"range_8cpp.html#ad470ab979489b088a4e8405830efdbe8":[4,0,1,1,33,0,23],
 "range_8cpp.html#ad912c32892e0e80b92a54d7692b75c6a":[4,0,1,1,33,0,5],
 "range_8cpp.html#ae239201a0a4193e1ce78bdf1fce4c151":[4,0,1,1,33,0,4],
 "range_8cpp.html#ae5d25f542f8033210b1744c281235220":[4,0,1,1,33,0,11],
@@ -106,10 +105,8 @@ var NAVTREEINDEX24 =
 "rock__field_8hpp.html":[4,0,1,0,0,12,2],
 "rock__field_8hpp_source.html":[4,0,1,0,0,12,2],
 "rock__seeding_8cpp.html":[4,0,1,1,35,1],
-"rock__seeding_8cpp.html#a177eef2ab81da670c3ed6458f829def4":[4,0,1,1,35,1,1],
 "rock__seeding_8cpp.html#a8c78151d9fea71bfaebb14a378e8ad81":[4,0,1,1,35,1,0],
 "rock__seeding_8hpp.html":[4,0,1,0,0,12,3],
-"rock__seeding_8hpp.html#a177eef2ab81da670c3ed6458f829def4":[4,0,1,0,0,12,3,2],
 "rock__seeding_8hpp.html#a8c78151d9fea71bfaebb14a378e8ad81":[4,0,1,0,0,12,3,1],
 "rock__seeding_8hpp_source.html":[4,0,1,0,0,12,3],
 "rocks_8hpp.html":[4,0,1,0,0,49],
@@ -249,5 +246,8 @@ var NAVTREEINDEX24 =
 "shortest__path_8hpp.html#ae465d3491106270fa271f3b5e33f7fed":[4,0,1,0,0,54,10],
 "shortest__path_8hpp.html#ae49e68036a8d179017c3e41e39952318":[4,0,1,0,0,54,13],
 "shortest__path_8hpp_source.html":[4,0,1,0,0,54],
-"signed__curvature__from__distance_8cpp.html":[4,0,1,1,26,5]
+"signed__curvature__from__distance_8cpp.html":[4,0,1,1,26,5],
+"signed__curvature__from__distance_8cpp.html#a76cfd96b971a288964561449d83e21aa":[4,0,1,1,26,5,3],
+"signed__curvature__from__distance_8cpp.html#ac56515202b30368216c7324b819cc838":[4,0,1,1,26,5,0],
+"signed__curvature__from__distance_8cpp.html#ad4ab7bb38b3ea37fa912190251c1ed76":[4,0,1,1,26,5,1]
 };

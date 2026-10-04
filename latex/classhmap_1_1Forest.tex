@@ -46,10 +46,6 @@ Collaboration diagram for hmap\+::Forest\+:
 \begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classhmap_1_1Forest}{Forest} from a \doxylink{classhmap_1_1Cloud}{Cloud} of 2D points. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1Forest_a714e9c8030f95420d082b95a7790d8f7}{prune\+\_\+unviable}} (const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Species}{Species}} $>$ \&species=\{\}, bool \mbox{\hyperlink{classhmap_1_1ScatterField_a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd}{prune\+\_\+collisions}}=true)
 \begin{DoxyCompactList}\small\item\em Prunes unviable trees whose distance to their nearest neighbor is insufficient to meet their species\textquotesingle{} minimum radius requirement or pairwise collision distance. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Forest_ad341b7ee61b6f5bf790022c95cc3d205}{reinforce\+\_\+species\+\_\+clusters}} (size\+\_\+t iterations=2, size\+\_\+t k\+\_\+neighbors=4, bool include\+\_\+self=true)
-\begin{DoxyCompactList}\small\item\em Reinforces spatial clustering of species by iteratively assigning each tree the dominant species among its nearest neighbors. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Forest_a49534726754f35ac1cb13d8e1aa45a78}{shuffle\+\_\+species}} (float ratio=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t k\+\_\+neighbors=4, uint32\+\_\+t seed=0)
-\begin{DoxyCompactList}\small\item\em Randomly shuffles species identifiers between neighboring trees. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classhmap_1_1Forest_a952b0170e1d9bea94bc43cf6619d75c6}{to\+\_\+string}} () const override
 \begin{DoxyCompactList}\small\item\em Returns a multi-\/line formatted summary string of the forest. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classhmap_1_1ScatterField}{hmap\+::\+Scatter\+Field}}}
@@ -125,8 +121,12 @@ void \mbox{\hyperlink{classhmap_1_1ScatterField_a2c5b4cc3f66be3ac58dbbb4d0fc9ffd
 \begin{DoxyCompactList}\small\item\em Resolves overlapping items by discarding smaller items in collision. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_afc5177c65e51e710c80d2e367a7888c5}{prune\+\_\+density}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density\+\_\+mask, float target\+\_\+ratio=0.\+8\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, uint32\+\_\+t seed=0, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Prunes items in the field using density-\/based acceptance sampling modulated to reach an approximate target retention ratio. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_aa97bb7dc10919eebaa875018068ebbe4}{reinforce\+\_\+class\+\_\+clusters}} (size\+\_\+t iterations=2, size\+\_\+t k\+\_\+neighbors=4, bool include\+\_\+self=true)
+\begin{DoxyCompactList}\small\item\em Reinforces spatial clustering of classes by iteratively assigning each item the dominant class among its nearest neighbors. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_a6097c8940ee25ec5b5364faf0ad7c9b5}{set\+\_\+elevation\+\_\+from\+\_\+terrain}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&elevation, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Sets the elevation (z-\/coordinate) of all items by sampling a terrain heightmap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_aea3394fe15e737f15f1cca806009f19c}{shuffle\+\_\+classes}} (float ratio=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t k\+\_\+neighbors=4, uint32\+\_\+t seed=0)
+\begin{DoxyCompactList}\small\item\em Randomly shuffles class identifiers between neighboring items. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}} \mbox{\hyperlink{classhmap_1_1ScatterField_a2c0c29725aed25aacb9fd51466e5f637}{to\+\_\+cloud}} () const
 \begin{DoxyCompactList}\small\item\em Converts the field into a \doxylink{classhmap_1_1Cloud}{Cloud} of 2D points (x, y) with value set to radius. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{classhmap_1_1ScatterField_a914fe248c39cdc85f2ce5cdab1058c03}{to\+\_\+density\+\_\+map}} (glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, float sigma=0.\+0f, std\+::optional$<$ uint32\+\_\+t $>$ class\+\_\+id=std\+::nullopt, bool weighted\+\_\+by\+\_\+area=false, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}) const
@@ -254,44 +254,6 @@ Prunes unviable trees whose distance to their nearest neighbor is insufficient t
 {\em species} & Vector of species definitions (with radius\+\_\+min, radius\+\_\+max, competition\+\_\+factor). \\
 \hline
 {\em prune\+\_\+collisions} & If true, also resolves overlapping tree crowns by discarding the smaller tree. \\
-\hline
-\end{DoxyParams}
-\Hypertarget{classhmap_1_1Forest_ad341b7ee61b6f5bf790022c95cc3d205}\label{classhmap_1_1Forest_ad341b7ee61b6f5bf790022c95cc3d205} 
-\index{hmap::Forest@{hmap::Forest}!reinforce\_species\_clusters@{reinforce\_species\_clusters}}
-\index{reinforce\_species\_clusters@{reinforce\_species\_clusters}!hmap::Forest@{hmap::Forest}}
-\doxysubsubsection{\texorpdfstring{reinforce\_species\_clusters()}{reinforce\_species\_clusters()}}
-{\footnotesize\ttfamily void hmap\+::\+Forest\+::reinforce\+\_\+species\+\_\+clusters (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{iterations = {\ttfamily 2},  }\item[{size\+\_\+t}]{k\+\_\+neighbors = {\ttfamily 4},  }\item[{bool}]{include\+\_\+self = {\ttfamily true} }\end{DoxyParamCaption})}
-
-
-
-Reinforces spatial clustering of species by iteratively assigning each tree the dominant species among its nearest neighbors. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em iterations} & Number of smoothing/reinforcement iterations. \\
-\hline
-{\em k\+\_\+neighbors} & Number of spatial nearest neighbors to query. \\
-\hline
-{\em include\+\_\+self} & If true, considers the tree\textquotesingle{}s own current species in the majority vote. \\
-\hline
-\end{DoxyParams}
-\Hypertarget{classhmap_1_1Forest_a49534726754f35ac1cb13d8e1aa45a78}\label{classhmap_1_1Forest_a49534726754f35ac1cb13d8e1aa45a78} 
-\index{hmap::Forest@{hmap::Forest}!shuffle\_species@{shuffle\_species}}
-\index{shuffle\_species@{shuffle\_species}!hmap::Forest@{hmap::Forest}}
-\doxysubsubsection{\texorpdfstring{shuffle\_species()}{shuffle\_species()}}
-{\footnotesize\ttfamily void hmap\+::\+Forest\+::shuffle\+\_\+species (\begin{DoxyParamCaption}\item[{float}]{ratio = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{size\+\_\+t}]{k\+\_\+neighbors = {\ttfamily 4},  }\item[{uint32\+\_\+t}]{seed = {\ttfamily 0} }\end{DoxyParamCaption})}
-
-
-
-Randomly shuffles species identifiers between neighboring trees. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em ratio} & Fraction of trees to attempt species shuffling on in \mbox{[}0, 1\mbox{]}. \\
-\hline
-{\em k\+\_\+neighbors} & Number of nearest spatial neighbors to consider. \\
-\hline
-{\em seed} & Random seed for reproducibility. \\
 \hline
 \end{DoxyParams}
 \Hypertarget{classhmap_1_1Forest_a952b0170e1d9bea94bc43cf6619d75c6}\label{classhmap_1_1Forest_a952b0170e1d9bea94bc43cf6619d75c6} 

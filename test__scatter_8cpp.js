@@ -9,5 +9,7 @@ var test__scatter_8cpp =
     [ "TEST", "test__scatter_8cpp.html#a752d30bcea4166613c49cda409d1325a", null ],
     [ "TEST", "test__scatter_8cpp.html#aec72490efa4fea9b3c923e326d1f8b35", null ],
     [ "TEST", "test__scatter_8cpp.html#a15e0628e45008db82560492dc0951b11", null ],
+    [ "TEST", "test__scatter_8cpp.html#aaa18fa374b32ea1e0cd167c86c2e33ac", null ],
+    [ "TEST", "test__scatter_8cpp.html#a09000e2d816cd5f07205f03f2f5e5e01", null ],
     [ "TEST", "test__scatter_8cpp.html#a1754951084a3808db8efe633207db1e1", null ]
 ];

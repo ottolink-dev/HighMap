@@ -1097,7 +1097,6 @@ var namespacehmap =
     [ "rescale", "namespacehmap.html#ac126773f7c7af2364cfb4d7a6922ed96", null ],
     [ "generate_network_alpha_model", "namespacehmap.html#a286e4e74e6495802dba7f873c06ccb20", null ],
     [ "seed_rock_field", "namespacehmap.html#a8c78151d9fea71bfaebb14a378e8ad81", null ],
-    [ "seed_scree_field", "namespacehmap.html#a177eef2ab81da670c3ed6458f829def4", null ],
     [ "seed_scatter_clusters", "namespacehmap.html#a61e1b066b8da6d1227758bbb40510548", null ],
     [ "seed_scatter_kmeans", "namespacehmap.html#a51e492fb8f06ce5b1ed0759d2e50d5d4", null ],
     [ "sdf_2d_polyline", "namespacehmap.html#a765ffa5ee98f47eba4b9d4ebe7680190", null ],

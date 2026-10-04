@@ -155,12 +155,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a714e9c8030f95420d082b95a7790d8f7" id="r_a714e9c8030f95420d082b95a7790d8f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1Forest.html#a714e9c8030f95420d082b95a7790d8f7">prune_unviable</a> (const std::vector&lt; <a class="el" href="structhmap_1_1Species.html">Species</a> &gt; &amp;species={}, bool <a class="el" href="classhmap_1_1ScatterField.html#a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd">prune_collisions</a>=true)</td></tr>
 <tr class="memdesc:a714e9c8030f95420d082b95a7790d8f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prunes unviable trees whose distance to their nearest neighbor is insufficient to meet their species' minimum radius requirement or pairwise collision distance.  <br /></td></tr>
 <tr class="separator:a714e9c8030f95420d082b95a7790d8f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad341b7ee61b6f5bf790022c95cc3d205" id="r_ad341b7ee61b6f5bf790022c95cc3d205"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1Forest.html#ad341b7ee61b6f5bf790022c95cc3d205">reinforce_species_clusters</a> (size_t iterations=2, size_t k_neighbors=4, bool include_self=true)</td></tr>
-<tr class="memdesc:ad341b7ee61b6f5bf790022c95cc3d205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reinforces spatial clustering of species by iteratively assigning each tree the dominant species among its nearest neighbors.  <br /></td></tr>
-<tr class="separator:ad341b7ee61b6f5bf790022c95cc3d205"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49534726754f35ac1cb13d8e1aa45a78" id="r_a49534726754f35ac1cb13d8e1aa45a78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1Forest.html#a49534726754f35ac1cb13d8e1aa45a78">shuffle_species</a> (float ratio=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, size_t k_neighbors=4, uint32_t seed=0)</td></tr>
-<tr class="memdesc:a49534726754f35ac1cb13d8e1aa45a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Randomly shuffles species identifiers between neighboring trees.  <br /></td></tr>
-<tr class="separator:a49534726754f35ac1cb13d8e1aa45a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a952b0170e1d9bea94bc43cf6619d75c6" id="r_a952b0170e1d9bea94bc43cf6619d75c6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1Forest.html#a952b0170e1d9bea94bc43cf6619d75c6">to_string</a> () const override</td></tr>
 <tr class="memdesc:a952b0170e1d9bea94bc43cf6619d75c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a multi-line formatted summary string of the forest.  <br /></td></tr>
 <tr class="separator:a952b0170e1d9bea94bc43cf6619d75c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -246,9 +240,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afc5177c65e51e710c80d2e367a7888c5 inherit pub_methods_classhmap_1_1ScatterField" id="r_afc5177c65e51e710c80d2e367a7888c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#afc5177c65e51e710c80d2e367a7888c5">prune_density</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;density_mask, float target_ratio=0.8<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, uint32_t seed=0, const glm::vec4 &amp;bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
 <tr class="memdesc:afc5177c65e51e710c80d2e367a7888c5 inherit pub_methods_classhmap_1_1ScatterField"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prunes items in the field using density-based acceptance sampling modulated to reach an approximate target retention ratio.  <br /></td></tr>
 <tr class="separator:afc5177c65e51e710c80d2e367a7888c5 inherit pub_methods_classhmap_1_1ScatterField"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa97bb7dc10919eebaa875018068ebbe4 inherit pub_methods_classhmap_1_1ScatterField" id="r_aa97bb7dc10919eebaa875018068ebbe4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#aa97bb7dc10919eebaa875018068ebbe4">reinforce_class_clusters</a> (size_t iterations=2, size_t k_neighbors=4, bool include_self=true)</td></tr>
+<tr class="memdesc:aa97bb7dc10919eebaa875018068ebbe4 inherit pub_methods_classhmap_1_1ScatterField"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reinforces spatial clustering of classes by iteratively assigning each item the dominant class among its nearest neighbors.  <br /></td></tr>
+<tr class="separator:aa97bb7dc10919eebaa875018068ebbe4 inherit pub_methods_classhmap_1_1ScatterField"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6097c8940ee25ec5b5364faf0ad7c9b5 inherit pub_methods_classhmap_1_1ScatterField" id="r_a6097c8940ee25ec5b5364faf0ad7c9b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#a6097c8940ee25ec5b5364faf0ad7c9b5">set_elevation_from_terrain</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;elevation, const glm::vec4 &amp;bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
 <tr class="memdesc:a6097c8940ee25ec5b5364faf0ad7c9b5 inherit pub_methods_classhmap_1_1ScatterField"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the elevation (z-coordinate) of all items by sampling a terrain heightmap.  <br /></td></tr>
 <tr class="separator:a6097c8940ee25ec5b5364faf0ad7c9b5 inherit pub_methods_classhmap_1_1ScatterField"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea3394fe15e737f15f1cca806009f19c inherit pub_methods_classhmap_1_1ScatterField" id="r_aea3394fe15e737f15f1cca806009f19c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#aea3394fe15e737f15f1cca806009f19c">shuffle_classes</a> (float ratio=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, size_t k_neighbors=4, uint32_t seed=0)</td></tr>
+<tr class="memdesc:aea3394fe15e737f15f1cca806009f19c inherit pub_methods_classhmap_1_1ScatterField"><td class="mdescLeft">&#160;</td><td class="mdescRight">Randomly shuffles class identifiers between neighboring items.  <br /></td></tr>
+<tr class="separator:aea3394fe15e737f15f1cca806009f19c inherit pub_methods_classhmap_1_1ScatterField"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c0c29725aed25aacb9fd51466e5f637 inherit pub_methods_classhmap_1_1ScatterField" id="r_a2c0c29725aed25aacb9fd51466e5f637"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Cloud.html">Cloud</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#a2c0c29725aed25aacb9fd51466e5f637">to_cloud</a> () const</td></tr>
 <tr class="memdesc:a2c0c29725aed25aacb9fd51466e5f637 inherit pub_methods_classhmap_1_1ScatterField"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the field into a <a class="el" href="classhmap_1_1Cloud.html" title="Represents a collection of unordered points in 2D space.">Cloud</a> of 2D points (x, y) with value set to radius.  <br /></td></tr>
 <tr class="separator:a2c0c29725aed25aacb9fd51466e5f637 inherit pub_methods_classhmap_1_1ScatterField"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -495,94 +495,6 @@ Additional Inherited Members</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">species</td><td>Vector of species definitions (with radius_min, radius_max, competition_factor). </td></tr>
     <tr><td class="paramname">prune_collisions</td><td>If true, also resolves overlapping tree crowns by discarding the smaller tree. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ad341b7ee61b6f5bf790022c95cc3d205" name="ad341b7ee61b6f5bf790022c95cc3d205"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad341b7ee61b6f5bf790022c95cc3d205">&#9670;&#160;</a></span>reinforce_species_clusters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::Forest::reinforce_species_clusters </td>
-          <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>iterations</em> = <code>2</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>k_neighbors</em> = <code>4</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>include_self</em> = <code>true</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reinforces spatial clustering of species by iteratively assigning each tree the dominant species among its nearest neighbors. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iterations</td><td>Number of smoothing/reinforcement iterations. </td></tr>
-    <tr><td class="paramname">k_neighbors</td><td>Number of spatial nearest neighbors to query. </td></tr>
-    <tr><td class="paramname">include_self</td><td>If true, considers the tree's own current species in the majority vote. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a49534726754f35ac1cb13d8e1aa45a78" name="a49534726754f35ac1cb13d8e1aa45a78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49534726754f35ac1cb13d8e1aa45a78">&#9670;&#160;</a></span>shuffle_species()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::Forest::shuffle_species </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>ratio</em> = <code>0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>k_neighbors</em> = <code>4</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>seed</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Randomly shuffles species identifiers between neighboring trees. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ratio</td><td>Fraction of trees to attempt species shuffling on in [0, 1]. </td></tr>
-    <tr><td class="paramname">k_neighbors</td><td>Number of nearest spatial neighbors to consider. </td></tr>
-    <tr><td class="paramname">seed</td><td>Random seed for reproducibility. </td></tr>
   </table>
   </dd>
 </dl>

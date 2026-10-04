@@ -102,8 +102,12 @@ void \mbox{\hyperlink{classhmap_1_1ScatterField_a2c5b4cc3f66be3ac58dbbb4d0fc9ffd
 \begin{DoxyCompactList}\small\item\em Resolves overlapping items by discarding smaller items in collision. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_afc5177c65e51e710c80d2e367a7888c5}{prune\+\_\+density}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density\+\_\+mask, float target\+\_\+ratio=0.\+8\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, uint32\+\_\+t seed=0, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Prunes items in the field using density-\/based acceptance sampling modulated to reach an approximate target retention ratio. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_aa97bb7dc10919eebaa875018068ebbe4}{reinforce\+\_\+class\+\_\+clusters}} (size\+\_\+t iterations=2, size\+\_\+t k\+\_\+neighbors=4, bool include\+\_\+self=true)
+\begin{DoxyCompactList}\small\item\em Reinforces spatial clustering of classes by iteratively assigning each item the dominant class among its nearest neighbors. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_a6097c8940ee25ec5b5364faf0ad7c9b5}{set\+\_\+elevation\+\_\+from\+\_\+terrain}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&elevation, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Sets the elevation (z-\/coordinate) of all items by sampling a terrain heightmap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_aea3394fe15e737f15f1cca806009f19c}{shuffle\+\_\+classes}} (float ratio=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t k\+\_\+neighbors=4, uint32\+\_\+t seed=0)
+\begin{DoxyCompactList}\small\item\em Randomly shuffles class identifiers between neighboring items. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}} \mbox{\hyperlink{classhmap_1_1ScatterField_a2c0c29725aed25aacb9fd51466e5f637}{to\+\_\+cloud}} () const
 \begin{DoxyCompactList}\small\item\em Converts the field into a \doxylink{classhmap_1_1Cloud}{Cloud} of 2D points (x, y) with value set to radius. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{classhmap_1_1ScatterField_a914fe248c39cdc85f2ce5cdab1058c03}{to\+\_\+density\+\_\+map}} (glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, float sigma=0.\+0f, std\+::optional$<$ uint32\+\_\+t $>$ class\+\_\+id=std\+::nullopt, bool weighted\+\_\+by\+\_\+area=false, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}) const
@@ -430,6 +434,25 @@ Prunes items in the field using density-\/based acceptance sampling modulated to
 {\em bbox} & Bounding box defining the domain of the density mask. \\
 \hline
 \end{DoxyParams}
+\Hypertarget{classhmap_1_1ScatterField_aa97bb7dc10919eebaa875018068ebbe4}\label{classhmap_1_1ScatterField_aa97bb7dc10919eebaa875018068ebbe4} 
+\index{hmap::ScatterField@{hmap::ScatterField}!reinforce\_class\_clusters@{reinforce\_class\_clusters}}
+\index{reinforce\_class\_clusters@{reinforce\_class\_clusters}!hmap::ScatterField@{hmap::ScatterField}}
+\doxysubsubsection{\texorpdfstring{reinforce\_class\_clusters()}{reinforce\_class\_clusters()}}
+{\footnotesize\ttfamily void hmap\+::\+Scatter\+Field\+::reinforce\+\_\+class\+\_\+clusters (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{iterations = {\ttfamily 2},  }\item[{size\+\_\+t}]{k\+\_\+neighbors = {\ttfamily 4},  }\item[{bool}]{include\+\_\+self = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Reinforces spatial clustering of classes by iteratively assigning each item the dominant class among its nearest neighbors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em iterations} & Number of smoothing/reinforcement iterations. \\
+\hline
+{\em k\+\_\+neighbors} & Number of spatial nearest neighbors to query. \\
+\hline
+{\em include\+\_\+self} & If true, considers the item\textquotesingle{}s own current class in the majority vote. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{classhmap_1_1ScatterField_a6097c8940ee25ec5b5364faf0ad7c9b5}\label{classhmap_1_1ScatterField_a6097c8940ee25ec5b5364faf0ad7c9b5} 
 \index{hmap::ScatterField@{hmap::ScatterField}!set\_elevation\_from\_terrain@{set\_elevation\_from\_terrain}}
 \index{set\_elevation\_from\_terrain@{set\_elevation\_from\_terrain}!hmap::ScatterField@{hmap::ScatterField}}
@@ -445,6 +468,25 @@ Sets the elevation (z-\/coordinate) of all items by sampling a terrain heightmap
 {\em elevation} & Terrain heightmap array. \\
 \hline
 {\em bbox} & Bounding box defining the domain of the elevation array. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1ScatterField_aea3394fe15e737f15f1cca806009f19c}\label{classhmap_1_1ScatterField_aea3394fe15e737f15f1cca806009f19c} 
+\index{hmap::ScatterField@{hmap::ScatterField}!shuffle\_classes@{shuffle\_classes}}
+\index{shuffle\_classes@{shuffle\_classes}!hmap::ScatterField@{hmap::ScatterField}}
+\doxysubsubsection{\texorpdfstring{shuffle\_classes()}{shuffle\_classes()}}
+{\footnotesize\ttfamily void hmap\+::\+Scatter\+Field\+::shuffle\+\_\+classes (\begin{DoxyParamCaption}\item[{float}]{ratio = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{size\+\_\+t}]{k\+\_\+neighbors = {\ttfamily 4},  }\item[{uint32\+\_\+t}]{seed = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Randomly shuffles class identifiers between neighboring items. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ratio} & Fraction of items to attempt class shuffling on in \mbox{[}0, 1\mbox{]}. \\
+\hline
+{\em k\+\_\+neighbors} & Number of nearest spatial neighbors to consider. \\
+\hline
+{\em seed} & Random seed for reproducibility. \\
 \hline
 \end{DoxyParams}
 \Hypertarget{classhmap_1_1ScatterField_a2c0c29725aed25aacb9fd51466e5f637}\label{classhmap_1_1ScatterField_a2c0c29725aed25aacb9fd51466e5f637} 

@@ -20,7 +20,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="281" column="15" bodyfile="HighMap/include/highmap/scatter/scatter_field.hpp" bodystart="281" bodyend="281"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="306" column="15" bodyfile="HighMap/include/highmap/scatter/scatter_field.hpp" bodystart="306" bodyend="306"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -722,6 +722,62 @@
         </inbodydescription>
         <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="211" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="319" bodyend="394"/>
       </memberdef>
+      <memberdef kind="function" id="classhmap_1_1ScatterField_1aa97bb7dc10919eebaa875018068ebbe4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::ScatterField::reinforce_class_clusters</definition>
+        <argsstring>(size_t iterations=2, size_t k_neighbors=4, bool include_self=true)</argsstring>
+        <name>reinforce_class_clusters</name>
+        <qualifiedname>hmap::ScatterField::reinforce_class_clusters</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>iterations</declname>
+          <defval>2</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>k_neighbors</declname>
+          <defval>4</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>include_self</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Reinforces spatial clustering of classes by iteratively assigning each item the dominant class among its nearest neighbors. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>iterations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of smoothing/reinforcement iterations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>k_neighbors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of spatial nearest neighbors to query. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>include_self</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, considers the item&apos;s own current class in the majority vote. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="225" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="396" bodyend="463"/>
+      </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1a6097c8940ee25ec5b5364faf0ad7c9b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::ScatterField::set_elevation_from_terrain</definition>
@@ -762,7 +818,63 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="223" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="396" bodyend="426"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="236" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="465" bodyend="495"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1ScatterField_1aea3394fe15e737f15f1cca806009f19c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::ScatterField::shuffle_classes</definition>
+        <argsstring>(float ratio=0.1f, size_t k_neighbors=4, uint32_t seed=0)</argsstring>
+        <name>shuffle_classes</name>
+        <qualifiedname>hmap::ScatterField::shuffle_classes</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>ratio</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>k_neighbors</declname>
+          <defval>4</defval>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>seed</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Randomly shuffles class identifiers between neighboring items. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Fraction of items to attempt class shuffling on in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>k_neighbors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of nearest spatial neighbors to consider. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random seed for reproducibility. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="247" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="497" bodyend="554"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1a2c0c29725aed25aacb9fd51466e5f637" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -780,7 +892,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="231" column="9" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="428" bodyend="435"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="256" column="9" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="556" bodyend="563"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1a914fe248c39cdc85f2ce5cdab1058c03" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -863,7 +975,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="249" column="9" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="452" bodyend="545"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="274" column="9" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="580" bodyend="673"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1a4cf0ddf4c16900b485b580643cceb3d7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -892,7 +1004,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="259" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="437" bodyend="450"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="284" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="565" bodyend="578"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1a4e1e40d95eaecfff34f524bb44e2cb74" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -959,7 +1071,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="269" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="547" bodyend="635"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="294" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="675" bodyend="763"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1aece4b7ce3a6d09279928b0468fb55efb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
@@ -979,7 +1091,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="278" column="23" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="637" bodyend="676"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="303" column="23" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="765" bodyend="804"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -1024,7 +1136,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="29" column="1" bodyfile="HighMap/include/highmap/scatter/scatter_field.hpp" bodystart="30" bodyend="282"/>
+    <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="29" column="1" bodyfile="HighMap/include/highmap/scatter/scatter_field.hpp" bodystart="30" bodyend="307"/>
     <listofallmembers>
       <member refid="classhmap_1_1ScatterField_1a9a88b00b0685cb1f9e05ac3f473225cd" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>at</name></member>
       <member refid="classhmap_1_1ScatterField_1a4eaa960005fa7b6168df87b7ae3191b8" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>at</name></member>
@@ -1055,12 +1167,14 @@
       <member refid="classhmap_1_1ScatterField_1afc5177c65e51e710c80d2e367a7888c5" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>prune_density</name></member>
       <member refid="classhmap_1_1ScatterField_1aff098f62a339deb2a51854d081f96af9" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>push_back</name></member>
       <member refid="classhmap_1_1ScatterField_1a9e68b639b48f05831094a0742450e863" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>push_back</name></member>
+      <member refid="classhmap_1_1ScatterField_1aa97bb7dc10919eebaa875018068ebbe4" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>reinforce_class_clusters</name></member>
       <member refid="classhmap_1_1ScatterField_1ad4986df1aa3dff53929c88f0d5b26d33" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>reserve</name></member>
       <member refid="classhmap_1_1ScatterField_1a8e8259ebbeb921b06caff233a9d54668" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>ScatterField</name></member>
       <member refid="classhmap_1_1ScatterField_1afc9a8bc4033c871a56dea328bba35db1" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>ScatterField</name></member>
       <member refid="classhmap_1_1ScatterField_1a8a4727edd5fc3072d5cc16d5f6290505" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>ScatterField</name></member>
       <member refid="classhmap_1_1ScatterField_1a170394cfa16a33a357cf5eb1d2c91c11" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>ScatterField</name></member>
       <member refid="classhmap_1_1ScatterField_1a6097c8940ee25ec5b5364faf0ad7c9b5" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>set_elevation_from_terrain</name></member>
+      <member refid="classhmap_1_1ScatterField_1aea3394fe15e737f15f1cca806009f19c" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>shuffle_classes</name></member>
       <member refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>size</name></member>
       <member refid="classhmap_1_1ScatterField_1a2c0c29725aed25aacb9fd51466e5f637" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>to_cloud</name></member>
       <member refid="classhmap_1_1ScatterField_1a4cf0ddf4c16900b485b580643cceb3d7" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>to_csv</name></member>
