@@ -34,7 +34,7 @@ var searchData=
   ['print_5farray_31',['print_array',['../namespacehmap.html#a8198f43613e6d5926a01fd7e44444094',1,'hmap']]],
   ['print_5finfo_32',['print_info',['../classhmap_1_1TerrainTriMesh.html#a5af9d302226d00078fba8f9e40183935',1,'hmap::TerrainTriMesh']]],
   ['project_5ftalus_5falong_5fdirection_33',['project_talus_along_direction',['../namespacehmap_1_1gpu.html#a0925ea6d4015309249863be8076af45f',1,'hmap::gpu::project_talus_along_direction(const Array &amp;array, const Array &amp;talus, int direction=0, float vmin=-FLT_MAX)'],['../namespacehmap_1_1gpu.html#ae6c94ff5fe464c75e5ef05b05d5ccacf',1,'hmap::gpu::project_talus_along_direction(const Array &amp;array, const Array &amp;talus, const Array *p_mask, int direction=0, float vmin=-FLT_MAX)']]],
-  ['prune_5fcollisions_34',['prune_collisions',['../classhmap_1_1ScatterField.html#a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd',1,'hmap::ScatterField']]],
+  ['prune_5fcollisions_34',['prune_collisions',['../classhmap_1_1ScatterField.html#ae2eb863c4cd700836a85b4cf09f04a35',1,'hmap::ScatterField::prune_collisions(const ScatterField &amp;other)'],['../classhmap_1_1ScatterField.html#a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd',1,'hmap::ScatterField::prune_collisions()']]],
   ['prune_5fdensity_35',['prune_density',['../classhmap_1_1ScatterField.html#afc5177c65e51e710c80d2e367a7888c5',1,'hmap::ScatterField']]],
   ['prune_5funviable_36',['prune_unviable',['../classhmap_1_1Forest.html#a714e9c8030f95420d082b95a7790d8f7',1,'hmap::Forest']]],
   ['ptp_37',['ptp',['../classhmap_1_1Array.html#ac33557899eb50bcf964b2e5a2ad8ddcb',1,'hmap::Array']]],

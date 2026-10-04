@@ -102,6 +102,8 @@ void \mbox{\hyperlink{classhmap_1_1ScatterField_a8b4d33715bbae66a08b9581bd93e090
 \begin{DoxyCompactList}\small\item\em Slightly perturbs the 2D (x, y) coordinates of scatter items. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd}{prune\+\_\+collisions}} ()
 \begin{DoxyCompactList}\small\item\em Resolves overlapping items by discarding smaller items in collision. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_ae2eb863c4cd700836a85b4cf09f04a35}{prune\+\_\+collisions}} (const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&other)
+\begin{DoxyCompactList}\small\item\em Prunes items in this field that overlap with (fall within the influence radius of) items in another field. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_afc5177c65e51e710c80d2e367a7888c5}{prune\+\_\+density}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density\+\_\+mask, float target\+\_\+ratio=0.\+8\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, uint32\+\_\+t seed=0, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Prunes items in the field using density-\/based acceptance sampling modulated to reach an approximate target retention ratio. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_a86565a4632900420e6a22762bab7b597}{regularize\+\_\+positions}} (size\+\_\+t k\+\_\+neighbors=8, float step\+\_\+size=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t iterations=10)
@@ -429,13 +431,30 @@ Slightly perturbs the 2D (x, y) coordinates of scatter items.
 \Hypertarget{classhmap_1_1ScatterField_a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd}\label{classhmap_1_1ScatterField_a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd} 
 \index{hmap::ScatterField@{hmap::ScatterField}!prune\_collisions@{prune\_collisions}}
 \index{prune\_collisions@{prune\_collisions}!hmap::ScatterField@{hmap::ScatterField}}
-\doxysubsubsection{\texorpdfstring{prune\_collisions()}{prune\_collisions()}}
+\doxysubsubsection{\texorpdfstring{prune\_collisions()}{prune\_collisions()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily void hmap\+::\+Scatter\+Field\+::prune\+\_\+collisions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
 Resolves overlapping items by discarding smaller items in collision. 
 
+\Hypertarget{classhmap_1_1ScatterField_ae2eb863c4cd700836a85b4cf09f04a35}\label{classhmap_1_1ScatterField_ae2eb863c4cd700836a85b4cf09f04a35} 
+\index{hmap::ScatterField@{hmap::ScatterField}!prune\_collisions@{prune\_collisions}}
+\index{prune\_collisions@{prune\_collisions}!hmap::ScatterField@{hmap::ScatterField}}
+\doxysubsubsection{\texorpdfstring{prune\_collisions()}{prune\_collisions()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void hmap\+::\+Scatter\+Field\+::prune\+\_\+collisions (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&}]{other }\end{DoxyParamCaption})}
+
+
+
+Prunes items in this field that overlap with (fall within the influence radius of) items in another field. 
+
+The other field remains constant and unmodified. For each item in this field, if its distance to any item in {\ttfamily other} is strictly less than the sum of their radii, it is pruned.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Const reference to the reference \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} (e.\+g. rocks). \\
+\hline
+\end{DoxyParams}
 \Hypertarget{classhmap_1_1ScatterField_afc5177c65e51e710c80d2e367a7888c5}\label{classhmap_1_1ScatterField_afc5177c65e51e710c80d2e367a7888c5} 
 \index{hmap::ScatterField@{hmap::ScatterField}!prune\_density@{prune\_density}}
 \index{prune\_density@{prune\_density}!hmap::ScatterField@{hmap::ScatterField}}

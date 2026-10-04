@@ -1,5 +1,7 @@
 var NAVTREEINDEX15 =
 {
+"kernels_8hpp.html#afb6b1a073428729f0dc9afc0ba42f8b2":[4,0,1,0,0,36,4],
+"kernels_8hpp_source.html":[4,0,1,0,0,36],
 "kmeans__clustering_8cpp.html":[4,0,1,1,14,2],
 "kmeans__clustering_8cpp.html#ab1bbddddf9ab88025a85668b66d68bdf":[4,0,1,1,14,2,1],
 "kmeans__clustering_8cpp.html#ab79c564a249c41caec3367b3d82ebdbf":[4,0,1,1,14,2,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX15 =
 "morphology_8hpp.html#a15cc695501488300f5c2c939c9c9ee8d":[4,0,1,0,0,40,53],
 "morphology_8hpp.html#a1cf22c68188d0e35aa74983f3a01c488":[4,0,1,0,0,40,16],
 "morphology_8hpp.html#a1dbc83521075f7c0179c7157f292b2b2":[4,0,1,0,0,40,37],
-"morphology_8hpp.html#a1ea1b9c11b5b2855d8b48925eb8bed4e":[4,0,1,0,0,40,38],
-"morphology_8hpp.html#a211108a73f7ebadb6ac87621c4e47301":[4,0,1,0,0,40,19],
-"morphology_8hpp.html#a23fdcd258e0bab2a5fcad31d6459c3fa":[4,0,1,0,0,40,11]
+"morphology_8hpp.html#a1ea1b9c11b5b2855d8b48925eb8bed4e":[4,0,1,0,0,40,38]
 };

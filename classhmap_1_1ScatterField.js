@@ -35,6 +35,7 @@ var classhmap_1_1ScatterField =
     [ "get_class_ids", "classhmap_1_1ScatterField.html#a6986cbcbb06270fb702291c5831bda03", null ],
     [ "perturb_positions", "classhmap_1_1ScatterField.html#a8b4d33715bbae66a08b9581bd93e0903", null ],
     [ "prune_collisions", "classhmap_1_1ScatterField.html#a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd", null ],
+    [ "prune_collisions", "classhmap_1_1ScatterField.html#ae2eb863c4cd700836a85b4cf09f04a35", null ],
     [ "prune_density", "classhmap_1_1ScatterField.html#afc5177c65e51e710c80d2e367a7888c5", null ],
     [ "regularize_positions", "classhmap_1_1ScatterField.html#a86565a4632900420e6a22762bab7b597", null ],
     [ "reinforce_class_clusters", "classhmap_1_1ScatterField.html#aa97bb7dc10919eebaa875018068ebbe4", null ],
