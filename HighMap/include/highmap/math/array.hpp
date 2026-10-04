@@ -39,8 +39,12 @@ Array abs(const Array &array);
  * @image html ex_abs_smooth.png
  */
 Array abs_smooth(const Array &array, float mu, const Array &vshift);
-Array abs_smooth(const Array &array, float mu, float vshift); ///< @overload
-Array abs_smooth(const Array &array, float mu);               ///< @overload
+
+/// @overload
+Array abs_smooth(const Array &array, float mu, float vshift);
+
+/// @overload
+Array abs_smooth(const Array &array, float mu);
 
 /**
  * @brief Almost unit identity function.
@@ -190,7 +194,9 @@ Array is_zero(const Array &array);
  * @return        Interpolated array.
  */
 Array lerp(const Array &array1, const Array &array2, const Array &t);
-Array lerp(const Array &array1, const Array &array2, float t); ///< @overload
+
+/// @overload
+Array lerp(const Array &array1, const Array &array2, float t);
 
 /**
  * @brief Base-10 logarithm.
@@ -302,7 +308,9 @@ Array smoothstep3(const Array &array, float vmin = 0.f, float vmax = 1.f);
  * @param  array Input array.
  * @return       Output array.
  */
-Array smoothstep3_lower(const Array &array); ///< @overload
+
+/// @overload
+Array smoothstep3_lower(const Array &array);
 
 /**
  * @brief Cubic smoothstep (zero derivative at 1 only).
@@ -310,7 +318,9 @@ Array smoothstep3_lower(const Array &array); ///< @overload
  * @param  array Input array.
  * @return       Output array.
  */
-Array smoothstep3_upper(const Array &array); ///< @overload
+
+/// @overload
+Array smoothstep3_upper(const Array &array);
 
 /**
  * @brief Quintic smoothstep.

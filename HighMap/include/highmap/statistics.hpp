@@ -13,14 +13,15 @@
 
 namespace hmap
 {
+
 /**
  * @brief Normalization methods.
  */
 enum NormalizationMethod : int
 {
-  NM_MIN_MAX,     ///<
-  NM_STANDARDIZE, ///<
-  NM_ROBUST,      ///<
+  NM_MIN_MAX,     ///< 
+  NM_STANDARDIZE, ///< 
+  NM_ROBUST,      ///< 
 };
 
 /**

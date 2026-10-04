@@ -18,6 +18,7 @@
 
 namespace hmap
 {
+
 /**
  * @brief Enumeration for specifying the interpolation method for curves.
  *
@@ -75,11 +76,9 @@ public:
 
 private:
   std::vector<Point>       points_data; ///< The set of points to interpolate.
-  InterpolationMethodCurve method; ///< The interpolation method being used.
-  std::vector<float>
-      arc_length; ///< Normalized cumulative distance between points.
-  std::function<Point(float)>
-      interp; ///< Function to perform interpolation based on `method`.
+  InterpolationMethodCurve method;      ///< The interpolation method being used.
+  std::vector<float> arc_length;        ///< Normalized cumulative distance between points.
+  std::function<Point(float)> interp;   ///< Function to perform interpolation based on `method`.
 
   /**
    * @brief Computes segment interpolation parameters for a given parameter

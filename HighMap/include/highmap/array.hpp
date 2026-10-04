@@ -57,13 +57,21 @@ public:
    *
    */
   Array();
-  Array(glm::ivec2 shape);                                 ///< @overload
-  Array(glm::ivec2 shape, float value);                    ///< @overload
-  Array(const std::string &filename, bool flip_j = false); ///< @overload
-  Array(const std::vector<std::vector<float>> &data);      ///< @overload
-  Array(const std::initializer_list<std::initializer_list<float>>
-            &data); ///< @overload
 
+  /// @overload
+  Array(glm::ivec2 shape);
+
+  /// @overload
+  Array(glm::ivec2 shape, float value);
+
+  /// @overload
+  Array(const std::string &filename, bool flip_j = false);
+
+  /// @overload
+  Array(const std::vector<std::vector<float>> &data);
+
+  /// @overload
+  Array(const std::initializer_list<std::initializer_list<float>> &data);
   //----------------------------------------
   // overload
   //----------------------------------------
@@ -84,7 +92,9 @@ public:
    * @return       Array& Reference to the current Array object.
    */
   Array &operator*=(const float value);
-  Array &operator*=(const Array &array); ///< @overload
+
+  /// @overload
+  Array &operator*=(const Array &array);
 
   /**
    * @brief Overloads the division-assignment operator for scalar division.
@@ -93,7 +103,9 @@ public:
    * @return       Array& Reference to the current Array object.
    */
   Array &operator/=(const float value);
-  Array &operator/=(const Array &array); ///< @overload
+
+  /// @overload
+  Array &operator/=(const Array &array);
 
   /**
    * @brief Overloads the addition-assignment operator for scalar addition.
@@ -102,7 +114,9 @@ public:
    * @return       Array& Reference to the current Array object.
    */
   Array &operator+=(const float value);
-  Array &operator+=(const Array &array); ///< @overload
+
+  /// @overload
+  Array &operator+=(const Array &array);
 
   /**
    * @brief Overloads the subtraction-assignment operator for scalar
@@ -112,7 +126,9 @@ public:
    * @return       Array& Reference to the current Array object.
    */
   Array &operator-=(const float value);
-  Array &operator-=(const Array &array); ///< @overload
+
+  /// @overload
+  Array &operator-=(const Array &array);
 
   /**
    * @brief Overloads the multiplication operator for scalar multiplication.
@@ -246,7 +262,9 @@ public:
    * @param  j The column index.
    * @return   const float& Reference to the array value at index (i, j).
    */
-  const float &operator()(int i, int j) const ///< @overload
+
+  /// @overload
+  const float &operator()(int i, int j) const
   {
     return this->vector[j * this->shape.x + i];
   }
@@ -268,7 +286,9 @@ public:
    * @param  index Linear index.
    * @return       const float& Reference to the array value.
    */
-  const float &operator()(int index) const ///< @overload
+
+  /// @overload
+  const float &operator()(int index) const
   {
     return this->vector[index];
   }
@@ -359,7 +379,9 @@ public:
    * @return     Array The extracted subarray.
    */
   Array extract_slice(glm::ivec4 idx) const;
-  Array extract_slice(int i1, int i2, int j1, int j2) const; ///< @overload
+
+  /// @overload
+  Array extract_slice(int i1, int i2, int j1, int j2) const;
 
   /**
    * @brief Import array data from a raw binary file.
@@ -818,7 +840,9 @@ public:
    * @param value The new value to set for the specified slice.
    */
   void set_slice(glm::ivec4 idx, float value);
-  void set_slice(glm::ivec4 idx, const Array &array); ///< @overload
+
+  /// @overload
+  void set_slice(glm::ivec4 idx, const Array &array);
 
   /**
    * @brief Return the total number of elements in the array.

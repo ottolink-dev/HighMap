@@ -67,6 +67,7 @@ void hydraulic_algebric(Array &z,
                         float  c_deposition = 0.05f,
                         int    iterations = 1);
 
+/// @overload
 void hydraulic_algebric(Array &z,
                         float  talus_ref,
                         int    ir,
@@ -75,7 +76,7 @@ void hydraulic_algebric(Array &z,
                         Array *p_deposition_map = nullptr,
                         float  c_erosion = 0.05f,
                         float  c_deposition = 0.05f,
-                        int    iterations = 1); ///< @overload
+                        int    iterations = 1);
 
 /**
  * @brief Apply cell-based hydraulic erosion/deposition based on Benes et al.
@@ -121,6 +122,7 @@ void hydraulic_benes(Array &z,
                      float  evap_rate = 0.01f,
                      float  rain_rate = 0.5f);
 
+/// @overload
 void hydraulic_benes(Array &z,
                      int    iterations = 50,
                      Array *p_bedrock = nullptr,
@@ -132,7 +134,7 @@ void hydraulic_benes(Array &z,
                      float  c_deposition = 0.8f,
                      float  water_level = 0.005f,
                      float  evap_rate = 0.01f,
-                     float  rain_rate = 0.5f); ///< @overload
+                     float  rain_rate = 0.5f);
 
 /**
  * @brief Apply cell-based hydraulic erosion using a nonlinear diffusion model.
@@ -280,13 +282,14 @@ void hydraulic_musgrave(Array &z,
                         float  water_level = 0.01f,
                         float  evap_rate = 0.01f);
 
+/// @overload
 void hydraulic_musgrave(Array &z,
                         int    iterations = 100,
                         float  c_capacity = 1.f,
                         float  c_erosion = 0.1f,
                         float  c_deposition = 0.1f,
                         float  water_level = 0.01f,
-                        float  evap_rate = 0.01f); ///< @overload
+                        float  evap_rate = 0.01f);
 
 /**
  * @brief Perform hydraulic erosion on a triangulated terrain mesh.
@@ -430,15 +433,16 @@ void hydraulic_stream(Array       &z,
                       int          ir = 1,
                       float        clipping_ratio = 10.f);
 
+/// @overload
 void hydraulic_stream(Array       &z,
                       const Array *p_mask,
                       float        c_erosion,
                       float        talus_ref,
                       const Array *p_bedrock = nullptr,
                       const Array *p_moisture_map = nullptr,
-                      Array       *p_erosion_map = nullptr, // -> out
+                      Array       *p_erosion_map = nullptr,
                       int          ir = 1,
-                      float        clipping_ratio = 10.f); ///< @overload
+                      float        clipping_ratio = 10.f);
 
 /**
  * @brief Apply hydraulic erosion based on a flow accumulation map, alternative
@@ -493,6 +497,7 @@ void hydraulic_stream_log(Array       &z,
                           Array       *p_deposition_map = nullptr,
                           Array       *p_flow_map = nullptr);
 
+/// @overload
 void hydraulic_stream_log(Array       &z,
                           float        c_erosion,
                           float        talus_ref,
@@ -507,7 +512,7 @@ void hydraulic_stream_log(Array       &z,
                           const Array *p_moisture_map = nullptr,
                           Array       *p_erosion_map = nullptr,
                           Array       *p_deposition_map = nullptr,
-                          Array       *p_flow_map = nullptr); ///< @overload
+                          Array       *p_flow_map = nullptr);
 
 /**
  * @brief Applies hydraulic erosion with upscaling amplification.
@@ -582,16 +587,16 @@ void hydraulic_stream_upscale_amplification(Array &z,
  * **Result**
  * @image html ex_hydraulic_stream_upscale_amplification.png
  */
-void hydraulic_stream_upscale_amplification(
-    Array       &z,
-    const Array *p_mask,
-    float        c_erosion,
-    float        talus_ref,
-    int          upscaling_levels = 1,
-    float        persistence = 1.f,
-    int          ir = 1,
-    float        clipping_ratio = 10.f); ///< @overload
 
+/// @overload
+void hydraulic_stream_upscale_amplification(Array       &z,
+                                            const Array *p_mask,
+                                            float        c_erosion,
+                                            float        talus_ref,
+                                            int          upscaling_levels = 1,
+                                            float        persistence = 1.f,
+                                            int          ir = 1,
+                                            float        clipping_ratio = 10.f);
 } // namespace hmap
 
 namespace hmap::gpu
@@ -653,11 +658,12 @@ void deposition_fill_holes(Array &z,
                            float  deposition_strength,
                            int    iterations = 1);
 
+/// @overload
 void deposition_fill_holes(Array       &z,
                            int          deposition_ir,
                            float        deposition_strength,
                            const Array *p_mask,
-                           int          iterations = 1); ///< @overload
+                           int          iterations = 1);
 
 /**
  * @brief Simulates hydraulic erosion on a heightmap using particle-based flow.
@@ -912,13 +918,14 @@ void hydraulic_musgrave(Array &z,
                         float  water_level = 0.01f,
                         float  evap_rate = 0.01f);
 
+/// @overload
 void hydraulic_musgrave(Array &z,
                         int    iterations = 100,
                         float  c_capacity = 1.f,
                         float  c_erosion = 0.1f,
                         float  c_deposition = 0.1f,
                         float  water_level = 0.01f,
-                        float  evap_rate = 0.01f); ///< @overload
+                        float  evap_rate = 0.01f);
 
 /**
  * @brief Apply phase-guided hydraulic procedural erosion to a heightmap.
@@ -1040,6 +1047,7 @@ void hydraulic_schott(Array       &z,
                       float        deposition_weight = 2.5f,
                       Array       *p_flow = nullptr);
 
+/// @overload
 void hydraulic_schott(Array       &z,
                       int          iterations,
                       const Array &talus,
@@ -1052,8 +1060,7 @@ void hydraulic_schott(Array       &z,
                       float        flow_routing_exponent = 1.3f,
                       float        thermal_weight = 1.5f,
                       float        deposition_weight = 2.5f,
-                      Array       *p_flow = nullptr); ///< @overload
-
+                      Array       *p_flow = nullptr);
 /*! @brief See hmap::gpu::hydraulic_schott */
 void hydraulic_schott_erosion(Array       &z,
                               int          iterations,
@@ -1079,6 +1086,7 @@ void hydraulic_stream_log(Array &z,
                           Array *p_deposition_map = nullptr,
                           Array *p_flow_map = nullptr);
 
+/// @overload
 void hydraulic_stream_log(Array       &z,
                           float        c_erosion,
                           float        talus_ref,
@@ -1093,8 +1101,7 @@ void hydraulic_stream_log(Array       &z,
                           Array       *p_moisture_map = nullptr,
                           Array       *p_erosion_map = nullptr,
                           Array       *p_deposition_map = nullptr,
-                          Array       *p_flow_map = nullptr); ///< @overload
-
+                          Array       *p_flow_map = nullptr);
 /*! @brief See hmap::gpu::hydraulic_vpipes */
 void hydraulic_vpipes(Array &z,
                       float  water_height = 1e-2f,

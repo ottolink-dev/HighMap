@@ -42,9 +42,9 @@ enum PeriodicityType : int
 // clang-format off
 enum DomainBoundary : int
 {
-	BOUNDARY_LEFT, ///< i = 0
+	BOUNDARY_LEFT,  ///< i = 0
 	BOUNDARY_RIGHT, ///< i = nx - 1
-	BOUNDARY_TOP, ///< j = ny - 1
+	BOUNDARY_TOP,   ///< j = ny - 1
 	BOUNDARY_BOTTOM ///< j = 0
 };
 // clang-format on
@@ -122,7 +122,8 @@ void falloff(Array           &array,
  */
 void fill_borders(Array &array);
 
-void fill_borders(Array &array, int nbuffer); ///< @overload
+/// @overload
+void fill_borders(Array &array, int nbuffer);
 
 /**
  * @brief Creates and returns a new array with additional buffer zones at the

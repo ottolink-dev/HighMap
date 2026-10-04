@@ -14,9 +14,9 @@ namespace hmap
 enum ElevationLongitudinalProfile : int
 {
 	ELP_UNCHANGED,
-	ELP_FLAT, ///<
-	ELP_DECREASING, ///<
-	ELP_INCREASING, ///<
+	ELP_FLAT,       ///< 
+	ELP_DECREASING, ///< 
+	ELP_INCREASING, ///< 
 };
 // clang-format on
 

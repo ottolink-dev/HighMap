@@ -487,10 +487,11 @@ Array relative_distance_from_skeleton(const Array &array,
                                       bool         zero_at_borders = true,
                                       int          ir_erosion = 1);
 
+/// @overload
 Array relative_distance_from_skeleton(const Array &array,
                                       const Array &skeleton,
                                       int          ir_search,
-                                      int ir_erosion = 1); ///< @overload
+                                      int          ir_erosion = 1);
 
 /**
  * @brief Computes a skeletonized version of an array.

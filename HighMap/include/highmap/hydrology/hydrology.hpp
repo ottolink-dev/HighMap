@@ -865,6 +865,7 @@ Array water_depth_increase(const Array &water_depth,
 Array water_depth_increase_with_flooding(const Array &water_depth,
                                          const Array &z,
                                          float        additional_depth);
+
 /**
  * @brief Compute the curvature of the water interface from a signed distance
  * field.

@@ -33,18 +33,20 @@ void thermal(Array       &z,
              const Array *p_bedrock = nullptr,
              Array       *p_deposition_map = nullptr);
 
+/// @overload
 void thermal(Array       &z,
              const Array *p_mask,
              const Array &talus,
              int          iterations = 10,
              const Array *p_bedrock = nullptr,
-             Array       *p_deposition_map = nullptr); ///< @overload
+             Array       *p_deposition_map = nullptr);
 
+/// @overload
 void thermal(Array       &z,
              float        talus,
              int          iterations = 10,
              const Array *p_bedrock = nullptr,
-             Array       *p_deposition_map = nullptr); ///< @overload
+             Array       *p_deposition_map = nullptr);
 
 /**
  * @brief Apply thermal weathering erosion with automatic determination of the
@@ -71,13 +73,14 @@ void thermal_auto_bedrock(Array       &z,
                           const Array *p_mask,
                           const Array &talus,
                           int          iterations = 10,
-                          Array       *p_deposition_map = nullptr); ///<
+                          Array       *p_deposition_map = nullptr); ///< 
 // @overload
 
+/// @overload
 void thermal_auto_bedrock(Array &z,
                           float,
                           int    iterations = 10,
-                          Array *p_deposition_map = nullptr); ///< @overload
+                          Array *p_deposition_map = nullptr);
 
 /**
  * @brief Apply mass-preserving thermal weathering erosion.
@@ -97,20 +100,22 @@ void thermal_conserve(Array       &z,
                       const Array *p_bedrock = nullptr,
                       Array       *p_deposition_map = nullptr);
 
+/// @overload
 void thermal_conserve(Array       &z,
                       const Array *p_mask,
                       const Array &talus,
                       int          iterations = 10,
                       float        rate = 0.5f,
                       const Array *p_bedrock = nullptr,
-                      Array       *p_deposition_map = nullptr); ///< @overload
+                      Array       *p_deposition_map = nullptr);
 
+/// @overload
 void thermal_conserve(Array       &z,
                       float        talus,
                       int          iterations = 10,
                       float        rate = 0.5f,
                       const Array *p_bedrock = nullptr,
-                      Array       *p_deposition_map = nullptr); ///< @overload
+                      Array       *p_deposition_map = nullptr);
 
 /**
  * @brief Apply iterative thermal flattening erosion on a heightmap.
@@ -127,12 +132,13 @@ void thermal_flatten(Array       &z,
                      float        sigma_inf = 0.5f,
                      float        sigma_sup = 0.f);
 
+/// @overload
 void thermal_flatten(Array       &z,
                      const Array *p_mask,
                      const Array &talus,
                      int          iterations,
                      float        sigma_inf = 0.5f,
-                     float        sigma_sup = 0.f); ///< @overload
+                     float        sigma_sup = 0.f);
 
 /**
  * @brief Apply thermal weathering erosion (Olsen model).
@@ -143,10 +149,11 @@ void thermal_flatten(Array       &z,
  */
 void thermal_olsen(Array &z, const Array &talus, int iterations);
 
+/// @overload
 void thermal_olsen(Array       &z,
                    const Array *p_mask,
                    const Array &talus,
-                   int          iterations); ///< @overload
+                   int          iterations);
 
 /**
  * @brief Apply thermal weathering erosion to give a scree like effect.
@@ -163,10 +170,11 @@ void thermal_olsen(Array       &z,
  */
 void thermal_inflate(Array &z, const Array &talus, int iterations = 10);
 
+/// @overload
 void thermal_inflate(Array       &z,
                      const Array *p_mask,
                      const Array &talus,
-                     int          iterations = 10); ///< @overload
+                     int          iterations = 10);
 
 /**
  * @brief Apply thermal erosion using a 'rib' algorithm.
@@ -182,7 +190,8 @@ void thermal_inflate(Array       &z,
  */
 void thermal_rib(Array &z, int iterations);
 
-void thermal_rib(Array &z, const Array *p_mask, int iterations); ///< @overload
+/// @overload
+void thermal_rib(Array &z, const Array *p_mask, int iterations);
 
 /**
  * @brief Apply thermal weathering erosion to give a ridge like effect.
@@ -203,11 +212,12 @@ void thermal_ridge(Array       &z,
                    int          iterations = 10,
                    Array       *p_deposition_map = nullptr);
 
+/// @overload
 void thermal_ridge(Array       &z,
                    const Array *p_mask,
                    const Array &talus,
                    int          iterations = 10,
-                   Array       *p_deposition_map = nullptr); ///< @overload
+                   Array       *p_deposition_map = nullptr);
 
 /**
  * @brief Applies the thermal erosion process with a uniform slope threshold
@@ -231,12 +241,13 @@ void thermal_schott(Array       &z,
                     float        intensity = 0.2f,
                     Array       *p_deposition_map = nullptr);
 
+/// @overload
 void thermal_schott(Array       &z,
                     const Array *p_mask,
                     const Array &talus,
                     int          iterations = 10,
                     float        intensity = 0.2f,
-                    Array       *p_deposition_map = nullptr); ///< @overload
+                    Array       *p_deposition_map = nullptr);
 
 /**
  * @brief Performs thermal scree erosion on a heightmap.
@@ -253,11 +264,11 @@ void thermal_scree(Array       &z,
                    int          iterations = 10,
                    Array       *p_deposition_map = nullptr);
 
+/// @overload
 void thermal_scree(Array       &z,
                    const Array *p_mask,
                    const Array &talus,
                    const Array &zmax,
                    int          iterations = 10,
-                   Array       *p_deposition_map = nullptr); ///< @overload
-
+                   Array       *p_deposition_map = nullptr);
 } // namespace hmap::gpu

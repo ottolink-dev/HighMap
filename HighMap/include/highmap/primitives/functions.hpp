@@ -672,6 +672,7 @@ Array rectangle(glm::ivec2   shape,
                 const Array *p_noise_y = nullptr,
                 glm::vec2    center = {0.5f, 0.5f},
                 glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+
 /**
  * @brief Return an array corresponding to a slope with a given overall.
  *
@@ -700,6 +701,7 @@ Array slope(glm::ivec2   shape,
             const Array *p_noise_y = nullptr,
             glm::vec2    center = {0.5f, 0.5f},
             glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+
 /**
  * @brief Generates a smooth cosine array.
  */

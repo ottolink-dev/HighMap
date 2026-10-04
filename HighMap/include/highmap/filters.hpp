@@ -39,9 +39,9 @@ struct VirtualArray;
 // clang-format off
 enum neighborhood : int
 {
-	MOORE, ///< Moore neighborhood: includes all eight surrounding cells.
+	MOORE,       ///< Moore neighborhood: includes all eight surrounding cells.
 	VON_NEUMANN, ///< Von Neumann neighborhood: includes only the four orthogonal neighbors (N, S, E, W).
-	CROSS  ///< Cross-shaped neighborhood: includes only the diagonal neighbors.
+	CROSS        ///< Cross-shaped neighborhood: includes only the diagonal neighbors.
 };
 // clang-format on
 
@@ -327,6 +327,7 @@ void expand_talus(Array        &z,
                   std::uint32_t seed,
                   int           ir = 1,
                   float         noise_ratio = 0.2f);
+
 /**
  * @brief Enforce a talus slope constraint on a height field.
  *
@@ -1005,11 +1006,12 @@ void normal_displacement(Array &array,
                          int    ir = 0,
                          bool   reverse = false);
 
+/// @overload
 void normal_displacement(Array       &array,
                          const Array *p_mask,
                          float        amount = 0.1f,
                          int          ir = 0,
-                         bool         reverse = false); ///< @overload
+                         bool         reverse = false);
 
 /**
  * @brief Apply a plateau-shape filter to the input array.
@@ -1037,7 +1039,8 @@ void normal_displacement(Array       &array,
  */
 void plateau(Array &array, const Array *p_mask, int ir, float factor);
 
-void plateau(Array &array, int ir, float factor); ///< @overload
+/// @overload
+void plateau(Array &array, int ir, float factor);
 
 /**
  * @brief Quantize array values into discrete levels.
@@ -1127,22 +1130,24 @@ void recast_billow(Array &array, float vref, float k);
  */
 void recast_canyon(Array &array, const Array &vcut, float gamma = 4.f);
 
+/// @overload
 void recast_canyon(Array       &array,
                    const Array &vcut,
                    const Array *p_mask,
-                   float        gamma = 4.f); ///< @overload
+                   float        gamma = 4.f);
 
+/// @overload
 void recast_canyon(Array       &array,
                    float        vcut,
                    const Array *p_mask,
                    float        gamma = 4.f,
-                   const Array *p_noise = nullptr); ///< @overload
+                   const Array *p_noise = nullptr);
 
+/// @overload
 void recast_canyon(Array       &array,
                    float        vcut,
                    float        gamma = 4.f,
-                   const Array *p_noise = nullptr); ///< @overload
-
+                   const Array *p_noise = nullptr);
 void recast_cracks(Array &array,
                    float  cut_min = 0.05f,
                    float  cut_max = 0.5f,
@@ -1274,11 +1279,12 @@ void recast_escarpment(Array       &array,
  */
 void recast_peak(Array &array, int ir, float gamma = 2.f, float k = 0.1f);
 
+/// @overload
 void recast_peak(Array       &array,
                  int          ir,
                  const Array *p_mask,
                  float        gamma = 2.f,
-                 float        k = 0.1f); ///< @overload
+                 float        k = 0.1f);
 
 /**
  * @brief Transform heightmap by adding "rock-like" features at higher slopes.
@@ -1334,6 +1340,7 @@ void recast_rocky_slopes(Array        &array,
                          const Array  *p_noise = nullptr,
                          glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
 
+/// @overload
 void recast_rocky_slopes(Array        &array,
                          float         talus,
                          int           ir,
@@ -1343,7 +1350,7 @@ void recast_rocky_slopes(Array        &array,
                          const Array  *p_mask,
                          float         gamma = 0.5f,
                          const Array  *p_noise = nullptr,
-                         glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}); ///< @overload
+                         glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Transform heightmap to give a "cliff" like appearance.
@@ -1374,10 +1381,8 @@ void recast_rocky_slopes(Array        &array,
  */
 void recast_sag(Array &array, float vref, float k);
 
-void recast_sag(Array       &array,
-                float        vref,
-                float        k,
-                const Array *p_mask); ///< @overload
+/// @overload
+void recast_sag(Array &array, float vref, float k, const Array *p_mask);
 
 /**
  * @brief Apply a curve adjustment filter to the array.
@@ -1408,10 +1413,11 @@ void recurve(Array                    &array,
              const std::vector<float> &t,
              const std::vector<float> &v);
 
+/// @overload
 void recurve(Array                    &array,
              const std::vector<float> &t,
              const std::vector<float> &v,
-             const Array              *p_mask); ///< @overload
+             const Array              *p_mask);
 
 /**
  * @brief Apply a curve adjustment filter using a "bumpy exponential-shape"
@@ -1442,9 +1448,8 @@ void recurve(Array                    &array,
  */
 void recurve_bexp(Array &array, float tau = 0.5f);
 
-void recurve_bexp(Array       &array,
-                  const Array *p_mask,
-                  float        tau = 0.5f); ///< @overload
+/// @overload
+void recurve_bexp(Array &array, const Array *p_mask, float tau = 0.5f);
 
 /**
  * @brief Apply a curve adjustment filter using a "sharp exponential-shape"
@@ -1475,9 +1480,8 @@ void recurve_bexp(Array       &array,
  */
 void recurve_exp(Array &array, float tau = 0.5f);
 
-void recurve_exp(Array       &array,
-                 const Array *p_mask,
-                 float        tau = 0.5f); ///< @overload
+/// @overload
+void recurve_exp(Array &array, const Array *p_mask, float tau = 0.5f);
 
 /**
  * @brief Apply a curve adjustment filter using Kumaraswamy's cumulative
@@ -1506,10 +1510,8 @@ void recurve_exp(Array       &array,
  */
 void recurve_kura(Array &array, float a, float b);
 
-void recurve_kura(Array       &array,
-                  float        a,
-                  float        b,
-                  const Array *p_mask); ///< @overload
+/// @overload
+void recurve_kura(Array &array, float a, float b, const Array *p_mask);
 
 /**
  * @brief Apply a curve adjustment filter using a smooth "S-shape" curve.
@@ -1534,7 +1536,8 @@ void recurve_kura(Array       &array,
  */
 void recurve_s(Array &array);
 
-void recurve_s(Array &array, const Array *p_mask); ///< @overload
+/// @overload
+void recurve_s(Array &array, const Array *p_mask);
 
 /**
  * @brief Apply a curve adjustment filter using an nth-order smoothstep curve.
@@ -1562,9 +1565,8 @@ void recurve_s(Array &array, const Array *p_mask); ///< @overload
  */
 void recurve_smoothstep_rational(Array &array, float n);
 
-void recurve_smoothstep_rational(Array       &array,
-                                 float        n,
-                                 const Array *p_mask); ///< @overload
+/// @overload
+void recurve_smoothstep_rational(Array &array, float n, const Array *p_mask);
 
 /**
  * @brief Applies a smooth reversal of values above a given threshold.
@@ -1599,22 +1601,25 @@ void reverse_above_theshold(Array       &array,
                             float        scaling = 1.f,
                             float        transition_extent = 0.f);
 
+/// @overload
 void reverse_above_theshold(Array &array,
                             float  threshold,
                             float  scaling = 1.f,
-                            float  transition_extent = 0.f); ///< @overload
+                            float  transition_extent = 0.f);
 
+/// @overload
 void reverse_above_theshold(Array       &array,
                             const Array &threshold,
                             const Array *p_mask,
                             float        scaling = 1.f,
-                            float transition_extent = 0.f); ///< @overload
+                            float        transition_extent = 0.f);
 
+/// @overload
 void reverse_above_theshold(Array       &array,
                             float        threshold,
                             const Array *p_mask,
                             float        scaling = 1.f,
-                            float transition_extent = 0.f); ///< @overload
+                            float        transition_extent = 0.f);
 
 /**
  * @brief Accentuate ridges by gradient-directed resampling along the normal
@@ -1644,11 +1649,12 @@ void ridge_accentuate(Array &array,
                       int    ir = 0,
                       bool   reverse = false);
 
+/// @overload
 void ridge_accentuate(Array       &array,
                       const Array *p_mask,
                       float        strength = 0.1f,
                       int          ir = 0,
-                      bool         reverse = false); ///< @overload
+                      bool         reverse = false);
 
 /**
  * @brief Saturate the array values based on the input interval [vmin, vmax]
@@ -1679,7 +1685,7 @@ void saturate(Array &array,
               float  from_max,
               float  k = 0.f);
 
-void saturate(Array &array, float vmin, float vmax, float k = 0.f); ///<
+void saturate(Array &array, float vmin, float vmax, float k = 0.f); ///< 
 // @overload
 
 /**
@@ -1731,9 +1737,8 @@ void saturate_percentile(Array &array,
  */
 void sharpen(Array &array, float ratio = 1.f);
 
-void sharpen(Array       &array,
-             const Array *p_mask,
-             float        ratio = 1.f); ///< @overload
+/// @overload
+void sharpen(Array &array, const Array *p_mask, float ratio = 1.f);
 
 /**
  * @brief Apply a sharpening filter based on a smooth cone filter.
@@ -1762,10 +1767,11 @@ void sharpen(Array       &array,
  */
 void sharpen_cone(Array &array, int ir, float intensity = 0.5f);
 
+/// @overload
 void sharpen_cone(Array       &array,
                   const Array *p_mask,
                   int          ir,
-                  float        scale = 0.5f); ///< @overload
+                  float        scale = 0.5f);
 
 /**
  * @brief Apply shrinking, or "deflating", to emphasize the ridges in the
@@ -1796,17 +1802,18 @@ void sharpen_cone(Array       &array,
  * @see          {@link ex_expand}
  */
 void shrink(Array &array, int ir, int iterations = 1);
-void shrink(Array       &array,
-            int          ir,
-            const Array *p_mask,
-            int          iterations = 1); ///< @overload
+
+/// @overload
+void shrink(Array &array, int ir, const Array *p_mask, int iterations = 1);
+
+/// @overload
+void shrink(Array &array, const Array &kernel, int iterations = 1);
+
+/// @overload
 void shrink(Array       &array,
             const Array &kernel,
-            int          iterations = 1); ///< @overload
-void shrink(Array       &array,
-            const Array &kernel,
             const Array *p_mask,
-            int          iterations = 1); ///< @overload
+            int          iterations = 1);
 
 /**
  * @brief Apply directional shrinking, or "deflating", to emphasize the ridges
@@ -1865,7 +1872,9 @@ void shrink_directional(Array       &array,
  * @image html ex_smooth_cone.png
  */
 void smooth_cone(Array &array, int ir);
-void smooth_cone(Array &array, int ir, const Array *p_mask); ///< @overload
+
+/// @overload
+void smooth_cone(Array &array, int ir, const Array *p_mask);
 
 /**
  * @brief Apply filtering to the array using convolution with a cubic pulse
@@ -1893,7 +1902,9 @@ void smooth_cone(Array &array, int ir, const Array *p_mask); ///< @overload
  * See unit tests: @ref test_smooth_cpulse.cpp
  */
 void smooth_cpulse(Array &array, int ir);
-void smooth_cpulse(Array &array, int ir, const Array *p_mask); ///< @overload
+
+/// @overload
+void smooth_cpulse(Array &array, int ir, const Array *p_mask);
 
 /**
  * @brief Smooths an array while attenuating edges using a gradient-based pulse.
@@ -1957,7 +1968,10 @@ void smooth_flat(Array &array, int ir);
  * @image html ex_smooth_gaussian.png
  */
 void smooth_gaussian(Array &array, int ir);
-void smooth_gaussian(Array &array, int ir, const Array *p_mask); ///< @overload
+
+/// @overload
+void smooth_gaussian(Array &array, int ir, const Array *p_mask);
+
 /**
  * @brief Apply cubic pulse smoothing to fill lower flat regions while
  * preserving some sharpness.
@@ -1995,11 +2009,12 @@ void smooth_fill(Array &array,
                  float  k = 0.1f,
                  Array *p_deposition_map = nullptr);
 
+/// @overload
 void smooth_fill(Array       &array,
                  int          ir,
                  const Array *p_mask,
                  float        k = 0.1f,
-                 Array       *p_deposition_map = nullptr); ///< @overload
+                 Array       *p_deposition_map = nullptr);
 
 /**
  * @brief Apply smoothing to fill holes (elliptic concave surfaces).
@@ -2025,9 +2040,9 @@ void smooth_fill(Array       &array,
  * @see          {@link smooth_fill_smear_peaks}
  */
 void smooth_fill_holes(Array &array, int ir);
-void smooth_fill_holes(Array       &array,
-                       int          ir,
-                       const Array *p_mask); ///< @overload
+
+/// @overload
+void smooth_fill_holes(Array &array, int ir, const Array *p_mask);
 
 /**
  * @brief Apply smoothing to smear peaks (elliptic convex surfaces).
@@ -2053,9 +2068,9 @@ void smooth_fill_holes(Array       &array,
  * @see          {@link smooth_fill_holes}
  */
 void smooth_fill_smear_peaks(Array &array, int ir);
-void smooth_fill_smear_peaks(Array       &array,
-                             int          ir,
-                             const Array *p_mask); ///< @overload
+
+/// @overload
+void smooth_fill_smear_peaks(Array &array, int ir, const Array *p_mask);
 
 /**
  * @brief Applies a localized smoothstep operation to the provided array.
@@ -2123,10 +2138,9 @@ void smoothstep_local(Array &array, int ir, const Array *p_mask);
  * @image html ex_steepen.png
  */
 void steepen(Array &array, float scale, int ir = 8);
-void steepen(Array       &array,
-             float        scale,
-             const Array *p_mask,
-             int          ir = 8); ///< @overload
+
+/// @overload
+void steepen(Array &array, float scale, const Array *p_mask, int ir = 8);
 
 /**
  * @brief Steepen array values by applying a nonlinear convection operator in a
@@ -2162,12 +2176,13 @@ void steepen_convective(Array &array,
                         int    ir = 0,
                         float  dt = 0.1f);
 
+/// @overload
 void steepen_convective(Array       &array,
                         float        angle,
                         const Array *p_mask,
                         int          iterations = 1,
                         int          ir = 0,
-                        float        dt = 0.1f); ///< @overload
+                        float        dt = 0.1f);
 
 /**
  * @brief Applies a terrace effect to the values in an array.
@@ -2317,9 +2332,11 @@ Array bilateral_filter(const Array &array,
  * **Result**
  * @image html ex_bilateral_filter.png
  */
+
+/// @overload
 Array bilateral_filter(const Array &array,
                        int          ir,
-                       float        kernel1d_value_scaling); ///< @overload
+                       float        kernel1d_value_scaling);
 
 /**
  * @brief Applies a directional blur to the input array.
@@ -2344,39 +2361,40 @@ void directional_blur(Array       &array,
                       const Array &angle,
                       int          steps = 32);
 
+/// @overload
 void directional_blur(Array       &array,
                       float        radius,
                       const Array &angle,
                       const Array *p_mask,
-                      int          steps = 32); ///< @overload
-
+                      int          steps = 32);
 /*! @brief See hmap::expand */
 void expand(Array &array, int ir, int iterations = 1);
-void expand(Array       &array,
-            int          ir,
-            const Array *p_mask,
-            int          iterations = 1); ///< @overload
-void expand(Array       &array,
-            const Array &kernel,
-            int          iterations = 1); ///< @overload
-void expand(Array       &array,
-            const Array &kernel,
-            const Array *p_mask,
-            int          iterations = 1); ///< @overload
 
+/// @overload
+void expand(Array &array, int ir, const Array *p_mask, int iterations = 1);
+
+/// @overload
+void expand(Array &array, const Array &kernel, int iterations = 1);
+
+/// @overload
+void expand(Array       &array,
+            const Array &kernel,
+            const Array *p_mask,
+            int          iterations = 1);
 /*! @brief See hmap::gamma_correction_local */
 void gamma_correction_local(Array       &array,
                             float        gamma,
                             int          ir,
                             float        k = 0.1f,
                             MinMaxKernel kernel_type = MinMaxKernel::DISK);
-void gamma_correction_local(
-    Array       &array,
-    float        gamma,
-    int          ir,
-    const Array *p_mask,
-    float        k = 0.1f,
-    MinMaxKernel kernel_type = MinMaxKernel::DISK); ///< @overload
+
+/// @overload
+void gamma_correction_local(Array       &array,
+                            float        gamma,
+                            int          ir,
+                            const Array *p_mask,
+                            float        k = 0.1f,
+                            MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /**
  * @brief Apply a Voronoi-based jagged bubble dome filter to an array.
@@ -2560,11 +2578,12 @@ Array jagged_fbm(const Array  &array,
 
 /*! @brief See hmap::laplace */
 void laplace(Array &array, float sigma = 0.2f, int iterations = 3);
+
+/// @overload
 void laplace(Array       &array,
              const Array *p_mask,
              float        sigma = 0.2f,
-             int          iterations = 3); ///< @overload
-
+             int          iterations = 3);
 /*! @brief See hmap::mean_shift */
 Array mean_shift(const Array &array,
                  int          ir,
@@ -2581,8 +2600,9 @@ Array mean_shift(const Array &array,
 
 /*! @brief See hmap::median_3x3 */
 void median_3x3(Array &array);
-void median_3x3(Array &array, const Array *p_mask); ///< @overload
 
+/// @overload
+void median_3x3(Array &array, const Array *p_mask);
 /*! @brief See hmap::median_pseudo */
 Array median_pseudo(const Array &array,
                     int          ir,
@@ -2593,22 +2613,25 @@ void normal_displacement(Array &array,
                          float  amount = 0.1f,
                          int    ir = 0,
                          bool   reverse = false);
+
+/// @overload
 void normal_displacement(Array       &array,
                          const Array *p_mask,
                          float        amount = 0.1f,
                          int          ir = 0,
-                         bool         reverse = false); ///< @overload
-
+                         bool         reverse = false);
 /*! @brief See hmap::plateau */
 void plateau(Array       &array,
              const Array *p_mask,
              int          ir,
              float        factor,
              MinMaxKernel kernel_type = MinMaxKernel::DISK);
+
+/// @overload
 void plateau(Array       &array,
              int          ir,
              float        factor,
-             MinMaxKernel kernel_type = MinMaxKernel::DISK); ///< @overload
+             MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 /**
  * @brief Projects array values along a given direction using talus attenuation.
@@ -2671,6 +2694,7 @@ void recast_cliff(Array &array,
                   int    iterations = 500,
                   Array *p_cliff_mask = nullptr);
 
+/// @overload
 void recast_cliff(Array       &array,
                   float        talus,
                   int          ir,
@@ -2678,7 +2702,7 @@ void recast_cliff(Array       &array,
                   const Array *p_mask,
                   float        gain = 2.f,
                   int          iterations = 500,
-                  Array       *p_cliff_mask = nullptr); ///< @overload
+                  Array       *p_cliff_mask = nullptr);
 
 /**
  * @brief Transform heightmap to add directional cliffs where gradients are
@@ -2703,6 +2727,8 @@ void recast_cliff(Array       &array,
  * **Result**
  * @image html ex_recast_cliff.png
  */
+
+/// @overload
 void recast_cliff_directional(Array &array,
                               float  talus,
                               int    ir,
@@ -2710,8 +2736,9 @@ void recast_cliff_directional(Array &array,
                               float  angle,
                               float  gain = 2.f,
                               int    iterations = 500,
-                              Array *p_cliff_mask = nullptr); ///< @overload
+                              Array *p_cliff_mask = nullptr);
 
+/// @overload
 void recast_cliff_directional(Array       &array,
                               float        talus,
                               int          ir,
@@ -2720,8 +2747,9 @@ void recast_cliff_directional(Array       &array,
                               const Array *p_mask,
                               float        gain = 2.f,
                               int          iterations = 500,
-                              Array *p_cliff_mask = nullptr); ///< @overload
+                              Array       *p_cliff_mask = nullptr);
 
+/// @overload
 void recast_cliff_directional(Array       &array,
                               float        talus,
                               int          ir,
@@ -2729,8 +2757,9 @@ void recast_cliff_directional(Array       &array,
                               const Array &angle,
                               float        gain = 2.f,
                               int          iterations = 500,
-                              Array *p_cliff_mask = nullptr); ///< @overload
+                              Array       *p_cliff_mask = nullptr);
 
+/// @overload
 void recast_cliff_directional(Array       &array,
                               float        talus,
                               int          ir,
@@ -2739,8 +2768,7 @@ void recast_cliff_directional(Array       &array,
                               const Array *p_mask,
                               float        gain = 2.f,
                               int          iterations = 500,
-                              Array *p_cliff_mask = nullptr); ///< @overload
-
+                              Array       *p_cliff_mask = nullptr);
 /*! @brief See hmap::ridge_accentuate */
 void ridge_accentuate(Array &array,
                       float  strength = 0.1f,
@@ -2756,18 +2784,18 @@ void ridge_accentuate(Array       &array,
 
 /*! @brief See hmap::shrink */
 void shrink(Array &array, int ir, int iterations = 1);
-void shrink(Array       &array,
-            int          ir,
-            const Array *p_mask,
-            int          iterations = 1); ///< @overload
-void shrink(Array       &array,
-            const Array &kernel,
-            int          iterations = 1); ///< @overload
-void shrink(Array       &array,
-            const Array &kernel,
-            const Array *p_mask,
-            int          iterations = 1); ///< @overload
 
+/// @overload
+void shrink(Array &array, int ir, const Array *p_mask, int iterations = 1);
+
+/// @overload
+void shrink(Array &array, const Array &kernel, int iterations = 1);
+
+/// @overload
+void shrink(Array       &array,
+            const Array &kernel,
+            const Array *p_mask,
+            int          iterations = 1);
 /*! @brief See hmap::smooth_cpulse */
 void smooth_cpulse(Array &array, int ir);
 
@@ -2785,23 +2813,23 @@ void smooth_fill(Array &array,
                  int    ir,
                  float  k = 0.1f,
                  Array *p_deposition_map = nullptr);
+
+/// @overload
 void smooth_fill(Array       &array,
                  int          ir,
                  const Array *p_mask,
                  float        k = 0.1f,
-                 Array       *p_deposition_map = nullptr); ///< @overload
-
+                 Array       *p_deposition_map = nullptr);
 /*! @brief See hmap::smooth_fill_holes */
 void smooth_fill_holes(Array &array, int ir);
-void smooth_fill_holes(Array       &array,
-                       int          ir,
-                       const Array *p_mask); ///< @overload
 
+/// @overload
+void smooth_fill_holes(Array &array, int ir, const Array *p_mask);
 /*! @brief See hmap::smooth_fill_smear_peaks */
 void smooth_fill_smear_peaks(Array &array, int ir);
-void smooth_fill_smear_peaks(Array       &array,
-                             int          ir,
-                             const Array *p_mask); ///< @overload
+
+/// @overload
+void smooth_fill_smear_peaks(Array &array, int ir, const Array *p_mask);
 
 /**
  * @brief Spectral equalizer for 2D fields using a multiscale Gaussian pyramid.
@@ -2826,12 +2854,12 @@ Array spectral_equalizer(const Array              &array,
                          int                       ir_min,
                          int                       ir_max);
 
+/// @overload
 Array spectral_equalizer(const Array              &array,
                          const std::vector<float> &weights,
                          int                       ir_min,
                          int                       ir_max,
-                         const Array              *p_mask); ///< @overload
-
+                         const Array              *p_mask);
 } // namespace hmap::gpu
 
 namespace hmap::gpu
@@ -3000,9 +3028,9 @@ void smooth_cpulse(VirtualArray       &array,
                    const VirtualArray *p_mask,
                    const ComputeMode  &cm);
 
+/// @overload
 VirtualArray smooth_cpulse(const VirtualArray &array,
                            int                 ir,
                            const VirtualArray *p_mask,
-                           const ComputeMode  &cm); ///< @overload
-
+                           const ComputeMode  &cm);
 } // namespace hmap::va

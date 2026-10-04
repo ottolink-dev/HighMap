@@ -133,7 +133,9 @@ void clamp(Array &array, float vmax, ClampMode mode);
  * @see         {@link clamp}, {@link clamp_max}
  */
 void clamp_min(Array &array, float vmin);
-void clamp_min(Array &array, const Array &vmin); ///< @overload
+
+/// @overload
+void clamp_min(Array &array, const Array &vmin);
 
 /**
  * @brief Clamp array values lower than a given bound with a smooth transition.
@@ -148,9 +150,8 @@ void clamp_min(Array &array, const Array &vmin); ///< @overload
  */
 void clamp_min_smooth(Array &array, float vmin, float k = 0.2f);
 
-void clamp_min_smooth(Array       &array,
-                      const Array &vmin,
-                      float        k = 0.2f); ///< @overload
+/// @overload
+void clamp_min_smooth(Array &array, const Array &vmin, float k = 0.2f);
 
 /**
  * @brief Clamp a single value lower than a given bound with a smooth
@@ -179,7 +180,9 @@ float clamp_min_smooth(float x, float vmin, float k = 0.2f);
  * @see         {@link clamp}, {@link clamp_min}
  */
 void clamp_max(Array &array, float vmax);
-void clamp_max(Array &array, const Array &vmax); ///< @overload
+
+/// @overload
+void clamp_max(Array &array, const Array &vmax);
 
 /**
  * @brief Clamp array values larger than a given bound with a smooth transition.
@@ -194,9 +197,8 @@ void clamp_max(Array &array, const Array &vmax); ///< @overload
  */
 void clamp_max_smooth(Array &array, float vmax, float k = 0.2f);
 
-void clamp_max_smooth(Array       &array,
-                      const Array &vmax,
-                      float        k = 0.2f); ///< @overload
+/// @overload
+void clamp_max_smooth(Array &array, const Array &vmax, float k = 0.2f);
 
 /**
  * @brief Clamps an array against an oblique plane.
@@ -269,7 +271,9 @@ Array maximum(const Array &array1, const Array &array2);
  * @param  value  Scalar value to compare with each element of the array.
  * @return        Array The element-wise maximum between `array1` and `value`.
  */
-Array maximum(const Array &array1, const float value); ///< @overload
+
+/// @overload
+Array maximum(const Array &array1, const float value);
 
 /**
  * @brief Return the polynomial cubic smooth element-wise maximum of two arrays.
@@ -326,9 +330,9 @@ Array maximum_smooth(const Array &array1, const Array &array2, float k = 0.2);
  *
  * @see      {@link minimum_smooth}, {@link minimum}, {@link maximum}
  */
-float maximum_smooth(const float a,
-                     const float b,
-                     float       k = 0.2); ///< @overload
+
+/// @overload
+float maximum_smooth(const float a, const float b, float k = 0.2);
 
 /**
  * @brief Return the element-wise minimum of two arrays.
@@ -354,7 +358,9 @@ Array minimum(const Array &array1, const Array &array2);
  * @param  value  Scalar value to compare with each element of the array.
  * @return        Array The element-wise minimum between `array1` and `value`.
  */
-Array minimum(const Array &array1, const float value); ///< @overload
+
+/// @overload
+Array minimum(const Array &array1, const float value);
 
 /**
  * @brief Return the polynomial cubic smooth element-wise minimum of two arrays.
@@ -390,7 +396,9 @@ Array minimum_smooth(const Array &array1, const Array &array2, float k = 0.2);
  *           of blending between the two values (default is 0.2).
  * @return   float The smooth minimum between `a` and `b`.
  */
-float minimum_smooth(const float a, const float b, float k); ///< @overload
+
+/// @overload
+float minimum_smooth(const float a, const float b, float k);
 
 /**
  * @brief Remap array elements from a starting range to a target range.
@@ -431,7 +439,9 @@ void remap(Array &array,
  *
  * See unit tests: @ref test_remap.cpp
  */
-void remap(Array &array, float vmin = 0, float vmax = 1); ///< @overload
+
+/// @overload
+void remap(Array &array, float vmin = 0, float vmax = 1);
 
 /**
  * @brief Remap array elements from a starting range to a target range.

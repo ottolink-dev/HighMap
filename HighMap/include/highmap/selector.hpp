@@ -137,9 +137,11 @@ Array select_cavities(const Array &array, int ir, bool concave = true);
  * @image html ex_select_elevation_slope1.png
  */
 Array select_elevation_slope(const Array &array, float gradient_scale);
+
+/// @overload
 Array select_elevation_slope(const Array &array,
                              float        gradient_scale,
-                             float        vmax); ///< @overload
+                             float        vmax);
 
 /**
  * @brief Return an array with elements equal to 1 where input elements are

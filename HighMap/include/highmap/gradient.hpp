@@ -260,7 +260,9 @@ Array gradient_talus(const Array &array);
  *
  * See unit tests: @ref test_gradient.cpp
  */
-void gradient_talus(const Array &array, Array &talus); ///< @overload
+
+/// @overload
+void gradient_talus(const Array &array, Array &talus);
 
 /**
  * @brief Compute the gradient in the x-direction of a 2D array.
@@ -285,7 +287,9 @@ Array gradient_x(const Array &array);
  * @param dx    Output array where the gradient in the x-direction will be
  *              stored.
  */
-void gradient_x(const Array &array, Array &dx); ///< @overload
+
+/// @overload
+void gradient_x(const Array &array, Array &dx);
 
 /**
  * @brief Compute the gradient in the y-direction of a 2D array.
@@ -310,7 +314,9 @@ Array gradient_y(const Array &array);
  * @param dy    Output array where the gradient in the y-direction will be
  *              stored.
  */
-void gradient_y(const Array &array, Array &dy); ///< @overload
+
+/// @overload
+void gradient_y(const Array &array, Array &dy);
 
 /**
  * @brief Compute the Laplacian of a 2D array.

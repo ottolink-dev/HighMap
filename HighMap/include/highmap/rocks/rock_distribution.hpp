@@ -23,14 +23,12 @@ namespace hmap
  */
 struct RockDistribution
 {
-  uint32_t    class_id = 0; ///< Rock material / mesh class identifier.
-  std::string name =
-      ""; ///< Optional descriptive name (e.g., "Granite Boulder").
-  float radius_min = 1e-3f; ///< Minimum rock radius.
-  float radius_max = 5e-2f; ///< Maximum rock radius.
-  float power_law_alpha =
-      2.0f; ///< Power-law / Pareto size exponent (typically in [1.5, 3.0]).
-  float embed_ratio = 0.2f; ///< Ratio of rock embedded into the ground [0, 1].
+  uint32_t    class_id = 0;     ///< Rock material / mesh class identifier.
+  std::string name = "";        ///< Optional descriptive name (e.g., "Granite Boulder").
+  float radius_min = 1e-3f;     ///< Minimum rock radius.
+  float radius_max = 5e-2f;     ///< Maximum rock radius.
+  float power_law_alpha = 2.0f; ///< Power-law / Pareto size exponent (typically in [1.5, 3.0]).
+  float embed_ratio = 0.2f;     ///< Ratio of rock embedded into the ground [0, 1].
 
   RockDistribution() = default;
 

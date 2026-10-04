@@ -252,6 +252,8 @@ void fill_array_using_xy_function(
  * **Result**
  * @image html ex_fill_array_using_xy_function.png
  */
+
+/// @overload
 void fill_array_using_xy_function(
     Array                                    &array,
     glm::vec4                                 bbox,
@@ -260,7 +262,7 @@ void fill_array_using_xy_function(
     const Array                              *p_noise_y,
     const Array                              *p_stretching,
     std::function<float(float, float, float)> fct_xy,
-    int                                       subsampling); ///< @overload
+    int                                       subsampling);
 
 /**
  * @brief Find the vertical cut path with the minimum cost using dynamic
@@ -363,9 +365,10 @@ std::vector<float> random_vector(float min, float max, int num, int seed);
  */
 void rescale_vector(std::vector<float> &vec, float vmin, float vmax);
 
+/// @overload
 std::vector<float> rescaled_vector(const std::vector<float> &vec,
                                    float                     vmin,
-                                   float vmax); ///< @overload
+                                   float                     vmax);
 
 /**
  * @brief Swaps the contents of two Array objects.

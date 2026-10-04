@@ -216,6 +216,8 @@ public:
    * sum of their radii, it is pruned.
    *
    * @param other Const reference to the reference ScatterField (e.g. rocks).
+   *
+   * @overload
    */
   void prune_collisions(const ScatterField &other);
 

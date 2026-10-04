@@ -21,6 +21,7 @@
 
 namespace hmap
 {
+
 /**
  * @brief Enumeration for different kernel functions used in various algorithms.
  *

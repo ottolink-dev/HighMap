@@ -49,13 +49,14 @@ Array caldera(glm::ivec2   shape,
               glm::vec2    center = {0.5f, 0.5f},
               glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
 
+/// @overload
 Array caldera(glm::ivec2 shape,
               float      radius,
               float      sigma_inner,
               float      sigma_outer,
               float      z_bottom,
               glm::vec2  center = {0.5f, 0.5f},
-              glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f}); ///< @overload
+              glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Generate a procedural circus (glacial cirque / amphitheatre basin)
