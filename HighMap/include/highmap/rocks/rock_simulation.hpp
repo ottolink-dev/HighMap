@@ -39,7 +39,8 @@ struct RockSimulationOptions
   float restitution_t = 0.80f;           ///< Tangential impact restitution.
   float inter_rock_friction = 0.40f;     ///< Friction coefficient between colliding rocks.
   float inter_rock_restitution = 0.20f;  ///< Restitution between colliding rocks.
-  float    min_velocity = 0.01f;         ///< Resting threshold speed.
+  float min_velocity = 0.01f;            ///< Resting threshold speed.
+  bool  respawn_out_of_bounds = false;   ///< Whether to respawn out-of-bounds rocks at initial position.
   uint32_t seed = 0;                     ///< Random seed.
   float    cell_size_factor = 2.5f;      ///< Spatial grid cell size multiplier relative to max rock radius.
 };

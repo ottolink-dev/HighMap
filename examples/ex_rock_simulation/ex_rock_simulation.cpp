@@ -43,12 +43,13 @@ int main(void)
   hmap::RockSimulationOptions options;
   options.bbox = {0.f, 1.f, 0.f, 1.f};
   options.time_step = 0.005f;
-  options.max_steps = int(1.5f * 128);
+  options.max_steps = int(2.5f * 128);
   options.sub_steps = 32;
   options.gravity = 9.81f;
   options.rolling_resistance = 0.5f;
   options.min_velocity = 0.01f;
   options.seed = static_cast<uint32_t>(seed);
+  options.respawn_out_of_bounds = false;
 
   // --- 4. Simulate Rock Emission and Downhill Trajectories on GPU
 

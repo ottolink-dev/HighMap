@@ -185,6 +185,42 @@ TEST(RockSimulationTest, DiscardOutOfBounds)
   EXPECT_EQ(field.size(), 0u);
 }
 
+TEST(RockSimulationTest, RespawnOutOfBounds)
+{
+  // Constant steep slope that drives the rock across the boundary
+  Array elev(glm::ivec2(64, 64));
+  for (int j = 0; j < 64; ++j)
+  {
+    for (int i = 0; i < 64; ++i)
+    {
+      elev(i, j) = 1.0f - static_cast<float>(i) / 63.0f;
+    }
+  }
+
+  RockField field;
+  field.push_back(Rock(glm::vec3(0.1f, 0.5f, 0.0f), 0u, 0.02f));
+  field.push_back(Rock(glm::vec3(0.2f, 0.5f, 0.0f), 0u, 0.02f));
+
+  RockSimulationOptions opts;
+  opts.time_step = 0.005f;
+  opts.max_steps = 1500;
+  opts.sub_steps = 10;
+  opts.soil_friction = 0.1f;
+  opts.respawn_out_of_bounds = true;
+
+  field.simulate_physics(elev, nullptr, opts);
+
+  // When respawn is enabled, rock count remains constant
+  EXPECT_EQ(field.size(), 2u);
+  for (const auto &rock : field)
+  {
+    EXPECT_GE(rock.position.x, 0.0f);
+    EXPECT_LE(rock.position.x, 1.0f);
+    EXPECT_GE(rock.position.y, 0.0f);
+    EXPECT_LE(rock.position.y, 1.0f);
+  }
+}
+
 TEST(RockSimulationTest, EmissionSimulation)
 {
   // Terrain high in left quarter, sloping down to valley

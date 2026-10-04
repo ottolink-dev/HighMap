@@ -122,6 +122,8 @@ RockField simulate_rock_trajectories(const RockField &rocks,
     status_class[i * 2 + 1] = item.class_id;
   }
 
+  std::vector<float> init_pos_rad = pos_rad;
+
   // --- OpenCL Simulation Run Dispatch
 
   int sub_steps = std::max(1, options.sub_steps);
@@ -132,6 +134,7 @@ RockField simulate_rock_trajectories(const RockField &rocks,
   run_sim.bind_buffer<float>("pos_rad", pos_rad);
   run_sim.bind_buffer<float>("vel_mass", vel_mass);
   run_sim.bind_buffer<uint32_t>("status_class", status_class);
+  run_sim.bind_buffer<float>("init_pos_rad", init_pos_rad);
   run_sim.bind_buffer<float>("z", elevation.vector);
   gpu::helper_bind_optional_buffer(run_sim, "friction_map", p_friction_map);
 
@@ -145,11 +148,14 @@ RockField simulate_rock_trajectories(const RockField &rocks,
                          options.rolling_resistance,
                          options.min_velocity,
                          p_friction_map ? 1 : 0,
+                         options.respawn_out_of_bounds ? 1 : 0,
+                         options.seed,
                          sub_steps);
 
   run_sim.write_buffer("pos_rad");
   run_sim.write_buffer("vel_mass");
   run_sim.write_buffer("status_class");
+  run_sim.write_buffer("init_pos_rad");
   run_sim.write_buffer("z");
   if (p_friction_map) run_sim.write_buffer("friction_map");
 
@@ -169,8 +175,12 @@ RockField simulate_rock_trajectories(const RockField &rocks,
   for (int i = 0; i < num_rocks; ++i)
   {
     uint32_t status = status_class[i * 2 + 0];
-    if (status == 2) // ROCK_STATUS_OUT_OF_BOUNDS (discard out-of-bounds rocks)
+    if (status == 2) // ROCK_STATUS_OUT_OF_BOUNDS
     {
+      if (options.respawn_out_of_bounds)
+      {
+        final_rocks.emplace_back(rocks[i]);
+      }
       continue;
     }
 

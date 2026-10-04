@@ -71,22 +71,25 @@ inline float2 rock_helper_sample_gradient(global const float *z,
 //  Rock Rolling Simulation Kernel
 // ============================================================================
 
-kernel void rock_simulate_physics(global float4      *pos_rad,
-                                  global float4      *vel_mass,
-                                  global uint2       *status_class,
-                                  global const float *z,
-                                  global const float *friction_map,
-                                  int                 num_rocks,
-                                  int                 nx,
-                                  int                 ny,
-                                  float4              bbox,
-                                  float               dt,
-                                  float               gravity,
-                                  float               soil_friction,
-                                  float               rolling_resistance,
-                                  float               min_velocity,
-                                  int                 has_friction_map,
-                                  int                 sub_steps)
+kernel void rock_simulate_physics(global float4       *pos_rad,
+                                  global float4       *vel_mass,
+                                  global uint2        *status_class,
+                                  global const float4 *init_pos_rad,
+                                  global const float  *z,
+                                  global const float  *friction_map,
+                                  int                  num_rocks,
+                                  int                  nx,
+                                  int                  ny,
+                                  float4               bbox,
+                                  float                dt,
+                                  float                gravity,
+                                  float                soil_friction,
+                                  float                rolling_resistance,
+                                  float                min_velocity,
+                                  int                  has_friction_map,
+                                  int                  respawn_out_of_bounds,
+                                  uint                 seed,
+                                  int                  sub_steps)
 {
   int rock_idx = get_global_id(0);
   if (rock_idx >= num_rocks) return;
@@ -104,13 +107,27 @@ kernel void rock_simulate_physics(global float4      *pos_rad,
   float dom_w = bbox.y - bbox.x;
   float dom_h = bbox.w - bbox.z;
 
+  uint rng_state = wang_hash((uint)rock_idx + seed * 1999u + 1u);
+
   for (int step = 0; step < sub_steps; ++step)
   {
     // Check if rock is out of domain bounds
     if (pos.x < bbox.x || pos.x > bbox.y || pos.y < bbox.z || pos.y > bbox.w)
     {
-      sc.x = ROCK_STATUS_OUT_OF_BOUNDS;
-      break;
+      if (respawn_out_of_bounds != 0)
+      {
+        rng_state = wang_hash(rng_state + (uint)step * 104729u);
+        uint   random_rock_idx = rng_state % (uint)num_rocks;
+        float4 ip = init_pos_rad[random_rock_idx];
+        pos = (float2)(ip.x, ip.y);
+        vel = (float2)(0.0f, 0.0f);
+        sc.x = ROCK_STATUS_ACTIVE;
+      }
+      else
+      {
+        sc.x = ROCK_STATUS_OUT_OF_BOUNDS;
+        break;
+      }
     }
 
     // Sample terrain gradient and height
