@@ -254,6 +254,44 @@
         </inbodydescription>
         <location file="tests/src/test_scatter.cpp" line="213" column="1" bodyfile="tests/src/test_scatter.cpp" bodystart="213" bodyend="228"/>
       </memberdef>
+      <memberdef kind="function" id="test__scatter_8cpp_1a328999020cffd5785b83c8b395cc81c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ScatterFieldTest, PerturbPositions)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ScatterFieldTest</type>
+        </param>
+        <param>
+          <type>PerturbPositions</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_scatter.cpp" line="230" column="1" bodyfile="tests/src/test_scatter.cpp" bodystart="230" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="test__scatter_8cpp_1add088da17e0dd88b06cfea76d19f0edf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ScatterFieldTest, RegularizePositions)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ScatterFieldTest</type>
+        </param>
+        <param>
+          <type>RegularizePositions</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_scatter.cpp" line="250" column="1" bodyfile="tests/src/test_scatter.cpp" bodystart="250" bodyend="263"/>
+      </memberdef>
       <memberdef kind="function" id="test__scatter_8cpp_1a1754951084a3808db8efe633207db1e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>TEST</definition>
@@ -271,7 +309,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="tests/src/test_scatter.cpp" line="230" column="1" bodyfile="tests/src/test_scatter.cpp" bodystart="230" bodyend="245"/>
+        <location file="tests/src/test_scatter.cpp" line="265" column="1" bodyfile="tests/src/test_scatter.cpp" bodystart="265" bodyend="280"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -508,22 +546,57 @@
 <codeline lineno="227"><highlight class="normal"><sp/><sp/>EXPECT_EQ(c1.size(),<sp/>2u);</highlight></codeline>
 <codeline lineno="228"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="229"><highlight class="normal"></highlight></codeline>
-<codeline lineno="230"><highlight class="normal"><ref refid="test__scatter_8cpp_1a405334024e124c9383d05c694267eb21" kindref="member">TEST</ref>(ScatterSeedingTest,<sp/>SeedScatterClustersAndKMeans)</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><ref refid="test__scatter_8cpp_1a405334024e124c9383d05c694267eb21" kindref="member">TEST</ref>(ScatterFieldTest,<sp/>PerturbPositions)</highlight></codeline>
 <codeline lineno="231"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="232"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>density({32,<sp/>32},<sp/>1.0f);</highlight></codeline>
-<codeline lineno="233"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>exclusion({32,<sp/>32},<sp/>0.0f);</highlight></codeline>
-<codeline lineno="234"><highlight class="normal"></highlight></codeline>
-<codeline lineno="235"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ScatterSeedingOptions" kindref="compound">ScatterSeedingOptions</ref><sp/>opts;</highlight></codeline>
-<codeline lineno="236"><highlight class="normal"><sp/><sp/>opts.<ref refid="structhmap_1_1ScatterSeedingOptions_1a08a3b22d785e8b8cac2dadfd1b33cf1c" kindref="member">seed</ref><sp/>=<sp/>42;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref><sp/>field;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1ScatterField_1aff098f62a339deb2a51854d081f96af9" kindref="member">push_back</ref>(<ref refid="classhmap_1_1ScatterItem" kindref="compound">ScatterItem</ref>(0.5f,<sp/>0.5f,<sp/>0.0f,<sp/>0u,<sp/>1.0f));</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1ScatterField_1aff098f62a339deb2a51854d081f96af9" kindref="member">push_back</ref>(<ref refid="classhmap_1_1ScatterItem" kindref="compound">ScatterItem</ref>(1.0f,<sp/>1.0f,<sp/>0.0f,<sp/>1u,<sp/>1.0f));</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1ScatterField_1a8b4d33715bbae66a08b9581bd93e0903" kindref="member">perturb_positions</ref>(0.1f,<sp/>0.1f,<sp/>42);</highlight></codeline>
 <codeline lineno="237"><highlight class="normal"></highlight></codeline>
-<codeline lineno="238"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref><sp/>clustered<sp/>=</highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a61e1b066b8da6d1227758bbb40510548" kindref="member">seed_scatter_clusters</ref>(2,<sp/>50,<sp/>density,<sp/>exclusion,<sp/>0.05f,<sp/>5,<sp/>opts);</highlight></codeline>
-<codeline lineno="240"><highlight class="normal"><sp/><sp/>EXPECT_EQ(clustered.<ref refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" kindref="member">size</ref>(),<sp/>50u);</highlight></codeline>
-<codeline lineno="241"><highlight class="normal"></highlight></codeline>
-<codeline lineno="242"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref><sp/>kmeans<sp/>=</highlight></codeline>
-<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a51e492fb8f06ce5b1ed0759d2e50d5d4" kindref="member">seed_scatter_kmeans</ref>(2,<sp/>50,<sp/>density,<sp/>exclusion,<sp/>0.0f,<sp/>4,<sp/>opts);</highlight></codeline>
-<codeline lineno="244"><highlight class="normal"><sp/><sp/>EXPECT_EQ(kmeans.<ref refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" kindref="member">size</ref>(),<sp/>50u);</highlight></codeline>
-<codeline lineno="245"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Positions<sp/>should<sp/>have<sp/>moved<sp/>within<sp/>+/-<sp/>dx,<sp/>dy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(<ref refid="test__point_8cpp_1abfd452f0dd09fdb2efc3174a39786c6a" kindref="member">float_eq</ref>(field[0].position.x,<sp/>0.5f));</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(<ref refid="test__point_8cpp_1abfd452f0dd09fdb2efc3174a39786c6a" kindref="member">float_eq</ref>(field[0].position.y,<sp/>0.5f));</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(field[0].position.x,<sp/>0.5f,<sp/>0.1001f);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(field[0].position.y,<sp/>0.5f,<sp/>0.1001f);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(<ref refid="test__point_8cpp_1abfd452f0dd09fdb2efc3174a39786c6a" kindref="member">float_eq</ref>(field[1].position.x,<sp/>1.0f));</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(<ref refid="test__point_8cpp_1abfd452f0dd09fdb2efc3174a39786c6a" kindref="member">float_eq</ref>(field[1].position.y,<sp/>1.0f));</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(field[1].position.x,<sp/>1.0f,<sp/>0.1001f);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(field[1].position.y,<sp/>1.0f,<sp/>0.1001f);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><ref refid="test__scatter_8cpp_1a405334024e124c9383d05c694267eb21" kindref="member">TEST</ref>(ScatterFieldTest,<sp/>RegularizePositions)</highlight></codeline>
+<codeline lineno="251"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref><sp/>field;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Two<sp/>points<sp/>placed<sp/>very<sp/>close<sp/>to<sp/>each<sp/>other</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1ScatterField_1aff098f62a339deb2a51854d081f96af9" kindref="member">push_back</ref>(<ref refid="classhmap_1_1ScatterItem" kindref="compound">ScatterItem</ref>(0.5f,<sp/>0.5f,<sp/>0.0f,<sp/>0u,<sp/>1.0f));</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1ScatterField_1aff098f62a339deb2a51854d081f96af9" kindref="member">push_back</ref>(<ref refid="classhmap_1_1ScatterItem" kindref="compound">ScatterItem</ref>(0.501f,<sp/>0.5f,<sp/>0.0f,<sp/>0u,<sp/>1.0f));</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>initial_dist<sp/>=<sp/>std::abs(field[1].position.x<sp/>-<sp/>field[0].position.x);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1ScatterField_1a86565a4632900420e6a22762bab7b597" kindref="member">regularize_positions</ref>(1,<sp/>0.05f,<sp/>5);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>new_dist<sp/>=<sp/>std::abs(field[1].position.x<sp/>-<sp/>field[0].position.x);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/>EXPECT_GT(new_dist,<sp/>initial_dist);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><ref refid="test__scatter_8cpp_1a405334024e124c9383d05c694267eb21" kindref="member">TEST</ref>(ScatterSeedingTest,<sp/>SeedScatterClustersAndKMeans)</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>density({32,<sp/>32},<sp/>1.0f);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>exclusion({32,<sp/>32},<sp/>0.0f);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ScatterSeedingOptions" kindref="compound">ScatterSeedingOptions</ref><sp/>opts;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/>opts.<ref refid="structhmap_1_1ScatterSeedingOptions_1a08a3b22d785e8b8cac2dadfd1b33cf1c" kindref="member">seed</ref><sp/>=<sp/>42;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref><sp/>clustered<sp/>=</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a61e1b066b8da6d1227758bbb40510548" kindref="member">seed_scatter_clusters</ref>(2,<sp/>50,<sp/>density,<sp/>exclusion,<sp/>0.05f,<sp/>5,<sp/>opts);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/>EXPECT_EQ(clustered.<ref refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" kindref="member">size</ref>(),<sp/>50u);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref><sp/>kmeans<sp/>=</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a51e492fb8f06ce5b1ed0759d2e50d5d4" kindref="member">seed_scatter_kmeans</ref>(2,<sp/>50,<sp/>density,<sp/>exclusion,<sp/>0.0f,<sp/>4,<sp/>opts);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/>EXPECT_EQ(kmeans.<ref refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" kindref="member">size</ref>(),<sp/>50u);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_scatter.cpp"/>
   </compounddef>

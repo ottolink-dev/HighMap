@@ -210,12 +210,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6986cbcbb06270fb702291c5831bda03" id="r_a6986cbcbb06270fb702291c5831bda03"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#a6986cbcbb06270fb702291c5831bda03">get_class_ids</a> () const</td></tr>
 <tr class="memdesc:a6986cbcbb06270fb702291c5831bda03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a sorted list of unique class identifiers present in the field.  <br /></td></tr>
 <tr class="separator:a6986cbcbb06270fb702291c5831bda03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b4d33715bbae66a08b9581bd93e0903" id="r_a8b4d33715bbae66a08b9581bd93e0903"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#a8b4d33715bbae66a08b9581bd93e0903">perturb_positions</a> (float <a class="el" href="trench_8cpp.html#a9eae6c1f38db98ab568f3ed3771a969d">dx</a>, float <a class="el" href="trench_8cpp.html#a8f461b6142ce8725218813abb23b06a3">dy</a>=0.0f, uint32_t seed=0)</td></tr>
+<tr class="memdesc:a8b4d33715bbae66a08b9581bd93e0903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slightly perturbs the 2D (x, y) coordinates of scatter items.  <br /></td></tr>
+<tr class="separator:a8b4d33715bbae66a08b9581bd93e0903"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd" id="r_a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd">prune_collisions</a> ()</td></tr>
 <tr class="memdesc:a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves overlapping items by discarding smaller items in collision.  <br /></td></tr>
 <tr class="separator:a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc5177c65e51e710c80d2e367a7888c5" id="r_afc5177c65e51e710c80d2e367a7888c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#afc5177c65e51e710c80d2e367a7888c5">prune_density</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;density_mask, float target_ratio=0.8<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, uint32_t seed=0, const glm::vec4 &amp;bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
 <tr class="memdesc:afc5177c65e51e710c80d2e367a7888c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prunes items in the field using density-based acceptance sampling modulated to reach an approximate target retention ratio.  <br /></td></tr>
 <tr class="separator:afc5177c65e51e710c80d2e367a7888c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86565a4632900420e6a22762bab7b597" id="r_a86565a4632900420e6a22762bab7b597"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#a86565a4632900420e6a22762bab7b597">regularize_positions</a> (size_t k_neighbors=8, float step_size=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, size_t iterations=10)</td></tr>
+<tr class="memdesc:a86565a4632900420e6a22762bab7b597"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relaxes/regularizes item positions using k-nearest neighbor repulsion.  <br /></td></tr>
+<tr class="separator:a86565a4632900420e6a22762bab7b597"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa97bb7dc10919eebaa875018068ebbe4" id="r_aa97bb7dc10919eebaa875018068ebbe4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#aa97bb7dc10919eebaa875018068ebbe4">reinforce_class_clusters</a> (size_t iterations=2, size_t k_neighbors=4, bool include_self=true)</td></tr>
 <tr class="memdesc:aa97bb7dc10919eebaa875018068ebbe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reinforces spatial clustering of classes by iteratively assigning each item the dominant class among its nearest neighbors.  <br /></td></tr>
 <tr class="separator:aa97bb7dc10919eebaa875018068ebbe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1063,6 +1069,50 @@ template&lt;typename... Args&gt; </div>
 
 </div>
 </div>
+<a id="a8b4d33715bbae66a08b9581bd93e0903" name="a8b4d33715bbae66a08b9581bd93e0903"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b4d33715bbae66a08b9581bd93e0903">&#9670;&#160;</a></span>perturb_positions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::ScatterField::perturb_positions </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dy</em> = <code>0.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>seed</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Slightly perturbs the 2D (x, y) coordinates of scatter items. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dx</td><td>Maximum displacement along the x-axis. </td></tr>
+    <tr><td class="paramname">dy</td><td>Maximum displacement along the y-axis (defaults to 0.0). </td></tr>
+    <tr><td class="paramname">seed</td><td>Random seed for reproducibility. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd" name="a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd">&#9670;&#160;</a></span>prune_collisions()</h2>
 
@@ -1127,6 +1177,51 @@ template&lt;typename... Args&gt; </div>
     <tr><td class="paramname">target_ratio</td><td>Approximate target fraction of items to retain in [0, 1]. </td></tr>
     <tr><td class="paramname">seed</td><td>Random seed for reproducible pruning. </td></tr>
     <tr><td class="paramname">bbox</td><td>Bounding box defining the domain of the density mask. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a86565a4632900420e6a22762bab7b597" name="a86565a4632900420e6a22762bab7b597"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86565a4632900420e6a22762bab7b597">&#9670;&#160;</a></span>regularize_positions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::ScatterField::regularize_positions </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>k_neighbors</em> = <code>8</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>step_size</em> = <code>0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>iterations</em> = <code>10</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Relaxes/regularizes item positions using k-nearest neighbor repulsion. </p>
+<p>Uses PointSampler's relaxation algorithm to reduce clustering and obtain a more uniform or blue-noise-like spatial distribution.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">k_neighbors</td><td>Number of nearest neighbors to consider for repulsion. </td></tr>
+    <tr><td class="paramname">step_size</td><td>Step size per relaxation iteration. </td></tr>
+    <tr><td class="paramname">iterations</td><td>Number of relaxation iterations. </td></tr>
   </table>
   </dd>
 </dl>

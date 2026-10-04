@@ -98,10 +98,14 @@ glm\+::vec4 \mbox{\hyperlink{classhmap_1_1ScatterField_a87cfb3f7413a9b375e51ce9a
 \begin{DoxyCompactList}\small\item\em Computes the 2D bounding box enclosing all item positions. \end{DoxyCompactList}\item 
 std\+::vector$<$ uint32\+\_\+t $>$ \mbox{\hyperlink{classhmap_1_1ScatterField_a6986cbcbb06270fb702291c5831bda03}{get\+\_\+class\+\_\+ids}} () const
 \begin{DoxyCompactList}\small\item\em Returns a sorted list of unique class identifiers present in the field. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_a8b4d33715bbae66a08b9581bd93e0903}{perturb\+\_\+positions}} (float \mbox{\hyperlink{trench_8cpp_a9eae6c1f38db98ab568f3ed3771a969d}{dx}}, float \mbox{\hyperlink{trench_8cpp_a8f461b6142ce8725218813abb23b06a3}{dy}}=0.\+0f, uint32\+\_\+t seed=0)
+\begin{DoxyCompactList}\small\item\em Slightly perturbs the 2D (x, y) coordinates of scatter items. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd}{prune\+\_\+collisions}} ()
 \begin{DoxyCompactList}\small\item\em Resolves overlapping items by discarding smaller items in collision. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_afc5177c65e51e710c80d2e367a7888c5}{prune\+\_\+density}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density\+\_\+mask, float target\+\_\+ratio=0.\+8\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, uint32\+\_\+t seed=0, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Prunes items in the field using density-\/based acceptance sampling modulated to reach an approximate target retention ratio. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_a86565a4632900420e6a22762bab7b597}{regularize\+\_\+positions}} (size\+\_\+t k\+\_\+neighbors=8, float step\+\_\+size=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t iterations=10)
+\begin{DoxyCompactList}\small\item\em Relaxes/regularizes item positions using k-\/nearest neighbor repulsion. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_aa97bb7dc10919eebaa875018068ebbe4}{reinforce\+\_\+class\+\_\+clusters}} (size\+\_\+t iterations=2, size\+\_\+t k\+\_\+neighbors=4, bool include\+\_\+self=true)
 \begin{DoxyCompactList}\small\item\em Reinforces spatial clustering of classes by iteratively assigning each item the dominant class among its nearest neighbors. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_a6097c8940ee25ec5b5364faf0ad7c9b5}{set\+\_\+elevation\+\_\+from\+\_\+terrain}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&elevation, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
@@ -403,6 +407,25 @@ Returns a sorted list of unique class identifiers present in the field.
 \begin{DoxyReturn}{Returns}
 std\+::vector$<$uint32\+\_\+t$>$ Unique class IDs. 
 \end{DoxyReturn}
+\Hypertarget{classhmap_1_1ScatterField_a8b4d33715bbae66a08b9581bd93e0903}\label{classhmap_1_1ScatterField_a8b4d33715bbae66a08b9581bd93e0903} 
+\index{hmap::ScatterField@{hmap::ScatterField}!perturb\_positions@{perturb\_positions}}
+\index{perturb\_positions@{perturb\_positions}!hmap::ScatterField@{hmap::ScatterField}}
+\doxysubsubsection{\texorpdfstring{perturb\_positions()}{perturb\_positions()}}
+{\footnotesize\ttfamily void hmap\+::\+Scatter\+Field\+::perturb\+\_\+positions (\begin{DoxyParamCaption}\item[{float}]{dx,  }\item[{float}]{dy = {\ttfamily 0.0f},  }\item[{uint32\+\_\+t}]{seed = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Slightly perturbs the 2D (x, y) coordinates of scatter items. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dx} & Maximum displacement along the x-\/axis. \\
+\hline
+{\em dy} & Maximum displacement along the y-\/axis (defaults to 0.\+0). \\
+\hline
+{\em seed} & Random seed for reproducibility. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{classhmap_1_1ScatterField_a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd}\label{classhmap_1_1ScatterField_a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd} 
 \index{hmap::ScatterField@{hmap::ScatterField}!prune\_collisions@{prune\_collisions}}
 \index{prune\_collisions@{prune\_collisions}!hmap::ScatterField@{hmap::ScatterField}}
@@ -432,6 +455,27 @@ Prunes items in the field using density-\/based acceptance sampling modulated to
 {\em seed} & Random seed for reproducible pruning. \\
 \hline
 {\em bbox} & Bounding box defining the domain of the density mask. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1ScatterField_a86565a4632900420e6a22762bab7b597}\label{classhmap_1_1ScatterField_a86565a4632900420e6a22762bab7b597} 
+\index{hmap::ScatterField@{hmap::ScatterField}!regularize\_positions@{regularize\_positions}}
+\index{regularize\_positions@{regularize\_positions}!hmap::ScatterField@{hmap::ScatterField}}
+\doxysubsubsection{\texorpdfstring{regularize\_positions()}{regularize\_positions()}}
+{\footnotesize\ttfamily void hmap\+::\+Scatter\+Field\+::regularize\+\_\+positions (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{k\+\_\+neighbors = {\ttfamily 8},  }\item[{float}]{step\+\_\+size = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{size\+\_\+t}]{iterations = {\ttfamily 10} }\end{DoxyParamCaption})}
+
+
+
+Relaxes/regularizes item positions using k-\/nearest neighbor repulsion. 
+
+Uses Point\+Sampler\textquotesingle{}s relaxation algorithm to reduce clustering and obtain a more uniform or blue-\/noise-\/like spatial distribution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em k\+\_\+neighbors} & Number of nearest neighbors to consider for repulsion. \\
+\hline
+{\em step\+\_\+size} & Step size per relaxation iteration. \\
+\hline
+{\em iterations} & Number of relaxation iterations. \\
 \hline
 \end{DoxyParams}
 \Hypertarget{classhmap_1_1ScatterField_aa97bb7dc10919eebaa875018068ebbe4}\label{classhmap_1_1ScatterField_aa97bb7dc10919eebaa875018068ebbe4} 
