@@ -227,6 +227,41 @@ TEST(ScatterFieldTest, ShuffleClasses)
   EXPECT_EQ(c1.size(), 2u);
 }
 
+TEST(ScatterFieldTest, PerturbPositions)
+{
+  ScatterField field;
+  field.push_back(ScatterItem(0.5f, 0.5f, 0.0f, 0u, 1.0f));
+  field.push_back(ScatterItem(1.0f, 1.0f, 0.0f, 1u, 1.0f));
+
+  field.perturb_positions(0.1f, 0.1f, 42);
+
+  // Positions should have moved within +/- dx, dy
+  EXPECT_FALSE(float_eq(field[0].position.x, 0.5f));
+  EXPECT_FALSE(float_eq(field[0].position.y, 0.5f));
+  EXPECT_NEAR(field[0].position.x, 0.5f, 0.1001f);
+  EXPECT_NEAR(field[0].position.y, 0.5f, 0.1001f);
+
+  EXPECT_FALSE(float_eq(field[1].position.x, 1.0f));
+  EXPECT_FALSE(float_eq(field[1].position.y, 1.0f));
+  EXPECT_NEAR(field[1].position.x, 1.0f, 0.1001f);
+  EXPECT_NEAR(field[1].position.y, 1.0f, 0.1001f);
+}
+
+TEST(ScatterFieldTest, RegularizePositions)
+{
+  ScatterField field;
+  // Two points placed very close to each other
+  field.push_back(ScatterItem(0.5f, 0.5f, 0.0f, 0u, 1.0f));
+  field.push_back(ScatterItem(0.501f, 0.5f, 0.0f, 0u, 1.0f));
+
+  float initial_dist = std::abs(field[1].position.x - field[0].position.x);
+
+  field.regularize_positions(1, 0.05f, 5);
+
+  float new_dist = std::abs(field[1].position.x - field[0].position.x);
+  EXPECT_GT(new_dist, initial_dist);
+}
+
 TEST(ScatterSeedingTest, SeedScatterClustersAndKMeans)
 {
   Array density({32, 32}, 1.0f);

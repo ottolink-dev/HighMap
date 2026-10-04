@@ -19,6 +19,7 @@
 
 #include "delaunator-cpp.hpp"
 #include "point_sampler/metrics.hpp"
+#include "point_sampler/relaxation.hpp"
 
 #include "highmap/functions.hpp"
 #include "highmap/internal/validation.hpp"
@@ -236,6 +237,18 @@ std::vector<uint32_t> ScatterField::get_class_ids() const
   return std::vector<uint32_t>(unique_classes.begin(), unique_classes.end());
 }
 
+void ScatterField::perturb_positions(float dx, float dy, uint32_t seed)
+{
+  std::mt19937                          gen(seed);
+  std::uniform_real_distribution<float> dis(-1.0f, 1.0f);
+
+  for (auto &item : items)
+  {
+    item.position.x += dx * dis(gen);
+    item.position.y += dy * dis(gen);
+  }
+}
+
 void ScatterField::prune_collisions()
 {
   if (items.size() < 2) return;
@@ -391,6 +404,28 @@ void ScatterField::prune_density(const Array     &density_mask,
   }
 
   items = std::move(retained);
+}
+
+void ScatterField::regularize_positions(size_t k_neighbors,
+                                        float  step_size,
+                                        size_t iterations)
+{
+  if (items.size() < 2 || k_neighbors == 0 || iterations == 0) return;
+
+  std::vector<ps::Point<float, 2>> points;
+  points.reserve(items.size());
+  for (const auto &item : items)
+  {
+    points.push_back({item.position.x, item.position.y});
+  }
+
+  ps::relaxation_ktree<float, 2>(points, k_neighbors, step_size, iterations);
+
+  for (size_t i = 0; i < items.size(); ++i)
+  {
+    items[i].position.x = points[i][0];
+    items[i].position.y = points[i][1];
+  }
 }
 
 void ScatterField::reinforce_class_clusters(size_t iterations,

@@ -194,6 +194,15 @@ public:
   std::vector<uint32_t> get_class_ids() const;
 
   /**
+   * @brief Slightly perturbs the 2D (x, y) coordinates of scatter items.
+   *
+   * @param dx   Maximum displacement along the x-axis.
+   * @param dy   Maximum displacement along the y-axis (defaults to 0.0).
+   * @param seed Random seed for reproducibility.
+   */
+  void perturb_positions(float dx, float dy = 0.0f, uint32_t seed = 0);
+
+  /**
    * @brief Resolves overlapping items by discarding smaller items in collision.
    */
   void prune_collisions();
@@ -212,6 +221,21 @@ public:
                      float            target_ratio = 0.8f,
                      uint32_t         seed = 0,
                      const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+
+  /**
+   * @brief Relaxes/regularizes item positions using k-nearest neighbor
+   * repulsion.
+   *
+   * Uses PointSampler's relaxation algorithm to reduce clustering and obtain a
+   * more uniform or blue-noise-like spatial distribution.
+   *
+   * @param k_neighbors Number of nearest neighbors to consider for repulsion.
+   * @param step_size   Step size per relaxation iteration.
+   * @param iterations  Number of relaxation iterations.
+   */
+  void regularize_positions(size_t k_neighbors = 8,
+                            float  step_size = 0.1f,
+                            size_t iterations = 10);
 
   /**
    * @brief Reinforces spatial clustering of classes by iteratively assigning
