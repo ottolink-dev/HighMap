@@ -160,6 +160,43 @@ TEST(ScatterFieldTest, PruneCollisions)
   EXPECT_TRUE(float_eq(field[1].position.x, 10.0f));
 }
 
+TEST(ScatterFieldTest, PruneCollisionsAgainstOtherField)
+{
+  // field1 (e.g. rocks) - unmodified reference
+  ScatterField rocks;
+  rocks.push_back(ScatterItem(0.0f, 0.0f, 0.0f, 0u, 2.0f));
+  rocks.push_back(ScatterItem(10.0f, 10.0f, 0.0f, 0u, 1.5f));
+
+  // field2 (e.g. forest trees)
+  ScatterField trees;
+  trees.push_back(
+      ScatterItem(1.0f,
+                  0.0f,
+                  0.0f,
+                  1u,
+                  1.0f)); // inside rock radius (dist = 1.0 < 2.0 + 1.0)
+  trees.push_back(ScatterItem(5.0f,
+                              0.0f,
+                              0.0f,
+                              1u,
+                              1.0f)); // far from rocks (dist = 5.0 > 2.0 + 1.0)
+  trees.push_back(
+      ScatterItem(10.5f,
+                  10.0f,
+                  0.0f,
+                  1u,
+                  1.0f)); // inside second rock radius (dist = 0.5 < 1.5 + 1.0)
+
+  trees.prune_collisions(rocks);
+
+  // Only the middle tree (at x=5.0) should remain
+  EXPECT_EQ(trees.size(), 1u);
+  EXPECT_TRUE(float_eq(trees[0].position.x, 5.0f));
+
+  // Reference rocks field remains unchanged
+  EXPECT_EQ(rocks.size(), 2u);
+}
+
 TEST(ScatterFieldTest, SetElevationFromTerrain)
 {
   Array elevation(glm::ivec2(3, 3), 0.f);

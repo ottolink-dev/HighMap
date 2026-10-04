@@ -329,6 +329,91 @@ void ScatterField::prune_collisions()
   items = std::move(retained);
 }
 
+void ScatterField::prune_collisions(const ScatterField &other)
+{
+  if (items.empty() || other.empty()) return;
+
+  // find max radius across both fields to dimension the spatial grid
+  float max_r_other = 0.0f;
+  for (const auto &item : other)
+  {
+    max_r_other = std::max(max_r_other, item.radius);
+  }
+
+  float max_r_self = 0.0f;
+  for (const auto &item : items)
+  {
+    max_r_self = std::max(max_r_self, item.radius);
+  }
+
+  float cell_size = max_r_other + max_r_self;
+  if (cell_size <= 1e-7f) return;
+
+  auto compute_cell = [&](float x, float y) -> std::pair<int, int>
+  {
+    int gx = static_cast<int>(std::floor(x / cell_size));
+    int gy = static_cast<int>(std::floor(y / cell_size));
+    return {gx, gy};
+  };
+
+  auto make_key = [](int gx, int gy) -> int64_t
+  {
+    return (static_cast<int64_t>(gx) << 32) ^
+           (static_cast<int64_t>(gy) & 0xFFFFFFFF);
+  };
+
+  // populate spatial hash grid with reference items from `other`
+  std::unordered_map<int64_t, std::vector<size_t>> grid;
+  grid.reserve(other.size());
+
+  for (size_t i = 0; i < other.size(); ++i)
+  {
+    auto [gx, gy] = compute_cell(other[i].position.x, other[i].position.y);
+    grid[make_key(gx, gy)].push_back(i);
+  }
+
+  std::vector<ScatterItem> retained;
+  retained.reserve(items.size());
+
+  for (const auto &item : items)
+  {
+    auto [gx, gy] = compute_cell(item.position.x, item.position.y);
+    bool collides = false;
+
+    for (int dy = -1; dy <= 1 && !collides; ++dy)
+    {
+      for (int dx = -1; dx <= 1 && !collides; ++dx)
+      {
+        int64_t key = make_key(gx + dx, gy + dy);
+        auto    it = grid.find(key);
+        if (it == grid.end()) continue;
+
+        for (size_t other_idx : it->second)
+        {
+          const ScatterItem &ref_item = other[other_idx];
+          float              dist_x = item.position.x - ref_item.position.x;
+          float              dist_y = item.position.y - ref_item.position.y;
+          float              dist_sq = dist_x * dist_x + dist_y * dist_y;
+
+          float min_dist = item.radius + ref_item.radius;
+          if (dist_sq < min_dist * min_dist)
+          {
+            collides = true;
+            break;
+          }
+        }
+      }
+    }
+
+    if (!collides)
+    {
+      retained.push_back(item);
+    }
+  }
+
+  items = std::move(retained);
+}
+
 void ScatterField::prune_density(const Array     &density_mask,
                                  float            target_ratio,
                                  uint32_t         seed,

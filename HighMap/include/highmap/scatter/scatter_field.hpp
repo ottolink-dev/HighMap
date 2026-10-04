@@ -208,6 +208,18 @@ public:
   void prune_collisions();
 
   /**
+   * @brief Prunes items in this field that overlap with (fall within the
+   * influence radius of) items in another field.
+   *
+   * The other field remains constant and unmodified. For each item in this
+   * field, if its distance to any item in @p other is strictly less than the
+   * sum of their radii, it is pruned.
+   *
+   * @param other Const reference to the reference ScatterField (e.g. rocks).
+   */
+  void prune_collisions(const ScatterField &other);
+
+  /**
    * @brief Prunes items in the field using density-based acceptance sampling
    * modulated to reach an approximate target retention ratio.
    *
