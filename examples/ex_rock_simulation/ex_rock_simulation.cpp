@@ -16,7 +16,8 @@ int main(void)
                                   shape,
                                   kw,
                                   seed,
-                                  4);
+                                  8,
+                                  0.7f);
   z = hmap::bulkify(z, hmap::PrimitiveType::PRIM_CUBIC_PULSE, 2.f);
   hmap::remap(z);
 
@@ -30,30 +31,32 @@ int main(void)
                                               1.5f / shape.x,
                                               4.0f / shape.x,
                                               0.5f / shape.x);
-  hmap::Array high_elevation = hmap::threshold_smooth(z, 0.4f, 0.7f);
-  hmap::Array emission_density = cliff_mask * high_elevation;
+  hmap::Array high_elevation = hmap::threshold_smooth(z, 0.f, 0.7f);
+  hmap::Array emission_density = high_elevation;
+  // emission_density = 1.f;
 
   // --- 3. Configure GPU Rock Rolling Simulation Parameters
 
   hmap::RockDistribution dist(0u,
-                              0.001f,
+                              0.0005f,
                               0.005f,
                               2.0f); // Pareto power-law alpha = 2.0
 
   hmap::RockSimulationOptions options;
   options.bbox = {0.f, 1.f, 0.f, 1.f};
   options.time_step = 0.005f;
-  options.max_steps = int(2.5f * 128);
+  options.max_steps = int(4.f * 128);
   options.sub_steps = 32;
   options.gravity = 9.81f;
-  options.rolling_resistance = 0.5f;
-  options.min_velocity = 0.01f;
+  options.soil_friction = 0.6f;
+  options.rolling_resistance = 0.05f;
+  options.min_velocity = 0.f;
   options.seed = static_cast<uint32_t>(seed);
   options.respawn_out_of_bounds = false;
 
   // --- 4. Simulate Rock Emission and Downhill Trajectories on GPU
 
-  size_t target_count = 2000;
+  size_t target_count = 5000;
   std::cout << "Simulating " << target_count << " rocks on GPU...\n";
 
   hmap::RockField rocks = hmap::simulate_rock_emission(target_count,

@@ -144,9 +144,10 @@ TEST(RockSimulationTest, DownhillMotionAndFrictionRest)
 
   RockSimulationOptions opts;
   opts.time_step = 0.005f;
-  opts.max_steps = 1000;
+  opts.max_steps = 1500;
   opts.sub_steps = 10;
-  opts.soil_friction = 0.55f;
+  opts.soil_friction = 0.2f;
+  opts.rolling_resistance = 0.05f;
 
   field.simulate_physics(elev, nullptr, opts);
 
@@ -261,4 +262,33 @@ TEST(RockSimulationTest, EmissionSimulation)
     EXPECT_GE(rock.position.y, 0.0f);
     EXPECT_LE(rock.position.y, 1.0f);
   }
+}
+
+TEST(RockSimulationTest, CollisionNonOverlap)
+{
+  // Flat ground with 2 rocks initialized overlapping
+  Array elev(glm::ivec2(32, 32), 0.0f);
+
+  RockField field;
+  // Two rocks of radius 0.05 placed at distance 0.02 (overlapping by 0.08)
+  field.push_back(Rock(glm::vec3(0.50f, 0.5f, 0.0f), 0u, 0.05f));
+  field.push_back(Rock(glm::vec3(0.52f, 0.5f, 0.0f), 0u, 0.05f));
+
+  RockSimulationOptions opts;
+  opts.time_step = 0.005f;
+  opts.max_steps = 200;
+  opts.sub_steps = 10;
+  opts.soil_friction = 0.5f;
+
+  field.simulate_physics(elev, nullptr, opts);
+
+  ASSERT_EQ(field.size(), 2u);
+  float dx = field[0].position.x - field[1].position.x;
+  float dy = field[0].position.y - field[1].position.y;
+  float dist = std::sqrt(dx * dx + dy * dy);
+  float min_allowed_dist = field[0].radius + field[1].radius;
+
+  // Rocks must separate and respect each other's radii (distance >= sum of
+  // radii - small tolerance)
+  EXPECT_GE(dist, min_allowed_dist - 1e-4f);
 }

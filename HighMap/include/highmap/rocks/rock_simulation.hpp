@@ -28,21 +28,17 @@ class RockField;
  */
 struct RockSimulationOptions
 {
-  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}; ///< Domain bounding box {xmin, xmax, ymin, ymax}.
-  float time_step = 0.005f;              ///< Simulation time step dt in seconds.
-  int max_steps = 1500;                  ///< Maximum total simulation steps.
-  int sub_steps = 10;                    ///< Inner sub-steps per GPU kernel dispatch.
-  float gravity = 9.81f;                 ///< Gravitational acceleration.
-  float soil_friction = 0.55f;           ///< Coulomb friction coefficient mu.
-  float rolling_resistance = 0.05f;      ///< Rolling resistance coefficient.
-  float restitution_n = 0.25f;           ///< Normal impact restitution (bounce).
-  float restitution_t = 0.80f;           ///< Tangential impact restitution.
-  float inter_rock_friction = 0.40f;     ///< Friction coefficient between colliding rocks.
-  float inter_rock_restitution = 0.20f;  ///< Restitution between colliding rocks.
-  float min_velocity = 0.01f;            ///< Resting threshold speed.
-  bool  respawn_out_of_bounds = false;   ///< Whether to respawn out-of-bounds rocks at initial position.
-  uint32_t seed = 0;                     ///< Random seed.
-  float    cell_size_factor = 2.5f;      ///< Spatial grid cell size multiplier relative to max rock radius.
+  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f};    ///< Domain bounding box {xmin, xmax, ymin, ymax}.
+  float     time_step = 0.005f;             ///< Simulation time step dt in seconds.
+  int       max_steps = 1500;               ///< Maximum total simulation steps.
+  int       sub_steps = 10;                 ///< Inner sub-steps per GPU kernel dispatch.
+  float     gravity = 9.81f;                ///< Gravitational acceleration.
+  float     soil_friction = 0.55f;          ///< Coulomb friction coefficient mu.
+  float     rolling_resistance = 0.05f;     ///< Rolling resistance coefficient.
+  float     inter_rock_restitution = 0.20f; ///< Restitution between colliding rocks.
+  float min_velocity = 0.01f;               ///< Resting threshold speed.
+  bool  respawn_out_of_bounds = false;      ///< Whether to respawn out-of-bounds rocks at initial position.
+  uint32_t seed = 0;                        ///< Random seed.
 };
 
 // ============================================================================

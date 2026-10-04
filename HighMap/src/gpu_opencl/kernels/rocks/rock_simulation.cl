@@ -85,6 +85,7 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
                                   float                gravity,
                                   float                soil_friction,
                                   float                rolling_resistance,
+                                  float                inter_rock_restitution,
                                   float                min_velocity,
                                   int                  has_friction_map,
                                   int                  respawn_out_of_bounds,
@@ -153,12 +154,13 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
     float2 a_grav = -(5.0f / 7.0f) * gravity * grad_z * inv_denom;
     float  a_grav_mag = length(a_grav);
 
-    // Friction coefficient (soil friction / resistance)
-    float mu = soil_friction;
+    // Effective friction coefficient (soil friction + rolling resistance)
+    float mu_soil = soil_friction;
     if (has_friction_map != 0)
     {
-      mu = rock_helper_sample_height(friction_map, gi, gj, nx, ny, gu, gv);
+      mu_soil = rock_helper_sample_height(friction_map, gi, gj, nx, ny, gu, gv);
     }
+    float mu_eff = mu_soil + rolling_resistance;
 
     float  v_speed = length(vel);
     float2 accel = (float2)(0.0f, 0.0f);
@@ -166,21 +168,21 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
     if (v_speed > 1e-4f)
     {
       float2 v_dir = vel / v_speed;
-      float  f_mag = mu * g_n;
+      float  f_mag = mu_eff * g_n;
       float2 f_friction = -min(f_mag, v_speed / dt) * v_dir;
       accel = a_grav + f_friction;
     }
     else
     {
       // Static rolling resistance threshold
-      if (a_grav_mag <= mu * g_n)
+      if (a_grav_mag <= mu_soil * g_n)
       {
         vel = (float2)(0.0f, 0.0f);
         accel = (float2)(0.0f, 0.0f);
       }
       else
       {
-        accel = a_grav - (mu * g_n) * (a_grav / a_grav_mag);
+        accel = a_grav - (mu_soil * g_n) * (a_grav / a_grav_mag);
       }
     }
 
@@ -188,9 +190,56 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
     vel += accel * dt;
     pos += vel * dt;
 
+    // --- Inter-Rock Collisions & Overlap Resolution
+    // Resolve pairwise contact / overlap with other active/resting rocks
+    for (int other_idx = 0; other_idx < num_rocks; ++other_idx)
+    {
+      if (other_idx == rock_idx) continue;
+
+      uint2 other_sc = status_class[other_idx];
+      if (other_sc.x == ROCK_STATUS_OUT_OF_BOUNDS) continue;
+
+      float4 other_p = pos_rad[other_idx];
+      float2 other_pos = (float2)(other_p.x, other_p.y);
+      float  other_radius = other_p.w;
+
+      float2 delta = pos - other_pos;
+      float  dist_sq = dot(delta, delta);
+      float  min_dist = radius + other_radius;
+      float  min_dist_sq = min_dist * min_dist;
+
+      if (dist_sq < min_dist_sq && dist_sq > 1e-12f)
+      {
+        float  dist = sqrt(dist_sq);
+        float2 n = delta / dist;
+        float  overlap = min_dist - dist;
+
+        // Position relaxation: push apart so rocks do not overlap
+        pos += 0.5f * overlap * n;
+
+        // Relative velocity collision response (impulse with restitution)
+        float4 other_vm = vel_mass[other_idx];
+        float2 other_vel = (float2)(other_vm.x, other_vm.y);
+        float2 rel_vel = vel - other_vel;
+        float  v_norm = dot(rel_vel, n);
+
+        if (v_norm < 0.0f)
+        {
+          float m1 = vm.w;
+          float m2 = other_vm.w;
+          float inv_m1 = (m1 > 1e-6f) ? (1.0f / m1) : 1.0f;
+          float inv_m2 = (m2 > 1e-6f) ? (1.0f / m2) : 1.0f;
+
+          float impulse = -(1.0f + inter_rock_restitution) * v_norm /
+                          (inv_m1 + inv_m2);
+          vel += (impulse * inv_m1) * n;
+        }
+      }
+    }
+
     // Check resting state on gentle slope / flat
     v_speed = length(vel);
-    if (v_speed < min_velocity && a_grav_mag <= mu * g_n)
+    if (v_speed < min_velocity && a_grav_mag <= mu_soil * g_n)
     {
       vel = (float2)(0.0f, 0.0f);
       sc.x = ROCK_STATUS_RESTING;
