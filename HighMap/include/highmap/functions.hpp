@@ -569,7 +569,7 @@ public:
 protected:
   glm::vec2 kw;    ///< Frequency scaling vector.
   float     angle; ///< Overall rotation angle (in degrees).
-  float xtop;      ///< Relative location of the top of the dune profile (in [0, 1]).
+  float     xtop;  ///< Relative location of the top of the dune profile (in [0, 1]).
   float xbottom;   ///< Relative location of the foot of the dune profile (in [0,
   ///< 1]).
   float     phase_shift; ///< Phase shift (in radians).
@@ -1456,7 +1456,7 @@ protected:
 
 protected:
   std::unique_ptr<NoiseFunction> p_base; ///< Unique pointer to the base noise function.
-  int   octaves;                         ///< Number of octaves in the fractal noise.
+  int octaves;                           ///< Number of octaves in the fractal noise.
   float weight;                          ///< Weight of the base noise function.
   float persistence;                     ///< Persistence of the fractal noise.
   float lacunarity;                      ///< Lacunarity of the fractal noise.
@@ -1742,8 +1742,7 @@ public:
    * @param yr     Vector of y coordinates representing the centers of the
    *               primitive.
    * @param zr     Vector of z coordinates used to scale the primitive in x and
-   *               y directions, and also to scale the primitive amplitude if
-   *               requested.
+   *               y directions, and also to scale the primitive amplitude if requested.
    */
   FieldFunction(std::unique_ptr<Function> p_base,
                 std::vector<float>        xr,

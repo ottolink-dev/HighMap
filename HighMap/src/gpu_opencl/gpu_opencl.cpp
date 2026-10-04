@@ -331,6 +331,9 @@ bool init_opencl()
   add(
 #include "kernels/transform/warp.cl"
   );
+  add(
+#include "kernels/rocks/rock_simulation.cl"
+  );
 
   km.build_program();
 

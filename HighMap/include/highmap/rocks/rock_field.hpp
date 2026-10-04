@@ -17,6 +17,7 @@
 #include "highmap/array.hpp"
 #include "highmap/rocks/rock.hpp"
 #include "highmap/rocks/rock_distribution.hpp"
+#include "highmap/rocks/rock_simulation.hpp"
 #include "highmap/scatter/scatter_field.hpp"
 
 namespace hmap
@@ -142,6 +143,18 @@ public:
                                uint32_t         class_id = 0,
                                uint32_t         seed = 0,
                                const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+
+  /**
+   * @brief Simulates physical movement (sliding, rolling, bouncing, and
+   * inter-rock collision avoidance) for this RockField across terrain on GPU.
+   *
+   * @param elevation      Terrain elevation heightmap.
+   * @param p_friction_map Optional soil friction map.
+   * @param options        Simulation options.
+   */
+  void simulate_physics(const Array                 &elevation,
+                        const Array                 *p_friction_map = nullptr,
+                        const RockSimulationOptions &options = {});
 
   /**
    * @brief Returns a multi-line formatted summary string of the rock field.

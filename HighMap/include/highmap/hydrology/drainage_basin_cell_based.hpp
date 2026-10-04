@@ -178,11 +178,11 @@ public:
 
   std::unordered_map<glm::ivec2, std::vector<glm::ivec2>, IVec2Hash>
       traversals; ///< 
-                  // Cached
-                  // traversal
-                  // paths.
+  // Cached
+  // traversal
+  // paths.
 
-  const glm::ivec2 null_cell = glm::ivec2( -1, -1); ///< Constant representing an invalid/null cell.
+  const glm::ivec2 null_cell = glm::ivec2(-1, -1); ///< Constant representing an invalid/null cell.
 
 private:
   // constants

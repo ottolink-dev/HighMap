@@ -14,6 +14,7 @@
 #include "highmap/geometry/inverse_sampler_2d.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/rocks/rock_field.hpp"
+#include "highmap/rocks/rock_simulation.hpp"
 
 #include <unordered_map>
 
@@ -278,6 +279,13 @@ void RockField::pack_interstitial_rocks(size_t           count,
       accepted++;
     }
   }
+}
+
+void RockField::simulate_physics(const Array                 &elevation,
+                                 const Array                 *p_friction_map,
+                                 const RockSimulationOptions &options)
+{
+  *this = simulate_rock_trajectories(*this, elevation, p_friction_map, options);
 }
 
 std::string RockField::to_string() const
