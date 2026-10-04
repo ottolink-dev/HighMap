@@ -214,6 +214,19 @@ public:
                      const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
 
   /**
+   * @brief Reinforces spatial clustering of classes by iteratively assigning
+   * each item the dominant class among its nearest neighbors.
+   *
+   * @param iterations   Number of smoothing/reinforcement iterations.
+   * @param k_neighbors  Number of spatial nearest neighbors to query.
+   * @param include_self If true, considers the item's own current class in the
+   *                     majority vote.
+   */
+  void reinforce_class_clusters(size_t iterations = 2,
+                                size_t k_neighbors = 4,
+                                bool   include_self = true);
+
+  /**
    * @brief Sets the elevation (z-coordinate) of all items by sampling a terrain
    * heightmap.
    *
@@ -222,6 +235,18 @@ public:
    */
   void set_elevation_from_terrain(const Array     &elevation,
                                   const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+
+  /**
+   * @brief Randomly shuffles class identifiers between neighboring items.
+   *
+   * @param ratio       Fraction of items to attempt class shuffling on in [0,
+   *                    1].
+   * @param k_neighbors Number of nearest spatial neighbors to consider.
+   * @param seed        Random seed for reproducibility.
+   */
+  void shuffle_classes(float    ratio = 0.1f,
+                       size_t   k_neighbors = 4,
+                       uint32_t seed = 0);
 
   /**
    * @brief Converts the field into a Cloud of 2D points (x, y) with value set

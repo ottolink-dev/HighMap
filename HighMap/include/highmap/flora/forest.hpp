@@ -84,31 +84,6 @@ public:
                       bool                        prune_collisions = true);
 
   /**
-   * @brief Reinforces spatial clustering of species by iteratively assigning
-   * each tree the dominant species among its nearest neighbors.
-   *
-   * @param iterations   Number of smoothing/reinforcement iterations.
-   * @param k_neighbors  Number of spatial nearest neighbors to query.
-   * @param include_self If true, considers the tree's own current species in
-   *                     the majority vote.
-   */
-  void reinforce_species_clusters(size_t iterations = 2,
-                                  size_t k_neighbors = 4,
-                                  bool   include_self = true);
-
-  /**
-   * @brief Randomly shuffles species identifiers between neighboring trees.
-   *
-   * @param ratio       Fraction of trees to attempt species shuffling on in [0,
-   *                    1].
-   * @param k_neighbors Number of nearest spatial neighbors to consider.
-   * @param seed        Random seed for reproducibility.
-   */
-  void shuffle_species(float    ratio = 0.1f,
-                       size_t   k_neighbors = 4,
-                       uint32_t seed = 0);
-
-  /**
    * @brief Returns a multi-line formatted summary string of the forest.
    * @return std::string Pretty-printed summary.
    */

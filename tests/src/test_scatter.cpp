@@ -193,6 +193,40 @@ TEST(ScatterFieldTest, Densify)
   EXPECT_GT(field.size(), original_size);
 }
 
+TEST(ScatterFieldTest, ReinforceClassClusters)
+{
+  // A center item surrounded by 4 neighbor items with class 1
+  // Center item with class 2 should be converted to class 1
+  ScatterField field;
+  field.push_back(ScatterItem(0.0f, 0.0f, 0.0f, 2u, 0.1f)); // center
+  field.push_back(ScatterItem(1.0f, 0.0f, 0.0f, 1u, 0.1f));
+  field.push_back(ScatterItem(-1.0f, 0.0f, 0.0f, 1u, 0.1f));
+  field.push_back(ScatterItem(0.0f, 1.0f, 0.0f, 1u, 0.1f));
+  field.push_back(ScatterItem(0.0f, -1.0f, 0.0f, 1u, 0.1f));
+
+  field.reinforce_class_clusters(1, 4, true);
+
+  // Center item should now have class 1 (4 votes vs 1 vote)
+  EXPECT_EQ(field[0].class_id, 1u);
+}
+
+TEST(ScatterFieldTest, ShuffleClasses)
+{
+  ScatterField field;
+  field.push_back(ScatterItem(0.0f, 0.0f, 0.0f, 0u, 1.0f));
+  field.push_back(ScatterItem(0.1f, 0.0f, 0.0f, 1u, 2.0f));
+  field.push_back(ScatterItem(0.2f, 0.0f, 0.0f, 0u, 1.0f));
+  field.push_back(ScatterItem(0.3f, 0.0f, 0.0f, 1u, 2.0f));
+
+  field.shuffle_classes(1.0f, 2, 42);
+
+  // Total class counts should remain invariant
+  auto c0 = field.filter_by_class(0u);
+  auto c1 = field.filter_by_class(1u);
+  EXPECT_EQ(c0.size(), 2u);
+  EXPECT_EQ(c1.size(), 2u);
+}
+
 TEST(ScatterSeedingTest, SeedScatterClustersAndKMeans)
 {
   Array density({32, 32}, 1.0f);

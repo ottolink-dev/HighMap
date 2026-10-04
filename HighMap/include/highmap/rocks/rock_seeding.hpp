@@ -53,21 +53,4 @@ RockField seed_rock_field(size_t                    rock_count,
                           const Array              &exclusion = {},
                           const RockSeedingOptions &options = {});
 
-/**
- * @brief Seeds a scree/talus rock field along steep slopes, modulating rock
- * density and sorting sizes gravitationally along the slope gradient.
- *
- * @param  rock_count       Target number of rocks.
- * @param  slope            Slope gradient array.
- * @param  elevation        Optional elevation array to snap heights.
- * @param  sorting_strength Gravitational slope sorting strength [0, 1].
- * @param  options          Seeding options.
- * @return                  RockField Sampled scree/talus field.
- */
-RockField seed_scree_field(size_t                    rock_count,
-                           const Array              &slope,
-                           const Array              &elevation = {},
-                           float                     sorting_strength = 0.8f,
-                           const RockSeedingOptions &options = {});
-
 } // namespace hmap

@@ -393,6 +393,75 @@ void ScatterField::prune_density(const Array     &density_mask,
   items = std::move(retained);
 }
 
+void ScatterField::reinforce_class_clusters(size_t iterations,
+                                            size_t k_neighbors,
+                                            bool   include_self)
+{
+  if (items.size() < 2 || k_neighbors == 0 || iterations == 0) return;
+
+  // --- Query Nearest Neighbors Graph Once (Static Positions)
+
+  std::vector<ps::Point<float, 2>> points;
+  points.reserve(items.size());
+  for (const auto &item : items)
+  {
+    points.push_back({item.position.x, item.position.y});
+  }
+
+  size_t safe_k = std::min(k_neighbors, items.size() - 1);
+  auto   neighbors_idx = ps::nearest_neighbors_indices(points, safe_k);
+
+  // --- Iterative Majority Class Assignment
+
+  std::vector<uint32_t> next_classes(items.size());
+
+  for (size_t iter = 0; iter < iterations; ++iter)
+  {
+    for (size_t i = 0; i < items.size(); ++i)
+    {
+      std::unordered_map<uint32_t, size_t> counts;
+
+      if (include_self)
+      {
+        counts[items[i].class_id]++;
+      }
+
+      for (size_t neighbor_idx : neighbors_idx[i])
+      {
+        counts[items[neighbor_idx].class_id]++;
+      }
+
+      // pick dominant class (majority vote)
+      uint32_t best_class = items[i].class_id;
+      size_t   max_count = 0;
+
+      // check current item class first to favor status quo in case of ties
+      auto self_it = counts.find(items[i].class_id);
+      if (self_it != counts.end())
+      {
+        best_class = self_it->first;
+        max_count = self_it->second;
+      }
+
+      for (const auto &[cls_id, count] : counts)
+      {
+        if (count > max_count)
+        {
+          max_count = count;
+          best_class = cls_id;
+        }
+      }
+
+      next_classes[i] = best_class;
+    }
+
+    for (size_t i = 0; i < items.size(); ++i)
+    {
+      items[i].class_id = next_classes[i];
+    }
+  }
+}
+
 void ScatterField::set_elevation_from_terrain(const Array     &elevation,
                                               const glm::vec4 &bbox)
 {
@@ -422,6 +491,65 @@ void ScatterField::set_elevation_from_terrain(const Array     &elevation,
       float v = yn - static_cast<float>(j);
       item.position.z = elevation.get_value_bilinear_at(i, j, u, v);
     }
+  }
+}
+
+void ScatterField::shuffle_classes(float    ratio,
+                                   size_t   k_neighbors,
+                                   uint32_t seed)
+{
+  if (items.size() < 2 || ratio <= 0.0f || k_neighbors == 0) return;
+
+  // --- Build 2D Point List and Query Nearest Neighbors
+
+  std::vector<ps::Point<float, 2>> points;
+  points.reserve(items.size());
+  for (const auto &item : items)
+  {
+    points.push_back({item.position.x, item.position.y});
+  }
+
+  size_t safe_k = std::min(k_neighbors, items.size() - 1);
+  auto   neighbors_idx = ps::nearest_neighbors_indices(points, safe_k);
+
+  // --- Select Candidate Items to Shuffle
+
+  std::mt19937 gen(seed);
+
+  std::vector<size_t> perm(items.size());
+  std::iota(perm.begin(), perm.end(), 0);
+  std::shuffle(perm.begin(), perm.end(), gen);
+
+  size_t target_count = std::min(
+      items.size(),
+      static_cast<size_t>(
+          std::round(ratio * static_cast<float>(items.size()))));
+
+  // --- Perform Neighbor Class Swaps with Failsafe
+
+  for (size_t c = 0; c < target_count; ++c)
+  {
+    size_t i = perm[c];
+
+    // find neighbors with a differing class
+    std::vector<size_t> valid_neighbors;
+    for (size_t neighbor_idx : neighbors_idx[i])
+    {
+      if (items[neighbor_idx].class_id != items[i].class_id)
+      {
+        valid_neighbors.push_back(neighbor_idx);
+      }
+    }
+
+    // if all neighbors share the same class, skip candidate
+    if (valid_neighbors.empty()) continue;
+
+    // pick one differing neighbor at random and swap class & radius
+    std::uniform_int_distribution<size_t> dis(0, valid_neighbors.size() - 1);
+    size_t chosen_neighbor = valid_neighbors[dis(gen)];
+
+    std::swap(items[i].class_id, items[chosen_neighbor].class_id);
+    std::swap(items[i].radius, items[chosen_neighbor].radius);
   }
 }
 

@@ -304,32 +304,32 @@ TEST(ForestTest, ToPng)
   f2.close();
 }
 
-TEST(ForestTest, ShuffleSpecies)
+TEST(ForestTest, ShuffleClasses)
 {
   Forest forest;
-  // Create a line of alternating species: 0 and 1
+  // Create a line of alternating classes: 0 and 1
   forest.push_back(Tree(0.0f, 0.0f, 0.0f, 0u, 1.0f));
   forest.push_back(Tree(0.1f, 0.0f, 0.0f, 1u, 2.0f));
   forest.push_back(Tree(0.2f, 0.0f, 0.0f, 0u, 1.0f));
   forest.push_back(Tree(0.3f, 0.0f, 0.0f, 1u, 2.0f));
 
-  // Shuffling species
-  forest.shuffle_species(1.0f, 2, 42);
+  // Shuffling classes
+  forest.shuffle_classes(1.0f, 2, 42);
 
-  // Total species counts should remain invariant
+  // Total class counts should remain invariant
   auto sp0 = forest.filter_by_class(0u);
   auto sp1 = forest.filter_by_class(1u);
   EXPECT_EQ(sp0.size(), 2u);
   EXPECT_EQ(sp1.size(), 2u);
 
-  // Homogeneous forest test: all same species -> should do nothing without
+  // Homogeneous forest test: all same class -> should do nothing without
   // looping
   Forest mono_forest;
   mono_forest.push_back(Tree(0.0f, 0.0f, 0.0f, 0u, 1.0f));
   mono_forest.push_back(Tree(0.1f, 0.0f, 0.0f, 0u, 1.0f));
   mono_forest.push_back(Tree(0.2f, 0.0f, 0.0f, 0u, 1.0f));
 
-  mono_forest.shuffle_species(1.0f, 2, 42);
+  mono_forest.shuffle_classes(1.0f, 2, 42);
   EXPECT_EQ(mono_forest[0].class_id, 0u);
   EXPECT_EQ(mono_forest[1].class_id, 0u);
   EXPECT_EQ(mono_forest[2].class_id, 0u);

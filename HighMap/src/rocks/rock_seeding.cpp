@@ -46,31 +46,4 @@ RockField seed_rock_field(size_t                    rock_count,
   return rock_field;
 }
 
-RockField seed_scree_field(size_t                    rock_count,
-                           const Array              &slope,
-                           const Array              &elevation,
-                           float                     sorting_strength,
-                           const RockSeedingOptions &options)
-{
-  if (rock_count == 0 || !validate_non_empty(slope)) return RockField();
-
-  // Scree density is driven by steep slope areas
-  Array scree_density = slope;
-
-  RockField rock_field = seed_rock_field(rock_count,
-                                         scree_density,
-                                         {},
-                                         options);
-
-  if (validate_non_empty(elevation))
-  {
-    rock_field.set_elevation_from_terrain(elevation, options.bbox);
-  }
-
-  rock_field.apply_slope_sorting(slope, sorting_strength, options.bbox);
-  rock_field.prune_collisions();
-
-  return rock_field;
-}
-
 } // namespace hmap

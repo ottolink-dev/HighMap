@@ -121,7 +121,4 @@ TEST(RockFieldTest, Seeding)
   RockField field = seed_rock_field(50, density, {}, opts);
   EXPECT_GT(field.size(), 0u);
   EXPECT_LE(field.size(), 50u);
-
-  RockField scree = seed_scree_field(50, slope, {}, 0.8f, opts);
-  EXPECT_GT(scree.size(), 0u);
 }

@@ -766,12 +766,12 @@ TEST(ForestTest, DensifyGridSpeciesMajority)
   }
 }
 
-// --- Forest::reinforce_species_clusters Tests
+// --- Forest::reinforce_class_clusters Tests
 
-TEST(ForestTest, ReinforceSpeciesClustersBasic)
+TEST(ForestTest, ReinforceClassClustersBasic)
 {
-  // A center tree surrounded by 4 neighbor trees with species 1
-  // Center tree with species 2 should be converted to species 1
+  // A center tree surrounded by 4 neighbor trees with class 1
+  // Center tree with class 2 should be converted to class 1
   Forest forest;
   forest.push_back(Tree(0.0f, 0.0f, 0.0f, 2u, 0.1f)); // center
   forest.push_back(Tree(1.0f, 0.0f, 0.0f, 1u, 0.1f));
@@ -779,13 +779,13 @@ TEST(ForestTest, ReinforceSpeciesClustersBasic)
   forest.push_back(Tree(0.0f, 1.0f, 0.0f, 1u, 0.1f));
   forest.push_back(Tree(0.0f, -1.0f, 0.0f, 1u, 0.1f));
 
-  forest.reinforce_species_clusters(1, 4, true);
+  forest.reinforce_class_clusters(1, 4, true);
 
-  // Center tree should now have species 1 (4 votes vs 1 vote)
+  // Center tree should now have class 1 (4 votes vs 1 vote)
   EXPECT_EQ(forest[0].class_id, 1u);
 }
 
-TEST(ForestTest, ReinforceSpeciesClustersMultiIteration)
+TEST(ForestTest, ReinforceClassClustersMultiIteration)
 {
   // Line of trees: [1, 1, 2, 2, 2]
   Forest forest;
@@ -796,13 +796,13 @@ TEST(ForestTest, ReinforceSpeciesClustersMultiIteration)
   forest.push_back(Tree(4.0f, 0.0f, 0.0f, 2u, 0.1f));
 
   // Trivial edge cases
-  forest.reinforce_species_clusters(0, 2);
+  forest.reinforce_class_clusters(0, 2);
   EXPECT_EQ(forest[0].class_id, 1u);
   EXPECT_EQ(forest[2].class_id, 2u);
 
   // With k=2 and multiple iterations
-  forest.reinforce_species_clusters(3, 2, true);
-  // All should have valid species
+  forest.reinforce_class_clusters(3, 2, true);
+  // All should have valid class
   for (const auto &t : forest)
   {
     EXPECT_TRUE(t.class_id == 1u || t.class_id == 2u);
