@@ -41,7 +41,8 @@ int main(void)
                                            {0.3f, 0.75f},
                                            {0.7f, 0.7f},
                                            {0.5f, 0.45f}};
-  auto                   z3 = hmap::gpu::voronoi_shrink(z0,
+
+  auto z3 = hmap::gpu::voronoi_shrink(z0,
                                       custom_centers,
                                       0.65f,
                                       fill_ocean,
