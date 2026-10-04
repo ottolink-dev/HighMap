@@ -35,21 +35,55 @@ Provided data structures are\+:
 \item \doxylink{structhmap_1_1Edge}{hmap\+::\+Edge},
 \item \doxylink{classhmap_1_1Cloud}{hmap\+::\+Cloud} for set of points ,
 \item \doxylink{classhmap_1_1Path}{hmap\+::\+Path} for set of ordered points (i.\+e. open or closed polylines),
-\item \doxylink{classhmap_1_1Graph}{hmap\+::\+Graph}.
+\item \doxylink{classhmap_1_1Graph}{hmap\+::\+Graph},
 \end{DoxyItemize}
-\end{DoxyItemize}\hypertarget{index_autotoc_md6}{}\doxysubsubsection{\texorpdfstring{"{}\+Array"{} -\/ Elementary Data Structure for Building Heightmaps}{"Array" - Elementary Data Structure for Building Heightmaps}}\label{index_autotoc_md6}
+\item object scattering and placement,
+\begin{DoxyItemize}
+\item \doxylink{classhmap_1_1ScatterItem}{hmap\+::\+Scatter\+Item} and \doxylink{classhmap_1_1ScatterField}{hmap\+::\+Scatter\+Field} for generic 2D/3D object scattering with spatial queries and classification,
+\item \doxylink{namespacehmap_ac00261d93d6b1d8099eabbc8505a9b89}{hmap\+::\+Tree} and \doxylink{classhmap_1_1Forest}{hmap\+::\+Forest} for botanical vegetation modeling and multi-\/species growth simulations,
+\item \doxylink{namespacehmap_abe97158ceceff77924b22e1c24e3cda0}{hmap\+::\+Rock} and \doxylink{classhmap_1_1RockField}{hmap\+::\+Rock\+Field} for geomorphological rock placement, scree fields, and talus slopes.
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{index_autotoc_md6}{}\doxysubsubsection{\texorpdfstring{Uniform Scatter Design}{Uniform Scatter Design}}\label{index_autotoc_md6}
+High\+Map provides a unified architecture for scattering entities across terrain (vegetation, boulders, debris, buildings, etc.). All scattered entities share the same lightweight item representation and container interface, while domain-\/specific behaviors (biological growth vs. gravitational slope sorting) are encapsulated in dedicated modules and descriptors.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Level   }&\cellcolor{\tableheadbgcolor}\textbf{ Flora   }&\cellcolor{\tableheadbgcolor}\textbf{ Rocks   }&\cellcolor{\tableheadbgcolor}\textbf{ General Scatter    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Level   }&\cellcolor{\tableheadbgcolor}\textbf{ Flora   }&\cellcolor{\tableheadbgcolor}\textbf{ Rocks   }&\cellcolor{\tableheadbgcolor}\textbf{ General Scatter    }\\\cline{1-4}
+\endhead
+{\bfseries{Descriptor Struct}}   &{\ttfamily Species} ({\ttfamily id}, {\ttfamily radius}, {\ttfamily weight}, ...)   &{\ttfamily Rock\+Distribution} ({\ttfamily class\+\_\+id}, {\ttfamily radius\+\_\+min}, {\ttfamily radius\+\_\+max}, ...)   &Generic seeding options    \\\cline{1-4}
+{\bfseries{Item}}   &{\ttfamily Tree = Scatter\+Item} ({\ttfamily position}, {\ttfamily class\+\_\+id}, {\ttfamily radius})   &{\ttfamily Rock = Scatter\+Item} ({\ttfamily position}, {\ttfamily class\+\_\+id}, {\ttfamily radius})   &{\ttfamily Scatter\+Item} ({\ttfamily position}, {\ttfamily class\+\_\+id}, {\ttfamily radius})    \\\cline{1-4}
+{\bfseries{Container}}   &{\ttfamily Forest \+: public Scatter\+Field}   &{\ttfamily Rock\+Field \+: public Scatter\+Field}   &{\ttfamily Scatter\+Field}    \\\cline{1-4}
+{\bfseries{Queries / Filtering}}   &{\ttfamily forest.\+filter\+\_\+by\+\_\+class(id)}~\newline
+{\ttfamily forest.\+get\+\_\+class\+\_\+ids()}   &{\ttfamily rocks.\+filter\+\_\+by\+\_\+class(id)}~\newline
+{\ttfamily rocks.\+get\+\_\+class\+\_\+ids()}   &{\ttfamily scatter.\+filter\+\_\+by\+\_\+class(id)}~\newline
+{\ttfamily scatter.\+get\+\_\+class\+\_\+ids()}    \\\cline{1-4}
+{\bfseries{Domain Operations}}   &Multi-\/species growth simulations ({\ttfamily grow\+\_\+forest\+\_\+\texorpdfstring{$\ast$}{*}}), canopy competition, crown overlaps   &Pareto power-\/law radius sampling, gravitational slope sorting, interstitial pebble packing   &Spatial collision pruning, density map projection, Delaunay densification, terrain elevation projection   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{index_autotoc_md7}{}\doxyparagraph{\texorpdfstring{Design Principles}{Design Principles}}\label{index_autotoc_md7}
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Uniform Data Model}}\+: Every scattered entity is represented by \doxylink{classhmap_1_1ScatterItem}{hmap\+::\+Scatter\+Item} containing {\ttfamily position} ({\ttfamily glm\+::vec3}), {\ttfamily class\+\_\+id} ({\ttfamily uint32\+\_\+t}), and {\ttfamily radius} ({\ttfamily float}).
+\item {\bfseries{Consistent Container Interface}}\+: \doxylink{classhmap_1_1ScatterField}{hmap\+::\+Scatter\+Field} provides generic operations such as collision pruning ({\ttfamily prune\+\_\+collisions}), Delaunay densification ({\ttfamily densify}), density rasterization ({\ttfamily to\+\_\+density\+\_\+map}), terrain elevation snapping ({\ttfamily set\+\_\+elevation\+\_\+from\+\_\+terrain}), and classification filtering ({\ttfamily filter\+\_\+by\+\_\+class}, {\ttfamily get\+\_\+class\+\_\+ids}).
+\item {\bfseries{Domain Descriptors}}\+: Specialized classes like {\ttfamily Species} retain biological and ecological definitions (growth rates, shade tolerance, collision profiles), while {\ttfamily Rock\+Distribution} defines geomorphological parameters (Pareto power-\/law alpha, embed ratios). Seeding and growth algorithms use these descriptors to populate fields tagged with the corresponding {\ttfamily class\+\_\+id}.
+\end{DoxyEnumerate}\hypertarget{index_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{"{}\+Array"{} -\/ Elementary Data Structure for Building Heightmaps}{"Array" - Elementary Data Structure for Building Heightmaps}}\label{index_autotoc_md8}
 The {\ttfamily Array} object is the fundamental class upon which the heightmap construction algorithms rely. A heightmap is a two-\/dimensional representation where each cell\textquotesingle{}s value corresponds to a height or elevation at that point. An {\ttfamily Array} is simply a 2D array with dimensions defined by {\ttfamily shape} (length/width).
 
 Indexing is typically based on a pair of indices {\ttfamily (i, j)}. The cell at {\ttfamily (i=0, j=0)} is assumed to be at the bottom-\/left corner of the heightmap. This assumption is usually inconsequential, except when the heightmap needs to be aligned with specific spatial positions {\ttfamily (x, y)}. The conversion between indices {\ttfamily (i, j)} and spatial positions {\ttfamily (x, y)} depends on the heightmap\textquotesingle{}s "{}bounding box,"{} which is the spatial domain covered by the heightmap. By default, this bounding box is assumed to be a unit domain, meaning it spans a square of size 1 in both x and y directions.
 
-The values within the heightmap cells are generally within the range {\ttfamily \mbox{[}0, 1\mbox{]}}. While this range is not strictly enforced, some algorithms assume that the data adheres to this scale. It is always possible to use the \doxylink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap\+::remap} function to adjust the scale of the heightmap values to fit within the desired range.\hypertarget{index_autotoc_md7}{}\doxysubsubsection{\texorpdfstring{Example usage}{Example usage}}\label{index_autotoc_md7}
-\hypertarget{index_autotoc_md8}{}\doxyparagraph{\texorpdfstring{Generate classical coherent noises (\+Perlin, Simplex, fractal layering, etc...)}{Generate classical coherent noises (Perlin, Simplex, fractal layering, etc...)}}\label{index_autotoc_md8}
-\hypertarget{index_autotoc_md9}{}\doxyparagraph{\texorpdfstring{Filters}{Filters}}\label{index_autotoc_md9}
-\hypertarget{index_autotoc_md10}{}\doxyparagraph{\texorpdfstring{Physical processes}{Physical processes}}\label{index_autotoc_md10}
-\hypertarget{index_autotoc_md11}{}\doxyparagraph{\texorpdfstring{Bivariate functions}{Bivariate functions}}\label{index_autotoc_md11}
-\hypertarget{index_autotoc_md12}{}\doxysubsubsection{\texorpdfstring{Exporting}{Exporting}}\label{index_autotoc_md12}
-\hypertarget{index_autotoc_md13}{}\doxyparagraph{\texorpdfstring{Image formats (png, tiff, exr...)}{Image formats (png, tiff, exr...)}}\label{index_autotoc_md13}
-\hypertarget{index_autotoc_md14}{}\doxyparagraph{\texorpdfstring{Numpy binary file}{Numpy binary file}}\label{index_autotoc_md14}
+The values within the heightmap cells are generally within the range {\ttfamily \mbox{[}0, 1\mbox{]}}. While this range is not strictly enforced, some algorithms assume that the data adheres to this scale. It is always possible to use the \doxylink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap\+::remap} function to adjust the scale of the heightmap values to fit within the desired range.\hypertarget{index_autotoc_md9}{}\doxysubsubsection{\texorpdfstring{Example usage}{Example usage}}\label{index_autotoc_md9}
+\hypertarget{index_autotoc_md10}{}\doxyparagraph{\texorpdfstring{Generate classical coherent noises (\+Perlin, Simplex, fractal layering, etc...)}{Generate classical coherent noises (Perlin, Simplex, fractal layering, etc...)}}\label{index_autotoc_md10}
+\hypertarget{index_autotoc_md11}{}\doxyparagraph{\texorpdfstring{Filters}{Filters}}\label{index_autotoc_md11}
+\hypertarget{index_autotoc_md12}{}\doxyparagraph{\texorpdfstring{Physical processes}{Physical processes}}\label{index_autotoc_md12}
+\hypertarget{index_autotoc_md13}{}\doxyparagraph{\texorpdfstring{Bivariate functions}{Bivariate functions}}\label{index_autotoc_md13}
+\hypertarget{index_autotoc_md14}{}\doxysubsubsection{\texorpdfstring{Exporting}{Exporting}}\label{index_autotoc_md14}
+\hypertarget{index_autotoc_md15}{}\doxyparagraph{\texorpdfstring{Image formats (png, tiff, exr...)}{Image formats (png, tiff, exr...)}}\label{index_autotoc_md15}
+\hypertarget{index_autotoc_md16}{}\doxyparagraph{\texorpdfstring{Numpy binary file}{Numpy binary file}}\label{index_autotoc_md16}
 The library includes a function that enables exporting data to the Num\+Py binary format (.npy), facilitating integration with Python\textquotesingle{}s Num\+Py library.
 
 
@@ -83,11 +117,11 @@ The library includes a function that enables exporting data to the Num\+Py binar
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}
-\hypertarget{index_autotoc_md15}{}\doxyparagraph{\texorpdfstring{Raw binary file}{Raw binary file}}\label{index_autotoc_md15}
-\hypertarget{index_autotoc_md16}{}\doxyparagraph{\texorpdfstring{Asset export (3\+D mesh and texture)}{Asset export (3D mesh and texture)}}\label{index_autotoc_md16}
+\hypertarget{index_autotoc_md17}{}\doxyparagraph{\texorpdfstring{Raw binary file}{Raw binary file}}\label{index_autotoc_md17}
+\hypertarget{index_autotoc_md18}{}\doxyparagraph{\texorpdfstring{Asset export (3\+D mesh and texture)}{Asset export (3D mesh and texture)}}\label{index_autotoc_md18}
 \doxylink{namespacehmap_ac3d35efc6e5b596f508e2b17a5aa871b}{hmap\+::\+Asset\+Export\+Format}
 
-\doxylink{namespacehmap_ac81a92060b89699c4eb9826495d87250}{hmap\+::\+Mesh\+Type}\hypertarget{index_autotoc_md17}{}\doxysubsection{\texorpdfstring{Library functionalities}{Library functionalities}}\label{index_autotoc_md17}
+\doxylink{namespacehmap_ac81a92060b89699c4eb9826495d87250}{hmap\+::\+Mesh\+Type}\hypertarget{index_autotoc_md19}{}\doxysubsection{\texorpdfstring{Library functionalities}{Library functionalities}}\label{index_autotoc_md19}
 \tabulinesep=1mm
 \begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
 \hline

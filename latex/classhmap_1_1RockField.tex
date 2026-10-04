@@ -1,0 +1,354 @@
+\doxysection{hmap\+::Rock\+Field Class Reference}
+\hypertarget{classhmap_1_1RockField}{}\label{classhmap_1_1RockField}\index{hmap::RockField@{hmap::RockField}}
+
+
+Container class representing a field of rocks/boulders (scree, talus, or boulder field).  
+
+
+
+
+{\ttfamily \#include $<$rock\+\_\+field.\+hpp$>$}
+
+
+
+Inheritance diagram for hmap\+::Rock\+Field\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=188pt]{classhmap_1_1RockField__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for hmap\+::Rock\+Field\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classhmap_1_1RockField__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classhmap_1_1RockField_a6b4e40b556689a73431cfc43218a08e2}{Rock\+Field}} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor initializing an empty rock field. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1RockField_ab396aa660bc5de013292f3ecbeba1acb}{Rock\+Field}} (const std\+::vector$<$ \mbox{\hyperlink{namespacehmap_abe97158ceceff77924b22e1c24e3cda0}{Rock}} $>$ \&rocks)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classhmap_1_1RockField}{Rock\+Field} from a vector of rocks. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1RockField_ad91d1532a64bde97419f6c19ef1cd062}{Rock\+Field}} (std\+::vector$<$ \mbox{\hyperlink{namespacehmap_abe97158ceceff77924b22e1c24e3cda0}{Rock}} $>$ \&\&rocks) noexcept
+\begin{DoxyCompactList}\small\item\em Move-\/constructs a \doxylink{classhmap_1_1RockField}{Rock\+Field} from a vector of rocks. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1RockField_aa4616c39e3dd683da14cd2aff13bce80}{Rock\+Field}} (const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&field)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classhmap_1_1RockField}{Rock\+Field} from a base \doxylink{classhmap_1_1ScatterField}{Scatter\+Field}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1RockField_a6cd74c40c273fd1beadbf148570abcb8}{Rock\+Field}} (\mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&\&field) noexcept
+\begin{DoxyCompactList}\small\item\em Move-\/constructs a \doxylink{classhmap_1_1RockField}{Rock\+Field} from a base \doxylink{classhmap_1_1ScatterField}{Scatter\+Field}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1RockField_a73a8fc7a0f44e1b074b20bd4c3d8ead3}{Rock\+Field}} (const \mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}} \&cloud, uint32\+\_\+t class\+\_\+id=0, float default\+\_\+radius=HMAP\+\_\+\+DEFAULT\+\_\+\+ROCK\+\_\+\+RADIUS)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classhmap_1_1RockField}{Rock\+Field} from a \doxylink{classhmap_1_1Cloud}{Cloud} of 2D points. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1RockField_a78e864f7a4907e3e3766fc6d4571a880}{apply\+\_\+power\+\_\+law\+\_\+distribution}} (float alpha=2.\+0f, float \mbox{\hyperlink{namespacehmap_ad1eb8e81ef31a0e0bc7a5bd093c3aefc}{r\+\_\+min}}=1e-\/3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float \mbox{\hyperlink{namespacehmap_aa8f3fda9e1dd32c7b8011c7f2b9cbc55}{r\+\_\+max}}=5e-\/2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, uint32\+\_\+t seed=0)
+\begin{DoxyCompactList}\small\item\em Applies a heavy-\/tailed power-\/law (Pareto) radius distribution to all rocks. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1RockField_abb9120a9ba5a3185602732a31966b748}{apply\+\_\+power\+\_\+law\+\_\+distribution}} (const \mbox{\hyperlink{structhmap_1_1RockDistribution}{Rock\+Distribution}} \&dist, uint32\+\_\+t seed=0)
+\begin{DoxyCompactList}\small\item\em Applies a power-\/law radius distribution according to a \doxylink{structhmap_1_1RockDistribution}{Rock\+Distribution} definition. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1RockField_ad169e4acbe84618e48fdd741e6f764d6}{apply\+\_\+slope\+\_\+sorting}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{namespacehmap_a04e7abe100708990e2464cc5df2ccafa}{slope}}, float sorting\+\_\+strength=1.\+0f, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Simulates gravitational slope sorting (scree/talus dynamics). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1RockField_a67d09afd48bf1c368efeffceafc7e974}{pack\+\_\+interstitial\+\_\+rocks}} (size\+\_\+t \mbox{\hyperlink{hydraulic__mise_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density=\{\}, float \mbox{\hyperlink{namespacehmap_ad1eb8e81ef31a0e0bc7a5bd093c3aefc}{r\+\_\+min}}=5e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float \mbox{\hyperlink{namespacehmap_aa8f3fda9e1dd32c7b8011c7f2b9cbc55}{r\+\_\+max}}=2e-\/3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, uint32\+\_\+t class\+\_\+id=0, uint32\+\_\+t seed=0, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Packs smaller interstitial pebbles/stones in the voids between existing larger rocks without displacing the existing rocks. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classhmap_1_1RockField_ab05996c590e4e7037dd3583da7c9359a}{to\+\_\+string}} () const override
+\begin{DoxyCompactList}\small\item\em Returns a multi-\/line formatted summary string of the rock field. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classhmap_1_1ScatterField}{hmap\+::\+Scatter\+Field}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classhmap_1_1ScatterField_a8e8259ebbeb921b06caff233a9d54668}{Scatter\+Field}} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor initializing an empty field. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1ScatterField_afc9a8bc4033c871a56dea328bba35db1}{Scatter\+Field}} (const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} $>$ \&\mbox{\hyperlink{classhmap_1_1ScatterField_aeb89e13a2a22fc06a08bc02e0fdcaa61}{items}})
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} from a vector of items. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1ScatterField_a8a4727edd5fc3072d5cc16d5f6290505}{Scatter\+Field}} (std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} $>$ \&\&\mbox{\hyperlink{classhmap_1_1ScatterField_aeb89e13a2a22fc06a08bc02e0fdcaa61}{items}}) noexcept
+\begin{DoxyCompactList}\small\item\em Move-\/constructs a \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} from a vector of items. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1ScatterField_a170394cfa16a33a357cf5eb1d2c91c11}{Scatter\+Field}} (const \mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}} \&cloud, uint32\+\_\+t class\+\_\+id=0, float default\+\_\+radius=HMAP\+\_\+\+DEFAULT\+\_\+\+SCATTER\+\_\+\+RADIUS)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} from a \doxylink{classhmap_1_1Cloud}{Cloud} of 2D points. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classhmap_1_1ScatterField_a8f1783e7c61d4b691146a219371fb337}{\texorpdfstring{$\sim$}{\string~}\+Scatter\+Field}} ()=default
+\item 
+\mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \& \mbox{\hyperlink{classhmap_1_1ScatterField_a9a88b00b0685cb1f9e05ac3f473225cd}{at}} (size\+\_\+t \mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}})
+\item 
+const \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \& \mbox{\hyperlink{classhmap_1_1ScatterField_a4eaa960005fa7b6168df87b7ae3191b8}{at}} (size\+\_\+t \mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}}) const
+\item 
+\mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \& \mbox{\hyperlink{classhmap_1_1ScatterField_afe2b8545ceb345ef8de1b7aed05191b7}{back}} ()
+\item 
+const \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \& \mbox{\hyperlink{classhmap_1_1ScatterField_a7c80447fb56419149c47b8ab7b77c9d9}{back}} () const
+\item 
+auto \mbox{\hyperlink{classhmap_1_1ScatterField_a2637ec15a0bfe617e2ace4dc5298bf9a}{begin}} () noexcept
+\item 
+auto \mbox{\hyperlink{classhmap_1_1ScatterField_ac3d0e74497c234b78450b65164c723de}{begin}} () const noexcept
+\item 
+auto \mbox{\hyperlink{classhmap_1_1ScatterField_aa5519518eacf3f4801f376eac6d2951f}{cbegin}} () const noexcept
+\item 
+size\+\_\+t \mbox{\hyperlink{classhmap_1_1ScatterField_a4b0b89b201933ba38fca49778708a6fe}{capacity}} () const noexcept
+\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_a04d542bc448fbf535e9f7b67d068dcc9}{clear}} () noexcept
+\item 
+\mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classhmap_1_1ScatterField_a43f56bdc80d317b8aa0a456c05363033}{data}} () noexcept
+\item 
+const \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classhmap_1_1ScatterField_aa5cc94dd2526613f4d8f1a7db128e3c0}{data}} () const noexcept
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\\mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \& \mbox{\hyperlink{classhmap_1_1ScatterField_a6d9ee56cb8b7228c59b415810aca274b}{emplace\+\_\+back}} (Args \&\&...args)
+\item 
+bool \mbox{\hyperlink{classhmap_1_1ScatterField_ade407dc456f3f8df88e8127489c76301}{empty}} () const noexcept
+\item 
+auto \mbox{\hyperlink{classhmap_1_1ScatterField_aa062e1d1650e6992bb4a86711c4b82a4}{end}} () noexcept
+\item 
+auto \mbox{\hyperlink{classhmap_1_1ScatterField_a30a00c4e646f6a36110cb638f1850564}{end}} () const noexcept
+\item 
+auto \mbox{\hyperlink{classhmap_1_1ScatterField_a7587df0d7260fe78143a38156a95a054}{cend}} () const noexcept
+\item 
+\mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \& \mbox{\hyperlink{classhmap_1_1ScatterField_ae3eaa626c3d98a542059589c785bed98}{front}} ()
+\item 
+const \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \& \mbox{\hyperlink{classhmap_1_1ScatterField_a6c14d17b251be666bbb20a797210894a}{front}} () const
+\item 
+\mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \& \mbox{\hyperlink{classhmap_1_1ScatterField_a45a0d931bdd6b41c8460710a473b5b6a}{operator\mbox{[}$\,$\mbox{]}}} (size\+\_\+t \mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}})
+\item 
+const \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \& \mbox{\hyperlink{classhmap_1_1ScatterField_aba0c37d045d2414ba58e3f1a70bfe2ea}{operator\mbox{[}$\,$\mbox{]}}} (size\+\_\+t \mbox{\hyperlink{kd__tree_8cpp_ab650f61406e03c24cfefced2d5e9f449}{index}}) const
+\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_aff098f62a339deb2a51854d081f96af9}{push\+\_\+back}} (const \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \&item)
+\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_a9e68b639b48f05831094a0742450e863}{push\+\_\+back}} (\mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \&\&item)
+\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_ad4986df1aa3dff53929c88f0d5b26d33}{reserve}} (size\+\_\+t new\+\_\+cap)
+\item 
+size\+\_\+t \mbox{\hyperlink{classhmap_1_1ScatterField_aa80bb3a0f7545eb41a468b6ac4d1f84e}{size}} () const noexcept
+\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_afd608e431a4890a76467c204d4611a7c}{densify}} (float default\+\_\+radius=HMAP\+\_\+\+DEFAULT\+\_\+\+SCATTER\+\_\+\+RADIUS)
+\begin{DoxyCompactList}\small\item\em Densifies the scatter field by adding Voronoi vertices (circumcenters of Delaunay triangles). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \mbox{\hyperlink{classhmap_1_1ScatterField_a84622401a1cac4c1f37c8b7c7705004c}{filter\+\_\+by\+\_\+class}} (uint32\+\_\+t class\+\_\+id) const
+\begin{DoxyCompactList}\small\item\em Returns a new \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} containing only items matching the given class\+\_\+id. \end{DoxyCompactList}\item 
+glm\+::vec4 \mbox{\hyperlink{classhmap_1_1ScatterField_a87cfb3f7413a9b375e51ce9a3bb02834}{get\+\_\+bbox}} () const
+\begin{DoxyCompactList}\small\item\em Computes the 2D bounding box enclosing all item positions. \end{DoxyCompactList}\item 
+std\+::vector$<$ uint32\+\_\+t $>$ \mbox{\hyperlink{classhmap_1_1ScatterField_a6986cbcbb06270fb702291c5831bda03}{get\+\_\+class\+\_\+ids}} () const
+\begin{DoxyCompactList}\small\item\em Returns a sorted list of unique class identifiers present in the field. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd}{prune\+\_\+collisions}} ()
+\begin{DoxyCompactList}\small\item\em Resolves overlapping items by discarding smaller items in collision. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_afc5177c65e51e710c80d2e367a7888c5}{prune\+\_\+density}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density\+\_\+mask, float target\+\_\+ratio=0.\+8\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, uint32\+\_\+t seed=0, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Prunes items in the field using density-\/based acceptance sampling modulated to reach an approximate target retention ratio. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_a6097c8940ee25ec5b5364faf0ad7c9b5}{set\+\_\+elevation\+\_\+from\+\_\+terrain}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&elevation, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Sets the elevation (z-\/coordinate) of all items by sampling a terrain heightmap. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}} \mbox{\hyperlink{classhmap_1_1ScatterField_a2c0c29725aed25aacb9fd51466e5f637}{to\+\_\+cloud}} () const
+\begin{DoxyCompactList}\small\item\em Converts the field into a \doxylink{classhmap_1_1Cloud}{Cloud} of 2D points (x, y) with value set to radius. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{classhmap_1_1ScatterField_a914fe248c39cdc85f2ce5cdab1058c03}{to\+\_\+density\+\_\+map}} (glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, float sigma=0.\+0f, std\+::optional$<$ uint32\+\_\+t $>$ class\+\_\+id=std\+::nullopt, bool weighted\+\_\+by\+\_\+area=false, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}) const
+\begin{DoxyCompactList}\small\item\em Exports the local density map of the field as a 2D \doxylink{classhmap_1_1Array}{Array} using 2D Kernel Density Estimation (Gaussian splatting / KDE). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_a4cf0ddf4c16900b485b580643cceb3d7}{to\+\_\+csv}} (const std\+::string \&fname) const
+\begin{DoxyCompactList}\small\item\em Exports the items to a CSV file (x, y, z, class\+\_\+id, radius). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_a4e1e40d95eaecfff34f524bb44e2cb74}{to\+\_\+png}} (const std\+::string \&fname, glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&background=\{\}, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}) const
+\begin{DoxyCompactList}\small\item\em Exports a visual representation of the scatter field as a PNG image. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classhmap_1_1ScatterField}{hmap\+::\+Scatter\+Field}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} $>$ \mbox{\hyperlink{classhmap_1_1ScatterField_aeb89e13a2a22fc06a08bc02e0fdcaa61}{items}} = \{\}
+\begin{DoxyCompactList}\small\item\em List of scatter item instances. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Container class representing a field of rocks/boulders (scree, talus, or boulder field). 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classhmap_1_1RockField_a6b4e40b556689a73431cfc43218a08e2}\label{classhmap_1_1RockField_a6b4e40b556689a73431cfc43218a08e2} 
+\index{hmap::RockField@{hmap::RockField}!RockField@{RockField}}
+\index{RockField@{RockField}!hmap::RockField@{hmap::RockField}}
+\doxysubsubsection{\texorpdfstring{RockField()}{RockField()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily hmap\+::\+Rock\+Field\+::\+Rock\+Field (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Default constructor initializing an empty rock field. 
+
+\Hypertarget{classhmap_1_1RockField_ab396aa660bc5de013292f3ecbeba1acb}\label{classhmap_1_1RockField_ab396aa660bc5de013292f3ecbeba1acb} 
+\index{hmap::RockField@{hmap::RockField}!RockField@{RockField}}
+\index{RockField@{RockField}!hmap::RockField@{hmap::RockField}}
+\doxysubsubsection{\texorpdfstring{RockField()}{RockField()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily hmap\+::\+Rock\+Field\+::\+Rock\+Field (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{namespacehmap_abe97158ceceff77924b22e1c24e3cda0}{Rock}} $>$ \&}]{rocks }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{classhmap_1_1RockField}{Rock\+Field} from a vector of rocks. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rocks} & Vector of Rock instances. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1RockField_ad91d1532a64bde97419f6c19ef1cd062}\label{classhmap_1_1RockField_ad91d1532a64bde97419f6c19ef1cd062} 
+\index{hmap::RockField@{hmap::RockField}!RockField@{RockField}}
+\index{RockField@{RockField}!hmap::RockField@{hmap::RockField}}
+\doxysubsubsection{\texorpdfstring{RockField()}{RockField()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily hmap\+::\+Rock\+Field\+::\+Rock\+Field (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{namespacehmap_abe97158ceceff77924b22e1c24e3cda0}{Rock}} $>$ \&\&}]{rocks }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Move-\/constructs a \doxylink{classhmap_1_1RockField}{Rock\+Field} from a vector of rocks. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rocks} & Rvalue vector of Rock instances. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1RockField_aa4616c39e3dd683da14cd2aff13bce80}\label{classhmap_1_1RockField_aa4616c39e3dd683da14cd2aff13bce80} 
+\index{hmap::RockField@{hmap::RockField}!RockField@{RockField}}
+\index{RockField@{RockField}!hmap::RockField@{hmap::RockField}}
+\doxysubsubsection{\texorpdfstring{RockField()}{RockField()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily hmap\+::\+Rock\+Field\+::\+Rock\+Field (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&}]{field }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{classhmap_1_1RockField}{Rock\+Field} from a base \doxylink{classhmap_1_1ScatterField}{Scatter\+Field}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em field} & Base scatter field. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1RockField_a6cd74c40c273fd1beadbf148570abcb8}\label{classhmap_1_1RockField_a6cd74c40c273fd1beadbf148570abcb8} 
+\index{hmap::RockField@{hmap::RockField}!RockField@{RockField}}
+\index{RockField@{RockField}!hmap::RockField@{hmap::RockField}}
+\doxysubsubsection{\texorpdfstring{RockField()}{RockField()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily hmap\+::\+Rock\+Field\+::\+Rock\+Field (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&\&}]{field }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Move-\/constructs a \doxylink{classhmap_1_1RockField}{Rock\+Field} from a base \doxylink{classhmap_1_1ScatterField}{Scatter\+Field}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em field} & Rvalue base scatter field. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1RockField_a73a8fc7a0f44e1b074b20bd4c3d8ead3}\label{classhmap_1_1RockField_a73a8fc7a0f44e1b074b20bd4c3d8ead3} 
+\index{hmap::RockField@{hmap::RockField}!RockField@{RockField}}
+\index{RockField@{RockField}!hmap::RockField@{hmap::RockField}}
+\doxysubsubsection{\texorpdfstring{RockField()}{RockField()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily hmap\+::\+Rock\+Field\+::\+Rock\+Field (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}} \&}]{cloud,  }\item[{uint32\+\_\+t}]{class\+\_\+id = {\ttfamily 0},  }\item[{float}]{default\+\_\+radius = {\ttfamily HMAP\+\_\+DEFAULT\+\_\+ROCK\+\_\+RADIUS} }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{classhmap_1_1RockField}{Rock\+Field} from a \doxylink{classhmap_1_1Cloud}{Cloud} of 2D points. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cloud} & Input point cloud. \\
+\hline
+{\em class\+\_\+id} & Class identifier assigned to all imported rocks. \\
+\hline
+{\em default\+\_\+radius} & Default radius assigned if point value is 0. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classhmap_1_1RockField_a78e864f7a4907e3e3766fc6d4571a880}\label{classhmap_1_1RockField_a78e864f7a4907e3e3766fc6d4571a880} 
+\index{hmap::RockField@{hmap::RockField}!apply\_power\_law\_distribution@{apply\_power\_law\_distribution}}
+\index{apply\_power\_law\_distribution@{apply\_power\_law\_distribution}!hmap::RockField@{hmap::RockField}}
+\doxysubsubsection{\texorpdfstring{apply\_power\_law\_distribution()}{apply\_power\_law\_distribution()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void hmap\+::\+Rock\+Field\+::apply\+\_\+power\+\_\+law\+\_\+distribution (\begin{DoxyParamCaption}\item[{float}]{alpha = {\ttfamily 2.0f},  }\item[{float}]{r\+\_\+min = {\ttfamily 1e-\/3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{r\+\_\+max = {\ttfamily 5e-\/2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{uint32\+\_\+t}]{seed = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Applies a heavy-\/tailed power-\/law (Pareto) radius distribution to all rocks. 
+
+Radii are sampled according to the probability density \$P(R \textbackslash{}ge r) \textbackslash{}propto r\texorpdfstring{$^\wedge$}{\string^}\{-\/\textbackslash{}alpha\}\$, bounded within \$\mbox{[}r\+\_\+\{\textbackslash{}min\}, r\+\_\+\{\textbackslash{}max\}\mbox{]}\$.
+
+
+\begin{DoxyParams}{Parameters}
+{\em alpha} & Power-\/law exponent (e.\+g. 2.\+0). \\
+\hline
+{\em r\+\_\+min} & Minimum rock radius. \\
+\hline
+{\em r\+\_\+max} & Maximum rock radius. \\
+\hline
+{\em seed} & Random seed for sampling. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1RockField_abb9120a9ba5a3185602732a31966b748}\label{classhmap_1_1RockField_abb9120a9ba5a3185602732a31966b748} 
+\index{hmap::RockField@{hmap::RockField}!apply\_power\_law\_distribution@{apply\_power\_law\_distribution}}
+\index{apply\_power\_law\_distribution@{apply\_power\_law\_distribution}!hmap::RockField@{hmap::RockField}}
+\doxysubsubsection{\texorpdfstring{apply\_power\_law\_distribution()}{apply\_power\_law\_distribution()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void hmap\+::\+Rock\+Field\+::apply\+\_\+power\+\_\+law\+\_\+distribution (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1RockDistribution}{Rock\+Distribution}} \&}]{dist,  }\item[{uint32\+\_\+t}]{seed = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Applies a power-\/law radius distribution according to a \doxylink{structhmap_1_1RockDistribution}{Rock\+Distribution} definition. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dist} & \doxylink{structhmap_1_1RockDistribution}{Rock\+Distribution} parameters. \\
+\hline
+{\em seed} & Random seed for sampling. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1RockField_ad169e4acbe84618e48fdd741e6f764d6}\label{classhmap_1_1RockField_ad169e4acbe84618e48fdd741e6f764d6} 
+\index{hmap::RockField@{hmap::RockField}!apply\_slope\_sorting@{apply\_slope\_sorting}}
+\index{apply\_slope\_sorting@{apply\_slope\_sorting}!hmap::RockField@{hmap::RockField}}
+\doxysubsubsection{\texorpdfstring{apply\_slope\_sorting()}{apply\_slope\_sorting()}}
+{\footnotesize\ttfamily void hmap\+::\+Rock\+Field\+::apply\+\_\+slope\+\_\+sorting (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{slope,  }\item[{float}]{sorting\+\_\+strength = {\ttfamily 1.0f},  }\item[{const glm\+::vec4 \&}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+
+
+
+Simulates gravitational slope sorting (scree/talus dynamics). 
+
+On natural scree and talus slopes, larger boulders carry more momentum and roll further downhill toward gentler base slopes, while smaller stones remain caught on steeper sections.
+
+
+\begin{DoxyParams}{Parameters}
+{\em slope} & 2D slope gradient array (e.\+g., from {\ttfamily gradient\+\_\+magnitude} or {\ttfamily slope}). \\
+\hline
+{\em sorting\+\_\+strength} & Strength factor in \mbox{[}0, 1\mbox{]} governing the correlation between slope and rock size. \\
+\hline
+{\em bbox} & Domain bounding box \{xmin, xmax, ymin, ymax\}. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1RockField_a67d09afd48bf1c368efeffceafc7e974}\label{classhmap_1_1RockField_a67d09afd48bf1c368efeffceafc7e974} 
+\index{hmap::RockField@{hmap::RockField}!pack\_interstitial\_rocks@{pack\_interstitial\_rocks}}
+\index{pack\_interstitial\_rocks@{pack\_interstitial\_rocks}!hmap::RockField@{hmap::RockField}}
+\doxysubsubsection{\texorpdfstring{pack\_interstitial\_rocks()}{pack\_interstitial\_rocks()}}
+{\footnotesize\ttfamily void hmap\+::\+Rock\+Field\+::pack\+\_\+interstitial\+\_\+rocks (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{density = {\ttfamily \{\}},  }\item[{float}]{r\+\_\+min = {\ttfamily 5e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{r\+\_\+max = {\ttfamily 2e-\/3\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{uint32\+\_\+t}]{class\+\_\+id = {\ttfamily 0},  }\item[{uint32\+\_\+t}]{seed = {\ttfamily 0},  }\item[{const glm\+::vec4 \&}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+
+
+
+Packs smaller interstitial pebbles/stones in the voids between existing larger rocks without displacing the existing rocks. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & Target number of small rocks to pack. \\
+\hline
+{\em density} & Optional 2D spatial probability density array for candidate sampling. \\
+\hline
+{\em r\+\_\+min} & Minimum interstitial rock radius. \\
+\hline
+{\em r\+\_\+max} & Maximum interstitial rock radius. \\
+\hline
+{\em class\+\_\+id} & Class identifier for the packed stones. \\
+\hline
+{\em seed} & Random seed for candidate sampling. \\
+\hline
+{\em bbox} & Domain bounding box \{xmin, xmax, ymin, ymax\}. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1RockField_ab05996c590e4e7037dd3583da7c9359a}\label{classhmap_1_1RockField_ab05996c590e4e7037dd3583da7c9359a} 
+\index{hmap::RockField@{hmap::RockField}!to\_string@{to\_string}}
+\index{to\_string@{to\_string}!hmap::RockField@{hmap::RockField}}
+\doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}}
+{\footnotesize\ttfamily std\+::string hmap\+::\+Rock\+Field\+::to\+\_\+string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns a multi-\/line formatted summary string of the rock field. 
+
+\begin{DoxyReturn}{Returns}
+std\+::string Pretty-\/printed summary. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classhmap_1_1ScatterField_aece4b7ce3a6d09279928b0468fb55efb}{hmap\+::\+Scatter\+Field}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+High\+Map/include/highmap/rocks/\mbox{\hyperlink{rock__field_8hpp}{rock\+\_\+field.\+hpp}}\item 
+High\+Map/src/rocks/\mbox{\hyperlink{rock__field_8cpp}{rock\+\_\+field.\+cpp}}\end{DoxyCompactItemize}

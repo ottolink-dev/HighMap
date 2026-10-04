@@ -8,7 +8,8 @@ var searchData=
   ['pit_5fcells_5',['pit_cells',['../hydraulic__mise_8cpp.html#adc3d53f46ea2af00b9117f202b362dc4',1,'hydraulic_mise.cpp']]],
   ['pitq_6',['pitq',['../hydraulic__mise_8cpp.html#a4f046b5e9f75c715b44c15da2f13d8ed',1,'hydraulic_mise.cpp']]],
   ['points_7',['points',['../classhmap_1_1Cloud.html#aad75fb7bcfa7a2c3f139d2e3d3d6cc54',1,'hmap::Cloud::points'],['../kd__tree_8cpp.html#a7cbf926513672593ee7214c43a06e057',1,'points:&#160;kd_tree.cpp']]],
-  ['position_8',['position',['../classhmap_1_1Tree.html#a851ff3004e76ca49fd5a1f4f205fc300',1,'hmap::Tree']]],
-  ['powlut_9',['powlut',['../hydraulic__mise_8cpp.html#a77245844cd988bd7ba04a026fbbcb872',1,'hydraulic_mise.cpp']]],
-  ['priority_10',['priority',['../find__path__multiscale_8cpp.html#ab4ad87b08386d7796fdf419a5b97ac99',1,'find_path_multiscale.cpp']]]
+  ['position_8',['position',['../classhmap_1_1ScatterItem.html#a06e26e80e8403b235906da165ff5b74e',1,'hmap::ScatterItem']]],
+  ['power_5flaw_5falpha_9',['power_law_alpha',['../structhmap_1_1RockDistribution.html#ab2e3d233bcdad2b73f00aeb9b97ef914',1,'hmap::RockDistribution']]],
+  ['powlut_10',['powlut',['../hydraulic__mise_8cpp.html#a77245844cd988bd7ba04a026fbbcb872',1,'hydraulic_mise.cpp']]],
+  ['priority_11',['priority',['../find__path__multiscale_8cpp.html#ab4ad87b08386d7796fdf419a5b97ac99',1,'find_path_multiscale.cpp']]]
 ];

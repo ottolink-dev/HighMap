@@ -12,6 +12,7 @@ var searchData=
   ['_7enaturalneighborinterpolator_9',['~NaturalNeighborInterpolator',['../classhmap_1_1NaturalNeighborInterpolator.html#abcbea4128062e6f71712f32af3201e34',1,'hmap::NaturalNeighborInterpolator']]],
   ['_7eopencvwriter_10',['~OpenCVWriter',['../classhmap_1_1OpenCVWriter.html#af193f837b1c291597f52272a60f95e34',1,'hmap::OpenCVWriter']]],
   ['_7eopenexrwriter_11',['~OpenEXRWriter',['../classhmap_1_1OpenEXRWriter.html#a31a9f02c3fc838b2fd8a2567401f22e6',1,'hmap::OpenEXRWriter']]],
-  ['_7escopedtimer_12',['~ScopedTimer',['../structhmap_1_1ScopedTimer.html#a2f3f39b91f3e0313debb9de8398b6194',1,'hmap::ScopedTimer']]],
-  ['_7etilestorage_13',['~TileStorage',['../classhmap_1_1TileStorage.html#a125f3395811a46b8b104eda9736b6b23',1,'hmap::TileStorage']]]
+  ['_7escatterfield_12',['~ScatterField',['../classhmap_1_1ScatterField.html#a8f1783e7c61d4b691146a219371fb337',1,'hmap::ScatterField']]],
+  ['_7escopedtimer_13',['~ScopedTimer',['../structhmap_1_1ScopedTimer.html#a2f3f39b91f3e0313debb9de8398b6194',1,'hmap::ScopedTimer']]],
+  ['_7etilestorage_14',['~TileStorage',['../classhmap_1_1TileStorage.html#a125f3395811a46b8b104eda9736b6b23',1,'hmap::TileStorage']]]
 ];

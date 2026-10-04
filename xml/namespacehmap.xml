@@ -72,6 +72,12 @@
     <innerclass refid="structhmap_1_1Recorder" prot="public">hmap::Recorder</innerclass>
     <innerclass refid="classhmap_1_1RectangleFunction" prot="public">hmap::RectangleFunction</innerclass>
     <innerclass refid="classhmap_1_1RiftFunction" prot="public">hmap::RiftFunction</innerclass>
+    <innerclass refid="structhmap_1_1RockDistribution" prot="public">hmap::RockDistribution</innerclass>
+    <innerclass refid="classhmap_1_1RockField" prot="public">hmap::RockField</innerclass>
+    <innerclass refid="structhmap_1_1RockSeedingOptions" prot="public">hmap::RockSeedingOptions</innerclass>
+    <innerclass refid="classhmap_1_1ScatterField" prot="public">hmap::ScatterField</innerclass>
+    <innerclass refid="classhmap_1_1ScatterItem" prot="public">hmap::ScatterItem</innerclass>
+    <innerclass refid="structhmap_1_1ScatterSeedingOptions" prot="public">hmap::ScatterSeedingOptions</innerclass>
     <innerclass refid="structhmap_1_1ScopedTimer" prot="public">hmap::ScopedTimer</innerclass>
     <innerclass refid="classhmap_1_1Simplex2Function" prot="public">hmap::Simplex2Function</innerclass>
     <innerclass refid="classhmap_1_1Simplex2SFunction" prot="public">hmap::Simplex2SFunction</innerclass>
@@ -86,7 +92,6 @@
     <innerclass refid="structhmap_1_1TileRegion" prot="public">hmap::TileRegion</innerclass>
     <innerclass refid="classhmap_1_1TileStorage" prot="public">hmap::TileStorage</innerclass>
     <innerclass refid="classhmap_1_1Timer" prot="public">hmap::Timer</innerclass>
-    <innerclass refid="classhmap_1_1Tree" prot="public">hmap::Tree</innerclass>
     <innerclass refid="classhmap_1_1ValueCubicNoiseFunction" prot="public">hmap::ValueCubicNoiseFunction</innerclass>
     <innerclass refid="classhmap_1_1ValueDelaunayNoiseFunction" prot="public">hmap::ValueDelaunayNoiseFunction</innerclass>
     <innerclass refid="classhmap_1_1ValueLinearNoiseFunction" prot="public">hmap::ValueLinearNoiseFunction</innerclass>
@@ -2320,6 +2325,38 @@
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/include/highmap/virtual_array/virtual_array.hpp" line="39" column="1" bodyfile="HighMap/include/highmap/virtual_array/virtual_array.hpp" bodystart="40" bodyend="45"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="namespacehmap_1ac00261d93d6b1d8099eabbc8505a9b89" prot="public" static="no">
+        <type><ref refid="classhmap_1_1ScatterItem" kindref="compound">ScatterItem</ref></type>
+        <definition>using hmap::Tree = typedef ScatterItem</definition>
+        <argsstring></argsstring>
+        <name>Tree</name>
+        <qualifiedname>hmap::Tree</qualifiedname>
+        <briefdescription>
+<para>Represents a single tree instance. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/flora/tree.hpp" line="21" column="1" bodyfile="HighMap/include/highmap/flora/tree.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehmap_1abe97158ceceff77924b22e1c24e3cda0" prot="public" static="no">
+        <type><ref refid="classhmap_1_1ScatterItem" kindref="compound">ScatterItem</ref></type>
+        <definition>using hmap::Rock = typedef ScatterItem</definition>
+        <argsstring></argsstring>
+        <name>Rock</name>
+        <qualifiedname>hmap::Rock</qualifiedname>
+        <briefdescription>
+<para>Represents a single rock or boulder instance. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/rocks/rock.hpp" line="21" column="1" bodyfile="HighMap/include/highmap/rocks/rock.hpp" bodystart="21" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="var">
@@ -25124,7 +25161,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/functions/noise_functions.cpp" line="344" column="17" bodyfile="HighMap/src/functions/noise_functions.cpp" bodystart="344" bodyend="389" declfile="HighMap/include/highmap/functions.hpp" declline="1820" declcolumn="17"/>
+        <location file="HighMap/src/functions/noise_functions.cpp" line="344" column="17" bodyfile="HighMap/src/functions/noise_functions.cpp" bodystart="344" bodyend="389" declfile="HighMap/include/highmap/functions.hpp" declline="1819" declcolumn="17"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2eb54fb6e51f35573926f9255bcd00e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -35295,7 +35332,7 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
           <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <briefdescription>
-<para>Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning <ref refid="classhmap_1_1Tree" kindref="compound">Tree</ref> (MST) over sinks and boundary outlets. </para>
+<para>Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning Tree (MST) over sinks and boundary outlets. </para>
         </briefdescription>
         <detaileddescription>
 <para>This function identifies all flow sinks and boundary outlets, computes candidate optimal path connections via multi-source Dijkstra search, constructs a Minimum Spanning <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> (Kruskal&apos;s algorithm) guaranteeing that each sink connects to an outlet through the lowest-effort saddle pass, and carves monotonic riverbeds along the MST paths using continuous trench profiles.</para>
@@ -59614,6 +59651,369 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </inbodydescription>
         <location file="HighMap/src/roads/alpha_model.cpp" line="25" column="7" bodyfile="HighMap/src/roads/alpha_model.cpp" bodystart="25" bodyend="177" declfile="HighMap/include/highmap/roads.hpp" declline="50" declcolumn="7"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a8c78151d9fea71bfaebb14a378e8ad81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
+        <definition>RockField hmap::seed_rock_field</definition>
+        <argsstring>(size_t rock_count, const Array &amp;density, const Array &amp;exclusion={}, const RockSeedingOptions &amp;options={})</argsstring>
+        <name>seed_rock_field</name>
+        <qualifiedname>hmap::seed_rock_field</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>rock_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>density</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1RockSeedingOptions" kindref="compound">RockSeedingOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Seeds a general rock/boulder field using inverse density transform sampling and applies power-law radius distribution and collision resolution. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rock_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target number of rocks. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Spatial probability density map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional exclusion map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seeding options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Sampled rock field. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/rocks/rock_seeding.cpp" line="21" column="11" bodyfile="HighMap/src/rocks/rock_seeding.cpp" bodystart="21" bodyend="47" declfile="HighMap/include/highmap/rocks/rock_seeding.hpp" declline="51" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a177eef2ab81da670c3ed6458f829def4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
+        <definition>RockField hmap::seed_scree_field</definition>
+        <argsstring>(size_t rock_count, const Array &amp;slope, const Array &amp;elevation={}, float sorting_strength=0.8f, const RockSeedingOptions &amp;options={})</argsstring>
+        <name>seed_scree_field</name>
+        <qualifiedname>hmap::seed_scree_field</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>rock_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>slope</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>elevation</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sorting_strength</declname>
+          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1RockSeedingOptions" kindref="compound">RockSeedingOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Seeds a scree/talus rock field along steep slopes, modulating rock density and sorting sizes gravitationally along the slope gradient. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rock_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target number of rocks. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>slope</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slope gradient array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>elevation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional elevation array to snap heights. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sorting_strength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Gravitational slope sorting strength [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seeding options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Sampled scree/talus field. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/rocks/rock_seeding.cpp" line="49" column="11" bodyfile="HighMap/src/rocks/rock_seeding.cpp" bodystart="49" bodyend="74" declfile="HighMap/include/highmap/rocks/rock_seeding.hpp" declline="67" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a61e1b066b8da6d1227758bbb40510548" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref></type>
+        <definition>ScatterField hmap::seed_scatter_clusters</definition>
+        <argsstring>(size_t class_count, size_t item_count, const Array &amp;density, const Array &amp;exclusion, float cluster_spread=0.05f, size_t points_per_cluster=8, const ScatterSeedingOptions &amp;options={})</argsstring>
+        <name>seed_scatter_clusters</name>
+        <qualifiedname>hmap::seed_scatter_clusters</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>class_count</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>item_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>density</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>cluster_spread</declname>
+          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>points_per_cluster</declname>
+          <defval>8</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ScatterSeedingOptions" kindref="compound">ScatterSeedingOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Generates a clustered scatter distribution using inverse transform sampling for cluster centers and local cluster regions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>class_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of distinct classes/categories. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>item_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target total number of items. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Global density map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exclusion map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cluster_spread</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Half-extent of the bounding box surrounding each cluster center. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>points_per_cluster</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of child points sampled per parent cluster. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seeding options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref> Sampled scatter field container. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/scatter/scatter_seeding.cpp" line="26" column="14" bodyfile="HighMap/src/scatter/scatter_seeding.cpp" bodystart="26" bodyend="148" declfile="HighMap/include/highmap/scatter/scatter_seeding.hpp" declline="58" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a51e492fb8f06ce5b1ed0759d2e50d5d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref></type>
+        <definition>ScatterField hmap::seed_scatter_kmeans</definition>
+        <argsstring>(size_t class_count, size_t item_count, const Array &amp;density, const Array &amp;exclusion, float cluster_randomness=0.0f, size_t k_neighbors=4, const ScatterSeedingOptions &amp;options={})</argsstring>
+        <name>seed_scatter_kmeans</name>
+        <qualifiedname>hmap::seed_scatter_kmeans</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>class_count</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>item_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>density</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>cluster_randomness</declname>
+          <defval>0.0f</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>k_neighbors</declname>
+          <defval>4</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ScatterSeedingOptions" kindref="compound">ScatterSeedingOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Generates a multi-class scatter distribution using 2D inverse transform sampling for positions and PointSampler k-means clustering to tag classes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>class_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of distinct item classes. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>item_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target total number of items. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Global density map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exclusion map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cluster_randomness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Randomness factor in [0, 1] added to cluster features. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>k_neighbors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of nearest spatial neighbors used to extract compactness features. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seeding options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref> Sampled scatter field container. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/scatter/scatter_seeding.cpp" line="150" column="14" bodyfile="HighMap/src/scatter/scatter_seeding.cpp" bodystart="150" bodyend="294" declfile="HighMap/include/highmap/scatter/scatter_seeding.hpp" declline="82" declcolumn="14"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a765ffa5ee98f47eba4b9d4ebe7680190" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::sdf_2d_polyline</definition>
@@ -61332,6 +61732,77 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </inbodydescription>
         <location file="HighMap/src/selector/selector.cpp" line="352" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="352" bodyend="367" declfile="HighMap/include/highmap/selector.hpp" declline="414" declcolumn="7"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1afb9a43596fc6c1ac725b503904a82623" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::select_range</definition>
+        <argsstring>(const Array &amp;array, float vmin, float vmax, float width)</argsstring>
+        <name>select_range</name>
+        <qualifiedname>hmap::select_range</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>array</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>vmin</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>vmax</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>width</declname>
+        </param>
+        <briefdescription>
+<para>Return a selection mask for a value range [vmin, vmax] with smooth transitions of specified width at both ends. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The output value is 1.0 inside [vmin, vmax], 0.0 outside [vmin - width, vmax<itemizedlist>
+<listitem><para>width], and smoothly transitions using smoothstep (threshold_smooth) between 0 and 1.</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vmin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower range bound. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vmax</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Upper range bound. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Transition width at the boundaries. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> Output mask with values in [0, 1]. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/selector/selector.cpp" line="369" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="369" bodyend="400" declfile="HighMap/include/highmap/selector.hpp" declline="430" declcolumn="7"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a1f35e2238ee222ab2aa87304f6692ce6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::select_rivers</definition>
@@ -61406,7 +61877,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="369" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="369" bodyend="382" declfile="HighMap/include/highmap/selector.hpp" declline="432" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="402" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="402" bodyend="415" declfile="HighMap/include/highmap/selector.hpp" declline="448" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac6dcaa05c7c34302fa2560ddedbb9931" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -61502,7 +61973,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="384" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="384" bodyend="447" declfile="HighMap/include/highmap/selector.hpp" declline="451" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="417" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="417" bodyend="480" declfile="HighMap/include/highmap/selector.hpp" declline="467" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac72cb684be1045c7f2a5c8941f905772" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -61529,7 +62000,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="449" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="449" bodyend="457" declfile="HighMap/include/highmap/selector.hpp" declline="455" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="482" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="482" bodyend="490" declfile="HighMap/include/highmap/selector.hpp" declline="471" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a11a2a1f3cd9295fd38e05e61819b06fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -61573,7 +62044,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="459" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="459" bodyend="481" declfile="HighMap/include/highmap/selector.hpp" declline="470" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="492" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="492" bodyend="514" declfile="HighMap/include/highmap/selector.hpp" declline="486" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1acbc412801dcbcce77b0e60b219dc946a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -70813,24 +71284,6 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </inbodydescription>
         <location file="HighMap/src/filters/recurve.cpp" line="98" column="6" bodyfile="HighMap/src/filters/recurve.cpp" bodystart="98" bodyend="104"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a8301a829dbf30fe0fefecbc46019433e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>cv::Scalar</type>
-        <definition>static cv::Scalar hmap::get_species_color</definition>
-        <argsstring>(uint32_t species_id)</argsstring>
-        <name>get_species_color</name>
-        <qualifiedname>hmap::get_species_color</qualifiedname>
-        <param>
-          <type>uint32_t</type>
-          <declname>species_id</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/flora/forest.cpp" line="30" column="19" bodyfile="HighMap/src/flora/forest.cpp" bodystart="30" bodyend="53"/>
-      </memberdef>
       <memberdef kind="function" id="namespacehmap_1acb8406087111cf178e5721b45b995db4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
         <definition>Path hmap::helper_build_path</definition>
@@ -71245,6 +71698,24 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/src/primitives/geo/crater.cpp" line="18" column="7" bodyfile="HighMap/src/primitives/geo/crater.cpp" bodystart="18" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ac1c18c8a45119cc1d8bfa4daf4d35c06" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cv::Scalar</type>
+        <definition>static cv::Scalar hmap::get_scatter_class_color</definition>
+        <argsstring>(uint32_t class_id)</argsstring>
+        <name>get_scatter_class_color</name>
+        <qualifiedname>hmap::get_scatter_class_color</qualifiedname>
+        <param>
+          <type>uint32_t</type>
+          <declname>class_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/scatter/scatter_field.cpp" line="34" column="19" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="34" bodyend="57"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aed9491c87a175e07ff614dfa3ad8b4f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Point" kindref="compound">Point</ref></type>

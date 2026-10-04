@@ -74,7 +74,34 @@
 <codeline></codeline>
 <codeline><highlight class="normal"><sp/><sp/>-<sp/>\ref<sp/>hmap.Path<sp/>for<sp/>set<sp/>of<sp/>ordered<sp/>points<sp/>(i.e.<sp/>open<sp/>or<sp/>closed<sp/>polylines),</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal"><sp/><sp/>-<sp/>\ref<sp/>hmap.Graph.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>\ref<sp/>hmap.Graph,</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>object<sp/>scattering<sp/>and<sp/>placement,</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>\ref<sp/>hmap.ScatterItem<sp/>and<sp/>\ref<sp/>hmap.ScatterField<sp/>for<sp/>generic<sp/>2D/3D<sp/>object<sp/>scattering<sp/>with<sp/>spatial<sp/>queries<sp/>and<sp/>classification,</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>\ref<sp/>hmap.Tree<sp/>and<sp/>\ref<sp/>hmap.Forest<sp/>for<sp/>botanical<sp/>vegetation<sp/>modeling<sp/>and<sp/>multi-species<sp/>growth<sp/>simulations,</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>\ref<sp/>hmap.Rock<sp/>and<sp/>\ref<sp/>hmap.RockField<sp/>for<sp/>geomorphological<sp/>rock<sp/>placement,<sp/>scree<sp/>fields,<sp/>and<sp/>talus<sp/>slopes.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Uniform<sp/>Scatter<sp/>Design</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">HighMap<sp/>provides<sp/>a<sp/>unified<sp/>architecture<sp/>for<sp/>scattering<sp/>entities<sp/>across<sp/>terrain<sp/>(vegetation,<sp/>boulders,<sp/>debris,<sp/>buildings,<sp/>etc.).<sp/>All<sp/>scattered<sp/>entities<sp/>share<sp/>the<sp/>same<sp/>lightweight<sp/>item<sp/>representation<sp/>and<sp/>container<sp/>interface,<sp/>while<sp/>domain-specific<sp/>behaviors<sp/>(biological<sp/>growth<sp/>vs.<sp/>gravitational<sp/>slope<sp/>sorting)<sp/>are<sp/>encapsulated<sp/>in<sp/>dedicated<sp/>modules<sp/>and<sp/>descriptors.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>Level<sp/>|<sp/>Flora<sp/>|<sp/>Rocks<sp/>|<sp/>General<sp/>Scatter<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>:---<sp/>|<sp/>:---<sp/>|<sp/>:---<sp/>|<sp/>:---<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Descriptor<sp/>Struct**<sp/>|<sp/>`Species`<sp/>(`id`,<sp/>`radius`,<sp/>`weight`,<sp/>...)<sp/>|<sp/>`RockDistribution`<sp/>(`class_id`,<sp/>`radius_min`,<sp/>`radius_max`,<sp/>...)<sp/>|<sp/>Generic<sp/>seeding<sp/>options<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Item**<sp/>|<sp/>`Tree<sp/>=<sp/>ScatterItem`<sp/>(`position`,<sp/>`class_id`,<sp/>`radius`)<sp/>|<sp/>`Rock<sp/>=<sp/>ScatterItem`<sp/>(`position`,<sp/>`class_id`,<sp/>`radius`)<sp/>|<sp/>`ScatterItem`<sp/>(`position`,<sp/>`class_id`,<sp/>`radius`)<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Container**<sp/>|<sp/>`Forest<sp/>:<sp/>public<sp/>ScatterField`<sp/>|<sp/>`RockField<sp/>:<sp/>public<sp/>ScatterField`<sp/>|<sp/>`ScatterField`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Queries<sp/>/<sp/>Filtering**<sp/>|<sp/>`forest.filter_by_class(id)`&lt;br&gt;`forest.get_class_ids()`<sp/>|<sp/>`rocks.filter_by_class(id)`&lt;br&gt;`rocks.get_class_ids()`<sp/>|<sp/>`scatter.filter_by_class(id)`&lt;br&gt;`scatter.get_class_ids()`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Domain<sp/>Operations**<sp/>|<sp/>Multi-species<sp/>growth<sp/>simulations<sp/>(`grow_forest_*`),<sp/>canopy<sp/>competition,<sp/>crown<sp/>overlaps<sp/>|<sp/>Pareto<sp/>power-law<sp/>radius<sp/>sampling,<sp/>gravitational<sp/>slope<sp/>sorting,<sp/>interstitial<sp/>pebble<sp/>packing<sp/>|<sp/>Spatial<sp/>collision<sp/>pruning,<sp/>density<sp/>map<sp/>projection,<sp/>Delaunay<sp/>densification,<sp/>terrain<sp/>elevation<sp/>projection<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">####<sp/>Design<sp/>Principles</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>**Uniform<sp/>Data<sp/>Model**:<sp/>Every<sp/>scattered<sp/>entity<sp/>is<sp/>represented<sp/>by<sp/>\ref<sp/>hmap::ScatterItem<sp/>containing<sp/>`position`<sp/>(`glm::vec3`),<sp/>`class_id`<sp/>(`uint32_t`),<sp/>and<sp/>`radius`<sp/>(`float`).</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>**Consistent<sp/>Container<sp/>Interface**:<sp/>\ref<sp/>hmap::ScatterField<sp/>provides<sp/>generic<sp/>operations<sp/>such<sp/>as<sp/>collision<sp/>pruning<sp/>(`prune_collisions`),<sp/>Delaunay<sp/>densification<sp/>(`densify`),<sp/>density<sp/>rasterization<sp/>(`to_density_map`),<sp/>terrain<sp/>elevation<sp/>snapping<sp/>(`set_elevation_from_terrain`),<sp/>and<sp/>classification<sp/>filtering<sp/>(`filter_by_class`,<sp/>`get_class_ids`).</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>**Domain<sp/>Descriptors**:<sp/>Specialized<sp/>classes<sp/>like<sp/>`Species`<sp/>retain<sp/>biological<sp/>and<sp/>ecological<sp/>definitions<sp/>(growth<sp/>rates,<sp/>shade<sp/>tolerance,<sp/>collision<sp/>profiles),<sp/>while<sp/>`RockDistribution`<sp/>defines<sp/>geomorphological<sp/>parameters<sp/>(Pareto<sp/>power-law<sp/>alpha,<sp/>embed<sp/>ratios).<sp/>Seeding<sp/>and<sp/>growth<sp/>algorithms<sp/>use<sp/>these<sp/>descriptors<sp/>to<sp/>populate<sp/>fields<sp/>tagged<sp/>with<sp/>the<sp/>corresponding<sp/>`class_id`.</highlight></codeline>
+<codeline></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">###<sp/>&quot;Array&quot;<sp/>-<sp/>Elementary<sp/>Data<sp/>Structure<sp/>for<sp/>Building<sp/>Heightmaps</highlight></codeline>
 <codeline></codeline>

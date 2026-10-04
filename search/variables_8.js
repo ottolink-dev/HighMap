@@ -13,7 +13,8 @@ var searchData=
   ['inv_5flen_5fsq_10',['inv_len_sq',['../trench_8cpp.html#a50c527e2d6a8abf7f919c04d17659ad5',1,'trench.cpp']]],
   ['ir_11',['ir',['../sls__deformation_8cpp.html#a108a1d0fcea4288c9e48f5dc4fa0a1b0',1,'ir:&#160;sls_deformation.cpp'],['../structhmap_1_1GaussianPush.html#ab175ce3efeb574ba75f9d7e3f75c7b3a',1,'hmap::GaussianPush::ir']]],
   ['is_5fopen_12',['is_open',['../structhmap_1_1OpenEXRWriter_1_1Impl.html#a8c7de7055e5343eb5ab2b52e7bc879e8',1,'hmap::OpenEXRWriter::Impl::is_open'],['../structhmap_1_1OpenCVWriter_1_1Impl.html#afba9923621eff69551906737916f0924',1,'hmap::OpenCVWriter::Impl::is_open'],['../structhmap_1_1BigTiffWriter_1_1Impl.html#aacf4c1d9e3c003bc403ae356c837576f',1,'hmap::BigTiffWriter::Impl::is_open']]],
-  ['iters0_13',['iters0',['../structhmap_1_1MiseParams.html#a9ad49abe9a33315a61f5424e3a4ab52e',1,'hmap::MiseParams']]],
-  ['iters_5fdecay_14',['iters_decay',['../structhmap_1_1MiseParams.html#ae1ba6d69d13230162b42e80d8b23ec11',1,'hmap::MiseParams']]],
-  ['iters_5fmin_15',['iters_min',['../structhmap_1_1MiseParams.html#a4a003fe7c81ee8e9a98403d5d97287f2',1,'hmap::MiseParams']]]
+  ['items_13',['items',['../classhmap_1_1ScatterField.html#aeb89e13a2a22fc06a08bc02e0fdcaa61',1,'hmap::ScatterField']]],
+  ['iters0_14',['iters0',['../structhmap_1_1MiseParams.html#a9ad49abe9a33315a61f5424e3a4ab52e',1,'hmap::MiseParams']]],
+  ['iters_5fdecay_15',['iters_decay',['../structhmap_1_1MiseParams.html#ae1ba6d69d13230162b42e80d8b23ec11',1,'hmap::MiseParams']]],
+  ['iters_5fmin_16',['iters_min',['../structhmap_1_1MiseParams.html#a4a003fe7c81ee8e9a98403d5d97287f2',1,'hmap::MiseParams']]]
 ];

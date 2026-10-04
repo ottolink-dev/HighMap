@@ -21,6 +21,7 @@ var selector_8hpp =
     [ "select_multiband3", "selector_8hpp.html#a6ee46e297f2d253660bfe461b9321fe2", null ],
     [ "select_multiband3", "selector_8hpp.html#a3ce44e59b5eeb5c47a597f893f53eadb", null ],
     [ "select_pulse", "selector_8hpp.html#a183508644aea6442e249cfc2973fef97", null ],
+    [ "select_range", "selector_8hpp.html#afb9a43596fc6c1ac725b503904a82623", null ],
     [ "select_rivers", "selector_8hpp.html#a1f35e2238ee222ab2aa87304f6692ce6", null ],
     [ "select_transitions", "selector_8hpp.html#ac6dcaa05c7c34302fa2560ddedbb9931", null ],
     [ "select_valley", "selector_8hpp.html#ac72cb684be1045c7f2a5c8941f905772", null ],

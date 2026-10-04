@@ -69,7 +69,7 @@ class \mbox{\hyperlink{classhmap_1_1FbmSwissFunction}{Fbm\+Swiss\+Function}}
 class \mbox{\hyperlink{classhmap_1_1FieldFunction}{Field\+Function}}
 \begin{DoxyCompactList}\small\item\em Field function class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}
-\begin{DoxyCompactList}\small\item\em Container class representing a collection of \doxylink{classhmap_1_1Tree}{Tree} instances. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Container class representing a collection of Tree instances. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1ForestScaleSampler}{Forest\+Scale\+Sampler}}
 \begin{DoxyCompactList}\small\item\em Helper for sampling spatial scaling maps over a 2D bounding box with blending. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{Forest\+Seeding\+Options}}
@@ -152,6 +152,18 @@ class \mbox{\hyperlink{classhmap_1_1RectangleFunction}{Rectangle\+Function}}
 \begin{DoxyCompactList}\small\item\em \doxylink{classhmap_1_1RectangleFunction}{Rectangle\+Function} (x, y) function class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1RiftFunction}{Rift\+Function}}
 \begin{DoxyCompactList}\small\item\em Rift (x, y) function class. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhmap_1_1RockDistribution}{Rock\+Distribution}}
+\begin{DoxyCompactList}\small\item\em Parameters defining the size, power-\/law scaling, and embedding traits of rocks. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}}
+\begin{DoxyCompactList}\small\item\em Container class representing a field of rocks/boulders (scree, talus, or boulder field). \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhmap_1_1RockSeedingOptions}{Rock\+Seeding\+Options}}
+\begin{DoxyCompactList}\small\item\em Configuration parameters for rock field seeding algorithms. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}}
+\begin{DoxyCompactList}\small\item\em Container and processor for spatial \doxylink{classhmap_1_1ScatterItem}{Scatter\+Item} collections. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}}
+\begin{DoxyCompactList}\small\item\em Represents a single spatial instance (tree, rock, prop) with position, class identifier, and radius. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhmap_1_1ScatterSeedingOptions}{Scatter\+Seeding\+Options}}
+\begin{DoxyCompactList}\small\item\em Configuration parameters for scatter seeding algorithms. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1ScopedTimer}{Scoped\+Timer}}
 \item 
 class \mbox{\hyperlink{classhmap_1_1Simplex2Function}{Simplex2\+Function}}
@@ -180,8 +192,6 @@ class \mbox{\hyperlink{classhmap_1_1TileStorage}{Tile\+Storage}}
 \item 
 class \mbox{\hyperlink{classhmap_1_1Timer}{Timer}}
 \begin{DoxyCompactList}\small\item\em The \doxylink{classhmap_1_1Timer}{Timer} class is a singleton that manages multiple Recorders and provides an interface for timing events. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classhmap_1_1Tree}{Tree}}
-\begin{DoxyCompactList}\small\item\em Represents a single tree instance with position, species mark, and radius. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1ValueCubicNoiseFunction}{Value\+Cubic\+Noise\+Function}}
 \begin{DoxyCompactList}\small\item\em Value Cubic noise (x, y) function class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1ValueDelaunayNoiseFunction}{Value\+Delaunay\+Noise\+Function}}
@@ -210,6 +220,13 @@ class \mbox{\hyperlink{classhmap_1_1WorleyFunction}{Worley\+Function}}
 \begin{DoxyCompactList}\small\item\em Worley (x, y) function class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1XyControlFunction}{Xy\+Control\+Function}}
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacehmap_ac00261d93d6b1d8099eabbc8505a9b89}{Tree}} = \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}}
+\begin{DoxyCompactList}\small\item\em Represents a single tree instance. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{namespacehmap_abe97158ceceff77924b22e1c24e3cda0}{Rock}} = \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}}
+\begin{DoxyCompactList}\small\item\em Represents a single rock or boulder instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
@@ -1325,7 +1342,7 @@ std\+::vector$<$ float $>$ \mbox{\hyperlink{namespacehmap_aa84fc9cbd0704c16abf21
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a62e937a8e394092689481bb392bc15cf}{flow\+\_\+fixing\+\_\+drainage\+\_\+basin}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}, \mbox{\hyperlink{namespacehmap_a0c714c7fa78e9384806de52a5d039f2f}{Flow\+Direction\+Method}} fd\+\_\+method=\mbox{\hyperlink{namespacehmap_a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894}{Flow\+Direction\+Method\+::\+FDM\+\_\+\+D8}}, float riverbed\+\_\+talus=1e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int iterations=3, bool \mbox{\hyperlink{namespacehmap_a70e5aa1009c3de1d301e0a8994dd8b03}{carve\+\_\+riverbed}}=false, float talus\+\_\+riverbank=0.\+01\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float merging\+\_\+distance=8.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, std\+::uint32\+\_\+t seed=0, float noise\+\_\+strength=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr)
 \begin{DoxyCompactList}\small\item\em Fixes flow paths and unwanted upslopes using a cell-\/based drainage basin tree network and elevation updates. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a20cb460ecf96e4608610b5ab9fe8f1b0}{flow\+\_\+fixing\+\_\+mst}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}, float riverbed\+\_\+talus=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float elevation\+\_\+ratio=0.\+95\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float distance\+\_\+exponent=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float upward\+\_\+penalization=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float valley\+\_\+affinity=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int prefilter\+\_\+ir=8, float minimum\+\_\+depth=1e-\/4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, bool \mbox{\hyperlink{namespacehmap_a70e5aa1009c3de1d301e0a8994dd8b03}{carve\+\_\+riverbed}}=true, float merging\+\_\+distance=8.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, \mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90}{Radial\+Profile}} radial\+\_\+profile=\mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90acedc11502bd1441e893fdc5a699b6d59}{Radial\+Profile\+::\+RP\+\_\+\+SMOOTHSTEP\+\_\+\+UPPER}}, float radial\+\_\+profile\+\_\+parameter=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+r=nullptr, bool use\+\_\+midpoint=false, float offset\+\_\+ratio=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
-\begin{DoxyCompactList}\small\item\em Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning \doxylink{classhmap_1_1Tree}{Tree} (MST) over sinks and boundary outlets. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning Tree (MST) over sinks and boundary outlets. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Path}{Path}} \mbox{\hyperlink{namespacehmap_a948b4703486f175cd2681bd9bc7b5a88}{flow\+\_\+stream}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}, const glm\+::ivec2 ij\+\_\+start, const float elevation\+\_\+ratio=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const float distance\+\_\+exponent=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const float upward\+\_\+penalization=100.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Computes the optimal flow path from a starting point to the boundary of a given elevation array. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a30d55fae5c75a1c45a005a3f9a9467eb}{generate\+\_\+riverbed}} (const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&path, glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, bool bezier\+\_\+smoothing=false, float depth\+\_\+start=0.\+01\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float depth\+\_\+end=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float slope\+\_\+start=64.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float slope\+\_\+end=32.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float shape\+\_\+exponent\+\_\+start=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float shape\+\_\+exponent\+\_\+end=10.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float k\+\_\+smoothing=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int post\+\_\+filter\+\_\+ir=0, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+r=nullptr)
@@ -1928,6 +1945,14 @@ void \mbox{\hyperlink{namespacehmap_ac126773f7c7af2364cfb4d7a6922ed96}{rescale}}
 \begin{DoxyCompactList}\small\item\em Remap array elements from a starting range to a target range. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Graph}{Graph}} \mbox{\hyperlink{namespacehmap_a286e4e74e6495802dba7f873c06ccb20}{generate\+\_\+network\+\_\+alpha\+\_\+model}} (const std\+::vector$<$ float $>$ \&xc, const std\+::vector$<$ float $>$ \&yc, const std\+::vector$<$ float $>$ \&size, glm\+::vec4 bbox, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}, std\+::uint32\+\_\+t seed, float alpha=0.\+7\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int n\+\_\+dummy\+\_\+nodes=2500, float dz\+\_\+weight=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+weight=nullptr)
 \begin{DoxyCompactList}\small\item\em Generate a large scale road network between "{}nodes"{} (or cities) using the alpha model. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} \mbox{\hyperlink{namespacehmap_a8c78151d9fea71bfaebb14a378e8ad81}{seed\+\_\+rock\+\_\+field}} (size\+\_\+t rock\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exclusion=\{\}, const \mbox{\hyperlink{structhmap_1_1RockSeedingOptions}{Rock\+Seeding\+Options}} \&options=\{\})
+\begin{DoxyCompactList}\small\item\em Seeds a general rock/boulder field using inverse density transform sampling and applies power-\/law radius distribution and collision resolution. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} \mbox{\hyperlink{namespacehmap_a177eef2ab81da670c3ed6458f829def4}{seed\+\_\+scree\+\_\+field}} (size\+\_\+t rock\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{namespacehmap_a04e7abe100708990e2464cc5df2ccafa}{slope}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&elevation=\{\}, float sorting\+\_\+strength=0.\+8\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{structhmap_1_1RockSeedingOptions}{Rock\+Seeding\+Options}} \&options=\{\})
+\begin{DoxyCompactList}\small\item\em Seeds a scree/talus rock field along steep slopes, modulating rock density and sorting sizes gravitationally along the slope gradient. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \mbox{\hyperlink{namespacehmap_a61e1b066b8da6d1227758bbb40510548}{seed\+\_\+scatter\+\_\+clusters}} (size\+\_\+t class\+\_\+count, size\+\_\+t item\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exclusion, float cluster\+\_\+spread=0.\+05\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t points\+\_\+per\+\_\+cluster=8, const \mbox{\hyperlink{structhmap_1_1ScatterSeedingOptions}{Scatter\+Seeding\+Options}} \&options=\{\})
+\begin{DoxyCompactList}\small\item\em Generates a clustered scatter distribution using inverse transform sampling for cluster centers and local cluster regions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \mbox{\hyperlink{namespacehmap_a51e492fb8f06ce5b1ed0759d2e50d5d4}{seed\+\_\+scatter\+\_\+kmeans}} (size\+\_\+t class\+\_\+count, size\+\_\+t item\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exclusion, float cluster\+\_\+randomness=0.\+0f, size\+\_\+t k\+\_\+neighbors=4, const \mbox{\hyperlink{structhmap_1_1ScatterSeedingOptions}{Scatter\+Seeding\+Options}} \&options=\{\})
+\begin{DoxyCompactList}\small\item\em Generates a multi-\/class scatter distribution using 2D inverse transform sampling for positions and Point\+Sampler k-\/means clustering to tag classes. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a765ffa5ee98f47eba4b9d4ebe7680190}{sdf\+\_\+2d\+\_\+polyline}} (const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&path, glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr)
 \begin{DoxyCompactList}\small\item\em Computes the signed distance field (SDF) of a 2D polyline. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a93d9f75a0af0e7e76e77851efd36c804}{sdf\+\_\+2d\+\_\+polyline\+\_\+bezier}} (const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&path, glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr)
@@ -1974,6 +1999,8 @@ void \mbox{\hyperlink{namespacehmap_a3ce44e59b5eeb5c47a597f893f53eadb}{select\+\
 \begin{DoxyCompactList}\small\item\em Splits the input array into three bands (low, mid, and high) based on given ratios and overlap. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a183508644aea6442e249cfc2973fef97}{select\+\_\+pulse}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float value, float sigma)
 \begin{DoxyCompactList}\small\item\em Return an array filled with non-\/zero values where the input is in the interval \mbox{[}value -\/ sigma, value + sigma\mbox{]}. Output array values have a cubic pulse distribution within this interval. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_afb9a43596fc6c1ac725b503904a82623}{select\+\_\+range}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float vmin, float vmax, float width)
+\begin{DoxyCompactList}\small\item\em Return a selection mask for a value range \mbox{[}vmin, vmax\mbox{]} with smooth transitions of specified width at both ends. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a1f35e2238ee222ab2aa87304f6692ce6}{select\+\_\+rivers}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float talus\+\_\+ref, float clipping\+\_\+ratio)
 \begin{DoxyCompactList}\small\item\em Return an array filled with a criterion based on the occurence of a river bed. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_ac6dcaa05c7c34302fa2560ddedbb9931}{select\+\_\+transitions}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array1, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array2, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array\+\_\+blend)
@@ -2248,6 +2275,29 @@ void \mbox{\hyperlink{namespacehmap_ac1fdc0ac0b6e1024faeaddcd30ebe2fe}{reindex\+
 \item 
 void \mbox{\hyperlink{namespacehmap_a5cca080874e8af74fa03a3f0f0d2f307}{reindex\+\_\+vector}} (std\+::vector$<$ float $>$ \&v, std\+::vector$<$ size\+\_\+t $>$ \&idx)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{namespacehmap_ac00261d93d6b1d8099eabbc8505a9b89}\label{namespacehmap_ac00261d93d6b1d8099eabbc8505a9b89} 
+\index{hmap@{hmap}!Tree@{Tree}}
+\index{Tree@{Tree}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{Tree}{Tree}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacehmap_ac00261d93d6b1d8099eabbc8505a9b89}{hmap\+::\+Tree}} = typedef \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}}}
+
+
+
+Represents a single tree instance. 
+
+\Hypertarget{namespacehmap_abe97158ceceff77924b22e1c24e3cda0}\label{namespacehmap_abe97158ceceff77924b22e1c24e3cda0} 
+\index{hmap@{hmap}!Rock@{Rock}}
+\index{Rock@{Rock}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{Rock}{Rock}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacehmap_abe97158ceceff77924b22e1c24e3cda0}{hmap\+::\+Rock}} = typedef \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}}}
+
+
+
+Represents a single rock or boulder instance. 
+
 
 
 \doxysubsection{Enumeration Type Documentation}
@@ -20240,7 +20290,7 @@ This function constructs a stream tree network on the heightmap, resolves intern
 
 
 
-Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning \doxylink{classhmap_1_1Tree}{Tree} (MST) over sinks and boundary outlets. 
+Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning Tree (MST) over sinks and boundary outlets. 
 
 This function identifies all flow sinks and boundary outlets, computes candidate optimal path connections via multi-\/source Dijkstra search, constructs a Minimum Spanning \doxylink{classhmap_1_1Forest}{Forest} (Kruskal\textquotesingle{}s algorithm) guaranteeing that each sink connects to an outlet through the lowest-\/effort saddle pass, and carves monotonic riverbeds along the MST paths using continuous trench profiles.
 
@@ -32125,7 +32175,117 @@ Based on the paper of Molinero et al. {\bfseries [Molinero2020]}.
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}    \Hypertarget{namespacehmap_a765ffa5ee98f47eba4b9d4ebe7680190}\label{namespacehmap_a765ffa5ee98f47eba4b9d4ebe7680190} 
+{\bfseries{Result}}    \Hypertarget{namespacehmap_a8c78151d9fea71bfaebb14a378e8ad81}\label{namespacehmap_a8c78151d9fea71bfaebb14a378e8ad81} 
+\index{hmap@{hmap}!seed\_rock\_field@{seed\_rock\_field}}
+\index{seed\_rock\_field@{seed\_rock\_field}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{seed\_rock\_field()}{seed\_rock\_field()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} hmap\+::seed\+\_\+rock\+\_\+field (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{rock\+\_\+count,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{density,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{exclusion = {\ttfamily \{\}},  }\item[{const \mbox{\hyperlink{structhmap_1_1RockSeedingOptions}{Rock\+Seeding\+Options}} \&}]{options = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Seeds a general rock/boulder field using inverse density transform sampling and applies power-\/law radius distribution and collision resolution. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rock\+\_\+count} & Target number of rocks. \\
+\hline
+{\em density} & Spatial probability density map array. \\
+\hline
+{\em exclusion} & Optional exclusion map array. \\
+\hline
+{\em options} & Seeding options. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1RockField}{Rock\+Field} Sampled rock field. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a177eef2ab81da670c3ed6458f829def4}\label{namespacehmap_a177eef2ab81da670c3ed6458f829def4} 
+\index{hmap@{hmap}!seed\_scree\_field@{seed\_scree\_field}}
+\index{seed\_scree\_field@{seed\_scree\_field}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{seed\_scree\_field()}{seed\_scree\_field()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} hmap\+::seed\+\_\+scree\+\_\+field (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{rock\+\_\+count,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{slope,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{elevation = {\ttfamily \{\}},  }\item[{float}]{sorting\+\_\+strength = {\ttfamily 0.8\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{const \mbox{\hyperlink{structhmap_1_1RockSeedingOptions}{Rock\+Seeding\+Options}} \&}]{options = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Seeds a scree/talus rock field along steep slopes, modulating rock density and sorting sizes gravitationally along the slope gradient. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rock\+\_\+count} & Target number of rocks. \\
+\hline
+{\em slope} & Slope gradient array. \\
+\hline
+{\em elevation} & Optional elevation array to snap heights. \\
+\hline
+{\em sorting\+\_\+strength} & Gravitational slope sorting strength \mbox{[}0, 1\mbox{]}. \\
+\hline
+{\em options} & Seeding options. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1RockField}{Rock\+Field} Sampled scree/talus field. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a61e1b066b8da6d1227758bbb40510548}\label{namespacehmap_a61e1b066b8da6d1227758bbb40510548} 
+\index{hmap@{hmap}!seed\_scatter\_clusters@{seed\_scatter\_clusters}}
+\index{seed\_scatter\_clusters@{seed\_scatter\_clusters}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{seed\_scatter\_clusters()}{seed\_scatter\_clusters()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} hmap\+::seed\+\_\+scatter\+\_\+clusters (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{class\+\_\+count,  }\item[{size\+\_\+t}]{item\+\_\+count,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{density,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{exclusion,  }\item[{float}]{cluster\+\_\+spread = {\ttfamily 0.05\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{size\+\_\+t}]{points\+\_\+per\+\_\+cluster = {\ttfamily 8},  }\item[{const \mbox{\hyperlink{structhmap_1_1ScatterSeedingOptions}{Scatter\+Seeding\+Options}} \&}]{options = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Generates a clustered scatter distribution using inverse transform sampling for cluster centers and local cluster regions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+\_\+count} & Number of distinct classes/categories. \\
+\hline
+{\em item\+\_\+count} & Target total number of items. \\
+\hline
+{\em density} & Global density map array. \\
+\hline
+{\em exclusion} & Exclusion map array. \\
+\hline
+{\em cluster\+\_\+spread} & Half-\/extent of the bounding box surrounding each cluster center. \\
+\hline
+{\em points\+\_\+per\+\_\+cluster} & Number of child points sampled per parent cluster. \\
+\hline
+{\em options} & Seeding options. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1ScatterField}{Scatter\+Field} Sampled scatter field container. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a51e492fb8f06ce5b1ed0759d2e50d5d4}\label{namespacehmap_a51e492fb8f06ce5b1ed0759d2e50d5d4} 
+\index{hmap@{hmap}!seed\_scatter\_kmeans@{seed\_scatter\_kmeans}}
+\index{seed\_scatter\_kmeans@{seed\_scatter\_kmeans}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{seed\_scatter\_kmeans()}{seed\_scatter\_kmeans()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} hmap\+::seed\+\_\+scatter\+\_\+kmeans (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{class\+\_\+count,  }\item[{size\+\_\+t}]{item\+\_\+count,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{density,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{exclusion,  }\item[{float}]{cluster\+\_\+randomness = {\ttfamily 0.0f},  }\item[{size\+\_\+t}]{k\+\_\+neighbors = {\ttfamily 4},  }\item[{const \mbox{\hyperlink{structhmap_1_1ScatterSeedingOptions}{Scatter\+Seeding\+Options}} \&}]{options = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Generates a multi-\/class scatter distribution using 2D inverse transform sampling for positions and Point\+Sampler k-\/means clustering to tag classes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em class\+\_\+count} & Number of distinct item classes. \\
+\hline
+{\em item\+\_\+count} & Target total number of items. \\
+\hline
+{\em density} & Global density map array. \\
+\hline
+{\em exclusion} & Exclusion map array. \\
+\hline
+{\em cluster\+\_\+randomness} & Randomness factor in \mbox{[}0, 1\mbox{]} added to cluster features. \\
+\hline
+{\em k\+\_\+neighbors} & Number of nearest spatial neighbors used to extract compactness features. \\
+\hline
+{\em options} & Seeding options. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1ScatterField}{Scatter\+Field} Sampled scatter field container. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a765ffa5ee98f47eba4b9d4ebe7680190}\label{namespacehmap_a765ffa5ee98f47eba4b9d4ebe7680190} 
 \index{hmap@{hmap}!sdf\_2d\_polyline@{sdf\_2d\_polyline}}
 \index{sdf\_2d\_polyline@{sdf\_2d\_polyline}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{sdf\_2d\_polyline()}{sdf\_2d\_polyline()}}
@@ -33093,7 +33253,36 @@ Return an array filled with non-\/zero values where the input is in the interval
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a1f35e2238ee222ab2aa87304f6692ce6}\label{namespacehmap_a1f35e2238ee222ab2aa87304f6692ce6} 
+{\bfseries{Result}}  \Hypertarget{namespacehmap_afb9a43596fc6c1ac725b503904a82623}\label{namespacehmap_afb9a43596fc6c1ac725b503904a82623} 
+\index{hmap@{hmap}!select\_range@{select\_range}}
+\index{select\_range@{select\_range}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{select\_range()}{select\_range()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::select\+\_\+range (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array,  }\item[{float}]{vmin,  }\item[{float}]{vmax,  }\item[{float}]{width }\end{DoxyParamCaption})}
+
+
+
+Return a selection mask for a value range \mbox{[}vmin, vmax\mbox{]} with smooth transitions of specified width at both ends. 
+
+The output value is 1.\+0 inside \mbox{[}vmin, vmax\mbox{]}, 0.\+0 outside \mbox{[}vmin -\/ width, vmax
+\begin{DoxyItemize}
+\item width\mbox{]}, and smoothly transitions using smoothstep (threshold\+\_\+smooth) between 0 and 1.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & Input array. \\
+\hline
+{\em vmin} & Lower range bound. \\
+\hline
+{\em vmax} & Upper range bound. \\
+\hline
+{\em width} & Transition width at the boundaries. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Array}{Array} Output mask with values in \mbox{[}0, 1\mbox{]}. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a1f35e2238ee222ab2aa87304f6692ce6}\label{namespacehmap_a1f35e2238ee222ab2aa87304f6692ce6} 
 \index{hmap@{hmap}!select\_rivers@{select\_rivers}}
 \index{select\_rivers@{select\_rivers}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{select\_rivers()}{select\_rivers()}}

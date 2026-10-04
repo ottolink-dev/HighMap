@@ -134,30 +134,63 @@ Basic principle and data structure</h3>
 <li><a class="el" href="structhmap_1_1Edge.html">hmap::Edge</a>,</li>
 <li><a class="el" href="classhmap_1_1Cloud.html">hmap::Cloud</a> for set of points ,</li>
 <li><a class="el" href="classhmap_1_1Path.html">hmap::Path</a> for set of ordered points (i.e. open or closed polylines),</li>
-<li><a class="el" href="classhmap_1_1Graph.html">hmap::Graph</a>.</li>
+<li><a class="el" href="classhmap_1_1Graph.html">hmap::Graph</a>,</li>
+</ul>
+</li>
+<li>object scattering and placement,<ul>
+<li><a class="el" href="classhmap_1_1ScatterItem.html">hmap::ScatterItem</a> and <a class="el" href="classhmap_1_1ScatterField.html">hmap::ScatterField</a> for generic 2D/3D object scattering with spatial queries and classification,</li>
+<li><a class="el" href="namespacehmap.html#ac00261d93d6b1d8099eabbc8505a9b89">hmap::Tree</a> and <a class="el" href="classhmap_1_1Forest.html">hmap::Forest</a> for botanical vegetation modeling and multi-species growth simulations,</li>
+<li><a class="el" href="namespacehmap.html#abe97158ceceff77924b22e1c24e3cda0">hmap::Rock</a> and <a class="el" href="classhmap_1_1RockField.html">hmap::RockField</a> for geomorphological rock placement, scree fields, and talus slopes.</li>
 </ul>
 </li>
 </ul>
 <h3><a class="anchor" id="autotoc_md6"></a>
+Uniform Scatter Design</h3>
+<p>HighMap provides a unified architecture for scattering entities across terrain (vegetation, boulders, debris, buildings, etc.). All scattered entities share the same lightweight item representation and container interface, while domain-specific behaviors (biological growth vs. gravitational slope sorting) are encapsulated in dedicated modules and descriptors.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadLeft">Level   </th><th class="markdownTableHeadLeft">Flora   </th><th class="markdownTableHeadLeft">Rocks   </th><th class="markdownTableHeadLeft">General Scatter    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft"><b>Descriptor Struct</b>   </td><td class="markdownTableBodyLeft"><code>Species</code> (<code>id</code>, <code>radius</code>, <code>weight</code>, ...)   </td><td class="markdownTableBodyLeft"><code>RockDistribution</code> (<code>class_id</code>, <code>radius_min</code>, <code>radius_max</code>, ...)   </td><td class="markdownTableBodyLeft">Generic seeding options    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft"><b>Item</b>   </td><td class="markdownTableBodyLeft"><code>Tree = ScatterItem</code> (<code>position</code>, <code>class_id</code>, <code>radius</code>)   </td><td class="markdownTableBodyLeft"><code>Rock = ScatterItem</code> (<code>position</code>, <code>class_id</code>, <code>radius</code>)   </td><td class="markdownTableBodyLeft"><code>ScatterItem</code> (<code>position</code>, <code>class_id</code>, <code>radius</code>)    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft"><b>Container</b>   </td><td class="markdownTableBodyLeft"><code>Forest : public ScatterField</code>   </td><td class="markdownTableBodyLeft"><code>RockField : public ScatterField</code>   </td><td class="markdownTableBodyLeft"><code>ScatterField</code>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft"><b>Queries / Filtering</b>   </td><td class="markdownTableBodyLeft"><code>forest.filter_by_class(id)</code><br  />
+<code>forest.get_class_ids()</code>   </td><td class="markdownTableBodyLeft"><code>rocks.filter_by_class(id)</code><br  />
+<code>rocks.get_class_ids()</code>   </td><td class="markdownTableBodyLeft"><code>scatter.filter_by_class(id)</code><br  />
+<code>scatter.get_class_ids()</code>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft"><b>Domain Operations</b>   </td><td class="markdownTableBodyLeft">Multi-species growth simulations (<code>grow_forest_*</code>), canopy competition, crown overlaps   </td><td class="markdownTableBodyLeft">Pareto power-law radius sampling, gravitational slope sorting, interstitial pebble packing   </td><td class="markdownTableBodyLeft">Spatial collision pruning, density map projection, Delaunay densification, terrain elevation projection   </td></tr>
+</table>
+<h4><a class="anchor" id="autotoc_md7"></a>
+Design Principles</h4>
+<ol type="1">
+<li><b>Uniform Data Model</b>: Every scattered entity is represented by <a class="el" href="classhmap_1_1ScatterItem.html">hmap::ScatterItem</a> containing <code>position</code> (<code>glm::vec3</code>), <code>class_id</code> (<code>uint32_t</code>), and <code>radius</code> (<code>float</code>).</li>
+<li><b>Consistent Container Interface</b>: <a class="el" href="classhmap_1_1ScatterField.html">hmap::ScatterField</a> provides generic operations such as collision pruning (<code>prune_collisions</code>), Delaunay densification (<code>densify</code>), density rasterization (<code>to_density_map</code>), terrain elevation snapping (<code>set_elevation_from_terrain</code>), and classification filtering (<code>filter_by_class</code>, <code>get_class_ids</code>).</li>
+<li><b>Domain Descriptors</b>: Specialized classes like <code>Species</code> retain biological and ecological definitions (growth rates, shade tolerance, collision profiles), while <code>RockDistribution</code> defines geomorphological parameters (Pareto power-law alpha, embed ratios). Seeding and growth algorithms use these descriptors to populate fields tagged with the corresponding <code>class_id</code>.</li>
+</ol>
+<h3><a class="anchor" id="autotoc_md8"></a>
 "Array" - Elementary Data Structure for Building Heightmaps</h3>
 <p>The <code>Array</code> object is the fundamental class upon which the heightmap construction algorithms rely. A heightmap is a two-dimensional representation where each cell's value corresponds to a height or elevation at that point. An <code>Array</code> is simply a 2D array with dimensions defined by <code>shape</code> (length/width).</p>
 <p>Indexing is typically based on a pair of indices <code>(i, j)</code>. The cell at <code>(i=0, j=0)</code> is assumed to be at the bottom-left corner of the heightmap. This assumption is usually inconsequential, except when the heightmap needs to be aligned with specific spatial positions <code>(x, y)</code>. The conversion between indices <code>(i, j)</code> and spatial positions <code>(x, y)</code> depends on the heightmap's "bounding box," which is the spatial domain covered by the heightmap. By default, this bounding box is assumed to be a unit domain, meaning it spans a square of size 1 in both x and y directions.</p>
 <p>The values within the heightmap cells are generally within the range <code>[0, 1]</code>. While this range is not strictly enforced, some algorithms assume that the data adheres to this scale. It is always possible to use the <a class="el" href="namespacehmap.html#a262e6495cb2d02598f36a2b46114b2b4">hmap::remap</a> function to adjust the scale of the heightmap values to fit within the desired range.</p>
-<h3><a class="anchor" id="autotoc_md7"></a>
+<h3><a class="anchor" id="autotoc_md9"></a>
 Example usage</h3>
-<h4><a class="anchor" id="autotoc_md8"></a>
-Generate classical coherent noises (Perlin, Simplex, fractal layering, etc...)</h4>
-<h4><a class="anchor" id="autotoc_md9"></a>
-Filters</h4>
 <h4><a class="anchor" id="autotoc_md10"></a>
-Physical processes</h4>
+Generate classical coherent noises (Perlin, Simplex, fractal layering, etc...)</h4>
 <h4><a class="anchor" id="autotoc_md11"></a>
-Bivariate functions</h4>
-<h3><a class="anchor" id="autotoc_md12"></a>
-Exporting</h3>
+Filters</h4>
+<h4><a class="anchor" id="autotoc_md12"></a>
+Physical processes</h4>
 <h4><a class="anchor" id="autotoc_md13"></a>
+Bivariate functions</h4>
+<h3><a class="anchor" id="autotoc_md14"></a>
+Exporting</h3>
+<h4><a class="anchor" id="autotoc_md15"></a>
 Image formats (png, tiff, exr...)</h4>
-<h4><a class="anchor" id="autotoc_md14"></a>
+<h4><a class="anchor" id="autotoc_md16"></a>
 Numpy binary file</h4>
 <p>The library includes a function that enables exporting data to the NumPy binary format (.npy), facilitating integration with Python's NumPy library.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
@@ -195,13 +228,13 @@ Numpy binary file</h4>
 <div class="ttc" id="anamespacehmap_html_a7d699a468a18be16c70654958ee13b41"><div class="ttname"><a href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a></div><div class="ttdeci">Array noise_fbm(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:45</div></div>
 <div class="ttc" id="anamespacehmap_html_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581"><div class="ttname"><a href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::PERLIN</a></div><div class="ttdeci">@ PERLIN</div><div class="ttdoc">Perlin.</div><div class="ttdef"><b>Definition</b> functions.hpp:68</div></div>
 <div class="ttc" id="anamespacehmap_html_ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced"><div class="ttname"><a href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced">hmap::JET</a></div><div class="ttdeci">@ JET</div><div class="ttdef"><b>Definition</b> colormaps.hpp:88</div></div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md15"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md17"></a>
 Raw binary file</h4>
-<h4><a class="anchor" id="autotoc_md16"></a>
+<h4><a class="anchor" id="autotoc_md18"></a>
 Asset export (3D mesh and texture)</h4>
 <p><a class="el" href="namespacehmap.html#ac3d35efc6e5b596f508e2b17a5aa871b" title="Enumeration for asset export formats supported by Assimp.">hmap::AssetExportFormat</a></p>
 <p><a class="el" href="namespacehmap.html#ac81a92060b89699c4eb9826495d87250" title="Enumeration for different mesh types.">hmap::MeshType</a></p>
-<h2><a class="anchor" id="autotoc_md17"></a>
+<h2><a class="anchor" id="autotoc_md19"></a>
 Library functionalities</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">

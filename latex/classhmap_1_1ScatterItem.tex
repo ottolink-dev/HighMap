@@ -1,0 +1,239 @@
+\doxysection{hmap\+::Scatter\+Item Class Reference}
+\hypertarget{classhmap_1_1ScatterItem}{}\label{classhmap_1_1ScatterItem}\index{hmap::ScatterItem@{hmap::ScatterItem}}
+
+
+Represents a single spatial instance (tree, rock, prop) with position, class identifier, and radius.  
+
+
+
+
+{\ttfamily \#include $<$scatter\+\_\+item.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classhmap_1_1ScatterItem_a7081712caf9a09461c01b08f13be5408}{Scatter\+Item}} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor initializing item at origin. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1ScatterItem_a1be65b09a6dd715f2a6c4101c6295acb}{Scatter\+Item}} (const glm\+::vec3 \&\mbox{\hyperlink{classhmap_1_1ScatterItem_a06e26e80e8403b235906da165ff5b74e}{position}}, uint32\+\_\+t \mbox{\hyperlink{classhmap_1_1ScatterItem_acb2a7deaaf83ef31844de9221b3f86dd}{class\+\_\+id}}=0, float \mbox{\hyperlink{classhmap_1_1ScatterItem_a361256b8cf58d145198a3bf459e698ae}{radius}}=HMAP\+\_\+\+DEFAULT\+\_\+\+SCATTER\+\_\+\+RADIUS)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classhmap_1_1ScatterItem}{Scatter\+Item} from 3D position, class\+\_\+id, and radius. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1ScatterItem_a714ba12ff0ce5412fbcd3ece5e362aef}{Scatter\+Item}} (const glm\+::vec2 \&position\+\_\+2d, uint32\+\_\+t \mbox{\hyperlink{classhmap_1_1ScatterItem_acb2a7deaaf83ef31844de9221b3f86dd}{class\+\_\+id}}=0, float \mbox{\hyperlink{classhmap_1_1ScatterItem_a361256b8cf58d145198a3bf459e698ae}{radius}}=HMAP\+\_\+\+DEFAULT\+\_\+\+SCATTER\+\_\+\+RADIUS)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classhmap_1_1ScatterItem}{Scatter\+Item} from 2D position (z = 0), class\+\_\+id, and radius. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1ScatterItem_ad6af0ca104c4b7ad72312a3e19b86850}{Scatter\+Item}} (float \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}, float \mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}}, float \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}=0.\+0f, uint32\+\_\+t \mbox{\hyperlink{classhmap_1_1ScatterItem_acb2a7deaaf83ef31844de9221b3f86dd}{class\+\_\+id}}=0, float \mbox{\hyperlink{classhmap_1_1ScatterItem_a361256b8cf58d145198a3bf459e698ae}{radius}}=HMAP\+\_\+\+DEFAULT\+\_\+\+SCATTER\+\_\+\+RADIUS)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classhmap_1_1ScatterItem}{Scatter\+Item} from coordinate components. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Point}{Point}} \mbox{\hyperlink{classhmap_1_1ScatterItem_a8d30696a6d61131cb2d31d4868c21281}{to\+\_\+point}} () const
+\begin{DoxyCompactList}\small\item\em Converts the item to a 2D \doxylink{classhmap_1_1Point}{Point} (x, y) with value set to radius. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classhmap_1_1ScatterItem_a17b500bd8c4a74d7110cd25832f9f881}{to\+\_\+string}} () const
+\begin{DoxyCompactList}\small\item\em Returns a formatted string representation of the item. \end{DoxyCompactList}\item 
+glm\+::vec2 \mbox{\hyperlink{classhmap_1_1ScatterItem_a9258a674875a51fab6dd72f9732d7717}{to\+\_\+vec2}} () const
+\begin{DoxyCompactList}\small\item\em Converts the item position to glm\+::vec2 (x, y). \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{classhmap_1_1ScatterItem_a9d764d737cf2a9f2183596201cea94ad}{to\+\_\+vec3}} () const
+\begin{DoxyCompactList}\small\item\em Converts the item position to glm\+::vec3 (x, y, z). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classhmap_1_1ScatterItem_a5aac6d3cf878d94559d5fdaff50497c9}{operator==}} (const \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \&other) const
+\item 
+bool \mbox{\hyperlink{classhmap_1_1ScatterItem_a35d11e3035ddd444fb16d82fffc6ea08}{operator!=}} (const \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \&other) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+glm\+::vec3 \mbox{\hyperlink{classhmap_1_1ScatterItem_a06e26e80e8403b235906da165ff5b74e}{position}}
+\begin{DoxyCompactList}\small\item\em 3D spatial position (x, y, elevation z). \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{classhmap_1_1ScatterItem_acb2a7deaaf83ef31844de9221b3f86dd}{class\+\_\+id}}
+\begin{DoxyCompactList}\small\item\em Unique category/class identifier (species, rock type, prop class). \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1ScatterItem_a361256b8cf58d145198a3bf459e698ae}{radius}} = HMAP\+\_\+\+DEFAULT\+\_\+\+SCATTER\+\_\+\+RADIUS
+\begin{DoxyCompactList}\small\item\em Characteristic radius. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a single spatial instance (tree, rock, prop) with position, class identifier, and radius. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classhmap_1_1ScatterItem_a7081712caf9a09461c01b08f13be5408}\label{classhmap_1_1ScatterItem_a7081712caf9a09461c01b08f13be5408} 
+\index{hmap::ScatterItem@{hmap::ScatterItem}!ScatterItem@{ScatterItem}}
+\index{ScatterItem@{ScatterItem}!hmap::ScatterItem@{hmap::ScatterItem}}
+\doxysubsubsection{\texorpdfstring{ScatterItem()}{ScatterItem()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily hmap\+::\+Scatter\+Item\+::\+Scatter\+Item (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Default constructor initializing item at origin. 
+
+\Hypertarget{classhmap_1_1ScatterItem_a1be65b09a6dd715f2a6c4101c6295acb}\label{classhmap_1_1ScatterItem_a1be65b09a6dd715f2a6c4101c6295acb} 
+\index{hmap::ScatterItem@{hmap::ScatterItem}!ScatterItem@{ScatterItem}}
+\index{ScatterItem@{ScatterItem}!hmap::ScatterItem@{hmap::ScatterItem}}
+\doxysubsubsection{\texorpdfstring{ScatterItem()}{ScatterItem()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily hmap\+::\+Scatter\+Item\+::\+Scatter\+Item (\begin{DoxyParamCaption}\item[{const glm\+::vec3 \&}]{position,  }\item[{uint32\+\_\+t}]{class\+\_\+id = {\ttfamily 0},  }\item[{float}]{radius = {\ttfamily HMAP\+\_\+DEFAULT\+\_\+SCATTER\+\_\+RADIUS} }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{classhmap_1_1ScatterItem}{Scatter\+Item} from 3D position, class\+\_\+id, and radius. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & 3D coordinates (x, y, z). \\
+\hline
+{\em class\+\_\+id} & Class / category identifier. \\
+\hline
+{\em radius} & Characteristic radius. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1ScatterItem_a714ba12ff0ce5412fbcd3ece5e362aef}\label{classhmap_1_1ScatterItem_a714ba12ff0ce5412fbcd3ece5e362aef} 
+\index{hmap::ScatterItem@{hmap::ScatterItem}!ScatterItem@{ScatterItem}}
+\index{ScatterItem@{ScatterItem}!hmap::ScatterItem@{hmap::ScatterItem}}
+\doxysubsubsection{\texorpdfstring{ScatterItem()}{ScatterItem()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily hmap\+::\+Scatter\+Item\+::\+Scatter\+Item (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{position\+\_\+2d,  }\item[{uint32\+\_\+t}]{class\+\_\+id = {\ttfamily 0},  }\item[{float}]{radius = {\ttfamily HMAP\+\_\+DEFAULT\+\_\+SCATTER\+\_\+RADIUS} }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{classhmap_1_1ScatterItem}{Scatter\+Item} from 2D position (z = 0), class\+\_\+id, and radius. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position\+\_\+2d} & 2D coordinates (x, y). \\
+\hline
+{\em class\+\_\+id} & Class / category identifier. \\
+\hline
+{\em radius} & Characteristic radius. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1ScatterItem_ad6af0ca104c4b7ad72312a3e19b86850}\label{classhmap_1_1ScatterItem_ad6af0ca104c4b7ad72312a3e19b86850} 
+\index{hmap::ScatterItem@{hmap::ScatterItem}!ScatterItem@{ScatterItem}}
+\index{ScatterItem@{ScatterItem}!hmap::ScatterItem@{hmap::ScatterItem}}
+\doxysubsubsection{\texorpdfstring{ScatterItem()}{ScatterItem()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily hmap\+::\+Scatter\+Item\+::\+Scatter\+Item (\begin{DoxyParamCaption}\item[{float}]{x,  }\item[{float}]{y,  }\item[{float}]{z = {\ttfamily 0.0f},  }\item[{uint32\+\_\+t}]{class\+\_\+id = {\ttfamily 0},  }\item[{float}]{radius = {\ttfamily HMAP\+\_\+DEFAULT\+\_\+SCATTER\+\_\+RADIUS} }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{classhmap_1_1ScatterItem}{Scatter\+Item} from coordinate components. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x-\/coordinate. \\
+\hline
+{\em y} & The y-\/coordinate. \\
+\hline
+{\em z} & The elevation / z-\/coordinate. \\
+\hline
+{\em class\+\_\+id} & Class / category identifier. \\
+\hline
+{\em radius} & Characteristic radius. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classhmap_1_1ScatterItem_a8d30696a6d61131cb2d31d4868c21281}\label{classhmap_1_1ScatterItem_a8d30696a6d61131cb2d31d4868c21281} 
+\index{hmap::ScatterItem@{hmap::ScatterItem}!to\_point@{to\_point}}
+\index{to\_point@{to\_point}!hmap::ScatterItem@{hmap::ScatterItem}}
+\doxysubsubsection{\texorpdfstring{to\_point()}{to\_point()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Point}{Point}} hmap\+::\+Scatter\+Item\+::to\+\_\+point (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Converts the item to a 2D \doxylink{classhmap_1_1Point}{Point} (x, y) with value set to radius. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Point}{Point} \doxylink{classhmap_1_1Point}{Point} representation. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1ScatterItem_a17b500bd8c4a74d7110cd25832f9f881}\label{classhmap_1_1ScatterItem_a17b500bd8c4a74d7110cd25832f9f881} 
+\index{hmap::ScatterItem@{hmap::ScatterItem}!to\_string@{to\_string}}
+\index{to\_string@{to\_string}!hmap::ScatterItem@{hmap::ScatterItem}}
+\doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}}
+{\footnotesize\ttfamily std\+::string hmap\+::\+Scatter\+Item\+::to\+\_\+string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns a formatted string representation of the item. 
+
+\begin{DoxyReturn}{Returns}
+std\+::string Formatted string with item properties. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1ScatterItem_a9258a674875a51fab6dd72f9732d7717}\label{classhmap_1_1ScatterItem_a9258a674875a51fab6dd72f9732d7717} 
+\index{hmap::ScatterItem@{hmap::ScatterItem}!to\_vec2@{to\_vec2}}
+\index{to\_vec2@{to\_vec2}!hmap::ScatterItem@{hmap::ScatterItem}}
+\doxysubsubsection{\texorpdfstring{to\_vec2()}{to\_vec2()}}
+{\footnotesize\ttfamily glm\+::vec2 hmap\+::\+Scatter\+Item\+::to\+\_\+vec2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Converts the item position to glm\+::vec2 (x, y). 
+
+\begin{DoxyReturn}{Returns}
+glm\+::vec2 The 2D coordinates. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1ScatterItem_a9d764d737cf2a9f2183596201cea94ad}\label{classhmap_1_1ScatterItem_a9d764d737cf2a9f2183596201cea94ad} 
+\index{hmap::ScatterItem@{hmap::ScatterItem}!to\_vec3@{to\_vec3}}
+\index{to\_vec3@{to\_vec3}!hmap::ScatterItem@{hmap::ScatterItem}}
+\doxysubsubsection{\texorpdfstring{to\_vec3()}{to\_vec3()}}
+{\footnotesize\ttfamily glm\+::vec3 hmap\+::\+Scatter\+Item\+::to\+\_\+vec3 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Converts the item position to glm\+::vec3 (x, y, z). 
+
+\begin{DoxyReturn}{Returns}
+glm\+::vec3 The 3D coordinates. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1ScatterItem_a5aac6d3cf878d94559d5fdaff50497c9}\label{classhmap_1_1ScatterItem_a5aac6d3cf878d94559d5fdaff50497c9} 
+\index{hmap::ScatterItem@{hmap::ScatterItem}!operator==@{operator==}}
+\index{operator==@{operator==}!hmap::ScatterItem@{hmap::ScatterItem}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool hmap\+::\+Scatter\+Item\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \&}]{other }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classhmap_1_1ScatterItem_a35d11e3035ddd444fb16d82fffc6ea08}\label{classhmap_1_1ScatterItem_a35d11e3035ddd444fb16d82fffc6ea08} 
+\index{hmap::ScatterItem@{hmap::ScatterItem}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!hmap::ScatterItem@{hmap::ScatterItem}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool hmap\+::\+Scatter\+Item\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}} \&}]{other }\end{DoxyParamCaption}) const}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classhmap_1_1ScatterItem_a06e26e80e8403b235906da165ff5b74e}\label{classhmap_1_1ScatterItem_a06e26e80e8403b235906da165ff5b74e} 
+\index{hmap::ScatterItem@{hmap::ScatterItem}!position@{position}}
+\index{position@{position}!hmap::ScatterItem@{hmap::ScatterItem}}
+\doxysubsubsection{\texorpdfstring{position}{position}}
+{\footnotesize\ttfamily glm\+::vec3 hmap\+::\+Scatter\+Item\+::position}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{0.f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.f,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.f\}}
+
+\end{DoxyCode}
+
+
+3D spatial position (x, y, elevation z). 
+
+\Hypertarget{classhmap_1_1ScatterItem_acb2a7deaaf83ef31844de9221b3f86dd}\label{classhmap_1_1ScatterItem_acb2a7deaaf83ef31844de9221b3f86dd} 
+\index{hmap::ScatterItem@{hmap::ScatterItem}!class\_id@{class\_id}}
+\index{class\_id@{class\_id}!hmap::ScatterItem@{hmap::ScatterItem}}
+\doxysubsubsection{\texorpdfstring{class\_id}{class\_id}}
+{\footnotesize\ttfamily uint32\+\_\+t hmap\+::\+Scatter\+Item\+::class\+\_\+id}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \ \ 0}
+
+\end{DoxyCode}
+
+
+Unique category/class identifier (species, rock type, prop class). 
+
+\Hypertarget{classhmap_1_1ScatterItem_a361256b8cf58d145198a3bf459e698ae}\label{classhmap_1_1ScatterItem_a361256b8cf58d145198a3bf459e698ae} 
+\index{hmap::ScatterItem@{hmap::ScatterItem}!radius@{radius}}
+\index{radius@{radius}!hmap::ScatterItem@{hmap::ScatterItem}}
+\doxysubsubsection{\texorpdfstring{radius}{radius}}
+{\footnotesize\ttfamily float hmap\+::\+Scatter\+Item\+::radius = HMAP\+\_\+\+DEFAULT\+\_\+\+SCATTER\+\_\+\+RADIUS}
+
+
+
+Characteristic radius. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+High\+Map/include/highmap/scatter/\mbox{\hyperlink{scatter__item_8hpp}{scatter\+\_\+item.\+hpp}}\item 
+High\+Map/src/scatter/\mbox{\hyperlink{scatter__item_8cpp}{scatter\+\_\+item.\+cpp}}\end{DoxyCompactItemize}

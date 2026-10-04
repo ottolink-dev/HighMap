@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['radius_0',['radius',['../classhmap_1_1Tree.html#a84424d3fa5665e451491785c6dd5f713',1,'hmap::Tree::radius'],['../classhmap_1_1CraterFunction.html#adae66715438224e2baf42c710132a856',1,'hmap::CraterFunction::radius'],['../classhmap_1_1DiskFunction.html#a94f70fc17523d10d49f443d7d4a2ebec',1,'hmap::DiskFunction::radius'],['../structhmap_1_1Species.html#a2eea15f2e301e204e45860743a9f5063',1,'hmap::Species::radius']]],
-  ['radius_5fmax_1',['radius_max',['../structhmap_1_1Species.html#ae3c2fc7e1ca6c6a5db56d4e058dbf021',1,'hmap::Species']]],
-  ['radius_5fmin_2',['radius_min',['../structhmap_1_1Species.html#abd1d74b21cd611f3d8bbbb0875c4254c',1,'hmap::Species']]],
+  ['radius_0',['radius',['../classhmap_1_1CraterFunction.html#adae66715438224e2baf42c710132a856',1,'hmap::CraterFunction::radius'],['../classhmap_1_1DiskFunction.html#a94f70fc17523d10d49f443d7d4a2ebec',1,'hmap::DiskFunction::radius'],['../classhmap_1_1ScatterItem.html#a361256b8cf58d145198a3bf459e698ae',1,'hmap::ScatterItem::radius'],['../structhmap_1_1Species.html#a2eea15f2e301e204e45860743a9f5063',1,'hmap::Species::radius']]],
+  ['radius_5fmax_1',['radius_max',['../structhmap_1_1Species.html#ae3c2fc7e1ca6c6a5db56d4e058dbf021',1,'hmap::Species::radius_max'],['../structhmap_1_1RockDistribution.html#a159ba0c156af8943c9b0f4313c57e48c',1,'hmap::RockDistribution::radius_max']]],
+  ['radius_5fmin_2',['radius_min',['../structhmap_1_1Species.html#abd1d74b21cd611f3d8bbbb0875c4254c',1,'hmap::Species::radius_min'],['../structhmap_1_1RockDistribution.html#aa8ec1160f5037b6ad653cbfde4f8d026',1,'hmap::RockDistribution::radius_min']]],
   ['rain_3',['rain',['../hydraulic__mise_8cpp.html#ac2ba01864cf73417b85986a23eadb64c',1,'hydraulic_mise.cpp']]],
   ['rainfall_4',['rainfall',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a06dd77debc3c3a49b2a5d5a414660e3f',1,'hmap::gpu::McDonaldParams::PhysicalParams']]],
   ['rank_5',['rank',['../hydraulic__mise_8cpp.html#a7103bde565cfac40b7653f88a0d7c7c4',1,'hydraulic_mise.cpp']]],

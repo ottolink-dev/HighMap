@@ -10,7 +10,7 @@ var searchData=
   ['hash_2ecpp_7',['hash.cpp',['../hash_8cpp.html',1,'']]],
   ['heap_8',['heap',['../hydraulic__mise_8cpp.html#ab7b4855bfaed4a8f3b7e58f033fd7b81',1,'hydraulic_mise.cpp']]],
   ['heightmap_5fretopology_9',['heightmap_retopology',['../namespacehmap.html#a23ab6bc3fdc7d5c498f0b3c8bebdd4f9',1,'hmap']]],
-  ['heightmaps_10',['heightmaps',['../index.html#autotoc_md6',1,'&quot;Array&quot; - Elementary Data Structure for Building Heightmaps'],['../index.html#autotoc_md2',1,'Heightmaps?']]],
+  ['heightmaps_10',['heightmaps',['../index.html#autotoc_md8',1,'&quot;Array&quot; - Elementary Data Structure for Building Heightmaps'],['../index.html#autotoc_md2',1,'Heightmaps?']]],
   ['helper_5fapply_5fleeward_11',['helper_apply_leeward',['../namespacehmap_1_1gpu.html#a04ae8a1ec2b8156be692aa690d32e1ff',1,'hmap::gpu']]],
   ['helper_5fapply_5fuplift_12',['helper_apply_uplift',['../namespacehmap_1_1gpu.html#a7aac37734b22ffed4807f274511861be',1,'hmap::gpu']]],
   ['helper_5fbind_5foptional_5fbuffer_13',['helper_bind_optional_buffer',['../namespacehmap_1_1gpu.html#aae6131a978635eb515958f41584bcbfc',1,'hmap::gpu']]],

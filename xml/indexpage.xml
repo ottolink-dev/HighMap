@@ -45,39 +45,99 @@
 </listitem><listitem><para><ref refid="structhmap_1_1Edge" kindref="compound">hmap::Edge</ref>,</para>
 </listitem><listitem><para><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref> for set of points ,</para>
 </listitem><listitem><para><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref> for set of ordered points (i.e. open or closed polylines),</para>
-</listitem><listitem><para><ref refid="classhmap_1_1Graph" kindref="compound">hmap::Graph</ref>.</para>
+</listitem><listitem><para><ref refid="classhmap_1_1Graph" kindref="compound">hmap::Graph</ref>,</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>object scattering and placement,<itemizedlist>
+<listitem><para><ref refid="classhmap_1_1ScatterItem" kindref="compound">hmap::ScatterItem</ref> and <ref refid="classhmap_1_1ScatterField" kindref="compound">hmap::ScatterField</ref> for generic 2D/3D object scattering with spatial queries and classification,</para>
+</listitem><listitem><para><ref refid="namespacehmap_1ac00261d93d6b1d8099eabbc8505a9b89" kindref="member">hmap::Tree</ref> and <ref refid="classhmap_1_1Forest" kindref="compound">hmap::Forest</ref> for botanical vegetation modeling and multi-species growth simulations,</para>
+</listitem><listitem><para><ref refid="namespacehmap_1abe97158ceceff77924b22e1c24e3cda0" kindref="member">hmap::Rock</ref> and <ref refid="classhmap_1_1RockField" kindref="compound">hmap::RockField</ref> for geomorphological rock placement, scree fields, and talus slopes.</para>
 </listitem></itemizedlist>
 </para>
 </listitem></itemizedlist>
 </para>
 </sect3>
 <sect3 id="index_1autotoc_md6">
+<title>Uniform Scatter Design</title>
+<para>HighMap provides a unified architecture for scattering entities across terrain (vegetation, boulders, debris, buildings, etc.). All scattered entities share the same lightweight item representation and container interface, while domain-specific behaviors (biological growth vs. gravitational slope sorting) are encapsulated in dedicated modules and descriptors.</para>
+<para><table rows="6" cols="4"><row>
+<entry thead="yes" align='left'><para>Level   </para>
+</entry><entry thead="yes" align='left'><para>Flora   </para>
+</entry><entry thead="yes" align='left'><para>Rocks   </para>
+</entry><entry thead="yes" align='left'><para>General Scatter    </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>Descriptor Struct</bold>   </para>
+</entry><entry thead="no" align='left'><para><computeroutput>Species</computeroutput> (<computeroutput>id</computeroutput>, <computeroutput>radius</computeroutput>, <computeroutput>weight</computeroutput>, ...)   </para>
+</entry><entry thead="no" align='left'><para><computeroutput>RockDistribution</computeroutput> (<computeroutput>class_id</computeroutput>, <computeroutput>radius_min</computeroutput>, <computeroutput>radius_max</computeroutput>, ...)   </para>
+</entry><entry thead="no" align='left'><para>Generic seeding options    </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>Item</bold>   </para>
+</entry><entry thead="no" align='left'><para><computeroutput>Tree = ScatterItem</computeroutput> (<computeroutput>position</computeroutput>, <computeroutput>class_id</computeroutput>, <computeroutput>radius</computeroutput>)   </para>
+</entry><entry thead="no" align='left'><para><computeroutput>Rock = ScatterItem</computeroutput> (<computeroutput>position</computeroutput>, <computeroutput>class_id</computeroutput>, <computeroutput>radius</computeroutput>)   </para>
+</entry><entry thead="no" align='left'><para><computeroutput>ScatterItem</computeroutput> (<computeroutput>position</computeroutput>, <computeroutput>class_id</computeroutput>, <computeroutput>radius</computeroutput>)    </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>Container</bold>   </para>
+</entry><entry thead="no" align='left'><para><computeroutput>Forest : public ScatterField</computeroutput>   </para>
+</entry><entry thead="no" align='left'><para><computeroutput>RockField : public ScatterField</computeroutput>   </para>
+</entry><entry thead="no" align='left'><para><computeroutput>ScatterField</computeroutput>    </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>Queries / Filtering</bold>   </para>
+</entry><entry thead="no" align='left'><para><computeroutput>forest.filter_by_class(id)</computeroutput><linebreak/>
+<computeroutput>forest.get_class_ids()</computeroutput>   </para>
+</entry><entry thead="no" align='left'><para><computeroutput>rocks.filter_by_class(id)</computeroutput><linebreak/>
+<computeroutput>rocks.get_class_ids()</computeroutput>   </para>
+</entry><entry thead="no" align='left'><para><computeroutput>scatter.filter_by_class(id)</computeroutput><linebreak/>
+<computeroutput>scatter.get_class_ids()</computeroutput>    </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>Domain Operations</bold>   </para>
+</entry><entry thead="no" align='left'><para>Multi-species growth simulations (<computeroutput>grow_forest_*</computeroutput>), canopy competition, crown overlaps   </para>
+</entry><entry thead="no" align='left'><para>Pareto power-law radius sampling, gravitational slope sorting, interstitial pebble packing   </para>
+</entry><entry thead="no" align='left'><para>Spatial collision pruning, density map projection, Delaunay densification, terrain elevation projection   </para>
+</entry></row>
+</table>
+</para>
+<sect4 id="index_1autotoc_md7">
+<title>Design Principles</title>
+<para><orderedlist>
+<listitem><para><bold>Uniform Data Model</bold>: Every scattered entity is represented by <ref refid="classhmap_1_1ScatterItem" kindref="compound">hmap::ScatterItem</ref> containing <computeroutput>position</computeroutput> (<computeroutput>glm::vec3</computeroutput>), <computeroutput>class_id</computeroutput> (<computeroutput>uint32_t</computeroutput>), and <computeroutput>radius</computeroutput> (<computeroutput>float</computeroutput>).</para>
+</listitem><listitem><para><bold>Consistent Container Interface</bold>: <ref refid="classhmap_1_1ScatterField" kindref="compound">hmap::ScatterField</ref> provides generic operations such as collision pruning (<computeroutput>prune_collisions</computeroutput>), Delaunay densification (<computeroutput>densify</computeroutput>), density rasterization (<computeroutput>to_density_map</computeroutput>), terrain elevation snapping (<computeroutput>set_elevation_from_terrain</computeroutput>), and classification filtering (<computeroutput>filter_by_class</computeroutput>, <computeroutput>get_class_ids</computeroutput>).</para>
+</listitem><listitem><para><bold>Domain Descriptors</bold>: Specialized classes like <computeroutput>Species</computeroutput> retain biological and ecological definitions (growth rates, shade tolerance, collision profiles), while <computeroutput>RockDistribution</computeroutput> defines geomorphological parameters (Pareto power-law alpha, embed ratios). Seeding and growth algorithms use these descriptors to populate fields tagged with the corresponding <computeroutput>class_id</computeroutput>.</para>
+</listitem></orderedlist>
+</para>
+</sect4>
+</sect3>
+<sect3 id="index_1autotoc_md8">
 <title>&quot;Array&quot; - Elementary Data Structure for Building Heightmaps</title>
 <para>The <computeroutput>Array</computeroutput> object is the fundamental class upon which the heightmap construction algorithms rely. A heightmap is a two-dimensional representation where each cell&apos;s value corresponds to a height or elevation at that point. An <computeroutput>Array</computeroutput> is simply a 2D array with dimensions defined by <computeroutput>shape</computeroutput> (length/width).</para>
 <para>Indexing is typically based on a pair of indices <computeroutput>(i, j)</computeroutput>. The cell at <computeroutput>(i=0, j=0)</computeroutput> is assumed to be at the bottom-left corner of the heightmap. This assumption is usually inconsequential, except when the heightmap needs to be aligned with specific spatial positions <computeroutput>(x, y)</computeroutput>. The conversion between indices <computeroutput>(i, j)</computeroutput> and spatial positions <computeroutput>(x, y)</computeroutput> depends on the heightmap&apos;s &quot;bounding box,&quot; which is the spatial domain covered by the heightmap. By default, this bounding box is assumed to be a unit domain, meaning it spans a square of size 1 in both x and y directions.</para>
 <para>The values within the heightmap cells are generally within the range <computeroutput>[0, 1]</computeroutput>. While this range is not strictly enforced, some algorithms assume that the data adheres to this scale. It is always possible to use the <ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref> function to adjust the scale of the heightmap values to fit within the desired range.</para>
 </sect3>
-<sect3 id="index_1autotoc_md7">
+<sect3 id="index_1autotoc_md9">
 <title>Example usage</title>
-<sect4 id="index_1autotoc_md8">
+<sect4 id="index_1autotoc_md10">
 <title>Generate classical coherent noises (Perlin, Simplex, fractal layering, etc...)</title>
 </sect4>
-<sect4 id="index_1autotoc_md9">
+<sect4 id="index_1autotoc_md11">
 <title>Filters</title>
 </sect4>
-<sect4 id="index_1autotoc_md10">
+<sect4 id="index_1autotoc_md12">
 <title>Physical processes</title>
 </sect4>
-<sect4 id="index_1autotoc_md11">
+<sect4 id="index_1autotoc_md13">
 <title>Bivariate functions</title>
 </sect4>
 </sect3>
-<sect3 id="index_1autotoc_md12">
+<sect3 id="index_1autotoc_md14">
 <title>Exporting</title>
-<sect4 id="index_1autotoc_md13">
+<sect4 id="index_1autotoc_md15">
 <title>Image formats (png, tiff, exr...)</title>
 </sect4>
-<sect4 id="index_1autotoc_md14">
+<sect4 id="index_1autotoc_md16">
 <title>Numpy binary file</title>
 <para>The library includes a function that enables exporting data to the NumPy binary format (.npy), facilitating integration with Python&apos;s NumPy library.</para>
 <para><programlisting filename="ex_to_numpy.cpp"><codeline><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
@@ -109,17 +169,17 @@
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
 </sect4>
-<sect4 id="index_1autotoc_md15">
+<sect4 id="index_1autotoc_md17">
 <title>Raw binary file</title>
 </sect4>
-<sect4 id="index_1autotoc_md16">
+<sect4 id="index_1autotoc_md18">
 <title>Asset export (3D mesh and texture)</title>
 <para><ref refid="namespacehmap_1ac3d35efc6e5b596f508e2b17a5aa871b" kindref="member">hmap::AssetExportFormat</ref></para>
 <para><ref refid="namespacehmap_1ac81a92060b89699c4eb9826495d87250" kindref="member">hmap::MeshType</ref></para>
 </sect4>
 </sect3>
 </sect2>
-<sect2 id="index_1autotoc_md17">
+<sect2 id="index_1autotoc_md19">
 <title>Library functionalities</title>
 <para><table rows="2" cols="2"><row>
 <entry thead="yes"><para>Header   </para>

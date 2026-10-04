@@ -1,0 +1,75 @@
+\doxysection{rock\+\_\+field.\+hpp}
+\hypertarget{rock__field_8hpp_source}{}\label{rock__field_8hpp_source}\index{HighMap/include/highmap/rocks/rock\_field.hpp@{HighMap/include/highmap/rocks/rock\_field.hpp}}
+\mbox{\hyperlink{rock__field_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Copyright\ (c)\ 2026\ Otto\ Link.\ Distributed\ under\ the\ terms\ of\ the\ GNU\ General}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ Public\ License.\ The\ full\ license\ is\ in\ the\ file\ LICENSE,\ distributed\ with}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ this\ software.\ */}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{array_8hpp}{highmap/array.hpp}}"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{rock_8hpp}{highmap/rocks/rock.hpp}}"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{rock__distribution_8hpp}{highmap/rocks/rock\_distribution.hpp}}"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{scatter__field_8hpp}{highmap/scatter/scatter\_field.hpp}}"{}}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1RockField}{RockField}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1ScatterField}{ScatterField}}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00034\ \ \ \textcolor{comment}{//\ \ Constructors}}
+\DoxyCodeLine{00035\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{classhmap_1_1RockField_a6b4e40b556689a73431cfc43218a08e2}{RockField}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{classhmap_1_1RockField_a6b4e40b556689a73431cfc43218a08e2}{RockField}}(\textcolor{keyword}{const}\ std::vector<Rock>\ \&rocks);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{classhmap_1_1RockField_a6b4e40b556689a73431cfc43218a08e2}{RockField}}(std::vector<Rock>\ \&\&rocks)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00058\ \ \ \mbox{\hyperlink{classhmap_1_1RockField_a6b4e40b556689a73431cfc43218a08e2}{RockField}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1ScatterField}{ScatterField}}\ \&field);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{classhmap_1_1RockField_a6b4e40b556689a73431cfc43218a08e2}{RockField}}(\mbox{\hyperlink{classhmap_1_1ScatterField}{ScatterField}}\ \&\&field)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00073\ \ \ \mbox{\hyperlink{classhmap_1_1RockField_a6b4e40b556689a73431cfc43218a08e2}{RockField}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Cloud}{Cloud}}\ \&cloud,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ class\_id\ =\ 0,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ default\_radius\ =\ HMAP\_DEFAULT\_ROCK\_RADIUS);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00078\ \ \ \textcolor{comment}{//\ \ Rock-\/Specific\ Operations}}
+\DoxyCodeLine{00079\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1RockField_a78e864f7a4907e3e3766fc6d4571a880}{apply\_power\_law\_distribution}}(\textcolor{keywordtype}{float}\ \ \ \ alpha\ =\ 2.0f,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \mbox{\hyperlink{namespacehmap_ad1eb8e81ef31a0e0bc7a5bd093c3aefc}{r\_min}}\ =\ 1e-\/3f,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \mbox{\hyperlink{namespacehmap_aa8f3fda9e1dd32c7b8011c7f2b9cbc55}{r\_max}}\ =\ 5e-\/2f,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ seed\ =\ 0);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1RockField_a78e864f7a4907e3e3766fc6d4571a880}{apply\_power\_law\_distribution}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1RockDistribution}{RockDistribution}}\ \&dist,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed\ =\ 0);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1RockField_ad169e4acbe84618e48fdd741e6f764d6}{apply\_slope\_sorting}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \&\mbox{\hyperlink{namespacehmap_a04e7abe100708990e2464cc5df2ccafa}{slope}},}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ sorting\_strength\ =\ 1.0f,}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\ =\ \{0.f,\ 1.f,\ 0.f,\ 1.f\});}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1RockField_a67d09afd48bf1c368efeffceafc7e974}{pack\_interstitial\_rocks}}(\textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{hydraulic__mise_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}},}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \&density\ =\ \{\},}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_ad1eb8e81ef31a0e0bc7a5bd093c3aefc}{r\_min}}\ =\ 5e-\/4f,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_aa8f3fda9e1dd32c7b8011c7f2b9cbc55}{r\_max}}\ =\ 2e-\/3f,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ class\_id\ =\ 0,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ seed\ =\ 0,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\ =\ \{0.f,\ 1.f,\ 0.f,\ 1.f\});}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00150\ \ \ std::string\ \mbox{\hyperlink{classhmap_1_1RockField_ab05996c590e4e7037dd3583da7c9359a}{to\_string}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00151\ \};}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+
+\end{DoxyCode}
