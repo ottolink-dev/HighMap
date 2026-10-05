@@ -92,8 +92,7 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
                                   int                  has_friction_map,
                                   int                  respawn_out_of_bounds,
                                   uint                 seed,
-                                  int                  start_step,
-                                  int                  sub_steps)
+                                  int                  max_steps)
 {
   int rock_idx = get_global_id(0);
   if (rock_idx >= num_rocks) return;
@@ -113,14 +112,12 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
   float dom_w = bbox.y - bbox.x;
   float dom_h = bbox.w - bbox.z;
 
-  uint rng_state = wang_hash((uint)rock_idx + seed * 1999u + (uint)start_step + 1u);
+  uint rng_state = wang_hash((uint)rock_idx + seed * 1999u + 1u);
 
-  for (int step = 0; step < sub_steps; ++step)
+  for (int step = 0; step < max_steps; ++step)
   {
-    int current_global_step = start_step + step;
-
     // Progressive spawn: wait until rock's assigned spawn_step
-    if (current_global_step < rock_spawn_step)
+    if (step < rock_spawn_step)
     {
       sc.x = ROCK_STATUS_UNSPAWNED;
       continue;
@@ -129,7 +126,7 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
     {
       sc.x = ROCK_STATUS_ACTIVE;
     }
-    
+
     // Check if rock is out of domain bounds
     if (pos.x < bbox.x || pos.x > bbox.y || pos.y < bbox.z || pos.y > bbox.w)
     {
@@ -237,7 +234,7 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
         float  overlap = min_dist - dist;
 
         // Position relaxation: push apart so rocks do not overlap
-        pos += 0.5f * overlap * n;
+        pos += 2.f * overlap * n;
 
         // Relative velocity collision response (impulse with restitution)
         float4 other_vm = vel_mass[other_idx];

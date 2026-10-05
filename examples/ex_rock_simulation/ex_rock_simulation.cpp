@@ -7,8 +7,9 @@ int main(void)
   hmap::gpu::init_opencl();
 
   glm::ivec2 shape = {512, 512};
-  glm::vec2  kw = {4.f, 4.f};
-  int        seed = 42;
+  shape = {1024, 1024};
+  glm::vec2 kw = {4.f, 4.f};
+  int       seed = 42;
 
   // --- 1. Generate Terrain Elevation
 
@@ -47,15 +48,14 @@ int main(void)
   options.bbox = {0.f, 1.f, 0.f, 1.f};
   options.time_step = 0.005f;
   options.max_steps = int(16.f * 128);
-  options.sub_steps = 32;
   options.gravity = 9.81f;
   options.soil_friction = 0.3f;
   options.rolling_resistance = 0.05f;
   options.min_velocity = 0.f;
   options.seed = static_cast<uint32_t>(seed);
   options.respawn_out_of_bounds = false;
-  options.spawn_fraction = 0.8f;
-  
+  options.spawn_fraction = 0.9f;
+
   // --- 4. Simulate Rock Emission and Downhill Trajectories on GPU
 
   size_t target_count = 5000;
@@ -69,6 +69,11 @@ int main(void)
                                                        options);
 
   std::cout << "\n=== Simulated Rock Field ===\n";
+  std::cout << rocks.to_string() << "\n\n";
+
+  rocks.prune_collisions();
+
+  std::cout << "\n=== Simulated Rock Field after collusion pruning ===\n";
   std::cout << rocks.to_string() << "\n\n";
 
   // --- 5. Export Visualization

@@ -29,7 +29,7 @@ struct RockSeedingOptions
 {
   glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}; ///< Domain bounding box.
   uint32_t  seed = 0;                    ///< Random number generator seed.
-  float     exclusion_threshold = 0.5f;  ///< Threshold for exclusion map masking.
+  float exclusion_threshold = 0.5f;      ///< Threshold for exclusion map masking.
   RockDistribution distribution = {};    ///< Rock size & power-law distribution traits.
 };
 

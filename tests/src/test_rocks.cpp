@@ -145,7 +145,6 @@ TEST(RockSimulationTest, DownhillMotionAndFrictionRest)
   RockSimulationOptions opts;
   opts.time_step = 0.005f;
   opts.max_steps = 1500;
-  opts.sub_steps = 10;
   opts.soil_friction = 0.2f;
   opts.rolling_resistance = 0.05f;
 
@@ -177,7 +176,6 @@ TEST(RockSimulationTest, DiscardOutOfBounds)
   RockSimulationOptions opts;
   opts.time_step = 0.005f;
   opts.max_steps = 2000;
-  opts.sub_steps = 10;
   opts.soil_friction = 0.1f;
 
   field.simulate_physics(elev, nullptr, opts);
@@ -205,7 +203,6 @@ TEST(RockSimulationTest, RespawnOutOfBounds)
   RockSimulationOptions opts;
   opts.time_step = 0.005f;
   opts.max_steps = 1500;
-  opts.sub_steps = 10;
   opts.soil_friction = 0.1f;
   opts.respawn_out_of_bounds = true;
 
@@ -242,7 +239,6 @@ TEST(RockSimulationTest, EmissionSimulation)
   RockSimulationOptions opts;
   opts.time_step = 0.005f;
   opts.max_steps = 800;
-  opts.sub_steps = 10;
   opts.rolling_resistance = 0.08f;
   opts.seed = 42;
 
@@ -277,7 +273,6 @@ TEST(RockSimulationTest, CollisionNonOverlap)
   RockSimulationOptions opts;
   opts.time_step = 0.005f;
   opts.max_steps = 200;
-  opts.sub_steps = 10;
   opts.soil_friction = 0.5f;
 
   field.simulate_physics(elev, nullptr, opts);
@@ -308,16 +303,17 @@ TEST(RockSimulationTest, ProgressiveSpawn)
   RockField field;
   for (int i = 0; i < 10; ++i)
   {
-    field.push_back(Rock(glm::vec3(0.05f, 0.1f + 0.08f * float(i), 0.0f), 0u, 0.02f));
+    field.push_back(
+        Rock(glm::vec3(0.05f, 0.1f + 0.08f * float(i), 0.0f), 0u, 0.02f));
   }
 
   RockSimulationOptions opts;
   opts.time_step = 0.005f;
   opts.max_steps = 1500;
-  opts.sub_steps = 10;
   opts.soil_friction = 0.2f;
   opts.rolling_resistance = 0.05f;
-  opts.spawn_fraction = 0.5f; // rocks spawn over the first 50% of the simulation
+  opts.spawn_fraction =
+      0.5f; // rocks spawn over the first 50% of the simulation
 
   field.simulate_physics(elev, nullptr, opts);
 
@@ -331,4 +327,3 @@ TEST(RockSimulationTest, ProgressiveSpawn)
     EXPECT_LE(rock.position.y, 1.0f);
   }
 }
-
