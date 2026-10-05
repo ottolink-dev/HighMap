@@ -18,9 +18,13 @@ int main(void)
                                   kw,
                                   seed,
                                   8,
-                                  0.f);
-  z = hmap::bulkify(z, hmap::PrimitiveType::PRIM_CUBIC_PULSE, 2.f);
-  hmap::hydraulic_mise(z);
+                                  0.7f);
+  z = hmap::bulkify(z, hmap::PrimitiveType::PRIM_CUBIC_PULSE, 1.f);
+
+  auto ze = z;
+  hmap::hydraulic_mise(ze);
+  z = hmap::lerp(z, ze, 0.5f);
+
   hmap::remap(z);
 
   // --- 2. Build Rock Emission Source Map
@@ -36,14 +40,14 @@ int main(void)
   hmap::RockDistribution dist(0u,
                               0.0005f,
                               0.005f,
-                              2.f); // Pareto power-law alpha
+                              4.f); // Pareto power-law alpha
 
   hmap::RockSimulationOptions options;
   options.bbox = {0.f, 1.f, 0.f, 1.f};
   options.time_step = 0.005f;
   options.max_steps = int(8.f * 128);
   options.gravity = 9.81f;
-  options.soil_friction = 0.3f;
+  options.soil_friction = 0.55f;
   options.rolling_resistance = 0.05f;
   options.min_velocity = 0.f;
   options.seed = static_cast<uint32_t>(seed);
@@ -52,7 +56,7 @@ int main(void)
 
   // --- 4. Simulate Rock Emission and Downhill Trajectories on GPU
 
-  size_t target_count = 5000;
+  size_t target_count = 8000;
   std::cout << "Simulating " << target_count << " rocks on GPU...\n";
 
   hmap::RockField rocks = hmap::simulate_rock_emission(target_count,
@@ -67,16 +71,33 @@ int main(void)
 
   rocks.resolve_collisions();
   rocks.prune_collisions();
+  // rocks.shuffle_classes(0.5f);
 
-  std::cout << "\n=== Simulated Rock Field after collusions resolution ===\n";
+  std::cout << "\n=== Simulated Rock Field after collisions resolution ===\n";
   std::cout << rocks.to_string() << "\n\n";
 
-  // --- 5. Export Visualization
+  // --- 5. Convert Rock Field into Heightmap and Accumulate
+
+  std::cout << "Converting RockField into heightmap on GPU...\n";
+  hmap::Array rock_elevation = rocks.to_heightmap(shape,
+                                                  hmap::SCATTER_SHAPE_POLYGON,
+                                                  2.f);
+
+  // accumulate rock elevation contributions directly onto terrain
+  hmap::Array z_with_rocks = z + rock_elevation;
+
+  // --- 6. Export Visualization
 
   rocks.to_png("rock_simulation_density.png", shape, z);
   rocks.to_csv("rock_simulation.csv");
+  hmap::export_banner_png("rock_simulation_heightmap.png",
+                          {z, rock_elevation, z_with_rocks},
+                          hmap::Cmap::TERRAIN);
 
-  std::cout
-      << "Exported 'rock_simulation_density.png' and 'rock_simulation.csv'.\n";
+  rock_elevation.dump("rock_elevation.png");
+  z_with_rocks.dump("out.png");
+
+  std::cout << "Exported 'rock_simulation_density.png', 'rock_simulation.csv', "
+               "and 'rock_simulation_heightmap.png'.\n";
   return 0;
 }

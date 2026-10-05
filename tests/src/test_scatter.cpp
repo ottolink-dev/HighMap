@@ -509,3 +509,88 @@ TEST(ScatterFieldTest, MergeScatterFieldsMultiple)
   EXPECT_TRUE(float_eq(merged_remapped[2].position.x, 3.f));
   EXPECT_TRUE(float_eq(merged_remapped[2].radius, 0.3f));
 }
+
+TEST(ScatterFieldTest, ToHeightmapEmpty)
+{
+  ScatterField empty_field;
+  Array        hmap = empty_field.to_heightmap({64, 64});
+  EXPECT_EQ(hmap.shape.x, 64);
+  EXPECT_EQ(hmap.shape.y, 64);
+  EXPECT_FLOAT_EQ(hmap.max(), 0.0f);
+  EXPECT_FLOAT_EQ(hmap.min(), 0.0f);
+}
+
+TEST(ScatterFieldTest, ToHeightmapDisk)
+{
+  ScatterField field;
+  field.push_back(ScatterItem(0.5f, 0.5f, 0.0f, 0u, 0.2f));
+
+  glm::ivec2 shape = {128, 128};
+  float      ratio = 1.5f;
+  Array      hmap = field.to_heightmap(shape, SCATTER_SHAPE_DISK, ratio);
+
+  EXPECT_EQ(hmap.shape.x, shape.x);
+  EXPECT_EQ(hmap.shape.y, shape.y);
+
+  // Peak should be at/near center with elevation ~ radius * ratio = 0.2 * 1.5 =
+  // 0.3
+  float max_val = hmap.max();
+  EXPECT_NEAR(max_val, 0.3f, 0.02f);
+
+  // Corners should have 0 elevation
+  EXPECT_FLOAT_EQ(hmap(0, 0), 0.0f);
+  EXPECT_FLOAT_EQ(hmap(shape.x - 1, shape.y - 1), 0.0f);
+}
+
+TEST(ScatterFieldTest, ToHeightmapPolygonAndShapes)
+{
+  ScatterField field;
+  field.push_back(ScatterItem(0.5f, 0.5f, 0.0f, 0u, 0.2f));
+
+  glm::ivec2 shape = {64, 64};
+  Array      hmap_poly = field.to_heightmap(shape, SCATTER_SHAPE_POLYGON, 1.0f);
+  EXPECT_GT(hmap_poly.max(), 0.15f);
+  EXPECT_FLOAT_EQ(hmap_poly(0, 0), 0.0f);
+
+  Array hmap_cone = field.to_heightmap(shape, SCATTER_SHAPE_CONE, 1.0f);
+  EXPECT_GT(hmap_cone.max(), 0.15f);
+
+  Array hmap_pyr = field.to_heightmap(shape, SCATTER_SHAPE_PYRAMID, 1.0f);
+  EXPECT_GT(hmap_pyr.max(), 0.15f);
+
+  Array hmap_dome = field.to_heightmap(shape, SCATTER_SHAPE_SMOOTH_DOME, 1.0f);
+  EXPECT_GT(hmap_dome.max(), 0.15f);
+}
+
+TEST(ScatterFieldTest, ToHeightmapClassFilterAndFreeFunction)
+{
+  ScatterField field;
+  field.push_back(ScatterItem(0.3f, 0.3f, 0.0f, 0u, 0.1f));
+  field.push_back(ScatterItem(0.7f, 0.7f, 0.0f, 1u, 0.1f));
+
+  glm::ivec2 shape = {64, 64};
+
+  // Filter only class 1
+  Array hmap_class1 = field.to_heightmap(shape,
+                                         SCATTER_SHAPE_DISK,
+                                         1.0f,
+                                         std::make_optional<uint32_t>(1u));
+
+  // Region around (0.3, 0.3) should be 0, while region around (0.7, 0.7) should
+  // be > 0
+  int ix0 = static_cast<int>(0.3f * shape.x);
+  int iy0 = static_cast<int>(0.3f * shape.y);
+  int ix1 = static_cast<int>(0.7f * shape.x);
+  int iy1 = static_cast<int>(0.7f * shape.y);
+
+  EXPECT_FLOAT_EQ(hmap_class1(ix0, iy0), 0.0f);
+  EXPECT_GT(hmap_class1(ix1, iy1), 0.05f);
+
+  // Test free function wrapper
+  Array hmap_free = scatter_field_to_heightmap(field,
+                                               shape,
+                                               SCATTER_SHAPE_DISK,
+                                               1.0f);
+  EXPECT_GT(hmap_free(ix0, iy0), 0.05f);
+  EXPECT_GT(hmap_free(ix1, iy1), 0.05f);
+}

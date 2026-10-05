@@ -23,6 +23,20 @@ namespace hmap
 {
 
 /**
+ * @enum ScatterShape
+ * @brief Defines the geometric shape used when converting a ScatterField to a
+ * heightmap.
+ */
+enum ScatterShape : int
+{
+  SCATTER_SHAPE_DISK,        ///< Circular dome / hemisphere profile.
+  SCATTER_SHAPE_POLYGON,     ///< Irregular polygon profile.
+  SCATTER_SHAPE_CONE,        ///< Linear cone profile.
+  SCATTER_SHAPE_PYRAMID,     ///< Polygonal pyramid profile.
+  SCATTER_SHAPE_SMOOTH_DOME, ///< Smooth cosine dome profile.
+};
+
+/**
  * @class ScatterField
  * @brief Container and processor for spatial ScatterItem collections.
  */
@@ -357,6 +371,29 @@ public:
                        glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}) const;
 
   /**
+   * @brief Converts the scatter field into a heightmap by representing each
+   * scattered object as a local elevation increase on GPU.
+   *
+   * @param  shape               Dimensions of the output heightmap {nx, ny}.
+   * @param  shape_type          Object geometry shape (default
+   *                             SCATTER_SHAPE_DISK).
+   * @param  height_radius_ratio Ratio of object maximum height relative to its
+   *                             radius (default 1.0f).
+   * @param  class_id            Optional class identifier to filter items.
+   * @param  seed                Random seed for procedural shape variation
+   *                             (e.g. polygon).
+   * @param  bbox                Domain bounding box {xmin, xmax, ymin, ymax}.
+   * @return                     Array               2D heightmap array
+   *                             containing accumulated elevations.
+   */
+  Array to_heightmap(glm::ivec2              shape,
+                     ScatterShape            shape_type = SCATTER_SHAPE_DISK,
+                     float                   height_radius_ratio = 1.0f,
+                     std::optional<uint32_t> class_id = std::nullopt,
+                     uint32_t                seed = 0,
+                     glm::vec4               bbox = {0.f, 1.f, 0.f, 1.f}) const;
+
+  /**
    * @brief Exports the items to a CSV file (x, y, z, class_id, radius).
    * @param fname Output file path.
    */
@@ -414,5 +451,28 @@ ScatterField merge_scatter_field(const ScatterField &field1,
  */
 ScatterField merge_scatter_fields(const std::vector<ScatterField> &fields,
                                   bool merge_by_class = true);
+
+/**
+ * @brief Converts a ScatterField into a heightmap by representing each
+ * scattered object as a local elevation increase on GPU.
+ *
+ * @param  field               Input ScatterField.
+ * @param  shape               Dimensions of the output heightmap {nx, ny}.
+ * @param  shape_type          Object geometry shape.
+ * @param  height_radius_ratio Ratio of object maximum height relative to its
+ *                             radius.
+ * @param  class_id            Optional class identifier to filter items.
+ * @param  seed                Random seed for procedural shape variation.
+ * @param  bbox                Domain bounding box {xmin, xmax, ymin, ymax}.
+ * @return                     Array               2D heightmap array.
+ */
+Array scatter_field_to_heightmap(
+    const ScatterField     &field,
+    glm::ivec2              shape,
+    ScatterShape            shape_type = SCATTER_SHAPE_DISK,
+    float                   height_radius_ratio = 1.0f,
+    std::optional<uint32_t> class_id = std::nullopt,
+    uint32_t                seed = 0,
+    glm::vec4               bbox = {0.f, 1.f, 0.f, 1.f});
 
 } // namespace hmap

@@ -17,12 +17,14 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
 
+#include "cl_wrapper/run.hpp"
 #include "delaunator-cpp.hpp"
 #include "point_sampler/metrics.hpp"
 #include "point_sampler/relaxation.hpp"
 
 #include "highmap/functions.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/scatter/scatter_field.hpp"
 
 #include <unordered_map>
@@ -1004,6 +1006,241 @@ Array ScatterField::to_density_map(glm::ivec2              shape,
   return density;
 }
 
+Array ScatterField::to_heightmap(glm::ivec2              shape,
+                                 ScatterShape            shape_type,
+                                 float                   height_radius_ratio,
+                                 std::optional<uint32_t> class_id,
+                                 uint32_t                seed,
+                                 glm::vec4               bbox) const
+{
+  if (!validate_shape(shape)) return Array();
+  if (items.empty()) return Array(shape, 0.0f);
+
+  int   num_items = static_cast<int>(items.size());
+  Array heightmap(shape, 0.0f);
+
+  std::vector<float>    pos_rad(num_items * 4);
+  std::vector<uint32_t> class_ids(num_items);
+
+  for (int i = 0; i < num_items; ++i)
+  {
+    pos_rad[i * 4 + 0] = items[i].position.x;
+    pos_rad[i * 4 + 1] = items[i].position.y;
+    pos_rad[i * 4 + 2] = items[i].position.z;
+    pos_rad[i * 4 + 3] = items[i].radius;
+    class_ids[i] = items[i].class_id;
+  }
+
+  int filter_class = class_id.has_value() ? static_cast<int>(*class_id) : -1;
+
+  if (clwrapper::DeviceManager::get_instance().is_ready())
+  {
+    auto run = clwrapper::Run("scatter_to_heightmap");
+    run.bind_buffer<float>("heightmap", heightmap.vector);
+    run.bind_buffer<float>("items_pos_rad", pos_rad);
+    run.bind_buffer<uint32_t>("items_class", class_ids);
+
+    run.bind_arguments(num_items,
+                       shape.x,
+                       shape.y,
+                       bbox,
+                       static_cast<int>(shape_type),
+                       height_radius_ratio,
+                       seed,
+                       filter_class);
+
+    run.write_buffer("heightmap");
+    run.write_buffer("items_pos_rad");
+    run.write_buffer("items_class");
+
+    run.execute_async(num_items);
+    run.finish();
+
+    run.read_buffer("heightmap");
+  }
+  else
+  {
+    // fallback CPU implementation
+    float xmin = bbox.x;
+    float xmax = bbox.y;
+    float ymin = bbox.z;
+    float ymax = bbox.w;
+    float dx_dom = xmax - xmin;
+    float dy_dom = ymax - ymin;
+    if (dx_dom <= 0.0f || dy_dom <= 0.0f) return heightmap;
+
+    float px = dx_dom / static_cast<float>(shape.x);
+    float py = dy_dom / static_cast<float>(shape.y);
+
+    for (int i = 0; i < num_items; ++i)
+    {
+      if (filter_class >= 0 &&
+          class_ids[i] != static_cast<uint32_t>(filter_class))
+      {
+        continue;
+      }
+
+      float cx = pos_rad[i * 4 + 0];
+      float cy = pos_rad[i * 4 + 1];
+      float radius = pos_rad[i * 4 + 3];
+      if (radius <= 0.0f) continue;
+
+      int ix_min = std::clamp(
+          static_cast<int>(std::floor((cx - radius - xmin) / px)),
+          0,
+          shape.x - 1);
+      int ix_max = std::clamp(
+          static_cast<int>(std::ceil((cx + radius - xmin) / px)),
+          0,
+          shape.x - 1);
+      int iy_min = std::clamp(
+          static_cast<int>(std::floor((cy - radius - ymin) / py)),
+          0,
+          shape.y - 1);
+      int iy_max = std::clamp(
+          static_cast<int>(std::ceil((cy + radius - ymin) / py)),
+          0,
+          shape.y - 1);
+
+      float h_max = radius * height_radius_ratio;
+
+      constexpr int max_verts = 8;
+      int           n_verts = 6;
+      float         thetas[8];
+      float         r_verts[8];
+
+      if (shape_type == SCATTER_SHAPE_POLYGON ||
+          shape_type == SCATTER_SHAPE_PYRAMID)
+      {
+        std::mt19937 rng(seed ^ (static_cast<uint32_t>(i) * 1999u + 17u));
+        std::uniform_real_distribution<float> dist_uniform(0.0f, 1.0f);
+        n_verts = 5 + static_cast<int>(dist_uniform(rng) * 3.99f);
+        if (n_verts > max_verts) n_verts = max_verts;
+        float base_rot = dist_uniform(rng) * 2.0f * static_cast<float>(M_PI);
+
+        for (int k = 0; k < n_verts; ++k)
+        {
+          thetas[k] = base_rot + (2.0f * static_cast<float>(M_PI) *
+                                  static_cast<float>(k)) /
+                                     static_cast<float>(n_verts);
+          r_verts[k] = radius * (0.65f + 0.35f * dist_uniform(rng));
+        }
+      }
+
+      for (int iy = iy_min; iy <= iy_max; ++iy)
+      {
+        float wy = ymin + (static_cast<float>(iy) + 0.5f) * py;
+        float dy = wy - cy;
+
+        for (int ix = ix_min; ix <= ix_max; ++ix)
+        {
+          float wx = xmin + (static_cast<float>(ix) + 0.5f) * px;
+          float dx = wx - cx;
+          float dist = std::sqrt(dx * dx + dy * dy);
+          float dz = 0.0f;
+
+          if (shape_type == SCATTER_SHAPE_DISK)
+          {
+            if (dist < radius)
+            {
+              float u = dist / radius;
+              dz = h_max * std::sqrt(std::max(0.0f, 1.0f - u * u));
+            }
+          }
+          else if (shape_type == SCATTER_SHAPE_CONE)
+          {
+            if (dist < radius)
+            {
+              float u = dist / radius;
+              dz = h_max * (1.0f - u);
+            }
+          }
+          else if (shape_type == SCATTER_SHAPE_SMOOTH_DOME)
+          {
+            if (dist < radius)
+            {
+              float u = dist / radius;
+              dz = h_max * 0.5f *
+                   (1.0f + std::cos(u * static_cast<float>(M_PI)));
+            }
+          }
+          else if (shape_type == SCATTER_SHAPE_POLYGON ||
+                   shape_type == SCATTER_SHAPE_PYRAMID)
+          {
+            if (dist < 1e-7f)
+            {
+              dz = h_max;
+            }
+            else
+            {
+              float phi = std::atan2(dy, dx);
+              if (phi < 0.0f) phi += 2.0f * static_cast<float>(M_PI);
+
+              float r_poly = radius;
+              for (int k = 0; k < n_verts; ++k)
+              {
+                int   next_k = (k + 1) % n_verts;
+                float t1 = thetas[k];
+                float t2 = thetas[next_k];
+                while (t1 < 0.0f)
+                  t1 += 2.0f * static_cast<float>(M_PI);
+                while (t1 >= 2.0f * static_cast<float>(M_PI))
+                  t1 -= 2.0f * static_cast<float>(M_PI);
+                while (t2 < 0.0f)
+                  t2 += 2.0f * static_cast<float>(M_PI);
+                while (t2 >= 2.0f * static_cast<float>(M_PI))
+                  t2 -= 2.0f * static_cast<float>(M_PI);
+
+                bool in_sector = (t1 < t2) ? (phi >= t1 && phi <= t2)
+                                           : (phi >= t1 || phi <= t2);
+                if (in_sector)
+                {
+                  float d_theta = t2 - t1;
+                  if (d_theta < 0.0f)
+                    d_theta += 2.0f * static_cast<float>(M_PI);
+                  float d_phi1 = phi - t1;
+                  if (d_phi1 < 0.0f) d_phi1 += 2.0f * static_cast<float>(M_PI);
+                  float d_phi2 = t2 - phi;
+                  if (d_phi2 < 0.0f) d_phi2 += 2.0f * static_cast<float>(M_PI);
+
+                  float r1 = r_verts[k];
+                  float r2 = r_verts[next_k];
+                  float denom = r2 * std::sin(d_phi2) + r1 * std::sin(d_phi1);
+                  if (denom > 1e-6f)
+                  {
+                    r_poly = (r1 * r2 * std::sin(d_theta)) / denom;
+                  }
+                  break;
+                }
+              }
+
+              if (dist < r_poly)
+              {
+                float u = dist / r_poly;
+                if (shape_type == SCATTER_SHAPE_POLYGON)
+                {
+                  dz = h_max * std::sqrt(std::max(0.0f, 1.0f - u * u));
+                }
+                else
+                {
+                  dz = h_max * (1.0f - u);
+                }
+              }
+            }
+          }
+
+          if (dz > 0.0f)
+          {
+            heightmap(ix, iy) += dz;
+          }
+        }
+      }
+    }
+  }
+
+  return heightmap;
+}
+
 void ScatterField::to_png(const std::string &fname,
                           glm::ivec2         shape,
                           const Array       &background,
@@ -1175,6 +1412,22 @@ ScatterField merge_scatter_fields(const std::vector<ScatterField> &fields,
   }
 
   return result;
+}
+
+Array scatter_field_to_heightmap(const ScatterField     &field,
+                                 glm::ivec2              shape,
+                                 ScatterShape            shape_type,
+                                 float                   height_radius_ratio,
+                                 std::optional<uint32_t> class_id,
+                                 uint32_t                seed,
+                                 glm::vec4               bbox)
+{
+  return field.to_heightmap(shape,
+                            shape_type,
+                            height_radius_ratio,
+                            class_id,
+                            seed,
+                            bbox);
 }
 
 } // namespace hmap

@@ -334,6 +334,9 @@ bool init_opencl()
   add(
 #include "kernels/rocks/rock_simulation.cl"
   );
+  add(
+#include "kernels/scatter/scatter_to_heightmap.cl"
+  );
 
   km.build_program();
 
