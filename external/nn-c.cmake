@@ -24,6 +24,7 @@ if(NOT nn-c_POPULATED)
 
   target_compile_definitions(nn-c PRIVATE TRILIBRARY=1)
   target_compile_definitions(nn-c PRIVATE NO_TIMER=1)
+  target_compile_definitions(nn-c PUBLIC ANSI_DECLARATORS=1)
 
   target_include_directories(nn-c PUBLIC ${NNC_DIR} ${CMAKE_BINARY_DIR}/nn-c)
 endif()
