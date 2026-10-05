@@ -124,20 +124,40 @@ RockField simulate_rock_trajectories(const RockField &rocks,
 
   std::vector<float> init_pos_rad = pos_rad;
 
-  // --- OpenCL Simulation Run Dispatch
-
+  // --- Progressive Spawning Step Calculation
   int sub_steps = std::max(1, options.sub_steps);
   int total_steps = std::max(sub_steps, options.max_steps);
   int outer_iterations = total_steps / sub_steps;
+
+  std::vector<int> spawn_step(num_rocks, 0);
+  float spawn_frac = std::clamp(options.spawn_fraction, 0.0f, 1.0f);
+  int max_spawn_step = static_cast<int>(spawn_frac * total_steps);
+
+  if (max_spawn_step > 0 && num_rocks > 1)
+  {
+    for (int i = 0; i < num_rocks; ++i)
+    {
+      // Distribute spawn step linearly / randomly across rock indices
+      spawn_step[i] = static_cast<int>((static_cast<float>(i) / (num_rocks - 1)) * max_spawn_step);
+      if (spawn_step[i] > 0)
+      {
+        status_class[i * 2 + 0] = 3; // ROCK_STATUS_UNSPAWNED
+      }
+    }
+  }
+
+  // --- OpenCL Simulation Run Dispatch
 
   auto run_sim = clwrapper::Run("rock_simulate_physics");
   run_sim.bind_buffer<float>("pos_rad", pos_rad);
   run_sim.bind_buffer<float>("vel_mass", vel_mass);
   run_sim.bind_buffer<uint32_t>("status_class", status_class);
   run_sim.bind_buffer<float>("init_pos_rad", init_pos_rad);
+  run_sim.bind_buffer<int>("spawn_step", spawn_step);
   run_sim.bind_buffer<float>("z", elevation.vector);
   gpu::helper_bind_optional_buffer(run_sim, "friction_map", p_friction_map);
 
+  int start_step = 0;
   run_sim.bind_arguments(num_rocks,
                          shape.x,
                          shape.y,
@@ -151,17 +171,23 @@ RockField simulate_rock_trajectories(const RockField &rocks,
                          p_friction_map ? 1 : 0,
                          options.respawn_out_of_bounds ? 1 : 0,
                          options.seed,
+                         start_step,
                          sub_steps);
 
   run_sim.write_buffer("pos_rad");
   run_sim.write_buffer("vel_mass");
   run_sim.write_buffer("status_class");
   run_sim.write_buffer("init_pos_rad");
+  run_sim.write_buffer("spawn_step");
   run_sim.write_buffer("z");
   if (p_friction_map) run_sim.write_buffer("friction_map");
 
+  const int start_step_arg_idx = 20;
+
   for (int iter = 0; iter < outer_iterations; ++iter)
   {
+    start_step = iter * sub_steps;
+    run_sim.set_argument(start_step_arg_idx, start_step);
     run_sim.execute_async(num_rocks);
   }
 

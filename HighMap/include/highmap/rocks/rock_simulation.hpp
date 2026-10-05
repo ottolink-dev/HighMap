@@ -38,6 +38,7 @@ struct RockSimulationOptions
   float     inter_rock_restitution = 0.20f; ///< Restitution between colliding rocks.
   float min_velocity = 0.01f;               ///< Resting threshold speed.
   bool  respawn_out_of_bounds = false;      ///< Whether to respawn out-of-bounds rocks at initial position.
+  float spawn_fraction = 0.0f;              ///< Fraction of max_steps over which rocks progressively spawn (0.0 = all at start).
   uint32_t seed = 0;                        ///< Random seed.
 };
 

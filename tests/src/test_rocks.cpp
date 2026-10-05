@@ -292,3 +292,43 @@ TEST(RockSimulationTest, CollisionNonOverlap)
   // radii - small tolerance)
   EXPECT_GE(dist, min_allowed_dist - 1e-4f);
 }
+
+TEST(RockSimulationTest, ProgressiveSpawn)
+{
+  Array elev(glm::ivec2(64, 64));
+  for (int j = 0; j < 64; ++j)
+  {
+    for (int i = 0; i < 64; ++i)
+    {
+      float x = static_cast<float>(i) / 63.0f;
+      elev(i, j) = (x < 0.4f) ? (0.4f - x) * 1.5f : 0.0f;
+    }
+  }
+
+  RockField field;
+  for (int i = 0; i < 10; ++i)
+  {
+    field.push_back(Rock(glm::vec3(0.05f, 0.1f + 0.08f * float(i), 0.0f), 0u, 0.02f));
+  }
+
+  RockSimulationOptions opts;
+  opts.time_step = 0.005f;
+  opts.max_steps = 1500;
+  opts.sub_steps = 10;
+  opts.soil_friction = 0.2f;
+  opts.rolling_resistance = 0.05f;
+  opts.spawn_fraction = 0.5f; // rocks spawn over the first 50% of the simulation
+
+  field.simulate_physics(elev, nullptr, opts);
+
+  ASSERT_EQ(field.size(), 10u);
+  for (const auto &rock : field)
+  {
+    // Verify that every rock (including later-spawned rocks) has moved downhill
+    EXPECT_GT(rock.position.x, 0.2f);
+    EXPECT_LE(rock.position.x, 1.0f);
+    EXPECT_GE(rock.position.y, 0.0f);
+    EXPECT_LE(rock.position.y, 1.0f);
+  }
+}
+

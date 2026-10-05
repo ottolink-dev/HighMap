@@ -6,6 +6,7 @@ R""(
 #define ROCK_STATUS_ACTIVE 0
 #define ROCK_STATUS_RESTING 1
 #define ROCK_STATUS_OUT_OF_BOUNDS 2
+#define ROCK_STATUS_UNSPAWNED 3
 
 // --- Bilinear Sampling Helper
 
@@ -75,6 +76,7 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
                                   global float4       *vel_mass,
                                   global uint2        *status_class,
                                   global const float4 *init_pos_rad,
+                                  global const int    *spawn_step,
                                   global const float  *z,
                                   global const float  *friction_map,
                                   int                  num_rocks,
@@ -90,6 +92,7 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
                                   int                  has_friction_map,
                                   int                  respawn_out_of_bounds,
                                   uint                 seed,
+                                  int                  start_step,
                                   int                  sub_steps)
 {
   int rock_idx = get_global_id(0);
@@ -97,6 +100,8 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
 
   uint2 sc = status_class[rock_idx];
   if (sc.x == ROCK_STATUS_OUT_OF_BOUNDS) return;
+
+  int rock_spawn_step = spawn_step[rock_idx];
 
   float4 p = pos_rad[rock_idx];
   float4 vm = vel_mass[rock_idx];
@@ -108,10 +113,23 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
   float dom_w = bbox.y - bbox.x;
   float dom_h = bbox.w - bbox.z;
 
-  uint rng_state = wang_hash((uint)rock_idx + seed * 1999u + 1u);
+  uint rng_state = wang_hash((uint)rock_idx + seed * 1999u + (uint)start_step + 1u);
 
   for (int step = 0; step < sub_steps; ++step)
   {
+    int current_global_step = start_step + step;
+
+    // Progressive spawn: wait until rock's assigned spawn_step
+    if (current_global_step < rock_spawn_step)
+    {
+      sc.x = ROCK_STATUS_UNSPAWNED;
+      continue;
+    }
+    else if (sc.x == ROCK_STATUS_UNSPAWNED)
+    {
+      sc.x = ROCK_STATUS_ACTIVE;
+    }
+    
     // Check if rock is out of domain bounds
     if (pos.x < bbox.x || pos.x > bbox.y || pos.y < bbox.z || pos.y > bbox.w)
     {
@@ -197,7 +215,11 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
       if (other_idx == rock_idx) continue;
 
       uint2 other_sc = status_class[other_idx];
-      if (other_sc.x == ROCK_STATUS_OUT_OF_BOUNDS) continue;
+      if (other_sc.x == ROCK_STATUS_OUT_OF_BOUNDS ||
+          other_sc.x == ROCK_STATUS_UNSPAWNED)
+      {
+        continue;
+      }
 
       float4 other_p = pos_rad[other_idx];
       float2 other_pos = (float2)(other_p.x, other_p.y);

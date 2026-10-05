@@ -7,7 +7,7 @@ int main(void)
   hmap::gpu::init_opencl();
 
   glm::ivec2 shape = {512, 512};
-  glm::vec2  kw = {3.f, 3.f};
+  glm::vec2  kw = {4.f, 4.f};
   int        seed = 42;
 
   // --- 1. Generate Terrain Elevation
@@ -17,8 +17,9 @@ int main(void)
                                   kw,
                                   seed,
                                   8,
-                                  0.7f);
+                                  0.f);
   z = hmap::bulkify(z, hmap::PrimitiveType::PRIM_CUBIC_PULSE, 2.f);
+  hmap::hydraulic_mise(z);
   hmap::remap(z);
 
   // --- 2. Build Rock Emission Source Map
@@ -45,15 +46,16 @@ int main(void)
   hmap::RockSimulationOptions options;
   options.bbox = {0.f, 1.f, 0.f, 1.f};
   options.time_step = 0.005f;
-  options.max_steps = int(4.f * 128);
+  options.max_steps = int(16.f * 128);
   options.sub_steps = 32;
   options.gravity = 9.81f;
-  options.soil_friction = 0.6f;
+  options.soil_friction = 0.3f;
   options.rolling_resistance = 0.05f;
   options.min_velocity = 0.f;
   options.seed = static_cast<uint32_t>(seed);
   options.respawn_out_of_bounds = false;
-
+  options.spawn_fraction = 0.8f;
+  
   // --- 4. Simulate Rock Emission and Downhill Trajectories on GPU
 
   size_t target_count = 5000;
