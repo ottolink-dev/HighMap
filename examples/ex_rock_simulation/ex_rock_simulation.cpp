@@ -78,9 +78,13 @@ int main(void)
   // --- 5. Convert Rock Field into Heightmap and Accumulate
 
   std::cout << "Converting RockField into heightmap on GPU...\n";
+
+  hmap::Array rock_map(shape);
   hmap::Array rock_elevation = rocks.to_heightmap(shape,
                                                   hmap::SCATTER_SHAPE_POLYGON,
-                                                  2.f);
+                                                  2.f,
+                                                  std::nullopt,
+                                                  &rock_map);
 
   // accumulate rock elevation contributions directly onto terrain
   hmap::Array z_with_rocks = z + rock_elevation;
@@ -94,6 +98,7 @@ int main(void)
                           hmap::Cmap::TERRAIN);
 
   rock_elevation.dump("rock_elevation.png");
+  rock_map.dump("rock_map.png");
   z_with_rocks.dump("out.png");
 
   std::cout << "Exported 'rock_simulation_density.png', 'rock_simulation.csv', "

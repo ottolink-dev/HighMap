@@ -25,6 +25,7 @@
 #include "highmap/functions.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/opencl/gpu_opencl.hpp"
+#include "highmap/range.hpp"
 #include "highmap/scatter/scatter_field.hpp"
 
 #include <unordered_map>
@@ -1010,10 +1011,16 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
                                  ScatterShape            shape_type,
                                  float                   height_radius_ratio,
                                  std::optional<uint32_t> class_id,
+                                 Array                  *p_rock_map,
                                  uint32_t                seed,
                                  glm::vec4               bbox) const
 {
-  if (!validate_shape(shape)) return Array();
+  if (!validate_shape(shape))
+  {
+    if (p_rock_map) *p_rock_map = Array();
+    return Array();
+  }
+  if (p_rock_map) *p_rock_map = Array(shape, 0.0f);
   if (items.empty()) return Array(shape, 0.0f);
 
   int   num_items = static_cast<int>(items.size());
@@ -1037,6 +1044,7 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
   {
     auto run = clwrapper::Run("scatter_to_heightmap");
     run.bind_buffer<float>("heightmap", heightmap.vector);
+    gpu::helper_bind_optional_buffer(run, "rock_map", p_rock_map);
     run.bind_buffer<float>("items_pos_rad", pos_rad);
     run.bind_buffer<uint32_t>("items_class", class_ids);
 
@@ -1047,9 +1055,14 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
                        static_cast<int>(shape_type),
                        height_radius_ratio,
                        seed,
-                       filter_class);
+                       filter_class,
+                       p_rock_map ? 1 : 0);
 
     run.write_buffer("heightmap");
+    if (p_rock_map)
+    {
+      run.write_buffer("rock_map");
+    }
     run.write_buffer("items_pos_rad");
     run.write_buffer("items_class");
 
@@ -1057,6 +1070,11 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
     run.finish();
 
     run.read_buffer("heightmap");
+    if (p_rock_map)
+    {
+      run.read_buffer("rock_map");
+      clamp(*p_rock_map, 0.0f, 1.0f);
+    }
   }
   else
   {
@@ -1137,14 +1155,14 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
           float wx = xmin + (static_cast<float>(ix) + 0.5f) * px;
           float dx = wx - cx;
           float dist = std::sqrt(dx * dx + dy * dy);
-          float dz = 0.0f;
+          float shape_val = 0.0f;
 
           if (shape_type == SCATTER_SHAPE_DISK)
           {
             if (dist < radius)
             {
               float u = dist / radius;
-              dz = h_max * std::sqrt(std::max(0.0f, 1.0f - u * u));
+              shape_val = std::sqrt(std::max(0.0f, 1.0f - u * u));
             }
           }
           else if (shape_type == SCATTER_SHAPE_CONE)
@@ -1152,7 +1170,7 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
             if (dist < radius)
             {
               float u = dist / radius;
-              dz = h_max * (1.0f - u);
+              shape_val = (1.0f - u);
             }
           }
           else if (shape_type == SCATTER_SHAPE_SMOOTH_DOME)
@@ -1160,8 +1178,8 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
             if (dist < radius)
             {
               float u = dist / radius;
-              dz = h_max * 0.5f *
-                   (1.0f + std::cos(u * static_cast<float>(M_PI)));
+              shape_val = 0.5f *
+                          (1.0f + std::cos(u * static_cast<float>(M_PI)));
             }
           }
           else if (shape_type == SCATTER_SHAPE_POLYGON ||
@@ -1169,7 +1187,7 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
           {
             if (dist < 1e-7f)
             {
-              dz = h_max;
+              shape_val = 1.0f;
             }
             else
             {
@@ -1219,22 +1237,35 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
                 float u = dist / r_poly;
                 if (shape_type == SCATTER_SHAPE_POLYGON)
                 {
-                  dz = h_max * std::sqrt(std::max(0.0f, 1.0f - u * u));
+                  shape_val = std::sqrt(std::max(0.0f, 1.0f - u * u));
                 }
                 else
                 {
-                  dz = h_max * (1.0f - u);
+                  shape_val = (1.0f - u);
                 }
               }
             }
           }
 
-          if (dz > 0.0f)
+          if (shape_val > 0.0f)
           {
-            heightmap(ix, iy) += dz;
+            float dz = h_max * shape_val;
+            if (dz > 0.0f)
+            {
+              heightmap(ix, iy) += dz;
+            }
+            if (p_rock_map)
+            {
+              (*p_rock_map)(ix, iy) += shape_val;
+            }
           }
         }
       }
+    }
+
+    if (p_rock_map)
+    {
+      clamp(*p_rock_map, 0.0f, 1.0f);
     }
   }
 
@@ -1419,6 +1450,7 @@ Array scatter_field_to_heightmap(const ScatterField     &field,
                                  ScatterShape            shape_type,
                                  float                   height_radius_ratio,
                                  std::optional<uint32_t> class_id,
+                                 Array                  *p_rock_map,
                                  uint32_t                seed,
                                  glm::vec4               bbox)
 {
@@ -1426,6 +1458,7 @@ Array scatter_field_to_heightmap(const ScatterField     &field,
                             shape_type,
                             height_radius_ratio,
                             class_id,
+                            p_rock_map,
                             seed,
                             bbox);
 }

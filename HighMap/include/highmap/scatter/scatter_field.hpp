@@ -380,6 +380,8 @@ public:
    * @param  height_radius_ratio Ratio of object maximum height relative to its
    *                             radius (default 1.0f).
    * @param  class_id            Optional class identifier to filter items.
+   * @param  p_rock_map          Optional output array for the rock map with
+   *                             normalized amplitude in [0, 1].
    * @param  seed                Random seed for procedural shape variation
    *                             (e.g. polygon).
    * @param  bbox                Domain bounding box {xmin, xmax, ymin, ymax}.
@@ -390,6 +392,7 @@ public:
                      ScatterShape            shape_type = SCATTER_SHAPE_DISK,
                      float                   height_radius_ratio = 1.0f,
                      std::optional<uint32_t> class_id = std::nullopt,
+                     Array                  *p_rock_map = nullptr,
                      uint32_t                seed = 0,
                      glm::vec4               bbox = {0.f, 1.f, 0.f, 1.f}) const;
 
@@ -462,6 +465,8 @@ ScatterField merge_scatter_fields(const std::vector<ScatterField> &fields,
  * @param  height_radius_ratio Ratio of object maximum height relative to its
  *                             radius.
  * @param  class_id            Optional class identifier to filter items.
+ * @param  p_rock_map          Optional output array for the rock map with
+ *                             normalized amplitude in [0, 1].
  * @param  seed                Random seed for procedural shape variation.
  * @param  bbox                Domain bounding box {xmin, xmax, ymin, ymax}.
  * @return                     Array               2D heightmap array.
@@ -472,6 +477,7 @@ Array scatter_field_to_heightmap(
     ScatterShape            shape_type = SCATTER_SHAPE_DISK,
     float                   height_radius_ratio = 1.0f,
     std::optional<uint32_t> class_id = std::nullopt,
+    Array                  *p_rock_map = nullptr,
     uint32_t                seed = 0,
     glm::vec4               bbox = {0.f, 1.f, 0.f, 1.f});
 

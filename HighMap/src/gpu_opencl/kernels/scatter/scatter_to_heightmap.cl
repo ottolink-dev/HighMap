@@ -4,6 +4,7 @@ R""(
  * this software. */
 
 void kernel scatter_to_heightmap(global float       *heightmap,
+                                 global float       *rock_map,
                                  global const float *items_pos_rad,
                                  global const uint  *items_class,
                                  const int           num_items,
@@ -13,7 +14,8 @@ void kernel scatter_to_heightmap(global float       *heightmap,
                                  const int           shape_type,
                                  const float         height_radius_ratio,
                                  const uint          seed,
-                                 const int           filter_class)
+                                 const int           filter_class,
+                                 const int           has_rock_map)
 {
   int item_id = get_global_id(0);
   if (item_id >= num_items) return;
@@ -80,14 +82,14 @@ void kernel scatter_to_heightmap(global float       *heightmap,
       float dx = wx - cx;
       float dist = sqrt(dx * dx + dy * dy);
 
-      float dz = 0.0f;
+      float shape_val = 0.0f;
 
       if (shape_type == 0) // SCATTER_SHAPE_DISK
       {
         if (dist < radius)
         {
           float u = dist / radius;
-          dz = h_max * sqrt(max(0.0f, 1.0f - u * u));
+          shape_val = sqrt(max(0.0f, 1.0f - u * u));
         }
       }
       else if (shape_type == 2) // SCATTER_SHAPE_CONE
@@ -95,7 +97,7 @@ void kernel scatter_to_heightmap(global float       *heightmap,
         if (dist < radius)
         {
           float u = dist / radius;
-          dz = h_max * (1.0f - u);
+          shape_val = 1.0f - u;
         }
       }
       else if (shape_type == 4) // SCATTER_SHAPE_SMOOTH_DOME
@@ -103,7 +105,7 @@ void kernel scatter_to_heightmap(global float       *heightmap,
         if (dist < radius)
         {
           float u = dist / radius;
-          dz = h_max * 0.5f * (1.0f + cos(u * M_PI_F));
+          shape_val = 0.5f * (1.0f + cos(u * M_PI_F));
         }
       }
       else if (shape_type == 1 ||
@@ -111,7 +113,7 @@ void kernel scatter_to_heightmap(global float       *heightmap,
       {
         if (dist < 1e-7f)
         {
-          dz = h_max;
+          shape_val = 1.0f;
         }
         else
         {
@@ -160,20 +162,28 @@ void kernel scatter_to_heightmap(global float       *heightmap,
             float u = dist / r_poly;
             if (shape_type == 1) // POLYGON
             {
-              dz = h_max * sqrt(max(0.0f, 1.0f - u * u));
+              shape_val = sqrt(max(0.0f, 1.0f - u * u));
             }
             else // PYRAMID
             {
-              dz = h_max * (1.0f - u);
+              shape_val = 1.0f - u;
             }
           }
         }
       }
 
-      if (dz > 0.0f)
+      if (shape_val > 0.0f)
       {
-        int idx = linear_index(ix, iy, nx);
-        heightmap[idx] += dz;
+        int   idx = linear_index(ix, iy, nx);
+        float dz = h_max * shape_val;
+        if (dz > 0.0f)
+        {
+          heightmap[idx] += dz;
+        }
+        if (has_rock_map != 0)
+        {
+          rock_map[idx] += shape_val;
+        }
       }
     }
   }

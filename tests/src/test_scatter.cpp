@@ -594,3 +594,42 @@ TEST(ScatterFieldTest, ToHeightmapClassFilterAndFreeFunction)
   EXPECT_GT(hmap_free(ix0, iy0), 0.05f);
   EXPECT_GT(hmap_free(ix1, iy1), 0.05f);
 }
+
+TEST(ScatterFieldTest, ToHeightmapRockMap)
+{
+  ScatterField field;
+  // Two overlapping items at the same position to test collision clamping to
+  // [0, 1]
+  field.push_back(ScatterItem(0.5f, 0.5f, 0.0f, 0u, 0.2f));
+  field.push_back(ScatterItem(0.5f, 0.5f, 0.0f, 0u, 0.2f));
+
+  glm::ivec2 shape = {64, 64};
+  Array      rock_map;
+  Array      hmap = field.to_heightmap(shape,
+                                  SCATTER_SHAPE_DISK,
+                                  2.0f,
+                                  std::nullopt,
+                                  &rock_map);
+
+  EXPECT_EQ(rock_map.shape.x, shape.x);
+  EXPECT_EQ(rock_map.shape.y, shape.y);
+  // Normalized rock map max amplitude must be <= 1.0f (clamped to [0, 1])
+  EXPECT_NEAR(rock_map.max(), 1.0f, 0.02f);
+  EXPECT_GE(rock_map.min(), 0.0f);
+  EXPECT_LE(rock_map.max(), 1.0f);
+
+  // Heightmap max should be ~ 2 * radius * ratio = 2 * 0.2 * 2.0 = 0.8
+  EXPECT_NEAR(hmap.max(), 0.8f, 0.05f);
+
+  // Test free function with rock_map
+  Array rock_map_free;
+  scatter_field_to_heightmap(field,
+                             shape,
+                             SCATTER_SHAPE_DISK,
+                             2.0f,
+                             std::nullopt,
+                             &rock_map_free);
+  EXPECT_NEAR(rock_map_free.max(), 1.0f, 0.02f);
+  EXPECT_GE(rock_map_free.min(), 0.0f);
+  EXPECT_LE(rock_map_free.max(), 1.0f);
+}
