@@ -36,19 +36,19 @@ int main(void)
   hmap::RockDistribution dist(0u,
                               0.0005f,
                               0.005f,
-                              2.0f); // Pareto power-law alpha = 2.0
+                              2.f); // Pareto power-law alpha
 
   hmap::RockSimulationOptions options;
   options.bbox = {0.f, 1.f, 0.f, 1.f};
   options.time_step = 0.005f;
-  options.max_steps = int(16.f * 128);
+  options.max_steps = int(8.f * 128);
   options.gravity = 9.81f;
   options.soil_friction = 0.3f;
   options.rolling_resistance = 0.05f;
   options.min_velocity = 0.f;
   options.seed = static_cast<uint32_t>(seed);
-  options.respawn_out_of_bounds = false;
-  options.spawn_fraction = 0.9f;
+  options.respawn_out_of_bounds = true;
+  options.spawn_fraction = 0.8f;
 
   // --- 4. Simulate Rock Emission and Downhill Trajectories on GPU
 
@@ -65,9 +65,10 @@ int main(void)
   std::cout << "\n=== Simulated Rock Field ===\n";
   std::cout << rocks.to_string() << "\n\n";
 
+  rocks.resolve_collisions();
   rocks.prune_collisions();
 
-  std::cout << "\n=== Simulated Rock Field after collusion pruning ===\n";
+  std::cout << "\n=== Simulated Rock Field after collusions resolution ===\n";
   std::cout << rocks.to_string() << "\n\n";
 
   // --- 5. Export Visualization

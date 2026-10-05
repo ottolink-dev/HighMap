@@ -265,6 +265,47 @@ public:
                                 bool   include_self = true);
 
   /**
+   * @brief Resolves overlapping items by iteratively moving colliding items
+   * apart using Delaunay triangulation neighborhood and repulsive relaxation.
+   *
+   * Preserves item count and overall distribution while moving items until
+   * overlap is resolved or max iterations are reached.
+   *
+   * @param iterations            Maximum number of relaxation iterations.
+   * @param tolerance             Collision tolerance ratio in [0, 1) where 0
+   *                              means no overlap allowed.
+   * @param step_size             Relaxation step size / movement rate.
+   * @param triangulation_substep Frequency (in iterations) to recompute the
+   *                              Delaunay triangulation.
+   */
+  void resolve_collisions(size_t iterations = 20,
+                          float  tolerance = 0.f,
+                          float  step_size = 2.,
+                          size_t triangulation_substep = 5);
+
+  /**
+   * @brief Resolves collisions with another static ScatterField by pushing
+   * items in this field away from colliding items in the other field, using
+   * joint Delaunay triangulation neighborhood and repulsive relaxation.
+   *
+   * The other field remains constant and unmodified.
+   *
+   * @param other                 Const reference to the reference ScatterField.
+   * @param iterations            Maximum number of relaxation iterations.
+   * @param tolerance             Collision tolerance ratio in [0, 1).
+   * @param step_size             Relaxation step size.
+   * @param triangulation_substep Frequency (in iterations) to recompute the
+   *                              Delaunay triangulation.
+   *
+   * @overload
+   */
+  void resolve_collisions(const ScatterField &other,
+                          size_t              iterations = 20,
+                          float               tolerance = 0.f,
+                          float               step_size = 2.f,
+                          size_t              triangulation_substep = 5);
+
+  /**
    * @brief Sets the elevation (z-coordinate) of all items by sampling a terrain
    * heightmap.
    *

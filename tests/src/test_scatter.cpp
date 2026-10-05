@@ -299,6 +299,110 @@ TEST(ScatterFieldTest, RegularizePositions)
   EXPECT_GT(new_dist, initial_dist);
 }
 
+TEST(ScatterFieldTest, ResolveCollisionsSelf)
+{
+  ScatterField field;
+  // 3 overlapping items with radii 1.0 each (so required min dist is 2.0)
+  field.push_back(ScatterItem(0.0f, 0.0f, 0.0f, 0u, 1.0f));
+  field.push_back(ScatterItem(0.5f, 0.0f, 0.0f, 0u, 1.0f));
+  field.push_back(ScatterItem(0.25f, 0.4f, 0.0f, 0u, 1.0f));
+
+  size_t initial_count = field.size();
+
+  // Resolve collisions over 30 iterations with triangulation recomputed every 5
+  // steps
+  field.resolve_collisions(40, 0.0f, 0.5f, 5);
+
+  // Object count must remain unchanged
+  EXPECT_EQ(field.size(), initial_count);
+
+  // Check distances between all pairs are >= required sum of radii (within
+  // small numerical margin)
+  for (size_t i = 0; i < field.size(); ++i)
+  {
+    for (size_t j = i + 1; j < field.size(); ++j)
+    {
+      float dx = field[i].position.x - field[j].position.x;
+      float dy = field[i].position.y - field[j].position.y;
+      float dist = std::sqrt(dx * dx + dy * dy);
+      float min_dist = field[i].radius + field[j].radius;
+      EXPECT_GE(dist, min_dist - 1e-2f);
+    }
+  }
+}
+
+TEST(ScatterFieldTest, ResolveCollisionsAgainstOther)
+{
+  ScatterField obstacles;
+  // Fixed obstacle at (0, 0) with radius 2.0
+  obstacles.push_back(ScatterItem(0.0f, 0.0f, 0.0f, 0u, 2.0f));
+
+  ScatterField moving;
+  // Item overlapping the obstacle at (0.5, 0.0) with radius 1.0 -> required
+  // dist = 3.0
+  moving.push_back(ScatterItem(0.5f, 0.0f, 0.0f, 1u, 1.0f));
+
+  moving.resolve_collisions(obstacles, 40, 0.0f, 0.5f);
+
+  EXPECT_EQ(moving.size(), 1u);
+  EXPECT_EQ(obstacles.size(), 1u);
+
+  // Obstacle should remain unmoved at (0, 0)
+  EXPECT_TRUE(float_eq(obstacles[0].position.x, 0.0f));
+  EXPECT_TRUE(float_eq(obstacles[0].position.y, 0.0f));
+
+  // Moving item should now be pushed to distance >= 3.0
+  float dx = moving[0].position.x - obstacles[0].position.x;
+  float dy = moving[0].position.y - obstacles[0].position.y;
+  float dist = std::sqrt(dx * dx + dy * dy);
+  EXPECT_GE(dist, 3.0f - 1e-2f);
+}
+
+TEST(ScatterFieldTest, ResolveCollisionsLargeRandom)
+{
+  Array density({64, 64}, 1.0f);
+  Array exclusion({64, 64}, 0.0f);
+
+  ScatterSeedingOptions opts;
+  opts.seed = 12345;
+  ScatterField field =
+      seed_scatter_clusters(1, 100, density, exclusion, 0.05f, 1, opts);
+
+  // Set uniform radius
+  for (size_t i = 0; i < field.size(); ++i)
+  {
+    field[i].radius = 0.03f;
+  }
+
+  auto count_collisions = [](const ScatterField &sf)
+  {
+    size_t collisions = 0;
+    for (size_t i = 0; i < sf.size(); ++i)
+    {
+      for (size_t j = i + 1; j < sf.size(); ++j)
+      {
+        float dx = sf[i].position.x - sf[j].position.x;
+        float dy = sf[i].position.y - sf[j].position.y;
+        float dist_sq = dx * dx + dy * dy;
+        float min_dist = sf[i].radius + sf[j].radius;
+        if (dist_sq < min_dist * min_dist)
+        {
+          collisions++;
+        }
+      }
+    }
+    return collisions;
+  };
+
+  size_t before = count_collisions(field);
+
+  field.resolve_collisions(50, 0.0f, 0.5f, 1);
+
+  size_t after = count_collisions(field);
+
+  EXPECT_LE(after, before);
+}
+
 TEST(ScatterSeedingTest, SeedScatterClustersAndKMeans)
 {
   Array density({32, 32}, 1.0f);

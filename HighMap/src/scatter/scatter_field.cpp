@@ -582,6 +582,218 @@ void ScatterField::reinforce_class_clusters(size_t iterations,
   }
 }
 
+void ScatterField::resolve_collisions(size_t iterations,
+                                      float  tolerance,
+                                      float  step_size,
+                                      size_t triangulation_substep)
+{
+  if (items.size() < 2 || iterations == 0) return;
+
+  float  overlap_factor = 1.0f - std::clamp(tolerance, 0.0f, 1.0f);
+  size_t step_freq = std::max<size_t>(1, triangulation_substep);
+
+  std::vector<std::pair<size_t, size_t>> edges;
+
+  for (size_t iter = 0; iter < iterations; ++iter)
+  {
+    // --- Update Delaunay Triangulation Neighborhood
+    if (iter % step_freq == 0 || edges.empty())
+    {
+      edges.clear();
+      if (items.size() >= 3)
+      {
+        std::vector<double> coords;
+        coords.reserve(2 * items.size());
+        for (const auto &item : items)
+        {
+          coords.push_back(static_cast<double>(item.position.x));
+          coords.push_back(static_cast<double>(item.position.y));
+        }
+
+        delaunator::Delaunator d(coords);
+        const auto            &tri = d.triangles;
+        const auto            &halfedges = d.halfedges;
+
+        for (size_t e = 0; e < tri.size(); ++e)
+        {
+          int opposite = static_cast<int>(halfedges[e]);
+          if (static_cast<int>(e) > opposite || opposite == -1)
+          {
+            size_t next_e = (e % 3 == 2) ? e - 2 : e + 1;
+            size_t u = tri[e];
+            size_t v = tri[next_e];
+            edges.emplace_back(u, v);
+          }
+        }
+      }
+      else
+      {
+        edges.emplace_back(0, 1);
+      }
+    }
+
+    bool had_collision = false;
+
+    // --- Displace In Place Edge by Edge
+    for (const auto &[i, j] : edges)
+    {
+      float min_dist = (items[i].radius + items[j].radius) * overlap_factor;
+      float dx = items[j].position.x - items[i].position.x;
+      float dy = items[j].position.y - items[i].position.y;
+      float dist_sq = dx * dx + dy * dy;
+
+      if (dist_sq < min_dist * min_dist)
+      {
+        had_collision = true;
+        float     dist = std::sqrt(dist_sq);
+        glm::vec2 dir;
+
+        if (dist > 1e-6f)
+        {
+          dir = glm::vec2(dx / dist, dy / dist);
+        }
+        else
+        {
+          // break symmetry deterministically if points are coincident
+          float angle = static_cast<float>((i + j + iter) % 360) *
+                        (3.14159265f / 180.0f);
+          dir = glm::vec2(std::cos(angle), std::sin(angle));
+          dist = 0.0f;
+        }
+
+        float     penetration = min_dist - dist;
+        glm::vec2 delta = 0.5f * step_size * penetration * dir;
+
+        items[i].position.x -= delta.x;
+        items[i].position.y -= delta.y;
+        items[j].position.x += delta.x;
+        items[j].position.y += delta.y;
+      }
+    }
+
+    if (!had_collision) break;
+  }
+}
+
+void ScatterField::resolve_collisions(const ScatterField &other,
+                                      size_t              iterations,
+                                      float               tolerance,
+                                      float               step_size,
+                                      size_t              triangulation_substep)
+{
+  if (items.empty() || other.empty() || iterations == 0) return;
+
+  float  overlap_factor = 1.0f - std::clamp(tolerance, 0.0f, 1.0f);
+  size_t step_freq = std::max<size_t>(1, triangulation_substep);
+
+  size_t n_self = items.size();
+  size_t n_other = other.size();
+  size_t total_n = n_self + n_other;
+
+  std::vector<std::pair<size_t, size_t>> cross_edges;
+
+  for (size_t iter = 0; iter < iterations; ++iter)
+  {
+    // --- Update Joint Delaunay Triangulation Neighborhood
+    if (iter % step_freq == 0 || cross_edges.empty())
+    {
+      cross_edges.clear();
+      if (total_n >= 3)
+      {
+        std::vector<double> coords;
+        coords.reserve(2 * total_n);
+        for (const auto &item : items)
+        {
+          coords.push_back(static_cast<double>(item.position.x));
+          coords.push_back(static_cast<double>(item.position.y));
+        }
+        for (const auto &item : other)
+        {
+          coords.push_back(static_cast<double>(item.position.x));
+          coords.push_back(static_cast<double>(item.position.y));
+        }
+
+        delaunator::Delaunator d(coords);
+        const auto            &tri = d.triangles;
+        const auto            &halfedges = d.halfedges;
+
+        for (size_t e = 0; e < tri.size(); ++e)
+        {
+          int opposite = static_cast<int>(halfedges[e]);
+          if (static_cast<int>(e) > opposite || opposite == -1)
+          {
+            size_t next_e = (e % 3 == 2) ? e - 2 : e + 1;
+            size_t u = tri[e];
+            size_t v = tri[next_e];
+
+            // identify edges connecting self (< n_self) and other (>= n_self)
+            if (u < n_self && v >= n_self)
+            {
+              cross_edges.emplace_back(u, v - n_self);
+            }
+            else if (v < n_self && u >= n_self)
+            {
+              cross_edges.emplace_back(v, u - n_self);
+            }
+          }
+        }
+      }
+      else
+      {
+        for (size_t i = 0; i < n_self; ++i)
+        {
+          for (size_t j = 0; j < n_other; ++j)
+          {
+            cross_edges.emplace_back(i, j);
+          }
+        }
+      }
+    }
+
+    bool had_collision = false;
+
+    // --- Displace In Place Edge by Edge from Static Other Items
+    for (const auto &[self_idx, other_idx] : cross_edges)
+    {
+      const auto &self_item = items[self_idx];
+      const auto &other_item = other[other_idx];
+
+      float min_dist = (self_item.radius + other_item.radius) * overlap_factor;
+      float dx = self_item.position.x - other_item.position.x;
+      float dy = self_item.position.y - other_item.position.y;
+      float dist_sq = dx * dx + dy * dy;
+
+      if (dist_sq < min_dist * min_dist)
+      {
+        had_collision = true;
+        float     dist = std::sqrt(dist_sq);
+        glm::vec2 dir;
+
+        if (dist > 1e-6f)
+        {
+          dir = glm::vec2(dx / dist, dy / dist);
+        }
+        else
+        {
+          float angle = static_cast<float>((self_idx + other_idx + iter) %
+                                           360) *
+                        (3.14159265f / 180.0f);
+          dir = glm::vec2(std::cos(angle), std::sin(angle));
+          dist = 0.0f;
+        }
+
+        float     penetration = min_dist - dist;
+        glm::vec2 delta = step_size * penetration * dir;
+
+        items[self_idx].position.x += delta.x;
+        items[self_idx].position.y += delta.y;
+      }
+    }
+
+    if (!had_collision) break;
+  }
+}
+
 void ScatterField::set_elevation_from_terrain(const Array     &elevation,
                                               const glm::vec4 &bbox)
 {
