@@ -33,14 +33,13 @@ int main(void)
   hmap::Array slope = hmap::gradient_norm(z);
 
   // emission originates from upper elevations
-  hmap::Array emission_density = hmap::threshold_smooth(z, 0.f, 0.7f);
+  hmap::Array emission_density = hmap::Array(shape, 1.f);
+  // emission_density = hmap::threshold_smooth(z, 0.f, 0.7f);
 
   // --- 3. Configure GPU Rock Rolling Simulation Parameters
 
-  hmap::RockDistribution dist(0u,
-                              0.0005f,
-                              0.005f,
-                              4.f); // Pareto power-law alpha
+  // Pareto power-law alpha
+  hmap::RockDistribution dist(0u, 0.0005f, 0.002f, 4.f);
 
   hmap::RockSimulationOptions options;
   options.bbox = {0.f, 1.f, 0.f, 1.f};
@@ -54,10 +53,10 @@ int main(void)
   options.respawn_out_of_bounds = true;
   options.spawn_fraction = 0.8f;
   options.inter_rock_restitution = 0.9f;
-  
+
   // --- 4. Simulate Rock Emission and Downhill Trajectories on GPU
 
-  size_t target_count = 20000;
+  size_t target_count = 80000;
   std::cout << "Simulating " << target_count << " rocks on GPU...\n";
 
   hmap::RockField rocks = hmap::simulate_rock_emission(target_count,
@@ -70,9 +69,6 @@ int main(void)
   std::cout << "\n=== Simulated Rock Field ===\n";
   std::cout << rocks.to_string() << "\n\n";
 
-  for (int it = 0; it < 4; ++it)
-    rocks.shuffle_classes(0.5f, 4, it);
-  
   rocks.resolve_collisions();
   rocks.prune_collisions();
 

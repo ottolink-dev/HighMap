@@ -146,6 +146,20 @@ RockField simulate_rock_trajectories(const RockField &rocks,
   }
 
   // --- OpenCL Simulation Run Dispatch
+  // Configure spatial hash grid based on domain bbox and rock radii
+  float dom_w = bbox.y - bbox.x;
+  float dom_h = bbox.w - bbox.z;
+  float cell_size = std::max(2.0f * max_radius, 1e-4f);
+
+  int   grid_cells_x = std::clamp(static_cast<int>(dom_w / cell_size), 4, 512);
+  int   grid_cells_y = std::clamp(static_cast<int>(dom_h / cell_size), 4, 512);
+  float cell_size_x = dom_w / static_cast<float>(grid_cells_x);
+  float cell_size_y = dom_h / static_cast<float>(grid_cells_y);
+
+  int              total_cells = grid_cells_x * grid_cells_y;
+  std::vector<int> grid_heads(total_cells, -1);
+  std::vector<int> grid_next(num_rocks, -1);
+  std::vector<int> grid_step_tag(total_cells, 0);
 
   auto run_sim = clwrapper::Run("rock_simulate_physics");
   run_sim.bind_buffer<float>("pos_rad", pos_rad);
@@ -155,6 +169,9 @@ RockField simulate_rock_trajectories(const RockField &rocks,
   run_sim.bind_buffer<int>("spawn_step", spawn_step);
   run_sim.bind_buffer<float>("z", elevation.vector);
   gpu::helper_bind_optional_buffer(run_sim, "friction_map", p_friction_map);
+  run_sim.bind_buffer<int>("grid_heads", grid_heads);
+  run_sim.bind_buffer<int>("grid_next", grid_next);
+  run_sim.bind_buffer<int>("grid_step_tag", grid_step_tag);
 
   run_sim.bind_arguments(num_rocks,
                          shape.x,
@@ -169,7 +186,11 @@ RockField simulate_rock_trajectories(const RockField &rocks,
                          p_friction_map ? 1 : 0,
                          options.respawn_out_of_bounds ? 1 : 0,
                          options.seed,
-                         total_steps);
+                         total_steps,
+                         grid_cells_x,
+                         grid_cells_y,
+                         cell_size_x,
+                         cell_size_y);
 
   run_sim.write_buffer("pos_rad");
   run_sim.write_buffer("vel_mass");
@@ -178,6 +199,9 @@ RockField simulate_rock_trajectories(const RockField &rocks,
   run_sim.write_buffer("spawn_step");
   run_sim.write_buffer("z");
   if (p_friction_map) run_sim.write_buffer("friction_map");
+  run_sim.write_buffer("grid_heads");
+  run_sim.write_buffer("grid_next");
+  run_sim.write_buffer("grid_step_tag");
 
   run_sim.execute_async(num_rocks);
   run_sim.finish();

@@ -69,7 +69,7 @@ inline float2 rock_helper_sample_gradient(global const float *z,
 }
 
 // ============================================================================
-//  Rock Rolling Simulation Kernel
+//  Rock Rolling Simulation Kernel with Spatial Hash Grid
 // ============================================================================
 
 kernel void rock_simulate_physics(global float4       *pos_rad,
@@ -79,6 +79,9 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
                                   global const int    *spawn_step,
                                   global const float  *z,
                                   global const float  *friction_map,
+                                  global int          *grid_heads,
+                                  global int          *grid_next,
+                                  global int          *grid_step_tag,
                                   int                  num_rocks,
                                   int                  nx,
                                   int                  ny,
@@ -92,7 +95,11 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
                                   int                  has_friction_map,
                                   int                  respawn_out_of_bounds,
                                   uint                 seed,
-                                  int                  max_steps)
+                                  int                  max_steps,
+                                  int                  grid_cells_x,
+                                  int                  grid_cells_y,
+                                  float                cell_size_x,
+                                  float                cell_size_y)
 {
   int rock_idx = get_global_id(0);
   if (rock_idx >= num_rocks) return;
@@ -112,6 +119,7 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
   float dom_w = bbox.y - bbox.x;
   float dom_h = bbox.w - bbox.z;
 
+  int  total_cells = grid_cells_x * grid_cells_y;
   uint rng_state = wang_hash((uint)rock_idx + seed * 1999u + 1u);
 
   for (int step = 0; step < max_steps; ++step)
@@ -205,53 +213,95 @@ kernel void rock_simulate_physics(global float4       *pos_rad,
     vel += accel * dt;
     pos += vel * dt;
 
-    // --- Inter-Rock Collisions & Overlap Resolution
-    // Resolve pairwise contact / overlap with other active/resting rocks
-    for (int other_idx = 0; other_idx < num_rocks; ++other_idx)
+    // --- Spatial Hash Grid Registration
+    int cx = clamp((int)floor((pos.x - bbox.x) / cell_size_x),
+                   0,
+                   grid_cells_x - 1);
+    int cy = clamp((int)floor((pos.y - bbox.z) / cell_size_y),
+                   0,
+                   grid_cells_y - 1);
+    int cell_idx = cy * grid_cells_x + cx;
+
+    int current_step_tag = step + 1;
+    int prev_tag = atomic_xchg(&grid_step_tag[cell_idx], current_step_tag);
+    int old_head = (prev_tag == current_step_tag)
+                       ? atomic_xchg(&grid_heads[cell_idx], rock_idx)
+                       : -1;
+    if (prev_tag != current_step_tag)
     {
-      if (other_idx == rock_idx) continue;
+      grid_heads[cell_idx] = rock_idx;
+    }
+    grid_next[rock_idx] = old_head;
 
-      uint2 other_sc = status_class[other_idx];
-      if (other_sc.x == ROCK_STATUS_OUT_OF_BOUNDS ||
-          other_sc.x == ROCK_STATUS_UNSPAWNED)
+    // Publish updated position and velocity for other threads to read
+    pos_rad[rock_idx] = (float4)(pos.x, pos.y, 0.0f, radius);
+    vel_mass[rock_idx] = (float4)(vel.x, vel.y, 0.0f, vm.w);
+    status_class[rock_idx] = sc;
+
+    // --- Inter-Rock Collisions & Overlap Resolution via 9 Neighboring Cells
+    int min_gx = max(0, cx - 1);
+    int max_gx = min(grid_cells_x - 1, cx + 1);
+    int min_gy = max(0, cy - 1);
+    int max_gy = min(grid_cells_y - 1, cy + 1);
+
+    for (int ngy = min_gy; ngy <= max_gy; ++ngy)
+    {
+      for (int ngx = min_gx; ngx <= max_gx; ++ngx)
       {
-        continue;
-      }
+        int n_cell = ngy * grid_cells_x + ngx;
+        if (grid_step_tag[n_cell] != current_step_tag) continue;
 
-      float4 other_p = pos_rad[other_idx];
-      float2 other_pos = (float2)(other_p.x, other_p.y);
-      float  other_radius = other_p.w;
+        int other_idx = grid_heads[n_cell];
+        int max_chain = 64;
 
-      float2 delta = pos - other_pos;
-      float  dist_sq = dot(delta, delta);
-      float  min_dist = radius + other_radius;
-      float  min_dist_sq = min_dist * min_dist;
-
-      if (dist_sq < min_dist_sq && dist_sq > 1e-12f)
-      {
-        float  dist = sqrt(dist_sq);
-        float2 n = delta / dist;
-        float  overlap = min_dist - dist;
-
-        // Position relaxation: push apart so rocks do not overlap
-        pos += 2.f * overlap * n;
-
-        // Relative velocity collision response (impulse with restitution)
-        float4 other_vm = vel_mass[other_idx];
-        float2 other_vel = (float2)(other_vm.x, other_vm.y);
-        float2 rel_vel = vel - other_vel;
-        float  v_norm = dot(rel_vel, n);
-
-        if (v_norm < 0.0f)
+        while (other_idx >= 0 && max_chain-- > 0)
         {
-          float m1 = vm.w;
-          float m2 = other_vm.w;
-          float inv_m1 = (m1 > 1e-6f) ? (1.0f / m1) : 1.0f;
-          float inv_m2 = (m2 > 1e-6f) ? (1.0f / m2) : 1.0f;
+          if (other_idx != rock_idx)
+          {
+            uint2 other_sc = status_class[other_idx];
+            if (other_sc.x != ROCK_STATUS_OUT_OF_BOUNDS &&
+                other_sc.x != ROCK_STATUS_UNSPAWNED)
+            {
+              float4 other_p = pos_rad[other_idx];
+              float2 other_pos = (float2)(other_p.x, other_p.y);
+              float  other_radius = other_p.w;
 
-          float impulse = -(1.0f + inter_rock_restitution) * v_norm /
-                          (inv_m1 + inv_m2);
-          vel += (impulse * inv_m1) * n;
+              float2 delta = pos - other_pos;
+              float  dist_sq = dot(delta, delta);
+              float  min_dist = radius + other_radius;
+              float  min_dist_sq = min_dist * min_dist;
+
+              if (dist_sq < min_dist_sq && dist_sq > 1e-12f)
+              {
+                float  dist = sqrt(dist_sq);
+                float2 n = delta / dist;
+                float  overlap = min_dist - dist;
+
+                // Position relaxation: push apart so rocks do not overlap
+                pos += 2.f * overlap * n;
+
+                // Relative velocity collision response (impulse with
+                // restitution)
+                float4 other_vm = vel_mass[other_idx];
+                float2 other_vel = (float2)(other_vm.x, other_vm.y);
+                float2 rel_vel = vel - other_vel;
+                float  v_norm = dot(rel_vel, n);
+
+                if (v_norm < 0.0f)
+                {
+                  float m1 = vm.w;
+                  float m2 = other_vm.w;
+                  float inv_m1 = (m1 > 1e-6f) ? (1.0f / m1) : 1.0f;
+                  float inv_m2 = (m2 > 1e-6f) ? (1.0f / m2) : 1.0f;
+
+                  float impulse = -(1.0f + inter_rock_restitution) * v_norm /
+                                  (inv_m1 + inv_m2);
+                  vel += (impulse * inv_m1) * n;
+                }
+              }
+            }
+          }
+          other_idx = grid_next[other_idx];
         }
       }
     }
