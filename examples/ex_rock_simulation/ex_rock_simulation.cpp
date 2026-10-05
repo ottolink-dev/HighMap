@@ -53,10 +53,11 @@ int main(void)
   options.seed = static_cast<uint32_t>(seed);
   options.respawn_out_of_bounds = true;
   options.spawn_fraction = 0.8f;
-
+  options.inter_rock_restitution = 0.9f;
+  
   // --- 4. Simulate Rock Emission and Downhill Trajectories on GPU
 
-  size_t target_count = 8000;
+  size_t target_count = 20000;
   std::cout << "Simulating " << target_count << " rocks on GPU...\n";
 
   hmap::RockField rocks = hmap::simulate_rock_emission(target_count,
@@ -69,9 +70,11 @@ int main(void)
   std::cout << "\n=== Simulated Rock Field ===\n";
   std::cout << rocks.to_string() << "\n\n";
 
+  for (int it = 0; it < 4; ++it)
+    rocks.shuffle_classes(0.5f, 4, it);
+  
   rocks.resolve_collisions();
   rocks.prune_collisions();
-  // rocks.shuffle_classes(0.5f);
 
   std::cout << "\n=== Simulated Rock Field after collisions resolution ===\n";
   std::cout << rocks.to_string() << "\n\n";
