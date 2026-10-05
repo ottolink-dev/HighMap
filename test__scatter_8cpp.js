@@ -14,5 +14,16 @@ var test__scatter_8cpp =
     [ "TEST", "test__scatter_8cpp.html#a09000e2d816cd5f07205f03f2f5e5e01", null ],
     [ "TEST", "test__scatter_8cpp.html#a328999020cffd5785b83c8b395cc81c3", null ],
     [ "TEST", "test__scatter_8cpp.html#add088da17e0dd88b06cfea76d19f0edf", null ],
-    [ "TEST", "test__scatter_8cpp.html#a1754951084a3808db8efe633207db1e1", null ]
+    [ "TEST", "test__scatter_8cpp.html#a2c2823afcdf6fc68cff48337490a600c", null ],
+    [ "TEST", "test__scatter_8cpp.html#a76bea991e6d6e65a9a929cc74c6c3414", null ],
+    [ "TEST", "test__scatter_8cpp.html#a912ef5e04c0376e52cc62741c37ea4b3", null ],
+    [ "TEST", "test__scatter_8cpp.html#a1754951084a3808db8efe633207db1e1", null ],
+    [ "TEST", "test__scatter_8cpp.html#ab308485f1a4ebea46c1ed9c96159895d", null ],
+    [ "TEST", "test__scatter_8cpp.html#a5ad69130b51f762609b0886e6febc5d7", null ],
+    [ "TEST", "test__scatter_8cpp.html#aa919f51d052ff366107f448349ce2c92", null ],
+    [ "TEST", "test__scatter_8cpp.html#a9f84475bb5e78493a4eb873164c95923", null ],
+    [ "TEST", "test__scatter_8cpp.html#ae4b84e12983097fd9006f7ea3df24047", null ],
+    [ "TEST", "test__scatter_8cpp.html#af418605a6ab9a3cbfc7d14e3b70b4539", null ],
+    [ "TEST", "test__scatter_8cpp.html#a31744e42ff24d931319e3bddb2d9ef12", null ],
+    [ "TEST", "test__scatter_8cpp.html#abd8e9b3abbd22026be212923de320608", null ]
 ];

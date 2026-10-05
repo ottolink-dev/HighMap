@@ -1,5 +1,13 @@
 var NAVTREEINDEX15 =
 {
+"kernels_8hpp.html#abc4df5971637a4247f385355e5bee73e":[4,0,1,0,0,36,11],
+"kernels_8hpp.html#abc5852a4cae426341235d60a04964fc1":[4,0,1,0,0,36,3],
+"kernels_8hpp.html#ac94c2199aca4c2c41da051de40ce3842":[4,0,1,0,0,36,19],
+"kernels_8hpp.html#ace7038aa10105fd2f3d1aa9eb3dd83f1":[4,0,1,0,0,36,21],
+"kernels_8hpp.html#ae1374e51e008a4c88b6e9fe53360e150":[4,0,1,0,0,36,14],
+"kernels_8hpp.html#ae4d60feebbef618bd7a6fb4dcf9431a1":[4,0,1,0,0,36,22],
+"kernels_8hpp.html#af6c25dcc0a945c86cbc8214e622f2742":[4,0,1,0,0,36,9],
+"kernels_8hpp.html#af79b0d6faf3275a80f3948dfff6adaf5":[4,0,1,0,0,36,23],
 "kernels_8hpp.html#afb6b1a073428729f0dc9afc0ba42f8b2":[4,0,1,0,0,36,4],
 "kernels_8hpp_source.html":[4,0,1,0,0,36],
 "kmeans__clustering_8cpp.html":[4,0,1,1,14,2],
@@ -241,13 +249,5 @@ var NAVTREEINDEX15 =
 "morphology_8cpp.html#af80bcff234bf1482cf26896b9d21d270":[4,0,1,1,26,3,1],
 "morphology_8cpp.html#af988efebdf30c6135f68af79aaa83605":[4,0,1,1,26,3,16],
 "morphology_8hpp.html":[4,0,1,0,0,40],
-"morphology_8hpp.html#a01f3be1fd053428ea67030e3736d15ca":[4,0,1,0,0,40,17],
-"morphology_8hpp.html#a03d65935f9d2cfe81af1ec3865f91fdd":[4,0,1,0,0,40,44],
-"morphology_8hpp.html#a06a37576327ff4cb06746711dbdfa0de":[4,0,1,0,0,40,31],
-"morphology_8hpp.html#a0df2e693c1919b3f59ee98df040ff489":[4,0,1,0,0,40,52],
-"morphology_8hpp.html#a11ddd5ab1aa625db9419d9b65c0eaa64":[4,0,1,0,0,40,30],
-"morphology_8hpp.html#a15cc695501488300f5c2c939c9c9ee8d":[4,0,1,0,0,40,53],
-"morphology_8hpp.html#a1cf22c68188d0e35aa74983f3a01c488":[4,0,1,0,0,40,16],
-"morphology_8hpp.html#a1dbc83521075f7c0179c7157f292b2b2":[4,0,1,0,0,40,37],
-"morphology_8hpp.html#a1ea1b9c11b5b2855d8b48925eb8bed4e":[4,0,1,0,0,40,38]
+"morphology_8hpp.html#a01f3be1fd053428ea67030e3736d15ca":[4,0,1,0,0,40,17]
 };

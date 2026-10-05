@@ -110,6 +110,10 @@ void \mbox{\hyperlink{classhmap_1_1ScatterField_a86565a4632900420e6a22762bab7b59
 \begin{DoxyCompactList}\small\item\em Relaxes/regularizes item positions using k-\/nearest neighbor repulsion. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_aa97bb7dc10919eebaa875018068ebbe4}{reinforce\+\_\+class\+\_\+clusters}} (size\+\_\+t iterations=2, size\+\_\+t k\+\_\+neighbors=4, bool include\+\_\+self=true)
 \begin{DoxyCompactList}\small\item\em Reinforces spatial clustering of classes by iteratively assigning each item the dominant class among its nearest neighbors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_acbd1ac9b264b98e5ebbc25d9b2c104b6}{resolve\+\_\+collisions}} (size\+\_\+t iterations=20, float tolerance=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float step\+\_\+size=2., size\+\_\+t triangulation\+\_\+substep=5)
+\begin{DoxyCompactList}\small\item\em Resolves overlapping items by iteratively moving colliding items apart using Delaunay triangulation neighborhood and repulsive relaxation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1ScatterField_ab9b5e791fc1e17881072ea8253216bc3}{resolve\+\_\+collisions}} (const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&other, size\+\_\+t iterations=20, float tolerance=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float step\+\_\+size=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t triangulation\+\_\+substep=5)
+\begin{DoxyCompactList}\small\item\em Resolves collisions with another static \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} by pushing items in this field away from colliding items in the other field, using joint Delaunay triangulation neighborhood and repulsive relaxation. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_a6097c8940ee25ec5b5364faf0ad7c9b5}{set\+\_\+elevation\+\_\+from\+\_\+terrain}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&elevation, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Sets the elevation (z-\/coordinate) of all items by sampling a terrain heightmap. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_aea3394fe15e737f15f1cca806009f19c}{shuffle\+\_\+classes}} (float ratio=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t k\+\_\+neighbors=4, uint32\+\_\+t seed=0)
@@ -118,6 +122,8 @@ void \mbox{\hyperlink{classhmap_1_1ScatterField_aea3394fe15e737f15f1cca806009f19
 \begin{DoxyCompactList}\small\item\em Converts the field into a \doxylink{classhmap_1_1Cloud}{Cloud} of 2D points (x, y) with value set to radius. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{classhmap_1_1ScatterField_a914fe248c39cdc85f2ce5cdab1058c03}{to\+\_\+density\+\_\+map}} (glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, float sigma=0.\+0f, std\+::optional$<$ uint32\+\_\+t $>$ class\+\_\+id=std\+::nullopt, bool weighted\+\_\+by\+\_\+area=false, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}) const
 \begin{DoxyCompactList}\small\item\em Exports the local density map of the field as a 2D \doxylink{classhmap_1_1Array}{Array} using 2D Kernel Density Estimation (Gaussian splatting / KDE). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{classhmap_1_1ScatterField_ac8d50ec2113700c1dda1cba253de00fe}{to\+\_\+heightmap}} (glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, \mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3}{Scatter\+Shape}} shape\+\_\+type=\mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3}{SCATTER\+\_\+\+SHAPE\+\_\+\+DISK}}, float height\+\_\+radius\+\_\+ratio=1.\+0f, std\+::optional$<$ uint32\+\_\+t $>$ class\+\_\+id=std\+::nullopt, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+rock\+\_\+map=nullptr, uint32\+\_\+t seed=0, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}) const
+\begin{DoxyCompactList}\small\item\em Converts the scatter field into a heightmap by representing each scattered object as a local elevation increase on GPU. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_a4cf0ddf4c16900b485b580643cceb3d7}{to\+\_\+csv}} (const std\+::string \&fname) const
 \begin{DoxyCompactList}\small\item\em Exports the items to a CSV file (x, y, z, class\+\_\+id, radius). \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ScatterField_a4e1e40d95eaecfff34f524bb44e2cb74}{to\+\_\+png}} (const std\+::string \&fname, glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&background=\{\}, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}) const
@@ -516,7 +522,55 @@ Reinforces spatial clustering of classes by iteratively assigning each item the 
 {\em include\+\_\+self} & If true, considers the item\textquotesingle{}s own current class in the majority vote. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1ScatterField_a6097c8940ee25ec5b5364faf0ad7c9b5}\label{classhmap_1_1ScatterField_a6097c8940ee25ec5b5364faf0ad7c9b5} 
+\Hypertarget{classhmap_1_1ScatterField_acbd1ac9b264b98e5ebbc25d9b2c104b6}\label{classhmap_1_1ScatterField_acbd1ac9b264b98e5ebbc25d9b2c104b6} 
+\index{hmap::ScatterField@{hmap::ScatterField}!resolve\_collisions@{resolve\_collisions}}
+\index{resolve\_collisions@{resolve\_collisions}!hmap::ScatterField@{hmap::ScatterField}}
+\doxysubsubsection{\texorpdfstring{resolve\_collisions()}{resolve\_collisions()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void hmap\+::\+Scatter\+Field\+::resolve\+\_\+collisions (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{iterations = {\ttfamily 20},  }\item[{float}]{tolerance = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{step\+\_\+size = {\ttfamily 2.},  }\item[{size\+\_\+t}]{triangulation\+\_\+substep = {\ttfamily 5} }\end{DoxyParamCaption})}
+
+
+
+Resolves overlapping items by iteratively moving colliding items apart using Delaunay triangulation neighborhood and repulsive relaxation. 
+
+Preserves item count and overall distribution while moving items until overlap is resolved or max iterations are reached.
+
+
+\begin{DoxyParams}{Parameters}
+{\em iterations} & Maximum number of relaxation iterations. \\
+\hline
+{\em tolerance} & Collision tolerance ratio in \mbox{[}0, 1) where 0 means no overlap allowed. \\
+\hline
+{\em step\+\_\+size} & Relaxation step size / movement rate. \\
+\hline
+{\em triangulation\+\_\+substep} & Frequency (in iterations) to recompute the Delaunay triangulation. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhmap_1_1ScatterField_ab9b5e791fc1e17881072ea8253216bc3}\label{classhmap_1_1ScatterField_ab9b5e791fc1e17881072ea8253216bc3} 
+\index{hmap::ScatterField@{hmap::ScatterField}!resolve\_collisions@{resolve\_collisions}}
+\index{resolve\_collisions@{resolve\_collisions}!hmap::ScatterField@{hmap::ScatterField}}
+\doxysubsubsection{\texorpdfstring{resolve\_collisions()}{resolve\_collisions()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void hmap\+::\+Scatter\+Field\+::resolve\+\_\+collisions (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&}]{other,  }\item[{size\+\_\+t}]{iterations = {\ttfamily 20},  }\item[{float}]{tolerance = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{step\+\_\+size = {\ttfamily 2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{size\+\_\+t}]{triangulation\+\_\+substep = {\ttfamily 5} }\end{DoxyParamCaption})}
+
+
+
+Resolves collisions with another static \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} by pushing items in this field away from colliding items in the other field, using joint Delaunay triangulation neighborhood and repulsive relaxation. 
+
+The other field remains constant and unmodified.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Const reference to the reference \doxylink{classhmap_1_1ScatterField}{Scatter\+Field}. \\
+\hline
+{\em iterations} & Maximum number of relaxation iterations. \\
+\hline
+{\em tolerance} & Collision tolerance ratio in \mbox{[}0, 1). \\
+\hline
+{\em step\+\_\+size} & Relaxation step size. \\
+\hline
+{\em triangulation\+\_\+substep} & Frequency (in iterations) to recompute the Delaunay triangulation.\\
+\hline
+\end{DoxyParams}
+This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. \Hypertarget{classhmap_1_1ScatterField_a6097c8940ee25ec5b5364faf0ad7c9b5}\label{classhmap_1_1ScatterField_a6097c8940ee25ec5b5364faf0ad7c9b5} 
 \index{hmap::ScatterField@{hmap::ScatterField}!set\_elevation\_from\_terrain@{set\_elevation\_from\_terrain}}
 \index{set\_elevation\_from\_terrain@{set\_elevation\_from\_terrain}!hmap::ScatterField@{hmap::ScatterField}}
 \doxysubsubsection{\texorpdfstring{set\_elevation\_from\_terrain()}{set\_elevation\_from\_terrain()}}
@@ -590,6 +644,36 @@ Exports the local density map of the field as a 2D \doxylink{classhmap_1_1Array}
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 \doxylink{classhmap_1_1Array}{Array} 2D continuous density map array. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1ScatterField_ac8d50ec2113700c1dda1cba253de00fe}\label{classhmap_1_1ScatterField_ac8d50ec2113700c1dda1cba253de00fe} 
+\index{hmap::ScatterField@{hmap::ScatterField}!to\_heightmap@{to\_heightmap}}
+\index{to\_heightmap@{to\_heightmap}!hmap::ScatterField@{hmap::ScatterField}}
+\doxysubsubsection{\texorpdfstring{to\_heightmap()}{to\_heightmap()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::\+Scatter\+Field\+::to\+\_\+heightmap (\begin{DoxyParamCaption}\item[{glm\+::ivec2}]{shape,  }\item[{\mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3}{Scatter\+Shape}}}]{shape\+\_\+type = {\ttfamily \mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3}{SCATTER\+\_\+\+SHAPE\+\_\+\+DISK}}},  }\item[{float}]{height\+\_\+radius\+\_\+ratio = {\ttfamily 1.0f},  }\item[{std\+::optional$<$ uint32\+\_\+t $>$}]{class\+\_\+id = {\ttfamily std\+:\+:nullopt},  }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+rock\+\_\+map = {\ttfamily nullptr},  }\item[{uint32\+\_\+t}]{seed = {\ttfamily 0},  }\item[{glm\+::vec4}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption}) const}
+
+
+
+Converts the scatter field into a heightmap by representing each scattered object as a local elevation increase on GPU. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em shape} & Dimensions of the output heightmap \{nx, ny\}. \\
+\hline
+{\em shape\+\_\+type} & Object geometry shape (default SCATTER\+\_\+\+SHAPE\+\_\+\+DISK). \\
+\hline
+{\em height\+\_\+radius\+\_\+ratio} & Ratio of object maximum height relative to its radius (default 1.\+0f). \\
+\hline
+{\em class\+\_\+id} & Optional class identifier to filter items. \\
+\hline
+{\em p\+\_\+rock\+\_\+map} & Optional output array for the rock map with normalized amplitude in \mbox{[}0, 1\mbox{]}. \\
+\hline
+{\em seed} & Random seed for procedural shape variation (e.\+g. polygon). \\
+\hline
+{\em bbox} & Domain bounding box \{xmin, xmax, ymin, ymax\}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Array}{Array} 2D heightmap array containing accumulated elevations. 
 \end{DoxyReturn}
 \Hypertarget{classhmap_1_1ScatterField_a4cf0ddf4c16900b485b580643cceb3d7}\label{classhmap_1_1ScatterField_a4cf0ddf4c16900b485b580643cceb3d7} 
 \index{hmap::ScatterField@{hmap::ScatterField}!to\_csv@{to\_csv}}

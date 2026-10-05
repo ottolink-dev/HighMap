@@ -75,6 +75,7 @@
     <innerclass refid="structhmap_1_1RockDistribution" prot="public">hmap::RockDistribution</innerclass>
     <innerclass refid="classhmap_1_1RockField" prot="public">hmap::RockField</innerclass>
     <innerclass refid="structhmap_1_1RockSeedingOptions" prot="public">hmap::RockSeedingOptions</innerclass>
+    <innerclass refid="structhmap_1_1RockSimulationOptions" prot="public">hmap::RockSimulationOptions</innerclass>
     <innerclass refid="classhmap_1_1ScatterField" prot="public">hmap::ScatterField</innerclass>
     <innerclass refid="classhmap_1_1ScatterItem" prot="public">hmap::ScatterItem</innerclass>
     <innerclass refid="structhmap_1_1ScatterSeedingOptions" prot="public">hmap::ScatterSeedingOptions</innerclass>
@@ -2073,6 +2074,59 @@
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/include/highmap/range.hpp" line="24" column="1" bodyfile="HighMap/include/highmap/range.hpp" bodystart="25" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="enum" id="namespacehmap_1a1074c818c371781872a62a556c98b3d3" prot="public" static="no" strong="no">
+        <type>int</type>
+        <name>ScatterShape</name>
+        <qualifiedname>hmap::ScatterShape</qualifiedname>
+        <enumvalue id="namespacehmap_1a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3" prot="public">
+          <name>SCATTER_SHAPE_DISK</name>
+          <briefdescription>
+<para>Circular dome / hemisphere profile. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a1074c818c371781872a62a556c98b3d3a02b8fa4da0d29d6bfd237c37234c0e7c" prot="public">
+          <name>SCATTER_SHAPE_POLYGON</name>
+          <briefdescription>
+<para>Irregular polygon profile. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a1074c818c371781872a62a556c98b3d3a20e89f35d115c73420875fc4c3159b2c" prot="public">
+          <name>SCATTER_SHAPE_CONE</name>
+          <briefdescription>
+<para>Linear cone profile. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a1074c818c371781872a62a556c98b3d3af9bfd62affeb3f64e3352a1b7e34c027" prot="public">
+          <name>SCATTER_SHAPE_PYRAMID</name>
+          <briefdescription>
+<para>Polygonal pyramid profile. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a1074c818c371781872a62a556c98b3d3a710d6a87d2fd947015798fd22218ae25" prot="public">
+          <name>SCATTER_SHAPE_SMOOTH_DOME</name>
+          <briefdescription>
+<para>Smooth cosine dome profile. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Defines the geometric shape used when converting a <ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref> to a heightmap. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="30" column="1" bodyfile="HighMap/include/highmap/scatter/scatter_field.hpp" bodystart="31" bodyend="37"/>
       </memberdef>
       <memberdef kind="enum" id="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44ae" prot="public" static="no" strong="no">
         <type>int</type>
@@ -25161,7 +25215,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/functions/noise_functions.cpp" line="344" column="17" bodyfile="HighMap/src/functions/noise_functions.cpp" bodystart="344" bodyend="389" declfile="HighMap/include/highmap/functions.hpp" declline="1819" declcolumn="17"/>
+        <location file="HighMap/src/functions/noise_functions.cpp" line="344" column="17" bodyfile="HighMap/src/functions/noise_functions.cpp" bodystart="344" bodyend="389" declfile="HighMap/include/highmap/functions.hpp" declline="1818" declcolumn="17"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2eb54fb6e51f35573926f9255bcd00e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -59720,6 +59774,390 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </inbodydescription>
         <location file="HighMap/src/rocks/rock_seeding.cpp" line="21" column="11" bodyfile="HighMap/src/rocks/rock_seeding.cpp" bodystart="21" bodyend="47" declfile="HighMap/include/highmap/rocks/rock_seeding.hpp" declline="50" declcolumn="11"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a1b7abfd2113a5f98687a0c5c576ab110" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
+        <definition>RockField hmap::simulate_rock_emission</definition>
+        <argsstring>(size_t rock_count, const Array &amp;emission_density, const Array &amp;elevation, const Array *p_friction_map=nullptr, const RockDistribution &amp;dist={}, const RockSimulationOptions &amp;options={})</argsstring>
+        <name>simulate_rock_emission</name>
+        <qualifiedname>hmap::simulate_rock_emission</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>rock_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>emission_density</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>elevation</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_friction_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1RockDistribution" kindref="compound">RockDistribution</ref> &amp;</type>
+          <declname>dist</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1RockSimulationOptions" kindref="compound">RockSimulationOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Emits rocks from a spatial emission density map and simulates their trajectories downhill across terrain on GPU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rock_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target number of rocks to emit and simulate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>emission_density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Spatial probability density map where rocks originate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>elevation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrain elevation heightmap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_friction_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional soil friction map (same dimensions as elevation). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dist</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Rock distribution specifying radii and classes. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Simulation options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Field containing the resting rocks. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/rocks/rock_simulation.cpp" line="24" column="11" bodyfile="HighMap/src/rocks/rock_simulation.cpp" bodystart="24" bodyend="52" declfile="HighMap/include/highmap/rocks/rock_simulation.hpp" declline="62" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1aa7f9658e594e28641d9c4a3d136c06eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
+        <definition>RockField hmap::simulate_rock_trajectories</definition>
+        <argsstring>(const RockField &amp;rocks, const Array &amp;elevation, const Array *p_friction_map=nullptr, const RockSimulationOptions &amp;options={})</argsstring>
+        <name>simulate_rock_trajectories</name>
+        <qualifiedname>hmap::simulate_rock_trajectories</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> &amp;</type>
+          <declname>rocks</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>elevation</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_friction_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1RockSimulationOptions" kindref="compound">RockSimulationOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Simulates physical movement (sliding, rolling, bouncing, and inter-rock collision avoidance) for an existing <ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> across terrain on GPU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rocks</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input rock field with initial positions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>elevation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrain elevation heightmap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_friction_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional soil friction map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Simulation options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Updated rock field with resting positions. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/rocks/rock_simulation.cpp" line="54" column="11" bodyfile="HighMap/src/rocks/rock_simulation.cpp" bodystart="54" bodyend="235" declfile="HighMap/include/highmap/rocks/rock_simulation.hpp" declline="81" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ad6f15ce8c32efb3901f1d120b41604cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref></type>
+        <definition>ScatterField hmap::merge_scatter_field</definition>
+        <argsstring>(const ScatterField &amp;field1, const ScatterField &amp;field2, bool merge_by_class=true)</argsstring>
+        <name>merge_scatter_field</name>
+        <qualifiedname>hmap::merge_scatter_field</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref> &amp;</type>
+          <declname>field1</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref> &amp;</type>
+          <declname>field2</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>merge_by_class</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Merges two <ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref> instances into a single instance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>field1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>First <ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>field2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Second <ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>merge_by_class</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, preserves existing class IDs. If false, assigns a new unique class ID for each input field (0 for field1, 1 for field2). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref> Merged scatter field. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/scatter/scatter_field.cpp" line="1410" column="14" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1410" bodyend="1415" declfile="HighMap/include/highmap/scatter/scatter_field.hpp" declline="442" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a8563414bbbec0c8c61ddad2fd3a358aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref></type>
+        <definition>ScatterField hmap::merge_scatter_fields</definition>
+        <argsstring>(const std::vector&lt; ScatterField &gt; &amp;fields, bool merge_by_class=true)</argsstring>
+        <name>merge_scatter_fields</name>
+        <qualifiedname>hmap::merge_scatter_fields</qualifiedname>
+        <param>
+          <type>const std::vector&lt; <ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref> &gt; &amp;</type>
+          <declname>fields</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>merge_by_class</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Merges multiple <ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref> instances into a single instance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fields</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of <ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref> instances. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>merge_by_class</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, preserves existing class IDs. If false, assigns a new unique class ID for each input field corresponding to its index in <computeroutput>fields</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref> Merged scatter field. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/scatter/scatter_field.cpp" line="1417" column="14" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1417" bodyend="1446" declfile="HighMap/include/highmap/scatter/scatter_field.hpp" declline="455" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a765d17781b2ffdf138be2c869fe4b24c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::scatter_field_to_heightmap</definition>
+        <argsstring>(const ScatterField &amp;field, glm::ivec2 shape, ScatterShape shape_type=SCATTER_SHAPE_DISK, float height_radius_ratio=1.0f, std::optional&lt; uint32_t &gt; class_id=std::nullopt, Array *p_rock_map=nullptr, uint32_t seed=0, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>scatter_field_to_heightmap</name>
+        <qualifiedname>hmap::scatter_field_to_heightmap</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref> &amp;</type>
+          <declname>field</declname>
+        </param>
+        <param>
+          <type>glm::ivec2</type>
+          <declname>shape</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a1074c818c371781872a62a556c98b3d3" kindref="member">ScatterShape</ref></type>
+          <declname>shape_type</declname>
+          <defval><ref refid="namespacehmap_1a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3" kindref="member">SCATTER_SHAPE_DISK</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>height_radius_ratio</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>std::optional&lt; uint32_t &gt;</type>
+          <declname>class_id</declname>
+          <defval>std::nullopt</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_rock_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>seed</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Converts a <ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref> into a heightmap by representing each scattered object as a local elevation increase on GPU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>field</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input <ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shape</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dimensions of the output heightmap {nx, ny}. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shape_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Object geometry shape. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>height_radius_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Ratio of object maximum height relative to its radius. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>class_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional class identifier to filter items. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_rock_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output array for the rock map with normalized amplitude in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random seed for procedural shape variation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Domain bounding box {xmin, xmax, ymin, ymax}. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> 2D heightmap array. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/scatter/scatter_field.cpp" line="1448" column="7" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1448" bodyend="1464" declfile="HighMap/include/highmap/scatter/scatter_field.hpp" declline="474" declcolumn="7"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a61e1b066b8da6d1227758bbb40510548" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref></type>
         <definition>ScatterField hmap::seed_scatter_clusters</definition>
@@ -71633,7 +72071,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/scatter/scatter_field.cpp" line="35" column="19" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="35" bodyend="58"/>
+        <location file="HighMap/src/scatter/scatter_field.cpp" line="38" column="19" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="38" bodyend="61"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aed9491c87a175e07ff614dfa3ad8b4f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Point" kindref="compound">Point</ref></type>

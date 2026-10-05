@@ -1102,6 +1102,7 @@
     <member refid="classhmap_1_1RockField_1abb9120a9ba5a3185602732a31966b748" kind="function"><name>apply_power_law_distribution</name></member>
     <member refid="classhmap_1_1RockField_1ad169e4acbe84618e48fdd741e6f764d6" kind="function"><name>apply_slope_sorting</name></member>
     <member refid="classhmap_1_1RockField_1a67d09afd48bf1c368efeffceafc7e974" kind="function"><name>pack_interstitial_rocks</name></member>
+    <member refid="classhmap_1_1RockField_1ac16a000a470cd7e8cffb007eee3afc68" kind="function"><name>simulate_physics</name></member>
     <member refid="classhmap_1_1RockField_1ab05996c590e4e7037dd3583da7c9359a" kind="function"><name>to_string</name></member>
   </compound>
   <compound refid="structhmap_1_1RockSeedingOptions" kind="struct"><name>hmap::RockSeedingOptions</name>
@@ -1109,6 +1110,19 @@
     <member refid="structhmap_1_1RockSeedingOptions_1abd5f9bec8368c3669a6803a84a8d3720" kind="variable"><name>seed</name></member>
     <member refid="structhmap_1_1RockSeedingOptions_1abecc375b17d2457502038b70f96128c3" kind="variable"><name>exclusion_threshold</name></member>
     <member refid="structhmap_1_1RockSeedingOptions_1aca6ad1d77615f1daa14f51938ac5971d" kind="variable"><name>distribution</name></member>
+  </compound>
+  <compound refid="structhmap_1_1RockSimulationOptions" kind="struct"><name>hmap::RockSimulationOptions</name>
+    <member refid="structhmap_1_1RockSimulationOptions_1a9468b9252c9e811654dadcf5de47c80a" kind="variable"><name>bbox</name></member>
+    <member refid="structhmap_1_1RockSimulationOptions_1aec5bedc2bdcbe70013a940b07089a166" kind="variable"><name>time_step</name></member>
+    <member refid="structhmap_1_1RockSimulationOptions_1a0368f35abadef946b682e9b0762224c5" kind="variable"><name>max_steps</name></member>
+    <member refid="structhmap_1_1RockSimulationOptions_1a07864448efb70a86c51b096ec365e69c" kind="variable"><name>gravity</name></member>
+    <member refid="structhmap_1_1RockSimulationOptions_1a5e1a008ba3ae541aadda13693d9339da" kind="variable"><name>soil_friction</name></member>
+    <member refid="structhmap_1_1RockSimulationOptions_1a60d030d641551fccabed148ab4bb8b17" kind="variable"><name>rolling_resistance</name></member>
+    <member refid="structhmap_1_1RockSimulationOptions_1aa741cb810c0b939678a00ae7928af9e7" kind="variable"><name>inter_rock_restitution</name></member>
+    <member refid="structhmap_1_1RockSimulationOptions_1ab9cce4b9b260297d0d4274fbdf4722d4" kind="variable"><name>min_velocity</name></member>
+    <member refid="structhmap_1_1RockSimulationOptions_1a78f0777ea563f1e4da954608278fb544" kind="variable"><name>respawn_out_of_bounds</name></member>
+    <member refid="structhmap_1_1RockSimulationOptions_1a1fb1c743da4dba12386b94c566b2d21f" kind="variable"><name>spawn_fraction</name></member>
+    <member refid="structhmap_1_1RockSimulationOptions_1aae0131653252a30b7091e97a49dfed76" kind="variable"><name>seed</name></member>
   </compound>
   <compound refid="classhmap_1_1ScatterField" kind="class"><name>hmap::ScatterField</name>
     <member refid="classhmap_1_1ScatterField_1aeb89e13a2a22fc06a08bc02e0fdcaa61" kind="variable"><name>items</name></member>
@@ -1151,10 +1165,13 @@
     <member refid="classhmap_1_1ScatterField_1afc5177c65e51e710c80d2e367a7888c5" kind="function"><name>prune_density</name></member>
     <member refid="classhmap_1_1ScatterField_1a86565a4632900420e6a22762bab7b597" kind="function"><name>regularize_positions</name></member>
     <member refid="classhmap_1_1ScatterField_1aa97bb7dc10919eebaa875018068ebbe4" kind="function"><name>reinforce_class_clusters</name></member>
+    <member refid="classhmap_1_1ScatterField_1acbd1ac9b264b98e5ebbc25d9b2c104b6" kind="function"><name>resolve_collisions</name></member>
+    <member refid="classhmap_1_1ScatterField_1ab9b5e791fc1e17881072ea8253216bc3" kind="function"><name>resolve_collisions</name></member>
     <member refid="classhmap_1_1ScatterField_1a6097c8940ee25ec5b5364faf0ad7c9b5" kind="function"><name>set_elevation_from_terrain</name></member>
     <member refid="classhmap_1_1ScatterField_1aea3394fe15e737f15f1cca806009f19c" kind="function"><name>shuffle_classes</name></member>
     <member refid="classhmap_1_1ScatterField_1a2c0c29725aed25aacb9fd51466e5f637" kind="function"><name>to_cloud</name></member>
     <member refid="classhmap_1_1ScatterField_1a914fe248c39cdc85f2ce5cdab1058c03" kind="function"><name>to_density_map</name></member>
+    <member refid="classhmap_1_1ScatterField_1ac8d50ec2113700c1dda1cba253de00fe" kind="function"><name>to_heightmap</name></member>
     <member refid="classhmap_1_1ScatterField_1a4cf0ddf4c16900b485b580643cceb3d7" kind="function"><name>to_csv</name></member>
     <member refid="classhmap_1_1ScatterField_1a4e1e40d95eaecfff34f524bb44e2cb74" kind="function"><name>to_png</name></member>
     <member refid="classhmap_1_1ScatterField_1aece4b7ce3a6d09279928b0468fb55efb" kind="function"><name>to_string</name></member>
@@ -1555,21 +1572,21 @@
     <member refid="classhmap_1_1XyControlFunction_1acfe5c441363f35d36a13084fb56c6dca" kind="function"><name>MinimumImpl</name></member>
     <member refid="classhmap_1_1XyControlFunction_1ab32abc0861325b3ea6f547b938a9225d" kind="function"><name>MaximumImpl</name></member>
   </compound>
-  <compound refid="namespace_0d413" kind="namespace"><name>@413</name>
+  <compound refid="namespace_0d415" kind="namespace"><name>@415</name>
   </compound>
-  <compound refid="namespace_0d423" kind="namespace"><name>@423</name>
+  <compound refid="namespace_0d425" kind="namespace"><name>@425</name>
   </compound>
-  <compound refid="namespace_0d432" kind="namespace"><name>@432</name>
+  <compound refid="namespace_0d434" kind="namespace"><name>@434</name>
   </compound>
-  <compound refid="namespace_0d450" kind="namespace"><name>@450</name>
+  <compound refid="namespace_0d452" kind="namespace"><name>@452</name>
   </compound>
-  <compound refid="namespace_0d457" kind="namespace"><name>@457</name>
+  <compound refid="namespace_0d459" kind="namespace"><name>@459</name>
   </compound>
-  <compound refid="namespace_0d470" kind="namespace"><name>@470</name>
+  <compound refid="namespace_0d472" kind="namespace"><name>@472</name>
   </compound>
-  <compound refid="namespace_0d481" kind="namespace"><name>@481</name>
+  <compound refid="namespace_0d483" kind="namespace"><name>@483</name>
   </compound>
-  <compound refid="namespace_0d485" kind="namespace"><name>@485</name>
+  <compound refid="namespace_0d487" kind="namespace"><name>@487</name>
   </compound>
   <compound refid="namespacehmap" kind="namespace"><name>hmap</name>
     <member refid="namespacehmap_1a5101273ec456f5267dddc3e22dae223b" kind="enum"><name>StampingBlendMethod</name></member>
@@ -1803,6 +1820,12 @@
     <member refid="namespacehmap_1ad4876bd26d1f3b33a1492645bfe50fbea10478d523fc507b9738e9cfdd5b7539c" kind="enumvalue"><name>NEGATIVE_ONLY</name></member>
     <member refid="namespacehmap_1ad4876bd26d1f3b33a1492645bfe50fbead7d8162264f038302952e47ad5e7a2ed" kind="enumvalue"><name>BOTH</name></member>
     <member refid="namespacehmap_1ad4876bd26d1f3b33a1492645bfe50fbea8a618ee5b7e734d56e2d5957bd9893fd" kind="enumvalue"><name>NONE</name></member>
+    <member refid="namespacehmap_1a1074c818c371781872a62a556c98b3d3" kind="enum"><name>ScatterShape</name></member>
+    <member refid="namespacehmap_1a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3" kind="enumvalue"><name>SCATTER_SHAPE_DISK</name></member>
+    <member refid="namespacehmap_1a1074c818c371781872a62a556c98b3d3a02b8fa4da0d29d6bfd237c37234c0e7c" kind="enumvalue"><name>SCATTER_SHAPE_POLYGON</name></member>
+    <member refid="namespacehmap_1a1074c818c371781872a62a556c98b3d3a20e89f35d115c73420875fc4c3159b2c" kind="enumvalue"><name>SCATTER_SHAPE_CONE</name></member>
+    <member refid="namespacehmap_1a1074c818c371781872a62a556c98b3d3af9bfd62affeb3f64e3352a1b7e34c027" kind="enumvalue"><name>SCATTER_SHAPE_PYRAMID</name></member>
+    <member refid="namespacehmap_1a1074c818c371781872a62a556c98b3d3a710d6a87d2fd947015798fd22218ae25" kind="enumvalue"><name>SCATTER_SHAPE_SMOOTH_DOME</name></member>
     <member refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44ae" kind="enum"><name>NormalizationMethod</name></member>
     <member refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44aea4680230e1e65f446536dc824ba4985ca" kind="enumvalue"><name>NM_MIN_MAX</name></member>
     <member refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44aeae57ff6409cf6f0f59120845c765b349b" kind="enumvalue"><name>NM_STANDARDIZE</name></member>
@@ -2525,6 +2548,11 @@
     <member refid="namespacehmap_1ac126773f7c7af2364cfb4d7a6922ed96" kind="function"><name>rescale</name></member>
     <member refid="namespacehmap_1a286e4e74e6495802dba7f873c06ccb20" kind="function"><name>generate_network_alpha_model</name></member>
     <member refid="namespacehmap_1a8c78151d9fea71bfaebb14a378e8ad81" kind="function"><name>seed_rock_field</name></member>
+    <member refid="namespacehmap_1a1b7abfd2113a5f98687a0c5c576ab110" kind="function"><name>simulate_rock_emission</name></member>
+    <member refid="namespacehmap_1aa7f9658e594e28641d9c4a3d136c06eb" kind="function"><name>simulate_rock_trajectories</name></member>
+    <member refid="namespacehmap_1ad6f15ce8c32efb3901f1d120b41604cf" kind="function"><name>merge_scatter_field</name></member>
+    <member refid="namespacehmap_1a8563414bbbec0c8c61ddad2fd3a358aa" kind="function"><name>merge_scatter_fields</name></member>
+    <member refid="namespacehmap_1a765d17781b2ffdf138be2c869fe4b24c" kind="function"><name>scatter_field_to_heightmap</name></member>
     <member refid="namespacehmap_1a61e1b066b8da6d1227758bbb40510548" kind="function"><name>seed_scatter_clusters</name></member>
     <member refid="namespacehmap_1a51e492fb8f06ce5b1ed0759d2e50d5d4" kind="function"><name>seed_scatter_kmeans</name></member>
     <member refid="namespacehmap_1a765ffa5ee98f47eba4b9d4ebe7680190" kind="function"><name>sdf_2d_polyline</name></member>
@@ -2691,28 +2719,28 @@
     <member refid="namespacehmap_1ac1fdc0ac0b6e1024faeaddcd30ebe2fe" kind="function"><name>reindex_vector</name></member>
     <member refid="namespacehmap_1a5cca080874e8af74fa03a3f0f0d2f307" kind="function"><name>reindex_vector</name></member>
   </compound>
-  <compound refid="namespacehmap_1_1_0d125" kind="namespace"><name>hmap::@125</name>
+  <compound refid="namespacehmap_1_1_0d126" kind="namespace"><name>hmap::@126</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d129" kind="namespace"><name>hmap::@129</name>
+  <compound refid="namespacehmap_1_1_0d130" kind="namespace"><name>hmap::@130</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d140" kind="namespace"><name>hmap::@140</name>
+  <compound refid="namespacehmap_1_1_0d141" kind="namespace"><name>hmap::@141</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d169" kind="namespace"><name>hmap::@169</name>
-    <member refid="namespacehmap_1_1_0d169_1a14dd02407470afc415e4eb3cdd94092e" kind="enum"><name></name></member>
+  <compound refid="namespacehmap_1_1_0d170" kind="namespace"><name>hmap::@170</name>
+    <member refid="namespacehmap_1_1_0d170_1a5a4f77c332e7d079e38cd94be4187044" kind="enum"><name></name></member>
   </compound>
-  <compound refid="namespacehmap_1_1_0d198" kind="namespace"><name>hmap::@198</name>
+  <compound refid="namespacehmap_1_1_0d199" kind="namespace"><name>hmap::@199</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d244" kind="namespace"><name>hmap::@244</name>
+  <compound refid="namespacehmap_1_1_0d245" kind="namespace"><name>hmap::@245</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d247" kind="namespace"><name>hmap::@247</name>
+  <compound refid="namespacehmap_1_1_0d248" kind="namespace"><name>hmap::@248</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d269" kind="namespace"><name>hmap::@269</name>
+  <compound refid="namespacehmap_1_1_0d270" kind="namespace"><name>hmap::@270</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d377" kind="namespace"><name>hmap::@377</name>
+  <compound refid="namespacehmap_1_1_0d379" kind="namespace"><name>hmap::@379</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d382" kind="namespace"><name>hmap::@382</name>
+  <compound refid="namespacehmap_1_1_0d384" kind="namespace"><name>hmap::@384</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d385" kind="namespace"><name>hmap::@385</name>
+  <compound refid="namespacehmap_1_1_0d387" kind="namespace"><name>hmap::@387</name>
   </compound>
   <compound refid="namespacehmap_1_1gpu" kind="namespace"><name>hmap::gpu</name>
     <member refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895f" kind="enum"><name>LocalMetrics</name></member>
@@ -3234,6 +3262,8 @@
   <compound refid="rock__field_8hpp" kind="file"><name>rock_field.hpp</name>
   </compound>
   <compound refid="rock__seeding_8hpp" kind="file"><name>rock_seeding.hpp</name>
+  </compound>
+  <compound refid="rock__simulation_8hpp" kind="file"><name>rock_simulation.hpp</name>
   </compound>
   <compound refid="scatter_8hpp" kind="file"><name>scatter.hpp</name>
   </compound>
@@ -3861,6 +3891,8 @@
   <compound refid="rock__field_8cpp" kind="file"><name>rock_field.cpp</name>
   </compound>
   <compound refid="rock__seeding_8cpp" kind="file"><name>rock_seeding.cpp</name>
+  </compound>
+  <compound refid="rock__simulation_8cpp" kind="file"><name>rock_simulation.cpp</name>
   </compound>
   <compound refid="scatter__field_8cpp" kind="file"><name>scatter_field.cpp</name>
   </compound>
@@ -4680,6 +4712,12 @@
     <member refid="test__rocks_8cpp_1a10109344018968a046003d30547de2b8" kind="function"><name>TEST</name></member>
     <member refid="test__rocks_8cpp_1aaee64c8193c76b9fbc7926d2a74f0d49" kind="function"><name>TEST</name></member>
     <member refid="test__rocks_8cpp_1a6cc2a4abab66b43f5810a43c08ee3e2e" kind="function"><name>TEST</name></member>
+    <member refid="test__rocks_8cpp_1a39bc8b1ea85e0af3975f202ba68d12dc" kind="function"><name>TEST</name></member>
+    <member refid="test__rocks_8cpp_1afa77a04c20fe18ada6619e9943fd7d14" kind="function"><name>TEST</name></member>
+    <member refid="test__rocks_8cpp_1a31b61d7f8f500a68581a8808925f9051" kind="function"><name>TEST</name></member>
+    <member refid="test__rocks_8cpp_1ac3913c919183b099ee3cda38175c8621" kind="function"><name>TEST</name></member>
+    <member refid="test__rocks_8cpp_1a38ea00803f849b75b5f278092a67f8f6" kind="function"><name>TEST</name></member>
+    <member refid="test__rocks_8cpp_1a47e24d0c091fa58e05b7c17e585426e6" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__saturate_8cpp" kind="file"><name>test_saturate.cpp</name>
     <member refid="test__saturate_8cpp_1a20a613f35fe7628a3b711e40709abeed" kind="function"><name>TEST</name></member>
@@ -4710,7 +4748,18 @@
     <member refid="test__scatter_8cpp_1a09000e2d816cd5f07205f03f2f5e5e01" kind="function"><name>TEST</name></member>
     <member refid="test__scatter_8cpp_1a328999020cffd5785b83c8b395cc81c3" kind="function"><name>TEST</name></member>
     <member refid="test__scatter_8cpp_1add088da17e0dd88b06cfea76d19f0edf" kind="function"><name>TEST</name></member>
+    <member refid="test__scatter_8cpp_1a2c2823afcdf6fc68cff48337490a600c" kind="function"><name>TEST</name></member>
+    <member refid="test__scatter_8cpp_1a76bea991e6d6e65a9a929cc74c6c3414" kind="function"><name>TEST</name></member>
+    <member refid="test__scatter_8cpp_1a912ef5e04c0376e52cc62741c37ea4b3" kind="function"><name>TEST</name></member>
     <member refid="test__scatter_8cpp_1a1754951084a3808db8efe633207db1e1" kind="function"><name>TEST</name></member>
+    <member refid="test__scatter_8cpp_1ab308485f1a4ebea46c1ed9c96159895d" kind="function"><name>TEST</name></member>
+    <member refid="test__scatter_8cpp_1a5ad69130b51f762609b0886e6febc5d7" kind="function"><name>TEST</name></member>
+    <member refid="test__scatter_8cpp_1aa919f51d052ff366107f448349ce2c92" kind="function"><name>TEST</name></member>
+    <member refid="test__scatter_8cpp_1a9f84475bb5e78493a4eb873164c95923" kind="function"><name>TEST</name></member>
+    <member refid="test__scatter_8cpp_1ae4b84e12983097fd9006f7ea3df24047" kind="function"><name>TEST</name></member>
+    <member refid="test__scatter_8cpp_1af418605a6ab9a3cbfc7d14e3b70b4539" kind="function"><name>TEST</name></member>
+    <member refid="test__scatter_8cpp_1a31744e42ff24d931319e3bddb2d9ef12" kind="function"><name>TEST</name></member>
+    <member refid="test__scatter_8cpp_1abd8e9b3abbd22026be212923de320608" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__select__angle_8cpp" kind="file"><name>test_select_angle.cpp</name>
     <member refid="test__select__angle_8cpp_1af96e654c57308ae5ce21c393eea75e28" kind="function"><name>TEST</name></member>

@@ -158,6 +158,8 @@ class \mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}}
 \begin{DoxyCompactList}\small\item\em Container class representing a field of rocks/boulders (scree, talus, or boulder field). \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1RockSeedingOptions}{Rock\+Seeding\+Options}}
 \begin{DoxyCompactList}\small\item\em Configuration parameters for rock field seeding algorithms. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhmap_1_1RockSimulationOptions}{Rock\+Simulation\+Options}}
+\begin{DoxyCompactList}\small\item\em Configuration parameters for GPU-\/based rock and debris trajectory simulation. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}}
 \begin{DoxyCompactList}\small\item\em Container and processor for spatial \doxylink{classhmap_1_1ScatterItem}{Scatter\+Item} collections. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1ScatterItem}{Scatter\+Item}}
@@ -536,6 +538,15 @@ enum \mbox{\hyperlink{namespacehmap_ad4876bd26d1f3b33a1492645bfe50fbe}{Clamp\+Mo
 , \mbox{\hyperlink{namespacehmap_ad4876bd26d1f3b33a1492645bfe50fbea8a618ee5b7e734d56e2d5957bd9893fd}{NONE}}
  \}
 \item 
+enum \mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3}{Scatter\+Shape}} \+: int \{ \newline
+\mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3}{SCATTER\+\_\+\+SHAPE\+\_\+\+DISK}}
+, \mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3a02b8fa4da0d29d6bfd237c37234c0e7c}{SCATTER\+\_\+\+SHAPE\+\_\+\+POLYGON}}
+, \mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3a20e89f35d115c73420875fc4c3159b2c}{SCATTER\+\_\+\+SHAPE\+\_\+\+CONE}}
+, \mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3af9bfd62affeb3f64e3352a1b7e34c027}{SCATTER\+\_\+\+SHAPE\+\_\+\+PYRAMID}}
+, \newline
+\mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3a710d6a87d2fd947015798fd22218ae25}{SCATTER\+\_\+\+SHAPE\+\_\+\+SMOOTH\+\_\+\+DOME}}
+ \}
+\begin{DoxyCompactList}\small\item\em Defines the geometric shape used when converting a Scatter\+Field to a heightmap. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{namespacehmap_ad9d7f866e3a5140ed694e502c1db44ae}{Normalization\+Method}} \+: int \{ \mbox{\hyperlink{namespacehmap_ad9d7f866e3a5140ed694e502c1db44aea4680230e1e65f446536dc824ba4985ca}{NM\+\_\+\+MIN\+\_\+\+MAX}}
 , \mbox{\hyperlink{namespacehmap_ad9d7f866e3a5140ed694e502c1db44aeae57ff6409cf6f0f59120845c765b349b}{NM\+\_\+\+STANDARDIZE}}
 , \mbox{\hyperlink{namespacehmap_ad9d7f866e3a5140ed694e502c1db44aeaf15cebde3e8fe2d5c3633e5d118d423c}{NM\+\_\+\+ROBUST}}
@@ -1947,6 +1958,16 @@ void \mbox{\hyperlink{namespacehmap_ac126773f7c7af2364cfb4d7a6922ed96}{rescale}}
 \begin{DoxyCompactList}\small\item\em Generate a large scale road network between "{}nodes"{} (or cities) using the alpha model. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} \mbox{\hyperlink{namespacehmap_a8c78151d9fea71bfaebb14a378e8ad81}{seed\+\_\+rock\+\_\+field}} (size\+\_\+t rock\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exclusion=\{\}, const \mbox{\hyperlink{structhmap_1_1RockSeedingOptions}{Rock\+Seeding\+Options}} \&options=\{\})
 \begin{DoxyCompactList}\small\item\em Seeds a general rock/boulder field using inverse density transform sampling and applies power-\/law radius distribution and collision resolution. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} \mbox{\hyperlink{namespacehmap_a1b7abfd2113a5f98687a0c5c576ab110}{simulate\+\_\+rock\+\_\+emission}} (size\+\_\+t rock\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&emission\+\_\+density, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&elevation, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+friction\+\_\+map=nullptr, const \mbox{\hyperlink{structhmap_1_1RockDistribution}{Rock\+Distribution}} \&dist=\{\}, const \mbox{\hyperlink{structhmap_1_1RockSimulationOptions}{Rock\+Simulation\+Options}} \&options=\{\})
+\begin{DoxyCompactList}\small\item\em Emits rocks from a spatial emission density map and simulates their trajectories downhill across terrain on GPU. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} \mbox{\hyperlink{namespacehmap_aa7f9658e594e28641d9c4a3d136c06eb}{simulate\+\_\+rock\+\_\+trajectories}} (const \mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} \&rocks, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&elevation, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+friction\+\_\+map=nullptr, const \mbox{\hyperlink{structhmap_1_1RockSimulationOptions}{Rock\+Simulation\+Options}} \&options=\{\})
+\begin{DoxyCompactList}\small\item\em Simulates physical movement (sliding, rolling, bouncing, and inter-\/rock collision avoidance) for an existing \doxylink{classhmap_1_1RockField}{Rock\+Field} across terrain on GPU. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \mbox{\hyperlink{namespacehmap_ad6f15ce8c32efb3901f1d120b41604cf}{merge\+\_\+scatter\+\_\+field}} (const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&field1, const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&field2, bool merge\+\_\+by\+\_\+class=true)
+\begin{DoxyCompactList}\small\item\em Merges two \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} instances into a single instance. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \mbox{\hyperlink{namespacehmap_a8563414bbbec0c8c61ddad2fd3a358aa}{merge\+\_\+scatter\+\_\+fields}} (const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} $>$ \&fields, bool merge\+\_\+by\+\_\+class=true)
+\begin{DoxyCompactList}\small\item\em Merges multiple \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} instances into a single instance. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a765d17781b2ffdf138be2c869fe4b24c}{scatter\+\_\+field\+\_\+to\+\_\+heightmap}} (const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&field, glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, \mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3}{Scatter\+Shape}} shape\+\_\+type=\mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3}{SCATTER\+\_\+\+SHAPE\+\_\+\+DISK}}, float height\+\_\+radius\+\_\+ratio=1.\+0f, std\+::optional$<$ uint32\+\_\+t $>$ class\+\_\+id=std\+::nullopt, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+rock\+\_\+map=nullptr, uint32\+\_\+t seed=0, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Converts a \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} into a heightmap by representing each scattered object as a local elevation increase on GPU. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \mbox{\hyperlink{namespacehmap_a61e1b066b8da6d1227758bbb40510548}{seed\+\_\+scatter\+\_\+clusters}} (size\+\_\+t class\+\_\+count, size\+\_\+t item\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exclusion, float cluster\+\_\+spread=0.\+05\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t points\+\_\+per\+\_\+cluster=8, const \mbox{\hyperlink{structhmap_1_1ScatterSeedingOptions}{Scatter\+Seeding\+Options}} \&options=\{\})
 \begin{DoxyCompactList}\small\item\em Generates a clustered scatter distribution using inverse transform sampling for cluster centers and local cluster regions. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \mbox{\hyperlink{namespacehmap_a51e492fb8f06ce5b1ed0759d2e50d5d4}{seed\+\_\+scatter\+\_\+kmeans}} (size\+\_\+t class\+\_\+count, size\+\_\+t item\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exclusion, float cluster\+\_\+randomness=0.\+0f, size\+\_\+t k\+\_\+neighbors=4, const \mbox{\hyperlink{structhmap_1_1ScatterSeedingOptions}{Scatter\+Seeding\+Options}} \&options=\{\})
@@ -3473,6 +3494,38 @@ BOTH&\\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NONE@{NONE}!hmap@{hmap}}\index{hmap@{hmap}!NONE@{NONE}}}\Hypertarget{namespacehmap_ad4876bd26d1f3b33a1492645bfe50fbea8a618ee5b7e734d56e2d5957bd9893fd}\label{namespacehmap_ad4876bd26d1f3b33a1492645bfe50fbea8a618ee5b7e734d56e2d5957bd9893fd} 
 NONE&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{namespacehmap_a1074c818c371781872a62a556c98b3d3}\label{namespacehmap_a1074c818c371781872a62a556c98b3d3} 
+\index{hmap@{hmap}!ScatterShape@{ScatterShape}}
+\index{ScatterShape@{ScatterShape}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{ScatterShape}{ScatterShape}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3}{hmap\+::\+Scatter\+Shape}} \+: int}
+
+
+
+Defines the geometric shape used when converting a \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} to a heightmap. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SCATTER\_SHAPE\_DISK@{SCATTER\_SHAPE\_DISK}!hmap@{hmap}}\index{hmap@{hmap}!SCATTER\_SHAPE\_DISK@{SCATTER\_SHAPE\_DISK}}}\Hypertarget{namespacehmap_a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3}\label{namespacehmap_a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3} 
+SCATTER\+\_\+\+SHAPE\+\_\+\+DISK&Circular dome / hemisphere profile. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SCATTER\_SHAPE\_POLYGON@{SCATTER\_SHAPE\_POLYGON}!hmap@{hmap}}\index{hmap@{hmap}!SCATTER\_SHAPE\_POLYGON@{SCATTER\_SHAPE\_POLYGON}}}\Hypertarget{namespacehmap_a1074c818c371781872a62a556c98b3d3a02b8fa4da0d29d6bfd237c37234c0e7c}\label{namespacehmap_a1074c818c371781872a62a556c98b3d3a02b8fa4da0d29d6bfd237c37234c0e7c} 
+SCATTER\+\_\+\+SHAPE\+\_\+\+POLYGON&Irregular polygon profile. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SCATTER\_SHAPE\_CONE@{SCATTER\_SHAPE\_CONE}!hmap@{hmap}}\index{hmap@{hmap}!SCATTER\_SHAPE\_CONE@{SCATTER\_SHAPE\_CONE}}}\Hypertarget{namespacehmap_a1074c818c371781872a62a556c98b3d3a20e89f35d115c73420875fc4c3159b2c}\label{namespacehmap_a1074c818c371781872a62a556c98b3d3a20e89f35d115c73420875fc4c3159b2c} 
+SCATTER\+\_\+\+SHAPE\+\_\+\+CONE&Linear cone profile. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SCATTER\_SHAPE\_PYRAMID@{SCATTER\_SHAPE\_PYRAMID}!hmap@{hmap}}\index{hmap@{hmap}!SCATTER\_SHAPE\_PYRAMID@{SCATTER\_SHAPE\_PYRAMID}}}\Hypertarget{namespacehmap_a1074c818c371781872a62a556c98b3d3af9bfd62affeb3f64e3352a1b7e34c027}\label{namespacehmap_a1074c818c371781872a62a556c98b3d3af9bfd62affeb3f64e3352a1b7e34c027} 
+SCATTER\+\_\+\+SHAPE\+\_\+\+PYRAMID&Polygonal pyramid profile. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SCATTER\_SHAPE\_SMOOTH\_DOME@{SCATTER\_SHAPE\_SMOOTH\_DOME}!hmap@{hmap}}\index{hmap@{hmap}!SCATTER\_SHAPE\_SMOOTH\_DOME@{SCATTER\_SHAPE\_SMOOTH\_DOME}}}\Hypertarget{namespacehmap_a1074c818c371781872a62a556c98b3d3a710d6a87d2fd947015798fd22218ae25}\label{namespacehmap_a1074c818c371781872a62a556c98b3d3a710d6a87d2fd947015798fd22218ae25} 
+SCATTER\+\_\+\+SHAPE\+\_\+\+SMOOTH\+\_\+\+DOME&Smooth cosine dome profile. \\
 \hline
 
 \end{DoxyEnumFields}
@@ -32196,6 +32249,132 @@ Seeds a general rock/boulder field using inverse density transform sampling and 
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 \doxylink{classhmap_1_1RockField}{Rock\+Field} Sampled rock field. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a1b7abfd2113a5f98687a0c5c576ab110}\label{namespacehmap_a1b7abfd2113a5f98687a0c5c576ab110} 
+\index{hmap@{hmap}!simulate\_rock\_emission@{simulate\_rock\_emission}}
+\index{simulate\_rock\_emission@{simulate\_rock\_emission}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{simulate\_rock\_emission()}{simulate\_rock\_emission()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} hmap\+::simulate\+\_\+rock\+\_\+emission (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{rock\+\_\+count,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{emission\+\_\+density,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{elevation,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+friction\+\_\+map = {\ttfamily nullptr},  }\item[{const \mbox{\hyperlink{structhmap_1_1RockDistribution}{Rock\+Distribution}} \&}]{dist = {\ttfamily \{\}},  }\item[{const \mbox{\hyperlink{structhmap_1_1RockSimulationOptions}{Rock\+Simulation\+Options}} \&}]{options = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Emits rocks from a spatial emission density map and simulates their trajectories downhill across terrain on GPU. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rock\+\_\+count} & Target number of rocks to emit and simulate. \\
+\hline
+{\em emission\+\_\+density} & Spatial probability density map where rocks originate. \\
+\hline
+{\em elevation} & Terrain elevation heightmap. \\
+\hline
+{\em p\+\_\+friction\+\_\+map} & Optional soil friction map (same dimensions as elevation). \\
+\hline
+{\em dist} & Rock distribution specifying radii and classes. \\
+\hline
+{\em options} & Simulation options. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1RockField}{Rock\+Field} Field containing the resting rocks. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_aa7f9658e594e28641d9c4a3d136c06eb}\label{namespacehmap_aa7f9658e594e28641d9c4a3d136c06eb} 
+\index{hmap@{hmap}!simulate\_rock\_trajectories@{simulate\_rock\_trajectories}}
+\index{simulate\_rock\_trajectories@{simulate\_rock\_trajectories}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{simulate\_rock\_trajectories()}{simulate\_rock\_trajectories()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} hmap\+::simulate\+\_\+rock\+\_\+trajectories (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} \&}]{rocks,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{elevation,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+friction\+\_\+map = {\ttfamily nullptr},  }\item[{const \mbox{\hyperlink{structhmap_1_1RockSimulationOptions}{Rock\+Simulation\+Options}} \&}]{options = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Simulates physical movement (sliding, rolling, bouncing, and inter-\/rock collision avoidance) for an existing \doxylink{classhmap_1_1RockField}{Rock\+Field} across terrain on GPU. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rocks} & Input rock field with initial positions. \\
+\hline
+{\em elevation} & Terrain elevation heightmap. \\
+\hline
+{\em p\+\_\+friction\+\_\+map} & Optional soil friction map. \\
+\hline
+{\em options} & Simulation options. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1RockField}{Rock\+Field} Updated rock field with resting positions. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_ad6f15ce8c32efb3901f1d120b41604cf}\label{namespacehmap_ad6f15ce8c32efb3901f1d120b41604cf} 
+\index{hmap@{hmap}!merge\_scatter\_field@{merge\_scatter\_field}}
+\index{merge\_scatter\_field@{merge\_scatter\_field}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{merge\_scatter\_field()}{merge\_scatter\_field()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} hmap\+::merge\+\_\+scatter\+\_\+field (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&}]{field1,  }\item[{const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&}]{field2,  }\item[{bool}]{merge\+\_\+by\+\_\+class = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Merges two \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} instances into a single instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em field1} & First \doxylink{classhmap_1_1ScatterField}{Scatter\+Field}. \\
+\hline
+{\em field2} & Second \doxylink{classhmap_1_1ScatterField}{Scatter\+Field}. \\
+\hline
+{\em merge\+\_\+by\+\_\+class} & If true, preserves existing class IDs. If false, assigns a new unique class ID for each input field (0 for field1, 1 for field2). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1ScatterField}{Scatter\+Field} Merged scatter field. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a8563414bbbec0c8c61ddad2fd3a358aa}\label{namespacehmap_a8563414bbbec0c8c61ddad2fd3a358aa} 
+\index{hmap@{hmap}!merge\_scatter\_fields@{merge\_scatter\_fields}}
+\index{merge\_scatter\_fields@{merge\_scatter\_fields}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{merge\_scatter\_fields()}{merge\_scatter\_fields()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} hmap\+::merge\+\_\+scatter\+\_\+fields (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} $>$ \&}]{fields,  }\item[{bool}]{merge\+\_\+by\+\_\+class = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Merges multiple \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} instances into a single instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fields} & List of \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} instances. \\
+\hline
+{\em merge\+\_\+by\+\_\+class} & If true, preserves existing class IDs. If false, assigns a new unique class ID for each input field corresponding to its index in {\ttfamily fields}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1ScatterField}{Scatter\+Field} Merged scatter field. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a765d17781b2ffdf138be2c869fe4b24c}\label{namespacehmap_a765d17781b2ffdf138be2c869fe4b24c} 
+\index{hmap@{hmap}!scatter\_field\_to\_heightmap@{scatter\_field\_to\_heightmap}}
+\index{scatter\_field\_to\_heightmap@{scatter\_field\_to\_heightmap}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{scatter\_field\_to\_heightmap()}{scatter\_field\_to\_heightmap()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::scatter\+\_\+field\+\_\+to\+\_\+heightmap (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&}]{field,  }\item[{glm\+::ivec2}]{shape,  }\item[{\mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3}{Scatter\+Shape}}}]{shape\+\_\+type = {\ttfamily \mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3}{SCATTER\+\_\+\+SHAPE\+\_\+\+DISK}}},  }\item[{float}]{height\+\_\+radius\+\_\+ratio = {\ttfamily 1.0f},  }\item[{std\+::optional$<$ uint32\+\_\+t $>$}]{class\+\_\+id = {\ttfamily std\+:\+:nullopt},  }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+rock\+\_\+map = {\ttfamily nullptr},  }\item[{uint32\+\_\+t}]{seed = {\ttfamily 0},  }\item[{glm\+::vec4}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+
+
+
+Converts a \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} into a heightmap by representing each scattered object as a local elevation increase on GPU. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em field} & Input \doxylink{classhmap_1_1ScatterField}{Scatter\+Field}. \\
+\hline
+{\em shape} & Dimensions of the output heightmap \{nx, ny\}. \\
+\hline
+{\em shape\+\_\+type} & Object geometry shape. \\
+\hline
+{\em height\+\_\+radius\+\_\+ratio} & Ratio of object maximum height relative to its radius. \\
+\hline
+{\em class\+\_\+id} & Optional class identifier to filter items. \\
+\hline
+{\em p\+\_\+rock\+\_\+map} & Optional output array for the rock map with normalized amplitude in \mbox{[}0, 1\mbox{]}. \\
+\hline
+{\em seed} & Random seed for procedural shape variation. \\
+\hline
+{\em bbox} & Domain bounding box \{xmin, xmax, ymin, ymax\}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Array}{Array} 2D heightmap array. 
 \end{DoxyReturn}
 \Hypertarget{namespacehmap_a61e1b066b8da6d1227758bbb40510548}\label{namespacehmap_a61e1b066b8da6d1227758bbb40510548} 
 \index{hmap@{hmap}!seed\_scatter\_clusters@{seed\_scatter\_clusters}}

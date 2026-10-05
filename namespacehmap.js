@@ -82,6 +82,7 @@ var namespacehmap =
     [ "RockDistribution", "structhmap_1_1RockDistribution.html", "structhmap_1_1RockDistribution" ],
     [ "RockField", "classhmap_1_1RockField.html", "classhmap_1_1RockField" ],
     [ "RockSeedingOptions", "structhmap_1_1RockSeedingOptions.html", "structhmap_1_1RockSeedingOptions" ],
+    [ "RockSimulationOptions", "structhmap_1_1RockSimulationOptions.html", "structhmap_1_1RockSimulationOptions" ],
     [ "ScatterField", "classhmap_1_1ScatterField.html", "classhmap_1_1ScatterField" ],
     [ "ScatterItem", "classhmap_1_1ScatterItem.html", "classhmap_1_1ScatterItem" ],
     [ "ScatterSeedingOptions", "structhmap_1_1ScatterSeedingOptions.html", "structhmap_1_1ScatterSeedingOptions" ],
@@ -377,6 +378,13 @@ var namespacehmap =
       [ "NEGATIVE_ONLY", "namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbea10478d523fc507b9738e9cfdd5b7539c", null ],
       [ "BOTH", "namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbead7d8162264f038302952e47ad5e7a2ed", null ],
       [ "NONE", "namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbea8a618ee5b7e734d56e2d5957bd9893fd", null ]
+    ] ],
+    [ "ScatterShape", "namespacehmap.html#a1074c818c371781872a62a556c98b3d3", [
+      [ "SCATTER_SHAPE_DISK", "namespacehmap.html#a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3", null ],
+      [ "SCATTER_SHAPE_POLYGON", "namespacehmap.html#a1074c818c371781872a62a556c98b3d3a02b8fa4da0d29d6bfd237c37234c0e7c", null ],
+      [ "SCATTER_SHAPE_CONE", "namespacehmap.html#a1074c818c371781872a62a556c98b3d3a20e89f35d115c73420875fc4c3159b2c", null ],
+      [ "SCATTER_SHAPE_PYRAMID", "namespacehmap.html#a1074c818c371781872a62a556c98b3d3af9bfd62affeb3f64e3352a1b7e34c027", null ],
+      [ "SCATTER_SHAPE_SMOOTH_DOME", "namespacehmap.html#a1074c818c371781872a62a556c98b3d3a710d6a87d2fd947015798fd22218ae25", null ]
     ] ],
     [ "NormalizationMethod", "namespacehmap.html#ad9d7f866e3a5140ed694e502c1db44ae", [
       [ "NM_MIN_MAX", "namespacehmap.html#ad9d7f866e3a5140ed694e502c1db44aea4680230e1e65f446536dc824ba4985ca", null ],
@@ -1097,6 +1105,11 @@ var namespacehmap =
     [ "rescale", "namespacehmap.html#ac126773f7c7af2364cfb4d7a6922ed96", null ],
     [ "generate_network_alpha_model", "namespacehmap.html#a286e4e74e6495802dba7f873c06ccb20", null ],
     [ "seed_rock_field", "namespacehmap.html#a8c78151d9fea71bfaebb14a378e8ad81", null ],
+    [ "simulate_rock_emission", "namespacehmap.html#a1b7abfd2113a5f98687a0c5c576ab110", null ],
+    [ "simulate_rock_trajectories", "namespacehmap.html#aa7f9658e594e28641d9c4a3d136c06eb", null ],
+    [ "merge_scatter_field", "namespacehmap.html#ad6f15ce8c32efb3901f1d120b41604cf", null ],
+    [ "merge_scatter_fields", "namespacehmap.html#a8563414bbbec0c8c61ddad2fd3a358aa", null ],
+    [ "scatter_field_to_heightmap", "namespacehmap.html#a765d17781b2ffdf138be2c869fe4b24c", null ],
     [ "seed_scatter_clusters", "namespacehmap.html#a61e1b066b8da6d1227758bbb40510548", null ],
     [ "seed_scatter_kmeans", "namespacehmap.html#a51e492fb8f06ce5b1ed0759d2e50d5d4", null ],
     [ "sdf_2d_polyline", "namespacehmap.html#a765ffa5ee98f47eba4b9d4ebe7680190", null ],

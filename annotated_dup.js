@@ -80,6 +80,7 @@ var annotated_dup =
       [ "RockDistribution", "structhmap_1_1RockDistribution.html", "structhmap_1_1RockDistribution" ],
       [ "RockField", "classhmap_1_1RockField.html", "classhmap_1_1RockField" ],
       [ "RockSeedingOptions", "structhmap_1_1RockSeedingOptions.html", "structhmap_1_1RockSeedingOptions" ],
+      [ "RockSimulationOptions", "structhmap_1_1RockSimulationOptions.html", "structhmap_1_1RockSimulationOptions" ],
       [ "ScatterField", "classhmap_1_1ScatterField.html", "classhmap_1_1ScatterField" ],
       [ "ScatterItem", "classhmap_1_1ScatterItem.html", "classhmap_1_1ScatterItem" ],
       [ "ScatterSeedingOptions", "structhmap_1_1ScatterSeedingOptions.html", "structhmap_1_1ScatterSeedingOptions" ],

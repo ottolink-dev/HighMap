@@ -104,6 +104,7 @@ var hierarchy =
     [ "hmap::Recorder", "structhmap_1_1Recorder.html", null ],
     [ "hmap::RockDistribution", "structhmap_1_1RockDistribution.html", null ],
     [ "hmap::RockSeedingOptions", "structhmap_1_1RockSeedingOptions.html", null ],
+    [ "hmap::RockSimulationOptions", "structhmap_1_1RockSimulationOptions.html", null ],
     [ "hmap::ScatterField", "classhmap_1_1ScatterField.html", [
       [ "hmap::Forest", "classhmap_1_1Forest.html", null ],
       [ "hmap::RockField", "classhmap_1_1RockField.html", null ]

@@ -6,5 +6,6 @@ var searchData=
   ['riftfunction_3',['RiftFunction',['../classhmap_1_1RiftFunction.html',1,'hmap']]],
   ['rockdistribution_4',['RockDistribution',['../structhmap_1_1RockDistribution.html',1,'hmap']]],
   ['rockfield_5',['RockField',['../classhmap_1_1RockField.html',1,'hmap']]],
-  ['rockseedingoptions_6',['RockSeedingOptions',['../structhmap_1_1RockSeedingOptions.html',1,'hmap']]]
+  ['rockseedingoptions_6',['RockSeedingOptions',['../structhmap_1_1RockSeedingOptions.html',1,'hmap']]],
+  ['rocksimulationoptions_7',['RockSimulationOptions',['../structhmap_1_1RockSimulationOptions.html',1,'hmap']]]
 ];

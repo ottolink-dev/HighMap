@@ -316,6 +316,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap_1_1RockSeedingOptions.html">RockSeedingOptions</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration parameters for rock field seeding algorithms.  <a href="structhmap_1_1RockSeedingOptions.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap_1_1RockSimulationOptions.html">RockSimulationOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration parameters for GPU-based rock and debris trajectory simulation.  <a href="structhmap_1_1RockSimulationOptions.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container and processor for spatial <a class="el" href="classhmap_1_1ScatterItem.html" title="Represents a single spatial instance (tree, rock, prop) with position, class identifier,...">ScatterItem</a> collections.  <a href="classhmap_1_1ScatterField.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -763,6 +766,17 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbea8a618ee5b7e734d56e2d5957bd9893fd">NONE</a>
  }</td></tr>
 <tr class="separator:ad4876bd26d1f3b33a1492645bfe50fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1074c818c371781872a62a556c98b3d3" id="r_a1074c818c371781872a62a556c98b3d3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a1074c818c371781872a62a556c98b3d3">ScatterShape</a> : int { <br />
+&#160;&#160;<a class="el" href="namespacehmap.html#a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3">SCATTER_SHAPE_DISK</a>
+, <a class="el" href="namespacehmap.html#a1074c818c371781872a62a556c98b3d3a02b8fa4da0d29d6bfd237c37234c0e7c">SCATTER_SHAPE_POLYGON</a>
+, <a class="el" href="namespacehmap.html#a1074c818c371781872a62a556c98b3d3a20e89f35d115c73420875fc4c3159b2c">SCATTER_SHAPE_CONE</a>
+, <a class="el" href="namespacehmap.html#a1074c818c371781872a62a556c98b3d3af9bfd62affeb3f64e3352a1b7e34c027">SCATTER_SHAPE_PYRAMID</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacehmap.html#a1074c818c371781872a62a556c98b3d3a710d6a87d2fd947015798fd22218ae25">SCATTER_SHAPE_SMOOTH_DOME</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a1074c818c371781872a62a556c98b3d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the geometric shape used when converting a ScatterField to a heightmap.  <a href="namespacehmap.html#a1074c818c371781872a62a556c98b3d3">More...</a><br /></td></tr>
+<tr class="separator:a1074c818c371781872a62a556c98b3d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9d7f866e3a5140ed694e502c1db44ae" id="r_ad9d7f866e3a5140ed694e502c1db44ae"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#ad9d7f866e3a5140ed694e502c1db44ae">NormalizationMethod</a> : int { <a class="el" href="namespacehmap.html#ad9d7f866e3a5140ed694e502c1db44aea4680230e1e65f446536dc824ba4985ca">NM_MIN_MAX</a>
 , <a class="el" href="namespacehmap.html#ad9d7f866e3a5140ed694e502c1db44aeae57ff6409cf6f0f59120845c765b349b">NM_STANDARDIZE</a>
 , <a class="el" href="namespacehmap.html#ad9d7f866e3a5140ed694e502c1db44aeaf15cebde3e8fe2d5c3633e5d118d423c">NM_ROBUST</a>
@@ -2825,6 +2839,21 @@ requires requires(const T &amp;<a class="el" href="elevation__from__contours_8cp
 <tr class="memitem:a8c78151d9fea71bfaebb14a378e8ad81" id="r_a8c78151d9fea71bfaebb14a378e8ad81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1RockField.html">RockField</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a8c78151d9fea71bfaebb14a378e8ad81">seed_rock_field</a> (size_t rock_count, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;density, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;exclusion={}, const <a class="el" href="structhmap_1_1RockSeedingOptions.html">RockSeedingOptions</a> &amp;options={})</td></tr>
 <tr class="memdesc:a8c78151d9fea71bfaebb14a378e8ad81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seeds a general rock/boulder field using inverse density transform sampling and applies power-law radius distribution and collision resolution.  <br /></td></tr>
 <tr class="separator:a8c78151d9fea71bfaebb14a378e8ad81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b7abfd2113a5f98687a0c5c576ab110" id="r_a1b7abfd2113a5f98687a0c5c576ab110"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1RockField.html">RockField</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a1b7abfd2113a5f98687a0c5c576ab110">simulate_rock_emission</a> (size_t rock_count, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;emission_density, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;elevation, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_friction_map=nullptr, const <a class="el" href="structhmap_1_1RockDistribution.html">RockDistribution</a> &amp;dist={}, const <a class="el" href="structhmap_1_1RockSimulationOptions.html">RockSimulationOptions</a> &amp;options={})</td></tr>
+<tr class="memdesc:a1b7abfd2113a5f98687a0c5c576ab110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits rocks from a spatial emission density map and simulates their trajectories downhill across terrain on GPU.  <br /></td></tr>
+<tr class="separator:a1b7abfd2113a5f98687a0c5c576ab110"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7f9658e594e28641d9c4a3d136c06eb" id="r_aa7f9658e594e28641d9c4a3d136c06eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1RockField.html">RockField</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#aa7f9658e594e28641d9c4a3d136c06eb">simulate_rock_trajectories</a> (const <a class="el" href="classhmap_1_1RockField.html">RockField</a> &amp;rocks, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;elevation, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_friction_map=nullptr, const <a class="el" href="structhmap_1_1RockSimulationOptions.html">RockSimulationOptions</a> &amp;options={})</td></tr>
+<tr class="memdesc:aa7f9658e594e28641d9c4a3d136c06eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simulates physical movement (sliding, rolling, bouncing, and inter-rock collision avoidance) for an existing <a class="el" href="classhmap_1_1RockField.html" title="Container class representing a field of rocks/boulders (scree, talus, or boulder field).">RockField</a> across terrain on GPU.  <br /></td></tr>
+<tr class="separator:aa7f9658e594e28641d9c4a3d136c06eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6f15ce8c32efb3901f1d120b41604cf" id="r_ad6f15ce8c32efb3901f1d120b41604cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#ad6f15ce8c32efb3901f1d120b41604cf">merge_scatter_field</a> (const <a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a> &amp;field1, const <a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a> &amp;field2, bool merge_by_class=true)</td></tr>
+<tr class="memdesc:ad6f15ce8c32efb3901f1d120b41604cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merges two <a class="el" href="classhmap_1_1ScatterField.html" title="Container and processor for spatial ScatterItem collections.">ScatterField</a> instances into a single instance.  <br /></td></tr>
+<tr class="separator:ad6f15ce8c32efb3901f1d120b41604cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8563414bbbec0c8c61ddad2fd3a358aa" id="r_a8563414bbbec0c8c61ddad2fd3a358aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a8563414bbbec0c8c61ddad2fd3a358aa">merge_scatter_fields</a> (const std::vector&lt; <a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a> &gt; &amp;fields, bool merge_by_class=true)</td></tr>
+<tr class="memdesc:a8563414bbbec0c8c61ddad2fd3a358aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merges multiple <a class="el" href="classhmap_1_1ScatterField.html" title="Container and processor for spatial ScatterItem collections.">ScatterField</a> instances into a single instance.  <br /></td></tr>
+<tr class="separator:a8563414bbbec0c8c61ddad2fd3a358aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a765d17781b2ffdf138be2c869fe4b24c" id="r_a765d17781b2ffdf138be2c869fe4b24c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a765d17781b2ffdf138be2c869fe4b24c">scatter_field_to_heightmap</a> (const <a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a> &amp;field, glm::ivec2 <a class="el" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, <a class="el" href="namespacehmap.html#a1074c818c371781872a62a556c98b3d3">ScatterShape</a> shape_type=<a class="el" href="namespacehmap.html#a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3">SCATTER_SHAPE_DISK</a>, float height_radius_ratio=1.0f, std::optional&lt; uint32_t &gt; class_id=std::nullopt, <a class="el" href="classhmap_1_1Array.html">Array</a> *p_rock_map=nullptr, uint32_t seed=0, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
+<tr class="memdesc:a765d17781b2ffdf138be2c869fe4b24c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a <a class="el" href="classhmap_1_1ScatterField.html" title="Container and processor for spatial ScatterItem collections.">ScatterField</a> into a heightmap by representing each scattered object as a local elevation increase on GPU.  <br /></td></tr>
+<tr class="separator:a765d17781b2ffdf138be2c869fe4b24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61e1b066b8da6d1227758bbb40510548" id="r_a61e1b066b8da6d1227758bbb40510548"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a61e1b066b8da6d1227758bbb40510548">seed_scatter_clusters</a> (size_t class_count, size_t item_count, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;density, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;exclusion, float cluster_spread=0.05<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, size_t points_per_cluster=8, const <a class="el" href="structhmap_1_1ScatterSeedingOptions.html">ScatterSeedingOptions</a> &amp;options={})</td></tr>
 <tr class="memdesc:a61e1b066b8da6d1227758bbb40510548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a clustered scatter distribution using inverse transform sampling for cluster centers and local cluster regions.  <br /></td></tr>
 <tr class="separator:a61e1b066b8da6d1227758bbb40510548"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -4240,6 +4269,34 @@ requires requires(const T &amp;<a class="el" href="elevation__from__contours_8cp
 <tr><td class="fieldname"><a id="ad4876bd26d1f3b33a1492645bfe50fbea10478d523fc507b9738e9cfdd5b7539c" name="ad4876bd26d1f3b33a1492645bfe50fbea10478d523fc507b9738e9cfdd5b7539c"></a>NEGATIVE_ONLY&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad4876bd26d1f3b33a1492645bfe50fbead7d8162264f038302952e47ad5e7a2ed" name="ad4876bd26d1f3b33a1492645bfe50fbead7d8162264f038302952e47ad5e7a2ed"></a>BOTH&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad4876bd26d1f3b33a1492645bfe50fbea8a618ee5b7e734d56e2d5957bd9893fd" name="ad4876bd26d1f3b33a1492645bfe50fbea8a618ee5b7e734d56e2d5957bd9893fd"></a>NONE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a1074c818c371781872a62a556c98b3d3" name="a1074c818c371781872a62a556c98b3d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1074c818c371781872a62a556c98b3d3">&#9670;&#160;</a></span>ScatterShape</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacehmap.html#a1074c818c371781872a62a556c98b3d3">hmap::ScatterShape</a> : int</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines the geometric shape used when converting a <a class="el" href="classhmap_1_1ScatterField.html" title="Container and processor for spatial ScatterItem collections.">ScatterField</a> to a heightmap. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3" name="a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3"></a>SCATTER_SHAPE_DISK&#160;</td><td class="fielddoc"><p>Circular dome / hemisphere profile. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1074c818c371781872a62a556c98b3d3a02b8fa4da0d29d6bfd237c37234c0e7c" name="a1074c818c371781872a62a556c98b3d3a02b8fa4da0d29d6bfd237c37234c0e7c"></a>SCATTER_SHAPE_POLYGON&#160;</td><td class="fielddoc"><p>Irregular polygon profile. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1074c818c371781872a62a556c98b3d3a20e89f35d115c73420875fc4c3159b2c" name="a1074c818c371781872a62a556c98b3d3a20e89f35d115c73420875fc4c3159b2c"></a>SCATTER_SHAPE_CONE&#160;</td><td class="fielddoc"><p>Linear cone profile. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1074c818c371781872a62a556c98b3d3af9bfd62affeb3f64e3352a1b7e34c027" name="a1074c818c371781872a62a556c98b3d3af9bfd62affeb3f64e3352a1b7e34c027"></a>SCATTER_SHAPE_PYRAMID&#160;</td><td class="fielddoc"><p>Polygonal pyramid profile. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1074c818c371781872a62a556c98b3d3a710d6a87d2fd947015798fd22218ae25" name="a1074c818c371781872a62a556c98b3d3a710d6a87d2fd947015798fd22218ae25"></a>SCATTER_SHAPE_SMOOTH_DOME&#160;</td><td class="fielddoc"><p>Smooth cosine dome profile. </p>
+</td></tr>
 </table>
 
 </div>
@@ -53291,6 +53348,287 @@ off" values that fall below the threshold, which can be useful for filtering out
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1RockField.html" title="Container class representing a field of rocks/boulders (scree, talus, or boulder field).">RockField</a> Sampled rock field. </dd></dl>
+
+</div>
+</div>
+<a id="a1b7abfd2113a5f98687a0c5c576ab110" name="a1b7abfd2113a5f98687a0c5c576ab110"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b7abfd2113a5f98687a0c5c576ab110">&#9670;&#160;</a></span>simulate_rock_emission()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1RockField.html">RockField</a> hmap::simulate_rock_emission </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>rock_count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>emission_density</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>elevation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> *&#160;</td>
+          <td class="paramname"><em>p_friction_map</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1RockDistribution.html">RockDistribution</a> &amp;&#160;</td>
+          <td class="paramname"><em>dist</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1RockSimulationOptions.html">RockSimulationOptions</a> &amp;&#160;</td>
+          <td class="paramname"><em>options</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Emits rocks from a spatial emission density map and simulates their trajectories downhill across terrain on GPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rock_count</td><td>Target number of rocks to emit and simulate. </td></tr>
+    <tr><td class="paramname">emission_density</td><td>Spatial probability density map where rocks originate. </td></tr>
+    <tr><td class="paramname">elevation</td><td>Terrain elevation heightmap. </td></tr>
+    <tr><td class="paramname">p_friction_map</td><td>Optional soil friction map (same dimensions as elevation). </td></tr>
+    <tr><td class="paramname">dist</td><td>Rock distribution specifying radii and classes. </td></tr>
+    <tr><td class="paramname">options</td><td>Simulation options. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1RockField.html" title="Container class representing a field of rocks/boulders (scree, talus, or boulder field).">RockField</a> Field containing the resting rocks. </dd></dl>
+
+</div>
+</div>
+<a id="aa7f9658e594e28641d9c4a3d136c06eb" name="aa7f9658e594e28641d9c4a3d136c06eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7f9658e594e28641d9c4a3d136c06eb">&#9670;&#160;</a></span>simulate_rock_trajectories()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1RockField.html">RockField</a> hmap::simulate_rock_trajectories </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1RockField.html">RockField</a> &amp;&#160;</td>
+          <td class="paramname"><em>rocks</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>elevation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> *&#160;</td>
+          <td class="paramname"><em>p_friction_map</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1RockSimulationOptions.html">RockSimulationOptions</a> &amp;&#160;</td>
+          <td class="paramname"><em>options</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Simulates physical movement (sliding, rolling, bouncing, and inter-rock collision avoidance) for an existing <a class="el" href="classhmap_1_1RockField.html" title="Container class representing a field of rocks/boulders (scree, talus, or boulder field).">RockField</a> across terrain on GPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rocks</td><td>Input rock field with initial positions. </td></tr>
+    <tr><td class="paramname">elevation</td><td>Terrain elevation heightmap. </td></tr>
+    <tr><td class="paramname">p_friction_map</td><td>Optional soil friction map. </td></tr>
+    <tr><td class="paramname">options</td><td>Simulation options. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1RockField.html" title="Container class representing a field of rocks/boulders (scree, talus, or boulder field).">RockField</a> Updated rock field with resting positions. </dd></dl>
+
+</div>
+</div>
+<a id="ad6f15ce8c32efb3901f1d120b41604cf" name="ad6f15ce8c32efb3901f1d120b41604cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6f15ce8c32efb3901f1d120b41604cf">&#9670;&#160;</a></span>merge_scatter_field()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a> hmap::merge_scatter_field </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a> &amp;&#160;</td>
+          <td class="paramname"><em>field1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a> &amp;&#160;</td>
+          <td class="paramname"><em>field2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>merge_by_class</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Merges two <a class="el" href="classhmap_1_1ScatterField.html" title="Container and processor for spatial ScatterItem collections.">ScatterField</a> instances into a single instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">field1</td><td>First <a class="el" href="classhmap_1_1ScatterField.html" title="Container and processor for spatial ScatterItem collections.">ScatterField</a>. </td></tr>
+    <tr><td class="paramname">field2</td><td>Second <a class="el" href="classhmap_1_1ScatterField.html" title="Container and processor for spatial ScatterItem collections.">ScatterField</a>. </td></tr>
+    <tr><td class="paramname">merge_by_class</td><td>If true, preserves existing class IDs. If false, assigns a new unique class ID for each input field (0 for field1, 1 for field2). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1ScatterField.html" title="Container and processor for spatial ScatterItem collections.">ScatterField</a> Merged scatter field. </dd></dl>
+
+</div>
+</div>
+<a id="a8563414bbbec0c8c61ddad2fd3a358aa" name="a8563414bbbec0c8c61ddad2fd3a358aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8563414bbbec0c8c61ddad2fd3a358aa">&#9670;&#160;</a></span>merge_scatter_fields()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a> hmap::merge_scatter_fields </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>fields</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>merge_by_class</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Merges multiple <a class="el" href="classhmap_1_1ScatterField.html" title="Container and processor for spatial ScatterItem collections.">ScatterField</a> instances into a single instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fields</td><td>List of <a class="el" href="classhmap_1_1ScatterField.html" title="Container and processor for spatial ScatterItem collections.">ScatterField</a> instances. </td></tr>
+    <tr><td class="paramname">merge_by_class</td><td>If true, preserves existing class IDs. If false, assigns a new unique class ID for each input field corresponding to its index in <code>fields</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1ScatterField.html" title="Container and processor for spatial ScatterItem collections.">ScatterField</a> Merged scatter field. </dd></dl>
+
+</div>
+</div>
+<a id="a765d17781b2ffdf138be2c869fe4b24c" name="a765d17781b2ffdf138be2c869fe4b24c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a765d17781b2ffdf138be2c869fe4b24c">&#9670;&#160;</a></span>scatter_field_to_heightmap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1Array.html">Array</a> hmap::scatter_field_to_heightmap </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1ScatterField.html">ScatterField</a> &amp;&#160;</td>
+          <td class="paramname"><em>field</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::ivec2&#160;</td>
+          <td class="paramname"><em>shape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacehmap.html#a1074c818c371781872a62a556c98b3d3">ScatterShape</a>&#160;</td>
+          <td class="paramname"><em>shape_type</em> = <code><a class="el" href="namespacehmap.html#a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3">SCATTER_SHAPE_DISK</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>height_radius_ratio</em> = <code>1.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; uint32_t &gt;&#160;</td>
+          <td class="paramname"><em>class_id</em> = <code>std::nullopt</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> *&#160;</td>
+          <td class="paramname"><em>p_rock_map</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>seed</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec4&#160;</td>
+          <td class="paramname"><em>bbox</em> = <code>{0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts a <a class="el" href="classhmap_1_1ScatterField.html" title="Container and processor for spatial ScatterItem collections.">ScatterField</a> into a heightmap by representing each scattered object as a local elevation increase on GPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">field</td><td>Input <a class="el" href="classhmap_1_1ScatterField.html" title="Container and processor for spatial ScatterItem collections.">ScatterField</a>. </td></tr>
+    <tr><td class="paramname">shape</td><td>Dimensions of the output heightmap {nx, ny}. </td></tr>
+    <tr><td class="paramname">shape_type</td><td>Object geometry shape. </td></tr>
+    <tr><td class="paramname">height_radius_ratio</td><td>Ratio of object maximum height relative to its radius. </td></tr>
+    <tr><td class="paramname">class_id</td><td>Optional class identifier to filter items. </td></tr>
+    <tr><td class="paramname">p_rock_map</td><td>Optional output array for the rock map with normalized amplitude in [0, 1]. </td></tr>
+    <tr><td class="paramname">seed</td><td>Random seed for procedural shape variation. </td></tr>
+    <tr><td class="paramname">bbox</td><td>Domain bounding box {xmin, xmax, ymin, ymax}. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> 2D heightmap array. </dd></dl>
 
 </div>
 </div>
