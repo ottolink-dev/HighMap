@@ -28,14 +28,8 @@ int main(void)
   // compute slope magnitude to identify steep cliff rockfall sources
   hmap::Array slope = hmap::gradient_norm(z);
 
-  // emission originates from steep upper ridges and cliffs
-  hmap::Array cliff_mask = hmap::select_range(slope,
-                                              1.5f / shape.x,
-                                              4.0f / shape.x,
-                                              0.5f / shape.x);
-  hmap::Array high_elevation = hmap::threshold_smooth(z, 0.f, 0.7f);
-  hmap::Array emission_density = high_elevation;
-  // emission_density = 1.f;
+  // emission originates from upper elevations
+  hmap::Array emission_density = hmap::threshold_smooth(z, 0.f, 0.7f);
 
   // --- 3. Configure GPU Rock Rolling Simulation Parameters
 

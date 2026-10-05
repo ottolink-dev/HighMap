@@ -315,3 +315,93 @@ TEST(ScatterSeedingTest, SeedScatterClustersAndKMeans)
       seed_scatter_kmeans(2, 50, density, exclusion, 0.0f, 4, opts);
   EXPECT_EQ(kmeans.size(), 50u);
 }
+
+// --- Merge Functions Unit Tests
+
+TEST(ScatterFieldTest, MergeScatterFieldPreserveClasses)
+{
+  ScatterField f1;
+  f1.push_back(ScatterItem(1.f, 2.f, 3.f, 10u, 0.5f));
+  f1.push_back(ScatterItem(4.f, 5.f, 6.f, 20u, 1.0f));
+
+  ScatterField f2;
+  f2.push_back(ScatterItem(7.f, 8.f, 9.f, 10u, 1.5f));
+  f2.push_back(ScatterItem(10.f, 11.f, 12.f, 30u, 2.0f));
+
+  ScatterField merged = merge_scatter_field(f1, f2, true);
+
+  EXPECT_EQ(merged.size(), 4u);
+  EXPECT_EQ(merged[0].class_id, 10u);
+  EXPECT_TRUE(float_eq(merged[0].position.x, 1.f));
+  EXPECT_TRUE(float_eq(merged[0].radius, 0.5f));
+
+  EXPECT_EQ(merged[1].class_id, 20u);
+  EXPECT_EQ(merged[2].class_id, 10u);
+  EXPECT_TRUE(float_eq(merged[2].position.x, 7.f));
+  EXPECT_TRUE(float_eq(merged[2].radius, 1.5f));
+
+  EXPECT_EQ(merged[3].class_id, 30u);
+}
+
+TEST(ScatterFieldTest, MergeScatterFieldRemapClasses)
+{
+  ScatterField f1;
+  f1.push_back(ScatterItem(1.f, 2.f, 3.f, 10u, 0.5f));
+  f1.push_back(ScatterItem(4.f, 5.f, 6.f, 20u, 1.0f));
+
+  ScatterField f2;
+  f2.push_back(ScatterItem(7.f, 8.f, 9.f, 10u, 1.5f));
+  f2.push_back(ScatterItem(10.f, 11.f, 12.f, 30u, 2.0f));
+
+  ScatterField merged = merge_scatter_field(f1, f2, false);
+
+  EXPECT_EQ(merged.size(), 4u);
+  // f1 items should have class 0
+  EXPECT_EQ(merged[0].class_id, 0u);
+  EXPECT_EQ(merged[1].class_id, 0u);
+  // f2 items should have class 1
+  EXPECT_EQ(merged[2].class_id, 1u);
+  EXPECT_EQ(merged[3].class_id, 1u);
+
+  // Check that other properties were preserved
+  EXPECT_TRUE(float_eq(merged[0].position.x, 1.f));
+  EXPECT_TRUE(float_eq(merged[0].position.y, 2.f));
+  EXPECT_TRUE(float_eq(merged[0].position.z, 3.f));
+  EXPECT_TRUE(float_eq(merged[0].radius, 0.5f));
+
+  EXPECT_TRUE(float_eq(merged[2].position.x, 7.f));
+  EXPECT_TRUE(float_eq(merged[2].position.y, 8.f));
+  EXPECT_TRUE(float_eq(merged[2].position.z, 9.f));
+  EXPECT_TRUE(float_eq(merged[2].radius, 1.5f));
+}
+
+TEST(ScatterFieldTest, MergeScatterFieldsMultiple)
+{
+  ScatterField f1;
+  f1.push_back(ScatterItem(1.f, 1.f, 0.f, 5u, 0.1f));
+
+  ScatterField f2;
+  f2.push_back(ScatterItem(2.f, 2.f, 0.f, 6u, 0.2f));
+
+  ScatterField f3;
+  f3.push_back(ScatterItem(3.f, 3.f, 0.f, 7u, 0.3f));
+
+  // Merge empty vector
+  EXPECT_EQ(merge_scatter_fields({}).size(), 0u);
+
+  // Merge with merge_by_class = true
+  ScatterField merged_by_class = merge_scatter_fields({f1, f2, f3}, true);
+  EXPECT_EQ(merged_by_class.size(), 3u);
+  EXPECT_EQ(merged_by_class[0].class_id, 5u);
+  EXPECT_EQ(merged_by_class[1].class_id, 6u);
+  EXPECT_EQ(merged_by_class[2].class_id, 7u);
+
+  // Merge with merge_by_class = false (new class per input field)
+  ScatterField merged_remapped = merge_scatter_fields({f1, f2, f3}, false);
+  EXPECT_EQ(merged_remapped.size(), 3u);
+  EXPECT_EQ(merged_remapped[0].class_id, 0u);
+  EXPECT_EQ(merged_remapped[1].class_id, 1u);
+  EXPECT_EQ(merged_remapped[2].class_id, 2u);
+  EXPECT_TRUE(float_eq(merged_remapped[2].position.x, 3.f));
+  EXPECT_TRUE(float_eq(merged_remapped[2].radius, 0.3f));
+}

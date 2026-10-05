@@ -56,7 +56,7 @@ public:
   void stop();
 
   std::string name;                                  ///< The name of the event.
-  int nb_calls = 0;                                  ///< The number of times the event has been recorded.
+  int         nb_calls = 0;                          ///< The number of times the event has been recorded.
   std::chrono::high_resolution_clock::time_point t0; ///< The start time of the event.
   float total = 0.f;                                 ///< The total time recorded for the event.
 };

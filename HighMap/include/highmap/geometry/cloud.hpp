@@ -615,8 +615,8 @@ public:
    *              included in the image. It is given as {xmin, xmax, ymin,
    *              ymax}. The default is {0.f, 1.f, 0.f, 1.f}.
    * @param depth An integer specifying the bit depth of the image. It should be
-   *              a value defined by OpenCV (e.g., `CV_8U` for 8-bit unsigned).
-   *              The default is `CV_8U`.
+   *              a value defined by OpenCV (e.g., `CV_8U` for 8-bit unsigned). The default
+   *              is `CV_8U`.
    * @param shape A `glm::ivec2` specifying the dimensions of the output image.
    *              It is given as {width, height}. The default is {512, 512}.
    */

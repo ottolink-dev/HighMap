@@ -923,4 +923,46 @@ std::string ScatterField::to_string() const
   return ss.str();
 }
 
+// ============================================================================
+//  Functions (Alphabetically Sorted)
+// ============================================================================
+
+ScatterField merge_scatter_field(const ScatterField &field1,
+                                 const ScatterField &field2,
+                                 bool                merge_by_class)
+{
+  return merge_scatter_fields({field1, field2}, merge_by_class);
+}
+
+ScatterField merge_scatter_fields(const std::vector<ScatterField> &fields,
+                                  bool merge_by_class)
+{
+  ScatterField result;
+  size_t       total_size = 0;
+  for (const auto &f : fields)
+    total_size += f.size();
+
+  result.reserve(total_size);
+
+  for (size_t field_idx = 0; field_idx < fields.size(); ++field_idx)
+  {
+    const auto &f = fields[field_idx];
+    for (const auto &item : f)
+    {
+      if (merge_by_class)
+      {
+        result.push_back(item);
+      }
+      else
+      {
+        ScatterItem remapped_item = item;
+        remapped_item.class_id = static_cast<uint32_t>(field_idx);
+        result.push_back(std::move(remapped_item));
+      }
+    }
+  }
+
+  return result;
+}
+
 } // namespace hmap
