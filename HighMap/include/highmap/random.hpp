@@ -4,6 +4,8 @@
 #pragma once
 #include <cstddef>
 #include <cstdint>
+#include <random>
+#include <vector>
 
 namespace hmap
 {
@@ -18,6 +20,24 @@ namespace hmap
  * @note Faster but lower quality than splitmix64_to_unit_float().
  */
 float fast_hash32_to_unit_float(unsigned int seed, size_t k);
+
+/**
+ * @brief Computes a pseudo-random float in [0, 1) by hashing two 32-bit
+ * integers.
+ *
+ * @param  a First 32-bit value.
+ * @param  b Second 32-bit value.
+ * @return   Uniform float in [0, 1).
+ */
+float hash01(uint32_t a, uint32_t b);
+
+/**
+ * @brief Integer hash function (Murmur3 / finalize style 32-bit mixer).
+ *
+ * @param  x Input 32-bit value.
+ * @return   Hashed 32-bit value.
+ */
+uint32_t hash32(uint32_t x);
 
 /**
  * @brief Computes a deterministic 64-bit hash using the SplitMix64 algorithm.
@@ -59,6 +79,16 @@ float splitmix64_to_unit_float(unsigned int seed, size_t k);
  * @return   Uniform floating-point value in the range [0, 1).
  */
 float uniform01(uint64_t h);
+
+/**
+ * @brief Computes 2D value noise in [-1, 1] using a hash-based lattice.
+ *
+ * @param  x    X coordinate.
+ * @param  y    Y coordinate.
+ * @param  seed Random seed.
+ * @return      Value noise in [-1, 1].
+ */
+float vnoise(float x, float y, uint32_t seed = 0);
 
 // === PdfSampler class ===
 

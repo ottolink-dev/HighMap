@@ -44,8 +44,18 @@ int main(void)
 
   z3.dump();
 
+  // multiscale log scale
+  auto z4 = z;
+  hmap::gpu::hydraulic_stream_log_multiscale(z4,
+                                             c_erosion,
+                                             talus_ref,
+                                             /* levels */ 3,
+                                             deposition_ir);
+
+  z4.dump();
+
   hmap::export_banner_png("ex_hydraulic_stream0.png",
-                          {z0, z1, z2, z3},
+                          {z0, z1, z2, z3, z4},
                           hmap::Cmap::TERRAIN,
                           true);
 

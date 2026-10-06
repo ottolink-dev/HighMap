@@ -515,6 +515,75 @@ void hydraulic_stream_log(Array       &z,
                           Array       *p_flow_map = nullptr);
 
 /**
+ * @brief Multiscale stream-power hydraulic erosion cascade.
+ *
+ * Runs stream-power erosion over a geometric resolution ladder (coarsest first,
+ * up to z.shape). Coarse levels carve broad valleys and major drainage
+ * networks, while fine levels carve detailed tributaries.
+ *
+ * @param z                      Heightmap array to modify.
+ * @param c_erosion              Erosion coefficient.
+ * @param talus_ref              Reference talus.
+ * @param levels                 Number of resolution levels.
+ * @param deposition_ir          Deposition smoothing radius at full resolution.
+ * @param deposition_scale_ratio Deposition blend factor (applied at last
+ *                               scale).
+ * @param gradient_power         Power applied to normalized gradient.
+ * @param gradient_scaling_ratio Gradient scaling weight.
+ * @param gradient_prefilter_ir  Gradient prefilter smoothing radius at full
+ *                               resolution.
+ * @param saturation_ratio       Flow saturation ratio.
+ * @param p_bedrock              Optional bedrock array bounding maximum erosion
+ *                               depth.
+ * @param p_moisture_map         Optional moisture map.
+ * @param p_erosion_map          Optional output erosion map.
+ * @param p_deposition_map       Optional output deposition map.
+ * @param p_flow_map             Optional output flow accumulation map.
+ * @param mix                    Interpolation blend factor between levels.
+ * @param warp                   Domain warp amplitude during upsampling.
+ * @param seed                   Random seed for domain warping noise.
+ */
+void hydraulic_stream_log_multiscale(Array        &z,
+                                     float         c_erosion,
+                                     float         talus_ref,
+                                     int           levels = 3,
+                                     int           deposition_ir = 32,
+                                     float         deposition_scale_ratio = 1.f,
+                                     float         gradient_power = 0.8f,
+                                     float         gradient_scaling_ratio = 1.f,
+                                     int           gradient_prefilter_ir = 16,
+                                     float         saturation_ratio = 1.f,
+                                     const Array  *p_bedrock = nullptr,
+                                     const Array  *p_moisture_map = nullptr,
+                                     Array        *p_erosion_map = nullptr,
+                                     Array        *p_deposition_map = nullptr,
+                                     Array        *p_flow_map = nullptr,
+                                     float         mix = 1.f,
+                                     float         warp = 0.35f,
+                                     std::uint32_t seed = 1);
+
+/// @overload
+void hydraulic_stream_log_multiscale(Array        &z,
+                                     float         c_erosion,
+                                     float         talus_ref,
+                                     const Array  *p_mask,
+                                     int           levels = 3,
+                                     int           deposition_ir = 32,
+                                     float         deposition_scale_ratio = 1.f,
+                                     float         gradient_power = 0.8f,
+                                     float         gradient_scaling_ratio = 1.f,
+                                     int           gradient_prefilter_ir = 16,
+                                     float         saturation_ratio = 1.f,
+                                     const Array  *p_bedrock = nullptr,
+                                     const Array  *p_moisture_map = nullptr,
+                                     Array        *p_erosion_map = nullptr,
+                                     Array        *p_deposition_map = nullptr,
+                                     Array        *p_flow_map = nullptr,
+                                     float         mix = 1.f,
+                                     float         warp = 0.35f,
+                                     std::uint32_t seed = 1);
+
+/**
  * @brief Applies hydraulic erosion with upscaling amplification.
  *
  * This function progressively upscales the input array `z` by powers of 2 and
@@ -1103,6 +1172,48 @@ void hydraulic_stream_log(Array       &z,
                           Array       *p_erosion_map = nullptr,
                           Array       *p_deposition_map = nullptr,
                           Array       *p_flow_map = nullptr);
+
+/*! @brief See hmap::hydraulic_stream_log_multiscale */
+void hydraulic_stream_log_multiscale(Array        &z,
+                                     float         c_erosion,
+                                     float         talus_ref,
+                                     int           levels = 3,
+                                     int           deposition_ir = 32,
+                                     float         deposition_scale_ratio = 1.f,
+                                     float         gradient_power = 0.8f,
+                                     float         gradient_scaling_ratio = 1.f,
+                                     int           gradient_prefilter_ir = 16,
+                                     float         saturation_ratio = 1.f,
+                                     const Array  *p_bedrock = nullptr,
+                                     const Array  *p_moisture_map = nullptr,
+                                     Array        *p_erosion_map = nullptr,
+                                     Array        *p_deposition_map = nullptr,
+                                     Array        *p_flow_map = nullptr,
+                                     float         mix = 1.f,
+                                     float         warp = 0.35f,
+                                     std::uint32_t seed = 1);
+
+/// @overload
+void hydraulic_stream_log_multiscale(Array        &z,
+                                     float         c_erosion,
+                                     float         talus_ref,
+                                     const Array  *p_mask,
+                                     int           levels = 3,
+                                     int           deposition_ir = 32,
+                                     float         deposition_scale_ratio = 1.f,
+                                     float         gradient_power = 0.8f,
+                                     float         gradient_scaling_ratio = 1.f,
+                                     int           gradient_prefilter_ir = 16,
+                                     float         saturation_ratio = 1.f,
+                                     const Array  *p_bedrock = nullptr,
+                                     const Array  *p_moisture_map = nullptr,
+                                     Array        *p_erosion_map = nullptr,
+                                     Array        *p_deposition_map = nullptr,
+                                     Array        *p_flow_map = nullptr,
+                                     float         mix = 1.f,
+                                     float         warp = 0.35f,
+                                     std::uint32_t seed = 1);
+
 /*! @brief See hmap::gpu::hydraulic_vpipes */
 void hydraulic_vpipes(Array &z,
                       float  water_height = 1e-2f,

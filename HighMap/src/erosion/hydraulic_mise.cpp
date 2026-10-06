@@ -20,6 +20,7 @@
 #include "highmap/erosion.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/array.hpp"
+#include "highmap/random.hpp"
 #include "highmap/range.hpp"
 
 #include <bit>
@@ -188,39 +189,6 @@ float key_float(uint32_t k)
 float next_up(float f)
 {
   return key_float(float_key(f) + 1u);
-}
-
-uint32_t hash32(uint32_t x)
-{
-  x ^= x >> 16;
-  x *= 0x7feb352dU;
-  x ^= x >> 15;
-  x *= 0x846ca68bU;
-  x ^= x >> 16;
-  return x;
-}
-
-float hash01(uint32_t a, uint32_t b)
-{
-  return (float)(hash32(a ^ hash32(b + 0x9e3779b9u)) >> 8) * (1.f / 16777216.f);
-}
-
-float vnoise(float x, float y, uint32_t seed)
-{
-  float fx = std::floor(x), fy = std::floor(y);
-  int   xi = (int)fx, yi = (int)fy;
-  float tx = x - fx, ty = y - fy;
-  tx = tx * tx * (3.f - 2.f * tx);
-  ty = ty * ty * (3.f - 2.f * ty);
-  auto h = [&](int i, int j)
-  {
-    return 2.f * hash01((uint32_t)i * 0x9E3779B1u + (uint32_t)j * 0x85EBCA77u,
-                        seed) -
-           1.f;
-  };
-  float a = h(xi, yi), b = h(xi + 1, yi), c = h(xi, yi + 1),
-        d = h(xi + 1, yi + 1);
-  return (a + tx * (b - a)) + ty * ((c + tx * (d - c)) - (a + tx * (b - a)));
 }
 
 int thread_count(int requested)
