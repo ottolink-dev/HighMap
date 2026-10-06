@@ -9,25 +9,11 @@
 
 #include "highmap/array.hpp"
 #include "highmap/erosion/erosion_parameters.hpp"
+#include "highmap/geometry/grids.hpp"
 #include "highmap/interpolate/interpolate2d.hpp"
 #include "highmap/math/profiles.hpp"
 #include "highmap/terrain_tri_mesh.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
-
-// neighbor pattern search based on Moore pattern and define diagonal
-// weight coefficients ('c' corresponds to a weight coefficient
-// applied to take into account the longer distance for diagonal
-// comparison between cells)
-
-// clang-format off
-// 6 2 8
-// 1 . 4
-// 5 3 7
-#define HMAP_DI {-1, 0, 0, 1, -1, -1, 1, 1}
-#define HMAP_DJ {0, 1, -1, 0, -1, 1, -1, 1}
-#define HMAP_CD  {1.f, 1.f, 1.f, 1.f, (float)M_SQRT2, (float)M_SQRT2, (float)M_SQRT2, (float)M_SQRT2}
-#define HMAP_CD_INV  {1.f, 1.f, 1.f, 1.f, 1.f / (float)M_SQRT2, 1.f / (float)M_SQRT2, 1.f / (float)M_SQRT2, 1.f / (float)M_SQRT2}
-// clang-format on
 
 namespace hmap
 {

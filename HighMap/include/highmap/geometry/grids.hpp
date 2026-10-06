@@ -8,13 +8,117 @@
  */
 
 #pragma once
+#include <array>
 #include <vector>
 
 #include "highmap/algebra.hpp"
 #include "highmap/array.hpp"
 
+#include <numbers>
+
 namespace hmap
 {
+
+// ==========================================================================
+//  Neighborhoods
+// ==========================================================================
+
+namespace neighborhood
+{
+
+struct Neighbor
+{
+  glm::ivec2 offset;
+  float      distance;
+  float      inv_distance;
+};
+
+struct NeighborWeighted
+{
+  glm::ivec2 offset;
+  float      distance;
+  float      inv_distance;
+  float      weight;
+};
+
+// 4-neighborhood (Von Neumann: N, E, S, W)
+inline constexpr std::array<Neighbor, 4> VON_NEUMANN_4 = {{
+    {{0, 1}, 1.0f, 1.0f},
+    {{1, 0}, 1.0f, 1.0f},
+    {{0, -1}, 1.0f, 1.0f},
+    {{-1, 0}, 1.0f, 1.0f},
+}};
+
+// Moore neighborhood (orthogonal first, then diagonals)
+//  6 2 8
+//  1 . 4
+//  5 3 7
+// clang-format off
+inline constexpr std::array<Neighbor, 8> MOORE_8 = {{
+	{{-1, 0}, 1.0f, 1.0f},
+	{{0, 1}, 1.0f, 1.0f},
+	{{0, -1}, 1.0f, 1.0f},
+	{{1, 0}, 1.0f, 1.0f},
+	{{-1, -1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>},
+	{{-1, 1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>},
+	{{1, -1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>},
+	{{1, 1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>},
+}};
+// clang-format on
+
+// D8 Flow direction neighborhood (counter-clockwise / standard D8 code
+// ordering):
+// 5 6 7
+// 4 . 0
+// 3 2 1
+// clang-format off
+inline constexpr std::array<Neighbor, 8> D8_FLOW = {{
+	{{1, 0}, 1.0f, 1.0f},
+	{{1, -1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>},
+	{{0, -1}, 1.0f, 1.0f},
+	{{-1, -1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>},
+	{{-1, 0}, 1.0f, 1.0f},
+	{{-1, 1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>},
+	{{0, 1}, 1.0f, 1.0f},
+	{{1, 1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>},
+}};
+// clang-format on
+
+// D-infinity Flow neighborhood (with Quinn effective contour length weights)
+// 5 1 7
+// 0 . 3
+// 4 2 6
+// clang-format off
+inline constexpr std::array<NeighborWeighted, 8> DINF_8 = {{
+	{{-1, 0}, 1.0f, 1.0f, 0.500f},
+	{{0, 1}, 1.0f, 1.0f, 0.500f},
+	{{0, -1}, 1.0f, 1.0f, 0.500f},
+	{{1, 0}, 1.0f, 1.0f, 0.500f},
+	{{-1, -1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>, 0.354f},
+	{{-1, 1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>, 0.354f},
+	{{1, -1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>, 0.354f},
+	{{1, 1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>, 0.354f},
+}};
+// clang-format on
+
+// Geomorphons 8-neighborhood (ray search pattern)
+// 7 0 1
+// 6 . 2
+// 5 4 3
+// clang-format off
+inline constexpr std::array<Neighbor, 8> GEOMORPHON_8 = {{
+	{{-1, 0}, 1.0f, 1.0f},
+	{{-1, 1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>},
+	{{0, 1}, 1.0f, 1.0f},
+	{{1, 1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>},
+	{{1, 0}, 1.0f, 1.0f},
+	{{1, -1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>},
+	{{0, -1}, 1.0f, 1.0f},
+	{{-1, -1}, std::numbers::sqrt2_v<float>, 1.0f / std::numbers::sqrt2_v<float>},
+}};
+// clang-format on
+
+} // namespace neighborhood
 
 // ==========================================================================
 //  Functions

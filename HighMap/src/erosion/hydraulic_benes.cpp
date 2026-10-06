@@ -39,9 +39,8 @@ void hydraulic_benes(Array &z,
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
   if (p_moisture_map && !validate_same_shape(z, *p_moisture_map)) return;
 
-  std::vector<int>    di = HMAP_DI;
-  std::vector<int>    dj = HMAP_DJ;
-  const std::uint32_t nb = di.size();
+  auto                neighbors = neighborhood::MOORE_8;
+  const std::uint32_t nb = neighbors.size();
 
   // keep a backup of the input if the erosion / deposition maps need
   // to be computed
@@ -64,8 +63,7 @@ void hydraulic_benes(Array &z,
   {
     // modify neighbor search at each iterations to limit numerical
     // artifacts
-    std::rotate(di.begin(), di.begin() + 1, di.end());
-    std::rotate(dj.begin(), dj.begin() + 1, dj.end());
+    std::rotate(neighbors.begin(), neighbors.begin() + 1, neighbors.end());
 
     w = (1.f - rain_rate) * w + rain_rate * w_init;
 
@@ -81,8 +79,8 @@ void hydraulic_benes(Array &z,
 
         for (std::uint32_t k = 0; k < nb; k++)
         {
-          int ia = i + di[k];
-          int ja = j + dj[k];
+          int ia = i + neighbors[k].offset.x;
+          int ja = j + neighbors[k].offset.y;
           dz[k] = z(i, j) + w(i, j) - z(ia, ja) - w(ia, ja);
 
           if (dz[k] > 0.f)
@@ -116,8 +114,8 @@ void hydraulic_benes(Array &z,
           {
             if (dz[k] > 0.f)
             {
-              int   ia = i + di[k];
-              int   ja = j + dj[k];
+              int   ia = i + neighbors[k].offset.x;
+              int   ja = j + neighbors[k].offset.y;
               float r = dz[k] / dsum;
 
               w(ia, ja) += dw_tot * r;
@@ -137,8 +135,8 @@ void hydraulic_benes(Array &z,
 
         for (std::uint32_t k = 0; k < nb; k++)
         {
-          int ia = i + di[k];
-          int ja = j + dj[k];
+          int ia = i + neighbors[k].offset.x;
+          int ja = j + neighbors[k].offset.y;
           dz[k] = z(i, j) + w(i, j) - z(ia, ja) - w(ia, ja); // no water
 
           if (dz[k] > 0.f)
@@ -164,8 +162,8 @@ void hydraulic_benes(Array &z,
           {
             if (dz[k] > 0.f)
             {
-              int   ia = i + di[k];
-              int   ja = j + dj[k];
+              int   ia = i + neighbors[k].offset.x;
+              int   ja = j + neighbors[k].offset.y;
               float r = dz[k] / dsum;
 
               z(ia, ja) -= amount * r;

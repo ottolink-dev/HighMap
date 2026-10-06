@@ -26,6 +26,7 @@
 #include <limits>
 
 #include "highmap/array.hpp"
+#include "highmap/geometry/grids.hpp"
 #include "highmap/geometry/path.hpp"
 #include "highmap/hydrology/drainage_basin_cell_based.hpp"
 #include "highmap/math/profiles.hpp"

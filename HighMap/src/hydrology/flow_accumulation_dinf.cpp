@@ -19,23 +19,6 @@
 #include "highmap/primitives/functions.hpp"
 #include "highmap/range.hpp"
 
-// neighbor pattern search based on D8 flow direction neighborhood
-// coding
-
-// 5 1 7
-// 0 . 3
-// 4 2 6
-// clang-format off
-#define HMAP_DINF_DI {-1, 0, 0, 1, -1, -1, 1, 1}
-#define HMAP_DINF_DJ {0, 1, -1, 0, -1, 1, -1, 1}
-#define HMAP_DINF_C  {1.f, 1.f, 1.f, 1.f, M_SQRT1_2, M_SQRT1_2, M_SQRT1_2, M_SQRT1_2}
-  
-// the "effective contour length" of pixel i. The value of L i is 0.5
-// for pixels in cardinal directions and 0.354 for pixels in diagonal
-// directions (Quinn et al., 1991)
-#define HMAP_DINF_ECL {0.5, 0.5, 0.5, 0.5 , 0.354, 0.354, 0.354, 0.354}
-// clang-format on
-
 namespace hmap
 {
 
@@ -43,13 +26,12 @@ Array flow_accumulation_dinf(const Array &z, float talus_ref)
 {
   if (!validate_non_empty(z)) return Array();
 
-  const glm::ivec2       &shape = z.shape;
-  const std::vector<int> &di = HMAP_DINF_DI;
-  const std::vector<int> &dj = HMAP_DINF_DJ;
-  const size_t           &nb = di.size();
-  const int               nx = shape.x;
-  const int               ny = shape.y;
-  const int               ncells = nx * ny;
+  const glm::ivec2 &shape = z.shape;
+  const auto       &neighbors = neighborhood::DINF_8;
+  const size_t      nb = neighbors.size();
+  const int         nx = shape.x;
+  const int         ny = shape.y;
+  const int         ncells = nx * ny;
 
   Array facc = constant(shape, 1.f);
   // use raw pointer to avoid operator() overhead
@@ -69,7 +51,8 @@ Array flow_accumulation_dinf(const Array &z, float talus_ref)
       {
         if (dinf[base + k] > 0.f)
         {
-          const int nidx = (j + dj[k]) * nx + (i + di[k]);
+          const int nidx = (j + neighbors[k].offset.y) * nx +
+                           (i + neighbors[k].offset.x);
 #pragma omp atomic
           nidp[nidx]++;
         }
@@ -100,7 +83,8 @@ Array flow_accumulation_dinf(const Array &z, float talus_ref)
       const float wgt = dinf[base + k];
       if (wgt == 0.f) continue;
 
-      const int nidx = (j + dj[k]) * nx + (i + di[k]);
+      const int nidx = (j + neighbors[k].offset.y) * nx +
+                       (i + neighbors[k].offset.x);
       facc_ptr[nidx] += acc * wgt;
 
       if (--nidp[nidx] == 0) queue.push_back(nidx);
@@ -151,11 +135,8 @@ std::vector<Array> flow_direction_dinf(const Array &z, float talus_ref)
 {
   if (!validate_non_empty(z)) return {};
 
-  const std::vector<int>   di = HMAP_DINF_DI;
-  const std::vector<int>   dj = HMAP_DINF_DJ;
-  const std::vector<float> c = HMAP_DINF_C;
-  const std::vector<float> ecl = HMAP_DINF_ECL;
-  const int                nb = di.size();
+  const auto  &neighbors = neighborhood::DINF_8;
+  const size_t nb = neighbors.size();
 
   // the flow-partition exponent is defined locally based on the local
   // talus in [1, 10] (Qin et al 2007)
@@ -173,19 +154,22 @@ std::vector<Array> flow_direction_dinf(const Array &z, float talus_ref)
   for (int j = 1; j < z.shape.y - 1; j++)
     for (int i = 1; i < z.shape.x - 1; i++)
     {
-      for (int k = 0; k < nb; k++)
+      for (size_t k = 0; k < nb; k++)
       {
-        float dz = z(i, j) - z(i + di[k], j + dj[k]);
-        if (dz > 0.f) dinf[k](i, j) = std::pow(dz * c[k], p(i, j)) * ecl[k];
+        float dz = z(i, j) -
+                   z(i + neighbors[k].offset.x, j + neighbors[k].offset.y);
+        if (dz > 0.f)
+          dinf[k](i, j) = std::pow(dz * neighbors[k].inv_distance, p(i, j)) *
+                          neighbors[k].weight;
       }
 
       // normalize
       float sum = 0.f;
-      for (int k = 0; k < nb; k++)
+      for (size_t k = 0; k < nb; k++)
         sum += dinf[k](i, j);
 
       if (sum > 0.f)
-        for (int k = 0; k < nb; k++)
+        for (size_t k = 0; k < nb; k++)
           dinf[k](i, j) /= sum;
     }
 
@@ -196,18 +180,17 @@ std::vector<float> flow_direction_dinf_flat(const Array &z, float talus_ref)
 {
   if (!validate_non_empty(z)) return {};
 
-  const glm::ivec2         &shape = z.shape;
-  const std::vector<int>   &di = HMAP_DINF_DI;
-  const std::vector<int>   &dj = HMAP_DINF_DJ;
-  const std::vector<float> &c = HMAP_DINF_C;
-  const std::vector<float> &ecl = HMAP_DINF_ECL;
-  const size_t              nb = di.size();
+  const glm::ivec2 &shape = z.shape;
+  const auto       &neighbors = neighborhood::DINF_8;
+  const size_t      nb = neighbors.size();
 
-  // precompute log(c[k]) once — eliminates one log() per neighbor per cell
+  // precompute log(inv_distance) once — eliminates one log() per neighbor per
+  // cell
   float log_c[8];
   for (size_t k = 0; k < nb; ++k)
-    log_c[k] = c[k] > 0.f ? std::log(c[k])
-                          : -std::numeric_limits<float>::infinity();
+    log_c[k] = neighbors[k].inv_distance > 0.f
+                   ? std::log(neighbors[k].inv_distance)
+                   : -std::numeric_limits<float>::infinity();
 
   std::vector<float> dinf(shape.x * shape.y * nb, 0.f);
 
@@ -227,10 +210,12 @@ std::vector<float> flow_direction_dinf_flat(const Array &z, float talus_ref)
 
       for (size_t k = 0; k < nb; ++k)
       {
-        float dz = zij - z(i + di[k], j + dj[k]);
+        float dz = zij -
+                   z(i + neighbors[k].offset.x, j + neighbors[k].offset.y);
         if (dz > 0.f)
         {
-          const float v = fast_exp(pij * (fast_log(dz) + log_c[k])) * ecl[k];
+          const float v = fast_exp(pij * (fast_log(dz) + log_c[k])) *
+                          neighbors[k].weight;
           tmp[k] = v;
           sum += v;
         }
@@ -254,12 +239,8 @@ Array flow_direction_dinf_angle(const Array &z, float talus_ref)
 {
   if (!validate_non_empty(z)) return Array();
 
-  const std::vector<int>   di = HMAP_DINF_DI;
-  const std::vector<int>   dj = HMAP_DINF_DJ;
-  const std::vector<float> c = HMAP_DINF_C;
-  const std::vector<float> ecl = HMAP_DINF_ECL;
-
-  const std::uint32_t nb = di.size();
+  const auto  &neighbors = neighborhood::DINF_8;
+  const size_t nb = neighbors.size();
 
   // flow-partition exponent (Qin et al. 2007)
   Array p = Array(z.shape);
@@ -274,9 +255,10 @@ Array flow_direction_dinf_angle(const Array &z, float talus_ref)
 
   std::vector<float> cell_angles;
 
-  for (std::uint32_t k = 0; k < nb; k++)
+  for (size_t k = 0; k < nb; k++)
   {
-    float alpha = std::atan2((float)dj[k], (float)di[k]);
+    float alpha = std::atan2((float)neighbors[k].offset.y,
+                             (float)neighbors[k].offset.x);
     cell_angles.push_back(alpha);
   }
 
@@ -285,12 +267,14 @@ Array flow_direction_dinf_angle(const Array &z, float talus_ref)
     {
       float sum = 0.f;
 
-      for (std::uint32_t k = 0; k < nb; k++)
+      for (size_t k = 0; k < nb; k++)
       {
-        float dz = z(i, j) - z(i + di[k], j + dj[k]);
+        float dz = z(i, j) -
+                   z(i + neighbors[k].offset.x, j + neighbors[k].offset.y);
         if (dz > 0.f)
         {
-          float w = std::pow(dz * c[k], p(i, j)) * ecl[k];
+          float w = std::pow(dz * neighbors[k].inv_distance, p(i, j)) *
+                    neighbors[k].weight;
           angle(i, j) += w * cell_angles[k];
           sum += w;
         }

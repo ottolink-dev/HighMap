@@ -14,6 +14,7 @@
 #include "highmap/boundary.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/geometry/cloud.hpp"
+#include "highmap/geometry/grids.hpp"
 #include "highmap/geometry/point.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/interpolate/interpolate2d.hpp"
@@ -37,8 +38,7 @@ Array diffusion_limited_aggregation(glm::ivec2    shape,
   std::uniform_real_distribution<float> dis(0.f, 1.f);
 
   // neighbor search
-  std::vector<int> di = {-1, 0, 0, 1, -1, -1, 1, 1};
-  std::vector<int> dj = {0, 1, -1, 0, -1, 1, -1, 1};
+  const auto &neighbors = neighborhood::MOORE_8;
 
   // --- work on a grid with a resolution defined by the 'scale'
   int ncells = std::max(1, (int)(1.f / scale));
@@ -75,10 +75,10 @@ Array diffusion_limited_aggregation(glm::ivec2    shape,
     {
       // check neighbors for encounter with an already cell
       // touched by diffusion
-      for (size_t p = 0; p < di.size(); p++)
-        if (wrk(i + di[p], j + dj[p]) > 0.f)
+      for (const auto &nbr : neighbors)
+        if (wrk(i + nbr.offset.x, j + nbr.offset.y) > 0.f)
         {
-          wrk(i, j) = ratio * wrk(i + di[p], j + dj[p]);
+          wrk(i, j) = ratio * wrk(i + nbr.offset.x, j + nbr.offset.y);
           keep_walking = false;
           break;
         }
@@ -86,8 +86,8 @@ Array diffusion_limited_aggregation(glm::ivec2    shape,
       // next step in random direction
       int p = (int)(std::floor(8.f * dis(gen)));
 
-      i += di[p];
-      j += dj[p];
+      i += neighbors[p].offset.x;
+      j += neighbors[p].offset.y;
     }
   }
 

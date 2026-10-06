@@ -48,17 +48,8 @@ std::vector<glm::ivec2> helper_solve_graph_search(
   glm::ivec2 shape = z.shape;
 
   // 8-neighbor directions and weights
-  const std::vector<int>   di = {-1, 0, 0, 1, -1, -1, 1, 1};
-  const std::vector<int>   dj = {0, 1, -1, 0, -1, 1, -1, 1};
-  const std::vector<float> cd = {1.f,
-                                 1.f,
-                                 1.f,
-                                 1.f,
-                                 float(M_SQRT2),
-                                 float(M_SQRT2),
-                                 float(M_SQRT2),
-                                 float(M_SQRT2)};
-  const size_t             nb = di.size();
+  const auto  &neighbors = neighborhood::MOORE_8;
+  const size_t nb = neighbors.size();
 
   Mat<float> g_score(shape, std::numeric_limits<float>::infinity());
   Mat<int>   parent_i(shape, -1);
@@ -102,8 +93,8 @@ std::vector<glm::ivec2> helper_solve_graph_search(
 
     for (size_t k = 0; k < nb; k++)
     {
-      int p = i + di[k];
-      int q = j + dj[k];
+      int p = i + neighbors[k].offset.x;
+      int q = j + neighbors[k].offset.y;
 
       if (p >= 0 && p < shape.x && q >= 0 && q < shape.y)
       {
@@ -111,7 +102,7 @@ std::vector<glm::ivec2> helper_solve_graph_search(
         if (p_corridor && !(*p_corridor)(p, q)) continue;
 
         // elevation difference contribution
-        float dz = (z(i, j) - z(p, q)) * cd[k];
+        float dz = (z(i, j) - z(p, q)) * neighbors[k].distance;
         if (dz < 0.f) dz *= upward_penalization;
         dz = std::abs(dz);
 
@@ -120,7 +111,7 @@ std::vector<glm::ivec2> helper_solve_graph_search(
 
         // absolute elevation contribution
         step_cost += elevation_ratio *
-                     std::max(0.f, cd[k] * (z(p, q) - z(i, j)));
+                     std::max(0.f, neighbors[k].distance * (z(p, q) - z(i, j)));
 
         if (p_mask_nogo) step_cost += 1e5f * (*p_mask_nogo)(p, q);
 

@@ -69,3 +69,56 @@ TEST(Grids, RescalePointsToUnitSquare)
   EXPECT_FALSE(std::isnan(dx[0]));
   EXPECT_FALSE(std::isnan(dy[0]));
 }
+
+TEST(Grids, NeighborhoodStructures)
+{
+  using namespace hmap::neighborhood;
+
+  // VON_NEUMANN_4
+  EXPECT_EQ(VON_NEUMANN_4.size(), 4u);
+  for (const auto &nbr : VON_NEUMANN_4)
+  {
+    EXPECT_NEAR(nbr.distance * nbr.inv_distance, 1.0f, 1e-5f);
+    EXPECT_EQ(std::abs(nbr.offset.x) + std::abs(nbr.offset.y), 1);
+  }
+
+  // MOORE_8
+  EXPECT_EQ(MOORE_8.size(), 8u);
+  for (size_t i = 0; i < 4; ++i)
+  {
+    EXPECT_NEAR(MOORE_8[i].distance, 1.0f, 1e-5f);
+    EXPECT_NEAR(MOORE_8[i].inv_distance, 1.0f, 1e-5f);
+  }
+  for (size_t i = 4; i < 8; ++i)
+  {
+    EXPECT_NEAR(MOORE_8[i].distance, std::numbers::sqrt2_v<float>, 1e-5f);
+    EXPECT_NEAR(MOORE_8[i].inv_distance,
+                1.0f / std::numbers::sqrt2_v<float>,
+                1e-5f);
+  }
+
+  // D8_FLOW
+  EXPECT_EQ(D8_FLOW.size(), 8u);
+  for (const auto &nbr : D8_FLOW)
+  {
+    EXPECT_NEAR(nbr.distance * nbr.inv_distance, 1.0f, 1e-5f);
+  }
+
+  // DINF_8
+  EXPECT_EQ(DINF_8.size(), 8u);
+  for (size_t i = 0; i < 4; ++i)
+  {
+    EXPECT_NEAR(DINF_8[i].weight, 0.500f, 1e-5f);
+  }
+  for (size_t i = 4; i < 8; ++i)
+  {
+    EXPECT_NEAR(DINF_8[i].weight, 0.354f, 1e-5f);
+  }
+
+  // GEOMORPHON_8
+  EXPECT_EQ(GEOMORPHON_8.size(), 8u);
+  for (const auto &nbr : GEOMORPHON_8)
+  {
+    EXPECT_NEAR(nbr.distance * nbr.inv_distance, 1.0f, 1e-5f);
+  }
+}

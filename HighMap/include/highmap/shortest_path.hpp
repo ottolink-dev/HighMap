@@ -14,6 +14,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/boundary.hpp"
+#include "highmap/geometry/grids.hpp"
 #include "highmap/geometry/path.hpp"
 
 namespace hmap

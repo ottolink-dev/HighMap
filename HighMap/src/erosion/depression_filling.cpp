@@ -22,13 +22,9 @@ void depression_filling(Array &z,
 {
   if (!validate_non_empty(z)) return;
 
-  std::vector<int>    di = HMAP_DI;
-  std::vector<int>    dj = HMAP_DJ;
-  std::vector<float>  c = HMAP_CD;
-  const std::uint32_t nb = di.size();
-
-  const int nx = z.shape.x;
-  const int ny = z.shape.y;
+  const auto &neighbors = neighborhood::MOORE_8;
+  const int   nx = z.shape.x;
+  const int   ny = z.shape.y;
 
   Array z_new = z;
   z_new.set_slice({1, nx - 1, 1, ny - 1}, 1e6f);
@@ -66,21 +62,21 @@ void depression_filling(Array &z,
       {
         if (z_new(i, j) > z(i, j))
         {
-          for (std::uint32_t k = 0; k < nb; k++)
+          for (const auto &nbr : neighbors)
           {
-            int p = i + di[k];
-            int q = j + dj[k];
+            int p = i + nbr.offset.x;
+            int q = j + nbr.offset.y;
 
             if (p < 0 || p >= nx || q < 0 || q >= ny) continue;
 
-            if (z(i, j) >= z_new(p, q) + epsilon * c[k])
+            if (z(i, j) >= z_new(p, q) + epsilon * nbr.distance)
             {
               z_new(i, j) = z(i, j);
               break;
             }
 
-            if (z_new(i, j) > z_new(p, q) + epsilon * c[k])
-              z_new(i, j) = z_new(p, q) + epsilon * c[k];
+            if (z_new(i, j) > z_new(p, q) + epsilon * nbr.distance)
+              z_new(i, j) = z_new(p, q) + epsilon * nbr.distance;
           }
         }
       }

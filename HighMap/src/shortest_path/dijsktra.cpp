@@ -9,6 +9,7 @@
 
 #include "highmap/algebra.hpp"
 #include "highmap/array.hpp"
+#include "highmap/geometry/grids.hpp"
 #include "highmap/geometry/path.hpp"
 #include "highmap/geometry/point.hpp"
 #include "highmap/internal/validation.hpp"
@@ -34,11 +35,8 @@ void find_path_dijkstra(const Array                   &z,
   glm::ivec2 shape = z.shape;
 
   // neighbors pattern
-  const std::vector<int>   di = {-1, 0, 0, 1, -1, -1, 1, 1};
-  const std::vector<int>   dj = {0, 1, -1, 0, -1, 1, -1, 1};
-  const std::vector<float> cd =
-      {1.f, 1.f, 1.f, 1.f, M_SQRT2, M_SQRT2, M_SQRT2, M_SQRT2};
-  const size_t nb = di.size();
+  const auto  &neighbors = neighborhood::MOORE_8;
+  const size_t nb = neighbors.size();
 
   // working queue and arrays
   std::vector<int>   queue_i;
@@ -77,8 +75,8 @@ void find_path_dijkstra(const Array                   &z,
     // loop over neighbors
     for (size_t k = 0; k < nb; k++)
     {
-      int p = i + di[k];
-      int q = j + dj[k];
+      int p = i + neighbors[k].offset.x;
+      int q = j + neighbors[k].offset.y;
 
       if ((p >= 0) and (p < shape.x) and (q >= 0) and (q < shape.y))
       {
@@ -87,7 +85,7 @@ void find_path_dijkstra(const Array                   &z,
 
         // elevation difference contribution (weighted for diagonal
         // directions to avoid artifacts)
-        float dz = (z(i, j) - z(p, q)) * cd[k];
+        float dz = (z(i, j) - z(p, q)) * neighbors[k].distance;
         if (dz < 0.f) dz *= upward_penalization;
         dz = std::abs(dz);
 
@@ -95,7 +93,8 @@ void find_path_dijkstra(const Array                   &z,
 
         // absolute elevation contribution (puts the emphasize on
         // going downslope rather than upslope)
-        dist += elevation_ratio * std::max(0.f, cd[k] * (z(p, q) - z(i, j)));
+        dist += elevation_ratio *
+                std::max(0.f, neighbors[k].distance * (z(p, q) - z(i, j)));
 
         if (p_mask_nogo) dist += 1e5f * (*p_mask_nogo)(p, q);
 

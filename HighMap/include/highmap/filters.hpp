@@ -29,23 +29,6 @@ struct ComputeMode;
 struct VirtualArray;
 
 /**
- * @enum neighborhood
- * @brief Enum representing different types of neighborhood lattices.
- *
- * This enumeration defines the different types of neighborhoods that can be
- * used in a lattice-based system. These neighborhoods determine how cells or
- * nodes are connected to their immediate surroundings.
- */
-// clang-format off
-enum neighborhood : int
-{
-	MOORE,       ///< Moore neighborhood: includes all eight surrounding cells.
-	VON_NEUMANN, ///< Von Neumann neighborhood: includes only the four orthogonal neighbors (N, S, E, W).
-	CROSS        ///< Cross-shaped neighborhood: includes only the diagonal neighbors.
-};
-// clang-format on
-
-/**
  * @brief Applies a primitive-based displacement to an array.
  *
  * Adds a scaled primitive pattern (optionally perturbed by noise) to the input

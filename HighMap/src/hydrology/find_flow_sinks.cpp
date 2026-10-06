@@ -41,9 +41,8 @@ void find_flow_sinks(const Array &z, std::vector<int> &is, std::vector<int> &js)
   js.clear();
   if (!validate_non_empty(z)) return;
 
-  const std::vector<int> di = {-1, -1, 0, 1, 1, 1, 0, -1};
-  const std::vector<int> dj = {0, 1, 1, 1, 0, -1, -1, -1};
-  const std::uint32_t    nb = di.size();
+  const auto         &neighbors = neighborhood::MOORE_8;
+  const std::uint32_t nb = neighbors.size();
 
   for (int j = 1; j < z.shape.y - 1; j++)
     for (int i = 1; i < z.shape.x - 1; i++)
@@ -53,8 +52,8 @@ void find_flow_sinks(const Array &z, std::vector<int> &is, std::vector<int> &js)
       int n_higher_cells = 0;
       for (size_t k = 0; k < nb; k++)
       {
-        int ik = i + di[k];
-        int jk = j + dj[k];
+        int ik = i + neighbors[k].offset.x;
+        int jk = j + neighbors[k].offset.y;
         if (z(i, j) < z(ik, jk)) n_higher_cells++;
       }
 
@@ -72,9 +71,8 @@ std::vector<glm::ivec2> find_flow_sinks(const Array &z)
 
   std::vector<glm::ivec2> indices;
 
-  const std::vector<int> di = {-1, -1, 0, 1, 1, 1, 0, -1};
-  const std::vector<int> dj = {0, 1, 1, 1, 0, -1, -1, -1};
-  const std::uint32_t    nb = di.size();
+  const auto         &neighbors = neighborhood::MOORE_8;
+  const std::uint32_t nb = neighbors.size();
 
   for (int j = 1; j < z.shape.y - 1; j++)
     for (int i = 1; i < z.shape.x - 1; i++)
@@ -84,8 +82,8 @@ std::vector<glm::ivec2> find_flow_sinks(const Array &z)
       int n_higher_cells = 0;
       for (size_t k = 0; k < nb; k++)
       {
-        int ik = i + di[k];
-        int jk = j + dj[k];
+        int ik = i + neighbors[k].offset.x;
+        int jk = j + neighbors[k].offset.y;
         if (z(i, j) < z(ik, jk)) n_higher_cells++;
       }
 
@@ -104,8 +102,7 @@ std::vector<glm::ivec2> find_flow_sinks_border(const Array &z)
   const int rows = z.shape.x;
   const int cols = z.shape.y;
 
-  const int di[8] = {-1, -1, 0, 1, 1, 1, 0, -1};
-  const int dj[8] = {0, 1, 1, 1, 0, -1, -1, -1};
+  const auto &neighbors = neighborhood::MOORE_8;
 
   auto is_inside = [&](int i, int j)
   { return i >= 0 && j >= 0 && i < rows && j < cols; };
@@ -119,10 +116,10 @@ std::vector<glm::ivec2> find_flow_sinks_border(const Array &z)
       int valid_neighbors = 0;
       int higher_neighbors = 0;
 
-      for (int k = 0; k < 8; ++k)
+      for (const auto &nbr : neighbors)
       {
-        int ni = i + di[k];
-        int nj = j + dj[k];
+        int ni = i + nbr.offset.x;
+        int nj = j + nbr.offset.y;
 
         if (!is_inside(ni, nj)) continue;
 

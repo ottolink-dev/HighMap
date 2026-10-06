@@ -18,11 +18,6 @@
 // 5 6 7
 // 4 . 0
 // 3 2 1
-// clang-format off
-#define HMAP_D8_DI {1, 1, 0, -1, -1, -1, 0, 1}
-#define HMAP_D8_DJ {0, -1, -1, -1, 0, 1, 1, 1}
-#define HMAP_D8_C  {1.f, M_SQRT1_2, 1.f, M_SQRT1_2, 1.f, M_SQRT1_2, 1.f, M_SQRT1_2}
-// clang-format on
 
 namespace hmap
 {
@@ -33,9 +28,8 @@ Array d8_compute_ndip(const Array &d8)
 
   Array nidp = Array(d8.shape); // output
 
-  const std::vector<int> di = HMAP_D8_DI;
-  const std::vector<int> dj = HMAP_D8_DJ;
-  const std::uint32_t    nb = di.size();
+  const auto         &neighbors = neighborhood::D8_FLOW;
+  const std::uint32_t nb = neighbors.size();
 
   // correspond between current neighbor index and neighbor flow
   // direction pointing to the current cell
@@ -46,7 +40,8 @@ Array d8_compute_ndip(const Array &d8)
       // count the number of neighbors with flow directions pointing
       // to the current cell
       for (std::uint32_t k = 0; k < nb; k++)
-        if (d8(i + di[k], j + dj[k]) == kp[k]) nidp(i, j) += 1;
+        if (d8(i + neighbors[k].offset.x, j + neighbors[k].offset.y) == kp[k])
+          nidp(i, j) += 1;
 
   return nidp;
 }
@@ -60,8 +55,7 @@ Array flow_accumulation_d8(const Array &z)
   Array nidp = d8_compute_ndip(d8);
 
   // --- flow accumulation
-  const std::vector<int> di = HMAP_D8_DI;
-  const std::vector<int> dj = HMAP_D8_DJ;
+  const auto &neighbors = neighborhood::D8_FLOW;
 
   // populate queue
   std::list<int> i_queue = {};
@@ -85,8 +79,8 @@ Array flow_accumulation_d8(const Array &z)
 
     // next cell (according to flow direction)
     int k = d8(i, j);
-    int p = i + di[k];
-    int q = j + dj[k];
+    int p = i + neighbors[k].offset.x;
+    int q = j + neighbors[k].offset.y;
 
     if ((i != p) or (j != q))
     {
@@ -110,10 +104,8 @@ Array flow_direction_d8(const Array &z)
 
   Array d8 = Array(z.shape);
 
-  const std::vector<int>   di = HMAP_D8_DI;
-  const std::vector<int>   dj = HMAP_D8_DJ;
-  const std::vector<float> c = HMAP_D8_C;
-  const std::uint32_t      nb = di.size();
+  const auto         &neighbors = neighborhood::D8_FLOW;
+  const std::uint32_t nb = neighbors.size();
 
   for (int j = 1; j < z.shape.y - 1; j++)
     for (int i = 1; i < z.shape.x - 1; i++)
@@ -124,7 +116,9 @@ Array flow_direction_d8(const Array &z)
       for (std::uint32_t k = 0; k < nb; k++)
       {
         // elevation difference between the two cells
-        float delta = (z(i, j) - z(i + di[k], j + dj[k])) * c[k];
+        float delta = (z(i, j) - z(i + neighbors[k].offset.x,
+                                   j + neighbors[k].offset.y)) *
+                      neighbors[k].inv_distance;
 
         if (delta > dmax)
         {

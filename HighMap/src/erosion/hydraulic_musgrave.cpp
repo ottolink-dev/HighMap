@@ -33,10 +33,8 @@ void hydraulic_musgrave(Array &z,
   Array s = constant(z.shape);          // sediment level
   Array w = water_level * moisture_map; // backup initial moisture map
 
-  std::vector<int>    di = HMAP_DI;
-  std::vector<int>    dj = HMAP_DJ;
-  std::vector<float>  c = HMAP_CD_INV;
-  const std::uint32_t nb = di.size();
+  auto                neighbors = neighborhood::MOORE_8;
+  const std::uint32_t nb = neighbors.size();
 
   for (int it = 0; it < iterations; it++)
   {
@@ -44,18 +42,17 @@ void hydraulic_musgrave(Array &z,
 
     // modify neighbor search at each iterations to limit numerical
     // artifacts
-    std::rotate(di.begin(), di.begin() + 1, di.end());
-    std::rotate(dj.begin(), dj.begin() + 1, dj.end());
-    std::rotate(c.begin(), c.begin() + 1, c.end());
+    std::rotate(neighbors.begin(), neighbors.begin() + 1, neighbors.end());
 
     for (int j = 1; j < z.shape.y - 1; j++)
       for (int i = 1; i < z.shape.x - 1; i++)
         for (std::uint32_t k = 0; k < nb; k++) // loop over 1st neighbors
         {
-          int   p = i + di[k];
-          int   q = j + dj[k];
+          int   p = i + neighbors[k].offset.x;
+          int   q = j + neighbors[k].offset.y;
           float dw = std::min(w(i, j),
-                              (w(i, j) + z(i, j) - w(p, q) - z(p, q)) * c[k]);
+                              (w(i, j) + z(i, j) - w(p, q) - z(p, q)) *
+                                  neighbors[k].inv_distance);
 
           if (dw <= 0.f)
           {

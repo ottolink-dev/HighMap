@@ -24,10 +24,8 @@ void thermal_schott(Array       &z,
 
   // https://www.shadertoy.com/view/XX2XWD
 
-  std::vector<int>    di = HMAP_DI;
-  std::vector<int>    dj = HMAP_DJ;
-  std::vector<float>  c = HMAP_CD;
-  const std::uint32_t nb = di.size();
+  const auto         &neighbors = neighborhood::MOORE_8;
+  const std::uint32_t nb = neighbors.size();
 
   for (int it = 0; it < iterations; it++)
   {
@@ -42,10 +40,10 @@ void thermal_schott(Array       &z,
         // check neighbors
         for (std::uint32_t k = 0; k < nb; k++)
         {
-          int p = i + di[k];
-          int q = j + dj[k];
+          int p = i + neighbors[k].offset.x;
+          int q = j + neighbors[k].offset.y;
 
-          float slope = (z(i, j) - z(p, q)) / c[k];
+          float slope = (z(i, j) - z(p, q)) * neighbors[k].inv_distance;
 
           if (slope > talus(i, j))
             down++;

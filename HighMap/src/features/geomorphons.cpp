@@ -9,6 +9,7 @@
 #include "highmap/algebra.hpp"
 #include "highmap/array.hpp"
 #include "highmap/features.hpp"
+#include "highmap/geometry/grids.hpp"
 #include "highmap/internal/validation.hpp"
 
 namespace hmap
@@ -24,9 +25,8 @@ Array geomorphons(const Array &array, int irmin, int irmax, float epsilon)
   Array gm = Array(array.shape);
 
   // neighborhood search
-  const std::vector<int> di = {-1, -1, 0, 1, 1, 1, 0, -1};
-  const std::vector<int> dj = {0, 1, 1, 1, 0, -1, -1, -1};
-  const std::uint32_t    nb = di.size();
+  const auto         &neighbors = neighborhood::GEOMORPHON_8;
+  const std::uint32_t nb = neighbors.size();
 
   const int dr_max = irmax - irmin + 1;
 
@@ -44,8 +44,8 @@ Array geomorphons(const Array &array, int irmin, int irmax, float epsilon)
 
         for (int dr = 1; dr < dr_max; dr++)
         {
-          int ip = i + di[k] * dr;
-          int jp = j + dj[k] * dr;
+          int ip = i + neighbors[k].offset.x * dr;
+          int jp = j + neighbors[k].offset.y * dr;
 
           if ((ip > -1) && (ip < array.shape.x) && (jp > -1) &&
               (jp < array.shape.y))
