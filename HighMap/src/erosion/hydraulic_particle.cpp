@@ -11,6 +11,7 @@
 #include "highmap/boundary.hpp"
 #include "highmap/erosion.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/interpolate/interpolate_array.hpp"
 #include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/range.hpp"
@@ -177,14 +178,17 @@ void hydraulic_particle_multiscale(Array                  &z,
                                    float                   evap_rate,
                                    float                   talus_slope,
                                    float                   collapse_rate,
-                                   float                   mix)
+                                   float                   mix,
+                                   float                   warp)
 {
   if (!validate_non_empty(z)) return;
+  if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
+  if (p_moisture_map && !validate_same_shape(z, *p_moisture_map)) return;
+  if (p_elevation_shift && !validate_same_shape(z, *p_elevation_shift)) return;
 
   int nlevels = static_cast<int>(steps_per_level.size());
   if (nlevels == 0) return;
 
-  Array z_orig = z;
   Array z_bckp = Array();
   if ((p_erosion_map != nullptr) || (p_deposition_map != nullptr)) z_bckp = z;
 
@@ -197,72 +201,101 @@ void hydraulic_particle_multiscale(Array                  &z,
                  std::max(2, z.shape.y >> shift)};
   }
 
-  Array current_z = z_orig.resample_to_shape(ladder[0]);
-
+  // Iterate coarse-to-fine across resolution levels
   for (int i = 0; i < nlevels; ++i)
   {
-    if (i > 0)
-    {
-      current_z = current_z.resample_to_shape(ladder[i]);
-
-      // Blend with the original input heightmap resampled at the current level
-      // resolution to preserve high-frequency structures
-      if (mix < 1.f)
-      {
-        Array z_input_level = z_orig.resample_to_shape(ladder[i]);
-        current_z = hmap::lerp(z_input_level,
-                               current_z,
-                               std::clamp(mix, 0.f, 1.f));
-      }
-    }
-
     int level_particles = static_cast<int>(particles_ratio * ladder[i].x *
                                            ladder[i].y);
     int level_iterations = std::max(1, steps_per_level[i]);
 
-    // Resample optional input maps to level shape if provided
-    Array        level_bedrock, level_moisture, level_shift;
-    const Array *p_lvl_bedrock = nullptr;
-    const Array *p_lvl_moisture = nullptr;
-    const Array *p_lvl_shift = nullptr;
+    if (i < nlevels - 1)
+    {
+      // --- Coarse resolution level: compute macro-scale valley incision delta
 
-    if (p_bedrock)
-    {
-      level_bedrock = p_bedrock->resample_to_shape(ladder[i]);
-      p_lvl_bedrock = &level_bedrock;
-    }
-    if (p_moisture_map)
-    {
-      level_moisture = p_moisture_map->resample_to_shape(ladder[i]);
-      p_lvl_moisture = &level_moisture;
-    }
-    if (p_elevation_shift)
-    {
-      level_shift = p_elevation_shift->resample_to_shape(ladder[i]);
-      p_lvl_shift = &level_shift;
-    }
+      Array z_coarse = z.resample_to_shape(ladder[i]);
+      Array z_coarse_before = z_coarse;
 
-    gpu::hydraulic_particle(current_z,
-                            level_particles,
-                            seed + static_cast<std::uint32_t>(i * 1000),
-                            p_lvl_bedrock,
-                            p_lvl_moisture,
-                            p_lvl_shift,
-                            /* p_erosion_map */ nullptr,
-                            /* p_deposition_map */ nullptr,
-                            c_capacity,
-                            c_erosion,
-                            c_deposition,
-                            c_inertia,
-                            c_gravity,
-                            drag_rate,
-                            evap_rate,
-                            talus_slope,
-                            collapse_rate,
-                            level_iterations);
+      // Resample optional input maps to level shape if provided
+      Array        level_bedrock, level_moisture, level_shift;
+      const Array *p_lvl_bedrock = nullptr;
+      const Array *p_lvl_moisture = nullptr;
+      const Array *p_lvl_shift = nullptr;
+
+      if (p_bedrock)
+      {
+        level_bedrock = p_bedrock->resample_to_shape(ladder[i]);
+        p_lvl_bedrock = &level_bedrock;
+      }
+      if (p_moisture_map)
+      {
+        level_moisture = p_moisture_map->resample_to_shape(ladder[i]);
+        p_lvl_moisture = &level_moisture;
+      }
+      if (p_elevation_shift)
+      {
+        level_shift = p_elevation_shift->resample_to_shape(ladder[i]);
+        p_lvl_shift = &level_shift;
+      }
+
+      gpu::hydraulic_particle(z_coarse,
+                              level_particles,
+                              seed + static_cast<std::uint32_t>(i * 1000),
+                              p_lvl_bedrock,
+                              p_lvl_moisture,
+                              p_lvl_shift,
+                              /* p_erosion_map */ nullptr,
+                              /* p_deposition_map */ nullptr,
+                              c_capacity,
+                              c_erosion,
+                              c_deposition,
+                              c_inertia,
+                              c_gravity,
+                              drag_rate,
+                              evap_rate,
+                              talus_slope,
+                              collapse_rate,
+                              level_iterations);
+
+      // Compute incision delta and upsample smoothly to full resolution with
+      // optional domain warp
+      Array delta_coarse = z_coarse_before - z_coarse;
+      clamp_min(delta_coarse, 0.f);
+
+      Array delta_full = resample_bicubic_warp(
+          delta_coarse,
+          z.shape,
+          warp,
+          seed + static_cast<std::uint32_t>(i * 37));
+      clamp_min(delta_full, 0.f);
+
+      // Carve coarse valley delta into full-resolution terrain
+      z -= std::clamp(mix, 0.f, 1.f) * delta_full;
+      if (p_bedrock) z = maximum(*p_bedrock, z);
+    }
+    else
+    {
+      // --- Final level: run particle erosion directly on full-detail terrain
+
+      gpu::hydraulic_particle(z,
+                              level_particles,
+                              seed + static_cast<std::uint32_t>(i * 1000),
+                              p_bedrock,
+                              p_moisture_map,
+                              p_elevation_shift,
+                              /* p_erosion_map */ nullptr,
+                              /* p_deposition_map */ nullptr,
+                              c_capacity,
+                              c_erosion,
+                              c_deposition,
+                              c_inertia,
+                              c_gravity,
+                              drag_rate,
+                              evap_rate,
+                              talus_slope,
+                              collapse_rate,
+                              level_iterations);
+    }
   }
-
-  z = current_z;
 
   // Splatmaps at final full resolution
   if (p_erosion_map)
@@ -297,7 +330,8 @@ void hydraulic_particle_multiscale(Array                  &z,
                                    float                   evap_rate,
                                    float                   talus_slope,
                                    float                   collapse_rate,
-                                   float                   mix)
+                                   float                   mix,
+                                   float                   warp)
 {
   apply_with_mask(z,
                   p_mask,
@@ -321,7 +355,8 @@ void hydraulic_particle_multiscale(Array                  &z,
                                                        evap_rate,
                                                        talus_slope,
                                                        collapse_rate,
-                                                       mix);
+                                                       mix,
+                                                       warp);
                   });
 }
 

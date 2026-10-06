@@ -830,6 +830,7 @@ void hydraulic_particle(Array        &z,
  * @param talus_slope       Domain-normalized talus slope threshold.
  * @param collapse_rate     Bank collapse rate.
  * @param mix               Interpolation blend factor.
+ * @param warp              Domain warp amplitude during upsampling.
  */
 void hydraulic_particle_multiscale(
     Array                  &z,
@@ -850,7 +851,8 @@ void hydraulic_particle_multiscale(
     float                   evap_rate = 0.001f,
     float                   talus_slope = 2.f,
     float                   collapse_rate = 0.1f,
-    float                   mix = 1.f);
+    float                   mix = 1.f,
+    float                   warp = 0.35f);
 
 void hydraulic_particle_multiscale(
     Array                  &z,
@@ -872,7 +874,8 @@ void hydraulic_particle_multiscale(
     float                   evap_rate = 0.001f,
     float                   talus_slope = 2.f,
     float                   collapse_rate = 0.1f,
-    float                   mix = 1.f);
+    float                   mix = 1.f,
+    float                   warp = 0.35f);
 
 /**
  * @brief Particle-based hydraulic erosion with flow-field coupling (McDonald's
