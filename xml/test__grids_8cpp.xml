@@ -79,6 +79,25 @@
         </inbodydescription>
         <location file="tests/src/test_grids.cpp" line="51" column="1" bodyfile="tests/src/test_grids.cpp" bodystart="51" bodyend="71"/>
       </memberdef>
+      <memberdef kind="function" id="test__grids_8cpp_1a8222115c0311a1cec98f31ca4270614f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(Grids, NeighborhoodStructures)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>Grids</type>
+        </param>
+        <param>
+          <type>NeighborhoodStructures</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_grids.cpp" line="73" column="1" bodyfile="tests/src/test_grids.cpp" bodystart="73" bodyend="124"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -156,6 +175,59 @@
 <codeline lineno="69"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(std::isnan(<ref refid="trench_8cpp_1a9eae6c1f38db98ab568f3ed3771a969d" kindref="member">dx</ref>[0]));</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(std::isnan(<ref refid="trench_8cpp_1a8f461b6142ce8725218813abb23b06a3" kindref="member">dy</ref>[0]));</highlight></codeline>
 <codeline lineno="71"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><ref refid="test__grids_8cpp_1a6a740a6a66a5f44d8f94a658161450dc" kindref="member">TEST</ref>(Grids,<sp/>NeighborhoodStructures)</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap_1_1neighborhood" kindref="compound">hmap::neighborhood</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>VON_NEUMANN_4</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="namespacehmap_1_1neighborhood_1aaf79b79d8bf33769e641a751c317a3e0" kindref="member">VON_NEUMANN_4</ref>.size(),<sp/>4u);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;nbr<sp/>:<sp/><ref refid="namespacehmap_1_1neighborhood_1aaf79b79d8bf33769e641a751c317a3e0" kindref="member">VON_NEUMANN_4</ref>)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(nbr.distance<sp/>*<sp/>nbr.inv_distance,<sp/>1.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_EQ(std::abs(nbr.offset.x)<sp/>+<sp/>std::abs(nbr.offset.y),<sp/>1);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>MOORE_8</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="namespacehmap_1_1neighborhood_1a3b2652490f6e51df8fa1de6215d86b20" kindref="member">MOORE_8</ref>.size(),<sp/>8u);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>4;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(MOORE_8[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].distance,<sp/>1.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(MOORE_8[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].inv_distance,<sp/>1.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>4;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>8;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(MOORE_8[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].distance,<sp/>std::numbers::sqrt2_v&lt;float&gt;,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(MOORE_8[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].inv_distance,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f<sp/>/<sp/>std::numbers::sqrt2_v&lt;float&gt;,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1e-5f);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>D8_FLOW</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="namespacehmap_1_1neighborhood_1a6b1a4665bde6beaf3b96d40d027083a7" kindref="member">D8_FLOW</ref>.size(),<sp/>8u);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;nbr<sp/>:<sp/><ref refid="namespacehmap_1_1neighborhood_1a6b1a4665bde6beaf3b96d40d027083a7" kindref="member">D8_FLOW</ref>)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(nbr.distance<sp/>*<sp/>nbr.inv_distance,<sp/>1.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>DINF_8</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="namespacehmap_1_1neighborhood_1a185f583368e9047630b2a788d2bcb02c" kindref="member">DINF_8</ref>.size(),<sp/>8u);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>4;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(DINF_8[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].<ref refid="sls__deformation_8cpp_1aeb4aca717b10b3f05f897485b4e1e9a6" kindref="member">weight</ref>,<sp/>0.500f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>4;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>8;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(DINF_8[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].<ref refid="sls__deformation_8cpp_1aeb4aca717b10b3f05f897485b4e1e9a6" kindref="member">weight</ref>,<sp/>0.354f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>GEOMORPHON_8</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="namespacehmap_1_1neighborhood_1a15866a380d109861d405904760c17264" kindref="member">GEOMORPHON_8</ref>.size(),<sp/>8u);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;nbr<sp/>:<sp/><ref refid="namespacehmap_1_1neighborhood_1a15866a380d109861d405904760c17264" kindref="member">GEOMORPHON_8</ref>)</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(nbr.distance<sp/>*<sp/>nbr.inv_distance,<sp/>1.0f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_grids.cpp"/>
   </compounddef>

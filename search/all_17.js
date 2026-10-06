@@ -60,7 +60,7 @@ var searchData=
   ['virtualtexturestorage_57',['virtualtexturestorage',['../structhmap_1_1VirtualTextureStorage.html#a9fdf43c566dfc78f1310f395377965fa',1,'hmap::VirtualTextureStorage::VirtualTextureStorage()'],['../structhmap_1_1VirtualTextureStorage.html',1,'hmap::VirtualTextureStorage']]],
   ['viscosity_58',['viscosity',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a6f1fa2015e39458d3c0465e5d08893c0',1,'hmap::gpu::McDonaldParams::PhysicalParams']]],
   ['vnoise_59',['vnoise',['../namespacehmap.html#ae76bfd961f1c6f8bcf79ea6a988f1236',1,'hmap']]],
-  ['von_5fneumann_60',['VON_NEUMANN',['../namespacehmap.html#a9d00db2263b4b7b05245531c41c1b592a5814c956cc15b9764d586bb86912c364',1,'hmap']]],
+  ['von_5fneumann_5f4_60',['VON_NEUMANN_4',['../namespacehmap_1_1neighborhood.html#aaf79b79d8bf33769e641a751c317a3e0',1,'hmap::neighborhood']]],
   ['vorolines_61',['vorolines',['../namespacehmap_1_1gpu.html#a4f6170129bf3283d61345a7d8b46cd15',1,'hmap::gpu']]],
   ['vorolines_5ffbm_62',['vorolines_fbm',['../namespacehmap_1_1gpu.html#a5acf81d4e6a4f4950a9c5f0dd936e75d',1,'hmap::gpu']]],
   ['voronoi_63',['voronoi',['../namespacehmap_1_1gpu.html#a76dc03ada9423f005ae9c3101c15e337',1,'hmap::gpu']]],

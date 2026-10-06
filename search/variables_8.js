@@ -11,11 +11,12 @@ var searchData=
   ['index_8',['index',['../structhmap_1_1TerrainTriMesh_1_1Neighbor.html#a0cd8f7fd250b772c4c3445280a37a2b6',1,'hmap::TerrainTriMesh::Neighbor::index'],['../kd__tree_8cpp.html#ab650f61406e03c24cfefced2d5e9f449',1,'index:&#160;kd_tree.cpp']]],
   ['inputs_9',['inputs',['../structTileAccess.html#ae6fe4c80de5359b04f183ec826c7bb2e',1,'TileAccess']]],
   ['inter_5frock_5frestitution_10',['inter_rock_restitution',['../structhmap_1_1RockSimulationOptions.html#aa741cb810c0b939678a00ae7928af9e7',1,'hmap::RockSimulationOptions']]],
-  ['inv_5flen_5fsq_11',['inv_len_sq',['../trench_8cpp.html#a50c527e2d6a8abf7f919c04d17659ad5',1,'trench.cpp']]],
-  ['ir_12',['ir',['../sls__deformation_8cpp.html#a108a1d0fcea4288c9e48f5dc4fa0a1b0',1,'ir:&#160;sls_deformation.cpp'],['../structhmap_1_1GaussianPush.html#ab175ce3efeb574ba75f9d7e3f75c7b3a',1,'hmap::GaussianPush::ir']]],
-  ['is_5fopen_13',['is_open',['../structhmap_1_1OpenEXRWriter_1_1Impl.html#a8c7de7055e5343eb5ab2b52e7bc879e8',1,'hmap::OpenEXRWriter::Impl::is_open'],['../structhmap_1_1OpenCVWriter_1_1Impl.html#afba9923621eff69551906737916f0924',1,'hmap::OpenCVWriter::Impl::is_open'],['../structhmap_1_1BigTiffWriter_1_1Impl.html#aacf4c1d9e3c003bc403ae356c837576f',1,'hmap::BigTiffWriter::Impl::is_open']]],
-  ['items_14',['items',['../classhmap_1_1ScatterField.html#aeb89e13a2a22fc06a08bc02e0fdcaa61',1,'hmap::ScatterField']]],
-  ['iters0_15',['iters0',['../structhmap_1_1MiseParams.html#a9ad49abe9a33315a61f5424e3a4ab52e',1,'hmap::MiseParams']]],
-  ['iters_5fdecay_16',['iters_decay',['../structhmap_1_1MiseParams.html#ae1ba6d69d13230162b42e80d8b23ec11',1,'hmap::MiseParams']]],
-  ['iters_5fmin_17',['iters_min',['../structhmap_1_1MiseParams.html#a4a003fe7c81ee8e9a98403d5d97287f2',1,'hmap::MiseParams']]]
+  ['inv_5fdistance_11',['inv_distance',['../structhmap_1_1neighborhood_1_1Neighbor.html#a1908640b5d09d2fc3c23f0abf1156b48',1,'hmap::neighborhood::Neighbor::inv_distance'],['../structhmap_1_1neighborhood_1_1NeighborWeighted.html#a4970c3322c974b9969876731040ad839',1,'hmap::neighborhood::NeighborWeighted::inv_distance']]],
+  ['inv_5flen_5fsq_12',['inv_len_sq',['../trench_8cpp.html#a50c527e2d6a8abf7f919c04d17659ad5',1,'trench.cpp']]],
+  ['ir_13',['ir',['../sls__deformation_8cpp.html#a108a1d0fcea4288c9e48f5dc4fa0a1b0',1,'ir:&#160;sls_deformation.cpp'],['../structhmap_1_1GaussianPush.html#ab175ce3efeb574ba75f9d7e3f75c7b3a',1,'hmap::GaussianPush::ir']]],
+  ['is_5fopen_14',['is_open',['../structhmap_1_1OpenEXRWriter_1_1Impl.html#a8c7de7055e5343eb5ab2b52e7bc879e8',1,'hmap::OpenEXRWriter::Impl::is_open'],['../structhmap_1_1OpenCVWriter_1_1Impl.html#afba9923621eff69551906737916f0924',1,'hmap::OpenCVWriter::Impl::is_open'],['../structhmap_1_1BigTiffWriter_1_1Impl.html#aacf4c1d9e3c003bc403ae356c837576f',1,'hmap::BigTiffWriter::Impl::is_open']]],
+  ['items_15',['items',['../classhmap_1_1ScatterField.html#aeb89e13a2a22fc06a08bc02e0fdcaa61',1,'hmap::ScatterField']]],
+  ['iters0_16',['iters0',['../structhmap_1_1MiseParams.html#a9ad49abe9a33315a61f5424e3a4ab52e',1,'hmap::MiseParams']]],
+  ['iters_5fdecay_17',['iters_decay',['../structhmap_1_1MiseParams.html#ae1ba6d69d13230162b42e80d8b23ec11',1,'hmap::MiseParams']]],
+  ['iters_5fmin_18',['iters_min',['../structhmap_1_1MiseParams.html#a4a003fe7c81ee8e9a98403d5d97287f2',1,'hmap::MiseParams']]]
 ];

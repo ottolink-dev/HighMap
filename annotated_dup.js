@@ -7,6 +7,10 @@ var annotated_dup =
       [ "log", "namespacehmap_1_1log.html", [
         [ "format_string_with_loc", "structhmap_1_1log_1_1format__string__with__loc.html", "structhmap_1_1log_1_1format__string__with__loc" ]
       ] ],
+      [ "neighborhood", "namespacehmap_1_1neighborhood.html", [
+        [ "Neighbor", "structhmap_1_1neighborhood_1_1Neighbor.html", "structhmap_1_1neighborhood_1_1Neighbor" ],
+        [ "NeighborWeighted", "structhmap_1_1neighborhood_1_1NeighborWeighted.html", "structhmap_1_1neighborhood_1_1NeighborWeighted" ]
+      ] ],
       [ "Array", "classhmap_1_1Array.html", "classhmap_1_1Array" ],
       [ "ArrayControlFunction", "classhmap_1_1ArrayControlFunction.html", "classhmap_1_1ArrayControlFunction" ],
       [ "ArrayFunction", "classhmap_1_1ArrayFunction.html", "classhmap_1_1ArrayFunction" ],

@@ -840,6 +840,11 @@
     <member refid="structhmap_1_1Neighbor_1abeac6e2a972df3974ec72ca954577941" kind="variable"><name>weight</name></member>
     <member refid="structhmap_1_1Neighbor_1af89fb109a74f9648d04cb4dc6e1d941e" kind="variable"><name>edge_index</name></member>
   </compound>
+  <compound refid="structhmap_1_1neighborhood_1_1Neighbor" kind="struct"><name>hmap::neighborhood::Neighbor</name>
+    <member refid="structhmap_1_1neighborhood_1_1Neighbor_1a3b41f7f32cb2432d01cb4bedc3e61003" kind="variable"><name>offset</name></member>
+    <member refid="structhmap_1_1neighborhood_1_1Neighbor_1af697ae3acea5d914fa544f23b2764f29" kind="variable"><name>distance</name></member>
+    <member refid="structhmap_1_1neighborhood_1_1Neighbor_1a1908640b5d09d2fc3c23f0abf1156b48" kind="variable"><name>inv_distance</name></member>
+  </compound>
   <compound refid="structhmap_1_1TerrainTriMesh_1_1Neighbor" kind="struct"><name>hmap::TerrainTriMesh::Neighbor</name>
     <member refid="structhmap_1_1TerrainTriMesh_1_1Neighbor_1a0cd8f7fd250b772c4c3445280a37a2b6" kind="variable"><name>index</name></member>
     <member refid="structhmap_1_1TerrainTriMesh_1_1Neighbor_1a1d8844b86573fc6e3e0037a6f9d4632c" kind="variable"><name>distance2d</name></member>
@@ -848,6 +853,12 @@
     <member refid="structhmap_1_1TerrainTriMesh_1_1NeighborData_1aa756a2a5a6ecec55cd2c31a5dd05fb2c" kind="variable"><name>adjacency</name></member>
     <member refid="structhmap_1_1TerrainTriMesh_1_1NeighborData_1a23206266afbc2f70f9f4eed4e536e7d9" kind="function"><name>clear</name></member>
     <member refid="structhmap_1_1TerrainTriMesh_1_1NeighborData_1a9d7ddcc18dec1d876cbc77479c2cbeb0" kind="function"><name>resize</name></member>
+  </compound>
+  <compound refid="structhmap_1_1neighborhood_1_1NeighborWeighted" kind="struct"><name>hmap::neighborhood::NeighborWeighted</name>
+    <member refid="structhmap_1_1neighborhood_1_1NeighborWeighted_1a7bd6755c35ad53dbe3de046138989b15" kind="variable"><name>offset</name></member>
+    <member refid="structhmap_1_1neighborhood_1_1NeighborWeighted_1a4958b60eef7eb9c7f0fb84ee0d5fea5b" kind="variable"><name>distance</name></member>
+    <member refid="structhmap_1_1neighborhood_1_1NeighborWeighted_1a4970c3322c974b9969876731040ad839" kind="variable"><name>inv_distance</name></member>
+    <member refid="structhmap_1_1neighborhood_1_1NeighborWeighted_1a3e25128e3ce295526ee26fcb509e0e25" kind="variable"><name>weight</name></member>
   </compound>
   <compound refid="classhmap_1_1NoiseFunction" kind="class"><name>hmap::NoiseFunction</name>
     <member refid="classhmap_1_1NoiseFunction_1a332703b9642cf219cb6d6e91488648cf" kind="variable"><name>kw</name></member>
@@ -1679,10 +1690,6 @@
     <member refid="namespacehmap_1a451ad02eb796f23b2f68e062e8de9875ac49f280a5ad551ccc77be0b01a2f386a" kind="enumvalue"><name>FLOAT16</name></member>
     <member refid="namespacehmap_1a451ad02eb796f23b2f68e062e8de9875a48d8f1a723d44ff4a87db1bb6c551c62" kind="enumvalue"><name>UINT16</name></member>
     <member refid="namespacehmap_1a451ad02eb796f23b2f68e062e8de9875aecfc091ed2a607335524c8389cfa41b5" kind="enumvalue"><name>UINT8</name></member>
-    <member refid="namespacehmap_1a9d00db2263b4b7b05245531c41c1b592" kind="enum"><name>neighborhood</name></member>
-    <member refid="namespacehmap_1a9d00db2263b4b7b05245531c41c1b592af1e94018e1eb59b107f1adfa66a97929" kind="enumvalue"><name>MOORE</name></member>
-    <member refid="namespacehmap_1a9d00db2263b4b7b05245531c41c1b592a5814c956cc15b9764d586bb86912c364" kind="enumvalue"><name>VON_NEUMANN</name></member>
-    <member refid="namespacehmap_1a9d00db2263b4b7b05245531c41c1b592a5a41d1fe35db5ea65c515f217e5df2af" kind="enumvalue"><name>CROSS</name></member>
     <member refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195" kind="enum"><name>NoiseType</name></member>
     <member refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a2f37fabff52c2f1b6c2e7e6aad77adbd" kind="enumvalue"><name>PARBERRY</name></member>
     <member refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kind="enumvalue"><name>PERLIN</name></member>
@@ -3068,6 +3075,13 @@
     <member refid="namespacehmap_1_1log_1_1detail_1a858f9b2b03b26e0801a2b3bc6d137db5" kind="function"><name>format_fixed_width</name></member>
     <member refid="namespacehmap_1_1log_1_1detail_1a63995cdf3b5dc5033a32662caec75cac" kind="function"><name>log_impl</name></member>
   </compound>
+  <compound refid="namespacehmap_1_1neighborhood" kind="namespace"><name>hmap::neighborhood</name>
+    <member refid="namespacehmap_1_1neighborhood_1aaf79b79d8bf33769e641a751c317a3e0" kind="variable"><name>VON_NEUMANN_4</name></member>
+    <member refid="namespacehmap_1_1neighborhood_1a3b2652490f6e51df8fa1de6215d86b20" kind="variable"><name>MOORE_8</name></member>
+    <member refid="namespacehmap_1_1neighborhood_1a6b1a4665bde6beaf3b96d40d027083a7" kind="variable"><name>D8_FLOW</name></member>
+    <member refid="namespacehmap_1_1neighborhood_1a185f583368e9047630b2a788d2bcb02c" kind="variable"><name>DINF_8</name></member>
+    <member refid="namespacehmap_1_1neighborhood_1a15866a380d109861d405904760c17264" kind="variable"><name>GEOMORPHON_8</name></member>
+  </compound>
   <compound refid="namespacehmap_1_1va" kind="namespace"><name>hmap::va</name>
     <member refid="namespacehmap_1_1va_1aa868400f1abe17aca41bb488f65032da" kind="function"><name>depression_filling_priority_flood</name></member>
     <member refid="namespacehmap_1_1va_1ac0d43b69e78ba45a62795d90f1f453fe" kind="function"><name>hydraulic_saleve</name></member>
@@ -4394,6 +4408,7 @@
     <member refid="test__grids_8cpp_1ab8ff96a1f855e07d54c48b3115a41a72" kind="function"><name>TEST</name></member>
     <member refid="test__grids_8cpp_1a933436f5ff1015e732963d58dc8d3853" kind="function"><name>TEST</name></member>
     <member refid="test__grids_8cpp_1a5e0ea3f9036f0624cc417d15b4b19013" kind="function"><name>TEST</name></member>
+    <member refid="test__grids_8cpp_1a8222115c0311a1cec98f31ca4270614f" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__image__writer_8cpp" kind="file"><name>test_image_writer.cpp</name>
     <member refid="test__image__writer_8cpp_1a3e806faba173bf5b2ab90f60ccabce30" kind="function"><name>TEST</name></member>

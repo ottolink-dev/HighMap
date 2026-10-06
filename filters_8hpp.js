@@ -1,10 +1,5 @@
 var filters_8hpp =
 [
-    [ "neighborhood", "filters_8hpp.html#a9d00db2263b4b7b05245531c41c1b592", [
-      [ "MOORE", "filters_8hpp.html#a9d00db2263b4b7b05245531c41c1b592af1e94018e1eb59b107f1adfa66a97929", null ],
-      [ "VON_NEUMANN", "filters_8hpp.html#a9d00db2263b4b7b05245531c41c1b592a5814c956cc15b9764d586bb86912c364", null ],
-      [ "CROSS", "filters_8hpp.html#a9d00db2263b4b7b05245531c41c1b592a5a41d1fe35db5ea65c515f217e5df2af", null ]
-    ] ],
     [ "bulkify", "filters_8hpp.html#ae3ecf5f88476c5d49978a130f8cab2f3", null ],
     [ "canyonize", "filters_8hpp.html#a3db5616398edb199912cfc2972c2ec55", null ],
     [ "canyonize", "filters_8hpp.html#aca3e5de61af1e6bac4786ec33d0c1398", null ],

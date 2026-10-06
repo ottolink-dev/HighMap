@@ -2,6 +2,7 @@ var namespacehmap =
 [
     [ "gpu", "namespacehmap_1_1gpu.html", "namespacehmap_1_1gpu" ],
     [ "log", "namespacehmap_1_1log.html", "namespacehmap_1_1log" ],
+    [ "neighborhood", "namespacehmap_1_1neighborhood.html", "namespacehmap_1_1neighborhood" ],
     [ "va", "namespacehmap_1_1va.html", [
       [ "depression_filling_priority_flood", "namespacehmap_1_1va.html#aa868400f1abe17aca41bb488f65032da", null ],
       [ "hydraulic_saleve", "namespacehmap_1_1va.html#ac0d43b69e78ba45a62795d90f1f453fe", null ],
@@ -217,11 +218,6 @@ var namespacehmap =
       [ "FLOAT16", "namespacehmap.html#a451ad02eb796f23b2f68e062e8de9875ac49f280a5ad551ccc77be0b01a2f386a", null ],
       [ "UINT16", "namespacehmap.html#a451ad02eb796f23b2f68e062e8de9875a48d8f1a723d44ff4a87db1bb6c551c62", null ],
       [ "UINT8", "namespacehmap.html#a451ad02eb796f23b2f68e062e8de9875aecfc091ed2a607335524c8389cfa41b5", null ]
-    ] ],
-    [ "neighborhood", "namespacehmap.html#a9d00db2263b4b7b05245531c41c1b592", [
-      [ "MOORE", "namespacehmap.html#a9d00db2263b4b7b05245531c41c1b592af1e94018e1eb59b107f1adfa66a97929", null ],
-      [ "VON_NEUMANN", "namespacehmap.html#a9d00db2263b4b7b05245531c41c1b592a5814c956cc15b9764d586bb86912c364", null ],
-      [ "CROSS", "namespacehmap.html#a9d00db2263b4b7b05245531c41c1b592a5a41d1fe35db5ea65c515f217e5df2af", null ]
     ] ],
     [ "NoiseType", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195", [
       [ "PARBERRY", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a2f37fabff52c2f1b6c2e7e6aad77adbd", null ],

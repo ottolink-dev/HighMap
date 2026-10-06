@@ -24,6 +24,5 @@ var searchData=
   ['mo_5fopening_21',['MO_OPENING',['../namespacehmap.html#a321149eda3417aa485a010c31267818ca2a6dee7c1afab190ad76aa5e40f9eaf6',1,'hmap']]],
   ['mo_5fopening_5fby_5freconstruction_22',['MO_OPENING_BY_RECONSTRUCTION',['../namespacehmap.html#a321149eda3417aa485a010c31267818caa6a0098d7d9f4eaae196f3f721464806',1,'hmap']]],
   ['mo_5ftop_5fhat_23',['MO_TOP_HAT',['../namespacehmap.html#a321149eda3417aa485a010c31267818cacf16fa7af982861a53abb15071452ab2',1,'hmap']]],
-  ['moore_24',['MOORE',['../namespacehmap.html#a9d00db2263b4b7b05245531c41c1b592af1e94018e1eb59b107f1adfa66a97929',1,'hmap']]],
-  ['multiply_25',['MULTIPLY',['../namespacehmap.html#a5101273ec456f5267dddc3e22dae223babadb712f0f7627d6892ea66c9743aec1',1,'hmap']]]
+  ['multiply_24',['MULTIPLY',['../namespacehmap.html#a5101273ec456f5267dddc3e22dae223babadb712f0f7627d6892ea66c9743aec1',1,'hmap']]]
 ];
