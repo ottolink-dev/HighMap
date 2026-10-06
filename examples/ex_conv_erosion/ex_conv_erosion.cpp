@@ -2,6 +2,9 @@
 
 int main(void)
 {
+  hmap::log::warn(
+      "conv_erosion is deprecated and will be removed at some point.");
+
   hmap::gpu::init_opencl();
 
   glm::ivec2 shape = {256, 256};

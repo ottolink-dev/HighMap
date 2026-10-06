@@ -2,6 +2,9 @@
 
 int main(void)
 {
+  hmap::log::warn(
+      "hydraulic_stream is deprecated and will be removed at some point.");
+
   hmap::gpu::init_opencl();
   hmap::init_openmp();
 

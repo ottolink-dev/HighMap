@@ -2,6 +2,9 @@
 
 int main(void)
 {
+  hmap::log::warn(
+      "hydraulic_diffusion is deprecated and will be removed at some point.");
+
   glm::ivec2 shape = {256, 256};
   glm::vec2  res = {2.f, 2.f};
   int        seed = 1;
