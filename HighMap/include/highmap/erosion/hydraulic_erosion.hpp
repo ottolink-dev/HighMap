@@ -1049,9 +1049,9 @@ void hydraulic_schott(Array       &z,
 
 /// @overload
 void hydraulic_schott(Array       &z,
+                      const Array *p_mask,
                       int          iterations,
                       const Array &talus,
-                      Array       *p_mask,
                       float        c_erosion = 1.f,
                       float        c_thermal = 0.1f,
                       float        c_deposition = 0.2f,
