@@ -5,12 +5,12 @@ if(NOT TARGET nanoflann)
     nanoflann
     GIT_REPOSITORY https://github.com/jlblancoc/nanoflann.git
     GIT_TAG v1.9.0
-    GIT_SHALLOW TRUE)
+    GIT_SHALLOW TRUE
+    SOURCE_SUBDIR include)
 
-  FetchContent_GetProperties(nanoflann)
-  if(NOT nanoflann_POPULATED)
-    FetchContent_Populate(nanoflann)
+  FetchContent_MakeAvailable(nanoflann)
 
+  if(NOT TARGET nanoflann)
     add_library(nanoflann INTERFACE)
     add_library(nanoflann::nanoflann ALIAS nanoflann)
     target_include_directories(nanoflann

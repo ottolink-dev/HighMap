@@ -6,11 +6,12 @@ FetchContent_Declare(
   GIT_TAG v1.1.1
   GIT_SHALLOW TRUE)
 
-FetchContent_GetProperties(FastNoiseLite)
-if(NOT fastnoiselite_POPULATED)
-  FetchContent_Populate(FastNoiseLite)
+FetchContent_MakeAvailable(FastNoiseLite)
+
+if(NOT TARGET FastNoiseLite)
   add_library(FastNoiseLite INTERFACE)
   add_library(FastNoiseLite::FastNoiseLite ALIAS FastNoiseLite)
   target_include_directories(FastNoiseLite
                              INTERFACE ${fastnoiselite_SOURCE_DIR}/Cpp)
 endif()
+

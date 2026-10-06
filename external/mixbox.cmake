@@ -6,10 +6,9 @@ FetchContent_Declare(
   GIT_TAG master
   GIT_SHALLOW TRUE)
 
-FetchContent_GetProperties(mixbox)
-if(NOT mixbox_POPULATED)
-  FetchContent_Populate(mixbox)
+FetchContent_MakeAvailable(mixbox)
 
+if(NOT TARGET mixbox)
   if(EXISTS ${mixbox_SOURCE_DIR}/cpp/mixbox.cpp)
     set(MIXBOX_DIR ${mixbox_SOURCE_DIR}/cpp)
   else()

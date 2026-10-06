@@ -6,10 +6,9 @@ FetchContent_Declare(
   GIT_TAG master
   GIT_SHALLOW TRUE)
 
-FetchContent_GetProperties(hmm)
-if(NOT hmm_POPULATED)
-  FetchContent_Populate(hmm)
+FetchContent_MakeAvailable(hmm)
 
+if(NOT TARGET hmm)
   set(HMM_DIR ${hmm_SOURCE_DIR}/src)
   set(HMM_SRC ${HMM_DIR}/base.cpp ${HMM_DIR}/blur.cpp ${HMM_DIR}/heightmap.cpp
               ${HMM_DIR}/triangulator.cpp)

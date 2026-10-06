@@ -6,10 +6,9 @@ FetchContent_Declare(
   GIT_TAG master
   GIT_SHALLOW TRUE)
 
-FetchContent_GetProperties(nn-c)
-if(NOT nn-c_POPULATED)
-  FetchContent_Populate(nn-c)
+FetchContent_MakeAvailable(nn-c)
 
+if(NOT TARGET nn-c)
   set(NNC_DIR ${nn-c_SOURCE_DIR}/nn)
 
   # Configure config.h (actually generate a dummy one)
