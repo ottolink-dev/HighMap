@@ -146,6 +146,9 @@ bool init_opencl()
 #include "kernels/erosion/rifts.cl"
   );
   add(
+#include "kernels/erosion/sand_erosion.cl"
+  );
+  add(
 #include "kernels/erosion/strata.cl"
   );
   add(

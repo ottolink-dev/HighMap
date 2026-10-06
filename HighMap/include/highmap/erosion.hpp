@@ -15,5 +15,6 @@
 #include "highmap/erosion/erosion_maps.hpp"
 #include "highmap/erosion/erosion_parameters.hpp"
 #include "highmap/erosion/hydraulic_erosion.hpp"
+#include "highmap/erosion/sand_erosion.hpp"
 #include "highmap/erosion/strata_erosion.hpp"
 #include "highmap/erosion/thermal_erosion.hpp"

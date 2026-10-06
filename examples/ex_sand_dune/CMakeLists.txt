@@ -1,0 +1,2 @@
+add_executable(ex_sand_dune ex_sand_dune.cpp)
+target_link_libraries(ex_sand_dune highmap)
