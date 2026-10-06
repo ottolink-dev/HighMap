@@ -117,9 +117,10 @@ var NAVTREEINDEX =
 "structhmap_1_1RockSimulationOptions.html#a07864448efb70a86c51b096ec365e69c",
 "structhmap_1_1VirtualTextureStorage.html",
 "test__distance__transform_8cpp.html#a0da1093217c0aa901caf4bc01377ce7f",
-"test__local__metrics_8cpp.html#ac1f1eccbe6b333c14b1ae8f76f0f5829",
-"test__scatter_8cpp.html#a15e0628e45008db82560492dc0951b11",
-"transform_8cpp.html#a470d6335083e8263faaae05087078ffe"
+"test__local__metrics_8cpp.html#aa9b2def75ae9517d2867d88870826fee",
+"test__scatter_8cpp.html#a09000e2d816cd5f07205f03f2f5e5e01",
+"transform_8cpp.html#a2a16f2f687640ad47e3252d3350620f9",
+"zeroed__edges_8cpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

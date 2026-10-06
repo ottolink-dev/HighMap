@@ -880,7 +880,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/deposition_fill_holes.cpp" line="33" column="6" bodyfile="HighMap/src/erosion/deposition_fill_holes.cpp" bodystart="33" bodyend="47" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="662" declcolumn="6"/>
+        <location file="HighMap/src/erosion/deposition_fill_holes.cpp" line="33" column="6" bodyfile="HighMap/src/erosion/deposition_fill_holes.cpp" bodystart="33" bodyend="48" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="662" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a4634556eb8cdc81b0bb52b5ebcd5309b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3003,14 +3003,24 @@
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(z0);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/>z0;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iterations<sp/>=<sp/>400;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>talus(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>2.f<sp/>/<sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x);<sp/></highlight><highlight class="comment">//<sp/>for<sp/>thermal</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iterations<sp/>=<sp/>500;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>talus(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>4.f<sp/>/<sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x);<sp/></highlight><highlight class="comment">//<sp/>for<sp/>thermal</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a9749d24b9dd9bed8ee333910951db395" kindref="member">hmap::gpu::hydraulic_schott</ref>(z1,<sp/>iterations,<sp/>talus);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a9749d24b9dd9bed8ee333910951db395" kindref="member">hmap::gpu::hydraulic_schott</ref>(z1,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iterations,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.5f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.1f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.05f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.8f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.8f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.3f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.f);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>erosion<sp/>only</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z2<sp/>=<sp/>z0;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aa3c0fc5295f81856967feed8cf87f711" kindref="member">hmap::gpu::hydraulic_schott_erosion</ref>(z2,<sp/></highlight><highlight class="comment">/*<sp/>iterations<sp/>*/</highlight><highlight class="normal"><sp/>30);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aa3c0fc5295f81856967feed8cf87f711" kindref="member">hmap::gpu::hydraulic_schott_erosion</ref>(z2,<sp/>20);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_hydraulic_schott.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z0,<sp/>z1,<sp/>z2},</highlight></codeline>
@@ -3147,7 +3157,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_schott_gpu.cpp" line="178" column="6" bodyfile="HighMap/src/erosion/hydraulic_schott_gpu.cpp" bodystart="178" bodyend="254" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="1065" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_schott_gpu.cpp" line="178" column="6" bodyfile="HighMap/src/erosion/hydraulic_schott_gpu.cpp" bodystart="178" bodyend="258" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="1066" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a7814928e0f3b995421d298677934d11d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3229,7 +3239,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream_gpu.cpp" line="18" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_gpu.cpp" bodystart="18" bodyend="97" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="1074" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream_gpu.cpp" line="18" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_gpu.cpp" bodystart="18" bodyend="97" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="1075" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ac83dbe1bc607d991c237eaf5b20acd69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3315,7 +3325,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream_gpu.cpp" line="99" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_gpu.cpp" bodystart="99" bodyend="154" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="1090" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream_gpu.cpp" line="99" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_gpu.cpp" bodystart="99" bodyend="154" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="1091" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a548895d6665a5466b8541122338b59a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3419,7 +3429,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_vpipes_gpu.cpp" line="18" column="6" bodyfile="HighMap/src/erosion/hydraulic_vpipes_gpu.cpp" bodystart="18" bodyend="272" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="1106" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_vpipes_gpu.cpp" line="18" column="6" bodyfile="HighMap/src/erosion/hydraulic_vpipes_gpu.cpp" bodystart="18" bodyend="272" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="1107" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a3faa3e769849fbcc7784d130c05f99a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6922,7 +6932,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="685" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="685" bodyend="698" declfile="HighMap/include/highmap/erosion/thermal_erosion.hpp" declline="245" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="685" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="685" bodyend="699" declfile="HighMap/include/highmap/erosion/thermal_erosion.hpp" declline="245" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ab753c4abd819aa6945c1cfc5e25ccec4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7001,7 +7011,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="700" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="700" bodyend="755" declfile="HighMap/include/highmap/erosion/thermal_erosion.hpp" declline="261" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="701" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="701" bodyend="756" declfile="HighMap/include/highmap/erosion/thermal_erosion.hpp" declline="261" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1acfe28321531d2c03721588054da1446a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7042,7 +7052,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="757" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="757" bodyend="769" declfile="HighMap/include/highmap/erosion/thermal_erosion.hpp" declline="268" declcolumn="6"/>
+        <location file="HighMap/src/erosion/thermal_gpu.cpp" line="758" column="6" bodyfile="HighMap/src/erosion/thermal_gpu.cpp" bodystart="758" bodyend="770" declfile="HighMap/include/highmap/erosion/thermal_erosion.hpp" declline="268" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ad6240ccabf3a0f858698dc0b77ab619e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -9001,7 +9011,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/recast_cliff.cpp" line="98" column="6" bodyfile="HighMap/src/filters/recast_cliff.cpp" bodystart="98" bodyend="118" declfile="HighMap/include/highmap/filters.hpp" declline="2698" declcolumn="6"/>
+        <location file="HighMap/src/filters/recast_cliff.cpp" line="98" column="6" bodyfile="HighMap/src/filters/recast_cliff.cpp" bodystart="98" bodyend="119" declfile="HighMap/include/highmap/filters.hpp" declline="2698" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1aa3af0e9d74379a716477ed93674cc7a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9183,7 +9193,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/recast_cliff.cpp" line="120" column="6" bodyfile="HighMap/src/filters/recast_cliff.cpp" bodystart="120" bodyend="141" declfile="HighMap/include/highmap/filters.hpp" declline="2732" declcolumn="6"/>
+        <location file="HighMap/src/filters/recast_cliff.cpp" line="121" column="6" bodyfile="HighMap/src/filters/recast_cliff.cpp" bodystart="121" bodyend="142" declfile="HighMap/include/highmap/filters.hpp" declline="2732" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1aacabbf4b89a469e10748fd52093fcd08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9237,7 +9247,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/recast_cliff.cpp" line="143" column="6" bodyfile="HighMap/src/filters/recast_cliff.cpp" bodystart="143" bodyend="166" declfile="HighMap/include/highmap/filters.hpp" declline="2742" declcolumn="6"/>
+        <location file="HighMap/src/filters/recast_cliff.cpp" line="144" column="6" bodyfile="HighMap/src/filters/recast_cliff.cpp" bodystart="144" bodyend="167" declfile="HighMap/include/highmap/filters.hpp" declline="2742" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ac8564a71cc206eae6be027a41b41e7a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9287,7 +9297,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/recast_cliff.cpp" line="168" column="6" bodyfile="HighMap/src/filters/recast_cliff.cpp" bodystart="168" bodyend="186" declfile="HighMap/include/highmap/filters.hpp" declline="2753" declcolumn="6"/>
+        <location file="HighMap/src/filters/recast_cliff.cpp" line="169" column="6" bodyfile="HighMap/src/filters/recast_cliff.cpp" bodystart="169" bodyend="187" declfile="HighMap/include/highmap/filters.hpp" declline="2753" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ad12ee181c391dfb5475dddc9df9a2b0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -9341,7 +9351,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/filters/recast_cliff.cpp" line="188" column="6" bodyfile="HighMap/src/filters/recast_cliff.cpp" bodystart="188" bodyend="295" declfile="HighMap/include/highmap/filters.hpp" declline="2763" declcolumn="6"/>
+        <location file="HighMap/src/filters/recast_cliff.cpp" line="189" column="6" bodyfile="HighMap/src/filters/recast_cliff.cpp" bodystart="189" bodyend="296" declfile="HighMap/include/highmap/filters.hpp" declline="2763" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1af3c4a498eabdcccc53e6ad750e069e79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
