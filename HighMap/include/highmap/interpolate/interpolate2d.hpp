@@ -112,6 +112,22 @@ private:
   return f00 + a10 * u + a01 * v + a11 * u * v;
 }
 
+/**
+ * @brief Compute uniform cubic B-spline weights for a fractional parameter in
+ * [0, 1).
+ *
+ * @param t Fractional parameter in [0, 1).
+ * @param w Output array of 4 weights.
+ */
+inline void bspline_weights(float t, float w[4]) noexcept
+{
+  float t2 = t * t, t3 = t2 * t;
+  w[0] = (1.f - 3.f * t + 3.f * t2 - t3) / 6.f;
+  w[1] = (4.f - 6.f * t2 + 3.f * t3) / 6.f;
+  w[2] = (1.f + 3.f * t + 3.f * t2 - 3.f * t3) / 6.f;
+  w[3] = t3 / 6.f;
+}
+
 [[nodiscard]] inline constexpr float cubic_interpolate(const float p[4],
                                                        float       x) noexcept
 {

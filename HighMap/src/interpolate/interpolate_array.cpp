@@ -11,6 +11,7 @@
 #include "highmap/interpolate/interpolate_array.hpp"
 #include "highmap/logger.hpp"
 #include "highmap/operator.hpp"
+#include "highmap/random.hpp"
 
 namespace hmap
 {
@@ -241,6 +242,66 @@ void interpolate_array_nearest(const Array     &source,
 
       target(i, j) = source(is, js);
     }
+}
+
+Array resample_bicubic_warp(const Array  &src,
+                            glm::ivec2    dst_shape,
+                            float         warp,
+                            std::uint32_t seed)
+{
+  if (!validate_non_empty(src) || !validate_shape(dst_shape)) return Array();
+
+  if (warp <= 0.f) return src.resample_to_shape_bicubic(dst_shape);
+
+  int sw = src.shape.x;
+  int sh = src.shape.y;
+  int dw = dst_shape.x;
+  int dh = dst_shape.y;
+
+  Array dst(dst_shape);
+
+  const float rx = static_cast<float>(sw) / static_cast<float>(dw);
+  const float ry = static_cast<float>(sh) / static_cast<float>(dh);
+
+#pragma omp parallel for collapse(2) schedule(static)
+  for (int y = 0; y < dh; ++y)
+  {
+    for (int x = 0; x < dw; ++x)
+    {
+      float fx = (static_cast<float>(x) + 0.5f) * rx - 0.5f;
+      float fy = (static_cast<float>(y) + 0.5f) * ry - 0.5f;
+
+      if (warp > 0.f)
+      {
+        float u = fx * 0.5f;
+        float v = fy * 0.5f;
+        fx += warp * vnoise(u + 13.7f, v + 3.1f, seed);
+        fy += warp * vnoise(u + 71.3f, v + 47.9f, seed + 101u);
+      }
+
+      int   xi = static_cast<int>(std::floor(fx));
+      int   yi = static_cast<int>(std::floor(fy));
+      float wx[4], wy[4];
+      bspline_weights(fx - static_cast<float>(xi), wx);
+      bspline_weights(fy - static_cast<float>(yi), wy);
+
+      float val = 0.f;
+      for (int j = 0; j < 4; ++j)
+      {
+        int   row = std::min(sh - 1, std::max(0, yi - 1 + j));
+        float r = 0.f;
+        for (int i = 0; i < 4; ++i)
+        {
+          int col = std::min(sw - 1, std::max(0, xi - 1 + i));
+          r += wx[i] * src(col, row);
+        }
+        val += wy[j] * r;
+      }
+      dst(x, y) = val;
+    }
+  }
+
+  return dst;
 }
 
 } // namespace hmap

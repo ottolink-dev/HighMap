@@ -19,6 +19,7 @@
 #include "highmap/blending.hpp"
 #include "highmap/erosion.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/interpolate/interpolate2d.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/random.hpp"
 #include "highmap/range.hpp"
@@ -58,16 +59,6 @@ bool all_finite(const float *v, size_t n)
     if ((u & 0x7f800000u) == 0x7f800000u) return false;
   }
   return true;
-}
-
-// compute cubic b-spline weights
-void bspline_weights(float t, float w[4])
-{
-  float t2 = t * t, t3 = t2 * t;
-  w[0] = (1.f - 3.f * t + 3.f * t2 - t3) / 6.f;
-  w[1] = (4.f - 6.f * t2 + 3.f * t3) / 6.f;
-  w[2] = (1.f + 3.f * t + 3.f * t2 - 3.f * t3) / 6.f;
-  w[3] = t3 / 6.f;
 }
 
 // area-weighted box downsampling

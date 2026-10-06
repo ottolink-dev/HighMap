@@ -74,6 +74,21 @@ void interpolate_heightmap(const VirtualArray &h_source,
                            const CoordFrame   &t_target,
                            const ComputeMode  &cm);
 
+/**
+ * @brief Resample an array to a target shape using cubic B-spline interpolation
+ * with optional domain noise warping.
+ *
+ * @param  src       Source array to resample.
+ * @param  dst_shape Target output shape.
+ * @param  warp      Domain warping amplitude (0 for no warping).
+ * @param  seed      Random seed for domain warping noise.
+ * @return           Array     Resampled (and optionally warped) array.
+ */
+Array resample_bicubic_warp(const Array  &src,
+                            glm::ivec2    dst_shape,
+                            float         warp = 0.f,
+                            std::uint32_t seed = 0);
+
 } // namespace hmap
 
 namespace hmap::gpu

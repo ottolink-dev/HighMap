@@ -102,3 +102,47 @@ TEST(InterpolateArrayEmptySource, NonEmptySourceStillInterpolates)
 
   EXPECT_GT(target.max(), 0.f);
 }
+
+TEST(InterpolateArrayEmptySource, ResampleBicubicWarpEmptySourceIsSafe)
+{
+  hmap::Array source;
+  hmap::Array out = hmap::resample_bicubic_warp(source,
+                                                glm::ivec2(32, 32),
+                                                0.35f,
+                                                42u);
+  EXPECT_EQ(out.shape.x, 0);
+  EXPECT_EQ(out.shape.y, 0);
+}
+
+TEST(InterpolateBspline, BsplineWeightsProperties)
+{
+  float w[4];
+  for (float t = 0.f; t < 1.f; t += 0.1f)
+  {
+    hmap::bspline_weights(t, w);
+    float sum = w[0] + w[1] + w[2] + w[3];
+    EXPECT_NEAR(sum, 1.f, 1e-5f);
+    for (int i = 0; i < 4; ++i)
+    {
+      EXPECT_GE(w[i], 0.f);
+      EXPECT_LE(w[i], 1.f);
+    }
+  }
+}
+
+TEST(InterpolateArray, ResampleBicubicWarp)
+{
+  hmap::Array src(glm::ivec2(8, 8), 1.f);
+  hmap::Array out = hmap::resample_bicubic_warp(src, glm::ivec2(16, 16), 0.f);
+  EXPECT_EQ(out.shape.x, 16);
+  EXPECT_EQ(out.shape.y, 16);
+  EXPECT_NEAR(out.mean(), 1.f, 1e-5f);
+
+  hmap::Array out_warp = hmap::resample_bicubic_warp(src,
+                                                     glm::ivec2(16, 16),
+                                                     0.5f,
+                                                     123u);
+  EXPECT_EQ(out_warp.shape.x, 16);
+  EXPECT_EQ(out_warp.shape.y, 16);
+  EXPECT_NEAR(out_warp.mean(), 1.f, 1e-5f);
+}
