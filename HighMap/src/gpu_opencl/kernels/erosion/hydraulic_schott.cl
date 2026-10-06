@@ -16,9 +16,9 @@ float find_downslope_neighbor_stochastic(read_only image2d_t z,
                                          const sampler_t     sampler,
                                          const int2          p,
                                          const int           nx,
-                                         const float         flow_routing_exponent,
-                                         const int           it,
-                                         int2               *ptr_q)
+                                         const float flow_routing_exponent,
+                                         const int   it,
+                                         int2       *ptr_q)
 {
   float slopes[8];
   int2  nbrs[8];

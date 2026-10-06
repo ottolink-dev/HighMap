@@ -564,7 +564,18 @@ TEST(HydraulicSchottGPU, BasicExecution)
   Array      talus_map(shape, talus);
   Array      flow(shape);
 
-  gpu::hydraulic_schott(z, 20, talus_map, 1.f, 0.1f, 0.2f, 0.8f, 0.8f, 1.3f, 1.5f, 2.5f, &flow);
+  gpu::hydraulic_schott(z,
+                        20,
+                        talus_map,
+                        1.f,
+                        0.1f,
+                        0.2f,
+                        0.8f,
+                        0.8f,
+                        1.3f,
+                        1.5f,
+                        2.5f,
+                        &flow);
 
   EXPECT_EQ(z.shape, shape);
   EXPECT_FALSE(assert_almost_equal(z, z0));
@@ -605,4 +616,3 @@ TEST(HydraulicSchottErosionGPU, BasicExecution)
       EXPECT_GE(flow(i, j), 1.f);
     }
 }
-
