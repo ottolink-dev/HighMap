@@ -11570,6 +11570,712 @@ additional_depth)</computeroutput>.</para>
         </inbodydescription>
         <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="74" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="74" bodyend="111" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="255" declcolumn="6"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a5d8b448836d569c0f72b668ca1268ef9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::hydraulic_stream_log</definition>
+        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</argsstring>
+        <name>hydraulic_stream_log</name>
+        <qualifiedname>hmap::hydraulic_stream_log</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>c_erosion</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>talus_ref</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>deposition_ir</declname>
+          <defval>32</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>deposition_scale_ratio</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gradient_power</declname>
+          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gradient_scaling_ratio</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>gradient_prefilter_ir</declname>
+          <defval>16</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>saturation_ratio</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_bedrock</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_moisture_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_erosion_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_deposition_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_flow_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Apply hydraulic erosion based on a flow accumulation map, alternative formulation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input array representing the terrain elevation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c_erosion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Erosion coefficient controlling the intensity of erosion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>talus_ref</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference talus used to locally define the flow-partition exponent. Small values lead to thinner flow streams (see <computeroutput><ref refid="namespacehmap_1a58ba4910af868f70849f343e0c73adf3" kindref="member">flow_accumulation_dinf</ref></computeroutput>). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>deposition_ir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Kernel radius for sediment deposition. If greater than 1, a smoothing effect is applied. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>deposition_scale_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Scaling factor for sediment deposition. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gradient_power</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exponent applied to the terrain gradient to control erosion intensity. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gradient_scaling_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Scaling factor for gradient-based erosion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gradient_prefilter_ir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Kernel radius for pre-filtering the terrain gradient. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>saturation_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Ratio controlling the water saturation threshold for erosion processes. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_bedrock</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an optional lower elevation limit. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_moisture_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the moisture map (rainfall quantity), expected to be in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_erosion_map[out]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the erosion map, provided as an output field. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_flow_map[out]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the flow accumulation map, provided as an output field. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Kernel radius. If <computeroutput>ir &gt; 1</computeroutput>, a cone kernel is used to carve channel flow erosion.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<bold>Example</bold> <programlisting filename="ex_hydraulic_stream.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1log_1a2b618829e9c711302f726a3ec3f4ff49" kindref="member">hmap::log::warn</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;hydraulic_stream<sp/>is<sp/>deprecated<sp/>and<sp/>will<sp/>be<sp/>removed<sp/>at<sp/>some<sp/>point.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1adb8336ed4d83c15500872185dee45d50" kindref="member">hmap::gpu::init_opencl</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8eb3b37f9c2d4832fa1e0645bc69ac22" kindref="member">hmap::init_openmp</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{1024,<sp/>1024};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>glm::vec2<sp/>kw<sp/>=<sp/>{2.f,<sp/>2.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref><sp/>=<sp/><ref refid="namespacehmap_1a7d699a468a18be16c70654958ee13b41" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>kw,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z0<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c_erosion<sp/>=<sp/>0.1f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_ref<sp/>=<sp/>5.f<sp/>/<sp/>(float)<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iradius<sp/>=<sp/>64;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_bedrock<sp/>=<sp/><ref refid="namespacehmap_1aa7ab501bae56bac2236a74ade5cd34a4" kindref="member">hmap::local_min</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>iradius);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" kindref="member">hmap::hydraulic_stream</ref>(z1,<sp/>c_erosion,<sp/>talus_ref);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z2<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref><sp/>=<sp/>5;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>erosion_map<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>moisture_map<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" kindref="member">hmap::hydraulic_stream</ref>(z2,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c_erosion,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_ref,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;z_bedrock,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;moisture_map,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;erosion_map,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>log<sp/>scale</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z3<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>deposition_ir<sp/>=<sp/>32;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>c_erosion<sp/>=<sp/>0.2f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a7e51491ac0bc571828955e8a54b143dc" kindref="member">hmap::gpu::hydraulic_stream_log</ref>(z3,<sp/>c_erosion,<sp/>talus_ref,<sp/>deposition_ir);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>z3.dump();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>multiscale<sp/>log<sp/>scale</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z4<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a263168c2e1e24e25a4c1cba0142bdbc0" kindref="member">hmap::gpu::hydraulic_stream_log_multiscale</ref>(z4,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c_erosion,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_ref,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>levels<sp/>*/</highlight><highlight class="normal"><sp/>3,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>deposition_ir);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>z4.dump();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_hydraulic_stream0.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z0,<sp/>z1,<sp/>z2,<sp/>z3,<sp/>z4},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9" kindref="member">hmap::Cmap::TERRAIN</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>erosion_map.to_png(</highlight><highlight class="stringliteral">&quot;ex_hydraulic_stream1.png&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143" kindref="member">hmap::Cmap::INFERNO</ref>);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+<para><bold>Result</bold> <image type="html" name="ex_hydraulic_stream0.png"></image>
+ <image type="html" name="ex_hydraulic_stream1.png"></image>
+ </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="113" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="113" bodyend="192" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="305" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ab4ba44ccbb8dbdb8af4ff4e50dd90885" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::hydraulic_stream_log</definition>
+        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, const Array *p_mask, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</argsstring>
+        <name>hydraulic_stream_log</name>
+        <qualifiedname>hmap::hydraulic_stream_log</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>c_erosion</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>talus_ref</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_mask</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>deposition_ir</declname>
+          <defval>32</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>deposition_scale_ratio</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gradient_power</declname>
+          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gradient_scaling_ratio</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>gradient_prefilter_ir</declname>
+          <defval>16</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>saturation_ratio</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_bedrock</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_moisture_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_erosion_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_deposition_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_flow_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="194" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="194" bodyend="249" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="323" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a0d47acf21b1bf8c1f457f89d50c79f1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::hydraulic_stream_log_multiscale</definition>
+        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, int levels=3, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr, float mix=1.f, float warp=0.35f, std::uint32_t seed=1)</argsstring>
+        <name>hydraulic_stream_log_multiscale</name>
+        <qualifiedname>hmap::hydraulic_stream_log_multiscale</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>c_erosion</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>talus_ref</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>levels</declname>
+          <defval>3</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>deposition_ir</declname>
+          <defval>32</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>deposition_scale_ratio</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gradient_power</declname>
+          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gradient_scaling_ratio</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>gradient_prefilter_ir</declname>
+          <defval>16</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>saturation_ratio</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_bedrock</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_moisture_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_erosion_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_deposition_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_flow_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>mix</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>warp</declname>
+          <defval>0.35<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Multiscale stream-power hydraulic erosion cascade. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Runs stream-power erosion over a geometric resolution ladder (coarsest first, up to z.shape). Coarse levels carve broad valleys and major drainage networks, while fine levels carve detailed tributaries.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Heightmap array to modify. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c_erosion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Erosion coefficient. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>talus_ref</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference talus. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>levels</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of resolution levels. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>deposition_ir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Deposition smoothing radius at full resolution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>deposition_scale_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Deposition blend factor (applied at last scale). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gradient_power</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Power applied to normalized gradient. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gradient_scaling_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Gradient scaling weight. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gradient_prefilter_ir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Gradient prefilter smoothing radius at full resolution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>saturation_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flow saturation ratio. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_bedrock</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional bedrock array bounding maximum erosion depth. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_moisture_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional moisture map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_erosion_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output erosion map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_deposition_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output deposition map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_flow_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output flow accumulation map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interpolation blend factor between levels. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>warp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Domain warp amplitude during upsampling. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random seed for domain warping noise. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="251" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="251" bodyend="389" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="370" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a362d53a66acb0cf920c3d9f5e7aa2162" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::hydraulic_stream_log_multiscale</definition>
+        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, const Array *p_mask, int levels=3, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr, float mix=1.f, float warp=0.35f, std::uint32_t seed=1)</argsstring>
+        <name>hydraulic_stream_log_multiscale</name>
+        <qualifiedname>hmap::hydraulic_stream_log_multiscale</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>c_erosion</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>talus_ref</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_mask</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>levels</declname>
+          <defval>3</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>deposition_ir</declname>
+          <defval>32</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>deposition_scale_ratio</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gradient_power</declname>
+          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gradient_scaling_ratio</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>gradient_prefilter_ir</declname>
+          <defval>16</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>saturation_ratio</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_bedrock</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_moisture_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_erosion_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_deposition_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_flow_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>mix</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>warp</declname>
+          <defval>0.35<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="391" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="391" bodyend="458" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="392" declcolumn="6"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a66355f091aa60d97d5a7c7eeb08c51cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::hydraulic_stream_upscale_amplification</definition>
@@ -11721,7 +12427,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" line="16" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" bodystart="16" bodyend="41" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="299" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" line="16" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" bodystart="16" bodyend="41" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="446" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1af298a6897a2becf0ae24f3de900081f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -11886,7 +12592,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" line="43" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" bodystart="43" bodyend="75" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="342" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" line="43" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream_upscale_amplification.cpp" bodystart="43" bodyend="75" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="489" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa8c5cbc750a368764e2a26409c2427a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -13521,712 +14227,6 @@ additional_depth)</computeroutput>.</para>
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/src/erosion/hydraulic_saleve.cpp" line="196" column="7" bodyfile="HighMap/src/erosion/hydraulic_saleve.cpp" bodystart="196" bodyend="246" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="193" declcolumn="7"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a5d8b448836d569c0f72b668ca1268ef9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::hydraulic_stream_log</definition>
-        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</argsstring>
-        <name>hydraulic_stream_log</name>
-        <qualifiedname>hmap::hydraulic_stream_log</qualifiedname>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>z</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>c_erosion</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>talus_ref</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>deposition_ir</declname>
-          <defval>32</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>deposition_scale_ratio</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>gradient_power</declname>
-          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>gradient_scaling_ratio</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>gradient_prefilter_ir</declname>
-          <defval>16</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>saturation_ratio</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_bedrock</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_moisture_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_erosion_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_deposition_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_flow_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <briefdescription>
-<para>Apply hydraulic erosion based on a flow accumulation map, alternative formulation. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>z</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Input array representing the terrain elevation. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>c_erosion</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Erosion coefficient controlling the intensity of erosion. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>talus_ref</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Reference talus used to locally define the flow-partition exponent. Small values lead to thinner flow streams (see <computeroutput><ref refid="namespacehmap_1a58ba4910af868f70849f343e0c73adf3" kindref="member">flow_accumulation_dinf</ref></computeroutput>). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>deposition_ir</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Kernel radius for sediment deposition. If greater than 1, a smoothing effect is applied. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>deposition_scale_ratio</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Scaling factor for sediment deposition. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>gradient_power</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Exponent applied to the terrain gradient to control erosion intensity. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>gradient_scaling_ratio</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Scaling factor for gradient-based erosion. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>gradient_prefilter_ir</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Kernel radius for pre-filtering the terrain gradient. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>saturation_ratio</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Ratio controlling the water saturation threshold for erosion processes. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>p_bedrock</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Pointer to an optional lower elevation limit. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>p_moisture_map</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Pointer to the moisture map (rainfall quantity), expected to be in [0, 1]. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>p_erosion_map[out]</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Pointer to the erosion map, provided as an output field. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>p_flow_map[out]</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Pointer to the flow accumulation map, provided as an output field. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>ir</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Kernel radius. If <computeroutput>ir &gt; 1</computeroutput>, a cone kernel is used to carve channel flow erosion.</para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<bold>Example</bold> <programlisting filename="ex_hydraulic_stream.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline><highlight class="normal">{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1log_1a2b618829e9c711302f726a3ec3f4ff49" kindref="member">hmap::log::warn</ref>(</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;hydraulic_stream<sp/>is<sp/>deprecated<sp/>and<sp/>will<sp/>be<sp/>removed<sp/>at<sp/>some<sp/>point.&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1adb8336ed4d83c15500872185dee45d50" kindref="member">hmap::gpu::init_opencl</ref>();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8eb3b37f9c2d4832fa1e0645bc69ac22" kindref="member">hmap::init_openmp</ref>();</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{1024,<sp/>1024};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec2<sp/>kw<sp/>=<sp/>{2.f,<sp/>2.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>1;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref><sp/>=<sp/><ref refid="namespacehmap_1a7d699a468a18be16c70654958ee13b41" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>kw,<sp/>seed);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z0<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c_erosion<sp/>=<sp/>0.1f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_ref<sp/>=<sp/>5.f<sp/>/<sp/>(float)<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iradius<sp/>=<sp/>64;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_bedrock<sp/>=<sp/><ref refid="namespacehmap_1aa7ab501bae56bac2236a74ade5cd34a4" kindref="member">hmap::local_min</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>iradius);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" kindref="member">hmap::hydraulic_stream</ref>(z1,<sp/>c_erosion,<sp/>talus_ref);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z2<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref><sp/>=<sp/>5;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>erosion_map<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>moisture_map<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" kindref="member">hmap::hydraulic_stream</ref>(z2,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c_erosion,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_ref,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;z_bedrock,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;moisture_map,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;erosion_map,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>log<sp/>scale</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z3<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>deposition_ir<sp/>=<sp/>32;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>c_erosion<sp/>=<sp/>0.2f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a7e51491ac0bc571828955e8a54b143dc" kindref="member">hmap::gpu::hydraulic_stream_log</ref>(z3,<sp/>c_erosion,<sp/>talus_ref,<sp/>deposition_ir);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>z3.dump();</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>multiscale<sp/>log<sp/>scale</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z4<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a263168c2e1e24e25a4c1cba0142bdbc0" kindref="member">hmap::gpu::hydraulic_stream_log_multiscale</ref>(z4,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c_erosion,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_ref,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>levels<sp/>*/</highlight><highlight class="normal"><sp/>3,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>deposition_ir);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>z4.dump();</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_hydraulic_stream0.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z0,<sp/>z1,<sp/>z2,<sp/>z3,<sp/>z4},</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9" kindref="member">hmap::Cmap::TERRAIN</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>erosion_map.to_png(</highlight><highlight class="stringliteral">&quot;ex_hydraulic_stream1.png&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143" kindref="member">hmap::Cmap::INFERNO</ref>);</highlight></codeline>
-<codeline><highlight class="normal">}</highlight></codeline>
-</programlisting></para>
-<para><bold>Result</bold> <image type="html" name="ex_hydraulic_stream0.png"></image>
- <image type="html" name="ex_hydraulic_stream1.png"></image>
- </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="113" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="113" bodyend="192" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="253" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1ab4ba44ccbb8dbdb8af4ff4e50dd90885" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::hydraulic_stream_log</definition>
-        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, const Array *p_mask, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</argsstring>
-        <name>hydraulic_stream_log</name>
-        <qualifiedname>hmap::hydraulic_stream_log</qualifiedname>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>z</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>c_erosion</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>talus_ref</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_mask</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>deposition_ir</declname>
-          <defval>32</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>deposition_scale_ratio</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>gradient_power</declname>
-          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>gradient_scaling_ratio</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>gradient_prefilter_ir</declname>
-          <defval>16</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>saturation_ratio</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_bedrock</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_moisture_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_erosion_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_deposition_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_flow_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <briefdescription>
-<para>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="194" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="194" bodyend="249" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="269" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a0d47acf21b1bf8c1f457f89d50c79f1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::hydraulic_stream_log_multiscale</definition>
-        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, int levels=3, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr, float mix=1.f, float warp=0.35f, std::uint32_t seed=1)</argsstring>
-        <name>hydraulic_stream_log_multiscale</name>
-        <qualifiedname>hmap::hydraulic_stream_log_multiscale</qualifiedname>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>z</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>c_erosion</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>talus_ref</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>levels</declname>
-          <defval>3</defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>deposition_ir</declname>
-          <defval>32</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>deposition_scale_ratio</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>gradient_power</declname>
-          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>gradient_scaling_ratio</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>gradient_prefilter_ir</declname>
-          <defval>16</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>saturation_ratio</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_bedrock</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_moisture_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_erosion_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_deposition_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_flow_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>mix</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>warp</declname>
-          <defval>0.35<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>std::uint32_t</type>
-          <declname>seed</declname>
-          <defval>1</defval>
-        </param>
-        <briefdescription>
-<para>Multiscale stream-power hydraulic erosion cascade. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>Runs stream-power erosion over a geometric resolution ladder (coarsest first, up to z.shape). Coarse levels carve broad valleys and major drainage networks, while fine levels carve detailed tributaries.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>z</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Heightmap array to modify. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>c_erosion</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Erosion coefficient. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>talus_ref</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Reference talus. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>levels</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Number of resolution levels. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>deposition_ir</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Deposition smoothing radius at full resolution. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>deposition_scale_ratio</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Deposition blend factor (applied at last scale). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>gradient_power</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Power applied to normalized gradient. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>gradient_scaling_ratio</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Gradient scaling weight. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>gradient_prefilter_ir</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Gradient prefilter smoothing radius at full resolution. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>saturation_ratio</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Flow saturation ratio. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>p_bedrock</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional bedrock array bounding maximum erosion depth. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>p_moisture_map</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional moisture map. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>p_erosion_map</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional output erosion map. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>p_deposition_map</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional output deposition map. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>p_flow_map</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional output flow accumulation map. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>mix</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Interpolation blend factor between levels. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>warp</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Domain warp amplitude during upsampling. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>seed</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Random seed for domain warping noise. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="251" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="251" bodyend="389" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="314" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a362d53a66acb0cf920c3d9f5e7aa2162" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::hydraulic_stream_log_multiscale</definition>
-        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, const Array *p_mask, int levels=3, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr, float mix=1.f, float warp=0.35f, std::uint32_t seed=1)</argsstring>
-        <name>hydraulic_stream_log_multiscale</name>
-        <qualifiedname>hmap::hydraulic_stream_log_multiscale</qualifiedname>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>z</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>c_erosion</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>talus_ref</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_mask</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>levels</declname>
-          <defval>3</defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>deposition_ir</declname>
-          <defval>32</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>deposition_scale_ratio</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>gradient_power</declname>
-          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>gradient_scaling_ratio</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>gradient_prefilter_ir</declname>
-          <defval>16</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>saturation_ratio</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_bedrock</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_moisture_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_erosion_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_deposition_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_flow_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>mix</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>warp</declname>
-          <defval>0.35<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>std::uint32_t</type>
-          <declname>seed</declname>
-          <defval>1</defval>
-        </param>
-        <briefdescription>
-<para>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="391" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="391" bodyend="458" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="334" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a33c845361a82a1863a6a8a65f8027573" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
