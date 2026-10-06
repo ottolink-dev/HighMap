@@ -13,4 +13,3 @@ if(NOT TARGET libnpy)
   add_library(libnpy::libnpy ALIAS libnpy)
   target_include_directories(libnpy INTERFACE ${libnpy_SOURCE_DIR}/include)
 endif()
-

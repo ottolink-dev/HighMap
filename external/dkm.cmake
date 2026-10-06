@@ -14,4 +14,3 @@ if(NOT TARGET dkm)
   add_library(dkm::dkm ALIAS dkm)
   target_include_directories(dkm INTERFACE ${dkm_SOURCE_DIR}/include)
 endif()
-

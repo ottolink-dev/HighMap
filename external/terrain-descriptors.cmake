@@ -8,4 +8,3 @@ FetchContent_Declare(
   SOURCE_SUBDIR lib)
 
 FetchContent_MakeAvailable(terrain-descriptors)
-

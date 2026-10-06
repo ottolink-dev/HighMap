@@ -14,4 +14,3 @@ if(NOT TARGET FastNoiseLite)
   target_include_directories(FastNoiseLite
                              INTERFACE ${fastnoiselite_SOURCE_DIR}/Cpp)
 endif()
-

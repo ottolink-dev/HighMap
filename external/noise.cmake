@@ -8,4 +8,3 @@ FetchContent_Declare(
   SOURCE_SUBDIR NoiseLib)
 
 FetchContent_MakeAvailable(Noise)
-
