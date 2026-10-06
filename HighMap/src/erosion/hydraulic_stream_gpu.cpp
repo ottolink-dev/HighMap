@@ -17,20 +17,20 @@
 namespace hmap::gpu
 {
 
-void hydraulic_stream_log(Array &z,
-                          float  c_erosion,
-                          float  talus_ref,
-                          int    deposition_ir,
-                          float  deposition_scale_ratio,
-                          float  gradient_power,
-                          float  gradient_scaling_ratio,
-                          int    gradient_prefilter_ir,
-                          float  saturation_ratio,
-                          Array *p_bedrock,
-                          Array *p_moisture_map,
-                          Array *p_erosion_map,
-                          Array *p_deposition_map,
-                          Array *p_flow_map)
+void hydraulic_stream_log(Array       &z,
+                          float        c_erosion,
+                          float        talus_ref,
+                          int          deposition_ir,
+                          float        deposition_scale_ratio,
+                          float        gradient_power,
+                          float        gradient_scaling_ratio,
+                          int          gradient_prefilter_ir,
+                          float        saturation_ratio,
+                          const Array *p_bedrock,
+                          const Array *p_moisture_map,
+                          Array       *p_erosion_map,
+                          Array       *p_deposition_map,
+                          Array       *p_flow_map)
 {
   if (!validate_non_empty(z)) return;
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
@@ -108,8 +108,8 @@ void hydraulic_stream_log(Array       &z,
                           float        gradient_scaling_ratio,
                           int          gradient_prefilter_ir,
                           float        saturation_ratio,
-                          Array       *p_bedrock,
-                          Array       *p_moisture_map,
+                          const Array *p_bedrock,
+                          const Array *p_moisture_map,
                           Array       *p_erosion_map,
                           Array       *p_deposition_map,
                           Array       *p_flow_map)
@@ -264,20 +264,6 @@ void hydraulic_stream_log_multiscale(Array        &z,
       // --- Final level: run erosion and deposition directly on full-detail
       // terrain
 
-      Array  bedrock_copy, moisture_copy;
-      Array *p_b_arg = nullptr;
-      Array *p_m_arg = nullptr;
-      if (p_bedrock)
-      {
-        bedrock_copy = *p_bedrock;
-        p_b_arg = &bedrock_copy;
-      }
-      if (p_moisture_map)
-      {
-        moisture_copy = *p_moisture_map;
-        p_m_arg = &moisture_copy;
-      }
-
       gpu::hydraulic_stream_log(z,
                                 c_erosion,
                                 talus_ref,
@@ -287,8 +273,8 @@ void hydraulic_stream_log_multiscale(Array        &z,
                                 gradient_scaling_ratio,
                                 gradient_prefilter_ir,
                                 saturation_ratio,
-                                p_b_arg,
-                                p_m_arg,
+                                p_bedrock,
+                                p_moisture_map,
                                 nullptr,
                                 nullptr,
                                 p_flow_map);
