@@ -36,7 +36,7 @@ var hydraulic__erosion_8hpp =
     [ "hydraulic_procedural_fbm", "hydraulic__erosion_8hpp.html#a79e45a2a4f3a41739ee49c722cded536", null ],
     [ "hydraulic_procedural_fbm", "hydraulic__erosion_8hpp.html#a0cf61fdf1248cd9cc4da40f510e13973", null ],
     [ "hydraulic_schott", "hydraulic__erosion_8hpp.html#a9749d24b9dd9bed8ee333910951db395", null ],
-    [ "hydraulic_schott", "hydraulic__erosion_8hpp.html#a54cd96bb811138a9c7f9768c4b0a8f98", null ],
+    [ "hydraulic_schott", "hydraulic__erosion_8hpp.html#a5c1876b2e51810f38bc75c192187c8cc", null ],
     [ "hydraulic_schott_erosion", "hydraulic__erosion_8hpp.html#aa3c0fc5295f81856967feed8cf87f711", null ],
     [ "hydraulic_stream_log", "hydraulic__erosion_8hpp.html#a7814928e0f3b995421d298677934d11d", null ],
     [ "hydraulic_stream_log", "hydraulic__erosion_8hpp.html#ac83dbe1bc607d991c237eaf5b20acd69", null ],

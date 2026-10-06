@@ -3035,15 +3035,19 @@
         </inbodydescription>
         <location file="HighMap/src/erosion/hydraulic_schott_gpu.cpp" line="16" column="6" bodyfile="HighMap/src/erosion/hydraulic_schott_gpu.cpp" bodystart="16" bodyend="126" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="1037" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a54cd96bb811138a9c7f9768c4b0a8f98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1a5c1876b2e51810f38bc75c192187c8cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::gpu::hydraulic_schott</definition>
-        <argsstring>(Array &amp;z, int iterations, const Array &amp;talus, Array *p_mask, float c_erosion=1.f, float c_thermal=0.1f, float c_deposition=0.2f, float flow_acc_exponent=0.8f, float flow_acc_exponent_depo=0.8f, float flow_routing_exponent=1.3f, float thermal_weight=1.5f, float deposition_weight=2.5f, Array *p_flow=nullptr)</argsstring>
+        <argsstring>(Array &amp;z, const Array *p_mask, int iterations, const Array &amp;talus, float c_erosion=1.f, float c_thermal=0.1f, float c_deposition=0.2f, float flow_acc_exponent=0.8f, float flow_acc_exponent_depo=0.8f, float flow_routing_exponent=1.3f, float thermal_weight=1.5f, float deposition_weight=2.5f, Array *p_flow=nullptr)</argsstring>
         <name>hydraulic_schott</name>
         <qualifiedname>hmap::gpu::hydraulic_schott</qualifiedname>
         <param>
           <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
           <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_mask</declname>
         </param>
         <param>
           <type>int</type>
@@ -3052,10 +3056,6 @@
         <param>
           <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
           <declname>talus</declname>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_mask</declname>
         </param>
         <param>
           <type>float</type>
@@ -3109,7 +3109,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" line="1051" column="6" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="1051" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_schott_gpu.cpp" line="128" column="6" bodyfile="HighMap/src/erosion/hydraulic_schott_gpu.cpp" bodystart="128" bodyend="176" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="1051" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1aa3c0fc5295f81856967feed8cf87f711" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -23857,72 +23857,6 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/src/erosion/conv_erosion.cpp" line="30" column="13" bodyfile="HighMap/src/erosion/conv_erosion.cpp" bodystart="30" bodyend="176"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a7a16e5308f2297b55d7f0e6e77fdd9a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::gpu::hydraulic_schott</definition>
-        <argsstring>(Array &amp;z, const Array *p_mask, int iterations, const Array &amp;talus, float c_erosion, float c_thermal, float c_deposition, float flow_acc_exponent, float flow_acc_exponent_depo, float flow_routing_exponent, float thermal_weight, float deposition_weight, Array *p_flow)</argsstring>
-        <name>hydraulic_schott</name>
-        <qualifiedname>hmap::gpu::hydraulic_schott</qualifiedname>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>z</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_mask</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>iterations</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>talus</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>c_erosion</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>c_thermal</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>c_deposition</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>flow_acc_exponent</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>flow_acc_exponent_depo</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>flow_routing_exponent</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>thermal_weight</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>deposition_weight</declname>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_flow</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_schott_gpu.cpp" line="128" column="6" bodyfile="HighMap/src/erosion/hydraulic_schott_gpu.cpp" bodystart="128" bodyend="176"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a88838a8a701facc69ddace7b1e98f837" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>float</type>
