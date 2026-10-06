@@ -1061,6 +1061,7 @@ void hydraulic_schott(Array       &z,
                       float        thermal_weight = 1.5f,
                       float        deposition_weight = 2.5f,
                       Array       *p_flow = nullptr);
+
 /*! @brief See hmap::gpu::hydraulic_schott */
 void hydraulic_schott_erosion(Array       &z,
                               int          iterations,

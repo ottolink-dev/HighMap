@@ -623,11 +623,11 @@ void thermal_ridge(Array       &z,
                    int          iterations,
                    Array       *p_deposition_map)
 {
-  apply_with_mask(z,
-                  p_mask,
-                  [&](Array &a) {
-                    gpu::thermal_ridge(a, talus, iterations, p_deposition_map);
-                  });
+  apply_with_mask(
+      z,
+      p_mask,
+      [&](Array &a)
+      { gpu::thermal_ridge(a, talus, iterations, p_deposition_map); });
 }
 
 void thermal_schott(Array       &z,
@@ -692,7 +692,8 @@ void thermal_schott(Array       &z,
   apply_with_mask(
       z,
       p_mask,
-      [&](Array &a) {
+      [&](Array &a)
+      {
         gpu::thermal_schott(a, talus, iterations, intensity, p_deposition_map);
       });
 }

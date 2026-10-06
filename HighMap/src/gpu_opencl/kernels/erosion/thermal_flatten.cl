@@ -48,7 +48,7 @@ void kernel thermal_flatten(global const float *z_in,
   if (dmax < talus[index]) delta -= sigma_inf * excess;
   if (dmax > talus[index]) delta -= sigma_sup * excess;
 
-    // --- Remove material from neighbors
+  // --- Remove material from neighbors
 
 #pragma unroll
   for (int n = 0; n < 8; ++n)

@@ -136,11 +136,11 @@ void gamma_correction_local(Array       &array,
   if (!validate_non_empty(array)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;
 
-  apply_with_mask(array,
-                  p_mask,
-                  [&](Array &a) {
-                    gpu::gamma_correction_local(a, gamma, ir, k, kernel_type);
-                  });
+  apply_with_mask(
+      array,
+      p_mask,
+      [&](Array &a)
+      { gpu::gamma_correction_local(a, gamma, ir, k, kernel_type); });
 }
 
 void laplace(Array &array, float sigma, int iterations)

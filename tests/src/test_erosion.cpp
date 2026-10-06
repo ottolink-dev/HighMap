@@ -551,3 +551,58 @@ TEST(HydraulicMise, Determinism)
 
   EXPECT_TRUE(assert_almost_equal(z1, z2));
 }
+
+TEST(HydraulicSchottGPU, BasicExecution)
+{
+  hmap::gpu::init_opencl();
+
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+  Array      z = z0;
+  float      talus = 0.5f / shape.x;
+  Array      talus_map(shape, talus);
+  Array      flow(shape);
+
+  gpu::hydraulic_schott(z, 20, talus_map, 1.f, 0.1f, 0.2f, 0.8f, 0.8f, 1.3f, 1.5f, 2.5f, &flow);
+
+  EXPECT_EQ(z.shape, shape);
+  EXPECT_FALSE(assert_almost_equal(z, z0));
+
+  for (int j = 0; j < z.shape.y; j++)
+    for (int i = 0; i < z.shape.x; i++)
+    {
+      EXPECT_FALSE(std::isnan(z(i, j)));
+      EXPECT_FALSE(std::isinf(z(i, j)));
+      EXPECT_FALSE(std::isnan(flow(i, j)));
+      EXPECT_FALSE(std::isinf(flow(i, j)));
+      EXPECT_GE(flow(i, j), 1.f);
+    }
+}
+
+TEST(HydraulicSchottErosionGPU, BasicExecution)
+{
+  hmap::gpu::init_opencl();
+
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+  Array      z = z0;
+  Array      flow(shape);
+
+  gpu::hydraulic_schott_erosion(z, 20, 1.f, 0.8f, 1.3f, nullptr, &flow);
+
+  EXPECT_EQ(z.shape, shape);
+  EXPECT_FALSE(assert_almost_equal(z, z0));
+
+  for (int j = 0; j < z.shape.y; j++)
+    for (int i = 0; i < z.shape.x; i++)
+    {
+      EXPECT_FALSE(std::isnan(z(i, j)));
+      EXPECT_FALSE(std::isinf(z(i, j)));
+      EXPECT_FALSE(std::isnan(flow(i, j)));
+      EXPECT_FALSE(std::isinf(flow(i, j)));
+      EXPECT_GE(flow(i, j), 1.f);
+    }
+}
+

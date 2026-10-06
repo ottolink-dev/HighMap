@@ -12,13 +12,19 @@ float schott_get_slope(read_only image2d_t z,
   return (read_imagef(z, sampler, p).x - read_imagef(z, sampler, q).x) / d;
 }
 
-float find_steepest_downslope_neighbor(read_only image2d_t z,
-                                       const sampler_t     sampler,
-                                       const int2          p,
-                                       int2               *ptr_q)
+float find_downslope_neighbor_stochastic(read_only image2d_t z,
+                                         const sampler_t     sampler,
+                                         const int2          p,
+                                         const int           nx,
+                                         const float         flow_routing_exponent,
+                                         const int           it,
+                                         int2               *ptr_q)
 {
-  float slope_max = 0.f;
-  (*ptr_q) = p;
+  float slopes[8];
+  int2  nbrs[8];
+  float weights[8];
+  float total_weight = 0.f;
+  int   cnt = 0;
 
   for (int r = -1; r <= 1; r++)
     for (int s = -1; s <= 1; s++)
@@ -26,15 +32,48 @@ float find_steepest_downslope_neighbor(read_only image2d_t z,
       {
         int2  pn = (int2)(p.x + r, p.y + s);
         float slope = schott_get_slope(z, sampler, p, pn);
-
-        if (slope > slope_max)
+        if (slope > 0.f)
         {
-          slope_max = slope;
-          (*ptr_q) = pn;
+          float w = (flow_routing_exponent == 1.f)
+                        ? slope
+                        : ((flow_routing_exponent == 2.f)
+                               ? slope * slope
+                               : pow_float(slope, flow_routing_exponent));
+          slopes[cnt] = slope;
+          nbrs[cnt] = pn;
+          weights[cnt] = w;
+          total_weight += w;
+          cnt++;
         }
       }
 
-  return slope_max;
+  if (cnt == 0)
+  {
+    (*ptr_q) = p;
+    return 0.f;
+  }
+
+  int pick = 0;
+  if (cnt > 1)
+  {
+    float u = ((float)(hash21u((uint)(p.y * nx + p.x), (uint)it) >> 8) *
+               (1.f / 16777216.f)) *
+              total_weight;
+    float acc = 0.f;
+    pick = cnt - 1;
+    for (int k = 0; k < cnt; ++k)
+    {
+      acc += weights[k];
+      if (u < acc)
+      {
+        pick = k;
+        break;
+      }
+    }
+  }
+
+  (*ptr_q) = nbrs[pick];
+  return slopes[pick];
 }
 
 float schott_get_weight(read_only image2d_t z,
@@ -122,8 +161,14 @@ void kernel hydraulic_schott(read_only image2d_t  z,
 
   // neighbor
   int2  nbrs;
-  float slope_max = find_steepest_downslope_neighbor(z, sampler, g, &nbrs);
-  float speed = clamp(slope_max * slope_max, 0.f, 1.f);
+  float slope = find_downslope_neighbor_stochastic(z,
+                                                   sampler,
+                                                   g,
+                                                   nx,
+                                                   flow_routing_exponent,
+                                                   it,
+                                                   &nbrs);
+  float speed = clamp(slope * slope, 0.f, 1.f);
 
   float z_val = read_imagef(z, sampler, g).x;
 
@@ -154,11 +199,11 @@ void kernel hydraulic_schott(read_only image2d_t  z,
         if (!(r == 0 && s == 0))
         {
           int2  q = (int2)(g.x + r, g.y + s);
-          float slope = schott_get_slope(z, sampler, g, q);
+          float slope_nbr = schott_get_slope(z, sampler, g, q);
 
-          if (slope > talus_val)
+          if (slope_nbr > talus_val)
             down++;
-          else if (slope < -talus_val)
+          else if (slope_nbr < -talus_val)
             up++;
         }
 
@@ -203,7 +248,8 @@ void kernel hydraulic_schott_erosion(read_only image2d_t  z,
                                      const int            ny,
                                      const float          c_erosion,
                                      const float          flow_acc_exponent,
-                                     const float          flow_routing_exponent)
+                                     const float          flow_routing_exponent,
+                                     const int            it)
 {
   const int2 g = {get_global_id(0), get_global_id(1)};
 
@@ -214,8 +260,14 @@ void kernel hydraulic_schott_erosion(read_only image2d_t  z,
 
   // neighbor
   int2  nbrs;
-  float slope_max = find_steepest_downslope_neighbor(z, sampler, g, &nbrs);
-  float speed = clamp(slope_max * slope_max, 0.f, 1.f);
+  float slope = find_downslope_neighbor_stochastic(z,
+                                                   sampler,
+                                                   g,
+                                                   nx,
+                                                   flow_routing_exponent,
+                                                   it,
+                                                   &nbrs);
+  float speed = clamp(slope * slope, 0.f, 1.f);
 
   float z_val = read_imagef(z, sampler, g).x;
 

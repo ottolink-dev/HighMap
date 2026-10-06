@@ -12,14 +12,24 @@ int main(void)
   hmap::remap(z0);
   auto z1 = z0;
 
-  int         iterations = 400;
-  hmap::Array talus(shape, 2.f / (float)shape.x); // for thermal
+  int         iterations = 500;
+  hmap::Array talus(shape, 4.f / (float)shape.x); // for thermal
 
-  hmap::gpu::hydraulic_schott(z1, iterations, talus);
+  hmap::gpu::hydraulic_schott(z1,
+                              iterations,
+                              talus,
+                              0.5f,
+                              0.1f,
+                              0.05f,
+                              0.8f,
+                              0.8f,
+                              1.3f,
+                              1.f,
+                              1.f);
 
   // erosion only
   auto z2 = z0;
-  hmap::gpu::hydraulic_schott_erosion(z2, /* iterations */ 30);
+  hmap::gpu::hydraulic_schott_erosion(z2, 20);
 
   hmap::export_banner_png("ex_hydraulic_schott.png",
                           {z0, z1, z2},

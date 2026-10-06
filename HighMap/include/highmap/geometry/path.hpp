@@ -62,13 +62,13 @@ public:
    * @brief Construct a new Path object based on a cloud of points.
    * @param cloud The cloud of points used to initialize the path.
    */
-  Path(const Cloud &cloud) : Cloud(cloud){};
+  Path(const Cloud &cloud) : Cloud(cloud) {};
 
   /**
    * @brief Move-construct a new Path object based on a cloud of points.
    * @param cloud Rvalue cloud of points used to initialize the path.
    */
-  Path(Cloud &&cloud) noexcept : Cloud(std::move(cloud)){};
+  Path(Cloud &&cloud) noexcept : Cloud(std::move(cloud)) {};
 
   /**
    * @brief Construct a new Path object with random positions and values.
@@ -79,20 +79,20 @@ public:
    * @param bbox    Bounding box for random point generation.
    */
   Path(int npoints, std::uint32_t seed, glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f})
-      : Cloud(npoints, seed, bbox){};
+      : Cloud(npoints, seed, bbox) {};
 
   /**
    * @brief Construct a new Path object based on a list of points. Initializes a
    * path with the specified points and an option to be open or closed.
    * @param points List of points defining the path.
    */
-  Path(const std::vector<Point> &points) : Cloud(points){};
+  Path(const std::vector<Point> &points) : Cloud(points) {};
 
   /**
    * @brief Move-construct a new Path object based on a list of points.
    * @param points Rvalue vector of points defining the path.
    */
-  Path(std::vector<Point> &&points) noexcept : Cloud(std::move(points)){};
+  Path(std::vector<Point> &&points) noexcept : Cloud(std::move(points)) {};
 
   /**
    * @brief Construct a new Path object based on `x` and `y` coordinates.
@@ -102,7 +102,7 @@ public:
    * @param y List of `y` coordinates for the points.
    */
   Path(const std::vector<float> &x, const std::vector<float> &y)
-      : Cloud(x, y){};
+      : Cloud(x, y) {};
 
   /**
    * @brief Construct a new Path object based on `x`, `y` coordinates, and
@@ -115,7 +115,7 @@ public:
   Path(const std::vector<float> &x,
        const std::vector<float> &y,
        const std::vector<float> &v)
-      : Cloud(x, y, v){};
+      : Cloud(x, y, v) {};
 
   /**
    * @brief Construct a point cloud from grid indices mapped to a bounding box.
@@ -131,12 +131,12 @@ public:
   Path(const std::vector<glm::ivec2> &indices,
        const glm::ivec2              &shape,
        const glm::vec4               &bbox = {0.f, 1.f, 0.f, 1.f})
-      : Cloud(indices, shape, bbox){};
+      : Cloud(indices, shape, bbox) {};
 
   /**
    * @brief  Constructs a new Path object from lists of xyz data as glm::vec3.
    * */
-  Path(const std::vector<glm::vec3> &xyv) : Cloud(xyv){};
+  Path(const std::vector<glm::vec3> &xyv) : Cloud(xyv) {};
 
   // ==========================================================================
   //  Accessors

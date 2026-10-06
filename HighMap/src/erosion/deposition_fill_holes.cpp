@@ -38,7 +38,8 @@ void deposition_fill_holes(Array       &z,
 {
   apply_with_mask(z,
                   p_mask,
-                  [&](Array &a) {
+                  [&](Array &a)
+                  {
                     deposition_fill_holes(a,
                                           deposition_ir,
                                           deposition_strength,

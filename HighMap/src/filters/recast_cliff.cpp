@@ -110,7 +110,8 @@ void recast_cliff(Array       &array,
   apply_with_mask(
       array,
       p_mask,
-      [&](Array &a) {
+      [&](Array &a)
+      {
         recast_cliff(a, talus, ir, amplitude, gain, iterations, p_cliff_mask);
       });
 

@@ -216,7 +216,8 @@ void hydraulic_schott_erosion(Array       &z,
                      shape.y,
                      c_erosion,
                      flow_acc_exponent,
-                     flow_routing_exponent);
+                     flow_routing_exponent,
+                     0);
 
   const std::array<cl::Image2D, 2> img_z = {run.get_image2d("z_a").cl_image,
                                             run.get_image2d("z_b").cl_image};
@@ -237,6 +238,9 @@ void hydraulic_schott_erosion(Array       &z,
     // outputs: z_new, flow_new
     run.set_argument(3, img_z[next]);
     run.set_argument(4, img_flow[next]);
+
+    // it index
+    run.set_argument(10, it);
 
     run.execute_async({shape.x, shape.y});
 
