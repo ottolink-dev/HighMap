@@ -8,35 +8,43 @@
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cstddef>}}
 \DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <cstdint>}}
-\DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
-\DoxyCodeLine{00009\ \{}
-\DoxyCodeLine{00010\ }
-\DoxyCodeLine{00020\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_a1dddbe034996fa79873ee62b3a3152fe}{fast\_hash32\_to\_unit\_float}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ seed,\ \textcolor{keywordtype}{size\_t}\ k);}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00032\ uint64\_t\ \mbox{\hyperlink{namespacehmap_a03dbcfc2248c5e343c88b07aa90b2374}{splitmix64}}(uint64\_t\ \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}});}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_a1dddbe034996fa79873ee62b3a3152fe}{fast\_hash32\_to\_unit\_float}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ seed,\ \textcolor{keywordtype}{size\_t}\ k);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_aaa59c49ff09267625f6c671c50862b28}{hash01}}(uint32\_t\ a,\ uint32\_t\ b);}
 \DoxyCodeLine{00033\ }
-\DoxyCodeLine{00047\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_a1727bd2e6f80a1762f65db5583067fa8}{splitmix64\_to\_unit\_float}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ seed,\ \textcolor{keywordtype}{size\_t}\ k);}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00061\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_ab776cf6d2ca581c9f2525df15b2eef45}{uniform01}}(uint64\_t\ h);}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \textcolor{comment}{//\ ===\ PdfSampler\ class\ ===}}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00068\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1PdfSampler}{PdfSampler}}}
-\DoxyCodeLine{00069\ \{}
-\DoxyCodeLine{00070\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{classhmap_1_1PdfSampler}{PdfSampler}}(\textcolor{keyword}{const}\ std::vector<float>\ \&pdf,\ uint32\_t\ seed);}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1PdfSampler_a01aa50faf879bea4bd8291a16ffb9d47}{sample}}();}
-\DoxyCodeLine{00083\ }
-\DoxyCodeLine{00089\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1PdfSampler_a01aa50faf879bea4bd8291a16ffb9d47}{sample}}(\textcolor{keywordtype}{size\_t}\ nb\_samples);}
-\DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00092\ \ \ std::vector<float>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cdf;}
-\DoxyCodeLine{00093\ \ \ std::mt19937\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ generator;}
-\DoxyCodeLine{00094\ \ \ std::uniform\_real\_distribution<float>\ distribution\{0.f,\ 1.f\};}
-\DoxyCodeLine{00095\ \};}
-\DoxyCodeLine{00096\ }
-\DoxyCodeLine{00097\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+\DoxyCodeLine{00040\ uint32\_t\ \mbox{\hyperlink{namespacehmap_a14676278eb3fb09febc338e982100af8}{hash32}}(uint32\_t\ \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}});}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00052\ uint64\_t\ \mbox{\hyperlink{namespacehmap_a03dbcfc2248c5e343c88b07aa90b2374}{splitmix64}}(uint64\_t\ \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}});}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_a1727bd2e6f80a1762f65db5583067fa8}{splitmix64\_to\_unit\_float}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ seed,\ \textcolor{keywordtype}{size\_t}\ k);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_ab776cf6d2ca581c9f2525df15b2eef45}{uniform01}}(uint64\_t\ h);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00091\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_ae76bfd961f1c6f8bcf79ea6a988f1236}{vnoise}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}},\ uint32\_t\ seed\ =\ 0);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{comment}{//\ ===\ PdfSampler\ class\ ===}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1PdfSampler}{PdfSampler}}}
+\DoxyCodeLine{00099\ \{}
+\DoxyCodeLine{00100\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00106\ \ \ \mbox{\hyperlink{classhmap_1_1PdfSampler}{PdfSampler}}(\textcolor{keyword}{const}\ std::vector<float>\ \&pdf,\ uint32\_t\ seed);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1PdfSampler_a01aa50faf879bea4bd8291a16ffb9d47}{sample}}();}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00119\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1PdfSampler_a01aa50faf879bea4bd8291a16ffb9d47}{sample}}(\textcolor{keywordtype}{size\_t}\ nb\_samples);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00122\ \ \ std::vector<float>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cdf;}
+\DoxyCodeLine{00123\ \ \ std::mt19937\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ generator;}
+\DoxyCodeLine{00124\ \ \ std::uniform\_real\_distribution<float>\ distribution\{0.f,\ 1.f\};}
+\DoxyCodeLine{00125\ \};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
 
 \end{DoxyCode}

@@ -51,6 +51,8 @@ var namespacehmap_1_1gpu =
     [ "hydraulic_schott_erosion", "namespacehmap_1_1gpu.html#aa3c0fc5295f81856967feed8cf87f711", null ],
     [ "hydraulic_stream_log", "namespacehmap_1_1gpu.html#a7814928e0f3b995421d298677934d11d", null ],
     [ "hydraulic_stream_log", "namespacehmap_1_1gpu.html#ac83dbe1bc607d991c237eaf5b20acd69", null ],
+    [ "hydraulic_stream_log_multiscale", "namespacehmap_1_1gpu.html#a263168c2e1e24e25a4c1cba0142bdbc0", null ],
+    [ "hydraulic_stream_log_multiscale", "namespacehmap_1_1gpu.html#a62f05d31a752a54d85426afe3048f8aa", null ],
     [ "hydraulic_vpipes", "namespacehmap_1_1gpu.html#a548895d6665a5466b8541122338b59a9", null ],
     [ "mudslide", "namespacehmap_1_1gpu.html#a3faa3e769849fbcc7784d130c05f99a2", null ],
     [ "mudslide", "namespacehmap_1_1gpu.html#ac726e3e56563a153c2c62f0603d53381", null ],

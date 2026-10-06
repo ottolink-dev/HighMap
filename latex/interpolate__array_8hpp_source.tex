@@ -71,34 +71,39 @@
 \DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CoordFrame\ \ \ \&t\_target,}
 \DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeMode\ \ \&cm);}
 \DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap_1_1gpu}{hmap::gpu}}}
-\DoxyCodeLine{00080\ \{}
-\DoxyCodeLine{00081\ }
-\DoxyCodeLine{00082\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_a7fca2b47602e86cf0c65908230bdee55}{interpolate\_array\_bicubic}}(\textcolor{keyword}{const}\ Array\ \&source,\ Array\ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}});}
-\DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_a7fca2b47602e86cf0c65908230bdee55}{interpolate\_array\_bicubic}}(\textcolor{keyword}{const}\ Array\ \ \ \ \ \&source,}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ \ \ \ \ \ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}},}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\_source,}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\_target);}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_a9c6bf942ee590b7a1b1fa7e5d87d890a}{interpolate\_array\_bilinear}}(\textcolor{keyword}{const}\ Array\ \&source,\ Array\ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}});}
-\DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_a9c6bf942ee590b7a1b1fa7e5d87d890a}{interpolate\_array\_bilinear}}(\textcolor{keyword}{const}\ Array\ \ \ \ \ \&source,}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ \ \ \ \ \ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}},}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\_source,}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\_target);}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_ac2dbdcbbe157f0a820f8eb07d4544471}{interpolate\_array\_lagrange}}(\textcolor{keyword}{const}\ Array\ \&source,\ Array\ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hydraulic__mise_8cpp_a75a1634d2dab77d47af4eb58e6dc965e}{order}});}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00098\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_aa345d48e3c7b1f25ae8823a58a17beef}{interpolate\_array\_nearest}}(\textcolor{keyword}{const}\ Array\ \&source,\ Array\ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}});}
-\DoxyCodeLine{00099\ }
-\DoxyCodeLine{00100\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_aa345d48e3c7b1f25ae8823a58a17beef}{interpolate\_array\_nearest}}(\textcolor{keyword}{const}\ Array\ \ \ \ \ \&source,}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ \ \ \ \ \ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}},}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\_source,}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\_target);}
-\DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \}\ \textcolor{comment}{//\ namespace\ hmap::gpu}}
+\DoxyCodeLine{00087\ Array\ \mbox{\hyperlink{namespacehmap_a1489cc458b4e23a36b8c35faa960d358}{resample\_bicubic\_warp}}(\textcolor{keyword}{const}\ Array\ \ \&src,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glm::ivec2\ \ \ \ dst\_shape,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a19148ad2a95f7ad5b05161e9a0f0f732}{warp}}\ =\ 0.f,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::uint32\_t\ seed\ =\ 0);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap_1_1gpu}{hmap::gpu}}}
+\DoxyCodeLine{00095\ \{}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_a7fca2b47602e86cf0c65908230bdee55}{interpolate\_array\_bicubic}}(\textcolor{keyword}{const}\ Array\ \&source,\ Array\ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}});}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_a7fca2b47602e86cf0c65908230bdee55}{interpolate\_array\_bicubic}}(\textcolor{keyword}{const}\ Array\ \ \ \ \ \&source,}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ \ \ \ \ \ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}},}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\_source,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\_target);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_a9c6bf942ee590b7a1b1fa7e5d87d890a}{interpolate\_array\_bilinear}}(\textcolor{keyword}{const}\ Array\ \&source,\ Array\ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}});}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_a9c6bf942ee590b7a1b1fa7e5d87d890a}{interpolate\_array\_bilinear}}(\textcolor{keyword}{const}\ Array\ \ \ \ \ \&source,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ \ \ \ \ \ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}},}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\_source,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\_target);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_ac2dbdcbbe157f0a820f8eb07d4544471}{interpolate\_array\_lagrange}}(\textcolor{keyword}{const}\ Array\ \&source,\ Array\ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hydraulic__mise_8cpp_a75a1634d2dab77d47af4eb58e6dc965e}{order}});}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_aa345d48e3c7b1f25ae8823a58a17beef}{interpolate\_array\_nearest}}(\textcolor{keyword}{const}\ Array\ \&source,\ Array\ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}});}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_1_1gpu_aa345d48e3c7b1f25ae8823a58a17beef}{interpolate\_array\_nearest}}(\textcolor{keyword}{const}\ Array\ \ \ \ \ \&source,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ \ \ \ \ \ \&\mbox{\hyperlink{sls__deformation_8cpp_a2975431cdfb0da699844afbc6058ebc9}{target}},}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\_source,}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec4\ \&bbox\_target);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \}\ \textcolor{comment}{//\ namespace\ hmap::gpu}}
 
 \end{DoxyCode}

@@ -17,6 +17,8 @@ var hydraulic__erosion_8hpp =
     [ "hydraulic_stream", "hydraulic__erosion_8hpp.html#a19dc770c90b02c1f4664bde14ee764f7", null ],
     [ "hydraulic_stream_log", "hydraulic__erosion_8hpp.html#a5d8b448836d569c0f72b668ca1268ef9", null ],
     [ "hydraulic_stream_log", "hydraulic__erosion_8hpp.html#ab4ba44ccbb8dbdb8af4ff4e50dd90885", null ],
+    [ "hydraulic_stream_log_multiscale", "hydraulic__erosion_8hpp.html#a0d47acf21b1bf8c1f457f89d50c79f1e", null ],
+    [ "hydraulic_stream_log_multiscale", "hydraulic__erosion_8hpp.html#a362d53a66acb0cf920c3d9f5e7aa2162", null ],
     [ "hydraulic_stream_upscale_amplification", "hydraulic__erosion_8hpp.html#a66355f091aa60d97d5a7c7eeb08c51cc", null ],
     [ "hydraulic_stream_upscale_amplification", "hydraulic__erosion_8hpp.html#af298a6897a2becf0ae24f3de900081f0", null ],
     [ "conv_erosion", "hydraulic__erosion_8hpp.html#a453995ce289c0c3dad0f34fe10a54d74", null ],
@@ -40,6 +42,8 @@ var hydraulic__erosion_8hpp =
     [ "hydraulic_schott_erosion", "hydraulic__erosion_8hpp.html#aa3c0fc5295f81856967feed8cf87f711", null ],
     [ "hydraulic_stream_log", "hydraulic__erosion_8hpp.html#a7814928e0f3b995421d298677934d11d", null ],
     [ "hydraulic_stream_log", "hydraulic__erosion_8hpp.html#ac83dbe1bc607d991c237eaf5b20acd69", null ],
+    [ "hydraulic_stream_log_multiscale", "hydraulic__erosion_8hpp.html#a263168c2e1e24e25a4c1cba0142bdbc0", null ],
+    [ "hydraulic_stream_log_multiscale", "hydraulic__erosion_8hpp.html#a62f05d31a752a54d85426afe3048f8aa", null ],
     [ "hydraulic_vpipes", "hydraulic__erosion_8hpp.html#a548895d6665a5466b8541122338b59a9", null ],
     [ "hydraulic_saleve", "hydraulic__erosion_8hpp.html#ac0d43b69e78ba45a62795d90f1f453fe", null ]
 ];

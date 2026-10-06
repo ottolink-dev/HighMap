@@ -9,6 +9,7 @@ var interpolate__array_8hpp =
     [ "flatten_heightmap", "interpolate__array_8hpp.html#ace2076a7808458f99aeaeec2bc404d6b", null ],
     [ "flatten_heightmap", "interpolate__array_8hpp.html#a3dadec4e8aa2c67598a0e158756308c8", null ],
     [ "interpolate_heightmap", "interpolate__array_8hpp.html#aab05ca060b3dd80724ff669864c0f4d2", null ],
+    [ "resample_bicubic_warp", "interpolate__array_8hpp.html#a1489cc458b4e23a36b8c35faa960d358", null ],
     [ "interpolate_array_bicubic", "interpolate__array_8hpp.html#a7fca2b47602e86cf0c65908230bdee55", null ],
     [ "interpolate_array_bicubic", "interpolate__array_8hpp.html#a8b7cdbe45c09fc626e1a67d22fb46245", null ],
     [ "interpolate_array_bilinear", "interpolate__array_8hpp.html#a9c6bf942ee590b7a1b1fa7e5d87d890a", null ],

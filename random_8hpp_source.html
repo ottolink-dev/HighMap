@@ -110,46 +110,58 @@ $(document).ready(function(){initNavTree('random_8hpp_source.html',''); initResi
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmap.html">hmap</a></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keywordtype">float</span> <a class="code hl_function" href="namespacehmap.html#a1dddbe034996fa79873ee62b3a3152fe">fast_hash32_to_unit_float</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> seed, <span class="keywordtype">size_t</span> k);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>uint64_t <a class="code hl_function" href="namespacehmap.html#a03dbcfc2248c5e343c88b07aa90b2374">splitmix64</a>(uint64_t <a class="code hl_variable" href="kd__tree_8cpp.html#a1f4ec255d3d8677a6cd9d6a9a6eb653b">x</a>);</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;random&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmap.html">hmap</a></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keywordtype">float</span> <a class="code hl_function" href="namespacehmap.html#a1dddbe034996fa79873ee62b3a3152fe">fast_hash32_to_unit_float</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> seed, <span class="keywordtype">size_t</span> k);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keywordtype">float</span> <a class="code hl_function" href="namespacehmap.html#aaa59c49ff09267625f6c671c50862b28">hash01</a>(uint32_t a, uint32_t b);</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keywordtype">float</span> <a class="code hl_function" href="namespacehmap.html#a1727bd2e6f80a1762f65db5583067fa8">splitmix64_to_unit_float</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> seed, <span class="keywordtype">size_t</span> k);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keywordtype">float</span> <a class="code hl_function" href="namespacehmap.html#ab776cf6d2ca581c9f2525df15b2eef45">uniform01</a>(uint64_t h);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">// === PdfSampler class ===</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="foldopen" id="foldopen00068" data-start="{" data-end="};">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="classhmap_1_1PdfSampler.html">   68</a></span><span class="keyword">class </span><a class="code hl_class" href="classhmap_1_1PdfSampler.html">PdfSampler</a></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>{</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  <a class="code hl_class" href="classhmap_1_1PdfSampler.html">PdfSampler</a>(<span class="keyword">const</span> std::vector&lt;float&gt; &amp;pdf, uint32_t seed);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  <span class="keywordtype">float</span> <a class="code hl_function" href="classhmap_1_1PdfSampler.html#a01aa50faf879bea4bd8291a16ffb9d47">sample</a>();</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  std::vector&lt;float&gt; <a class="code hl_function" href="classhmap_1_1PdfSampler.html#a01aa50faf879bea4bd8291a16ffb9d47">sample</a>(<span class="keywordtype">size_t</span> nb_samples);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  std::vector&lt;float&gt;                    cdf;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  std::mt19937                          generator;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  std::uniform_real_distribution&lt;float&gt; distribution{0.f, 1.f};</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>};</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>uint32_t <a class="code hl_function" href="namespacehmap.html#a14676278eb3fb09febc338e982100af8">hash32</a>(uint32_t <a class="code hl_variable" href="kd__tree_8cpp.html#a1f4ec255d3d8677a6cd9d6a9a6eb653b">x</a>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>uint64_t <a class="code hl_function" href="namespacehmap.html#a03dbcfc2248c5e343c88b07aa90b2374">splitmix64</a>(uint64_t <a class="code hl_variable" href="kd__tree_8cpp.html#a1f4ec255d3d8677a6cd9d6a9a6eb653b">x</a>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">float</span> <a class="code hl_function" href="namespacehmap.html#a1727bd2e6f80a1762f65db5583067fa8">splitmix64_to_unit_float</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> seed, <span class="keywordtype">size_t</span> k);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keywordtype">float</span> <a class="code hl_function" href="namespacehmap.html#ab776cf6d2ca581c9f2525df15b2eef45">uniform01</a>(uint64_t h);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keywordtype">float</span> <a class="code hl_function" href="namespacehmap.html#ae76bfd961f1c6f8bcf79ea6a988f1236">vnoise</a>(<span class="keywordtype">float</span> <a class="code hl_variable" href="kd__tree_8cpp.html#a1f4ec255d3d8677a6cd9d6a9a6eb653b">x</a>, <span class="keywordtype">float</span> <a class="code hl_variable" href="kd__tree_8cpp.html#ad6f02b2c4d57d479201316e67c3103d3">y</a>, uint32_t seed = 0);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">// === PdfSampler class ===</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="foldopen" id="foldopen00098" data-start="{" data-end="};">
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="classhmap_1_1PdfSampler.html">   98</a></span><span class="keyword">class </span><a class="code hl_class" href="classhmap_1_1PdfSampler.html">PdfSampler</a></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>{</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>  <a class="code hl_class" href="classhmap_1_1PdfSampler.html">PdfSampler</a>(<span class="keyword">const</span> std::vector&lt;float&gt; &amp;pdf, uint32_t seed);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>  <span class="keywordtype">float</span> <a class="code hl_function" href="classhmap_1_1PdfSampler.html#a01aa50faf879bea4bd8291a16ffb9d47">sample</a>();</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>  std::vector&lt;float&gt; <a class="code hl_function" href="classhmap_1_1PdfSampler.html#a01aa50faf879bea4bd8291a16ffb9d47">sample</a>(<span class="keywordtype">size_t</span> nb_samples);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>  std::vector&lt;float&gt;                    cdf;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>  std::mt19937                          generator;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>  std::uniform_real_distribution&lt;float&gt; distribution{0.f, 1.f};</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>};</div>
 </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>} <span class="comment">// namespace hmap</span></div>
-<div class="ttc" id="aclasshmap_1_1PdfSampler_html"><div class="ttname"><a href="classhmap_1_1PdfSampler.html">hmap::PdfSampler</a></div><div class="ttdoc">Samples indices from a discrete probability distribution.</div><div class="ttdef"><b>Definition</b> random.hpp:69</div></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>} <span class="comment">// namespace hmap</span></div>
+<div class="ttc" id="aclasshmap_1_1PdfSampler_html"><div class="ttname"><a href="classhmap_1_1PdfSampler.html">hmap::PdfSampler</a></div><div class="ttdoc">Samples indices from a discrete probability distribution.</div><div class="ttdef"><b>Definition</b> random.hpp:99</div></div>
 <div class="ttc" id="aclasshmap_1_1PdfSampler_html_a01aa50faf879bea4bd8291a16ffb9d47"><div class="ttname"><a href="classhmap_1_1PdfSampler.html#a01aa50faf879bea4bd8291a16ffb9d47">hmap::PdfSampler::sample</a></div><div class="ttdeci">float sample()</div><div class="ttdoc">Samples a float value in [0, 1[.</div><div class="ttdef"><b>Definition</b> pdf_sampler.cpp:33</div></div>
 <div class="ttc" id="akd__tree_8cpp_html_a1f4ec255d3d8677a6cd9d6a9a6eb653b"><div class="ttname"><a href="kd__tree_8cpp.html#a1f4ec255d3d8677a6cd9d6a9a6eb653b">x</a></div><div class="ttdeci">const std::vector&lt; float &gt; &amp; x</div><div class="ttdef"><b>Definition</b> kd_tree.cpp:56</div></div>
+<div class="ttc" id="akd__tree_8cpp_html_ad6f02b2c4d57d479201316e67c3103d3"><div class="ttname"><a href="kd__tree_8cpp.html#ad6f02b2c4d57d479201316e67c3103d3">y</a></div><div class="ttdeci">const std::vector&lt; float &gt; &amp; y</div><div class="ttdef"><b>Definition</b> kd_tree.cpp:57</div></div>
 <div class="ttc" id="anamespacehmap_html"><div class="ttname"><a href="namespacehmap.html">hmap</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:23</div></div>
-<div class="ttc" id="anamespacehmap_html_a03dbcfc2248c5e343c88b07aa90b2374"><div class="ttname"><a href="namespacehmap.html#a03dbcfc2248c5e343c88b07aa90b2374">hmap::splitmix64</a></div><div class="ttdeci">uint64_t splitmix64(uint64_t x)</div><div class="ttdoc">Computes a deterministic 64-bit hash using the SplitMix64 algorithm.</div><div class="ttdef"><b>Definition</b> hash.cpp:19</div></div>
-<div class="ttc" id="anamespacehmap_html_a1727bd2e6f80a1762f65db5583067fa8"><div class="ttname"><a href="namespacehmap.html#a1727bd2e6f80a1762f65db5583067fa8">hmap::splitmix64_to_unit_float</a></div><div class="ttdeci">float splitmix64_to_unit_float(unsigned int seed, size_t k)</div><div class="ttdoc">Generates a deterministic uniform float in [0,1) from a seed and sample index.</div><div class="ttdef"><b>Definition</b> hash.cpp:27</div></div>
-<div class="ttc" id="anamespacehmap_html_a1dddbe034996fa79873ee62b3a3152fe"><div class="ttname"><a href="namespacehmap.html#a1dddbe034996fa79873ee62b3a3152fe">hmap::fast_hash32_to_unit_float</a></div><div class="ttdeci">float fast_hash32_to_unit_float(unsigned int seed, size_t k)</div><div class="ttdoc">Generates a fast deterministic uniform float in [0,1) using a 32-bit hash.</div><div class="ttdef"><b>Definition</b> hash.cpp:10</div></div>
-<div class="ttc" id="anamespacehmap_html_ab776cf6d2ca581c9f2525df15b2eef45"><div class="ttname"><a href="namespacehmap.html#ab776cf6d2ca581c9f2525df15b2eef45">hmap::uniform01</a></div><div class="ttdeci">float uniform01(uint64_t h)</div><div class="ttdoc">Converts a 64-bit hash value into a deterministic uniform float in [0, 1).</div><div class="ttdef"><b>Definition</b> hash.cpp:44</div></div>
+<div class="ttc" id="anamespacehmap_html_a03dbcfc2248c5e343c88b07aa90b2374"><div class="ttname"><a href="namespacehmap.html#a03dbcfc2248c5e343c88b07aa90b2374">hmap::splitmix64</a></div><div class="ttdeci">uint64_t splitmix64(uint64_t x)</div><div class="ttdoc">Computes a deterministic 64-bit hash using the SplitMix64 algorithm.</div><div class="ttdef"><b>Definition</b> hash.cpp:37</div></div>
+<div class="ttc" id="anamespacehmap_html_a14676278eb3fb09febc338e982100af8"><div class="ttname"><a href="namespacehmap.html#a14676278eb3fb09febc338e982100af8">hmap::hash32</a></div><div class="ttdeci">uint32_t hash32(uint32_t x)</div><div class="ttdoc">Integer hash function (Murmur3 / finalize style 32-bit mixer).</div><div class="ttdef"><b>Definition</b> hash.cpp:27</div></div>
+<div class="ttc" id="anamespacehmap_html_a1727bd2e6f80a1762f65db5583067fa8"><div class="ttname"><a href="namespacehmap.html#a1727bd2e6f80a1762f65db5583067fa8">hmap::splitmix64_to_unit_float</a></div><div class="ttdeci">float splitmix64_to_unit_float(unsigned int seed, size_t k)</div><div class="ttdoc">Generates a deterministic uniform float in [0,1) from a seed and sample index.</div><div class="ttdef"><b>Definition</b> hash.cpp:45</div></div>
+<div class="ttc" id="anamespacehmap_html_a1dddbe034996fa79873ee62b3a3152fe"><div class="ttname"><a href="namespacehmap.html#a1dddbe034996fa79873ee62b3a3152fe">hmap::fast_hash32_to_unit_float</a></div><div class="ttdeci">float fast_hash32_to_unit_float(unsigned int seed, size_t k)</div><div class="ttdoc">Generates a fast deterministic uniform float in [0,1) using a 32-bit hash.</div><div class="ttdef"><b>Definition</b> hash.cpp:13</div></div>
+<div class="ttc" id="anamespacehmap_html_aaa59c49ff09267625f6c671c50862b28"><div class="ttname"><a href="namespacehmap.html#aaa59c49ff09267625f6c671c50862b28">hmap::hash01</a></div><div class="ttdeci">float hash01(uint32_t a, uint32_t b)</div><div class="ttdoc">Computes a pseudo-random float in [0, 1) by hashing two 32-bit integers.</div><div class="ttdef"><b>Definition</b> hash.cpp:22</div></div>
+<div class="ttc" id="anamespacehmap_html_ab776cf6d2ca581c9f2525df15b2eef45"><div class="ttname"><a href="namespacehmap.html#ab776cf6d2ca581c9f2525df15b2eef45">hmap::uniform01</a></div><div class="ttdeci">float uniform01(uint64_t h)</div><div class="ttdoc">Converts a 64-bit hash value into a deterministic uniform float in [0, 1).</div><div class="ttdef"><b>Definition</b> hash.cpp:62</div></div>
+<div class="ttc" id="anamespacehmap_html_ae76bfd961f1c6f8bcf79ea6a988f1236"><div class="ttname"><a href="namespacehmap.html#ae76bfd961f1c6f8bcf79ea6a988f1236">hmap::vnoise</a></div><div class="ttdeci">float vnoise(float x, float y, uint32_t seed=0)</div><div class="ttdoc">Computes 2D value noise in [-1, 1] using a hash-based lattice.</div><div class="ttdef"><b>Definition</b> hash.cpp:67</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
