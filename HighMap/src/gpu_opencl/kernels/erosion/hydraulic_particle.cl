@@ -77,6 +77,7 @@ inline void helper_bank_collapse(global float *z,
                                  int           has_bedrock)
 {
   if (collapse_rate <= 0.f) return;
+  if (!is_inside(i, j, nx, ny)) return;
 
   int   idx_c = linear_index(i, j, nx);
   float z_c = z[idx_c];
@@ -107,6 +108,7 @@ inline void helper_bank_collapse(global float *z,
         }
         z[idx_n] -= excess * 0.5f;
         z[idx_c] += excess * 0.5f;
+        z_c += excess * 0.5f;
       }
     }
   }
@@ -168,51 +170,28 @@ void kernel hydraulic_particle(global float *z_in,
 
     float2 gz;
 
-    // compute gradient
+    // compute continuous gradient at particle position
     {
-      // --- Sobel with optional elevation_shift
-      int idx00 = linear_index(i - 1, j - 1, nx);
-      int idx01 = linear_index(i - 1, j, nx);
-      int idx02 = linear_index(i - 1, j + 1, nx);
+      int idx00 = linear_index(i, j, nx);
+      int idx10 = linear_index(i + 1, j, nx);
+      int idx01 = linear_index(i, j + 1, nx);
+      int idx11 = linear_index(i + 1, j + 1, nx);
 
-      int idx10 = linear_index(i, j - 1, nx);
-      int idx12 = linear_index(i, j + 1, nx);
-
-      int idx20 = linear_index(i + 1, j - 1, nx);
-      int idx21 = linear_index(i + 1, j, nx);
-      int idx22 = linear_index(i + 1, j + 1, nx);
-
-      // load terrain
       float z00 = z_in[idx00];
-      float z01 = z_in[idx01];
-      float z02 = z_in[idx02];
-
       float z10 = z_in[idx10];
-      float z12 = z_in[idx12];
+      float z01 = z_in[idx01];
+      float z11 = z_in[idx11];
 
-      float z20 = z_in[idx20];
-      float z21 = z_in[idx21];
-      float z22 = z_in[idx22];
-
-      // add elevation_shift if present
       if (has_elevation_shift)
       {
         z00 += elevation_shift[idx00];
-        z01 += elevation_shift[idx01];
-        z02 += elevation_shift[idx02];
-
         z10 += elevation_shift[idx10];
-        z12 += elevation_shift[idx12];
-
-        z20 += elevation_shift[idx20];
-        z21 += elevation_shift[idx21];
-        z22 += elevation_shift[idx22];
+        z01 += elevation_shift[idx01];
+        z11 += elevation_shift[idx11];
       }
 
-      // compute Sobel gradient
-      gz.x = -z00 - 2.f * z01 - z02 + z20 + 2.f * z21 + z22;
-      gz.y = -z00 - 2.f * z10 - z20 + z02 + 2.f * z12 + z22;
-      gz *= 0.125f;
+      gz.x = (1.f - v) * (z10 - z00) + v * (z11 - z01);
+      gz.y = (1.f - u) * (z01 - z00) + u * (z11 - z10);
     }
 
     // ensure minimum slope
@@ -320,20 +299,59 @@ void kernel hydraulic_particle(global float *z_in,
       z_in[idx11] = max(bedrock[idx11], z_in[idx11]);
     }
 
-    // Bank collapse / Talus relaxation:
-    // When erosion deepens the channel beyond the stable talus angle,
-    // adjacent bank walls collapse into the channel, widening the valley.
+    // bank collapse across the bilinear footprint
     if (amount > 0.f && collapse_rate > 0.f)
     {
-      helper_bank_collapse(z_in,
-                           bedrock,
-                           ip,
-                           jp,
-                           nx,
-                           ny,
-                           talus_slope,
-                           collapse_rate,
-                           has_bedrock);
+      int i0 = ip;
+      int j0 = jp;
+      if (i0 == nx - 1) i0--;
+      if (j0 == ny - 1) j0--;
+
+      float d1 = (1.f - up) * (1.f - vp);
+      float d2 = up * (1.f - vp);
+      float d3 = (1.f - up) * vp;
+      float d4 = up * vp;
+
+      if (d1 > 0.f)
+        helper_bank_collapse(z_in,
+                             bedrock,
+                             i0,
+                             j0,
+                             nx,
+                             ny,
+                             talus_slope,
+                             collapse_rate * d1,
+                             has_bedrock);
+      if (d2 > 0.f)
+        helper_bank_collapse(z_in,
+                             bedrock,
+                             i0 + 1,
+                             j0,
+                             nx,
+                             ny,
+                             talus_slope,
+                             collapse_rate * d2,
+                             has_bedrock);
+      if (d3 > 0.f)
+        helper_bank_collapse(z_in,
+                             bedrock,
+                             i0,
+                             j0 + 1,
+                             nx,
+                             ny,
+                             talus_slope,
+                             collapse_rate * d3,
+                             has_bedrock);
+      if (d4 > 0.f)
+        helper_bank_collapse(z_in,
+                             bedrock,
+                             i0 + 1,
+                             j0 + 1,
+                             nx,
+                             ny,
+                             talus_slope,
+                             collapse_rate * d4,
+                             has_bedrock);
     }
 
     // Velocity update:
