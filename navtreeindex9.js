@@ -1,5 +1,13 @@
 var NAVTREEINDEX9 =
 {
+"coherent__noise_8hpp.html#ada25ca73411d7eefe2c425c33ff7cb8d":[4,0,1,0,0,11,0,20],
+"coherent__noise_8hpp.html#ae067755e4e2def08c3e4e94834cb2977":[4,0,1,0,0,11,0,1],
+"coherent__noise_8hpp.html#ae75e563471c02f0c7620f3385be26a18":[4,0,1,0,0,11,0,12],
+"coherent__noise_8hpp.html#afe36f05fb732496cf68a60f4ca0f687b":[4,0,1,0,0,11,0,30],
+"coherent__noise_8hpp_source.html":[4,0,1,0,0,11,0],
+"color__adjust_8cpp.html":[4,0,1,1,6,0],
+"color__adjust_8cpp.html#a3694cff871813c283356c8edf1db3f55":[4,0,1,1,6,0,0],
+"color__adjust_8cpp.html#a5e1e11e11949bc172f52c62ae984ded4":[4,0,1,1,6,0,1],
 "color__adjust_8cpp.html#a7634a1bb2505ae11370c431b0b1fd9ea":[4,0,1,1,6,0,2],
 "color__match__mask_8cpp.html":[4,0,1,1,6,1],
 "color__match__mask_8cpp.html#a45e198f16e345fef1b2aeebc2fe7c429":[4,0,1,1,6,1,0],
@@ -241,13 +249,5 @@ var NAVTREEINDEX9 =
 "detrend_8cpp.html":[4,0,1,1,41,1],
 "detrend_8cpp.html#a000840cf4916102db68d6428c8c8c7e2":[4,0,1,1,41,1,0],
 "diffusion__limited__aggregation_8cpp.html":[4,0,1,1,31,0,1],
-"diffusion__limited__aggregation_8cpp.html#a1ec94a836ccbf817c489733affc9d472":[4,0,1,1,31,0,1,1],
-"diffusion__limited__aggregation_8cpp.html#a43cf2b960fc4f48be0548d87e78cdcb2":[4,0,1,1,31,0,1,0],
-"dig__path_8cpp.html":[4,0,1,1,5,0],
-"dig__path_8cpp.html#a3a29e127d53bc5b547af422da36da1cc":[4,0,1,1,5,0,0],
-"dig__river_8cpp.html":[4,0,1,1,5,1],
-"dig__river_8cpp.html#aa0407e8bf3d06ffb4d8d1e97809d3665":[4,0,1,1,5,1,0],
-"dig__river_8cpp.html#ada12e6cab4577326964d00fac3aa1077":[4,0,1,1,5,1,1],
-"dijsktra_8cpp.html":[4,0,1,1,40,0],
-"dijsktra_8cpp.html#a812ed2264582321318f8f731d621f7bb":[4,0,1,1,40,0,1]
+"diffusion__limited__aggregation_8cpp.html#a1ec94a836ccbf817c489733affc9d472":[4,0,1,1,31,0,1,1]
 };

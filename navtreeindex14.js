@@ -1,5 +1,13 @@
 var NAVTREEINDEX14 =
 {
+"hydraulic__stream__upscale__amplification_8cpp.html#a66355f091aa60d97d5a7c7eeb08c51cc":[4,0,1,1,12,22,0],
+"hydraulic__stream__upscale__amplification_8cpp.html#af298a6897a2becf0ae24f3de900081f0":[4,0,1,1,12,22,1],
+"hydraulic__vpipes__gpu_8cpp.html":[4,0,1,1,12,23],
+"hydraulic__vpipes__gpu_8cpp.html#a548895d6665a5466b8541122338b59a9":[4,0,1,1,12,23,0],
+"hydrology_2hydrology_8hpp.html":[4,0,1,0,0,5,2],
+"hydrology_2hydrology_8hpp.html#a05b9777b63947937181d7b7406e4b50d":[4,0,1,0,0,5,2,3],
+"hydrology_2hydrology_8hpp.html#a129b54789c706428d04afd91d5eb8ae6":[4,0,1,0,0,5,2,41],
+"hydrology_2hydrology_8hpp.html#a136f042ce2ad8c14033f4d839f56265d":[4,0,1,0,0,5,2,29],
 "hydrology_2hydrology_8hpp.html#a1ac328bd9a69f8737550a131d3f9c516":[4,0,1,0,0,5,2,36],
 "hydrology_2hydrology_8hpp.html#a20cb460ecf96e4608610b5ab9fe8f1b0":[4,0,1,0,0,5,2,22],
 "hydrology_2hydrology_8hpp.html#a2318944325d02f3969aa7fa58b500278":[4,0,1,0,0,5,2,7],
@@ -241,13 +249,5 @@ var NAVTREEINDEX14 =
 "kernels_8cpp.html#ac94c2199aca4c2c41da051de40ce3842":[4,0,1,1,23,0,17],
 "kernels_8cpp.html#ace7038aa10105fd2f3d1aa9eb3dd83f1":[4,0,1,1,23,0,19],
 "kernels_8cpp.html#ae1374e51e008a4c88b6e9fe53360e150":[4,0,1,1,23,0,12],
-"kernels_8cpp.html#ae4d60feebbef618bd7a6fb4dcf9431a1":[4,0,1,1,23,0,20],
-"kernels_8cpp.html#af6c25dcc0a945c86cbc8214e622f2742":[4,0,1,1,23,0,7],
-"kernels_8cpp.html#af79b0d6faf3275a80f3948dfff6adaf5":[4,0,1,1,23,0,21],
-"kernels_8cpp.html#afb6b1a073428729f0dc9afc0ba42f8b2":[4,0,1,1,23,0,2],
-"kernels_8hpp.html":[4,0,1,0,0,36],
-"kernels_8hpp.html#a0b3237f9cc015299bf3e436be71d3587":[4,0,1,0,0,36,8],
-"kernels_8hpp.html#a0cfa024afb9246aaa89ec6b2e69501c3":[4,0,1,0,0,36,18],
-"kernels_8hpp.html#a2d1ef54ca8c981d95eb5a990c5d6fa23":[4,0,1,0,0,36,10],
-"kernels_8hpp.html#a38c0a582a98d48f73f49f12ebf1b78f9":[4,0,1,0,0,36,7]
+"kernels_8cpp.html#ae4d60feebbef618bd7a6fb4dcf9431a1":[4,0,1,1,23,0,20]
 };
