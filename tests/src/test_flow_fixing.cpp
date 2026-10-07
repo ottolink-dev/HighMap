@@ -144,3 +144,51 @@ TEST(FlowFixingMST, TriangulatedPathsAndCarving)
   EXPECT_EQ(z_tri_fixed.shape.x, shape.x);
   EXPECT_EQ(z_tri_fixed.shape.y, shape.y);
 }
+
+TEST(FlowFixingMST, VirtualArrayTriangulatedExecution)
+{
+  glm::ivec2         shape = {128, 128};
+  glm::ivec2         tile_shape = {64, 64};
+  int                halo = 8;
+  hmap::ComputeMode  cm;
+  hmap::VirtualArray z(shape, tile_shape, halo, hmap::StorageMode::VA_RAM);
+  hmap::for_each_tile(
+      {},
+      {&z},
+      [&](std::vector<const hmap::Array *>,
+          std::vector<hmap::Array *> p_arrays_out,
+          const hmap::TileRegion    &region)
+      {
+        auto [pa_z] = hmap::unpack<1>(p_arrays_out);
+        *pa_z = hmap::noise_fbm(hmap::NoiseType::PERLIN,
+                                region.shape,
+                                {2.f, 2.f},
+                                42,
+                                8,
+                                2.f,
+                                0.5f,
+                                1.f,
+                                nullptr,
+                                nullptr,
+                                nullptr,
+                                region.bbox);
+      },
+      cm);
+
+  hmap::VirtualArray z_fixed = hmap::va::flow_fixing_mst_triangulated(
+      cm,
+      z,
+      512,                                      // control_points_count
+      42,                                       // seed
+      0.001f,                                   // riverbed_talus
+      0.95f,                                    // elevation_ratio
+      2.f,                                      // distance_exponent
+      10.f,                                     // upward_penalization
+      1e-4f,                                    // minimum_depth
+      4.f,                                      // merging_distance
+      hmap::RadialProfile::RP_SMOOTHSTEP_UPPER, // radial_profile
+      2.f);
+
+  EXPECT_EQ(z_fixed.shape.x, shape.x);
+  EXPECT_EQ(z_fixed.shape.y, shape.y);
+}

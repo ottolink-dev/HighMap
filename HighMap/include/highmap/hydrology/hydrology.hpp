@@ -1326,4 +1326,46 @@ VirtualArray flooding_lake_system(const VirtualArray &z,
                                   float               surface_threshold = 0.f,
                                   const ComputeMode  &cm = {});
 
+/**
+ * @brief Resolves flow sinks on a VirtualArray by computing an MST on a
+ * triangular mesh and distributing river path carving with trenching across
+ * tiles.
+ *
+ * @param  cm                       Compute mode configuration.
+ * @param  z                        Input elevation VirtualArray.
+ * @param  control_points_count     Number of mesh control vertices sampled.
+ * @param  seed                     Random seed for vertex distribution.
+ * @param  riverbed_talus           Minimum talus (slope) along carved
+ *                                  riverbeds.
+ * @param  elevation_ratio          Weight for absolute elevation in Dijkstra
+ *                                  step cost.
+ * @param  distance_exponent        Exponent applied to upward elevation
+ *                                  changes.
+ * @param  upward_penalization      Penalty factor for uphill moves.
+ * @param  minimum_depth            Minimum incision depth below terrain
+ *                                  elevation.
+ * @param  merging_distance         Trench width in pixels.
+ * @param  radial_profile           Radial profile cross-section for trench
+ *                                  carving.
+ * @param  radial_profile_parameter Parameter for radial profile shaping.
+ * @param  p_noise_r                Optional noise VirtualArray for radial
+ *                                  trench perturbation.
+ * @return                          Carved elevation VirtualArray with unbroken
+ *                                  flow paths.
+ */
+VirtualArray flow_fixing_mst_triangulated(
+    const ComputeMode  &cm,
+    const VirtualArray &z,
+    size_t              control_points_count = 2048,
+    std::uint32_t       seed = 0,
+    float               riverbed_talus = 0.f,
+    float               elevation_ratio = 0.95f,
+    float               distance_exponent = 2.f,
+    float               upward_penalization = 0.1f,
+    float               minimum_depth = 1e-4f,
+    float               merging_distance = 8.f,
+    RadialProfile       radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
+    float               radial_profile_parameter = 2.f,
+    const VirtualArray *p_noise_r = nullptr);
+
 } // namespace hmap::va
