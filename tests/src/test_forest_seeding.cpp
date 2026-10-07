@@ -865,3 +865,138 @@ TEST(ForestTest, ToDensityMap)
                                               true);
   EXPECT_GT(density_crown.max(), 0.0f);
 }
+
+// --- build_tree_density Tests
+
+TEST(TreeDensityTest, EmptyAndInvalidInputs)
+{
+  Array empty_array;
+  Array valid_hmap(glm::ivec2(32, 32), 0.5f);
+  Array mismatched_array(glm::ivec2(16, 16), 1.0f);
+
+  // Empty heightmap
+  Array d1 = build_tree_density(empty_array);
+  EXPECT_TRUE(d1.vector.empty());
+
+  // Mismatched secondary density shape
+  Array d2 = build_tree_density(valid_hmap,
+                                0.0f,
+                                1.0f,
+                                0.1f,
+                                0.003f,
+                                0.005f,
+                                30.0f,
+                                90.0f,
+                                1.0f,
+                                1.0f,
+                                0.8f,
+                                0.5f,
+                                mismatched_array,
+                                1.0f);
+  EXPECT_TRUE(d2.vector.empty());
+
+  // Mismatched exclusion mask shape
+  Array d3 = build_tree_density(valid_hmap,
+                                0.0f,
+                                1.0f,
+                                0.1f,
+                                0.003f,
+                                0.005f,
+                                30.0f,
+                                90.0f,
+                                1.0f,
+                                1.0f,
+                                0.8f,
+                                0.5f,
+                                {},
+                                1.0f,
+                                mismatched_array);
+  EXPECT_TRUE(d3.vector.empty());
+}
+
+TEST(TreeDensityTest, BasicDensityComputation)
+{
+  glm::ivec2 shape = {64, 64};
+  Array      hmap(shape, 0.0f);
+  for (int j = 0; j < shape.y; ++j)
+    for (int i = 0; i < shape.x; ++i)
+      hmap(i, j) = static_cast<float>(j) / static_cast<float>(shape.y);
+
+  Array density = build_tree_density(hmap);
+  ASSERT_EQ(density.shape.x, shape.x);
+  ASSERT_EQ(density.shape.y, shape.y);
+
+  for (float v : density.vector)
+  {
+    EXPECT_GE(v, 0.0f);
+    EXPECT_LE(v, 1.0f);
+  }
+}
+
+TEST(TreeDensityTest, ExclusionMask)
+{
+  glm::ivec2 shape = {32, 32};
+  Array      hmap(shape, 0.5f);
+  Array      mask(shape, 1.0f);
+
+  // Mask out half the domain with 0.0
+  for (int j = 0; j < shape.y; ++j)
+    for (int i = 0; i < shape.x / 2; ++i)
+      mask(i, j) = 0.0f;
+
+  Array density = build_tree_density(hmap,
+                                     0.0f,
+                                     1.0f,
+                                     0.1f,
+                                     0.003f,
+                                     0.005f,
+                                     30.0f,
+                                     90.0f,
+                                     1.0f,
+                                     1.0f,
+                                     0.0f, // no angle
+                                     0.0f, // no twi
+                                     {},
+                                     1.0f,
+                                     mask);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x / 2; ++i)
+    {
+      EXPECT_FLOAT_EQ(density(i, j), 0.0f);
+    }
+    for (int i = shape.x / 2; i < shape.x; ++i)
+    {
+      EXPECT_GT(density(i, j), 0.0f);
+    }
+  }
+}
+
+TEST(TreeDensityTest, SecondaryDensityModulation)
+{
+  glm::ivec2 shape = {32, 32};
+  Array      hmap(shape, 0.5f);
+  Array      secondary(shape, 0.0f);
+
+  // Secondary density zero everywhere
+  Array density = build_tree_density(hmap,
+                                     0.0f,
+                                     1.0f,
+                                     0.1f,
+                                     0.003f,
+                                     0.005f,
+                                     30.0f,
+                                     90.0f,
+                                     1.0f,
+                                     1.0f,
+                                     0.0f,
+                                     0.0f,
+                                     secondary,
+                                     1.0f);
+
+  for (float v : density.vector)
+  {
+    EXPECT_FLOAT_EQ(v, 0.0f);
+  }
+}

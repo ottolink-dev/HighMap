@@ -38,6 +38,52 @@ struct ForestSeedingOptions
 // ============================================================================
 
 /**
+ * @brief Computes an environmental suitability criteria map in [0, 1]
+ * representing tree probability density based on elevation, slope talus, aspect
+ * angle, topographic wetness index (TWI), an optional secondary density map,
+ * and an optional exclusion mask.
+ *
+ * @param  heightmap             Input terrain heightmap.
+ * @param  min_elev              Minimum elevation threshold.
+ * @param  max_elev              Maximum elevation threshold.
+ * @param  elev_transition_width Elevation transition smoothing width.
+ * @param  min_talus             Slope/talus threshold for full suitability
+ *                               (1.0).
+ * @param  max_talus             Slope/talus threshold for zero suitability
+ *                               (0.0).
+ * @param  angle                 Preferred slope aspect angle in degrees.
+ * @param  angle_width           Slope aspect angle tolerance half-width in
+ *                               degrees.
+ * @param  weight_elev           Weight for elevation criterion in [0, 1].
+ * @param  weight_talus          Weight for talus/slope criterion in [0, 1].
+ * @param  weight_angle          Weight for aspect angle criterion in [0, 1].
+ * @param  weight_twi            Weight for topographic wetness index criterion
+ *                               in [0, 1].
+ * @param  secondary_density     Optional secondary density or noise modulation
+ *                               map.
+ * @param  weight_secondary      Weight for optional secondary density map in
+ *                               [0, 1].
+ * @param  exclusion_mask        Optional exclusion mask (where <= 0, density is
+ *                               set to 0).
+ * @return                       Array Computed density array in [0, 1].
+ */
+Array build_tree_density(const Array &heightmap,
+                         float        min_elev = 0.0f,
+                         float        max_elev = 0.9f,
+                         float        elev_transition_width = 0.1f,
+                         float        min_talus = 0.003f,
+                         float        max_talus = 0.005f,
+                         float        angle = 30.0f,
+                         float        angle_width = 90.0f,
+                         float        weight_elev = 1.0f,
+                         float        weight_talus = 1.0f,
+                         float        weight_angle = 0.8f,
+                         float        weight_twi = 0.5f,
+                         const Array &secondary_density = {},
+                         float        weight_secondary = 1.0f,
+                         const Array &exclusion_mask = {});
+
+/**
  * @brief Generates a clustered forest distribution using inverse transform
  * sampling for cluster centers and local cluster regions.
  *

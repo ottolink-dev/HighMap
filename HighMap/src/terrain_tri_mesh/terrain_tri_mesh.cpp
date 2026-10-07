@@ -1062,7 +1062,7 @@ TerrainTriMesh generate_terrain_tri_mesh_from_heightmap_random(
 {
   if (!validate_non_empty(z)) return TerrainTriMesh();
 
-  const glm::vec4   bbox = {0.f, 1.f, 0.f, 1.f};
+  const glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f};
 
   Cloud cloud = random_cloud_jittered(control_points_count,
                                       {0.5f, 0.5f},

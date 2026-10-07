@@ -16,29 +16,24 @@ int main(void)
 
   // --- Environmental Suitability Criteria
 
-  hmap::Array density;
-  hmap::Array exclusion;
+  hmap::Array density = hmap::build_tree_density(z,
+                                                 0.0f, // min_elev
+                                                 0.9f, // max_elev
+                                                 0.1f, // elev_transition_width
+                                                 3.f / shape.x, // min_talus
+                                                 5.f / shape.x, // max_talus
+                                                 30.f,          // angle
+                                                 90.f,          // angle_width
+                                                 1.f,           // weight_elev
+                                                 1.f,           // weight_talus
+                                                 0.8f,          // weight_angle
+                                                 0.5f);         // weight_twi
 
-  {
-    auto gn = hmap::gradient_norm(z);
-
-    auto cz = 1.f - hmap::threshold_smooth(z, 0.f, 0.9f);
-    auto cg = 1.f - hmap::threshold_smooth(gn, 3.f / shape.x, 5.f / shape.x);
-    auto ca = hmap::select_angle(z, 30.f, 90.f);
-
-    auto cw = hmap::topographic_wetness_index(z);
-    hmap::remap(cw);
-    hmap::saturate_percentile(cw, 0.f, 0.95f);
-
-    // combine linear density
-    std::vector<const hmap::Array *> vec = {&cz, &cg, &ca, &cw};
-    std::vector<float>               w = {1.f, 1.f, 0.8f, 0.5f};
-
-    density = hmap::build_density_linear(vec, w);
-
-    // exclusion map - exclude steep slopes and high mountain crests
-    exclusion = hmap::threshold_smooth(gn, 4.f / shape.x, 6.f / shape.x);
-  }
+  // exclusion map - exclude steep slopes and high mountain crests
+  hmap::Array gn = hmap::gradient_norm(z);
+  hmap::Array exclusion = hmap::threshold_smooth(gn,
+                                                 4.f / shape.x,
+                                                 6.f / shape.x);
 
   // --- Multi-Species Forest Seeding
   // (Method A: k-means spatial partitioning)

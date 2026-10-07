@@ -14,7 +14,11 @@
 
 #include "highmap/flora/forest_seeding.hpp"
 #include "highmap/geometry/inverse_sampler_2d.hpp"
+#include "highmap/gradient.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/local_metrics.hpp"
+#include "highmap/math/array.hpp"
+#include "highmap/selector.hpp"
 
 namespace hmap
 {
@@ -22,6 +26,111 @@ namespace hmap
 // ============================================================================
 //  Seeding Functions (Alphabetically Sorted)
 // ============================================================================
+
+Array build_tree_density(const Array &heightmap,
+                         float        min_elev,
+                         float        max_elev,
+                         float        elev_transition_width,
+                         float        min_talus,
+                         float        max_talus,
+                         float        angle,
+                         float        angle_width,
+                         float        weight_elev,
+                         float        weight_talus,
+                         float        weight_angle,
+                         float        weight_twi,
+                         const Array &secondary_density,
+                         float        weight_secondary,
+                         const Array &exclusion_mask)
+{
+  // validate inputs
+  if (!validate_non_empty(heightmap)) return Array();
+
+  // --- Elevation Criterion
+
+  Array cz = select_range(heightmap, min_elev, max_elev, elev_transition_width);
+
+  // --- Talus / Slope Criterion
+
+  Array gn = gradient_norm(heightmap);
+  Array cg = 1.0f - threshold_smooth(gn, min_talus, max_talus);
+
+  // --- Aspect Angle Criterion
+
+  Array ca;
+  if (weight_angle > 0.0f) ca = select_angle(heightmap, angle, angle_width);
+
+  // --- Topographic Wetness Index Criterion
+
+  Array cw;
+  if (weight_twi > 0.0f)
+  {
+    cw = topographic_wetness_index(heightmap);
+    remap(cw);
+  }
+
+  // --- Combine Density Layers
+
+  std::vector<const Array *> layers;
+  std::vector<float>         weights;
+
+  if (weight_elev > 0.0f)
+  {
+    layers.push_back(&cz);
+    weights.push_back(weight_elev);
+  }
+
+  if (weight_talus > 0.0f)
+  {
+    layers.push_back(&cg);
+    weights.push_back(weight_talus);
+  }
+
+  if (weight_angle > 0.0f)
+  {
+    layers.push_back(&ca);
+    weights.push_back(weight_angle);
+  }
+
+  if (weight_twi > 0.0f)
+  {
+    layers.push_back(&cw);
+    weights.push_back(weight_twi);
+  }
+
+  bool has_secondary = !secondary_density.vector.empty() ||
+                       secondary_density.shape.x > 0;
+  if (has_secondary && weight_secondary > 0.0f)
+  {
+    if (!validate_non_empty(secondary_density) ||
+        !validate_same_shape(heightmap, secondary_density))
+      return Array();
+
+    layers.push_back(&secondary_density);
+    weights.push_back(weight_secondary);
+  }
+
+  Array density = build_density_linear(layers, weights);
+
+  // --- Exclusion Mask
+
+  bool has_exclusion = !exclusion_mask.vector.empty() ||
+                       exclusion_mask.shape.x > 0;
+  if (has_exclusion)
+  {
+    if (!validate_non_empty(exclusion_mask) ||
+        !validate_same_shape(heightmap, exclusion_mask))
+      return Array();
+
+    for (int j = 0; j < density.shape.y; ++j)
+      for (int i = 0; i < density.shape.x; ++i)
+      {
+        if (exclusion_mask(i, j) <= 0.0f) density(i, j) = 0.0f;
+      }
+  }
+
+  return density;
+}
 
 Forest seed_forest_clusters(size_t                      species_count,
                             size_t                      tree_count,
