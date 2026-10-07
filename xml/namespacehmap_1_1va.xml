@@ -310,6 +310,242 @@
         </inbodydescription>
         <location file="HighMap/src/hydrology/flooding.cpp" line="213" column="14" bodyfile="HighMap/src/hydrology/flooding.cpp" bodystart="213" bodyend="244" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1325" declcolumn="14"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1_1va_1a79c8b1b0f1447fcb8f94f6e2cec8788b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref></type>
+        <definition>VirtualArray hmap::va::flow_fixing_mst_triangulated</definition>
+        <argsstring>(const ComputeMode &amp;cm, const VirtualArray &amp;z, size_t control_points_count=2048, std::uint32_t seed=0, float riverbed_talus=0.f, float elevation_ratio=0.95f, float distance_exponent=2.f, float upward_penalization=0.1f, float minimum_depth=1e-4f, float merging_distance=8.f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP_UPPER, float radial_profile_parameter=2.f, const VirtualArray *p_noise_r=nullptr)</argsstring>
+        <name>flow_fixing_mst_triangulated</name>
+        <qualifiedname>hmap::va::flow_fixing_mst_triangulated</qualifiedname>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>control_points_count</declname>
+          <defval>2048</defval>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>riverbed_talus</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>elevation_ratio</declname>
+          <defval>0.95<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>distance_exponent</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>upward_penalization</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>minimum_depth</declname>
+          <defval>1e-4<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>merging_distance</declname>
+          <defval>8.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90" kindref="member">RadialProfile</ref></type>
+          <declname>radial_profile</declname>
+          <defval><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90acedc11502bd1441e893fdc5a699b6d59" kindref="member">RadialProfile::RP_SMOOTHSTEP_UPPER</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>radial_profile_parameter</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> *</type>
+          <declname>p_noise_r</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Resolves flow sinks on a <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> by computing an MST on a triangular mesh and distributing river path carving with trenching across tiles. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Compute mode configuration. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input elevation <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>control_points_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of mesh control vertices sampled. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random seed for vertex distribution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>riverbed_talus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum talus (slope) along carved riverbeds. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>elevation_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for absolute elevation in Dijkstra step cost. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>distance_exponent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exponent applied to upward elevation changes. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>upward_penalization</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Penalty factor for uphill moves. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>minimum_depth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum incision depth below terrain elevation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>merging_distance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Trench width in pixels. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>radial_profile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Radial profile cross-section for trench carving. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>radial_profile_parameter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parameter for radial profile shaping. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_noise_r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional noise <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> for radial trench perturbation. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Carved elevation <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> with unbroken flow paths. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/hydrology/flow_fixing_mst.cpp" line="1105" column="14" bodyfile="HighMap/src/hydrology/flow_fixing_mst.cpp" bodystart="1105" bodyend="1173" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1356" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1_1va_1a6cdaab2b96cf4ba5c393644a6f64924d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classhmap_1_1Path" kindref="compound">Path</ref> &gt;</type>
+        <definition>std::vector&lt; Path &gt; hmap::va::flow_fixing_mst_paths</definition>
+        <argsstring>(const ComputeMode &amp;cm, const VirtualArray &amp;z, size_t control_points_count, std::uint32_t seed, float riverbed_talus, float elevation_ratio, float distance_exponent, float upward_penalization, float minimum_depth)</argsstring>
+        <name>flow_fixing_mst_paths</name>
+        <qualifiedname>hmap::va::flow_fixing_mst_paths</qualifiedname>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>control_points_count</declname>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>riverbed_talus</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>elevation_ratio</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>distance_exponent</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>upward_penalization</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>minimum_depth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/hydrology/flow_fixing_mst.cpp" line="1065" column="13" bodyfile="HighMap/src/hydrology/flow_fixing_mst.cpp" bodystart="1065" bodyend="1103"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
