@@ -240,6 +240,42 @@ std::vector<uint32_t> ScatterField::get_class_ids() const
   return std::vector<uint32_t>(unique_classes.begin(), unique_classes.end());
 }
 
+std::vector<float> ScatterField::get_radius() const
+{
+  std::vector<float> r;
+  r.reserve(items.size());
+  for (const auto &item : items)
+    r.push_back(item.radius);
+  return r;
+}
+
+std::vector<float> ScatterField::get_x() const
+{
+  std::vector<float> x;
+  x.reserve(items.size());
+  for (const auto &item : items)
+    x.push_back(item.position.x);
+  return x;
+}
+
+std::vector<float> ScatterField::get_y() const
+{
+  std::vector<float> y;
+  y.reserve(items.size());
+  for (const auto &item : items)
+    y.push_back(item.position.y);
+  return y;
+}
+
+std::vector<float> ScatterField::get_z() const
+{
+  std::vector<float> z;
+  z.reserve(items.size());
+  for (const auto &item : items)
+    z.push_back(item.position.z);
+  return z;
+}
+
 void ScatterField::perturb_positions(float dx, float dy, uint32_t seed)
 {
   std::mt19937                          gen(seed);
@@ -1276,8 +1312,8 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
 
 static cv::Mat render_scatter_field_mat(const std::vector<ScatterItem> &items,
                                         glm::ivec2                      shape,
-                                        const Array                    &background,
-                                        glm::vec4                       bbox)
+                                        const Array &background,
+                                        glm::vec4    bbox)
 {
   if (!validate_shape(shape)) return {};
 

@@ -208,6 +208,30 @@ public:
   std::vector<uint32_t> get_class_ids() const;
 
   /**
+   * @brief Extracts the characteristic radius of all items.
+   * @return std::vector<float> Vector of item radii.
+   */
+  std::vector<float> get_radius() const;
+
+  /**
+   * @brief Extracts the x-coordinate of all items.
+   * @return std::vector<float> Vector of x-coordinates.
+   */
+  std::vector<float> get_x() const;
+
+  /**
+   * @brief Extracts the y-coordinate of all items.
+   * @return std::vector<float> Vector of y-coordinates.
+   */
+  std::vector<float> get_y() const;
+
+  /**
+   * @brief Extracts the z-coordinate (elevation) of all items.
+   * @return std::vector<float> Vector of z-coordinates.
+   */
+  std::vector<float> get_z() const;
+
+  /**
    * @brief Slightly perturbs the 2D (x, y) coordinates of scatter items.
    *
    * @param dx   Maximum displacement along the x-axis.
@@ -405,12 +429,13 @@ public:
   /**
    * @brief Renders the scatter field to an 8-bit RGB image buffer.
    *
-   * @param shape      Image dimensions {width, height}.
-   * @param background Optional background terrain array.
-   * @param bbox       Bounding box {xmin, xmax, ymin, ymax} of the domain.
-   * @param flip_y     If true, row 0 is top (screen/image space). If false,
-   *                   row 0 is bottom (Cartesian domain space).
-   * @return std::vector<uint8_t> Interleaved RGB 8-bit image data (size = width * height * 3).
+   * @param  shape      Image dimensions {width, height}.
+   * @param  background Optional background terrain array.
+   * @param  bbox       Bounding box {xmin, xmax, ymin, ymax} of the domain.
+   * @param  flip_y     If true, row 0 is top (screen/image space). If false,
+   *                    row 0 is bottom (Cartesian domain space).
+   * @return            std::vector<uint8_t> Interleaved RGB 8-bit image data
+   *                    (size = width * height * 3).
    */
   std::vector<uint8_t> to_img_8bit(glm::ivec2   shape,
                                    const Array &background = {},

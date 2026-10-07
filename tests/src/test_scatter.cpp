@@ -639,7 +639,7 @@ TEST(ScatterFieldTest, ToImg8bit)
   ScatterField field;
   field.push_back(ScatterItem(0.5f, 0.5f, 0.0f, 0u, 0.2f));
 
-  glm::ivec2 shape = {64, 64};
+  glm::ivec2           shape = {64, 64};
   std::vector<uint8_t> img = field.to_img_8bit(shape);
 
   EXPECT_EQ(img.size(), static_cast<size_t>(shape.x * shape.y * 3));
