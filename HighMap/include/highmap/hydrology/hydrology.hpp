@@ -35,6 +35,8 @@
 namespace hmap
 {
 
+class TerrainTriMesh;
+
 /**
  * @brief Label drainage basins using a priority-flood algorithm.
  *
@@ -567,6 +569,101 @@ Array flow_fixing_mst(
     const Array  *p_noise_r = nullptr,
     bool          use_midpoint = false,
     float         offset_ratio = 0.2f);
+
+/**
+ * @brief Computes river flow paths resolving depressions via Minimum Spanning
+ * Tree (MST) on a triangular terrain mesh.
+ *
+ * Sinks are identified as local minima on the mesh (excluding boundary
+ * vertices). Multi-source Dijkstra expansion computes saddle passes between
+ * sinks and the boundary outlet, Kruskal's MST establishes optimal
+ * connectivity, and directed paths are reconstructed with monotonic downstream
+ * elevation profiles.
+ *
+ * @param  mesh                Input triangular terrain mesh.
+ * @param  riverbed_talus      Minimum talus (slope) along resolved paths.
+ * @param  elevation_ratio     Weight for absolute elevation in Dijkstra step
+ *                             cost.
+ * @param  distance_exponent   Exponent applied to upward elevation changes.
+ * @param  upward_penalization Penalty factor for uphill moves.
+ * @param  minimum_depth       Minimum incision depth below mesh vertex
+ *                             elevations.
+ * @return                     Vector of resolved flow paths (trenchable Path
+ *                             objects).
+ */
+std::vector<Path> flow_fixing_mst_paths(const TerrainTriMesh &mesh,
+                                        float riverbed_talus = 0.f,
+                                        float elevation_ratio = 0.95f,
+                                        float distance_exponent = 2.f,
+                                        float upward_penalization = 0.1f,
+                                        float minimum_depth = 1e-4f);
+
+/**
+ * @brief Computes river flow paths resolving depressions via Minimum Spanning
+ * Tree (MST) on a triangular mesh generated from a heightmap.
+ *
+ * Generates a jittered triangular mesh from the heightmap, solves the MST flow
+ * graph, and extracts a set of trenchable Path objects.
+ *
+ * @param  z                    Input elevation array.
+ * @param  control_points_count Number of mesh control vertices sampled.
+ * @param  seed                 Random seed for vertex distribution.
+ * @param  riverbed_talus       Minimum talus (slope) along resolved paths.
+ * @param  elevation_ratio      Weight for absolute elevation in Dijkstra step
+ *                              cost.
+ * @param  distance_exponent    Exponent applied to upward elevation changes.
+ * @param  upward_penalization  Penalty factor for uphill moves.
+ * @param  minimum_depth        Minimum incision depth below terrain elevation.
+ * @return                      Vector of resolved flow paths (trenchable Path
+ *                              objects).
+ */
+std::vector<Path> flow_fixing_mst_paths(const Array &z,
+                                        size_t control_points_count = 2048,
+                                        std::uint32_t seed = 0,
+                                        float         riverbed_talus = 0.f,
+                                        float         elevation_ratio = 0.95f,
+                                        float         distance_exponent = 2.f,
+                                        float upward_penalization = 0.1f,
+                                        float minimum_depth = 1e-4f);
+
+/**
+ * @brief Resolves flow sinks on a heightmap by computing an MST on a triangular
+ * mesh and carving the resulting river paths with trenching.
+ *
+ * @param  z                        Input elevation array.
+ * @param  control_points_count     Number of mesh control vertices sampled.
+ * @param  seed                     Random seed for vertex distribution.
+ * @param  riverbed_talus           Minimum talus (slope) along carved
+ *                                  riverbeds.
+ * @param  elevation_ratio          Weight for absolute elevation in Dijkstra
+ *                                  step cost.
+ * @param  distance_exponent        Exponent applied to upward elevation
+ *                                  changes.
+ * @param  upward_penalization      Penalty factor for uphill moves.
+ * @param  minimum_depth            Minimum incision depth below terrain
+ *                                  elevation.
+ * @param  merging_distance         Trench width in pixels.
+ * @param  radial_profile           Radial profile cross-section for trench
+ *                                  carving.
+ * @param  radial_profile_parameter Parameter for radial profile shaping.
+ * @param  p_noise_r                Optional noise array for radial trench
+ *                                  perturbation.
+ * @return                          Carved elevation array with unbroken flow
+ *                                  paths.
+ */
+Array flow_fixing_mst_triangulated(
+    const Array  &z,
+    size_t        control_points_count = 2048,
+    std::uint32_t seed = 0,
+    float         riverbed_talus = 0.f,
+    float         elevation_ratio = 0.95f,
+    float         distance_exponent = 2.f,
+    float         upward_penalization = 0.1f,
+    float         minimum_depth = 1e-4f,
+    float         merging_distance = 8.f,
+    RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
+    float         radial_profile_parameter = 2.f,
+    const Array  *p_noise_r = nullptr);
 
 /**
  * @brief Computes the optimal flow path from a starting point to the boundary

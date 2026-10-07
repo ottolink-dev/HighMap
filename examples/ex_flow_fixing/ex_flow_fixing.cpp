@@ -12,11 +12,13 @@ int main(void)
   float riverbed_talus = 0.01f / shape.x;
 
   auto z1 = hmap::flow_fixing(z0, riverbed_talus);
+
   auto z2 = hmap::flow_fixing_drainage_basin(z0,
                                              hmap::FlowDirectionMethod::FDM_D8,
                                              riverbed_talus,
                                              50,
                                              true);
+
   auto z3 = hmap::flow_fixing_mst(z0,
                                   riverbed_talus,
                                   0.99f, // elevation_ratio
@@ -26,6 +28,7 @@ int main(void)
                                   8,     // prefilter_ir
                                   1e-4f, // minimum_depth
                                   true); // carve_riverbed
+
   auto z4 = hmap::flow_fixing_mst(
       z0,
       riverbed_talus,
@@ -42,11 +45,21 @@ int main(void)
       nullptr,                                  // p_noise_r
       true);                                    // use_midpoint
 
-  z3.dump();
-  z4.dump();
+  auto z5 = hmap::flow_fixing_mst_triangulated(
+      z0,
+      4096,                                     // control_points_count
+      seed,                                     // seed
+      riverbed_talus,                           // riverbed_talus
+      0.99f,                                    // elevation_ratio
+      2.f,                                      // distance_exponent
+      100.f,                                    // upward_penalization
+      1e-4f,                                    // minimum_depth
+      8.f,                                      // merging_distance
+      hmap::RadialProfile::RP_SMOOTHSTEP_UPPER, // radial_profile
+      2.f);                                     // radial_profile_parameter
 
   hmap::export_banner_png("ex_flow_fixing.png",
-                          {z0, z1, z2, z3, z4},
+                          {z0, z1, z2, z3, z4, z5},
                           hmap::Cmap::TERRAIN,
                           true);
 }
