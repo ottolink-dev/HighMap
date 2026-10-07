@@ -1,5 +1,8 @@
 var NAVTREEINDEX13 =
 {
+"globals_func_f.html":[4,1,1,2],
+"globals_func_g.html":[4,1,1,3],
+"globals_func_h.html":[4,1,1,4],
 "globals_func_m.html":[4,1,1,5],
 "globals_func_s.html":[4,1,1,6],
 "globals_func_t.html":[4,1,1,7],
@@ -246,8 +249,5 @@ var NAVTREEINDEX13 =
 "hydraulic__stream_8cpp.html#ab4ba44ccbb8dbdb8af4ff4e50dd90885":[4,0,1,1,12,20,3],
 "hydraulic__stream__gpu_8cpp.html":[4,0,1,1,12,21],
 "hydraulic__stream__gpu_8cpp.html#a263168c2e1e24e25a4c1cba0142bdbc0":[4,0,1,1,12,21,2],
-"hydraulic__stream__gpu_8cpp.html#a62f05d31a752a54d85426afe3048f8aa":[4,0,1,1,12,21,3],
-"hydraulic__stream__gpu_8cpp.html#a7e51491ac0bc571828955e8a54b143dc":[4,0,1,1,12,21,0],
-"hydraulic__stream__gpu_8cpp.html#a9a870be45d1ca84c8d11807edb1d70c2":[4,0,1,1,12,21,1],
-"hydraulic__stream__upscale__amplification_8cpp.html":[4,0,1,1,12,22]
+"hydraulic__stream__gpu_8cpp.html#a62f05d31a752a54d85426afe3048f8aa":[4,0,1,1,12,21,3]
 };
