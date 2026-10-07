@@ -26,13 +26,16 @@ Array convolve1d_i(const Array &array, const std::vector<float> &kernel)
   const int nk = (int)kernel.size();
   const int i1 = nk / 2;
 
-  for (int p = 0; p < nk; p++)
+#pragma omp parallel for
+  for (int j = 0; j < array.shape.y; j++)
   {
-    for (int i = 0; i < array.shape.x; i++)
+    for (int p = 0; p < nk; p++)
     {
-      const int ii = std::clamp(i + p - i1, 0, array.shape.x - 1);
-      for (int j = 0; j < array.shape.y; j++)
+      for (int i = 0; i < array.shape.x; i++)
+      {
+        const int ii = std::clamp(i + p - i1, 0, array.shape.x - 1);
         array_out(i, j) += array(ii, j) * kernel[p];
+      }
     }
   }
   return array_out;
@@ -47,15 +50,14 @@ Array convolve1d_j(const Array &array, const std::vector<float> &kernel)
   const int nk = (int)kernel.size();
   const int j1 = nk / 2;
 
-  for (int p = 0; p < nk; p++)
+#pragma omp parallel for
+  for (int j = 0; j < array.shape.y; j++)
   {
-    for (int i = 0; i < array.shape.x; i++)
+    for (int p = 0; p < nk; p++)
     {
-      for (int j = 0; j < array.shape.y; j++)
-      {
-        const int jj = std::clamp(j + p - j1, 0, array.shape.y - 1);
+      const int jj = std::clamp(j + p - j1, 0, array.shape.y - 1);
+      for (int i = 0; i < array.shape.x; i++)
         array_out(i, j) += array(i, jj) * kernel[p];
-      }
     }
   }
   return array_out;
