@@ -665,6 +665,7 @@ var namespacehmap =
     [ "grow_forest_competition_voronoi", "namespacehmap.html#a51ec3fd21f74bdaae31c1403c88cae4a", null ],
     [ "grow_forest_iterative", "namespacehmap.html#a0c6fb1e2c79fb841680cee1e39bb74cb", null ],
     [ "grow_forest_soft_core", "namespacehmap.html#a12b36f2c693eff09dda2732199468fe8", null ],
+    [ "build_tree_density", "namespacehmap.html#aed2820706625d4a715c0cb457b3d7ab4", null ],
     [ "seed_forest_clusters", "namespacehmap.html#a395c1a2f15f7114fac122c864a1e78e6", null ],
     [ "seed_forest_kmeans", "namespacehmap.html#aa6ba2bd6f00bf38f87b87f1179dcc70a", null ],
     [ "make_xy_function_from_array", "namespacehmap.html#a84ca1f41de32e4beacb10787127b4b8a", null ],

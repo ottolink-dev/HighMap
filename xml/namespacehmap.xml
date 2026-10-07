@@ -25261,6 +25261,219 @@ This function:<itemizedlist>
         </inbodydescription>
         <location file="HighMap/src/flora/grow_forest_soft_core.cpp" line="21" column="8" bodyfile="HighMap/src/flora/grow_forest_soft_core.cpp" bodystart="21" bodyend="177" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="308" declcolumn="8"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1aed2820706625d4a715c0cb457b3d7ab4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::build_tree_density</definition>
+        <argsstring>(const Array &amp;heightmap, float min_elev=0.0f, float max_elev=0.9f, float elev_transition_width=0.1f, float min_talus=0.003f, float max_talus=0.005f, float angle=30.0f, float angle_width=90.0f, float weight_elev=1.0f, float weight_talus=1.0f, float weight_angle=0.8f, float weight_twi=0.5f, const Array &amp;secondary_density={}, float weight_secondary=1.0f, const Array &amp;exclusion_mask={})</argsstring>
+        <name>build_tree_density</name>
+        <qualifiedname>hmap::build_tree_density</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>heightmap</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>min_elev</declname>
+          <defval>0.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_elev</declname>
+          <defval>0.9<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>elev_transition_width</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>min_talus</declname>
+          <defval>0.003<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_talus</declname>
+          <defval>0.005<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>angle</declname>
+          <defval>30.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>angle_width</declname>
+          <defval>90.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_elev</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_talus</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_angle</declname>
+          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_twi</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>secondary_density</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_secondary</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion_mask</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Computes an environmental suitability criteria map in [0, 1] representing tree probability density based on elevation, slope talus, aspect angle, topographic wetness index (TWI), an optional secondary density map, and an optional exclusion mask. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>heightmap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input terrain heightmap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum elevation threshold. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum elevation threshold. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>elev_transition_width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Elevation transition smoothing width. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min_talus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slope/talus threshold for full suitability (1.0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_talus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slope/talus threshold for zero suitability (0.0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Preferred slope aspect angle in degrees. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>angle_width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slope aspect angle tolerance half-width in degrees. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for elevation criterion in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_talus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for talus/slope criterion in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for aspect angle criterion in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_twi</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for topographic wetness index criterion in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>secondary_density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional secondary density or noise modulation map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_secondary</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for optional secondary density map in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional exclusion mask (where &lt;= 0, density is set to 0). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> Computed density array in [0, 1]. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/flora/forest_seeding.cpp" line="30" column="7" bodyfile="HighMap/src/flora/forest_seeding.cpp" bodystart="30" bodyend="133" declfile="HighMap/include/highmap/flora/forest_seeding.hpp" declline="70" declcolumn="7"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a395c1a2f15f7114fac122c864a1e78e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
         <definition>Forest hmap::seed_forest_clusters</definition>
@@ -25365,7 +25578,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/flora/forest_seeding.cpp" line="26" column="8" bodyfile="HighMap/src/flora/forest_seeding.cpp" bodystart="26" bodyend="167" declfile="HighMap/include/highmap/flora/forest_seeding.hpp" declline="54" declcolumn="8"/>
+        <location file="HighMap/src/flora/forest_seeding.cpp" line="135" column="8" bodyfile="HighMap/src/flora/forest_seeding.cpp" bodystart="135" bodyend="276" declfile="HighMap/include/highmap/flora/forest_seeding.hpp" declline="100" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa6ba2bd6f00bf38f87b87f1179dcc70a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
@@ -25473,7 +25686,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/flora/forest_seeding.cpp" line="169" column="8" bodyfile="HighMap/src/flora/forest_seeding.cpp" bodystart="169" bodyend="385" declfile="HighMap/include/highmap/flora/forest_seeding.hpp" declline="82" declcolumn="8"/>
+        <location file="HighMap/src/flora/forest_seeding.cpp" line="278" column="8" bodyfile="HighMap/src/flora/forest_seeding.cpp" bodystart="278" bodyend="494" declfile="HighMap/include/highmap/flora/forest_seeding.hpp" declline="128" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a84ca1f41de32e4beacb10787127b4b8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::function&lt; float(float, float)&gt;</type>

@@ -1,5 +1,12 @@
 var NAVTREEINDEX33 =
 {
+"virtual__texture_8hpp.html#a14c2ff528ad95764b5b2c5330087fac4":[4,0,1,0,0,14,4,6],
+"virtual__texture_8hpp.html#a221887dae102efd3756a1a8559eadeee":[4,0,1,0,0,14,4,3],
+"virtual__texture_8hpp.html#a6bbca26bba2f2faac320f59df0ae8d8a":[4,0,1,0,0,14,4,11],
+"virtual__texture_8hpp.html#a6f991e3bdf7c5c4bed631f2b7fb4f072":[4,0,1,0,0,14,4,2],
+"virtual__texture_8hpp.html#a973e9eeaf1bc68c61a860bcff379461b":[4,0,1,0,0,14,4,4],
+"virtual__texture_8hpp.html#aa0a65dc38f8ea42c2e9d36c6fd80cfc9":[4,0,1,0,0,14,4,7],
+"virtual__texture_8hpp.html#af3e986f6ae2229a794cfc0fee081614c":[4,0,1,0,0,14,4,10],
 "virtual__texture_8hpp.html#af66b37de86e8de6261ab902110b118a0":[4,0,1,0,0,14,4,1],
 "virtual__texture_8hpp_source.html":[4,0,1,0,0,14,4],
 "virtual__texture_8inl.html":[4,0,1,0,0,14,5],

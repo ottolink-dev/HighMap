@@ -1081,6 +1081,8 @@ void \mbox{\hyperlink{namespacehmap_a12781eab09d5662bd5490c167c03c8d5}{terrace}}
 \begin{DoxyCompactList}\small\item\em Simulates iterative plant growth with neighborhood competition and mortality. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \mbox{\hyperlink{namespacehmap_a12b36f2c693eff09dda2732199468fe8}{grow\+\_\+forest\+\_\+soft\+\_\+core}} (const \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \&forest, const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1Species}{Species}} $>$ \&species=\{\}, const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&repulsion\+\_\+distances=\{\}, const \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}} \&repulsion\+\_\+strengths=\{\}, size\+\_\+t target\+\_\+count=0, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&max\+\_\+radius\+\_\+scale=\{\}, float max\+\_\+radius\+\_\+scale\+\_\+strength=1.\+0f, uint32\+\_\+t seed=0, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Performs multi-\/species Strauss soft-\/core growth and thinning on an input forest. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_aed2820706625d4a715c0cb457b3d7ab4}{build\+\_\+tree\+\_\+density}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&heightmap, float min\+\_\+elev=0.\+0f, float max\+\_\+elev=0.\+9\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float elev\+\_\+transition\+\_\+width=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float min\+\_\+talus=0.\+003\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float max\+\_\+talus=0.\+005\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}=30.\+0f, float angle\+\_\+width=90.\+0f, float weight\+\_\+elev=1.\+0f, float weight\+\_\+talus=1.\+0f, float weight\+\_\+angle=0.\+8\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float weight\+\_\+twi=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&secondary\+\_\+density=\{\}, float weight\+\_\+secondary=1.\+0f, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exclusion\+\_\+mask=\{\})
+\begin{DoxyCompactList}\small\item\em Computes an environmental suitability criteria map in \mbox{[}0, 1\mbox{]} representing tree probability density based on elevation, slope talus, aspect angle, topographic wetness index (TWI), an optional secondary density map, and an optional exclusion mask. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \mbox{\hyperlink{namespacehmap_a395c1a2f15f7114fac122c864a1e78e6}{seed\+\_\+forest\+\_\+clusters}} (size\+\_\+t species\+\_\+count, size\+\_\+t tree\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exclusion, float cluster\+\_\+spread=0.\+05\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t points\+\_\+per\+\_\+cluster=8, const \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{Forest\+Seeding\+Options}} \&options=\{\})
 \begin{DoxyCompactList}\small\item\em Generates a clustered forest distribution using inverse transform sampling for cluster centers and local cluster regions. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Forest}{Forest}} \mbox{\hyperlink{namespacehmap_aa6ba2bd6f00bf38f87b87f1179dcc70a}{seed\+\_\+forest\+\_\+kmeans}} (size\+\_\+t species\+\_\+count, size\+\_\+t tree\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exclusion, float cluster\+\_\+randomness=0.\+0f, size\+\_\+t k\+\_\+neighbors=4, const \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{Forest\+Seeding\+Options}} \&options=\{\})
@@ -14752,6 +14754,52 @@ Repels and thins neighboring trees probabilistically based on species pairwise i
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 \doxylink{classhmap_1_1Forest}{Forest} Grown and thinned forest. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_aed2820706625d4a715c0cb457b3d7ab4}\label{namespacehmap_aed2820706625d4a715c0cb457b3d7ab4} 
+\index{hmap@{hmap}!build\_tree\_density@{build\_tree\_density}}
+\index{build\_tree\_density@{build\_tree\_density}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{build\_tree\_density()}{build\_tree\_density()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::build\+\_\+tree\+\_\+density (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{heightmap,  }\item[{float}]{min\+\_\+elev = {\ttfamily 0.0f},  }\item[{float}]{max\+\_\+elev = {\ttfamily 0.9\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{elev\+\_\+transition\+\_\+width = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{min\+\_\+talus = {\ttfamily 0.003\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{max\+\_\+talus = {\ttfamily 0.005\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{angle = {\ttfamily 30.0f},  }\item[{float}]{angle\+\_\+width = {\ttfamily 90.0f},  }\item[{float}]{weight\+\_\+elev = {\ttfamily 1.0f},  }\item[{float}]{weight\+\_\+talus = {\ttfamily 1.0f},  }\item[{float}]{weight\+\_\+angle = {\ttfamily 0.8\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{weight\+\_\+twi = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{secondary\+\_\+density = {\ttfamily \{\}},  }\item[{float}]{weight\+\_\+secondary = {\ttfamily 1.0f},  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{exclusion\+\_\+mask = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Computes an environmental suitability criteria map in \mbox{[}0, 1\mbox{]} representing tree probability density based on elevation, slope talus, aspect angle, topographic wetness index (TWI), an optional secondary density map, and an optional exclusion mask. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em heightmap} & Input terrain heightmap. \\
+\hline
+{\em min\+\_\+elev} & Minimum elevation threshold. \\
+\hline
+{\em max\+\_\+elev} & Maximum elevation threshold. \\
+\hline
+{\em elev\+\_\+transition\+\_\+width} & Elevation transition smoothing width. \\
+\hline
+{\em min\+\_\+talus} & Slope/talus threshold for full suitability (1.\+0). \\
+\hline
+{\em max\+\_\+talus} & Slope/talus threshold for zero suitability (0.\+0). \\
+\hline
+{\em angle} & Preferred slope aspect angle in degrees. \\
+\hline
+{\em angle\+\_\+width} & Slope aspect angle tolerance half-\/width in degrees. \\
+\hline
+{\em weight\+\_\+elev} & Weight for elevation criterion in \mbox{[}0, 1\mbox{]}. \\
+\hline
+{\em weight\+\_\+talus} & Weight for talus/slope criterion in \mbox{[}0, 1\mbox{]}. \\
+\hline
+{\em weight\+\_\+angle} & Weight for aspect angle criterion in \mbox{[}0, 1\mbox{]}. \\
+\hline
+{\em weight\+\_\+twi} & Weight for topographic wetness index criterion in \mbox{[}0, 1\mbox{]}. \\
+\hline
+{\em secondary\+\_\+density} & Optional secondary density or noise modulation map. \\
+\hline
+{\em weight\+\_\+secondary} & Weight for optional secondary density map in \mbox{[}0, 1\mbox{]}. \\
+\hline
+{\em exclusion\+\_\+mask} & Optional exclusion mask (where \texorpdfstring{$<$}{<}= 0, density is set to 0). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Array}{Array} Computed density array in \mbox{[}0, 1\mbox{]}. 
 \end{DoxyReturn}
 \Hypertarget{namespacehmap_a395c1a2f15f7114fac122c864a1e78e6}\label{namespacehmap_a395c1a2f15f7114fac122c864a1e78e6} 
 \index{hmap@{hmap}!seed\_forest\_clusters@{seed\_forest\_clusters}}

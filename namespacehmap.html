@@ -1546,6 +1546,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a12b36f2c693eff09dda2732199468fe8" id="r_a12b36f2c693eff09dda2732199468fe8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Forest.html">Forest</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a12b36f2c693eff09dda2732199468fe8">grow_forest_soft_core</a> (const <a class="el" href="classhmap_1_1Forest.html">Forest</a> &amp;forest, const std::vector&lt; <a class="el" href="structhmap_1_1Species.html">Species</a> &gt; &amp;species={}, const <a class="el" href="structhmap_1_1InteractionMatrix.html">InteractionMatrix</a> &amp;repulsion_distances={}, const <a class="el" href="structhmap_1_1InteractionMatrix.html">InteractionMatrix</a> &amp;repulsion_strengths={}, size_t target_count=0, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;max_radius_scale={}, float max_radius_scale_strength=1.0f, uint32_t seed=0, const glm::vec4 &amp;bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
 <tr class="memdesc:a12b36f2c693eff09dda2732199468fe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs multi-species Strauss soft-core growth and thinning on an input forest.  <br /></td></tr>
 <tr class="separator:a12b36f2c693eff09dda2732199468fe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed2820706625d4a715c0cb457b3d7ab4" id="r_aed2820706625d4a715c0cb457b3d7ab4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#aed2820706625d4a715c0cb457b3d7ab4">build_tree_density</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;heightmap, float min_elev=0.0f, float max_elev=0.9<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float elev_transition_width=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float min_talus=0.003<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float max_talus=0.005<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float <a class="el" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a>=30.0f, float angle_width=90.0f, float weight_elev=1.0f, float weight_talus=1.0f, float weight_angle=0.8<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float weight_twi=0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;secondary_density={}, float weight_secondary=1.0f, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;exclusion_mask={})</td></tr>
+<tr class="memdesc:aed2820706625d4a715c0cb457b3d7ab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes an environmental suitability criteria map in [0, 1] representing tree probability density based on elevation, slope talus, aspect angle, topographic wetness index (TWI), an optional secondary density map, and an optional exclusion mask.  <br /></td></tr>
+<tr class="separator:aed2820706625d4a715c0cb457b3d7ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a395c1a2f15f7114fac122c864a1e78e6" id="r_a395c1a2f15f7114fac122c864a1e78e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Forest.html">Forest</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a395c1a2f15f7114fac122c864a1e78e6">seed_forest_clusters</a> (size_t species_count, size_t tree_count, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;density, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;exclusion, float cluster_spread=0.05<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, size_t points_per_cluster=8, const <a class="el" href="structhmap_1_1ForestSeedingOptions.html">ForestSeedingOptions</a> &amp;options={})</td></tr>
 <tr class="memdesc:a395c1a2f15f7114fac122c864a1e78e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a clustered forest distribution using inverse transform sampling for cluster centers and local cluster regions.  <br /></td></tr>
 <tr class="separator:a395c1a2f15f7114fac122c864a1e78e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -24008,6 +24011,135 @@ A_{i,j}^{t+1} = A_{i,j}^{t} + \sigma \cdot
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Forest.html" title="Container class representing a collection of Tree instances.">Forest</a> Grown and thinned forest. </dd></dl>
+
+</div>
+</div>
+<a id="aed2820706625d4a715c0cb457b3d7ab4" name="aed2820706625d4a715c0cb457b3d7ab4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed2820706625d4a715c0cb457b3d7ab4">&#9670;&#160;</a></span>build_tree_density()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1Array.html">Array</a> hmap::build_tree_density </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>heightmap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>min_elev</em> = <code>0.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>max_elev</em> = <code>0.9<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>elev_transition_width</em> = <code>0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>min_talus</em> = <code>0.003<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>max_talus</em> = <code>0.005<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>angle</em> = <code>30.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>angle_width</em> = <code>90.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>weight_elev</em> = <code>1.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>weight_talus</em> = <code>1.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>weight_angle</em> = <code>0.8<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>weight_twi</em> = <code>0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>secondary_density</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>weight_secondary</em> = <code>1.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>exclusion_mask</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes an environmental suitability criteria map in [0, 1] representing tree probability density based on elevation, slope talus, aspect angle, topographic wetness index (TWI), an optional secondary density map, and an optional exclusion mask. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">heightmap</td><td>Input terrain heightmap. </td></tr>
+    <tr><td class="paramname">min_elev</td><td>Minimum elevation threshold. </td></tr>
+    <tr><td class="paramname">max_elev</td><td>Maximum elevation threshold. </td></tr>
+    <tr><td class="paramname">elev_transition_width</td><td>Elevation transition smoothing width. </td></tr>
+    <tr><td class="paramname">min_talus</td><td>Slope/talus threshold for full suitability (1.0). </td></tr>
+    <tr><td class="paramname">max_talus</td><td>Slope/talus threshold for zero suitability (0.0). </td></tr>
+    <tr><td class="paramname">angle</td><td>Preferred slope aspect angle in degrees. </td></tr>
+    <tr><td class="paramname">angle_width</td><td>Slope aspect angle tolerance half-width in degrees. </td></tr>
+    <tr><td class="paramname">weight_elev</td><td>Weight for elevation criterion in [0, 1]. </td></tr>
+    <tr><td class="paramname">weight_talus</td><td>Weight for talus/slope criterion in [0, 1]. </td></tr>
+    <tr><td class="paramname">weight_angle</td><td>Weight for aspect angle criterion in [0, 1]. </td></tr>
+    <tr><td class="paramname">weight_twi</td><td>Weight for topographic wetness index criterion in [0, 1]. </td></tr>
+    <tr><td class="paramname">secondary_density</td><td>Optional secondary density or noise modulation map. </td></tr>
+    <tr><td class="paramname">weight_secondary</td><td>Weight for optional secondary density map in [0, 1]. </td></tr>
+    <tr><td class="paramname">exclusion_mask</td><td>Optional exclusion mask (where &lt;= 0, density is set to 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> Computed density array in [0, 1]. </dd></dl>
 
 </div>
 </div>
