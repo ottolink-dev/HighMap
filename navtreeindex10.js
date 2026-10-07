@@ -1,5 +1,7 @@
 var NAVTREEINDEX10 =
 {
+"dijsktra_8cpp.html#aa4fe84200d088c3bc24637ebc369c0cc":[4,0,1,1,40,0,3],
+"dijsktra_8cpp.html#abe9f271f1c9b55a7bf910020da4023a0":[4,0,1,1,40,0,0],
 "dijsktra_8cpp.html#add63dbb83ccbeb2509ace508f4c391ea":[4,0,1,1,40,0,2],
 "dijsktra__path_8cpp.html":[4,0,1,1,40,1],
 "dijsktra__path_8cpp.html#a38e634dbf8d4bc5c7ded9abdb2ecab2a":[4,0,1,1,40,1,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX10 =
 "filters_8cpp.html#a49ea41f360f192a6c21efffd8b4df659":[4,0,1,1,15,7,2],
 "filters_8cpp.html#a4b4c16f9dcd3cdb8e4e53c7cb6a44ed7":[4,0,1,1,15,7,37],
 "filters_8cpp.html#a4e0ce9e13f26f66fa546e5127a68956c":[4,0,1,1,15,7,36],
-"filters_8cpp.html#a4e3cbe9e4b43341148c170f34bd462fd":[4,0,1,1,15,7,54],
-"filters_8cpp.html#a4e87766dc576eec73cfef1f4050f3bb3":[4,0,1,1,15,7,13],
-"filters_8cpp.html#a558c273680de2328f37e5df7ee598813":[4,0,1,1,15,7,34]
+"filters_8cpp.html#a4e3cbe9e4b43341148c170f34bd462fd":[4,0,1,1,15,7,54]
 };

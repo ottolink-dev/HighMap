@@ -252,6 +252,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4cf0ddf4c16900b485b580643cceb3d7" id="r_a4cf0ddf4c16900b485b580643cceb3d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#a4cf0ddf4c16900b485b580643cceb3d7">to_csv</a> (const std::string &amp;fname) const</td></tr>
 <tr class="memdesc:a4cf0ddf4c16900b485b580643cceb3d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exports the items to a CSV file (x, y, z, class_id, radius).  <br /></td></tr>
 <tr class="separator:a4cf0ddf4c16900b485b580643cceb3d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79024c8f5ab3fa6a8a1dbb70d70b9425" id="r_a79024c8f5ab3fa6a8a1dbb70d70b9425"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#a79024c8f5ab3fa6a8a1dbb70d70b9425">to_img_8bit</a> (glm::ivec2 <a class="el" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;background={}, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}, bool flip_y=false) const</td></tr>
+<tr class="memdesc:a79024c8f5ab3fa6a8a1dbb70d70b9425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the scatter field to an 8-bit RGB image buffer.  <br /></td></tr>
+<tr class="separator:a79024c8f5ab3fa6a8a1dbb70d70b9425"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e1e40d95eaecfff34f524bb44e2cb74" id="r_a4e1e40d95eaecfff34f524bb44e2cb74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ScatterField.html#a4e1e40d95eaecfff34f524bb44e2cb74">to_png</a> (const std::string &amp;fname, glm::ivec2 <a class="el" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;background={}, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}) const</td></tr>
 <tr class="memdesc:a4e1e40d95eaecfff34f524bb44e2cb74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exports a visual representation of the scatter field as a PNG image.  <br /></td></tr>
 <tr class="separator:a4e1e40d95eaecfff34f524bb44e2cb74"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1680,6 +1683,58 @@ template&lt;typename... Args&gt; </div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a79024c8f5ab3fa6a8a1dbb70d70b9425" name="a79024c8f5ab3fa6a8a1dbb70d70b9425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79024c8f5ab3fa6a8a1dbb70d70b9425">&#9670;&#160;</a></span>to_img_8bit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; uint8_t &gt; hmap::ScatterField::to_img_8bit </td>
+          <td>(</td>
+          <td class="paramtype">glm::ivec2&#160;</td>
+          <td class="paramname"><em>shape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>background</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec4&#160;</td>
+          <td class="paramname"><em>bbox</em> = <code>{0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>flip_y</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renders the scatter field to an 8-bit RGB image buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shape</td><td>Image dimensions {width, height}. </td></tr>
+    <tr><td class="paramname">background</td><td>Optional background terrain array. </td></tr>
+    <tr><td class="paramname">bbox</td><td>Bounding box {xmin, xmax, ymin, ymax} of the domain. </td></tr>
+    <tr><td class="paramname">flip_y</td><td>If true, row 0 is top (screen/image space). If false, row 0 is bottom (Cartesian domain space). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;uint8_t&gt; Interleaved RGB 8-bit image data (size = width * height * 3). </dd></dl>
 
 </div>
 </div>

@@ -539,6 +539,25 @@
         </inbodydescription>
         <location file="tests/src/test_scatter.cpp" line="598" column="1" bodyfile="tests/src/test_scatter.cpp" bodystart="598" bodyend="635"/>
       </memberdef>
+      <memberdef kind="function" id="test__scatter_8cpp_1a09222bcee0640971f83cf90d74ed9299" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(ScatterFieldTest, ToImg8bit)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>ScatterFieldTest</type>
+        </param>
+        <param>
+          <type>ToImg8bit</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_scatter.cpp" line="637" column="1" bodyfile="tests/src/test_scatter.cpp" bodystart="637" bodyend="659"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -1180,6 +1199,30 @@
 <codeline lineno="633"><highlight class="normal"><sp/><sp/>EXPECT_GE(rock_map_free.<ref refid="classhmap_1_1Array_1a56c77f78e4864f5c6f2cbd6de8100556" kindref="member">min</ref>(),<sp/>0.0f);</highlight></codeline>
 <codeline lineno="634"><highlight class="normal"><sp/><sp/>EXPECT_LE(rock_map_free.<ref refid="classhmap_1_1Array_1a68aac609ccba8f581da1cdf5cee671b9" kindref="member">max</ref>(),<sp/>1.0f);</highlight></codeline>
 <codeline lineno="635"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"></highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><ref refid="test__scatter_8cpp_1a405334024e124c9383d05c694267eb21" kindref="member">TEST</ref>(ScatterFieldTest,<sp/>ToImg8bit)</highlight></codeline>
+<codeline lineno="638"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref><sp/>field;</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1ScatterField_1aff098f62a339deb2a51854d081f96af9" kindref="member">push_back</ref>(<ref refid="classhmap_1_1ScatterItem" kindref="compound">ScatterItem</ref>(0.5f,<sp/>0.5f,<sp/>0.0f,<sp/>0u,<sp/>0.2f));</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"></highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/>std::vector&lt;uint8_t&gt;<sp/>img<sp/>=<sp/>field.<ref refid="classhmap_1_1ScatterField_1a79024c8f5ab3fa6a8a1dbb70d70b9425" kindref="member">to_img_8bit</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"></highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/>EXPECT_EQ(img.size(),<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>*<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y<sp/>*<sp/>3));</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"></highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Background<sp/>is<sp/>not<sp/>empty<sp/>and<sp/>has<sp/>content</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>has_non_bg<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>img.size();<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>+=<sp/>3)</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Default<sp/>background<sp/>is<sp/>rgb(35,<sp/>35,<sp/>35)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(img[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>]<sp/>!=<sp/>35<sp/>||<sp/>img[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>+<sp/>1]<sp/>!=<sp/>35<sp/>||<sp/>img[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>+<sp/>2]<sp/>!=<sp/>35)</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>has_non_bg<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(has_non_bg);</highlight></codeline>
+<codeline lineno="659"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_scatter.cpp"/>
   </compounddef>

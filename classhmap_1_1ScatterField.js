@@ -47,6 +47,7 @@ var classhmap_1_1ScatterField =
     [ "to_density_map", "classhmap_1_1ScatterField.html#a914fe248c39cdc85f2ce5cdab1058c03", null ],
     [ "to_heightmap", "classhmap_1_1ScatterField.html#ac8d50ec2113700c1dda1cba253de00fe", null ],
     [ "to_csv", "classhmap_1_1ScatterField.html#a4cf0ddf4c16900b485b580643cceb3d7", null ],
+    [ "to_img_8bit", "classhmap_1_1ScatterField.html#a79024c8f5ab3fa6a8a1dbb70d70b9425", null ],
     [ "to_png", "classhmap_1_1ScatterField.html#a4e1e40d95eaecfff34f524bb44e2cb74", null ],
     [ "to_string", "classhmap_1_1ScatterField.html#aece4b7ce3a6d09279928b0468fb55efb", null ],
     [ "items", "classhmap_1_1ScatterField.html#aeb89e13a2a22fc06a08bc02e0fdcaa61", null ]

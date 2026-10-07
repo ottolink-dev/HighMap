@@ -1,5 +1,7 @@
 var NAVTREEINDEX12 =
 {
+"filters__gpu_8cpp.html#afac304e88619a3d6fb35f7ff959368dd":[4,0,1,1,15,8,16],
+"filters__va_8cpp.html":[4,0,1,1,15,9],
 "filters__va_8cpp.html#a3df8c2c762d79f38e07069e47063fade":[4,0,1,1,15,9,1],
 "filters__va_8cpp.html#aec2c193932c4d5d1fe00d09b81e243d8":[4,0,1,1,15,9,0],
 "find__cut__path_8cpp.html":[4,0,1,1,40,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX12 =
 "globals_h.html":[4,1,0,7],
 "globals_i.html":[4,1,0,8],
 "globals_j.html":[4,1,0,9],
-"globals_k.html":[4,1,0,10],
-"globals_l.html":[4,1,0,11],
-"globals_m.html":[4,1,0,12]
+"globals_k.html":[4,1,0,10]
 };
