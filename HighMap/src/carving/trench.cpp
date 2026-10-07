@@ -234,8 +234,8 @@ void trench(Array                       &z,
   float dx = (bbox.y - bbox.x) / float(shape.x);
   float dy = (bbox.w - bbox.z) / float(shape.y);
 
-  Array zp = z;
-  Array blending_mask(shape);
+  Array blending_mask;
+  if (p_bending_mask) blending_mask = Array(shape);
 
   // --- Continuous segment capsule rasterization with tile culling
 
@@ -287,8 +287,8 @@ void trench(Array                       &z,
         if (r >= 0.f && r <= 1.f)
         {
           float t = profile_fct(r);
-          zp(i, j) = lerp(pv, z(i, j), t);
-          blending_mask(i, j) = 1.f - t;
+          z(i, j) = lerp(pv, z(i, j), t);
+          if (p_bending_mask) blending_mask(i, j) = 1.f - t;
         }
       }
     }
@@ -468,8 +468,8 @@ void trench(Array                       &z,
           if (r >= 0.f && r <= 1.f)
           {
             float t = profile_fct(r);
-            zp(i, j) = lerp(zref, z(i, j), t);
-            blending_mask(i, j) = 1.f - t;
+            z(i, j) = lerp(zref, z(i, j), t);
+            if (p_bending_mask) blending_mask(i, j) = 1.f - t;
           }
         }
       }
@@ -479,8 +479,6 @@ void trench(Array                       &z,
   // --- Outputs
 
   if (p_bending_mask) *p_bending_mask = std::move(blending_mask);
-
-  z = std::move(zp);
 }
 
 } // namespace hmap
