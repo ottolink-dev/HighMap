@@ -1272,12 +1272,14 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
   return heightmap;
 }
 
-void ScatterField::to_png(const std::string &fname,
-                          glm::ivec2         shape,
-                          const Array       &background,
-                          glm::vec4          bbox) const
+// --- Internal Rendering Helper
+
+static cv::Mat render_scatter_field_mat(const std::vector<ScatterItem> &items,
+                                        glm::ivec2                      shape,
+                                        const Array                    &background,
+                                        glm::vec4                       bbox)
 {
-  if (!validate_shape(shape)) return;
+  if (!validate_shape(shape)) return {};
 
   cv::Mat img;
 
@@ -1359,6 +1361,39 @@ void ScatterField::to_png(const std::string &fname,
     }
   }
 
+  return img;
+}
+
+std::vector<uint8_t> ScatterField::to_img_8bit(glm::ivec2   shape,
+                                               const Array &background,
+                                               glm::vec4    bbox,
+                                               bool         flip_y) const
+{
+  cv::Mat img = render_scatter_field_mat(items, shape, background, bbox);
+  if (img.empty()) return {};
+
+  if (!flip_y)
+  {
+    cv::flip(img, img, 0);
+  }
+
+  cv::Mat rgb;
+  cv::cvtColor(img, rgb, cv::COLOR_BGR2RGB);
+
+  if (!rgb.isContinuous()) rgb = rgb.clone();
+
+  std::vector<uint8_t> buffer(rgb.total() * rgb.elemSize());
+  std::memcpy(buffer.data(), rgb.data, buffer.size());
+  return buffer;
+}
+
+void ScatterField::to_png(const std::string &fname,
+                          glm::ivec2         shape,
+                          const Array       &background,
+                          glm::vec4          bbox) const
+{
+  cv::Mat img = render_scatter_field_mat(items, shape, background, bbox);
+  if (img.empty()) return;
   cv::imwrite(fname, img);
 }
 

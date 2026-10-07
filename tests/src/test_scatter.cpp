@@ -633,3 +633,27 @@ TEST(ScatterFieldTest, ToHeightmapRockMap)
   EXPECT_GE(rock_map_free.min(), 0.0f);
   EXPECT_LE(rock_map_free.max(), 1.0f);
 }
+
+TEST(ScatterFieldTest, ToImg8bit)
+{
+  ScatterField field;
+  field.push_back(ScatterItem(0.5f, 0.5f, 0.0f, 0u, 0.2f));
+
+  glm::ivec2 shape = {64, 64};
+  std::vector<uint8_t> img = field.to_img_8bit(shape);
+
+  EXPECT_EQ(img.size(), static_cast<size_t>(shape.x * shape.y * 3));
+
+  // Background is not empty and has content
+  bool has_non_bg = false;
+  for (size_t i = 0; i < img.size(); i += 3)
+  {
+    // Default background is rgb(35, 35, 35)
+    if (img[i] != 35 || img[i + 1] != 35 || img[i + 2] != 35)
+    {
+      has_non_bg = true;
+      break;
+    }
+  }
+  EXPECT_TRUE(has_non_bg);
+}

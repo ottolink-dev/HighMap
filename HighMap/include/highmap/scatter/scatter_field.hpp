@@ -403,6 +403,21 @@ public:
   void to_csv(const std::string &fname) const;
 
   /**
+   * @brief Renders the scatter field to an 8-bit RGB image buffer.
+   *
+   * @param shape      Image dimensions {width, height}.
+   * @param background Optional background terrain array.
+   * @param bbox       Bounding box {xmin, xmax, ymin, ymax} of the domain.
+   * @param flip_y     If true, row 0 is top (screen/image space). If false,
+   *                   row 0 is bottom (Cartesian domain space).
+   * @return std::vector<uint8_t> Interleaved RGB 8-bit image data (size = width * height * 3).
+   */
+  std::vector<uint8_t> to_img_8bit(glm::ivec2   shape,
+                                   const Array &background = {},
+                                   glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
+                                   bool         flip_y = false) const;
+
+  /**
    * @brief Exports a visual representation of the scatter field as a PNG image.
    *
    * @param fname      Output PNG file path.
