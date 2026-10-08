@@ -1082,8 +1082,7 @@ std::vector<Path> flow_fixing_mst_paths(const ComputeMode  &cm,
   // write into the same cloud, so distributed sampling races on the points in
   // the overlaps and the resulting sinks change from one run to the next
   ComputeMode cm_sampling = cm;
-  if (cm.mode == ForEachMode::VA_DISTRIBUTED)
-    cm_sampling.mode = ForEachMode::VA_SEQUENTIAL;
+  cm_sampling.mode = ForEachMode::VA_SEQUENTIAL;
 
   hmap::for_each_tile(
       {&z},
