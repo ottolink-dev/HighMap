@@ -56,7 +56,7 @@ var searchData=
   ['pit_5fcells_53',['pit_cells',['../hydraulic__mise_8cpp.html#adc3d53f46ea2af00b9117f202b362dc4',1,'hydraulic_mise.cpp']]],
   ['pitq_54',['pitq',['../hydraulic__mise_8cpp.html#a4f046b5e9f75c715b44c15da2f13d8ed',1,'hydraulic_mise.cpp']]],
   ['plateau_55',['plateau',['../namespacehmap_1_1gpu.html#afac304e88619a3d6fb35f7ff959368dd',1,'hmap::gpu::plateau(Array &amp;array, int ir, float factor, MinMaxKernel kernel_type=MinMaxKernel::DISK)'],['../namespacehmap_1_1gpu.html#ab92f0fe4baf9678ac1c1d6f454725038',1,'hmap::gpu::plateau(Array &amp;array, const Array *p_mask, int ir, float factor, MinMaxKernel kernel_type=MinMaxKernel::DISK)'],['../namespacehmap.html#a9f49d016a05aa8636bb0ff3c3d30aaf7',1,'hmap::plateau(Array &amp;array, int ir, float factor)'],['../namespacehmap.html#a558c273680de2328f37e5df7ee598813',1,'hmap::plateau(Array &amp;array, const Array *p_mask, int ir, float factor)']]],
-  ['plates_56',['plates',['../namespacehmap_1_1gpu.html#a4fda0f0457d94b2746c32798a97d34c3',1,'hmap::gpu']]],
+  ['plates_56',['plates',['../namespacehmap_1_1gpu.html#ab3eadc11ab781726fa577722f1ae2196',1,'hmap::gpu']]],
   ['plates_2ecpp_57',['plates.cpp',['../plates_8cpp.html',1,'']]],
   ['ply_58',['PLY',['../namespacehmap.html#ac3d35efc6e5b596f508e2b17a5aa871ba01b4a6af39216cb5ba424ef1bd4f66f7',1,'hmap']]],
   ['plyb_59',['PLYB',['../namespacehmap.html#ac3d35efc6e5b596f508e2b17a5aa871bae0ce3a88364042b24f65140c351fb6e8',1,'hmap']]],
