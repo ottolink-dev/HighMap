@@ -1078,6 +1078,13 @@ std::vector<Path> flow_fixing_mst_paths(const ComputeMode  &cm,
                                       bbox);
   cloud.snap_points_to_bounding_box(bbox);
 
+  // sample the control points tile after tile in a fixed order: all tiles
+  // write into the same cloud, so distributed sampling races on the points in
+  // the overlaps and the resulting sinks change from one run to the next
+  ComputeMode cm_sampling = cm;
+  if (cm.mode == ForEachMode::VA_DISTRIBUTED)
+    cm_sampling.mode = ForEachMode::VA_SEQUENTIAL;
+
   hmap::for_each_tile(
       {&z},
       {},
@@ -1088,7 +1095,7 @@ std::vector<Path> flow_fixing_mst_paths(const ComputeMode  &cm,
         auto [pa_z] = unpack<1>(p_arrays_in);
         cloud.set_values_from_array(*pa_z, region.bbox);
       },
-      cm);
+      cm_sampling);
 
   auto mesh = TerrainTriMesh(cloud.to_vec3());
 
