@@ -1,5 +1,8 @@
 var NAVTREEINDEX24 =
 {
+"primitives__gpu_8cpp.html#a790b32805e9fb6d82e6bf54856f5deb2":[4,0,1,1,31,0,5,18],
+"primitives__gpu_8cpp.html#ac59d12f0ff106b61211236a17af19436":[4,0,1,1,31,0,5,4],
+"primitives__gpu_8cpp.html#acfb0cb2815f5c4d3c5d9e8c42d888dd4":[4,0,1,1,31,0,5,3],
 "primitives__gpu_8cpp.html#ada25ca73411d7eefe2c425c33ff7cb8d":[4,0,1,1,31,0,5,6],
 "primitives__gpu_8cpp.html#aee6519a166ee8c8b772dc284ee0ab05e":[4,0,1,1,31,0,5,14],
 "primitives__gpu_8cpp.html#afbb6331b02647bf09780b592ffcd4c39":[4,0,1,1,31,0,5,8],
@@ -246,8 +249,5 @@ var NAVTREEINDEX24 =
 "sdf__2d__polyline__gpu_8cpp.html#a6ce804c0a3c7bdfe98464278da568a57":[4,0,1,1,37,1,0],
 "select__soil__flow_8cpp.html":[4,0,1,1,38,1],
 "select__soil__flow_8cpp.html#afb62cf56466c5bdfb9b6a26458a52d12":[4,0,1,1,38,1,0],
-"select__soil__rocks_8cpp.html":[4,0,1,1,38,2],
-"select__soil__rocks_8cpp.html#a735421f1b5f42ade55224b932603c58e":[4,0,1,1,38,2,0],
-"select__soil__weathered_8cpp.html":[4,0,1,1,38,3],
-"select__soil__weathered_8cpp.html#a07420c28501484b219710bac89da8f60":[4,0,1,1,38,3,1]
+"select__soil__rocks_8cpp.html":[4,0,1,1,38,2]
 };

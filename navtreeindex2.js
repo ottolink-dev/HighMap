@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"classhmap_1_1CellPath.html#a4df87ffe999db2dc8f40fcb135e6c447":[2,0,0,11,4],
 "classhmap_1_1CellPath.html#a57da0455ee07fa09d52db9f3cdea232b":[3,0,0,10,8],
 "classhmap_1_1CellPath.html#a57da0455ee07fa09d52db9f3cdea232b":[2,0,0,11,8],
 "classhmap_1_1CellPath.html#a57fa5594ac9f604ee754f5a1743169e5":[3,0,0,10,15],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "classhmap_1_1DiskLruTileStorage.html":[3,0,0,19],
 "classhmap_1_1DiskLruTileStorage.html#a6f78ac63137fcef483ab53c6a67bc424":[2,0,0,20,6],
 "classhmap_1_1DiskLruTileStorage.html#a6f78ac63137fcef483ab53c6a67bc424":[3,0,0,19,6],
-"classhmap_1_1DiskLruTileStorage.html#a746d7d13b82430e033bca005a3443a9f":[3,0,0,19,1],
-"classhmap_1_1DiskLruTileStorage.html#a746d7d13b82430e033bca005a3443a9f":[2,0,0,20,1]
+"classhmap_1_1DiskLruTileStorage.html#a746d7d13b82430e033bca005a3443a9f":[3,0,0,19,1]
 };

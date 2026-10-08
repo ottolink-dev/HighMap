@@ -1,5 +1,6 @@
 var NAVTREEINDEX6 =
 {
+"classhmap_1_1Point.html#a65fc61e1a7716d601fe67ec6c2ff4d72":[3,0,0,66,6],
 "classhmap_1_1Point.html#a65fe813bb2097207984da443e0bdb2d6":[2,0,0,67,14],
 "classhmap_1_1Point.html#a65fe813bb2097207984da443e0bdb2d6":[3,0,0,66,14],
 "classhmap_1_1Point.html#a856f16a579a6d40be94a17a2fa5fd7ad":[3,0,0,66,18],
@@ -248,6 +249,5 @@ var NAVTREEINDEX6 =
 "classhmap_1_1ScatterField.html#afd608e431a4890a76467c204d4611a7c":[2,0,0,78,29],
 "classhmap_1_1ScatterField.html#afe2b8545ceb345ef8de1b7aed05191b7":[2,0,0,78,7],
 "classhmap_1_1ScatterField.html#afe2b8545ceb345ef8de1b7aed05191b7":[3,0,0,77,7],
-"classhmap_1_1ScatterField.html#aff098f62a339deb2a51854d081f96af9":[3,0,0,77,25],
-"classhmap_1_1ScatterField.html#aff098f62a339deb2a51854d081f96af9":[2,0,0,78,25]
+"classhmap_1_1ScatterField.html#aff098f62a339deb2a51854d081f96af9":[3,0,0,77,25]
 };

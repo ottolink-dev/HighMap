@@ -50,5 +50,6 @@ var hydrology_2hydrology_8hpp =
     [ "water_frontier_curvature", "hydrology_2hydrology_8hpp.html#a4b9ba3dd7bc6c093329b262fd4ca8f6c", null ],
     [ "water_depth_from_mask", "hydrology_2hydrology_8hpp.html#a703eaf095338c94f1b6589a5b8a650fe", null ],
     [ "flooding_lake_system", "hydrology_2hydrology_8hpp.html#ae8000dce23f7622c2ba67910124bc353", null ],
+    [ "flow_fixing_mst_paths", "hydrology_2hydrology_8hpp.html#a050c3c7ecc102d86f566bf55b3a72c51", null ],
     [ "flow_fixing_mst_triangulated", "hydrology_2hydrology_8hpp.html#a79c8b1b0f1447fcb8f94f6e2cec8788b", null ]
 ];

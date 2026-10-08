@@ -1,5 +1,6 @@
 var trench_8cpp =
 [
+    [ "trench", "trench_8cpp.html#a6e68693a88ec73c03cb44f86a43607e4", null ],
     [ "trench", "trench_8cpp.html#a1321283ca30e8f6203345e272ef3530b", null ],
     [ "x0", "trench_8cpp.html#a3c9556645d92e863376a4063a3ad7001", null ],
     [ "y0", "trench_8cpp.html#adf19b8ba42d497d3093c3a51b1a32cca", null ],
@@ -13,5 +14,6 @@ var trench_8cpp =
     [ "s0", "trench_8cpp.html#a27b218612ed19775b8ec3407da74db71", null ],
     [ "s1", "trench_8cpp.html#a2b10e3ff8ddc612278a30549f2ee0255", null ],
     [ "k0", "trench_8cpp.html#a02daf0fb99b2068743763985f032da4f", null ],
-    [ "k1", "trench_8cpp.html#a94537a392751398dca7d2332971272c7", null ]
+    [ "k1", "trench_8cpp.html#a94537a392751398dca7d2332971272c7", null ],
+    [ "path_index", "trench_8cpp.html#ad535bc203522b942a4884721e3519d8c", null ]
 ];

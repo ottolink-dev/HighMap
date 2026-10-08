@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"classhmap_1_1Function.html#a8efd89e31947f2508ce45b133e30322f":[2,0,0,35,1],
 "classhmap_1_1Function.html#ae1f9e64626fb671ed37a45d09cf551e8":[3,0,0,34,2],
 "classhmap_1_1Function.html#ae1f9e64626fb671ed37a45d09cf551e8":[2,0,0,35,2],
 "classhmap_1_1GaussianPulseFunction.html":[3,0,0,35],
@@ -248,6 +249,5 @@ var NAVTREEINDEX4 =
 "classhmap_1_1LruTileStorage.html#a904540ee5b81ccda39648248aede3a5a":[3,0,0,51,7],
 "classhmap_1_1LruTileStorage.html#a958b0fe829345faaec6e9263c5923e02":[3,0,0,51,1],
 "classhmap_1_1LruTileStorage.html#a958b0fe829345faaec6e9263c5923e02":[2,0,0,52,1],
-"classhmap_1_1LruTileStorage.html#aa04ddcca3cd4ef62b56823fc99ca1c30":[3,0,0,51,10],
-"classhmap_1_1LruTileStorage.html#aa04ddcca3cd4ef62b56823fc99ca1c30":[2,0,0,52,10]
+"classhmap_1_1LruTileStorage.html#aa04ddcca3cd4ef62b56823fc99ca1c30":[3,0,0,51,10]
 };

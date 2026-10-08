@@ -9,8 +9,8 @@ var namespacehmap =
       [ "smooth_cpulse", "namespacehmap_1_1va.html#aec2c193932c4d5d1fe00d09b81e243d8", null ],
       [ "smooth_cpulse", "namespacehmap_1_1va.html#a3df8c2c762d79f38e07069e47063fade", null ],
       [ "flooding_lake_system", "namespacehmap_1_1va.html#ae8000dce23f7622c2ba67910124bc353", null ],
-      [ "flow_fixing_mst_triangulated", "namespacehmap_1_1va.html#a79c8b1b0f1447fcb8f94f6e2cec8788b", null ],
-      [ "flow_fixing_mst_paths", "namespacehmap_1_1va.html#a6cdaab2b96cf4ba5c393644a6f64924d", null ]
+      [ "flow_fixing_mst_paths", "namespacehmap_1_1va.html#a050c3c7ecc102d86f566bf55b3a72c51", null ],
+      [ "flow_fixing_mst_triangulated", "namespacehmap_1_1va.html#a79c8b1b0f1447fcb8f94f6e2cec8788b", null ]
     ] ],
     [ "Array", "classhmap_1_1Array.html", "classhmap_1_1Array" ],
     [ "ArrayControlFunction", "classhmap_1_1ArrayControlFunction.html", "classhmap_1_1ArrayControlFunction" ],
@@ -470,6 +470,7 @@ var namespacehmap =
     [ "dig_river", "namespacehmap.html#ada12e6cab4577326964d00fac3aa1077", null ],
     [ "flatbed_carve", "namespacehmap.html#a5f979c31af1c9ee6ad499882335ca6fb", null ],
     [ "trench", "namespacehmap.html#a1321283ca30e8f6203345e272ef3530b", null ],
+    [ "trench", "namespacehmap.html#a6e68693a88ec73c03cb44f86a43607e4", null ],
     [ "apply_hillshade", "namespacehmap.html#a76b37b88acf83d6a5b21f1be1b50697e", null ],
     [ "apply_hillshade", "namespacehmap.html#aefc8cbe645337bb5b663436c0324f9e2", null ],
     [ "color_adjust", "namespacehmap.html#a7634a1bb2505ae11370c431b0b1fd9ea", null ],
