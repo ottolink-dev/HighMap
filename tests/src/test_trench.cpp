@@ -141,3 +141,167 @@ TEST(TrenchCarving, CurvatureScalingAndNoise)
     }
   }
 }
+
+TEST(TrenchCarving, VirtualArrayVsArrayComparisonSingleTile)
+{
+  glm::ivec2  shape = {128, 128};
+  hmap::Array z_arr(shape, 1.f);
+
+  hmap::Path path;
+  path.emplace_back(0.1f, 0.2f, 0.2f);
+  path.emplace_back(0.5f, 0.5f, 0.1f);
+  path.emplace_back(0.9f, 0.8f, 0.05f);
+
+  float width = 0.08f;
+
+  // Carve on monolithic array
+  hmap::trench(z_arr,
+               path,
+               width,
+               /* enable_width_depth_scaling */ false,
+               /* enable_width_distance_scaling */ false,
+               /* enable_width_curvature_scaling */ false,
+               1.f,
+               0.5f,
+               2.f,
+               hmap::RadialProfile::RP_SMOOTHSTEP_UPPER,
+               2.f,
+               hmap::ElevationLongitudinalProfile::ELP_DECREASING,
+               0.f,
+               0.f,
+               0.f,
+               0.001f,
+               4,
+               nullptr,
+               nullptr,
+               {0.f, 1.f, 0.f, 1.f});
+
+  // Carve on 1x1 VirtualArray
+  hmap::ComputeMode  cm{.mode = hmap::ForEachMode::VA_SEQUENTIAL};
+  hmap::VirtualArray z_va(shape, shape, 0, hmap::StorageMode::VA_RAM);
+  z_va.fill(1.f, cm);
+
+  hmap::for_each_tile(
+      z_va,
+      [&](hmap::Array &tile, const hmap::TileRegion &region)
+      {
+        hmap::trench(tile,
+                     path,
+                     width,
+                     /* enable_width_depth_scaling */ false,
+                     /* enable_width_distance_scaling */ false,
+                     /* enable_width_curvature_scaling */ false,
+                     1.f,
+                     0.5f,
+                     2.f,
+                     hmap::RadialProfile::RP_SMOOTHSTEP_UPPER,
+                     2.f,
+                     hmap::ElevationLongitudinalProfile::ELP_DECREASING,
+                     0.f,
+                     0.f,
+                     0.f,
+                     0.001f,
+                     4,
+                     nullptr,
+                     nullptr,
+                     region.bbox);
+      },
+      cm);
+
+  hmap::Array z_va_arr = z_va.to_array(cm);
+
+  float max_diff = 0.f;
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      float diff = std::abs(z_arr(i, j) - z_va_arr(i, j));
+      max_diff = std::max(max_diff, diff);
+    }
+  }
+
+  std::cout << "[DEBUG] SingleTile max_diff = " << max_diff << std::endl;
+  EXPECT_NEAR(max_diff, 0.f, 1e-5f);
+}
+
+TEST(TrenchCarving, VirtualArrayVsArrayComparisonMultiTile)
+{
+  glm::ivec2  shape = {128, 128};
+  hmap::Array z_arr(shape, 1.f);
+
+  hmap::Path path;
+  path.emplace_back(0.1f, 0.2f, 0.2f);
+  path.emplace_back(0.5f, 0.5f, 0.1f);
+  path.emplace_back(0.9f, 0.8f, 0.05f);
+
+  float width = 0.08f;
+
+  // Carve on monolithic array
+  hmap::trench(z_arr,
+               path,
+               width,
+               /* enable_width_depth_scaling */ false,
+               /* enable_width_distance_scaling */ false,
+               /* enable_width_curvature_scaling */ false,
+               1.f,
+               0.5f,
+               2.f,
+               hmap::RadialProfile::RP_SMOOTHSTEP_UPPER,
+               2.f,
+               hmap::ElevationLongitudinalProfile::ELP_DECREASING,
+               0.f,
+               0.f,
+               0.f,
+               0.001f,
+               4,
+               nullptr,
+               nullptr,
+               {0.f, 1.f, 0.f, 1.f});
+
+  // Carve on 2x2 VirtualArray with halo 16
+  hmap::ComputeMode  cm{.mode = hmap::ForEachMode::VA_SEQUENTIAL};
+  hmap::VirtualArray z_va(shape, {64, 64}, 16, hmap::StorageMode::VA_RAM);
+  z_va.fill(1.f, cm);
+
+  hmap::for_each_tile(
+      z_va,
+      [&](hmap::Array &tile, const hmap::TileRegion &region)
+      {
+        hmap::trench(tile,
+                     path,
+                     width,
+                     /* enable_width_depth_scaling */ false,
+                     /* enable_width_distance_scaling */ false,
+                     /* enable_width_curvature_scaling */ false,
+                     1.f,
+                     0.5f,
+                     2.f,
+                     hmap::RadialProfile::RP_SMOOTHSTEP_UPPER,
+                     2.f,
+                     hmap::ElevationLongitudinalProfile::ELP_DECREASING,
+                     0.f,
+                     0.f,
+                     0.f,
+                     0.001f,
+                     4,
+                     nullptr,
+                     nullptr,
+                     region.bbox);
+      },
+      cm);
+
+  hmap::Array z_va_arr = z_va.to_array(cm);
+
+  float max_diff = 0.f;
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      float diff = std::abs(z_arr(i, j) - z_va_arr(i, j));
+      max_diff = std::max(max_diff, diff);
+    }
+  }
+
+  std::cout << "[DEBUG] MultiTile max_diff = " << max_diff << std::endl;
+  EXPECT_NEAR(max_diff, 0.f, 1e-5f);
+}

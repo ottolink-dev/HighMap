@@ -147,37 +147,30 @@ TEST(FlowFixingMST, TriangulatedPathsAndCarving)
 
 TEST(FlowFixingMST, VirtualArrayTriangulatedExecution)
 {
-  glm::ivec2         shape = {128, 128};
-  glm::ivec2         tile_shape = {64, 64};
-  int                halo = 8;
-  hmap::ComputeMode  cm;
-  hmap::VirtualArray z(shape, tile_shape, halo, hmap::StorageMode::VA_RAM);
-  hmap::for_each_tile(
-      {},
-      {&z},
-      [&](std::vector<const hmap::Array *>,
-          std::vector<hmap::Array *> p_arrays_out,
-          const hmap::TileRegion    &region)
-      {
-        auto [pa_z] = hmap::unpack<1>(p_arrays_out);
-        *pa_z = hmap::noise_fbm(hmap::NoiseType::PERLIN,
-                                region.shape,
-                                {2.f, 2.f},
-                                42,
-                                8,
-                                2.f,
-                                0.5f,
-                                1.f,
-                                nullptr,
-                                nullptr,
-                                nullptr,
-                                region.bbox);
-      },
-      cm);
+  glm::ivec2        shape = {128, 128};
+  glm::ivec2        tile_shape = {64, 64};
+  int               halo = 16;
+  hmap::ComputeMode cm;
 
-  hmap::VirtualArray z_fixed = hmap::va::flow_fixing_mst_triangulated(
+  hmap::Array z_arr = hmap::noise_fbm(hmap::NoiseType::PERLIN,
+                                      shape,
+                                      {2.f, 2.f},
+                                      42,
+                                      8,
+                                      2.f,
+                                      0.5f,
+                                      1.f,
+                                      nullptr,
+                                      nullptr,
+                                      nullptr,
+                                      {0.f, 1.f, 0.f, 1.f});
+
+  hmap::VirtualArray z_va(shape, tile_shape, halo, hmap::StorageMode::VA_RAM);
+  z_va.from_array(z_arr, cm);
+
+  hmap::VirtualArray z_fixed_va = hmap::va::flow_fixing_mst_triangulated(
       cm,
-      z,
+      z_va,
       512,                                      // control_points_count
       42,                                       // seed
       0.001f,                                   // riverbed_talus
@@ -189,6 +182,30 @@ TEST(FlowFixingMST, VirtualArrayTriangulatedExecution)
       hmap::RadialProfile::RP_SMOOTHSTEP_UPPER, // radial_profile
       2.f);
 
-  EXPECT_EQ(z_fixed.shape.x, shape.x);
-  EXPECT_EQ(z_fixed.shape.y, shape.y);
+  hmap::Array z_fixed_arr = hmap::flow_fixing_mst_triangulated(
+      z_arr,
+      512,
+      42,
+      0.001f,
+      0.95f,
+      2.f,
+      10.f,
+      1e-4f,
+      4.f,
+      hmap::RadialProfile::RP_SMOOTHSTEP_UPPER,
+      2.f);
+
+  hmap::Array z_va_to_arr = z_fixed_va.to_array(cm);
+
+  float max_diff = 0.f;
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      float d = std::abs(z_fixed_arr(i, j) - z_va_to_arr(i, j));
+      max_diff = std::max(max_diff, d);
+    }
+  }
+
+  EXPECT_NEAR(max_diff, 0.f, 0.1f);
 }

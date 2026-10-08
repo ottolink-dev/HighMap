@@ -1353,6 +1353,16 @@ VirtualArray flooding_lake_system(const VirtualArray &z,
  * @return                          Carved elevation VirtualArray with unbroken
  *                                  flow paths.
  */
+std::vector<Path> flow_fixing_mst_paths(const ComputeMode  &cm,
+                                        const VirtualArray &z,
+                                        size_t control_points_count = 2048,
+                                        std::uint32_t seed = 0,
+                                        float         riverbed_talus = 0.f,
+                                        float         elevation_ratio = 0.95f,
+                                        float         distance_exponent = 2.f,
+                                        float upward_penalization = 0.1f,
+                                        float minimum_depth = 1e-4f);
+
 VirtualArray flow_fixing_mst_triangulated(
     const ComputeMode  &cm,
     const VirtualArray &z,

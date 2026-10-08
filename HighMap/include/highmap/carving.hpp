@@ -235,4 +235,26 @@ void trench(Array        &z,
             Array       *p_bending_mask = nullptr,
             glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
 
+void trench(Array                   &z,
+            const std::vector<Path> &paths,
+            float                    width,
+            bool                     enable_width_depth_scaling = true,
+            bool                     enable_width_distance_scaling = true,
+            bool                     enable_width_curvature_scaling = false,
+            float                    curvature_radius_min = 1.f,
+            float                    curv_width_ratio_min = 0.5f,
+            float                    curv_width_ratio_max = 2.f,
+            RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
+            float         radial_profile_parameter = 2.f,
+            ElevationLongitudinalProfile longitudinal_profile =
+                ElevationLongitudinalProfile::ELP_DECREASING,
+            float        elevation_shift = -0.05f,
+            float        shift_ramp_start_ratio = 0.f,
+            float        shift_ramp_end_ratio = 0.f,
+            float        min_slope = 0.001f,
+            size_t       k_neighbors = 8,
+            const Array *p_noise_r = nullptr,
+            Array       *p_bending_mask = nullptr,
+            glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+
 } // namespace hmap

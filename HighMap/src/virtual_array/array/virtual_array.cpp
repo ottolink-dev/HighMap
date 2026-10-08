@@ -256,20 +256,33 @@ float VirtualArray::get_bilinear(float x, float y) const
   int global_i = int(xi);
   int global_j = int(yi);
 
-  float u = xi - global_i;
-  float v = yi - global_j;
+  float u = xi - float(global_i);
+  float v = yi - float(global_j);
 
-  int global_i1 = (global_i == this->shape.x - 1) ? global_i - 1 : global_i + 1;
-  int global_j1 = (global_j == this->shape.y - 1) ? global_j - 1 : global_j + 1;
+  if (global_i >= this->shape.x - 1)
+  {
+    global_i = this->shape.x - 2;
+    u = 1.f;
+  }
+  if (global_j >= this->shape.y - 1)
+  {
+    global_j = this->shape.y - 2;
+    v = 1.f;
+  }
 
-  float value = bilinear_interp(this->get(global_i, global_j),
-                                this->get(global_i1, global_j),
-                                this->get(global_i, global_j1),
-                                this->get(global_i1, global_j1),
-                                u,
-                                v);
+  int global_i1 = global_i + 1;
+  int global_j1 = global_j + 1;
 
-  return value;
+  float v00 = this->get(global_i, global_j);
+  float v10 = this->get(global_i1, global_j);
+  float v01 = this->get(global_i, global_j1);
+  float v11 = this->get(global_i1, global_j1);
+
+  float a10 = v10 - v00;
+  float a01 = v01 - v00;
+  float a11 = v11 - v10 - v01 + v00;
+
+  return v00 + a10 * u + a01 * v + a11 * u * v;
 }
 
 float VirtualArray::get_nearest(float x, float y) const

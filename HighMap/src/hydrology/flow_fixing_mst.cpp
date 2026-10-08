@@ -567,8 +567,9 @@ Array flow_fixing_mst(const Array  &z,
   {
     float trench_width = merging_distance / float(shape.x);
 
-    // Carve riverbed using continuous trench along each path from inner sinks
-    // to outlets
+    std::vector<Path> river_paths;
+    river_paths.reserve(directed_paths.size());
+
     for (const auto &dp : directed_paths)
     {
       const auto &path_cells = dp.path;
@@ -583,27 +584,27 @@ Array flow_fixing_mst(const Array  &z,
         pts.push_back(Point(x, y, zb(p)));
       }
 
-      Path river_path(pts);
-
-      trench(zb,
-             river_path,
-             trench_width,
-             /* enable_width_depth_scaling */ false,
-             /* enable_width_distance_scaling */ false,
-             /* enable_width_curvature_scaling */ false,
-             /* curvature_radius_min */ 1.f,
-             /* curv_width_ratio_min */ 0.5f,
-             /* curv_width_ratio_max */ 2.f,
-             radial_profile,
-             radial_profile_parameter,
-             ElevationLongitudinalProfile::ELP_DECREASING,
-             /* elevation_shift */ 0.f,
-             /* shift_ramp_start_ratio */ 0.f,
-             /* shift_ramp_end_ratio */ 0.f,
-             /* min_slope */ std::max(riverbed_talus, 1e-4f),
-             /* k_neighbors */ 4,
-             /* p_noise_r */ p_noise_r);
+      river_paths.push_back(Path(pts));
     }
+
+    trench(zb,
+           river_paths,
+           trench_width,
+           /* enable_width_depth_scaling */ false,
+           /* enable_width_distance_scaling */ false,
+           /* enable_width_curvature_scaling */ false,
+           /* curvature_radius_min */ 1.f,
+           /* curv_width_ratio_min */ 0.5f,
+           /* curv_width_ratio_max */ 2.f,
+           radial_profile,
+           radial_profile_parameter,
+           ElevationLongitudinalProfile::ELP_DECREASING,
+           /* elevation_shift */ 0.f,
+           /* shift_ramp_start_ratio */ 0.f,
+           /* shift_ramp_end_ratio */ 0.f,
+           /* min_slope */ std::max(riverbed_talus, 1e-4f),
+           /* k_neighbors */ 4,
+           /* p_noise_r */ p_noise_r);
   }
 
   return zb;
@@ -1032,27 +1033,24 @@ Array flow_fixing_mst_triangulated(const Array  &z,
 
   float trench_width = merging_distance / float(z.shape.x);
 
-  for (const auto &river_path : paths)
-  {
-    trench(zb,
-           river_path,
-           trench_width,
-           /* enable_width_depth_scaling */ false,
-           /* enable_width_distance_scaling */ false,
-           /* enable_width_curvature_scaling */ false,
-           /* curvature_radius_min */ 1.f,
-           /* curv_width_ratio_min */ 0.5f,
-           /* curv_width_ratio_max */ 2.f,
-           radial_profile,
-           radial_profile_parameter,
-           ElevationLongitudinalProfile::ELP_DECREASING,
-           /* elevation_shift */ 0.f,
-           /* shift_ramp_start_ratio */ 0.f,
-           /* shift_ramp_end_ratio */ 0.f,
-           /* min_slope */ std::max(riverbed_talus, 1e-4f),
-           /* k_neighbors */ 4,
-           /* p_noise_r */ p_noise_r);
-  }
+  trench(zb,
+         paths,
+         trench_width,
+         /* enable_width_depth_scaling */ false,
+         /* enable_width_distance_scaling */ false,
+         /* enable_width_curvature_scaling */ false,
+         /* curvature_radius_min */ 1.f,
+         /* curv_width_ratio_min */ 0.5f,
+         /* curv_width_ratio_max */ 2.f,
+         radial_profile,
+         radial_profile_parameter,
+         ElevationLongitudinalProfile::ELP_DECREASING,
+         /* elevation_shift */ 0.f,
+         /* shift_ramp_start_ratio */ 0.f,
+         /* shift_ramp_end_ratio */ 0.f,
+         /* min_slope */ std::max(riverbed_talus, 1e-4f),
+         /* k_neighbors */ 4,
+         /* p_noise_r */ p_noise_r);
 
   return zb;
 }
@@ -1143,29 +1141,26 @@ VirtualArray flow_fixing_mst_triangulated(const ComputeMode  &cm,
         auto [pa_noise_r] = unpack<1>(p_arrays_in);
         auto [pa_zb] = unpack<1>(p_arrays_out);
 
-        for (const auto &river_path : paths)
-        {
-          trench(*pa_zb,
-                 river_path,
-                 trench_width,
-                 /* enable_width_depth_scaling */ false,
-                 /* enable_width_distance_scaling */ false,
-                 /* enable_width_curvature_scaling */ false,
-                 /* curvature_radius_min */ 1.f,
-                 /* curv_width_ratio_min */ 0.5f,
-                 /* curv_width_ratio_max */ 2.f,
-                 radial_profile,
-                 radial_profile_parameter,
-                 ElevationLongitudinalProfile::ELP_DECREASING,
-                 /* elevation_shift */ 0.f,
-                 /* shift_ramp_start_ratio */ 0.f,
-                 /* shift_ramp_end_ratio */ 0.f,
-                 /* min_slope */ std::max(riverbed_talus, 1e-4f),
-                 /* k_neighbors */ 4,
-                 /* p_noise_r */ pa_noise_r,
-                 /* p_bending_mask */ nullptr,
-                 /* bbox */ region.bbox);
-        }
+        trench(*pa_zb,
+               paths,
+               trench_width,
+               /* enable_width_depth_scaling */ false,
+               /* enable_width_distance_scaling */ false,
+               /* enable_width_curvature_scaling */ false,
+               /* curvature_radius_min */ 1.f,
+               /* curv_width_ratio_min */ 0.5f,
+               /* curv_width_ratio_max */ 2.f,
+               radial_profile,
+               radial_profile_parameter,
+               ElevationLongitudinalProfile::ELP_DECREASING,
+               /* elevation_shift */ 0.f,
+               /* shift_ramp_start_ratio */ 0.f,
+               /* shift_ramp_end_ratio */ 0.f,
+               /* min_slope */ std::max(riverbed_talus, 1e-4f),
+               /* k_neighbors */ 4,
+               /* p_noise_r */ pa_noise_r,
+               /* p_bending_mask */ nullptr,
+               /* bbox */ region.bbox);
       },
       cm);
 

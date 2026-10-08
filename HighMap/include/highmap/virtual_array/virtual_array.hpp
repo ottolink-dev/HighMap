@@ -65,7 +65,7 @@ static std::map<std::string, int> for_each_mode_as_string = {
 
 struct ComputeMode
 {
-  ForEachMode mode;
+  ForEachMode mode = ForEachMode::VA_SEQUENTIAL;
   bool        trim_storage = false;
   int         stride = 1;
   float       k_cutoff = 1.f; // freq. cut-off ratio in ]0, 1]

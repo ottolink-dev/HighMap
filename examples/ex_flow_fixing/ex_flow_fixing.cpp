@@ -58,8 +58,33 @@ int main(void)
       hmap::RadialProfile::RP_SMOOTHSTEP_UPPER, // radial_profile
       2.f);                                     // radial_profile_parameter
 
+  // VirtualArray triangulated flow fixing comparison
+  glm::ivec2         tile_shape = {128, 128};
+  int                halo = 64;
+  hmap::ComputeMode  cm{.mode = hmap::ForEachMode::VA_SEQUENTIAL};
+  hmap::VirtualArray z0_va(shape, tile_shape, halo, hmap::StorageMode::VA_RAM);
+  z0_va.from_array(z0, cm);
+
+  auto z6_va = hmap::va::flow_fixing_mst_triangulated(
+      cm,
+      z0_va,
+      4096,                                     // control_points_count
+      seed,                                     // seed
+      riverbed_talus,                           // riverbed_talus
+      0.99f,                                    // elevation_ratio
+      2.f,                                      // distance_exponent
+      100.f,                                    // upward_penalization
+      1e-4f,                                    // minimum_depth
+      8.f,                                      // merging_distance
+      hmap::RadialProfile::RP_SMOOTHSTEP_UPPER, // radial_profile
+      2.f);                                     // radial_profile_parameter
+
+  hmap::Array z6 = z6_va.to_array(cm);
+
+  hmap::Array diff = hmap::abs(z5 - z6);
+
   hmap::export_banner_png("ex_flow_fixing.png",
-                          {z0, z1, z2, z3, z4, z5},
+                          {z0, z1, z2, z3, z4, z5, z6, diff},
                           hmap::Cmap::TERRAIN,
                           true);
 }
