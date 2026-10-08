@@ -318,6 +318,13 @@ void trench(Array                       &z,
     float seg_ymin = std::min(seg.y0, seg.y1) - max_effective_width;
     float seg_ymax = std::max(seg.y0, seg.y1) + max_effective_width;
 
+    // a segment farther than the influence width from the whole array
+    // (e.g. in another tile) cannot touch any cell: skip it instead of
+    // clamping it into the border tiles
+    if (seg_xmax < bbox.x || seg_xmin > bbox.y || seg_ymax < bbox.z ||
+        seg_ymin > bbox.w)
+      continue;
+
     int imin = std::clamp(
         static_cast<int>(std::floor((seg_xmin - bbox.x) / dx)),
         0,
