@@ -31,6 +31,7 @@ int main(void)
                                        kw,
                                        seed,
                                        jitter,
+                                       /* bias */ 0.f,
                                        k_smoothing,
                                        exp_sigma,
                                        type);
@@ -44,6 +45,7 @@ int main(void)
                                            kw,
                                            seed,
                                            jitter,
+                                           /* bias */ 0.f,
                                            k_smoothing,
                                            exp_sigma,
                                            type);

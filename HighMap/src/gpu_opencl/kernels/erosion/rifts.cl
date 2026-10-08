@@ -67,6 +67,7 @@ void kernel rifts(global float *output,
 
   float noise_v = base_voronoi_f1df2(pos_r,
                                      (float2)(1.f, 1.f),
+                                     0.f,
                                      k_smooth_bottom,
                                      fseed);
   noise_v = smax(min(noise_v, 1.f), clamp_vmin, k_smooth_top);

@@ -20,6 +20,7 @@ int main(void)
                                                     kw,
                                                     seed,
                                                     jitter,
+                                                    /* bias */ 0.f,
                                                     nullptr,
                                                     &noise);
 

@@ -103,7 +103,11 @@ void kernel strata(global float *output,
   float2 pos_v = (float2)(ridge_noise_kw.x * dr_p + ridge_noise_amp * noise,
                           ridge_noise_kw.y * dr);
 
-  float noise_v = base_voronoi_f1df2(pos_v, (float2)(1.f, 1.f), 0.f, fseed);
+  float noise_v = base_voronoi_f1df2(pos_v,
+                                     (float2)(1.f, 1.f),
+                                     0.f,
+                                     0.f,
+                                     fseed);
   noise_v = clamp(noise_v, ridge_clamp_vmin, 1.f);
   noise_v = remap_from(noise_v,
                        1.f,

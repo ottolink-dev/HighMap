@@ -5,6 +5,7 @@ R""(
 
 float base_voronoi_f1(const float2 p,
                       const float2 jitter,
+                      const float  bias,
                       const float  k_smoothing,
                       const float  fseed)
 {
@@ -20,7 +21,7 @@ float base_voronoi_f1(const float2 p,
       float2 dr = (float2)(dx, dy);
       float2 feature_point = dr + jitter * hash22f(i + dr, fseed);
       float2 diff = f - feature_point;
-      float  dist = dot(diff, diff);
+      float  dist = dot(diff, diff) - bias * hash12f(i + dr, fseed);
 
       min_dist = smin(min_dist, dist, k_smoothing);
     }
@@ -31,6 +32,7 @@ float base_voronoi_f1(const float2 p,
 
 float base_voronoi3d_f1(const float3 p,
                         const float3 jitter,
+                        const float  bias,
                         const float  k_smoothing,
                         const float  fseed)
 {
@@ -47,7 +49,7 @@ float base_voronoi3d_f1(const float3 p,
         float3 dr = (float3)(dx, dy, dz);
         float3 feature_point = dr + jitter * hash33f(i + dr, fseed);
         float3 diff = feature_point - f;
-        float  dist = dot(diff, diff);
+        float  dist = dot(diff, diff) - bias * hash13f(i + dr, fseed);
 
         min_dist = smin(min_dist, dist, k_smoothing);
       }
@@ -58,6 +60,7 @@ float base_voronoi3d_f1(const float3 p,
 
 float base_voronoi_f2(const float2 p,
                       const float2 jitter,
+                      const float  bias,
                       const float  k_smoothing,
                       const float  fseed)
 {
@@ -74,7 +77,7 @@ float base_voronoi_f2(const float2 p,
       float2 dr = (float2)(dx, dy);
       float2 feature_point = dr + jitter * hash22f(i + dr, fseed);
       float2 diff = f - feature_point;
-      float  dist = dot(diff, diff);
+      float  dist = dot(diff, diff) - bias * hash12f(i + dr, fseed);
 
       float new_min1 = smin(min1, dist, k_smoothing);
       float new_min2 = smin(min2, smax(min1, dist, k_smoothing), k_smoothing);
@@ -87,6 +90,7 @@ float base_voronoi_f2(const float2 p,
 
 float base_voronoi_f1tf2(const float2 p,
                          const float2 jitter,
+                         const float  bias,
                          const float  k_smoothing,
                          const float  fseed)
 {
@@ -103,7 +107,7 @@ float base_voronoi_f1tf2(const float2 p,
       float2 dr = (float2)(dx, dy);
       float2 feature_point = dr + jitter * hash22f(i + dr, fseed);
       float2 diff = f - feature_point;
-      float  dist = dot(diff, diff);
+      float  dist = dot(diff, diff) - bias * hash12f(i + dr, fseed);
 
       float new_min1 = smin(min1, dist, k_smoothing);
       float new_min2 = smin(min2, smax(min1, dist, k_smoothing), k_smoothing);
@@ -116,6 +120,7 @@ float base_voronoi_f1tf2(const float2 p,
 
 float base_voronoi_f1df2(const float2 p,
                          const float2 jitter,
+                         const float  bias,
                          const float  k_smoothing,
                          const float  fseed)
 {
@@ -132,7 +137,7 @@ float base_voronoi_f1df2(const float2 p,
       float2 dr = (float2)(dx, dy);
       float2 feature_point = dr + jitter * hash22f(i + dr, fseed);
       float2 diff = f - feature_point;
-      float  dist = dot(diff, diff);
+      float  dist = dot(diff, diff) - bias * hash12f(i + dr, fseed);
 
       float new_min1 = smin(min1, dist, k_smoothing);
       float new_min2 = smin(min2, smax(min1, dist, k_smoothing), k_smoothing);
@@ -145,6 +150,7 @@ float base_voronoi_f1df2(const float2 p,
 
 float base_voronoi_f2mf1(const float2 p,
                          const float2 jitter,
+                         const float  bias,
                          const float  k_smoothing,
                          const float  fseed)
 {
@@ -161,7 +167,7 @@ float base_voronoi_f2mf1(const float2 p,
       float2 dr = (float2)(dx, dy);
       float2 feature_point = dr + jitter * hash22f(i + dr, fseed);
       float2 diff = f - feature_point;
-      float  dist = dot(diff, diff);
+      float  dist = dot(diff, diff) - bias * hash12f(i + dr, fseed);
 
       float new_min1 = smin(min1, dist, k_smoothing);
       float new_min2 = smin(min2, smax(min1, dist, k_smoothing), k_smoothing);
@@ -175,6 +181,7 @@ float base_voronoi_f2mf1(const float2 p,
 // https://iquilezles.org/articles/voronoilines/
 float base_voronoi_edge_distance(const float2 x,
                                  const float2 jitter,
+                                 const float  bias,
                                  const float  k_smoothing,
                                  const float  fseed)
 {
@@ -184,6 +191,7 @@ float base_voronoi_edge_distance(const float2 x,
 
   float2 mb;
   float2 mr;
+  float  mw = 0.f;
   float2 df = (float2)(0.1f, 0.1f);
 
   float res = 8.f;
@@ -192,13 +200,15 @@ float base_voronoi_edge_distance(const float2 x,
     {
       float2 b = (float2)(i, j);
       float2 r = b - f + jitter * hash22f(p + b, fseed);
-      float  d = dot(r, r);
+      float  w = bias * hash12f(p + b, fseed);
+      float  d = dot(r, r) - w;
 
       if (d < res)
       {
         res = d;
         mr = r;
         mb = b;
+        mw = w;
       }
     }
 
@@ -208,9 +218,12 @@ float base_voronoi_edge_distance(const float2 x,
     {
       float2 b = mb + (float2)(i, j);
       float2 r = b - f + jitter * hash22f(p + b, fseed);
+      float  w = bias * hash12f(p + b, fseed);
+
       if (dot(mr - r, mr - r) > 1e-5f)
       {
-        float d = dot(0.5f * (mr + r), normalize(r - mr));
+        float d = dot(0.5f * (mr + r), normalize(r - mr)) -
+                  0.5f * (w - mw) / length(r - mr);
         res = smin(res, d, k_smoothing);
       }
     }
@@ -220,16 +233,18 @@ float base_voronoi_edge_distance(const float2 x,
 
 float base_voronoi_edge_distance_exp(const float2 x,
                                      const float2 jitter,
+                                     const float  bias,
                                      const float  k_smoothing,
                                      const float  exp_sigma,
                                      const float  fseed)
 {
-  float res = base_voronoi_edge_distance(x, jitter, k_smoothing, fseed);
+  float res = base_voronoi_edge_distance(x, jitter, bias, k_smoothing, fseed);
   return exp(-0.5f * res * res / (exp_sigma * exp_sigma));
 }
 
 float base_voronoi_constant(const float2 p,
                             const float2 jitter,
+                            const float  bias,
                             const float  k_smoothing,
                             const float  fseed)
 {
@@ -246,7 +261,7 @@ float base_voronoi_constant(const float2 p,
       float2 dr = (float2)(dx, dy);
       float2 feature_point = dr + jitter * hash22f(i + dr, fseed);
       float2 diff = f - feature_point;
-      float  dist = dot(diff, diff);
+      float  dist = dot(diff, diff) - bias * hash12f(i + dr, fseed);
       float  rx = hash12f(i + dr, fseed);
 
       // https://www.shadertoy.com/view/ldB3zc
@@ -262,6 +277,7 @@ float base_voronoi_constant(const float2 p,
 
 float base_voronoi_constant_f2mf1(const float2 p,
                                   const float2 jitter,
+                                  const float  bias,
                                   const float  k_smoothing,
                                   const float  fseed)
 {
@@ -281,7 +297,7 @@ float base_voronoi_constant_f2mf1(const float2 p,
       float2 dr = (float2)(dx, dy);
       float2 feature_point = dr + jitter * hash22f(i + dr, fseed);
       float2 diff = f - feature_point;
-      float  dist = dot(diff, diff);
+      float  dist = dot(diff, diff) - bias * hash12f(i + dr, fseed);
       float  rx = hash12f(i + dr, fseed);
 
       float new_min1 = smin(min1, dist, k_smoothing);

@@ -13,6 +13,7 @@ void kernel voronoi(global float *output,
                     const float   ky,
                     const uint    seed,
                     const float2  jitter,
+                    const float   bias,
                     const float   k_smoothing,
                     const float   exp_sigma,
                     const int     return_type,
@@ -40,26 +41,45 @@ void kernel voronoi(global float *output,
 
   switch (return_type)
   {
-  case 0: val = base_voronoi_f1(pos, ct * jitter, k_smoothing, fseed); break;
-  case 1: val = base_voronoi_f2(pos, ct * jitter, k_smoothing, fseed); break;
-  case 2: val = base_voronoi_f1tf2(pos, ct * jitter, k_smoothing, fseed); break;
-  case 3: val = base_voronoi_f1df2(pos, ct * jitter, k_smoothing, fseed); break;
-  case 4: val = base_voronoi_f2mf1(pos, ct * jitter, k_smoothing, fseed); break;
+  case 0:
+    val = base_voronoi_f1(pos, ct * jitter, bias, k_smoothing, fseed);
+    break;
+  case 1:
+    val = base_voronoi_f2(pos, ct * jitter, bias, k_smoothing, fseed);
+    break;
+  case 2:
+    val = base_voronoi_f1tf2(pos, ct * jitter, bias, k_smoothing, fseed);
+    break;
+  case 3:
+    val = base_voronoi_f1df2(pos, ct * jitter, bias, k_smoothing, fseed);
+    break;
+  case 4:
+    val = base_voronoi_f2mf1(pos, ct * jitter, bias, k_smoothing, fseed);
+    break;
   case 5:
     val = base_voronoi_edge_distance_exp(pos,
                                          ct * jitter,
+                                         bias,
                                          k_smoothing,
                                          exp_sigma,
                                          fseed);
     break;
   case 6:
-    val = base_voronoi_edge_distance(pos, ct * jitter, k_smoothing, fseed);
+    val = base_voronoi_edge_distance(pos,
+                                     ct * jitter,
+                                     bias,
+                                     k_smoothing,
+                                     fseed);
     break;
   case 7:
-    val = base_voronoi_constant(pos, ct * jitter, k_smoothing, fseed);
+    val = base_voronoi_constant(pos, ct * jitter, bias, k_smoothing, fseed);
     break;
   case 8:
-    val = base_voronoi_constant_f2mf1(pos, ct * jitter, k_smoothing, fseed);
+    val = base_voronoi_constant_f2mf1(pos,
+                                      ct * jitter,
+                                      bias,
+                                      k_smoothing,
+                                      fseed);
     break;
   }
 
@@ -76,6 +96,7 @@ void kernel voronoi_fbm(global float *output,
                         const float   ky,
                         const uint    seed,
                         const float2  jitter,
+                        const float   bias,
                         const float   k_smoothing,
                         const float   exp_sigma,
                         const int     return_type,
@@ -110,6 +131,7 @@ void kernel voronoi_fbm(global float *output,
   case 0:
     val = base_voronoi_f1_fbm(pos,
                               ct * jitter,
+                              bias,
                               k_smoothing,
                               octaves,
                               weight,
@@ -120,6 +142,7 @@ void kernel voronoi_fbm(global float *output,
   case 1:
     val = base_voronoi_f2_fbm(pos,
                               ct * jitter,
+                              bias,
                               k_smoothing,
                               octaves,
                               weight,
@@ -130,6 +153,7 @@ void kernel voronoi_fbm(global float *output,
   case 2:
     val = base_voronoi_f1tf2_fbm(pos,
                                  ct * jitter,
+                                 bias,
                                  k_smoothing,
                                  octaves,
                                  weight,
@@ -140,6 +164,7 @@ void kernel voronoi_fbm(global float *output,
   case 3:
     val = base_voronoi_f1df2_fbm(pos,
                                  ct * jitter,
+                                 bias,
                                  k_smoothing,
                                  octaves,
                                  weight,
@@ -150,6 +175,7 @@ void kernel voronoi_fbm(global float *output,
   case 4:
     val = base_voronoi_f2mf1_fbm(pos,
                                  ct * jitter,
+                                 bias,
                                  k_smoothing,
                                  octaves,
                                  weight,
@@ -160,6 +186,7 @@ void kernel voronoi_fbm(global float *output,
   case 5:
     val = base_voronoi_edge_distance_exp_fbm(pos,
                                              ct * jitter,
+                                             bias,
                                              k_smoothing,
                                              exp_sigma,
                                              octaves,
@@ -171,6 +198,7 @@ void kernel voronoi_fbm(global float *output,
   case 6:
     val = base_voronoi_edge_distance_fbm(pos,
                                          ct * jitter,
+                                         bias,
                                          k_smoothing,
                                          octaves,
                                          weight,
@@ -181,6 +209,7 @@ void kernel voronoi_fbm(global float *output,
   case 7:
     val = base_voronoi_constant_fbm(pos,
                                     ct * jitter,
+                                    bias,
                                     k_smoothing,
                                     octaves,
                                     weight,
@@ -191,6 +220,7 @@ void kernel voronoi_fbm(global float *output,
   case 8:
     val = base_voronoi_constant_f2mf1_fbm(pos,
                                           ct * jitter,
+                                          bias,
                                           k_smoothing,
                                           octaves,
                                           weight,

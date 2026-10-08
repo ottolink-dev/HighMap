@@ -1054,6 +1054,8 @@ Array vorolines_fbm(
  * @param  jitter       (Optional) The amount of random variation in the
  *                      positions of Voronoi cell sites, given as a 2D vector of
  *                      floats. Defaults to {0.5f, 0.5f}.
+ * @param  bias         (Optional) Reach bonus bias for additively weighted
+ *                      Voronoi partitioning. Defaults to 0.f.
  * @param  return_type  (Optional) The type of value to compute for the Voronoi
  *                      diagram. Defaults to `VoronoiReturnType::F1_SQUARED`.
  * @param  p_ctrl_param (Optional) A pointer to an `Array` used to control the
@@ -1084,6 +1086,7 @@ Array voronoi(glm::ivec2        shape,
               glm::vec2         kw,
               std::uint32_t     seed,
               glm::vec2         jitter = {0.5f, 0.5f},
+              float             bias = 0.f,
               float             k_smoothing = 0.f,
               float             exp_sigma = 0.f,
               VoronoiReturnType return_type = VoronoiReturnType::F1_SQUARED,
@@ -1105,6 +1108,8 @@ Array voronoi(glm::ivec2        shape,
  * @param  jitter       (Optional) The amount of random variation in the
  *                      positions of Voronoi cell sites, given as a 2D vector of
  *                      floats. Defaults to {0.5f, 0.5f}.
+ * @param  bias         (Optional) Reach bonus bias for additively weighted
+ *                      Voronoi partitioning. Defaults to 0.f.
  * @param  return_type  (Optional) The type of value to compute for the Voronoi
  *                      diagram. Defaults to `VoronoiReturnType::F1_SQUARED`.
  * @param  octaves      (Optional) The number of layers (octaves) in the fractal
@@ -1142,6 +1147,7 @@ Array voronoi_fbm(glm::ivec2        shape,
                   glm::vec2         kw,
                   std::uint32_t     seed,
                   glm::vec2         jitter = {0.5f, 0.5f},
+                  float             bias = 0.f,
                   float             k_smoothing = 0.f,
                   float             exp_sigma = 0.f,
                   VoronoiReturnType return_type = VoronoiReturnType::F1_SQUARED,
@@ -1166,6 +1172,8 @@ Array voronoi_fbm(glm::ivec2        shape,
  * @param jitter               Optional parameter for controlling jitter in
  *                             Voronoi point placement (default is {0.5f,
  *                             0.5f}).
+ * @param bias                 Optional reach bonus bias for weighted Voronoi
+ *                             partitioning (default is 0.f).
  * @param p_ctrl_param         Optional pointer to an Array specifying control
  *                             parameters for Voronoi grid jitter (default is
  *                             nullptr).
@@ -1184,6 +1192,7 @@ Array voronoi_edge_distance(glm::ivec2    shape,
                             glm::vec2     kw,
                             std::uint32_t seed,
                             glm::vec2     jitter = {0.5f, 0.5f},
+                            float         bias = 0.f,
                             const Array  *p_ctrl_param = nullptr,
                             const Array  *p_noise_x = nullptr,
                             const Array  *p_noise_y = nullptr,

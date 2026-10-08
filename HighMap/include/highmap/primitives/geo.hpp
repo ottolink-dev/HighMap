@@ -378,6 +378,7 @@ namespace hmap::gpu
  * @param  rugosity       Controls roughness of the fractal noise (higher = more
  *                        irregular).
  * @param  angle          Orientation angle (degrees) of terrain displacements.
+ * @param  bias           Reach bonus bias for weighted Voronoi partitioning.
  * @param  k_smoothing    Voronoi smoothing parameter (controls ridge
  *                        sharpness).
  * @param  base_noise_amp Amplitude of the base displacement noise.
@@ -402,6 +403,7 @@ Array badlands(glm::ivec2    shape,
                int           octaves = 8,
                float         rugosity = 0.2f,
                float         angle = 30.f,
+               float         bias = 0.f,
                float         k_smoothing = 0.1f,
                float         base_noise_amp = 0.2f,
                const Array  *p_noise_x = nullptr,
@@ -461,6 +463,8 @@ Array badlands(glm::ivec2    shape,
  *                                 field.
  * @param  flatten_amp             Amplitude control of the flattening
  *                                 operation.
+ * @param  bias                    Reach bonus bias for weighted Voronoi
+ *                                 partitioning.
  * @param  p_noise_x               Optional pointer to a noise field used to
  *                                 displace grid coordinates in X.
  * @param  p_noise_y               Optional pointer to a noise field used to
@@ -503,6 +507,7 @@ Array basalt_field(glm::ivec2    shape,
                    bool          flatten_activate = true,
                    float         flatten_kw_ratio = 1.f,
                    float         flatten_amp = 0.f,
+                   float         bias = 0.f,
                    const Array  *p_noise_x = nullptr,
                    const Array  *p_noise_y = nullptr,
                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
@@ -658,6 +663,7 @@ Array island(const Array  &land_mask,
  *                        rougher surface).
  * @param  angle          Direction (in degrees) for the displacement noise
  *                        distortion.
+ * @param  bias           Reach bonus bias for weighted Voronoi partitioning.
  * @param  k_smoothing    Smoothing factor applied in Voronoi blending.
  * @param  gamma          Gamma correction exponent applied at the end.
  * @param  cone_alpha     Controls the cone envelope steepness (higher = sharper
@@ -690,6 +696,7 @@ Array mountain_cone(glm::ivec2    shape,
                     float         peak_kw = 4.f,
                     float         rugosity = 0.f,
                     float         angle = 45.f,
+                    float         bias = 0.f,
                     float         k_smoothing = 0.f,
                     float         gamma = 0.5f,
                     float         cone_alpha = 1.f,
@@ -727,6 +734,7 @@ Array mountain_cone(glm::ivec2    shape,
  * @param  bulk_amp       Amplitude of bulk uplift applied to the base pulse (0
  *                        = none, >0 = raises and normalizes the feature).
  * @param  base_noise_amp Amplitude of the base displacement noise.
+ * @param  bias           Reach bonus bias for weighted Voronoi partitioning.
  * @param  k_smoothing    Voronoi smoothing parameter (controls ridge
  *                        sharpness).
  * @param  center         Center of the inselberg in normalized coordinates.
@@ -756,6 +764,7 @@ Array mountain_inselberg(glm::ivec2    shape,
                          bool          add_deposition = true,
                          float         bulk_amp = 0.2f,
                          float         base_noise_amp = 0.2f,
+                         float         bias = 0.f,
                          float         k_smoothing = 0.1f,
                          glm::vec2     center = {0.5f, 0.5f},
                          const Array  *p_noise_x = nullptr,
@@ -966,6 +975,7 @@ Array mountain_tibesti(glm::ivec2    shape,
  * @param  talus          Talus strength for directional projection.
  * @param  direction      Projection direction.
  * @param  mix_ratio      Blend factor between raw Voronoi and projected plates.
+ * @param  bias           Reach bonus bias for weighted Voronoi partitioning.
  * @param  base_noise_amp Amplitude of the displacement noise.
  * @param  kw_multiplier  Frequency multiplier for base noise.
  * @param  rugosity       Noise roughness.
@@ -984,6 +994,7 @@ Array plates(glm::ivec2    shape,
              float         talus,
              int           direction = 0,
              float         mix_ratio = 0.9f,
+             float         bias = 0.f,
              float         base_noise_amp = 0.05f,
              float         kw_multiplier = 2.f,
              int           octaves = 8,
@@ -1015,6 +1026,7 @@ Array plates(glm::ivec2    shape,
  * @param  bulk_amp       Amplitude of bulk uplift applied to the peak
  *                        (internally overridden to 0.5f for normalization).
  * @param  base_noise_amp Amplitude of the base displacement noise.
+ * @param  bias           Reach bonus bias for weighted Voronoi partitioning.
  * @param  k_smoothing    Voronoi smoothing parameter (controls ridge
  *                        sharpness).
  * @param  center         Center of the peak in normalized coordinates.
@@ -1045,6 +1057,7 @@ Array shattered_peak(glm::ivec2    shape,
                      bool          add_deposition = true,
                      float         bulk_amp = 0.3f,
                      float         base_noise_amp = 0.1f,
+                     float         bias = 0.f,
                      float         k_smoothing = 0.f,
                      glm::vec2     center = {0.5f, 0.5f},
                      const Array  *p_noise_x = nullptr,

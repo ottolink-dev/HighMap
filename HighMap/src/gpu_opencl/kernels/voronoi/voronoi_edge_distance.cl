@@ -6,6 +6,7 @@ R""(
 // https://iquilezles.org/articles/voronoilines/
 float voronoi_edge_distance_fct(const float2 x,
                                 const float2 jitter,
+                                const float  bias,
                                 const float  fseed)
 {
   float2 p = floor(x);
@@ -14,6 +15,7 @@ float voronoi_edge_distance_fct(const float2 x,
 
   float2 mb;
   float2 mr;
+  float  mw = 0.f;
   float2 df = (float2)(0.1f, 0.1f);
 
   float res = 8.f;
@@ -24,13 +26,15 @@ float voronoi_edge_distance_fct(const float2 x,
       float2 r = b - f +
                  jitter * (float2)(hash12f(p + b, fseed),
                                    hash12f(p + b + df, fseed));
-      float d = dot(r, r);
+      float w = bias * hash12f(p + b, fseed);
+      float d = dot(r, r) - w;
 
       if (d < res)
       {
         res = d;
         mr = r;
         mb = b;
+        mw = w;
       }
     }
 
@@ -42,9 +46,12 @@ float voronoi_edge_distance_fct(const float2 x,
       float2 r = b - f +
                  jitter * (float2)(hash12f(p + b, fseed),
                                    hash12f(p + b + df, fseed));
+      float w = bias * hash12f(p + b, fseed);
+
       if (dot(mr - r, mr - r) > FLT_MIN)
       {
-        float d = dot(0.5f * (mr + r), normalize(r - mr));
+        float d = dot(0.5f * (mr + r), normalize(r - mr)) -
+                  0.5f * (w - mw) / length(r - mr);
         res = min(res, d);
       }
     }
@@ -62,6 +69,7 @@ void kernel voronoi_edge_distance(global float *output,
                                   const float   ky,
                                   const uint    seed,
                                   const float2  jitter,
+                                  const float   bias,
                                   const int     has_ctrl_param,
                                   const int     has_noise_x,
                                   const int     has_noise_y,
@@ -84,7 +92,7 @@ void kernel voronoi_edge_distance(global float *output,
 
   float2 pos = g_to_xy(g, nx, ny, kx, ky, dx, dy, bbox);
 
-  float d = voronoi_edge_distance_fct(pos, ct * jitter, fseed);
+  float d = voronoi_edge_distance_fct(pos, ct * jitter, bias, fseed);
 
   output[index] = d;
 }
