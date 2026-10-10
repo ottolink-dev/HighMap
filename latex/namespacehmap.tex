@@ -1983,10 +1983,10 @@ void \mbox{\hyperlink{namespacehmap_ac126773f7c7af2364cfb4d7a6922ed96}{rescale}}
 \begin{DoxyCompactList}\small\item\em Emits rocks from a spatial emission density map and simulates their trajectories downhill across terrain on GPU. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} \mbox{\hyperlink{namespacehmap_aa7f9658e594e28641d9c4a3d136c06eb}{simulate\+\_\+rock\+\_\+trajectories}} (const \mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} \&rocks, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&elevation, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+friction\+\_\+map=nullptr, const \mbox{\hyperlink{structhmap_1_1RockSimulationOptions}{Rock\+Simulation\+Options}} \&options=\{\})
 \begin{DoxyCompactList}\small\item\em Simulates physical movement (sliding, rolling, bouncing, and inter-\/rock collision avoidance) for an existing \doxylink{classhmap_1_1RockField}{Rock\+Field} across terrain on GPU. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \mbox{\hyperlink{namespacehmap_ad6f15ce8c32efb3901f1d120b41604cf}{merge\+\_\+scatter\+\_\+field}} (const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&field1, const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&field2, bool merge\+\_\+by\+\_\+class=true)
-\begin{DoxyCompactList}\small\item\em Merges two \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} instances into a single instance. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \mbox{\hyperlink{namespacehmap_a8563414bbbec0c8c61ddad2fd3a358aa}{merge\+\_\+scatter\+\_\+fields}} (const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} $>$ \&fields, bool merge\+\_\+by\+\_\+class=true)
 \begin{DoxyCompactList}\small\item\em Merges multiple \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} instances into a single instance. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \mbox{\hyperlink{namespacehmap_a09487a4f97ee60322dc0b237309896ed}{merge\+\_\+scatter\+\_\+fields}} (const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} $>$ \&fields, const std\+::vector$<$ glm\+::vec4 $>$ \&bboxs, bool merge\+\_\+by\+\_\+class=true)
+\begin{DoxyCompactList}\small\item\em Merges multiple \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} instances with associated bounding boxes into a single instance, resolving overlaps by keeping items from earlier fields in the input order. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a765d17781b2ffdf138be2c869fe4b24c}{scatter\+\_\+field\+\_\+to\+\_\+heightmap}} (const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&field, glm\+::ivec2 \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, \mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3}{Scatter\+Shape}} shape\+\_\+type=\mbox{\hyperlink{namespacehmap_a1074c818c371781872a62a556c98b3d3a4430687d407bf19b6b643880bc6e2fa3}{SCATTER\+\_\+\+SHAPE\+\_\+\+DISK}}, float height\+\_\+radius\+\_\+ratio=1.\+0f, std\+::optional$<$ uint32\+\_\+t $>$ class\+\_\+id=std\+::nullopt, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+rock\+\_\+map=nullptr, uint32\+\_\+t seed=0, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Converts a \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} into a heightmap by representing each scattered object as a local elevation increase on GPU. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \mbox{\hyperlink{namespacehmap_a61e1b066b8da6d1227758bbb40510548}{seed\+\_\+scatter\+\_\+clusters}} (size\+\_\+t class\+\_\+count, size\+\_\+t item\+\_\+count, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&exclusion, float cluster\+\_\+spread=0.\+05\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t points\+\_\+per\+\_\+cluster=8, const \mbox{\hyperlink{structhmap_1_1ScatterSeedingOptions}{Scatter\+Seeding\+Options}} \&options=\{\})
@@ -32664,32 +32664,10 @@ Simulates physical movement (sliding, rolling, bouncing, and inter-\/rock collis
 \begin{DoxyReturn}{Returns}
 \doxylink{classhmap_1_1RockField}{Rock\+Field} Updated rock field with resting positions. 
 \end{DoxyReturn}
-\Hypertarget{namespacehmap_ad6f15ce8c32efb3901f1d120b41604cf}\label{namespacehmap_ad6f15ce8c32efb3901f1d120b41604cf} 
-\index{hmap@{hmap}!merge\_scatter\_field@{merge\_scatter\_field}}
-\index{merge\_scatter\_field@{merge\_scatter\_field}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{merge\_scatter\_field()}{merge\_scatter\_field()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} hmap\+::merge\+\_\+scatter\+\_\+field (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&}]{field1,  }\item[{const \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} \&}]{field2,  }\item[{bool}]{merge\+\_\+by\+\_\+class = {\ttfamily true} }\end{DoxyParamCaption})}
-
-
-
-Merges two \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} instances into a single instance. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em field1} & First \doxylink{classhmap_1_1ScatterField}{Scatter\+Field}. \\
-\hline
-{\em field2} & Second \doxylink{classhmap_1_1ScatterField}{Scatter\+Field}. \\
-\hline
-{\em merge\+\_\+by\+\_\+class} & If true, preserves existing class IDs. If false, assigns a new unique class ID for each input field (0 for field1, 1 for field2). \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\doxylink{classhmap_1_1ScatterField}{Scatter\+Field} Merged scatter field. 
-\end{DoxyReturn}
 \Hypertarget{namespacehmap_a8563414bbbec0c8c61ddad2fd3a358aa}\label{namespacehmap_a8563414bbbec0c8c61ddad2fd3a358aa} 
 \index{hmap@{hmap}!merge\_scatter\_fields@{merge\_scatter\_fields}}
 \index{merge\_scatter\_fields@{merge\_scatter\_fields}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{merge\_scatter\_fields()}{merge\_scatter\_fields()}}
+\doxysubsubsection{\texorpdfstring{merge\_scatter\_fields()}{merge\_scatter\_fields()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} hmap\+::merge\+\_\+scatter\+\_\+fields (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} $>$ \&}]{fields,  }\item[{bool}]{merge\+\_\+by\+\_\+class = {\ttfamily true} }\end{DoxyParamCaption})}
 
 
@@ -32699,6 +32677,28 @@ Merges multiple \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} instances i
 
 \begin{DoxyParams}{Parameters}
 {\em fields} & List of \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} instances. \\
+\hline
+{\em merge\+\_\+by\+\_\+class} & If true, preserves existing class IDs. If false, assigns a new unique class ID for each input field corresponding to its index in {\ttfamily fields}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1ScatterField}{Scatter\+Field} Merged scatter field. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a09487a4f97ee60322dc0b237309896ed}\label{namespacehmap_a09487a4f97ee60322dc0b237309896ed} 
+\index{hmap@{hmap}!merge\_scatter\_fields@{merge\_scatter\_fields}}
+\index{merge\_scatter\_fields@{merge\_scatter\_fields}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{merge\_scatter\_fields()}{merge\_scatter\_fields()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} hmap\+::merge\+\_\+scatter\+\_\+fields (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1ScatterField}{Scatter\+Field}} $>$ \&}]{fields,  }\item[{const std\+::vector$<$ glm\+::vec4 $>$ \&}]{bboxs,  }\item[{bool}]{merge\+\_\+by\+\_\+class = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Merges multiple \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} instances with associated bounding boxes into a single instance, resolving overlaps by keeping items from earlier fields in the input order. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fields} & List of \doxylink{classhmap_1_1ScatterField}{Scatter\+Field} instances. \\
+\hline
+{\em bboxs} & Bounding box for each input field \{xmin, xmax, ymin, ymax\}. \\
 \hline
 {\em merge\+\_\+by\+\_\+class} & If true, preserves existing class IDs. If false, assigns a new unique class ID for each input field corresponding to its index in {\ttfamily fields}. \\
 \hline
