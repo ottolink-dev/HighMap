@@ -8,6 +8,7 @@ var namespacehmap =
       [ "hydraulic_saleve", "namespacehmap_1_1va.html#ac0d43b69e78ba45a62795d90f1f453fe", null ],
       [ "smooth_cpulse", "namespacehmap_1_1va.html#aec2c193932c4d5d1fe00d09b81e243d8", null ],
       [ "smooth_cpulse", "namespacehmap_1_1va.html#a3df8c2c762d79f38e07069e47063fade", null ],
+      [ "seed_forest_clusters", "namespacehmap_1_1va.html#ac597da164f0981c1f45e81e2ac47c7e3", null ],
       [ "flooding_lake_system", "namespacehmap_1_1va.html#ae8000dce23f7622c2ba67910124bc353", null ],
       [ "flow_fixing_mst_paths", "namespacehmap_1_1va.html#a050c3c7ecc102d86f566bf55b3a72c51", null ],
       [ "flow_fixing_mst_triangulated", "namespacehmap_1_1va.html#a79c8b1b0f1447fcb8f94f6e2cec8788b", null ]
