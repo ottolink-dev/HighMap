@@ -29,11 +29,11 @@ class RockField;
 struct RockSimulationOptions
 {
   glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}; ///< Domain bounding box {xmin, xmax, ymin, ymax}.
-  float     time_step = 0.005f;          ///< Simulation time step dt in seconds.
-  int       max_steps = 1500;            ///< Maximum total simulation steps.
-  float     gravity = 9.81f;             ///< Gravitational acceleration.
-  float     soil_friction = 0.55f;       ///< Coulomb friction coefficient mu.
-  float     rolling_resistance = 0.05f;  ///< Rolling resistance coefficient.
+  float time_step = 0.005f;              ///< Simulation time step dt in seconds.
+  int   max_steps = 1500;                ///< Maximum total simulation steps.
+  float gravity = 9.81f;                 ///< Gravitational acceleration.
+  float soil_friction = 0.55f;           ///< Coulomb friction coefficient mu.
+  float rolling_resistance = 0.05f;      ///< Rolling resistance coefficient.
   float inter_rock_restitution = 0.9f;   ///< Restitution between colliding rocks.
   float min_velocity = 0.01f;            ///< Resting threshold speed.
   bool  respawn_out_of_bounds = false;   ///< Whether to respawn out-of-bounds rocks at initial position.

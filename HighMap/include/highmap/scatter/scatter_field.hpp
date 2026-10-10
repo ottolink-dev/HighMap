@@ -470,20 +470,6 @@ protected:
 // ============================================================================
 
 /**
- * @brief Merges two ScatterField instances into a single instance.
- *
- * @param  field1         First ScatterField.
- * @param  field2         Second ScatterField.
- * @param  merge_by_class If true, preserves existing class IDs. If false,
- *                        assigns a new unique class ID for each input field (0
- *                        for field1, 1 for field2).
- * @return                ScatterField   Merged scatter field.
- */
-ScatterField merge_scatter_field(const ScatterField &field1,
-                                 const ScatterField &field2,
-                                 bool                merge_by_class = true);
-
-/**
  * @brief Merges multiple ScatterField instances into a single instance.
  *
  * @param  fields         List of ScatterField instances.
@@ -493,6 +479,23 @@ ScatterField merge_scatter_field(const ScatterField &field1,
  * @return                ScatterField   Merged scatter field.
  */
 ScatterField merge_scatter_fields(const std::vector<ScatterField> &fields,
+                                  bool merge_by_class = true);
+
+/**
+ * @brief Merges multiple ScatterField instances with associated bounding boxes
+ * into a single instance, resolving overlaps by keeping items from earlier
+ * fields in the input order.
+ *
+ * @param  fields         List of ScatterField instances.
+ * @param  bboxs          Bounding box for each input field {xmin, xmax, ymin,
+ *                        ymax}.
+ * @param  merge_by_class If true, preserves existing class IDs. If false,
+ *                        assigns a new unique class ID for each input field
+ *                        corresponding to its index in @p fields.
+ * @return                ScatterField   Merged scatter field.
+ */
+ScatterField merge_scatter_fields(const std::vector<ScatterField> &fields,
+                                  const std::vector<glm::vec4>    &bboxs,
                                   bool merge_by_class = true);
 
 /**

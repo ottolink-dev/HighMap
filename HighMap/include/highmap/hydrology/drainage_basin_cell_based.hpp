@@ -182,7 +182,7 @@ public:
   // traversal
   // paths.
 
-  const glm::ivec2 null_cell = glm::ivec2( -1, -1); ///< Constant representing an invalid/null cell.
+  const glm::ivec2 null_cell = glm::ivec2(-1, -1); ///< Constant representing an invalid/null cell.
 
 private:
   // constants

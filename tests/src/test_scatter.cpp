@@ -422,7 +422,7 @@ TEST(ScatterSeedingTest, SeedScatterClustersAndKMeans)
 
 // --- Merge Functions Unit Tests
 
-TEST(ScatterFieldTest, MergeScatterFieldPreserveClasses)
+TEST(ScatterFieldTest, MergeScatterFieldsPreserveClasses)
 {
   ScatterField f1;
   f1.push_back(ScatterItem(1.f, 2.f, 3.f, 10u, 0.5f));
@@ -432,7 +432,7 @@ TEST(ScatterFieldTest, MergeScatterFieldPreserveClasses)
   f2.push_back(ScatterItem(7.f, 8.f, 9.f, 10u, 1.5f));
   f2.push_back(ScatterItem(10.f, 11.f, 12.f, 30u, 2.0f));
 
-  ScatterField merged = merge_scatter_field(f1, f2, true);
+  ScatterField merged = merge_scatter_fields({f1, f2}, true);
 
   EXPECT_EQ(merged.size(), 4u);
   EXPECT_EQ(merged[0].class_id, 10u);
@@ -447,7 +447,7 @@ TEST(ScatterFieldTest, MergeScatterFieldPreserveClasses)
   EXPECT_EQ(merged[3].class_id, 30u);
 }
 
-TEST(ScatterFieldTest, MergeScatterFieldRemapClasses)
+TEST(ScatterFieldTest, MergeScatterFieldsRemapClasses)
 {
   ScatterField f1;
   f1.push_back(ScatterItem(1.f, 2.f, 3.f, 10u, 0.5f));
@@ -457,7 +457,7 @@ TEST(ScatterFieldTest, MergeScatterFieldRemapClasses)
   f2.push_back(ScatterItem(7.f, 8.f, 9.f, 10u, 1.5f));
   f2.push_back(ScatterItem(10.f, 11.f, 12.f, 30u, 2.0f));
 
-  ScatterField merged = merge_scatter_field(f1, f2, false);
+  ScatterField merged = merge_scatter_fields({f1, f2}, false);
 
   EXPECT_EQ(merged.size(), 4u);
   // f1 items should have class 0
@@ -508,6 +508,90 @@ TEST(ScatterFieldTest, MergeScatterFieldsMultiple)
   EXPECT_EQ(merged_remapped[2].class_id, 2u);
   EXPECT_TRUE(float_eq(merged_remapped[2].position.x, 3.f));
   EXPECT_TRUE(float_eq(merged_remapped[2].radius, 0.3f));
+}
+
+TEST(ScatterFieldTest, MergeScatterFieldsWithBbox)
+{
+  // Field 1 covers [0, 10] x [0, 10]
+  ScatterField f1;
+  f1.push_back(ScatterItem(2.f,
+                           2.f,
+                           0.f,
+                           10u,
+                           0.5f)); // inside non-overlapping region of f1
+  f1.push_back(
+      ScatterItem(8.f, 5.f, 0.f, 10u, 0.5f)); // inside overlap region with f2
+  glm::vec4 bbox1 = {0.f, 10.f, 0.f, 10.f};
+
+  // Field 2 covers [6, 16] x [0, 10]
+  ScatterField f2;
+  f2.push_back(ScatterItem(8.f,
+                           5.f,
+                           0.f,
+                           20u,
+                           0.8f)); // in overlap -> should be discarded
+  f2.push_back(ScatterItem(14.f,
+                           5.f,
+                           0.f,
+                           20u,
+                           0.8f)); // inside non-overlapping region of f2
+  f2.push_back(ScatterItem(20.f,
+                           5.f,
+                           0.f,
+                           20u,
+                           0.8f)); // outside bbox2 -> should be discarded
+  glm::vec4 bbox2 = {6.f, 16.f, 0.f, 10.f};
+
+  // Field 3 covers [12, 22] x [0, 10]
+  ScatterField f3;
+  f3.push_back(ScatterItem(14.f,
+                           5.f,
+                           0.f,
+                           30u,
+                           1.0f)); // in overlap with f2 -> should be discarded
+  f3.push_back(ScatterItem(18.f,
+                           5.f,
+                           0.f,
+                           30u,
+                           1.0f)); // inside non-overlapping region of f3
+  glm::vec4 bbox3 = {12.f, 22.f, 0.f, 10.f};
+
+  // Merge with merge_by_class = true
+  ScatterField merged = merge_scatter_fields({f1, f2, f3},
+                                             {bbox1, bbox2, bbox3},
+                                             true);
+
+  // Expected items:
+  // From f1: (2, 2) and (8, 5)
+  // From f2: (14, 5)
+  // From f3: (18, 5)
+  EXPECT_EQ(merged.size(), 4u);
+
+  EXPECT_TRUE(float_eq(merged[0].position.x, 2.f));
+  EXPECT_EQ(merged[0].class_id, 10u);
+
+  EXPECT_TRUE(float_eq(merged[1].position.x, 8.f));
+  EXPECT_EQ(merged[1].class_id, 10u);
+
+  EXPECT_TRUE(float_eq(merged[2].position.x, 14.f));
+  EXPECT_EQ(merged[2].class_id, 20u);
+
+  EXPECT_TRUE(float_eq(merged[3].position.x, 18.f));
+  EXPECT_EQ(merged[3].class_id, 30u);
+
+  // Merge with merge_by_class = false (remapped classes)
+  ScatterField merged_remap = merge_scatter_fields({f1, f2, f3},
+                                                   {bbox1, bbox2, bbox3},
+                                                   false);
+  EXPECT_EQ(merged_remap.size(), 4u);
+  EXPECT_EQ(merged_remap[0].class_id, 0u);
+  EXPECT_EQ(merged_remap[1].class_id, 0u);
+  EXPECT_EQ(merged_remap[2].class_id, 1u);
+  EXPECT_EQ(merged_remap[3].class_id, 2u);
+
+  // Mismatched size returns empty
+  ScatterField merged_mismatch = merge_scatter_fields({f1, f2}, {bbox1});
+  EXPECT_EQ(merged_mismatch.size(), 0u);
 }
 
 TEST(ScatterFieldTest, ToHeightmapEmpty)
