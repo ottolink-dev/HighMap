@@ -7,7 +7,10 @@
 
 #include "highmap/array.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/logger.hpp"
 #include "highmap/range.hpp"
+
+#include <source_location>
 
 namespace hmap
 {

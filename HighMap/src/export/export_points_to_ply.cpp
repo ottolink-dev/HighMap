@@ -5,7 +5,6 @@
 #include <fstream>
 #include <map>
 #include <string>
-#include <utility>
 #include <vector>
 
 #include "highmap/internal/validation.hpp"

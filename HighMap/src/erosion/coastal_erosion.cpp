@@ -5,7 +5,7 @@
 
 #include "highmap/algebra.hpp"
 #include "highmap/array.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/coastal_erosion.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"

@@ -3,16 +3,15 @@
  * this software. */
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
 #include <cstdint>
 #include <limits>
-#include <numeric>
 #include <random>
 #include <vector>
 
 #include "highmap/array.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/internal/validation.hpp"
-#include "highmap/math/core.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/range.hpp"
 

@@ -4,7 +4,9 @@
 #include <algorithm>
 #include <cstddef>
 #include <functional>
-#include <initializer_list>
+#include <future>
+#include <type_traits>
+#include <utility>
 #include <vector>
 
 #include "highmap/array.hpp"
@@ -12,13 +14,15 @@
 #include "highmap/colormaps.hpp"
 #include "highmap/interpolate/interpolate1d.hpp"
 #include "highmap/logger.hpp"
-#include "highmap/math/array.hpp"
 #include "highmap/operator.hpp"
+#include "highmap/texture.hpp"
 #include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 #include "highmap/virtual_array/virtual_texture.hpp"
 
 #include "mixbox.h"
+
+#include <format>
 
 namespace hmap
 {

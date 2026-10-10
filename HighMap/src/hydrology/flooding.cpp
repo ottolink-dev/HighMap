@@ -3,14 +3,16 @@
  * this software. */
 #include <algorithm>
 #include <cstddef>
+#include <future>
 #include <limits>
 #include <vector>
 
 #include "highmap/array.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/depression_filling.hpp"
 #include "highmap/features.hpp"
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/logger.hpp"
 #include "highmap/range.hpp"
 #include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"

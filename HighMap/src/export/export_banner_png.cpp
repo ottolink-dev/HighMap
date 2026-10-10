@@ -10,6 +10,8 @@
 #include "highmap/internal/validation.hpp"
 #include "highmap/operator.hpp"
 
+#include <format>
+
 namespace hmap
 {
 

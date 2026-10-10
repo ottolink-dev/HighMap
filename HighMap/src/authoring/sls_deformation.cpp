@@ -3,16 +3,20 @@
  * this software. */
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
+#include <cstdint>
 #include <limits>
 #include <map>
 #include <numeric>
 #include <random>
+#include <utility>
 #include <vector>
 
 #include "highmap/array.hpp"
 #include "highmap/authoring.hpp"
 #include "highmap/internal/validation.hpp"
-#include "highmap/logger.hpp"
+
+#include <format>
 
 namespace hmap
 {

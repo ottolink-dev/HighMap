@@ -2,6 +2,7 @@
    Public License. The full license is in the file LICENSE, distributed with
    this software. */
 #include <algorithm>
+#include <cmath>
 #include <cstdint>
 #include <cstring>
 #include <filesystem>
@@ -10,9 +11,13 @@
 #include <string>
 #include <vector>
 
+#include "highmap/array.hpp"
 #include "highmap/export/bigtiff_writer.hpp"
+#include "highmap/export/image_writer.hpp"
 #include "highmap/logger.hpp"
 
+#include <ctype.h>
+#include <tiff.h>
 #include <tiffio.h>
 
 namespace hmap

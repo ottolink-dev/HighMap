@@ -3,6 +3,7 @@
  * this software. */
 #include <algorithm>
 #include <cstddef>
+#include <future>
 #include <vector>
 
 #include "highmap/array.hpp"

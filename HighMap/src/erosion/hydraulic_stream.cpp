@@ -1,12 +1,15 @@
 /* Copyright (c) 2023 Otto Link. Distributed under the terms of the GNU General
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
+#include <algorithm>
 #include <cmath>
+#include <cstdint>
+#include <vector>
 
 #include "highmap/array.hpp"
 #include "highmap/blending.hpp"
 #include "highmap/convolve.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/deprecated.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/gradient.hpp"
 #include "highmap/hydrology/hydrology.hpp"
@@ -15,7 +18,6 @@
 #include "highmap/kernels.hpp"
 #include "highmap/local_metrics.hpp"
 #include "highmap/math/array.hpp"
-#include "highmap/random.hpp"
 #include "highmap/range.hpp"
 
 namespace hmap

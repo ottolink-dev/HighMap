@@ -2,6 +2,7 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 #include <cstddef>
+#include <future>
 #include <vector>
 
 #include "highmap/coord_frame.hpp"
@@ -11,6 +12,8 @@
 #include "highmap/math/core.hpp"
 #include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
+
+#include <format>
 
 namespace hmap
 {

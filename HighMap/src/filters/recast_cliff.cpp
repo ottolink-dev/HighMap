@@ -4,12 +4,14 @@
 
 #include <algorithm>
 #include <cmath>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include "cl_wrapper/run.hpp"
 
 #include "highmap/array.hpp"
 #include "highmap/filters.hpp"
-#include "highmap/functions.hpp"
 #include "highmap/gradient.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/array.hpp"

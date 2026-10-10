@@ -2,22 +2,24 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 #include <algorithm>
+#include <array>
 #include <cmath>
+#include <memory>
+#include <string>
 #include <vector>
 
 #include "cl_wrapper/run.hpp"
 
 #include "highmap/array.hpp"
-#include "highmap/boundary.hpp"
-#include "highmap/erosion.hpp"
-#include "highmap/filters.hpp"
+#include "highmap/erosion/thermal_erosion.hpp"
 #include "highmap/gradient.hpp"
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
-#include "highmap/math/array.hpp"
 #include "highmap/math/core.hpp"
 #include "highmap/range.hpp"
 #include "highmap/selector.hpp"
+
+#include <CL/opencl.hpp>
 
 namespace hmap
 {

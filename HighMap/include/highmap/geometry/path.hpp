@@ -276,8 +276,8 @@ public:
    * parameter.
    *
    * @param decreasing If true, enforces a monotonically decreasing order for
-   *                   the values. If false, enforces a monotonically increasing order for the
-   *                   values.
+   *                   the values. If false, enforces a monotonically increasing
+   *                   order for the values.
    *
    * @note This method modifies the path in place.
    */

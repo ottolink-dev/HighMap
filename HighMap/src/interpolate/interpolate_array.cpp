@@ -3,13 +3,13 @@
  * this software. */
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <vector>
 
 #include "highmap/array.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/interpolate/interpolate2d.hpp"
 #include "highmap/interpolate/interpolate_array.hpp"
-#include "highmap/logger.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/random.hpp"
 

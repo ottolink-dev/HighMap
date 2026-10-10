@@ -5,7 +5,7 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
-#include <stdexcept>
+#include <string>
 #include <vector>
 
 #include "cl_wrapper/run.hpp"

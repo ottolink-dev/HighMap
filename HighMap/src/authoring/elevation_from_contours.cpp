@@ -3,17 +3,27 @@
  * this software. */
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
+#include <cstdint>
+#include <functional>
+#include <iterator>
 #include <limits>
 #include <numeric>
 #include <queue>
 #include <random>
+#include <utility>
 #include <vector>
 
+#include "highmap/array.hpp"
 #include "highmap/authoring.hpp"
 #include "highmap/geometry/cell_path.hpp"
+#include "highmap/geometry/path.hpp"
+#include "highmap/geometry/point.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/logger.hpp"
 #include "highmap/math/core.hpp"
+
+#include <format>
 
 namespace hmap
 {

@@ -11,6 +11,8 @@
 #include "highmap/math/array.hpp"
 #include "highmap/math/core.hpp"
 
+#include <format>
+
 namespace hmap
 {
 

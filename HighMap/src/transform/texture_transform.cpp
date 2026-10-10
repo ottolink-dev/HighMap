@@ -2,9 +2,9 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 
-#include <algorithm>
 #include <vector>
 
+#include "highmap/array.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/texture.hpp"
 #include "highmap/transform.hpp"

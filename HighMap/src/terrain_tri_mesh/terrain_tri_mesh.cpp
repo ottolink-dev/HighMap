@@ -27,6 +27,7 @@
 #include "highmap/interpolate/interpolate2d.hpp"
 #include "highmap/terrain_tri_mesh.hpp"
 
+#include <format>
 #include <unordered_map>
 
 namespace hmap

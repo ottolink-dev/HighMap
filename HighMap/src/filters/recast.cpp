@@ -11,7 +11,6 @@
 #include "highmap/filters.hpp"
 #include "highmap/functions.hpp"
 #include "highmap/internal/validation.hpp"
-#include "highmap/local_metrics.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/primitives/coherent_noise.hpp"

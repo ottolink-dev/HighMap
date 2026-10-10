@@ -2,9 +2,18 @@
    Public License. The full license is in the file LICENSE, distributed with
    this software. */
 #include <algorithm>
+#include <array>
 #include <cmath>
+#include <cstddef>
+#include <cstdint>
+#include <functional>
+#include <iterator>
+#include <random>
+#include <utility>
+#include <vector>
 
-#include "highmap/geometry/point_sampling.hpp"
+#include "highmap/array.hpp"
+#include "highmap/geometry/inverse_sampler_2d.hpp"
 #include "highmap/internal/validation.hpp"
 
 namespace hmap

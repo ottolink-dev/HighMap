@@ -3,19 +3,33 @@
    this software. */
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
+#include <cstdint>
+#include <functional>
 #include <iomanip>
+#include <locale>
 #include <map>
+#include <memory>
 #include <numeric>
 #include <random>
 #include <sstream>
+#include <string>
+#include <utility>
 #include <vector>
 
+#include "highmap/array.hpp"
 #include "highmap/functions.hpp"
+#include "highmap/geometry/cloud.hpp"
 #include "highmap/geometry/inverse_sampler_2d.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/rocks/rock.hpp"
+#include "highmap/rocks/rock_distribution.hpp"
 #include "highmap/rocks/rock_field.hpp"
 #include "highmap/rocks/rock_simulation.hpp"
+#include "highmap/scatter/scatter_field.hpp"
+#include "highmap/scatter/scatter_item.hpp"
 
+#include <format>
 #include <unordered_map>
 
 namespace hmap

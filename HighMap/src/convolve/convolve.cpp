@@ -7,6 +7,8 @@
 #include <vector>
 
 #include <opencv2/core.hpp>
+#include <opencv2/core/base.hpp>
+#include <opencv2/core/types.hpp>
 
 #include "highmap/array.hpp"
 #include "highmap/boundary.hpp"

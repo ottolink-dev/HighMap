@@ -11,7 +11,6 @@
 #include "highmap/geometry/path.hpp"
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
-#include "highmap/logger.hpp"
 #include "highmap/range.hpp"
 #include "highmap/sdf.hpp"
 

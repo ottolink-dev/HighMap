@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "highmap/array.hpp"
+#include "highmap/geometry/cloud.hpp"
 #include "highmap/geometry/path.hpp"
 #include "highmap/geometry/point.hpp"
 #include "highmap/internal/validation.hpp"

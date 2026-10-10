@@ -8,7 +8,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/colormaps.hpp"
-#include "highmap/export.hpp"
+#include "highmap/export/image.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/internal/string_utils.hpp"
 #include "highmap/internal/validation.hpp"

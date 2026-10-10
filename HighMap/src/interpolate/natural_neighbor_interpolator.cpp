@@ -10,11 +10,8 @@
 
 extern "C"
 {
-#include "config.h"
 //
 #include "nn.h"
-//
-#include "nncommon.h"
 //
 #include "delaunay.h"
 }

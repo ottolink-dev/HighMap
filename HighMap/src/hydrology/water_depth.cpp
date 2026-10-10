@@ -3,8 +3,10 @@
  * this software. */
 #include <algorithm>
 #include <cstdint>
+#include <iterator>
 #include <limits>
 #include <queue>
+#include <string>
 #include <utility>
 #include <vector>
 

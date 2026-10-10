@@ -3,6 +3,7 @@
  * this software. */
 
 #include <algorithm>
+#include <cstddef>
 #include <cstdint>
 #include <stdexcept>
 #include <string>
@@ -16,6 +17,8 @@
 #include "highmap/internal/validation.hpp"
 #include "highmap/logger.hpp"
 #include "highmap/texture.hpp"
+
+#include <format>
 
 namespace hmap
 {

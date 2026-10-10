@@ -3,9 +3,11 @@
  * this software. */
 #include <algorithm>
 #include <array>
+#include <cmath>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <iterator>
 #include <optional>
 #include <utility>
 #include <vector>
@@ -21,6 +23,7 @@
 #include "point_sampler/utils.hpp"
 
 #include "highmap/array.hpp"
+#include "highmap/geometry/inverse_sampler_2d.hpp"
 #include "highmap/geometry/point_sampling.hpp"
 #include "highmap/internal/validation.hpp"
 

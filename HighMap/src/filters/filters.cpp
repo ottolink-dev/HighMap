@@ -5,8 +5,10 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <functional>
 #include <limits>
 #include <random>
+#include <utility>
 #include <vector>
 
 #include "highmap/array.hpp"
@@ -21,7 +23,6 @@
 #include "highmap/math/array.hpp"
 #include "highmap/math/core.hpp"
 #include "highmap/math/profiles.hpp"
-#include "highmap/morphology.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/primitives/random.hpp"
 #include "highmap/range.hpp"

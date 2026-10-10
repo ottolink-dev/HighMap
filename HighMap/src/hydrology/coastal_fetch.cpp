@@ -3,6 +3,7 @@
  * this software. */
 #include <array>
 #include <cmath>
+#include <string>
 #include <vector>
 
 #include "cl_wrapper/run.hpp"

@@ -4,13 +4,16 @@
 
 #include <array>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "cl_wrapper/run.hpp"
 
 #include "highmap/array.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/hydraulic_erosion.hpp"
 #include "highmap/internal/validation.hpp"
+
+#include <CL/opencl.hpp>
 
 namespace hmap::gpu
 {

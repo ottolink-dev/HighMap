@@ -1,19 +1,26 @@
 /* Copyright (c) 2025 Otto Link. Distributed under the terms of the GNU General
    Public License. The full license is in the file LICENSE, distributed with
    this software. */
-#include <algorithm>
 #include <cmath>
+#include <cstddef>
+#include <cstdint>
 #include <iomanip>
+#include <locale>
 #include <map>
-#include <numeric>
-#include <random>
 #include <sstream>
+#include <string>
+#include <utility>
 #include <vector>
 
 #include "point_sampler/metrics.hpp"
+#include "point_sampler/point.hpp"
 
 #include "highmap/flora/forest.hpp"
 #include "highmap/flora/species.hpp"
+#include "highmap/flora/tree.hpp"
+#include "highmap/geometry/cloud.hpp"
+#include "highmap/scatter/scatter_field.hpp"
+#include "highmap/scatter/scatter_item.hpp"
 
 #include <unordered_map>
 

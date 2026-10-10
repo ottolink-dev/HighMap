@@ -9,8 +9,8 @@
 #include <functional>
 #include <iomanip>
 #include <iostream>
+#include <iterator>
 #include <limits>
-#include <map>
 #include <queue>
 #include <string>
 #include <utility>
@@ -18,11 +18,14 @@
 
 #include "highmap/array.hpp"
 #include "highmap/colormaps.hpp"
+#include "highmap/geometry/cloud.hpp"
 #include "highmap/geometry/graph.hpp"
 #include "highmap/geometry/path.hpp"
 #include "highmap/geometry/point.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/operator.hpp"
+
+#include <format>
 
 namespace hmap
 {

@@ -1,14 +1,15 @@
 /* Copyright (c) 2026 Otto Link. Distributed under the terms of the GNU General
    Public License. The full license is in the file LICENSE, distributed with
    this software. */
-#include <algorithm>
-#include <cmath>
-#include <cstdint>
-#include <vector>
+#include <cstddef>
+#include <utility>
 
-#include "highmap/geometry/inverse_sampler_2d.hpp"
+#include "highmap/array.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/rocks/rock_distribution.hpp"
+#include "highmap/rocks/rock_field.hpp"
 #include "highmap/rocks/rock_seeding.hpp"
+#include "highmap/scatter/scatter_field.hpp"
 #include "highmap/scatter/scatter_seeding.hpp"
 
 namespace hmap

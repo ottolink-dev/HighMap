@@ -7,6 +7,7 @@
 #include <mutex>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "highmap/array.hpp"
 #include "highmap/virtual_array/tile_region.hpp"

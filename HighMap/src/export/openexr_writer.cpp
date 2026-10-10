@@ -1,19 +1,24 @@
 /* Copyright (c) 2026 Otto Link. Distributed under the terms of the GNU General
    Public License. The full license is in the file LICENSE, distributed with
    this software. */
-#include <algorithm>
+#include <cstddef>
+#include <exception>
 #include <filesystem>
-#include <fstream>
 #include <memory>
 #include <mutex>
 #include <string>
 #include <vector>
 
+#include "highmap/array.hpp"
+#include "highmap/export/image_writer.hpp"
 #include "highmap/export/openexr_writer.hpp"
 #include "highmap/logger.hpp"
 
 #include <Imath/ImathBox.h>
 #include <Imath/half.h>
+#include <ImathVec.h>
+#include <ImfLineOrder.h>
+#include <ImfPixelType.h>
 #include <OpenEXR/ImfChannelList.h>
 #include <OpenEXR/ImfFrameBuffer.h>
 #include <OpenEXR/ImfHeader.h>

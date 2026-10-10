@@ -5,13 +5,17 @@
 #include <filesystem>
 #include <memory>
 #include <string>
+#include <vector>
 
+#include "highmap/array.hpp"
 #include "highmap/export/bigtiff_writer.hpp"
 #include "highmap/export/image_writer.hpp"
 #include "highmap/export/opencv_writer.hpp"
 #include "highmap/export/openexr_writer.hpp"
 #include "highmap/internal/string_utils.hpp"
-#include "highmap/logger.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
+
+#include <ctype.h>
 
 namespace hmap
 {

@@ -2,7 +2,8 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 #include "highmap/array.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/strata_erosion.hpp"
+#include "highmap/erosion/thermal_erosion.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/array.hpp"

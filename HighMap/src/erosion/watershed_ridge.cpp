@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "highmap/array.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/strata_erosion.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/hydrology/drainage_basin_cell_based.hpp"
 #include "highmap/hydrology/hydrology.hpp"

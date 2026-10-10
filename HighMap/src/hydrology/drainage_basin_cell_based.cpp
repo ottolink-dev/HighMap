@@ -17,6 +17,7 @@
 #include "highmap/internal/validation.hpp"
 #include "highmap/random.hpp"
 
+#include <format>
 #include <unordered_map>
 
 namespace hmap

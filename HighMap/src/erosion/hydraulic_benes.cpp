@@ -3,13 +3,15 @@
  * this software. */
 
 #include <algorithm>
+#include <array>
 #include <cstdint>
 #include <vector>
 
 #include "highmap/array.hpp"
 #include "highmap/boundary.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/deprecated.hpp"
 #include "highmap/filters.hpp"
+#include "highmap/geometry/grids.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/primitives/functions.hpp"

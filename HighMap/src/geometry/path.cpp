@@ -5,7 +5,6 @@
 #include <cmath>
 #include <cstddef>
 #include <limits>
-#include <list>
 #include <string>
 #include <utility>
 #include <vector>

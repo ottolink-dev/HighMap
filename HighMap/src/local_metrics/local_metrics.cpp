@@ -11,6 +11,7 @@
 #include "highmap/convolve.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/local_metrics.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/range.hpp"
 

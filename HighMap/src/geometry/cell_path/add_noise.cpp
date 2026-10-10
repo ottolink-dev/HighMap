@@ -8,7 +8,6 @@
 #include <functional>
 #include <memory>
 #include <utility>
-#include <vector>
 
 #include "highmap/functions.hpp"
 #include "highmap/geometry/cell_path.hpp"

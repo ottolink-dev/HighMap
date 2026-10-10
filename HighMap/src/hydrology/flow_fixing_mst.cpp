@@ -5,6 +5,9 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <functional>
+#include <future>
+#include <iterator>
 #include <limits>
 #include <queue>
 #include <utility>
@@ -15,15 +18,17 @@
 #include "highmap/carving.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/geometry/cloud.hpp"
+#include "highmap/geometry/path.hpp"
+#include "highmap/geometry/point.hpp"
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
-#include "highmap/math/array.hpp"
-#include "highmap/morphology.hpp"
-#include "highmap/random.hpp"
+#include "highmap/math/profiles.hpp"
 #include "highmap/shortest_path.hpp"
 #include "highmap/terrain_tri_mesh.hpp"
-#include "highmap/virtual_array.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/virtual_array/virtual_array.hpp"
 
+#include <format>
 #include <unordered_map>
 
 namespace hmap

@@ -2,16 +2,26 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 #include <algorithm>
+#include <array>
 #include <cmath>
+#include <cstddef>
 #include <cstdint>
+#include <functional>
 #include <limits>
 #include <queue>
+#include <utility>
 #include <vector>
 
 #include "highmap/algebra.hpp"
 #include "highmap/array.hpp"
+#include "highmap/geometry/cloud.hpp"
+#include "highmap/geometry/grids.hpp"
+#include "highmap/geometry/path.hpp"
+#include "highmap/geometry/point.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/shortest_path.hpp"
+
+#include <format>
 
 namespace hmap
 {

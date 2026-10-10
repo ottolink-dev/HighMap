@@ -3,31 +3,47 @@
    this software. */
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
+#include <cstring>
 #include <fstream>
+#include <functional>
 #include <iomanip>
+#include <iterator>
+#include <locale>
 #include <map>
 #include <numeric>
+#include <optional>
 #include <random>
 #include <set>
 #include <sstream>
 #include <stdexcept>
+#include <string>
+#include <utility>
 #include <vector>
 
 #include <opencv2/core.hpp>
+#include <opencv2/core/types.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
 
+#include "cl_wrapper/device_manager.hpp"
 #include "cl_wrapper/run.hpp"
 #include "delaunator-cpp.hpp"
 #include "point_sampler/metrics.hpp"
+#include "point_sampler/point.hpp"
 #include "point_sampler/relaxation.hpp"
 
+#include "highmap/array.hpp"
 #include "highmap/functions.hpp"
+#include "highmap/geometry/cloud.hpp"
+#include "highmap/geometry/point.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/range.hpp"
 #include "highmap/scatter/scatter_field.hpp"
+#include "highmap/scatter/scatter_item.hpp"
 
+#include <format>
 #include <unordered_map>
 
 namespace hmap

@@ -3,11 +3,12 @@
  * this software. */
 #include <algorithm>
 #include <cstddef>
+#include <future>
 #include <vector>
 
 #include "highmap/algebra.hpp"
 #include "highmap/array.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/depression_filling.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/hydrology/drainage_basin_cell_based.hpp"
 #include "highmap/internal/validation.hpp"

@@ -3,14 +3,13 @@
  * this software. */
 #include <cmath>
 #include <cstddef>
+#include <utility>
 #include <vector>
 
 #include "highmap/array.hpp"
 #include "highmap/geometry/grids.hpp"
 #include "highmap/geometry/kd_tree.hpp"
 #include "highmap/internal/validation.hpp"
-
-#include "nanoflann.hpp"
 
 namespace hmap
 {

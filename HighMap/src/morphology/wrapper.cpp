@@ -3,6 +3,7 @@
  * this software. */
 #include "highmap/array.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/local_metrics.hpp"
 #include "highmap/morphology.hpp"
 
 namespace hmap

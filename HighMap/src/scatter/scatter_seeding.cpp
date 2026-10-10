@@ -2,18 +2,25 @@
    Public License. The full license is in the file LICENSE, distributed with
    this software. */
 #include <algorithm>
+#include <array>
 #include <cmath>
+#include <cstddef>
 #include <cstdint>
-#include <numeric>
 #include <random>
+#include <tuple>
+#include <utility>
 #include <vector>
 
 #include "point_sampler/kmeans_clustering.hpp"
 #include "point_sampler/metrics.hpp"
+#include "point_sampler/point.hpp"
 #include "point_sampler/utils.hpp"
 
+#include "highmap/array.hpp"
 #include "highmap/geometry/inverse_sampler_2d.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/scatter/scatter_field.hpp"
+#include "highmap/scatter/scatter_item.hpp"
 #include "highmap/scatter/scatter_seeding.hpp"
 
 namespace hmap

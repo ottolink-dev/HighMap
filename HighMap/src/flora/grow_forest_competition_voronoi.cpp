@@ -3,12 +3,19 @@
    this software. */
 #include <algorithm>
 #include <cmath>
-#include <cstdint>
+#include <cstddef>
+#include <utility>
 #include <vector>
 
+#include "highmap/array.hpp"
+#include "highmap/flora/forest.hpp"
 #include "highmap/flora/forest_growth.hpp"
+#include "highmap/flora/species.hpp"
+#include "highmap/flora/tree.hpp"
 #include "highmap/internal/flora_utils.hpp"
-#include "highmap/math.hpp"
+#include "highmap/math/core.hpp"
+#include "highmap/scatter/scatter_field.hpp"
+#include "highmap/scatter/scatter_item.hpp"
 #include "highmap/terrain_tri_mesh.hpp"
 
 namespace hmap

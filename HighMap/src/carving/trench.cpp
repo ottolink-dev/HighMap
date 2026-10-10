@@ -12,6 +12,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/carving.hpp"
+#include "highmap/geometry/cloud.hpp"
 #include "highmap/geometry/grids.hpp"
 #include "highmap/geometry/path.hpp"
 #include "highmap/geometry/point.hpp"

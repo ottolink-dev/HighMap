@@ -2,12 +2,13 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 #include <algorithm>
-#include <cstddef>
+#include <memory>
 
 #include "highmap/array.hpp"
 #include "highmap/logger.hpp"
 #include "highmap/math/core.hpp"
 #include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/virtual_array/tile_storage.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap

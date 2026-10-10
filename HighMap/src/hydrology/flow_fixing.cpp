@@ -2,6 +2,7 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 #include <algorithm>
+#include <cmath>
 #include <cstddef>
 #include <cstdint>
 #include <initializer_list>
@@ -12,14 +13,12 @@
 #include "highmap/array.hpp"
 #include "highmap/carving.hpp"
 #include "highmap/filters.hpp"
+#include "highmap/geometry/path.hpp"
+#include "highmap/geometry/point.hpp"
 #include "highmap/hydrology/drainage_basin_cell_based.hpp"
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
-#include "highmap/math/array.hpp"
-#include "highmap/morphology.hpp"
-#include "highmap/random.hpp"
-#include "highmap/shortest_path.hpp"
-#include "highmap/transform.hpp"
+#include "highmap/math/profiles.hpp"
 
 #include <unordered_map>
 

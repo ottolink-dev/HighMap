@@ -3,6 +3,7 @@
  * this software. */
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
 #include <cstdint>
 #include <vector>
 
@@ -13,6 +14,8 @@
 #include "highmap/math/array.hpp"
 #include "highmap/math/core.hpp"
 #include "highmap/range.hpp"
+
+#include <format>
 
 namespace hmap
 {

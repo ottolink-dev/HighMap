@@ -14,6 +14,8 @@
 #include "highmap/operator.hpp"
 #include "highmap/transform.hpp"
 
+#include <format>
+
 namespace hmap
 {
 

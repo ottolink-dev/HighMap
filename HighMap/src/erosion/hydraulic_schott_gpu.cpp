@@ -2,6 +2,7 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 #include <array>
+#include <string>
 #include <vector>
 
 #include "cl_wrapper/run.hpp"
@@ -9,6 +10,8 @@
 #include "highmap/array.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/array.hpp"
+
+#include <CL/opencl.hpp>
 
 namespace hmap::gpu
 {

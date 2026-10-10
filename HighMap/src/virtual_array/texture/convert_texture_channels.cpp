@@ -2,6 +2,7 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 #include <algorithm>
+#include <future>
 #include <memory>
 #include <stdexcept>
 #include <vector>
@@ -11,6 +12,8 @@
 #include "highmap/virtual_array/tile_storage.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 #include "highmap/virtual_array/virtual_texture.hpp"
+
+#include <format>
 
 namespace hmap
 {

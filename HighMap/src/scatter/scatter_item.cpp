@@ -1,6 +1,9 @@
+#include <cstdint>
 #include <locale>
 #include <sstream>
+#include <string>
 
+#include "highmap/geometry/point.hpp"
 #include "highmap/scatter/scatter_item.hpp"
 
 namespace hmap

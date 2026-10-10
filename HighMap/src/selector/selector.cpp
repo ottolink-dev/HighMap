@@ -12,6 +12,7 @@
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/array.hpp"
+#include "highmap/math/core.hpp"
 #include "highmap/morphology.hpp"
 #include "highmap/range.hpp"
 #include "highmap/selector.hpp"

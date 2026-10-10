@@ -3,6 +3,8 @@
  * this software. */
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
+#include <future>
 #include <memory>
 #include <sstream>
 #include <string>
@@ -11,12 +13,12 @@
 
 #include "highmap/array.hpp"
 #include "highmap/internal/validation.hpp"
-#include "highmap/interpolate/interpolate2d.hpp"
-#include "highmap/logger.hpp"
 #include "highmap/math/core.hpp"
 #include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/tile_storage.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
+
+#include <format>
 
 namespace hmap
 {

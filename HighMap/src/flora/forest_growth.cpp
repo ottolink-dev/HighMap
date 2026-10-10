@@ -2,18 +2,14 @@
    Public License. The full license is in the file LICENSE, distributed with
    this software. */
 #include <algorithm>
-#include <cmath>
+#include <cstddef>
 #include <cstdint>
-#include <numeric>
 #include <random>
 #include <vector>
 
-#include "point_sampler/metrics.hpp"
-
 #include "highmap/flora/forest_growth.hpp"
+#include "highmap/flora/species.hpp"
 #include "highmap/internal/validation.hpp"
-
-#include <unordered_map>
 
 namespace hmap
 {

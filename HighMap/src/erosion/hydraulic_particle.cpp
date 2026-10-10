@@ -3,13 +3,14 @@
  * this software. */
 #include <algorithm>
 #include <cstdint>
-#include <memory>
+#include <string>
+#include <vector>
 
 #include "cl_wrapper/run.hpp"
 
 #include "highmap/array.hpp"
 #include "highmap/boundary.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/hydraulic_erosion.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/interpolate/interpolate_array.hpp"
 #include "highmap/opencl/gpu_opencl.hpp"

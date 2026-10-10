@@ -2,6 +2,8 @@
    Public License. The full license is in the file LICENSE, distributed with
    this software. */
 #include <algorithm>
+#include <cmath>
+#include <cstdint>
 #include <filesystem>
 #include <memory>
 #include <mutex>
@@ -11,8 +13,9 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 
+#include "highmap/array.hpp"
+#include "highmap/export/image_writer.hpp"
 #include "highmap/export/opencv_writer.hpp"
-#include "highmap/logger.hpp"
 
 namespace hmap
 {

@@ -8,6 +8,8 @@
  */
 #pragma once
 
+#include <string>
+
 #include "highmap/scatter/scatter_item.hpp"
 
 #define HMAP_DEFAULT_TREE_RADIUS 1e-3f

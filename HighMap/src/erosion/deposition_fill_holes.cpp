@@ -3,7 +3,7 @@
  * this software. */
 #include "highmap/array.hpp"
 #include "highmap/blending.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/hydraulic_erosion.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/array.hpp"

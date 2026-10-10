@@ -5,10 +5,11 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <future>
 #include <vector>
 
 #include "highmap/array.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/hydraulic_erosion.hpp"
 #include "highmap/geometry/cloud.hpp"
 #include "highmap/hydrology/drainage_basin.hpp"
 #include "highmap/internal/validation.hpp"
@@ -17,7 +18,8 @@
 #include "highmap/primitives/functions.hpp"
 #include "highmap/range.hpp"
 #include "highmap/terrain_tri_mesh.hpp"
-#include "highmap/virtual_array.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
 {

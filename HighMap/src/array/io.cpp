@@ -1,7 +1,6 @@
 /* Copyright (c) 2023 Otto Link. Distributed under the terms of the GNU General
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
-#include <algorithm>
 #include <cstdint>
 #include <fstream>
 #include <iomanip>
@@ -16,7 +15,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/colorize.hpp"
-#include "highmap/export.hpp"
+#include "highmap/export/asset.hpp"
 #include "highmap/logger.hpp"
 #include "highmap/range.hpp"
 #include "highmap/texture.hpp"

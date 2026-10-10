@@ -3,7 +3,7 @@
  * this software. */
 #include <algorithm>
 #include <cstdint>
-#include <memory>
+#include <string>
 #include <vector>
 
 #include "cl_wrapper/run.hpp"

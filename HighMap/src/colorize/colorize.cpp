@@ -3,7 +3,11 @@
  * this software. */
 
 #include <algorithm>
+#include <array>
+#include <cstddef>
 #include <cstdint>
+#include <functional>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -13,6 +17,7 @@
 #include "highmap/filters.hpp"
 #include "highmap/gradient.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/interpolate/interpolate1d.hpp"
 #include "highmap/logger.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/range.hpp"
@@ -20,6 +25,8 @@
 #include "highmap/texture.hpp"
 
 #include "mixbox.h"
+
+#include <format>
 
 namespace hmap
 {

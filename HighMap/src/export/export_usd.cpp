@@ -8,26 +8,34 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "hmm/src/heightmap.h"
 #include "hmm/src/triangulator.h"
 
-#include "highmap/algebra.hpp"
 #include "highmap/array.hpp"
-#include "highmap/export.hpp"
+#include "highmap/export/asset.hpp"
+#include "highmap/export/scene.hpp"
 #include "highmap/flora/forest.hpp"
 #include "highmap/geometry/cloud.hpp"
 #include "highmap/geometry/path.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/logger.hpp"
 #include "highmap/operator.hpp"
+#include "highmap/scatter/scatter_item.hpp"
 
+#include "core/animatable.hh"
+#include "core/prim.hh"
+#include "core/typed-attribute.hh"
 #include "lightusd.hh"
 #include "stage.hh"
 #include "usdGeom.hh"
 #include "usda-writer.hh"
 #include "usdc-writer.hh"
+#include "value-types.hh"
+
+#include <ctype.h>
 
 namespace hmap
 {

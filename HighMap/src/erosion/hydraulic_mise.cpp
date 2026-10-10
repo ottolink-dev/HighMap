@@ -6,18 +6,18 @@
  * https://github.com/Leonhardmaster2 */
 
 #include <algorithm>
-#include <atomic>
 #include <chrono>
 #include <cmath>
 #include <cstdint>
 #include <cstring>
+#include <iterator>
 #include <thread>
 #include <utility>
 #include <vector>
 
 #include "highmap/array.hpp"
-#include "highmap/blending.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/erosion_parameters.hpp"
+#include "highmap/erosion/hydraulic_erosion.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/interpolate/interpolate2d.hpp"
 #include "highmap/math/array.hpp"
@@ -25,6 +25,7 @@
 #include "highmap/range.hpp"
 
 #include <bit>
+#include <format>
 
 namespace hmap
 {

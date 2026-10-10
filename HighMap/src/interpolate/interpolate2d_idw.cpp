@@ -3,6 +3,7 @@
  * this software. */
 #include <cmath>
 #include <cstddef>
+#include <utility>
 #include <vector>
 
 #include "highmap/array.hpp"
@@ -10,8 +11,6 @@
 #include "highmap/geometry/kd_tree.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/core.hpp"
-
-#include "nanoflann.hpp"
 
 namespace hmap
 {

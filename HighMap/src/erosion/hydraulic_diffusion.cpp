@@ -3,7 +3,7 @@
  * this software. */
 
 #include "highmap/array.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/deprecated.hpp"
 #include "highmap/gradient.hpp"
 #include "highmap/internal/validation.hpp"
 

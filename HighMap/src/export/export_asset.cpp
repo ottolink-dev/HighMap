@@ -13,7 +13,7 @@
 
 #include "highmap/algebra.hpp"
 #include "highmap/array.hpp"
-#include "highmap/export.hpp"
+#include "highmap/export/asset.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/logger.hpp"
 #include "highmap/operator.hpp"

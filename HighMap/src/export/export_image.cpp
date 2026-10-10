@@ -1,16 +1,21 @@
 /* Copyright (c) 2026 Otto Link. Distributed under the terms of the GNU General
    Public License. The full license is in the file LICENSE, distributed with
    this software. */
+#include <future>
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "highmap/array.hpp"
 #include "highmap/export/image.hpp"
 #include "highmap/export/image_writer.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/logger.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 #include "highmap/virtual_array/virtual_texture.hpp"
+
+#include <format>
 
 namespace hmap
 {

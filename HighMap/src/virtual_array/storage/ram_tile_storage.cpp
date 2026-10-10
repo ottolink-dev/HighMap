@@ -5,6 +5,7 @@
 #include <limits>
 #include <memory>
 #include <utility>
+#include <vector>
 
 #include "highmap/array.hpp"
 #include "highmap/virtual_array/tile_region.hpp"

@@ -4,7 +4,7 @@
 #include <string>
 
 #include "highmap/array.hpp"
-#include "highmap/export.hpp"
+#include "highmap/export/image.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/texture.hpp"
 

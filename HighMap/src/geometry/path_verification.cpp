@@ -1,9 +1,7 @@
 /* Copyright (c) 2026 Otto Link. Distributed under the terms of the GNU General
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
-#include <algorithm>
 #include <cmath>
-#include <cstddef>
 #include <vector>
 
 #include "highmap/geometry/kd_tree.hpp"

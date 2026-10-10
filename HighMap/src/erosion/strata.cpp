@@ -2,12 +2,13 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 #include <cstdint>
+#include <string>
 #include <vector>
 
 #include "cl_wrapper/run.hpp"
 
 #include "highmap/array.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/strata_erosion.hpp"
 #include "highmap/functions.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/opencl/gpu_opencl.hpp"

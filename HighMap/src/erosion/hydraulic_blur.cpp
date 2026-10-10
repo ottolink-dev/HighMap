@@ -4,7 +4,7 @@
 #include <algorithm>
 
 #include "highmap/array.hpp"
-#include "highmap/erosion.hpp"
+#include "highmap/erosion/deprecated.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/range.hpp"
