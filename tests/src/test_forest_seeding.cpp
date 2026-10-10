@@ -1000,3 +1000,115 @@ TEST(TreeDensityTest, SecondaryDensityModulation)
     EXPECT_FLOAT_EQ(v, 0.0f);
   }
 }
+
+// --- VirtualArray Seeding Tests
+
+TEST(ForestSeedingTest, VirtualArrayBasicClusterSeeding)
+{
+  glm::ivec2 shape = {64, 64};
+  glm::ivec2 tile_shape = {32, 32};
+  int        halo = 4;
+  glm::vec4  bbox = {0.0f, 100.0f, 0.0f, 100.0f};
+
+  VirtualArray density(shape, bbox, tile_shape, halo);
+  ComputeMode  cm;
+  density.fill(1.0f, cm);
+
+  VirtualArray exclusion;
+
+  ForestSeedingOptions options;
+  options.seed = 42;
+  options.bbox = bbox;
+
+  size_t species_count = 3;
+  size_t tree_count = 80;
+
+  Forest forest = hmap::va::seed_forest_clusters(species_count,
+                                                 tree_count,
+                                                 density,
+                                                 exclusion,
+                                                 0.05f,
+                                                 8,
+                                                 options,
+                                                 cm);
+
+  EXPECT_GT(forest.size(), 0u);
+  EXPECT_NEAR(static_cast<double>(forest.size()),
+              static_cast<double>(tree_count),
+              30.0);
+
+  for (const auto &tree : forest)
+  {
+    EXPECT_GE(tree.position.x, 0.0f);
+    EXPECT_LE(tree.position.x, 100.0f);
+    EXPECT_GE(tree.position.y, 0.0f);
+    EXPECT_LE(tree.position.y, 100.0f);
+    EXPECT_LT(tree.class_id, species_count);
+  }
+
+  auto class_ids = forest.get_class_ids();
+  EXPECT_GT(class_ids.size(), 0u);
+}
+
+TEST(ForestSeedingTest, VirtualArrayExclusionMask)
+{
+  glm::ivec2 shape = {64, 64};
+  glm::ivec2 tile_shape = {32, 32};
+  int        halo = 4;
+  glm::vec4  bbox = {0.0f, 1.0f, 0.0f, 1.0f};
+
+  VirtualArray density(shape, bbox, tile_shape, halo);
+  VirtualArray exclusion(shape, bbox, tile_shape, halo);
+  ComputeMode  cm;
+  density.fill(1.0f, cm);
+  exclusion.fill(0.0f, cm);
+
+  // Exclude top half (y >= 0.5)
+  Array excl_array(shape, 0.0f);
+  for (int j = 32; j < 64; ++j)
+  {
+    for (int i = 0; i < 64; ++i)
+    {
+      excl_array(i, j) = 1.0f;
+    }
+  }
+  exclusion.from_array(excl_array, cm);
+
+  ForestSeedingOptions options;
+  options.seed = 123;
+  options.bbox = bbox;
+  options.exclusion_threshold = 0.5f;
+
+  Forest forest = hmap::va::seed_forest_clusters(2,
+                                                 60,
+                                                 density,
+                                                 exclusion,
+                                                 0.05f,
+                                                 8,
+                                                 options,
+                                                 cm);
+
+  EXPECT_GT(forest.size(), 0u);
+
+  for (const auto &tree : forest)
+  {
+    EXPECT_LT(tree.position.y, 0.55f);
+  }
+}
+
+TEST(ForestSeedingTest, VirtualArrayEmptyAndZeroDensity)
+{
+  VirtualArray empty_va;
+  ComputeMode  cm;
+
+  Forest f1 = hmap::va::seed_forest_clusters(2, 50, empty_va);
+  EXPECT_EQ(f1.size(), 0u);
+
+  glm::ivec2   shape = {32, 32};
+  glm::ivec2   tile_shape = {16, 16};
+  VirtualArray zero_density(shape, {0.f, 1.f, 0.f, 1.f}, tile_shape, 2);
+  zero_density.fill(0.0f, cm);
+
+  Forest f2 = hmap::va::seed_forest_clusters(2, 50, zero_density);
+  EXPECT_EQ(f2.size(), 0u);
+}
