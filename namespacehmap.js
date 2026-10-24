@@ -1150,6 +1150,8 @@ var namespacehmap =
     [ "rescale", "namespacehmap.html#ac126773f7c7af2364cfb4d7a6922ed96", null ],
     [ "normalize_and_clip", "namespacehmap.html#a813489b177fe9e94a7a7a7a8cb82ce63", null ],
     [ "generate_network_alpha_model", "namespacehmap.html#a286e4e74e6495802dba7f873c06ccb20", null ],
+    [ "build_rock_density", "namespacehmap.html#af9752df3baf8e8ba199fd6c18b0268fc", null ],
+    [ "place_rocks_procedural", "namespacehmap.html#ad344c29b6eb84464be0072663cb292b8", null ],
     [ "seed_rock_field", "namespacehmap.html#a8c78151d9fea71bfaebb14a378e8ad81", null ],
     [ "simulate_rock_emission", "namespacehmap.html#a1b7abfd2113a5f98687a0c5c576ab110", null ],
     [ "simulate_rock_trajectories", "namespacehmap.html#aa7f9658e594e28641d9c4a3d136c06eb", null ],

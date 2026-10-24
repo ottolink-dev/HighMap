@@ -70,13 +70,14 @@ var searchData=
   ['build_67',['build',['../classhmap_1_1BVH2D.html#af68093985c322ceeaeb255e6d5b9a61b',1,'hmap::BVH2D::build()'],['../classhmap_1_1NaturalNeighborInterpolator.html#a9404f1043455692be64d35116a00742c',1,'hmap::NaturalNeighborInterpolator::build()']]],
   ['build_5fdensity_5flinear_68',['build_density_linear',['../namespacehmap.html#aeb287bebf689e973b6b5ed1020968d8f',1,'hmap']]],
   ['build_5fdensity_5flog_69',['build_density_log',['../namespacehmap.html#aeb27a88fc257ddfb11aa587eb7a796df',1,'hmap']]],
-  ['build_5ftree_5fdensity_70',['build_tree_density',['../namespacehmap.html#ae7c74f46c267db50e3c562eebb118e27',1,'hmap']]],
-  ['bulkify_71',['bulkify',['../namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3',1,'hmap']]],
-  ['bulkify_2ecpp_72',['bulkify.cpp',['../bulkify_8cpp.html',1,'']]],
-  ['bump_73',['bump',['../namespacehmap.html#a32035fe3ef18a31240ace195c721ecd7',1,'hmap']]],
-  ['bump_5florentzian_74',['bump_lorentzian',['../namespacehmap.html#a4af0bde798f0266db4dfe24e1134a506',1,'hmap']]],
-  ['bumpfunction_75',['bumpfunction',['../classhmap_1_1BumpFunction.html#a80e2476cc674ff1e15c5135829484c68',1,'hmap::BumpFunction::BumpFunction()'],['../classhmap_1_1BumpFunction.html',1,'hmap::BumpFunction']]],
-  ['bvh_2ecpp_76',['bvh.cpp',['../bvh_8cpp.html',1,'']]],
-  ['bvh_2ehpp_77',['bvh.hpp',['../bvh_8hpp.html',1,'']]],
-  ['bvh2d_78',['bvh2d',['../classhmap_1_1BVH2D.html',1,'hmap::BVH2D'],['../classhmap_1_1BVH2D.html#ad86e8787d4bad496f7496a5e6be79761',1,'hmap::BVH2D::BVH2D()=default'],['../classhmap_1_1BVH2D.html#a7cc7f3cf05bc288ee0dfe9de8775cfb7',1,'hmap::BVH2D::BVH2D(const std::vector&lt; Segment2D &gt; &amp;segments, float padding=0.f)']]]
+  ['build_5frock_5fdensity_70',['build_rock_density',['../namespacehmap.html#af9752df3baf8e8ba199fd6c18b0268fc',1,'hmap']]],
+  ['build_5ftree_5fdensity_71',['build_tree_density',['../namespacehmap.html#ae7c74f46c267db50e3c562eebb118e27',1,'hmap']]],
+  ['bulkify_72',['bulkify',['../namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3',1,'hmap']]],
+  ['bulkify_2ecpp_73',['bulkify.cpp',['../bulkify_8cpp.html',1,'']]],
+  ['bump_74',['bump',['../namespacehmap.html#a32035fe3ef18a31240ace195c721ecd7',1,'hmap']]],
+  ['bump_5florentzian_75',['bump_lorentzian',['../namespacehmap.html#a4af0bde798f0266db4dfe24e1134a506',1,'hmap']]],
+  ['bumpfunction_76',['bumpfunction',['../classhmap_1_1BumpFunction.html#a80e2476cc674ff1e15c5135829484c68',1,'hmap::BumpFunction::BumpFunction()'],['../classhmap_1_1BumpFunction.html',1,'hmap::BumpFunction']]],
+  ['bvh_2ecpp_77',['bvh.cpp',['../bvh_8cpp.html',1,'']]],
+  ['bvh_2ehpp_78',['bvh.hpp',['../bvh_8hpp.html',1,'']]],
+  ['bvh2d_79',['bvh2d',['../classhmap_1_1BVH2D.html',1,'hmap::BVH2D'],['../classhmap_1_1BVH2D.html#ad86e8787d4bad496f7496a5e6be79761',1,'hmap::BVH2D::BVH2D()=default'],['../classhmap_1_1BVH2D.html#a7cc7f3cf05bc288ee0dfe9de8775cfb7',1,'hmap::BVH2D::BVH2D(const std::vector&lt; Segment2D &gt; &amp;segments, float padding=0.f)']]]
 ];

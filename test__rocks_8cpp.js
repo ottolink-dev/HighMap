@@ -13,5 +13,12 @@ var test__rocks_8cpp =
     [ "TEST", "test__rocks_8cpp.html#a31b61d7f8f500a68581a8808925f9051", null ],
     [ "TEST", "test__rocks_8cpp.html#ac3913c919183b099ee3cda38175c8621", null ],
     [ "TEST", "test__rocks_8cpp.html#a38ea00803f849b75b5f278092a67f8f6", null ],
-    [ "TEST", "test__rocks_8cpp.html#a47e24d0c091fa58e05b7c17e585426e6", null ]
+    [ "TEST", "test__rocks_8cpp.html#a47e24d0c091fa58e05b7c17e585426e6", null ],
+    [ "TEST", "test__rocks_8cpp.html#aaa10c97c10d9641076e4bdbfc44fefb1", null ],
+    [ "TEST", "test__rocks_8cpp.html#affe75027effe93d9104900729a70eb3c", null ],
+    [ "TEST", "test__rocks_8cpp.html#a906832b053a75419dbd47ac32feafd88", null ],
+    [ "TEST", "test__rocks_8cpp.html#abc44fe19b1cf85db08df727d45ddb326", null ],
+    [ "TEST", "test__rocks_8cpp.html#a4c175c8eb3d375be6888e7cfb32e219a", null ],
+    [ "TEST", "test__rocks_8cpp.html#a1aa1823df1180fbf7eb9a19d07981796", null ],
+    [ "TEST", "test__rocks_8cpp.html#ae3012e285f372d797461a86fe9421f80", null ]
 ];

@@ -21,7 +21,7 @@ var searchData=
   ['biweight_18',['biweight',['../namespacehmap.html#a44931abadbb5fea3bba9dd59540cf9cb',1,'hmap']]],
   ['blackman_19',['blackman',['../namespacehmap.html#abc5852a4cae426341235d60a04964fc1',1,'hmap']]],
   ['blend_5fexclusion_20',['blend_exclusion',['../namespacehmap.html#aafb76d7961d1655fdc07422982357588',1,'hmap']]],
-  ['blend_5fgradients_21',['blend_gradients',['../namespacehmap_1_1gpu.html#a3a43696b1d6b8f0d966f9f05e5085edf',1,'hmap::gpu::blend_gradients()'],['../namespacehmap.html#af91a60a9fcbed7e38f53df57631a5298',1,'hmap::blend_gradients(const Array &amp;array1, const Array &amp;array2, int ir=4)']]],
+  ['blend_5fgradients_21',['blend_gradients',['../namespacehmap.html#af91a60a9fcbed7e38f53df57631a5298',1,'hmap::blend_gradients()'],['../namespacehmap_1_1gpu.html#a3a43696b1d6b8f0d966f9f05e5085edf',1,'hmap::gpu::blend_gradients()']]],
   ['blend_5fnegate_22',['blend_negate',['../namespacehmap.html#a183cf8de980d1886130cac97fd41bcc5',1,'hmap']]],
   ['blend_5foverlay_23',['blend_overlay',['../namespacehmap.html#a3d311d682d431e21c6d7063539a0db8e',1,'hmap']]],
   ['blend_5fpoisson_5fbf_24',['blend_poisson_bf',['../namespacehmap_1_1gpu.html#a65a176508b404f80e5f5abd31456712e',1,'hmap::gpu::blend_poisson_bf(const Array &amp;array1, const Array &amp;array2, const int iterations=500, const Array *p_mask=nullptr)'],['../namespacehmap_1_1gpu.html#a11510c63a1d13a6107720f6e220f13de',1,'hmap::gpu::blend_poisson_bf(const Texture &amp;texture1, const Texture &amp;texture2, const int iterations=500, const Array *p_mask=nullptr)']]],
@@ -34,10 +34,11 @@ var searchData=
   ['build_31',['build',['../classhmap_1_1BVH2D.html#af68093985c322ceeaeb255e6d5b9a61b',1,'hmap::BVH2D::build()'],['../classhmap_1_1NaturalNeighborInterpolator.html#a9404f1043455692be64d35116a00742c',1,'hmap::NaturalNeighborInterpolator::build()']]],
   ['build_5fdensity_5flinear_32',['build_density_linear',['../namespacehmap.html#aeb287bebf689e973b6b5ed1020968d8f',1,'hmap']]],
   ['build_5fdensity_5flog_33',['build_density_log',['../namespacehmap.html#aeb27a88fc257ddfb11aa587eb7a796df',1,'hmap']]],
-  ['build_5ftree_5fdensity_34',['build_tree_density',['../namespacehmap.html#ae7c74f46c267db50e3c562eebb118e27',1,'hmap']]],
-  ['bulkify_35',['bulkify',['../namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3',1,'hmap']]],
-  ['bump_36',['bump',['../namespacehmap.html#a32035fe3ef18a31240ace195c721ecd7',1,'hmap']]],
-  ['bump_5florentzian_37',['bump_lorentzian',['../namespacehmap.html#a4af0bde798f0266db4dfe24e1134a506',1,'hmap']]],
-  ['bumpfunction_38',['BumpFunction',['../classhmap_1_1BumpFunction.html#a80e2476cc674ff1e15c5135829484c68',1,'hmap::BumpFunction']]],
-  ['bvh2d_39',['bvh2d',['../classhmap_1_1BVH2D.html#ad86e8787d4bad496f7496a5e6be79761',1,'hmap::BVH2D::BVH2D()=default'],['../classhmap_1_1BVH2D.html#a7cc7f3cf05bc288ee0dfe9de8775cfb7',1,'hmap::BVH2D::BVH2D(const std::vector&lt; Segment2D &gt; &amp;segments, float padding=0.f)']]]
+  ['build_5frock_5fdensity_34',['build_rock_density',['../namespacehmap.html#af9752df3baf8e8ba199fd6c18b0268fc',1,'hmap']]],
+  ['build_5ftree_5fdensity_35',['build_tree_density',['../namespacehmap.html#ae7c74f46c267db50e3c562eebb118e27',1,'hmap']]],
+  ['bulkify_36',['bulkify',['../namespacehmap.html#ae3ecf5f88476c5d49978a130f8cab2f3',1,'hmap']]],
+  ['bump_37',['bump',['../namespacehmap.html#a32035fe3ef18a31240ace195c721ecd7',1,'hmap']]],
+  ['bump_5florentzian_38',['bump_lorentzian',['../namespacehmap.html#a4af0bde798f0266db4dfe24e1134a506',1,'hmap']]],
+  ['bumpfunction_39',['BumpFunction',['../classhmap_1_1BumpFunction.html#a80e2476cc674ff1e15c5135829484c68',1,'hmap::BumpFunction']]],
+  ['bvh2d_40',['bvh2d',['../classhmap_1_1BVH2D.html#ad86e8787d4bad496f7496a5e6be79761',1,'hmap::BVH2D::BVH2D()=default'],['../classhmap_1_1BVH2D.html#a7cc7f3cf05bc288ee0dfe9de8775cfb7',1,'hmap::BVH2D::BVH2D(const std::vector&lt; Segment2D &gt; &amp;segments, float padding=0.f)']]]
 ];

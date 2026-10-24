@@ -1,5 +1,7 @@
 var NAVTREEINDEX23 =
 {
+"namespacemembers_func.html":[8,1,1,0],
+"namespacemembers_func.html":[8,1,1],
 "namespacemembers_func_b.html":[8,1,1,1],
 "namespacemembers_func_c.html":[8,1,1,2],
 "namespacemembers_func_d.html":[8,1,1,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX23 =
 "point_8hpp.html#af148c924b422baa2e359e0788b7392d0":[10,0,1,0,0,5,8,11],
 "point_8hpp_source.html":[10,0,1,0,0,5,8],
 "point__sampling_8cpp.html":[10,0,1,1,18,12],
-"point__sampling_8cpp.html#a0d2c7cec42fe990f214a1b74da57cd00":[10,0,1,1,18,12,2],
-"point__sampling_8cpp.html#a208e935aeb1a6e615dd9dd067afe0a62":[10,0,1,1,18,12,4],
-"point__sampling_8cpp.html#a680e3eafe72e649e15f076c59c86ab01":[10,0,1,1,18,12,0]
+"point__sampling_8cpp.html#a0d2c7cec42fe990f214a1b74da57cd00":[10,0,1,1,18,12,2]
 };

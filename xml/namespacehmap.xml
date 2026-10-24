@@ -61797,6 +61797,355 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </inbodydescription>
         <location file="HighMap/src/roads/alpha_model.cpp" line="24" column="7" bodyfile="HighMap/src/roads/alpha_model.cpp" bodystart="24" bodyend="176" declfile="HighMap/include/highmap/roads.hpp" declline="50" declcolumn="7"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1af9752df3baf8e8ba199fd6c18b0268fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::build_rock_density</definition>
+        <argsstring>(const Array &amp;heightmap, float max_slope=0.05f, float bulkify_amp=0.01f, float weight_elev=1.0f, float weight_slope=1.0f, float weight_rivers=1.0f, float river_talus_ref=0.1f, float river_clipping_ratio=1000.0f, const Array &amp;secondary_density={}, float weight_secondary=1.0f, const Array &amp;exclusion_mask={}, float exclusion_threshold=0.f, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>build_rock_density</name>
+        <qualifiedname>hmap::build_rock_density</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>heightmap</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_slope</declname>
+          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>bulkify_amp</declname>
+          <defval>0.01<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_elev</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_slope</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_rivers</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>river_talus_ref</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>river_clipping_ratio</declname>
+          <defval>1000.0f</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>secondary_density</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_secondary</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion_mask</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>exclusion_threshold</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Computes a probability density map in [0, 1] for rock placement based on elevation, talus/slope, river drainage paths, an optional secondary density map, and an optional exclusion mask. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A subtle bulkify filter can be applied to the heightmap prior to computing talus and river beds, eliminating micro-depressions and guiding flow lines.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>heightmap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input terrain heightmap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_slope</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Talus value above which density smoothly falls to zero. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bulkify_amp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Amplitude of bulkify pulse filter applied to the terrain (0.f disables). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for inverted elevation criterion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_slope</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for talus/slope criterion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_rivers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for river accumulation criterion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>river_talus_ref</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference talus for river flow partitioning. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>river_clipping_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flow accumulation clipping ratio. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>secondary_density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional secondary density modulation map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_secondary</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for optional secondary density map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional exclusion mask (density set to 0 where exclusion &gt; exclusion_threshold). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion_threshold</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Threshold above which exclusion mask excludes rocks. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Domain bounding box for tiled bulkify synthesis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> Computed density array in [0, 1]. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/rocks/rock_procedural.cpp" line="32" column="7" bodyfile="HighMap/src/rocks/rock_procedural.cpp" bodystart="32" bodyend="158" declfile="HighMap/include/highmap/rocks/rock_procedural.hpp" declline="51" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ad344c29b6eb84464be0072663cb292b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
+        <definition>RockField hmap::place_rocks_procedural</definition>
+        <argsstring>(size_t rock_count, const Array &amp;elevation, float min_elev=0.f, float max_elev=0.9f, float max_slope=1.f, const Array &amp;density={}, const Array &amp;exclusion={}, float size_slope_weight=0.f, float size_elevation_gain=1.f, float size_elevation_exponent=1.f, const RockSeedingOptions &amp;options={})</argsstring>
+        <name>place_rocks_procedural</name>
+        <qualifiedname>hmap::place_rocks_procedural</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>rock_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>elevation</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>min_elev</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_elev</declname>
+          <defval>0.9<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_slope</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>density</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>size_slope_weight</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>size_elevation_gain</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>size_elevation_exponent</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1RockSeedingOptions" kindref="compound">RockSeedingOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Places rocks procedurally on a terrain, without physical simulation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Positions are sampled from a density map (defaults to a flat density equal to 1 if none is provided). Rock radii are drawn from a bounded power-law (Pareto) distribution between radius_min and a local maximum radius that grows toward radius_max as the elevation decreases: high areas only hold small rocks, whereas low areas hold both small and large rocks (the size distribution broadens when lowering altitude). Steep slopes further reduce the maximum rock size.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rock_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target number of rocks. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>elevation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrain elevation heightmap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Elevation mapped to 0 in the normalized elevation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Elevation mapped to 1 in the normalized elevation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_slope</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Talus threshold above which rock size is attenuated. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional user density map (if empty, defaults to uniform flat density of 1). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional exclusion map (same shape as elevation). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size_slope_weight</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>In [0, 1], reduces the maximum rock size on steep slopes (0 = no effect). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size_elevation_gain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Low-elevation influence on the maximum rock size (0 = none). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size_elevation_exponent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Power-law exponent of the maximum size / (1 - elevation) relation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seeding options (bbox, seed, exclusion threshold, rock distribution). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Placed rocks. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/rocks/rock_procedural.cpp" line="160" column="11" bodyfile="HighMap/src/rocks/rock_procedural.cpp" bodystart="160" bodyend="265" declfile="HighMap/include/highmap/rocks/rock_procedural.hpp" declline="98" declcolumn="11"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8c78151d9fea71bfaebb14a378e8ad81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
         <definition>RockField hmap::seed_rock_field</definition>
