@@ -1,5 +1,7 @@
 var NAVTREEINDEX27 =
 {
+"structhmap_1_1ForestSeedingOptions.html":[9,0,0,35],
+"structhmap_1_1ForestSeedingOptions.html#a6e96115e7582dda22e666b5f16925c4c":[8,0,0,36,0],
 "structhmap_1_1ForestSeedingOptions.html#a6e96115e7582dda22e666b5f16925c4c":[9,0,0,35,0],
 "structhmap_1_1ForestSeedingOptions.html#a9e4336ae1f61873d1126197bbe081c9b":[8,0,0,36,3],
 "structhmap_1_1ForestSeedingOptions.html#a9e4336ae1f61873d1126197bbe081c9b":[9,0,0,35,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX27 =
 "structhmap_1_1Recorder.html#a383fac701048b5d6717ed4c007161ba3":[8,0,0,74,4],
 "structhmap_1_1Recorder.html#a91405999f103db680d9c0445a5e8c807":[8,0,0,74,0],
 "structhmap_1_1Recorder.html#a91405999f103db680d9c0445a5e8c807":[9,0,0,73,0],
-"structhmap_1_1Recorder.html#aba9c05c56a1c5a769f12467684735add":[8,0,0,74,3],
-"structhmap_1_1Recorder.html#aba9c05c56a1c5a769f12467684735add":[9,0,0,73,3],
-"structhmap_1_1Recorder.html#ac5bd6628a256636229047bbc12ced680":[8,0,0,74,1]
+"structhmap_1_1Recorder.html#aba9c05c56a1c5a769f12467684735add":[8,0,0,74,3]
 };

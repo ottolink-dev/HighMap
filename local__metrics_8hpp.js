@@ -21,7 +21,8 @@ var local__metrics_8hpp =
       [ "LM_ROUGHNESS", "local__metrics_8hpp.html#ab0737b29664736928a86f0755493895faa7240132569a9a3cf8a45541d9c041b1", null ],
       [ "LM_RUGGEDNESS", "local__metrics_8hpp.html#ab0737b29664736928a86f0755493895fa568c1c82b138902b43e26249e63d8618", null ],
       [ "LM_RUGOSITY_CONCAVE", "local__metrics_8hpp.html#ab0737b29664736928a86f0755493895fa892abed7945357817b7504339fdcee14", null ],
-      [ "LM_RUGOSITY_CONVEX", "local__metrics_8hpp.html#ab0737b29664736928a86f0755493895fac1321c034ba09831f5b5a040058f9477", null ]
+      [ "LM_RUGOSITY_CONVEX", "local__metrics_8hpp.html#ab0737b29664736928a86f0755493895fac1321c034ba09831f5b5a040058f9477", null ],
+      [ "LM_TOPOGRAPHIC_RESIDUAL", "local__metrics_8hpp.html#ab0737b29664736928a86f0755493895faec1bb414a9d061b9446fe34fc55ca56d", null ]
     ] ],
     [ "path_length_to_outlet", "local__metrics_8hpp.html#a6c42198d3612cdfd232c900f427bd103", null ],
     [ "path_length_to_sink", "local__metrics_8hpp.html#af5117ffbcd95bf910f3b70b095bee604", null ],

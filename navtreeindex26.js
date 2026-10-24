@@ -1,5 +1,7 @@
 var NAVTREEINDEX26 =
 {
+"shortest__path_8hpp.html#abc177c4e25817f2a86f3814bbc634055":[10,0,1,0,0,53,6],
+"shortest__path_8hpp.html#ad1515214ffa088f61ffc374b68d670f8":[10,0,1,0,0,53,1],
 "shortest__path_8hpp.html#ad23ac0ef43a4925071b5da947a7d4b1c":[10,0,1,0,0,53,12],
 "shortest__path_8hpp.html#ada562827a55a9d58e5fda3aee355eb2c":[10,0,1,0,0,53,4],
 "shortest__path_8hpp.html#ae465d3491106270fa271f3b5e33f7fed":[10,0,1,0,0,53,10],
@@ -247,7 +249,5 @@ var NAVTREEINDEX26 =
 "structhmap_1_1ForestScaleSampler.html#ad4f8dd5bb78fd7cd1013c61a13cc8f04":[8,0,0,35,2],
 "structhmap_1_1ForestScaleSampler.html#ae74f404036eca9f6613ab9b148a4661a":[9,0,0,34,1],
 "structhmap_1_1ForestScaleSampler.html#ae74f404036eca9f6613ab9b148a4661a":[8,0,0,35,1],
-"structhmap_1_1ForestSeedingOptions.html":[8,0,0,36],
-"structhmap_1_1ForestSeedingOptions.html":[9,0,0,35],
-"structhmap_1_1ForestSeedingOptions.html#a6e96115e7582dda22e666b5f16925c4c":[8,0,0,36,0]
+"structhmap_1_1ForestSeedingOptions.html":[8,0,0,36]
 };

@@ -1,5 +1,6 @@
 var NAVTREEINDEX21 =
 {
+"namespacehmap.html#add0285443bb5059eca752eaf07202ef3":[8,0,0,233],
 "namespacehmap.html#add3e6744c96ed203d611ceecf65d343e":[8,0,0,528],
 "namespacehmap.html#add641a7fc26ae08b1f679cbb7dd43177":[8,0,0,723],
 "namespacehmap.html#add71495a25c10df4ab696a6662e741ce":[8,0,0,216],
@@ -248,6 +249,5 @@ var NAVTREEINDEX21 =
 "namespacehmap_1_1gpu.html#a703eaf095338c94f1b6589a5b8a650fe":[8,0,0,0,147],
 "namespacehmap_1_1gpu.html#a70fde21fb8301d39cc7a0ed919457917":[8,0,0,0,81],
 "namespacehmap_1_1gpu.html#a71e230d91cc25e95826712ec034fb10e":[8,0,0,0,225],
-"namespacehmap_1_1gpu.html#a722cef96155d5c26274e24c796dc3a1b":[8,0,0,0,82],
-"namespacehmap_1_1gpu.html#a72341578d241e21b4c31d7497287cfc3":[8,0,0,0,167]
+"namespacehmap_1_1gpu.html#a722cef96155d5c26274e24c796dc3a1b":[8,0,0,0,82]
 };

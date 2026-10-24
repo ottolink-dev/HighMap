@@ -16,6 +16,7 @@ var searchData=
   ['lm_5frugosity_5fconcave_13',['LM_RUGOSITY_CONCAVE',['../namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa892abed7945357817b7504339fdcee14',1,'hmap::gpu']]],
   ['lm_5frugosity_5fconvex_14',['LM_RUGOSITY_CONVEX',['../namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fac1321c034ba09831f5b5a040058f9477',1,'hmap::gpu']]],
   ['lm_5ftopographic_5fposition_5findex_15',['LM_TOPOGRAPHIC_POSITION_INDEX',['../namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa8f5a70d0a562337ca689b0ce7ee3fff6',1,'hmap::gpu']]],
-  ['lm_5ftopographic_5fwetness_5findex_16',['LM_TOPOGRAPHIC_WETNESS_INDEX',['../namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fad5eb4b55090fe7801d15a141769965fd',1,'hmap::gpu']]],
-  ['lorentzian_17',['LORENTZIAN',['../namespacehmap.html#a4b6f135c6e81d313ca54ae1efac5f2c9adca1c57725ab84b424723316de5ba3dc',1,'hmap']]]
+  ['lm_5ftopographic_5fresidual_16',['LM_TOPOGRAPHIC_RESIDUAL',['../namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895faec1bb414a9d061b9446fe34fc55ca56d',1,'hmap::gpu']]],
+  ['lm_5ftopographic_5fwetness_5findex_17',['LM_TOPOGRAPHIC_WETNESS_INDEX',['../namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fad5eb4b55090fe7801d15a141769965fd',1,'hmap::gpu']]],
+  ['lorentzian_18',['LORENTZIAN',['../namespacehmap.html#a4b6f135c6e81d313ca54ae1efac5f2c9adca1c57725ab84b424723316de5ba3dc',1,'hmap']]]
 ];

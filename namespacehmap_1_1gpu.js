@@ -20,7 +20,8 @@ var namespacehmap_1_1gpu =
       [ "LM_ROUGHNESS", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895faa7240132569a9a3cf8a45541d9c041b1", null ],
       [ "LM_RUGGEDNESS", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa568c1c82b138902b43e26249e63d8618", null ],
       [ "LM_RUGOSITY_CONCAVE", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa892abed7945357817b7504339fdcee14", null ],
-      [ "LM_RUGOSITY_CONVEX", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fac1321c034ba09831f5b5a040058f9477", null ]
+      [ "LM_RUGOSITY_CONVEX", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fac1321c034ba09831f5b5a040058f9477", null ],
+      [ "LM_TOPOGRAPHIC_RESIDUAL", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895faec1bb414a9d061b9446fe34fc55ca56d", null ]
     ] ],
     [ "blend_gradients", "namespacehmap_1_1gpu.html#a3a43696b1d6b8f0d966f9f05e5085edf", null ],
     [ "blend_poisson_bf", "namespacehmap_1_1gpu.html#a65a176508b404f80e5f5abd31456712e", null ],
