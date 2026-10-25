@@ -20,5 +20,8 @@ var test__rocks_8cpp =
     [ "TEST", "test__rocks_8cpp.html#abc44fe19b1cf85db08df727d45ddb326", null ],
     [ "TEST", "test__rocks_8cpp.html#a4c175c8eb3d375be6888e7cfb32e219a", null ],
     [ "TEST", "test__rocks_8cpp.html#a1aa1823df1180fbf7eb9a19d07981796", null ],
+    [ "TEST", "test__rocks_8cpp.html#a16ef6520a8648b446f1acd22fcbf4a4d", null ],
+    [ "TEST", "test__rocks_8cpp.html#a9e105ccfd5425188a52f6e2f3bb00a82", null ],
+    [ "TEST", "test__rocks_8cpp.html#abacdb945e6f5b6951939e63a676d5a1a", null ],
     [ "TEST", "test__rocks_8cpp.html#ae3012e285f372d797461a86fe9421f80", null ]
 ];

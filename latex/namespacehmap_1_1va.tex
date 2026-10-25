@@ -21,6 +21,8 @@ std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Path}{Path}} $>$ \mbox{\hyperlink
 \item 
 \mbox{\hyperlink{classhmap_1_1Path}{Path}} \mbox{\hyperlink{namespacehmap_1_1va_ae1f6f9589633a460dabd6bb44473d4fe}{flow\+\_\+stream}} (const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}, glm\+::vec2 start, std\+::uint32\+\_\+t seed=0, size\+\_\+t control\+\_\+points\+\_\+count=2048, float elevation\+\_\+ratio=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float distance\+\_\+exponent=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float upward\+\_\+penalization=100.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, bool favor\+\_\+domain\+\_\+center=false, const std\+::vector$<$ \mbox{\hyperlink{classhmap_1_1Path}{Path}} $>$ \&existing\+\_\+streams=\{\}, float valley\+\_\+radius=0.\+02\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float valley\+\_\+factor=0.\+35\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, bool truncate\+\_\+at\+\_\+intersection=false)
 \begin{DoxyCompactList}\small\item\em Computes the optimal flow path from starting 2D coordinates across a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} using an intermediate random terrain triangular mesh. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} \mbox{\hyperlink{namespacehmap_1_1va_ab63d2a6261b136e8dac7ca2080afe96f}{place\+\_\+rocks\+\_\+procedural}} (size\+\_\+t rock\+\_\+count, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&elevation, float min\+\_\+elev=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float max\+\_\+elev=0.\+9\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float max\+\_\+slope=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&density=\{\}, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&exclusion=\{\}, float size\+\_\+slope\+\_\+weight=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float size\+\_\+elevation\+\_\+gain=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float size\+\_\+elevation\+\_\+exponent=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{structhmap_1_1RockSeedingOptions}{Rock\+Seeding\+Options}} \&options=\{\}, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm=\{\})
+\begin{DoxyCompactList}\small\item\em Places rocks procedurally across a tiled \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} domain using local density/elevation and bounding-\/box-\/aware tile merging. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} \mbox{\hyperlink{namespacehmap_1_1va_abfb98fdd47bd2a66e694c03765bf74af}{seed\+\_\+rock\+\_\+field}} (size\+\_\+t rock\+\_\+count, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&density, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&exclusion=\{\}, const \mbox{\hyperlink{structhmap_1_1RockSeedingOptions}{Rock\+Seeding\+Options}} \&options=\{\}, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm=\{\})
 \begin{DoxyCompactList}\small\item\em Seeds a general rock/boulder field across a tiled \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} domain using inverse density transform sampling and bounding-\/box-\/aware tile merging. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Path}{Path}} \mbox{\hyperlink{namespacehmap_1_1va_afa19680ed9583277c2fb76daa95bfa96}{find\+\_\+cut\+\_\+path\+\_\+dijkstra}} (const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}, \mbox{\hyperlink{namespacehmap_a1ba9d4ce7afe3309f8ae8e617f7154ee}{Domain\+Boundary}} start, \mbox{\hyperlink{namespacehmap_a1ba9d4ce7afe3309f8ae8e617f7154ee}{Domain\+Boundary}} end, std\+::uint32\+\_\+t seed=0, size\+\_\+t control\+\_\+points\+\_\+count=2048, bool favor\+\_\+boundary\+\_\+center=true, bool favor\+\_\+lower\+\_\+elevation=true, bool favor\+\_\+sinks=true, bool favor\+\_\+domain\+\_\+center=false)
@@ -228,6 +230,46 @@ Computes the optimal flow path from starting 2D coordinates across a \doxylink{s
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 A \doxylink{classhmap_1_1Path}{Path} object representing the optimal flow path. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_1_1va_ab63d2a6261b136e8dac7ca2080afe96f}\label{namespacehmap_1_1va_ab63d2a6261b136e8dac7ca2080afe96f} 
+\index{hmap::va@{hmap::va}!place\_rocks\_procedural@{place\_rocks\_procedural}}
+\index{place\_rocks\_procedural@{place\_rocks\_procedural}!hmap::va@{hmap::va}}
+\doxysubsubsection{\texorpdfstring{place\_rocks\_procedural()}{place\_rocks\_procedural()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1RockField}{Rock\+Field}} hmap\+::va\+::place\+\_\+rocks\+\_\+procedural (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{rock\+\_\+count,  }\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{elevation,  }\item[{float}]{min\+\_\+elev = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{max\+\_\+elev = {\ttfamily 0.9\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{max\+\_\+slope = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{density = {\ttfamily \{\}},  }\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{exclusion = {\ttfamily \{\}},  }\item[{float}]{size\+\_\+slope\+\_\+weight = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{size\+\_\+elevation\+\_\+gain = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{size\+\_\+elevation\+\_\+exponent = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{const \mbox{\hyperlink{structhmap_1_1RockSeedingOptions}{Rock\+Seeding\+Options}} \&}]{options = {\ttfamily \{\}},  }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Places rocks procedurally across a tiled \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} domain using local density/elevation and bounding-\/box-\/aware tile merging. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rock\+\_\+count} & Target number of rocks. \\
+\hline
+{\em elevation} & Terrain elevation \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array}. \\
+\hline
+{\em min\+\_\+elev} & Elevation mapped to 0 in normalized elevation. \\
+\hline
+{\em max\+\_\+elev} & Elevation mapped to 1 in normalized elevation. \\
+\hline
+{\em max\+\_\+slope} & Talus threshold above which rock size is attenuated. \\
+\hline
+{\em density} & Optional user density \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} (if empty, defaults to uniform flat density of 1). \\
+\hline
+{\em exclusion} & Optional exclusion \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} (same shape as elevation). \\
+\hline
+{\em size\+\_\+slope\+\_\+weight} & In \mbox{[}0, 1\mbox{]}, reduces maximum rock size on steep slopes. \\
+\hline
+{\em size\+\_\+elevation\+\_\+gain} & Low-\/elevation influence on maximum rock size. \\
+\hline
+{\em size\+\_\+elevation\+\_\+exponent} & Power-\/law exponent of size / (1 -\/ elevation) relation. \\
+\hline
+{\em options} & Seeding options. \\
+\hline
+{\em cm} & Virtual array compute mode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1RockField}{Rock\+Field} Placed rocks. 
 \end{DoxyReturn}
 \Hypertarget{namespacehmap_1_1va_abfb98fdd47bd2a66e694c03765bf74af}\label{namespacehmap_1_1va_abfb98fdd47bd2a66e694c03765bf74af} 
 \index{hmap::va@{hmap::va}!seed\_rock\_field@{seed\_rock\_field}}

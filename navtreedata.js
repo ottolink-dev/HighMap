@@ -143,19 +143,19 @@ var NAVTREEINDEX =
 "namespacehmap.html#ab4ba44ccbb8dbdb8af4ff4e50dd90885",
 "namespacehmap.html#add0285443bb5059eca752eaf07202ef3",
 "namespacehmap_1_1gpu.html#a72341578d241e21b4c31d7497287cfc3",
-"namespacemembers_eval_x.html",
-"point__sampling_8cpp.html",
-"range_8hpp.html#a9e903d1c88db888832bea8cbafb19246",
-"shortest__path_8hpp.html#abc177c4e25817f2a86f3814bbc634055",
-"structhmap_1_1ForestSeedingOptions.html",
-"structhmap_1_1Recorder.html#aba9c05c56a1c5a769f12467684735add",
-"structhmap_1_1TerrainTriMesh_1_1NeighborData.html#a23206266afbc2f70f9f4eed4e536e7d9",
-"synthesis_8hpp_source.html",
-"test__erosion_8cpp.html#ae955754ab3f4d2e274b7198941632d96",
-"test__math_8cpp.html#a7b1f71f6f6471c3be8890161a817e2fe",
-"test__scatter_8cpp.html#a590d013c39bbf3e015d03fdb346f8767",
-"topographic__wetness__index_8cpp.html#af34b234c6d2327f9018f239e12889e3d",
-"zeroed__edges_8cpp.html"
+"namespacemembers_eval_w.html",
+"point_8hpp_source.html",
+"range_8hpp.html#a94d994f910d44a006acfae7ff453a53d",
+"shortest__path_8hpp.html#a6ade30d7f5f6b02e1640bea9c83d05e3",
+"structhmap_1_1ForestScaleSampler.html#ae74f404036eca9f6613ab9b148a4661a",
+"structhmap_1_1Recorder.html#a91405999f103db680d9c0445a5e8c807",
+"structhmap_1_1TerrainTriMesh_1_1NeighborData.html",
+"synthesis_8hpp.html#ada12bd91a1719f64ff4b652bf1462d2a",
+"test__erosion_8cpp.html#ad7d9daa5e49f0786579363f9bb7deaf4",
+"test__math_8cpp.html#a74a564a9d56bbf66e5a28e9956e07e27",
+"test__scatter_8cpp.html#a2dc8089d9712a3c6b5e0a3f5f813ce89",
+"tile__storage_8hpp.html#ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce",
+"white_8cpp.html#aedd4a3e6f5dcabc77e7e3cb10b934a9c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -13,6 +13,7 @@ var namespacehmap =
       [ "flow_fixing_mst_paths", "namespacehmap_1_1va.html#a050c3c7ecc102d86f566bf55b3a72c51", null ],
       [ "flow_fixing_mst_triangulated", "namespacehmap_1_1va.html#a79c8b1b0f1447fcb8f94f6e2cec8788b", null ],
       [ "flow_stream", "namespacehmap_1_1va.html#ae1f6f9589633a460dabd6bb44473d4fe", null ],
+      [ "place_rocks_procedural", "namespacehmap_1_1va.html#ab63d2a6261b136e8dac7ca2080afe96f", null ],
       [ "seed_rock_field", "namespacehmap_1_1va.html#abfb98fdd47bd2a66e694c03765bf74af", null ],
       [ "find_cut_path_dijkstra", "namespacehmap_1_1va.html#afa19680ed9583277c2fb76daa95bfa96", null ],
       [ "find_path_dijkstra", "namespacehmap_1_1va.html#a996f3a9161ae2f85e2ef1d257dd43349", null ],

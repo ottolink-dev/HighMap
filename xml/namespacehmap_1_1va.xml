@@ -858,6 +858,179 @@
         </inbodydescription>
         <location file="HighMap/src/hydrology/flow_stream.cpp" line="481" column="6" bodyfile="HighMap/src/hydrology/flow_stream.cpp" bodystart="481" bodyend="511" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1510" declcolumn="6"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1_1va_1ab63d2a6261b136e8dac7ca2080afe96f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
+        <definition>RockField hmap::va::place_rocks_procedural</definition>
+        <argsstring>(size_t rock_count, const VirtualArray &amp;elevation, float min_elev=0.f, float max_elev=0.9f, float max_slope=1.f, const VirtualArray &amp;density={}, const VirtualArray &amp;exclusion={}, float size_slope_weight=0.f, float size_elevation_gain=1.f, float size_elevation_exponent=1.f, const RockSeedingOptions &amp;options={}, const ComputeMode &amp;cm={})</argsstring>
+        <name>place_rocks_procedural</name>
+        <qualifiedname>hmap::va::place_rocks_procedural</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>rock_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>elevation</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>min_elev</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_elev</declname>
+          <defval>0.9<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_slope</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>density</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>exclusion</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>size_slope_weight</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>size_elevation_gain</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>size_elevation_exponent</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1RockSeedingOptions" kindref="compound">RockSeedingOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Places rocks procedurally across a tiled <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> domain using local density/elevation and bounding-box-aware tile merging. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rock_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target number of rocks. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>elevation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrain elevation <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Elevation mapped to 0 in normalized elevation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Elevation mapped to 1 in normalized elevation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_slope</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Talus threshold above which rock size is attenuated. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional user density <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> (if empty, defaults to uniform flat density of 1). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional exclusion <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> (same shape as elevation). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size_slope_weight</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>In [0, 1], reduces maximum rock size on steep slopes. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size_elevation_gain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Low-elevation influence on maximum rock size. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size_elevation_exponent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Power-law exponent of size / (1 - elevation) relation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seeding options. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Virtual array compute mode. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Placed rocks. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/rocks/rock_procedural.cpp" line="269" column="11" bodyfile="HighMap/src/rocks/rock_procedural.cpp" bodystart="269" bodyend="451" declfile="HighMap/include/highmap/rocks/rock_procedural.hpp" declline="141" declcolumn="11"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1va_1abfb98fdd47bd2a66e694c03765bf74af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
         <definition>RockField hmap::va::seed_rock_field</definition>
