@@ -72,6 +72,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_saturate.cpp", "test__saturate_8cpp.html", "test__saturate_8cpp" ],
     [ "test_scatter.cpp", "test__scatter_8cpp.html", "test__scatter_8cpp" ],
     [ "test_select_angle.cpp", "test__select__angle_8cpp.html", "test__select__angle_8cpp" ],
+    [ "test_shade_color.cpp", "test__shade__color_8cpp.html", "test__shade__color_8cpp" ],
     [ "test_skeleton.cpp", "test__skeleton_8cpp.html", "test__skeleton_8cpp" ],
     [ "test_sls_deformation.cpp", "test__sls__deformation_8cpp.html", "test__sls__deformation_8cpp" ],
     [ "test_smooth_cpulse.cpp", "test__smooth__cpulse_8cpp.html", "test__smooth__cpulse_8cpp" ],

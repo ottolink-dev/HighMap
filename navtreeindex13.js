@@ -1,5 +1,9 @@
 var NAVTREEINDEX13 =
 {
+"functions_w.html":[9,3,0,22],
+"functions_x.html":[9,3,0,23],
+"functions_y.html":[9,3,0,24],
+"functions_z.html":[9,3,0,25],
 "functions_~.html":[9,3,0,26],
 "gabor_8cpp.html":[10,0,1,1,30,0,2],
 "gabor_8cpp.html#a1f7e1705ee83aee82d27676cfc0308f0":[10,0,1,1,30,0,2,0],
@@ -41,8 +45,8 @@ var NAVTREEINDEX13 =
 "get__colormap__data_8cpp.html":[10,0,1,1,7,0],
 "get__colormap__data_8cpp.html#a2f2ca726f4e41128135e6c77120c66d8":[10,0,1,1,7,0,1],
 "get__colormap__data_8cpp.html#afb2677facc34ce83019137fd5a9818dd":[10,0,1,1,7,0,0],
-"globals.html":[10,1,0,0],
 "globals.html":[10,1,0],
+"globals.html":[10,1,0,0],
 "globals_b.html":[10,1,0,1],
 "globals_c.html":[10,1,0,2],
 "globals_d.html":[10,1,0,3],
@@ -245,9 +249,5 @@ var NAVTREEINDEX13 =
 "hydraulic__mise_8cpp.html#a77245844cd988bd7ba04a026fbbcb872":[10,0,1,1,12,13,40],
 "hydraulic__mise_8cpp.html#a7a5dcbf1ee87dd3c79068bfff522a6ed":[10,0,1,1,12,13,28],
 "hydraulic__mise_8cpp.html#a7b0c1711fe9d99ae8bb573e099ddd5c8":[10,0,1,1,12,13,0],
-"hydraulic__mise_8cpp.html#a948708c576e7a02ba2473d1e21aa6883":[10,0,1,1,12,13,31],
-"hydraulic__mise_8cpp.html#a9f4e20a91b26459133b83992e9d8d381":[10,0,1,1,12,13,6],
-"hydraulic__mise_8cpp.html#a9fcc7f55292bbdeebe70c01203afbc6f":[10,0,1,1,12,13,14],
-"hydraulic__mise_8cpp.html#aa14e04bff7de9e968e46a953f71f29f3":[10,0,1,1,12,13,30],
-"hydraulic__mise_8cpp.html#aa5ab47ad0bc88cdca7443a52473e9482":[10,0,1,1,12,13,2]
+"hydraulic__mise_8cpp.html#a948708c576e7a02ba2473d1e21aa6883":[10,0,1,1,12,13,31]
 };
