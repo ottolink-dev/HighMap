@@ -153,9 +153,9 @@ var NAVTREEINDEX =
 "sync__overlap__buffers_8cpp.html",
 "test__erosion_8cpp.html#ab096ac019bba9e404fe8c1fe30c69546",
 "test__math_8cpp.html#a58ef841cc8e6c2abce03014603302f3d",
-"test__scatter_8cpp.html#a15e0628e45008db82560492dc0951b11",
-"tile__region_8cpp.html",
-"watershed__ridge_8cpp.html"
+"test__scatter_8cpp.html",
+"thermal__schott_8cpp.html",
+"water__depth_8cpp.html#a703eaf095338c94f1b6589a5b8a650fe"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

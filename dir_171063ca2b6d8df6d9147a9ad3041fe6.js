@@ -57,6 +57,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_path_multiscale.cpp", "test__path__multiscale_8cpp.html", "test__path__multiscale_8cpp" ],
     [ "test_path_sample_at.cpp", "test__path__sample__at_8cpp.html", "test__path__sample__at_8cpp" ],
     [ "test_path_scale.cpp", "test__path__scale_8cpp.html", "test__path__scale_8cpp" ],
+    [ "test_path_sdf.cpp", "test__path__sdf_8cpp.html", "test__path__sdf_8cpp" ],
     [ "test_path_squiggle.cpp", "test__path__squiggle_8cpp.html", "test__path__squiggle_8cpp" ],
     [ "test_pdf_sampler.cpp", "test__pdf__sampler_8cpp.html", "test__pdf__sampler_8cpp" ],
     [ "test_poi.cpp", "test__poi_8cpp.html", "test__poi_8cpp" ],
