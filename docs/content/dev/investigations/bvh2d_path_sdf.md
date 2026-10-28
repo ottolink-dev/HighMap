@@ -70,3 +70,45 @@ The functionality is structured to preserve backward compatibility while providi
    - `hmap::path_sdf_to_array(path, shape, bbox_array, p_noise_x, p_noise_y, use_bvh = true)`
 
 Existing call sites retain default `use_bvh = true` behavior without signature breakage.
+
+## 5. Verification of Bézier Polyline SDF (`sdf_2d_polyline_bezier`)
+
+During verification of `sdf_2d_polyline_bezier`, numerical issues were discovered causing corrupted/broken results (entire arrays returning `NaN` or `inf`).
+
+### Root Cause Analysis
+
+1. **Division by Zero on Colinear/Degenerate Segments**:
+   The distance to a quadratic Bézier curve $B(t) = (1-t)^2 P_0 + 2t(1-t)P_1 + t^2 P_2$ involves the second-difference vector:
+   $$b = P_0 - 2P_1 + P_2$$
+   When the control points are colinear (or $P_1$ is at the midpoint of $P_0$ and $P_2$), $b \approx 0 \implies \text{dot}(b, b) = 0$.
+   The original code computed:
+   ```cpp
+   float kk = 1.0f / dot(b, b);
+   ```
+   without checking for zero. This produced `inf`, which cascaded through Cardano's cubic solver into `NaN` for all grid queries.
+   **Fix**: When $\text{dot}(b, b) < 10^{-10}$, the curve degenerates to a straight line segment $[P_0, P_2]$. The solver directly evaluates the point-to-line-segment distance.
+
+2. **Domain Violations in Trigonometric Cardano Branch**:
+   For the 3-real-roots case ($h < 0$ in the cubic discriminant), the solution evaluates:
+   ```cpp
+   float v = std::acos(q / (p * zz * 2.0f)) / 3.0f;
+   ```
+   Due to float32 precision limits, $\frac{q}{2 p z}$ occasionally evaluated to $1.0000002$ or $-1.0000002$, triggering domain errors in `std::acos` and returning `NaN`.
+   **Fix**: Clamped the ratio to $[-1.0f, 1.0f]$ via `std::clamp`.
+
+3. **Topology and Point Count Handling**:
+   Quadratic Bézier paths are indexed as triplets $(P_{2k}, P_{2k+1}, P_{2k+2})$. Paths with an even number of points previously appended a synthetic point that was frequently colinear with the last segment, triggering the division by zero. Proper segment pairing was enforced.
+
+### BVH2D Acceleration for Bézier Curves
+
+Since quadratic Bézier curves satisfy the convex hull property:
+$$B(t) \in \text{ConvexHull}(P_0, P_1, P_2) \quad \forall t \in [0, 1]$$
+A tight and conservative bounding box for each quadratic curve is simply:
+$$\text{AABB} = [\min(P_0, P_1, P_2), \max(P_0, P_1, P_2)]$$
+
+A specialized `BVH2DBezier` tree was implemented using this bounding box representation. Per-pixel queries prune subtrees whose bounding box distance exceeds the current closest squared distance.
+
+The API was structured consistently with linear polyline SDF:
+- `hmap::sdf_2d_polyline_bezier_bvh`
+- `hmap::sdf_2d_polyline_bezier_brute_force`
+- `hmap::sdf_2d_polyline_bezier(path, shape, bbox, p_noise_x, p_noise_y, use_bvh = true)`

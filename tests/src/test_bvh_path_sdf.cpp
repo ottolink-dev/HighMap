@@ -138,3 +138,91 @@ TEST(BVH2DPathSDF, ComplexMultiSegmentPathEquivalence)
     }
   }
 }
+
+TEST(BVH2DPathSDF, BezierMatchesBruteForceAndBVH)
+{
+  Path path(std::vector<Point>{{0.1f, 0.2f, 0.f},
+                               {0.3f, 0.8f, 0.f},
+                               {0.5f, 0.2f, 0.f},
+                               {0.7f, 0.9f, 0.f},
+                               {0.9f, 0.3f, 0.f}});
+  path.set_closed(false);
+
+  glm::ivec2 shape(32, 32);
+  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+
+  Array bf = sdf_2d_polyline_bezier_brute_force(path, shape, bbox);
+  Array bvh = sdf_2d_polyline_bezier_bvh(path, shape, bbox);
+  Array def = sdf_2d_polyline_bezier(path, shape, bbox);
+  Array no_bvh = sdf_2d_polyline_bezier(path, shape, bbox, nullptr, nullptr, false);
+
+  ASSERT_EQ(bf.shape.x, bvh.shape.x);
+  ASSERT_EQ(bf.shape.y, bvh.shape.y);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_FALSE(std::isnan(bf(i, j)));
+      EXPECT_FALSE(std::isnan(bvh(i, j)));
+      EXPECT_FALSE(std::isinf(bf(i, j)));
+      EXPECT_FALSE(std::isinf(bvh(i, j)));
+
+      EXPECT_NEAR(bvh(i, j), bf(i, j), 1e-4f)
+          << "Bezier mismatch at pixel (" << i << ", " << j << ")";
+      EXPECT_NEAR(def(i, j), bvh(i, j), 1e-4f);
+      EXPECT_NEAR(no_bvh(i, j), bf(i, j), 1e-4f);
+    }
+  }
+}
+
+TEST(BVH2DPathSDF, BezierColinearPointsNoNaN)
+{
+  Path path(std::vector<Point>{{0.1f, 0.1f, 0.f},
+                               {0.5f, 0.5f, 0.f},
+                               {0.9f, 0.9f, 0.f}});
+  path.set_closed(false);
+
+  glm::ivec2 shape(16, 16);
+  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+
+  Array res_bvh = sdf_2d_polyline_bezier_bvh(path, shape, bbox);
+  Array res_bf = sdf_2d_polyline_bezier_brute_force(path, shape, bbox);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_FALSE(std::isnan(res_bvh(i, j)));
+      EXPECT_FALSE(std::isinf(res_bvh(i, j)));
+      EXPECT_FALSE(std::isnan(res_bf(i, j)));
+      EXPECT_FALSE(std::isinf(res_bf(i, j)));
+      EXPECT_NEAR(res_bvh(i, j), res_bf(i, j), 1e-5f);
+    }
+  }
+}
+
+TEST(BVH2DPathSDF, BezierEvenPointCountHandled)
+{
+  Path path(std::vector<Point>{{0.1f, 0.1f, 0.f},
+                               {0.3f, 0.7f, 0.f},
+                               {0.6f, 0.8f, 0.f},
+                               {0.9f, 0.2f, 0.f}});
+  path.set_closed(false);
+
+  glm::ivec2 shape(20, 20);
+  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+
+  Array res_bvh = sdf_2d_polyline_bezier_bvh(path, shape, bbox);
+  Array res_bf = sdf_2d_polyline_bezier_brute_force(path, shape, bbox);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_FALSE(std::isnan(res_bvh(i, j)));
+      EXPECT_FALSE(std::isinf(res_bvh(i, j)));
+      EXPECT_NEAR(res_bvh(i, j), res_bf(i, j), 1e-4f);
+    }
+  }
+}
