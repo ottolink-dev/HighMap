@@ -417,48 +417,6 @@ namespace hmap::gpu
 // --- Deprecated GPU Hydraulic Functions
 
 /**
- * @brief Performs iterative particle-based convolution erosion on a heightmap.
- *
- * This function simulates erosion by spawning particles, tracing their paths
- * over the heightmap, accumulating a mask and size field, and applying a
- * kernel-based convolution to compute erosion deltas.
- *
- * The process is repeated for a number of iterations to refine the result.
- *
- * @param z                Heightmap to be eroded (modified in-place).
- * @param seed             RNG seed for deterministic behavior.
- * @param iterations       Number of erosion iterations.
- * @param particle_count   Number of particles per iteration.
- * @param ir_min           Minimum kernel radius scale.
- * @param ir_max           Maximum kernel radius scale.
- * @param size_distrib_exp Exponent controlling particle size bias.
- * @param erosion_strength Global strength of erosion applied per iteration.
- * @param randomness       Controls randomness in particle trajectories.
- * @param exit_forcing     Forcing strength towards the domain frontier.
- *
- *  **Example**
- * @include ex_conv_erosion.cpp
- *
- * **Result**
- * @image html ex_conv_erosion.png
- */
-// this function is going to be removed at some point
-[[deprecated("This function is going to be removed at some point.")]]
-void conv_erosion(Array        &z,
-                  std::uint32_t seed,
-                  int           iterations = 20,
-                  int           particle_count = 1000,
-                  int           ir_min = 8,
-                  int           ir_max = 64,
-                  float         size_distrib_exp = 1.f,
-                  float         erosion_strength = 0.02f,
-                  float         randomness = 0.01f,
-                  float         exit_forcing = 0.05f,
-                  int           gradient_ir = 16,
-                  float         gradient_exp = 0.5f,
-                  float         gradient_strength_min = 0.f);
-
-/**
  * @brief Apply cell-based hydraulic erosion/deposition of Musgrave et al.
  * (1989) on GPU.
  *
