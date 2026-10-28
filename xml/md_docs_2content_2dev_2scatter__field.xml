@@ -6,8 +6,8 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><anchor id="md_docs_2content_2dev_2scatter__field_1autotoc_md23"/> This document details the uniform scattering architecture in HighMap, describing the relationship between the base <computeroutput>ScatterField</computeroutput> container and its domain-specific specializations: <computeroutput>Forest</computeroutput> and <computeroutput>RockField</computeroutput>.</para>
-<sect1 id="md_docs_2content_2dev_2scatter__field_1autotoc_md24">
+<para><anchor id="md_docs_2content_2dev_2scatter__field_1autotoc_md40"/> This document details the uniform scattering architecture in HighMap, describing the relationship between the base <computeroutput>ScatterField</computeroutput> container and its domain-specific specializations: <computeroutput>Forest</computeroutput> and <computeroutput>RockField</computeroutput>.</para>
+<sect1 id="md_docs_2content_2dev_2scatter__field_1autotoc_md41">
 <title>1. Class and Dependency Diagram</title>
 <para>The architecture decouples lightweight instance storage from domain descriptors and simulation algorithms.</para>
 <para><programlisting filename=".mermaid"><codeline><highlight class="normal">classDiagram</highlight></codeline>
@@ -80,9 +80,9 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>RockField<sp/>..&gt;<sp/>RockDistribution<sp/>:<sp/>configured<sp/>by</highlight></codeline>
 </programlisting></para>
 </sect1>
-<sect1 id="md_docs_2content_2dev_2scatter__field_1autotoc_md25">
+<sect1 id="md_docs_2content_2dev_2scatter__field_1autotoc_md42">
 <title>2. Design Principles</title>
-<sect2 id="md_docs_2content_2dev_2scatter__field_1autotoc_md26">
+<sect2 id="md_docs_2content_2dev_2scatter__field_1autotoc_md43">
 <title>Uniform Instance Representation</title>
 <para>All discrete spatial entities inherit a minimal three-attribute representation:<itemizedlist>
 <listitem><para><computeroutput>position</computeroutput> (<computeroutput>glm::vec3</computeroutput>): 3D spatial coordinate ($x, y$ ground position and elevation $z$).</para>
@@ -92,7 +92,7 @@
 </para>
 <para><computeroutput>Tree</computeroutput> and <computeroutput>Rock</computeroutput> are type aliases of <computeroutput>ScatterItem</computeroutput> (<computeroutput>using Tree = ScatterItem;</computeroutput>, <computeroutput>using Rock = ScatterItem;</computeroutput>).</para>
 </sect2>
-<sect2 id="md_docs_2content_2dev_2scatter__field_1autotoc_md27">
+<sect2 id="md_docs_2content_2dev_2scatter__field_1autotoc_md44">
 <title>Inheritance and Reuse</title>
 <para><computeroutput>ScatterField</computeroutput> provides generic spatial queries and transforms common to any scattered entity:<itemizedlist>
 <listitem><para><bold>Spatial queries</bold>: Bounding box evaluation, point queries, class-based filtering (<computeroutput>filter_by_class</computeroutput>).</para>
@@ -102,7 +102,7 @@
 </para>
 <para>Both <computeroutput>Forest</computeroutput> and <computeroutput>RockField</computeroutput> publicly inherit from <computeroutput>ScatterField</computeroutput>. They inherit the full suite of spatial operations without duplicating spatial indexing or container logic.</para>
 </sect2>
-<sect2 id="md_docs_2content_2dev_2scatter__field_1autotoc_md28">
+<sect2 id="md_docs_2content_2dev_2scatter__field_1autotoc_md45">
 <title>Descriptor Separation</title>
 <para>Instance containers store only per-instance spatial state (<computeroutput>position</computeroutput>, <computeroutput>class_id</computeroutput>, <computeroutput>radius</computeroutput>). Metadata and physical parameters are separated into lightweight descriptor structures:<itemizedlist>
 <listitem><para><computeroutput>Species</computeroutput>: Biological traits (growth limits, relative seeding weight, shade/canopy competition factors).</para>
@@ -112,9 +112,9 @@
 <para>Simulation algorithms take instance fields alongside descriptor arrays. This keeps memory footprint minimal when storing millions of scattered entities.</para>
 </sect2>
 </sect1>
-<sect1 id="md_docs_2content_2dev_2scatter__field_1autotoc_md29">
+<sect1 id="md_docs_2content_2dev_2scatter__field_1autotoc_md46">
 <title>3. Subsystem Connections</title>
-<sect2 id="md_docs_2content_2dev_2scatter__field_1autotoc_md30">
+<sect2 id="md_docs_2content_2dev_2scatter__field_1autotoc_md47">
 <title>Flora Subsystem (&lt;tt&gt;Forest&lt;/tt&gt;)</title>
 <para><computeroutput>Forest</computeroutput> models vegetation and tree distributions.<itemizedlist>
 <listitem><para><bold>Seeding</bold>: <computeroutput>seed_forest_density</computeroutput> and <computeroutput>seed_forest_species</computeroutput> populate <computeroutput>Forest</computeroutput> instances using environmental suitability rasters (slope, elevation, moisture) and species weights.</para>
@@ -122,7 +122,7 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="md_docs_2content_2dev_2scatter__field_1autotoc_md31">
+<sect2 id="md_docs_2content_2dev_2scatter__field_1autotoc_md48">
 <title>Rocks Subsystem (&lt;tt&gt;RockField&lt;/tt&gt;)</title>
 <para><computeroutput>RockField</computeroutput> models talus slopes, scree fields, and boulder deposits.<itemizedlist>
 <listitem><para><bold>Seeding</bold>: <computeroutput>seed_rocks_talus</computeroutput> and <computeroutput>seed_rocks_distribution</computeroutput> generate rocks following Pareto power-law distributions, where small rocks outnumber large boulders according to <computeroutput>power_law_alpha</computeroutput>.</para>
@@ -131,7 +131,7 @@
 </para>
 </sect2>
 </sect1>
-<sect1 id="md_docs_2content_2dev_2scatter__field_1autotoc_md32">
+<sect1 id="md_docs_2content_2dev_2scatter__field_1autotoc_md49">
 <title>4. Converting to Raster Fields</title>
 <para>A <computeroutput>ScatterField</computeroutput> (and by extension <computeroutput>Forest</computeroutput> or <computeroutput>RockField</computeroutput>) can be rasterized back into the elevation domain:<itemizedlist>
 <listitem><para><computeroutput>to_density_map</computeroutput>: Generates a continuous <computeroutput>Array</computeroutput> indicating entity density per cell.</para>

@@ -18,7 +18,7 @@ var searchData=
   ['respawn_5fout_5fof_5fbounds_15',['respawn_out_of_bounds',['../structhmap_1_1RockSimulationOptions.html#a78f0777ea563f1e4da954608278fb544',1,'hmap::RockSimulationOptions']]],
   ['ret_16',['ret',['../structhmap_1_1AssertResults.html#a8999b609fb640f3c04ee1c54d2195ef5',1,'hmap::AssertResults']]],
   ['ridge_17',['ridge',['../structhmap_1_1TerrainTextureParams.html#afd4d1c04553909a31b2dfbb164ecb7c6',1,'hmap::TerrainTextureParams']]],
-  ['right_18',['right',['../structhmap_1_1BVH2D_1_1Node.html#a5ae3aa3b4b06823e6c7d208523d6114e',1,'hmap::BVH2D::Node']]],
+  ['right_18',['right',['../structhmap_1_1BVH2D_1_1Node.html#a5ae3aa3b4b06823e6c7d208523d6114e',1,'hmap::BVH2D::Node::right'],['../sdf__2d__polyline__bezier_8cpp.html#a3d3a4d6bf8bc6c866fa737e11590cc4e',1,'right:&#160;sdf_2d_polyline_bezier.cpp']]],
   ['rock_19',['rock',['../structhmap_1_1TerrainTextureParams.html#a8fe287ffa2141604cd4cbc6fada163eb',1,'hmap::TerrainTextureParams']]],
   ['rock_5fedge_20',['rock_edge',['../structhmap_1_1TerrainTextureParams.html#a14538dd1a36c1018ffd330dd1d9da19a',1,'hmap::TerrainTextureParams']]],
   ['rock_5fslope_21',['rock_slope',['../structhmap_1_1TerrainTextureParams.html#a9541e7974500a7d1b258d91762cc9996',1,'hmap::TerrainTextureParams']]],

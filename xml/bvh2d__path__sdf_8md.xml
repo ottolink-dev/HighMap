@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="bvh2d__path__sdf_8md" kind="file" language="Markdown">
+    <compoundname>bvh2d_path_sdf.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>BVH2D<sp/>Spatial<sp/>Indexing<sp/>for<sp/>Path<sp/>SDF<sp/>Computation</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>document<sp/>records<sp/>the<sp/>performance<sp/>investigation<sp/>and<sp/>implementation<sp/>findings<sp/>for<sp/>accelerating<sp/>2D<sp/>Path<sp/>Signed<sp/>Distance<sp/>Field<sp/>(SDF)<sp/>evaluation<sp/>using<sp/>a<sp/>Bounding<sp/>Volume<sp/>Hierarchy<sp/>(`BVH2D`).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>1.<sp/>Context<sp/>and<sp/>Motivation</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Computing<sp/>the<sp/>distance<sp/>field<sp/>of<sp/>a<sp/>2D<sp/>polyline<sp/>or<sp/>polygon<sp/>across<sp/>a<sp/>discrete<sp/>heightmap<sp/>grid<sp/>is<sp/>a<sp/>recurring<sp/>operation<sp/>in<sp/>terrain<sp/>authoring,<sp/>hydrology<sp/>(riverbed<sp/>carve<sp/>profiles),<sp/>and<sp/>carving<sp/>workflows.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>original<sp/>evaluation<sp/>in<sp/>`path_sdf_to_array`<sp/>and<sp/>`sdf_2d_polyline`<sp/>performed<sp/>brute-force<sp/>distance<sp/>evaluation:</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>For<sp/>every<sp/>pixel<sp/>$(i,<sp/>j)$<sp/>in<sp/>a<sp/>$W<sp/>\times<sp/>H$<sp/>array,<sp/>iterate<sp/>across<sp/>all<sp/>$N$<sp/>path<sp/>segments.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Complexity:<sp/>$\mathcal{O}(W<sp/>\cdot<sp/>H<sp/>\cdot<sp/>N)$.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">For<sp/>dense<sp/>or<sp/>detailed<sp/>paths<sp/>($N<sp/>\ge<sp/>100$)<sp/>and<sp/>high-resolution<sp/>heightmaps<sp/>($512<sp/>\times<sp/>512$<sp/>or<sp/>higher),<sp/>this<sp/>approach<sp/>causes<sp/>significant<sp/>CPU<sp/>bottlenecks.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">HighMap<sp/>provides<sp/>an<sp/>internal<sp/>2D<sp/>Axis-Aligned<sp/>Bounding<sp/>Box<sp/>tree<sp/>(`hmap::BVH2D`).<sp/>By<sp/>indexing<sp/>the<sp/>segment<sp/>set<sp/>into<sp/>a<sp/>BVH,<sp/>the<sp/>nearest<sp/>segment<sp/>search<sp/>per<sp/>pixel<sp/>is<sp/>accelerated<sp/>via<sp/>branch-and-bound<sp/>pruning.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>2.<sp/>Algorithmic<sp/>Approach</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Segment<sp/>Indexing</highlight></codeline>
+<codeline><highlight class="normal">Path<sp/>segments<sp/>$[p_k,<sp/>p_{k+1}]$<sp/>are<sp/>packaged<sp/>into<sp/>`Segment2D`<sp/>structs<sp/>storing<sp/>directional<sp/>vector<sp/>$d<sp/>=<sp/>p_{k+1}<sp/>-<sp/>p_k$<sp/>and<sp/>inverse<sp/>squared<sp/>length<sp/>$\frac{1}{\|d\|^2}$.</highlight></codeline>
+<codeline><highlight class="normal">A<sp/>`BVH2D`<sp/>tree<sp/>is<sp/>built<sp/>over<sp/>the<sp/>segments<sp/>in<sp/>$\mathcal{O}(N<sp/>\log<sp/>N)$<sp/>time.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Branch-and-Bound<sp/>Distance<sp/>Query</highlight></codeline>
+<codeline><highlight class="normal">For<sp/>a<sp/>given<sp/>query<sp/>point<sp/>$p<sp/>=<sp/>(x,<sp/>y)$:</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>Traverse<sp/>the<sp/>BVH<sp/>using<sp/>a<sp/>fixed-capacity<sp/>traversal<sp/>stack.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>At<sp/>each<sp/>node,<sp/>compute<sp/>the<sp/>minimum<sp/>squared<sp/>distance<sp/>from<sp/>$p$<sp/>to<sp/>the<sp/>node&apos;s<sp/>axis-aligned<sp/>bounding<sp/>box<sp/>(`AABB2D`):</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>$$d_{\text{box}}^2(p,<sp/>\text{box})<sp/>=<sp/>\max(0,<sp/>\text{box.min}_x<sp/>-<sp/>p_x,<sp/>p_x<sp/>-<sp/>\text{box.max}_x)^2<sp/>+<sp/>\max(0,<sp/>\text{box.min}_y<sp/>-<sp/>p_y,<sp/>p_y<sp/>-<sp/>\text{box.max}_y)^2$$</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>If<sp/>$d_{\text{box}}^2<sp/>\ge<sp/>d_{\text{best}}^2$,<sp/>the<sp/>node<sp/>and<sp/>all<sp/>its<sp/>descendants<sp/>are<sp/>pruned.</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>For<sp/>internal<sp/>nodes,<sp/>visit<sp/>the<sp/>closer<sp/>child<sp/>first<sp/>to<sp/>tighten<sp/>$d_{\text{best}}^2$<sp/>quickly.</highlight></codeline>
+<codeline><highlight class="normal">5.<sp/>In<sp/>leaf<sp/>nodes,<sp/>evaluate<sp/>exact<sp/>point-to-segment<sp/>distance<sp/>squared<sp/>and<sp/>update<sp/>$d_{\text{best}}^2$.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Average<sp/>per-query<sp/>complexity<sp/>drops<sp/>to<sp/>$\mathcal{O}(\log<sp/>N)$,<sp/>reducing<sp/>overall<sp/>runtime<sp/>to<sp/>$\mathcal{O}(W<sp/>\cdot<sp/>H<sp/>\log<sp/>N)$.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Support<sp/>for<sp/>Domain<sp/>Warping<sp/>and<sp/>Path<sp/>Closure</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**Domain<sp/>Warping**:<sp/>Per-pixel<sp/>noise<sp/>displacements<sp/>(`p_noise_x`,<sp/>`p_noise_y`)<sp/>warp<sp/>coordinate<sp/>$p<sp/>=<sp/>(x<sp/>+<sp/>dx,<sp/>y<sp/>+<sp/>dy)$<sp/>before<sp/>querying<sp/>the<sp/>tree.<sp/>The<sp/>tree<sp/>does<sp/>not<sp/>require<sp/>reconstruction.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**Closed<sp/>Paths**:<sp/>When<sp/>`path.is_closed()<sp/>==<sp/>true`,<sp/>the<sp/>closing<sp/>segment<sp/>is<sp/>included<sp/>in<sp/>the<sp/>BVH,<sp/>and<sp/>an<sp/>orientation/winding<sp/>sign<sp/>test<sp/>determines<sp/>interior<sp/>vs.<sp/>exterior<sp/>distances.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>3.<sp/>Benchmark<sp/>Measurements</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Google<sp/>Benchmark<sp/>was<sp/>executed<sp/>comparing<sp/>the<sp/>baseline<sp/>brute-force<sp/>approach<sp/>against<sp/>the<sp/>BVH<sp/>approach<sp/>on<sp/>a<sp/>CPU<sp/>with<sp/>6<sp/>physical<sp/>cores<sp/>(12<sp/>threads).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Execution<sp/>Time<sp/>Comparison<sp/>($512<sp/>\times<sp/>512$<sp/>Grid)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>Segment<sp/>Count<sp/>($N$)<sp/>|<sp/>Baseline<sp/>Brute<sp/>Force<sp/>(ms)<sp/>|<sp/>BVH2D<sp/>Accelerated<sp/>(ms)<sp/>|<sp/>Speedup<sp/>Factor<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|---|---|---|---|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>10<sp/>|<sp/>39.8<sp/>|<sp/>6.71<sp/>|<sp/>~5.9x<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>50<sp/>|<sp/>205.0<sp/>|<sp/>12.20<sp/>|<sp/>~16.8x<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>200<sp/>|<sp/>734.0<sp/>|<sp/>20.20<sp/>|<sp/>~36.3x<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>1000<sp/>|<sp/>2823.0<sp/>|<sp/>37.60<sp/>|<sp/>~75.1x<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Execution<sp/>Time<sp/>Comparison<sp/>($256<sp/>\times<sp/>256$<sp/>Grid)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>Segment<sp/>Count<sp/>($N$)<sp/>|<sp/>Baseline<sp/>Brute<sp/>Force<sp/>(ms)<sp/>|<sp/>BVH2D<sp/>Accelerated<sp/>(ms)<sp/>|<sp/>Speedup<sp/>Factor<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|---|---|---|---|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>10<sp/>|<sp/>9.59<sp/>|<sp/>1.42<sp/>|<sp/>~6.8x<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>50<sp/>|<sp/>51.00<sp/>|<sp/>4.37<sp/>|<sp/>~11.7x<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>200<sp/>|<sp/>191.00<sp/>|<sp/>4.84<sp/>|<sp/>~39.5x<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>1000<sp/>|<sp/>917.00<sp/>|<sp/>10.30<sp/>|<sp/>~89.0x<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>4.<sp/>API<sp/>Design<sp/>and<sp/>Integration</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>functionality<sp/>is<sp/>structured<sp/>to<sp/>preserve<sp/>backward<sp/>compatibility<sp/>while<sp/>providing<sp/>the<sp/>brute-force<sp/>implementation<sp/>for<sp/>reference<sp/>and<sp/>validation:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>**Explicit<sp/>Implementations**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>`hmap::sdf_2d_polyline_bvh`<sp/>and<sp/>`hmap::path_sdf_to_array_bvh`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>`hmap::sdf_2d_polyline_brute_force`<sp/>and<sp/>`hmap::path_sdf_to_array_brute_force`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">2.<sp/>**Default<sp/>Wrapper<sp/>Functions**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>`hmap::sdf_2d_polyline(path,<sp/>shape,<sp/>bbox,<sp/>p_noise_x,<sp/>p_noise_y,<sp/>use_bvh<sp/>=<sp/>true)`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>`hmap::path_sdf_to_array(path,<sp/>shape,<sp/>bbox_array,<sp/>p_noise_x,<sp/>p_noise_y,<sp/>use_bvh<sp/>=<sp/>true)`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Existing<sp/>call<sp/>sites<sp/>retain<sp/>default<sp/>`use_bvh<sp/>=<sp/>true`<sp/>behavior<sp/>without<sp/>signature<sp/>breakage.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>5.<sp/>Verification<sp/>of<sp/>Bézier<sp/>Polyline<sp/>SDF<sp/>(`sdf_2d_polyline_bezier`)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">During<sp/>verification<sp/>of<sp/>`sdf_2d_polyline_bezier`,<sp/>numerical<sp/>issues<sp/>were<sp/>discovered<sp/>causing<sp/>corrupted/broken<sp/>results<sp/>(entire<sp/>arrays<sp/>returning<sp/>`NaN`<sp/>or<sp/>`inf`).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Root<sp/>Cause<sp/>Analysis</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>**Division<sp/>by<sp/>Zero<sp/>on<sp/>Colinear/Degenerate<sp/>Segments**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>The<sp/>distance<sp/>to<sp/>a<sp/>quadratic<sp/>Bézier<sp/>curve<sp/>$B(t)<sp/>=<sp/>(1-t)^2<sp/>P_0<sp/>+<sp/>2t(1-t)P_1<sp/>+<sp/>t^2<sp/>P_2$<sp/>involves<sp/>the<sp/>second-difference<sp/>vector:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>$$b<sp/>=<sp/>P_0<sp/>-<sp/>2P_1<sp/>+<sp/>P_2$$</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>When<sp/>the<sp/>control<sp/>points<sp/>are<sp/>colinear<sp/>(or<sp/>$P_1$<sp/>is<sp/>at<sp/>the<sp/>midpoint<sp/>of<sp/>$P_0$<sp/>and<sp/>$P_2$),<sp/>$b<sp/>\approx<sp/>0<sp/>\implies<sp/>\text{dot}(b,<sp/>b)<sp/>=<sp/>0$.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>The<sp/>original<sp/>code<sp/>computed:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>```cpp</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>float<sp/>kk<sp/>=<sp/>1.0f<sp/>/<sp/>dot(b,<sp/>b);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>```</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>without<sp/>checking<sp/>for<sp/>zero.<sp/>This<sp/>produced<sp/>`inf`,<sp/>which<sp/>cascaded<sp/>through<sp/>Cardano&apos;s<sp/>cubic<sp/>solver<sp/>into<sp/>`NaN`<sp/>for<sp/>all<sp/>grid<sp/>queries.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>**Fix**:<sp/>When<sp/>$\text{dot}(b,<sp/>b)<sp/>&lt;<sp/>10^{-10}$,<sp/>the<sp/>curve<sp/>degenerates<sp/>to<sp/>a<sp/>straight<sp/>line<sp/>segment<sp/>$[P_0,<sp/>P_2]$.<sp/>The<sp/>solver<sp/>directly<sp/>evaluates<sp/>the<sp/>point-to-line-segment<sp/>distance.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">2.<sp/>**Domain<sp/>Violations<sp/>in<sp/>Trigonometric<sp/>Cardano<sp/>Branch**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>For<sp/>the<sp/>3-real-roots<sp/>case<sp/>($h<sp/>&lt;<sp/>0$<sp/>in<sp/>the<sp/>cubic<sp/>discriminant),<sp/>the<sp/>solution<sp/>evaluates:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>```cpp</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>float<sp/>v<sp/>=<sp/>std::acos(q<sp/>/<sp/>(p<sp/>*<sp/>zz<sp/>*<sp/>2.0f))<sp/>/<sp/>3.0f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>```</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>Due<sp/>to<sp/>float32<sp/>precision<sp/>limits,<sp/>$\frac{q}{2<sp/>p<sp/>z}$<sp/>occasionally<sp/>evaluated<sp/>to<sp/>$1.0000002$<sp/>or<sp/>$-1.0000002$,<sp/>triggering<sp/>domain<sp/>errors<sp/>in<sp/>`std::acos`<sp/>and<sp/>returning<sp/>`NaN`.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>**Fix**:<sp/>Clamped<sp/>the<sp/>ratio<sp/>to<sp/>$[-1.0f,<sp/>1.0f]$<sp/>via<sp/>`std::clamp`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">3.<sp/>**Topology<sp/>and<sp/>Point<sp/>Count<sp/>Handling**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>Quadratic<sp/>Bézier<sp/>paths<sp/>are<sp/>indexed<sp/>as<sp/>triplets<sp/>$(P_{2k},<sp/>P_{2k+1},<sp/>P_{2k+2})$.<sp/>Paths<sp/>with<sp/>an<sp/>even<sp/>number<sp/>of<sp/>points<sp/>previously<sp/>appended<sp/>a<sp/>synthetic<sp/>point<sp/>that<sp/>was<sp/>frequently<sp/>colinear<sp/>with<sp/>the<sp/>last<sp/>segment,<sp/>triggering<sp/>the<sp/>division<sp/>by<sp/>zero.<sp/>Proper<sp/>segment<sp/>pairing<sp/>was<sp/>enforced.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>BVH2D<sp/>Acceleration<sp/>for<sp/>Bézier<sp/>Curves</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Since<sp/>quadratic<sp/>Bézier<sp/>curves<sp/>satisfy<sp/>the<sp/>convex<sp/>hull<sp/>property:</highlight></codeline>
+<codeline><highlight class="normal">$$B(t)<sp/>\in<sp/>\text{ConvexHull}(P_0,<sp/>P_1,<sp/>P_2)<sp/>\quad<sp/>\forall<sp/>t<sp/>\in<sp/>[0,<sp/>1]$$</highlight></codeline>
+<codeline><highlight class="normal">A<sp/>tight<sp/>and<sp/>conservative<sp/>bounding<sp/>box<sp/>for<sp/>each<sp/>quadratic<sp/>curve<sp/>is<sp/>simply:</highlight></codeline>
+<codeline><highlight class="normal">$$\text{AABB}<sp/>=<sp/>[\min(P_0,<sp/>P_1,<sp/>P_2),<sp/>\max(P_0,<sp/>P_1,<sp/>P_2)]$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">A<sp/>specialized<sp/>`BVH2DBezier`<sp/>tree<sp/>was<sp/>implemented<sp/>using<sp/>this<sp/>bounding<sp/>box<sp/>representation.<sp/>Per-pixel<sp/>queries<sp/>prune<sp/>subtrees<sp/>whose<sp/>bounding<sp/>box<sp/>distance<sp/>exceeds<sp/>the<sp/>current<sp/>closest<sp/>squared<sp/>distance.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>API<sp/>was<sp/>structured<sp/>consistently<sp/>with<sp/>linear<sp/>polyline<sp/>SDF:</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`hmap::sdf_2d_polyline_bezier_bvh`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`hmap::sdf_2d_polyline_bezier_brute_force`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`hmap::sdf_2d_polyline_bezier(path,<sp/>shape,<sp/>bbox,<sp/>p_noise_x,<sp/>p_noise_y,<sp/>use_bvh<sp/>=<sp/>true)`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>6.<sp/>GPU<sp/>(OpenCL)<sp/>Assessment<sp/>and<sp/>Validation</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>GPU<sp/>polyline<sp/>SDF<sp/>implementation<sp/>was<sp/>analyzed<sp/>to<sp/>determine<sp/>whether<sp/>introducing<sp/>a<sp/>BVH2D<sp/>spatial<sp/>index<sp/>in<sp/>OpenCL<sp/>kernels<sp/>would<sp/>yield<sp/>benefits.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Performance<sp/>Analysis:<sp/>GPU<sp/>Brute<sp/>Force<sp/>vs<sp/>CPU<sp/>BVH2D</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Comparative<sp/>benchmark<sp/>timings<sp/>on<sp/>an<sp/>NVIDIA<sp/>GeForce<sp/>GTX<sp/>1650<sp/>Max-Q<sp/>across<sp/>$512<sp/>\times<sp/>512$<sp/>grids:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>Path<sp/>Vertices<sp/>($N$)<sp/>|<sp/>CPU<sp/>Brute<sp/>Force<sp/>(ms)<sp/>|<sp/>CPU<sp/>BVH2D<sp/>(ms)<sp/>|<sp/>GPU<sp/>OpenCL<sp/>(ms)<sp/>|<sp/>Speedup<sp/>vs<sp/>CPU<sp/>BVH<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|---|---|---|---|---|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>10<sp/>|<sp/>49.3<sp/>|<sp/>6.7<sp/>|<sp/>1.9<sp/>|<sp/>~3.5x<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>50<sp/>|<sp/>258.0<sp/>|<sp/>12.2<sp/>|<sp/>2.1<sp/>|<sp/>~5.8x<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>200<sp/>|<sp/>973.0<sp/>|<sp/>20.2<sp/>|<sp/>2.8<sp/>|<sp/>~7.2x<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>1000<sp/>|<sp/>4949.6<sp/>|<sp/>37.6<sp/>|<sp/>5.6<sp/>|<sp/>~6.7x<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Rationale:<sp/>Keeping<sp/>the<sp/>GPU<sp/>Kernel<sp/>Brute<sp/>Force</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Building<sp/>and<sp/>traversing<sp/>a<sp/>BVH2D<sp/>on<sp/>the<sp/>GPU<sp/>was<sp/>rejected<sp/>based<sp/>on<sp/>execution<sp/>characteristics:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>**Constant<sp/>Memory<sp/>Broadcast<sp/>Efficiency**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>Path<sp/>vertices<sp/>are<sp/>placed<sp/>in<sp/>`__constant<sp/>float*`<sp/>(or<sp/>read-only<sp/>global<sp/>cache<sp/>lines).<sp/>During<sp/>execution,<sp/>all<sp/>32<sp/>threads<sp/>in<sp/>an<sp/>execution<sp/>warp<sp/>evaluate<sp/>the<sp/>identical<sp/>segment<sp/>index<sp/>simultaneously:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>Warp<sp/>broadcast<sp/>achieves<sp/>a<sp/>100%<sp/>cache<sp/>hit<sp/>rate<sp/>with<sp/>zero<sp/>memory<sp/>latency<sp/>penalty.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>Brute-force<sp/>loop<sp/>execution<sp/>exhibits<sp/>zero<sp/>warp<sp/>divergence.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">2.<sp/>**Warp<sp/>Divergence<sp/>in<sp/>BVH<sp/>Traversal**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>Neighboring<sp/>pixels<sp/>traverse<sp/>different<sp/>branches<sp/>of<sp/>a<sp/>BVH<sp/>depending<sp/>on<sp/>their<sp/>spatial<sp/>coordinates.<sp/>Per-warp<sp/>branch<sp/>divergence<sp/>on<sp/>a<sp/>tree<sp/>traversal<sp/>serializes<sp/>execution<sp/>threads<sp/>and<sp/>requires<sp/>a<sp/>per-work-item<sp/>stack<sp/>(causing<sp/>register<sp/>pressure<sp/>or<sp/>spilling<sp/>into<sp/>high-latency<sp/>local/private<sp/>memory).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">3.<sp/>**Performance<sp/>Trade-Off**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>At<sp/>$N<sp/>=<sp/>1000$<sp/>segments,<sp/>the<sp/>brute-force<sp/>GPU<sp/>kernel<sp/>takes<sp/>only<sp/>5.6<sp/>ms.<sp/>The<sp/>complexity<sp/>of<sp/>dynamic<sp/>tree<sp/>traversal<sp/>in<sp/>OpenCL<sp/>would<sp/>likely<sp/>degrade<sp/>throughput<sp/>rather<sp/>than<sp/>improve<sp/>it<sp/>for<sp/>typical<sp/>path<sp/>sizes.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Numerical<sp/>Stability<sp/>and<sp/>Parity<sp/>Fixes<sp/>on<sp/>GPU</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>OpenCL<sp/>kernels<sp/>were<sp/>reviewed<sp/>and<sp/>aligned<sp/>with<sp/>the<sp/>CPU<sp/>implementations:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>**Colinear<sp/>Bézier<sp/>Segments**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>In<sp/>`HighMap/src/gpu_opencl/kernels/transform/sdf_2d_polyline.cl`,<sp/>added<sp/>a<sp/>check<sp/>for<sp/>$b\_len\_sq<sp/>=<sp/>\text{dot}(b,<sp/>b)<sp/>&lt;<sp/>10^{-10}\text{f}$.<sp/>When<sp/>degenerate,<sp/>the<sp/>kernel<sp/>falls<sp/>back<sp/>to<sp/>line<sp/>segment<sp/>distance<sp/>between<sp/>endpoints,<sp/>preventing<sp/>division-by-zero<sp/>`inf`<sp/>and<sp/>`NaN`<sp/>cascades.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">2.<sp/>**Cardano<sp/>Root<sp/>Solver<sp/>Clamping**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>Clamped<sp/>`acos`<sp/>argument<sp/>to<sp/>$[-1.0\text{f},<sp/>1.0\text{f}]$<sp/>within<sp/>the<sp/>3-real-roots<sp/>cubic<sp/>solver<sp/>branch<sp/>to<sp/>avoid<sp/>domain<sp/>errors<sp/>from<sp/>float<sp/>rounding.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">3.<sp/>**Closed<sp/>Path<sp/>Signing<sp/>and<sp/>Topology**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>`gpu::sdf_2d_polyline_bezier`<sp/>now<sp/>appends<sp/>the<sp/>closing<sp/>segment<sp/>to<sp/>reconnect<sp/>the<sp/>first<sp/>and<sp/>last<sp/>control<sp/>points<sp/>when<sp/>`path.is_closed()<sp/>==<sp/>true`.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>The<sp/>kernel<sp/>takes<sp/>an<sp/>`is_closed`<sp/>parameter<sp/>and<sp/>computes<sp/>ray-crossing<sp/>parity<sp/>to<sp/>assign<sp/>interior<sp/>negative<sp/>signs,<sp/>matching<sp/>the<sp/>CPU<sp/>signed<sp/>distance<sp/>field<sp/>behavior.</highlight></codeline>
+    </programlisting>
+    <location file="docs/content/dev/investigations/bvh2d_path_sdf.md"/>
+  </compounddef>
+</doxygen>

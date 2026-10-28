@@ -586,8 +586,8 @@
 <codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.1f<sp/>*<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>+<sp/>1)));</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/>glm::vec4<sp/>bbox<sp/>=<sp/>{0.f,<sp/>9.f,<sp/>0.f,<sp/>9.f};</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1RockField_1ad169e4acbe84618e48fdd741e6f764d6" kindref="member">apply_slope_sorting</ref>(<ref refid="namespacehmap_1a04e7abe100708990e2464cc5df2ccafa" kindref="member">slope</ref>,<sp/>1.0f,<sp/>bbox);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref><sp/>=<sp/>{0.f,<sp/>9.f,<sp/>0.f,<sp/>9.f};</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1RockField_1ad169e4acbe84618e48fdd741e6f764d6" kindref="member">apply_slope_sorting</ref>(<ref refid="namespacehmap_1a04e7abe100708990e2464cc5df2ccafa" kindref="member">slope</ref>,<sp/>1.0f,<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>);</highlight></codeline>
 <codeline lineno="82"><highlight class="normal"></highlight></codeline>
 <codeline lineno="83"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Rock<sp/>at<sp/>low<sp/>slope<sp/>(x=0)<sp/>should<sp/>have<sp/>larger<sp/>radius<sp/>than<sp/>rock<sp/>at<sp/>high<sp/>slope</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>(x=9)</highlight><highlight class="normal"></highlight></codeline>
@@ -602,10 +602,10 @@
 <codeline lineno="93"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1ScatterField_1aff098f62a339deb2a51854d081f96af9" kindref="member">push_back</ref>(<ref refid="namespacehmap_1abe97158ceceff77924b22e1c24e3cda0" kindref="member">Rock</ref>(glm::vec3(0.8f,<sp/>0.5f,<sp/>0.f),<sp/>0u,<sp/>0.1f));</highlight></codeline>
 <codeline lineno="94"><highlight class="normal"></highlight></codeline>
 <codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><sp/><sp/><sp/>original_count<sp/>=<sp/>field.<ref refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" kindref="member">size</ref>();</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/>glm::vec4<sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref><sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"></highlight></codeline>
 <codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>1.<sp/>Pack<sp/>without<sp/>density<sp/>(uniform)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1ScatterField_1add5cb2d398e0c6b5b69d6946439436dc" kindref="member">pack_interstitial</ref>(20,<sp/>{},<sp/>0.01f,<sp/>0.02f,<sp/>1u,<sp/>42,<sp/>bbox);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1ScatterField_1add5cb2d398e0c6b5b69d6946439436dc" kindref="member">pack_interstitial</ref>(20,<sp/>{},<sp/>0.01f,<sp/>0.02f,<sp/>1u,<sp/>42,<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>);</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"></highlight></codeline>
 <codeline lineno="101"><highlight class="normal"><sp/><sp/>EXPECT_GT(field.<ref refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" kindref="member">size</ref>(),<sp/>original_count);</highlight></codeline>
 <codeline lineno="102"><highlight class="normal"><sp/><sp/>EXPECT_EQ(field[0].radius,<sp/>0.1f);</highlight></codeline>
@@ -614,7 +614,7 @@
 <codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>2.<sp/>Pack<sp/>with<sp/>density<sp/>map</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="106"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/>density({32,<sp/>32},<sp/>1.0f);</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>count_before_density<sp/>=<sp/>field.<ref refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" kindref="member">size</ref>();</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1ScatterField_1add5cb2d398e0c6b5b69d6946439436dc" kindref="member">pack_interstitial</ref>(20,<sp/>density,<sp/>0.005f,<sp/>0.01f,<sp/>2u,<sp/>101,<sp/>bbox);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>field.<ref refid="classhmap_1_1ScatterField_1add5cb2d398e0c6b5b69d6946439436dc" kindref="member">pack_interstitial</ref>(20,<sp/>density,<sp/>0.005f,<sp/>0.01f,<sp/>2u,<sp/>101,<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>);</highlight></codeline>
 <codeline lineno="109"><highlight class="normal"><sp/><sp/>EXPECT_GT(field.<ref refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" kindref="member">size</ref>(),<sp/>count_before_density);</highlight></codeline>
 <codeline lineno="110"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="111"><highlight class="normal"></highlight></codeline>
@@ -637,9 +637,9 @@
 <codeline lineno="128"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
 <codeline lineno="129"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>tile_shape<sp/>=<sp/>{32,<sp/>32};</highlight></codeline>
 <codeline lineno="130"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>4;</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.0f,<sp/>100.0f,<sp/>0.0f,<sp/>100.0f};</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref><sp/>=<sp/>{0.0f,<sp/>100.0f,<sp/>0.0f,<sp/>100.0f};</highlight></codeline>
 <codeline lineno="132"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>density(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>bbox,<sp/>tile_shape,<sp/>halo);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>density(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>,<sp/>tile_shape,<sp/>halo);</highlight></codeline>
 <codeline lineno="134"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/>cm;</highlight></codeline>
 <codeline lineno="135"><highlight class="normal"><sp/><sp/>density.fill(1.0f,<sp/>cm);</highlight></codeline>
 <codeline lineno="136"><highlight class="normal"></highlight></codeline>
@@ -647,7 +647,7 @@
 <codeline lineno="138"><highlight class="normal"></highlight></codeline>
 <codeline lineno="139"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1RockSeedingOptions" kindref="compound">RockSeedingOptions</ref><sp/>options;</highlight></codeline>
 <codeline lineno="140"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1abd5f9bec8368c3669a6803a84a8d3720" kindref="member">seed</ref><sp/>=<sp/>42;</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1ab48864f0884c810944cb621ef1dca52b" kindref="member">bbox</ref><sp/>=<sp/>bbox;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1ab48864f0884c810944cb621ef1dca52b" kindref="member">bbox</ref><sp/>=<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>;</highlight></codeline>
 <codeline lineno="142"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1aca6ad1d77615f1daa14f51938ac5971d" kindref="member">distribution</ref><sp/>=<sp/><ref refid="structhmap_1_1RockDistribution" kindref="compound">RockDistribution</ref>(1u,<sp/>0.5f,<sp/>2.0f,<sp/>2.0f);</highlight></codeline>
 <codeline lineno="143"><highlight class="normal"></highlight></codeline>
 <codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>target_count<sp/>=<sp/>60;</highlight></codeline>
@@ -677,10 +677,10 @@
 <codeline lineno="168"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
 <codeline lineno="169"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>tile_shape<sp/>=<sp/>{32,<sp/>32};</highlight></codeline>
 <codeline lineno="170"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>4;</highlight></codeline>
-<codeline lineno="171"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.0f,<sp/>1.0f,<sp/>0.0f,<sp/>1.0f};</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref><sp/>=<sp/>{0.0f,<sp/>1.0f,<sp/>0.0f,<sp/>1.0f};</highlight></codeline>
 <codeline lineno="172"><highlight class="normal"></highlight></codeline>
-<codeline lineno="173"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>density(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>bbox,<sp/>tile_shape,<sp/>halo);</highlight></codeline>
-<codeline lineno="174"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>exclusion(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>bbox,<sp/>tile_shape,<sp/>halo);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>density(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>,<sp/>tile_shape,<sp/>halo);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>exclusion(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>,<sp/>tile_shape,<sp/>halo);</highlight></codeline>
 <codeline lineno="175"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/>cm;</highlight></codeline>
 <codeline lineno="176"><highlight class="normal"><sp/><sp/>density.fill(1.0f,<sp/>cm);</highlight></codeline>
 <codeline lineno="177"><highlight class="normal"><sp/><sp/>exclusion.fill(0.0f,<sp/>cm);</highlight></codeline>
@@ -698,7 +698,7 @@
 <codeline lineno="189"><highlight class="normal"></highlight></codeline>
 <codeline lineno="190"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1RockSeedingOptions" kindref="compound">RockSeedingOptions</ref><sp/>options;</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1abd5f9bec8368c3669a6803a84a8d3720" kindref="member">seed</ref><sp/>=<sp/>123;</highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1ab48864f0884c810944cb621ef1dca52b" kindref="member">bbox</ref><sp/>=<sp/>bbox;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1ab48864f0884c810944cb621ef1dca52b" kindref="member">bbox</ref><sp/>=<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>;</highlight></codeline>
 <codeline lineno="193"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1abecc375b17d2457502038b70f96128c3" kindref="member">exclusion_threshold</ref><sp/>=<sp/>0.5f;</highlight></codeline>
 <codeline lineno="194"><highlight class="normal"></highlight></codeline>
 <codeline lineno="195"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref><sp/>field<sp/>=<sp/><ref refid="namespacehmap_1_1va_1abfb98fdd47bd2a66e694c03765bf74af" kindref="member">hmap::va::seed_rock_field</ref>(60,</highlight></codeline>
@@ -1187,15 +1187,15 @@
 <codeline lineno="678"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
 <codeline lineno="679"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>tile_shape<sp/>=<sp/>{32,<sp/>32};</highlight></codeline>
 <codeline lineno="680"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>4;</highlight></codeline>
-<codeline lineno="681"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.0f,<sp/>100.0f,<sp/>0.0f,<sp/>100.0f};</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref><sp/>=<sp/>{0.0f,<sp/>100.0f,<sp/>0.0f,<sp/>100.0f};</highlight></codeline>
 <codeline lineno="682"><highlight class="normal"></highlight></codeline>
-<codeline lineno="683"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>elevation(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>bbox,<sp/>tile_shape,<sp/>halo);</highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>elevation(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>,<sp/>tile_shape,<sp/>halo);</highlight></codeline>
 <codeline lineno="684"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/>cm;</highlight></codeline>
 <codeline lineno="685"><highlight class="normal"><sp/><sp/>elevation.fill(0.5f,<sp/>cm);</highlight></codeline>
 <codeline lineno="686"><highlight class="normal"></highlight></codeline>
 <codeline lineno="687"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1RockSeedingOptions" kindref="compound">RockSeedingOptions</ref><sp/>options;</highlight></codeline>
 <codeline lineno="688"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1abd5f9bec8368c3669a6803a84a8d3720" kindref="member">seed</ref><sp/>=<sp/>42;</highlight></codeline>
-<codeline lineno="689"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1ab48864f0884c810944cb621ef1dca52b" kindref="member">bbox</ref><sp/>=<sp/>bbox;</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1ab48864f0884c810944cb621ef1dca52b" kindref="member">bbox</ref><sp/>=<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>;</highlight></codeline>
 <codeline lineno="690"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1aca6ad1d77615f1daa14f51938ac5971d" kindref="member">distribution</ref><sp/>=<sp/><ref refid="structhmap_1_1RockDistribution" kindref="compound">RockDistribution</ref>(0u,<sp/>0.5f,<sp/>2.0f,<sp/>1.5f);</highlight></codeline>
 <codeline lineno="691"><highlight class="normal"></highlight></codeline>
 <codeline lineno="692"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>rock_count<sp/>=<sp/>80;</highlight></codeline>
@@ -1235,10 +1235,10 @@
 <codeline lineno="726"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
 <codeline lineno="727"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>tile_shape<sp/>=<sp/>{32,<sp/>32};</highlight></codeline>
 <codeline lineno="728"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>4;</highlight></codeline>
-<codeline lineno="729"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.0f,<sp/>1.0f,<sp/>0.0f,<sp/>1.0f};</highlight></codeline>
+<codeline lineno="729"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref><sp/>=<sp/>{0.0f,<sp/>1.0f,<sp/>0.0f,<sp/>1.0f};</highlight></codeline>
 <codeline lineno="730"><highlight class="normal"></highlight></codeline>
-<codeline lineno="731"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>elevation(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>bbox,<sp/>tile_shape,<sp/>halo);</highlight></codeline>
-<codeline lineno="732"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>exclusion(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>bbox,<sp/>tile_shape,<sp/>halo);</highlight></codeline>
+<codeline lineno="731"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>elevation(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>,<sp/>tile_shape,<sp/>halo);</highlight></codeline>
+<codeline lineno="732"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>exclusion(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>,<sp/>tile_shape,<sp/>halo);</highlight></codeline>
 <codeline lineno="733"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/>cm;</highlight></codeline>
 <codeline lineno="734"><highlight class="normal"><sp/><sp/>elevation.fill(0.3f,<sp/>cm);</highlight></codeline>
 <codeline lineno="735"><highlight class="normal"><sp/><sp/>exclusion.fill(0.0f,<sp/>cm);</highlight></codeline>
@@ -1256,7 +1256,7 @@
 <codeline lineno="747"><highlight class="normal"></highlight></codeline>
 <codeline lineno="748"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1RockSeedingOptions" kindref="compound">RockSeedingOptions</ref><sp/>options;</highlight></codeline>
 <codeline lineno="749"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1abd5f9bec8368c3669a6803a84a8d3720" kindref="member">seed</ref><sp/>=<sp/>123;</highlight></codeline>
-<codeline lineno="750"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1ab48864f0884c810944cb621ef1dca52b" kindref="member">bbox</ref><sp/>=<sp/>bbox;</highlight></codeline>
+<codeline lineno="750"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1ab48864f0884c810944cb621ef1dca52b" kindref="member">bbox</ref><sp/>=<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>;</highlight></codeline>
 <codeline lineno="751"><highlight class="normal"><sp/><sp/>options.<ref refid="structhmap_1_1RockSeedingOptions_1abecc375b17d2457502038b70f96128c3" kindref="member">exclusion_threshold</ref><sp/>=<sp/>0.5f;</highlight></codeline>
 <codeline lineno="752"><highlight class="normal"></highlight></codeline>
 <codeline lineno="753"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref><sp/>field<sp/>=<sp/><ref refid="namespacehmap_1_1va_1ab63d2a6261b136e8dac7ca2080afe96f" kindref="member">hmap::va::place_rocks_procedural</ref>(60,</highlight></codeline>

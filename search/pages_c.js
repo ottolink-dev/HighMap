@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rockfield_0',['Scatter Architecture: ScatterField, Forest, and RockField',['../md_docs_2content_2dev_2scatter__field.html',1,'']]]
+  ['quickstart_0',['Quickstart',['../md_docs_2content_2getting__started_2quickstart.html',1,'']]]
 ];

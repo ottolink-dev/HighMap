@@ -1,0 +1,153 @@
+\chapter{BVH2D Spatial Indexing for Path SDF Computation}
+\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf}{}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf}\index{BVH2D Spatial Indexing for Path SDF Computation@{BVH2D Spatial Indexing for Path SDF Computation}}
+\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md16}%
+\Hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md16}%
+ This document records the performance investigation and implementation findings for accelerating 2D Path Signed Distance Field (SDF) evaluation using a Bounding Volume Hierarchy ({\ttfamily BVH2D}).\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md17}{}\doxysection{\texorpdfstring{1. Context and Motivation}{1. Context and Motivation}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md17}
+Computing the distance field of a 2D polyline or polygon across a discrete heightmap grid is a recurring operation in terrain authoring, hydrology (riverbed carve profiles), and carving workflows.
+
+The original evaluation in {\ttfamily path\+\_\+sdf\+\_\+to\+\_\+array} and {\ttfamily sdf\+\_\+2d\+\_\+polyline} performed brute-\/force distance evaluation\+:
+\begin{DoxyItemize}
+\item For every pixel \$(i, j)\$ in a \$W \textbackslash{}times H\$ array, iterate across all \$\+N\$ path segments.
+\item Complexity\+: \$\textbackslash{}mathcal\{O\}(W \textbackslash{}cdot H \textbackslash{}cdot N)\$.
+\end{DoxyItemize}
+
+For dense or detailed paths (\$N \textbackslash{}ge 100\$) and high-\/resolution heightmaps (\$512 \textbackslash{}times 512\$ or higher), this approach causes significant CPU bottlenecks.
+
+High\+Map provides an internal 2D Axis-\/\+Aligned Bounding Box tree ({\ttfamily \doxylink{classhmap_1_1BVH2D}{hmap\+::\+BVH2D}}). By indexing the segment set into a BVH, the nearest segment search per pixel is accelerated via branch-\/and-\/bound pruning.\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md18}{}\doxysection{\texorpdfstring{2. Algorithmic Approach}{2. Algorithmic Approach}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md18}
+\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md19}{}\doxysubsection{\texorpdfstring{Segment Indexing}{Segment Indexing}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md19}
+Path segments \$\mbox{[}p\+\_\+k, p\+\_\+\{k+1\}\mbox{]}\$ are packaged into {\ttfamily Segment2D} structs storing directional vector \$d = p\+\_\+\{k+1\} -\/ p\+\_\+k\$ and inverse squared length \$\textbackslash{}frac\{1\}\{$|$d$|$\texorpdfstring{$^\wedge$}{\string^}2\}\$. A {\ttfamily BVH2D} tree is built over the segments in \$\textbackslash{}mathcal\{O\}(N \textbackslash{}log N)\$ time.\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md20}{}\doxysubsection{\texorpdfstring{Branch-\/and-\/\+Bound Distance Query}{Branch-and-Bound Distance Query}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md20}
+For a given query point \$p = (x, y)\$\+:
+\begin{DoxyEnumerate}
+\item Traverse the BVH using a fixed-\/capacity traversal stack.
+\item At each node, compute the minimum squared distance from \$p\$ to the node\textquotesingle{}s axis-\/aligned bounding box ({\ttfamily AABB2D})\+: \$\$d\+\_\+\{\textbackslash{}text\{box\}\}\texorpdfstring{$^\wedge$}{\string^}2(p, \textbackslash{}text\{box\}) = \textbackslash{}max(0, \textbackslash{}text\{box.\+min\}\+\_\+x -\/ p\+\_\+x, p\+\_\+x -\/ \textbackslash{}text\{box.\+max\}\+\_\+x)\texorpdfstring{$^\wedge$}{\string^}2 + \textbackslash{}max(0, \textbackslash{}text\{box.\+min\}\+\_\+y -\/ p\+\_\+y, p\+\_\+y -\/ \textbackslash{}text\{box.\+max\}\+\_\+y)\texorpdfstring{$^\wedge$}{\string^}2\$\$
+\item If \$d\+\_\+\{\textbackslash{}text\{box\}\}\texorpdfstring{$^\wedge$}{\string^}2 \textbackslash{}ge d\+\_\+\{\textbackslash{}text\{best\}\}\texorpdfstring{$^\wedge$}{\string^}2\$, the node and all its descendants are pruned.
+\item For internal nodes, visit the closer child first to tighten \$d\+\_\+\{\textbackslash{}text\{best\}\}\texorpdfstring{$^\wedge$}{\string^}2\$ quickly.
+\item In leaf nodes, evaluate exact point-\/to-\/segment distance squared and update \$d\+\_\+\{\textbackslash{}text\{best\}\}\texorpdfstring{$^\wedge$}{\string^}2\$.
+\end{DoxyEnumerate}
+
+Average per-\/query complexity drops to \$\textbackslash{}mathcal\{O\}(\textbackslash{}log N)\$, reducing overall runtime to \$\textbackslash{}mathcal\{O\}(W \textbackslash{}cdot H \textbackslash{}log N)\$.\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md21}{}\doxysubsection{\texorpdfstring{Support for Domain Warping and Path Closure}{Support for Domain Warping and Path Closure}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md21}
+
+\begin{DoxyItemize}
+\item {\bfseries{Domain Warping}}\+: Per-\/pixel noise displacements ({\ttfamily p\+\_\+noise\+\_\+x}, {\ttfamily p\+\_\+noise\+\_\+y}) warp coordinate \$p = (x + dx, y + dy)\$ before querying the tree. The tree does not require reconstruction.
+\item {\bfseries{Closed Paths}}\+: When {\ttfamily path.\+is\+\_\+closed() == true}, the closing segment is included in the BVH, and an orientation/winding sign test determines interior vs. exterior distances.
+\end{DoxyItemize}\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md22}{}\doxysection{\texorpdfstring{3. Benchmark Measurements}{3. Benchmark Measurements}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md22}
+Google Benchmark was executed comparing the baseline brute-\/force approach against the BVH approach on a CPU with 6 physical cores (12 threads).\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md23}{}\doxysubsection{\texorpdfstring{Execution Time Comparison (\$512 \textbackslash{}times 512\$ Grid)}{Execution Time Comparison (\$512 \textbackslash{}times 512\$ Grid)}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md23}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Segment Count (\$\+N\$)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Baseline Brute Force (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ BVH2D Accelerated (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Speedup Factor    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Segment Count (\$\+N\$)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Baseline Brute Force (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ BVH2D Accelerated (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Speedup Factor    }\\\cline{1-4}
+\endhead
+10   &39.\+8   &6.\+71   &\texorpdfstring{$\sim$}{\string~}5.9x    \\\cline{1-4}
+50   &205.\+0   &12.\+20   &\texorpdfstring{$\sim$}{\string~}16.8x    \\\cline{1-4}
+200   &734.\+0   &20.\+20   &\texorpdfstring{$\sim$}{\string~}36.3x    \\\cline{1-4}
+1000   &2823.\+0   &37.\+60   &\texorpdfstring{$\sim$}{\string~}75.1x   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md24}{}\doxysubsection{\texorpdfstring{Execution Time Comparison (\$256 \textbackslash{}times 256\$ Grid)}{Execution Time Comparison (\$256 \textbackslash{}times 256\$ Grid)}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md24}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Segment Count (\$\+N\$)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Baseline Brute Force (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ BVH2D Accelerated (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Speedup Factor    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Segment Count (\$\+N\$)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Baseline Brute Force (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ BVH2D Accelerated (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Speedup Factor    }\\\cline{1-4}
+\endhead
+10   &9.\+59   &1.\+42   &\texorpdfstring{$\sim$}{\string~}6.8x    \\\cline{1-4}
+50   &51.\+00   &4.\+37   &\texorpdfstring{$\sim$}{\string~}11.7x    \\\cline{1-4}
+200   &191.\+00   &4.\+84   &\texorpdfstring{$\sim$}{\string~}39.5x    \\\cline{1-4}
+1000   &917.\+00   &10.\+30   &\texorpdfstring{$\sim$}{\string~}89.0x   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md25}{}\doxysection{\texorpdfstring{4. API Design and Integration}{4. API Design and Integration}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md25}
+The functionality is structured to preserve backward compatibility while providing the brute-\/force implementation for reference and validation\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Explicit Implementations}}\+:
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{namespacehmap_aee7ff7068cdfd831c2ad4891a38a817c}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+bvh}} and {\ttfamily \doxylink{namespacehmap_a970cf834f81736d64b053de48d9bf6bf}{hmap\+::path\+\_\+sdf\+\_\+to\+\_\+array\+\_\+bvh}}
+\item {\ttfamily \doxylink{namespacehmap_af0904ff813387d7e848a33ed5cd99eef}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+brute\+\_\+force}} and {\ttfamily \doxylink{namespacehmap_aca95a27cb4796288e6ac2e7bd265c611}{hmap\+::path\+\_\+sdf\+\_\+to\+\_\+array\+\_\+brute\+\_\+force}}
+\end{DoxyItemize}
+\item {\bfseries{Default Wrapper Functions}}\+:
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{namespacehmap_a255117d00b312165d82d2f65584ab14a}{hmap\+::sdf\+\_\+2d\+\_\+polyline}(path, shape, bbox, p\+\_\+noise\+\_\+x, p\+\_\+noise\+\_\+y, use\+\_\+bvh = true)}
+\item {\ttfamily \doxylink{namespacehmap_aa309f6eee87b7e83c78afeff1adb3eaf}{hmap\+::path\+\_\+sdf\+\_\+to\+\_\+array}(path, shape, bbox\+\_\+array, p\+\_\+noise\+\_\+x, p\+\_\+noise\+\_\+y, use\+\_\+bvh = true)}
+\end{DoxyItemize}
+\end{DoxyEnumerate}
+
+Existing call sites retain default {\ttfamily use\+\_\+bvh = true} behavior without signature breakage.\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md26}{}\doxysection{\texorpdfstring{5. Verification of Bézier Polyline SDF ($<$tt$>$sdf\+\_\+2d\+\_\+polyline\+\_\+bezier$<$/tt$>$)}{5. Verification of Bézier Polyline SDF (<tt>sdf\_2d\_polyline\_bezier</tt>)}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md26}
+During verification of {\ttfamily sdf\+\_\+2d\+\_\+polyline\+\_\+bezier}, numerical issues were discovered causing corrupted/broken results (entire arrays returning {\ttfamily NaN} or {\ttfamily inf}).\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md27}{}\doxysubsection{\texorpdfstring{Root Cause Analysis}{Root Cause Analysis}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md27}
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Division by Zero on Colinear/\+Degenerate Segments}}\+: The distance to a quadratic Bézier curve \$\+B(t) = (1-\/t)\texorpdfstring{$^\wedge$}{\string^}2 P\+\_\+0 + 2t(1-\/t)P\+\_\+1 + t\texorpdfstring{$^\wedge$}{\string^}2 P\+\_\+2\$ involves the second-\/difference vector\+: \$\$b = P\+\_\+0 -\/ 2P\+\_\+1 + P\+\_\+2\$\$ When the control points are colinear (or \$\+P\+\_\+1\$ is at the midpoint of \$\+P\+\_\+0\$ and \$\+P\+\_\+2\$), \$b \textbackslash{}approx 0 \textbackslash{}implies \textbackslash{}text\{dot\}(b, b) = 0\$. The original code computed\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{float}\ kk\ =\ 1.0f\ /\ dot(b,\ b);}
+
+\end{DoxyCode}
+ without checking for zero. This produced {\ttfamily inf}, which cascaded through Cardano\textquotesingle{}s cubic solver into {\ttfamily NaN} for all grid queries. {\bfseries{Fix}}\+: When \$\textbackslash{}text\{dot\}(b, b) \texorpdfstring{$<$}{<} 10\texorpdfstring{$^\wedge$}{\string^}\{-\/10\}\$, the curve degenerates to a straight line segment \$\mbox{[}P\+\_\+0, P\+\_\+2\mbox{]}\$. The solver directly evaluates the point-\/to-\/line-\/segment distance.
+\item {\bfseries{Domain Violations in Trigonometric Cardano Branch}}\+: For the 3-\/real-\/roots case (\$h \texorpdfstring{$<$}{<} 0\$ in the cubic discriminant), the solution evaluates\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{float}\ v\ =\ std::acos(q\ /\ (p\ *\ zz\ *\ 2.0f))\ /\ 3.0f;}
+
+\end{DoxyCode}
+ Due to float32 precision limits, \$\textbackslash{}frac\{q\}\{2 p z\}\$ occasionally evaluated to \$1.0000002\$ or \$-\/1.\+0000002\$, triggering domain errors in {\ttfamily std\+::acos} and returning {\ttfamily NaN}. {\bfseries{Fix}}\+: Clamped the ratio to \$\mbox{[}-\/1.\+0f, 1.\+0f\mbox{]}\$ via {\ttfamily std\+::clamp}.
+\item {\bfseries{Topology and Point Count Handling}}\+: Quadratic Bézier paths are indexed as triplets \$(P\+\_\+\{2k\}, P\+\_\+\{2k+1\}, P\+\_\+\{2k+2\})\$. Paths with an even number of points previously appended a synthetic point that was frequently colinear with the last segment, triggering the division by zero. Proper segment pairing was enforced.
+\end{DoxyEnumerate}\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md28}{}\doxysubsection{\texorpdfstring{BVH2\+D Acceleration for Bézier Curves}{BVH2D Acceleration for Bézier Curves}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md28}
+Since quadratic Bézier curves satisfy the convex hull property\+: \$\$\+B(t) \textbackslash{}in \textbackslash{}text\{Convex\+Hull\}(P\+\_\+0, P\+\_\+1, P\+\_\+2) \textbackslash{}quad \textbackslash{}forall t \textbackslash{}in \mbox{[}0, 1\mbox{]}\$\$ A tight and conservative bounding box for each quadratic curve is simply\+: \$\$\textbackslash{}text\{AABB\} = \mbox{[}\textbackslash{}min(P\+\_\+0, P\+\_\+1, P\+\_\+2), \textbackslash{}max(P\+\_\+0, P\+\_\+1, P\+\_\+2)\mbox{]}\$\$
+
+A specialized {\ttfamily BVH2\+DBezier} tree was implemented using this bounding box representation. Per-\/pixel queries prune subtrees whose bounding box distance exceeds the current closest squared distance.
+
+The API was structured consistently with linear polyline SDF\+:
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{namespacehmap_a309a2e9dba17dfafd471faed90741e69}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+bezier\+\_\+bvh}}
+\item {\ttfamily \doxylink{namespacehmap_a3f2d0f789995b087fee958951a87d36c}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+bezier\+\_\+brute\+\_\+force}}
+\item {\ttfamily \doxylink{namespacehmap_a7fc8217efe7ab32d2e1e025bdd632936}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+bezier}(path, shape, bbox, p\+\_\+noise\+\_\+x, p\+\_\+noise\+\_\+y, use\+\_\+bvh = true)}
+\end{DoxyItemize}\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md29}{}\doxysection{\texorpdfstring{6. GPU (\+Open\+CL) Assessment and Validation}{6. GPU (OpenCL) Assessment and Validation}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md29}
+The GPU polyline SDF implementation was analyzed to determine whether introducing a BVH2D spatial index in Open\+CL kernels would yield benefits.\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md30}{}\doxysubsection{\texorpdfstring{Performance Analysis\+: GPU Brute Force vs CPU BVH2D}{Performance Analysis: GPU Brute Force vs CPU BVH2D}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md30}
+Comparative benchmark timings on an NVIDIA Ge\+Force GTX 1650 Max-\/Q across \$512 \textbackslash{}times 512\$ grids\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{5}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Path Vertices (\$\+N\$)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ CPU Brute Force (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ CPU BVH2D (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ GPU Open\+CL (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Speedup vs CPU BVH    }\\\cline{1-5}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Path Vertices (\$\+N\$)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ CPU Brute Force (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ CPU BVH2D (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ GPU Open\+CL (ms)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Speedup vs CPU BVH    }\\\cline{1-5}
+\endhead
+10   &49.\+3   &6.\+7   &1.\+9   &\texorpdfstring{$\sim$}{\string~}3.5x    \\\cline{1-5}
+50   &258.\+0   &12.\+2   &2.\+1   &\texorpdfstring{$\sim$}{\string~}5.8x    \\\cline{1-5}
+200   &973.\+0   &20.\+2   &2.\+8   &\texorpdfstring{$\sim$}{\string~}7.2x    \\\cline{1-5}
+1000   &4949.\+6   &37.\+6   &5.\+6   &\texorpdfstring{$\sim$}{\string~}6.7x   \\\cline{1-5}
+\end{longtabu}
+\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md31}{}\doxysubsection{\texorpdfstring{Rationale\+: Keeping the GPU Kernel Brute Force}{Rationale: Keeping the GPU Kernel Brute Force}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md31}
+Building and traversing a BVH2D on the GPU was rejected based on execution characteristics\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Constant Memory Broadcast Efficiency}}\+: Path vertices are placed in {\ttfamily \+\_\+\+\_\+constant float\texorpdfstring{$\ast$}{*}} (or read-\/only global cache lines). During execution, all 32 threads in an execution warp evaluate the identical segment index simultaneously\+:
+\begin{DoxyItemize}
+\item Warp broadcast achieves a 100\% cache hit rate with zero memory latency penalty.
+\item Brute-\/force loop execution exhibits zero warp divergence.
+\end{DoxyItemize}
+\item {\bfseries{Warp Divergence in BVH Traversal}}\+: Neighboring pixels traverse different branches of a BVH depending on their spatial coordinates. Per-\/warp branch divergence on a tree traversal serializes execution threads and requires a per-\/work-\/item stack (causing register pressure or spilling into high-\/latency local/private memory).
+\item {\bfseries{Performance Trade-\/\+Off}}\+: At \$N = 1000\$ segments, the brute-\/force GPU kernel takes only 5.\+6 ms. The complexity of dynamic tree traversal in Open\+CL would likely degrade throughput rather than improve it for typical path sizes.
+\end{DoxyEnumerate}\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md32}{}\doxysubsection{\texorpdfstring{Numerical Stability and Parity Fixes on GPU}{Numerical Stability and Parity Fixes on GPU}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md32}
+The Open\+CL kernels were reviewed and aligned with the CPU implementations\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Colinear Bézier Segments}}\+: In {\ttfamily High\+Map/src/gpu\+\_\+opencl/kernels/transform/sdf\+\_\+2d\+\_\+polyline.\+cl}, added a check for \$b\+\_\+len\+\_\+sq = \textbackslash{}text\{dot\}(b, b) \texorpdfstring{$<$}{<} 10\texorpdfstring{$^\wedge$}{\string^}\{-\/10\}\textbackslash{}text\{f\}\$. When degenerate, the kernel falls back to line segment distance between endpoints, preventing division-\/by-\/zero {\ttfamily inf} and {\ttfamily NaN} cascades.
+\item {\bfseries{Cardano Root Solver Clamping}}\+: Clamped {\ttfamily acos} argument to \$\mbox{[}-\/1.\+0\textbackslash{}text\{f\}, 1.\+0\textbackslash{}text\{f\}\mbox{]}\$ within the 3-\/real-\/roots cubic solver branch to avoid domain errors from float rounding.
+\item {\bfseries{Closed Path Signing and Topology}}\+:
+\begin{DoxyItemize}
+\item {\ttfamily gpu\+::sdf\+\_\+2d\+\_\+polyline\+\_\+bezier} now appends the closing segment to reconnect the first and last control points when {\ttfamily path.\+is\+\_\+closed() == true}.
+\item The kernel takes an {\ttfamily is\+\_\+closed} parameter and computes ray-\/crossing parity to assign interior negative signs, matching the CPU signed distance field behavior. 
+\end{DoxyItemize}
+\end{DoxyEnumerate}

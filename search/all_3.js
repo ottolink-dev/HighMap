@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['4_20converting_20to_20raster_20fields_0',['4. Converting to Raster Fields',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md32',1,'']]],
-  ['4_20next_20steps_1',['4. Next Steps',['../md_docs_2content_2getting__started_2quickstart.html#autotoc_md43',1,'']]],
-  ['4_20overall_20decision_2',['4. Overall Decision',['..//home/runner/work/HighMap/HighMap/docs/content/dev/investigations/fft_convolution_and_morphology.md#autotoc_md22',1,'']]],
-  ['4_20scattering_3',['4. Scattering',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md38',1,'']]],
-  ['4_20subsystem_20deep_20dives_4',['4. Subsystem Deep Dives',['../md_docs_2content_2dev_2architecture.html#autotoc_md14',1,'']]]
+  ['3_20basic_20operations_0',['3. Basic Operations',['../md_docs_2content_2getting__started_2quickstart.html#autotoc_md59',1,'']]],
+  ['3_20benchmark_20measurements_1',['3. Benchmark Measurements',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md22',1,'']]],
+  ['3_20design_20principles_2',['3. Design Principles',['../md_docs_2content_2dev_2architecture.html#autotoc_md9',1,'']]],
+  ['3_20experiment_202_3a_20morphological_20expansion_3',['3. Experiment 2: Morphological Expansion',['..//home/runner/work/HighMap/HighMap/docs/content/dev/investigations/fft_convolution_and_morphology.md#autotoc_md37',1,'']]],
+  ['3_20geometric_20primitives_4',['3. Geometric Primitives',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md54',1,'']]],
+  ['3_20subsystem_20connections_5',['3. Subsystem Connections',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md46',1,'']]]
 ];

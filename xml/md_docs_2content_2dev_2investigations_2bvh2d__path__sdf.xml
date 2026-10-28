@@ -1,0 +1,242 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf" kind="page">
+    <compoundname>md_docs_2content_2dev_2investigations_2bvh2d__path__sdf</compoundname>
+    <title>BVH2D Spatial Indexing for Path SDF Computation</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md16"/> This document records the performance investigation and implementation findings for accelerating 2D Path Signed Distance Field (SDF) evaluation using a Bounding Volume Hierarchy (<computeroutput>BVH2D</computeroutput>).</para>
+<sect1 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md17">
+<title>1. Context and Motivation</title>
+<para>Computing the distance field of a 2D polyline or polygon across a discrete heightmap grid is a recurring operation in terrain authoring, hydrology (riverbed carve profiles), and carving workflows.</para>
+<para>The original evaluation in <computeroutput>path_sdf_to_array</computeroutput> and <computeroutput>sdf_2d_polyline</computeroutput> performed brute-force distance evaluation:<itemizedlist>
+<listitem><para>For every pixel $(i, j)$ in a $W \times H$ array, iterate across all $N$ path segments.</para>
+</listitem><listitem><para>Complexity: $\mathcal{O}(W \cdot H \cdot N)$.</para>
+</listitem></itemizedlist>
+</para>
+<para>For dense or detailed paths ($N \ge 100$) and high-resolution heightmaps ($512 \times 512$ or higher), this approach causes significant CPU bottlenecks.</para>
+<para>HighMap provides an internal 2D Axis-Aligned Bounding Box tree (<computeroutput><ref refid="classhmap_1_1BVH2D" kindref="compound">hmap::BVH2D</ref></computeroutput>). By indexing the segment set into a BVH, the nearest segment search per pixel is accelerated via branch-and-bound pruning.</para>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md18">
+<title>2. Algorithmic Approach</title>
+<sect2 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md19">
+<title>Segment Indexing</title>
+<para>Path segments $[p_k, p_{k+1}]$ are packaged into <computeroutput>Segment2D</computeroutput> structs storing directional vector $d = p_{k+1} - p_k$ and inverse squared length $\frac{1}{|d|^2}$. A <computeroutput>BVH2D</computeroutput> tree is built over the segments in $\mathcal{O}(N \log N)$ time.</para>
+</sect2>
+<sect2 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md20">
+<title>Branch-and-Bound Distance Query</title>
+<para>For a given query point $p = (x, y)$:<orderedlist>
+<listitem><para>Traverse the BVH using a fixed-capacity traversal stack.</para>
+</listitem><listitem><para>At each node, compute the minimum squared distance from $p$ to the node&apos;s axis-aligned bounding box (<computeroutput>AABB2D</computeroutput>): $$d_{\text{box}}^2(p, \text{box}) = \max(0, \text{box.min}_x - p_x, p_x - \text{box.max}_x)^2 + \max(0, \text{box.min}_y - p_y, p_y - \text{box.max}_y)^2$$</para>
+</listitem><listitem><para>If $d_{\text{box}}^2 \ge d_{\text{best}}^2$, the node and all its descendants are pruned.</para>
+</listitem><listitem><para>For internal nodes, visit the closer child first to tighten $d_{\text{best}}^2$ quickly.</para>
+</listitem><listitem><para>In leaf nodes, evaluate exact point-to-segment distance squared and update $d_{\text{best}}^2$.</para>
+</listitem></orderedlist>
+</para>
+<para>Average per-query complexity drops to $\mathcal{O}(\log N)$, reducing overall runtime to $\mathcal{O}(W \cdot H \log N)$.</para>
+</sect2>
+<sect2 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md21">
+<title>Support for Domain Warping and Path Closure</title>
+<para><itemizedlist>
+<listitem><para><bold>Domain Warping</bold>: Per-pixel noise displacements (<computeroutput>p_noise_x</computeroutput>, <computeroutput>p_noise_y</computeroutput>) warp coordinate $p = (x + dx, y + dy)$ before querying the tree. The tree does not require reconstruction.</para>
+</listitem><listitem><para><bold>Closed Paths</bold>: When <computeroutput>path.is_closed() == true</computeroutput>, the closing segment is included in the BVH, and an orientation/winding sign test determines interior vs. exterior distances.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md22">
+<title>3. Benchmark Measurements</title>
+<para>Google Benchmark was executed comparing the baseline brute-force approach against the BVH approach on a CPU with 6 physical cores (12 threads).</para>
+<sect2 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md23">
+<title>Execution Time Comparison ($512 \times 512$ Grid)</title>
+<para><table rows="5" cols="4"><row>
+<entry thead="yes"><para>Segment Count ($N$)   </para>
+</entry><entry thead="yes"><para>Baseline Brute Force (ms)   </para>
+</entry><entry thead="yes"><para>BVH2D Accelerated (ms)   </para>
+</entry><entry thead="yes"><para>Speedup Factor    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>10   </para>
+</entry><entry thead="no"><para>39.8   </para>
+</entry><entry thead="no"><para>6.71   </para>
+</entry><entry thead="no"><para>~5.9x    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>50   </para>
+</entry><entry thead="no"><para>205.0   </para>
+</entry><entry thead="no"><para>12.20   </para>
+</entry><entry thead="no"><para>~16.8x    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>200   </para>
+</entry><entry thead="no"><para>734.0   </para>
+</entry><entry thead="no"><para>20.20   </para>
+</entry><entry thead="no"><para>~36.3x    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>1000   </para>
+</entry><entry thead="no"><para>2823.0   </para>
+</entry><entry thead="no"><para>37.60   </para>
+</entry><entry thead="no"><para>~75.1x   </para>
+</entry></row>
+</table>
+</para>
+</sect2>
+<sect2 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md24">
+<title>Execution Time Comparison ($256 \times 256$ Grid)</title>
+<para><table rows="5" cols="4"><row>
+<entry thead="yes"><para>Segment Count ($N$)   </para>
+</entry><entry thead="yes"><para>Baseline Brute Force (ms)   </para>
+</entry><entry thead="yes"><para>BVH2D Accelerated (ms)   </para>
+</entry><entry thead="yes"><para>Speedup Factor    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>10   </para>
+</entry><entry thead="no"><para>9.59   </para>
+</entry><entry thead="no"><para>1.42   </para>
+</entry><entry thead="no"><para>~6.8x    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>50   </para>
+</entry><entry thead="no"><para>51.00   </para>
+</entry><entry thead="no"><para>4.37   </para>
+</entry><entry thead="no"><para>~11.7x    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>200   </para>
+</entry><entry thead="no"><para>191.00   </para>
+</entry><entry thead="no"><para>4.84   </para>
+</entry><entry thead="no"><para>~39.5x    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>1000   </para>
+</entry><entry thead="no"><para>917.00   </para>
+</entry><entry thead="no"><para>10.30   </para>
+</entry><entry thead="no"><para>~89.0x   </para>
+</entry></row>
+</table>
+</para>
+</sect2>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md25">
+<title>4. API Design and Integration</title>
+<para>The functionality is structured to preserve backward compatibility while providing the brute-force implementation for reference and validation:</para>
+<para><orderedlist>
+<listitem><para><bold>Explicit Implementations</bold>:<itemizedlist>
+<listitem><para><computeroutput><ref refid="namespacehmap_1aee7ff7068cdfd831c2ad4891a38a817c" kindref="member">hmap::sdf_2d_polyline_bvh</ref></computeroutput> and <computeroutput><ref refid="namespacehmap_1a970cf834f81736d64b053de48d9bf6bf" kindref="member">hmap::path_sdf_to_array_bvh</ref></computeroutput></para>
+</listitem><listitem><para><computeroutput><ref refid="namespacehmap_1af0904ff813387d7e848a33ed5cd99eef" kindref="member">hmap::sdf_2d_polyline_brute_force</ref></computeroutput> and <computeroutput><ref refid="namespacehmap_1aca95a27cb4796288e6ac2e7bd265c611" kindref="member">hmap::path_sdf_to_array_brute_force</ref></computeroutput></para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>Default Wrapper Functions</bold>:<itemizedlist>
+<listitem><para><computeroutput><ref refid="namespacehmap_1a255117d00b312165d82d2f65584ab14a" kindref="member">hmap::sdf_2d_polyline</ref>(path, shape, bbox, p_noise_x, p_noise_y, use_bvh = true)</computeroutput></para>
+</listitem><listitem><para><computeroutput><ref refid="namespacehmap_1aa309f6eee87b7e83c78afeff1adb3eaf" kindref="member">hmap::path_sdf_to_array</ref>(path, shape, bbox_array, p_noise_x, p_noise_y, use_bvh = true)</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+</listitem></orderedlist>
+</para>
+<para>Existing call sites retain default <computeroutput>use_bvh = true</computeroutput> behavior without signature breakage.</para>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md26">
+<title>5. Verification of Bézier Polyline SDF (&lt;tt&gt;sdf_2d_polyline_bezier&lt;/tt&gt;)</title>
+<para>During verification of <computeroutput>sdf_2d_polyline_bezier</computeroutput>, numerical issues were discovered causing corrupted/broken results (entire arrays returning <computeroutput>NaN</computeroutput> or <computeroutput>inf</computeroutput>).</para>
+<sect2 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md27">
+<title>Root Cause Analysis</title>
+<para><orderedlist>
+<listitem><para><bold>Division by Zero on Colinear/Degenerate Segments</bold>: The distance to a quadratic Bézier curve $B(t) = (1-t)^2 P_0 + 2t(1-t)P_1 + t^2 P_2$ involves the second-difference vector: $$b = P_0 - 2P_1 + P_2$$ When the control points are colinear (or $P_1$ is at the midpoint of $P_0$ and $P_2$), $b \approx 0 \implies \text{dot}(b, b) = 0$. The original code computed: <programlisting filename=".cpp"><codeline><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>kk<sp/>=<sp/>1.0f<sp/>/<sp/>dot(b,<sp/>b);</highlight></codeline>
+</programlisting> without checking for zero. This produced <computeroutput>inf</computeroutput>, which cascaded through Cardano&apos;s cubic solver into <computeroutput>NaN</computeroutput> for all grid queries. <bold>Fix</bold>: When $\text{dot}(b, b) &lt; 10^{-10}$, the curve degenerates to a straight line segment $[P_0, P_2]$. The solver directly evaluates the point-to-line-segment distance.</para>
+</listitem><listitem><para><bold>Domain Violations in Trigonometric Cardano Branch</bold>: For the 3-real-roots case ($h &lt; 0$ in the cubic discriminant), the solution evaluates: <programlisting filename=".cpp"><codeline><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>v<sp/>=<sp/>std::acos(q<sp/>/<sp/>(p<sp/>*<sp/>zz<sp/>*<sp/>2.0f))<sp/>/<sp/>3.0f;</highlight></codeline>
+</programlisting> Due to float32 precision limits, $\frac{q}{2 p z}$ occasionally evaluated to $1.0000002$ or $-1.0000002$, triggering domain errors in <computeroutput>std::acos</computeroutput> and returning <computeroutput>NaN</computeroutput>. <bold>Fix</bold>: Clamped the ratio to $[-1.0f, 1.0f]$ via <computeroutput>std::clamp</computeroutput>.</para>
+</listitem><listitem><para><bold>Topology and Point Count Handling</bold>: Quadratic Bézier paths are indexed as triplets $(P_{2k}, P_{2k+1}, P_{2k+2})$. Paths with an even number of points previously appended a synthetic point that was frequently colinear with the last segment, triggering the division by zero. Proper segment pairing was enforced.</para>
+</listitem></orderedlist>
+</para>
+</sect2>
+<sect2 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md28">
+<title>BVH2D Acceleration for Bézier Curves</title>
+<para>Since quadratic Bézier curves satisfy the convex hull property: $$B(t) \in \text{ConvexHull}(P_0, P_1, P_2) \quad \forall t \in [0, 1]$$ A tight and conservative bounding box for each quadratic curve is simply: $$\text{AABB} = [\min(P_0, P_1, P_2), \max(P_0, P_1, P_2)]$$</para>
+<para>A specialized <computeroutput>BVH2DBezier</computeroutput> tree was implemented using this bounding box representation. Per-pixel queries prune subtrees whose bounding box distance exceeds the current closest squared distance.</para>
+<para>The API was structured consistently with linear polyline SDF:<itemizedlist>
+<listitem><para><computeroutput><ref refid="namespacehmap_1a309a2e9dba17dfafd471faed90741e69" kindref="member">hmap::sdf_2d_polyline_bezier_bvh</ref></computeroutput></para>
+</listitem><listitem><para><computeroutput><ref refid="namespacehmap_1a3f2d0f789995b087fee958951a87d36c" kindref="member">hmap::sdf_2d_polyline_bezier_brute_force</ref></computeroutput></para>
+</listitem><listitem><para><computeroutput><ref refid="namespacehmap_1a7fc8217efe7ab32d2e1e025bdd632936" kindref="member">hmap::sdf_2d_polyline_bezier</ref>(path, shape, bbox, p_noise_x, p_noise_y, use_bvh = true)</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md29">
+<title>6. GPU (OpenCL) Assessment and Validation</title>
+<para>The GPU polyline SDF implementation was analyzed to determine whether introducing a BVH2D spatial index in OpenCL kernels would yield benefits.</para>
+<sect2 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md30">
+<title>Performance Analysis: GPU Brute Force vs CPU BVH2D</title>
+<para>Comparative benchmark timings on an NVIDIA GeForce GTX 1650 Max-Q across $512 \times 512$ grids:</para>
+<para><table rows="5" cols="5"><row>
+<entry thead="yes"><para>Path Vertices ($N$)   </para>
+</entry><entry thead="yes"><para>CPU Brute Force (ms)   </para>
+</entry><entry thead="yes"><para>CPU BVH2D (ms)   </para>
+</entry><entry thead="yes"><para>GPU OpenCL (ms)   </para>
+</entry><entry thead="yes"><para>Speedup vs CPU BVH    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>10   </para>
+</entry><entry thead="no"><para>49.3   </para>
+</entry><entry thead="no"><para>6.7   </para>
+</entry><entry thead="no"><para>1.9   </para>
+</entry><entry thead="no"><para>~3.5x    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>50   </para>
+</entry><entry thead="no"><para>258.0   </para>
+</entry><entry thead="no"><para>12.2   </para>
+</entry><entry thead="no"><para>2.1   </para>
+</entry><entry thead="no"><para>~5.8x    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>200   </para>
+</entry><entry thead="no"><para>973.0   </para>
+</entry><entry thead="no"><para>20.2   </para>
+</entry><entry thead="no"><para>2.8   </para>
+</entry><entry thead="no"><para>~7.2x    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>1000   </para>
+</entry><entry thead="no"><para>4949.6   </para>
+</entry><entry thead="no"><para>37.6   </para>
+</entry><entry thead="no"><para>5.6   </para>
+</entry><entry thead="no"><para>~6.7x   </para>
+</entry></row>
+</table>
+</para>
+</sect2>
+<sect2 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md31">
+<title>Rationale: Keeping the GPU Kernel Brute Force</title>
+<para>Building and traversing a BVH2D on the GPU was rejected based on execution characteristics:</para>
+<para><orderedlist>
+<listitem><para><bold>Constant Memory Broadcast Efficiency</bold>: Path vertices are placed in <computeroutput>__constant float*</computeroutput> (or read-only global cache lines). During execution, all 32 threads in an execution warp evaluate the identical segment index simultaneously:<itemizedlist>
+<listitem><para>Warp broadcast achieves a 100% cache hit rate with zero memory latency penalty.</para>
+</listitem><listitem><para>Brute-force loop execution exhibits zero warp divergence.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>Warp Divergence in BVH Traversal</bold>: Neighboring pixels traverse different branches of a BVH depending on their spatial coordinates. Per-warp branch divergence on a tree traversal serializes execution threads and requires a per-work-item stack (causing register pressure or spilling into high-latency local/private memory).</para>
+</listitem><listitem><para><bold>Performance Trade-Off</bold>: At $N = 1000$ segments, the brute-force GPU kernel takes only 5.6 ms. The complexity of dynamic tree traversal in OpenCL would likely degrade throughput rather than improve it for typical path sizes.</para>
+</listitem></orderedlist>
+</para>
+</sect2>
+<sect2 id="md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_1autotoc_md32">
+<title>Numerical Stability and Parity Fixes on GPU</title>
+<para>The OpenCL kernels were reviewed and aligned with the CPU implementations:</para>
+<para><orderedlist>
+<listitem><para><bold>Colinear Bézier Segments</bold>: In <computeroutput>HighMap/src/gpu_opencl/kernels/transform/sdf_2d_polyline.cl</computeroutput>, added a check for $b_len_sq = \text{dot}(b, b) &lt; 10^{-10}\text{f}$. When degenerate, the kernel falls back to line segment distance between endpoints, preventing division-by-zero <computeroutput>inf</computeroutput> and <computeroutput>NaN</computeroutput> cascades.</para>
+</listitem><listitem><para><bold>Cardano Root Solver Clamping</bold>: Clamped <computeroutput>acos</computeroutput> argument to $[-1.0\text{f}, 1.0\text{f}]$ within the 3-real-roots cubic solver branch to avoid domain errors from float rounding.</para>
+</listitem><listitem><para><bold>Closed Path Signing and Topology</bold>:<itemizedlist>
+<listitem><para><computeroutput>gpu::sdf_2d_polyline_bezier</computeroutput> now appends the closing segment to reconnect the first and last control points when <computeroutput>path.is_closed() == true</computeroutput>.</para>
+</listitem><listitem><para>The kernel takes an <computeroutput>is_closed</computeroutput> parameter and computes ray-crossing parity to assign interior negative signs, matching the CPU signed distance field behavior. </para>
+</listitem></itemizedlist>
+</para>
+</listitem></orderedlist>
+</para>
+</sect2>
+</sect1>
+    </detaileddescription>
+    <location file="docs/content/dev/investigations/bvh2d_path_sdf.md"/>
+  </compounddef>
+</doxygen>

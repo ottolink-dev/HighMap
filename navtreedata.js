@@ -43,42 +43,64 @@ var NAVTREE =
       [ "4. Subsystem Deep Dives", "md_docs_2content_2dev_2architecture.html#autotoc_md14", null ],
       [ "5. Investigations and Benchmarks", "md_docs_2content_2dev_2architecture.html#autotoc_md15", null ]
     ] ],
+    [ "BVH2D Spatial Indexing for Path SDF Computation", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html", [
+      [ "1. Context and Motivation", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md17", null ],
+      [ "2. Algorithmic Approach", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md18", [
+        [ "Segment Indexing", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md19", null ],
+        [ "Branch-and-Bound Distance Query", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md20", null ],
+        [ "Support for Domain Warping and Path Closure", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md21", null ]
+      ] ],
+      [ "3. Benchmark Measurements", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md22", [
+        [ "Execution Time Comparison ($512 \\times 512$ Grid)", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md23", null ],
+        [ "Execution Time Comparison ($256 \\times 256$ Grid)", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md24", null ]
+      ] ],
+      [ "4. API Design and Integration", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md25", null ],
+      [ "5. Verification of Bézier Polyline SDF (<tt>sdf_2d_polyline_bezier</tt>)", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md26", [
+        [ "Root Cause Analysis", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md27", null ],
+        [ "BVH2D Acceleration for Bézier Curves", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md28", null ]
+      ] ],
+      [ "6. GPU (OpenCL) Assessment and Validation", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md29", [
+        [ "Performance Analysis: GPU Brute Force vs CPU BVH2D", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md30", null ],
+        [ "Rationale: Keeping the GPU Kernel Brute Force", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md31", null ],
+        [ "Numerical Stability and Parity Fixes on GPU", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md32", null ]
+      ] ]
+    ] ],
     [ "FFT vs. GPU Convolution and Morphological Expansion", "md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology.html", [
-      [ "1. Context and Motivation", "md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology.html#autotoc_md17", null ]
+      [ "1. Context and Motivation", "md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology.html#autotoc_md34", null ]
     ] ],
     [ "Scatter Architecture: ScatterField, Forest, and RockField", "md_docs_2content_2dev_2scatter__field.html", [
-      [ "1. Class and Dependency Diagram", "md_docs_2content_2dev_2scatter__field.html#autotoc_md24", null ],
-      [ "2. Design Principles", "md_docs_2content_2dev_2scatter__field.html#autotoc_md25", [
-        [ "Uniform Instance Representation", "md_docs_2content_2dev_2scatter__field.html#autotoc_md26", null ],
-        [ "Inheritance and Reuse", "md_docs_2content_2dev_2scatter__field.html#autotoc_md27", null ],
-        [ "Descriptor Separation", "md_docs_2content_2dev_2scatter__field.html#autotoc_md28", null ]
+      [ "1. Class and Dependency Diagram", "md_docs_2content_2dev_2scatter__field.html#autotoc_md41", null ],
+      [ "2. Design Principles", "md_docs_2content_2dev_2scatter__field.html#autotoc_md42", [
+        [ "Uniform Instance Representation", "md_docs_2content_2dev_2scatter__field.html#autotoc_md43", null ],
+        [ "Inheritance and Reuse", "md_docs_2content_2dev_2scatter__field.html#autotoc_md44", null ],
+        [ "Descriptor Separation", "md_docs_2content_2dev_2scatter__field.html#autotoc_md45", null ]
       ] ],
-      [ "3. Subsystem Connections", "md_docs_2content_2dev_2scatter__field.html#autotoc_md29", [
-        [ "Flora Subsystem (<tt>Forest</tt>)", "md_docs_2content_2dev_2scatter__field.html#autotoc_md30", null ],
-        [ "Rocks Subsystem (<tt>RockField</tt>)", "md_docs_2content_2dev_2scatter__field.html#autotoc_md31", null ]
+      [ "3. Subsystem Connections", "md_docs_2content_2dev_2scatter__field.html#autotoc_md46", [
+        [ "Flora Subsystem (<tt>Forest</tt>)", "md_docs_2content_2dev_2scatter__field.html#autotoc_md47", null ],
+        [ "Rocks Subsystem (<tt>RockField</tt>)", "md_docs_2content_2dev_2scatter__field.html#autotoc_md48", null ]
       ] ],
-      [ "4. Converting to Raster Fields", "md_docs_2content_2dev_2scatter__field.html#autotoc_md32", null ]
+      [ "4. Converting to Raster Fields", "md_docs_2content_2dev_2scatter__field.html#autotoc_md49", null ]
     ] ],
     [ "Core Concepts", "md_docs_2content_2getting__started_2core__concepts.html", [
-      [ "1. Elevation Representations", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md34", [
-        [ "Array", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md35", null ]
+      [ "1. Elevation Representations", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md51", [
+        [ "Array", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md52", null ]
       ] ],
-      [ "2. Bivariate Functions", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md36", null ],
-      [ "3. Geometric Primitives", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md37", null ],
-      [ "4. Scattering", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md38", null ]
+      [ "2. Bivariate Functions", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md53", null ],
+      [ "3. Geometric Primitives", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md54", null ],
+      [ "4. Scattering", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md55", null ]
     ] ],
     [ "Quickstart", "md_docs_2content_2getting__started_2quickstart.html", [
-      [ "1. Example", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md40", null ],
-      [ "2. CMake Integration", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md41", null ],
-      [ "3. Basic Operations", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md42", null ],
-      [ "4. Next Steps", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md43", null ]
+      [ "1. Example", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md57", null ],
+      [ "2. CMake Integration", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md58", null ],
+      [ "3. Basic Operations", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md59", null ],
+      [ "4. Next Steps", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md60", null ]
     ] ],
     [ "HighMap Documentation", "md_docs_2index.html", [
-      [ "Documentation", "md_docs_2index.html#autotoc_md45", [
-        [ "Getting Started", "md_docs_2index.html#autotoc_md46", null ],
-        [ "Developer Documentation", "md_docs_2index.html#autotoc_md47", null ]
+      [ "Documentation", "md_docs_2index.html#autotoc_md62", [
+        [ "Getting Started", "md_docs_2index.html#autotoc_md63", null ],
+        [ "Developer Documentation", "md_docs_2index.html#autotoc_md64", null ]
       ] ],
-      [ "Installation", "md_docs_2index.html#autotoc_md48", null ]
+      [ "Installation", "md_docs_2index.html#autotoc_md65", null ]
     ] ],
     [ "Optional Tracy CPU profiling", "md_docs_2profiling.html", null ],
     [ "Bibliography", "citelist.html", null ],
@@ -137,25 +159,25 @@ var NAVTREEINDEX =
 "hydraulic__mise_8cpp.html#a9f4e20a91b26459133b83992e9d8d381",
 "inverse__sampler__2d_8hpp_source.html",
 "math_2array_8hpp.html#abc58609556b107fdb1825a6c423efdce",
-"namespacehmap.html#a05ee0ea53f1a06ac43741f11e25ec2cc",
-"namespacehmap.html#a38c0a582a98d48f73f49f12ebf1b78f9",
-"namespacehmap.html#a6fa21b8b4797ae017025d891f9704848",
-"namespacehmap.html#ab36a27b4c79ad5b201d79ac92388caa8",
-"namespacehmap.html#adaea0522457a624472e5e233ce87e558",
-"namespacehmap_1_1gpu.html#a6d7431d682de7d0e164d104581674f55",
-"namespacemembers_eval_o.html",
-"point_8hpp.html#ac7a93fe9501041332e1ff7a128742c6f",
-"range_8hpp.html#a453090213e0cf160406d6af6c129d872",
-"shortest__path_8hpp.html#a2a890c5d4fc9c8f55ed89b881c380617",
-"structhmap_1_1ForestScaleSampler.html#a97788d3f9626dafe95907209d15f56b4",
-"structhmap_1_1Recorder.html",
-"structhmap_1_1TerrainTriMesh_1_1Neighbor.html",
-"sync__overlap__buffers_8cpp.html",
-"test__erosion_8cpp.html#ab096ac019bba9e404fe8c1fe30c69546",
-"test__math_8cpp.html#a58ef841cc8e6c2abce03014603302f3d",
-"test__scatter_8cpp.html",
-"thermal__schott_8cpp.html",
-"water__depth_8cpp.html#a703eaf095338c94f1b6589a5b8a650fe"
+"namespacehmap.html#a01df0f07ab6d0583d0794d7c03abc1eb",
+"namespacehmap.html#a32464922c39713910ebeab632e0e8fd1",
+"namespacehmap.html#a69877ef43645c767daa0735fde59821c",
+"namespacehmap.html#aad6a39e70bf2ff70f8367e663d3027cf",
+"namespacehmap.html#ad6fc7fb24960fa6a45bc657ae2d89f80",
+"namespacehmap_1_1gpu.html#a5acf81d4e6a4f4950a9c5f0dd936e75d",
+"namespacemembers.html",
+"poi_8hpp.html#ade234d7bb6c23c67317077ab7a9082caa729ef3b0198a30fc445b80eed5bc745c",
+"range_8cpp.html#a55574a9d91e2e7e20de954956402ba1b",
+"selector_8hpp.html#a60843740c9f6153042e0466b696239fd",
+"structhmap_1_1ColorAdjust.html#abf71052fb9aa59345fff4155d9b33c0d",
+"structhmap_1_1OpenEXRWriter_1_1Impl.html#a8c7de7055e5343eb5ab2b52e7bc879e8",
+"structhmap_1_1TerrainTriMesh_1_1BoundingBox.html#a5e5137be28d3192dc989d549fc957639",
+"structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a6957f3c429e254be4d008b04377c9f8c",
+"test__distance__transform_8cpp.html#a15c97e0ceaccca23fb324bdebbc881e2",
+"test__kd__tree_8cpp.html",
+"test__remap_8cpp.html#af3a227c7111847b66b5b17c0f244d0c2",
+"texture__transform_8cpp.html#a7d27d0392fb6850a212bee00cb58700c",
+"virtual__array_8hpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

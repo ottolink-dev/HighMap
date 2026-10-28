@@ -99,8 +99,8 @@ $(document).ready(function(){initNavTree('md_docs_2content_2dev_2scatter__field.
   <div class="headertitle"><div class="title">Scatter Architecture: ScatterField, Forest, and RockField</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md23"></a> This document details the uniform scattering architecture in HighMap, describing the relationship between the base <code>ScatterField</code> container and its domain-specific specializations: <code>Forest</code> and <code>RockField</code>.</p>
-<h1><a class="anchor" id="autotoc_md24"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md40"></a> This document details the uniform scattering architecture in HighMap, describing the relationship between the base <code>ScatterField</code> container and its domain-specific specializations: <code>Forest</code> and <code>RockField</code>.</p>
+<h1><a class="anchor" id="autotoc_md41"></a>
 1. Class and Dependency Diagram</h1>
 <p>The architecture decouples lightweight instance storage from domain descriptors and simulation algorithms.</p>
 <div class="fragment"><div class="line">classDiagram</div>
@@ -171,9 +171,9 @@ $(document).ready(function(){initNavTree('md_docs_2content_2dev_2scatter__field.
 <div class="line"> </div>
 <div class="line">    Forest ..&gt; Species : configured by</div>
 <div class="line">    RockField ..&gt; RockDistribution : configured by</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md25"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md42"></a>
 2. Design Principles</h1>
-<h2><a class="anchor" id="autotoc_md26"></a>
+<h2><a class="anchor" id="autotoc_md43"></a>
 Uniform Instance Representation</h2>
 <p>All discrete spatial entities inherit a minimal three-attribute representation:</p><ul>
 <li><code>position</code> (<code>glm::vec3</code>): 3D spatial coordinate ($x, y$ ground position and elevation $z$).</li>
@@ -181,7 +181,7 @@ Uniform Instance Representation</h2>
 <li><code>radius</code> (<code>float</code>): Characteristic collision or influence radius.</li>
 </ul>
 <p><code>Tree</code> and <code>Rock</code> are type aliases of <code>ScatterItem</code> (<code>using Tree = ScatterItem;</code>, <code>using Rock = ScatterItem;</code>).</p>
-<h2><a class="anchor" id="autotoc_md27"></a>
+<h2><a class="anchor" id="autotoc_md44"></a>
 Inheritance and Reuse</h2>
 <p><code>ScatterField</code> provides generic spatial queries and transforms common to any scattered entity:</p><ul>
 <li><b>Spatial queries</b>: Bounding box evaluation, point queries, class-based filtering (<code>filter_by_class</code>).</li>
@@ -189,28 +189,28 @@ Inheritance and Reuse</h2>
 <li><b>Raster integration</b>: Elevation snapping (<code>set_elevation_from_terrain</code>), rasterization into density maps (<code>to_density_map</code>), and stamp-based heightmap rasterization (<code>to_heightmap</code>).</li>
 </ul>
 <p>Both <code>Forest</code> and <code>RockField</code> publicly inherit from <code>ScatterField</code>. They inherit the full suite of spatial operations without duplicating spatial indexing or container logic.</p>
-<h2><a class="anchor" id="autotoc_md28"></a>
+<h2><a class="anchor" id="autotoc_md45"></a>
 Descriptor Separation</h2>
 <p>Instance containers store only per-instance spatial state (<code>position</code>, <code>class_id</code>, <code>radius</code>). Metadata and physical parameters are separated into lightweight descriptor structures:</p><ul>
 <li><code>Species</code>: Biological traits (growth limits, relative seeding weight, shade/canopy competition factors).</li>
 <li><code>RockDistribution</code>: Geomorphological parameters (Pareto power-law exponent $\alpha$, minimum/maximum radius, embed ratio).</li>
 </ul>
 <p>Simulation algorithms take instance fields alongside descriptor arrays. This keeps memory footprint minimal when storing millions of scattered entities.</p>
-<h1><a class="anchor" id="autotoc_md29"></a>
+<h1><a class="anchor" id="autotoc_md46"></a>
 3. Subsystem Connections</h1>
-<h2><a class="anchor" id="autotoc_md30"></a>
+<h2><a class="anchor" id="autotoc_md47"></a>
 Flora Subsystem (&lt;tt&gt;Forest&lt;/tt&gt;)</h2>
 <p><code>Forest</code> models vegetation and tree distributions.</p><ul>
 <li><b>Seeding</b>: <code>seed_forest_density</code> and <code>seed_forest_species</code> populate <code>Forest</code> instances using environmental suitability rasters (slope, elevation, moisture) and species weights.</li>
 <li><b>Simulation</b>: Biological competition is simulated via <code>grow_forest_competition</code> and <code>simulate_forest_cycle</code>, which iterate through the <code>Tree</code> instances and adjust radii or eliminate suppressed individuals based on canopy overlap.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md31"></a>
+<h2><a class="anchor" id="autotoc_md48"></a>
 Rocks Subsystem (&lt;tt&gt;RockField&lt;/tt&gt;)</h2>
 <p><code>RockField</code> models talus slopes, scree fields, and boulder deposits.</p><ul>
 <li><b>Seeding</b>: <code>seed_rocks_talus</code> and <code>seed_rocks_distribution</code> generate rocks following Pareto power-law distributions, where small rocks outnumber large boulders according to <code>power_law_alpha</code>.</li>
 <li><b>Simulation</b>: Geomorphological sorting via <code>simulate_rock_sorting</code> sorts items downslope according to gravitational energy and substrate friction, adjusting spatial distribution based on terrain gradient.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md49"></a>
 4. Converting to Raster Fields</h1>
 <p>A <code>ScatterField</code> (and by extension <code>Forest</code> or <code>RockField</code>) can be rasterized back into the elevation domain:</p><ul>
 <li><code>to_density_map</code>: Generates a continuous <code>Array</code> indicating entity density per cell.</li>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['optional_20tracy_20cpu_20profiling_0',['Optional Tracy CPU profiling',['../md_docs_2profiling.html',1,'']]],
-  ['overview_1',['Architecture Overview',['../md_docs_2content_2dev_2architecture.html',1,'']]]
+  ['morphological_20expansion_0',['FFT vs. GPU Convolution and Morphological Expansion',['../md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology.html',1,'']]]
 ];

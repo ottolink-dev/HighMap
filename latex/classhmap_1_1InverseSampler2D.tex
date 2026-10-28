@@ -14,7 +14,7 @@ Sequential 2D inverse transform point sampler based on a 2D density array.
 \item 
 \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a954da8aa0eeb1a0309093f793a521ea5}{Inverse\+Sampler2D}} ()=default
 \item 
-\mbox{\hyperlink{classhmap_1_1InverseSampler2D_afebac5bcbfe00b292dfc4d60842d9cab}{Inverse\+Sampler2D}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, std\+::uint32\+\_\+t seed=0, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\mbox{\hyperlink{classhmap_1_1InverseSampler2D_afebac5bcbfe00b292dfc4d60842d9cab}{Inverse\+Sampler2D}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, std\+::uint32\+\_\+t seed=0, const glm\+::vec4 \&\mbox{\hyperlink{sdf__2d__polyline__bezier_8cpp_a8396e15b291639eaa79ecd3badbdff48}{bbox}}=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Constructs an inverse sampler for a 2D density array. \end{DoxyCompactList}\item 
 glm\+::vec2 \mbox{\hyperlink{classhmap_1_1InverseSampler2D_ac41cafc646d29404842e7a8158431a49}{sample}} ()
 \begin{DoxyCompactList}\small\item\em Samples a single point sequentially using the internal RNG. \end{DoxyCompactList}\item 
@@ -30,7 +30,7 @@ void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_af79e583520d87ace8894e28e06f
 \begin{DoxyCompactList}\small\item\em Updates the density in the sub-\/region \mbox{[}imin, imax\mbox{]} x \mbox{[}jmin, jmax\mbox{]} from another array. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_aecc916072e42ac4a42a8d447f26723d3}{update\+\_\+region}} (const std\+::function$<$ float(int \mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}, int \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}, float current)$>$ \&updater, const glm\+::ivec2 \&range\+\_\+i, const glm\+::ivec2 \&range\+\_\+j)
 \begin{DoxyCompactList}\small\item\em Updates the density in the sub-\/region \mbox{[}imin, imax\mbox{]} x \mbox{[}jmin, jmax\mbox{]} using a modifier function. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a81b37fb1f46c4b21f838727dd579b897}{reset}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, std\+::uint32\+\_\+t seed=0, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a81b37fb1f46c4b21f838727dd579b897}{reset}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, std\+::uint32\+\_\+t seed=0, const glm\+::vec4 \&\mbox{\hyperlink{sdf__2d__polyline__bezier_8cpp_a8396e15b291639eaa79ecd3badbdff48}{bbox}}=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Reinitializes the sampler with a new density array. \end{DoxyCompactList}\item 
 const glm\+::vec4 \& \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a4e68f18b865ea72b234a475a506e3d07}{get\+\_\+bbox}} () const
 \begin{DoxyCompactList}\small\item\em Gets the bounding box. \end{DoxyCompactList}\item 
@@ -38,7 +38,7 @@ const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \& \mbox{\hyperlink{classhmap
 \begin{DoxyCompactList}\small\item\em Gets the current density array. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{classhmap_1_1InverseSampler2D_ae33248c92a5bd80e35291f1e1cea16f8}{get\+\_\+total\+\_\+weight}} () const
 \begin{DoxyCompactList}\small\item\em Gets the total integrated weight. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a09b0e81d2bf53b91b95ba3c5f67b5850}{set\+\_\+bbox}} (const glm\+::vec4 \&bbox)
+void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a09b0e81d2bf53b91b95ba3c5f67b5850}{set\+\_\+bbox}} (const glm\+::vec4 \&\mbox{\hyperlink{sdf__2d__polyline__bezier_8cpp_a8396e15b291639eaa79ecd3badbdff48}{bbox}})
 \begin{DoxyCompactList}\small\item\em Sets the bounding box. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a13be72189caeb33d362350218aa091f0}{set\+\_\+seed}} (std\+::uint32\+\_\+t seed)
 \begin{DoxyCompactList}\small\item\em Sets the RNG seed. \end{DoxyCompactList}\end{DoxyCompactItemize}

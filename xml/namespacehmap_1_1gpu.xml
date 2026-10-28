@@ -14469,10 +14469,10 @@ This is an overloaded member function, provided for convenience. It differs from
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>generate<sp/>mask</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref><sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(10,<sp/>seed,<sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>-0.1f));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref><sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref><sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(10,<sp/>seed,<sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(<ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>,<sp/>-0.1f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.reorder_nns();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>mask<sp/>=<sp/><ref refid="namespacehmap_1ac39b5e32d90e0351f4124ea61334461d" kindref="member">hmap::bezier</ref>(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>).<ref refid="classhmap_1_1Path_1a4d1e1e63fea24bf8f23bc3343f8b746e" kindref="member">to_array</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>mask<sp/>=<sp/><ref refid="namespacehmap_1ac39b5e32d90e0351f4124ea61334461d" kindref="member">hmap::bezier</ref>(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>).<ref refid="classhmap_1_1Path_1a4d1e1e63fea24bf8f23bc3343f8b746e" kindref="member">to_array</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a2badbebec49b12d0d721970a18eb420d" kindref="member">hmap::clamp_min</ref>(mask,<sp/>0.f);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>splat<sp/>kernel</highlight><highlight class="normal"></highlight></codeline>
@@ -22882,13 +22882,13 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
           <defval>nullptr</defval>
         </param>
         <briefdescription>
-<para>See <ref refid="namespacehmap_1a765ffa5ee98f47eba4b9d4ebe7680190" kindref="member">hmap::sdf_2d_polyline</ref>. </para>
+<para>See <ref refid="namespacehmap_1a255117d00b312165d82d2f65584ab14a" kindref="member">hmap::sdf_2d_polyline</ref>. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/sdf/sdf_2d_polyline_gpu.cpp" line="20" column="7" bodyfile="HighMap/src/sdf/sdf_2d_polyline_gpu.cpp" bodystart="20" bodyend="66" declfile="HighMap/include/highmap/sdf.hpp" declline="67" declcolumn="7"/>
+        <location file="HighMap/src/sdf/sdf_2d_polyline_gpu.cpp" line="20" column="7" bodyfile="HighMap/src/sdf/sdf_2d_polyline_gpu.cpp" bodystart="20" bodyend="66" declfile="HighMap/include/highmap/sdf.hpp" declline="93" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a1d8f173e55e19eceb089fd44538f2fc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -22920,13 +22920,13 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
           <defval>nullptr</defval>
         </param>
         <briefdescription>
-<para>See <ref refid="namespacehmap_1a93d9f75a0af0e7e76e77851efd36c804" kindref="member">hmap::sdf_2d_polyline_bezier</ref>. </para>
+<para>See <ref refid="namespacehmap_1a7fc8217efe7ab32d2e1e025bdd632936" kindref="member">hmap::sdf_2d_polyline_bezier</ref>. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/sdf/sdf_2d_polyline_gpu.cpp" line="68" column="7" bodyfile="HighMap/src/sdf/sdf_2d_polyline_gpu.cpp" bodystart="68" bodyend="140" declfile="HighMap/include/highmap/sdf.hpp" declline="74" declcolumn="7"/>
+        <location file="HighMap/src/sdf/sdf_2d_polyline_gpu.cpp" line="68" column="7" bodyfile="HighMap/src/sdf/sdf_2d_polyline_gpu.cpp" bodystart="68" bodyend="148" declfile="HighMap/include/highmap/sdf.hpp" declline="100" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a9d2e42789abe01802177574660804fa1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

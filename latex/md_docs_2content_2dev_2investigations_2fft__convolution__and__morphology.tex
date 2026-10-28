@@ -1,10 +1,10 @@
 \chapter{FFT vs. GPU Convolution and Morphological Expansion}
 \hypertarget{md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology}{}\label{md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology}\index{FFT vs. GPU Convolution and Morphological Expansion@{FFT vs. GPU Convolution and Morphological Expansion}}
-\label{md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology_autotoc_md16}%
-\Hypertarget{md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology_autotoc_md16}%
+\label{md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology_autotoc_md33}%
+\Hypertarget{md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology_autotoc_md33}%
  This document records the experimental evaluation of 2D Fast Fourier Transform (FFT) algorithms as potential alternatives to spatial GPU implementations for convolution and morphological operations.
 
-Related issue\+: \href{https://github.com/ottolink-dev/HighMap/issues/528}{\texttt{ \#528}}.\hypertarget{md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology_autotoc_md17}{}\doxysection{\texorpdfstring{1. Context and Motivation}{1. Context and Motivation}}\label{md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology_autotoc_md17}
+Related issue\+: \href{https://github.com/ottolink-dev/HighMap/issues/528}{\texttt{ \#528}}.\hypertarget{md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology_autotoc_md34}{}\doxysection{\texorpdfstring{1. Context and Motivation}{1. Context and Motivation}}\label{md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology_autotoc_md34}
 Spatial filtering on large kernels can become computationally demanding with direct convolution, which scales with the kernel area \$\textbackslash{}mathcal\{O\}(K\texorpdfstring{$^\wedge$}{\string^}2)\$. In contrast, frequency-\/domain convolution via FFT operates in \$\textbackslash{}mathcal\{O\}(N \textbackslash{}log N)\$ independent of kernel radius\+:
 
 \$\$f \texorpdfstring{$\ast$}{*} g = \textbackslash{}mathcal\{F\}\texorpdfstring{$^\wedge$}{\string^}\{-\/1\}\textbackslash{}mathcal\{F\}f 
