@@ -262,6 +262,7 @@ var namespacehmap_1_1gpu =
     [ "mountain_tibesti", "namespacehmap_1_1gpu.html#ae0089429a438c5ebb60099913cda627e", null ],
     [ "plates", "namespacehmap_1_1gpu.html#ab3eadc11ab781726fa577722f1ae2196", null ],
     [ "shattered_peak", "namespacehmap_1_1gpu.html#a20b7fbc395e4621ba11ebd74634b09f4", null ],
+    [ "path_sdf_to_array", "namespacehmap_1_1gpu.html#a7bc35c8e9ca22ec5351c18d7cf75590d", null ],
     [ "sdf_2d_polyline", "namespacehmap_1_1gpu.html#a6ce804c0a3c7bdfe98464278da568a57", null ],
     [ "sdf_2d_polyline_bezier", "namespacehmap_1_1gpu.html#a1d8f173e55e19eceb089fd44538f2fc6", null ],
     [ "select_cavities", "namespacehmap_1_1gpu.html#a9d2e42789abe01802177574660804fa1", null ],

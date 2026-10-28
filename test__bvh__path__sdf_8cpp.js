@@ -8,5 +8,6 @@ var test__bvh__path__sdf_8cpp =
     [ "TEST", "test__bvh__path__sdf_8cpp.html#a65120d065bd9866bd0995f90624ebf42", null ],
     [ "TEST", "test__bvh__path__sdf_8cpp.html#a244266eb4c59cbdbcf90662a22d247ba", null ],
     [ "TEST", "test__bvh__path__sdf_8cpp.html#a523ceaabd48eaca5f36f8d4892fea59d", null ],
-    [ "TEST", "test__bvh__path__sdf_8cpp.html#ac29668af36b845645af14e06cb753784", null ]
+    [ "TEST", "test__bvh__path__sdf_8cpp.html#ac29668af36b845645af14e06cb753784", null ],
+    [ "TEST", "test__bvh__path__sdf_8cpp.html#a37929771c5e12e18552784b28a3b6833", null ]
 ];
