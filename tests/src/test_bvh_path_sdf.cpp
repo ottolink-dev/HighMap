@@ -1,11 +1,11 @@
+#include <cmath>
+#include <vector>
+
 #include "highmap/array.hpp"
 #include "highmap/geometry/path.hpp"
 #include "highmap/sdf.hpp"
 
 #include <gtest/gtest.h>
-
-#include <cmath>
-#include <vector>
 
 using namespace hmap;
 
@@ -154,7 +154,12 @@ TEST(BVH2DPathSDF, BezierMatchesBruteForceAndBVH)
   Array bf = sdf_2d_polyline_bezier_brute_force(path, shape, bbox);
   Array bvh = sdf_2d_polyline_bezier_bvh(path, shape, bbox);
   Array def = sdf_2d_polyline_bezier(path, shape, bbox);
-  Array no_bvh = sdf_2d_polyline_bezier(path, shape, bbox, nullptr, nullptr, false);
+  Array no_bvh = sdf_2d_polyline_bezier(path,
+                                        shape,
+                                        bbox,
+                                        nullptr,
+                                        nullptr,
+                                        false);
 
   ASSERT_EQ(bf.shape.x, bvh.shape.x);
   ASSERT_EQ(bf.shape.y, bvh.shape.y);
@@ -198,6 +203,41 @@ TEST(BVH2DPathSDF, BezierColinearPointsNoNaN)
       EXPECT_FALSE(std::isnan(res_bf(i, j)));
       EXPECT_FALSE(std::isinf(res_bf(i, j)));
       EXPECT_NEAR(res_bvh(i, j), res_bf(i, j), 1e-5f);
+    }
+  }
+}
+
+TEST(BVH2DPathSDF, BezierClosedPathSigned)
+{
+  Path path(std::vector<Point>{{0.25f, 0.25f, 0.f},
+                               {0.75f, 0.25f, 0.f},
+                               {0.75f, 0.75f, 0.f},
+                               {0.25f, 0.75f, 0.f}});
+  path.set_closed(true);
+
+  glm::ivec2 shape(24, 24);
+  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+
+  Array bf = sdf_2d_polyline_bezier_brute_force(path, shape, bbox);
+  Array bvh = sdf_2d_polyline_bezier_bvh(path, shape, bbox);
+  Array def = sdf_2d_polyline_bezier(path, shape, bbox);
+
+  ASSERT_EQ(bf.shape.x, bvh.shape.x);
+  ASSERT_EQ(bf.shape.y, bvh.shape.y);
+
+  // Closed path must have negative values inside and positive values outside
+  EXPECT_LT(bvh.min(), 0.f);
+  EXPECT_GT(bvh.max(), 0.f);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_FALSE(std::isnan(bvh(i, j)));
+      EXPECT_FALSE(std::isinf(bvh(i, j)));
+      EXPECT_NEAR(bvh(i, j), bf(i, j), 1e-4f)
+          << "Closed Bezier SDF mismatch at (" << i << ", " << j << ")";
+      EXPECT_NEAR(def(i, j), bvh(i, j), 1e-4f);
     }
   }
 }

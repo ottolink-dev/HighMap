@@ -2,16 +2,27 @@
 
 int main(void)
 {
-  hmap::Path path;
-  path.push_back({10.f, 10.f});
-  path.push_back({50.f, 100.f});
-  path.push_back({200.f, 50.f});
-  path.push_back({240.f, 240.f});
+  glm::ivec2    shape = {256, 256};
+  std::uint32_t seed = 1;
 
-  hmap::Path bpath = hmap::bezier(path, 0.3f, 10);
+  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
+  hmap::Path path = hmap::Path(5, seed, hmap::adjust(bbox, -0.1f));
+  path.reorder_nns();
 
-  hmap::Array z({256, 256}, 0.f);
-  bpath.to_array(z);
+  // --- Open path
 
-  z.to_png("ex_path_bezier.png", hmap::Cmap::VIRIDIS);
+  path.set_closed(false);
+  auto z_sdf_open = hmap::path_sdf_to_array(path, shape, bbox);
+  auto z_bezier_open = hmap::sdf_2d_polyline_bezier(path, shape, bbox);
+
+  // --- Closed path
+
+  path.set_closed(true);
+  auto z_sdf_closed = hmap::path_sdf_to_array(path, shape, bbox);
+  auto z_bezier_closed = hmap::sdf_2d_polyline_bezier(path, shape, bbox);
+
+  hmap::export_banner_png(
+      "ex_path_bezier.png",
+      {z_sdf_open, z_bezier_open, z_sdf_closed, z_bezier_closed},
+      hmap::Cmap::INFERNO);
 }

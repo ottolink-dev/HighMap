@@ -605,8 +605,7 @@ Array path_sdf_to_array_bvh(const Path  &path,
 
       // sign test
       float s = 1.f;
-      for (size_t si = 0, sj = path.size() - 1; si < path.size();
-           sj = si, si++)
+      for (size_t si = 0, sj = path.size() - 1; si < path.size(); sj = si, si++)
       {
         glm::vec2 e = {path[sj].x - path[si].x, path[sj].y - path[si].y};
         glm::vec2 w = {xi - path[si].x, yi - path[si].y};
