@@ -89,13 +89,6 @@ Array sdf_2d_polyline_bezier_bvh(const Path  &path,
 namespace hmap::gpu
 {
 
-/*! @brief See hmap::path_sdf_to_array */
-Array path_sdf_to_array(const Path  &path,
-                        glm::ivec2   shape,
-                        glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
-                        const Array *p_noise_x = nullptr,
-                        const Array *p_noise_y = nullptr);
-
 /*! @brief See hmap::sdf_2d_polyline */
 Array sdf_2d_polyline(const Path  &path,
                       glm::ivec2   shape,

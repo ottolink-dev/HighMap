@@ -773,6 +773,18 @@ Array path_sdf_to_array_bvh(const Path  &path,
                             const Array *p_noise_x = nullptr,
                             const Array *p_noise_y = nullptr);
 
+namespace gpu
+{
+
+/*! @brief See hmap::path_sdf_to_array */
+Array path_sdf_to_array(const Path  &path,
+                        glm::ivec2   shape,
+                        glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
+                        const Array *p_noise_x = nullptr,
+                        const Array *p_noise_y = nullptr);
+
+} // namespace gpu
+
 /**
  * @brief Removes geometric loops in a 2D path caused by self-intersections.
  *
