@@ -337,3 +337,72 @@ TEST(BVH2DPathSDF, GpuBezierMatchesCpu)
     }
   }
 }
+
+TEST(BVH2DPathSDF, GpuPathSdfToArrayMatchesCpu)
+{
+  // Test open path
+  Path open_path(std::vector<Point>{{0.2f, 0.3f, 0.f},
+                                    {0.5f, 0.8f, 0.f},
+                                    {0.8f, 0.4f, 0.f},
+                                    {0.9f, 0.7f, 0.f}});
+  open_path.set_closed(false);
+
+  glm::ivec2 shape(32, 32);
+  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+
+  Array cpu_open = path_sdf_to_array(open_path, shape, bbox);
+  Array gpu_open = gpu::path_sdf_to_array(open_path, shape, bbox);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_FALSE(std::isnan(gpu_open(i, j)));
+      EXPECT_FALSE(std::isinf(gpu_open(i, j)));
+      EXPECT_NEAR(gpu_open(i, j), cpu_open(i, j), 1e-3f)
+          << "GPU open path_sdf_to_array mismatch at (" << i << ", " << j << ")";
+    }
+  }
+
+  // Test closed path with interior negative signs
+  Path closed_path(std::vector<Point>{{0.25f, 0.25f, 0.f},
+                                      {0.75f, 0.25f, 0.f},
+                                      {0.75f, 0.75f, 0.f},
+                                      {0.25f, 0.75f, 0.f}});
+  closed_path.set_closed(true);
+
+  Array cpu_closed = path_sdf_to_array(closed_path, shape, bbox);
+  Array gpu_closed = gpu::path_sdf_to_array(closed_path, shape, bbox);
+
+  EXPECT_LT(gpu_closed.min(), 0.f);
+  EXPECT_GT(gpu_closed.max(), 0.f);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_FALSE(std::isnan(gpu_closed(i, j)));
+      EXPECT_FALSE(std::isinf(gpu_closed(i, j)));
+      EXPECT_NEAR(gpu_closed(i, j), cpu_closed(i, j), 1e-3f)
+          << "GPU closed path_sdf_to_array mismatch at (" << i << ", " << j << ")";
+    }
+  }
+
+  // Test closed path with noise domain warping
+  Array dx(shape, 0.05f);
+  Array dy(shape, -0.03f);
+
+  Array cpu_warped = path_sdf_to_array(closed_path, shape, bbox, &dx, &dy);
+  Array gpu_warped = gpu::path_sdf_to_array(closed_path, shape, bbox, &dx, &dy);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_FALSE(std::isnan(gpu_warped(i, j)));
+      EXPECT_FALSE(std::isinf(gpu_warped(i, j)));
+      EXPECT_NEAR(gpu_warped(i, j), cpu_warped(i, j), 1e-3f)
+          << "GPU warped path_sdf_to_array mismatch at (" << i << ", " << j << ")";
+    }
+  }
+}

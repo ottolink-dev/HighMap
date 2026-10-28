@@ -39,6 +39,12 @@ Array sdf_2d_polyline(const Path  &path,
   std::vector<float> xp = path.get_x();
   std::vector<float> yp = path.get_y();
 
+  if (path.is_closed())
+  {
+    xp.push_back(xp.front());
+    yp.push_back(yp.front());
+  }
+
   // kernel
   auto run = clwrapper::Run("sdf_2d_polyline");
 
@@ -53,7 +59,8 @@ Array sdf_2d_polyline(const Path  &path,
                      (int)xp.size(),
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     bbox,
+                     path.is_closed() ? 1 : 0);
 
   run.write_buffer("xp");
   run.write_buffer("yp");
@@ -63,6 +70,15 @@ Array sdf_2d_polyline(const Path  &path,
   run.read_buffer("sdf2");
 
   return sdf2;
+}
+
+Array path_sdf_to_array(const Path  &path,
+                        glm::ivec2   shape,
+                        glm::vec4    bbox_array,
+                        const Array *p_noise_x,
+                        const Array *p_noise_y)
+{
+  return sdf_2d_polyline(path, shape, bbox_array, p_noise_x, p_noise_y);
 }
 
 Array sdf_2d_polyline_bezier(const Path  &path,

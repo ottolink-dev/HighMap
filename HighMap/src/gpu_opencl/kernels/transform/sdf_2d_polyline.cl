@@ -13,7 +13,8 @@ void kernel sdf_2d_polyline(global float   *sdf2,
                             const int       np,
                             const int       has_noise_x,
                             const int       has_noise_y,
-                            const float4    bbox)
+                            const float4    bbox,
+                            const int       is_closed)
 {
   int2 g = {get_global_id(0), get_global_id(1)};
 
@@ -29,18 +30,32 @@ void kernel sdf_2d_polyline(global float   *sdf2,
 
   // sdf
   float d = FLT_MAX;
+  float s = 1.f;
 
   for (int k = 0; k < np - 1; ++k)
   {
     int    p = k + 1;
-    float2 e = (float2)(xp[p] - xp[k], yp[p] - yp[k]);
-    float2 w = (float2)(pos.x - xp[k], pos.y - yp[k]);
+    float2 p_k = (float2)(xp[k], yp[k]);
+    float2 p_next = (float2)(xp[p], yp[p]);
+
+    float2 e = p_next - p_k;
+    float2 w = pos - p_k;
     float  t = clamp(dot(w, e) / dot(e, e), 0.f, 1.f);
     float2 b = w - e * t;
     d = min(d, dot(b, b));
+
+    if (is_closed > 0)
+    {
+      int c0 = pos.y >= p_k.y ? 1 : 0;
+      int c1 = pos.y < p_next.y ? 1 : 0;
+      int c2 = (e.x * w.y > e.y * w.x) ? 1 : 0;
+
+      if ((c0 && c1 && c2) || (!c0 && !c1 && !c2))
+        s *= -1.f;
+    }
   }
 
-  sdf2[index] = sqrt(d);
+  sdf2[index] = s * sqrt(d);
 }
 
 void kernel sdf_2d_polyline_bezier(global float   *sdf2,
