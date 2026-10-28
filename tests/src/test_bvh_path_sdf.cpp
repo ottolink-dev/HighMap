@@ -266,3 +266,74 @@ TEST(BVH2DPathSDF, BezierEvenPointCountHandled)
     }
   }
 }
+
+TEST(BVH2DPathSDF, GpuBezierMatchesCpu)
+{
+  // Test open path
+  Path open_path(std::vector<Point>{{0.1f, 0.2f, 0.f},
+                                    {0.4f, 0.8f, 0.f},
+                                    {0.7f, 0.3f, 0.f},
+                                    {0.9f, 0.6f, 0.f}});
+  open_path.set_closed(false);
+
+  glm::ivec2 shape(32, 32);
+  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+
+  Array cpu_open = sdf_2d_polyline_bezier(open_path, shape, bbox);
+  Array gpu_open = gpu::sdf_2d_polyline_bezier(open_path, shape, bbox);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_FALSE(std::isnan(gpu_open(i, j)));
+      EXPECT_FALSE(std::isinf(gpu_open(i, j)));
+      EXPECT_NEAR(gpu_open(i, j), cpu_open(i, j), 1e-3f)
+          << "GPU open Bezier mismatch at (" << i << ", " << j << ")";
+    }
+  }
+
+  // Test colinear path (division-by-zero check on GPU)
+  Path colinear_path(std::vector<Point>{{0.1f, 0.1f, 0.f},
+                                        {0.5f, 0.5f, 0.f},
+                                        {0.9f, 0.9f, 0.f}});
+  colinear_path.set_closed(false);
+
+  Array cpu_colinear = sdf_2d_polyline_bezier(colinear_path, shape, bbox);
+  Array gpu_colinear = gpu::sdf_2d_polyline_bezier(colinear_path, shape, bbox);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_FALSE(std::isnan(gpu_colinear(i, j)));
+      EXPECT_FALSE(std::isinf(gpu_colinear(i, j)));
+      EXPECT_NEAR(gpu_colinear(i, j), cpu_colinear(i, j), 1e-3f)
+          << "GPU colinear Bezier mismatch at (" << i << ", " << j << ")";
+    }
+  }
+
+  // Test closed path (sign / ray-crossing parity check on GPU)
+  Path closed_path(std::vector<Point>{{0.25f, 0.25f, 0.f},
+                                      {0.75f, 0.25f, 0.f},
+                                      {0.75f, 0.75f, 0.f},
+                                      {0.25f, 0.75f, 0.f}});
+  closed_path.set_closed(true);
+
+  Array cpu_closed = sdf_2d_polyline_bezier(closed_path, shape, bbox);
+  Array gpu_closed = gpu::sdf_2d_polyline_bezier(closed_path, shape, bbox);
+
+  EXPECT_LT(gpu_closed.min(), 0.f);
+  EXPECT_GT(gpu_closed.max(), 0.f);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_FALSE(std::isnan(gpu_closed(i, j)));
+      EXPECT_FALSE(std::isinf(gpu_closed(i, j)));
+      EXPECT_NEAR(gpu_closed(i, j), cpu_closed(i, j), 1e-3f)
+          << "GPU closed Bezier mismatch at (" << i << ", " << j << ")";
+    }
+  }
+}

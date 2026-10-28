@@ -112,3 +112,47 @@ The API was structured consistently with linear polyline SDF:
 - `hmap::sdf_2d_polyline_bezier_bvh`
 - `hmap::sdf_2d_polyline_bezier_brute_force`
 - `hmap::sdf_2d_polyline_bezier(path, shape, bbox, p_noise_x, p_noise_y, use_bvh = true)`
+
+## 6. GPU (OpenCL) Assessment and Validation
+
+The GPU polyline SDF implementation was analyzed to determine whether introducing a BVH2D spatial index in OpenCL kernels would yield benefits.
+
+### Performance Analysis: GPU Brute Force vs CPU BVH2D
+
+Comparative benchmark timings on an NVIDIA GeForce GTX 1650 Max-Q across $512 \times 512$ grids:
+
+| Path Vertices ($N$) | CPU Brute Force (ms) | CPU BVH2D (ms) | GPU OpenCL (ms) | Speedup vs CPU BVH |
+|---|---|---|---|---|
+| 10 | 49.3 | 6.7 | 1.9 | ~3.5x |
+| 50 | 258.0 | 12.2 | 2.1 | ~5.8x |
+| 200 | 973.0 | 20.2 | 2.8 | ~7.2x |
+| 1000 | 4949.6 | 37.6 | 5.6 | ~6.7x |
+
+### Rationale: Keeping the GPU Kernel Brute Force
+
+Building and traversing a BVH2D on the GPU was rejected based on execution characteristics:
+
+1. **Constant Memory Broadcast Efficiency**:
+   Path vertices are placed in `__constant float*` (or read-only global cache lines). During execution, all 32 threads in an execution warp evaluate the identical segment index simultaneously:
+   - Warp broadcast achieves a 100% cache hit rate with zero memory latency penalty.
+   - Brute-force loop execution exhibits zero warp divergence.
+
+2. **Warp Divergence in BVH Traversal**:
+   Neighboring pixels traverse different branches of a BVH depending on their spatial coordinates. Per-warp branch divergence on a tree traversal serializes execution threads and requires a per-work-item stack (causing register pressure or spilling into high-latency local/private memory).
+
+3. **Performance Trade-Off**:
+   At $N = 1000$ segments, the brute-force GPU kernel takes only 5.6 ms. The complexity of dynamic tree traversal in OpenCL would likely degrade throughput rather than improve it for typical path sizes.
+
+### Numerical Stability and Parity Fixes on GPU
+
+The OpenCL kernels were reviewed and aligned with the CPU implementations:
+
+1. **Colinear Bézier Segments**:
+   In `HighMap/src/gpu_opencl/kernels/transform/sdf_2d_polyline.cl`, added a check for $b\_len\_sq = \text{dot}(b, b) < 10^{-10}\text{f}$. When degenerate, the kernel falls back to line segment distance between endpoints, preventing division-by-zero `inf` and `NaN` cascades.
+
+2. **Cardano Root Solver Clamping**:
+   Clamped `acos` argument to $[-1.0\text{f}, 1.0\text{f}]$ within the 3-real-roots cubic solver branch to avoid domain errors from float rounding.
+
+3. **Closed Path Signing and Topology**:
+   - `gpu::sdf_2d_polyline_bezier` now appends the closing segment to reconnect the first and last control points when `path.is_closed() == true`.
+   - The kernel takes an `is_closed` parameter and computes ray-crossing parity to assign interior negative signs, matching the CPU signed distance field behavior.

@@ -88,6 +88,13 @@ Array sdf_2d_polyline_bezier(const Path  &path,
   // and end points will be taken into account
   std::vector<float> x_input = path.get_x();
   std::vector<float> y_input = path.get_y();
+
+  if (path.is_closed() && !x_input.empty())
+  {
+    x_input.push_back(x_input.front());
+    y_input.push_back(y_input.front());
+  }
+
   std::vector<float> xp;
   std::vector<float> yp;
 
@@ -127,7 +134,8 @@ Array sdf_2d_polyline_bezier(const Path  &path,
                      (int)xp.size(),
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     bbox,
+                     path.is_closed() ? 1 : 0);
 
   run.write_buffer("xp");
   run.write_buffer("yp");

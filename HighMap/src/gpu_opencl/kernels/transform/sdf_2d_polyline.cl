@@ -53,7 +53,8 @@ void kernel sdf_2d_polyline_bezier(global float   *sdf2,
                                    const int       np,
                                    const int       has_noise_x,
                                    const int       has_noise_y,
-                                   const float4    bbox)
+                                   const float4    bbox,
+                                   const int       is_closed)
 {
   int2 g = {get_global_id(0), get_global_id(1)};
 
@@ -69,68 +70,134 @@ void kernel sdf_2d_polyline_bezier(global float   *sdf2,
 
   // sdf
   float dmin = FLT_MAX;
+  int   crossings = 0;
 
   for (int i = 0; i < np - 1; i += 3)
   {
     int j = i + 1;
     int k = i + 2;
 
+    float2 p0 = (float2)(xp[i], yp[i]);
+    float2 p1 = (float2)(xp[j], yp[j]);
+    float2 p2 = (float2)(xp[k], yp[k]);
+
+    float2 a = p1 - p0;
+    float2 b = p0 - 2.f * p1 + p2;
+    float2 c = 2.f * a;
+    float2 d = p0 - pos;
+
+    float b_len_sq = dot(b, b);
     float dist = 0.f;
 
-    float2 a = (float2)(xp[j] - xp[i], yp[j] - yp[i]);
-    float2 b = (float2)(xp[i] - 2.f * xp[j] + xp[k],
-                        yp[i] - 2.f * yp[j] + yp[k]);
-    float2 c = (float2)(2.f * a.x, 2.f * a.y);
-    float2 d = (float2)(xp[i] - pos.x, yp[i] - pos.y);
-
-    float kk = 1.f / dot(b, b);
-    float kx = kk * dot(a, b);
-    float ky = kk * (2.f * dot(a, a) + dot(d, b)) / 3.f;
-    float kz = kk * dot(d, a);
-    float p = ky - kx * kx;
-    float p3 = p * p * p;
-    float q = kx * (2.f * kx * kx - 3.f * ky) + kz;
-    float h = q * q + 4.f * p3;
-
-    if (h >= 0.f)
+    if (b_len_sq < 1e-10f)
     {
-      h = sqrt(h);
-      float2 xx = (float2)(0.5f * (h - q), 0.5f * (-h - q));
-      float2 uv = (float2)(copysign(1.f, xx.x) *
-                               pow_float(fabs(xx.x), 1.f / 3.f),
-                           copysign(1.f, xx.y) *
-                               pow_float(fabs(xx.y), 1.f / 3.f));
-      float  t = clamp(uv.x + uv.y - kx, 0.f, 1.f);
-
-      float2 dd = (float2)(d.x + (c.x + b.x * t) * t,
-                           d.y + (c.y + b.y * t) * t);
-
-      dist = dot(dd, dd);
+      // Colinear degenerate quadratic bezier: distance to segment [p0, p2]
+      float2 e = p2 - p0;
+      float2 w = pos - p0;
+      float  lsq = dot(e, e);
+      float  t = (lsq > 0.f) ? clamp(dot(w, e) / lsq, 0.f, 1.f) : 0.f;
+      float2 diff = w - e * t;
+      dist = dot(diff, diff);
     }
     else
     {
-      float  zz = sqrt(-p);
-      float  v = acos(q / (p * zz * 2.f)) / 3.f;
-      float  m = cos(v);
-      float  n = sin(v) * 1.732050808f;
-      float3 tt = (float3)(clamp((m + m) * zz - kx, 0.f, 1.f),
-                           clamp((-n - m) * zz - kx, 0.f, 1.f),
-                           clamp((n - m) * zz - kx, 0.f, 1.f));
+      float kk = 1.f / b_len_sq;
+      float kx = kk * dot(a, b);
+      float ky = kk * (2.f * dot(a, a) + dot(d, b)) / 3.f;
+      float kz = kk * dot(d, a);
+      float p = ky - kx * kx;
+      float p3 = p * p * p;
+      float q = kx * (2.f * kx * kx - 3.f * ky) + kz;
+      float h = q * q + 4.f * p3;
 
-      float2 dd1 = (float2)(d.x + (c.x + b.x * tt.x) * tt.x,
-                            d.y + (c.y + b.y * tt.x) * tt.x);
-      float2 dd2 = (float2)(d.x + (c.x + b.x * tt.y) * tt.y,
-                            d.y + (c.y + b.y * tt.y) * tt.y);
+      if (h >= 0.f)
+      {
+        h = sqrt(h);
+        float2 xx = (float2)(0.5f * (h - q), 0.5f * (-h - q));
+        float2 uv = (float2)(copysign(1.f, xx.x) *
+                                 pow_float(fabs(xx.x), 1.f / 3.f),
+                             copysign(1.f, xx.y) *
+                                 pow_float(fabs(xx.y), 1.f / 3.f));
+        float  t = clamp(uv.x + uv.y - kx, 0.f, 1.f);
 
-      float dist1 = dot(dd1, dd1);
-      float dist2 = dot(dd2, dd2);
+        float2 dd = (float2)(d.x + (c.x + b.x * t) * t,
+                             d.y + (c.y + b.y * t) * t);
 
-      dist = min(dist1, dist2);
+        dist = dot(dd, dd);
+      }
+      else
+      {
+        float  zz = sqrt(max(0.f, -p));
+        float  denom = p * zz * 2.f;
+        float  arg = (fabs(denom) > 1e-12f) ? clamp(q / denom, -1.f, 1.f) : 0.f;
+        float  v = acos(arg) / 3.f;
+        float  m = cos(v);
+        float  n = sin(v) * 1.732050808f;
+        float3 tt = (float3)(clamp((m + m) * zz - kx, 0.f, 1.f),
+                             clamp((-n - m) * zz - kx, 0.f, 1.f),
+                             clamp((n - m) * zz - kx, 0.f, 1.f));
+
+        float2 dd1 = (float2)(d.x + (c.x + b.x * tt.x) * tt.x,
+                              d.y + (c.y + b.y * tt.x) * tt.x);
+        float2 dd2 = (float2)(d.x + (c.x + b.x * tt.y) * tt.y,
+                              d.y + (c.y + b.y * tt.y) * tt.y);
+
+        float dist1 = dot(dd1, dd1);
+        float dist2 = dot(dd2, dd2);
+
+        dist = min(dist1, dist2);
+      }
     }
 
     dmin = min(dmin, dist);
+
+    // Closed path ray-crossing parity test
+    if (is_closed > 0)
+    {
+      float a_y = p0.y - 2.f * p1.y + p2.y;
+      float b_y = 2.f * (p1.y - p0.y);
+      float c_y = p0.y - pos.y;
+
+      if (fabs(a_y) < 1e-9f)
+      {
+        if (fabs(b_y) > 1e-9f)
+        {
+          float t = -c_y / b_y;
+          if (t >= 0.f && t < 1.f)
+          {
+            float bx = (1.f - t) * (1.f - t) * p0.x +
+                       2.f * t * (1.f - t) * p1.x + t * t * p2.x;
+            if (bx > pos.x) crossings++;
+          }
+        }
+      }
+      else
+      {
+        float discr = b_y * b_y - 4.f * a_y * c_y;
+        if (discr >= 0.f)
+        {
+          float s_discr = sqrt(discr);
+          float t1 = (-b_y - s_discr) / (2.f * a_y);
+          float t2 = (-b_y + s_discr) / (2.f * a_y);
+
+          if (t1 >= 0.f && t1 < 1.f)
+          {
+            float bx1 = (1.f - t1) * (1.f - t1) * p0.x +
+                        2.f * t1 * (1.f - t1) * p1.x + t1 * t1 * p2.x;
+            if (bx1 > pos.x) crossings++;
+          }
+          if (t2 >= 0.f && t2 < 1.f)
+          {
+            float bx2 = (1.f - t2) * (1.f - t2) * p0.x +
+                        2.f * t2 * (1.f - t2) * p1.x + t2 * t2 * p2.x;
+            if (bx2 > pos.x) crossings++;
+          }
+        }
+      }
+    }
   }
 
-  sdf2[index] = sqrt(dmin);
+  float s = (is_closed > 0 && (crossings % 2 == 1)) ? -1.f : 1.f;
+  sdf2[index] = s * sqrt(dmin);
 }
 )""
