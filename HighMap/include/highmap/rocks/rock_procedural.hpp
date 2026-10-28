@@ -127,8 +127,8 @@ namespace hmap::va
  *                                 attenuated.
  * @param  density                 Optional user density VirtualArray (if empty,
  *                                 defaults to uniform flat density of 1).
- * @param  exclusion               Optional exclusion VirtualArray (same shape as
- *                                 elevation).
+ * @param  exclusion               Optional exclusion VirtualArray (same shape
+ *                                 as elevation).
  * @param  size_slope_weight       In [0, 1], reduces maximum rock size on steep
  *                                 slopes.
  * @param  size_elevation_gain     Low-elevation influence on maximum rock size.
@@ -138,16 +138,16 @@ namespace hmap::va
  * @param  cm                      Virtual array compute mode.
  * @return                         RockField Placed rocks.
  */
-RockField place_rocks_procedural(size_t                    rock_count,
-                                 const VirtualArray       &elevation,
-                                 float                     min_elev = 0.f,
-                                 float                     max_elev = 0.9f,
-                                 float                     max_slope = 1.f,
-                                 const VirtualArray       &density = {},
-                                 const VirtualArray       &exclusion = {},
-                                 float                     size_slope_weight = 0.f,
-                                 float                     size_elevation_gain = 1.f,
-                                 float                     size_elevation_exponent = 1.f,
+RockField place_rocks_procedural(size_t              rock_count,
+                                 const VirtualArray &elevation,
+                                 float               min_elev = 0.f,
+                                 float               max_elev = 0.9f,
+                                 float               max_slope = 1.f,
+                                 const VirtualArray &density = {},
+                                 const VirtualArray &exclusion = {},
+                                 float               size_slope_weight = 0.f,
+                                 float               size_elevation_gain = 1.f,
+                                 float size_elevation_exponent = 1.f,
                                  const RockSeedingOptions &options = {},
                                  const ComputeMode        &cm = {});
 

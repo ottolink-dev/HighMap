@@ -510,8 +510,8 @@ glm::vec3 shade_color(const glm::vec3 &color, float t);
  * For each pixel (i, j), adjusts RGB channels using factor(i, j) clamped to [0,
  * 1]. Alpha channel (if present) is preserved.
  *
- * @param  tex    Texture to be shaded in-place (must have at least 3 channels).
- * @param  factor Shading factor Array with same 2D shape as tex.
+ * @param tex    Texture to be shaded in-place (must have at least 3 channels).
+ * @param factor Shading factor Array with same 2D shape as tex.
  */
 void shade_color(Texture &tex, const Array &factor);
 
@@ -523,11 +523,11 @@ void shade_color(Texture &tex, const Array &factor);
  * smoothing radius ir, scales the normalized residual [-1, 1] by strength into
  * shading factors in [0, 1], and applies shade_color to tex.
  *
- * @param  tex      Texture to be shaded in-place (must have at least 3
- *                  channels).
- * @param  z        Elevation array with same 2D shape as tex.
- * @param  ir       Radius for topographic residual smoothing filter.
- * @param  strength Strength of residual shading (default is 1.f).
+ * @param tex      Texture to be shaded in-place (must have at least 3
+ *                 channels).
+ * @param z        Elevation array with same 2D shape as tex.
+ * @param ir       Radius for topographic residual smoothing filter.
+ * @param strength Strength of residual shading (default is 1.f).
  */
 void shade_topographic_residual(Texture     &tex,
                                 const Array &z,

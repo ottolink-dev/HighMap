@@ -72,9 +72,9 @@ Array sdf_2d_polyline_bezier(const Path  &path,
                              const Array *p_noise_y = nullptr,
                              bool         use_bvh = true);
 
-Array sdf_2d_polyline_bezier_brute_force(const Path  &path,
-                                         glm::ivec2   shape,
-                                         glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
+Array sdf_2d_polyline_bezier_brute_force(const Path &path,
+                                         glm::ivec2  shape,
+                                         glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f},
                                          const Array *p_noise_x = nullptr,
                                          const Array *p_noise_y = nullptr);
 
