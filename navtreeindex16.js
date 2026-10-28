@@ -1,9 +1,5 @@
 var NAVTREEINDEX16 =
 {
-"math_2array_8hpp.html#abc58609556b107fdb1825a6c423efdce":[11,0,1,0,0,9,0,7],
-"math_2array_8hpp.html#abf083eedad3497bd58486775bcf3e80d":[11,0,1,0,0,9,0,14],
-"math_2array_8hpp.html#abfd3f58454c7064010dc2dd58d1a03aa":[11,0,1,0,0,9,0,6],
-"math_2array_8hpp.html#ac165dd1b73f61f632f03e45c2f831fc2":[11,0,1,0,0,9,0,2],
 "math_2array_8hpp.html#acc88d4cddcb41e8142b7fef4846e3454":[11,0,1,0,0,9,0,13],
 "math_2array_8hpp.html#ad1eb8e81ef31a0e0bc7a5bd093c3aefc":[11,0,1,0,0,9,0,22],
 "math_2array_8hpp.html#ad78d0f991f4f0eee67929b00469aea39":[11,0,1,0,0,9,0,17],
@@ -237,9 +233,9 @@ var NAVTREEINDEX16 =
 "mountain__stump_8cpp.html#a3cac6320779d6623497e665082f96d5e":[11,0,1,1,30,2,9,0],
 "mountain__tibesti_8cpp.html":[11,0,1,1,30,2,10],
 "mountain__tibesti_8cpp.html#ae0089429a438c5ebb60099913cda627e":[11,0,1,1,30,2,10,0],
-"mudslide_8cpp.html":[11,0,1,1,12,23],
-"mudslide_8cpp.html#a3faa3e769849fbcc7784d130c05f99a2":[11,0,1,1,12,23,0],
-"mudslide_8cpp.html#ac726e3e56563a153c2c62f0603d53381":[11,0,1,1,12,23,1],
+"mudslide_8cpp.html":[11,0,1,1,12,22],
+"mudslide_8cpp.html#a3faa3e769849fbcc7784d130c05f99a2":[11,0,1,1,12,22,0],
+"mudslide_8cpp.html#ac726e3e56563a153c2c62f0603d53381":[11,0,1,1,12,22,1],
 "multisteps_8cpp.html":[11,0,1,1,30,1,3],
 "multisteps_8cpp.html#a342e86d5f5b6da70427e3c66c25b419d":[11,0,1,1,30,1,3,1],
 "multisteps_8cpp.html#aeeb8f48ea78cb59de79c16ab28d1d855":[11,0,1,1,30,1,3,0],
@@ -249,5 +245,9 @@ var NAVTREEINDEX16 =
 "namespacehmap.html#a0102d286095deba3f4df0ec95c4b5c63":[9,0,0,388],
 "namespacehmap.html#a01201c510915f9f10f26595c79a1220b":[9,0,0,181],
 "namespacehmap.html#a0139c2cbbb516591c54fe8a743dc139d":[9,0,0,409],
-"namespacehmap.html#a01db711d188b71bc0ff2118364f3d60b":[9,0,0,894]
+"namespacehmap.html#a01db711d188b71bc0ff2118364f3d60b":[9,0,0,894],
+"namespacehmap.html#a01df0f07ab6d0583d0794d7c03abc1eb":[9,0,0,668],
+"namespacehmap.html#a01f3be1fd053428ea67030e3736d15ca":[9,0,0,732],
+"namespacehmap.html#a02c2283ef2c4fedf45dcbed47a86f853":[9,0,0,790],
+"namespacehmap.html#a02f191e398bfc3c0e87999d8576d7c3d":[9,0,0,714]
 };

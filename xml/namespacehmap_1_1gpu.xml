@@ -444,220 +444,6 @@
         </inbodydescription>
         <location file="HighMap/src/curvature/curvature_quadric.cpp" line="103" column="7" bodyfile="HighMap/src/curvature/curvature_quadric.cpp" bodystart="103" bodyend="142" declfile="HighMap/include/highmap/curvature.hpp" declline="99" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a453995ce289c0c3dad0f34fe10a54d74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::gpu::conv_erosion</definition>
-        <argsstring>(Array &amp;z, std::uint32_t seed, int iterations=20, int particle_count=1000, int ir_min=8, int ir_max=64, float size_distrib_exp=1.f, float erosion_strength=0.02f, float randomness=0.01f, float exit_forcing=0.05f, int gradient_ir=16, float gradient_exp=0.5f, float gradient_strength_min=0.f)</argsstring>
-        <name>conv_erosion</name>
-        <qualifiedname>hmap::gpu::conv_erosion</qualifiedname>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>z</declname>
-        </param>
-        <param>
-          <type>std::uint32_t</type>
-          <declname>seed</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>iterations</declname>
-          <defval>20</defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>particle_count</declname>
-          <defval>1000</defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>ir_min</declname>
-          <defval>8</defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>ir_max</declname>
-          <defval>64</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>size_distrib_exp</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>erosion_strength</declname>
-          <defval>0.02<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>randomness</declname>
-          <defval>0.01<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>exit_forcing</declname>
-          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>gradient_ir</declname>
-          <defval>16</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>gradient_exp</declname>
-          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>gradient_strength_min</declname>
-          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <briefdescription>
-<para>Performs iterative particle-based convolution erosion on a heightmap. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>This function simulates erosion by spawning particles, tracing their paths over the heightmap, accumulating a mask and size field, and applying a kernel-based convolution to compute erosion deltas.</para>
-<para>The process is repeated for a number of iterations to refine the result.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>z</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Heightmap to be eroded (modified in-place). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>seed</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>RNG seed for deterministic behavior. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>iterations</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Number of erosion iterations. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>particle_count</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Number of particles per iteration. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>ir_min</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Minimum kernel radius scale. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>ir_max</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Maximum kernel radius scale. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>size_distrib_exp</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Exponent controlling particle size bias. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>erosion_strength</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Global strength of erosion applied per iteration. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>randomness</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Controls randomness in particle trajectories. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>exit_forcing</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Forcing strength towards the domain frontier.</para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<bold>Example</bold> <programlisting filename="ex_conv_erosion.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline><highlight class="normal">{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1log_1a2b618829e9c711302f726a3ec3f4ff49" kindref="member">hmap::log::warn</ref>(</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;conv_erosion<sp/>is<sp/>deprecated<sp/>and<sp/>will<sp/>be<sp/>removed<sp/>at<sp/>some<sp/>point.&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1adb8336ed4d83c15500872185dee45d50" kindref="member">hmap::gpu::init_opencl</ref>();</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec2<sp/><sp/>kw<sp/>=<sp/>{4.f,<sp/>4.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>4;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{512,<sp/>512};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>shape<sp/>=<sp/>{1024,<sp/>1024};</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z0<sp/>=<sp/><ref refid="namespacehmap_1a7d699a468a18be16c70654958ee13b41" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>kw,<sp/>seed);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>z0<sp/>=<sp/><ref refid="namespacehmap_1ae3ecf5f88476c5d49978a130f8cab2f3" kindref="member">hmap::bulkify</ref>(z0,<sp/><ref refid="namespacehmap_1a55542a66f890ef9ecf5f82af2c23a0cfa71a3d57896b6c2d066433962e74e8961" kindref="member">hmap::PrimitiveType::PRIM_CONE_SMOOTH</ref>,<sp/>0.5f);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/>z0;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>iterations<sp/>=<sp/>20;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>particle_count<sp/>=<sp/>2500;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>ir_min<sp/>=<sp/>1;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>ir_max<sp/>=<sp/>1;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>size_distrib_exp<sp/>=<sp/>2.f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>erosion_strength<sp/>=<sp/>0.01f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>randomness<sp/>=<sp/>0.002f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>exit_forcing<sp/>=<sp/>0.01f;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a453995ce289c0c3dad0f34fe10a54d74" kindref="member">hmap::gpu::conv_erosion</ref>(z1,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iterations,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>particle_count,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ir_min,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ir_max,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>size_distrib_exp,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>erosion_strength,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>randomness,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exit_forcing);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>hmap::gpu::deposition_fill_holes(z1,<sp/>4,<sp/>1.f);</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>z1.dump(</highlight><highlight class="stringliteral">&quot;out.png&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_conv_erosion.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z0,<sp/>z1},</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9" kindref="member">hmap::Cmap::TERRAIN</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal">}</highlight></codeline>
-</programlisting></para>
-<para><bold>Result</bold> <image type="html" name="ex_conv_erosion.png"></image>
- </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/erosion/conv_erosion.cpp" line="179" column="6" bodyfile="HighMap/src/erosion/conv_erosion.cpp" bodystart="179" bodyend="304" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="447" declcolumn="6"/>
-      </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a4f8838aa7fe59a353b60e3d03e0d5a8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::gpu::hydraulic_musgrave</definition>
@@ -733,7 +519,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_musgrave_gpu.cpp" line="21" column="6" bodyfile="HighMap/src/erosion/hydraulic_musgrave_gpu.cpp" bodystart="21" bodyend="78" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="473" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_musgrave_gpu.cpp" line="21" column="6" bodyfile="HighMap/src/erosion/hydraulic_musgrave_gpu.cpp" bodystart="21" bodyend="78" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="431" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a7b00e9d4012a7026230454d0d5528760" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -782,7 +568,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_musgrave_gpu.cpp" line="80" column="6" bodyfile="HighMap/src/erosion/hydraulic_musgrave_gpu.cpp" bodystart="80" bodyend="99" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="485" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_musgrave_gpu.cpp" line="80" column="6" bodyfile="HighMap/src/erosion/hydraulic_musgrave_gpu.cpp" bodystart="80" bodyend="99" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="443" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a8497e2fce595293ea07e68eac1e5bce2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -25007,56 +24793,6 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/src/transform/warp_gpu.cpp" line="16" column="6" bodyfile="HighMap/src/transform/warp_gpu.cpp" bodystart="16" bodyend="65" declfile="HighMap/include/highmap/transform.hpp" declline="821" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a23b30113ce94eb8de610c6784f5a9cd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>std::vector&lt; glm::ivec2 &gt;</type>
-        <definition>std::vector&lt; glm::ivec2 &gt; hmap::gpu::compute_particle_path</definition>
-        <argsstring>(const Array &amp;z, glm::ivec2 start, bool allow_uphill, float randomness, std::uint32_t seed, float inertia, float exit_weight, int border_margin, Mat&lt; uint8_t &gt; &amp;visited)</argsstring>
-        <name>compute_particle_path</name>
-        <qualifiedname>hmap::gpu::compute_particle_path</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>z</declname>
-        </param>
-        <param>
-          <type>glm::ivec2</type>
-          <declname>start</declname>
-        </param>
-        <param>
-          <type>bool</type>
-          <declname>allow_uphill</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>randomness</declname>
-        </param>
-        <param>
-          <type>std::uint32_t</type>
-          <declname>seed</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>inertia</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>exit_weight</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>border_margin</declname>
-        </param>
-        <param>
-          <type><ref refid="structhmap_1_1Mat" kindref="compound">Mat</ref>&lt; uint8_t &gt; &amp;</type>
-          <declname>visited</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/erosion/conv_erosion.cpp" line="31" column="13" bodyfile="HighMap/src/erosion/conv_erosion.cpp" bodystart="31" bodyend="177"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a88838a8a701facc69ddace7b1e98f837" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>float</type>
