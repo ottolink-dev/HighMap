@@ -9,7 +9,7 @@ var searchData=
   ['data_20structures_6',['Core Data Structures',['../md_docs_2content_2dev_2architecture.html#autotoc_md5',1,'']]],
   ['data_5ftype_7',['data_type',['../structhmap_1_1ImageWriterConfig.html#a481586b28e6d78db02843fcb819e0583',1,'hmap::ImageWriterConfig']]],
   ['debris_8',['debris',['../structhmap_1_1MiseParams.html#ad1ba2da17a0fa03a7378c068e594dc33',1,'hmap::MiseParams']]],
-  ['decasteljau_9',['decasteljau',['../namespacehmap.html#af9b55527f8d0f1c01d110b3144ee7d91',1,'hmap::decasteljau(const Path &amp;path, int edge_divisions=10, Path::EdgeDivisionMode edm=Path::EdgeDivisionMode::EDM_PER_EDGE)'],['../namespacehmap.html#aa78bf111867e13c63d8bd2ec005ad6c8a29d7faf9b49a89c11c9bc3e3f2190e23',1,'hmap::DECASTELJAU']]],
+  ['decasteljau_9',['decasteljau',['../namespacehmap.html#aa78bf111867e13c63d8bd2ec005ad6c8a29d7faf9b49a89c11c9bc3e3f2190e23',1,'hmap::DECASTELJAU'],['../namespacehmap.html#af9b55527f8d0f1c01d110b3144ee7d91',1,'hmap::decasteljau(const Path &amp;path, int edge_divisions=10, Path::EdgeDivisionMode edm=Path::EdgeDivisionMode::EDM_PER_EDGE)']]],
   ['decimate_5fvw_10',['decimate_vw',['../namespacehmap.html#a862fef5e0387bea9358648fc7aa5680b',1,'hmap']]],
   ['decision_11',['4. Overall Decision',['..//home/runner/work/HighMap/HighMap/docs/content/dev/investigations/fft_convolution_and_morphology.md#autotoc_md39',1,'']]],
   ['deep_20dives_12',['4. Subsystem Deep Dives',['../md_docs_2content_2dev_2architecture.html#autotoc_md14',1,'']]],
