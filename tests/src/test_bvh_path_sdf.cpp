@@ -360,7 +360,8 @@ TEST(BVH2DPathSDF, GpuPathSdfToArrayMatchesCpu)
       EXPECT_FALSE(std::isnan(gpu_open(i, j)));
       EXPECT_FALSE(std::isinf(gpu_open(i, j)));
       EXPECT_NEAR(gpu_open(i, j), cpu_open(i, j), 1e-3f)
-          << "GPU open path_sdf_to_array mismatch at (" << i << ", " << j << ")";
+          << "GPU open path_sdf_to_array mismatch at (" << i << ", " << j
+          << ")";
     }
   }
 
@@ -384,7 +385,8 @@ TEST(BVH2DPathSDF, GpuPathSdfToArrayMatchesCpu)
       EXPECT_FALSE(std::isnan(gpu_closed(i, j)));
       EXPECT_FALSE(std::isinf(gpu_closed(i, j)));
       EXPECT_NEAR(gpu_closed(i, j), cpu_closed(i, j), 1e-3f)
-          << "GPU closed path_sdf_to_array mismatch at (" << i << ", " << j << ")";
+          << "GPU closed path_sdf_to_array mismatch at (" << i << ", " << j
+          << ")";
     }
   }
 
@@ -402,7 +404,8 @@ TEST(BVH2DPathSDF, GpuPathSdfToArrayMatchesCpu)
       EXPECT_FALSE(std::isnan(gpu_warped(i, j)));
       EXPECT_FALSE(std::isinf(gpu_warped(i, j)));
       EXPECT_NEAR(gpu_warped(i, j), cpu_warped(i, j), 1e-3f)
-          << "GPU warped path_sdf_to_array mismatch at (" << i << ", " << j << ")";
+          << "GPU warped path_sdf_to_array mismatch at (" << i << ", " << j
+          << ")";
     }
   }
 }
@@ -421,7 +424,12 @@ TEST(BVH2DPathSDF, PathSdfBezierToArrayMatchesSdf2DPolylineBezier)
   Array bf = path_sdf_bezier_to_array_brute_force(path, shape, bbox);
   Array bvh = path_sdf_bezier_to_array_bvh(path, shape, bbox);
   Array def = path_sdf_bezier_to_array(path, shape, bbox);
-  Array no_bvh = path_sdf_bezier_to_array(path, shape, bbox, nullptr, nullptr, false);
+  Array no_bvh = path_sdf_bezier_to_array(path,
+                                          shape,
+                                          bbox,
+                                          nullptr,
+                                          nullptr,
+                                          false);
   Array ref = sdf_2d_polyline_bezier(path, shape, bbox);
 
   for (int j = 0; j < shape.y; ++j)

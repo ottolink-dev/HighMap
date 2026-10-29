@@ -63,35 +63,17 @@ int main(void)
   hmap::Array z_graph(shape, 0.f);
   stream_graph.to_array(z_graph, bbox, false);
 
-  // carve consistent river network with trench evolving width downstream
-  hmap::Array z_trenched = z;
-  float       base_width = 0.05f;
-  float       width_exponent = 1.f;
+  // carve stream pixel-wise for visual checking
+  hmap::Array z_carved = z;
+  float       depth = 0.05f;
 
-  std::vector<float> rel_widths = stream_graph.compute_relative_widths(
-      width_exponent);
-
-  hmap::trench(z_trenched,
-               stream_graph,
-               rel_widths,
-               base_width,
-               /* enable_width_depth_scaling */ false,
-               hmap::RadialProfile::RP_SMOOTHSTEP_UPPER,
-               2.f,
-               hmap::ElevationLongitudinalProfile::ELP_DECREASING,
-               -0.1f);
-
-  hmap::Array zc(shape);
-
-  for (int j = 0; j < shape.y - 1; ++j)
-    for (int i = 0; i < shape.x - 1; ++i)
-    {
-      float zg = z_graph(i, j);
-      zc(i, j) = zg > 0.f ? zg - 0.05f : z(i, j);
-    }
+  for (int j = 0; j < shape.y; ++j)
+    for (int i = 0; i < shape.x; ++i)
+      if (z_graph(i, j) > 0.f)
+        z_carved(i, j) = std::max(0.f, z(i, j) - depth);
 
   hmap::export_banner_png("ex_flow_stream.png",
-                          {z, z_graph, z_trenched, zc},
+                          {z, z_graph, z_carved},
                           hmap::Cmap::JET,
                           true);
 }

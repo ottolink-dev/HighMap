@@ -466,6 +466,7 @@ Path flow_stream(const TerrainTriMesh    &mesh,
   }
 
   Path path(path_points);
+  path.enforce_monotonic_values(true);
 
   if (truncate_at_intersection && !existing_streams.empty())
     path = truncate_at_first_intersection(path, existing_streams);
