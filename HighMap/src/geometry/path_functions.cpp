@@ -416,6 +416,47 @@ Path meanderize(const Path            &path,
   return bspline(path_wrk, edge_divisions, edm);
 }
 
+Array path_sdf_bezier_to_array(const Path  &path,
+                               glm::ivec2   shape,
+                               glm::vec4    bbox_array,
+                               const Array *p_noise_x,
+                               const Array *p_noise_y,
+                               bool         use_bvh)
+{
+  return sdf_2d_polyline_bezier(path,
+                                shape,
+                                bbox_array,
+                                p_noise_x,
+                                p_noise_y,
+                                use_bvh);
+}
+
+Array path_sdf_bezier_to_array_brute_force(const Path  &path,
+                                           glm::ivec2   shape,
+                                           glm::vec4    bbox_array,
+                                           const Array *p_noise_x,
+                                           const Array *p_noise_y)
+{
+  return sdf_2d_polyline_bezier_brute_force(path,
+                                            shape,
+                                            bbox_array,
+                                            p_noise_x,
+                                            p_noise_y);
+}
+
+Array path_sdf_bezier_to_array_bvh(const Path  &path,
+                                   glm::ivec2   shape,
+                                   glm::vec4    bbox_array,
+                                   const Array *p_noise_x,
+                                   const Array *p_noise_y)
+{
+  return sdf_2d_polyline_bezier_bvh(path,
+                                    shape,
+                                    bbox_array,
+                                    p_noise_x,
+                                    p_noise_y);
+}
+
 Array path_sdf_to_array(const Path  &path,
                         glm::ivec2   shape,
                         glm::vec4    bbox_array,

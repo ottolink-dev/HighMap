@@ -741,6 +741,39 @@ Path meanderize(
     Path::EdgeDivisionMode edm = Path::EdgeDivisionMode::EDM_PER_EDGE);
 
 /**
+ * @brief Converts a 2D path treated as a piecewise quadratic Bezier curve to a signed distance field (SDF) array.
+ *
+ * For each grid cell, computes the distance to the nearest point on the Bezier curves formed by consecutive
+ * point triplets, optionally applying domain warping using noise fields.
+ *
+ * @param  path       Input point path.
+ * @param  shape      Output array dimensions.
+ * @param  bbox_array Bounding box of the output domain.
+ * @param  p_noise_x  Optional x-direction noise (domain warp).
+ * @param  p_noise_y  Optional y-direction noise (domain warp).
+ * @param  use_bvh    Whether to use BVH acceleration (default: true).
+ * @return            Array of signed distances to the Bezier curve.
+ */
+Array path_sdf_bezier_to_array(const Path  &path,
+                               glm::ivec2   shape,
+                               glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
+                               const Array *p_noise_x = nullptr,
+                               const Array *p_noise_y = nullptr,
+                               bool         use_bvh = true);
+
+Array path_sdf_bezier_to_array_brute_force(const Path  &path,
+                                           glm::ivec2   shape,
+                                           glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
+                                           const Array *p_noise_x = nullptr,
+                                           const Array *p_noise_y = nullptr);
+
+Array path_sdf_bezier_to_array_bvh(const Path  &path,
+                                   glm::ivec2   shape,
+                                   glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
+                                   const Array *p_noise_x = nullptr,
+                                   const Array *p_noise_y = nullptr);
+
+/**
  * @brief Compute a distance field from a point path.
  *
  * For each grid cell, computes the distance to the nearest point in the path,
@@ -775,6 +808,13 @@ Array path_sdf_to_array_bvh(const Path  &path,
 
 namespace gpu
 {
+
+/*! @brief See hmap::path_sdf_bezier_to_array */
+Array path_sdf_bezier_to_array(const Path  &path,
+                               glm::ivec2   shape,
+                               glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
+                               const Array *p_noise_x = nullptr,
+                               const Array *p_noise_y = nullptr);
 
 /*! @brief See hmap::path_sdf_to_array */
 Array path_sdf_to_array(const Path  &path,

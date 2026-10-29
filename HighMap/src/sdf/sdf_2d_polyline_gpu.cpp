@@ -163,4 +163,13 @@ Array sdf_2d_polyline_bezier(const Path  &path,
   return sdf2;
 }
 
+Array path_sdf_bezier_to_array(const Path  &path,
+                               glm::ivec2   shape,
+                               glm::vec4    bbox_array,
+                               const Array *p_noise_x,
+                               const Array *p_noise_y)
+{
+  return sdf_2d_polyline_bezier(path, shape, bbox_array, p_noise_x, p_noise_y);
+}
+
 } // namespace hmap::gpu

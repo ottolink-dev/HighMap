@@ -406,3 +406,45 @@ TEST(BVH2DPathSDF, GpuPathSdfToArrayMatchesCpu)
     }
   }
 }
+
+TEST(BVH2DPathSDF, PathSdfBezierToArrayMatchesSdf2DPolylineBezier)
+{
+  Path path(std::vector<Point>{{0.1f, 0.2f, 0.f},
+                               {0.3f, 0.8f, 0.f},
+                               {0.6f, 0.1f, 0.f},
+                               {0.9f, 0.7f, 0.f},
+                               {0.5f, 0.5f, 0.f}});
+
+  glm::ivec2 shape(32, 32);
+  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+
+  Array bf = path_sdf_bezier_to_array_brute_force(path, shape, bbox);
+  Array bvh = path_sdf_bezier_to_array_bvh(path, shape, bbox);
+  Array def = path_sdf_bezier_to_array(path, shape, bbox);
+  Array no_bvh = path_sdf_bezier_to_array(path, shape, bbox, nullptr, nullptr, false);
+  Array ref = sdf_2d_polyline_bezier(path, shape, bbox);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_NEAR(bvh(i, j), bf(i, j), 1e-4f);
+      EXPECT_FLOAT_EQ(def(i, j), bvh(i, j));
+      EXPECT_FLOAT_EQ(no_bvh(i, j), bf(i, j));
+      EXPECT_FLOAT_EQ(def(i, j), ref(i, j));
+    }
+  }
+
+  // GPU test
+  Array gpu_res = gpu::path_sdf_bezier_to_array(path, shape, bbox);
+  Array gpu_ref = gpu::sdf_2d_polyline_bezier(path, shape, bbox);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_FLOAT_EQ(gpu_res(i, j), gpu_ref(i, j));
+      EXPECT_NEAR(gpu_res(i, j), def(i, j), 1e-3f);
+    }
+  }
+}
