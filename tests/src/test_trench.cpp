@@ -419,3 +419,80 @@ TEST(TrenchCarving, GraphFlowNetworkWithOutletDistanceScaling)
   int i_mouth_offset = i_mouth + static_cast<int>(std::round(0.035f * 64.f));
   EXPECT_LT(z(i_mouth_offset, j_mouth), 1.0f);
 }
+
+TEST(CarveRiver, RiverNetworkIncisionAndMonotonicity)
+{
+  glm::ivec2  shape = {64, 64};
+  hmap::Array z(shape, 1.0f);
+  hmap::Array z_orig = z;
+
+  // Y-confluence network
+  hmap::Graph g;
+  g.push_back(hmap::Point(0.2f, 0.8f, 1.0f)); // 0: headwater 1
+  g.push_back(hmap::Point(0.8f, 0.8f, 0.9f)); // 1: headwater 2
+  g.push_back(hmap::Point(0.5f, 0.5f, 0.6f)); // 2: confluence
+  g.push_back(hmap::Point(0.5f, 0.1f, 0.2f)); // 3: outlet
+
+  g.add_edge(0, 2);
+  g.add_edge(1, 2);
+  g.add_edge(2, 3);
+
+  float outlet_width = 0.10f;
+  float headwater_width = 0.02f;
+  float depth = 0.15f;
+
+  hmap::Array mask;
+  hmap::carve_river(z,
+                    g,
+                    outlet_width,
+                    headwater_width,
+                    /* width_exponent */ 0.5f,
+                    depth,
+                    /* bank_width_ratio */ 1.0f,
+                    hmap::RadialProfile::RP_SMOOTHSTEP_UPPER,
+                    2.0f,
+                    /* p_noise_r */ nullptr,
+                    &mask);
+
+  // 1. Strict incision: terrain should never be raised
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_LE(z(i, j), z_orig(i, j) + 1e-6f);
+      EXPECT_FALSE(std::isnan(z(i, j)));
+      EXPECT_FALSE(std::isinf(z(i, j)));
+      EXPECT_GE(mask(i, j), 0.f);
+      EXPECT_LE(mask(i, j), 1.f);
+    }
+  }
+
+  // 2. Channel floor incision along stream path
+  // At the outlet node (0.5, 0.1) -> pixel (32, 6)
+  int i_out = static_cast<int>(std::round(0.5f * (shape.x - 1)));
+  int j_out = static_cast<int>(std::round(0.1f * (shape.y - 1)));
+  EXPECT_LT(z(i_out, j_out), 1.0f);
+  EXPECT_NEAR(z(i_out, j_out), 0.2f - depth, 0.05f);
+
+  // 3. Tributary confluence is carved
+  int i_conf = static_cast<int>(std::round(0.5f * (shape.x - 1)));
+  int j_conf = static_cast<int>(std::round(0.5f * (shape.y - 1)));
+  EXPECT_LT(z(i_conf, j_conf), 1.0f);
+
+  // 4. Outlet has wider incision than headwater
+  // Measure carved width along horizontal slices
+  int carved_cells_headwater = 0;
+  int j_head = static_cast<int>(std::round(0.8f * (shape.y - 1)));
+  for (int i = 0; i < shape.x; ++i)
+  {
+    if (mask(i, j_head) > 0.05f) carved_cells_headwater++;
+  }
+
+  int carved_cells_outlet = 0;
+  for (int i = 0; i < shape.x; ++i)
+  {
+    if (mask(i, j_out) > 0.05f) carved_cells_outlet++;
+  }
+
+  EXPECT_GT(carved_cells_outlet, carved_cells_headwater);
+}

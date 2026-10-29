@@ -50,8 +50,7 @@ void kernel sdf_2d_polyline(global float   *sdf2,
       int c1 = pos.y < p_next.y ? 1 : 0;
       int c2 = (e.x * w.y > e.y * w.x) ? 1 : 0;
 
-      if ((c0 && c1 && c2) || (!c0 && !c1 && !c2))
-        s *= -1.f;
+      if ((c0 && c1 && c2) || (!c0 && !c1 && !c2)) s *= -1.f;
     }
   }
 

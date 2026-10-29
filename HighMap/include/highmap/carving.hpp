@@ -302,4 +302,55 @@ void trench(Array        &z,
             int          tile_size = 32,
             glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
 
+/**
+ * @brief Carves a continuous river network into a heightmap along a directed
+ * flow Graph.
+ *
+ * Channel width scales continuously with accumulated upstream drainage length
+ * (flow accumulation) along the network DAG:
+ *
+ * `w(u) = headwater_width + (outlet_width - headwater_width) * (accum(u) /
+ * max_accum)^width_exponent`
+ *
+ * Elevation is carved downward using a radial profile cross-section with
+ * guaranteed monotonic incision (i.e. terrain elevations are never raised):
+ *
+ * `z_carved(x, y) = min(z(x, y), z_channel(x, y))`
+ *
+ * @param[in,out] z                        Target heightmap to carve in-place.
+ * @param[in]     graph                    Input flow network Graph.
+ * @param[in]     outlet_width             Maximum channel bed width at the
+ *                                         downstream outlet(s).
+ * @param[in]     headwater_width          Minimum channel bed width at upstream
+ *                                         headwaters (default: 0).
+ * @param[in]     width_exponent           Scaling exponent for width relative
+ *                                         to flow accumulation (default: 0.5).
+ * @param[in]     depth                    Incision depth below graph elevation
+ *                                         (default: 0.05).
+ * @param[in]     bank_width_ratio         Ratio of bank transition width to bed
+ *                                         width (default: 1.0).
+ * @param[in]     radial_profile           Radial profile cross-section for bank
+ *                                         and bed transition.
+ * @param[in]     radial_profile_parameter Shaping parameter for the radial
+ *                                         profile.
+ * @param[in]     p_noise_r                Optional noise array for radial
+ *                                         perturbation.
+ * @param[out]    p_river_mask             Optional output mask in [0, 1] of
+ *                                         carved river channel.
+ * @param[in]     bbox                     Domain bounding box.
+ */
+void carve_river(
+    Array        &z,
+    const Graph  &graph,
+    float         outlet_width,
+    float         headwater_width = 0.f,
+    float         width_exponent = 0.5f,
+    float         depth = 0.05f,
+    float         bank_width_ratio = 1.0f,
+    RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
+    float         radial_profile_parameter = 2.f,
+    const Array  *p_noise_r = nullptr,
+    Array        *p_river_mask = nullptr,
+    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+
 } // namespace hmap

@@ -140,6 +140,21 @@ public:
   std::vector<float> compute_distance_to_outlet() const;
 
   /**
+   * @brief Compute accumulated upstream flow length along directed stream
+   * edges.
+   *
+   * Traverses nodes in topological order from upstream headwaters to downstream
+   * outlets, accumulating incoming edge lengths:
+   *
+   * `accum[v] = sum_{u in upstream(v)} (accum[u] + dist(u, v))`
+   *
+   * Headwater nodes with no incoming upstream flow start with 0.
+   *
+   * @return Vector containing accumulated upstream length per node.
+   */
+  std::vector<float> compute_flow_accumulation() const;
+
+  /**
    * @brief Compute relative channel width ratio in [0, 1] for each node in the
    * graph.
    *

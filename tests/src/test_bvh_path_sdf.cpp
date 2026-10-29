@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "highmap/array.hpp"
+#include "highmap/geometry/graph.hpp"
 #include "highmap/geometry/path.hpp"
 #include "highmap/sdf.hpp"
 
@@ -453,6 +454,59 @@ TEST(BVH2DPathSDF, PathSdfBezierToArrayMatchesSdf2DPolylineBezier)
     {
       EXPECT_FLOAT_EQ(gpu_res(i, j), gpu_ref(i, j));
       EXPECT_NEAR(gpu_res(i, j), def(i, j), 1e-3f);
+    }
+  }
+}
+
+TEST(BVH2DGraphSDF, MatchesBruteForceAndBVH)
+{
+  Graph graph;
+
+  graph.push_back(Point(0.2f, 0.2f, 0.f));
+  graph.push_back(Point(0.5f, 0.5f, 0.f));
+  graph.push_back(Point(0.8f, 0.2f, 0.f));
+  graph.push_back(Point(0.5f, 0.8f, 0.f));
+
+  graph.add_edge(0, 1);
+  graph.add_edge(2, 1);
+  graph.add_edge(1, 3);
+
+  glm::ivec2 shape(32, 32);
+  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+
+  Array bf = sdf_2d_graph_brute_force(graph, shape, bbox);
+  Array bvh = sdf_2d_graph_bvh(graph, shape, bbox);
+  Array def = sdf_2d_graph(graph, shape, bbox);
+  Array to_arr = graph.to_array_sdf(shape, bbox);
+
+  ASSERT_EQ(bf.shape.x, bvh.shape.x);
+  ASSERT_EQ(bf.shape.y, bvh.shape.y);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_NEAR(bvh(i, j), bf(i, j), 1e-5f)
+          << "Mismatch at (" << i << ", " << j << ")";
+      EXPECT_FLOAT_EQ(def(i, j), bvh(i, j));
+      EXPECT_FLOAT_EQ(to_arr(i, j), bvh(i, j));
+    }
+  }
+}
+
+TEST(BVH2DGraphSDF, EmptyGraphYieldsLargeDistance)
+{
+  Graph      graph;
+  glm::ivec2 shape(16, 16);
+  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+
+  Array res = sdf_2d_graph(graph, shape, bbox);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_GE(res(i, j), 1e5f);
     }
   }
 }

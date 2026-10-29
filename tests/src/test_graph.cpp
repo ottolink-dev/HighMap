@@ -250,3 +250,36 @@ TEST(GraphTest, EnforceDownhillElevation)
   EXPECT_LE(g2[3].v, g2[2].v - min_slope * dist_23);
   EXPECT_LT(g2[3].v, g2[2].v);
 }
+
+TEST(GraphTest, FlowAccumulation)
+{
+  // A Y-shaped confluence network:
+  // Node 0 (0, 1) and Node 1 (1, 1) meet at Node 2 (0.5, 0.5), which flows to
+  // Node 3 (0.5, 0.0)
+  Graph g;
+  g.push_back(Point(0.0f, 1.0f, 1.0f)); // 0: headwater 1
+  g.push_back(Point(1.0f, 1.0f, 0.9f)); // 1: headwater 2
+  g.push_back(Point(0.5f, 0.5f, 0.5f)); // 2: confluence
+  g.push_back(Point(0.5f, 0.0f, 0.1f)); // 3: outlet
+
+  g.add_edge(0, 2);
+  g.add_edge(1, 2);
+  g.add_edge(2, 3);
+
+  std::vector<float> accum = g.compute_flow_accumulation();
+  ASSERT_EQ(accum.size(), 4u);
+
+  // headwaters have 0 accumulation
+  EXPECT_FLOAT_EQ(accum[0], 0.f);
+  EXPECT_FLOAT_EQ(accum[1], 0.f);
+
+  // node 2 accumulates length from edge (0->2) and edge (1->2)
+  float len_02 = std::sqrt(0.5f * 0.5f + 0.5f * 0.5f);
+  float len_12 = std::sqrt(0.5f * 0.5f + 0.5f * 0.5f);
+  EXPECT_NEAR(accum[2], len_02 + len_12, 1e-4f);
+
+  // node 3 accumulates accum[2] plus edge (2->3)
+  float len_23 = 0.5f;
+  EXPECT_NEAR(accum[3], accum[2] + len_23, 1e-4f);
+  EXPECT_GT(accum[3], accum[2]);
+}

@@ -63,14 +63,25 @@ int main(void)
   hmap::Array z_graph(shape, 0.f);
   stream_graph.to_array(z_graph, bbox, false);
 
-  // carve stream pixel-wise for visual checking
+  // carve river network into terrain with flow-accumulation width scaling
   hmap::Array z_carved = z;
-  float       depth = 0.05f;
+  hmap::Array river_mask;
+  float       outlet_width = 0.05f;
+  float       headwater_width = 0.001f;
+  float       depth = 0.1f;
+  float       bank_width_ratio = 1.0f;
 
-  for (int j = 0; j < shape.y; ++j)
-    for (int i = 0; i < shape.x; ++i)
-      if (z_graph(i, j) > 0.f)
-        z_carved(i, j) = std::max(0.f, z(i, j) - depth);
+  hmap::carve_river(z_carved,
+                    stream_graph,
+                    outlet_width,
+                    headwater_width,
+                    /* width_exponent */ 0.5f,
+                    depth,
+                    bank_width_ratio,
+                    hmap::RadialProfile::RP_SMOOTHSTEP_UPPER,
+                    2.0f,
+                    /* p_noise_r */ nullptr,
+                    &river_mask);
 
   hmap::export_banner_png("ex_flow_stream.png",
                           {z, z_graph, z_carved},

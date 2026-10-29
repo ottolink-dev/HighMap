@@ -24,6 +24,7 @@
 #include "highmap/geometry/point.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/operator.hpp"
+#include "highmap/sdf.hpp"
 
 #include <format>
 
@@ -205,6 +206,95 @@ std::vector<float> Graph::compute_distance_to_outlet() const
   }
 
   return dist;
+}
+
+std::vector<float> Graph::compute_flow_accumulation() const
+{
+  const size_t       n = this->size();
+  std::vector<float> accum(n, 0.f);
+
+  if (n == 0 || this->edge_list.empty()) return accum;
+
+  // build directed downstream edges: from higher elevation to lower elevation
+  std::vector<std::vector<int>> downstream_neighbors(n);
+  std::vector<int>              in_degree(n, 0);
+
+  for (const auto &edge : this->edge_list)
+  {
+    int u = edge.u;
+    int v = edge.v;
+
+    if (u < 0 || static_cast<size_t>(u) >= n || v < 0 ||
+        static_cast<size_t>(v) >= n || u == v)
+      continue;
+
+    float vu = this->points[u].v;
+    float vv = this->points[v].v;
+
+    int from = u;
+    int to = v;
+
+    if (vu < vv || (vu == vv && u > v))
+    {
+      from = v;
+      to = u;
+    }
+
+    downstream_neighbors[from].push_back(to);
+    in_degree[to]++;
+  }
+
+  // Kahn's algorithm: topological sort from upstream headwaters to downstream
+  // outlets
+  std::queue<int>  q;
+  std::vector<int> in_deg_remaining = in_degree;
+
+  for (size_t i = 0; i < n; ++i)
+  {
+    if (in_deg_remaining[i] == 0) q.push(static_cast<int>(i));
+  }
+
+  std::vector<int> topo_order;
+  topo_order.reserve(n);
+
+  while (!q.empty())
+  {
+    int u = q.front();
+    q.pop();
+    topo_order.push_back(u);
+
+    for (int v : downstream_neighbors[u])
+    {
+      in_deg_remaining[v]--;
+      if (in_deg_remaining[v] == 0) q.push(v);
+    }
+  }
+
+  // if any cycle existed, append remaining nodes
+  if (topo_order.size() < n)
+  {
+    std::vector<bool> visited(n, false);
+    for (int u : topo_order)
+      visited[u] = true;
+
+    for (size_t i = 0; i < n; ++i)
+      if (!visited[i]) topo_order.push_back(static_cast<int>(i));
+  }
+
+  // accumulate flow in topological order from upstream to downstream
+  for (int u : topo_order)
+  {
+    for (int v : downstream_neighbors[u])
+    {
+      float edge_len = glm::distance(
+          glm::vec2(this->points[u].x, this->points[u].y),
+          glm::vec2(this->points[v].x, this->points[v].y));
+
+      accum[v] += (accum[u] + edge_len);
+    }
+  }
+
+  return accum;
 }
 
 std::vector<float> Graph::compute_relative_widths(float exponent) const
@@ -881,48 +971,8 @@ Array Graph::to_array_sdf(glm::ivec2 shape,
                           Array     *p_noise_y,
                           glm::vec4  bbox_array) const
 {
-  if (!validate_shape(shape)) return Array();
-  if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
-  if (p_noise_y && !validate_same_shape(shape, *p_noise_y)) return Array();
-
-  // nodes
-  std::vector<float> xp = this->get_edge_x_pairs();
-  std::vector<float> yp = this->get_edge_y_pairs();
-
-  for (size_t k = 0; k < xp.size(); k++)
-  {
-    xp[k] = (xp[k] - bbox.x) / (bbox.y - bbox.x);
-    yp[k] = (yp[k] - bbox.z) / (bbox.w - bbox.z);
-  }
-
-  // fill heightmap
-  auto distance_fct = [&xp, &yp](float x, float y, float)
-  {
-    float d = std::numeric_limits<float>::max();
-
-    for (size_t i = 0; i < xp.size() - 1; i += 2)
-    {
-      size_t    j = i + 1;
-      glm::vec2 e = {xp[j] - xp[i], yp[j] - yp[i]};
-      glm::vec2 w = {x - xp[i], y - yp[i]};
-      float     len2 = dot(e, e);
-      float     coeff = (len2 > 1e-12f) ? std::clamp(dot(w, e) / len2, 0.f, 1.f)
-                                        : 0.f;
-      glm::vec2 b = {w.x - e.x * coeff, w.y - e.y * coeff};
-      d = std::min(d, dot(b, b));
-    }
-    return std::sqrt(d);
-  };
-
-  Array z = Array(shape);
-  fill_array_using_xy_function(z,
-                               bbox_array,
-                               nullptr,
-                               p_noise_x,
-                               p_noise_y,
-                               nullptr,
-                               distance_fct);
-  return z;
+  (void)bbox;
+  return sdf_2d_graph(*this, shape, bbox_array, p_noise_x, p_noise_y, true);
 }
 
 void Graph::to_csv(const std::string &fname_xy,

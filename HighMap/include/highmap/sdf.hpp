@@ -84,6 +84,42 @@ Array sdf_2d_polyline_bezier_bvh(const Path  &path,
                                  const Array *p_noise_x = nullptr,
                                  const Array *p_noise_y = nullptr);
 
+/**
+ * @brief Computes the 2D unsigned distance field to a graph network.
+ *
+ * Calculates the Euclidean distance from each cell to the closest edge of the
+ * graph. Supports accelerated BVH queries and coordinate perturbation.
+ *
+ * @param  graph     Input graph containing nodes and edges.
+ * @param  shape     Dimensions (width, height) of the output array grid.
+ * @param  bbox      Bounding box of the array grid in the format (xmin, xmax,
+ *                   ymin, ymax).
+ * @param  p_noise_x Pointer to an optional noise array for perturbing
+ *                   x-coordinates.
+ * @param  p_noise_y Pointer to an optional noise array for perturbing
+ *                   y-coordinates.
+ * @param  use_bvh   Whether to use BVH spatial acceleration (default: true).
+ * @return           Array containing Euclidean distance to the graph network.
+ */
+Array sdf_2d_graph(const Graph &graph,
+                   glm::ivec2   shape,
+                   glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
+                   const Array *p_noise_x = nullptr,
+                   const Array *p_noise_y = nullptr,
+                   bool         use_bvh = true);
+
+Array sdf_2d_graph_brute_force(const Graph &graph,
+                               glm::ivec2   shape,
+                               glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
+                               const Array *p_noise_x = nullptr,
+                               const Array *p_noise_y = nullptr);
+
+Array sdf_2d_graph_bvh(const Graph &graph,
+                       glm::ivec2   shape,
+                       glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
+                       const Array *p_noise_x = nullptr,
+                       const Array *p_noise_y = nullptr);
+
 } // namespace hmap
 
 namespace hmap::gpu

@@ -741,10 +741,12 @@ Path meanderize(
     Path::EdgeDivisionMode edm = Path::EdgeDivisionMode::EDM_PER_EDGE);
 
 /**
- * @brief Converts a 2D path treated as a piecewise quadratic Bezier curve to a signed distance field (SDF) array.
+ * @brief Converts a 2D path treated as a piecewise quadratic Bezier curve to a
+ * signed distance field (SDF) array.
  *
- * For each grid cell, computes the distance to the nearest point on the Bezier curves formed by consecutive
- * point triplets, optionally applying domain warping using noise fields.
+ * For each grid cell, computes the distance to the nearest point on the Bezier
+ * curves formed by consecutive point triplets, optionally applying domain
+ * warping using noise fields.
  *
  * @param  path       Input point path.
  * @param  shape      Output array dimensions.
@@ -761,15 +763,16 @@ Array path_sdf_bezier_to_array(const Path  &path,
                                const Array *p_noise_y = nullptr,
                                bool         use_bvh = true);
 
-Array path_sdf_bezier_to_array_brute_force(const Path  &path,
-                                           glm::ivec2   shape,
-                                           glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
-                                           const Array *p_noise_x = nullptr,
-                                           const Array *p_noise_y = nullptr);
+Array path_sdf_bezier_to_array_brute_force(
+    const Path  &path,
+    glm::ivec2   shape,
+    glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
+    const Array *p_noise_x = nullptr,
+    const Array *p_noise_y = nullptr);
 
-Array path_sdf_bezier_to_array_bvh(const Path  &path,
-                                   glm::ivec2   shape,
-                                   glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
+Array path_sdf_bezier_to_array_bvh(const Path &path,
+                                   glm::ivec2  shape,
+                                   glm::vec4 bbox_array = {0.f, 1.f, 0.f, 1.f},
                                    const Array *p_noise_x = nullptr,
                                    const Array *p_noise_y = nullptr);
 
