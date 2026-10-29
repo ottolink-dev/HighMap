@@ -1,5 +1,10 @@
 var NAVTREEINDEX13 =
 {
+"functions_vars_z.html":[10,3,2,24],
+"functions_w.html":[10,3,0,22],
+"functions_x.html":[10,3,0,23],
+"functions_y.html":[10,3,0,24],
+"functions_z.html":[10,3,0,25],
 "functions_~.html":[10,3,0,26],
 "gabor_8cpp.html":[11,0,1,1,30,0,2],
 "gabor_8cpp.html#a1f7e1705ee83aee82d27676cfc0308f0":[11,0,1,1,30,0,2,0],
@@ -41,15 +46,15 @@ var NAVTREEINDEX13 =
 "get__colormap__data_8cpp.html":[11,0,1,1,7,0],
 "get__colormap__data_8cpp.html#a2f2ca726f4e41128135e6c77120c66d8":[11,0,1,1,7,0,1],
 "get__colormap__data_8cpp.html#afb2677facc34ce83019137fd5a9818dd":[11,0,1,1,7,0,0],
-"globals.html":[11,1,0],
 "globals.html":[11,1,0,0],
+"globals.html":[11,1,0],
 "globals_b.html":[11,1,0,1],
 "globals_c.html":[11,1,0,2],
 "globals_d.html":[11,1,0,3],
 "globals_e.html":[11,1,0,4],
 "globals_f.html":[11,1,0,5],
-"globals_func.html":[11,1,1],
 "globals_func.html":[11,1,1,0],
+"globals_func.html":[11,1,1],
 "globals_func_e.html":[11,1,1,1],
 "globals_func_f.html":[11,1,1,2],
 "globals_func_g.html":[11,1,1,3],
@@ -244,10 +249,5 @@ var NAVTREEINDEX13 =
 "hydraulic__mise_8cpp.html#a76f11d9a0a47b94f72c2d0e77fb32240":[11,0,1,1,12,12,7],
 "hydraulic__mise_8cpp.html#a77245844cd988bd7ba04a026fbbcb872":[11,0,1,1,12,12,40],
 "hydraulic__mise_8cpp.html#a7a5dcbf1ee87dd3c79068bfff522a6ed":[11,0,1,1,12,12,28],
-"hydraulic__mise_8cpp.html#a7b0c1711fe9d99ae8bb573e099ddd5c8":[11,0,1,1,12,12,0],
-"hydraulic__mise_8cpp.html#a948708c576e7a02ba2473d1e21aa6883":[11,0,1,1,12,12,31],
-"hydraulic__mise_8cpp.html#a9f4e20a91b26459133b83992e9d8d381":[11,0,1,1,12,12,6],
-"hydraulic__mise_8cpp.html#a9fcc7f55292bbdeebe70c01203afbc6f":[11,0,1,1,12,12,14],
-"hydraulic__mise_8cpp.html#aa14e04bff7de9e968e46a953f71f29f3":[11,0,1,1,12,12,30],
-"hydraulic__mise_8cpp.html#aa5ab47ad0bc88cdca7443a52473e9482":[11,0,1,1,12,12,2]
+"hydraulic__mise_8cpp.html#a7b0c1711fe9d99ae8bb573e099ddd5c8":[11,0,1,1,12,12,0]
 };

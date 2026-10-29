@@ -8038,6 +8038,180 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </inbodydescription>
         <location file="HighMap/src/carving/trench.cpp" line="831" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="831" bodyend="863" declfile="HighMap/include/highmap/carving.hpp" declline="289" declcolumn="6"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a2976e7e9dac5ac911ac10d79ef0f6e23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::carve_river</definition>
+        <argsstring>(Array &amp;z, const Graph &amp;graph, float outlet_width, float headwater_width=0.f, float width_exponent=0.5f, float depth=0.05f, float bank_width_ratio=1.0f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP_UPPER, float radial_profile_parameter=2.f, const Array *p_noise_r=nullptr, Array *p_river_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>carve_river</name>
+        <qualifiedname>hmap::carve_river</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref> &amp;</type>
+          <declname>graph</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>outlet_width</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>headwater_width</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>width_exponent</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>depth</declname>
+          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>bank_width_ratio</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90" kindref="member">RadialProfile</ref></type>
+          <declname>radial_profile</declname>
+          <defval><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90acedc11502bd1441e893fdc5a699b6d59" kindref="member">RadialProfile::RP_SMOOTHSTEP_UPPER</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>radial_profile_parameter</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_noise_r</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_river_mask</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Carves a continuous river network into a heightmap along a directed flow <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Channel width scales continuously with accumulated upstream drainage length (flow accumulation) along the network DAG:</para>
+<para><computeroutput>w(u) = headwater_width + (outlet_width - headwater_width) * (accum(u) / max_accum)^width_exponent</computeroutput></para>
+<para>Elevation is carved downward using a radial profile cross-section with guaranteed monotonic incision (i.e. terrain elevations are never raised):</para>
+<para><computeroutput>z_carved(x, y) = min(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z(x, y)</ref>, z_channel(x, y))</computeroutput></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target heightmap to carve in-place. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">graph</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input flow network <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">outlet_width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum channel bed width at the downstream <ref refid="hydraulic__mise_8cpp_1a04ae352a41e6a2fb1296b478e5881a66" kindref="member">outlet(s)</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">headwater_width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum channel bed width at upstream headwaters (default: 0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">width_exponent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Scaling exponent for width relative to flow accumulation (default: 0.5). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">depth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Incision depth below graph elevation (default: 0.05). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">bank_width_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Ratio of bank transition width to bed width (default: 1.0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">radial_profile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Radial profile cross-section for bank and bed transition. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">radial_profile_parameter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shaping parameter for the radial profile. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p_noise_r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional noise array for radial perturbation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">p_river_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output mask in [0, 1] of carved river channel. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Domain bounding box. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/carving/carve_river.cpp" line="25" column="6" bodyfile="HighMap/src/carving/carve_river.cpp" bodystart="25" bodyend="248" declfile="HighMap/include/highmap/carving.hpp" declline="342" declcolumn="6"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a76b37b88acf83d6a5b21f1be1b50697e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::apply_hillshade</definition>
@@ -29743,7 +29917,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="419" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="419" bodyend="432" declfile="HighMap/include/highmap/geometry/path.hpp" declline="757" declcolumn="7"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="419" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="419" bodyend="432" declfile="HighMap/include/highmap/geometry/path.hpp" declline="759" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ae14039c7d5b2d32702ce31a74dc4b17e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -29780,7 +29954,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="434" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="434" bodyend="445" declfile="HighMap/include/highmap/geometry/path.hpp" declline="764" declcolumn="7"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="434" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="434" bodyend="445" declfile="HighMap/include/highmap/geometry/path.hpp" declline="766" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a83cb8e02eb80c6a19086757c6e175c87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -29817,7 +29991,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="447" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="447" bodyend="458" declfile="HighMap/include/highmap/geometry/path.hpp" declline="770" declcolumn="7"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="447" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="447" bodyend="458" declfile="HighMap/include/highmap/geometry/path.hpp" declline="773" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa309f6eee87b7e83c78afeff1adb3eaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -29913,7 +30087,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="460" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="460" bodyend="475" declfile="HighMap/include/highmap/geometry/path.hpp" declline="790" declcolumn="7"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="460" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="460" bodyend="475" declfile="HighMap/include/highmap/geometry/path.hpp" declline="793" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aca95a27cb4796288e6ac2e7bd265c611" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -29950,7 +30124,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="477" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="477" bodyend="532" declfile="HighMap/include/highmap/geometry/path.hpp" declline="797" declcolumn="7"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="477" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="477" bodyend="532" declfile="HighMap/include/highmap/geometry/path.hpp" declline="800" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a970cf834f81736d64b053de48d9bf6bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -29987,7 +30161,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="534" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="534" bodyend="665" declfile="HighMap/include/highmap/geometry/path.hpp" declline="803" declcolumn="7"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="534" column="7" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="534" bodyend="665" declfile="HighMap/include/highmap/geometry/path.hpp" declline="806" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a650c6eaf8bd10356a77c7c1f9ef9af3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
@@ -30035,7 +30209,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="667" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="667" bodyend="701" declfile="HighMap/include/highmap/geometry/path.hpp" declline="844" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="667" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="667" bodyend="701" declfile="HighMap/include/highmap/geometry/path.hpp" declline="847" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a4fcd1f7314f074c73a593197b1999080" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
@@ -30136,7 +30310,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="703" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="703" bodyend="711" declfile="HighMap/include/highmap/geometry/path.hpp" declline="866" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="703" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="703" bodyend="711" declfile="HighMap/include/highmap/geometry/path.hpp" declline="869" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aadd11cd9dde165414f778005ed69bc78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
@@ -30163,7 +30337,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="713" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="713" bodyend="716" declfile="HighMap/include/highmap/geometry/path.hpp" declline="868" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="713" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="713" bodyend="716" declfile="HighMap/include/highmap/geometry/path.hpp" declline="871" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ad81052648d6008d2b7b4a5a36a2d7830" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
@@ -30264,7 +30438,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="718" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="718" bodyend="807" declfile="HighMap/include/highmap/geometry/path.hpp" declline="905" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="718" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="718" bodyend="807" declfile="HighMap/include/highmap/geometry/path.hpp" declline="908" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a23b54b32669c529a26f86b884ffca28b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
@@ -30453,7 +30627,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_squiggle.cpp" line="170" column="6" bodyfile="HighMap/src/geometry/path_squiggle.cpp" bodystart="170" bodyend="282" declfile="HighMap/include/highmap/geometry/path.hpp" declline="943" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_squiggle.cpp" line="170" column="6" bodyfile="HighMap/src/geometry/path_squiggle.cpp" bodystart="170" bodyend="282" declfile="HighMap/include/highmap/geometry/path.hpp" declline="946" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a65e5e7e89af68f858de5181d86a42d9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; <ref refid="classhmap_1_1Path" kindref="compound">Path</ref> &gt;</type>
@@ -30601,7 +30775,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_squiggle.cpp" line="284" column="13" bodyfile="HighMap/src/geometry/path_squiggle.cpp" bodystart="284" bodyend="439" declfile="HighMap/include/highmap/geometry/path.hpp" declline="972" declcolumn="13"/>
+        <location file="HighMap/src/geometry/path_squiggle.cpp" line="284" column="13" bodyfile="HighMap/src/geometry/path_squiggle.cpp" bodystart="284" bodyend="439" declfile="HighMap/include/highmap/geometry/path.hpp" declline="975" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ad2bc7ea79ab4f1ec8e0e3b276291deaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Path" kindref="compound">Path</ref></type>
@@ -30644,7 +30818,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_functions.cpp" line="809" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="809" bodyend="840" declfile="HighMap/include/highmap/geometry/path.hpp" declline="993" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_functions.cpp" line="809" column="6" bodyfile="HighMap/src/geometry/path_functions.cpp" bodystart="809" bodyend="840" declfile="HighMap/include/highmap/geometry/path.hpp" declline="996" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5944fc905be512784a9caceb527703d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -30711,7 +30885,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_verification.cpp" line="17" column="6" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="17" bodyend="41" declfile="HighMap/include/highmap/geometry/path.hpp" declline="1011" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_verification.cpp" line="17" column="6" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="17" bodyend="41" declfile="HighMap/include/highmap/geometry/path.hpp" declline="1014" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aba24d09d6f4a3eab8c1522536088f39e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>float</type>
@@ -30752,7 +30926,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_verification.cpp" line="43" column="7" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="43" bodyend="64" declfile="HighMap/include/highmap/geometry/path.hpp" declline="1022" declcolumn="7"/>
+        <location file="HighMap/src/geometry/path_verification.cpp" line="43" column="7" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="43" bodyend="64" declfile="HighMap/include/highmap/geometry/path.hpp" declline="1025" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1adb224131a9c75491b105b67801e0fe20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -30798,7 +30972,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/path_verification.cpp" line="66" column="6" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="66" bodyend="80" declfile="HighMap/include/highmap/geometry/path.hpp" declline="1033" declcolumn="6"/>
+        <location file="HighMap/src/geometry/path_verification.cpp" line="66" column="6" bodyfile="HighMap/src/geometry/path_verification.cpp" bodystart="66" bodyend="80" declfile="HighMap/include/highmap/geometry/path.hpp" declline="1036" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>float</type>
@@ -37096,14 +37270,25 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_graph(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>0.f);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>stream_graph.<ref refid="classhmap_1_1Graph_1a5d27935b935d6d788a934bc0e4f4082f" kindref="member">to_array</ref>(z_graph,<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>carve<sp/>stream<sp/>pixel-wise<sp/>for<sp/>visual<sp/>checking</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>carve<sp/>river<sp/>network<sp/>into<sp/>terrain<sp/>with<sp/>flow-accumulation<sp/>width<sp/>scaling</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_carved<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>depth<sp/>=<sp/>0.05f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>river_mask;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>outlet_width<sp/>=<sp/>0.05f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>headwater_width<sp/>=<sp/>0.001f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>depth<sp/>=<sp/>0.1f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bank_width_ratio<sp/>=<sp/>1.0f;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>&lt;<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y;<sp/>++<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(z_graph(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)<sp/>&gt;<sp/>0.f)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z_carved(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)<sp/>=<sp/>std::max(0.f,<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)<sp/>-<sp/>depth);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a2976e7e9dac5ac911ac10d79ef0f6e23" kindref="member">hmap::carve_river</ref>(z_carved,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stream_graph,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>outlet_width,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>headwater_width,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>width_exponent<sp/>*/</highlight><highlight class="normal"><sp/>0.5f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>depth,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bank_width_ratio,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90acedc11502bd1441e893fdc5a699b6d59" kindref="member">hmap::RadialProfile::RP_SMOOTHSTEP_UPPER</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2.0f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>p_noise_r<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;river_mask);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_flow_stream.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>z_graph,<sp/>z_carved},</highlight></codeline>
@@ -63488,6 +63673,176 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/src/sdf/sdf_2d_polyline_bezier.cpp" line="441" column="7" bodyfile="HighMap/src/sdf/sdf_2d_polyline_bezier.cpp" bodystart="441" bodyend="499" declfile="HighMap/include/highmap/sdf.hpp" declline="81" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ae261eefc5e144fbeaedb69c96d2cc77a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::sdf_2d_graph</definition>
+        <argsstring>(const Graph &amp;graph, glm::ivec2 shape, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, bool use_bvh=true)</argsstring>
+        <name>sdf_2d_graph</name>
+        <qualifiedname>hmap::sdf_2d_graph</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref> &amp;</type>
+          <declname>graph</declname>
+        </param>
+        <param>
+          <type>glm::ivec2</type>
+          <declname>shape</declname>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_noise_x</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_noise_y</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>use_bvh</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Computes the 2D unsigned distance field to a graph network. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Calculates the Euclidean distance from each cell to the closest edge of the graph. Supports accelerated BVH queries and coordinate perturbation.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>graph</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input graph containing nodes and edges. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shape</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dimensions (width, height) of the output array grid. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box of the array grid in the format (xmin, xmax, ymin, ymax). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_noise_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an optional noise array for perturbing x-coordinates. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_noise_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an optional noise array for perturbing y-coordinates. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>use_bvh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether to use BVH spatial acceleration (default: true). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> containing Euclidean distance to the graph network. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/sdf/sdf_2d_graph.cpp" line="94" column="7" bodyfile="HighMap/src/sdf/sdf_2d_graph.cpp" bodystart="94" bodyend="105" declfile="HighMap/include/highmap/sdf.hpp" declline="104" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a0f6f3bf1c2b77774d570b471b008c4b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::sdf_2d_graph_brute_force</definition>
+        <argsstring>(const Graph &amp;graph, glm::ivec2 shape, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr)</argsstring>
+        <name>sdf_2d_graph_brute_force</name>
+        <qualifiedname>hmap::sdf_2d_graph_brute_force</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref> &amp;</type>
+          <declname>graph</declname>
+        </param>
+        <param>
+          <type>glm::ivec2</type>
+          <declname>shape</declname>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_noise_x</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_noise_y</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/sdf/sdf_2d_graph.cpp" line="107" column="7" bodyfile="HighMap/src/sdf/sdf_2d_graph.cpp" bodystart="107" bodyend="159" declfile="HighMap/include/highmap/sdf.hpp" declline="111" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a82ff6c6d52746555b6182997dc25ceca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::sdf_2d_graph_bvh</definition>
+        <argsstring>(const Graph &amp;graph, glm::ivec2 shape, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr)</argsstring>
+        <name>sdf_2d_graph_bvh</name>
+        <qualifiedname>hmap::sdf_2d_graph_bvh</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref> &amp;</type>
+          <declname>graph</declname>
+        </param>
+        <param>
+          <type>glm::ivec2</type>
+          <declname>shape</declname>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_noise_x</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_noise_y</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/sdf/sdf_2d_graph.cpp" line="161" column="7" bodyfile="HighMap/src/sdf/sdf_2d_graph.cpp" bodystart="161" bodyend="227" declfile="HighMap/include/highmap/sdf.hpp" declline="117" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a0524c28c03b2976dae0da680a55fec5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

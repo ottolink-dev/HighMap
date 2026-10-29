@@ -595,6 +595,7 @@
     <member refid="classhmap_1_1Graph_1afe8d4e58ca035b43ed891556dd7cdd2c" kind="function"><name>add_edge</name></member>
     <member refid="classhmap_1_1Graph_1ad191d0d38350b42a95a9ecb58652ffd9" kind="function"><name>clear_edges</name></member>
     <member refid="classhmap_1_1Graph_1a54a9c0555a9d6056771ec940cbea37cd" kind="function"><name>compute_distance_to_outlet</name></member>
+    <member refid="classhmap_1_1Graph_1a11f688454a89eef4f83c01ed8a1c90fb" kind="function"><name>compute_flow_accumulation</name></member>
     <member refid="classhmap_1_1Graph_1a8bd325cd601128ea8e4008b97934f389" kind="function"><name>compute_relative_widths</name></member>
     <member refid="classhmap_1_1Graph_1acd7202cfee0df9d971c0420542a94beb" kind="function"><name>compute_strahler_order</name></member>
     <member refid="classhmap_1_1Graph_1aa47c8285e9c489fe7794d60eb19a3c7c" kind="function"><name>degree</name></member>
@@ -1700,25 +1701,25 @@
     <member refid="classhmap_1_1XyControlFunction_1acfe5c441363f35d36a13084fb56c6dca" kind="function"><name>MinimumImpl</name></member>
     <member refid="classhmap_1_1XyControlFunction_1ab32abc0861325b3ea6f547b938a9225d" kind="function"><name>MaximumImpl</name></member>
   </compound>
-  <compound refid="namespace_0d214" kind="namespace"><name>@214</name>
+  <compound refid="namespace_0d215" kind="namespace"><name>@215</name>
   </compound>
-  <compound refid="namespace_0d418" kind="namespace"><name>@418</name>
+  <compound refid="namespace_0d420" kind="namespace"><name>@420</name>
   </compound>
-  <compound refid="namespace_0d430" kind="namespace"><name>@430</name>
+  <compound refid="namespace_0d432" kind="namespace"><name>@432</name>
   </compound>
-  <compound refid="namespace_0d440" kind="namespace"><name>@440</name>
+  <compound refid="namespace_0d442" kind="namespace"><name>@442</name>
   </compound>
-  <compound refid="namespace_0d459" kind="namespace"><name>@459</name>
+  <compound refid="namespace_0d461" kind="namespace"><name>@461</name>
   </compound>
-  <compound refid="namespace_0d466" kind="namespace"><name>@466</name>
+  <compound refid="namespace_0d468" kind="namespace"><name>@468</name>
   </compound>
-  <compound refid="namespace_0d478" kind="namespace"><name>@478</name>
+  <compound refid="namespace_0d480" kind="namespace"><name>@480</name>
   </compound>
-  <compound refid="namespace_0d481" kind="namespace"><name>@481</name>
+  <compound refid="namespace_0d483" kind="namespace"><name>@483</name>
   </compound>
-  <compound refid="namespace_0d493" kind="namespace"><name>@493</name>
+  <compound refid="namespace_0d495" kind="namespace"><name>@495</name>
   </compound>
-  <compound refid="namespace_0d497" kind="namespace"><name>@497</name>
+  <compound refid="namespace_0d499" kind="namespace"><name>@499</name>
   </compound>
   <compound refid="namespacehmap" kind="namespace"><name>hmap</name>
     <member refid="namespacehmap_1a5101273ec456f5267dddc3e22dae223b" kind="enum"><name>StampingBlendMethod</name></member>
@@ -2057,6 +2058,7 @@
     <member refid="namespacehmap_1ae10d017da6e13ba9d619298709e64917" kind="function"><name>trench</name></member>
     <member refid="namespacehmap_1a6629d7932feda7b2c5c1cc7e33da66bd" kind="function"><name>trench</name></member>
     <member refid="namespacehmap_1ac812451135eef116e28dfb44b5ec7a8d" kind="function"><name>trench</name></member>
+    <member refid="namespacehmap_1a2976e7e9dac5ac911ac10d79ef0f6e23" kind="function"><name>carve_river</name></member>
     <member refid="namespacehmap_1a76b37b88acf83d6a5b21f1be1b50697e" kind="function"><name>apply_hillshade</name></member>
     <member refid="namespacehmap_1aefc8cbe645337bb5b663436c0324f9e2" kind="function"><name>apply_hillshade</name></member>
     <member refid="namespacehmap_1a7634a1bb2505ae11370c431b0b1fd9ea" kind="function"><name>color_adjust</name></member>
@@ -2733,6 +2735,9 @@
     <member refid="namespacehmap_1a7fc8217efe7ab32d2e1e025bdd632936" kind="function"><name>sdf_2d_polyline_bezier</name></member>
     <member refid="namespacehmap_1a3f2d0f789995b087fee958951a87d36c" kind="function"><name>sdf_2d_polyline_bezier_brute_force</name></member>
     <member refid="namespacehmap_1a309a2e9dba17dfafd471faed90741e69" kind="function"><name>sdf_2d_polyline_bezier_bvh</name></member>
+    <member refid="namespacehmap_1ae261eefc5e144fbeaedb69c96d2cc77a" kind="function"><name>sdf_2d_graph</name></member>
+    <member refid="namespacehmap_1a0f6f3bf1c2b77774d570b471b008c4b5" kind="function"><name>sdf_2d_graph_brute_force</name></member>
+    <member refid="namespacehmap_1a82ff6c6d52746555b6182997dc25ceca" kind="function"><name>sdf_2d_graph_bvh</name></member>
     <member refid="namespacehmap_1a0524c28c03b2976dae0da680a55fec5f" kind="function"><name>perturb_mask_contour</name></member>
     <member refid="namespacehmap_1a6c6abf2b8bd3161610e273ef97ee4771" kind="function"><name>scan_mask</name></member>
     <member refid="namespacehmap_1a6482a57b7ab3fa5ce2d763c7e2fce5a6" kind="function"><name>select_angle</name></member>
@@ -2900,30 +2905,32 @@
   </compound>
   <compound refid="namespacehmap_1_1_0d132" kind="namespace"><name>hmap::@132</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d142" kind="namespace"><name>hmap::@142</name>
+  <compound refid="namespacehmap_1_1_0d143" kind="namespace"><name>hmap::@143</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d171" kind="namespace"><name>hmap::@171</name>
-    <member refid="namespacehmap_1_1_0d171_1a942faa0a8b27bbd5181b13dd886a17e1" kind="enum"><name></name></member>
+  <compound refid="namespacehmap_1_1_0d172" kind="namespace"><name>hmap::@172</name>
+    <member refid="namespacehmap_1_1_0d172_1aa2cd93b7f819a0e0315db485980849c3" kind="enum"><name></name></member>
   </compound>
-  <compound refid="namespacehmap_1_1_0d199" kind="namespace"><name>hmap::@199</name>
+  <compound refid="namespacehmap_1_1_0d200" kind="namespace"><name>hmap::@200</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d208" kind="namespace"><name>hmap::@208</name>
+  <compound refid="namespacehmap_1_1_0d209" kind="namespace"><name>hmap::@209</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d248" kind="namespace"><name>hmap::@248</name>
+  <compound refid="namespacehmap_1_1_0d249" kind="namespace"><name>hmap::@249</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d251" kind="namespace"><name>hmap::@251</name>
+  <compound refid="namespacehmap_1_1_0d252" kind="namespace"><name>hmap::@252</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d273" kind="namespace"><name>hmap::@273</name>
-  </compound>
-  <compound refid="namespacehmap_1_1_0d369" kind="namespace"><name>hmap::@369</name>
+  <compound refid="namespacehmap_1_1_0d274" kind="namespace"><name>hmap::@274</name>
   </compound>
   <compound refid="namespacehmap_1_1_0d370" kind="namespace"><name>hmap::@370</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d383" kind="namespace"><name>hmap::@383</name>
+  <compound refid="namespacehmap_1_1_0d371" kind="namespace"><name>hmap::@371</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d388" kind="namespace"><name>hmap::@388</name>
+  <compound refid="namespacehmap_1_1_0d372" kind="namespace"><name>hmap::@372</name>
   </compound>
-  <compound refid="namespacehmap_1_1_0d391" kind="namespace"><name>hmap::@391</name>
+  <compound refid="namespacehmap_1_1_0d385" kind="namespace"><name>hmap::@385</name>
+  </compound>
+  <compound refid="namespacehmap_1_1_0d390" kind="namespace"><name>hmap::@390</name>
+  </compound>
+  <compound refid="namespacehmap_1_1_0d393" kind="namespace"><name>hmap::@393</name>
   </compound>
   <compound refid="namespacehmap_1_1gpu" kind="namespace"><name>hmap::gpu</name>
     <member refid="namespacehmap_1_1gpu_1ab0737b29664736928a86f0755493895f" kind="enum"><name>LocalMetrics</name></member>
@@ -3611,6 +3618,8 @@
   </compound>
   <compound refid="zeroed__edges_8cpp" kind="file"><name>zeroed_edges.cpp</name>
   </compound>
+  <compound refid="carve__river_8cpp" kind="file"><name>carve_river.cpp</name>
+  </compound>
   <compound refid="dig__path_8cpp" kind="file"><name>dig_path.cpp</name>
   </compound>
   <compound refid="flatbed__carve_8cpp" kind="file"><name>flatbed_carve.cpp</name>
@@ -4125,6 +4134,8 @@
   </compound>
   <compound refid="scatter__seeding_8cpp" kind="file"><name>scatter_seeding.cpp</name>
   </compound>
+  <compound refid="sdf__2d__graph_8cpp" kind="file"><name>sdf_2d_graph.cpp</name>
+  </compound>
   <compound refid="sdf__2d__polyline_8cpp" kind="file"><name>sdf_2d_polyline.cpp</name>
   </compound>
   <compound refid="sdf__2d__polyline__bezier_8cpp" kind="file"><name>sdf_2d_polyline_bezier.cpp</name>
@@ -4327,6 +4338,8 @@
     <member refid="test__bvh__path__sdf_8cpp_1ac29668af36b845645af14e06cb753784" kind="function"><name>TEST</name></member>
     <member refid="test__bvh__path__sdf_8cpp_1a37929771c5e12e18552784b28a3b6833" kind="function"><name>TEST</name></member>
     <member refid="test__bvh__path__sdf_8cpp_1a2d0d1ebd55a9281dacb4cb73475c8430" kind="function"><name>TEST</name></member>
+    <member refid="test__bvh__path__sdf_8cpp_1ab5135dcd4c98805403157bf818a45269" kind="function"><name>TEST</name></member>
+    <member refid="test__bvh__path__sdf_8cpp_1a234cb7eb9dc32da4c9b6338b00b7aa01" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__canyonize_8cpp" kind="file"><name>test_canyonize.cpp</name>
     <member refid="test__canyonize_8cpp_1a98dbe957ec86d8dadf9400e49d942667" kind="function"><name>TEST</name></member>
@@ -4663,6 +4676,7 @@
     <member refid="test__graph_8cpp_1ab0f9281bd865e5bc60a6115d4971a80e" kind="function"><name>TEST</name></member>
     <member refid="test__graph_8cpp_1ac5ed5bb5b69420f7dad47a80903142bd" kind="function"><name>TEST</name></member>
     <member refid="test__graph_8cpp_1ad253afab5caaa309f1909b17d9ecb755" kind="function"><name>TEST</name></member>
+    <member refid="test__graph_8cpp_1a567d61cf008799f2cd8db270997d2217" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__grids_8cpp" kind="file"><name>test_grids.cpp</name>
     <member refid="test__grids_8cpp_1a6a740a6a66a5f44d8f94a658161450dc" kind="function"><name>TEST</name></member>
@@ -5189,6 +5203,7 @@
     <member refid="test__trench_8cpp_1ac5337e547957c9eabcdfa92f48d719c3" kind="function"><name>TEST</name></member>
     <member refid="test__trench_8cpp_1ae62c40bf7e99fc61fc3c9372a175b852" kind="function"><name>TEST</name></member>
     <member refid="test__trench_8cpp_1a3d3ced51a118a187849871c9973f06a2" kind="function"><name>TEST</name></member>
+    <member refid="test__trench_8cpp_1a6070abf4659f1d40f478ed05035b9c3b" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__validation_8cpp" kind="file"><name>test_validation.cpp</name>
     <member refid="test__validation_8cpp_1ab53fd57a6e29d01f502892b248a0941e" kind="function"><name>TEST</name></member>

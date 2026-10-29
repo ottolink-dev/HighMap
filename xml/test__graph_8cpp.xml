@@ -155,6 +155,25 @@
         </inbodydescription>
         <location file="tests/src/test_graph.cpp" line="204" column="1" bodyfile="tests/src/test_graph.cpp" bodystart="204" bodyend="252"/>
       </memberdef>
+      <memberdef kind="function" id="test__graph_8cpp_1a567d61cf008799f2cd8db270997d2217" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GraphTest, FlowAccumulation)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GraphTest</type>
+        </param>
+        <param>
+          <type>FlowAccumulation</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_graph.cpp" line="254" column="1" bodyfile="tests/src/test_graph.cpp" bodystart="254" bodyend="285"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -413,6 +432,39 @@
 <codeline lineno="250"><highlight class="normal"><sp/><sp/>EXPECT_LE(g2[3].v,<sp/>g2[2].v<sp/>-<sp/>min_slope<sp/>*<sp/>dist_23);</highlight></codeline>
 <codeline lineno="251"><highlight class="normal"><sp/><sp/>EXPECT_LT(g2[3].v,<sp/>g2[2].v);</highlight></codeline>
 <codeline lineno="252"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><ref refid="test__graph_8cpp_1ac20850ac7ca37af017fd4133bb14b8d0" kindref="member">TEST</ref>(GraphTest,<sp/>FlowAccumulation)</highlight></codeline>
+<codeline lineno="255"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>A<sp/>Y-shaped<sp/>confluence<sp/>network:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Node<sp/>0<sp/>(0,<sp/>1)<sp/>and<sp/>Node<sp/>1<sp/>(1,<sp/>1)<sp/>meet<sp/>at<sp/>Node<sp/>2<sp/>(0.5,<sp/>0.5),<sp/>which<sp/>flows<sp/>to</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Node<sp/>3<sp/>(0.5,<sp/>0.0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref><sp/>g;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(0.0f,<sp/>1.0f,<sp/>1.0f));<sp/></highlight><highlight class="comment">//<sp/>0:<sp/>headwater<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(1.0f,<sp/>1.0f,<sp/>0.9f));<sp/></highlight><highlight class="comment">//<sp/>1:<sp/>headwater<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(0.5f,<sp/>0.5f,<sp/>0.5f));<sp/></highlight><highlight class="comment">//<sp/>2:<sp/>confluence</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(0.5f,<sp/>0.0f,<sp/>0.1f));<sp/></highlight><highlight class="comment">//<sp/>3:<sp/>outlet</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(0,<sp/>2);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(1,<sp/>2);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(2,<sp/>3);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>accum<sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1a11f688454a89eef4f83c01ed8a1c90fb" kindref="member">compute_flow_accumulation</ref>();</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/>ASSERT_EQ(accum.size(),<sp/>4u);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>headwaters<sp/>have<sp/>0<sp/>accumulation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(accum[0],<sp/>0.f);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(accum[1],<sp/>0.f);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>node<sp/>2<sp/>accumulates<sp/>length<sp/>from<sp/>edge<sp/>(0-&gt;2)<sp/>and<sp/>edge<sp/>(1-&gt;2)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>len_02<sp/>=<sp/>std::sqrt(0.5f<sp/>*<sp/>0.5f<sp/>+<sp/>0.5f<sp/>*<sp/>0.5f);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>len_12<sp/>=<sp/>std::sqrt(0.5f<sp/>*<sp/>0.5f<sp/>+<sp/>0.5f<sp/>*<sp/>0.5f);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(accum[2],<sp/>len_02<sp/>+<sp/>len_12,<sp/>1e-4f);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>node<sp/>3<sp/>accumulates<sp/>accum[2]<sp/>plus<sp/>edge<sp/>(2-&gt;3)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>len_23<sp/>=<sp/>0.5f;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(accum[3],<sp/>accum[2]<sp/>+<sp/>len_23,<sp/>1e-4f);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/>EXPECT_GT(accum[3],<sp/>accum[2]);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_graph.cpp"/>
   </compounddef>

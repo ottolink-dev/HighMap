@@ -52,6 +52,8 @@ void \mbox{\hyperlink{classhmap_1_1Graph_ad191d0d38350b42a95a9ecb58652ffd9}{clea
 \begin{DoxyCompactList}\small\item\em Clear all edges from the graph. \end{DoxyCompactList}\item 
 std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1Graph_a54a9c0555a9d6056771ec940cbea37cd}{compute\+\_\+distance\+\_\+to\+\_\+outlet}} () const
 \begin{DoxyCompactList}\small\item\em Compute the distance to the downstream outlet for each node in the graph. \end{DoxyCompactList}\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1Graph_a11f688454a89eef4f83c01ed8a1c90fb}{compute\+\_\+flow\+\_\+accumulation}} () const
+\begin{DoxyCompactList}\small\item\em Compute accumulated upstream flow length along directed stream edges. \end{DoxyCompactList}\item 
 std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1Graph_a8bd325cd601128ea8e4008b97934f389}{compute\+\_\+relative\+\_\+widths}} (float exponent=1.\+0f) const
 \begin{DoxyCompactList}\small\item\em Compute relative channel width ratio in \mbox{[}0, 1\mbox{]} for each node in the graph. \end{DoxyCompactList}\item 
 std\+::vector$<$ int $>$ \mbox{\hyperlink{classhmap_1_1Graph_acd7202cfee0df9d971c0420542a94beb}{compute\+\_\+strahler\+\_\+order}} () const
@@ -435,6 +437,25 @@ Flow direction is inferred from node elevation values (stored in {\ttfamily v}),
 
 \begin{DoxyReturn}{Returns}
 Vector containing the downstream distance to outlet for each node. 
+\end{DoxyReturn}
+\Hypertarget{classhmap_1_1Graph_a11f688454a89eef4f83c01ed8a1c90fb}\label{classhmap_1_1Graph_a11f688454a89eef4f83c01ed8a1c90fb} 
+\index{hmap::Graph@{hmap::Graph}!compute\_flow\_accumulation@{compute\_flow\_accumulation}}
+\index{compute\_flow\_accumulation@{compute\_flow\_accumulation}!hmap::Graph@{hmap::Graph}}
+\doxysubsubsection{\texorpdfstring{compute\_flow\_accumulation()}{compute\_flow\_accumulation()}}
+{\footnotesize\ttfamily std\+::vector$<$ float $>$ hmap\+::\+Graph\+::compute\+\_\+flow\+\_\+accumulation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Compute accumulated upstream flow length along directed stream edges. 
+
+Traverses nodes in topological order from upstream headwaters to downstream outlets, accumulating incoming edge lengths\+:
+
+{\ttfamily accum\mbox{[}v\mbox{]} = sum\+\_\+\{u in upstream(v)\} (accum\mbox{[}u\mbox{]} + dist(u, v))}
+
+Headwater nodes with no incoming upstream flow start with 0.
+
+\begin{DoxyReturn}{Returns}
+Vector containing accumulated upstream length per node. 
 \end{DoxyReturn}
 \Hypertarget{classhmap_1_1Graph_a8bd325cd601128ea8e4008b97934f389}\label{classhmap_1_1Graph_a8bd325cd601128ea8e4008b97934f389} 
 \index{hmap::Graph@{hmap::Graph}!compute\_relative\_widths@{compute\_relative\_widths}}
