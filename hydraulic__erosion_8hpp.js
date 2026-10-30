@@ -26,5 +26,6 @@ var hydraulic__erosion_8hpp =
     [ "hydraulic_stream_log_multiscale", "hydraulic__erosion_8hpp.html#a263168c2e1e24e25a4c1cba0142bdbc0", null ],
     [ "hydraulic_stream_log_multiscale", "hydraulic__erosion_8hpp.html#a62f05d31a752a54d85426afe3048f8aa", null ],
     [ "hydraulic_vpipes", "hydraulic__erosion_8hpp.html#a548895d6665a5466b8541122338b59a9", null ],
+    [ "hydraulic_mise", "hydraulic__erosion_8hpp.html#a39ee127fce3d8250c7423d10a80ce890", null ],
     [ "hydraulic_saleve", "hydraulic__erosion_8hpp.html#ac0d43b69e78ba45a62795d90f1f453fe", null ]
 ];

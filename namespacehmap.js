@@ -5,6 +5,7 @@ var namespacehmap =
     [ "neighborhood", "namespacehmap_1_1neighborhood.html", "namespacehmap_1_1neighborhood" ],
     [ "va", "namespacehmap_1_1va.html", [
       [ "depression_filling_priority_flood", "namespacehmap_1_1va.html#aa868400f1abe17aca41bb488f65032da", null ],
+      [ "hydraulic_mise", "namespacehmap_1_1va.html#a39ee127fce3d8250c7423d10a80ce890", null ],
       [ "hydraulic_saleve", "namespacehmap_1_1va.html#ac0d43b69e78ba45a62795d90f1f453fe", null ],
       [ "smooth_cpulse", "namespacehmap_1_1va.html#aec2c193932c4d5d1fe00d09b81e243d8", null ],
       [ "smooth_cpulse", "namespacehmap_1_1va.html#a3df8c2c762d79f38e07069e47063fade", null ],
