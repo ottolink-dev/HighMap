@@ -4,7 +4,7 @@ var searchData=
   ['uint16_1',['UINT16',['../namespacehmap.html#a451ad02eb796f23b2f68e062e8de9875a48d8f1a723d44ff4a87db1bb6c551c62',1,'hmap']]],
   ['uint8_2',['UINT8',['../namespacehmap.html#a451ad02eb796f23b2f68e062e8de9875aecfc091ed2a607335524c8389cfa41b5',1,'hmap']]],
   ['uniform_3',['uniform',['../structhmap_1_1InteractionMatrix.html#a8a04335b100cac5a44d4eefb1419db6d',1,'hmap::InteractionMatrix']]],
-  ['uniform_20instance_20representation_4',['Uniform Instance Representation',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md43',1,'']]],
+  ['uniform_20instance_20representation_4',['Uniform Instance Representation',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md87',1,'']]],
   ['uniform01_5',['uniform01',['../namespacehmap.html#ab776cf6d2ca581c9f2525df15b2eef45',1,'hmap']]],
   ['unique_5fvalues_6',['unique_values',['../classhmap_1_1Array.html#a7bafe99a2d644e79d638002a19dcc6d5',1,'hmap::Array::unique_values()'],['../structhmap_1_1VirtualArray.html#a8d74c7c6a84b8c54985a5fdeb4e805f0',1,'hmap::VirtualArray::unique_values()']]],
   ['unit_5fsquare_5fbbox_7',['unit_square_bbox',['../namespacehmap.html#aef71b544e3f4e5321cb3d41a7366e0f3',1,'hmap']]],

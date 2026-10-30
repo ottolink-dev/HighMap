@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="md_docs_2content_2dev_2hydraulic__comparison" kind="page">
+    <compoundname>md_docs_2content_2dev_2hydraulic__comparison</compoundname>
+    <title>Hydraulic Erosion Models Comparison</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md_docs_2content_2dev_2hydraulic__comparison_1autotoc_md16"/> This document provides a comparative analysis of the three primary hydraulic erosion approaches implemented in HighMap:<itemizedlist>
+<listitem><para>**<computeroutput>hydraulic_particle</computeroutput>**: Lagrangian discrete droplet simulation.</para>
+</listitem><listitem><para>**<computeroutput>hydraulic_stream_log</computeroutput>**: Eulerian $D_\infty$ logarithmic stream power incision.</para>
+</listitem><listitem><para>**<computeroutput>hydraulic_mise</computeroutput>**: Multiscale Implicit Stream-power Erosion with coupled sediment dynamics.</para>
+</listitem></itemizedlist>
+</para>
+<para>The visualization and benchmarks below are produced by <ulink url="file:///home/glop/Documents/dev/HighMap/examples/ex_hydraulic_comparison/ex_hydraulic_comparison.cpp"><computeroutput>ex_hydraulic_comparison.cpp</computeroutput></ulink>.</para>
+<sect1 id="md_docs_2content_2dev_2hydraulic__comparison_1autotoc_md17">
+<title>1. Visual Comparison</title>
+<para>The following banner shows the original un-eroded conical terrain alongside the result of each solver applied to the same input heightfield:</para>
+<para><image type="html" name="../../images/hydraulic_comparison_terrains.png" inline="yes"></image>
+</para>
+<para><emphasis>Left to right: (1) Original un-eroded terrain, (2) <computeroutput>hydraulic_particle</computeroutput>, (3) <computeroutput>hydraulic_stream_log</computeroutput>, (4) <computeroutput>hydraulic_mise</computeroutput>.</emphasis></para>
+<sect2 id="md_docs_2content_2dev_2hydraulic__comparison_1autotoc_md18">
+<title>Erosion Difference Maps</title>
+<para>The net erosion maps ($z_{\text{before}} - z \ge 0$) highlight the spatial distribution and channelization patterns of each model:</para>
+<para><image type="html" name="../../images/hydraulic_comparison_erosion_maps.png" inline="yes"></image>
+</para>
+<para><emphasis>Left to right: (1) <computeroutput>hydraulic_particle</computeroutput> erosion delta, (2) <computeroutput>hydraulic_stream_log</computeroutput> erosion delta, (3) <computeroutput>hydraulic_mise</computeroutput> erosion delta.</emphasis></para>
+</sect2>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2hydraulic__comparison_1autotoc_md19">
+<title>2. Qualitative Characteristics</title>
+<para><table rows="8" cols="4"><row>
+<entry thead="yes" align='left'><para>Feature   </para>
+</entry><entry thead="yes" align='left'><para><computeroutput>hydraulic_particle</computeroutput>   </para>
+</entry><entry thead="yes" align='left'><para><computeroutput>hydraulic_stream_log</computeroutput>   </para>
+</entry><entry thead="yes" align='left'><para><computeroutput>hydraulic_mise</computeroutput>    </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>Model Type</bold>   </para>
+</entry><entry thead="no" align='left'><para>Lagrangian (discrete droplets)   </para>
+</entry><entry thead="no" align='left'><para>Eulerian (raster flow accumulation)   </para>
+</entry><entry thead="no" align='left'><para>Topological drainage graph &amp; implicit PDE    </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>Primary Kinematics</bold>   </para>
+</entry><entry thead="no" align='left'><para>Droplet advection, velocity, inertia   </para>
+</entry><entry thead="no" align='left'><para>$D_\infty$ continuous facet routing   </para>
+</entry><entry thead="no" align='left'><para>Priority flood, receiver graph routing    </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>Discharge Scaling</bold>   </para>
+</entry><entry thead="no" align='left'><para>Droplet volume &amp; kinetic energy   </para>
+</entry><entry thead="no" align='left'><para>Logarithmic discharge $\log_{10}(A)$   </para>
+</entry><entry thead="no" align='left'><para>Power-law area $A^m$    </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>Deposition Mechanism</bold>   </para>
+</entry><entry thead="no" align='left'><para>Bilinear capacity drop &amp; talus bank collapse   </para>
+</entry><entry thead="no" align='left'><para>Synthetic hole filling &amp; gradient blending   </para>
+</entry><entry thead="no" align='left'><para>Equilibrium slope $S_{\text{eq}}(A)$ &amp; lake filling    </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>Visual Structure</bold>   </para>
+</entry><entry thead="no" align='left'><para>Deep meandering rills, braided gullies   </para>
+</entry><entry thead="no" align='left'><para>Broad dendritic river corridors   </para>
+</entry><entry thead="no" align='left'><para>Geologically realistic valleys, alluvial plains, scarp retreat    </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>Execution Engine</bold>   </para>
+</entry><entry thead="no" align='left'><para>GPU (OpenCL)   </para>
+</entry><entry thead="no" align='left'><para>GPU (OpenCL) &amp; OpenMP   </para>
+</entry><entry thead="no" align='left'><para>Multi-threaded CPU (OpenMP)    </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>Artifact Vulnerability</bold>   </para>
+</entry><entry thead="no" align='left'><para>Droplet streaks if iteration count is low   </para>
+</entry><entry thead="no" align='left'><para>Minor contour alignment if un-warped   </para>
+</entry><entry thead="no" align='left'><para>None (domain-warped multiscale scheduling)   </para>
+</entry></row>
+</table>
+</para>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2hydraulic__comparison_1autotoc_md20">
+<title>3. Algorithm Deep Dives</title>
+<para>For exhaustive equations, trajectory kinematics, and C++ API signatures:<itemizedlist>
+<listitem><para><ref refid="md_docs_2content_2dev_2hydraulic__particle" kindref="compound">Hydraulic Particle Erosion</ref></para>
+</listitem><listitem><para><ref refid="md_docs_2content_2dev_2hydraulic__stream__log" kindref="compound">Hydraulic Stream Log Erosion</ref></para>
+</listitem><listitem><para><ref refid="md_docs_2content_2dev_2hydraulic__mise" kindref="compound">Multiscale Implicit Stream-Power Erosion (MISE)</ref> </para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+    </detaileddescription>
+    <location file="docs/content/dev/hydraulic_comparison.md"/>
+  </compounddef>
+</doxygen>

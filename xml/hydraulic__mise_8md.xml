@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="hydraulic__mise_8md" kind="file" language="Markdown">
+    <compoundname>hydraulic_mise.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Multiscale<sp/>Implicit<sp/>Stream-Power<sp/>Erosion<sp/>(MISE)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>document<sp/>details<sp/>the<sp/>theory,<sp/>geomorphological<sp/>formulations,<sp/>implicit<sp/>solver,<sp/>and<sp/>multiscale<sp/>architecture<sp/>of<sp/>`hydraulic_mise`<sp/>in<sp/>HighMap.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>1.<sp/>Overview</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">`hydraulic_mise`<sp/>(Multiscale<sp/>Implicit<sp/>Stream-power<sp/>Erosion)<sp/>simulates<sp/>long-term<sp/>landscape<sp/>evolution<sp/>by<sp/>solving<sp/>coupled<sp/>equations<sp/>of<sp/>fluvial<sp/>bedrock<sp/>incision,<sp/>hillslope<sp/>diffusion/debris<sp/>flow,<sp/>and<sp/>alluvial<sp/>sediment<sp/>deposition<sp/>across<sp/>a<sp/>dynamically<sp/>re-routed<sp/>drainage<sp/>graph.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![](../../images/hydraulic_comparison_mise.png<sp/>&quot;Terrain<sp/>eroded<sp/>with<sp/>hydraulic_mise.&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Unlike<sp/>explicit<sp/>particle<sp/>tracing<sp/>or<sp/>simple<sp/>height<sp/>filtering,<sp/>MISE<sp/>uses:</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**Implicit<sp/>integration**:<sp/>Unconditionally<sp/>stable<sp/>large<sp/>time<sp/>steps<sp/>without<sp/>numerical<sp/>blow-up.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**Topological<sp/>drainage<sp/>graphs**:<sp/>Built<sp/>using<sp/>monotone<sp/>priority-queue<sp/>depression<sp/>filling<sp/>(Radix<sp/>heap<sp/>/<sp/>bucket<sp/>flood).</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**Coupled<sp/>sediment<sp/>conservation**:<sp/>Eroded<sp/>material<sp/>is<sp/>carried<sp/>downstream<sp/>as<sp/>bedload<sp/>and<sp/>suspended<sp/>sediment<sp/>until<sp/>equilibrium<sp/>deposition<sp/>conditions<sp/>are<sp/>met.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**Pyramidal<sp/>multiscale<sp/>scheduling**:<sp/>Macro-valleys<sp/>are<sp/>carved<sp/>at<sp/>coarse<sp/>base<sp/>resolutions<sp/>and<sp/>refined<sp/>down<sp/>to<sp/>fine<sp/>rills<sp/>with<sp/>domain-warped<sp/>upsampling.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```mermaid</highlight></codeline>
+<codeline><highlight class="normal">flowchart<sp/>TD</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>A[&quot;Input<sp/>Terrain<sp/>z&quot;]<sp/>--&gt;<sp/>B[&quot;Depression<sp/>Filling<sp/>&amp;<sp/>Lake<sp/>Identification<sp/>(Priority<sp/>Flood)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>B<sp/>--&gt;<sp/>C[&quot;Flow<sp/>Routing<sp/>(Receivers<sp/>&amp;<sp/>Topological<sp/>Sorting)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>C<sp/>--&gt;<sp/>D[&quot;Drainage<sp/>Area<sp/>Accumulation<sp/>A_i&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>D<sp/>--&gt;<sp/>E[&quot;Implicit<sp/>Fluvial<sp/>Incision<sp/>(Stream<sp/>Power<sp/>Law)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>E<sp/>--&gt;<sp/>F[&quot;Hillslope<sp/>Transport<sp/>&amp;<sp/>Debris<sp/>Cascades&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>F<sp/>--&gt;<sp/>G[&quot;Sediment<sp/>Deposition<sp/>in<sp/>Flats<sp/>&amp;<sp/>Lakes&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>G<sp/>--&gt;<sp/>H[&quot;Sediment<sp/>Relaxation<sp/>(Repose<sp/>Slope<sp/>talus)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>H<sp/>--&gt;<sp/>I{&quot;More<sp/>Iterations<sp/>on<sp/>Current<sp/>Level?&quot;}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>I<sp/>--&gt;|Yes|<sp/>B</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>I<sp/>--&gt;|No|<sp/>J{&quot;Next<sp/>Resolution<sp/>Level?&quot;}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>J<sp/>--&gt;|Yes:<sp/>Upsample<sp/>+<sp/>Domain<sp/>Warp|<sp/>B</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>J<sp/>--&gt;|No|<sp/>K[&quot;Final<sp/>Full-Resolution<sp/>Output<sp/>(z,<sp/>sediment,<sp/>flow,<sp/>splatmaps)&quot;]</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>2.<sp/>Theoretical<sp/>Formulation<sp/>and<sp/>Kinematics</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Drainage<sp/>Graph<sp/>and<sp/>Depression<sp/>Filling</highlight></codeline>
+<codeline><highlight class="normal">Surface<sp/>flow<sp/>routes<sp/>downhill<sp/>from<sp/>donors<sp/>to<sp/>receivers.<sp/>To<sp/>resolve<sp/>local<sp/>depressions<sp/>(pits,<sp/>sinks,<sp/>and<sp/>closed<sp/>lakes),<sp/>the<sp/>terrain<sp/>is<sp/>processed<sp/>with<sp/>a<sp/>priority<sp/>flood<sp/>algorithm:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>A<sp/>boundary<sp/>queue<sp/>seeds<sp/>the<sp/>flood,<sp/>tracking<sp/>minimum<sp/>spill<sp/>elevation.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Pits<sp/>are<sp/>identified<sp/>and<sp/>tagged<sp/>(`lake`),<sp/>grouping<sp/>flooded<sp/>basins<sp/>and<sp/>their<sp/>associated<sp/>spillway<sp/>outlets<sp/>(`lake_outlet`).</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>Flow<sp/>directions<sp/>assign<sp/>each<sp/>non-outlet<sp/>cell<sp/>$i$<sp/>to<sp/>a<sp/>downslope<sp/>receiver<sp/>cell<sp/>$r(i)$:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$P(i<sp/>\to<sp/>j)<sp/>\propto<sp/>\max\left(0,<sp/>\frac{z_i<sp/>-<sp/>z_j}{d_{ij}}\right)^{\gamma}$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">where<sp/>$\gamma<sp/>=<sp/>\text{receiver\_exp}$<sp/>and<sp/>$d_{ij}<sp/>\in<sp/>\{1,<sp/>\sqrt{2}\}$<sp/>is<sp/>grid<sp/>neighbor<sp/>distance.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">4.<sp/>The<sp/>graph<sp/>produces<sp/>a<sp/>strict<sp/>topological<sp/>order<sp/>(receivers<sp/>ordered<sp/>before<sp/>donors),<sp/>enabling<sp/>$O(N)$<sp/>linear-time<sp/>sweeps<sp/>across<sp/>the<sp/>terrain.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Fluvial<sp/>Stream-Power<sp/>Incision</highlight></codeline>
+<codeline><highlight class="normal">Fluvial<sp/>bedrock<sp/>erosion<sp/>is<sp/>governed<sp/>by<sp/>the<sp/>stream<sp/>power<sp/>incision<sp/>law:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$\frac{\partial<sp/>z}{\partial<sp/>t}<sp/>=<sp/>-K<sp/>A^m<sp/>S^n$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">where<sp/>$A$<sp/>is<sp/>upstream<sp/>drainage<sp/>area,<sp/>$S<sp/>=<sp/>-\frac{\partial<sp/>z}{\partial<sp/>x}$<sp/>is<sp/>local<sp/>channel<sp/>slope,<sp/>and<sp/>$K$<sp/>is<sp/>erodibility.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>MISE,<sp/>the<sp/>equation<sp/>is<sp/>solved<sp/>**implicitly**<sp/>along<sp/>each<sp/>flow<sp/>line<sp/>$i<sp/>\to<sp/>r(i)$:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$z_i^{t+1}<sp/>-<sp/>z_{r(i)}^{t+1}<sp/>=<sp/>\frac{z_i^t<sp/>-<sp/>z_{r(i)}^{t+1}}{1<sp/>+<sp/>K_{\text{eff}}<sp/>A_i^m<sp/>\frac{\Delta<sp/>t}{d_i}}$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>implicit<sp/>formulation<sp/>ensures<sp/>that<sp/>slopes<sp/>never<sp/>invert<sp/>or<sp/>overshoot,<sp/>even<sp/>under<sp/>large<sp/>incision<sp/>rates<sp/>$K$.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```mermaid</highlight></codeline>
+<codeline><highlight class="normal">flowchart<sp/>LR</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Upstream[&quot;Cell<sp/>i<sp/>(Elevation<sp/>z_i)&quot;]<sp/>--&gt;|&quot;Downslope<sp/>d_i&quot;|<sp/>Downstream[&quot;Receiver<sp/>r(i)<sp/>(Elevation<sp/>z_r)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>StreamPower[&quot;A_i^m<sp/>*<sp/>K_eff&quot;]<sp/>--&gt;<sp/>ImplicitSolver[&quot;Implicit<sp/>Solver:<sp/>z_i<sp/>&lt;-<sp/>(z_i<sp/>-<sp/>z_r)<sp/>/<sp/>(1<sp/>+<sp/>Rate)<sp/>+<sp/>z_r&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ImplicitSolver<sp/>--&gt;<sp/>Result[&quot;Stable<sp/>Channel<sp/>Gradient<sp/>(No<sp/>Overshooting)&quot;]</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Hillslope<sp/>Processes<sp/>and<sp/>Debris<sp/>Flow</highlight></codeline>
+<codeline><highlight class="normal">Bedrock<sp/>hillslopes<sp/>experience<sp/>two<sp/>geomorphic<sp/>diffusion<sp/>mechanisms:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>**Talus<sp/>Relaxation**:<sp/>Diffuses<sp/>steep<sp/>slopes<sp/>exceeding<sp/>the<sp/>critical<sp/>bedrock<sp/>angle<sp/>of<sp/>repose<sp/>$\theta_{\text{talus}}$:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$S_{\text{excess}}<sp/>=<sp/>\max\left(0,<sp/>\frac{z_i<sp/>-<sp/>z_{r(i)}}{d_i}<sp/>-<sp/>\theta_{\text{talus}}\right)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">2.<sp/>**Upstream<sp/>Debris<sp/>Loading**:<sp/>Steep<sp/>upstream<sp/>terrain<sp/>sheds<sp/>regolith<sp/>and<sp/>rock<sp/>fragments<sp/>that<sp/>amplify<sp/>erosion<sp/>and<sp/>scarp<sp/>recession<sp/>downstream<sp/>via<sp/>the<sp/>`debris`<sp/>coefficient:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$K_{\text{debris}}<sp/>=<sp/>\text{debris}<sp/>\cdot<sp/>S_{\text{upstream\_excess}}$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Hard<sp/>cliff<sp/>thresholds<sp/>(`cliff`)<sp/>prevent<sp/>unnatural<sp/>vertical<sp/>knife-edges<sp/>along<sp/>stream<sp/>channels.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>3.<sp/>Sediment<sp/>Transport<sp/>and<sp/>Deposition</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">As<sp/>streams<sp/>erode<sp/>rock,<sp/>eroded<sp/>volume<sp/>is<sp/>added<sp/>to<sp/>the<sp/>transported<sp/>sediment<sp/>load<sp/>$Q_s$.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```mermaid</highlight></codeline>
+<codeline><highlight class="normal">flowchart<sp/>TD</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Erosion[&quot;Bedrock<sp/>&amp;<sp/>Sediment<sp/>Incision&quot;]<sp/>--&gt;<sp/>Trans[&quot;Sediment<sp/>Load<sp/>Q_s<sp/>routed<sp/>downstream&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Trans<sp/>--&gt;<sp/>SlopeCheck{&quot;Slope<sp/>S<sp/>&lt;<sp/>S_eq<sp/>?&quot;}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SlopeCheck<sp/>--&gt;|Yes:<sp/>Low<sp/>Slope<sp/>or<sp/>Lake<sp/>Basin|<sp/>Deposit[&quot;Deposit<sp/>sediment:<sp/>Δz_sed<sp/>=<sp/>min(Available<sp/>Room,<sp/>Q_s)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Deposit<sp/>--&gt;<sp/>BedFill[&quot;Fills<sp/>Lake<sp/>/<sp/>Flattens<sp/>Alluvial<sp/>Plain&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SlopeCheck<sp/>--&gt;|No:<sp/>High<sp/>Transport<sp/>Capacity|<sp/>Bypass[&quot;Transport<sp/>downstream<sp/>to<sp/>next<sp/>receiver&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Deposit<sp/>--&gt;<sp/>Relax[&quot;Sediment<sp/>Talus<sp/>Relaxation<sp/>(sediment_talus)&quot;]</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Equilibrium<sp/>Slope</highlight></codeline>
+<codeline><highlight class="normal">Sediment<sp/>settles<sp/>when<sp/>channel<sp/>slope<sp/>falls<sp/>below<sp/>an<sp/>equilibrium<sp/>transport<sp/>slope<sp/>$S_{\text{eq}}$,<sp/>which<sp/>decays<sp/>with<sp/>increasing<sp/>drainage<sp/>area:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$S_{\text{eq}}(A)<sp/>=<sp/>\theta_{\text{dep}}<sp/>\cdot<sp/>\max\left(0.01,<sp/>\left(\frac{A}{\text{deposition\_area}}\right)^{-\beta}\right)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">where<sp/>$\theta_{\text{dep}}<sp/>=<sp/>\text{deposition\_slope}$<sp/>and<sp/>$\beta<sp/>=<sp/>\text{deposition\_exp}$.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Deposition<sp/>in<sp/>Depressions<sp/>and<sp/>Lakes</highlight></codeline>
+<codeline><highlight class="normal">When<sp/>sediment<sp/>reaches<sp/>a<sp/>flooded<sp/>depression<sp/>(`lake`<sp/>basin):</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>The<sp/>`lake_fill`<sp/>factor<sp/>determines<sp/>the<sp/>fraction<sp/>of<sp/>sediment<sp/>retained<sp/>inside<sp/>the<sp/>basin.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Sediment<sp/>deposits<sp/>horizontally<sp/>up<sp/>to<sp/>the<sp/>lake<sp/>spill<sp/>level,<sp/>creating<sp/>flat<sp/>alluvial<sp/>valley<sp/>bottoms<sp/>and<sp/>dry<sp/>lakebeds<sp/>(playas).</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Excess<sp/>sediment<sp/>spills<sp/>over<sp/>the<sp/>outlet<sp/>into<sp/>downstream<sp/>reaches.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Loose<sp/>Sediment<sp/>Geomechanics</highlight></codeline>
+<codeline><highlight class="normal">Deposited<sp/>alluvium<sp/>is<sp/>mechanically<sp/>distinct<sp/>from<sp/>solid<sp/>bedrock:</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**Higher<sp/>Erodibility**:<sp/>Loose<sp/>sediment<sp/>erodes<sp/>faster<sp/>than<sp/>parent<sp/>bedrock<sp/>($K_{\text{sed}}<sp/>=<sp/>K<sp/>\cdot<sp/>\text{sediment\_erodibility}$).</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**Lower<sp/>Angle<sp/>of<sp/>Repose**:<sp/>Subaerial<sp/>loose<sp/>sediment<sp/>slumps<sp/>at<sp/>a<sp/>lower<sp/>repose<sp/>angle<sp/>($\theta_{\text{sed\_talus}}<sp/>&lt;<sp/>\theta_{\text{talus}}$),<sp/>regulated<sp/>by<sp/>multi-pass<sp/>relaxation<sp/>sweeps<sp/>(`sediment_relax_iters`).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>4.<sp/>Multiscale<sp/>Architecture<sp/>and<sp/>Scheduling</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">`hydraulic_mise`<sp/>achieves<sp/>high<sp/>computational<sp/>performance<sp/>and<sp/>geomorphological<sp/>coherence<sp/>through<sp/>a<sp/>dyadic<sp/>resolution<sp/>pyramid.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```mermaid</highlight></codeline>
+<codeline><highlight class="normal">flowchart<sp/>TD</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>subgraph<sp/>LevelCoarse[&quot;Level<sp/>0:<sp/>Base<sp/>Coarse<sp/>Resolution<sp/>(e.g.<sp/>128x128)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>L0[&quot;Solve<sp/>large-scale<sp/>tectonic<sp/>basins<sp/>&amp;<sp/>continental<sp/>divides&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>L0_it[&quot;iters0<sp/>updates<sp/>with<sp/>highest<sp/>relative<sp/>erosion<sp/>strength&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>end</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>subgraph<sp/>LevelMid[&quot;Intermediate<sp/>Levels<sp/>(256x256,<sp/>512x512,<sp/>...)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Interp[&quot;Bilinear<sp/>Upsample<sp/>of<sp/>Elevation<sp/>+<sp/>Sediment&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Warp[&quot;Domain<sp/>Warping<sp/>(warp<sp/>*<sp/>Perlin)<sp/>to<sp/>break<sp/>grid<sp/>bias&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>L1[&quot;Solve<sp/>regional<sp/>dendritic<sp/>tributaries&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>end</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>subgraph<sp/>LevelFine[&quot;Finest<sp/>Resolution<sp/>(Full<sp/>Shape)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Full[&quot;Carve<sp/>fine<sp/>gullies<sp/>and<sp/>micro-channels&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AA[&quot;Optional<sp/>Antialiasing<sp/>Filter<sp/>(antialias)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>end</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LevelCoarse<sp/>--&gt;<sp/>Interp</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Interp<sp/>--&gt;<sp/>Warp</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Warp<sp/>--&gt;<sp/>LevelMid</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LevelMid<sp/>--&gt;<sp/>LevelFine</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Multiscale<sp/>Parameters</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`base_res`:<sp/>Grid<sp/>resolution<sp/>of<sp/>the<sp/>coarsest<sp/>level<sp/>(default:<sp/>128).</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`share_ratio`:<sp/>Geometric<sp/>decay<sp/>factor<sp/>of<sp/>erosion<sp/>strength<sp/>across<sp/>levels.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`iters0`:<sp/>Number<sp/>of<sp/>flow-routing<sp/>recalculations<sp/>on<sp/>the<sp/>coarsest<sp/>level.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`iters_decay`:<sp/>Rate<sp/>at<sp/>which<sp/>iteration<sp/>count<sp/>diminishes<sp/>as<sp/>resolution<sp/>increases.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`warp`:<sp/>Amplitude<sp/>of<sp/>procedural<sp/>Perlin<sp/>coordinate<sp/>perturbation<sp/>applied<sp/>during<sp/>upsampling<sp/>to<sp/>prevent<sp/>axis-aligned<sp/>river<sp/>artifacts.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`skip_finest`:<sp/>Allows<sp/>skipping<sp/>the<sp/>most<sp/>expensive<sp/>fine-scale<sp/>passes<sp/>for<sp/>rapid<sp/>preview<sp/>iterations.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>5.<sp/>C++<sp/>API<sp/>Reference</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>primary<sp/>interface<sp/>resides<sp/>in<sp/>[`hydraulic_erosion.hpp`](file:///home/glop/Documents/dev/HighMap/HighMap/include/highmap/erosion/hydraulic_erosion.hpp)<sp/>and<sp/>[`erosion_parameters.hpp`](file:///home/glop/Documents/dev/HighMap/HighMap/include/highmap/erosion/erosion_parameters.hpp):</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```cpp</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&quot;highmap.hpp&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Setup<sp/>configuration</highlight></codeline>
+<codeline><highlight class="normal">hmap::MiseParams<sp/>params;</highlight></codeline>
+<codeline><highlight class="normal">params.strength<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0.60f;<sp/>//<sp/>Erosion<sp/>intensity<sp/>(K<sp/>*<sp/>duration)</highlight></codeline>
+<codeline><highlight class="normal">params.area_exp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0.45f;<sp/>//<sp/>Drainage<sp/>area<sp/>exponent<sp/>m</highlight></codeline>
+<codeline><highlight class="normal">params.downcutting<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1.00f;<sp/>//<sp/>Area<sp/>downcutting<sp/>cap</highlight></codeline>
+<codeline><highlight class="normal">params.talus<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>3.20f;<sp/>//<sp/>Critical<sp/>bedrock<sp/>slope</highlight></codeline>
+<codeline><highlight class="normal">params.debris<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>200.f;<sp/>//<sp/>Hillslope<sp/>debris<sp/>multiplier</highlight></codeline>
+<codeline><highlight class="normal">params.deposition_slope<sp/><sp/><sp/><sp/>=<sp/>1.80f;<sp/>//<sp/>Threshold<sp/>slope<sp/>for<sp/>sediment<sp/>settling</highlight></codeline>
+<codeline><highlight class="normal">params.deposition_rate<sp/><sp/><sp/><sp/><sp/>=<sp/>1.00f;<sp/>//<sp/>Fill<sp/>fraction<sp/>per<sp/>step</highlight></codeline>
+<codeline><highlight class="normal">params.sediment_talus<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1.40f;<sp/>//<sp/>Loose<sp/>sediment<sp/>repose<sp/>slope</highlight></codeline>
+<codeline><highlight class="normal">params.base_res<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>128;<sp/><sp/><sp/>//<sp/>Base<sp/>resolution<sp/>for<sp/>coarse<sp/>pass</highlight></codeline>
+<codeline><highlight class="normal">params.warp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0.35f;<sp/>//<sp/>Upsampling<sp/>domain<sp/>warp</highlight></codeline>
+<codeline><highlight class="normal">params.seed<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>42;<sp/><sp/><sp/><sp/>//<sp/>Deterministic<sp/>random<sp/>seed</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">hmap::Array<sp/>sediment;</highlight></codeline>
+<codeline><highlight class="normal">hmap::Array<sp/>flow;</highlight></codeline>
+<codeline><highlight class="normal">hmap::Array<sp/>erosion_map;</highlight></codeline>
+<codeline><highlight class="normal">hmap::Array<sp/>deposition_map;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>In-place<sp/>hydraulic<sp/>MISE<sp/>simulation</highlight></codeline>
+<codeline><highlight class="normal">hmap::hydraulic_mise(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>z,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Target<sp/>heightfield</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>params,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Solver<sp/>parameters</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_bedrock<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_erodibility<sp/>*/<sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_moisture_map<sp/>*/<sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_outlet<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_sediment<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;sediment,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_flow<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;flow,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_erosion_map<sp/>*/<sp/><sp/><sp/><sp/>&amp;erosion_map,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_deposition_map<sp/>*/<sp/>&amp;deposition_map</highlight></codeline>
+<codeline><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+    </programlisting>
+    <location file="docs/content/dev/hydraulic_mise.md"/>
+  </compounddef>
+</doxygen>

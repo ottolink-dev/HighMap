@@ -1,0 +1,212 @@
+\chapter{Hydraulic Stream Log Erosion}
+\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log}{}\label{md_docs_2content_2dev_2hydraulic__stream__log}\index{Hydraulic Stream Log Erosion@{Hydraulic Stream Log Erosion}}
+\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md48}%
+\Hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md48}%
+ This document details the algorithm, continuous flow formulation, logarithmic stream power scaling, and implementation of {\ttfamily hydraulic\+\_\+stream\+\_\+log} and {\ttfamily hydraulic\+\_\+stream\+\_\+log\+\_\+multiscale} in High\+Map.\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md49}{}\doxysection{\texorpdfstring{1. Overview}{1. Overview}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md49}
+While particle-\/based hydraulic erosion ({\ttfamily hydraulic\+\_\+particle}) simulates discrete raindrops advecting across the surface, {\ttfamily hydraulic\+\_\+stream\+\_\+log} is an Eulerian, stream-\/power erosion model. It operates globally across the grid using continuous \$\+D\+\_\+\textbackslash{}infty\$ flow accumulation, logarithmic discharge scaling, local gradient modulation, and hole-\/filling deposition.
+
+
+
+This method carves continuous, smooth dendritic river valleys and dendritic drainage basins rapidly across large terrains without Monte Carlo sampling noise.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{flowchart\ TD}
+\DoxyCodeLine{\ \ \ \ A["{}Input\ Elevation\ z"{}]\ -\/-\/>\ B["{}D\_inf\ Flow\ Routing\ \&\ Accumulation:\ facc"{}]}
+\DoxyCodeLine{\ \ \ \ B\ -\/-\/>\ C["{}Logarithmic\ Compression:\ facc\ =\ log10(facc)"{}]}
+\DoxyCodeLine{\ \ \ \ C\ -\/-\/>\ D["{}Remap\ \&\ Saturation\ Thresholding"{}]}
+\DoxyCodeLine{\ \ \ \ A\ -\/-\/>\ E["{}Local\ Gradient\ Norm\ \&\ Peak\ Preservation"{}]}
+\DoxyCodeLine{\ \ \ \ D\ -\/-\/>\ F["{}Channel\ Discharge\ Modulation:\ facc\ *\ gn\ *\ re"{}]}
+\DoxyCodeLine{\ \ \ \ E\ -\/-\/>\ F}
+\DoxyCodeLine{\ \ \ \ F\ -\/-\/>\ G["{}Erosion\ Incision:\ z\ =\ z\ -\/\ c\_erosion\ *\ facc\ *\ moisture"{}]}
+\DoxyCodeLine{\ \ \ \ G\ -\/-\/>\ H["{}Synthetic\ Deposition:\ Hole\ Filling\ \&\ Gradient\ Blending"{}]}
+\DoxyCodeLine{\ \ \ \ H\ -\/-\/>\ I["{}Bedrock\ Clamping:\ z\ =\ max(z,\ z\_bedrock)"{}]}
+\DoxyCodeLine{\ \ \ \ I\ -\/-\/>\ J["{}Output\ Splatmaps\ (Erosion\ /\ Deposition\ /\ Flow)"{}]}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md50}{}\doxysection{\texorpdfstring{2. Mathematical Model and Kinematics}{2. Mathematical Model and Kinematics}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md50}
+\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md51}{}\doxysubsection{\texorpdfstring{Continuous Flow Accumulation (\$\+D\+\_\+\textbackslash{}infty\$)}{Continuous Flow Accumulation (\$D\_\textbackslash{}infty\$)}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md51}
+Water routing is computed using Tarboton\textquotesingle{}s \$\+D\+\_\+\textbackslash{}infty\$ continuous flow direction model. Rather than confining flow to one of eight discrete directions (\$\+D\+\_\+8\$), \$\+D\+\_\+\textbackslash{}infty\$ routes flow along triangular facets as a continuous facet angle \$\textbackslash{}theta \textbackslash{}in \mbox{[}0, 2\textbackslash{}pi)\$.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{flowchart\ LR}
+\DoxyCodeLine{\ \ \ \ P["{}Center\ Cell\ (i,\ j)"{}]\ -\/-\/>\ F1["{}Facet\ k:\ Proportion\ w\_1\ -\/>\ Neighbor\ 1"{}]}
+\DoxyCodeLine{\ \ \ \ P\ -\/-\/>\ F2["{}Facet\ k:\ Proportion\ w\_2\ -\/>\ Neighbor\ 2"{}]}
+
+\end{DoxyCode}
+
+
+The flow accumulation \$\+A(x, y)\$ represents the total upstream drainage area draining through cell \$(x, y)\$\+:
+
+\$\$\+A\+\_\+i = 1 + \textbackslash{}sum\+\_\+\{j \textbackslash{}in \textbackslash{}text\{inflow\}(i)\} w\+\_\+\{j \textbackslash{}to i\} A\+\_\+j\$\$
+
+where \$w\+\_\+\{j \textbackslash{}to i\} \textbackslash{}in \mbox{[}0, 1\mbox{]}\$ is the fraction of cell \$j\$\textquotesingle{}s discharge directed toward cell \$i\$. Flow routing over flat regions or local depressions is stabilized using the reference slope parameter {\ttfamily talus\+\_\+ref}.\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md52}{}\doxysubsection{\texorpdfstring{Logarithmic Compression}{Logarithmic Compression}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md52}
+Because upstream area spans several orders of magnitude (from \$10\texorpdfstring{$^\wedge$}{\string^}0\$ at ridges to \$10\texorpdfstring{$^\wedge$}{\string^}6+\$ at primary river trunks), standard linear stream power causes catastrophic over-\/carving in main valleys while leaving feeder streams untouched.
+
+{\ttfamily hydraulic\+\_\+stream\+\_\+log} applies base-\/10 logarithmic compression to the accumulated flow\+:
+
+\$\$\+A\+\_\+\{\textbackslash{}text\{log\}\} = \textbackslash{}log\+\_\+\{10\}(A)\$\$
+
+The compressed discharge is remapped to \$\mbox{[}0, 1\mbox{]}\$\+:
+
+\$\$\+A\+\_\+\{\textbackslash{}text\{norm\}\} = \textbackslash{}frac\{A\+\_\+\{\textbackslash{}text\{log\}\} -\/ \textbackslash{}min(A\+\_\+\{\textbackslash{}text\{log\}\})\}\{\textbackslash{}max(A\+\_\+\{\textbackslash{}text\{log\}\}) -\/ \textbackslash{}min(A\+\_\+\{\textbackslash{}text\{log\}\})\}\$\$
+
+If {\ttfamily saturation\+\_\+ratio} \$\texorpdfstring{$<$}{<} 1.\+0\$, upper river branches are saturated to broaden valleys\+:
+
+\$\$\+A\+\_\+\{\textbackslash{}text\{sat\}\} = \textbackslash{}mathrm\{saturate\}(A\+\_\+\{\textbackslash{}text\{norm\}\}, 0, s\+\_\+\{\textbackslash{}text\{ratio\}\}, 0.\+1 \textbackslash{}cdot s\+\_\+\{\textbackslash{}text\{ratio\}\})\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md53}{}\doxysubsection{\texorpdfstring{Gradient Modulation and Stream Power}{Gradient Modulation and Stream Power}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md53}
+Stream power incision in nature depends on both discharge \$\+Q\$ and bed slope \$\+S\$\+:
+
+\$\$E \textbackslash{}propto Q\texorpdfstring{$^\wedge$}{\string^}m S\texorpdfstring{$^\wedge$}{\string^}n\$\$
+
+High\+Map models slope dependence by evaluating the smoothed surface gradient norm \$$|$\textbackslash{}nabla z$|$\$\+:
+
+
+\begin{DoxyEnumerate}
+\item Compute gradient norm \$$|$\textbackslash{}nabla z$|$\$.
+\item Smooth using compact pulse filtering ({\ttfamily smooth\+\_\+cpulse}) with prefilter radius \$r\+\_\+\{\textbackslash{}text\{grad\}\}\$.
+\item Raise to exponent \$p = \textbackslash{}text\{gradient\+\_\+power\}\$ and apply a quintic smoothstep\+:
+\end{DoxyEnumerate}
+
+\$\$g\+\_\+\{\textbackslash{}text\{norm\}\} = S\+\_\+5\textbackslash{}left($|$\textbackslash{}nabla z$|$\texorpdfstring{$^\wedge$}{\string^}p\textbackslash{}right)\$\$
+
+
+\begin{DoxyEnumerate}
+\item Modulate flow intensity with the gradient scaling ratio \$r\+\_\+\{\textbackslash{}text\{scale\}\} \textbackslash{}in \mbox{[}0, 1\mbox{]}\$\+:
+\end{DoxyEnumerate}
+
+\$\$\+A\+\_\+\{\textbackslash{}text\{mod\}\} = A\+\_\+\{\textbackslash{}text\{sat\}\} \textbackslash{}cdot \textbackslash{}left((1 -\/ r\+\_\+\{\textbackslash{}text\{scale\}\}) + r\+\_\+\{\textbackslash{}text\{scale\}\} \textbackslash{}cdot g\+\_\+\{\textbackslash{}text\{norm\}\}\textbackslash{}right)\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md54}{}\doxysubsection{\texorpdfstring{Ridge and Peak Preservation}{Ridge and Peak Preservation}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md54}
+To ensure that high peaks and sharp mountain ridges are not eroded away by accidental local flow initialization, relative elevation (\$\+RE\$) over a square kernel is sampled\+:
+
+\$\$\+RE = \textbackslash{}frac\{z -\/ \textbackslash{}min\+\_\+\{\textbackslash{}\+Omega\}(z)\}\{\textbackslash{}max\+\_\+\{\textbackslash{}\+Omega\}(z) -\/ \textbackslash{}min\+\_\+\{\textbackslash{}\+Omega\}(z)\}\$\$
+
+Valley bottoms have \$\+RE \textbackslash{}approx 0\$, while sharp mountain ridges have \$\+RE \textbackslash{}approx 1\$. Incision intensity is masked by the inverted cubic smoothstep of \$\+RE\$\+:
+
+\$\$\+A\+\_\+\{\textbackslash{}text\{eff\}\} = A\+\_\+\{\textbackslash{}text\{mod\}\} \textbackslash{}cdot S\+\_\+3(1 -\/ RE)\$\$
+
+This focuses erosion strictly into valley troughs while preserving mountain crests and summits.\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md55}{}\doxysubsection{\texorpdfstring{Surface Incision}{Surface Incision}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md55}
+Elevation is carved according to erosion rate \$c\+\_\+\{\textbackslash{}text\{erosion\}\}\$ and optional moisture weighting \$\+M(x, y)\$\+:
+
+\$\$z \textbackslash{}leftarrow z -\/ c\+\_\+\{\textbackslash{}text\{erosion\}\} \textbackslash{}cdot M \textbackslash{}cdot A\+\_\+\{\textbackslash{}text\{eff\}\}\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md56}{}\doxysection{\texorpdfstring{3. Deposition Mechanics}{3. Deposition Mechanics}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md56}
+Unlike physical Lagrangian transport where sediment is tracked along particle paths, Eulerian stream incision models lack explicit sediment load states. {\ttfamily hydraulic\+\_\+stream\+\_\+log} mimics alluvial fan deposition through morphological filtering and gradient blending\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{flowchart\ LR}
+\DoxyCodeLine{\ \ \ \ Z["{}Eroded\ Surface\ z"{}]\ -\/-\/>\ HoleFill["{}smooth\_fill\_holes(z,\ r\_dep)"{}]}
+\DoxyCodeLine{\ \ \ \ HoleFill\ -\/-\/>\ GradBlend["{}blend\_gradients(z\_filled,\ z,\ r\_dep)"{}]}
+\DoxyCodeLine{\ \ \ \ GradBlend\ -\/-\/>\ Lerp["{}z\_final\ =\ (1\ -\/\ α)\ z\ +\ α\ z\_dep"{}]}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Hole Filling}}\+: {\ttfamily gpu\+::smooth\+\_\+fill\+\_\+holes(z\+\_\+d, deposition\+\_\+ir)} eliminates artificial pit singularities and shallow micro-\/depressions created by intense carving.
+\item {\bfseries{Gradient Blending}}\+: {\ttfamily gpu\+::blend\+\_\+gradients(z\+\_\+d, z, deposition\+\_\+ir)} blends the regional slope into the filled depressions.
+\item {\bfseries{Linear Interpolation}}\+: The surface blends with the deposition target using {\ttfamily deposition\+\_\+scale\+\_\+ratio} (\$\textbackslash{}alpha \textbackslash{}in \mbox{[}0, 1\mbox{]}\$)\+:
+\end{DoxyEnumerate}
+
+\$\$z \textbackslash{}leftarrow (1 -\/ \textbackslash{}alpha) z + \textbackslash{}alpha z\+\_\+d\$\$
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Bedrock Enforcement}}\+: If a hard bedrock stratum \$z\+\_\+\{\textbackslash{}text\{bedrock\}\}\$ is provided, elevation is clamped from below\+:
+\end{DoxyEnumerate}
+
+\$\$z \textbackslash{}leftarrow \textbackslash{}max(z\+\_\+\{\textbackslash{}text\{bedrock\}\}, z)\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md57}{}\doxysection{\texorpdfstring{4. Multiscale Architecture ($<$tt$>$hydraulic\+\_\+stream\+\_\+log\+\_\+multiscale$<$/tt$>$)}{4. Multiscale Architecture (<tt>hydraulic\_stream\_log\_multiscale</tt>)}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md57}
+When creating expansive mountain landscapes, applying flow accumulation at a single high resolution can produce overly fine, dense rill networks rather than majestic, wide valley corridors.
+
+{\ttfamily hydraulic\+\_\+stream\+\_\+log\+\_\+multiscale} solves this by building an octave downsampling pyramid\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{flowchart\ TD}
+\DoxyCodeLine{\ \ \ \ subgraph\ Level0["{}Coarsest\ Level\ (e.g.\ 1/4\ or\ 1/8\ resolution)"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ C1["{}Resample\ z\ to\ coarse\ shape"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ C2["{}Run\ hydraulic\_stream\_log\ (deposition\ ratio\ =\ 0)"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ C3["{}Compute\ Incision\ Delta:\ Δz\_coarse\ =\ z\_orig\ -\/\ z\_carved"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ C4["{}Upsample\ Δz\_coarse\ with\ Domain\ Warping"{}]}
+\DoxyCodeLine{\ \ \ \ end}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ subgraph\ Level1["{}Intermediate\ Levels"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ M1["{}Apply\ upsampled\ coarse\ incision\ to\ finer\ level"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ M2["{}Carve\ sub-\/tributaries"{}]}
+\DoxyCodeLine{\ \ \ \ end}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ subgraph\ LevelFin["{}Final\ Full\ Resolution"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ F1["{}Run\ full\ hydraulic\_stream\_log\ with\ full\ deposition"{}]}
+\DoxyCodeLine{\ \ \ \ end}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ Level0\ -\/-\/>\ Level1\ -\/-\/>\ LevelFin}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md58}{}\doxysubsection{\texorpdfstring{Multiscale Algorithm Steps}{Multiscale Algorithm Steps}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md58}
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Pyramid Ladder}}\+: Generates \$\+L\$ power-\/of-\/two resolutions \$\textbackslash{}text\{ladder\}\mbox{[}i\mbox{]}\$ for \$i = 0, \textbackslash{}ldots, L -\/ 1\$, from coarsest to full resolution.
+\item {\bfseries{Coarse Scale Carving}}\+:
+\begin{DoxyItemize}
+\item The terrain is downsampled to {\ttfamily ladder\mbox{[}i\mbox{]}}.
+\item {\ttfamily hydraulic\+\_\+stream\+\_\+log} runs on the coarse grid to identify primary macro-\/valleys.
+\item The incision delta \$\textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{coarse\}\} = z\+\_\+\{\textbackslash{}text\{before\}\} -\/ z\+\_\+\{\textbackslash{}text\{after\}\}\$ is calculated.
+\end{DoxyItemize}
+\item {\bfseries{Domain-\/\+Warped Upsampling}}\+:
+\begin{DoxyItemize}
+\item \$\textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{coarse\}\}\$ is upsampled smoothly back to full resolution.
+\item Procedural Perlin domain warping ({\ttfamily warp}) perturbs the upsampled delta, preventing geometric blockiness and introducing natural organic meanders into the valley paths.
+\item The scaled incision \$\textbackslash{}text\{mix\} \textbackslash{}cdot \textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{warped\}\}\$ is subtracted from the full-\/resolution terrain.
+\end{DoxyItemize}
+\item {\bfseries{Fine Scale Detail}}\+:
+\begin{DoxyItemize}
+\item The finest level runs with {\ttfamily deposition\+\_\+scale\+\_\+ratio} active, producing detailed riverbanks, braided streams, and sediment flats.
+\end{DoxyItemize}
+\end{DoxyEnumerate}\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md59}{}\doxysection{\texorpdfstring{5. C++ API Reference}{5. C++ API Reference}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md59}
+The functions are declared in \href{file:///home/glop/Documents/dev/HighMap/HighMap/include/highmap/erosion/hydraulic_erosion.hpp}{\texttt{ {\ttfamily hydraulic\+\_\+erosion.\+hpp}}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Single-\/scale\ logarithmic\ stream\ erosion}}
+\DoxyCodeLine{\mbox{\hyperlink{namespacehmap_1_1gpu_a7e51491ac0bc571828955e8a54b143dc}{hmap::gpu::hydraulic\_stream\_log}}(}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Target\ heightfield}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ c\_erosion\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.2f,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ talus\_ref\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ 5.0f\ /\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ deposition\_ir\ */}\ \ \ \ \ \ \ \ \ \ 32,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ deposition\_scale\_ratio\ */}\ 1.0f,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ gradient\_power\ */}\ \ \ \ \ \ \ \ \ 0.8f,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ gradient\_scaling\_ratio\ */}\ 1.0f,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ gradient\_prefilter\_ir\ */}\ \ 16,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ saturation\_ratio\ */}\ \ \ \ \ \ \ 1.0f,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ p\_bedrock\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ p\_moisture\_map\ */}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ p\_erosion\_map\ */}\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ p\_deposition\_map\ */}\ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ p\_flow\_map\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Multiscale\ logarithmic\ stream\ cascade}}
+\DoxyCodeLine{\mbox{\hyperlink{namespacehmap_1_1gpu_a263168c2e1e24e25a4c1cba0142bdbc0}{hmap::gpu::hydraulic\_stream\_log\_multiscale}}(}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Target\ heightfield}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ c\_erosion\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.2f,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ talus\_ref\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ 5.0f\ /\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ levels\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ deposition\_ir\ */}\ \ \ \ \ \ \ \ \ \ 32,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ deposition\_scale\_ratio\ */}\ 1.0f,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ gradient\_power\ */}\ \ \ \ \ \ \ \ \ 0.8f,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ gradient\_scaling\_ratio\ */}\ 1.0f,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ gradient\_prefilter\_ir\ */}\ \ 16,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ saturation\_ratio\ */}\ \ \ \ \ \ \ 1.0f,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ p\_bedrock\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ p\_moisture\_map\ */}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ p\_erosion\_map\ */}\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ p\_deposition\_map\ */}\ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ p\_flow\_map\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ mix\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1.0f,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ warp\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.35f,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ seed\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1}
+\DoxyCodeLine{);}
+
+\end{DoxyCode}
+ 

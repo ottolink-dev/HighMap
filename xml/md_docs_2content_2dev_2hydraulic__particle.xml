@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="md_docs_2content_2dev_2hydraulic__particle" kind="page">
+    <compoundname>md_docs_2content_2dev_2hydraulic__particle</compoundname>
+    <title>Hydraulic Particle Erosion</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md34"/> This document details the simulation model, kinematics, sediment transport equations, and implementation of particle-based hydraulic erosion (<computeroutput>hydraulic_particle</computeroutput>) in HighMap.</para>
+<sect1 id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md35">
+<title>1. Overview</title>
+<para>Hydraulic erosion models the carving of terrain by surface water runoff. In HighMap, particle-based hydraulic erosion uses a Lagrangian formulation where virtual water droplets (particles) are spawned across the heightfield, navigate downslope according to local terrain kinematics, transport suspended sediment, and iteratively carve channels and deposit alluvial fans.</para>
+<para><image type="html" name="../../images/hydraulic_comparison_particle.png" inline="yes"></image>
+</para>
+<para><programlisting filename=".mermaid"><codeline><highlight class="normal">flowchart<sp/>TD</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>A[&quot;Particle<sp/>Spawn<sp/>(Stochastic<sp/>Position<sp/>&amp;<sp/>Moisture<sp/>Volume)&quot;]<sp/>--&gt;<sp/>B[&quot;Compute<sp/>Continuous<sp/>Gradient<sp/>&amp;<sp/>Direction&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>B<sp/>--&gt;<sp/>C[&quot;Advect<sp/>Particle<sp/>Position<sp/>(Trajectory<sp/>Step)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>C<sp/>--&gt;<sp/>D[&quot;Sample<sp/>Elevation<sp/>Change<sp/>(dz<sp/>=<sp/>z_prev<sp/>-<sp/>z_curr)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>D<sp/>--&gt;<sp/>E[&quot;Compute<sp/>Transport<sp/>Capacity<sp/>(Stream<sp/>Power)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>E<sp/>--&gt;<sp/>F{&quot;Sediment<sp/>Deficit<sp/>or<sp/>Excess?&quot;}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>F<sp/>--&gt;|Deficit:<sp/>Capacity<sp/>&gt;<sp/>Carried|<sp/>G[&quot;Erode<sp/>Soil<sp/>/<sp/>Bedrock<sp/>(Carve<sp/>Channels)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>F<sp/>--&gt;|Excess:<sp/>Carried<sp/>&gt;<sp/>Capacity<sp/>or<sp/>Uphill|<sp/>H[&quot;Deposit<sp/>Sediment<sp/>(Alluvial<sp/>Filling)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>G<sp/>--&gt;<sp/>I[&quot;Talus<sp/>Bank<sp/>Collapse<sp/>(Thermal<sp/>Relaxation)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>H<sp/>--&gt;<sp/>J[&quot;Update<sp/>Velocity<sp/>&amp;<sp/>Kinematics&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>I<sp/>--&gt;<sp/>J</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>J<sp/>--&gt;<sp/>K[&quot;Evaporation<sp/>&amp;<sp/>Drag<sp/>Damping&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>K<sp/>--&gt;<sp/>L{&quot;Volume<sp/>&gt;<sp/>Threshold<sp/>&amp;<sp/>Inside<sp/>Bounds?&quot;}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>L<sp/>--&gt;|Yes|<sp/>B</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>L<sp/>--&gt;|No|<sp/>M[&quot;Terminate<sp/>Particle&quot;]</highlight></codeline>
+</programlisting></para>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md36">
+<title>2. Particle Kinematics and Trajectories</title>
+<sect2 id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md37">
+<title>Surface Interpolation and Gradient Evaluation</title>
+<para>Each particle is defined by a continuous 2D position $\mathbf{x} = (x, y) \in [0, N_x - 1] \times [0, N_y - 1]$. The integer grid coordinates $(i, j)$ and fractional offsets $(u, v)$ are given by:</para>
+<para>$$i = \lfloor x \rfloor, \quad j = \lfloor y \rfloor, \quad u = x - i, \quad v = y - j$$</para>
+<para>Elevation $z(\mathbf{x})$ is obtained through bilinear interpolation over the four enclosing heightfield vertices:</para>
+<para>$$z(u, v) = (1 - u)(1 - v) z_{i, j} + u (1 - v) z_{i+1, j} + (1 - u) v z_{i, j+1} + u v z_{i+1, j+1}$$</para>
+<para>The continuous terrain surface gradient $\nabla z = (g_x, g_y)$ is computed analytically across the cell:</para>
+<para>$$g_x = (1 - v)(z_{i+1, j} - z_{i, j}) + v(z_{i+1, j+1} - z_{i, j+1})$$</para>
+<para>$$g_y = (1 - u)(z_{i, j+1} - z_{i, j}) + u(z_{i+1, j+1} - z_{i+1, j})$$</para>
+</sect2>
+<sect2 id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md38">
+<title>Trajectory Integration and Momentum Blending</title>
+<para>The steepest downhill unit vector is $-\frac{\nabla z}{|\nabla z|}$. To simulate fluid momentum and prevent abrupt artificial turning, the particle&apos;s heading direction $\mathbf{d}_t$ blends the downhill gradient vector with its previous momentum direction $\mathbf{d}_{t-1}$ via inertia coefficient $c_{\text{inertia}} \in [0, 1]$:</para>
+<para>$$\mathbf{d}_t = \mathrm{normalize}\left((1 - c_{\text{inertia}}) \left(-\frac{\nabla z}{|\nabla z|}\right) + c_{\text{inertia}} \, \mathbf{d}_{t-1}\right)$$</para>
+<para><programlisting filename=".mermaid"><codeline><highlight class="normal">flowchart<sp/>LR</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>G[&quot;Downhill<sp/>Gradient<sp/>-∇z&quot;]<sp/>--&gt;|&quot;Weight:<sp/>1<sp/>-<sp/>c_inertia&quot;|<sp/>B[&quot;Vector<sp/>Blend<sp/>(mix)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>M[&quot;Previous<sp/>Heading<sp/>d_(t-1)&quot;]<sp/>--&gt;|&quot;Weight:<sp/>c_inertia&quot;|<sp/>B</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>B<sp/>--&gt;<sp/>N[&quot;Normalize<sp/>Direction<sp/>d_t&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>N<sp/>--&gt;<sp/>P[&quot;Position<sp/>Step:<sp/>x_(t+1)<sp/>=<sp/>x_t<sp/>+<sp/>dt<sp/>*<sp/>d_t&quot;]</highlight></codeline>
+</programlisting></para>
+<para>Across flat plateaus or local minima where $|\nabla z| \le \epsilon_{\text{slope}}$, momentum dominates ($c_{\text{eff}} = \max(c_{\text{inertia}}, 0.9)$), enabling particles to glide over shallow sills rather than stalling immediately.</para>
+<para>Position integration advances the particle along its current heading:</para>
+<para>$$\mathbf{x}_{t+1} = \mathbf{x}_t + \Delta t \, \mathbf{d}_t$$</para>
+</sect2>
+<sect2 id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md39">
+<title>Velocity and Energy Conservation</title>
+<para>As a droplet moves from elevation $z_{\text{prev}}$ to $z_{\text{curr}}$, the elevation difference $\Delta z = z_{\text{prev}} - z_{\text{curr}}$ drives acceleration or deceleration under gravity coefficient $g$:</para>
+<para>$$v_{t+1} = \sqrt{\max\left(0, v_t^2 - \Delta z \cdot g_{\text{eff}}\right)}$$</para>
+<para>For downhill movement ($\Delta z &gt; 0$), kinetic energy increases. For uphill climbs ($\Delta z &lt; 0$, e.g., inertia-driven movement across a local dip), gravitational deceleration applies. Kinetic friction dampens velocity each step:</para>
+<para>$$v_{t+1} \leftarrow v_{t+1} \cdot (1 - \mu_{\text{drag}})$$</para>
+<para>Volume decreases due to evaporation:</para>
+<para>$$V_{t+1} = V_t \cdot (1 - \mu_{\text{evap}})$$</para>
+</sect2>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md40">
+<title>3. Sediment Transport Dynamics</title>
+<para>At each step, the droplet carries an internal sediment load $s$. The maximum sediment capacity $s_c$ is governed by the stream power equation:</para>
+<para>$$s_c = \max\left(0, c_{\text{capacity}} \cdot V \cdot v \cdot \Delta z\right)$$</para>
+<para>The transport imbalance $\Delta s_c = \Delta t (s_c - s)$ determines whether erosion or deposition occurs.</para>
+<para><programlisting filename=".mermaid"><codeline><highlight class="normal">flowchart<sp/>TD</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>subgraph<sp/>Capacity[&quot;Transport<sp/>Capacity<sp/>Evaluation&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SC[&quot;s_c<sp/>=<sp/>max(0,<sp/>c_capacity<sp/>*<sp/>Volume<sp/>*<sp/>Velocity<sp/>*<sp/>Δz)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIFF[&quot;Δs_c<sp/>=<sp/>s_c<sp/>-<sp/>s&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>end</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>DIFF<sp/>--&gt;<sp/>COND{&quot;Δs_c<sp/>&lt;<sp/>0<sp/>or<sp/>Δz<sp/>&lt;<sp/>0<sp/>?&quot;}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>subgraph<sp/>Deposition[&quot;Sediment<sp/>Deposition&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>COND<sp/>--&gt;|True:<sp/>Over<sp/>capacity<sp/>or<sp/>uphill|<sp/>DEP[&quot;Deposit<sp/>Amount:<sp/>c_deposition<sp/>*<sp/>min(s,<sp/>to_deposit)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEP<sp/>--&gt;<sp/>SUB_S[&quot;s<sp/>=<sp/>s<sp/>-<sp/>Amount&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEP<sp/>--&gt;<sp/>BILIN_DEP[&quot;Add<sp/>Amount<sp/>across<sp/>bilinear<sp/>footprint<sp/>to<sp/>terrain&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>end</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>subgraph<sp/>Erosion[&quot;Sediment<sp/>Erosion&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>COND<sp/>--&gt;|False:<sp/>Under<sp/>capacity<sp/>downhill|<sp/>ERO[&quot;Erode<sp/>Amount:<sp/>c_erosion<sp/>*<sp/>min(Δs_c,<sp/>Δz)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ERO<sp/>--&gt;<sp/>BED_CHECK{&quot;Bedrock<sp/>Constraint?&quot;}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BED_CHECK<sp/>--&gt;|Apply<sp/>Bedrock<sp/>Limit|<sp/>CLAMP[&quot;Clamp:<sp/>z<sp/>=<sp/>max(z_bedrock,<sp/>z)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ERO<sp/>--&gt;<sp/>ADD_S[&quot;s<sp/>=<sp/>s<sp/>+<sp/>Amount&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ERO<sp/>--&gt;<sp/>BILIN_ERO[&quot;Subtract<sp/>Amount<sp/>across<sp/>bilinear<sp/>footprint<sp/>from<sp/>terrain&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>end</highlight></codeline>
+</programlisting></para>
+<sect2 id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md41">
+<title>Deposition</title>
+<para>When the particle slows down, reaches flatter slopes, or moves uphill ($\Delta s_c &lt; 0$ or $\Delta z &lt; 0$), it drops sediment:</para>
+<para>$$\Delta s_{\text{drop}} = c_{\text{deposition}} \min(s, \text{to_deposit})$$</para>
+<para>$$s \leftarrow s - \Delta s_{\text{drop}}$$</para>
+<para>The dropped sediment is distributed across the grid cell using bilinear weights:</para>
+<para>$$w_{00} = (1 - u)(1 - v), \quad w_{10} = u(1 - v), \quad w_{01} = (1 - u)v, \quad w_{11} = uv$$</para>
+<para>$$z_{i + \delta_i, j + \delta_j} \leftarrow z_{i + \delta_i, j + \delta_j} + w_{\delta_i, \delta_j} \Delta s_{\text{drop}}$$</para>
+</sect2>
+<sect2 id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md42">
+<title>Erosion</title>
+<para>When the flow is under-saturated ($\Delta s_c &gt; 0$ and $\Delta z &gt; 0$), material is carved from the surface:</para>
+<para>$$\Delta s_{\text{lift}} = c_{\text{erosion}} \min(\Delta s_c, \Delta z)$$</para>
+<para>$$s \leftarrow s + \Delta s_{\text{lift}}$$</para>
+<para>Material is subtracted bilinearly from the surrounding vertices. When an optional bedrock map $z_{\text{bedrock}}$ is provided:<itemizedlist>
+<listitem><para>Unconsolidated sediment (where $z &gt; z_{\text{bedrock}}$) is eroded up to 4 times faster than bedrock.</para>
+</listitem><listitem><para>Subtraction is clamped to prevent digging below $z_{\text{bedrock}}$:</para>
+</listitem></itemizedlist>
+</para>
+<para>$$z_{i, j} \leftarrow \max(z_{\text{bedrock}, i, j}, z_{i, j})$$</para>
+</sect2>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md43">
+<title>4. Bank Collapse and Thermal Relaxation</title>
+<para>Localized incision leaves steep vertical trench walls. To simulate natural valley widening and talus formation, bank collapse relaxes over-steepened slopes adjacent to carved cells:</para>
+<para><programlisting filename=".mermaid"><codeline><highlight class="normal">flowchart<sp/>LR</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Incision[&quot;Channel<sp/>Incision<sp/>z_c&quot;]<sp/>--&gt;<sp/>SlopeCalc[&quot;Calculate<sp/>Neighbor<sp/>Slopes:<sp/>S_k<sp/>=<sp/>(z_k<sp/>-<sp/>z_c)<sp/>/<sp/>dist_k&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SlopeCalc<sp/>--&gt;<sp/>Threshold{&quot;S_k<sp/>&gt;<sp/>talus_slope<sp/>?&quot;}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Threshold<sp/>--&gt;|Yes|<sp/>Collapse[&quot;Excess<sp/>=<sp/>(S_k<sp/>-<sp/>talus_slope)<sp/>*<sp/>collapse_rate&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Collapse<sp/>--&gt;<sp/>Transfer[&quot;Transfer<sp/>Excess<sp/>/<sp/>2<sp/>from<sp/>neighbor<sp/>to<sp/>center&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Threshold<sp/>--&gt;|No|<sp/>Stable[&quot;Stable<sp/>Wall&quot;]</highlight></codeline>
+</programlisting></para>
+<para>For each of the 8 neighbors $k \in [0, 7]$ of cell $(i, j)$:</para>
+<para>$$\text{slope}_k = \frac{z_k - z_c}{\text{dist}_k}$$</para>
+<para>If $\text{slope}_k &gt; \sigma_{\text{talus}}$, material collapses into the channel:</para>
+<para>$$\Delta z_{\text{collapse}} = (\text{slope}_k - \sigma_{\text{talus}}) \cdot r_{\text{collapse}}$$</para>
+<para>$$\Delta z_{\text{collapse}} \leftarrow \min\left(\Delta z_{\text{collapse}}, \max(0, z_k - z_{\text{bedrock}, k})\right)$$</para>
+<para>$$z_k \leftarrow z_k - \frac{1}{2} \Delta z_{\text{collapse}}, \quad z_c \leftarrow z_c + \frac{1}{2} \Delta z_{\text{collapse}}$$</para>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md44">
+<title>5. Multi-Pass and Multi-Scale Architectures</title>
+<sect2 id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md45">
+<title>Multi-Pass Iterations</title>
+<para>Running all droplets in a single parallel OpenCL dispatch causes particles to ignore concurrent modifications made by peers. HighMap splits the particle budget into sequential iterations:</para>
+<para><programlisting filename=".text"><codeline><highlight class="normal">nparticles<sp/>=<sp/>500,000,<sp/>iterations<sp/>=<sp/>4</highlight></codeline>
+<codeline><highlight class="normal">Pass<sp/>0:<sp/>Dispatches<sp/>125,000<sp/>particles<sp/>-&gt;<sp/>updates<sp/>z</highlight></codeline>
+<codeline><highlight class="normal">Pass<sp/>1:<sp/>Dispatches<sp/>125,000<sp/>particles<sp/>-&gt;<sp/>follows<sp/>channels<sp/>carved<sp/>by<sp/>Pass<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">Pass<sp/>2:<sp/>Dispatches<sp/>125,000<sp/>particles<sp/>-&gt;<sp/>further<sp/>deepens<sp/>drainage<sp/>network</highlight></codeline>
+<codeline><highlight class="normal">Pass<sp/>3:<sp/>Dispatches<sp/>125,000<sp/>particles<sp/>-&gt;<sp/>deposits<sp/>alluvial<sp/>sediment<sp/>at<sp/>outlets</highlight></codeline>
+</programlisting></para>
+<para>Sequential passes allow tributaries to naturally converge into coherent dendritic river systems.</para>
+</sect2>
+<sect2 id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md46">
+<title>Multi-Scale Cascade (&lt;tt&gt;hydraulic_particle_multiscale&lt;/tt&gt;)</title>
+<para>To form continental-scale valleys without millions of high-resolution particle steps, <computeroutput>hydraulic_particle_multiscale</computeroutput> downsamples the terrain into a multi-resolution pyramid:</para>
+<para><programlisting filename=".mermaid"><codeline><highlight class="normal">flowchart<sp/>TD</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Coarse[&quot;Coarse<sp/>Levels<sp/>(Downsampled<sp/>Raster):<sp/>Carve<sp/>Broad<sp/>Primary<sp/>Valleys&quot;]<sp/>--&gt;<sp/>Mid[&quot;Intermediate<sp/>Levels:<sp/>Branching<sp/>Tributary<sp/>Networks&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Mid<sp/>--&gt;<sp/>Fine[&quot;Fine<sp/>Base<sp/>Level:<sp/>Detailed<sp/>Rills,<sp/>Gullies,<sp/>and<sp/>Bank<sp/>Talus&quot;]</highlight></codeline>
+</programlisting></para>
+<para><orderedlist>
+<listitem><para>The terrain is iteratively downsampled to coarse resolutions (e.g., $16\times, 8\times, 4\times, 2\times$).</para>
+</listitem><listitem><para>Particle erosion runs on the coarse level to establish major trunk valleys and drainage divides.</para>
+</listitem><listitem><para>The carved elevation deltas are upsampled and blended back into finer stages.</para>
+</listitem><listitem><para>Final fine-resolution passes add micro-rills and rocky bank debris.</para>
+</listitem></orderedlist>
+</para>
+</sect2>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2hydraulic__particle_1autotoc_md47">
+<title>6. C++ API Reference</title>
+<para>The primary interface resides in <ulink url="file:///home/glop/Documents/dev/HighMap/HighMap/include/highmap/erosion/hydraulic_erosion.hpp"><computeroutput>hydraulic_erosion.hpp</computeroutput></ulink>:</para>
+<para><programlisting filename=".cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Single-scale<sp/>particle<sp/>erosion</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><ref refid="namespacehmap_1_1gpu_1a4634556eb8cdc81b0bb52b5ebcd5309b" kindref="member">hmap::gpu::hydraulic_particle</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Target<sp/>heightfield<sp/>(in-place)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>nparticles,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Total<sp/>droplet<sp/>count<sp/>(e.g.<sp/>0.5<sp/>*<sp/>nx<sp/>*<sp/>ny)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>seed,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Random<sp/>seed</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>p_bedrock,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional<sp/>bedrock<sp/>constraint<sp/>buffer</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>p_moisture_map,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional<sp/>spatial<sp/>spawn<sp/>weight<sp/>map</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>p_elevation_shift,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional<sp/>transient<sp/>elevation<sp/>offset</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>p_erosion_map,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional<sp/>output<sp/>for<sp/>total<sp/>eroded<sp/>material</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>p_deposition_map,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional<sp/>output<sp/>for<sp/>total<sp/>deposited<sp/>sediment</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_capacity<sp/>*/</highlight><highlight class="normal"><sp/><sp/><sp/><sp/>10.0f,<sp/><sp/></highlight><highlight class="comment">//<sp/>Sediment<sp/>carrying<sp/>capacity<sp/>factor</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_erosion<sp/>*/</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>0.05f,<sp/><sp/></highlight><highlight class="comment">//<sp/>Erosion<sp/>rate</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_deposition<sp/>*/</highlight><highlight class="normal"><sp/><sp/>0.05f,<sp/><sp/></highlight><highlight class="comment">//<sp/>Deposition<sp/>rate</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_inertia<sp/>*/</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>0.01f,<sp/><sp/></highlight><highlight class="comment">//<sp/>Directional<sp/>momentum<sp/>persistence<sp/>[0,<sp/>1]</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>c_gravity<sp/>*/</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>1.0f,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Gravitational<sp/>acceleration<sp/>factor</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>drag_rate<sp/>*/</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>0.001f,<sp/></highlight><highlight class="comment">//<sp/>Velocity<sp/>damping<sp/>per<sp/>step</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>evap_rate<sp/>*/</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>0.001f,<sp/></highlight><highlight class="comment">//<sp/>Evaporation<sp/>per<sp/>step</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>talus_slope<sp/>*/</highlight><highlight class="normal"><sp/><sp/><sp/>2.0f,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Critical<sp/>slope<sp/>for<sp/>bank<sp/>collapse</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>collapse_rate<sp/>*/</highlight><highlight class="normal"><sp/>0.10f,<sp/><sp/></highlight><highlight class="comment">//<sp/>Bank<sp/>collapse<sp/>relaxation<sp/>rate</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>iterations<sp/>*/</highlight><highlight class="normal"><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Multi-pass<sp/>batch<sp/>count</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal">);</highlight></codeline>
+</programlisting> </para>
+</sect1>
+    </detaileddescription>
+    <location file="docs/content/dev/hydraulic_particle.md"/>
+  </compounddef>
+</doxygen>

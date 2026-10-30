@@ -1,0 +1,47 @@
+\chapter{Hydraulic Erosion Models Comparison}
+\hypertarget{md_docs_2content_2dev_2hydraulic__comparison}{}\label{md_docs_2content_2dev_2hydraulic__comparison}\index{Hydraulic Erosion Models Comparison@{Hydraulic Erosion Models Comparison}}
+\label{md_docs_2content_2dev_2hydraulic__comparison_autotoc_md16}%
+\Hypertarget{md_docs_2content_2dev_2hydraulic__comparison_autotoc_md16}%
+ This document provides a comparative analysis of the three primary hydraulic erosion approaches implemented in High\+Map\+:
+\begin{DoxyItemize}
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily hydraulic\+\_\+particle}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Lagrangian discrete droplet simulation.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily hydraulic\+\_\+stream\+\_\+log}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Eulerian \$\+D\+\_\+\textbackslash{}infty\$ logarithmic stream power incision.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily hydraulic\+\_\+mise}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Multiscale Implicit Stream-\/power Erosion with coupled sediment dynamics.
+\end{DoxyItemize}
+
+The visualization and benchmarks below are produced by \href{file:///home/glop/Documents/dev/HighMap/examples/ex_hydraulic_comparison/ex_hydraulic_comparison.cpp}{\texttt{ {\ttfamily ex\+\_\+hydraulic\+\_\+comparison.\+cpp}}}.\hypertarget{md_docs_2content_2dev_2hydraulic__comparison_autotoc_md17}{}\doxysection{\texorpdfstring{1. Visual Comparison}{1. Visual Comparison}}\label{md_docs_2content_2dev_2hydraulic__comparison_autotoc_md17}
+The following banner shows the original un-\/eroded conical terrain alongside the result of each solver applied to the same input heightfield\+:
+
+
+
+{\itshape Left to right\+: (1) Original un-\/eroded terrain, (2) {\ttfamily hydraulic\+\_\+particle}, (3) {\ttfamily hydraulic\+\_\+stream\+\_\+log}, (4) {\ttfamily hydraulic\+\_\+mise}.}\hypertarget{md_docs_2content_2dev_2hydraulic__comparison_autotoc_md18}{}\doxysubsection{\texorpdfstring{Erosion Difference Maps}{Erosion Difference Maps}}\label{md_docs_2content_2dev_2hydraulic__comparison_autotoc_md18}
+The net erosion maps (\$z\+\_\+\{\textbackslash{}text\{before\}\} -\/ z \textbackslash{}ge 0\$) highlight the spatial distribution and channelization patterns of each model\+:
+
+
+
+{\itshape Left to right\+: (1) {\ttfamily hydraulic\+\_\+particle} erosion delta, (2) {\ttfamily hydraulic\+\_\+stream\+\_\+log} erosion delta, (3) {\ttfamily hydraulic\+\_\+mise} erosion delta.}\hypertarget{md_docs_2content_2dev_2hydraulic__comparison_autotoc_md19}{}\doxysection{\texorpdfstring{2. Qualitative Characteristics}{2. Qualitative Characteristics}}\label{md_docs_2content_2dev_2hydraulic__comparison_autotoc_md19}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Feature   }&\cellcolor{\tableheadbgcolor}\textbf{ {\ttfamily hydraulic\+\_\+particle}   }&\cellcolor{\tableheadbgcolor}\textbf{ {\ttfamily hydraulic\+\_\+stream\+\_\+log}   }&\cellcolor{\tableheadbgcolor}\textbf{ {\ttfamily hydraulic\+\_\+mise}    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Feature   }&\cellcolor{\tableheadbgcolor}\textbf{ {\ttfamily hydraulic\+\_\+particle}   }&\cellcolor{\tableheadbgcolor}\textbf{ {\ttfamily hydraulic\+\_\+stream\+\_\+log}   }&\cellcolor{\tableheadbgcolor}\textbf{ {\ttfamily hydraulic\+\_\+mise}    }\\\cline{1-4}
+\endhead
+{\bfseries{Model Type}}   &Lagrangian (discrete droplets)   &Eulerian (raster flow accumulation)   &Topological drainage graph \& implicit PDE    \\\cline{1-4}
+{\bfseries{Primary Kinematics}}   &Droplet advection, velocity, inertia   &\$\+D\+\_\+\textbackslash{}infty\$ continuous facet routing   &Priority flood, receiver graph routing    \\\cline{1-4}
+{\bfseries{Discharge Scaling}}   &Droplet volume \& kinetic energy   &Logarithmic discharge \$\textbackslash{}log\+\_\+\{10\}(A)\$   &Power-\/law area \$A\texorpdfstring{$^\wedge$}{\string^}m\$    \\\cline{1-4}
+{\bfseries{Deposition Mechanism}}   &Bilinear capacity drop \& talus bank collapse   &Synthetic hole filling \& gradient blending   &Equilibrium slope \$\+S\+\_\+\{\textbackslash{}text\{eq\}\}(A)\$ \& lake filling    \\\cline{1-4}
+{\bfseries{Visual Structure}}   &Deep meandering rills, braided gullies   &Broad dendritic river corridors   &Geologically realistic valleys, alluvial plains, scarp retreat    \\\cline{1-4}
+{\bfseries{Execution Engine}}   &GPU (Open\+CL)   &GPU (Open\+CL) \& Open\+MP   &Multi-\/threaded CPU (Open\+MP)    \\\cline{1-4}
+{\bfseries{Artifact Vulnerability}}   &Droplet streaks if iteration count is low   &Minor contour alignment if un-\/warped   &None (domain-\/warped multiscale scheduling)   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_docs_2content_2dev_2hydraulic__comparison_autotoc_md20}{}\doxysection{\texorpdfstring{3. Algorithm Deep Dives}{3. Algorithm Deep Dives}}\label{md_docs_2content_2dev_2hydraulic__comparison_autotoc_md20}
+For exhaustive equations, trajectory kinematics, and C++ API signatures\+:
+\begin{DoxyItemize}
+\item \doxysectlink{md_docs_2content_2dev_2hydraulic__particle}{Hydraulic Particle Erosion}{0}
+\item \doxysectlink{md_docs_2content_2dev_2hydraulic__stream__log}{Hydraulic Stream Log Erosion}{0}
+\item \doxysectlink{md_docs_2content_2dev_2hydraulic__mise}{Multiscale Implicit Stream-\/\+Power Erosion (MISE)}{0} 
+\end{DoxyItemize}

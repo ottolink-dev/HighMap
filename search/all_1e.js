@@ -9,7 +9,7 @@ var searchData=
   ['warp_5fgpu_2ecpp_6',['warp_gpu.cpp',['../warp__gpu_8cpp.html',1,'']]],
   ['warp_5fscale_7',['warp_scale',['../classhmap_1_1FbmJordanFunction.html#ae414da2792a0bac7b5fba61d2ecef892',1,'hmap::FbmJordanFunction::warp_scale'],['../classhmap_1_1FbmSwissFunction.html#acf6aa4df64b19333e9ad64a76c19b75a',1,'hmap::FbmSwissFunction::warp_scale']]],
   ['warp_5fscale_5fnormalized_8',['warp_scale_normalized',['../classhmap_1_1FbmSwissFunction.html#ae661014ee328014ab1556f87425fbe06',1,'hmap::FbmSwissFunction']]],
-  ['warping_20and_20path_20closure_9',['Support for Domain Warping and Path Closure',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md21',1,'']]],
+  ['warping_20and_20path_20closure_9',['Support for Domain Warping and Path Closure',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md65',1,'']]],
   ['water_5fdepth_2ecpp_10',['water_depth.cpp',['../water__depth_8cpp.html',1,'']]],
   ['water_5fdepth_5fdry_5fout_11',['water_depth_dry_out',['../namespacehmap.html#a3aebd62906b90ccfde11140e13b0853f',1,'hmap']]],
   ['water_5fdepth_5ffilter_12',['water_depth_filter',['../namespacehmap_1_1gpu.html#a687d85d20bee065ffabeecea9124f432',1,'hmap::gpu']]],

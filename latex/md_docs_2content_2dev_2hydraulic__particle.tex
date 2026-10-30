@@ -1,0 +1,218 @@
+\chapter{Hydraulic Particle Erosion}
+\hypertarget{md_docs_2content_2dev_2hydraulic__particle}{}\label{md_docs_2content_2dev_2hydraulic__particle}\index{Hydraulic Particle Erosion@{Hydraulic Particle Erosion}}
+\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md34}%
+\Hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md34}%
+ This document details the simulation model, kinematics, sediment transport equations, and implementation of particle-\/based hydraulic erosion ({\ttfamily hydraulic\+\_\+particle}) in High\+Map.\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md35}{}\doxysection{\texorpdfstring{1. Overview}{1. Overview}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md35}
+Hydraulic erosion models the carving of terrain by surface water runoff. In High\+Map, particle-\/based hydraulic erosion uses a Lagrangian formulation where virtual water droplets (particles) are spawned across the heightfield, navigate downslope according to local terrain kinematics, transport suspended sediment, and iteratively carve channels and deposit alluvial fans.
+
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{flowchart\ TD}
+\DoxyCodeLine{\ \ \ \ A["{}Particle\ Spawn\ (Stochastic\ Position\ \&\ Moisture\ Volume)"{}]\ -\/-\/>\ B["{}Compute\ Continuous\ Gradient\ \&\ Direction"{}]}
+\DoxyCodeLine{\ \ \ \ B\ -\/-\/>\ C["{}Advect\ Particle\ Position\ (Trajectory\ Step)"{}]}
+\DoxyCodeLine{\ \ \ \ C\ -\/-\/>\ D["{}Sample\ Elevation\ Change\ (dz\ =\ z\_prev\ -\/\ z\_curr)"{}]}
+\DoxyCodeLine{\ \ \ \ D\ -\/-\/>\ E["{}Compute\ Transport\ Capacity\ (Stream\ Power)"{}]}
+\DoxyCodeLine{\ \ \ \ E\ -\/-\/>\ F\{"{}Sediment\ Deficit\ or\ Excess?"{}\}}
+\DoxyCodeLine{\ \ \ \ F\ -\/-\/>|Deficit:\ Capacity\ >\ Carried|\ G["{}Erode\ Soil\ /\ Bedrock\ (Carve\ Channels)"{}]}
+\DoxyCodeLine{\ \ \ \ F\ -\/-\/>|Excess:\ Carried\ >\ Capacity\ or\ Uphill|\ H["{}Deposit\ Sediment\ (Alluvial\ Filling)"{}]}
+\DoxyCodeLine{\ \ \ \ G\ -\/-\/>\ I["{}Talus\ Bank\ Collapse\ (Thermal\ Relaxation)"{}]}
+\DoxyCodeLine{\ \ \ \ H\ -\/-\/>\ J["{}Update\ Velocity\ \&\ Kinematics"{}]}
+\DoxyCodeLine{\ \ \ \ I\ -\/-\/>\ J}
+\DoxyCodeLine{\ \ \ \ J\ -\/-\/>\ K["{}Evaporation\ \&\ Drag\ Damping"{}]}
+\DoxyCodeLine{\ \ \ \ K\ -\/-\/>\ L\{"{}Volume\ >\ Threshold\ \&\ Inside\ Bounds?"{}\}}
+\DoxyCodeLine{\ \ \ \ L\ -\/-\/>|Yes|\ B}
+\DoxyCodeLine{\ \ \ \ L\ -\/-\/>|No|\ M["{}Terminate\ Particle"{}]}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md36}{}\doxysection{\texorpdfstring{2. Particle Kinematics and Trajectories}{2. Particle Kinematics and Trajectories}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md36}
+\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md37}{}\doxysubsection{\texorpdfstring{Surface Interpolation and Gradient Evaluation}{Surface Interpolation and Gradient Evaluation}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md37}
+Each particle is defined by a continuous 2D position \$\textbackslash{}mathbf\{x\} = (x, y) \textbackslash{}in \mbox{[}0, N\+\_\+x -\/ 1\mbox{]} \textbackslash{}times \mbox{[}0, N\+\_\+y -\/ 1\mbox{]}\$. The integer grid coordinates \$(i, j)\$ and fractional offsets \$(u, v)\$ are given by\+:
+
+\$\$i = \textbackslash{}lfloor x \textbackslash{}rfloor, \textbackslash{}quad j = \textbackslash{}lfloor y \textbackslash{}rfloor, \textbackslash{}quad u = x -\/ i, \textbackslash{}quad v = y -\/ j\$\$
+
+Elevation \$z(\textbackslash{}mathbf\{x\})\$ is obtained through bilinear interpolation over the four enclosing heightfield vertices\+:
+
+\$\$z(u, v) = (1 -\/ u)(1 -\/ v) z\+\_\+\{i, j\} + u (1 -\/ v) z\+\_\+\{i+1, j\} + (1 -\/ u) v z\+\_\+\{i, j+1\} + u v z\+\_\+\{i+1, j+1\}\$\$
+
+The continuous terrain surface gradient \$\textbackslash{}nabla z = (g\+\_\+x, g\+\_\+y)\$ is computed analytically across the cell\+:
+
+\$\$g\+\_\+x = (1 -\/ v)(z\+\_\+\{i+1, j\} -\/ z\+\_\+\{i, j\}) + v(z\+\_\+\{i+1, j+1\} -\/ z\+\_\+\{i, j+1\})\$\$
+
+\$\$g\+\_\+y = (1 -\/ u)(z\+\_\+\{i, j+1\} -\/ z\+\_\+\{i, j\}) + u(z\+\_\+\{i+1, j+1\} -\/ z\+\_\+\{i+1, j\})\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md38}{}\doxysubsection{\texorpdfstring{Trajectory Integration and Momentum Blending}{Trajectory Integration and Momentum Blending}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md38}
+The steepest downhill unit vector is \$-\/\textbackslash{}frac\{\textbackslash{}nabla z\}\{$|$\textbackslash{}nabla z$|$\}\$. To simulate fluid momentum and prevent abrupt artificial turning, the particle\textquotesingle{}s heading direction \$\textbackslash{}mathbf\{d\}\+\_\+t\$ blends the downhill gradient vector with its previous momentum direction \$\textbackslash{}mathbf\{d\}\+\_\+\{t-\/1\}\$ via inertia coefficient \$c\+\_\+\{\textbackslash{}text\{inertia\}\} \textbackslash{}in \mbox{[}0, 1\mbox{]}\$\+:
+
+\$\$\textbackslash{}mathbf\{d\}\+\_\+t = \textbackslash{}mathrm\{normalize\}\textbackslash{}left((1 -\/ c\+\_\+\{\textbackslash{}text\{inertia\}\}) \textbackslash{}left(-\/\textbackslash{}frac\{\textbackslash{}nabla z\}\{$|$\textbackslash{}nabla z$|$\}\textbackslash{}right) + c\+\_\+\{\textbackslash{}text\{inertia\}\} \textbackslash{}, \textbackslash{}mathbf\{d\}\+\_\+\{t-\/1\}\textbackslash{}right)\$\$
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{flowchart\ LR}
+\DoxyCodeLine{\ \ \ \ G["{}Downhill\ Gradient\ -\/∇z"{}]\ -\/-\/>|"{}Weight:\ 1\ -\/\ c\_inertia"{}|\ B["{}Vector\ Blend\ (mix)"{}]}
+\DoxyCodeLine{\ \ \ \ M["{}Previous\ Heading\ d\_(t-\/1)"{}]\ -\/-\/>|"{}Weight:\ c\_inertia"{}|\ B}
+\DoxyCodeLine{\ \ \ \ B\ -\/-\/>\ N["{}Normalize\ Direction\ d\_t"{}]}
+\DoxyCodeLine{\ \ \ \ N\ -\/-\/>\ P["{}Position\ Step:\ x\_(t+1)\ =\ x\_t\ +\ dt\ *\ d\_t"{}]}
+
+\end{DoxyCode}
+
+
+Across flat plateaus or local minima where \$$|$\textbackslash{}nabla z$|$ \textbackslash{}le \textbackslash{}epsilon\+\_\+\{\textbackslash{}text\{slope\}\}\$, momentum dominates (\$c\+\_\+\{\textbackslash{}text\{eff\}\} = \textbackslash{}max(c\+\_\+\{\textbackslash{}text\{inertia\}\}, 0.\+9)\$), enabling particles to glide over shallow sills rather than stalling immediately.
+
+Position integration advances the particle along its current heading\+:
+
+\$\$\textbackslash{}mathbf\{x\}\+\_\+\{t+1\} = \textbackslash{}mathbf\{x\}\+\_\+t + \textbackslash{}\+Delta t \textbackslash{}, \textbackslash{}mathbf\{d\}\+\_\+t\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md39}{}\doxysubsection{\texorpdfstring{Velocity and Energy Conservation}{Velocity and Energy Conservation}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md39}
+As a droplet moves from elevation \$z\+\_\+\{\textbackslash{}text\{prev\}\}\$ to \$z\+\_\+\{\textbackslash{}text\{curr\}\}\$, the elevation difference \$\textbackslash{}\+Delta z = z\+\_\+\{\textbackslash{}text\{prev\}\} -\/ z\+\_\+\{\textbackslash{}text\{curr\}\}\$ drives acceleration or deceleration under gravity coefficient \$g\$\+:
+
+\$\$v\+\_\+\{t+1\} = \textbackslash{}sqrt\{\textbackslash{}max\textbackslash{}left(0, v\+\_\+t\texorpdfstring{$^\wedge$}{\string^}2 -\/ \textbackslash{}\+Delta z \textbackslash{}cdot g\+\_\+\{\textbackslash{}text\{eff\}\}\textbackslash{}right)\}\$\$
+
+For downhill movement (\$\textbackslash{}\+Delta z \texorpdfstring{$>$}{>} 0\$), kinetic energy increases. For uphill climbs (\$\textbackslash{}\+Delta z \texorpdfstring{$<$}{<} 0\$, e.\+g., inertia-\/driven movement across a local dip), gravitational deceleration applies. Kinetic friction dampens velocity each step\+:
+
+\$\$v\+\_\+\{t+1\} \textbackslash{}leftarrow v\+\_\+\{t+1\} \textbackslash{}cdot (1 -\/ \textbackslash{}mu\+\_\+\{\textbackslash{}text\{drag\}\})\$\$
+
+Volume decreases due to evaporation\+:
+
+\$\$\+V\+\_\+\{t+1\} = V\+\_\+t \textbackslash{}cdot (1 -\/ \textbackslash{}mu\+\_\+\{\textbackslash{}text\{evap\}\})\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md40}{}\doxysection{\texorpdfstring{3. Sediment Transport Dynamics}{3. Sediment Transport Dynamics}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md40}
+At each step, the droplet carries an internal sediment load \$s\$. The maximum sediment capacity \$s\+\_\+c\$ is governed by the stream power equation\+:
+
+\$\$s\+\_\+c = \textbackslash{}max\textbackslash{}left(0, c\+\_\+\{\textbackslash{}text\{capacity\}\} \textbackslash{}cdot V \textbackslash{}cdot v \textbackslash{}cdot \textbackslash{}\+Delta z\textbackslash{}right)\$\$
+
+The transport imbalance \$\textbackslash{}\+Delta s\+\_\+c = \textbackslash{}\+Delta t (s\+\_\+c -\/ s)\$ determines whether erosion or deposition occurs.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{flowchart\ TD}
+\DoxyCodeLine{\ \ \ \ subgraph\ Capacity["{}Transport\ Capacity\ Evaluation"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ SC["{}s\_c\ =\ max(0,\ c\_capacity\ *\ Volume\ *\ Velocity\ *\ Δz)"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ DIFF["{}Δs\_c\ =\ s\_c\ -\/\ s"{}]}
+\DoxyCodeLine{\ \ \ \ end}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ DIFF\ -\/-\/>\ COND\{"{}Δs\_c\ <\ 0\ or\ Δz\ <\ 0\ ?"{}\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ subgraph\ Deposition["{}Sediment\ Deposition"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ COND\ -\/-\/>|True:\ Over\ capacity\ or\ uphill|\ DEP["{}Deposit\ Amount:\ c\_deposition\ *\ min(s,\ to\_deposit)"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ DEP\ -\/-\/>\ SUB\_S["{}s\ =\ s\ -\/\ Amount"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ DEP\ -\/-\/>\ BILIN\_DEP["{}Add\ Amount\ across\ bilinear\ footprint\ to\ terrain"{}]}
+\DoxyCodeLine{\ \ \ \ end}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ subgraph\ Erosion["{}Sediment\ Erosion"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ COND\ -\/-\/>|False:\ Under\ capacity\ downhill|\ ERO["{}Erode\ Amount:\ c\_erosion\ *\ min(Δs\_c,\ Δz)"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ERO\ -\/-\/>\ BED\_CHECK\{"{}Bedrock\ Constraint?"{}\}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ BED\_CHECK\ -\/-\/>|Apply\ Bedrock\ Limit|\ CLAMP["{}Clamp:\ z\ =\ max(z\_bedrock,\ z)"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ERO\ -\/-\/>\ ADD\_S["{}s\ =\ s\ +\ Amount"{}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ERO\ -\/-\/>\ BILIN\_ERO["{}Subtract\ Amount\ across\ bilinear\ footprint\ from\ terrain"{}]}
+\DoxyCodeLine{\ \ \ \ end}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md41}{}\doxysubsection{\texorpdfstring{Deposition}{Deposition}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md41}
+When the particle slows down, reaches flatter slopes, or moves uphill (\$\textbackslash{}\+Delta s\+\_\+c \texorpdfstring{$<$}{<} 0\$ or \$\textbackslash{}\+Delta z \texorpdfstring{$<$}{<} 0\$), it drops sediment\+:
+
+\$\$\textbackslash{}\+Delta s\+\_\+\{\textbackslash{}text\{drop\}\} = c\+\_\+\{\textbackslash{}text\{deposition\}\} \textbackslash{}min(s, \textbackslash{}text\{to\+\_\+deposit\})\$\$
+
+\$\$s \textbackslash{}leftarrow s -\/ \textbackslash{}\+Delta s\+\_\+\{\textbackslash{}text\{drop\}\}\$\$
+
+The dropped sediment is distributed across the grid cell using bilinear weights\+:
+
+\$\$w\+\_\+\{00\} = (1 -\/ u)(1 -\/ v), \textbackslash{}quad w\+\_\+\{10\} = u(1 -\/ v), \textbackslash{}quad w\+\_\+\{01\} = (1 -\/ u)v, \textbackslash{}quad w\+\_\+\{11\} = uv\$\$
+
+\$\$z\+\_\+\{i + \textbackslash{}delta\+\_\+i, j + \textbackslash{}delta\+\_\+j\} \textbackslash{}leftarrow z\+\_\+\{i + \textbackslash{}delta\+\_\+i, j + \textbackslash{}delta\+\_\+j\} + w\+\_\+\{\textbackslash{}delta\+\_\+i, \textbackslash{}delta\+\_\+j\} \textbackslash{}\+Delta s\+\_\+\{\textbackslash{}text\{drop\}\}\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md42}{}\doxysubsection{\texorpdfstring{Erosion}{Erosion}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md42}
+When the flow is under-\/saturated (\$\textbackslash{}\+Delta s\+\_\+c \texorpdfstring{$>$}{>} 0\$ and \$\textbackslash{}\+Delta z \texorpdfstring{$>$}{>} 0\$), material is carved from the surface\+:
+
+\$\$\textbackslash{}\+Delta s\+\_\+\{\textbackslash{}text\{lift\}\} = c\+\_\+\{\textbackslash{}text\{erosion\}\} \textbackslash{}min(\textbackslash{}\+Delta s\+\_\+c, \textbackslash{}\+Delta z)\$\$
+
+\$\$s \textbackslash{}leftarrow s + \textbackslash{}\+Delta s\+\_\+\{\textbackslash{}text\{lift\}\}\$\$
+
+Material is subtracted bilinearly from the surrounding vertices. When an optional bedrock map \$z\+\_\+\{\textbackslash{}text\{bedrock\}\}\$ is provided\+:
+\begin{DoxyItemize}
+\item Unconsolidated sediment (where \$z \texorpdfstring{$>$}{>} z\+\_\+\{\textbackslash{}text\{bedrock\}\}\$) is eroded up to 4 times faster than bedrock.
+\item Subtraction is clamped to prevent digging below \$z\+\_\+\{\textbackslash{}text\{bedrock\}\}\$\+:
+\end{DoxyItemize}
+
+\$\$z\+\_\+\{i, j\} \textbackslash{}leftarrow \textbackslash{}max(z\+\_\+\{\textbackslash{}text\{bedrock\}, i, j\}, z\+\_\+\{i, j\})\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md43}{}\doxysection{\texorpdfstring{4. Bank Collapse and Thermal Relaxation}{4. Bank Collapse and Thermal Relaxation}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md43}
+Localized incision leaves steep vertical trench walls. To simulate natural valley widening and talus formation, bank collapse relaxes over-\/steepened slopes adjacent to carved cells\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{flowchart\ LR}
+\DoxyCodeLine{\ \ \ \ Incision["{}Channel\ Incision\ z\_c"{}]\ -\/-\/>\ SlopeCalc["{}Calculate\ Neighbor\ Slopes:\ S\_k\ =\ (z\_k\ -\/\ z\_c)\ /\ dist\_k"{}]}
+\DoxyCodeLine{\ \ \ \ SlopeCalc\ -\/-\/>\ Threshold\{"{}S\_k\ >\ talus\_slope\ ?"{}\}}
+\DoxyCodeLine{\ \ \ \ Threshold\ -\/-\/>|Yes|\ Collapse["{}Excess\ =\ (S\_k\ -\/\ talus\_slope)\ *\ collapse\_rate"{}]}
+\DoxyCodeLine{\ \ \ \ Collapse\ -\/-\/>\ Transfer["{}Transfer\ Excess\ /\ 2\ from\ neighbor\ to\ center"{}]}
+\DoxyCodeLine{\ \ \ \ Threshold\ -\/-\/>|No|\ Stable["{}Stable\ Wall"{}]}
+
+\end{DoxyCode}
+
+
+For each of the 8 neighbors \$k \textbackslash{}in \mbox{[}0, 7\mbox{]}\$ of cell \$(i, j)\$\+:
+
+\$\$\textbackslash{}text\{slope\}\+\_\+k = \textbackslash{}frac\{z\+\_\+k -\/ z\+\_\+c\}\{\textbackslash{}text\{dist\}\+\_\+k\}\$\$
+
+If \$\textbackslash{}text\{slope\}\+\_\+k \texorpdfstring{$>$}{>} \textbackslash{}sigma\+\_\+\{\textbackslash{}text\{talus\}\}\$, material collapses into the channel\+:
+
+\$\$\textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{collapse\}\} = (\textbackslash{}text\{slope\}\+\_\+k -\/ \textbackslash{}sigma\+\_\+\{\textbackslash{}text\{talus\}\}) \textbackslash{}cdot r\+\_\+\{\textbackslash{}text\{collapse\}\}\$\$
+
+\$\$\textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{collapse\}\} \textbackslash{}leftarrow \textbackslash{}min\textbackslash{}left(\textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{collapse\}\}, \textbackslash{}max(0, z\+\_\+k -\/ z\+\_\+\{\textbackslash{}text\{bedrock\}, k\})\textbackslash{}right)\$\$
+
+\$\$z\+\_\+k \textbackslash{}leftarrow z\+\_\+k -\/ \textbackslash{}frac\{1\}\{2\} \textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{collapse\}\}, \textbackslash{}quad z\+\_\+c \textbackslash{}leftarrow z\+\_\+c + \textbackslash{}frac\{1\}\{2\} \textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{collapse\}\}\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md44}{}\doxysection{\texorpdfstring{5. Multi-\/\+Pass and Multi-\/\+Scale Architectures}{5. Multi-Pass and Multi-Scale Architectures}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md44}
+\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md45}{}\doxysubsection{\texorpdfstring{Multi-\/\+Pass Iterations}{Multi-Pass Iterations}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md45}
+Running all droplets in a single parallel Open\+CL dispatch causes particles to ignore concurrent modifications made by peers. High\+Map splits the particle budget into sequential iterations\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{nparticles\ =\ 500,000,\ iterations\ =\ 4}
+\DoxyCodeLine{Pass\ 0:\ Dispatches\ 125,000\ particles\ -\/>\ updates\ z}
+\DoxyCodeLine{Pass\ 1:\ Dispatches\ 125,000\ particles\ -\/>\ follows\ channels\ carved\ by\ Pass\ 0}
+\DoxyCodeLine{Pass\ 2:\ Dispatches\ 125,000\ particles\ -\/>\ further\ deepens\ drainage\ network}
+\DoxyCodeLine{Pass\ 3:\ Dispatches\ 125,000\ particles\ -\/>\ deposits\ alluvial\ sediment\ at\ outlets}
+
+\end{DoxyCode}
+
+
+Sequential passes allow tributaries to naturally converge into coherent dendritic river systems.\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md46}{}\doxysubsection{\texorpdfstring{Multi-\/\+Scale Cascade ($<$tt$>$hydraulic\+\_\+particle\+\_\+multiscale$<$/tt$>$)}{Multi-Scale Cascade (<tt>hydraulic\_particle\_multiscale</tt>)}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md46}
+To form continental-\/scale valleys without millions of high-\/resolution particle steps, {\ttfamily hydraulic\+\_\+particle\+\_\+multiscale} downsamples the terrain into a multi-\/resolution pyramid\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{flowchart\ TD}
+\DoxyCodeLine{\ \ \ \ Coarse["{}Coarse\ Levels\ (Downsampled\ Raster):\ Carve\ Broad\ Primary\ Valleys"{}]\ -\/-\/>\ Mid["{}Intermediate\ Levels:\ Branching\ Tributary\ Networks"{}]}
+\DoxyCodeLine{\ \ \ \ Mid\ -\/-\/>\ Fine["{}Fine\ Base\ Level:\ Detailed\ Rills,\ Gullies,\ and\ Bank\ Talus"{}]}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item The terrain is iteratively downsampled to coarse resolutions (e.\+g., \$16\textbackslash{}times, 8\textbackslash{}times, 4\textbackslash{}times, 2\textbackslash{}times\$).
+\item Particle erosion runs on the coarse level to establish major trunk valleys and drainage divides.
+\item The carved elevation deltas are upsampled and blended back into finer stages.
+\item Final fine-\/resolution passes add micro-\/rills and rocky bank debris.
+\end{DoxyEnumerate}\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md47}{}\doxysection{\texorpdfstring{6. C++ API Reference}{6. C++ API Reference}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md47}
+The primary interface resides in \href{file:///home/glop/Documents/dev/HighMap/HighMap/include/highmap/erosion/hydraulic_erosion.hpp}{\texttt{ {\ttfamily hydraulic\+\_\+erosion.\+hpp}}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Single-\/scale\ particle\ erosion}}
+\DoxyCodeLine{\mbox{\hyperlink{namespacehmap_1_1gpu_a4634556eb8cdc81b0bb52b5ebcd5309b}{hmap::gpu::hydraulic\_particle}}(}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Target\ heightfield\ (in-\/place)}}
+\DoxyCodeLine{\ \ \ \ nparticles,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Total\ droplet\ count\ (e.g.\ 0.5\ *\ nx\ *\ ny)}}
+\DoxyCodeLine{\ \ \ \ seed,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Random\ seed}}
+\DoxyCodeLine{\ \ \ \ p\_bedrock,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Optional\ bedrock\ constraint\ buffer}}
+\DoxyCodeLine{\ \ \ \ p\_moisture\_map,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Optional\ spatial\ spawn\ weight\ map}}
+\DoxyCodeLine{\ \ \ \ p\_elevation\_shift,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Optional\ transient\ elevation\ offset}}
+\DoxyCodeLine{\ \ \ \ p\_erosion\_map,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Optional\ output\ for\ total\ eroded\ material}}
+\DoxyCodeLine{\ \ \ \ p\_deposition\_map,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Optional\ output\ for\ total\ deposited\ sediment}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ c\_capacity\ */}\ \ \ \ 10.0f,\ \ \textcolor{comment}{//\ Sediment\ carrying\ capacity\ factor}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ c\_erosion\ */}\ \ \ \ \ 0.05f,\ \ \textcolor{comment}{//\ Erosion\ rate}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ c\_deposition\ */}\ \ 0.05f,\ \ \textcolor{comment}{//\ Deposition\ rate}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ c\_inertia\ */}\ \ \ \ \ 0.01f,\ \ \textcolor{comment}{//\ Directional\ momentum\ persistence\ [0,\ 1]}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ c\_gravity\ */}\ \ \ \ \ 1.0f,\ \ \ \textcolor{comment}{//\ Gravitational\ acceleration\ factor}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ drag\_rate\ */}\ \ \ \ \ 0.001f,\ \textcolor{comment}{//\ Velocity\ damping\ per\ step}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ evap\_rate\ */}\ \ \ \ \ 0.001f,\ \textcolor{comment}{//\ Evaporation\ per\ step}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ talus\_slope\ */}\ \ \ 2.0f,\ \ \ \textcolor{comment}{//\ Critical\ slope\ for\ bank\ collapse}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ collapse\_rate\ */}\ 0.10f,\ \ \textcolor{comment}{//\ Bank\ collapse\ relaxation\ rate}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ iterations\ */}\ \ \ \ 4\ \ \ \ \ \ \ \textcolor{comment}{//\ Multi-\/pass\ batch\ count}}
+\DoxyCodeLine{);}
+
+\end{DoxyCode}
+ 

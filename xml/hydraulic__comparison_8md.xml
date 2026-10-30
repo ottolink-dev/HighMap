@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="hydraulic__comparison_8md" kind="file" language="Markdown">
+    <compoundname>hydraulic_comparison.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Hydraulic<sp/>Erosion<sp/>Models<sp/>Comparison</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>document<sp/>provides<sp/>a<sp/>comparative<sp/>analysis<sp/>of<sp/>the<sp/>three<sp/>primary<sp/>hydraulic<sp/>erosion<sp/>approaches<sp/>implemented<sp/>in<sp/>HighMap:</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**`hydraulic_particle`**:<sp/>Lagrangian<sp/>discrete<sp/>droplet<sp/>simulation.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**`hydraulic_stream_log`**:<sp/>Eulerian<sp/>$D_\infty$<sp/>logarithmic<sp/>stream<sp/>power<sp/>incision.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**`hydraulic_mise`**:<sp/>Multiscale<sp/>Implicit<sp/>Stream-power<sp/>Erosion<sp/>with<sp/>coupled<sp/>sediment<sp/>dynamics.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>visualization<sp/>and<sp/>benchmarks<sp/>below<sp/>are<sp/>produced<sp/>by<sp/>[`ex_hydraulic_comparison.cpp`](file:///home/glop/Documents/dev/HighMap/examples/ex_hydraulic_comparison/ex_hydraulic_comparison.cpp).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>1.<sp/>Visual<sp/>Comparison</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>following<sp/>banner<sp/>shows<sp/>the<sp/>original<sp/>un-eroded<sp/>conical<sp/>terrain<sp/>alongside<sp/>the<sp/>result<sp/>of<sp/>each<sp/>solver<sp/>applied<sp/>to<sp/>the<sp/>same<sp/>input<sp/>heightfield:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![](../../images/hydraulic_comparison_terrains.png<sp/>&quot;Left<sp/>to<sp/>right:<sp/>Original<sp/>synthetic<sp/>terrain,<sp/>hydraulic_particle,<sp/>hydraulic_stream_log,<sp/>and<sp/>hydraulic_mise.&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*Left<sp/>to<sp/>right:<sp/>(1)<sp/>Original<sp/>un-eroded<sp/>terrain,<sp/>(2)<sp/>`hydraulic_particle`,<sp/>(3)<sp/>`hydraulic_stream_log`,<sp/>(4)<sp/>`hydraulic_mise`.*</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Erosion<sp/>Difference<sp/>Maps</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>net<sp/>erosion<sp/>maps<sp/>($z_{\text{before}}<sp/>-<sp/>z<sp/>\ge<sp/>0$)<sp/>highlight<sp/>the<sp/>spatial<sp/>distribution<sp/>and<sp/>channelization<sp/>patterns<sp/>of<sp/>each<sp/>model:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![](../../images/hydraulic_comparison_erosion_maps.png<sp/>&quot;Left<sp/>to<sp/>right:<sp/>Erosion<sp/>deltas<sp/>for<sp/>hydraulic_particle,<sp/>hydraulic_stream_log,<sp/>and<sp/>hydraulic_mise<sp/>(Inferno<sp/>colormap).&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*Left<sp/>to<sp/>right:<sp/>(1)<sp/>`hydraulic_particle`<sp/>erosion<sp/>delta,<sp/>(2)<sp/>`hydraulic_stream_log`<sp/>erosion<sp/>delta,<sp/>(3)<sp/>`hydraulic_mise`<sp/>erosion<sp/>delta.*</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>2.<sp/>Qualitative<sp/>Characteristics</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>Feature<sp/>|<sp/>`hydraulic_particle`<sp/>|<sp/>`hydraulic_stream_log`<sp/>|<sp/>`hydraulic_mise`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>:---<sp/>|<sp/>:---<sp/>|<sp/>:---<sp/>|<sp/>:---<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Model<sp/>Type**<sp/>|<sp/>Lagrangian<sp/>(discrete<sp/>droplets)<sp/>|<sp/>Eulerian<sp/>(raster<sp/>flow<sp/>accumulation)<sp/>|<sp/>Topological<sp/>drainage<sp/>graph<sp/>&amp;<sp/>implicit<sp/>PDE<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Primary<sp/>Kinematics**<sp/>|<sp/>Droplet<sp/>advection,<sp/>velocity,<sp/>inertia<sp/>|<sp/>$D_\infty$<sp/>continuous<sp/>facet<sp/>routing<sp/>|<sp/>Priority<sp/>flood,<sp/>receiver<sp/>graph<sp/>routing<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Discharge<sp/>Scaling**<sp/>|<sp/>Droplet<sp/>volume<sp/>&amp;<sp/>kinetic<sp/>energy<sp/>|<sp/>Logarithmic<sp/>discharge<sp/>$\log_{10}(A)$<sp/>|<sp/>Power-law<sp/>area<sp/>$A^m$<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Deposition<sp/>Mechanism**<sp/>|<sp/>Bilinear<sp/>capacity<sp/>drop<sp/>&amp;<sp/>talus<sp/>bank<sp/>collapse<sp/>|<sp/>Synthetic<sp/>hole<sp/>filling<sp/>&amp;<sp/>gradient<sp/>blending<sp/>|<sp/>Equilibrium<sp/>slope<sp/>$S_{\text{eq}}(A)$<sp/>&amp;<sp/>lake<sp/>filling<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Visual<sp/>Structure**<sp/>|<sp/>Deep<sp/>meandering<sp/>rills,<sp/>braided<sp/>gullies<sp/>|<sp/>Broad<sp/>dendritic<sp/>river<sp/>corridors<sp/>|<sp/>Geologically<sp/>realistic<sp/>valleys,<sp/>alluvial<sp/>plains,<sp/>scarp<sp/>retreat<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Execution<sp/>Engine**<sp/>|<sp/>GPU<sp/>(OpenCL)<sp/>|<sp/>GPU<sp/>(OpenCL)<sp/>&amp;<sp/>OpenMP<sp/>|<sp/>Multi-threaded<sp/>CPU<sp/>(OpenMP)<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Artifact<sp/>Vulnerability**<sp/>|<sp/>Droplet<sp/>streaks<sp/>if<sp/>iteration<sp/>count<sp/>is<sp/>low<sp/>|<sp/>Minor<sp/>contour<sp/>alignment<sp/>if<sp/>un-warped<sp/>|<sp/>None<sp/>(domain-warped<sp/>multiscale<sp/>scheduling)<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>3.<sp/>Algorithm<sp/>Deep<sp/>Dives</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">For<sp/>exhaustive<sp/>equations,<sp/>trajectory<sp/>kinematics,<sp/>and<sp/>C++<sp/>API<sp/>signatures:</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>[Hydraulic<sp/>Particle<sp/>Erosion](hydraulic_particle.md)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>[Hydraulic<sp/>Stream<sp/>Log<sp/>Erosion](hydraulic_stream_log.md)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>[Multiscale<sp/>Implicit<sp/>Stream-Power<sp/>Erosion<sp/>(MISE)](hydraulic_mise.md)</highlight></codeline>
+    </programlisting>
+    <location file="docs/content/dev/hydraulic_comparison.md"/>
+  </compounddef>
+</doxygen>

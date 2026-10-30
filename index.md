@@ -20,6 +20,10 @@ Documentation for new users:
 Documentation on codebase architecture, design, and experimental research:
 
 - [Architecture Overview](content/dev/architecture.md): Module hierarchy, layered subsystem design, and architectural principles.
+- [Hydraulic Erosion Models Comparison](content/dev/hydraulic_comparison.md): Side-by-side visual and qualitative comparison between particle, stream log, and MISE models.
+- [Hydraulic Particle Erosion](content/dev/hydraulic_particle.md): Simulation model, kinematics, sediment transport equations, and implementation details.
+- [Hydraulic Stream Log Erosion](content/dev/hydraulic_stream_log.md): Continuous D-infinity stream power erosion, logarithmic discharge scaling, and multiscale pyramid.
+- [Multiscale Implicit Stream-Power Erosion (MISE)](content/dev/hydraulic_mise.md): Coupled bedrock incision, hillslope debris cascades, sediment conservation, and implicit solver.
 - Investigations & Benchmarks:
   - [FFT vs. GPU Convolution & Morphology](content/dev/investigations/fft_convolution_and_morphology.md): Performance and fidelity evaluation of 2D FFT alternatives to spatial GPU operations.
 

@@ -99,8 +99,8 @@ $(document).ready(function(){initNavTree('md_docs_2content_2dev_2investigations_
   <div class="headertitle"><div class="title">BVH2D Spatial Indexing for Path SDF Computation</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md16"></a> This document records the performance investigation and implementation findings for accelerating 2D Path Signed Distance Field (SDF) evaluation using a Bounding Volume Hierarchy (<code>BVH2D</code>).</p>
-<h1><a class="anchor" id="autotoc_md17"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md60"></a> This document records the performance investigation and implementation findings for accelerating 2D Path Signed Distance Field (SDF) evaluation using a Bounding Volume Hierarchy (<code>BVH2D</code>).</p>
+<h1><a class="anchor" id="autotoc_md61"></a>
 1. Context and Motivation</h1>
 <p>Computing the distance field of a 2D polyline or polygon across a discrete heightmap grid is a recurring operation in terrain authoring, hydrology (riverbed carve profiles), and carving workflows.</p>
 <p>The original evaluation in <code>path_sdf_to_array</code> and <code>sdf_2d_polyline</code> performed brute-force distance evaluation:</p><ul>
@@ -109,12 +109,12 @@ $(document).ready(function(){initNavTree('md_docs_2content_2dev_2investigations_
 </ul>
 <p>For dense or detailed paths ($N \ge 100$) and high-resolution heightmaps ($512 \times 512$ or higher), this approach causes significant CPU bottlenecks.</p>
 <p>HighMap provides an internal 2D Axis-Aligned Bounding Box tree (<code><a class="el" href="classhmap_1_1BVH2D.html" title="2D Linear Bounding Volume Hierarchy for line segments.">hmap::BVH2D</a></code>). By indexing the segment set into a BVH, the nearest segment search per pixel is accelerated via branch-and-bound pruning.</p>
-<h1><a class="anchor" id="autotoc_md18"></a>
+<h1><a class="anchor" id="autotoc_md62"></a>
 2. Algorithmic Approach</h1>
-<h2><a class="anchor" id="autotoc_md19"></a>
+<h2><a class="anchor" id="autotoc_md63"></a>
 Segment Indexing</h2>
 <p>Path segments $[p_k, p_{k+1}]$ are packaged into <code>Segment2D</code> structs storing directional vector $d = p_{k+1} - p_k$ and inverse squared length $\frac{1}{|d|^2}$. A <code>BVH2D</code> tree is built over the segments in $\mathcal{O}(N \log N)$ time.</p>
-<h2><a class="anchor" id="autotoc_md20"></a>
+<h2><a class="anchor" id="autotoc_md64"></a>
 Branch-and-Bound Distance Query</h2>
 <p>For a given query point $p = (x, y)$:</p><ol type="1">
 <li>Traverse the BVH using a fixed-capacity traversal stack.</li>
@@ -124,16 +124,16 @@ Branch-and-Bound Distance Query</h2>
 <li>In leaf nodes, evaluate exact point-to-segment distance squared and update $d_{\text{best}}^2$.</li>
 </ol>
 <p>Average per-query complexity drops to $\mathcal{O}(\log N)$, reducing overall runtime to $\mathcal{O}(W \cdot H \log N)$.</p>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md65"></a>
 Support for Domain Warping and Path Closure</h2>
 <ul>
 <li><b>Domain Warping</b>: Per-pixel noise displacements (<code>p_noise_x</code>, <code>p_noise_y</code>) warp coordinate $p = (x + dx, y + dy)$ before querying the tree. The tree does not require reconstruction.</li>
 <li><b>Closed Paths</b>: When <code>path.is_closed() == true</code>, the closing segment is included in the BVH, and an orientation/winding sign test determines interior vs. exterior distances.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md66"></a>
 3. Benchmark Measurements</h1>
 <p>Google Benchmark was executed comparing the baseline brute-force approach against the BVH approach on a CPU with 6 physical cores (12 threads).</p>
-<h2><a class="anchor" id="autotoc_md23"></a>
+<h2><a class="anchor" id="autotoc_md67"></a>
 Execution Time Comparison ($512 \times 512$ Grid)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -147,7 +147,7 @@ Execution Time Comparison ($512 \times 512$ Grid)</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">1000   </td><td class="markdownTableBodyNone">2823.0   </td><td class="markdownTableBodyNone">37.60   </td><td class="markdownTableBodyNone">~75.1x   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<h2><a class="anchor" id="autotoc_md68"></a>
 Execution Time Comparison ($256 \times 256$ Grid)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -161,7 +161,7 @@ Execution Time Comparison ($256 \times 256$ Grid)</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">1000   </td><td class="markdownTableBodyNone">917.00   </td><td class="markdownTableBodyNone">10.30   </td><td class="markdownTableBodyNone">~89.0x   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md69"></a>
 4. API Design and Integration</h1>
 <p>The functionality is structured to preserve backward compatibility while providing the brute-force implementation for reference and validation:</p>
 <ol type="1">
@@ -177,10 +177,10 @@ Execution Time Comparison ($256 \times 256$ Grid)</h2>
 </li>
 </ol>
 <p>Existing call sites retain default <code>use_bvh = true</code> behavior without signature breakage.</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md70"></a>
 5. Verification of Bézier Polyline SDF (&lt;tt&gt;sdf_2d_polyline_bezier&lt;/tt&gt;)</h1>
 <p>During verification of <code>sdf_2d_polyline_bezier</code>, numerical issues were discovered causing corrupted/broken results (entire arrays returning <code>NaN</code> or <code>inf</code>).</p>
-<h2><a class="anchor" id="autotoc_md27"></a>
+<h2><a class="anchor" id="autotoc_md71"></a>
 Root Cause Analysis</h2>
 <ol type="1">
 <li><b>Division by Zero on Colinear/Degenerate Segments</b>: The distance to a quadratic Bézier curve $B(t) = (1-t)^2 P_0 + 2t(1-t)P_1 + t^2 P_2$ involves the second-difference vector: $$b = P_0 - 2P_1 + P_2$$ When the control points are colinear (or $P_1$ is at the midpoint of $P_0$ and $P_2$), $b \approx 0 \implies \text{dot}(b, b) = 0$. The original code computed: <div class="fragment"><div class="line"><span class="keywordtype">float</span> kk = 1.0f / dot(b, b);</div>
@@ -189,7 +189,7 @@ Root Cause Analysis</h2>
 </div><!-- fragment --> Due to float32 precision limits, $\frac{q}{2 p z}$ occasionally evaluated to $1.0000002$ or $-1.0000002$, triggering domain errors in <code>std::acos</code> and returning <code>NaN</code>. <b>Fix</b>: Clamped the ratio to $[-1.0f, 1.0f]$ via <code>std::clamp</code>.</li>
 <li><b>Topology and Point Count Handling</b>: Quadratic Bézier paths are indexed as triplets $(P_{2k}, P_{2k+1}, P_{2k+2})$. Paths with an even number of points previously appended a synthetic point that was frequently colinear with the last segment, triggering the division by zero. Proper segment pairing was enforced.</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md28"></a>
+<h2><a class="anchor" id="autotoc_md72"></a>
 BVH2D Acceleration for Bézier Curves</h2>
 <p>Since quadratic Bézier curves satisfy the convex hull property: $$B(t) \in \text{ConvexHull}(P_0, P_1, P_2) \quad \forall t \in [0, 1]$$ A tight and conservative bounding box for each quadratic curve is simply: $$\text{AABB} = [\min(P_0, P_1, P_2), \max(P_0, P_1, P_2)]$$</p>
 <p>A specialized <code>BVH2DBezier</code> tree was implemented using this bounding box representation. Per-pixel queries prune subtrees whose bounding box distance exceeds the current closest squared distance.</p>
@@ -198,10 +198,10 @@ BVH2D Acceleration for Bézier Curves</h2>
 <li><code><a class="el" href="namespacehmap.html#a3f2d0f789995b087fee958951a87d36c">hmap::sdf_2d_polyline_bezier_brute_force</a></code></li>
 <li><code><a class="el" href="namespacehmap.html#a7fc8217efe7ab32d2e1e025bdd632936" title="See hmap::sdf_2d_polyline, with a Bezier approximation of the path.">hmap::sdf_2d_polyline_bezier</a>(path, shape, bbox, p_noise_x, p_noise_y, use_bvh = true)</code></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md29"></a>
+<h1><a class="anchor" id="autotoc_md73"></a>
 6. GPU (OpenCL) Assessment and Validation</h1>
 <p>The GPU polyline SDF implementation was analyzed to determine whether introducing a BVH2D spatial index in OpenCL kernels would yield benefits.</p>
-<h2><a class="anchor" id="autotoc_md30"></a>
+<h2><a class="anchor" id="autotoc_md74"></a>
 Performance Analysis: GPU Brute Force vs CPU BVH2D</h2>
 <p>Comparative benchmark timings on an NVIDIA GeForce GTX 1650 Max-Q across $512 \times 512$ grids:</p>
 <table class="markdownTable">
@@ -216,7 +216,7 @@ Performance Analysis: GPU Brute Force vs CPU BVH2D</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">1000   </td><td class="markdownTableBodyNone">4949.6   </td><td class="markdownTableBodyNone">37.6   </td><td class="markdownTableBodyNone">5.6   </td><td class="markdownTableBodyNone">~6.7x   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md31"></a>
+<h2><a class="anchor" id="autotoc_md75"></a>
 Rationale: Keeping the GPU Kernel Brute Force</h2>
 <p>Building and traversing a BVH2D on the GPU was rejected based on execution characteristics:</p>
 <ol type="1">
@@ -228,7 +228,7 @@ Rationale: Keeping the GPU Kernel Brute Force</h2>
 <li><b>Warp Divergence in BVH Traversal</b>: Neighboring pixels traverse different branches of a BVH depending on their spatial coordinates. Per-warp branch divergence on a tree traversal serializes execution threads and requires a per-work-item stack (causing register pressure or spilling into high-latency local/private memory).</li>
 <li><b>Performance Trade-Off</b>: At $N = 1000$ segments, the brute-force GPU kernel takes only 5.6 ms. The complexity of dynamic tree traversal in OpenCL would likely degrade throughput rather than improve it for typical path sizes.</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md32"></a>
+<h2><a class="anchor" id="autotoc_md76"></a>
 Numerical Stability and Parity Fixes on GPU</h2>
 <p>The OpenCL kernels were reviewed and aligned with the CPU implementations:</p>
 <ol type="1">

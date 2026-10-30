@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="hydraulic__stream__log_8md" kind="file" language="Markdown">
+    <compoundname>hydraulic_stream_log.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Hydraulic<sp/>Stream<sp/>Log<sp/>Erosion</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>document<sp/>details<sp/>the<sp/>algorithm,<sp/>continuous<sp/>flow<sp/>formulation,<sp/>logarithmic<sp/>stream<sp/>power<sp/>scaling,<sp/>and<sp/>implementation<sp/>of<sp/>`hydraulic_stream_log`<sp/>and<sp/>`hydraulic_stream_log_multiscale`<sp/>in<sp/>HighMap.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>1.<sp/>Overview</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">While<sp/>particle-based<sp/>hydraulic<sp/>erosion<sp/>(`hydraulic_particle`)<sp/>simulates<sp/>discrete<sp/>raindrops<sp/>advecting<sp/>across<sp/>the<sp/>surface,<sp/>`hydraulic_stream_log`<sp/>is<sp/>an<sp/>Eulerian,<sp/>stream-power<sp/>erosion<sp/>model.<sp/>It<sp/>operates<sp/>globally<sp/>across<sp/>the<sp/>grid<sp/>using<sp/>continuous<sp/>$D_\infty$<sp/>flow<sp/>accumulation,<sp/>logarithmic<sp/>discharge<sp/>scaling,<sp/>local<sp/>gradient<sp/>modulation,<sp/>and<sp/>hole-filling<sp/>deposition.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![](../../images/hydraulic_comparison_stream_log.png<sp/>&quot;Terrain<sp/>eroded<sp/>with<sp/>hydraulic_stream_log.&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>method<sp/>carves<sp/>continuous,<sp/>smooth<sp/>dendritic<sp/>river<sp/>valleys<sp/>and<sp/>dendritic<sp/>drainage<sp/>basins<sp/>rapidly<sp/>across<sp/>large<sp/>terrains<sp/>without<sp/>Monte<sp/>Carlo<sp/>sampling<sp/>noise.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```mermaid</highlight></codeline>
+<codeline><highlight class="normal">flowchart<sp/>TD</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>A[&quot;Input<sp/>Elevation<sp/>z&quot;]<sp/>--&gt;<sp/>B[&quot;D_inf<sp/>Flow<sp/>Routing<sp/>&amp;<sp/>Accumulation:<sp/>facc&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>B<sp/>--&gt;<sp/>C[&quot;Logarithmic<sp/>Compression:<sp/>facc<sp/>=<sp/>log10(facc)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>C<sp/>--&gt;<sp/>D[&quot;Remap<sp/>&amp;<sp/>Saturation<sp/>Thresholding&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>A<sp/>--&gt;<sp/>E[&quot;Local<sp/>Gradient<sp/>Norm<sp/>&amp;<sp/>Peak<sp/>Preservation&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>D<sp/>--&gt;<sp/>F[&quot;Channel<sp/>Discharge<sp/>Modulation:<sp/>facc<sp/>*<sp/>gn<sp/>*<sp/>re&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>E<sp/>--&gt;<sp/>F</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>F<sp/>--&gt;<sp/>G[&quot;Erosion<sp/>Incision:<sp/>z<sp/>=<sp/>z<sp/>-<sp/>c_erosion<sp/>*<sp/>facc<sp/>*<sp/>moisture&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>G<sp/>--&gt;<sp/>H[&quot;Synthetic<sp/>Deposition:<sp/>Hole<sp/>Filling<sp/>&amp;<sp/>Gradient<sp/>Blending&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>H<sp/>--&gt;<sp/>I[&quot;Bedrock<sp/>Clamping:<sp/>z<sp/>=<sp/>max(z,<sp/>z_bedrock)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>I<sp/>--&gt;<sp/>J[&quot;Output<sp/>Splatmaps<sp/>(Erosion<sp/>/<sp/>Deposition<sp/>/<sp/>Flow)&quot;]</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>2.<sp/>Mathematical<sp/>Model<sp/>and<sp/>Kinematics</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Continuous<sp/>Flow<sp/>Accumulation<sp/>($D_\infty$)</highlight></codeline>
+<codeline><highlight class="normal">Water<sp/>routing<sp/>is<sp/>computed<sp/>using<sp/>Tarboton&apos;s<sp/>$D_\infty$<sp/>continuous<sp/>flow<sp/>direction<sp/>model.<sp/>Rather<sp/>than<sp/>confining<sp/>flow<sp/>to<sp/>one<sp/>of<sp/>eight<sp/>discrete<sp/>directions<sp/>($D_8$),<sp/>$D_\infty$<sp/>routes<sp/>flow<sp/>along<sp/>triangular<sp/>facets<sp/>as<sp/>a<sp/>continuous<sp/>facet<sp/>angle<sp/>$\theta<sp/>\in<sp/>[0,<sp/>2\pi)$.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```mermaid</highlight></codeline>
+<codeline><highlight class="normal">flowchart<sp/>LR</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>P[&quot;Center<sp/>Cell<sp/>(i,<sp/>j)&quot;]<sp/>--&gt;<sp/>F1[&quot;Facet<sp/>k:<sp/>Proportion<sp/>w_1<sp/>-&gt;<sp/>Neighbor<sp/>1&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>P<sp/>--&gt;<sp/>F2[&quot;Facet<sp/>k:<sp/>Proportion<sp/>w_2<sp/>-&gt;<sp/>Neighbor<sp/>2&quot;]</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>flow<sp/>accumulation<sp/>$A(x,<sp/>y)$<sp/>represents<sp/>the<sp/>total<sp/>upstream<sp/>drainage<sp/>area<sp/>draining<sp/>through<sp/>cell<sp/>$(x,<sp/>y)$:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$A_i<sp/>=<sp/>1<sp/>+<sp/>\sum_{j<sp/>\in<sp/>\text{inflow}(i)}<sp/>w_{j<sp/>\to<sp/>i}<sp/>A_j$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">where<sp/>$w_{j<sp/>\to<sp/>i}<sp/>\in<sp/>[0,<sp/>1]$<sp/>is<sp/>the<sp/>fraction<sp/>of<sp/>cell<sp/>$j$&apos;s<sp/>discharge<sp/>directed<sp/>toward<sp/>cell<sp/>$i$.<sp/>Flow<sp/>routing<sp/>over<sp/>flat<sp/>regions<sp/>or<sp/>local<sp/>depressions<sp/>is<sp/>stabilized<sp/>using<sp/>the<sp/>reference<sp/>slope<sp/>parameter<sp/>`talus_ref`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Logarithmic<sp/>Compression</highlight></codeline>
+<codeline><highlight class="normal">Because<sp/>upstream<sp/>area<sp/>spans<sp/>several<sp/>orders<sp/>of<sp/>magnitude<sp/>(from<sp/>$10^0$<sp/>at<sp/>ridges<sp/>to<sp/>$10^6+$<sp/>at<sp/>primary<sp/>river<sp/>trunks),<sp/>standard<sp/>linear<sp/>stream<sp/>power<sp/>causes<sp/>catastrophic<sp/>over-carving<sp/>in<sp/>main<sp/>valleys<sp/>while<sp/>leaving<sp/>feeder<sp/>streams<sp/>untouched.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">`hydraulic_stream_log`<sp/>applies<sp/>base-10<sp/>logarithmic<sp/>compression<sp/>to<sp/>the<sp/>accumulated<sp/>flow:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$A_{\text{log}}<sp/>=<sp/>\log_{10}(A)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>compressed<sp/>discharge<sp/>is<sp/>remapped<sp/>to<sp/>$[0,<sp/>1]$:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$A_{\text{norm}}<sp/>=<sp/>\frac{A_{\text{log}}<sp/>-<sp/>\min(A_{\text{log}})}{\max(A_{\text{log}})<sp/>-<sp/>\min(A_{\text{log}})}$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">If<sp/>`saturation_ratio`<sp/>$&lt;<sp/>1.0$,<sp/>upper<sp/>river<sp/>branches<sp/>are<sp/>saturated<sp/>to<sp/>broaden<sp/>valleys:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$A_{\text{sat}}<sp/>=<sp/>\mathrm{saturate}(A_{\text{norm}},<sp/>0,<sp/>s_{\text{ratio}},<sp/>0.1<sp/>\cdot<sp/>s_{\text{ratio}})$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Gradient<sp/>Modulation<sp/>and<sp/>Stream<sp/>Power</highlight></codeline>
+<codeline><highlight class="normal">Stream<sp/>power<sp/>incision<sp/>in<sp/>nature<sp/>depends<sp/>on<sp/>both<sp/>discharge<sp/>$Q$<sp/>and<sp/>bed<sp/>slope<sp/>$S$:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$E<sp/>\propto<sp/>Q^m<sp/>S^n$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">HighMap<sp/>models<sp/>slope<sp/>dependence<sp/>by<sp/>evaluating<sp/>the<sp/>smoothed<sp/>surface<sp/>gradient<sp/>norm<sp/>$\|\nabla<sp/>z\|$:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>Compute<sp/>gradient<sp/>norm<sp/>$\|\nabla<sp/>z\|$.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Smooth<sp/>using<sp/>compact<sp/>pulse<sp/>filtering<sp/>(`smooth_cpulse`)<sp/>with<sp/>prefilter<sp/>radius<sp/>$r_{\text{grad}}$.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>Raise<sp/>to<sp/>exponent<sp/>$p<sp/>=<sp/>\text{gradient\_power}$<sp/>and<sp/>apply<sp/>a<sp/>quintic<sp/>smoothstep:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$g_{\text{norm}}<sp/>=<sp/>S_5\left(\|\nabla<sp/>z\|^p\right)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">4.<sp/>Modulate<sp/>flow<sp/>intensity<sp/>with<sp/>the<sp/>gradient<sp/>scaling<sp/>ratio<sp/>$r_{\text{scale}}<sp/>\in<sp/>[0,<sp/>1]$:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$A_{\text{mod}}<sp/>=<sp/>A_{\text{sat}}<sp/>\cdot<sp/>\left((1<sp/>-<sp/>r_{\text{scale}})<sp/>+<sp/>r_{\text{scale}}<sp/>\cdot<sp/>g_{\text{norm}}\right)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Ridge<sp/>and<sp/>Peak<sp/>Preservation</highlight></codeline>
+<codeline><highlight class="normal">To<sp/>ensure<sp/>that<sp/>high<sp/>peaks<sp/>and<sp/>sharp<sp/>mountain<sp/>ridges<sp/>are<sp/>not<sp/>eroded<sp/>away<sp/>by<sp/>accidental<sp/>local<sp/>flow<sp/>initialization,<sp/>relative<sp/>elevation<sp/>($RE$)<sp/>over<sp/>a<sp/>square<sp/>kernel<sp/>is<sp/>sampled:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$RE<sp/>=<sp/>\frac{z<sp/>-<sp/>\min_{\Omega}(z)}{\max_{\Omega}(z)<sp/>-<sp/>\min_{\Omega}(z)}$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Valley<sp/>bottoms<sp/>have<sp/>$RE<sp/>\approx<sp/>0$,<sp/>while<sp/>sharp<sp/>mountain<sp/>ridges<sp/>have<sp/>$RE<sp/>\approx<sp/>1$.<sp/>Incision<sp/>intensity<sp/>is<sp/>masked<sp/>by<sp/>the<sp/>inverted<sp/>cubic<sp/>smoothstep<sp/>of<sp/>$RE$:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$A_{\text{eff}}<sp/>=<sp/>A_{\text{mod}}<sp/>\cdot<sp/>S_3(1<sp/>-<sp/>RE)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>focuses<sp/>erosion<sp/>strictly<sp/>into<sp/>valley<sp/>troughs<sp/>while<sp/>preserving<sp/>mountain<sp/>crests<sp/>and<sp/>summits.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Surface<sp/>Incision</highlight></codeline>
+<codeline><highlight class="normal">Elevation<sp/>is<sp/>carved<sp/>according<sp/>to<sp/>erosion<sp/>rate<sp/>$c_{\text{erosion}}$<sp/>and<sp/>optional<sp/>moisture<sp/>weighting<sp/>$M(x,<sp/>y)$:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$z<sp/>\leftarrow<sp/>z<sp/>-<sp/>c_{\text{erosion}}<sp/>\cdot<sp/>M<sp/>\cdot<sp/>A_{\text{eff}}$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>3.<sp/>Deposition<sp/>Mechanics</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Unlike<sp/>physical<sp/>Lagrangian<sp/>transport<sp/>where<sp/>sediment<sp/>is<sp/>tracked<sp/>along<sp/>particle<sp/>paths,<sp/>Eulerian<sp/>stream<sp/>incision<sp/>models<sp/>lack<sp/>explicit<sp/>sediment<sp/>load<sp/>states.<sp/>`hydraulic_stream_log`<sp/>mimics<sp/>alluvial<sp/>fan<sp/>deposition<sp/>through<sp/>morphological<sp/>filtering<sp/>and<sp/>gradient<sp/>blending:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```mermaid</highlight></codeline>
+<codeline><highlight class="normal">flowchart<sp/>LR</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Z[&quot;Eroded<sp/>Surface<sp/>z&quot;]<sp/>--&gt;<sp/>HoleFill[&quot;smooth_fill_holes(z,<sp/>r_dep)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>HoleFill<sp/>--&gt;<sp/>GradBlend[&quot;blend_gradients(z_filled,<sp/>z,<sp/>r_dep)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>GradBlend<sp/>--&gt;<sp/>Lerp[&quot;z_final<sp/>=<sp/>(1<sp/>-<sp/>α)<sp/>z<sp/>+<sp/>α<sp/>z_dep&quot;]</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>**Hole<sp/>Filling**:<sp/>`gpu::smooth_fill_holes(z_d,<sp/>deposition_ir)`<sp/>eliminates<sp/>artificial<sp/>pit<sp/>singularities<sp/>and<sp/>shallow<sp/>micro-depressions<sp/>created<sp/>by<sp/>intense<sp/>carving.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>**Gradient<sp/>Blending**:<sp/>`gpu::blend_gradients(z_d,<sp/>z,<sp/>deposition_ir)`<sp/>blends<sp/>the<sp/>regional<sp/>slope<sp/>into<sp/>the<sp/>filled<sp/>depressions.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>**Linear<sp/>Interpolation**:<sp/>The<sp/>surface<sp/>blends<sp/>with<sp/>the<sp/>deposition<sp/>target<sp/>using<sp/>`deposition_scale_ratio`<sp/>($\alpha<sp/>\in<sp/>[0,<sp/>1]$):</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$z<sp/>\leftarrow<sp/>(1<sp/>-<sp/>\alpha)<sp/>z<sp/>+<sp/>\alpha<sp/>z_d$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">4.<sp/>**Bedrock<sp/>Enforcement**:<sp/>If<sp/>a<sp/>hard<sp/>bedrock<sp/>stratum<sp/>$z_{\text{bedrock}}$<sp/>is<sp/>provided,<sp/>elevation<sp/>is<sp/>clamped<sp/>from<sp/>below:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$z<sp/>\leftarrow<sp/>\max(z_{\text{bedrock}},<sp/>z)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>4.<sp/>Multiscale<sp/>Architecture<sp/>(`hydraulic_stream_log_multiscale`)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">When<sp/>creating<sp/>expansive<sp/>mountain<sp/>landscapes,<sp/>applying<sp/>flow<sp/>accumulation<sp/>at<sp/>a<sp/>single<sp/>high<sp/>resolution<sp/>can<sp/>produce<sp/>overly<sp/>fine,<sp/>dense<sp/>rill<sp/>networks<sp/>rather<sp/>than<sp/>majestic,<sp/>wide<sp/>valley<sp/>corridors.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">`hydraulic_stream_log_multiscale`<sp/>solves<sp/>this<sp/>by<sp/>building<sp/>an<sp/>octave<sp/>downsampling<sp/>pyramid:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```mermaid</highlight></codeline>
+<codeline><highlight class="normal">flowchart<sp/>TD</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>subgraph<sp/>Level0[&quot;Coarsest<sp/>Level<sp/>(e.g.<sp/>1/4<sp/>or<sp/>1/8<sp/>resolution)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>C1[&quot;Resample<sp/>z<sp/>to<sp/>coarse<sp/>shape&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>C2[&quot;Run<sp/>hydraulic_stream_log<sp/>(deposition<sp/>ratio<sp/>=<sp/>0)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>C3[&quot;Compute<sp/>Incision<sp/>Delta:<sp/>Δz_coarse<sp/>=<sp/>z_orig<sp/>-<sp/>z_carved&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>C4[&quot;Upsample<sp/>Δz_coarse<sp/>with<sp/>Domain<sp/>Warping&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>end</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>subgraph<sp/>Level1[&quot;Intermediate<sp/>Levels&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>M1[&quot;Apply<sp/>upsampled<sp/>coarse<sp/>incision<sp/>to<sp/>finer<sp/>level&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>M2[&quot;Carve<sp/>sub-tributaries&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>end</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>subgraph<sp/>LevelFin[&quot;Final<sp/>Full<sp/>Resolution&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>F1[&quot;Run<sp/>full<sp/>hydraulic_stream_log<sp/>with<sp/>full<sp/>deposition&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>end</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Level0<sp/>--&gt;<sp/>Level1<sp/>--&gt;<sp/>LevelFin</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Multiscale<sp/>Algorithm<sp/>Steps</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>**Pyramid<sp/>Ladder**:<sp/>Generates<sp/>$L$<sp/>power-of-two<sp/>resolutions<sp/>$\text{ladder}[i]$<sp/>for<sp/>$i<sp/>=<sp/>0,<sp/>\ldots,<sp/>L<sp/>-<sp/>1$,<sp/>from<sp/>coarsest<sp/>to<sp/>full<sp/>resolution.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>**Coarse<sp/>Scale<sp/>Carving**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>The<sp/>terrain<sp/>is<sp/>downsampled<sp/>to<sp/>`ladder[i]`.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>`hydraulic_stream_log`<sp/>runs<sp/>on<sp/>the<sp/>coarse<sp/>grid<sp/>to<sp/>identify<sp/>primary<sp/>macro-valleys.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>The<sp/>incision<sp/>delta<sp/>$\Delta<sp/>z_{\text{coarse}}<sp/>=<sp/>z_{\text{before}}<sp/>-<sp/>z_{\text{after}}$<sp/>is<sp/>calculated.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>**Domain-Warped<sp/>Upsampling**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>$\Delta<sp/>z_{\text{coarse}}$<sp/>is<sp/>upsampled<sp/>smoothly<sp/>back<sp/>to<sp/>full<sp/>resolution.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>Procedural<sp/>Perlin<sp/>domain<sp/>warping<sp/>(`warp`)<sp/>perturbs<sp/>the<sp/>upsampled<sp/>delta,<sp/>preventing<sp/>geometric<sp/>blockiness<sp/>and<sp/>introducing<sp/>natural<sp/>organic<sp/>meanders<sp/>into<sp/>the<sp/>valley<sp/>paths.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>The<sp/>scaled<sp/>incision<sp/>$\text{mix}<sp/>\cdot<sp/>\Delta<sp/>z_{\text{warped}}$<sp/>is<sp/>subtracted<sp/>from<sp/>the<sp/>full-resolution<sp/>terrain.</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>**Fine<sp/>Scale<sp/>Detail**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>The<sp/>finest<sp/>level<sp/>runs<sp/>with<sp/>`deposition_scale_ratio`<sp/>active,<sp/>producing<sp/>detailed<sp/>riverbanks,<sp/>braided<sp/>streams,<sp/>and<sp/>sediment<sp/>flats.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>5.<sp/>C++<sp/>API<sp/>Reference</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>functions<sp/>are<sp/>declared<sp/>in<sp/>[`hydraulic_erosion.hpp`](file:///home/glop/Documents/dev/HighMap/HighMap/include/highmap/erosion/hydraulic_erosion.hpp):</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```cpp</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&quot;highmap.hpp&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Single-scale<sp/>logarithmic<sp/>stream<sp/>erosion</highlight></codeline>
+<codeline><highlight class="normal">hmap::gpu::hydraulic_stream_log(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>z,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Target<sp/>heightfield</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>c_erosion<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.2f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>talus_ref<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5.0f<sp/>/<sp/>shape.x,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>deposition_ir<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>deposition_scale_ratio<sp/>*/<sp/>1.0f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>gradient_power<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.8f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>gradient_scaling_ratio<sp/>*/<sp/>1.0f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>gradient_prefilter_ir<sp/>*/<sp/><sp/>16,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>saturation_ratio<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_bedrock<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_moisture_map<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_erosion_map<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_deposition_map<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_flow_map<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr</highlight></codeline>
+<codeline><highlight class="normal">);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Multiscale<sp/>logarithmic<sp/>stream<sp/>cascade</highlight></codeline>
+<codeline><highlight class="normal">hmap::gpu::hydraulic_stream_log_multiscale(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>z,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Target<sp/>heightfield</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>c_erosion<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.2f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>talus_ref<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5.0f<sp/>/<sp/>shape.x,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>levels<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>deposition_ir<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>deposition_scale_ratio<sp/>*/<sp/>1.0f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>gradient_power<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.8f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>gradient_scaling_ratio<sp/>*/<sp/>1.0f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>gradient_prefilter_ir<sp/>*/<sp/><sp/>16,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>saturation_ratio<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_bedrock<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_moisture_map<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_erosion_map<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_deposition_map<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>p_flow_map<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>mix<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>warp<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.35f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>seed<sp/>*/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+    </programlisting>
+    <location file="docs/content/dev/hydraulic_stream_log.md"/>
+  </compounddef>
+</doxygen>

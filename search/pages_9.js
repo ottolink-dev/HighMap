@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['morphological_20expansion_0',['FFT vs. GPU Convolution and Morphological Expansion',['../md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology.html',1,'']]]
+  ['log_20erosion_0',['Hydraulic Stream Log Erosion',['../md_docs_2content_2dev_2hydraulic__stream__log.html',1,'']]]
 ];

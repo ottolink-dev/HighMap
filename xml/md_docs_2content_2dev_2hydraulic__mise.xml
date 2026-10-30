@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="md_docs_2content_2dev_2hydraulic__mise" kind="page">
+    <compoundname>md_docs_2content_2dev_2hydraulic__mise</compoundname>
+    <title>Multiscale Implicit Stream-Power Erosion (MISE)</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md_docs_2content_2dev_2hydraulic__mise_1autotoc_md21"/> This document details the theory, geomorphological formulations, implicit solver, and multiscale architecture of <computeroutput>hydraulic_mise</computeroutput> in HighMap.</para>
+<sect1 id="md_docs_2content_2dev_2hydraulic__mise_1autotoc_md22">
+<title>1. Overview</title>
+<para><computeroutput>hydraulic_mise</computeroutput> (Multiscale Implicit Stream-power Erosion) simulates long-term landscape evolution by solving coupled equations of fluvial bedrock incision, hillslope diffusion/debris flow, and alluvial sediment deposition across a dynamically re-routed drainage graph.</para>
+<para><image type="html" name="../../images/hydraulic_comparison_mise.png" inline="yes"></image>
+</para>
+<para>Unlike explicit particle tracing or simple height filtering, MISE uses:<itemizedlist>
+<listitem><para><bold>Implicit integration</bold>: Unconditionally stable large time steps without numerical blow-up.</para>
+</listitem><listitem><para><bold>Topological drainage graphs</bold>: Built using monotone priority-queue depression filling (Radix heap / bucket flood).</para>
+</listitem><listitem><para><bold>Coupled sediment conservation</bold>: Eroded material is carried downstream as bedload and suspended sediment until equilibrium deposition conditions are met.</para>
+</listitem><listitem><para><bold>Pyramidal multiscale scheduling</bold>: Macro-valleys are carved at coarse base resolutions and refined down to fine rills with domain-warped upsampling.</para>
+</listitem></itemizedlist>
+</para>
+<para><programlisting filename=".mermaid"><codeline><highlight class="normal">flowchart<sp/>TD</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>A[&quot;Input<sp/>Terrain<sp/>z&quot;]<sp/>--&gt;<sp/>B[&quot;Depression<sp/>Filling<sp/>&amp;<sp/>Lake<sp/>Identification<sp/>(Priority<sp/>Flood)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>B<sp/>--&gt;<sp/>C[&quot;Flow<sp/>Routing<sp/>(Receivers<sp/>&amp;<sp/>Topological<sp/>Sorting)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>C<sp/>--&gt;<sp/>D[&quot;Drainage<sp/>Area<sp/>Accumulation<sp/>A_i&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>D<sp/>--&gt;<sp/>E[&quot;Implicit<sp/>Fluvial<sp/>Incision<sp/>(Stream<sp/>Power<sp/>Law)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>E<sp/>--&gt;<sp/>F[&quot;Hillslope<sp/>Transport<sp/>&amp;<sp/>Debris<sp/>Cascades&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>F<sp/>--&gt;<sp/>G[&quot;Sediment<sp/>Deposition<sp/>in<sp/>Flats<sp/>&amp;<sp/>Lakes&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>G<sp/>--&gt;<sp/>H[&quot;Sediment<sp/>Relaxation<sp/>(Repose<sp/>Slope<sp/>talus)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>H<sp/>--&gt;<sp/>I{&quot;More<sp/>Iterations<sp/>on<sp/>Current<sp/>Level?&quot;}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>I<sp/>--&gt;|Yes|<sp/>B</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>I<sp/>--&gt;|No|<sp/>J{&quot;Next<sp/>Resolution<sp/>Level?&quot;}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>J<sp/>--&gt;|Yes:<sp/>Upsample<sp/>+<sp/>Domain<sp/>Warp|<sp/>B</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>J<sp/>--&gt;|No|<sp/>K[&quot;Final<sp/>Full-Resolution<sp/>Output<sp/>(z,<sp/>sediment,<sp/>flow,<sp/>splatmaps)&quot;]</highlight></codeline>
+</programlisting></para>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2hydraulic__mise_1autotoc_md23">
+<title>2. Theoretical Formulation and Kinematics</title>
+<sect2 id="md_docs_2content_2dev_2hydraulic__mise_1autotoc_md24">
+<title>Drainage Graph and Depression Filling</title>
+<para>Surface flow routes downhill from donors to receivers. To resolve local depressions (pits, sinks, and closed lakes), the terrain is processed with a priority flood algorithm:</para>
+<para><orderedlist>
+<listitem><para>A boundary queue seeds the flood, tracking minimum spill elevation.</para>
+</listitem><listitem><para>Pits are identified and tagged (<computeroutput>lake</computeroutput>), grouping flooded basins and their associated spillway outlets (<computeroutput>lake_outlet</computeroutput>).</para>
+</listitem><listitem><para>Flow directions assign each non-outlet cell $i$ to a downslope receiver cell $r(i)$:</para>
+</listitem></orderedlist>
+</para>
+<para>$$P(i \to j) \propto \max\left(0, \frac{z_i - z_j}{d_{ij}}\right)^{\gamma}$$</para>
+<para>where $\gamma = \text{receiver_exp}$ and $d_{ij} \in 1, \sqrt{2} </para>
+</sect2>
+</sect1>
+    </detaileddescription>
+    <location file="docs/content/dev/hydraulic_mise.md"/>
+  </compounddef>
+</doxygen>

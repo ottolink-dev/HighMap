@@ -1,0 +1,48 @@
+\chapter{Multiscale Implicit Stream-\/\+Power Erosion (MISE)}
+\hypertarget{md_docs_2content_2dev_2hydraulic__mise}{}\label{md_docs_2content_2dev_2hydraulic__mise}\index{Multiscale Implicit Stream-\/Power Erosion (MISE)@{Multiscale Implicit Stream-\/Power Erosion (MISE)}}
+\label{md_docs_2content_2dev_2hydraulic__mise_autotoc_md21}%
+\Hypertarget{md_docs_2content_2dev_2hydraulic__mise_autotoc_md21}%
+ This document details the theory, geomorphological formulations, implicit solver, and multiscale architecture of {\ttfamily hydraulic\+\_\+mise} in High\+Map.\hypertarget{md_docs_2content_2dev_2hydraulic__mise_autotoc_md22}{}\doxysection{\texorpdfstring{1. Overview}{1. Overview}}\label{md_docs_2content_2dev_2hydraulic__mise_autotoc_md22}
+{\ttfamily hydraulic\+\_\+mise} (Multiscale Implicit Stream-\/power Erosion) simulates long-\/term landscape evolution by solving coupled equations of fluvial bedrock incision, hillslope diffusion/debris flow, and alluvial sediment deposition across a dynamically re-\/routed drainage graph.
+
+
+
+Unlike explicit particle tracing or simple height filtering, MISE uses\+:
+\begin{DoxyItemize}
+\item {\bfseries{Implicit integration}}\+: Unconditionally stable large time steps without numerical blow-\/up.
+\item {\bfseries{Topological drainage graphs}}\+: Built using monotone priority-\/queue depression filling (Radix heap / bucket flood).
+\item {\bfseries{Coupled sediment conservation}}\+: Eroded material is carried downstream as bedload and suspended sediment until equilibrium deposition conditions are met.
+\item {\bfseries{Pyramidal multiscale scheduling}}\+: Macro-\/valleys are carved at coarse base resolutions and refined down to fine rills with domain-\/warped upsampling.
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{flowchart\ TD}
+\DoxyCodeLine{\ \ \ \ A["{}Input\ Terrain\ z"{}]\ -\/-\/>\ B["{}Depression\ Filling\ \&\ Lake\ Identification\ (Priority\ Flood)"{}]}
+\DoxyCodeLine{\ \ \ \ B\ -\/-\/>\ C["{}Flow\ Routing\ (Receivers\ \&\ Topological\ Sorting)"{}]}
+\DoxyCodeLine{\ \ \ \ C\ -\/-\/>\ D["{}Drainage\ Area\ Accumulation\ A\_i"{}]}
+\DoxyCodeLine{\ \ \ \ D\ -\/-\/>\ E["{}Implicit\ Fluvial\ Incision\ (Stream\ Power\ Law)"{}]}
+\DoxyCodeLine{\ \ \ \ E\ -\/-\/>\ F["{}Hillslope\ Transport\ \&\ Debris\ Cascades"{}]}
+\DoxyCodeLine{\ \ \ \ F\ -\/-\/>\ G["{}Sediment\ Deposition\ in\ Flats\ \&\ Lakes"{}]}
+\DoxyCodeLine{\ \ \ \ G\ -\/-\/>\ H["{}Sediment\ Relaxation\ (Repose\ Slope\ talus)"{}]}
+\DoxyCodeLine{\ \ \ \ H\ -\/-\/>\ I\{"{}More\ Iterations\ on\ Current\ Level?"{}\}}
+\DoxyCodeLine{\ \ \ \ I\ -\/-\/>|Yes|\ B}
+\DoxyCodeLine{\ \ \ \ I\ -\/-\/>|No|\ J\{"{}Next\ Resolution\ Level?"{}\}}
+\DoxyCodeLine{\ \ \ \ J\ -\/-\/>|Yes:\ Upsample\ +\ Domain\ Warp|\ B}
+\DoxyCodeLine{\ \ \ \ J\ -\/-\/>|No|\ K["{}Final\ Full-\/Resolution\ Output\ (z,\ sediment,\ flow,\ splatmaps)"{}]}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2content_2dev_2hydraulic__mise_autotoc_md23}{}\doxysection{\texorpdfstring{2. Theoretical Formulation and Kinematics}{2. Theoretical Formulation and Kinematics}}\label{md_docs_2content_2dev_2hydraulic__mise_autotoc_md23}
+\hypertarget{md_docs_2content_2dev_2hydraulic__mise_autotoc_md24}{}\doxysubsection{\texorpdfstring{Drainage Graph and Depression Filling}{Drainage Graph and Depression Filling}}\label{md_docs_2content_2dev_2hydraulic__mise_autotoc_md24}
+Surface flow routes downhill from donors to receivers. To resolve local depressions (pits, sinks, and closed lakes), the terrain is processed with a priority flood algorithm\+:
+
+
+\begin{DoxyEnumerate}
+\item A boundary queue seeds the flood, tracking minimum spill elevation.
+\item Pits are identified and tagged ({\ttfamily lake}), grouping flooded basins and their associated spillway outlets ({\ttfamily lake\+\_\+outlet}).
+\item Flow directions assign each non-\/outlet cell \$i\$ to a downslope receiver cell \$r(i)\$\+:
+\end{DoxyEnumerate}
+
+\$\$P(i \textbackslash{}to j) \textbackslash{}propto \textbackslash{}max\textbackslash{}left(0, \textbackslash{}frac\{z\+\_\+i -\/ z\+\_\+j\}\{d\+\_\+\{ij\}\}\textbackslash{}right)\texorpdfstring{$^\wedge$}{\string^}\{\textbackslash{}gamma\}\$\$
+
+where \$\textbackslash{}gamma = \textbackslash{}text\{receiver\+\_\+exp\}\$ and \$d\+\_\+\{ij\} \textbackslash{}in 1, \textbackslash{}sqrt\{2\} 
