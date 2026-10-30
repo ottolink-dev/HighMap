@@ -10,7 +10,7 @@ var searchData=
   ['canyonize_7',['canyonize',['../namespacehmap.html#a3db5616398edb199912cfc2972c2ec55',1,'hmap::canyonize(Array &amp;array, std::uint32_t seed=0, int nlevels=6, float convex_ratio=3.0f, float gamma_convex=3.0f, float gamma_concave=0.3f, float clamp_min_val=-std::numeric_limits&lt; float &gt;::infinity(), float k_smooth=0.1f, float noise_ratio=0.2f, const Array *p_noise=nullptr, float vmin=1.f, float vmax=0.f)'],['../namespacehmap.html#aca3e5de61af1e6bac4786ec33d0c1398',1,'hmap::canyonize(Array &amp;array, std::uint32_t seed, int nlevels, const Array *p_mask, float convex_ratio=3.0f, float gamma_convex=3.0f, float gamma_concave=0.3f, float clamp_min_val=-std::numeric_limits&lt; float &gt;::infinity(), float k_smooth=0.1f, float noise_ratio=0.2f, const Array *p_noise=nullptr, float vmin=1.f, float vmax=0.f)']]],
   ['canyonize_2ecpp_8',['canyonize.cpp',['../canyonize_8cpp.html',1,'']]],
   ['capacity_9',['capacity',['../classhmap_1_1ScatterField.html#a4b0b89b201933ba38fca49778708a6fe',1,'hmap::ScatterField::capacity()'],['../classhmap_1_1Cloud.html#a1544c5da7b03e5f5f914250707ce2bf0',1,'hmap::Cloud::capacity()']]],
-  ['carve_5friver_10',['carve_river',['../namespacehmap.html#a2976e7e9dac5ac911ac10d79ef0f6e23',1,'hmap']]],
+  ['carve_5friver_10',['carve_river',['../namespacehmap.html#acf2e3177a8b9b776c6fb7e3b53c6cd34',1,'hmap']]],
   ['carve_5friver_2ecpp_11',['carve_river.cpp',['../carve__river_8cpp.html',1,'']]],
   ['carve_5friverbed_12',['carve_riverbed',['../namespacehmap.html#a70e5aa1009c3de1d301e0a8994dd8b03',1,'hmap']]],
   ['carve_5friverbed_2ecpp_13',['carve_riverbed.cpp',['../carve__riverbed_8cpp.html',1,'']]],

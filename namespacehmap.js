@@ -498,7 +498,7 @@ var namespacehmap =
     [ "trench", "namespacehmap.html#ae10d017da6e13ba9d619298709e64917", null ],
     [ "trench", "namespacehmap.html#a6629d7932feda7b2c5c1cc7e33da66bd", null ],
     [ "trench", "namespacehmap.html#ac812451135eef116e28dfb44b5ec7a8d", null ],
-    [ "carve_river", "namespacehmap.html#a2976e7e9dac5ac911ac10d79ef0f6e23", null ],
+    [ "carve_river", "namespacehmap.html#acf2e3177a8b9b776c6fb7e3b53c6cd34", null ],
     [ "apply_hillshade", "namespacehmap.html#a76b37b88acf83d6a5b21f1be1b50697e", null ],
     [ "apply_hillshade", "namespacehmap.html#aefc8cbe645337bb5b663436c0324f9e2", null ],
     [ "color_adjust", "namespacehmap.html#a7634a1bb2505ae11370c431b0b1fd9ea", null ],

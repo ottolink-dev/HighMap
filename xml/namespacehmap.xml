@@ -8038,10 +8038,10 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </inbodydescription>
         <location file="HighMap/src/carving/trench.cpp" line="831" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="831" bodyend="863" declfile="HighMap/include/highmap/carving.hpp" declline="289" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a2976e7e9dac5ac911ac10d79ef0f6e23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1acf2e3177a8b9b776c6fb7e3b53c6cd34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::carve_river</definition>
-        <argsstring>(Array &amp;z, const Graph &amp;graph, float outlet_width, float headwater_width=0.f, float width_exponent=0.5f, float depth=0.05f, float bank_width_ratio=1.0f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP_UPPER, float radial_profile_parameter=2.f, const Array *p_noise_r=nullptr, Array *p_river_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(Array &amp;z, const Graph &amp;graph, float talus, float outlet_width, float headwater_width=0.f, float width_exponent=0.5f, float depth=0.05f, float depth_exponent=0.3f, std::uint32_t seed=0, float talus_noise_ratio=0.f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP_UPPER, float radial_profile_parameter=2.f, Array *p_river_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>carve_river</name>
         <qualifiedname>hmap::carve_river</qualifiedname>
         <param>
@@ -8051,6 +8051,10 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         <param>
           <type>const <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref> &amp;</type>
           <declname>graph</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>talus</declname>
         </param>
         <param>
           <type>float</type>
@@ -8073,8 +8077,18 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </param>
         <param>
           <type>float</type>
-          <declname>bank_width_ratio</declname>
-          <defval>1.0f</defval>
+          <declname>depth_exponent</declname>
+          <defval>0.3<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>talus_noise_ratio</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
         </param>
         <param>
           <type><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90" kindref="member">RadialProfile</ref></type>
@@ -8085,11 +8099,6 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
           <type>float</type>
           <declname>radial_profile_parameter</declname>
           <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_noise_r</declname>
-          <defval>nullptr</defval>
         </param>
         <param>
           <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
@@ -8105,10 +8114,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 <para>Carves a continuous river network into a heightmap along a directed flow <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref>. </para>
         </briefdescription>
         <detaileddescription>
-<para>Channel width scales continuously with accumulated upstream drainage length (flow accumulation) along the network DAG:</para>
-<para><computeroutput>w(u) = headwater_width + (outlet_width - headwater_width) * (accum(u) / max_accum)^width_exponent</computeroutput></para>
-<para>Elevation is carved downward using a radial profile cross-section with guaranteed monotonic incision (i.e. terrain elevations are never raised):</para>
-<para><computeroutput>z_carved(x, y) = min(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z(x, y)</ref>, z_channel(x, y))</computeroutput></para>
+<para>A triangular riverbed with a given slope (talus) is generated from the channel bottom using expand_talus, and merged with the original heightmap using the network signed distance field (SDF), scaling channel width and depth with flow accumulation.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername direction="inout">z</parametername>
@@ -8127,10 +8133,18 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 </parameteritem>
 <parameteritem>
 <parameternamelist>
+<parametername direction="in">talus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slope of the triangular riverbed valley walls. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
 <parametername direction="in">outlet_width</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Maximum channel bed width at the downstream <ref refid="hydraulic__mise_8cpp_1a04ae352a41e6a2fb1296b478e5881a66" kindref="member">outlet(s)</ref>. </para>
+<para>Maximum channel influence width at downstream <ref refid="hydraulic__mise_8cpp_1a04ae352a41e6a2fb1296b478e5881a66" kindref="member">outlet(s)</ref>. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -8138,7 +8152,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 <parametername direction="in">headwater_width</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Minimum channel bed width at upstream headwaters (default: 0). </para>
+<para>Minimum channel influence width at headwaters (default: 0). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -8146,7 +8160,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 <parametername direction="in">width_exponent</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Scaling exponent for width relative to flow accumulation (default: 0.5). </para>
+<para>Scaling exponent for channel width with flow accumulation (default: 0.5). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -8154,15 +8168,31 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 <parametername direction="in">depth</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Incision depth below graph elevation (default: 0.05). </para>
+<para>Incision depth below graph elevation for river bottom (default: 0.05). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername direction="in">bank_width_ratio</parametername>
+<parametername direction="in">depth_exponent</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Ratio of bank transition width to bed width (default: 1.0). </para>
+<para>Scaling exponent for depth scaling with flow accumulation (default: 0.3). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random seed for expand_talus (default: 0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">talus_noise_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Roughness / perturbation ratio for valley expansion (default: 0). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -8170,7 +8200,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 <parametername direction="in">radial_profile</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Radial profile cross-section for bank and bed transition. </para>
+<para>Blending profile for SDF transition (default: RP_SMOOTHSTEP_UPPER). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -8178,15 +8208,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 <parametername direction="in">radial_profile_parameter</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Shaping parameter for the radial profile. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">p_noise_r</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional noise array for radial perturbation. </para>
+<para>Shaping parameter for the radial profile (default: 2.0). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -8210,7 +8232,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/carve_river.cpp" line="25" column="6" bodyfile="HighMap/src/carving/carve_river.cpp" bodystart="25" bodyend="248" declfile="HighMap/include/highmap/carving.hpp" declline="342" declcolumn="6"/>
+        <location file="HighMap/src/carving/carve_river.cpp" line="25" column="6" bodyfile="HighMap/src/carving/carve_river.cpp" bodystart="25" bodyend="282" declfile="HighMap/include/highmap/carving.hpp" declline="339" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a76b37b88acf83d6a5b21f1be1b50697e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -37270,24 +37292,26 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_graph(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>0.f);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>stream_graph.<ref refid="classhmap_1_1Graph_1a5d27935b935d6d788a934bc0e4f4082f" kindref="member">to_array</ref>(z_graph,<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>carve<sp/>river<sp/>network<sp/>into<sp/>terrain<sp/>with<sp/>flow-accumulation<sp/>width<sp/>scaling</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>carve<sp/>river<sp/>network<sp/>into<sp/>terrain<sp/>with<sp/>expand_talus<sp/>and<sp/>SDF<sp/>blending</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_carved<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>river_mask;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus<sp/>=<sp/>0.5f<sp/>/<sp/>float(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>outlet_width<sp/>=<sp/>0.05f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>headwater_width<sp/>=<sp/>0.001f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>depth<sp/>=<sp/>0.1f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bank_width_ratio<sp/>=<sp/>1.0f;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a2976e7e9dac5ac911ac10d79ef0f6e23" kindref="member">hmap::carve_river</ref>(z_carved,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1acf2e3177a8b9b776c6fb7e3b53c6cd34" kindref="member">hmap::carve_river</ref>(z_carved,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stream_graph,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>outlet_width,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>headwater_width,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>width_exponent<sp/>*/</highlight><highlight class="normal"><sp/>0.5f,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>depth,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bank_width_ratio,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>depth_exponent<sp/>*/</highlight><highlight class="normal"><sp/>0.3f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>talus_noise_ratio<sp/>*/</highlight><highlight class="normal"><sp/>0.05f,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90acedc11502bd1441e893fdc5a699b6d59" kindref="member">hmap::RadialProfile::RP_SMOOTHSTEP_UPPER</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2.0f,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>p_noise_r<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;river_mask);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_flow_stream.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
