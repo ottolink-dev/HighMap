@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.20)
+project(ex_hydraulic_comparison)
+
+add_executable(ex_hydraulic_comparison ex_hydraulic_comparison.cpp)
+target_link_libraries(ex_hydraulic_comparison highmap)
