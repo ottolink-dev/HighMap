@@ -23,6 +23,59 @@ enum ElevationLongitudinalProfile : int
 // clang-format on
 
 /**
+ * @brief Carves a continuous river network into a heightmap along a directed
+ * flow Graph.
+ *
+ * A triangular riverbed with a given slope (talus) is generated from the
+ * channel bottom using expand_talus, and merged with the original heightmap
+ * using the network signed distance field (SDF), scaling channel width and
+ * depth with flow accumulation.
+ *
+ * @param[in,out] z                        Target heightmap to carve in-place.
+ * @param[in]     graph                    Input flow network Graph.
+ * @param[in]     talus                    Slope of the triangular riverbed
+ *                                         valley walls.
+ * @param[in]     outlet_width             Maximum channel influence width at
+ *                                         downstream outlet(s).
+ * @param[in]     headwater_width          Minimum channel influence width at
+ *                                         headwaters (default: 0).
+ * @param[in]     width_exponent           Scaling exponent for channel width
+ *                                         with flow accumulation (default:
+ *                                         0.5).
+ * @param[in]     depth                    Incision depth below graph elevation
+ *                                         for river bottom (default: 0.05).
+ * @param[in]     depth_exponent           Scaling exponent for depth scaling
+ *                                         with flow accumulation (default:
+ *                                         0.3).
+ * @param[in]     seed                     Random seed for expand_talus
+ *                                         (default: 0).
+ * @param[in]     talus_noise_ratio        Roughness / perturbation ratio for
+ *                                         valley expansion (default: 0).
+ * @param[in]     radial_profile           Blending profile for SDF transition
+ *                                         (default: RP_SMOOTHSTEP_UPPER).
+ * @param[in]     radial_profile_parameter Shaping parameter for the radial
+ *                                         profile (default: 2.0).
+ * @param[out]    p_river_mask             Optional output mask in [0, 1] of
+ *                                         carved river channel.
+ * @param[in]     bbox                     Domain bounding box.
+ */
+void carve_river(
+    Array        &z,
+    const Graph  &graph,
+    float         talus,
+    float         outlet_width,
+    float         headwater_width = 0.f,
+    float         width_exponent = 0.5f,
+    float         depth = 0.05f,
+    float         depth_exponent = 0.3f,
+    std::uint32_t seed = 0,
+    float         talus_noise_ratio = 0.f,
+    RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
+    float         radial_profile_parameter = 2.f,
+    Array        *p_river_mask = nullptr,
+    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
  * @brief Dig a path on a heightmap.
  *
  * This function modifies a heightmap array by "digging" a path into it based on
@@ -301,55 +354,5 @@ void trench(Array        &z,
             Array       *p_bending_mask = nullptr,
             int          tile_size = 32,
             glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
-
-/**
- * @brief Carves a continuous river network into a heightmap along a directed
- * flow Graph.
- *
- * A triangular riverbed with a given slope (talus) is generated from the channel
- * bottom using expand_talus, and merged with the original heightmap using the
- * network signed distance field (SDF), scaling channel width and depth with flow
- * accumulation.
- *
- * @param[in,out] z                        Target heightmap to carve in-place.
- * @param[in]     graph                    Input flow network Graph.
- * @param[in]     talus                    Slope of the triangular riverbed
- *                                         valley walls.
- * @param[in]     outlet_width             Maximum channel influence width at
- *                                         downstream outlet(s).
- * @param[in]     headwater_width          Minimum channel influence width at
- *                                         headwaters (default: 0).
- * @param[in]     width_exponent           Scaling exponent for channel width
- *                                         with flow accumulation (default: 0.5).
- * @param[in]     depth                    Incision depth below graph elevation
- *                                         for river bottom (default: 0.05).
- * @param[in]     depth_exponent           Scaling exponent for depth scaling
- *                                         with flow accumulation (default: 0.3).
- * @param[in]     seed                     Random seed for expand_talus (default: 0).
- * @param[in]     talus_noise_ratio        Roughness / perturbation ratio for
- *                                         valley expansion (default: 0).
- * @param[in]     radial_profile           Blending profile for SDF transition
- *                                         (default: RP_SMOOTHSTEP_UPPER).
- * @param[in]     radial_profile_parameter Shaping parameter for the radial
- *                                         profile (default: 2.0).
- * @param[out]    p_river_mask             Optional output mask in [0, 1] of
- *                                         carved river channel.
- * @param[in]     bbox                     Domain bounding box.
- */
-void carve_river(
-    Array        &z,
-    const Graph  &graph,
-    float         talus,
-    float         outlet_width,
-    float         headwater_width = 0.f,
-    float         width_exponent = 0.5f,
-    float         depth = 0.05f,
-    float         depth_exponent = 0.3f,
-    std::uint32_t seed = 0,
-    float         talus_noise_ratio = 0.f,
-    RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
-    float         radial_profile_parameter = 2.f,
-    Array        *p_river_mask = nullptr,
-    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
 
 } // namespace hmap

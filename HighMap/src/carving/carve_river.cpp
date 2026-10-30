@@ -67,8 +67,8 @@ void carve_river(Array        &z,
     float w_factor = std::pow(norm, width_exponent);
     node_widths[i] = min_w + (max_w - min_w) * w_factor;
 
-    float d_factor =
-        (depth_exponent > 0.f) ? std::pow(norm, depth_exponent) : 1.f;
+    float d_factor = (depth_exponent > 0.f) ? std::pow(norm, depth_exponent)
+                                            : 1.f;
     node_depths[i] = depth * std::max(0.1f, d_factor);
   }
 
@@ -191,11 +191,11 @@ void carve_river(Array        &z,
     int ty = tile_idx / num_tiles_x;
 
     float tile_xmin = bbox.x + float(tx * tile_size) * dx;
-    float tile_xmax =
-        bbox.x + float(std::min((tx + 1) * tile_size, shape.x)) * dx;
+    float tile_xmax = bbox.x +
+                      float(std::min((tx + 1) * tile_size, shape.x)) * dx;
     float tile_ymin = bbox.z + float(ty * tile_size) * dy;
-    float tile_ymax =
-        bbox.z + float(std::min((ty + 1) * tile_size, shape.y)) * dy;
+    float tile_ymax = bbox.z +
+                      float(std::min((ty + 1) * tile_size, shape.y)) * dy;
 
     AABB2D tile_box(tile_xmin, tile_ymin, tile_xmax, tile_ymax);
     bvh.query_box(tile_box, tile_segments[tile_idx]);
@@ -252,8 +252,8 @@ void carve_river(Array        &z,
           float proj_x = seg.p0.x + t * seg.d.x;
           float proj_y = seg.p0.y + t * seg.d.y;
 
-          float d_sq =
-              (x - proj_x) * (x - proj_x) + (y - proj_y) * (y - proj_y);
+          float d_sq = (x - proj_x) * (x - proj_x) +
+                       (y - proj_y) * (y - proj_y);
 
           float w_local = (1.f - t) * seg.s0 + t * seg.s1;
 
