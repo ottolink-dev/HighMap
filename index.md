@@ -24,6 +24,7 @@ Documentation on codebase architecture, design, and experimental research:
 - [Hydraulic Particle Erosion](content/dev/hydraulic_particle.md): Simulation model, kinematics, sediment transport equations, and implementation details.
 - [Hydraulic Stream Log Erosion](content/dev/hydraulic_stream_log.md): Continuous D-infinity stream power erosion, logarithmic discharge scaling, and multiscale pyramid.
 - [Multiscale Implicit Stream-Power Erosion (MISE)](content/dev/hydraulic_mise.md): Coupled bedrock incision, hillslope debris cascades, sediment conservation, and implicit solver.
+- [Thermal Weathering and Talus Erosion](content/dev/thermal_erosion.md): Comprehensive survey of thermal erosion models (Standard, Conserve, Schott, Olsen, Ridge, Flatten, and Rib) with comparative visualizations.
 - Investigations & Benchmarks:
   - [FFT vs. GPU Convolution & Morphology](content/dev/investigations/fft_convolution_and_morphology.md): Performance and fidelity evaluation of 2D FFT alternatives to spatial GPU operations.
 

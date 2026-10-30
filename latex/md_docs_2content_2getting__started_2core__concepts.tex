@@ -1,8 +1,8 @@
 \chapter{Core Concepts}
 \hypertarget{md_docs_2content_2getting__started_2core__concepts}{}\label{md_docs_2content_2getting__started_2core__concepts}\index{Core Concepts@{Core Concepts}}
-\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md94}%
-\Hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md94}%
- This page describes the primary data structures and representations used in High\+Map.\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md95}{}\doxysection{\texorpdfstring{1. Elevation Representations}{1. Elevation Representations}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md95}
+\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md109}%
+\Hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md109}%
+ This page describes the primary data structures and representations used in High\+Map.\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md110}{}\doxysection{\texorpdfstring{1. Elevation Representations}{1. Elevation Representations}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md110}
 High\+Map provides three main structures for 2D height data\+:
 
 \tabulinesep=1mm
@@ -19,7 +19,7 @@ High\+Map provides three main structures for 2D height data\+:
 {\ttfamily Height\+Map}   &{\ttfamily hmap\+::\+Height\+Map}   &Tiled 2D array designed for parallel computation.    \\\cline{1-3}
 {\ttfamily Virtual\+Array}   &{\ttfamily \doxylink{structhmap_1_1VirtualArray}{hmap\+::\+Virtual\+Array}}   &Tiled structure supporting disk and RAM storage for large grids.   \\\cline{1-3}
 \end{longtabu}
-\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md96}{}\doxysubsection{\texorpdfstring{Array}{Array}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md96}
+\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md111}{}\doxysubsection{\texorpdfstring{Array}{Array}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md111}
 {\ttfamily Array} is the basic container for 2D elevation fields. Data is stored in row-\/major order. It supports arithmetic operators, statistical queries, slicing, and filtering.
 
 
@@ -29,7 +29,7 @@ High\+Map provides three main structures for 2D height data\+:
 \DoxyCodeLine{\textcolor{keywordtype}{float}\ val\ =\ \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}(\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}},\ \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}});}
 
 \end{DoxyCode}
-\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md97}{}\doxysection{\texorpdfstring{2. Bivariate Functions}{2. Bivariate Functions}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md97}
+\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md112}{}\doxysection{\texorpdfstring{2. Bivariate Functions}{2. Bivariate Functions}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md112}
 Continuous functions deriving from {\ttfamily \doxylink{classhmap_1_1Function}{hmap\+::\+Function}} represent mathematical surfaces \$f(x, y)\$ independently of resolution\+:
 
 
@@ -37,7 +37,7 @@ Continuous functions deriving from {\ttfamily \doxylink{classhmap_1_1Function}{h
 \item {\ttfamily \doxylink{classhmap_1_1NoiseFunction}{hmap\+::\+Noise\+Function}}\+: Perlin, Simplex, and cellular noise generators.
 \item {\ttfamily \doxylink{classhmap_1_1FbmFunction}{hmap\+::\+Fbm\+Function}}\+: Multi-\/octave fractal noise.
 \item {\ttfamily \doxylink{classhmap_1_1FieldFunction}{hmap\+::\+Field\+Function}}\+: Distance fields and geometric functions.
-\end{DoxyItemize}\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md98}{}\doxysection{\texorpdfstring{3. Geometric Primitives}{3. Geometric Primitives}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md98}
+\end{DoxyItemize}\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md113}{}\doxysection{\texorpdfstring{3. Geometric Primitives}{3. Geometric Primitives}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md113}
 Geometric entities represent vector features and integrate with height arrays\+:
 
 
@@ -45,7 +45,58 @@ Geometric entities represent vector features and integrate with height arrays\+:
 \item {\ttfamily \doxylink{classhmap_1_1Point}{hmap\+::\+Point}} / {\ttfamily \doxylink{classhmap_1_1Cloud}{hmap\+::\+Cloud}}\+: Individual points and point clouds.
 \item {\ttfamily \doxylink{structhmap_1_1Edge}{hmap\+::\+Edge}} / {\ttfamily \doxylink{classhmap_1_1Path}{hmap\+::\+Path}}\+: Segments and ordered sequences of points.
 \item {\ttfamily \doxylink{classhmap_1_1Graph}{hmap\+::\+Graph}}\+: Node and edge graphs used for networks such as rivers and roads.
-\end{DoxyItemize}\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md99}{}\doxysection{\texorpdfstring{4. Scattering}{4. Scattering}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md99}
+\end{DoxyItemize}\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md114}{}\doxysection{\texorpdfstring{4. Talus vs. Slope}{4. Talus vs. Slope}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md114}
+When simulating erosion or analyzing terrain gradients, High\+Map distinguishes between {\bfseries{talus}} and {\bfseries{slope}}\+:\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md115}{}\doxysubsection{\texorpdfstring{Talus (\+Grid-\/\+Space Elevation Difference)}{Talus (Grid-Space Elevation Difference)}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md115}
+In High\+Map, the {\bfseries{talus}} is defined as the direct elevation difference between neighboring grid cells (or the critical vertical threshold per grid step)\+:
+
+\$\$\textbackslash{}text\{talus\} = \textbackslash{}\+Delta z = z\+\_\+\{i+1, j\} -\/ z\+\_\+\{i, j\}\$\$
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Resolution dependent}}\+: For a given physical terrain gradient, increasing the grid resolution \$\+N\+\_\+x \textbackslash{}times N\+\_\+y\$ places adjacent cell centers closer together, decreasing the elevation step \$\textbackslash{}\+Delta z\$ between neighbors. Consequently, threshold talus parameters scale inversely with grid resolution (e.\+g., \$\textbackslash{}text\{talus\} \textbackslash{}propto 1 / N\+\_\+x\$).
+\item {\bfseries{Domain size independent}}\+: Talus operates entirely in discrete grid space (\$i, j\$) and does not depend on the physical world-\/space dimensions of the terrain domain.
+\end{DoxyItemize}\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md116}{}\doxysubsection{\texorpdfstring{Slope (\+Metric Surface Gradient)}{Slope (Metric Surface Gradient)}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md116}
+The {\bfseries{slope}} is the metric rate of change of elevation with respect to physical horizontal distance in the terrain domain\+:
+
+\$\$\textbackslash{}text\{slope\} = \textbackslash{}frac\{\textbackslash{}\+Delta z\}\{\textbackslash{}\+Delta x\} = \textbackslash{}frac\{z(\textbackslash{}mathbf\{x\}\+\_\+2) -\/ z(\textbackslash{}mathbf\{x\}\+\_\+1)\}\{$|$\textbackslash{}mathbf\{x\}\+\_\+2 -\/ \textbackslash{}mathbf\{x\}\+\_\+1$|$\}\$\$
+
+where \$\textbackslash{}\+Delta x = L\+\_\+x / N\+\_\+x\$ represents the physical cell spacing for a domain of size \$\+L\+\_\+x\$.
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Domain size dependent}}\+: Slope depends on physical metric units (such as meters or kilometers) and the overall domain extent \$\+L\+\_\+x \textbackslash{}times L\+\_\+y\$.
+\item {\bfseries{Resolution independent}}\+: As grid resolution increases (\$\+N\+\_\+x \textbackslash{}to \textbackslash{}infty\$), the ratio \$\textbackslash{}\+Delta z / \textbackslash{}\+Delta x\$ converges toward the continuous spatial derivative \$$|$\textbackslash{}nabla z$|$\$, maintaining an invariant physical slope regardless of raster resolution.
+\end{DoxyItemize}\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md117}{}\doxysubsection{\texorpdfstring{Relationship\+: talus = slope / nx}{Relationship: talus = slope / nx}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md117}
+In unit-\/box normalized domains (\$\+L\+\_\+x = 1\$), the physical cell spacing is \$\textbackslash{}\+Delta x = 1 / N\+\_\+x\$. Substituting \$\textbackslash{}\+Delta x\$ into the slope definition yields\+:
+
+\$\$\textbackslash{}text\{slope\} = \textbackslash{}frac\{\textbackslash{}\+Delta z\}\{\textbackslash{}\+Delta x\} = \textbackslash{}frac\{\textbackslash{}text\{talus\}\}\{1 / N\+\_\+x\} = \textbackslash{}text\{talus\} \textbackslash{}cdot N\+\_\+x\$\$
+
+Rearranging for the grid-\/cell talus threshold gives\+:
+
+\$\$\textbackslash{}text\{talus\} = \textbackslash{}frac\{\textbackslash{}text\{slope\}\}\{N\+\_\+x\}\$\$
+
+This identity is why erosion parameters throughout High\+Map are specified by dividing a reference slope by the grid dimension\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Set\ a\ critical\ slope\ of\ 2.5\ across\ an\ Nx\ grid}}
+\DoxyCodeLine{\textcolor{keywordtype}{float}\ talus\ =\ 2.5f\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x);}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Grid\ step:\ \ \ \ \ \ \ \ \ \ \ [\ Cell\ i\ ]\ -\/-\/-\/-\/-\/-\/-\/-\/\ Δx\ =\ 1/Nx\ -\/-\/-\/-\/-\/-\/-\/-\/\ [\ Cell\ i+1\ ]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /}
+\DoxyCodeLine{Elevation\ drop:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)-\/-\/-\/-\/-\/\ Δz\ (talus)\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}
+\DoxyCodeLine{}
+\DoxyCodeLine{Talus:\ \ Δz\ =\ slope\ /\ Nx\ \ \ \ \ \ (height\ drop\ per\ grid\ cell;\ depends\ on\ resolution)}
+\DoxyCodeLine{Slope:\ \ Δz\ /\ Δx\ \ \ \ \ \ \ \ \ \ \ \ \ \ (physical\ grade;\ depends\ on\ domain\ extent\ L\_x)}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md118}{}\doxysection{\texorpdfstring{5. Scattering}{5. Scattering}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md118}
 The scattering system handles the distribution of discrete objects over a terrain\+:
 
 

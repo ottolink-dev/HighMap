@@ -1,0 +1,12 @@
+\chapter{Thermal Weathering and Talus Erosion Algorithms}
+\hypertarget{md_docs_2content_2dev_2thermal__erosion}{}\label{md_docs_2content_2dev_2thermal__erosion}\index{Thermal Weathering and Talus Erosion Algorithms@{Thermal Weathering and Talus Erosion Algorithms}}
+\label{md_docs_2content_2dev_2thermal__erosion_autotoc_md94}%
+\Hypertarget{md_docs_2content_2dev_2thermal__erosion_autotoc_md94}%
+ This document provides a comprehensive overview of the thermal erosion models implemented in High\+Map. Thermal weathering simulates mechanical rock disintegration (freeze-\/thaw fracturing, gravity-\/induced scree slides, and scarp retreat) where material collapses when slopes exceed the critical angle of repose (talus slope).
+
+All GPU algorithms are accelerated via Open\+CL and defined in \href{file:///home/glop/Documents/dev/HighMap/HighMap/include/highmap/erosion/thermal_erosion.hpp}{\texttt{ {\ttfamily thermal\+\_\+erosion.\+hpp}}}.\hypertarget{md_docs_2content_2dev_2thermal__erosion_autotoc_md95}{}\doxysection{\texorpdfstring{1. Physical Foundations}{1. Physical Foundations}}\label{md_docs_2content_2dev_2thermal__erosion_autotoc_md95}
+Thermal erosion describes the diffusion of granular matter down steep terrain gradients under gravity. For each grid cell \$\textbackslash{}mathbf\{x\} = (x, y)\$ and neighbor \$\textbackslash{}mathbf\{x\}\+\_\+k\$\+:
+
+\$\$\textbackslash{}\+Delta z\+\_\+k = z(\textbackslash{}mathbf\{x\}) -\/ z(\textbackslash{}mathbf\{x\}\+\_\+k), \textbackslash{}quad S\+\_\+k = \textbackslash{}frac\{\textbackslash{}\+Delta z\+\_\+k\}\{d\+\_\+k\}\$\$
+
+where \$d\+\_\+k \textbackslash{}in 1, \textbackslash{}sqrt\{2\} 

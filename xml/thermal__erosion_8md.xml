@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="thermal__erosion_8md" kind="file" language="Markdown">
+    <compoundname>thermal_erosion.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Thermal<sp/>Weathering<sp/>and<sp/>Talus<sp/>Erosion<sp/>Algorithms</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>document<sp/>provides<sp/>a<sp/>comprehensive<sp/>overview<sp/>of<sp/>the<sp/>thermal<sp/>erosion<sp/>models<sp/>implemented<sp/>in<sp/>HighMap.<sp/>Thermal<sp/>weathering<sp/>simulates<sp/>mechanical<sp/>rock<sp/>disintegration<sp/>(freeze-thaw<sp/>fracturing,<sp/>gravity-induced<sp/>scree<sp/>slides,<sp/>and<sp/>scarp<sp/>retreat)<sp/>where<sp/>material<sp/>collapses<sp/>when<sp/>slopes<sp/>exceed<sp/>the<sp/>critical<sp/>angle<sp/>of<sp/>repose<sp/>(talus<sp/>slope).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">All<sp/>GPU<sp/>algorithms<sp/>are<sp/>accelerated<sp/>via<sp/>OpenCL<sp/>and<sp/>defined<sp/>in<sp/>[`thermal_erosion.hpp`](file:///home/glop/Documents/dev/HighMap/HighMap/include/highmap/erosion/thermal_erosion.hpp).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>1.<sp/>Physical<sp/>Foundations</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Thermal<sp/>erosion<sp/>describes<sp/>the<sp/>diffusion<sp/>of<sp/>granular<sp/>matter<sp/>down<sp/>steep<sp/>terrain<sp/>gradients<sp/>under<sp/>gravity.<sp/>For<sp/>each<sp/>grid<sp/>cell<sp/>$\mathbf{x}<sp/>=<sp/>(x,<sp/>y)$<sp/>and<sp/>neighbor<sp/>$\mathbf{x}_k$:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$\Delta<sp/>z_k<sp/>=<sp/>z(\mathbf{x})<sp/>-<sp/>z(\mathbf{x}_k),<sp/>\quad<sp/>S_k<sp/>=<sp/>\frac{\Delta<sp/>z_k}{d_k}$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">where<sp/>$d_k<sp/>\in<sp/>\{1,<sp/>\sqrt{2}\}$<sp/>is<sp/>grid<sp/>spacing<sp/>across<sp/>the<sp/>8-neighborhood<sp/>($D_8$).<sp/>Material<sp/>slides<sp/>down<sp/>when<sp/>the<sp/>slope<sp/>$S_k$<sp/>exceeds<sp/>the<sp/>critical<sp/>talus<sp/>angle<sp/>of<sp/>repose<sp/>$T$:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$S_k<sp/>&gt;<sp/>T<sp/>\implies<sp/>\Delta<sp/>V_k<sp/>\propto<sp/>(S_k<sp/>-<sp/>T)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```mermaid</highlight></codeline>
+<codeline><highlight class="normal">flowchart<sp/>LR</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Center[&quot;Current<sp/>Cell<sp/>z_c&quot;]<sp/>--&gt;<sp/>SlopeCheck{&quot;Slope<sp/>(z_c<sp/>-<sp/>z_k)/dist_k<sp/>&gt;<sp/>Talus<sp/>T<sp/>?&quot;}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SlopeCheck<sp/>--&gt;|Yes:<sp/>Over-steepened<sp/>cliff|<sp/>Slip[&quot;Transfer<sp/>excess<sp/>material<sp/>down<sp/>to<sp/>neighbor&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SlopeCheck<sp/>--&gt;|No:<sp/>Stable<sp/>repose<sp/>angle|<sp/>Rest[&quot;No<sp/>movement<sp/>(Static<sp/>equilibrium)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Slip<sp/>--&gt;<sp/>Dep[&quot;Accumulate<sp/>talus<sp/>scree<sp/>apron<sp/>at<sp/>foot<sp/>of<sp/>slope&quot;]</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>2.<sp/>Visual<sp/>Comparison</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>banner<sp/>below<sp/>compares<sp/>the<sp/>original<sp/>un-eroded<sp/>rugged<sp/>terrain<sp/>with<sp/>the<sp/>different<sp/>thermal<sp/>algorithms<sp/>evaluated<sp/>under<sp/>identical<sp/>talus<sp/>conditions<sp/>($T<sp/>=<sp/>2.5<sp/>/<sp/>N_x$):</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Standard,<sp/>Conserving,<sp/>and<sp/>Schott<sp/>Models</highlight></codeline>
+<codeline><highlight class="normal">![](../../images/thermal_comparison_banner1.png<sp/>&quot;Left<sp/>to<sp/>right:<sp/>Original<sp/>synthetic<sp/>terrain,<sp/>Standard<sp/>thermal,<sp/>Mass-conserving<sp/>thermal,<sp/>and<sp/>Schott<sp/>model.&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*Left<sp/>to<sp/>right:<sp/>(1)<sp/>Original<sp/>un-eroded<sp/>terrain,<sp/>(2)<sp/>`thermal`<sp/>(standard<sp/>exchange),<sp/>(3)<sp/>`thermal_conserve`<sp/>(mass-preserving),<sp/>(4)<sp/>`thermal_schott`<sp/>(uniform<sp/>slope<sp/>count).*</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Olsen,<sp/>Ridge,<sp/>and<sp/>Flatten<sp/>Models</highlight></codeline>
+<codeline><highlight class="normal">![](../../images/thermal_comparison_banner2.png<sp/>&quot;Left<sp/>to<sp/>right:<sp/>Original<sp/>terrain,<sp/>Olsen<sp/>model,<sp/>Thermal<sp/>ridge,<sp/>and<sp/>Thermal<sp/>flatten.&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*Left<sp/>to<sp/>right:<sp/>(1)<sp/>Original<sp/>un-eroded<sp/>terrain,<sp/>(2)<sp/>`thermal_olsen`<sp/>(strictly<sp/>bounded<sp/>redistribution),<sp/>(3)<sp/>`thermal_ridge`<sp/>(crests<sp/>sharpened),<sp/>(4)<sp/>`thermal_flatten`<sp/>(asymmetric<sp/>slope<sp/>relaxation).*</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>3.<sp/>Algorithm<sp/>Details<sp/>and<sp/>Equations</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>1.<sp/>Standard<sp/>Thermal<sp/>Weathering<sp/>(`thermal`)</highlight></codeline>
+<codeline><highlight class="normal">Based<sp/>on<sp/>cellular<sp/>automaton<sp/>material<sp/>exchange<sp/>across<sp/>the<sp/>8-connected<sp/>neighborhood.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```mermaid</highlight></codeline>
+<codeline><highlight class="normal">flowchart<sp/>TD</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Cell[&quot;Cell<sp/>(i,<sp/>j)&quot;]<sp/>--&gt;<sp/>Loop[&quot;Iterate<sp/>8<sp/>Neighbors<sp/>k<sp/>in<sp/>[0,<sp/>7]&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Loop<sp/>--&gt;<sp/>Diff[&quot;diff<sp/>=<sp/>z_c<sp/>-<sp/>z_k&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Diff<sp/>--&gt;<sp/>Check{&quot;diff<sp/>&gt;<sp/>d_k<sp/>*<sp/>T<sp/>?&quot;}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Check<sp/>--&gt;|Yes:<sp/>Slide<sp/>down|<sp/>Sub[&quot;Loss<sp/>=<sp/>-rate<sp/>*<sp/>(diff<sp/>-<sp/>d_k<sp/>*<sp/>T)<sp/>/<sp/>d_k&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Check<sp/>--&gt;|No:<sp/>Diff<sp/>&lt;<sp/>-d_k<sp/>*<sp/>T|<sp/>Add[&quot;Gain<sp/>=<sp/>+rate<sp/>*<sp/>(-diff<sp/>-<sp/>d_k<sp/>*<sp/>T)<sp/>/<sp/>d_k&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Sub<sp/>--&gt;<sp/>Accum[&quot;Update<sp/>z_out<sp/>=<sp/>z_in<sp/>+<sp/>sum(exchange)&quot;]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Add<sp/>--&gt;<sp/>Accum</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>exchange<sp/>function<sp/>between<sp/>cell<sp/>$z_c$<sp/>and<sp/>neighbor<sp/>$z_k$<sp/>at<sp/>distance<sp/>$d_k$<sp/>is:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$\delta<sp/>z_k<sp/>=<sp/>\begin{cases}<sp/>-r<sp/>\cdot<sp/>\frac{(z_c<sp/>-<sp/>z_k)<sp/>-<sp/>d_k<sp/>T}{d_k}<sp/>&amp;<sp/>\text{if<sp/>}<sp/>z_c<sp/>-<sp/>z_k<sp/>&gt;<sp/>d_k<sp/>T<sp/>\\<sp/>+r<sp/>\cdot<sp/>\frac{(z_k<sp/>-<sp/>z_c)<sp/>-<sp/>d_k<sp/>T}{d_k}<sp/>&amp;<sp/>\text{if<sp/>}<sp/>z_k<sp/>-<sp/>z_c<sp/>&gt;<sp/>d_k<sp/>T<sp/>\\<sp/>0<sp/>&amp;<sp/>\text{otherwise}<sp/>\end{cases}$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">with<sp/>default<sp/>relaxation<sp/>rate<sp/>$r<sp/>=<sp/>0.2$.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>2.<sp/>Mass-Preserving<sp/>Thermal<sp/>Erosion<sp/>(`thermal_conserve`)</highlight></codeline>
+<codeline><highlight class="normal">Standard<sp/>local<sp/>relaxation<sp/>can<sp/>introduce<sp/>numerical<sp/>volume<sp/>drift<sp/>due<sp/>to<sp/>concurrent<sp/>neighbor<sp/>exchanges.<sp/>`thermal_conserve`<sp/>preserves<sp/>total<sp/>mass<sp/>by<sp/>computing<sp/>normalized<sp/>outgoing<sp/>fluxes:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>Identify<sp/>all<sp/>downhill<sp/>neighbors<sp/>with<sp/>excess<sp/>slope:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$E_k<sp/>=<sp/>\max\left(0,<sp/>\frac{z_c<sp/>-<sp/>z_k}{d_k}<sp/>-<sp/>T\right)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">2.<sp/>Compute<sp/>total<sp/>excess<sp/>slope<sp/>sum:<sp/>$\Sigma_E<sp/>=<sp/>\sum_k<sp/>E_k$.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>Distribute<sp/>available<sp/>material<sp/>proportionally<sp/>so<sp/>total<sp/>volume<sp/>leaving<sp/>the<sp/>cell<sp/>matches<sp/>total<sp/>incoming<sp/>volume<sp/>at<sp/>neighbors:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$\Delta<sp/>z_{k<sp/>\to<sp/>\text{dest}}<sp/>=<sp/>\frac{r}{2}<sp/>\cdot<sp/>\frac{E_k}{\Sigma_E}<sp/>\cdot<sp/>\max_j(E_j)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>3.<sp/>Schott<sp/>Model<sp/>(`thermal_schott`)</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>Schott<sp/>formulation<sp/>discretizes<sp/>thermal<sp/>erosion<sp/>into<sp/>uniform<sp/>step<sp/>shifts<sp/>based<sp/>on<sp/>neighbor<sp/>slope<sp/>voting:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$\text{down}<sp/>=<sp/>\sum_{k=0}^7<sp/>\mathbb{I}\left(\frac{z_c<sp/>-<sp/>z_k}{d_k}<sp/>&gt;<sp/>T\right),<sp/>\quad<sp/>\text{up}<sp/>=<sp/>\sum_{k=0}^7<sp/>\mathbb{I}\left(\frac{z_c<sp/>-<sp/>z_k}{d_k}<sp/>&lt;<sp/>-T\right)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$z_{\text{next}}<sp/>=<sp/>z_c<sp/>+<sp/>\lambda<sp/>\cdot<sp/>T<sp/>\cdot<sp/>(\text{up}<sp/>-<sp/>\text{down})$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">where<sp/>$\lambda$<sp/>is<sp/>the<sp/>`intensity`<sp/>factor<sp/>(typically<sp/>$0.1<sp/>-<sp/>0.25$).<sp/>This<sp/>yields<sp/>crisp<sp/>cliff<sp/>faces<sp/>with<sp/>uniform<sp/>talus<sp/>slopes<sp/>at<sp/>their<sp/>base.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>4.<sp/>Olsen<sp/>Redistribution<sp/>Model<sp/>(`thermal_olsen`)</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>Olsen<sp/>model<sp/>calculates<sp/>exact<sp/>sediment<sp/>transfers<sp/>based<sp/>on<sp/>the<sp/>maximum<sp/>excess<sp/>slope:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>For<sp/>cell<sp/>$c$,<sp/>calculate<sp/>$\Delta<sp/>z_{\max}<sp/>=<sp/>\max_k<sp/>(z_c<sp/>-<sp/>z_k<sp/>-<sp/>d_k<sp/>T)$<sp/>and<sp/>$\Delta<sp/>z_{\text{sum}}<sp/>=<sp/>\sum_k<sp/>(z_c<sp/>-<sp/>z_k)$.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>The<sp/>material<sp/>removed<sp/>from<sp/>$c$<sp/>to<sp/>neighbor<sp/>$k$<sp/>is:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$\Delta<sp/>z_k<sp/>=<sp/>\frac{1}{4}<sp/>(\Delta<sp/>z_{\max}<sp/>-<sp/>d_k<sp/>T)<sp/>\frac{z_c<sp/>-<sp/>z_k}{\Delta<sp/>z_{\text{sum}}}$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">3.<sp/>In<sp/>a<sp/>complementary<sp/>pass,<sp/>incoming<sp/>deposits<sp/>from<sp/>uphill<sp/>cells<sp/>are<sp/>added<sp/>to<sp/>$z_c$.<sp/>This<sp/>creates<sp/>smooth<sp/>talus<sp/>aprons<sp/>with<sp/>bounded<sp/>maximum<sp/>slopes.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>5.<sp/>Thermal<sp/>Ridge<sp/>(`thermal_ridge`)</highlight></codeline>
+<codeline><highlight class="normal">`thermal_ridge`<sp/>sharpens<sp/>mountain<sp/>crests<sp/>while<sp/>flattening<sp/>scree<sp/>fields.<sp/>It<sp/>modulates<sp/>the<sp/>elevation<sp/>adjustment<sp/>using<sp/>maximum<sp/>local<sp/>slope:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$S_{\max}<sp/>=<sp/>\max_k<sp/>\left|\frac{z_c<sp/>-<sp/>z_k}{d_k}\right|$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$A_{\text{amp}}<sp/>=<sp/>S_3\left(\mathrm{clamp}\left(1<sp/>-<sp/>\frac{T}{S_{\max}},<sp/>0,<sp/>1\right)\right)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$z_{\text{next}}<sp/>=<sp/>z_c<sp/>+<sp/>\frac{1}{4}<sp/>\left(T<sp/>-<sp/>\frac{1}{2}<sp/>\sum_{k,<sp/>\Delta<sp/>z_k<sp/>&gt;<sp/>0}<sp/>\frac{\Delta<sp/>z_k}{d_k}\right)<sp/>\cdot<sp/>A_{\text{amp}}$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">where<sp/>$S_3(x)<sp/>=<sp/>3x^2<sp/>-<sp/>2x^3$<sp/>is<sp/>the<sp/>smoothstep<sp/>function.<sp/>Steep<sp/>peaks<sp/>maintain<sp/>razor<sp/>ridges,<sp/>while<sp/>lower<sp/>slopes<sp/>diffuse<sp/>outward.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>6.<sp/>Thermal<sp/>Flatten<sp/>(`thermal_flatten`)</highlight></codeline>
+<codeline><highlight class="normal">`thermal_flatten`<sp/>introduces<sp/>asymmetric<sp/>slope<sp/>relaxation<sp/>using<sp/>dual<sp/>thresholds<sp/>$\sigma_{\text{inf}}$<sp/>and<sp/>$\sigma_{\text{sup}}$:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>When<sp/>steepest<sp/>slope<sp/>$S_{\max}<sp/>&lt;<sp/>T$:<sp/>relaxed<sp/>at<sp/>rate<sp/>$\sigma_{\text{inf}}$<sp/>(planar<sp/>smoothing<sp/>of<sp/>shallow<sp/>flats<sp/>and<sp/>valleys).</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>When<sp/>steepest<sp/>slope<sp/>$S_{\max}<sp/>&gt;<sp/>T$:<sp/>relaxed<sp/>at<sp/>rate<sp/>$\sigma_{\text{sup}}$<sp/>(diffusion<sp/>of<sp/>steep<sp/>cliff<sp/>faces).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Setting<sp/>$\sigma_{\text{sup}}<sp/>=<sp/>0$<sp/>while<sp/>keeping<sp/>$\sigma_{\text{inf}}<sp/>&gt;<sp/>0$<sp/>levels<sp/>flat<sp/>plateaus<sp/>and<sp/>valley<sp/>basins<sp/>while<sp/>leaving<sp/>rocky<sp/>spires<sp/>completely<sp/>untouched.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>7.<sp/>Bedrock<sp/>Constraints<sp/>(`thermal_auto_bedrock`)</highlight></codeline>
+<codeline><highlight class="normal">All<sp/>thermal<sp/>models<sp/>support<sp/>optional<sp/>bedrock<sp/>constraints<sp/>($z_{\text{bedrock}}$):</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$z_{\text{next}}<sp/>\leftarrow<sp/>\max(z_{\text{bedrock}},<sp/>z_{\text{next}})$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">With<sp/>`thermal_auto_bedrock`,<sp/>bedrock<sp/>elevation<sp/>is<sp/>derived<sp/>automatically<sp/>from<sp/>the<sp/>local<sp/>morphological<sp/>minimum<sp/>of<sp/>the<sp/>initial<sp/>terrain,<sp/>ensuring<sp/>that<sp/>erosion<sp/>exposes<sp/>rocky<sp/>cliffs<sp/>where<sp/>soil<sp/>has<sp/>sloughed<sp/>off<sp/>into<sp/>valleys.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>4.<sp/>Model<sp/>Selection<sp/>Matrix</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>Function<sp/>|<sp/>Primary<sp/>Visual<sp/>Effect<sp/>|<sp/>Conserves<sp/>Mass<sp/>|<sp/>Best<sp/>Used<sp/>For<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>:---<sp/>|<sp/>:---<sp/>|<sp/>:---:<sp/>|<sp/>:---<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`thermal`<sp/>|<sp/>Natural<sp/>talus<sp/>accumulation<sp/>|<sp/>Approximate<sp/>|<sp/>General-purpose<sp/>gravel<sp/>and<sp/>scree<sp/>diffusion<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`thermal_conserve`<sp/>|<sp/>Strictly<sp/>bounded<sp/>sediment<sp/>mass<sp/>|<sp/>Yes<sp/>|<sp/>Physically<sp/>based<sp/>talus<sp/>accumulation<sp/>without<sp/>volume<sp/>loss<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`thermal_schott`<sp/>|<sp/>Uniform<sp/>stepped<sp/>cliffs<sp/>and<sp/>benches<sp/>|<sp/>No<sp/>|<sp/>Blocky<sp/>canyon<sp/>steps,<sp/>sandstone<sp/>cliffs,<sp/>stratified<sp/>walls<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`thermal_olsen`<sp/>|<sp/>Realistic<sp/>alluvial<sp/>fan<sp/>profiles<sp/>|<sp/>Yes<sp/>|<sp/>High-precision<sp/>geological<sp/>scree<sp/>deposition<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`thermal_ridge`<sp/>|<sp/>Sharp<sp/>razor<sp/>crests<sp/>and<sp/>talus<sp/>bases<sp/>|<sp/>No<sp/>|<sp/>Alpine<sp/>peaks,<sp/>glacial<sp/>arêtes,<sp/>dramatized<sp/>ridges<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`thermal_flatten`<sp/>|<sp/>Asymmetric<sp/>plateau/flat<sp/>smoothing<sp/>|<sp/>No<sp/>|<sp/>Mesas,<sp/>plateaus,<sp/>terrace<sp/>leveling<sp/>without<sp/>altering<sp/>cliffs<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`thermal_rib`<sp/>|<sp/>Carves<sp/>acute<sp/>micro-flutes<sp/>on<sp/>slopes<sp/>|<sp/>No<sp/>|<sp/>Badlands<sp/>rills,<sp/>organ-pipe<sp/>fluting,<sp/>weathered<sp/>rock<sp/>ribs<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>5.<sp/>C++<sp/>API<sp/>Reference</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```cpp</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&quot;highmap.hpp&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Setup<sp/>terrain<sp/>and<sp/>per-cell<sp/>talus<sp/>map</highlight></codeline>
+<codeline><highlight class="normal">hmap::Array<sp/>z<sp/>=<sp/>...;</highlight></codeline>
+<codeline><highlight class="normal">float<sp/>talus_val<sp/>=<sp/>2.5f<sp/>/<sp/>static_cast&lt;float&gt;(z.shape.x);</highlight></codeline>
+<codeline><highlight class="normal">hmap::Array<sp/>talus<sp/>=<sp/>hmap::constant(z.shape,<sp/>talus_val);</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>iterations<sp/>=<sp/>30;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Standard<sp/>thermal</highlight></codeline>
+<codeline><highlight class="normal">hmap::gpu::thermal(z,<sp/>talus,<sp/>iterations);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Mass-conserving<sp/>thermal</highlight></codeline>
+<codeline><highlight class="normal">hmap::gpu::thermal_conserve(z,<sp/>talus,<sp/>iterations,<sp/>/*<sp/>rate<sp/>*/<sp/>0.5f);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Schott<sp/>model</highlight></codeline>
+<codeline><highlight class="normal">hmap::gpu::thermal_schott(z,<sp/>talus,<sp/>iterations,<sp/>/*<sp/>intensity<sp/>*/<sp/>0.2f);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Olsen<sp/>model</highlight></codeline>
+<codeline><highlight class="normal">hmap::gpu::thermal_olsen(z,<sp/>talus,<sp/>iterations);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Thermal<sp/>ridge<sp/>sharpening</highlight></codeline>
+<codeline><highlight class="normal">hmap::gpu::thermal_ridge(z,<sp/>talus,<sp/>iterations);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Asymmetric<sp/>flattening<sp/>(smooth<sp/>flats<sp/>below<sp/>talus)</highlight></codeline>
+<codeline><highlight class="normal">hmap::gpu::thermal_flatten(z,<sp/>talus,<sp/>iterations,<sp/>/*<sp/>sigma_inf<sp/>*/<sp/>0.5f,<sp/>/*<sp/>sigma_sup<sp/>*/<sp/>0.0f);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+    </programlisting>
+    <location file="docs/content/dev/thermal_erosion.md"/>
+  </compounddef>
+</doxygen>

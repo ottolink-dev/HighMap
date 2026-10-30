@@ -47,7 +47,55 @@
 <codeline><highlight class="normal">-<sp/>`hmap::Edge`<sp/>/<sp/>`hmap::Path`:<sp/>Segments<sp/>and<sp/>ordered<sp/>sequences<sp/>of<sp/>points.</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>`hmap::Graph`:<sp/>Node<sp/>and<sp/>edge<sp/>graphs<sp/>used<sp/>for<sp/>networks<sp/>such<sp/>as<sp/>rivers<sp/>and<sp/>roads.</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">##<sp/>4.<sp/>Scattering</highlight></codeline>
+<codeline><highlight class="normal">##<sp/>4.<sp/>Talus<sp/>vs.<sp/>Slope</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">When<sp/>simulating<sp/>erosion<sp/>or<sp/>analyzing<sp/>terrain<sp/>gradients,<sp/>HighMap<sp/>distinguishes<sp/>between<sp/>**talus**<sp/>and<sp/>**slope**:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Talus<sp/>(Grid-Space<sp/>Elevation<sp/>Difference)</highlight></codeline>
+<codeline><highlight class="normal">In<sp/>HighMap,<sp/>the<sp/>**talus**<sp/>is<sp/>defined<sp/>as<sp/>the<sp/>direct<sp/>elevation<sp/>difference<sp/>between<sp/>neighboring<sp/>grid<sp/>cells<sp/>(or<sp/>the<sp/>critical<sp/>vertical<sp/>threshold<sp/>per<sp/>grid<sp/>step):</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$\text{talus}<sp/>=<sp/>\Delta<sp/>z<sp/>=<sp/>z_{i+1,<sp/>j}<sp/>-<sp/>z_{i,<sp/>j}$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>**Resolution<sp/>dependent**:<sp/>For<sp/>a<sp/>given<sp/>physical<sp/>terrain<sp/>gradient,<sp/>increasing<sp/>the<sp/>grid<sp/>resolution<sp/>$N_x<sp/>\times<sp/>N_y$<sp/>places<sp/>adjacent<sp/>cell<sp/>centers<sp/>closer<sp/>together,<sp/>decreasing<sp/>the<sp/>elevation<sp/>step<sp/>$\Delta<sp/>z$<sp/>between<sp/>neighbors.<sp/>Consequently,<sp/>threshold<sp/>talus<sp/>parameters<sp/>scale<sp/>inversely<sp/>with<sp/>grid<sp/>resolution<sp/>(e.g.,<sp/>$\text{talus}<sp/>\propto<sp/>1<sp/>/<sp/>N_x$).</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**Domain<sp/>size<sp/>independent**:<sp/>Talus<sp/>operates<sp/>entirely<sp/>in<sp/>discrete<sp/>grid<sp/>space<sp/>($i,<sp/>j$)<sp/>and<sp/>does<sp/>not<sp/>depend<sp/>on<sp/>the<sp/>physical<sp/>world-space<sp/>dimensions<sp/>of<sp/>the<sp/>terrain<sp/>domain.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Slope<sp/>(Metric<sp/>Surface<sp/>Gradient)</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>**slope**<sp/>is<sp/>the<sp/>metric<sp/>rate<sp/>of<sp/>change<sp/>of<sp/>elevation<sp/>with<sp/>respect<sp/>to<sp/>physical<sp/>horizontal<sp/>distance<sp/>in<sp/>the<sp/>terrain<sp/>domain:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$\text{slope}<sp/>=<sp/>\frac{\Delta<sp/>z}{\Delta<sp/>x}<sp/>=<sp/>\frac{z(\mathbf{x}_2)<sp/>-<sp/>z(\mathbf{x}_1)}{\|\mathbf{x}_2<sp/>-<sp/>\mathbf{x}_1\|}$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">where<sp/>$\Delta<sp/>x<sp/>=<sp/>L_x<sp/>/<sp/>N_x$<sp/>represents<sp/>the<sp/>physical<sp/>cell<sp/>spacing<sp/>for<sp/>a<sp/>domain<sp/>of<sp/>size<sp/>$L_x$.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>**Domain<sp/>size<sp/>dependent**:<sp/>Slope<sp/>depends<sp/>on<sp/>physical<sp/>metric<sp/>units<sp/>(such<sp/>as<sp/>meters<sp/>or<sp/>kilometers)<sp/>and<sp/>the<sp/>overall<sp/>domain<sp/>extent<sp/>$L_x<sp/>\times<sp/>L_y$.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**Resolution<sp/>independent**:<sp/>As<sp/>grid<sp/>resolution<sp/>increases<sp/>($N_x<sp/>\to<sp/>\infty$),<sp/>the<sp/>ratio<sp/>$\Delta<sp/>z<sp/>/<sp/>\Delta<sp/>x$<sp/>converges<sp/>toward<sp/>the<sp/>continuous<sp/>spatial<sp/>derivative<sp/>$\|\nabla<sp/>z\|$,<sp/>maintaining<sp/>an<sp/>invariant<sp/>physical<sp/>slope<sp/>regardless<sp/>of<sp/>raster<sp/>resolution.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Relationship:<sp/>talus<sp/>=<sp/>slope<sp/>/<sp/>nx</highlight></codeline>
+<codeline><highlight class="normal">In<sp/>unit-box<sp/>normalized<sp/>domains<sp/>($L_x<sp/>=<sp/>1$),<sp/>the<sp/>physical<sp/>cell<sp/>spacing<sp/>is<sp/>$\Delta<sp/>x<sp/>=<sp/>1<sp/>/<sp/>N_x$.<sp/>Substituting<sp/>$\Delta<sp/>x$<sp/>into<sp/>the<sp/>slope<sp/>definition<sp/>yields:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$\text{slope}<sp/>=<sp/>\frac{\Delta<sp/>z}{\Delta<sp/>x}<sp/>=<sp/>\frac{\text{talus}}{1<sp/>/<sp/>N_x}<sp/>=<sp/>\text{talus}<sp/>\cdot<sp/>N_x$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Rearranging<sp/>for<sp/>the<sp/>grid-cell<sp/>talus<sp/>threshold<sp/>gives:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$\text{talus}<sp/>=<sp/>\frac{\text{slope}}{N_x}$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>identity<sp/>is<sp/>why<sp/>erosion<sp/>parameters<sp/>throughout<sp/>HighMap<sp/>are<sp/>specified<sp/>by<sp/>dividing<sp/>a<sp/>reference<sp/>slope<sp/>by<sp/>the<sp/>grid<sp/>dimension:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```cpp</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Set<sp/>a<sp/>critical<sp/>slope<sp/>of<sp/>2.5<sp/>across<sp/>an<sp/>Nx<sp/>grid</highlight></codeline>
+<codeline><highlight class="normal">float<sp/>talus<sp/>=<sp/>2.5f<sp/>/<sp/>static_cast&lt;float&gt;(shape.x);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```text</highlight></codeline>
+<codeline><highlight class="normal">Grid<sp/>step:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[<sp/>Cell<sp/>i<sp/>]<sp/>--------<sp/>Δx<sp/>=<sp/>1/Nx<sp/>--------<sp/>[<sp/>Cell<sp/>i+1<sp/>]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>/</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>/</highlight></codeline>
+<codeline><highlight class="normal">Elevation<sp/>drop:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\-----<sp/>Δz<sp/>(talus)<sp/>----------/</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Talus:<sp/><sp/>Δz<sp/>=<sp/>slope<sp/>/<sp/>Nx<sp/><sp/><sp/><sp/><sp/><sp/>(height<sp/>drop<sp/>per<sp/>grid<sp/>cell;<sp/>depends<sp/>on<sp/>resolution)</highlight></codeline>
+<codeline><highlight class="normal">Slope:<sp/><sp/>Δz<sp/>/<sp/>Δx<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(physical<sp/>grade;<sp/>depends<sp/>on<sp/>domain<sp/>extent<sp/>L_x)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>5.<sp/>Scattering</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">The<sp/>scattering<sp/>system<sp/>handles<sp/>the<sp/>distribution<sp/>of<sp/>discrete<sp/>objects<sp/>over<sp/>a<sp/>terrain:</highlight></codeline>
 <codeline></codeline>

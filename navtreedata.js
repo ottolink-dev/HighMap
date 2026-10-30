@@ -127,26 +127,34 @@ var NAVTREE =
       ] ],
       [ "4. Converting to Raster Fields", "md_docs_2content_2dev_2scatter__field.html#autotoc_md93", null ]
     ] ],
+    [ "Thermal Weathering and Talus Erosion Algorithms", "md_docs_2content_2dev_2thermal__erosion.html", [
+      [ "1. Physical Foundations", "md_docs_2content_2dev_2thermal__erosion.html#autotoc_md95", null ]
+    ] ],
     [ "Core Concepts", "md_docs_2content_2getting__started_2core__concepts.html", [
-      [ "1. Elevation Representations", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md95", [
-        [ "Array", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md96", null ]
+      [ "1. Elevation Representations", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md110", [
+        [ "Array", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md111", null ]
       ] ],
-      [ "2. Bivariate Functions", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md97", null ],
-      [ "3. Geometric Primitives", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md98", null ],
-      [ "4. Scattering", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md99", null ]
+      [ "2. Bivariate Functions", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md112", null ],
+      [ "3. Geometric Primitives", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md113", null ],
+      [ "4. Talus vs. Slope", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md114", [
+        [ "Talus (Grid-Space Elevation Difference)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md115", null ],
+        [ "Slope (Metric Surface Gradient)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md116", null ],
+        [ "Relationship: talus = slope / nx", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md117", null ]
+      ] ],
+      [ "5. Scattering", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md118", null ]
     ] ],
     [ "Quickstart", "md_docs_2content_2getting__started_2quickstart.html", [
-      [ "1. Example", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md101", null ],
-      [ "2. CMake Integration", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md102", null ],
-      [ "3. Basic Operations", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md103", null ],
-      [ "4. Next Steps", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md104", null ]
+      [ "1. Example", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md120", null ],
+      [ "2. CMake Integration", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md121", null ],
+      [ "3. Basic Operations", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md122", null ],
+      [ "4. Next Steps", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md123", null ]
     ] ],
     [ "HighMap Documentation", "md_docs_2index.html", [
-      [ "Documentation", "md_docs_2index.html#autotoc_md106", [
-        [ "Getting Started", "md_docs_2index.html#autotoc_md107", null ],
-        [ "Developer Documentation", "md_docs_2index.html#autotoc_md108", null ]
+      [ "Documentation", "md_docs_2index.html#autotoc_md125", [
+        [ "Getting Started", "md_docs_2index.html#autotoc_md126", null ],
+        [ "Developer Documentation", "md_docs_2index.html#autotoc_md127", null ]
       ] ],
-      [ "Installation", "md_docs_2index.html#autotoc_md109", null ]
+      [ "Installation", "md_docs_2index.html#autotoc_md128", null ]
     ] ],
     [ "Optional Tracy CPU profiling", "md_docs_2profiling.html", null ],
     [ "Bibliography", "citelist.html", null ],
@@ -205,25 +213,25 @@ var NAVTREEINDEX =
 "hydraulic__mise_8cpp.html#a7a5dcbf1ee87dd3c79068bfff522a6ed",
 "interpolate__heightmap__virtual__array_8cpp.html#ace2076a7808458f99aeaeec2bc404d6b",
 "math_2array_8hpp.html#aad00066161ccf5ba4d6f93ab48c10876",
-"morphology__gpu_8cpp.html#a06a37576327ff4cb06746711dbdfa0de",
-"namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8",
-"namespacehmap.html#a6294951db2b05d8b1081e4d865c11244",
-"namespacehmap.html#aa6ba2bd6f00bf38f87b87f1179dcc70a",
-"namespacehmap.html#ad22bdd7a9091286a11b872dc4de2ce9d",
-"namespacehmap_1_1gpu.html#a2ce8ecd08ace98c21dfb354bab5451a2",
-"namespacehmap_1_1log.html#a5a99752b3c92d91e0b975fa10ac8c8f7",
-"path__length__to__sink_8cpp.html",
-"profiles_8hpp.html#a25a4e4775f3c0918ed75f0503f5ed0a6a86984b9d7ea6041722ae4f3f40b3eb3f",
-"sdf__2d__polyline__bezier_8cpp.html#a3f2d0f789995b087fee958951a87d36c",
-"structhmap_1_1AssertResults.html",
-"structhmap_1_1MiseParams.html#a4f3cae5228f65e71f50f28ae09cfd3d1",
-"structhmap_1_1SpeciesLookup.html#a7e23964d24d7f40a71e0471a6329f21a",
-"structhmap_1_1VirtualArray.html#af18d79861c72756d23fbde116be927d0",
-"test__cloud_8cpp.html#a434b9e87a0218e8aa36f511f4ed03647",
-"test__gradient_8cpp.html#ad6c08278343d8bd247c7a1da32644190",
-"test__point_8cpp.html#a986e8b834f60687580ee21947eba135c",
-"test__validation_8cpp.html#af6e102d9c4c73b1b9c8dd29fd2031275",
-"valley__width_8cpp.html#a3816b73c0f933147dc86ee9f8d2dd701"
+"morphology_8hpp.html#af80bcff234bf1482cf26896b9d21d270",
+"namespacehmap.html#a2e0228ee67d8c47cd32a3c9d9c6cb9d4",
+"namespacehmap.html#a6108df0909730083cb6dd7cf4a217c1b",
+"namespacehmap.html#aa4468d1e57ee67ba0be8fb1ab931045a",
+"namespacehmap.html#ad1eb8e81ef31a0e0bc7a5bd093c3aefc",
+"namespacehmap_1_1gpu.html#a26ed284f1df761074c2a49a2fbbd582e",
+"namespacehmap_1_1log.html#a2b618829e9c711302f726a3ec3f4ff49",
+"path__functions_8cpp.html#aca95a27cb4796288e6ac2e7bd265c611",
+"profiles_8hpp.html#a25a4e4775f3c0918ed75f0503f5ed0a6",
+"sdf__2d__polyline_8cpp.html#aee7ff7068cdfd831c2ad4891a38a817c",
+"structhmap_1_1AABB2D.html#a9cdb78ad36d25875cb0ba86e20efd765",
+"structhmap_1_1MiseParams.html#a3cb61732527fd8119798ef8370e96667",
+"structhmap_1_1SpeciesLookup.html",
+"structhmap_1_1VirtualArray.html#ae77e0c68919f9a4aa0ac291300d1d0f9",
+"test__cloud_8cpp.html#a2635d53220155d41c0cdf04c61a5555f",
+"test__gradient_8cpp.html#a20ea8c3252331571d45ccda6f3308653",
+"test__point_8cpp.html#a61268b7c41e61f8da119dfa430717bde",
+"test__validation_8cpp.html#a742dd3e5278dc15eeae1f659bbca1fb9",
+"valley__fill_8cpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
