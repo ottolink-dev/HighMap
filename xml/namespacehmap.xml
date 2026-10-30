@@ -6803,6 +6803,202 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </inbodydescription>
         <location file="HighMap/src/boundary/zeroed_edges.cpp" line="18" column="6" bodyfile="HighMap/src/boundary/zeroed_edges.cpp" bodystart="18" bodyend="58" declfile="HighMap/include/highmap/boundary.hpp" declline="397" declcolumn="6"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1acf2e3177a8b9b776c6fb7e3b53c6cd34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::carve_river</definition>
+        <argsstring>(Array &amp;z, const Graph &amp;graph, float talus, float outlet_width, float headwater_width=0.f, float width_exponent=0.5f, float depth=0.05f, float depth_exponent=0.3f, std::uint32_t seed=0, float talus_noise_ratio=0.f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP_UPPER, float radial_profile_parameter=2.f, Array *p_river_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>carve_river</name>
+        <qualifiedname>hmap::carve_river</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref> &amp;</type>
+          <declname>graph</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>talus</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>outlet_width</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>headwater_width</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>width_exponent</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>depth</declname>
+          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>depth_exponent</declname>
+          <defval>0.3<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>talus_noise_ratio</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90" kindref="member">RadialProfile</ref></type>
+          <declname>radial_profile</declname>
+          <defval><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90acedc11502bd1441e893fdc5a699b6d59" kindref="member">RadialProfile::RP_SMOOTHSTEP_UPPER</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>radial_profile_parameter</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_river_mask</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Carves a continuous river network into a heightmap along a directed flow <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A triangular riverbed with a given slope (talus) is generated from the channel bottom using expand_talus, and merged with the original heightmap using the network signed distance field (SDF), scaling channel width and depth with flow accumulation.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target heightmap to carve in-place. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">graph</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input flow network <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">talus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slope of the triangular riverbed valley walls. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">outlet_width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum channel influence width at downstream <ref refid="hydraulic__mise_8cpp_1a04ae352a41e6a2fb1296b478e5881a66" kindref="member">outlet(s)</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">headwater_width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum channel influence width at headwaters (default: 0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">width_exponent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Scaling exponent for channel width with flow accumulation (default: 0.5). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">depth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Incision depth below graph elevation for river bottom (default: 0.05). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">depth_exponent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Scaling exponent for depth scaling with flow accumulation (default: 0.3). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random seed for expand_talus (default: 0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">talus_noise_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Roughness / perturbation ratio for valley expansion (default: 0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">radial_profile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Blending profile for SDF transition (default: RP_SMOOTHSTEP_UPPER). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">radial_profile_parameter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shaping parameter for the radial profile (default: 2.0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">p_river_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output mask in [0, 1] of carved river channel. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Domain bounding box. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/carving/carve_river.cpp" line="25" column="6" bodyfile="HighMap/src/carving/carve_river.cpp" bodystart="25" bodyend="282" declfile="HighMap/include/highmap/carving.hpp" declline="62" declcolumn="6"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a3a29e127d53bc5b547af422da36da1cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::dig_path</definition>
@@ -6974,7 +7170,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/dig_path.cpp" line="19" column="6" bodyfile="HighMap/src/carving/dig_path.cpp" bodystart="19" bodyend="70" declfile="HighMap/include/highmap/carving.hpp" declline="63" declcolumn="6"/>
+        <location file="HighMap/src/carving/dig_path.cpp" line="19" column="6" bodyfile="HighMap/src/carving/dig_path.cpp" bodystart="19" bodyend="70" declfile="HighMap/include/highmap/carving.hpp" declline="116" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5f979c31af1c9ee6ad499882335ca6fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7224,7 +7420,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/flatbed_carve.cpp" line="120" column="6" bodyfile="HighMap/src/carving/flatbed_carve.cpp" bodystart="120" bodyend="157" declfile="HighMap/include/highmap/carving.hpp" declline="99" declcolumn="6"/>
+        <location file="HighMap/src/carving/flatbed_carve.cpp" line="120" column="6" bodyfile="HighMap/src/carving/flatbed_carve.cpp" bodystart="120" bodyend="157" declfile="HighMap/include/highmap/carving.hpp" declline="152" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2d7b71e9231efc67e4bae209bd7fa84a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7527,7 +7723,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/trench.cpp" line="535" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="535" bodyend="581" declfile="HighMap/include/highmap/carving.hpp" declline="173" declcolumn="6"/>
+        <location file="HighMap/src/carving/trench.cpp" line="535" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="535" bodyend="581" declfile="HighMap/include/highmap/carving.hpp" declline="226" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ae10d017da6e13ba9d619298709e64917" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7643,7 +7839,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/trench.cpp" line="321" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="321" bodyend="533" declfile="HighMap/include/highmap/carving.hpp" declline="196" declcolumn="6"/>
+        <location file="HighMap/src/carving/trench.cpp" line="321" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="321" bodyend="533" declfile="HighMap/include/highmap/carving.hpp" declline="249" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a6629d7932feda7b2c5c1cc7e33da66bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7840,7 +8036,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/trench.cpp" line="583" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="583" bodyend="829" declfile="HighMap/include/highmap/carving.hpp" declline="249" declcolumn="6"/>
+        <location file="HighMap/src/carving/trench.cpp" line="583" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="583" bodyend="829" declfile="HighMap/include/highmap/carving.hpp" declline="302" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac812451135eef116e28dfb44b5ec7a8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -8036,203 +8232,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/trench.cpp" line="831" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="831" bodyend="863" declfile="HighMap/include/highmap/carving.hpp" declline="289" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1acf2e3177a8b9b776c6fb7e3b53c6cd34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::carve_river</definition>
-        <argsstring>(Array &amp;z, const Graph &amp;graph, float talus, float outlet_width, float headwater_width=0.f, float width_exponent=0.5f, float depth=0.05f, float depth_exponent=0.3f, std::uint32_t seed=0, float talus_noise_ratio=0.f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP_UPPER, float radial_profile_parameter=2.f, Array *p_river_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
-        <name>carve_river</name>
-        <qualifiedname>hmap::carve_river</qualifiedname>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>z</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref> &amp;</type>
-          <declname>graph</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>talus</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>outlet_width</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>headwater_width</declname>
-          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>width_exponent</declname>
-          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>depth</declname>
-          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>depth_exponent</declname>
-          <defval>0.3<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>std::uint32_t</type>
-          <declname>seed</declname>
-          <defval>0</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>talus_noise_ratio</declname>
-          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90" kindref="member">RadialProfile</ref></type>
-          <declname>radial_profile</declname>
-          <defval><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90acedc11502bd1441e893fdc5a699b6d59" kindref="member">RadialProfile::RP_SMOOTHSTEP_UPPER</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>radial_profile_parameter</declname>
-          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_river_mask</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type>glm::vec4</type>
-          <declname>bbox</declname>
-          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
-        </param>
-        <briefdescription>
-<para>Carves a continuous river network into a heightmap along a directed flow <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref>. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>A triangular riverbed with a given slope (talus) is generated from the channel bottom using expand_talus, and merged with the original heightmap using the network signed distance field (SDF), scaling channel width and depth with flow accumulation.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername direction="inout">z</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target heightmap to carve in-place. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">graph</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Input flow network <ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref>. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">talus</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Slope of the triangular riverbed valley walls. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">outlet_width</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Maximum channel influence width at downstream <ref refid="hydraulic__mise_8cpp_1a04ae352a41e6a2fb1296b478e5881a66" kindref="member">outlet(s)</ref>. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">headwater_width</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Minimum channel influence width at headwaters (default: 0). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">width_exponent</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Scaling exponent for channel width with flow accumulation (default: 0.5). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">depth</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Incision depth below graph elevation for river bottom (default: 0.05). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">depth_exponent</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Scaling exponent for depth scaling with flow accumulation (default: 0.3). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">seed</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Random seed for expand_talus (default: 0). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">talus_noise_ratio</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Roughness / perturbation ratio for valley expansion (default: 0). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">radial_profile</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Blending profile for SDF transition (default: RP_SMOOTHSTEP_UPPER). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">radial_profile_parameter</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Shaping parameter for the radial profile (default: 2.0). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="out">p_river_mask</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional output mask in [0, 1] of carved river channel. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">bbox</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Domain bounding box. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/carving/carve_river.cpp" line="25" column="6" bodyfile="HighMap/src/carving/carve_river.cpp" bodystart="25" bodyend="282" declfile="HighMap/include/highmap/carving.hpp" declline="339" declcolumn="6"/>
+        <location file="HighMap/src/carving/trench.cpp" line="831" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="831" bodyend="863" declfile="HighMap/include/highmap/carving.hpp" declline="342" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a76b37b88acf83d6a5b21f1be1b50697e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
