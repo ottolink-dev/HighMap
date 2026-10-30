@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.20)
+project(ex_thermal_comparison)
+
+add_executable(ex_thermal_comparison ex_thermal_comparison.cpp)
+target_link_libraries(ex_thermal_comparison highmap)
