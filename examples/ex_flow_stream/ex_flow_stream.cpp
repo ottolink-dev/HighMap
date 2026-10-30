@@ -63,24 +63,26 @@ int main(void)
   hmap::Array z_graph(shape, 0.f);
   stream_graph.to_array(z_graph, bbox, false);
 
-  // carve river network into terrain with flow-accumulation width scaling
+  // carve river network into terrain with expand_talus and SDF blending
   hmap::Array z_carved = z;
   hmap::Array river_mask;
+  float       talus = 0.5f / float(shape.x);
   float       outlet_width = 0.05f;
   float       headwater_width = 0.001f;
   float       depth = 0.1f;
-  float       bank_width_ratio = 1.0f;
 
   hmap::carve_river(z_carved,
                     stream_graph,
+                    talus,
                     outlet_width,
                     headwater_width,
                     /* width_exponent */ 0.5f,
                     depth,
-                    bank_width_ratio,
+                    /* depth_exponent */ 0.3f,
+                    seed,
+                    /* talus_noise_ratio */ 0.05f,
                     hmap::RadialProfile::RP_SMOOTHSTEP_UPPER,
                     2.0f,
-                    /* p_noise_r */ nullptr,
                     &river_mask);
 
   hmap::export_banner_png("ex_flow_stream.png",

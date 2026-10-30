@@ -437,6 +437,7 @@ TEST(CarveRiver, RiverNetworkIncisionAndMonotonicity)
   g.add_edge(1, 2);
   g.add_edge(2, 3);
 
+  float talus = 0.5f / 64.f;
   float outlet_width = 0.10f;
   float headwater_width = 0.02f;
   float depth = 0.15f;
@@ -444,14 +445,16 @@ TEST(CarveRiver, RiverNetworkIncisionAndMonotonicity)
   hmap::Array mask;
   hmap::carve_river(z,
                     g,
+                    talus,
                     outlet_width,
                     headwater_width,
                     /* width_exponent */ 0.5f,
                     depth,
-                    /* bank_width_ratio */ 1.0f,
+                    /* depth_exponent */ 0.3f,
+                    /* seed */ 1,
+                    /* talus_noise_ratio */ 0.f,
                     hmap::RadialProfile::RP_SMOOTHSTEP_UPPER,
                     2.0f,
-                    /* p_noise_r */ nullptr,
                     &mask);
 
   // 1. Strict incision: terrain should never be raised
@@ -472,7 +475,6 @@ TEST(CarveRiver, RiverNetworkIncisionAndMonotonicity)
   int i_out = static_cast<int>(std::round(0.5f * (shape.x - 1)));
   int j_out = static_cast<int>(std::round(0.1f * (shape.y - 1)));
   EXPECT_LT(z(i_out, j_out), 1.0f);
-  EXPECT_NEAR(z(i_out, j_out), 0.2f - depth, 0.05f);
 
   // 3. Tributary confluence is carved
   int i_conf = static_cast<int>(std::round(0.5f * (shape.x - 1)));

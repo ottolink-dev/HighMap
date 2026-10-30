@@ -5,13 +5,13 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
-#include <functional>
 #include <limits>
 #include <utility>
 #include <vector>
 
 #include "highmap/array.hpp"
 #include "highmap/carving.hpp"
+#include "highmap/filters.hpp"
 #include "highmap/geometry/bvh.hpp"
 #include "highmap/geometry/graph.hpp"
 #include "highmap/geometry/grids.hpp"
@@ -24,19 +24,20 @@ namespace hmap
 
 void carve_river(Array        &z,
                  const Graph  &graph,
+                 float         talus,
                  float         outlet_width,
                  float         headwater_width,
                  float         width_exponent,
                  float         depth,
-                 float         bank_width_ratio,
+                 float         depth_exponent,
+                 std::uint32_t seed,
+                 float         talus_noise_ratio,
                  RadialProfile radial_profile,
                  float         radial_profile_parameter,
-                 const Array  *p_noise_r,
                  Array        *p_river_mask,
                  glm::vec4     bbox)
 {
   if (!validate_non_empty(z)) return;
-  if (p_noise_r && !validate_same_shape(z, *p_noise_r)) return;
   if (graph.empty() || graph.num_edges() == 0) return;
 
   const size_t n = graph.size();
@@ -49,53 +50,47 @@ void carve_river(Array        &z,
   for (float a : accum)
     if (a > max_accum) max_accum = a;
 
-  // compute per-node bed widths and influence widths
+  // compute per-node bed widths and depths
   float min_w = std::max(0.f, headwater_width);
   float max_w = std::max(min_w, outlet_width);
 
   if (max_w <= 0.f) return;
 
-  std::vector<float> node_bed_widths(n, min_w);
-  std::vector<float> node_influence_widths(n, min_w);
-
-  float bank_ratio = std::max(0.f, bank_width_ratio);
+  std::vector<float> node_widths(n, min_w);
+  std::vector<float> node_depths(n, depth);
 
   for (size_t i = 0; i < n; ++i)
   {
     float norm = (max_accum > 1e-6f) ? (accum[i] / max_accum) : 0.f;
     norm = std::clamp(norm, 0.f, 1.f);
 
-    float factor = std::pow(norm, width_exponent);
-    float w_bed = min_w + (max_w - min_w) * factor;
+    float w_factor = std::pow(norm, width_exponent);
+    node_widths[i] = min_w + (max_w - min_w) * w_factor;
 
-    node_bed_widths[i] = w_bed;
-    node_influence_widths[i] = w_bed * (1.f + bank_ratio);
+    float d_factor =
+        (depth_exponent > 0.f) ? std::pow(norm, depth_exponent) : 1.f;
+    node_depths[i] = depth * std::max(0.1f, d_factor);
   }
-
-  float max_influence_width = max_w * (1.f + bank_ratio);
-
-  if (p_noise_r)
-  {
-    max_influence_width = std::max(0.f,
-                                   max_influence_width *
-                                       (1.f + p_noise_r->max()));
-  }
-
-  if (max_influence_width <= 0.f) return;
 
   const glm::ivec2 &shape = z.shape;
-  auto              profile_fct = get_radial_profile_function(radial_profile,
-                                                 radial_profile_parameter);
+  float             dx = (bbox.y - bbox.x) / float(shape.x);
+  float             dy = (bbox.w - bbox.z) / float(shape.y);
 
-  float dx = (bbox.y - bbox.x) / float(shape.x);
-  float dy = (bbox.w - bbox.z) / float(shape.y);
+  // --- 1. Rasterize river bottom elevation and seed mask
+  Array z_bed(shape, 0.f);
+  Array mask(shape, 0.f);
 
-  Array river_mask;
-  if (p_river_mask) river_mask = Array(shape, 0.f);
-
-  // build oriented downstream segments
   std::vector<Segment2D> all_segments;
   all_segments.reserve(edges.size());
+
+  float lx = bbox.y - bbox.x;
+  float ly = bbox.w - bbox.z;
+  float ppu = std::max(shape.x / lx, shape.y / ly);
+
+  float ai = (shape.x - 1) / lx;
+  float bi = -bbox.x * (shape.x - 1) / lx;
+  float aj = (shape.y - 1) / ly;
+  float bj = -bbox.z * (shape.y - 1) / ly;
 
   for (const auto &edge : edges)
   {
@@ -124,10 +119,10 @@ void carve_river(Array        &z,
     Segment2D seg;
     seg.p0 = glm::vec2(p0.x, p0.y);
     seg.p1 = glm::vec2(p1.x, p1.y);
-    seg.v0 = p0.v - depth;
-    seg.v1 = p1.v - depth;
-    seg.s0 = node_influence_widths[from];
-    seg.s1 = node_influence_widths[to];
+    seg.v0 = p0.v - node_depths[from];
+    seg.v1 = p1.v - node_depths[to];
+    seg.s0 = node_widths[from];
+    seg.s1 = node_widths[to];
     seg.k0 = static_cast<size_t>(from);
     seg.k1 = static_cast<size_t>(to);
     seg.path_index = 0;
@@ -138,12 +133,46 @@ void carve_river(Array        &z,
     seg.inv_len_sq = (len_sq > 1e-12f) ? (1.f / len_sq) : 0.f;
 
     all_segments.push_back(seg);
+
+    // Rasterize segment into z_bed and mask
+    float seg_len = std::sqrt(len_sq);
+    int   npixels = static_cast<int>(std::ceil(seg_len * ppu)) + 1;
+
+    for (int k = 0; k < npixels; ++k)
+    {
+      float t = (npixels > 1)
+                    ? (static_cast<float>(k) / static_cast<float>(npixels - 1))
+                    : 0.f;
+      float px = seg.p0.x + t * seg.d.x;
+      float py = seg.p0.y + t * seg.d.y;
+      float pz = (1.f - t) * seg.v0 + t * seg.v1;
+
+      int pi = static_cast<int>(std::round(ai * px + bi));
+      int pj = static_cast<int>(std::round(aj * py + bj));
+
+      if (pi >= 0 && pi < shape.x && pj >= 0 && pj < shape.y)
+      {
+        if (mask(pi, pj) == 0.f)
+        {
+          z_bed(pi, pj) = pz;
+          mask(pi, pj) = 1.f;
+        }
+        else
+        {
+          z_bed(pi, pj) = std::min(z_bed(pi, pj), pz);
+        }
+      }
+    }
   }
 
   if (all_segments.empty()) return;
 
-  // build BVH over segments
-  BVH2D bvh(all_segments, max_influence_width);
+  // --- 2. Expand talus upward from riverbed seeds
+  int ir = 2;
+  expand_talus(z_bed, mask, talus, seed, ir, talus_noise_ratio);
+
+  // --- 3. Build BVH for exact network SDF and per-segment width interpolation
+  BVH2D bvh(all_segments, max_w);
 
   AABB2D domain_aabb(bbox.x, bbox.z, bbox.y, bbox.w);
   if (!bvh.root_bbox().overlaps(domain_aabb)) return;
@@ -162,19 +191,26 @@ void carve_river(Array        &z,
     int ty = tile_idx / num_tiles_x;
 
     float tile_xmin = bbox.x + float(tx * tile_size) * dx;
-    float tile_xmax = bbox.x +
-                      float(std::min((tx + 1) * tile_size, shape.x)) * dx;
+    float tile_xmax =
+        bbox.x + float(std::min((tx + 1) * tile_size, shape.x)) * dx;
     float tile_ymin = bbox.z + float(ty * tile_size) * dy;
-    float tile_ymax = bbox.z +
-                      float(std::min((ty + 1) * tile_size, shape.y)) * dy;
+    float tile_ymax =
+        bbox.z + float(std::min((ty + 1) * tile_size, shape.y)) * dy;
 
     AABB2D tile_box(tile_xmin, tile_ymin, tile_xmax, tile_ymax);
     bvh.query_box(tile_box, tile_segments[tile_idx]);
   }
 
+  auto profile_fct = get_radial_profile_function(radial_profile,
+                                                 radial_profile_parameter);
+
+  Array river_mask;
+  if (p_river_mask) river_mask = Array(shape, 0.f);
+
   std::vector<float> xg, yg;
   grid_xy_vector(xg, yg, shape, bbox, false);
 
+  // --- 4. Merge z_bed with original z using SDF and local width scaling
 #pragma omp parallel for schedule(dynamic, 8)
   for (int tile_idx = 0; tile_idx < total_tiles; ++tile_idx)
   {
@@ -197,11 +233,10 @@ void carve_river(Array        &z,
       {
         float x = xg[i];
         float orig_z = z(i, j);
+        float valley_z = z_bed(i, j);
 
         float min_carved_z = orig_z;
         float max_river_weight = 0.f;
-
-        float dr = p_noise_r ? (*p_noise_r)(i, j) : 0.f;
 
         for (uint32_t seg_idx : segs)
         {
@@ -217,19 +252,18 @@ void carve_river(Array        &z,
           float proj_x = seg.p0.x + t * seg.d.x;
           float proj_y = seg.p0.y + t * seg.d.y;
 
-          float d_sq = (x - proj_x) * (x - proj_x) +
-                       (y - proj_y) * (y - proj_y);
+          float d_sq =
+              (x - proj_x) * (x - proj_x) + (y - proj_y) * (y - proj_y);
 
-          float w_influence = (1.f - t) * seg.s0 + t * seg.s1;
-          w_influence = std::max(0.f, w_influence * (1.f + dr));
+          float w_local = (1.f - t) * seg.s0 + t * seg.s1;
 
-          if (w_influence <= 0.f || d_sq >= w_influence * w_influence) continue;
+          if (w_local <= 0.f || d_sq >= w_local * w_local) continue;
 
-          float r = std::sqrt(d_sq) / w_influence;
+          float dist = std::sqrt(d_sq);
+          float r = dist / w_local;
           float profile_t = profile_fct(r);
 
-          float z_floor = (1.f - t) * seg.v0 + t * seg.v1;
-          float candidate_z = lerp(z_floor, orig_z, profile_t);
+          float candidate_z = lerp(valley_z, orig_z, profile_t);
 
           if (candidate_z < min_carved_z) min_carved_z = candidate_z;
 
