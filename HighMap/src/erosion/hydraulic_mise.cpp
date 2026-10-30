@@ -24,6 +24,8 @@
 #include "highmap/math/array.hpp"
 #include "highmap/random.hpp"
 #include "highmap/range.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/virtual_array/virtual_array.hpp"
 
 #include <bit>
 #include <format>
@@ -1145,3 +1147,230 @@ void hydraulic_mise(Array            &z,
 }
 
 } // namespace hmap
+
+namespace hmap::va
+{
+
+VirtualArray hydraulic_mise(const ComputeMode  &cm,
+                            const VirtualArray &z,
+                            int                 cutoff_resolution,
+                            const MiseParams   &params,
+                            const VirtualArray *p_mask,
+                            const VirtualArray *p_bedrock,
+                            const VirtualArray *p_erodibility,
+                            const VirtualArray *p_moisture_map,
+                            const VirtualArray *p_outlet,
+                            VirtualArray       *p_sediment,
+                            VirtualArray       *p_flow,
+                            VirtualArray       *p_erosion_map,
+                            VirtualArray       *p_deposition_map)
+{
+  VirtualArray out;
+  if (z.empty()) return out;
+
+  glm::ivec2 total_shape = z.shape;
+
+  // If entire virtual array is within cutoff_resolution, perform full global erosion
+  if (std::max(total_shape.x, total_shape.y) <= cutoff_resolution)
+  {
+    Array z_full = z.to_array(cm);
+
+    Array bedrock = p_bedrock ? p_bedrock->to_array(cm) : Array();
+    Array erodibility = p_erodibility ? p_erodibility->to_array(cm) : Array();
+    Array moisture = p_moisture_map ? p_moisture_map->to_array(cm) : Array();
+    Array outlet = p_outlet ? p_outlet->to_array(cm) : Array();
+    Array mask = p_mask ? p_mask->to_array(cm) : Array();
+
+    Array sed, flow, ero, dep;
+
+    hydraulic_mise(z_full,
+                   p_mask ? &mask : nullptr,
+                   params,
+                   p_bedrock ? &bedrock : nullptr,
+                   p_erodibility ? &erodibility : nullptr,
+                   p_moisture_map ? &moisture : nullptr,
+                   p_outlet ? &outlet : nullptr,
+                   p_sediment ? &sed : nullptr,
+                   p_flow ? &flow : nullptr,
+                   p_erosion_map ? &ero : nullptr,
+                   p_deposition_map ? &dep : nullptr);
+
+    out.copy_from(z, cm, /* copy_src_data */ false);
+    out.from_array(z_full, cm);
+
+    if (p_sediment)
+    {
+      p_sediment->copy_from(z, cm, false);
+      p_sediment->from_array(sed, cm);
+    }
+    if (p_flow)
+    {
+      p_flow->copy_from(z, cm, false);
+      p_flow->from_array(flow, cm);
+    }
+    if (p_erosion_map)
+    {
+      p_erosion_map->copy_from(z, cm, false);
+      p_erosion_map->from_array(ero, cm);
+    }
+    if (p_deposition_map)
+    {
+      p_deposition_map->copy_from(z, cm, false);
+      p_deposition_map->from_array(dep, cm);
+    }
+
+    return out;
+  }
+
+  // --- Hybrid multi-scale distributed execution
+
+  // 1. Global coarse-scale solver pass up to cutoff_resolution
+  int coarse_res = std::max(128, cutoff_resolution);
+  glm::ivec2 coarse_shape;
+  if (total_shape.x >= total_shape.y)
+  {
+    coarse_shape.x = coarse_res;
+    coarse_shape.y = std::max(64, (int)((int64_t)total_shape.y * coarse_res / total_shape.x));
+  }
+  else
+  {
+    coarse_shape.y = coarse_res;
+    coarse_shape.x = std::max(64, (int)((int64_t)total_shape.x * coarse_res / total_shape.y));
+  }
+
+  Array z_coarse = z.to_array(coarse_shape, cm);
+  Array bedrock_c = p_bedrock ? p_bedrock->to_array(coarse_shape, cm) : Array();
+  Array erod_c = p_erodibility ? p_erodibility->to_array(coarse_shape, cm) : Array();
+  Array moist_c = p_moisture_map ? p_moisture_map->to_array(coarse_shape, cm) : Array();
+  Array outlet_c = p_outlet ? p_outlet->to_array(coarse_shape, cm) : Array();
+  Array mask_c = p_mask ? p_mask->to_array(coarse_shape, cm) : Array();
+
+  MiseParams coarse_params = params;
+  coarse_params.base_res = std::min(params.base_res, std::min(coarse_shape.x, coarse_shape.y));
+
+  Array sed_c, flow_c;
+  hydraulic_mise(z_coarse,
+                 p_mask ? &mask_c : nullptr,
+                 coarse_params,
+                 p_bedrock ? &bedrock_c : nullptr,
+                 p_erodibility ? &erod_c : nullptr,
+                 p_moisture_map ? &moist_c : nullptr,
+                 p_outlet ? &outlet_c : nullptr,
+                 &sed_c,
+                 &flow_c,
+                 nullptr,
+                 nullptr);
+
+  // Initialize distributed output
+  out.copy_from(z, cm, /* copy_src_data */ false);
+  out.from_array_bicubic(z_coarse, cm);
+
+  if (p_sediment)
+  {
+    p_sediment->copy_from(z, cm, false);
+    p_sediment->from_array_bicubic(sed_c, cm);
+  }
+  if (p_flow)
+  {
+    p_flow->copy_from(z, cm, false);
+    p_flow->from_array_bilinear(flow_c, cm);
+  }
+
+  // 2. Tileable fine-detail refinement
+  MiseParams fine_params = params;
+  fine_params.base_res = std::min(cutoff_resolution, 256);
+  fine_params.iters0 = std::max(3, params.iters0 / 2);
+
+  std::vector<const VirtualArray *> in_arrays = {&z};
+  if (p_mask) in_arrays.push_back(p_mask);
+  if (p_bedrock) in_arrays.push_back(p_bedrock);
+  if (p_erodibility) in_arrays.push_back(p_erodibility);
+  if (p_moisture_map) in_arrays.push_back(p_moisture_map);
+
+  hmap::for_each_tile(
+      in_arrays,
+      {&out},
+      [&](std::vector<const hmap::Array *> /* p_arrays_in */,
+          std::vector<hmap::Array *>       p_arrays_out,
+          const hmap::TileRegion          & /* region */)
+      {
+        auto [pa_out] = unpack<1>(p_arrays_out);
+        if (!pa_out || pa_out->vector.empty()) return;
+
+        // Perform local high-frequency incision refinement per tile
+        hydraulic_mise(*pa_out,
+                       fine_params,
+                       nullptr,
+                       nullptr,
+                       nullptr,
+                       nullptr,
+                       nullptr,
+                       nullptr,
+                       nullptr,
+                       nullptr);
+      },
+      cm);
+
+  // Synchronize halo boundaries between adjacent tiles
+  out.sync_overlap_buffers(SyncOperation::SmoothBlend);
+
+  // Apply optional mask blending
+  if (p_mask)
+  {
+    hmap::for_each_tile(
+        {&z, p_mask},
+        {&out},
+        [&](std::vector<const hmap::Array *> p_arrays_in,
+            std::vector<hmap::Array *>       p_arrays_out,
+            const hmap::TileRegion          &)
+        {
+          auto [pa_z, pa_m] = unpack<2>(p_arrays_in);
+          auto [pa_out] = unpack<1>(p_arrays_out);
+
+          if (pa_m)
+            *pa_out = lerp(*pa_z, *pa_out, *pa_m);
+        },
+        cm);
+  }
+
+  // Compute delta maps
+  if (p_erosion_map)
+  {
+    p_erosion_map->copy_from(z, cm, false);
+    hmap::for_each_tile(
+        {&z, &out},
+        {p_erosion_map},
+        [&](std::vector<const hmap::Array *> p_arrays_in,
+            std::vector<hmap::Array *>       p_arrays_out,
+            const hmap::TileRegion          &)
+        {
+          auto [pa_z, pa_out] = unpack<2>(p_arrays_in);
+          auto [pa_ero] = unpack<1>(p_arrays_out);
+
+          *pa_ero = maximum(*pa_z - *pa_out, 0.f);
+        },
+        cm);
+  }
+
+  if (p_deposition_map)
+  {
+    p_deposition_map->copy_from(z, cm, false);
+    hmap::for_each_tile(
+        {&z, &out},
+        {p_deposition_map},
+        [&](std::vector<const hmap::Array *> p_arrays_in,
+            std::vector<hmap::Array *>       p_arrays_out,
+            const hmap::TileRegion          &)
+        {
+          auto [pa_z, pa_out] = unpack<2>(p_arrays_in);
+          auto [pa_dep] = unpack<1>(p_arrays_out);
+
+          *pa_dep = maximum(*pa_out - *pa_z, 0.f);
+        },
+        cm);
+  }
+
+  return out;
+}
+
+} // namespace hmap::va

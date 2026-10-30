@@ -1,9 +1,11 @@
 #include "highmap/dbg/assert.hpp"
 #include "highmap/erosion.hpp"
+#include "highmap/export/image.hpp"
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/morphology.hpp"
 #include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/primitives.hpp"
+#include "highmap/virtual_array/virtual_array.hpp"
 
 #include <gtest/gtest.h>
 
@@ -528,6 +530,58 @@ TEST(HydraulicMise, Determinism)
   hydraulic_mise(z2, params);
 
   EXPECT_TRUE(assert_almost_equal(z1, z2));
+}
+
+TEST(HydraulicMise, VirtualArrayComparison)
+{
+  glm::ivec2 shape = {128, 128};
+  glm::vec2  kw = {4.f, 4.f};
+  int        seed = 42;
+
+  Array z0 = noise_fbm(NoiseType::PERLIN, shape, kw, seed).remapped();
+
+  MiseParams params;
+  params.base_res = 32;
+  params.strength = 0.5f;
+  params.seed = seed;
+
+  // Direct CPU calculation without VA
+  Array z_direct = z0;
+  hydraulic_mise(z_direct, params);
+
+  // Virtual Array calculation
+  const glm::vec4  bbox{0.f, 1.f, 0.f, 1.f};
+  const glm::ivec2 tile_shape{64, 64};
+  const size_t     halo = 16;
+
+  const ComputeMode cm{
+      .mode = ForEachMode::VA_DISTRIBUTED,
+      .trim_storage = true,
+      .stride = 1,
+  };
+
+  VirtualArray z_va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  z_va.from_array(z0, cm);
+
+  // Cut-off resolution set to 64 so that tileable computation path is triggered
+  int cutoff_resolution = 64;
+  VirtualArray ze_va = va::hydraulic_mise(cm, z_va, cutoff_resolution, params);
+  Array        z_from_va = ze_va.to_array(cm);
+
+  EXPECT_EQ(z_from_va.shape, shape);
+
+  for (int j = 0; j < shape.y; ++j)
+    for (int i = 0; i < shape.x; ++i)
+    {
+      EXPECT_FALSE(std::isnan(z_from_va(i, j)));
+      EXPECT_FALSE(std::isinf(z_from_va(i, j)));
+    }
+
+  // Visual comparison: export initial, direct (no VA), and VA results as PNG
+  export_banner_png("test_hydraulic_mise_va_comparison.png",
+                    {z0, z_direct, z_from_va},
+                    Cmap::TERRAIN,
+                    true);
 }
 
 TEST(HydraulicSchottGPU, BasicExecution)

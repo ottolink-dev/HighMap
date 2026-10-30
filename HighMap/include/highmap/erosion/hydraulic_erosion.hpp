@@ -706,6 +706,21 @@ void hydraulic_vpipes(Array &z,
 namespace hmap::va
 {
 
+VirtualArray hydraulic_mise(
+    const ComputeMode  &cm,
+    const VirtualArray &z,
+    int                 cutoff_resolution = 1024,
+    const MiseParams   &params = MiseParams(),
+    const VirtualArray *p_mask = nullptr,
+    const VirtualArray *p_bedrock = nullptr,
+    const VirtualArray *p_erodibility = nullptr,
+    const VirtualArray *p_moisture_map = nullptr,
+    const VirtualArray *p_outlet = nullptr,
+    VirtualArray       *p_sediment = nullptr,
+    VirtualArray       *p_flow = nullptr,
+    VirtualArray       *p_erosion_map = nullptr,
+    VirtualArray       *p_deposition_map = nullptr);
+
 VirtualArray hydraulic_saleve(
     const ComputeMode    &cm,
     const VirtualArray   &z,
