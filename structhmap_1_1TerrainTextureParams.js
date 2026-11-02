@@ -7,11 +7,11 @@ var structhmap_1_1TerrainTextureParams =
     [ "rock", "structhmap_1_1TerrainTextureParams.html#a8fe287ffa2141604cd4cbc6fada163eb", null ],
     [ "ridge", "structhmap_1_1TerrainTextureParams.html#afd4d1c04553909a31b2dfbb164ecb7c6", null ],
     [ "snow", "structhmap_1_1TerrainTextureParams.html#a94e0e934fe0d305dc81b639ce6fb5308", null ],
-    [ "rock_slope", "structhmap_1_1TerrainTextureParams.html#a9541e7974500a7d1b258d91762cc9996", null ],
+    [ "rock_talus", "structhmap_1_1TerrainTextureParams.html#aee3761b5126695abf6719969fef1b1a4", null ],
     [ "rock_edge", "structhmap_1_1TerrainTextureParams.html#a14538dd1a36c1018ffd330dd1d9da19a", null ],
     [ "strata", "structhmap_1_1TerrainTextureParams.html#a68387d0b2d9932e4a537080a0fcfc5e6", null ],
     [ "streaks", "structhmap_1_1TerrainTextureParams.html#a25f048b640e64d0d95d4c817b18017de", null ],
-    [ "streak_length", "structhmap_1_1TerrainTextureParams.html#ad4e414552a881814b0f75ced04744a19", null ],
+    [ "streak_length", "structhmap_1_1TerrainTextureParams.html#a57c88efeb2d42c603ea6904badcd183a", null ],
     [ "flow", "structhmap_1_1TerrainTextureParams.html#aabe1b5e45535a0825aee57195be14aad", null ],
     [ "flow_width", "structhmap_1_1TerrainTextureParams.html#aacf82181690c913856c28729d49ee647", null ],
     [ "deposition", "structhmap_1_1TerrainTextureParams.html#aac4aa8df429c6b862ac6308ae9515d01", null ],
@@ -22,5 +22,5 @@ var structhmap_1_1TerrainTextureParams =
     [ "color_noise", "structhmap_1_1TerrainTextureParams.html#a1d76653911df13820b77e662d82f2a7b", null ],
     [ "detail", "structhmap_1_1TerrainTextureParams.html#a830428db3c65bba3528a07098e033f50", null ],
     [ "cavity", "structhmap_1_1TerrainTextureParams.html#ae5df313448151b2bc37c1d9d691ac9da", null ],
-    [ "region_radius", "structhmap_1_1TerrainTextureParams.html#ae249261e8013482abb94502037cb3b31", null ]
+    [ "ir_region", "structhmap_1_1TerrainTextureParams.html#aab8e4692d533eb420f32ca14e9f4167a", null ]
 ];

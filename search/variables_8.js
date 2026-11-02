@@ -14,9 +14,10 @@ var searchData=
   ['inv_5fdistance_11',['inv_distance',['../structhmap_1_1neighborhood_1_1Neighbor.html#a1908640b5d09d2fc3c23f0abf1156b48',1,'hmap::neighborhood::Neighbor::inv_distance'],['../structhmap_1_1neighborhood_1_1NeighborWeighted.html#a4970c3322c974b9969876731040ad839',1,'hmap::neighborhood::NeighborWeighted::inv_distance']]],
   ['inv_5flen_5fsq_12',['inv_len_sq',['../structhmap_1_1Segment2D.html#a441cb575bfe1c2aa4909c1993c6767cb',1,'hmap::Segment2D']]],
   ['ir_13',['ir',['../sls__deformation_8cpp.html#a108a1d0fcea4288c9e48f5dc4fa0a1b0',1,'ir:&#160;sls_deformation.cpp'],['../structhmap_1_1GaussianPush.html#ab175ce3efeb574ba75f9d7e3f75c7b3a',1,'hmap::GaussianPush::ir']]],
-  ['is_5fopen_14',['is_open',['../structhmap_1_1OpenEXRWriter_1_1Impl.html#a8c7de7055e5343eb5ab2b52e7bc879e8',1,'hmap::OpenEXRWriter::Impl::is_open'],['../structhmap_1_1OpenCVWriter_1_1Impl.html#afba9923621eff69551906737916f0924',1,'hmap::OpenCVWriter::Impl::is_open'],['../structhmap_1_1BigTiffWriter_1_1Impl.html#aacf4c1d9e3c003bc403ae356c837576f',1,'hmap::BigTiffWriter::Impl::is_open']]],
-  ['items_15',['items',['../classhmap_1_1ScatterField.html#aeb89e13a2a22fc06a08bc02e0fdcaa61',1,'hmap::ScatterField']]],
-  ['iters0_16',['iters0',['../structhmap_1_1MiseParams.html#a9ad49abe9a33315a61f5424e3a4ab52e',1,'hmap::MiseParams']]],
-  ['iters_5fdecay_17',['iters_decay',['../structhmap_1_1MiseParams.html#ae1ba6d69d13230162b42e80d8b23ec11',1,'hmap::MiseParams']]],
-  ['iters_5fmin_18',['iters_min',['../structhmap_1_1MiseParams.html#a4a003fe7c81ee8e9a98403d5d97287f2',1,'hmap::MiseParams']]]
+  ['ir_5fregion_14',['ir_region',['../structhmap_1_1TerrainTextureParams.html#aab8e4692d533eb420f32ca14e9f4167a',1,'hmap::TerrainTextureParams']]],
+  ['is_5fopen_15',['is_open',['../structhmap_1_1OpenEXRWriter_1_1Impl.html#a8c7de7055e5343eb5ab2b52e7bc879e8',1,'hmap::OpenEXRWriter::Impl::is_open'],['../structhmap_1_1OpenCVWriter_1_1Impl.html#afba9923621eff69551906737916f0924',1,'hmap::OpenCVWriter::Impl::is_open'],['../structhmap_1_1BigTiffWriter_1_1Impl.html#aacf4c1d9e3c003bc403ae356c837576f',1,'hmap::BigTiffWriter::Impl::is_open']]],
+  ['items_16',['items',['../classhmap_1_1ScatterField.html#aeb89e13a2a22fc06a08bc02e0fdcaa61',1,'hmap::ScatterField']]],
+  ['iters0_17',['iters0',['../structhmap_1_1MiseParams.html#a9ad49abe9a33315a61f5424e3a4ab52e',1,'hmap::MiseParams']]],
+  ['iters_5fdecay_18',['iters_decay',['../structhmap_1_1MiseParams.html#ae1ba6d69d13230162b42e80d8b23ec11',1,'hmap::MiseParams']]],
+  ['iters_5fmin_19',['iters_min',['../structhmap_1_1MiseParams.html#a4a003fe7c81ee8e9a98403d5d97287f2',1,'hmap::MiseParams']]]
 ];
