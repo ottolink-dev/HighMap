@@ -70,9 +70,9 @@ void color_adjust(Array      &r,
 
       if (param.aces_tonemap)
       {
-        glm::vec3 a = c * (2.51f * c + 0.03f);
-        glm::vec3 b = c * (2.43f * c + 0.59f) + 0.14f;
-        c = a / b;
+        glm::vec3 num = c * (2.51f * c + 0.03f);
+        glm::vec3 den = c * (2.43f * c + 0.59f) + 0.14f;
+        c = num / den;
       }
 
       if (param.agx_tonemap)
@@ -170,10 +170,10 @@ void shade_topographic_residual(Texture     &tex,
   const Array residual = topographic_residual(z, ir, true);
   Array       factor(z.shape, 0.5f);
 
-  const size_t n = residual.vector.size();
+  const int64_t n = static_cast<int64_t>(residual.vector.size());
 
 #pragma omp parallel for
-  for (size_t idx = 0; idx < n; ++idx)
+  for (int64_t idx = 0; idx < n; ++idx)
   {
     const float val = 0.5f + 0.5f * strength * residual.vector[idx];
     factor.vector[idx] = std::clamp(val, 0.0f, 1.0f);
