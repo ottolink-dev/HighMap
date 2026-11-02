@@ -150,7 +150,7 @@ var searchData=
   ['smoothstep7_147',['smoothstep7',['../namespacehmap.html#a1862b04695ee11f6b35f131f7e7e2e1d',1,'hmap::smoothstep7(const Array &amp;array)'],['../namespacehmap.html#ae7d9d43c2cd453af7a6395cbcb2ac3b2',1,'hmap::smoothstep7(float x)']]],
   ['smoothstep_5flocal_148',['smoothstep_local',['../namespacehmap.html#aa0d8c9cba830c501ac318cf6510a78ad',1,'hmap::smoothstep_local(Array &amp;array, int ir)'],['../namespacehmap.html#ac4ed13c5d45906009461972781263b06',1,'hmap::smoothstep_local(Array &amp;array, int ir, const Array *p_mask)']]],
   ['snap_5fpoints_5fto_5fbounding_5fbox_149',['snap_points_to_bounding_box',['../classhmap_1_1Cloud.html#a7b26dc92e0d2217b8438f1ce9376ea0d',1,'hmap::Cloud']]],
-  ['snow_5fmantle_150',['snow_mantle',['../namespacehmap_1_1gpu.html#a3563c149c62bc703ebd9273c9d5d2b88',1,'hmap::gpu']]],
+  ['snow_5fmantle_150',['snow_mantle',['../namespacehmap_1_1gpu.html#af2ee82a98c08071293b445ca37668b77',1,'hmap::gpu']]],
   ['snow_5fmelting_5fmap_151',['snow_melting_map',['../namespacehmap.html#a78419f7981186b40c4a2d04456e4e63f',1,'hmap']]],
   ['snow_5fsimulation_152',['snow_simulation',['../namespacehmap_1_1gpu.html#ab2b13ab0053ffacaf2d2da56a59f1781',1,'hmap::gpu']]],
   ['solve_5fpoisson_5fgauss_5fseidel_153',['solve_poisson_gauss_seidel',['../namespacehmap.html#a0bcc84aa462aee73e1a3a52729f21ea6',1,'hmap']]],
