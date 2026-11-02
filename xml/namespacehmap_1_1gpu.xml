@@ -12088,10 +12088,10 @@ This is an overloaded member function, provided for convenience. It differs from
         </inbodydescription>
         <location file="HighMap/src/hydrology/generate_riverbed_gpu.cpp" line="20" column="7" bodyfile="HighMap/src/hydrology/generate_riverbed_gpu.cpp" bodystart="20" bodyend="90" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1309" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1af2ee82a98c08071293b445ca37668b77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1ae2fae1e296687dd0fb94a4720b42e54d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::gpu::snow_mantle</definition>
-        <argsstring>(const Array &amp;z, float strength=0.1f, float snowline=0.5f, float falloff=0.1f, float talus_coverage=0.8f, float talus_threshold=0.001f, float directional=0.f, float wind_direction=0.f, float peaks=0.2f, float melt=0.f, float sun_azimuth=180.f, float sun_zenith=45.f, int thermal_iterations=15, float thermal_talus=0.15f, float coverage=0.5f, const Array *p_existing_snow=nullptr, const Array *p_mask=nullptr, const Array *p_noise=nullptr)</argsstring>
+        <argsstring>(const Array &amp;z, float strength=0.1f, float snowline=0.5f, float falloff=0.1f, int prefilter_ir=8, float talus_coverage=0.8f, float talus_threshold=0.001f, float directional=0.f, float wind_direction=0.f, float peaks=0.2f, float melt=0.f, float sun_azimuth=180.f, float sun_zenith=45.f, int thermal_iterations=15, float thermal_talus=0.15f, float coverage=0.5f, const Array *p_existing_snow=nullptr, const Array *p_mask=nullptr, const Array *p_noise=nullptr)</argsstring>
         <name>snow_mantle</name>
         <qualifiedname>hmap::gpu::snow_mantle</qualifiedname>
         <param>
@@ -12112,6 +12112,11 @@ This is an overloaded member function, provided for convenience. It differs from
           <type>float</type>
           <declname>falloff</declname>
           <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>prefilter_ir</declname>
+          <defval>8</defval>
         </param>
         <param>
           <type>float</type>
@@ -12354,7 +12359,7 @@ This is an overloaded member function, provided for convenience. It differs from
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>talus<sp/>=<sp/>1.f<sp/>/<sp/>float(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Base<sp/>snow<sp/>mantle<sp/>(altitude,<sp/>slope<sp/>exclusion,<sp/>peaks)</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>snow_base<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1af2ee82a98c08071293b445ca37668b77" kindref="member">hmap::gpu::snow_mantle</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>snow_base<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1ae2fae1e296687dd0fb94a4720b42e54d" kindref="member">hmap::gpu::snow_mantle</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>strength,<sp/></highlight><highlight class="comment">//<sp/>strength</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.45f,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>snowline</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.10f,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>falloff</highlight><highlight class="normal"></highlight></codeline>
@@ -12372,7 +12377,7 @@ This is an overloaded member function, provided for convenience. It differs from
 <codeline><highlight class="normal"><sp/><sp/>);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Windward<sp/>vs<sp/>Leeward<sp/>directional<sp/>bias<sp/>(wind<sp/>from<sp/>West<sp/>-&gt;<sp/>azimuth<sp/>270<sp/>deg)</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>snow_wind<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1af2ee82a98c08071293b445ca37668b77" kindref="member">hmap::gpu::snow_mantle</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>snow_wind<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1ae2fae1e296687dd0fb94a4720b42e54d" kindref="member">hmap::gpu::snow_mantle</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.45f,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.10f,</highlight></codeline>
@@ -12396,7 +12401,7 @@ This is an overloaded member function, provided for convenience. It differs from
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(<ref refid="namespacehmap_1_1gpu_1a10ace74a842f9d2dc1f15dde91263a40" kindref="member">noise</ref>,<sp/>0.2f,<sp/>1.f);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Full<sp/>mantle<sp/>with<sp/>solar<sp/>melt,<sp/>texture<sp/>noise,<sp/>and<sp/>downhill<sp/>GPU<sp/>thermal<sp/>flow</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>snow_full<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1af2ee82a98c08071293b445ca37668b77" kindref="member">hmap::gpu::snow_mantle</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>snow_full<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1ae2fae1e296687dd0fb94a4720b42e54d" kindref="member">hmap::gpu::snow_mantle</ref>(</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>0.45f,</highlight></codeline>
@@ -12432,7 +12437,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/snow_mantle.cpp" line="22" column="7" bodyfile="HighMap/src/hydrology/snow_mantle.cpp" bodystart="22" bodyend="225" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1366" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/snow_mantle.cpp" line="22" column="7" bodyfile="HighMap/src/hydrology/snow_mantle.cpp" bodystart="22" bodyend="235" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1366" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ab2b13ab0053ffacaf2d2da56a59f1781" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -12709,7 +12714,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/snow_simulation.cpp" line="90" column="7" bodyfile="HighMap/src/hydrology/snow_simulation.cpp" bodystart="90" bodyend="211" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1419" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/snow_simulation.cpp" line="90" column="7" bodyfile="HighMap/src/hydrology/snow_simulation.cpp" bodystart="90" bodyend="211" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1420" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a687d85d20bee065ffabeecea9124f432" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -12809,7 +12814,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="369" column="6" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="369" bodyend="411" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1450" declcolumn="6"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="369" column="6" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="369" bodyend="411" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1451" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a4b9ba3dd7bc6c093329b262fd4ca8f6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -12837,7 +12842,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="438" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="438" bodyend="468" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1458" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="438" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="438" bodyend="468" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1459" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1a703eaf095338c94f1b6589a5b8a650fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -12875,7 +12880,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/water_depth.cpp" line="413" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="413" bodyend="436" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1463" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/water_depth.cpp" line="413" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="413" bodyend="436" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1464" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1_1gpu_1ac6263cc13b02f77fddd917b8fe4f2662" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
