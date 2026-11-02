@@ -89,11 +89,11 @@ struct TerrainTextureParams
   glm::vec3 rock = {0.53f, 0.50f, 0.46f};
   glm::vec3 ridge = {0.71f, 0.70f, 0.68f};
   glm::vec3 snow = {0.94f, 0.95f, 0.97f};
-  float     rock_slope = 3.f;
+  float     rock_talus = 0.003f;
   float     rock_edge = 0.15f;
   float     strata = 0.35f;
   float     streaks = 0.8f;
-  float     streak_length = 0.06f;
+  int       streak_length = 60;
   float     flow = 0.8f;
   float     flow_width = 0.5f;
   float     deposition = 0.5f;
@@ -104,7 +104,7 @@ struct TerrainTextureParams
   float     color_noise = 1.f;
   float     detail = 1.f;
   float     cavity = 0.6f;
-  float     region_radius = 0.05f;
+  int       ir_region = 50;
 };
 
 /**

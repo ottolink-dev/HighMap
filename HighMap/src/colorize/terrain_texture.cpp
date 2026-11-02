@@ -46,7 +46,7 @@ Texture terrain_texture(const Array                &z,
   const int        ny = shape.y;
 
   // pixel radii computed from a single reference scale (region radius)
-  const int ir_region = std::max(1, int(p.region_radius * float(nx)));
+  const int ir_region = std::max(1, p.ir_region);
   const int ir_crest = std::max(1, int(ir_region / 5.f));
   const int ir_fine = std::max(1, int(ir_region / 20.f));
   const int ir_smooth = std::max(1, int(ir_region / 25.6f));
@@ -60,9 +60,7 @@ Texture terrain_texture(const Array                &z,
   smooth_cpulse(zs, ir_smooth);
 
   Array gx, gy;
-  Array slope = gradient_norm(zs, &gx, &gy) * float(nx);
-  gx *= float(nx);
-  gy *= float(nx);
+  Array slope = gradient_norm(zs, &gx, &gy);
 
   const Array fine = topographic_residual(z, ir_fine, true);
   const Array crest = topographic_residual(z, ir_crest, true);
@@ -165,10 +163,8 @@ Texture terrain_texture(const Array                &z,
                      (0.75f + 0.25f * n_fine(i, j));
     }
 
-  const float streak_px = p.streak_length * nx;
-  const int   streak_steps = std::clamp(int(streak_px), 0, nx);
-  const float streak_step = streak_steps ? streak_px / streak_steps : 0.f;
-  const int   rill_steps = std::clamp(nx / 96, 3, 24);
+  const int streak_steps = std::max(0, p.streak_length);
+  const int rill_steps = std::max(1, int(ir_region / 5.f));
 
   Array streak(shape), rill(shape);
 
@@ -209,7 +205,7 @@ Texture terrain_texture(const Array                &z,
 
       float best = source(i, j);
       walk(streak_steps,
-           streak_step,
+           1.f,
            [&](int s, int ci, int cj)
            {
              best = std::max(best,
@@ -231,7 +227,7 @@ Texture terrain_texture(const Array                &z,
     for (int i = 0; i < nx; ++i)
     {
       const float h = (z(i, j) - zmin) / zrange;
-      const float s = slope(i, j) / p.rock_slope; // 1 where rock takes over
+      const float s = slope(i, j) / p.rock_talus; // 1 where rock takes over
       const float c = crest(i, j);
       const float r = region(i, j);
       const float nl = n_large(i, j);
