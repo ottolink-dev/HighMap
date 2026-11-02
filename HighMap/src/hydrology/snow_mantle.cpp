@@ -23,6 +23,7 @@ Array snow_mantle(const Array &z,
                   float        strength,
                   float        snowline,
                   float        falloff,
+                  int          prefilter_ir,
                   float        talus_coverage,
                   float        talus_threshold,
                   float        directional,
@@ -67,14 +68,23 @@ Array snow_mantle(const Array &z,
                                                    alt_max);
   }
 
+  // --- Filtered elevation for gradients
+
+  Array zf;
+
+  if (talus_coverage > 0.f || directional > 0.f)
+  {
+    zf = z;
+    gpu::smooth_cpulse(zf, prefilter_ir);
+  }
+
   // --- Talus exclusion factor: steep talus slopes shed snow
 
   Array talus_factor(shape, 1.f);
 
   if (talus_coverage > 0.f)
   {
-    Array talus = gradient_talus(z);
-
+    Array       talus = gradient_norm(zf);
     const float talus_upper = talus_threshold * 1.5f + 1e-9f;
 
     for (int k = 0; k < n_pixels; ++k)
@@ -88,14 +98,14 @@ Array snow_mantle(const Array &z,
 
   Array wind_factor(shape, 1.f);
 
-  if (std::abs(directional) > 1e-5f)
+  if (directional > 0.f)
   {
     const float wind_rad = M_PI * wind_direction / 180.f;
     const float cos_w = std::cos(wind_rad);
     const float sin_w = std::sin(wind_rad);
 
-    Array dx = gradient_x(z) * float(shape.x);
-    Array dy = gradient_y(z) * float(shape.y);
+    Array dx = gradient_x(zf) * float(shape.x);
+    Array dy = gradient_y(zf) * float(shape.y);
 
     for (int k = 0; k < n_pixels; ++k)
     {
