@@ -13,6 +13,7 @@ var classhmap_1_1VirtualTexture =
     [ "get_arrays", "classhmap_1_1VirtualTexture.html#aef2c4583c0f5cc97123cbd95375c0747", null ],
     [ "fill", "classhmap_1_1VirtualTexture.html#a2b5ec03d42a1570a9706bfbc653e5a0b", null ],
     [ "fill", "classhmap_1_1VirtualTexture.html#add7dea2080424adca079a955625f77fc", null ],
+    [ "sync_overlap_buffers", "classhmap_1_1VirtualTexture.html#a02cf0e91c5b4aade97a94c1303291464", null ],
     [ "from_arrays", "classhmap_1_1VirtualTexture.html#a26d24df0ac625d8b46c78f45e06638a9", null ],
     [ "to_img_8bit", "classhmap_1_1VirtualTexture.html#a1bfe8a01c2605b6a464d1e2f96165452", null ],
     [ "to_png", "classhmap_1_1VirtualTexture.html#ac63588628e2189680a479c6779bc93fe", null ],

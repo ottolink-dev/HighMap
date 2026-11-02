@@ -155,6 +155,25 @@
         </inbodydescription>
         <location file="tests/src/test_virtual_texture.cpp" line="150" column="1" bodyfile="tests/src/test_virtual_texture.cpp" bodystart="150" bodyend="161"/>
       </memberdef>
+      <memberdef kind="function" id="test__virtual__texture_8cpp_1a222f8b17f98679a61dfb6ff589fe7bdf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(VirtualTextureTest, SyncOverlapBuffers)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>VirtualTextureTest</type>
+        </param>
+        <param>
+          <type>SyncOverlapBuffers</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_virtual_texture.cpp" line="163" column="1" bodyfile="tests/src/test_virtual_texture.cpp" bodystart="163" bodyend="209"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -322,6 +341,55 @@
 <codeline lineno="159"><highlight class="normal"><sp/><sp/>tex.trim_storage();</highlight></codeline>
 <codeline lineno="160"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tex.live_memory_bytes(),<sp/>0);</highlight></codeline>
 <codeline lineno="161"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><ref refid="test__virtual__texture_8cpp_1a6a684795a5cdb9182ffc190ed1b3ae12" kindref="member">TEST</ref>(VirtualTextureTest,<sp/>SyncOverlapBuffers)</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>{32,<sp/>16};</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/>tile_shape{16,<sp/>16};</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>tile_shape,<sp/>halo,<sp/>2,<sp/>StorageMode::VA_RAM);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/>ForEachMode::VA_SEQUENTIAL};</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Fill<sp/>channel<sp/>0<sp/>tile<sp/>0<sp/>with<sp/>0.0f,<sp/>tile<sp/>1<sp/>with<sp/>1.0f</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Fill<sp/>channel<sp/>1<sp/>tile<sp/>0<sp/>with<sp/>2.0f,<sp/>tile<sp/>1<sp/>with<sp/>4.0f</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">for_each_tile</ref>(</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tex,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](std::vector&lt;Array<sp/>*&gt;<sp/>&amp;chs,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>&amp;region)</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(region.<ref refid="structhmap_1_1TileRegion_1afb89981844bdc0270441e8464f00ccdc" kindref="member">key</ref>.<ref refid="structhmap_1_1TileKey_1aa1b61a92a4562444455e7461cd65d642" kindref="member">tx</ref><sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*chs[0]<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*chs[1]<sp/>=<sp/>2.0f;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*chs[0]<sp/>=<sp/>1.0f;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*chs[1]<sp/>=<sp/>4.0f;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/>tex.sync_overlap_buffers(SyncOperation::Average);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c<sp/>=<sp/>0;<sp/>c<sp/>&lt;<sp/>tex.channels();<sp/>++c)</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;va<sp/>=<sp/>tex.channel(c);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r0<sp/>=<sp/>va.tile_region_from_tile_coords(0,<sp/>0);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r1<sp/>=<sp/>va.tile_region_from_tile_coords(1,<sp/>0);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t0<sp/>=<sp/>va.storage-&gt;get_tile(r0);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t1<sp/>=<sp/>va.storage-&gt;get_tile(r1);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>pbuf<sp/>=<sp/>t0.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x<sp/>-<sp/>2<sp/>*<sp/>halo;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>expected<sp/>=<sp/>(c<sp/>==<sp/>0)<sp/>?<sp/>0.5f<sp/>:<sp/>3.0f;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t0(pbuf,<sp/>0),<sp/>expected);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t1(0,<sp/>0),<sp/>expected);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/>va.storage-&gt;release_tile(r0);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/>va.storage-&gt;release_tile(r1);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="tests/src/test_virtual_texture.cpp"/>
   </compounddef>

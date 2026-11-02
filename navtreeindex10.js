@@ -1,5 +1,7 @@
 var NAVTREEINDEX10 =
 {
+"dendry_8cpp.html#ae067755e4e2def08c3e4e94834cb2977":[16,0,1,1,30,0,0,0],
+"dendry__array__control__function_8hpp.html":[16,0,1,0,0,7,0],
 "dendry__array__control__function_8hpp_source.html":[16,0,1,0,0,7,0],
 "deposition_8cpp.html":[16,0,1,1,12,1],
 "deposition_8cpp.html#a26ed284f1df761074c2a49a2fbbd582e":[16,0,1,1,12,1,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX10 =
 "export__image_8cpp.html#ac03889bf117b31a2593da9d4b7b64716":[16,0,1,1,13,5,8],
 "export__image_8cpp.html#ad497dd32ecb09e688cd8434317295e4d":[16,0,1,1,13,5,1],
 "export__image_8cpp.html#ae45c9c8f938fb4f94a3a3816d16bcc36":[16,0,1,1,13,5,0],
-"export__normal__map_8cpp.html":[16,0,1,1,13,6],
-"export__normal__map_8cpp.html#a9648a23e61a84a702d89159d516dd4ec":[16,0,1,1,13,6,0],
-"export__points__to__ply_8cpp.html":[16,0,1,1,13,7]
+"export__normal__map_8cpp.html":[16,0,1,1,13,6]
 };

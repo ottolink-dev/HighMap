@@ -7,5 +7,6 @@ var test__virtual__texture_8cpp =
     [ "TEST", "test__virtual__texture_8cpp.html#a630e84950b1582d8f8de31f423625d0b", null ],
     [ "TEST", "test__virtual__texture_8cpp.html#aa2008a212a9fd6a3386ee3a4619f88b1", null ],
     [ "TEST", "test__virtual__texture_8cpp.html#a7bb6182dc01ee1934135f472346d6aee", null ],
-    [ "TEST", "test__virtual__texture_8cpp.html#abbe88e5ae7f80fc1aaeeb043b62ac75f", null ]
+    [ "TEST", "test__virtual__texture_8cpp.html#abbe88e5ae7f80fc1aaeeb043b62ac75f", null ],
+    [ "TEST", "test__virtual__texture_8cpp.html#a222f8b17f98679a61dfb6ff589fe7bdf", null ]
 ];
