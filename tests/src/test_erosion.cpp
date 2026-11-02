@@ -564,7 +564,7 @@ TEST(HydraulicMise, VirtualArrayComparison)
   z_va.from_array(z0, cm);
 
   // Cut-off resolution set to 64 so that tileable computation path is triggered
-  int cutoff_resolution = 64;
+  int          cutoff_resolution = 64;
   VirtualArray ze_va = va::hydraulic_mise(cm, z_va, cutoff_resolution, params);
   Array        z_from_va = ze_va.to_array(cm);
 

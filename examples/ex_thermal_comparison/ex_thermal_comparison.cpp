@@ -22,9 +22,9 @@ int main(void)
   z0 = hmap::bulkify(z0, hmap::PrimitiveType::PRIM_CONE_SMOOTH, 0.9f);
   hmap::remap(z0);
 
-  const float talus_val = 2.5f / static_cast<float>(shape.x);
+  const float       talus_val = 2.5f / static_cast<float>(shape.x);
   const hmap::Array talus = hmap::constant(shape, talus_val);
-  const int   iterations = 30;
+  const int         iterations = 30;
 
   // 1. Standard Thermal (Musgrave / Shadertoy exchange)
   auto z_std = z0;

@@ -1170,7 +1170,8 @@ VirtualArray hydraulic_mise(const ComputeMode  &cm,
 
   glm::ivec2 total_shape = z.shape;
 
-  // If entire virtual array is within cutoff_resolution, perform full global erosion
+  // If entire virtual array is within cutoff_resolution, perform full global
+  // erosion
   if (std::max(total_shape.x, total_shape.y) <= cutoff_resolution)
   {
     Array z_full = z.to_array(cm);
@@ -1225,28 +1226,35 @@ VirtualArray hydraulic_mise(const ComputeMode  &cm,
   // --- Hybrid multi-scale distributed execution
 
   // 1. Global coarse-scale solver pass up to cutoff_resolution
-  int coarse_res = std::max(128, cutoff_resolution);
+  int        coarse_res = std::max(128, cutoff_resolution);
   glm::ivec2 coarse_shape;
   if (total_shape.x >= total_shape.y)
   {
     coarse_shape.x = coarse_res;
-    coarse_shape.y = std::max(64, (int)((int64_t)total_shape.y * coarse_res / total_shape.x));
+    coarse_shape.y = std::max(
+        64,
+        (int)((int64_t)total_shape.y * coarse_res / total_shape.x));
   }
   else
   {
     coarse_shape.y = coarse_res;
-    coarse_shape.x = std::max(64, (int)((int64_t)total_shape.x * coarse_res / total_shape.y));
+    coarse_shape.x = std::max(
+        64,
+        (int)((int64_t)total_shape.x * coarse_res / total_shape.y));
   }
 
   Array z_coarse = z.to_array(coarse_shape, cm);
   Array bedrock_c = p_bedrock ? p_bedrock->to_array(coarse_shape, cm) : Array();
-  Array erod_c = p_erodibility ? p_erodibility->to_array(coarse_shape, cm) : Array();
-  Array moist_c = p_moisture_map ? p_moisture_map->to_array(coarse_shape, cm) : Array();
+  Array erod_c = p_erodibility ? p_erodibility->to_array(coarse_shape, cm)
+                               : Array();
+  Array moist_c = p_moisture_map ? p_moisture_map->to_array(coarse_shape, cm)
+                                 : Array();
   Array outlet_c = p_outlet ? p_outlet->to_array(coarse_shape, cm) : Array();
   Array mask_c = p_mask ? p_mask->to_array(coarse_shape, cm) : Array();
 
   MiseParams coarse_params = params;
-  coarse_params.base_res = std::min(params.base_res, std::min(coarse_shape.x, coarse_shape.y));
+  coarse_params.base_res = std::min(params.base_res,
+                                    std::min(coarse_shape.x, coarse_shape.y));
 
   Array sed_c, flow_c;
   hydraulic_mise(z_coarse,
@@ -1291,8 +1299,8 @@ VirtualArray hydraulic_mise(const ComputeMode  &cm,
       in_arrays,
       {&out},
       [&](std::vector<const hmap::Array *> /* p_arrays_in */,
-          std::vector<hmap::Array *>       p_arrays_out,
-          const hmap::TileRegion          & /* region */)
+          std::vector<hmap::Array *> p_arrays_out,
+          const hmap::TileRegion & /* region */)
       {
         auto [pa_out] = unpack<1>(p_arrays_out);
         if (!pa_out || pa_out->vector.empty()) return;
@@ -1322,13 +1330,12 @@ VirtualArray hydraulic_mise(const ComputeMode  &cm,
         {&out},
         [&](std::vector<const hmap::Array *> p_arrays_in,
             std::vector<hmap::Array *>       p_arrays_out,
-            const hmap::TileRegion          &)
+            const hmap::TileRegion &)
         {
           auto [pa_z, pa_m] = unpack<2>(p_arrays_in);
           auto [pa_out] = unpack<1>(p_arrays_out);
 
-          if (pa_m)
-            *pa_out = lerp(*pa_z, *pa_out, *pa_m);
+          if (pa_m) *pa_out = lerp(*pa_z, *pa_out, *pa_m);
         },
         cm);
   }
@@ -1342,7 +1349,7 @@ VirtualArray hydraulic_mise(const ComputeMode  &cm,
         {p_erosion_map},
         [&](std::vector<const hmap::Array *> p_arrays_in,
             std::vector<hmap::Array *>       p_arrays_out,
-            const hmap::TileRegion          &)
+            const hmap::TileRegion &)
         {
           auto [pa_z, pa_out] = unpack<2>(p_arrays_in);
           auto [pa_ero] = unpack<1>(p_arrays_out);
@@ -1360,7 +1367,7 @@ VirtualArray hydraulic_mise(const ComputeMode  &cm,
         {p_deposition_map},
         [&](std::vector<const hmap::Array *> p_arrays_in,
             std::vector<hmap::Array *>       p_arrays_out,
-            const hmap::TileRegion          &)
+            const hmap::TileRegion &)
         {
           auto [pa_z, pa_out] = unpack<2>(p_arrays_in);
           auto [pa_dep] = unpack<1>(p_arrays_out);

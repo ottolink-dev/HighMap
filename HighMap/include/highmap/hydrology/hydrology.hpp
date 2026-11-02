@@ -1323,6 +1323,66 @@ Array generate_riverbed(const Path &path,
                         Array      *p_noise_r = nullptr);
 
 /**
+ * @brief Generates fine-scale snow mantle accumulation over terrain.
+ *
+ * Distinct from hydrodynamic snow simulation, this function computes a
+ * lightweight, natural surface snow coating influenced by altitude, slope, wind
+ * exposure, ridge accumulation, solar melting, micro-texture, and downhill
+ * redistribution via mass-preserving GPU thermal transport.
+ *
+ * @param  z                Underlying terrain heightmap.
+ * @param  strength         Overall snow depth/thickness scaling.
+ * @param  snowline         Altitude above which snow begins to accumulate.
+ * @param  falloff          Transition width around the snowline.
+ * @param  slope_coverage   Exclusion factor for steep slopes (0 = sticks to all
+ *                          slopes, 1 = excluded).
+ * @param  slope_threshold  Talus slope threshold above which snow begins
+ *                          shedding.
+ * @param  directional      Wind exposure accumulation factor (leeward gain,
+ *                          windward loss).
+ * @param  wind_direction   Wind azimuth in degrees.
+ * @param  peaks            Extra accumulation factor on ridges and convex
+ *                          peaks.
+ * @param  melt             Solar melting factor.
+ * @param  sun_azimuth      Sun azimuth in degrees for melting.
+ * @param  sun_zenith       Sun zenith in degrees for melting.
+ * @param  flow_iterations  Iterations of GPU mass-preserving thermal transport
+ *                          (0 disables flow).
+ * @param  flow_talus_ratio Repose talus ratio for snow downhill flow.
+ * @param  coverage         Coverage expansion/contraction via thresholding.
+ * @param  p_existing_snow  Optional existing snow layer to accumulate upon.
+ * @param  p_mask           Optional spatial accumulation mask.
+ * @param  p_noise          Optional external noise array to modulate snow
+ *                          accumulation.
+ *
+ * @return                  Snow depth field.
+ *
+ * **Example**
+ * @include ex_snow_mantle.cpp
+ *
+ * **Result**
+ * @image html ex_snow_mantle.png
+ */
+Array snow_mantle(const Array &z,
+                  float        strength = 0.1f,
+                  float        snowline = 0.5f,
+                  float        falloff = 0.1f,
+                  float        slope_coverage = 0.8f,
+                  float        slope_threshold = 0.6f,
+                  float        directional = 0.f,
+                  float        wind_direction = 0.f,
+                  float        peaks = 0.2f,
+                  float        melt = 0.f,
+                  float        sun_azimuth = 180.f,
+                  float        sun_zenith = 45.f,
+                  int          flow_iterations = 15,
+                  float        flow_talus_ratio = 0.15f,
+                  float        coverage = 0.5f,
+                  const Array *p_existing_snow = nullptr,
+                  const Array *p_mask = nullptr,
+                  const Array *p_noise = nullptr);
+
+/**
  * @brief Simulate snow accumulation and redistribution over a terrain.
  *
  * Models snow fall, depth-dependent avalanching (above repose angle) and

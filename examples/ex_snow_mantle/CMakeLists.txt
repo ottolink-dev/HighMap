@@ -1,0 +1,2 @@
+add_executable(ex_snow_mantle ex_snow_mantle.cpp)
+target_link_libraries(ex_snow_mantle highmap)

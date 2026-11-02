@@ -25,32 +25,31 @@ int main(void)
 
   // --- 1. Hydraulic Particle Erosion (Lagrangian Droplets)
 
-  auto z_particle = z0;
+  auto      z_particle = z0;
   const int nparticles = static_cast<int>(0.6f * shape.x * shape.y);
 
-  hmap::gpu::hydraulic_particle(
-      z_particle,
-      nparticles,
-      seed,
-      /* p_bedrock */ nullptr,
-      /* p_moisture_map */ nullptr,
-      /* p_elevation_shift */ nullptr,
-      /* p_erosion_map */ nullptr,
-      /* p_deposition_map */ nullptr,
-      /* c_capacity */ 10.f,
-      /* c_erosion */ 0.08f,
-      /* c_deposition */ 0.08f,
-      /* c_inertia */ 0.05f,
-      /* c_gravity */ 1.f,
-      /* drag_rate */ 0.001f,
-      /* evap_rate */ 0.001f,
-      /* talus_slope */ 2.f,
-      /* collapse_rate */ 0.2f,
-      /* iterations */ 4);
+  hmap::gpu::hydraulic_particle(z_particle,
+                                nparticles,
+                                seed,
+                                /* p_bedrock */ nullptr,
+                                /* p_moisture_map */ nullptr,
+                                /* p_elevation_shift */ nullptr,
+                                /* p_erosion_map */ nullptr,
+                                /* p_deposition_map */ nullptr,
+                                /* c_capacity */ 10.f,
+                                /* c_erosion */ 0.08f,
+                                /* c_deposition */ 0.08f,
+                                /* c_inertia */ 0.05f,
+                                /* c_gravity */ 1.f,
+                                /* drag_rate */ 0.001f,
+                                /* evap_rate */ 0.001f,
+                                /* talus_slope */ 2.f,
+                                /* collapse_rate */ 0.2f,
+                                /* iterations */ 4);
 
   // --- 2. Hydraulic Stream Log Erosion (Eulerian D-inf Stream Power)
 
-  auto z_stream = z0;
+  auto        z_stream = z0;
   const float c_erosion_stream = 0.2f;
   const float talus_ref = 4.f / static_cast<float>(shape.x);
   const int   deposition_ir = 32;
@@ -63,7 +62,7 @@ int main(void)
 
   // --- 3. Hydraulic MISE (Implicit Stream Power & Sediment Conservation)
 
-  auto z_mise = z0;
+  auto             z_mise = z0;
   hmap::MiseParams mise_params;
   mise_params.strength = 0.6f;
   mise_params.area_exp = 0.45f;

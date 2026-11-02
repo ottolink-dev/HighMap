@@ -207,4 +207,3 @@ TEST(VirtualTextureTest, SyncOverlapBuffers)
     va.storage->release_tile(r1);
   }
 }
-
