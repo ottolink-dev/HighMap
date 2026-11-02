@@ -23,28 +23,25 @@ Array snow_mantle(const Array &z,
                   float        strength,
                   float        snowline,
                   float        falloff,
-                  float        slope_coverage,
-                  float        slope_threshold,
+                  float        talus_coverage,
+                  float        talus_threshold,
                   float        directional,
                   float        wind_direction,
                   float        peaks,
                   float        melt,
                   float        sun_azimuth,
                   float        sun_zenith,
-                  int          flow_iterations,
-                  float        flow_talus_ratio,
+                  int          thermal_iterations,
+                  float        thermal_talus,
                   float        coverage,
                   const Array *p_existing_snow,
                   const Array *p_mask,
                   const Array *p_noise)
 {
   if (!validate_non_empty(z)) return Array();
-
   if (p_existing_snow && !validate_same_shape(z, *p_existing_snow))
     return Array();
-
   if (p_mask && !validate_same_shape(z, *p_mask)) return Array();
-
   if (p_noise && !validate_same_shape(z, *p_noise)) return Array();
 
   const glm::ivec2 shape = z.shape;
@@ -57,7 +54,7 @@ Array snow_mantle(const Array &z,
 
   Array altitude_factor(shape);
 
-  if (alt_max <= alt_min + 1e-6f)
+  if (alt_max <= alt_min + 1e-9f)
   {
     for (int k = 0; k < n_pixels; ++k)
       altitude_factor.vector[k] = z.vector[k] >= snowline ? 1.f : 0.f;
@@ -65,23 +62,25 @@ Array snow_mantle(const Array &z,
   else
   {
     for (int k = 0; k < n_pixels; ++k)
-      altitude_factor.vector[k] = smoothstep3(z.vector[k], alt_min, alt_max);
+      altitude_factor.vector[k] = threshold_smooth(z.vector[k],
+                                                   alt_min,
+                                                   alt_max);
   }
 
-  // --- Slope exclusion factor: steep slopes shed snow
+  // --- Talus exclusion factor: steep talus slopes shed snow
 
-  Array slope_factor(shape, 1.f);
+  Array talus_factor(shape, 1.f);
 
-  if (slope_coverage > 0.f)
+  if (talus_coverage > 0.f)
   {
     Array talus = gradient_talus(z);
 
-    const float talus_upper = slope_threshold * 1.5f + 1e-4f;
+    const float talus_upper = talus_threshold * 1.5f + 1e-9f;
 
     for (int k = 0; k < n_pixels; ++k)
     {
-      float s = smoothstep3(talus.vector[k], slope_threshold, talus_upper);
-      slope_factor.vector[k] = 1.f - slope_coverage * s;
+      float s = threshold_smooth(talus.vector[k], talus_threshold, talus_upper);
+      talus_factor.vector[k] = 1.f - talus_coverage * s;
     }
   }
 
@@ -138,7 +137,7 @@ Array snow_mantle(const Array &z,
 
   for (int k = 0; k < n_pixels; ++k)
   {
-    b.vector[k] = altitude_factor.vector[k] * slope_factor.vector[k] *
+    b.vector[k] = altitude_factor.vector[k] * talus_factor.vector[k] *
                   wind_factor.vector[k] * peak_factor.vector[k];
   }
 
@@ -179,28 +178,25 @@ Array snow_mantle(const Array &z,
     const float cov_min = 1.f - coverage;
 
     for (int k = 0; k < n_pixels; ++k)
-      b.vector[k] = smoothstep3(b.vector[k], cov_min, 1.f);
+      b.vector[k] = threshold_smooth(b.vector[k], cov_min, 1.f);
   }
 
   // --- Apply global strength
 
   b *= strength;
 
-  // --- Downhill redistribution (Flow) via mass-preserving GPU thermal
-  // transport
+  // --- Downhill redistribution via mass-preserving GPU thermal transport
 
-  if (flow_iterations > 0)
+  if (thermal_iterations > 0)
   {
     Array z_wrk = z + b;
-
     Array snow_mask = b / std::max(b.max(), 1e-6f);
-
-    Array talus_map(shape, flow_talus_ratio / float(shape.x));
+    Array talus_map(shape, thermal_talus);
 
     gpu::thermal_conserve(z_wrk,
                           &snow_mask,
                           talus_map,
-                          flow_iterations,
+                          thermal_iterations,
                           0.5f,
                           &z);
 

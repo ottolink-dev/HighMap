@@ -21,20 +21,20 @@ TEST(SnowMantle, BasicAccumulation)
   remap(z, 0.f, 1.f);
 
   Array s = gpu::snow_mantle(z,
-                             0.1f,  // strength
-                             0.5f,  // snowline
-                             0.1f,  // falloff
-                             0.8f,  // slope_coverage
-                             0.6f,  // slope_threshold
-                             0.0f,  // directional
-                             0.0f,  // wind_direction
-                             0.0f,  // peaks
-                             0.0f,  // melt
-                             180.f, // sun_azimuth
-                             45.f,  // sun_zenith
-                             0,     // flow_iterations
-                             0.15f, // flow_talus_ratio
-                             0.5f); // coverage
+                             0.1f,                  // strength
+                             0.5f,                  // snowline
+                             0.1f,                  // falloff
+                             0.8f,                  // talus_coverage
+                             0.6f / float(shape.x), // talus_threshold
+                             0.0f,                  // directional
+                             0.0f,                  // wind_direction
+                             0.0f,                  // peaks
+                             0.0f,                  // melt
+                             180.f,                 // sun_azimuth
+                             45.f,                  // sun_zenith
+                             0,                     // thermal_iterations
+                             0.15f,                 // thermal_talus
+                             0.5f);                 // coverage
 
   EXPECT_EQ(s.shape, shape);
   EXPECT_GE(s.min(), 0.f);
@@ -71,7 +71,7 @@ TEST(SnowMantle, FlowPreservesNonNegativityAndSmooths)
                                     0.4f,
                                     0.1f,
                                     0.5f,
-                                    0.5f,
+                                    0.5f / float(shape.x),
                                     0.f,
                                     0.f,
                                     0.f,
@@ -84,7 +84,7 @@ TEST(SnowMantle, FlowPreservesNonNegativityAndSmooths)
                                   0.4f,
                                   0.1f,
                                   0.5f,
-                                  0.5f,
+                                  0.5f / float(shape.x),
                                   0.f,
                                   0.f,
                                   0.f,
@@ -111,7 +111,7 @@ TEST(SnowMantle, MeltingReducesSnowVolume)
                                     0.3f,
                                     0.1f,
                                     0.5f,
-                                    0.5f,
+                                    0.5f / float(shape.x),
                                     0.f,
                                     0.f,
                                     0.f,
@@ -124,7 +124,7 @@ TEST(SnowMantle, MeltingReducesSnowVolume)
                                   0.3f,
                                   0.1f,
                                   0.5f,
-                                  0.5f,
+                                  0.5f / float(shape.x),
                                   0.f,
                                   0.f,
                                   0.f,
@@ -194,7 +194,7 @@ TEST(SnowMantle, NoiseModulation)
                                    0.3f,
                                    0.1f,
                                    0.5f,
-                                   0.5f,
+                                   0.5f / float(shape.x),
                                    0.f,
                                    0.f,
                                    0.f,
@@ -209,7 +209,7 @@ TEST(SnowMantle, NoiseModulation)
                                    0.3f,
                                    0.1f,
                                    0.5f,
-                                   0.5f,
+                                   0.5f / float(shape.x),
                                    0.f,
                                    0.f,
                                    0.f,

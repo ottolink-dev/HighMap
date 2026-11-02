@@ -13,39 +13,42 @@ int main(void)
   z = hmap::bulkify(z, hmap::PrimitiveType::PRIM_CUBIC_PULSE, 1.f);
   hmap::remap(z);
 
+  const float strength = 0.05f;
+  const float talus = 1.f / float(shape.x);
+
   // Base snow mantle (altitude, slope exclusion, peaks)
   hmap::Array snow_base = hmap::gpu::snow_mantle(z,
-                                                 0.12f, // strength
-                                                 0.45f, // snowline
-                                                 0.10f, // falloff
-                                                 0.80f, // slope_coverage
-                                                 0.60f, // slope_threshold
-                                                 0.00f, // directional
-                                                 0.00f, // wind_direction
-                                                 0.30f, // peaks
-                                                 0.00f, // melt
-                                                 180.f, // sun_azimuth
-                                                 45.f,  // sun_zenith
-                                                 0,     // flow_iterations
-                                                 0.15f, // flow_talus_ratio
-                                                 0.50f  // coverage
+                                                 strength, // strength
+                                                 0.45f,    // snowline
+                                                 0.10f,    // falloff
+                                                 0.80f,    // talus_coverage
+                                                 talus,    // talus_threshold
+                                                 0.00f,    // directional
+                                                 0.00f,    // wind_direction
+                                                 0.30f,    // peaks
+                                                 0.00f,    // melt
+                                                 180.f,    // sun_azimuth
+                                                 45.f,     // sun_zenith
+                                                 100,      // thermal_iterations
+                                                 talus,    // thermal_talus
+                                                 0.50f     // coverage
   );
 
   // Windward vs Leeward directional bias (wind from West -> azimuth 270 deg)
   hmap::Array snow_wind = hmap::gpu::snow_mantle(z,
-                                                 0.12f,
+                                                 strength,
                                                  0.45f,
                                                  0.10f,
                                                  0.80f,
-                                                 0.60f,
-                                                 0.60f, // directional bias
+                                                 talus,
+                                                 1.00f, // directional bias
                                                  270.f, // wind azimuth
                                                  0.30f,
                                                  0.00f,
                                                  180.f,
                                                  45.f,
                                                  0,
-                                                 0.15f,
+                                                 talus,
                                                  0.50f);
 
   // Optional high-frequency texture noise
@@ -58,19 +61,19 @@ int main(void)
   // Full mantle with solar melt, texture noise, and downhill GPU thermal flow
   hmap::Array snow_full = hmap::gpu::snow_mantle(
       z,
-      0.12f,
+      strength,
       0.45f,
       0.10f,
       0.80f,
-      0.60f,
+      talus,
       0.40f,
       270.f,
       0.30f,
       0.50f, // melt
       180.f,
       45.f,
-      15, // flow_iterations (GPU thermal_conserve)
-      0.15f,
+      100,   // thermal_iterations (GPU thermal_conserve)
+      talus, // thermal_talus
       0.50f,
       nullptr,
       nullptr,
