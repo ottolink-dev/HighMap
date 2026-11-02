@@ -66,6 +66,8 @@ public:
   void fill(float value, const ComputeMode &cm);
   void fill(int c, float value, const ComputeMode &cm);
 
+  void sync_overlap_buffers(SyncOperation op = SyncOperation::SmoothBlend);
+
   // --- Converters
 
   void from_arrays(const std::vector<const Array *> &p_arrays,

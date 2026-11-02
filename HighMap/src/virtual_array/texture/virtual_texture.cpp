@@ -136,6 +136,14 @@ void VirtualTexture::fill(int c, float value, const ComputeMode &cm)
   this->channel(c).fill(value, cm);
 }
 
+void VirtualTexture::sync_overlap_buffers(SyncOperation op)
+{
+  for (auto &va : this->get_arrays())
+  {
+    va.sync_overlap_buffers(op);
+  }
+}
+
 void VirtualTexture::from_arrays(const std::vector<const Array *> &p_arrays,
                                  const ComputeMode                &cm)
 {

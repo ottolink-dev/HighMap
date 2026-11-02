@@ -159,3 +159,52 @@ TEST(VirtualTextureTest, MemoryFootprintAndTrim)
   tex.trim_storage();
   EXPECT_EQ(tex.live_memory_bytes(), 0);
 }
+
+TEST(VirtualTextureTest, SyncOverlapBuffers)
+{
+  glm::ivec2     shape{32, 16};
+  glm::ivec2     tile_shape{16, 16};
+  int            halo = 2;
+  VirtualTexture tex(shape, tile_shape, halo, 2, StorageMode::VA_RAM);
+  ComputeMode    cm{.mode = ForEachMode::VA_SEQUENTIAL};
+
+  // Fill channel 0 tile 0 with 0.0f, tile 1 with 1.0f
+  // Fill channel 1 tile 0 with 2.0f, tile 1 with 4.0f
+  for_each_tile(
+      tex,
+      [&](std::vector<Array *> &chs, const TileRegion &region)
+      {
+        if (region.key.tx == 0)
+        {
+          *chs[0] = 0.0f;
+          *chs[1] = 2.0f;
+        }
+        else
+        {
+          *chs[0] = 1.0f;
+          *chs[1] = 4.0f;
+        }
+      },
+      cm);
+
+  tex.sync_overlap_buffers(SyncOperation::Average);
+
+  for (int c = 0; c < tex.channels(); ++c)
+  {
+    auto      &va = tex.channel(c);
+    TileRegion r0 = va.tile_region_from_tile_coords(0, 0);
+    TileRegion r1 = va.tile_region_from_tile_coords(1, 0);
+    Array     &t0 = va.storage->get_tile(r0);
+    Array     &t1 = va.storage->get_tile(r1);
+
+    int   pbuf = t0.shape.x - 2 * halo;
+    float expected = (c == 0) ? 0.5f : 3.0f;
+
+    EXPECT_FLOAT_EQ(t0(pbuf, 0), expected);
+    EXPECT_FLOAT_EQ(t1(0, 0), expected);
+
+    va.storage->release_tile(r0);
+    va.storage->release_tile(r1);
+  }
+}
+
