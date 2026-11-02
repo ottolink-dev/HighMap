@@ -78,6 +78,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_skeleton.cpp", "test__skeleton_8cpp.html", "test__skeleton_8cpp" ],
     [ "test_sls_deformation.cpp", "test__sls__deformation_8cpp.html", "test__sls__deformation_8cpp" ],
     [ "test_smooth_cpulse.cpp", "test__smooth__cpulse_8cpp.html", "test__smooth__cpulse_8cpp" ],
+    [ "test_snow_mantle.cpp", "test__snow__mantle_8cpp.html", "test__snow__mantle_8cpp" ],
     [ "test_snow_simulation.cpp", "test__snow__simulation_8cpp.html", "test__snow__simulation_8cpp" ],
     [ "test_splines.cpp", "test__splines_8cpp.html", "test__splines_8cpp" ],
     [ "test_terrain_super_resolution.cpp", "test__terrain__super__resolution_8cpp.html", "test__terrain__super__resolution_8cpp" ],

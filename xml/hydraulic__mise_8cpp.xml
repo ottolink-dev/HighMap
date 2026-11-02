@@ -1702,210 +1702,217 @@
 <codeline lineno="1170"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1171"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>total_shape<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>.<ref refid="structhmap_1_1VirtualArray_1ab4cb9cb20eb23bc7b1026da3486be975" kindref="member">shape</ref>;</highlight></codeline>
 <codeline lineno="1172"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1173"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>entire<sp/>virtual<sp/>array<sp/>is<sp/>within<sp/>cutoff_resolution,<sp/>perform<sp/>full<sp/>global<sp/>erosion</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1174"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::max(total_shape.x,<sp/>total_shape.y)<sp/>&lt;=<sp/>cutoff_resolution)</highlight></codeline>
-<codeline lineno="1175"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1176"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>z_full<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>.to_array(cm);</highlight></codeline>
-<codeline lineno="1177"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1178"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/><ref refid="hydraulic__mise_8cpp_1abf130fcd985b61918da6234c9d89b5be" kindref="member">bedrock</ref><sp/>=<sp/>p_bedrock<sp/>?<sp/>p_bedrock-&gt;to_array(cm)<sp/>:<sp/>Array();</highlight></codeline>
-<codeline lineno="1179"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/><ref refid="hydraulic__mise_8cpp_1aea391a706628d8001fa6d048d4a28ef5" kindref="member">erodibility</ref><sp/>=<sp/>p_erodibility<sp/>?<sp/>p_erodibility-&gt;to_array(cm)<sp/>:<sp/>Array();</highlight></codeline>
-<codeline lineno="1180"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>moisture<sp/>=<sp/>p_moisture_map<sp/>?<sp/>p_moisture_map-&gt;to_array(cm)<sp/>:<sp/>Array();</highlight></codeline>
-<codeline lineno="1181"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/><ref refid="hydraulic__mise_8cpp_1a04ae352a41e6a2fb1296b478e5881a66" kindref="member">outlet</ref><sp/>=<sp/>p_outlet<sp/>?<sp/>p_outlet-&gt;to_array(cm)<sp/>:<sp/>Array();</highlight></codeline>
-<codeline lineno="1182"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>mask<sp/>=<sp/>p_mask<sp/>?<sp/>p_mask-&gt;to_array(cm)<sp/>:<sp/>Array();</highlight></codeline>
-<codeline lineno="1183"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1184"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/><ref refid="hydraulic__mise_8cpp_1a948708c576e7a02ba2473d1e21aa6883" kindref="member">sed</ref>,<sp/>flow,<sp/><ref refid="hydraulic__mise_8cpp_1ab295f982f9bdacbc9b2fe90e32c5cb30" kindref="member">ero</ref>,<sp/>dep;</highlight></codeline>
-<codeline lineno="1185"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1186"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1va_1a39ee127fce3d8250c7423d10a80ce890" kindref="member">hydraulic_mise</ref>(z_full,</highlight></codeline>
-<codeline lineno="1187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_mask<sp/>?<sp/>&amp;mask<sp/>:<sp/>nullptr,</highlight></codeline>
-<codeline lineno="1188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>params,</highlight></codeline>
-<codeline lineno="1189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_bedrock<sp/>?<sp/>&amp;<ref refid="hydraulic__mise_8cpp_1abf130fcd985b61918da6234c9d89b5be" kindref="member">bedrock</ref><sp/>:<sp/>nullptr,</highlight></codeline>
-<codeline lineno="1190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_erodibility<sp/>?<sp/>&amp;<ref refid="hydraulic__mise_8cpp_1aea391a706628d8001fa6d048d4a28ef5" kindref="member">erodibility</ref><sp/>:<sp/>nullptr,</highlight></codeline>
-<codeline lineno="1191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_moisture_map<sp/>?<sp/>&amp;moisture<sp/>:<sp/>nullptr,</highlight></codeline>
-<codeline lineno="1192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_outlet<sp/>?<sp/>&amp;<ref refid="hydraulic__mise_8cpp_1a04ae352a41e6a2fb1296b478e5881a66" kindref="member">outlet</ref><sp/>:<sp/>nullptr,</highlight></codeline>
-<codeline lineno="1193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_sediment<sp/>?<sp/>&amp;<ref refid="hydraulic__mise_8cpp_1a948708c576e7a02ba2473d1e21aa6883" kindref="member">sed</ref><sp/>:<sp/>nullptr,</highlight></codeline>
-<codeline lineno="1194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_flow<sp/>?<sp/>&amp;flow<sp/>:<sp/>nullptr,</highlight></codeline>
-<codeline lineno="1195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_erosion_map<sp/>?<sp/>&amp;<ref refid="hydraulic__mise_8cpp_1ab295f982f9bdacbc9b2fe90e32c5cb30" kindref="member">ero</ref><sp/>:<sp/>nullptr,</highlight></codeline>
-<codeline lineno="1196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_deposition_map<sp/>?<sp/>&amp;dep<sp/>:<sp/>nullptr);</highlight></codeline>
-<codeline lineno="1197"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1198"><highlight class="normal"><sp/><sp/><sp/><sp/>out.<ref refid="structhmap_1_1VirtualArray_1a9ce3eecae0639f28b2784e9e1003d1bb" kindref="member">copy_from</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="comment">/*<sp/>copy_src_data<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="1199"><highlight class="normal"><sp/><sp/><sp/><sp/>out.from_array(z_full,<sp/>cm);</highlight></codeline>
-<codeline lineno="1200"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_sediment)</highlight></codeline>
-<codeline lineno="1202"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_sediment-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="1204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_sediment-&gt;from_array(<ref refid="hydraulic__mise_8cpp_1a948708c576e7a02ba2473d1e21aa6883" kindref="member">sed</ref>,<sp/>cm);</highlight></codeline>
-<codeline lineno="1205"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1206"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_flow)</highlight></codeline>
-<codeline lineno="1207"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_flow-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="1209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_flow-&gt;from_array(flow,<sp/>cm);</highlight></codeline>
-<codeline lineno="1210"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1211"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_erosion_map)</highlight></codeline>
-<codeline lineno="1212"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_erosion_map-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="1214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_erosion_map-&gt;from_array(<ref refid="hydraulic__mise_8cpp_1ab295f982f9bdacbc9b2fe90e32c5cb30" kindref="member">ero</ref>,<sp/>cm);</highlight></codeline>
-<codeline lineno="1215"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1216"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_deposition_map)</highlight></codeline>
-<codeline lineno="1217"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_deposition_map-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="1219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_deposition_map-&gt;from_array(dep,<sp/>cm);</highlight></codeline>
-<codeline lineno="1220"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1221"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1222"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>out;</highlight></codeline>
-<codeline lineno="1223"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1224"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1225"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Hybrid<sp/>multi-scale<sp/>distributed<sp/>execution</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1226"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1227"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>1.<sp/>Global<sp/>coarse-scale<sp/>solver<sp/>pass<sp/>up<sp/>to<sp/>cutoff_resolution</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1228"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>coarse_res<sp/>=<sp/>std::max(128,<sp/>cutoff_resolution);</highlight></codeline>
-<codeline lineno="1229"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>coarse_shape;</highlight></codeline>
-<codeline lineno="1230"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(total_shape.x<sp/>&gt;=<sp/>total_shape.y)</highlight></codeline>
-<codeline lineno="1231"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1232"><highlight class="normal"><sp/><sp/><sp/><sp/>coarse_shape.x<sp/>=<sp/>coarse_res;</highlight></codeline>
-<codeline lineno="1233"><highlight class="normal"><sp/><sp/><sp/><sp/>coarse_shape.y<sp/>=<sp/>std::max(64,<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)((int64_t)total_shape.y<sp/>*<sp/>coarse_res<sp/>/<sp/>total_shape.x));</highlight></codeline>
-<codeline lineno="1234"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1235"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1236"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1237"><highlight class="normal"><sp/><sp/><sp/><sp/>coarse_shape.y<sp/>=<sp/>coarse_res;</highlight></codeline>
-<codeline lineno="1238"><highlight class="normal"><sp/><sp/><sp/><sp/>coarse_shape.x<sp/>=<sp/>std::max(64,<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)((int64_t)total_shape.x<sp/>*<sp/>coarse_res<sp/>/<sp/>total_shape.y));</highlight></codeline>
-<codeline lineno="1239"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1240"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1241"><highlight class="normal"><sp/><sp/>Array<sp/>z_coarse<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>.to_array(coarse_shape,<sp/>cm);</highlight></codeline>
-<codeline lineno="1242"><highlight class="normal"><sp/><sp/>Array<sp/>bedrock_c<sp/>=<sp/>p_bedrock<sp/>?<sp/>p_bedrock-&gt;to_array(coarse_shape,<sp/>cm)<sp/>:<sp/>Array();</highlight></codeline>
-<codeline lineno="1243"><highlight class="normal"><sp/><sp/>Array<sp/>erod_c<sp/>=<sp/>p_erodibility<sp/>?<sp/>p_erodibility-&gt;to_array(coarse_shape,<sp/>cm)<sp/>:<sp/>Array();</highlight></codeline>
-<codeline lineno="1244"><highlight class="normal"><sp/><sp/>Array<sp/>moist_c<sp/>=<sp/>p_moisture_map<sp/>?<sp/>p_moisture_map-&gt;to_array(coarse_shape,<sp/>cm)<sp/>:<sp/>Array();</highlight></codeline>
-<codeline lineno="1245"><highlight class="normal"><sp/><sp/>Array<sp/>outlet_c<sp/>=<sp/>p_outlet<sp/>?<sp/>p_outlet-&gt;to_array(coarse_shape,<sp/>cm)<sp/>:<sp/>Array();</highlight></codeline>
-<codeline lineno="1246"><highlight class="normal"><sp/><sp/>Array<sp/>mask_c<sp/>=<sp/>p_mask<sp/>?<sp/>p_mask-&gt;to_array(coarse_shape,<sp/>cm)<sp/>:<sp/>Array();</highlight></codeline>
-<codeline lineno="1247"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1248"><highlight class="normal"><sp/><sp/>MiseParams<sp/>coarse_params<sp/>=<sp/>params;</highlight></codeline>
-<codeline lineno="1249"><highlight class="normal"><sp/><sp/>coarse_params.base_res<sp/>=<sp/>std::min(params.base_res,<sp/>std::min(coarse_shape.x,<sp/>coarse_shape.y));</highlight></codeline>
-<codeline lineno="1250"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1251"><highlight class="normal"><sp/><sp/>Array<sp/>sed_c,<sp/>flow_c;</highlight></codeline>
-<codeline lineno="1252"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1va_1a39ee127fce3d8250c7423d10a80ce890" kindref="member">hydraulic_mise</ref>(z_coarse,</highlight></codeline>
-<codeline lineno="1253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_mask<sp/>?<sp/>&amp;mask_c<sp/>:<sp/>nullptr,</highlight></codeline>
-<codeline lineno="1254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coarse_params,</highlight></codeline>
-<codeline lineno="1255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_bedrock<sp/>?<sp/>&amp;bedrock_c<sp/>:<sp/>nullptr,</highlight></codeline>
-<codeline lineno="1256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_erodibility<sp/>?<sp/>&amp;erod_c<sp/>:<sp/>nullptr,</highlight></codeline>
-<codeline lineno="1257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_moisture_map<sp/>?<sp/>&amp;moist_c<sp/>:<sp/>nullptr,</highlight></codeline>
-<codeline lineno="1258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_outlet<sp/>?<sp/>&amp;outlet_c<sp/>:<sp/>nullptr,</highlight></codeline>
-<codeline lineno="1259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;sed_c,</highlight></codeline>
-<codeline lineno="1260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;flow_c,</highlight></codeline>
-<codeline lineno="1261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
-<codeline lineno="1262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr);</highlight></codeline>
-<codeline lineno="1263"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1264"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Initialize<sp/>distributed<sp/>output</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1265"><highlight class="normal"><sp/><sp/>out.<ref refid="structhmap_1_1VirtualArray_1a9ce3eecae0639f28b2784e9e1003d1bb" kindref="member">copy_from</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="comment">/*<sp/>copy_src_data<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="1266"><highlight class="normal"><sp/><sp/>out.from_array_bicubic(z_coarse,<sp/>cm);</highlight></codeline>
-<codeline lineno="1267"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1268"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_sediment)</highlight></codeline>
-<codeline lineno="1269"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1270"><highlight class="normal"><sp/><sp/><sp/><sp/>p_sediment-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="1271"><highlight class="normal"><sp/><sp/><sp/><sp/>p_sediment-&gt;from_array_bicubic(sed_c,<sp/>cm);</highlight></codeline>
-<codeline lineno="1272"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1273"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_flow)</highlight></codeline>
-<codeline lineno="1274"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1275"><highlight class="normal"><sp/><sp/><sp/><sp/>p_flow-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="1276"><highlight class="normal"><sp/><sp/><sp/><sp/>p_flow-&gt;from_array_bilinear(flow_c,<sp/>cm);</highlight></codeline>
-<codeline lineno="1277"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1278"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1279"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>2.<sp/>Tileable<sp/>fine-detail<sp/>refinement</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1280"><highlight class="normal"><sp/><sp/>MiseParams<sp/>fine_params<sp/>=<sp/>params;</highlight></codeline>
-<codeline lineno="1281"><highlight class="normal"><sp/><sp/>fine_params.base_res<sp/>=<sp/>std::min(cutoff_resolution,<sp/>256);</highlight></codeline>
-<codeline lineno="1282"><highlight class="normal"><sp/><sp/>fine_params.iters0<sp/>=<sp/>std::max(3,<sp/>params.iters0<sp/>/<sp/>2);</highlight></codeline>
-<codeline lineno="1283"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1284"><highlight class="normal"><sp/><sp/>std::vector&lt;const<sp/>VirtualArray<sp/>*&gt;<sp/>in_arrays<sp/>=<sp/>{&amp;<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>};</highlight></codeline>
-<codeline lineno="1285"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_mask)<sp/>in_arrays.push_back(p_mask);</highlight></codeline>
-<codeline lineno="1286"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_bedrock)<sp/>in_arrays.push_back(p_bedrock);</highlight></codeline>
-<codeline lineno="1287"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_erodibility)<sp/>in_arrays.push_back(p_erodibility);</highlight></codeline>
-<codeline lineno="1288"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_moisture_map)<sp/>in_arrays.push_back(p_moisture_map);</highlight></codeline>
-<codeline lineno="1289"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1290"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">hmap::for_each_tile</ref>(</highlight></codeline>
-<codeline lineno="1291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>in_arrays,</highlight></codeline>
-<codeline lineno="1292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;out},</highlight></codeline>
-<codeline lineno="1293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](std::vector&lt;const<sp/>hmap::Array<sp/>*&gt;<sp/></highlight><highlight class="comment">/*<sp/>p_arrays_in<sp/>*/</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="1294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;hmap::Array<sp/>*&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_arrays_out,</highlight></codeline>
-<codeline lineno="1295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">hmap::TileRegion</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/></highlight><highlight class="comment">/*<sp/>region<sp/>*/</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="1296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_out]<sp/>=<sp/>unpack&lt;1&gt;(p_arrays_out);</highlight></codeline>
-<codeline lineno="1298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!pa_out<sp/>||<sp/>pa_out-&gt;vector.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="1299"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Perform<sp/>local<sp/>high-frequency<sp/>incision<sp/>refinement<sp/>per<sp/>tile</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1va_1a39ee127fce3d8250c7423d10a80ce890" kindref="member">hydraulic_mise</ref>(*pa_out,</highlight></codeline>
-<codeline lineno="1302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fine_params,</highlight></codeline>
-<codeline lineno="1303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="1304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="1305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="1306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="1307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="1308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="1309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="1310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="1311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
-<codeline lineno="1312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
-<codeline lineno="1313"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1314"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Synchronize<sp/>halo<sp/>boundaries<sp/>between<sp/>adjacent<sp/>tiles</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1315"><highlight class="normal"><sp/><sp/>out.sync_overlap_buffers(<ref refid="namespacehmap_1a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d" kindref="member">SyncOperation::SmoothBlend</ref>);</highlight></codeline>
-<codeline lineno="1316"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1317"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Apply<sp/>optional<sp/>mask<sp/>blending</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1318"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_mask)</highlight></codeline>
-<codeline lineno="1319"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1320"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">hmap::for_each_tile</ref>(</highlight></codeline>
-<codeline lineno="1321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>p_mask},</highlight></codeline>
-<codeline lineno="1322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;out},</highlight></codeline>
-<codeline lineno="1323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](std::vector&lt;const<sp/>hmap::Array<sp/>*&gt;<sp/>p_arrays_in,</highlight></codeline>
-<codeline lineno="1324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;hmap::Array<sp/>*&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_arrays_out,</highlight></codeline>
-<codeline lineno="1325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">hmap::TileRegion</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;)</highlight></codeline>
-<codeline lineno="1326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_z,<sp/>pa_m]<sp/>=<sp/>unpack&lt;2&gt;(p_arrays_in);</highlight></codeline>
-<codeline lineno="1328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_out]<sp/>=<sp/>unpack&lt;1&gt;(p_arrays_out);</highlight></codeline>
-<codeline lineno="1329"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pa_m)</highlight></codeline>
-<codeline lineno="1331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pa_out<sp/>=<sp/><ref refid="namespacehmap_1ac14815cf025b7430d31d08125a5c6f0d" kindref="member">lerp</ref>(*pa_z,<sp/>*pa_out,<sp/>*pa_m);</highlight></codeline>
-<codeline lineno="1332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
-<codeline lineno="1333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
-<codeline lineno="1334"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1335"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1336"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Compute<sp/>delta<sp/>maps</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1337"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_erosion_map)</highlight></codeline>
-<codeline lineno="1338"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1339"><highlight class="normal"><sp/><sp/><sp/><sp/>p_erosion_map-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="1340"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">hmap::for_each_tile</ref>(</highlight></codeline>
-<codeline lineno="1341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>&amp;out},</highlight></codeline>
-<codeline lineno="1342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{p_erosion_map},</highlight></codeline>
-<codeline lineno="1343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](std::vector&lt;const<sp/>hmap::Array<sp/>*&gt;<sp/>p_arrays_in,</highlight></codeline>
-<codeline lineno="1344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;hmap::Array<sp/>*&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_arrays_out,</highlight></codeline>
-<codeline lineno="1345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">hmap::TileRegion</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;)</highlight></codeline>
-<codeline lineno="1346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_z,<sp/>pa_out]<sp/>=<sp/>unpack&lt;2&gt;(p_arrays_in);</highlight></codeline>
-<codeline lineno="1348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_ero]<sp/>=<sp/>unpack&lt;1&gt;(p_arrays_out);</highlight></codeline>
-<codeline lineno="1349"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pa_ero<sp/>=<sp/><ref refid="namespacehmap_1aa52f3e1fcb1cad464a512c09a0c8eb54" kindref="member">maximum</ref>(*pa_z<sp/>-<sp/>*pa_out,<sp/>0.f);</highlight></codeline>
-<codeline lineno="1351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
-<codeline lineno="1352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
-<codeline lineno="1353"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1354"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1355"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_deposition_map)</highlight></codeline>
-<codeline lineno="1356"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1357"><highlight class="normal"><sp/><sp/><sp/><sp/>p_deposition_map-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="1358"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">hmap::for_each_tile</ref>(</highlight></codeline>
-<codeline lineno="1359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>&amp;out},</highlight></codeline>
-<codeline lineno="1360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{p_deposition_map},</highlight></codeline>
-<codeline lineno="1361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](std::vector&lt;const<sp/>hmap::Array<sp/>*&gt;<sp/>p_arrays_in,</highlight></codeline>
-<codeline lineno="1362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;hmap::Array<sp/>*&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_arrays_out,</highlight></codeline>
-<codeline lineno="1363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">hmap::TileRegion</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;)</highlight></codeline>
-<codeline lineno="1364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_z,<sp/>pa_out]<sp/>=<sp/>unpack&lt;2&gt;(p_arrays_in);</highlight></codeline>
-<codeline lineno="1366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_dep]<sp/>=<sp/>unpack&lt;1&gt;(p_arrays_out);</highlight></codeline>
-<codeline lineno="1367"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pa_dep<sp/>=<sp/><ref refid="namespacehmap_1aa52f3e1fcb1cad464a512c09a0c8eb54" kindref="member">maximum</ref>(*pa_out<sp/>-<sp/>*pa_z,<sp/>0.f);</highlight></codeline>
-<codeline lineno="1369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
-<codeline lineno="1370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
-<codeline lineno="1371"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1372"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1373"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>out;</highlight></codeline>
-<codeline lineno="1374"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="1375"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1376"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap::va</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1173"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>entire<sp/>virtual<sp/>array<sp/>is<sp/>within<sp/>cutoff_resolution,<sp/>perform<sp/>full<sp/>global</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1174"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>erosion</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1175"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::max(total_shape.x,<sp/>total_shape.y)<sp/>&lt;=<sp/>cutoff_resolution)</highlight></codeline>
+<codeline lineno="1176"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1177"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>z_full<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>.to_array(cm);</highlight></codeline>
+<codeline lineno="1178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1179"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/><ref refid="hydraulic__mise_8cpp_1abf130fcd985b61918da6234c9d89b5be" kindref="member">bedrock</ref><sp/>=<sp/>p_bedrock<sp/>?<sp/>p_bedrock-&gt;to_array(cm)<sp/>:<sp/>Array();</highlight></codeline>
+<codeline lineno="1180"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/><ref refid="hydraulic__mise_8cpp_1aea391a706628d8001fa6d048d4a28ef5" kindref="member">erodibility</ref><sp/>=<sp/>p_erodibility<sp/>?<sp/>p_erodibility-&gt;to_array(cm)<sp/>:<sp/>Array();</highlight></codeline>
+<codeline lineno="1181"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>moisture<sp/>=<sp/>p_moisture_map<sp/>?<sp/>p_moisture_map-&gt;to_array(cm)<sp/>:<sp/>Array();</highlight></codeline>
+<codeline lineno="1182"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/><ref refid="hydraulic__mise_8cpp_1a04ae352a41e6a2fb1296b478e5881a66" kindref="member">outlet</ref><sp/>=<sp/>p_outlet<sp/>?<sp/>p_outlet-&gt;to_array(cm)<sp/>:<sp/>Array();</highlight></codeline>
+<codeline lineno="1183"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>mask<sp/>=<sp/>p_mask<sp/>?<sp/>p_mask-&gt;to_array(cm)<sp/>:<sp/>Array();</highlight></codeline>
+<codeline lineno="1184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1185"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/><ref refid="hydraulic__mise_8cpp_1a948708c576e7a02ba2473d1e21aa6883" kindref="member">sed</ref>,<sp/>flow,<sp/><ref refid="hydraulic__mise_8cpp_1ab295f982f9bdacbc9b2fe90e32c5cb30" kindref="member">ero</ref>,<sp/>dep;</highlight></codeline>
+<codeline lineno="1186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1187"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1va_1a39ee127fce3d8250c7423d10a80ce890" kindref="member">hydraulic_mise</ref>(z_full,</highlight></codeline>
+<codeline lineno="1188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_mask<sp/>?<sp/>&amp;mask<sp/>:<sp/>nullptr,</highlight></codeline>
+<codeline lineno="1189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>params,</highlight></codeline>
+<codeline lineno="1190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_bedrock<sp/>?<sp/>&amp;<ref refid="hydraulic__mise_8cpp_1abf130fcd985b61918da6234c9d89b5be" kindref="member">bedrock</ref><sp/>:<sp/>nullptr,</highlight></codeline>
+<codeline lineno="1191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_erodibility<sp/>?<sp/>&amp;<ref refid="hydraulic__mise_8cpp_1aea391a706628d8001fa6d048d4a28ef5" kindref="member">erodibility</ref><sp/>:<sp/>nullptr,</highlight></codeline>
+<codeline lineno="1192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_moisture_map<sp/>?<sp/>&amp;moisture<sp/>:<sp/>nullptr,</highlight></codeline>
+<codeline lineno="1193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_outlet<sp/>?<sp/>&amp;<ref refid="hydraulic__mise_8cpp_1a04ae352a41e6a2fb1296b478e5881a66" kindref="member">outlet</ref><sp/>:<sp/>nullptr,</highlight></codeline>
+<codeline lineno="1194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_sediment<sp/>?<sp/>&amp;<ref refid="hydraulic__mise_8cpp_1a948708c576e7a02ba2473d1e21aa6883" kindref="member">sed</ref><sp/>:<sp/>nullptr,</highlight></codeline>
+<codeline lineno="1195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_flow<sp/>?<sp/>&amp;flow<sp/>:<sp/>nullptr,</highlight></codeline>
+<codeline lineno="1196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_erosion_map<sp/>?<sp/>&amp;<ref refid="hydraulic__mise_8cpp_1ab295f982f9bdacbc9b2fe90e32c5cb30" kindref="member">ero</ref><sp/>:<sp/>nullptr,</highlight></codeline>
+<codeline lineno="1197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_deposition_map<sp/>?<sp/>&amp;dep<sp/>:<sp/>nullptr);</highlight></codeline>
+<codeline lineno="1198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1199"><highlight class="normal"><sp/><sp/><sp/><sp/>out.<ref refid="structhmap_1_1VirtualArray_1a9ce3eecae0639f28b2784e9e1003d1bb" kindref="member">copy_from</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="comment">/*<sp/>copy_src_data<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1200"><highlight class="normal"><sp/><sp/><sp/><sp/>out.from_array(z_full,<sp/>cm);</highlight></codeline>
+<codeline lineno="1201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1202"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_sediment)</highlight></codeline>
+<codeline lineno="1203"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_sediment-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_sediment-&gt;from_array(<ref refid="hydraulic__mise_8cpp_1a948708c576e7a02ba2473d1e21aa6883" kindref="member">sed</ref>,<sp/>cm);</highlight></codeline>
+<codeline lineno="1206"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1207"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_flow)</highlight></codeline>
+<codeline lineno="1208"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_flow-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_flow-&gt;from_array(flow,<sp/>cm);</highlight></codeline>
+<codeline lineno="1211"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1212"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_erosion_map)</highlight></codeline>
+<codeline lineno="1213"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_erosion_map-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_erosion_map-&gt;from_array(<ref refid="hydraulic__mise_8cpp_1ab295f982f9bdacbc9b2fe90e32c5cb30" kindref="member">ero</ref>,<sp/>cm);</highlight></codeline>
+<codeline lineno="1216"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1217"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_deposition_map)</highlight></codeline>
+<codeline lineno="1218"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_deposition_map-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p_deposition_map-&gt;from_array(dep,<sp/>cm);</highlight></codeline>
+<codeline lineno="1221"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1223"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>out;</highlight></codeline>
+<codeline lineno="1224"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1226"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Hybrid<sp/>multi-scale<sp/>distributed<sp/>execution</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1228"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>1.<sp/>Global<sp/>coarse-scale<sp/>solver<sp/>pass<sp/>up<sp/>to<sp/>cutoff_resolution</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1229"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coarse_res<sp/>=<sp/>std::max(128,<sp/>cutoff_resolution);</highlight></codeline>
+<codeline lineno="1230"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>coarse_shape;</highlight></codeline>
+<codeline lineno="1231"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(total_shape.x<sp/>&gt;=<sp/>total_shape.y)</highlight></codeline>
+<codeline lineno="1232"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1233"><highlight class="normal"><sp/><sp/><sp/><sp/>coarse_shape.x<sp/>=<sp/>coarse_res;</highlight></codeline>
+<codeline lineno="1234"><highlight class="normal"><sp/><sp/><sp/><sp/>coarse_shape.y<sp/>=<sp/>std::max(</highlight></codeline>
+<codeline lineno="1235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>64,</highlight></codeline>
+<codeline lineno="1236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)((int64_t)total_shape.y<sp/>*<sp/>coarse_res<sp/>/<sp/>total_shape.x));</highlight></codeline>
+<codeline lineno="1237"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1238"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1239"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1240"><highlight class="normal"><sp/><sp/><sp/><sp/>coarse_shape.y<sp/>=<sp/>coarse_res;</highlight></codeline>
+<codeline lineno="1241"><highlight class="normal"><sp/><sp/><sp/><sp/>coarse_shape.x<sp/>=<sp/>std::max(</highlight></codeline>
+<codeline lineno="1242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>64,</highlight></codeline>
+<codeline lineno="1243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)((int64_t)total_shape.x<sp/>*<sp/>coarse_res<sp/>/<sp/>total_shape.y));</highlight></codeline>
+<codeline lineno="1244"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1246"><highlight class="normal"><sp/><sp/>Array<sp/>z_coarse<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>.to_array(coarse_shape,<sp/>cm);</highlight></codeline>
+<codeline lineno="1247"><highlight class="normal"><sp/><sp/>Array<sp/>bedrock_c<sp/>=<sp/>p_bedrock<sp/>?<sp/>p_bedrock-&gt;to_array(coarse_shape,<sp/>cm)<sp/>:<sp/>Array();</highlight></codeline>
+<codeline lineno="1248"><highlight class="normal"><sp/><sp/>Array<sp/>erod_c<sp/>=<sp/>p_erodibility<sp/>?<sp/>p_erodibility-&gt;to_array(coarse_shape,<sp/>cm)</highlight></codeline>
+<codeline lineno="1249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>Array();</highlight></codeline>
+<codeline lineno="1250"><highlight class="normal"><sp/><sp/>Array<sp/>moist_c<sp/>=<sp/>p_moisture_map<sp/>?<sp/>p_moisture_map-&gt;to_array(coarse_shape,<sp/>cm)</highlight></codeline>
+<codeline lineno="1251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>Array();</highlight></codeline>
+<codeline lineno="1252"><highlight class="normal"><sp/><sp/>Array<sp/>outlet_c<sp/>=<sp/>p_outlet<sp/>?<sp/>p_outlet-&gt;to_array(coarse_shape,<sp/>cm)<sp/>:<sp/>Array();</highlight></codeline>
+<codeline lineno="1253"><highlight class="normal"><sp/><sp/>Array<sp/>mask_c<sp/>=<sp/>p_mask<sp/>?<sp/>p_mask-&gt;to_array(coarse_shape,<sp/>cm)<sp/>:<sp/>Array();</highlight></codeline>
+<codeline lineno="1254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1255"><highlight class="normal"><sp/><sp/>MiseParams<sp/>coarse_params<sp/>=<sp/>params;</highlight></codeline>
+<codeline lineno="1256"><highlight class="normal"><sp/><sp/>coarse_params.base_res<sp/>=<sp/>std::min(params.base_res,</highlight></codeline>
+<codeline lineno="1257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::min(coarse_shape.x,<sp/>coarse_shape.y));</highlight></codeline>
+<codeline lineno="1258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1259"><highlight class="normal"><sp/><sp/>Array<sp/>sed_c,<sp/>flow_c;</highlight></codeline>
+<codeline lineno="1260"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1va_1a39ee127fce3d8250c7423d10a80ce890" kindref="member">hydraulic_mise</ref>(z_coarse,</highlight></codeline>
+<codeline lineno="1261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_mask<sp/>?<sp/>&amp;mask_c<sp/>:<sp/>nullptr,</highlight></codeline>
+<codeline lineno="1262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coarse_params,</highlight></codeline>
+<codeline lineno="1263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_bedrock<sp/>?<sp/>&amp;bedrock_c<sp/>:<sp/>nullptr,</highlight></codeline>
+<codeline lineno="1264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_erodibility<sp/>?<sp/>&amp;erod_c<sp/>:<sp/>nullptr,</highlight></codeline>
+<codeline lineno="1265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_moisture_map<sp/>?<sp/>&amp;moist_c<sp/>:<sp/>nullptr,</highlight></codeline>
+<codeline lineno="1266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_outlet<sp/>?<sp/>&amp;outlet_c<sp/>:<sp/>nullptr,</highlight></codeline>
+<codeline lineno="1267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;sed_c,</highlight></codeline>
+<codeline lineno="1268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;flow_c,</highlight></codeline>
+<codeline lineno="1269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr,</highlight></codeline>
+<codeline lineno="1270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nullptr);</highlight></codeline>
+<codeline lineno="1271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1272"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Initialize<sp/>distributed<sp/>output</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1273"><highlight class="normal"><sp/><sp/>out.<ref refid="structhmap_1_1VirtualArray_1a9ce3eecae0639f28b2784e9e1003d1bb" kindref="member">copy_from</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="comment">/*<sp/>copy_src_data<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1274"><highlight class="normal"><sp/><sp/>out.from_array_bicubic(z_coarse,<sp/>cm);</highlight></codeline>
+<codeline lineno="1275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1276"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_sediment)</highlight></codeline>
+<codeline lineno="1277"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1278"><highlight class="normal"><sp/><sp/><sp/><sp/>p_sediment-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1279"><highlight class="normal"><sp/><sp/><sp/><sp/>p_sediment-&gt;from_array_bicubic(sed_c,<sp/>cm);</highlight></codeline>
+<codeline lineno="1280"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1281"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_flow)</highlight></codeline>
+<codeline lineno="1282"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1283"><highlight class="normal"><sp/><sp/><sp/><sp/>p_flow-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1284"><highlight class="normal"><sp/><sp/><sp/><sp/>p_flow-&gt;from_array_bilinear(flow_c,<sp/>cm);</highlight></codeline>
+<codeline lineno="1285"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1287"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>2.<sp/>Tileable<sp/>fine-detail<sp/>refinement</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1288"><highlight class="normal"><sp/><sp/>MiseParams<sp/>fine_params<sp/>=<sp/>params;</highlight></codeline>
+<codeline lineno="1289"><highlight class="normal"><sp/><sp/>fine_params.base_res<sp/>=<sp/>std::min(cutoff_resolution,<sp/>256);</highlight></codeline>
+<codeline lineno="1290"><highlight class="normal"><sp/><sp/>fine_params.iters0<sp/>=<sp/>std::max(3,<sp/>params.iters0<sp/>/<sp/>2);</highlight></codeline>
+<codeline lineno="1291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1292"><highlight class="normal"><sp/><sp/>std::vector&lt;const<sp/>VirtualArray<sp/>*&gt;<sp/>in_arrays<sp/>=<sp/>{&amp;<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>};</highlight></codeline>
+<codeline lineno="1293"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_mask)<sp/>in_arrays.push_back(p_mask);</highlight></codeline>
+<codeline lineno="1294"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_bedrock)<sp/>in_arrays.push_back(p_bedrock);</highlight></codeline>
+<codeline lineno="1295"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_erodibility)<sp/>in_arrays.push_back(p_erodibility);</highlight></codeline>
+<codeline lineno="1296"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_moisture_map)<sp/>in_arrays.push_back(p_moisture_map);</highlight></codeline>
+<codeline lineno="1297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1298"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">hmap::for_each_tile</ref>(</highlight></codeline>
+<codeline lineno="1299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>in_arrays,</highlight></codeline>
+<codeline lineno="1300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;out},</highlight></codeline>
+<codeline lineno="1301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](std::vector&lt;const<sp/>hmap::Array<sp/>*&gt;<sp/></highlight><highlight class="comment">/*<sp/>p_arrays_in<sp/>*/</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="1302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;hmap::Array<sp/>*&gt;<sp/>p_arrays_out,</highlight></codeline>
+<codeline lineno="1303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">hmap::TileRegion</ref><sp/>&amp;<sp/></highlight><highlight class="comment">/*<sp/>region<sp/>*/</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="1304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_out]<sp/>=<sp/>unpack&lt;1&gt;(p_arrays_out);</highlight></codeline>
+<codeline lineno="1306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!pa_out<sp/>||<sp/>pa_out-&gt;vector.empty())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="1307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Perform<sp/>local<sp/>high-frequency<sp/>incision<sp/>refinement<sp/>per<sp/>tile</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1va_1a39ee127fce3d8250c7423d10a80ce890" kindref="member">hydraulic_mise</ref>(*pa_out,</highlight></codeline>
+<codeline lineno="1310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fine_params,</highlight></codeline>
+<codeline lineno="1311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="1312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="1313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="1314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="1315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="1316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="1317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="1318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="1320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
+<codeline lineno="1321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1322"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Synchronize<sp/>halo<sp/>boundaries<sp/>between<sp/>adjacent<sp/>tiles</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1323"><highlight class="normal"><sp/><sp/>out.sync_overlap_buffers(<ref refid="namespacehmap_1a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d" kindref="member">SyncOperation::SmoothBlend</ref>);</highlight></codeline>
+<codeline lineno="1324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1325"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Apply<sp/>optional<sp/>mask<sp/>blending</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1326"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_mask)</highlight></codeline>
+<codeline lineno="1327"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1328"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">hmap::for_each_tile</ref>(</highlight></codeline>
+<codeline lineno="1329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>p_mask},</highlight></codeline>
+<codeline lineno="1330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;out},</highlight></codeline>
+<codeline lineno="1331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](std::vector&lt;const<sp/>hmap::Array<sp/>*&gt;<sp/>p_arrays_in,</highlight></codeline>
+<codeline lineno="1332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;hmap::Array<sp/>*&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_arrays_out,</highlight></codeline>
+<codeline lineno="1333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">hmap::TileRegion</ref><sp/>&amp;)</highlight></codeline>
+<codeline lineno="1334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_z,<sp/>pa_m]<sp/>=<sp/>unpack&lt;2&gt;(p_arrays_in);</highlight></codeline>
+<codeline lineno="1336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_out]<sp/>=<sp/>unpack&lt;1&gt;(p_arrays_out);</highlight></codeline>
+<codeline lineno="1337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pa_m)<sp/>*pa_out<sp/>=<sp/><ref refid="namespacehmap_1ac14815cf025b7430d31d08125a5c6f0d" kindref="member">lerp</ref>(*pa_z,<sp/>*pa_out,<sp/>*pa_m);</highlight></codeline>
+<codeline lineno="1339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="1340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
+<codeline lineno="1341"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1343"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Compute<sp/>delta<sp/>maps</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1344"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_erosion_map)</highlight></codeline>
+<codeline lineno="1345"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1346"><highlight class="normal"><sp/><sp/><sp/><sp/>p_erosion_map-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1347"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">hmap::for_each_tile</ref>(</highlight></codeline>
+<codeline lineno="1348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>&amp;out},</highlight></codeline>
+<codeline lineno="1349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{p_erosion_map},</highlight></codeline>
+<codeline lineno="1350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](std::vector&lt;const<sp/>hmap::Array<sp/>*&gt;<sp/>p_arrays_in,</highlight></codeline>
+<codeline lineno="1351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;hmap::Array<sp/>*&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_arrays_out,</highlight></codeline>
+<codeline lineno="1352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">hmap::TileRegion</ref><sp/>&amp;)</highlight></codeline>
+<codeline lineno="1353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_z,<sp/>pa_out]<sp/>=<sp/>unpack&lt;2&gt;(p_arrays_in);</highlight></codeline>
+<codeline lineno="1355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_ero]<sp/>=<sp/>unpack&lt;1&gt;(p_arrays_out);</highlight></codeline>
+<codeline lineno="1356"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pa_ero<sp/>=<sp/><ref refid="namespacehmap_1aa52f3e1fcb1cad464a512c09a0c8eb54" kindref="member">maximum</ref>(*pa_z<sp/>-<sp/>*pa_out,<sp/>0.f);</highlight></codeline>
+<codeline lineno="1358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="1359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
+<codeline lineno="1360"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1362"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_deposition_map)</highlight></codeline>
+<codeline lineno="1363"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1364"><highlight class="normal"><sp/><sp/><sp/><sp/>p_deposition_map-&gt;copy_from(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1365"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">hmap::for_each_tile</ref>(</highlight></codeline>
+<codeline lineno="1366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>&amp;out},</highlight></codeline>
+<codeline lineno="1367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{p_deposition_map},</highlight></codeline>
+<codeline lineno="1368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](std::vector&lt;const<sp/>hmap::Array<sp/>*&gt;<sp/>p_arrays_in,</highlight></codeline>
+<codeline lineno="1369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;hmap::Array<sp/>*&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_arrays_out,</highlight></codeline>
+<codeline lineno="1370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">hmap::TileRegion</ref><sp/>&amp;)</highlight></codeline>
+<codeline lineno="1371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="1372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_z,<sp/>pa_out]<sp/>=<sp/>unpack&lt;2&gt;(p_arrays_in);</highlight></codeline>
+<codeline lineno="1373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_dep]<sp/>=<sp/>unpack&lt;1&gt;(p_arrays_out);</highlight></codeline>
+<codeline lineno="1374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pa_dep<sp/>=<sp/><ref refid="namespacehmap_1aa52f3e1fcb1cad464a512c09a0c8eb54" kindref="member">maximum</ref>(*pa_out<sp/>-<sp/>*pa_z,<sp/>0.f);</highlight></codeline>
+<codeline lineno="1376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="1377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
+<codeline lineno="1378"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1380"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>out;</highlight></codeline>
+<codeline lineno="1381"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1383"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap::va</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="HighMap/src/erosion/hydraulic_mise.cpp"/>
   </compounddef>

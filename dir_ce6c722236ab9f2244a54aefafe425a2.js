@@ -20,6 +20,7 @@ var dir_ce6c722236ab9f2244a54aefafe425a2 =
     [ "generate_riverbed.cpp", "generate__riverbed_8cpp.html", "generate__riverbed_8cpp" ],
     [ "generate_riverbed_gpu.cpp", "generate__riverbed__gpu_8cpp.html", "generate__riverbed__gpu_8cpp" ],
     [ "hydrology_paths_to_graph.cpp", "hydrology__paths__to__graph_8cpp.html", "hydrology__paths__to__graph_8cpp" ],
+    [ "snow_mantle.cpp", "snow__mantle_8cpp.html", "snow__mantle_8cpp" ],
     [ "snow_simulation.cpp", "snow__simulation_8cpp.html", "snow__simulation_8cpp" ],
     [ "water_depth.cpp", "water__depth_8cpp.html", "water__depth_8cpp" ]
 ];

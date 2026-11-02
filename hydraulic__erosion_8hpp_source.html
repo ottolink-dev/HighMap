@@ -576,50 +576,49 @@ $(document).ready(function(){initNavTree('hydraulic__erosion_8hpp_source.html','
 <div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmap_1_1va.html">hmap::va</a></div>
 <div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>{</div>
 <div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span> </div>
-<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>VirtualArray <a class="code hl_function" href="namespacehmap_1_1va.html#a39ee127fce3d8250c7423d10a80ce890">hydraulic_mise</a>(</div>
-<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>    <span class="keyword">const</span> ComputeMode  &amp;cm,</div>
-<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>    <span class="keyword">const</span> VirtualArray &amp;<a class="code hl_variable" href="hydraulic__mise_8cpp.html#aa14e04bff7de9e968e46a953f71f29f3">z</a>,</div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>    <span class="keywordtype">int</span>                 cutoff_resolution = 1024,</div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>    <span class="keyword">const</span> MiseParams   &amp;params = MiseParams(),</div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>    <span class="keyword">const</span> VirtualArray *p_mask = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>    <span class="keyword">const</span> VirtualArray *p_bedrock = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>    <span class="keyword">const</span> VirtualArray *p_erodibility = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>    <span class="keyword">const</span> VirtualArray *p_moisture_map = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>    <span class="keyword">const</span> VirtualArray *p_outlet = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>    VirtualArray       *p_sediment = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>    VirtualArray       *p_flow = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>    VirtualArray       *p_erosion_map = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>    VirtualArray       *p_deposition_map = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span> </div>
-<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>VirtualArray <a class="code hl_function" href="namespacehmap_1_1va.html#ac0d43b69e78ba45a62795d90f1f453fe">hydraulic_saleve</a>(</div>
-<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>    <span class="keyword">const</span> ComputeMode    &amp;cm,</div>
-<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>    <span class="keyword">const</span> VirtualArray   &amp;<a class="code hl_variable" href="hydraulic__mise_8cpp.html#aa14e04bff7de9e968e46a953f71f29f3">z</a>,</div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>    std::uint32_t         seed,</div>
-<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>    <span class="keywordtype">size_t</span>                control_points_count = 10000,</div>
-<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>    <span class="keywordtype">float</span>                 m_exp = 0.8f,</div>
-<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>    <span class="keywordtype">float</span>                 uplift_rate = 1.f,</div>
-<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>    <span class="keywordtype">float</span>                 tolerance = 1e-3f,</div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    <span class="keywordtype">int</span>                   max_iterations = 200,</div>
-<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>    <span class="keywordtype">float</span>                 smin = 0.f,</div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    <span class="keywordtype">float</span>                 smax = 6.f,</div>
-<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>    <span class="keywordtype">float</span>                 strength = 0.5f,</div>
-<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>    <span class="keywordtype">bool</span>                  scale_erodibility_with_z = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>    <span class="keywordtype">float</span>                 erodibility_distrib_exp = 1.f,</div>
-<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>    <span class="keywordtype">float</span>                 noise_strength = 0.f,</div>
-<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>    <span class="keywordtype">bool</span>                  enable_post_slope_limiter = <span class="keyword">false</span>,</div>
-<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>    <span class="keywordtype">float</span>                 post_slope_limit = 0.f,</div>
-<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>    <span class="keywordtype">bool</span>                  enable_post_smoothing = <span class="keyword">false</span>,</div>
-<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>    <a class="code hl_enumeration" href="namespacehmap.html#a5bfab5d68e822294ff90fde21b85f581">InterpolationMethod2D</a> interpolation_method =</div>
-<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>        <a class="code hl_enumvalue" href="namespacehmap.html#a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278">InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT</a>,</div>
-<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>    <span class="keyword">const</span> VirtualArray *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>    <span class="keyword">const</span> VirtualArray *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>    <span class="keyword">const</span> VirtualArray *p_mask = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span> </div>
-<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>} <span class="comment">// namespace hmap::va</span></div>
-<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span> </div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span><span class="comment">// --- Deprecated Functions</span></div>
-<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span> </div>
-<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span><span class="preprocessor">#include &quot;<a class="code" href="deprecated_8hpp.html">highmap/erosion/deprecated.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>VirtualArray <a class="code hl_function" href="namespacehmap_1_1va.html#a39ee127fce3d8250c7423d10a80ce890">hydraulic_mise</a>(<span class="keyword">const</span> ComputeMode  &amp;cm,</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>                            <span class="keyword">const</span> VirtualArray &amp;<a class="code hl_variable" href="hydraulic__mise_8cpp.html#aa14e04bff7de9e968e46a953f71f29f3">z</a>,</div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>                            <span class="keywordtype">int</span>                 cutoff_resolution = 1024,</div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>                            <span class="keyword">const</span> MiseParams   &amp;params = MiseParams(),</div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>                            <span class="keyword">const</span> VirtualArray *p_mask = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>                            <span class="keyword">const</span> VirtualArray *p_bedrock = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>                            <span class="keyword">const</span> VirtualArray *p_erodibility = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>                            <span class="keyword">const</span> VirtualArray *p_moisture_map = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>                            <span class="keyword">const</span> VirtualArray *p_outlet = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>                            VirtualArray       *p_sediment = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>                            VirtualArray       *p_flow = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>                            VirtualArray       *p_erosion_map = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>                            VirtualArray       *p_deposition_map = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span> </div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>VirtualArray <a class="code hl_function" href="namespacehmap_1_1va.html#ac0d43b69e78ba45a62795d90f1f453fe">hydraulic_saleve</a>(</div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>    <span class="keyword">const</span> ComputeMode    &amp;cm,</div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>    <span class="keyword">const</span> VirtualArray   &amp;<a class="code hl_variable" href="hydraulic__mise_8cpp.html#aa14e04bff7de9e968e46a953f71f29f3">z</a>,</div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>    std::uint32_t         seed,</div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>    <span class="keywordtype">size_t</span>                control_points_count = 10000,</div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>    <span class="keywordtype">float</span>                 m_exp = 0.8f,</div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>    <span class="keywordtype">float</span>                 uplift_rate = 1.f,</div>
+<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>    <span class="keywordtype">float</span>                 tolerance = 1e-3f,</div>
+<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>    <span class="keywordtype">int</span>                   max_iterations = 200,</div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    <span class="keywordtype">float</span>                 smin = 0.f,</div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>    <span class="keywordtype">float</span>                 smax = 6.f,</div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    <span class="keywordtype">float</span>                 strength = 0.5f,</div>
+<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>    <span class="keywordtype">bool</span>                  scale_erodibility_with_z = <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>    <span class="keywordtype">float</span>                 erodibility_distrib_exp = 1.f,</div>
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>    <span class="keywordtype">float</span>                 noise_strength = 0.f,</div>
+<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>    <span class="keywordtype">bool</span>                  enable_post_slope_limiter = <span class="keyword">false</span>,</div>
+<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>    <span class="keywordtype">float</span>                 post_slope_limit = 0.f,</div>
+<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>    <span class="keywordtype">bool</span>                  enable_post_smoothing = <span class="keyword">false</span>,</div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>    <a class="code hl_enumeration" href="namespacehmap.html#a5bfab5d68e822294ff90fde21b85f581">InterpolationMethod2D</a> interpolation_method =</div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>        <a class="code hl_enumvalue" href="namespacehmap.html#a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278">InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT</a>,</div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>    <span class="keyword">const</span> VirtualArray *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>    <span class="keyword">const</span> VirtualArray *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>    <span class="keyword">const</span> VirtualArray *p_mask = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span> </div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>} <span class="comment">// namespace hmap::va</span></div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span> </div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span><span class="comment">// --- Deprecated Functions</span></div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span> </div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span><span class="preprocessor">#include &quot;<a class="code" href="deprecated_8hpp.html">highmap/erosion/deprecated.hpp</a>&quot;</span></div>
 <div class="ttc" id="aarray_8hpp_html"><div class="ttname"><a href="array_8hpp.html">array.hpp</a></div><div class="ttdoc">Declaration of the Array class for 2D floating-point arrays with various mathematical operations and ...</div></div>
 <div class="ttc" id="adeprecated_8hpp_html"><div class="ttname"><a href="deprecated_8hpp.html">deprecated.hpp</a></div></div>
 <div class="ttc" id="aerosion__parameters_8hpp_html"><div class="ttname"><a href="erosion__parameters_8hpp.html">erosion_parameters.hpp</a></div></div>
