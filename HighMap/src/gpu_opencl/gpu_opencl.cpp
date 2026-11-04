@@ -338,6 +338,9 @@ bool init_opencl()
 #include "kernels/transform/warp.cl"
   );
   add(
+#include "kernels/colorize/terrain_texture.cl"
+  );
+  add(
 #include "kernels/rocks/rock_simulation.cl"
   );
   add(
