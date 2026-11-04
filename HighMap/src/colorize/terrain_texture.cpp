@@ -70,17 +70,13 @@ Texture terrain_texture(const Array                &z,
 
 #pragma omp parallel for
   for (int j = 0; j < ny; ++j)
-  {
     for (int i = 0; i < nx; ++i)
     {
-      const float g = std::hypot(gx(i, j), gy(i, j));
-      if (g >= 1e-6f)
-      {
-        dir_x(i, j) = gx(i, j) / g;
-        dir_y(i, j) = gy(i, j) / g;
-      }
+      const float g = std::sqrt(gx(i, j) * gx(i, j) + gy(i, j) * gy(i, j) +
+                                1e-9f);
+      dir_x(i, j) = gx(i, j) / g;
+      dir_y(i, j) = gy(i, j) / g;
     }
-  }
 
   // topographic residuals via GPU
   const Array fine = gpu::topographic_residual(z, ir_fine, true);
@@ -162,11 +158,11 @@ Texture terrain_texture(const Array                &z,
   }
 
   // --- Bare high crests source layer
+
   Array source(shape);
 
 #pragma omp parallel for
   for (int j = 0; j < ny; ++j)
-  {
     for (int i = 0; i < nx; ++i)
     {
       const float h = (z(i, j) - zmin) / zrange;
@@ -176,9 +172,9 @@ Texture terrain_texture(const Array                &z,
                      smoothstep3(h + 0.15f * n_mid(i, j), 0.3f, 0.75f) *
                      (0.75f + 0.25f * n_fine(i, j));
     }
-  }
 
   // --- Fall-line walk (Kernel 1)
+
   const int streak_steps = std::max(0, p.streak_length);
   const int rill_steps = std::max(1, int(ir_region / 5.f));
 
@@ -203,6 +199,7 @@ Texture terrain_texture(const Array                &z,
   }
 
   // --- Shading & color compositing (Kernel 2)
+
   Texture out(shape, 4);
 
   {
