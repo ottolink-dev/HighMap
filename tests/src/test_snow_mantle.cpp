@@ -24,6 +24,7 @@ TEST(SnowMantle, BasicAccumulation)
                              0.1f,                  // strength
                              0.5f,                  // snowline
                              0.1f,                  // falloff
+                             8,                     // prefilter_ir
                              0.8f,                  // talus_coverage
                              0.6f / float(shape.x), // talus_threshold
                              0.0f,                  // directional
@@ -70,6 +71,7 @@ TEST(SnowMantle, FlowPreservesNonNegativityAndSmooths)
                                     0.1f,
                                     0.4f,
                                     0.1f,
+                                    8,
                                     0.5f,
                                     0.5f / float(shape.x),
                                     0.f,
@@ -83,6 +85,7 @@ TEST(SnowMantle, FlowPreservesNonNegativityAndSmooths)
                                   0.1f,
                                   0.4f,
                                   0.1f,
+                                  8,
                                   0.5f,
                                   0.5f / float(shape.x),
                                   0.f,
@@ -110,6 +113,7 @@ TEST(SnowMantle, MeltingReducesSnowVolume)
                                     0.1f,
                                     0.3f,
                                     0.1f,
+                                    8,
                                     0.5f,
                                     0.5f / float(shape.x),
                                     0.f,
@@ -123,6 +127,7 @@ TEST(SnowMantle, MeltingReducesSnowVolume)
                                   0.1f,
                                   0.3f,
                                   0.1f,
+                                  8,
                                   0.5f,
                                   0.5f / float(shape.x),
                                   0.f,
@@ -152,6 +157,7 @@ TEST(SnowMantle, DirectionalBias)
                                   0.1f,
                                   0.2f,
                                   0.1f,
+                                  8,
                                   0.f,
                                   1.f,
                                   0.5f,
@@ -165,6 +171,7 @@ TEST(SnowMantle, DirectionalBias)
                                   0.1f,
                                   0.2f,
                                   0.1f,
+                                  8,
                                   0.f,
                                   1.f,
                                   0.5f,
@@ -193,6 +200,7 @@ TEST(SnowMantle, NoiseModulation)
                                    0.1f,
                                    0.3f,
                                    0.1f,
+                                   8,
                                    0.5f,
                                    0.5f / float(shape.x),
                                    0.f,
@@ -208,6 +216,7 @@ TEST(SnowMantle, NoiseModulation)
                                    0.1f,
                                    0.3f,
                                    0.1f,
+                                   8,
                                    0.5f,
                                    0.5f / float(shape.x),
                                    0.f,
