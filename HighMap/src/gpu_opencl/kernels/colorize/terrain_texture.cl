@@ -54,7 +54,8 @@ void kernel terrain_fallline_walk(read_only image2d_t  dir_x,
     cur.x += gx;
     cur.y += gy;
 
-    if (cur.x < 0.f || cur.y < 0.f || cur.x > (float)(nx - 1) || cur.y > (float)(ny - 1))
+    if (cur.x < 0.f || cur.y < 0.f || cur.x > (float)(nx - 1) ||
+        cur.y > (float)(ny - 1))
     {
       break;
     }
@@ -81,47 +82,47 @@ void kernel terrain_fallline_walk(read_only image2d_t  dir_x,
   write_imagef(out_streak, g, streak_best);
 }
 
-void kernel terrain_shade(read_only image2d_t  in_z,
-                          read_only image2d_t  in_slope,
-                          read_only image2d_t  in_crest,
-                          read_only image2d_t  in_region,
-                          read_only image2d_t  in_fine,
-                          read_only image2d_t  in_flow,
-                          read_only image2d_t  in_deposit,
-                          read_only image2d_t  in_moisture,
-                          read_only image2d_t  in_streak,
-                          read_only image2d_t  in_rill,
-                          read_only image2d_t  in_nl,
-                          read_only image2d_t  in_nm,
-                          read_only image2d_t  in_nf,
-                          read_only image2d_t  in_ng,
-                          global float        *out_r,
-                          global float        *out_g,
-                          global float        *out_b,
-                          global float        *out_a,
-                          const int            nx,
-                          const int            ny,
-                          const float          zmin,
-                          const float          zrange,
-                          const float          rock_talus,
-                          const float          rock_edge,
-                          const float          strata,
-                          const float          snow_line,
-                          const float          snow_amount,
-                          const float          color_noise,
-                          const float          flow_width,
-                          const float          param_flow,
-                          const float          param_deposition,
-                          const float          param_streaks,
-                          const float          param_cavity,
-                          const float          param_detail,
-                          const float3         col_grass,
-                          const float3         col_dry,
-                          const float3         col_soil,
-                          const float3         col_sediment,
-                          const float3         col_rock,
-                          const float3         col_ridge,
-                          const float3         col_snow)
+void kernel terrain_shade(read_only image2d_t in_z,
+                          read_only image2d_t in_slope,
+                          read_only image2d_t in_crest,
+                          read_only image2d_t in_region,
+                          read_only image2d_t in_fine,
+                          read_only image2d_t in_flow,
+                          read_only image2d_t in_deposit,
+                          read_only image2d_t in_moisture,
+                          read_only image2d_t in_streak,
+                          read_only image2d_t in_rill,
+                          read_only image2d_t in_nl,
+                          read_only image2d_t in_nm,
+                          read_only image2d_t in_nf,
+                          read_only image2d_t in_ng,
+                          global float       *out_r,
+                          global float       *out_g,
+                          global float       *out_b,
+                          global float       *out_a,
+                          const int           nx,
+                          const int           ny,
+                          const float         zmin,
+                          const float         zrange,
+                          const float         rock_talus,
+                          const float         rock_edge,
+                          const float         strata,
+                          const float         snow_line,
+                          const float         snow_amount,
+                          const float         color_noise,
+                          const float         flow_width,
+                          const float         param_flow,
+                          const float         param_deposition,
+                          const float         param_streaks,
+                          const float         param_cavity,
+                          const float         param_detail,
+                          const float3        col_grass,
+                          const float3        col_dry,
+                          const float3        col_soil,
+                          const float3        col_sediment,
+                          const float3        col_rock,
+                          const float3        col_ridge,
+                          const float3        col_snow)
 {
   const int2 g = {get_global_id(0), get_global_id(1)};
 
@@ -154,8 +155,10 @@ void kernel terrain_shade(read_only image2d_t  in_z,
   const float two_pi = 6.283185307179586f;
 
   // --- Grass & dry grass
-  const float wet_val = 0.5f + 0.6f * moist_val - 0.35f * r - 0.2f * c + 0.15f * nl;
-  const float dry_val = 1.f - wet_val + 0.35f * (h - 0.4f) + 0.12f * nm + 0.08f * nf;
+  const float wet_val = 0.5f + 0.6f * moist_val - 0.35f * r - 0.2f * c +
+                        0.15f * nl;
+  const float dry_val = 1.f - wet_val + 0.35f * (h - 0.4f) + 0.12f * nm +
+                        0.08f * nf;
   const float dry_mask = smoothstep3_gl(dry_val, 0.42f, 0.58f);
 
   const float  grass_sh = cn * (0.3f * nm + 0.3f * nf + 0.2f * ng);
@@ -172,7 +175,9 @@ void kernel terrain_shade(read_only image2d_t  in_z,
   col = mix(col, terrain_shade_color(col_soil, soil_sh), soil_mask);
 
   // --- Sediment
-  const float flow_mask = smoothstep3_gl(flow_val + 0.05f * nf, flow_width, flow_width + 0.08f);
+  const float flow_mask = smoothstep3_gl(flow_val + 0.05f * nf,
+                                         flow_width,
+                                         flow_width + 0.08f);
   const float dep_mask = smoothstep3_gl(dep_val + 0.15f * nf, 0.4f, 0.8f);
 
   float sed_mask = max(param_flow * flow_mask, param_deposition * dep_mask);
@@ -183,12 +188,13 @@ void kernel terrain_shade(read_only image2d_t  in_z,
 
   // --- Rock & strata
   const float rock_val = s + 0.25f * nm + 0.1f * nf + 0.3f * max(c, 0.f) * h;
-  const float rock_mask = smoothstep3_gl(rock_val, 1.f - rock_edge, 1.f + rock_edge);
+  const float rock_mask = smoothstep3_gl(rock_val,
+                                         1.f - rock_edge,
+                                         1.f + rock_edge);
 
   const float band = sin(two_pi * (14.f * h + 0.4f * nl + 0.1f * nm));
   const float rock_sh = 0.35f * strata * band +
-                        cn * (0.2f * rl + 0.3f * nf + 0.15f * ng) +
-                        0.25f * c;
+                        cn * (0.2f * rl + 0.3f * nf + 0.15f * ng) + 0.25f * c;
 
   col = mix(col, terrain_shade_color(col_rock, rock_sh), rock_mask);
 
