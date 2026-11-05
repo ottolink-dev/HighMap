@@ -307,96 +307,95 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
 // =====================================
 
 ThreadedCollectiveState::ThreadedCollectiveState(int num_threads)
-    : total_threads(num_threads),
-      remaining_threads(num_threads),
-      barrier_generation(0),
-      reduced_val(0.f)
+    : total_threads(num_threads)
 {
 }
 
-float ThreadedCollectiveState::all_reduce(float val, ReduceOp op)
+float ThreadedCollectiveState::all_reduce(size_t seq, float val, ReduceOp op)
 {
   std::unique_lock<std::mutex> lock(this->mtx);
-  int                          gen = this->barrier_generation;
 
-  if (this->remaining_threads == this->total_threads)
+  auto &slot = this->reduce_slots[seq];
+  if (slot.remaining == 0)
   {
-    this->reduced_val = val;
+    slot.remaining = this->total_threads;
+    slot.value = val;
   }
   else
   {
     switch (op)
     {
-    case ReduceOp::Min:
-      this->reduced_val = std::min(this->reduced_val, val);
-      break;
-    case ReduceOp::Max:
-      this->reduced_val = std::max(this->reduced_val, val);
-      break;
-    case ReduceOp::Sum: this->reduced_val += val; break;
+    case ReduceOp::Min: slot.value = std::min(slot.value, val); break;
+    case ReduceOp::Max: slot.value = std::max(slot.value, val); break;
+    case ReduceOp::Sum: slot.value += val; break;
     }
   }
 
-  if (--this->remaining_threads == 0)
+  if (--slot.remaining == 0)
   {
-    this->remaining_threads = this->total_threads;
-    this->barrier_generation++;
+    slot.ready = true;
     this->cv.notify_all();
   }
   else
   {
-    this->cv.wait(lock,
-                  [this, gen]() { return this->barrier_generation != gen; });
+    this->cv.wait(lock, [&slot]() { return slot.ready; });
   }
 
-  return this->reduced_val;
+  return slot.value;
 }
 
 std::vector<float> ThreadedCollectiveState::all_union(
+    size_t                    seq,
     const std::vector<float> &vals)
 {
   std::unique_lock<std::mutex> lock(this->mtx);
-  int                          gen = this->barrier_generation;
+
+  auto &slot = this->union_slots[seq];
+  if (slot.remaining == 0)
+  {
+    slot.remaining = this->total_threads;
+  }
 
   for (float v : vals)
   {
-    this->union_vals.push_back(v);
+    slot.values.push_back(v);
   }
 
-  if (--this->remaining_threads == 0)
+  if (--slot.remaining == 0)
   {
-    std::sort(this->union_vals.begin(), this->union_vals.end());
-    auto last = std::unique(this->union_vals.begin(), this->union_vals.end());
-    this->union_vals.erase(last, this->union_vals.end());
+    std::sort(slot.values.begin(), slot.values.end());
+    auto last = std::unique(slot.values.begin(), slot.values.end());
+    slot.values.erase(last, slot.values.end());
 
-    this->remaining_threads = this->total_threads;
-    this->barrier_generation++;
+    slot.ready = true;
     this->cv.notify_all();
   }
   else
   {
-    this->cv.wait(lock,
-                  [this, gen]() { return this->barrier_generation != gen; });
+    this->cv.wait(lock, [&slot]() { return slot.ready; });
   }
 
-  return this->union_vals;
+  return slot.values;
 }
 
-void ThreadedCollectiveState::barrier()
+void ThreadedCollectiveState::barrier(size_t seq)
 {
   std::unique_lock<std::mutex> lock(this->mtx);
-  int                          gen = this->barrier_generation;
 
-  if (--this->remaining_threads == 0)
+  auto &slot = this->barrier_slots[seq];
+  if (slot.remaining == 0)
   {
-    this->remaining_threads = this->total_threads;
-    this->barrier_generation++;
+    slot.remaining = this->total_threads;
+  }
+
+  if (--slot.remaining == 0)
+  {
+    slot.ready = true;
     this->cv.notify_all();
   }
   else
   {
-    this->cv.wait(lock,
-                  [this, gen]() { return this->barrier_generation != gen; });
+    this->cv.wait(lock, [&slot]() { return slot.ready; });
   }
 }
 
@@ -455,7 +454,7 @@ float ThreadedTileComm::all_reduce(float local_val, ReduceOp op)
 {
   if (this->state)
   {
-    return this->state->all_reduce(local_val, op);
+    return this->state->all_reduce(this->reduce_sequence++, local_val, op);
   }
   return local_val;
 }
@@ -465,7 +464,7 @@ std::vector<float> ThreadedTileComm::all_union(
 {
   if (this->state)
   {
-    return this->state->all_union(local_vals);
+    return this->state->all_union(this->union_sequence++, local_vals);
   }
   return local_vals;
 }
@@ -474,7 +473,7 @@ void ThreadedTileComm::barrier()
 {
   if (this->state)
   {
-    this->state->barrier();
+    this->state->barrier(this->barrier_sequence++);
   }
 }
 

@@ -383,13 +383,13 @@ float minimum_smooth(const float a, const float b, float k)
   return std::min(a, b) - h * h * h * k / 6.f;
 }
 
-void remap(Array &array, float vmin, float vmax)
+void remap(Array &array, float vmin, float vmax, ICommunicator &comm)
 {
   if (!validate_non_empty(array)) return;
 
-  // keep separate min/max (actually vectorizes better than minmax_element)
-  const float min = array.min();
-  const float max = array.max();
+  const glm::vec2 r = array.range(comm);
+  const float     min = r.x;
+  const float     max = r.y;
 
   if (min == max)
   {
@@ -443,15 +443,12 @@ void rescale(Array &array, float scaling, float vref)
   }
 }
 
-void normalize_and_clip(Array &array, float multiplier, float std)
+void normalize_and_clip(Array &array, float multiplier, ICommunicator &comm)
 {
   if (!validate_non_empty(array)) return;
 
-  const float mean = array.mean();
-
-  float sigma = std;
-  if (sigma <= 0.f) sigma = std::sqrt(array.std());
-
+  const float mean = array.mean(comm);
+  const float sigma = array.std(comm);
   const float denom = std::max(multiplier * sigma, 1e-12f);
 
   for (float &v : array.vector)

@@ -147,9 +147,9 @@ class ThreadedCollectiveState
 public:
   explicit ThreadedCollectiveState(int num_threads);
 
-  float              all_reduce(float val, ReduceOp op);
-  std::vector<float> all_union(const std::vector<float> &vals);
-  void               barrier();
+  float              all_reduce(size_t seq, float val, ReduceOp op);
+  std::vector<float> all_union(size_t seq, const std::vector<float> &vals);
+  void               barrier(size_t seq);
   int                get_total_threads() const;
 
   void  register_tile(int tile_idx, Array *tile, const TileRegion &region);
@@ -157,15 +157,34 @@ public:
   const TileRegion *get_registered_region(int tile_idx) const;
 
 private:
-  std::mutex                                      mtx;
-  std::condition_variable                         cv;
-  int                                             total_threads;
-  int                                             remaining_threads;
-  int                                             barrier_generation;
-  float                                           reduced_val;
-  std::vector<float>                              union_vals;
-  std::unordered_map<int, Array *>                registered_tiles;
-  std::unordered_map<int, TileRegion>             registered_regions;
+  struct ReduceSlot
+  {
+    float value = 0.f;
+    int   remaining = 0;
+    bool  ready = false;
+  };
+
+  struct UnionSlot
+  {
+    std::vector<float> values;
+    int                remaining = 0;
+    bool               ready = false;
+  };
+
+  struct BarrierSlot
+  {
+    int  remaining = 0;
+    bool ready = false;
+  };
+
+  mutable std::mutex                  mtx;
+  std::condition_variable             cv;
+  int                                 total_threads;
+  std::unordered_map<size_t, ReduceSlot>  reduce_slots;
+  std::unordered_map<size_t, UnionSlot>   union_slots;
+  std::unordered_map<size_t, BarrierSlot> barrier_slots;
+  std::unordered_map<int, Array *>        registered_tiles;
+  std::unordered_map<int, TileRegion>     registered_regions;
 };
 
 /**
@@ -193,6 +212,9 @@ private:
   int                                     thread_rank;
   int                                     total_size;
   int                                     grid_nx;
+  size_t                                  reduce_sequence = 0;
+  size_t                                  union_sequence = 0;
+  size_t                                  barrier_sequence = 0;
 };
 
 } // namespace hmap

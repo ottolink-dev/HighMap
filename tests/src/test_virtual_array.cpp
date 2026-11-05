@@ -1,6 +1,7 @@
 #include "highmap/dbg/assert.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/primitives.hpp"
+#include "highmap/range.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 #include <gtest/gtest.h>
@@ -647,5 +648,52 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
     // Both should be close to monolithic reference
     Array diff_comm_ref = hmap::abs(res_comm - ref_arr);
     EXPECT_LT(diff_comm_ref.mean(), 0.05f);
+  }
+
+  // 7. Test remap and normalize_and_clip with communicator
+  {
+    Array full_test(shape);
+    for (int j = 0; j < shape.y; ++j)
+    {
+      for (int i = 0; i < shape.x; ++i)
+      {
+        full_test(i, j) = static_cast<float>(i + 2 * j);
+      }
+    }
+
+    // Monolithic reference results
+    Array ref_remap = full_test;
+    remap(ref_remap, 0.f, 1.f);
+
+    Array ref_norm = full_test;
+    normalize_and_clip(ref_norm, 2.0f);
+
+    // Distributed test via VirtualArray
+    VirtualArray va_remap(shape, tile_shape, 0, StorageMode::VA_RAM);
+    ComputeMode  cm_dist{.mode = ForEachMode::VA_DISTRIBUTED};
+    va_remap.from_array(full_test, cm_dist);
+
+    for_each_tile(
+        va_remap,
+        [](Array &tile, const TileRegion &, ICommunicator &comm)
+        { remap(tile, 0.f, 1.f, comm); },
+        cm_dist);
+
+    Array res_remap = va_remap.to_array(cm_dist);
+    Array diff_remap = hmap::abs(res_remap - ref_remap);
+    EXPECT_LT(diff_remap.max(), 1e-5f);
+
+    VirtualArray va_norm(shape, tile_shape, 0, StorageMode::VA_RAM);
+    va_norm.from_array(full_test, cm_dist);
+
+    for_each_tile(
+        va_norm,
+        [](Array &tile, const TileRegion &, ICommunicator &comm)
+        { normalize_and_clip(tile, 2.0f, comm); },
+        cm_dist);
+
+    Array res_norm = va_norm.to_array(cm_dist);
+    Array diff_norm = hmap::abs(res_norm - ref_norm);
+    EXPECT_LT(diff_norm.max(), 1e-4f);
   }
 }
