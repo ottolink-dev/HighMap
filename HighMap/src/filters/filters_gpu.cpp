@@ -545,10 +545,7 @@ void smooth_cpulse(Array            &array,
 
     run.bind_imagef("in", a.vector, a.shape.x, a.shape.y);
     run.bind_imagef("weights", k1d, nk, 1);
-    run.bind_imagef("out",
-                    a.vector,
-                    a.shape.x,
-                    a.shape.y,
+    run.bind_imagef("out", a.vector, a.shape.x, a.shape.y,
                     true); // out
     run.bind_arguments(a.shape.x, a.shape.y, ir);
 

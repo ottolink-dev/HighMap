@@ -471,7 +471,8 @@ void rescale(Array &array, float scaling, float vref = 0.f);
  *
  * @param array      Input array to be normalized and clipped.
  * @param multiplier Standard deviation multiplier (default is 2.5f).
- * @param comm       Optional communicator for collective reduction across tiles.
+ * @param comm       Optional communicator for collective reduction across
+ *                   tiles.
  */
 void normalize_and_clip(Array         &array,
                         float          multiplier = 2.5f,

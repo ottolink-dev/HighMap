@@ -659,7 +659,7 @@ public:
    * the array is empty, the behavior of this function is undefined.
    *
    * @param  comm Optional communicator for collective reduction across tiles.
-   * @return float The maximum value in the array.
+   * @return      float The maximum value in the array.
    */
   float max(ICommunicator &comm = SingleArrayComm::instance()) const;
 
@@ -670,7 +670,7 @@ public:
    * array. If the array is empty, the behavior of this function is undefined.
    *
    * @param  comm Optional communicator for collective reduction across tiles.
-   * @return float The mean value of the elements in the array.
+   * @return      float The mean value of the elements in the array.
    */
   float mean(ICommunicator &comm = SingleArrayComm::instance()) const;
 
@@ -687,7 +687,7 @@ public:
    * the array is empty, the behavior of this function is undefined.
    *
    * @param  comm Optional communicator for collective reduction across tiles.
-   * @return float The minimum value in the array.
+   * @return      float The minimum value in the array.
    */
   float min(ICommunicator &comm = SingleArrayComm::instance()) const;
 
@@ -737,7 +737,7 @@ public:
    * array.
    *
    * @param  comm Optional communicator for collective reduction across tiles.
-   * @return float The peak-to-peak amplitude of the array values.
+   * @return      float The peak-to-peak amplitude of the array values.
    */
   float ptp(ICommunicator &comm = SingleArrayComm::instance()) const;
 
@@ -745,8 +745,8 @@ public:
    * @brief Computes the minimum and maximum values of the array.
    *
    * @param  comm Optional communicator for collective reduction across tiles.
-   * @return glm::vec2 A vector where x contains the minimum value and y
-   *         contains the maximum value.
+   * @return      glm::vec2 A vector where x contains the minimum value and y
+   *              contains the maximum value.
    */
   glm::vec2 range(ICommunicator &comm = SingleArrayComm::instance()) const;
 
@@ -884,7 +884,7 @@ public:
    * @brief Return the standard deviation of all array values.
    *
    * @param  comm Optional communicator for collective reduction across tiles.
-   * @return float The standard deviation of all elements in the array.
+   * @return      float The standard deviation of all elements in the array.
    */
   float std(ICommunicator &comm = SingleArrayComm::instance()) const;
 
@@ -896,7 +896,7 @@ public:
    * magnitude of the array's contents.
    *
    * @param  comm Optional communicator for collective reduction across tiles.
-   * @return float The sum of all elements in the array.
+   * @return      float The sum of all elements in the array.
    */
   float sum(ICommunicator &comm = SingleArrayComm::instance()) const;
 
@@ -1039,9 +1039,11 @@ public:
    * values present in the array. The values are sorted in ascending order.
    *
    * @param  comm Optional communicator for collective reduction across tiles.
-   * @return std::vector<float> A vector of unique values found in the array.
+   * @return      std::vector<float> A vector of unique values found in the
+   *              array.
    */
-  std::vector<float> unique_values(ICommunicator &comm = SingleArrayComm::instance()) const;
+  std::vector<float> unique_values(
+      ICommunicator &comm = SingleArrayComm::instance()) const;
 };
 
 // ==========================================================================

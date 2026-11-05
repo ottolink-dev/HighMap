@@ -14,8 +14,9 @@
 #include <memory>
 #include <mutex>
 #include <string>
-#include <unordered_map>
 #include <vector>
+
+#include <unordered_map>
 
 namespace hmap
 {
@@ -62,13 +63,15 @@ public:
   virtual ~ICommunicator() = default;
 
   virtual float              all_reduce(float local_val, ReduceOp op) = 0;
-  virtual std::vector<float> all_union(const std::vector<float> &local_vals) = 0;
-  virtual void               barrier() = 0;
-  virtual int                rank() const = 0;
-  virtual int                size() const = 0;
-  virtual void               sync_overlap_buffers(Array            &local_tile,
-                                                  const TileRegion &region,
-                                                  SyncOperation     op = SyncOperation::SmoothBlend) = 0;
+  virtual std::vector<float> all_union(
+      const std::vector<float> &local_vals) = 0;
+  virtual void barrier() = 0;
+  virtual int  rank() const = 0;
+  virtual int  size() const = 0;
+  virtual void sync_overlap_buffers(
+      Array            &local_tile,
+      const TileRegion &region,
+      SyncOperation     op = SyncOperation::SmoothBlend) = 0;
 };
 
 // =====================================
@@ -76,8 +79,8 @@ public:
 // =====================================
 
 /**
- * @brief Default standalone communicator for single-array computation.
- * All collective calls are identity or no-ops, resulting in zero overhead.
+ * @brief Default standalone communicator for single-array computation. All
+ * collective calls are identity or no-ops, resulting in zero overhead.
  */
 class SingleArrayComm final : public ICommunicator
 {
@@ -87,9 +90,10 @@ public:
   void               barrier() override;
   int                rank() const override;
   int                size() const override;
-  void               sync_overlap_buffers(Array            &local_tile,
-                                          const TileRegion &region,
-                                          SyncOperation     op = SyncOperation::SmoothBlend) override;
+  void               sync_overlap_buffers(
+                    Array            &local_tile,
+                    const TileRegion &region,
+                    SyncOperation     op = SyncOperation::SmoothBlend) override;
 
   static SingleArrayComm &instance();
 };
@@ -99,9 +103,9 @@ public:
 // =====================================
 
 /**
- * @brief Communicator for single-threaded sequential tile traversal.
- * Tracks reductions per collective sequence index so multiple distinct
- * all_reduce calls per tile (min, max, sum...) accumulate correctly.
+ * @brief Communicator for single-threaded sequential tile traversal. Tracks
+ * reductions per collective sequence index so multiple distinct all_reduce
+ * calls per tile (min, max, sum...) accumulate correctly.
  */
 class SequentialTileComm final : public ICommunicator
 {
@@ -113,9 +117,10 @@ public:
   void               barrier() override;
   int                rank() const override;
   int                size() const override;
-  void               sync_overlap_buffers(Array            &local_tile,
-                                          const TileRegion &region,
-                                          SyncOperation     op = SyncOperation::SmoothBlend) override;
+  void               sync_overlap_buffers(
+                    Array            &local_tile,
+                    const TileRegion &region,
+                    SyncOperation     op = SyncOperation::SmoothBlend) override;
 
   float get_accumulated_value(size_t seq = 0) const;
   void  next_tile(int tile_idx);
@@ -128,8 +133,8 @@ private:
   std::vector<float> accumulators;
   std::vector<bool>  initialized;
   std::vector<float> accumulated_unique;
-  // Boundary edge buffers for sequential neighbor exchange (keyed by tile index)
-  // east_edges[ty][tx] holds the eastern overlapping halo column
+  // Boundary edge buffers for sequential neighbor exchange (keyed by tile
+  // index) east_edges[ty][tx] holds the eastern overlapping halo column
   // south_edges[ty][tx] holds the southern overlapping halo row
   std::vector<std::vector<float>> east_edges;
   std::vector<std::vector<float>> south_edges;
@@ -152,7 +157,7 @@ public:
   void               barrier(size_t seq);
   int                get_total_threads() const;
 
-  void  register_tile(int tile_idx, Array *tile, const TileRegion &region);
+  void   register_tile(int tile_idx, Array *tile, const TileRegion &region);
   Array *get_registered_tile(int tile_idx) const;
   const TileRegion *get_registered_region(int tile_idx) const;
 
@@ -177,9 +182,9 @@ private:
     bool ready = false;
   };
 
-  mutable std::mutex                  mtx;
-  std::condition_variable             cv;
-  int                                 total_threads;
+  mutable std::mutex                      mtx;
+  std::condition_variable                 cv;
+  int                                     total_threads;
   std::unordered_map<size_t, ReduceSlot>  reduce_slots;
   std::unordered_map<size_t, UnionSlot>   union_slots;
   std::unordered_map<size_t, BarrierSlot> barrier_slots;
@@ -188,33 +193,35 @@ private:
 };
 
 /**
- * @brief Thread-local communicator proxy connected to a ThreadedCollectiveState.
+ * @brief Thread-local communicator proxy connected to a
+ * ThreadedCollectiveState.
  */
 class ThreadedTileComm final : public ICommunicator
 {
 public:
   ThreadedTileComm(std::shared_ptr<ThreadedCollectiveState> state,
-                   int                                     thread_rank,
-                   int                                     total_size,
-                   int                                     grid_nx = 1);
+                   int                                      thread_rank,
+                   int                                      total_size,
+                   int                                      grid_nx = 1);
 
   float              all_reduce(float local_val, ReduceOp op) override;
   std::vector<float> all_union(const std::vector<float> &local_vals) override;
   void               barrier() override;
   int                rank() const override;
   int                size() const override;
-  void               sync_overlap_buffers(Array            &local_tile,
-                                          const TileRegion &region,
-                                          SyncOperation     op = SyncOperation::SmoothBlend) override;
+  void               sync_overlap_buffers(
+                    Array            &local_tile,
+                    const TileRegion &region,
+                    SyncOperation     op = SyncOperation::SmoothBlend) override;
 
 private:
   std::shared_ptr<ThreadedCollectiveState> state;
-  int                                     thread_rank;
-  int                                     total_size;
-  int                                     grid_nx;
-  size_t                                  reduce_sequence = 0;
-  size_t                                  union_sequence = 0;
-  size_t                                  barrier_sequence = 0;
+  int                                      thread_rank;
+  int                                      total_size;
+  int                                      grid_nx;
+  size_t                                   reduce_sequence = 0;
+  size_t                                   union_sequence = 0;
+  size_t                                   barrier_sequence = 0;
 };
 
 } // namespace hmap

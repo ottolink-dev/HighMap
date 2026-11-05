@@ -144,7 +144,10 @@ void for_each_tile(const VirtualArray &va, Func &&func, const ComputeMode &cm)
           const TileRegion     &region,
           ICommunicator        &comm)
       {
-        if constexpr (std::is_invocable_v<Func, Array &, const TileRegion &, ICommunicator &>)
+        if constexpr (std::is_invocable_v<Func,
+                                          Array &,
+                                          const TileRegion &,
+                                          ICommunicator &>)
         {
           func(*out[0], region, comm);
         }
@@ -174,7 +177,10 @@ void for_each_tile(VirtualArray &va, Func &&func, const ComputeMode &cm)
           const TileRegion     &region,
           ICommunicator        &comm)
       {
-        if constexpr (std::is_invocable_v<Func, Array &, const TileRegion &, ICommunicator &>)
+        if constexpr (std::is_invocable_v<Func,
+                                          Array &,
+                                          const TileRegion &,
+                                          ICommunicator &>)
         {
           func(*out[0], region, comm);
         }
@@ -248,15 +254,15 @@ void sequential_tile_loop(const VirtualArray &ref_va,
 template <typename RegionDispatcher>
 void distributed_tile_loop(const VirtualArray &ref_va,
                            RegionDispatcher  &&dispatcher,
-                           int                 /*nthreads*/ = 0)
+                           int /*nthreads*/ = 0)
 {
   HMAP_PROFILE_ZONE("HighMap::distributed_tile_loop");
   const int nx = ceil_div(ref_va.shape.x, ref_va.tile_shape.x);
   const int ny = ceil_div(ref_va.shape.y, ref_va.tile_shape.y);
   const int ntasks = nx * ny;
 
-  // Enforce ntasks == nthreads (1-to-1 mapping like MPI ranks) to avoid deadlocks
-  // across unequal task assignment during collective synchronization
+  // Enforce ntasks == nthreads (1-to-1 mapping like MPI ranks) to avoid
+  // deadlocks across unequal task assignment during collective synchronization
   const int nthreads = ntasks;
 
   auto collective_state = std::make_shared<ThreadedCollectiveState>(nthreads);
