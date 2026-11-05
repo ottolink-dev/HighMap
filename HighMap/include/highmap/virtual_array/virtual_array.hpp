@@ -16,7 +16,7 @@
 #include "highmap/logger.hpp"
 #include "highmap/math/core.hpp"
 #include "highmap/profiling.hpp"
-#include "highmap/communicator.hpp"
+#include "highmap/virtual_array/communicator.hpp"
 #include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/tile_storage.hpp"
 

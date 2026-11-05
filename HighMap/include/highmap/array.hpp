@@ -19,7 +19,7 @@
 
 #include "highmap/algebra.hpp"
 #include "highmap/colormaps.hpp"
-#include "highmap/communicator.hpp"
+#include "highmap/virtual_array/communicator.hpp"
 
 namespace hmap
 {
