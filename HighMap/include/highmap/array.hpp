@@ -1038,9 +1038,10 @@ public:
    *        This function extracts and returns a vector containing all unique
    * values present in the array. The values are sorted in ascending order.
    *
+   * @param  comm Optional communicator for collective reduction across tiles.
    * @return std::vector<float> A vector of unique values found in the array.
    */
-  std::vector<float> unique_values() const;
+  std::vector<float> unique_values(ICommunicator &comm = SingleArrayComm::instance()) const;
 };
 
 // ==========================================================================

@@ -16,7 +16,6 @@
 #include <memory>
 #include <mutex>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 namespace hmap
@@ -57,10 +56,11 @@ class ICommunicator
 public:
   virtual ~ICommunicator() = default;
 
-  virtual float all_reduce(float local_val, ReduceOp op) = 0;
-  virtual void  barrier() = 0;
-  virtual int   rank() const = 0;
-  virtual int   size() const = 0;
+  virtual float              all_reduce(float local_val, ReduceOp op) = 0;
+  virtual std::vector<float> all_union(const std::vector<float> &local_vals) = 0;
+  virtual void               barrier() = 0;
+  virtual int                rank() const = 0;
+  virtual int                size() const = 0;
 };
 
 // =====================================
@@ -77,6 +77,11 @@ public:
   float all_reduce(float local_val, ReduceOp /*op*/) override
   {
     return local_val;
+  }
+
+  std::vector<float> all_union(const std::vector<float> &local_vals) override
+  {
+    return local_vals;
   }
 
   void barrier() override
@@ -151,6 +156,20 @@ public:
     return accumulators[seq];
   }
 
+  std::vector<float> all_union(const std::vector<float> &local_vals) override
+  {
+    for (float v : local_vals)
+    {
+      accumulated_unique.push_back(v);
+    }
+
+    std::sort(accumulated_unique.begin(), accumulated_unique.end());
+    auto last = std::unique(accumulated_unique.begin(), accumulated_unique.end());
+    accumulated_unique.erase(last, accumulated_unique.end());
+
+    return accumulated_unique;
+  }
+
   void barrier() override
   {
   }
@@ -183,6 +202,7 @@ private:
   size_t             call_sequence = 0;
   std::vector<float> accumulators;
   std::vector<bool>  initialized;
+  std::vector<float> accumulated_unique;
 };
 
 // =====================================
@@ -260,6 +280,34 @@ public:
     return reduced_val;
   }
 
+  std::vector<float> all_union(const std::vector<float> &vals)
+  {
+    std::unique_lock<std::mutex> lock(mtx);
+    int                          gen = barrier_generation;
+
+    for (float v : vals)
+    {
+      union_vals.push_back(v);
+    }
+
+    if (--remaining_threads == 0)
+    {
+      std::sort(union_vals.begin(), union_vals.end());
+      auto last = std::unique(union_vals.begin(), union_vals.end());
+      union_vals.erase(last, union_vals.end());
+
+      remaining_threads = total_threads;
+      barrier_generation++;
+      cv.notify_all();
+    }
+    else
+    {
+      cv.wait(lock, [this, gen]() { return barrier_generation != gen; });
+    }
+
+    return union_vals;
+  }
+
   int get_total_threads() const
   {
     return total_threads;
@@ -272,6 +320,7 @@ private:
   int                     remaining_threads;
   int                     barrier_generation;
   float                   reduced_val;
+  std::vector<float>      union_vals;
 };
 
 /**
@@ -296,6 +345,15 @@ public:
       return state->all_reduce(local_val, op);
     }
     return local_val;
+  }
+
+  std::vector<float> all_union(const std::vector<float> &local_vals) override
+  {
+    if (state)
+    {
+      return state->all_union(local_vals);
+    }
+    return local_vals;
   }
 
   void barrier() override

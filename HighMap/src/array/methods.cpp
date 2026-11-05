@@ -559,12 +559,12 @@ float Array::sum(ICommunicator &comm) const
   return comm.all_reduce(local_sum, ReduceOp::Sum);
 }
 
-std::vector<float> Array::unique_values() const
+std::vector<float> Array::unique_values(ICommunicator &comm) const
 {
   if (!validate_non_empty(*this)) return {};
   std::vector<float> v = this->vector;
   vector_unique_values(v);
-  return v;
+  return comm.all_union(v);
 }
 
 } // namespace hmap

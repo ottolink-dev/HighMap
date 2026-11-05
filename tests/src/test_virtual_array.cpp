@@ -540,4 +540,34 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
     EXPECT_FLOAT_EQ(full_array.range().y, ref_range.y);
     EXPECT_NEAR(full_array.std(), ref_std, 1e-4f);
   }
+
+  // 4. Test unique_values() with communicator
+  {
+    Array label_array(shape, 1.0f);
+    label_array(10, 10) = 2.0f;
+    label_array(40, 50) = 5.0f;
+    label_array(100, 110) = 9.0f;
+
+    std::vector<float> ref_unique = label_array.unique_values();
+    std::vector<float> expected{1.0f, 2.0f, 5.0f, 9.0f};
+    EXPECT_EQ(ref_unique, expected);
+
+    VirtualArray va_labels(shape,
+                           tile_shape,
+                           halo,
+                           StorageMode::VA_DISK_LRU_MIN);
+    ComputeMode  cm_seq{.mode = ForEachMode::VA_SEQUENTIAL,
+                        .trim_storage = true};
+    va_labels.from_array(label_array, cm_seq);
+
+    std::vector<float> va_unique;
+    for_each_tile(
+        va_labels,
+        [&](const Array &tile, const TileRegion &, ICommunicator &comm)
+        { va_unique = tile.unique_values(comm); },
+        cm_seq);
+
+    EXPECT_EQ(va_unique, ref_unique);
+    EXPECT_LE(va_labels.live_tile_count(), 2);
+  }
 }
