@@ -466,3 +466,54 @@ TEST(VirtualArrayTest, SumPerTile)
   EXPECT_LT(tile_sums_excl[2], tile_sums_excl[0]);
   EXPECT_LT(tile_sums_excl[3], tile_sums_excl[1]);
 }
+
+// Helper pure Array function using communicator
+static float compute_min_mpi(const Array   &a,
+                             ICommunicator &comm = SingleArrayComm::instance())
+{
+  float local_min = a.min();
+  float global_min = comm.all_reduce(local_min, ReduceOp::Min);
+  comm.barrier();
+
+  return global_min;
+}
+
+TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
+{
+  glm::ivec2 shape{128, 128};
+  glm::ivec2 tile_shape{32, 32};
+  int        halo = 0;
+
+  // 1. Reference monolithic Array
+  Array full_array(shape, 100.0f);
+  // Inject known minimum in a specific tile
+  full_array(42, 75) = -17.25f;
+
+  // Compute with default SingleArrayComm
+  float ref_min = compute_min_mpi(full_array);
+  EXPECT_FLOAT_EQ(ref_min, -17.25f);
+
+  // 2. VirtualArray with LRU storage (minimum memory footprint verification)
+  // Max 2 live tiles in memory at any given time
+  VirtualArray va(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
+  ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL, .trim_storage = true};
+
+  va.from_array(full_array, cm);
+
+  // 3. Collective execution on VirtualArray using standard for_each_tile (comm
+  // derived from cm)
+  float va_min = std::numeric_limits<float>::infinity();
+  for_each_tile(
+      va,
+      [&](const Array &tile, const TileRegion &, ICommunicator &comm)
+      {
+        float m = compute_min_mpi(tile, comm);
+        va_min = std::min(va_min, m);
+      },
+      cm);
+
+  EXPECT_FLOAT_EQ(va_min, ref_min);
+
+  // Ensure live tiles do not exceed the bounded memory limit
+  EXPECT_LE(va.live_tile_count(), 2);
+}
