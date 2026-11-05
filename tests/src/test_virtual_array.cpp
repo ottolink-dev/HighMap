@@ -467,17 +467,6 @@ TEST(VirtualArrayTest, SumPerTile)
   EXPECT_LT(tile_sums_excl[3], tile_sums_excl[1]);
 }
 
-// Helper pure Array function using communicator
-static float compute_min_mpi(const Array   &a,
-                             ICommunicator &comm = SingleArrayComm::instance())
-{
-  float local_min = a.min();
-  float global_min = comm.all_reduce(local_min, ReduceOp::Min);
-  comm.barrier();
-
-  return global_min;
-}
-
 TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
 {
   glm::ivec2 shape{128, 128};
@@ -490,30 +479,65 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
   full_array(42, 75) = -17.25f;
 
   // Compute with default SingleArrayComm
-  float ref_min = compute_min_mpi(full_array);
+  float     ref_min = full_array.min();
+  float     ref_max = full_array.max();
+  float     ref_sum = full_array.sum();
+  float     ref_mean = full_array.mean();
+  float     ref_ptp = full_array.ptp();
+  glm::vec2 ref_range = full_array.range();
+  float     ref_std = full_array.std();
+
   EXPECT_FLOAT_EQ(ref_min, -17.25f);
+  EXPECT_FLOAT_EQ(ref_max, 100.0f);
 
-  // 2. VirtualArray with LRU storage (minimum memory footprint verification)
-  // Max 2 live tiles in memory at any given time
-  VirtualArray va(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
-  ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL, .trim_storage = true};
+  // 2. Test across compute mode: Sequential
+  {
+    VirtualArray va(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
+    ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL, .trim_storage = true};
 
-  va.from_array(full_array, cm);
+    va.from_array(full_array, cm);
 
-  // 3. Collective execution on VirtualArray using standard for_each_tile (comm
-  // derived from cm)
-  float va_min = std::numeric_limits<float>::infinity();
-  for_each_tile(
-      va,
-      [&](const Array &tile, const TileRegion &, ICommunicator &comm)
-      {
-        float m = compute_min_mpi(tile, comm);
-        va_min = std::min(va_min, m);
-      },
-      cm);
+    float     va_min = std::numeric_limits<float>::infinity();
+    float     va_max = -std::numeric_limits<float>::infinity();
+    float     va_sum = 0.f;
+    float     va_mean = 0.f;
+    float     va_ptp = 0.f;
+    glm::vec2 va_range{0.f, 0.f};
 
-  EXPECT_FLOAT_EQ(va_min, ref_min);
+    for_each_tile(
+        va,
+        [&](const Array &tile, const TileRegion &, ICommunicator &comm)
+        {
+          va_min = tile.min(comm);
+          va_max = tile.max(comm);
+          va_sum = tile.sum(comm);
+          va_mean = tile.mean(comm);
+          va_ptp = tile.ptp(comm);
+          va_range = tile.range(comm);
+        },
+        cm);
 
-  // Ensure live tiles do not exceed the bounded memory limit
-  EXPECT_LE(va.live_tile_count(), 2);
+    EXPECT_FLOAT_EQ(va_min, ref_min);
+    EXPECT_FLOAT_EQ(va_max, ref_max);
+    EXPECT_NEAR(va_sum, ref_sum, 1e-3f);
+    EXPECT_NEAR(va_mean, ref_mean, 1e-4f);
+    EXPECT_FLOAT_EQ(va_ptp, ref_ptp);
+    EXPECT_FLOAT_EQ(va_range.x, ref_range.x);
+    EXPECT_FLOAT_EQ(va_range.y, ref_range.y);
+
+    // Ensure bounded memory footprint under sequential execution
+    EXPECT_LE(va.live_tile_count(), 2);
+  }
+
+  // 3. Test with SingleArrayComm (default standalone argument)
+  {
+    EXPECT_FLOAT_EQ(full_array.min(), ref_min);
+    EXPECT_FLOAT_EQ(full_array.max(), ref_max);
+    EXPECT_NEAR(full_array.sum(), ref_sum, 1e-3f);
+    EXPECT_NEAR(full_array.mean(), ref_mean, 1e-4f);
+    EXPECT_FLOAT_EQ(full_array.ptp(), ref_ptp);
+    EXPECT_FLOAT_EQ(full_array.range().x, ref_range.x);
+    EXPECT_FLOAT_EQ(full_array.range().y, ref_range.y);
+    EXPECT_NEAR(full_array.std(), ref_std, 1e-4f);
+  }
 }

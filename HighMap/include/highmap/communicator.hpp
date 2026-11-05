@@ -16,6 +16,8 @@
 #include <memory>
 #include <mutex>
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 namespace hmap
 {
@@ -104,36 +106,49 @@ public:
 
 /**
  * @brief Communicator for single-threaded sequential tile traversal.
- * Tiles stream one by one so only 1 tile resides in memory at a time.
+ * Tracks reductions per collective sequence index so multiple distinct
+ * all_reduce calls per tile (min, max, sum...) accumulate correctly.
  */
 class SequentialTileComm final : public ICommunicator
 {
 public:
-  SequentialTileComm(int total_tiles)
+  explicit SequentialTileComm(int total_tiles)
       : total_tiles(total_tiles)
   {
   }
 
   float all_reduce(float local_val, ReduceOp op) override
   {
-    if (!reduced)
+    size_t seq = call_sequence++;
+
+    if (seq >= accumulators.size())
+    {
+      accumulators.resize(seq + 1);
+      initialized.resize(seq + 1, false);
+    }
+
+    if (!initialized[seq])
+    {
+      accumulators[seq] = local_val;
+      initialized[seq] = true;
+    }
+    else
     {
       switch (op)
       {
       case ReduceOp::Min:
-        accumulated_val = std::min(accumulated_val, local_val);
+        accumulators[seq] = std::min(accumulators[seq], local_val);
         break;
       case ReduceOp::Max:
-        accumulated_val = std::max(accumulated_val, local_val);
+        accumulators[seq] = std::max(accumulators[seq], local_val);
         break;
       case ReduceOp::Sum:
-        accumulated_val += local_val;
+        accumulators[seq] += local_val;
         break;
       }
-      reduced = true;
     }
 
-    return accumulated_val;
+    return accumulators[seq];
   }
 
   void barrier() override
@@ -153,19 +168,21 @@ public:
   void next_tile(int tile_idx)
   {
     current_tile_idx = tile_idx;
-    reduced = false;
+    call_sequence = 0;
   }
 
-  float get_accumulated_value() const
+  float get_accumulated_value(size_t seq = 0) const
   {
-    return accumulated_val;
+    if (seq < accumulators.size()) return accumulators[seq];
+    return 0.f;
   }
 
 private:
-  int   total_tiles = 1;
-  int   current_tile_idx = 0;
-  bool  reduced = false;
-  float accumulated_val = std::numeric_limits<float>::infinity();
+  int                total_tiles = 1;
+  int                current_tile_idx = 0;
+  size_t             call_sequence = 0;
+  std::vector<float> accumulators;
+  std::vector<bool>  initialized;
 };
 
 // =====================================
