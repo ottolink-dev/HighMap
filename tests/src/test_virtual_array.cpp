@@ -1,4 +1,5 @@
 #include "highmap/dbg/assert.hpp"
+#include "highmap/math/array.hpp"
 #include "highmap/primitives.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
@@ -569,5 +570,82 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
 
     EXPECT_EQ(va_unique, ref_unique);
     EXPECT_LE(va_labels.live_tile_count(), 2);
+  }
+
+  // 5. Test sync_overlap_buffers() with communicator
+  {
+    int          va_halo = 4;
+    VirtualArray va_sync(shape, tile_shape, va_halo, StorageMode::VA_RAM);
+    ComputeMode  cm_seq{.mode = ForEachMode::VA_SEQUENTIAL};
+
+    // Fill each tile with a value corresponding to its tile index
+    for_each_tile(
+        va_sync,
+        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        {
+          float tile_val = static_cast<float>(region.key.tx +
+                                              region.key.ty * 10);
+          for (float &v : tile.vector)
+            v = tile_val;
+
+          // Call communicator sync_overlap_buffers directly
+          comm.sync_overlap_buffers(tile, region, SyncOperation::CopyFirst);
+        },
+        cm_seq);
+
+    // Verify west-to-east neighbor halo on tile (1, 0) received tile (0, 0)'s
+    // value
+    TileRegion   r10 = va_sync.tile_region_from_tile_coords(1, 0);
+    const Array &tile10 = va_sync.storage->get_tile(r10);
+    // Western halo is at x in [0, va_halo)
+    EXPECT_FLOAT_EQ(tile10(0, tile10.shape.y / 2),
+                    0.0f); // value from tile (0, 0)
+    va_sync.storage->release_tile(r10);
+  }
+
+  // 6. Test comparison between VirtualArray post-sync and Communicator sync
+  {
+    const glm::ivec2 test_shape{128, 128};
+    const glm::ivec2 test_tile{32, 32};
+    const int        test_halo = 8;
+    const int        smooth_ir = 16;
+
+    Array base_arr = noise_fbm(NoiseType::PERLIN, test_shape, {4.f, 4.f}, 42);
+
+    // Reference: Monolithic smooth
+    Array ref_arr = base_arr;
+    smooth_cpulse(ref_arr, smooth_ir);
+
+    // Mode A: Post-sync via VirtualArray::sync_overlap_buffers()
+    VirtualArray va_post(test_shape, test_tile, test_halo, StorageMode::VA_RAM);
+    ComputeMode  cm_dist{.mode = ForEachMode::VA_DISTRIBUTED};
+    va_post.from_array(base_arr, cm_dist);
+
+    for_each_tile(
+        va_post,
+        [&](Array &tile, const TileRegion &)
+        { smooth_cpulse(tile, smooth_ir); },
+        cm_dist);
+    va_post.sync_overlap_buffers();
+    Array res_post = va_post.to_array(cm_dist);
+
+    // Mode B: Communicator sync inside for_each_tile()
+    VirtualArray va_comm(test_shape, test_tile, test_halo, StorageMode::VA_RAM);
+    va_comm.from_array(base_arr, cm_dist);
+
+    for_each_tile(
+        va_comm,
+        [&](Array &tile, const TileRegion &region, ICommunicator &comm)
+        { smooth_cpulse(tile, smooth_ir, region, comm); },
+        cm_dist);
+    Array res_comm = va_comm.to_array(cm_dist);
+
+    // Both should significantly match each other across boundary regions
+    Array diff_post_comm = hmap::abs(res_post - res_comm);
+    EXPECT_LT(diff_post_comm.mean(), 0.01f);
+
+    // Both should be close to monolithic reference
+    Array diff_comm_ref = hmap::abs(res_comm - ref_arr);
+    EXPECT_LT(diff_comm_ref.mean(), 0.05f);
   }
 }

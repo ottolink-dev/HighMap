@@ -27,17 +27,6 @@ namespace hmap
 // Peripheric classes
 // =====================================
 
-enum class SyncOperation
-{
-  Average,
-  CopyFirst,
-  CopySecond,
-  Min,
-  Max,
-  Mean,
-  SmoothBlend // current sync
-};
-
 enum ForEachMode : int
 {
   VA_SEQUENTIAL,  // tile-by-tile, single thread

@@ -85,6 +85,9 @@ public:
 class RamTileStorage : public TileStorage
 {
 public:
+  RamTileStorage() = default;
+  RamTileStorage(const RamTileStorage &other);
+
   std::unique_ptr<TileStorage> clone() const override;
 
   Array      &get_tile(const TileRegion &region) override;
@@ -98,6 +101,7 @@ public:
   };
 
 private:
+  mutable std::mutex                              mtx;
   std::unordered_map<TileKey, Array, TileKeyHash> tiles;
 };
 

@@ -1,0 +1,2 @@
+add_executable(ex_virtual_array_comm ex_virtual_array_comm.cpp)
+target_link_libraries(ex_virtual_array_comm highmap)

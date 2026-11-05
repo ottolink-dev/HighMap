@@ -28,6 +28,8 @@
 #include "highmap/range.hpp"
 #include "highmap/transform.hpp"
 #include "highmap/vectors.hpp"
+#include "highmap/virtual_array/communicator.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 #define NSIGMA 2
 
@@ -1023,6 +1025,16 @@ void smooth_cpulse(Array &array, int ir, const Array *p_mask)
   if (p_mask && !validate_same_shape(array, *p_mask)) return;
 
   apply_with_mask(array, p_mask, [&](Array &a) { smooth_cpulse(a, ir); });
+}
+
+void smooth_cpulse(Array            &array,
+                   int               ir,
+                   const TileRegion &region,
+                   ICommunicator    &comm,
+                   const Array      *p_mask)
+{
+  smooth_cpulse(array, ir, p_mask);
+  comm.sync_overlap_buffers(array, region, SyncOperation::SmoothBlend);
 }
 
 void smooth_cpulse_edge_removing(Array &array,

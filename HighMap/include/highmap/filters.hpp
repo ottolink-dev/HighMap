@@ -25,7 +25,9 @@ namespace hmap
 
 class Cloud;
 class Point;
+class ICommunicator;
 struct ComputeMode;
+struct TileRegion;
 struct VirtualArray;
 
 /**
@@ -1960,6 +1962,13 @@ void smooth_cpulse(Array &array, int ir);
 
 /// @overload
 void smooth_cpulse(Array &array, int ir, const Array *p_mask);
+
+/// @overload
+void smooth_cpulse(Array            &array,
+                   int               ir,
+                   const TileRegion &region,
+                   ICommunicator    &comm,
+                   const Array      *p_mask = nullptr);
 
 /**
  * @brief Smooths an array while attenuating edges using a gradient-based pulse.

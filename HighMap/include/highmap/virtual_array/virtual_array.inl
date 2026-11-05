@@ -233,7 +233,7 @@ void sequential_tile_loop(const VirtualArray &ref_va,
   const int ny = ceil_div(ref_va.shape.y, ref_va.tile_shape.y);
   const int n_tiles = nx * ny;
 
-  SequentialTileComm comm(n_tiles);
+  SequentialTileComm comm(n_tiles, ref_va.halo);
 
   int tile_idx = 0;
   for (int ty = 0; ty < ny; ++ty)
@@ -248,16 +248,16 @@ void sequential_tile_loop(const VirtualArray &ref_va,
 template <typename RegionDispatcher>
 void distributed_tile_loop(const VirtualArray &ref_va,
                            RegionDispatcher  &&dispatcher,
-                           int                 nthreads = 0)
+                           int                 /*nthreads*/ = 0)
 {
   HMAP_PROFILE_ZONE("HighMap::distributed_tile_loop");
   const int nx = ceil_div(ref_va.shape.x, ref_va.tile_shape.x);
   const int ny = ceil_div(ref_va.shape.y, ref_va.tile_shape.y);
   const int ntasks = nx * ny;
 
-  if (nthreads <= 0) nthreads = std::thread::hardware_concurrency();
-
-  nthreads = std::min(nthreads, ntasks);
+  // Enforce ntasks == nthreads (1-to-1 mapping like MPI ranks) to avoid deadlocks
+  // across unequal task assignment during collective synchronization
+  const int nthreads = ntasks;
 
   auto collective_state = std::make_shared<ThreadedCollectiveState>(nthreads);
 
@@ -266,16 +266,13 @@ void distributed_tile_loop(const VirtualArray &ref_va,
 
   auto worker = [&](int thread_id)
   {
-    ThreadedTileComm comm(collective_state, thread_id, ntasks);
+    ThreadedTileComm comm(collective_state, thread_id, ntasks, nx);
 
-    for (int k = thread_id; k < ntasks; k += nthreads)
-    {
-      const int ty = k / nx;
-      const int tx = k % nx;
+    const int ty = thread_id / nx;
+    const int tx = thread_id % nx;
 
-      TileRegion region = ref_va.tile_region_from_tile_coords(tx, ty);
-      dispatcher(region, comm);
-    }
+    TileRegion region = ref_va.tile_region_from_tile_coords(tx, ty);
+    dispatcher(region, comm);
   };
 
   for (int t = 0; t < nthreads; ++t)

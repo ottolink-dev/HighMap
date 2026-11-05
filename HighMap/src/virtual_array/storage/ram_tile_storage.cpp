@@ -16,6 +16,12 @@
 namespace hmap
 {
 
+RamTileStorage::RamTileStorage(const RamTileStorage &other)
+{
+  std::lock_guard<std::mutex> lock(other.mtx);
+  this->tiles = other.tiles;
+}
+
 std::unique_ptr<TileStorage> RamTileStorage::clone() const
 {
   return std::make_unique<RamTileStorage>(*this);
@@ -23,7 +29,8 @@ std::unique_ptr<TileStorage> RamTileStorage::clone() const
 
 Array &RamTileStorage::get_tile(const TileRegion &region)
 {
-  auto it = tiles.find(region.key);
+  std::lock_guard<std::mutex> lock(this->mtx);
+  auto                        it = tiles.find(region.key);
   if (it != tiles.end()) return it->second;
 
   glm::ivec2 total = region.shape; // include halo
@@ -44,12 +51,14 @@ void RamTileStorage::release_tile(const TileRegion & /* region */)
 
 size_t RamTileStorage::live_tile_count() const
 {
+  std::lock_guard<std::mutex> lock(this->mtx);
   return tiles.size();
 }
 
 size_t RamTileStorage::live_memory_bytes() const
 {
-  size_t bytes = 0;
+  std::lock_guard<std::mutex> lock(this->mtx);
+  size_t                      bytes = 0;
   for (const auto &[key, arr] : tiles)
   {
     bytes += arr.vector.capacity() * sizeof(float) + sizeof(Array) +
