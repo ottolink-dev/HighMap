@@ -42,10 +42,12 @@ struct TileRegion
   glm::ivec4 halo;  // number of extra cells around overlapping with other
                     // tiles
 
-  TileRegion(const TileKey    &key,
-             const glm::vec4  &bbox,
-             const glm::ivec2 &shape,
+  TileRegion(const TileKey    &key = {},
+             const glm::vec4  &bbox = {0.f, 0.f, 0.f, 0.f},
+             const glm::ivec2 &shape = {0, 0},
              const glm::ivec4 &halo = {0, 0, 0, 0});
+
+  static const TileRegion &dummy();
 
   glm::vec2   cell_center(int i, int j) const;
   glm::vec2   cell_corner(int i, int j) const;

@@ -637,7 +637,7 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
     for_each_tile(
         va_comm,
         [&](Array &tile, const TileRegion &region, ICommunicator &comm)
-        { smooth_cpulse(tile, smooth_ir, region, comm); },
+        { gpu::smooth_cpulse(tile, smooth_ir, nullptr, region, comm); },
         cm_dist);
     Array res_comm = va_comm.to_array(cm_dist);
 

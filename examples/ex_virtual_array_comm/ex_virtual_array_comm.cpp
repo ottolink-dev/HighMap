@@ -74,7 +74,7 @@ int main()
       {
         // Demonstrator: smooth_cpulse using communicator to sync overlap
         // buffers
-        hmap::smooth_cpulse(tile, ir, region, comm);
+        hmap::smooth_cpulse(tile, ir, nullptr, region, comm);
       },
       cm);
 

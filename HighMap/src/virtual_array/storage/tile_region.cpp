@@ -19,6 +19,12 @@ TileRegion::TileRegion(const TileKey    &key,
 {
 }
 
+const TileRegion &TileRegion::dummy()
+{
+  static const TileRegion s_dummy;
+  return s_dummy;
+}
+
 glm::vec2 TileRegion::cell_center(int i, int j) const
 {
   const float x_min = bbox.x;
