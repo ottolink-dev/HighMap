@@ -49,7 +49,10 @@ Array &DiskLruTileStorage::get_tile(const TileRegion &region)
   // ---- RAM hit → delegate to base
 
   auto it = tiles.find(key);
-  if (it != tiles.end()) return LruTileStorage::get_tile_no_mutex_lock(region);
+  if (it != tiles.end() && it->second.in_ram)
+  {
+    return LruTileStorage::get_tile_no_mutex_lock(region);
+  }
 
   // ---- disk hit
 
@@ -57,7 +60,7 @@ Array &DiskLruTileStorage::get_tile(const TileRegion &region)
   if (std::filesystem::exists(path))
   {
     // eviction if needed
-    if (this->max_tiles > 0 && tiles.size() >= max_tiles)
+    if (this->max_tiles > 0 && this->lru.size() >= this->max_tiles)
     {
       this->evict_unpinned_no_mutex_lock(this->max_tiles - 1);
     }
@@ -65,9 +68,19 @@ Array &DiskLruTileStorage::get_tile(const TileRegion &region)
     Array tile = load_tile_from_disk(region);
 
     lru.push_front(key);
-    auto [inserted_it,
-          _] = tiles.emplace(key,
-                             LruTileEntry{std::move(tile), lru.begin(), 1});
+
+    if (it != tiles.end())
+    {
+      it->second.value = std::move(tile);
+      it->second.lru_it = lru.begin();
+      it->second.in_ram = true;
+      it->second.pin_count++;
+      return it->second.value;
+    }
+
+    auto [inserted_it, _] = tiles.emplace(
+        key,
+        LruTileEntry{std::move(tile), lru.begin(), 1, true});
 
     return inserted_it->second.value;
   }
@@ -120,9 +133,16 @@ void DiskLruTileStorage::trim()
   std::lock_guard<std::mutex> lock(mutex);
 
   for (auto &[key, entry] : tiles)
-    this->on_evict(key, entry.value); // write-back
+  {
+    if (entry.in_ram)
+    {
+      this->on_evict(key, entry.value); // write-back
+      std::vector<float>().swap(entry.value.vector);
+      entry.in_ram = false;
+      entry.pin_count = 0;
+    }
+  }
 
-  this->tiles.clear();
   this->lru.clear();
 }
 

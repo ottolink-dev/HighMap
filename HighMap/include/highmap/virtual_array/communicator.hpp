@@ -11,6 +11,7 @@
 
 #include <condition_variable>
 #include <cstdint>
+#include <functional>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -48,6 +49,7 @@ enum class SyncOperation
 // Forward declarations
 class Array;
 struct TileRegion;
+struct VirtualArray;
 
 // =====================================
 // Communicator Interface
@@ -103,14 +105,19 @@ public:
 // =====================================
 
 /**
- * @brief Communicator for single-threaded sequential tile traversal. Tracks
- * reductions per collective sequence index so multiple distinct all_reduce
- * calls per tile (min, max, sum...) accumulate correctly.
+ * @brief Communicator for single-threaded sequential tile traversal. Supports
+ * cooperative fiber suspension (Option A2) so iterative collective calls
+ * (sync_overlap_buffers, all_reduce, all_union, barrier) synchronize across
+ * all tiles using a disk-backed temporary VirtualArray (VA_DISK_LRU_MIN) with
+ * at most 2 live tiles in memory.
  */
 class SequentialTileComm final : public ICommunicator
 {
 public:
   explicit SequentialTileComm(int total_tiles, int halo = 0);
+  SequentialTileComm(const VirtualArray        &ref_va,
+                     const std::function<void()> &on_suspend,
+                     const std::function<void()> &on_resume);
 
   float              all_reduce(float local_val, ReduceOp op) override;
   std::vector<float> all_union(const std::vector<float> &local_vals) override;
@@ -124,22 +131,34 @@ public:
 
   float get_accumulated_value(size_t seq = 0) const;
   void  next_tile(int tile_idx);
+  void  run_cooperative_tiles(
+       const std::function<void(const TileRegion &, ICommunicator &)>
+           &dispatcher);
 
 private:
-  int                total_tiles = 1;
-  int                current_tile_idx = 0;
-  int                halo = 0;
-  size_t             call_sequence = 0;
-  size_t             sync_sequence = 0;
-  std::vector<float> accumulators;
-  std::vector<bool>  initialized;
-  std::vector<float> accumulated_unique;
-  // Boundary edge buffers for sequential neighbor exchange (keyed by sync
-  // sequence index and tile index)
-  // east_edges[sync_seq][tile_key] holds the eastern overlapping halo column
-  // south_edges[sync_seq][tile_key] holds the southern overlapping halo row
+  int                   total_tiles = 1;
+  int                   current_tile_idx = 0;
+  int                   halo = 0;
+  size_t                call_sequence = 0;
+  size_t                sync_sequence = 0;
+  std::vector<float>    accumulators;
+  std::vector<bool>     initialized;
+  std::vector<ReduceOp> reduce_ops;
+  std::vector<float>    accumulated_unique;
+
+  const VirtualArray         *p_ref_va = nullptr;
+  std::function<void()>       on_suspend;
+  std::function<void()>       on_resume;
+  std::unique_ptr<VirtualArray> sync_va;
+  SyncOperation               pending_sync_op = SyncOperation::SmoothBlend;
+  bool                        has_pending_sync = false;
+  void                       *p_fiber_scheduler = nullptr;
+
+  // Boundary edge buffers for non-cooperative fallback
   std::vector<std::vector<std::vector<float>>> east_edges;
   std::vector<std::vector<std::vector<float>>> south_edges;
+
+  void yield_to_scheduler();
 };
 
 // =====================================

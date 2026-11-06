@@ -107,28 +107,23 @@ TEST(SnowSimulation, TiledMinStorageLruMin)
   Array z_arr = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
   remap(z_arr);
 
+  Array s_seq;
+  Array s_dist_ram;
+
   for (auto mode : {ForEachMode::VA_SEQUENTIAL, ForEachMode::VA_DISTRIBUTED})
   {
-    ComputeMode cm{.mode = mode, .trim_storage = true};
+    const StorageMode storage_mode = (mode == ForEachMode::VA_SEQUENTIAL)
+                                         ? StorageMode::VA_DISK_LRU_MIN
+                                         : StorageMode::VA_RAM;
+    ComputeMode       cm{.mode = mode,
+                         .trim_storage = (mode == ForEachMode::VA_SEQUENTIAL)};
 
-    VirtualArray z(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
-    VirtualArray fall_map(shape,
-                          tile_shape,
-                          halo,
-                          StorageMode::VA_DISK_LRU_MIN);
-    VirtualArray melting_map(shape,
-                             tile_shape,
-                             halo,
-                             StorageMode::VA_DISK_LRU_MIN);
-    VirtualArray talus_map(shape,
-                           tile_shape,
-                           halo,
-                           StorageMode::VA_DISK_LRU_MIN);
-    VirtualArray z_out(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
-    VirtualArray snow_depth_out(shape,
-                                tile_shape,
-                                halo,
-                                StorageMode::VA_DISK_LRU_MIN);
+    VirtualArray z(shape, tile_shape, halo, storage_mode);
+    VirtualArray fall_map(shape, tile_shape, halo, storage_mode);
+    VirtualArray melting_map(shape, tile_shape, halo, storage_mode);
+    VirtualArray talus_map(shape, tile_shape, halo, storage_mode);
+    VirtualArray z_out(shape, tile_shape, halo, storage_mode);
+    VirtualArray snow_depth_out(shape, tile_shape, halo, storage_mode);
 
     z.from_array(z_arr, cm);
     fall_map.fill(1.f, cm);
@@ -145,6 +140,14 @@ TEST(SnowSimulation, TiledMinStorageLruMin)
         {
           auto [pa_z, pa_fall, pa_melt, pa_talus] = unpack<4>(p_arrays_in);
           auto [pa_z_out, pa_snow] = unpack<2>(p_arrays_out);
+
+          if (mode == ForEachMode::VA_SEQUENTIAL)
+          {
+            // Verify at most 1-2 live tiles in memory during sequential fiber
+            // execution
+            EXPECT_LE(z.live_tile_count(), 2u);
+            EXPECT_LE(snow_depth_out.live_tile_count(), 2u);
+          }
 
           *pa_snow = gpu::snow_simulation(*pa_z,
                                           0.1f,
@@ -176,6 +179,20 @@ TEST(SnowSimulation, TiledMinStorageLruMin)
     Array s_res = snow_depth_out.to_array(cm);
     EXPECT_GT(s_res.sum(), 0.f);
     EXPECT_GE(s_res.min(), -1e-5f);
-    EXPECT_LE(snow_depth_out.live_tile_count(), 2u);
+
+    if (mode == ForEachMode::VA_SEQUENTIAL)
+    {
+      EXPECT_LE(snow_depth_out.live_tile_count(), 2u);
+      s_seq = s_res;
+    }
+    else
+    {
+      s_dist_ram = s_res;
+    }
   }
+
+  // Verify that cooperative VA_SEQUENTIAL + VA_DISK_LRU_MIN produces the exact
+  // same multi-pass synchronized result as VA_DISTRIBUTED + VA_RAM
+  Array diff = abs(s_seq - s_dist_ram);
+  EXPECT_LT(diff.max(), 1e-4f);
 }

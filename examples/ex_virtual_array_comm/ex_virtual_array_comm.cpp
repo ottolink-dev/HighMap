@@ -18,6 +18,9 @@ int main()
   const int        halo = 16;
   const int        ir = 64;
 
+  const hmap::StorageMode storage = hmap::StorageMode::VA_RAM;
+  const hmap::ComputeMode cm{.mode = hmap::ForEachMode::VA_DISTRIBUTED};
+
   // 1. Generate base elevation noise on monolithic Array
   hmap::Array z0 = hmap::noise_fbm(hmap::NoiseType::PERLIN,
                                    shape,
@@ -29,8 +32,7 @@ int main()
   hmap::smooth_cpulse(ref_smooth, ir);
 
   // 3. Tiled VirtualArray without any boundary synchronization
-  hmap::VirtualArray va_raw(shape, tile_shape, halo, hmap::StorageMode::VA_RAM);
-  hmap::ComputeMode  cm{.mode = hmap::ForEachMode::VA_DISTRIBUTED};
+  hmap::VirtualArray va_raw(shape, tile_shape, halo, storage);
   va_raw.from_array(z0, cm);
 
   hmap::for_each_tile(
@@ -43,10 +45,7 @@ int main()
 
   // 4. Tiled VirtualArray with post-processing
   // VirtualArray::sync_overlap_buffers()
-  hmap::VirtualArray va_post_sync(shape,
-                                  tile_shape,
-                                  halo,
-                                  hmap::StorageMode::VA_RAM);
+  hmap::VirtualArray va_post_sync(shape, tile_shape, halo, storage);
   va_post_sync.from_array(z0, cm);
 
   hmap::for_each_tile(
@@ -60,10 +59,7 @@ int main()
 
   // 5. Tiled VirtualArray with communicator boundary synchronization inside
   // loop
-  hmap::VirtualArray va_comm_sync(shape,
-                                  tile_shape,
-                                  halo,
-                                  hmap::StorageMode::VA_RAM);
+  hmap::VirtualArray va_comm_sync(shape, tile_shape, halo, storage);
   va_comm_sync.from_array(z0, cm);
 
   hmap::for_each_tile(

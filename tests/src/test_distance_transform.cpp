@@ -302,4 +302,31 @@ TEST(DistanceTransform, TiledWithCommunicator)
 
     EXPECT_LT(diff.max(), 1e-4f);
   }
+
+  // Test 3: Single seed in bottom-right tile (1, 1) propagating West and North
+  // in VA_SEQUENTIAL mode with VA_DISK_LRU_MIN (2 live tiles)
+  {
+    Array mask(shape, 0.f);
+    mask(100, 100) = 1.f;
+
+    Array ref = distance_transform(mask);
+
+    VirtualArray va(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
+    ComputeMode  cm_seq{.mode = ForEachMode::VA_SEQUENTIAL,
+                        .trim_storage = true};
+    va.from_array(mask, cm_seq);
+
+    for_each_tile(
+        va,
+        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        { tile = distance_transform(tile, false, region, comm); },
+        cm_seq);
+
+    EXPECT_LE(va.live_tile_count(), 2u);
+
+    Array res = va.to_array(cm_seq);
+    Array diff = abs(res - ref);
+
+    EXPECT_LT(diff.max(), 1e-4f);
+  }
 }

@@ -59,63 +59,165 @@ void for_each_tile(const TileAccess &access, Func &&func, const ComputeMode &cm)
       return;
     }
 
-  // --- region dispatcher for tiled computations
+  const size_t n_tiles = static_cast<size_t>(ref_va->get_ntiles());
+  bool         low_mem_storage = false;
 
-  auto region_dispatcher = [&](const TileRegion &region, ICommunicator &comm)
+  for (auto *va : access.inputs)
+    if (va && va->storage && va->storage->max_live_tiles() < n_tiles)
+      low_mem_storage = true;
+
+  for (auto *va : access.outputs)
+    if (va && va->storage && va->storage->max_live_tiles() < n_tiles)
+      low_mem_storage = true;
+
+  ForEachMode effective_mode = cm.mode;
+  if (effective_mode == ForEachMode::VA_DISTRIBUTED && low_mem_storage)
   {
-    HMAP_PROFILE_ZONE("HighMap::tile");
-    std::vector<const Array *> in_tiles;
-    std::vector<Array *>       out_tiles;
+    effective_mode = ForEachMode::VA_SEQUENTIAL;
+  }
 
-    in_tiles.reserve(access.inputs.size());
-    out_tiles.reserve(access.outputs.size());
+  constexpr bool uses_comm = std::is_invocable_v<
+      Func,
+      const std::vector<const Array *> &,
+      std::vector<Array *> &,
+      const TileRegion &,
+      ICommunicator &>;
 
+  if (effective_mode == ForEachMode::VA_SEQUENTIAL && uses_comm && n_tiles > 1)
+  {
+    std::vector<std::vector<const Array *>> in_tiles_per_rank(
+        n_tiles,
+        std::vector<const Array *>(access.inputs.size(), nullptr));
+    std::vector<std::vector<Array *>> out_tiles_per_rank(
+        n_tiles,
+        std::vector<Array *>(access.outputs.size(), nullptr));
+    std::vector<TileRegion> regions_per_rank(n_tiles);
+
+    auto acquire_rank = [&](int rank, const TileRegion &region)
     {
       HMAP_PROFILE_ZONE("HighMap::tile.acquire");
-      for (auto *va : access.inputs)
-        in_tiles.push_back(va ? &va->storage->get_tile(region) : nullptr);
+      regions_per_rank[rank] = region;
 
-      for (auto *va : access.outputs)
-        out_tiles.push_back(va ? &va->storage->get_tile(region) : nullptr);
-    }
-    {
-      HMAP_PROFILE_ZONE("HighMap::tile.algorithm");
-      if constexpr (std::is_invocable_v<Func,
-                                        const std::vector<const Array *> &,
-                                        std::vector<Array *> &,
-                                        const TileRegion &,
-                                        ICommunicator &>)
+      for (size_t i = 0; i < access.inputs.size(); ++i)
       {
-        func(in_tiles, out_tiles, region, comm);
+        auto *va = access.inputs[i];
+        in_tiles_per_rank[rank][i] = va ? &va->storage->get_tile(region)
+                                        : nullptr;
       }
-      else
+
+      for (size_t i = 0; i < access.outputs.size(); ++i)
       {
-        func(in_tiles, out_tiles, region);
+        auto *va = access.outputs[i];
+        out_tiles_per_rank[rank][i] = va ? &va->storage->get_tile(region)
+                                         : nullptr;
       }
-    }
+    };
+
+    auto release_rank = [&](int rank)
     {
       HMAP_PROFILE_ZONE("HighMap::tile.release");
+      const TileRegion &region = regions_per_rank[rank];
 
       for (auto *va : access.inputs)
         if (va) va->storage->release_tile(region);
 
       for (auto *va : access.outputs)
         if (va) va->storage->release_tile(region);
-    }
-  };
+    };
 
-  // reuse existing modes
-  switch (cm.mode)
+    SequentialTileComm *p_comm = nullptr;
+
+    auto on_suspend = [&]()
+    {
+      if (p_comm) release_rank(p_comm->rank());
+    };
+
+    auto on_resume = [&]()
+    {
+      if (p_comm)
+      {
+        const int rank = p_comm->rank();
+        acquire_rank(rank, regions_per_rank[rank]);
+      }
+    };
+
+    SequentialTileComm comm(*ref_va, on_suspend, on_resume);
+    p_comm = &comm;
+
+    comm.run_cooperative_tiles(
+        [&](const TileRegion &region, ICommunicator &c)
+        {
+          HMAP_PROFILE_ZONE("HighMap::tile");
+          const int rank = c.rank();
+          acquire_rank(rank, region);
+
+          if constexpr (uses_comm)
+          {
+            func(in_tiles_per_rank[rank],
+                 out_tiles_per_rank[rank],
+                 region,
+                 c);
+          }
+
+          release_rank(rank);
+        });
+  }
+  else
   {
-  case ForEachMode::VA_SEQUENTIAL:
-    sequential_tile_loop(*ref_va, region_dispatcher);
-    break;
-  case ForEachMode::VA_DISTRIBUTED:
-    distributed_tile_loop(*ref_va, region_dispatcher);
-    break;
-  case ForEachMode::VA_SINGLE_ARRAY:
-    single_array_compute(access, func, cm.stride);
-    break;
+    // --- region dispatcher for tiled computations
+
+    auto region_dispatcher = [&](const TileRegion &region, ICommunicator &comm)
+    {
+      HMAP_PROFILE_ZONE("HighMap::tile");
+      std::vector<const Array *> in_tiles;
+      std::vector<Array *>       out_tiles;
+
+      in_tiles.reserve(access.inputs.size());
+      out_tiles.reserve(access.outputs.size());
+
+      {
+        HMAP_PROFILE_ZONE("HighMap::tile.acquire");
+        for (auto *va : access.inputs)
+          in_tiles.push_back(va ? &va->storage->get_tile(region) : nullptr);
+
+        for (auto *va : access.outputs)
+          out_tiles.push_back(va ? &va->storage->get_tile(region) : nullptr);
+      }
+      {
+        HMAP_PROFILE_ZONE("HighMap::tile.algorithm");
+        if constexpr (uses_comm)
+        {
+          func(in_tiles, out_tiles, region, comm);
+        }
+        else
+        {
+          func(in_tiles, out_tiles, region);
+        }
+      }
+      {
+        HMAP_PROFILE_ZONE("HighMap::tile.release");
+
+        for (auto *va : access.inputs)
+          if (va) va->storage->release_tile(region);
+
+        for (auto *va : access.outputs)
+          if (va) va->storage->release_tile(region);
+      }
+    };
+
+    // reuse existing modes
+    switch (effective_mode)
+    {
+    case ForEachMode::VA_SEQUENTIAL:
+      sequential_tile_loop(*ref_va, region_dispatcher);
+      break;
+    case ForEachMode::VA_DISTRIBUTED:
+      distributed_tile_loop(*ref_va, region_dispatcher);
+      break;
+    case ForEachMode::VA_SINGLE_ARRAY:
+      single_array_compute(access, func, cm.stride);
+      break;
+    }
   }
 
   if (cm.trim_storage)
@@ -304,8 +406,21 @@ void single_array_compute(const TileAccess &access, Func &&func, int stride = 1)
   arrays_out.reserve(access.outputs.size());
 
   // force a CPU mode for data gathering operations
-  const ComputeMode cm_local = {.mode = ForEachMode::VA_DISTRIBUTED,
-                                .trim_storage = false};
+  const size_t n_tiles = static_cast<size_t>(ref_va->get_ntiles());
+  bool         low_mem_storage = false;
+
+  for (auto *va : access.inputs)
+    if (va && va->storage && va->storage->max_live_tiles() < n_tiles)
+      low_mem_storage = true;
+
+  for (auto *va : access.outputs)
+    if (va && va->storage && va->storage->max_live_tiles() < n_tiles)
+      low_mem_storage = true;
+
+  const ComputeMode cm_local = {
+      .mode = low_mem_storage ? ForEachMode::VA_SEQUENTIAL
+                              : ForEachMode::VA_DISTRIBUTED,
+      .trim_storage = false};
 
   glm::ivec2 shape_wrk = ref_va->shape;
 

@@ -114,6 +114,7 @@ struct LruTileEntry
   Array                        value;
   std::list<TileKey>::iterator lru_it;
   size_t                       pin_count = 0;
+  bool                         in_ram = true;
 };
 
 class LruTileStorage : public TileStorage
