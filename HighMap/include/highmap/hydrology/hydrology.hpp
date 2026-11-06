@@ -1417,23 +1417,26 @@ Array snow_mantle(const Array &z,
  * **Result**
  * @image html ex_snow_simulation.png
  */
-Array snow_simulation(const Array &z,
-                      float        snow_depth,
-                      const Array &fall_map,
-                      const Array &melting_map,
-                      const Array &talus,
-                      int          iterations,
-                      float        dt = 0.5f,
-                      float        fall_iterations_ratio = 1.f,
-                      float        k_snow = 0.5f,
-                      float        k_visc = 0.1f,
-                      float        k_melt_factor = 0.8f,
-                      float        k_depth_ratio = 1.f,
-                      float        k_depth_slope_ratio = 1.f,
-                      float        k_creep = 0.1f,
-                      bool         post_filter = true,
-                      float        thermal_talus_ratio = 0.2f,
-                      bool         outflow_boundaries = true);
+Array snow_simulation(const Array      &z,
+                      float               snow_depth,
+                      const Array        &fall_map,
+                      const Array        &melting_map,
+                      const Array        &talus,
+                      int                 iterations,
+                      float               dt = 0.5f,
+                      float               fall_iterations_ratio = 1.f,
+                      float               k_snow = 0.5f,
+                      float               k_visc = 0.1f,
+                      float               k_melt_factor = 0.8f,
+                      float               k_depth_ratio = 1.f,
+                      float               k_depth_slope_ratio = 1.f,
+                      float               k_creep = 0.1f,
+                      bool                post_filter = true,
+                      float               thermal_talus_ratio = 0.2f,
+                      bool                outflow_boundaries = true,
+                      int                 sync_interval = 0,
+                      const TileRegion   &region = TileRegion::dummy(),
+                      ICommunicator      &comm = SingleArrayComm::instance());
 
 /**
  * @brief Filters water depth values using elevation data and a given radius.

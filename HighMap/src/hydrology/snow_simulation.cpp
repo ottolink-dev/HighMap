@@ -18,6 +18,8 @@
 #include "highmap/math/core.hpp"
 #include "highmap/range.hpp"
 #include "highmap/selector.hpp"
+#include "highmap/virtual_array/communicator.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 #include <CL/opencl.hpp>
 
@@ -87,23 +89,26 @@ Array snow_melting_map(const Array &z,
 namespace hmap::gpu
 {
 
-Array snow_simulation(const Array &z,
-                      float        snow_depth,
-                      const Array &fall_map,
-                      const Array &melting_map,
-                      const Array &talus,
-                      int          iterations,
-                      float        dt,
-                      float        fall_iterations_ratio,
-                      float        k_snow,
-                      float        k_visc,
-                      float        k_melt_factor,
-                      float        k_depth_ratio,
-                      float        k_depth_slope_ratio,
-                      float        k_creep,
-                      bool         post_filter,
-                      float        thermal_talus_ratio,
-                      bool         outflow_boundaries)
+Array snow_simulation(const Array      &z,
+                      float             snow_depth,
+                      const Array      &fall_map,
+                      const Array      &melting_map,
+                      const Array      &talus,
+                      int               iterations,
+                      float             dt,
+                      float             fall_iterations_ratio,
+                      float             k_snow,
+                      float             k_visc,
+                      float             k_melt_factor,
+                      float             k_depth_ratio,
+                      float             k_depth_slope_ratio,
+                      float             k_creep,
+                      bool              post_filter,
+                      float             thermal_talus_ratio,
+                      bool              outflow_boundaries,
+                      int               sync_interval,
+                      const TileRegion &region,
+                      ICommunicator    &comm)
 {
   if (!validate_non_empty(z)) return Array();
   if (!validate_same_shape(z, fall_map)) return Array();
@@ -176,12 +181,27 @@ Array snow_simulation(const Array &z,
     run.execute_async({shape.x, shape.y});
 
     sc = 1 - sc;
+
+    // Boundary synchronization between tiles every sync_interval iterations
+    if (comm.size() > 1 && sync_interval > 0 && (it + 1) % sync_interval == 0 &&
+        (it + 1) < iterations)
+    {
+      run.finish();
+      const std::string img_curr_id = (sc == 0) ? "s_a" : "s_b";
+      run.read_imagef(img_curr_id);
+
+      comm.sync_overlap_buffers(s, region, SyncOperation::Average);
+
+      run.write_imagef(img_curr_id);
+    }
   }
 
   run.finish();
 
   // retrieve results (both snow depth images map to the host array `s`)
   run.read_imagef(sc == 0 ? "s_a" : "s_b");
+
+  comm.sync_overlap_buffers(s, region, SyncOperation::Average);
 
   if (post_filter)
   {
@@ -192,7 +212,6 @@ Array snow_simulation(const Array &z,
       mask = smooth_mask_preserve_frontier(mask, 8.f);
 
       Array talus_smooth = talus;
-      // gpu::smooth_cpulse(talus_smooth, 32);
 
       gpu::thermal_conserve(z_wrk,
                             &mask,
