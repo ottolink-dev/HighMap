@@ -192,7 +192,7 @@ Array snow_simulation(const Array      &z,
       const std::string img_curr_id = (sc == 0) ? "s_a" : "s_b";
       run.read_imagef(img_curr_id);
 
-      comm.sync_overlap_buffers(s, region, SyncOperation::Average);
+      comm.sync_overlap_buffers(s, region, SyncOperation::SmoothBlend);
 
       run.write_imagef(img_curr_id);
     }
@@ -203,7 +203,7 @@ Array snow_simulation(const Array      &z,
   // retrieve results (both snow depth images map to the host array `s`)
   run.read_imagef(sc == 0 ? "s_a" : "s_b");
 
-  comm.sync_overlap_buffers(s, region, SyncOperation::Average);
+  comm.sync_overlap_buffers(s, region, SyncOperation::SmoothBlend);
 
   if (post_filter)
   {
@@ -223,7 +223,7 @@ Array snow_simulation(const Array      &z,
                             &z);
 
       // TODO in thermal
-      comm.sync_overlap_buffers(z_wrk, region, SyncOperation::Average);
+      comm.sync_overlap_buffers(z_wrk, region, SyncOperation::SmoothBlend);
     }
 
     s = z_wrk - z;
