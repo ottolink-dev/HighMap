@@ -1434,6 +1434,8 @@ Array snow_simulation(const Array      &z,
                       bool                post_filter = true,
                       float               thermal_talus_ratio = 0.2f,
                       bool                outflow_boundaries = true,
+		      float               clamp_smin = 0.f,
+		      bool                rebase_snow_depth_to_zero = true,
                       int                 sync_interval = 0,
                       const TileRegion   &region = TileRegion::dummy(),
                       ICommunicator      &comm = SingleArrayComm::instance());

@@ -106,6 +106,8 @@ Array snow_simulation(const Array      &z,
                       bool              post_filter,
                       float             thermal_talus_ratio,
                       bool              outflow_boundaries,
+                      float             clamp_smin,
+                      bool              rebase_snow_depth_to_zero,
                       int               sync_interval,
                       const TileRegion &region,
                       ICommunicator    &comm)
@@ -208,7 +210,7 @@ Array snow_simulation(const Array      &z,
     Array z_wrk = z + s;
 
     {
-      Array mask = s / std::max(s.max(), 1e-6f);
+      Array mask = s / std::max(s.max(comm), 1e-6f);
       mask = smooth_mask_preserve_frontier(mask, 8.f);
 
       Array talus_smooth = talus;
@@ -219,12 +221,21 @@ Array snow_simulation(const Array      &z,
                             std::min(iterations, 30),
                             0.5f,
                             &z);
+
+      // TODO in thermal
+      comm.sync_overlap_buffers(z_wrk, region, SyncOperation::Average);
     }
 
     s = z_wrk - z;
   }
 
-  clamp_min(s, 0.f);
+  // clean-up
+  {
+    clamp_min(s, clamp_smin);
+    if (clamp_smin > 0.f) s -= clamp_smin;
+  }
+
+  if (rebase_snow_depth_to_zero) s -= s.min(comm);
 
   return s;
 }
