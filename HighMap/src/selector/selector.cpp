@@ -490,14 +490,17 @@ Array select_valley(const Array &z, int ir, bool ridge_select)
     return morphological_black_hat(z, ir);
 }
 
-Array smooth_mask_preserve_frontier(const Array &mask, float feather_width)
+Array smooth_mask_preserve_frontier(const Array      &mask,
+                                    float             feather_width,
+                                    const TileRegion &region,
+                                    ICommunicator    &comm)
 {
   if (!validate_non_empty(mask)) return Array();
 
   if (feather_width <= 0.f) return mask;
 
   // distance to the 0/1 frontier inside the mask
-  Array dist = distance_transform(is_zero(mask));
+  Array dist = distance_transform(is_zero(mask), false, region, comm);
 
   Array smoothed = mask;
 

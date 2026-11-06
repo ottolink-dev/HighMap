@@ -211,7 +211,7 @@ Array snow_simulation(const Array      &z,
 
     {
       Array mask = s / std::max(s.max(comm), 1e-6f);
-      mask = smooth_mask_preserve_frontier(mask, 8.f);
+      mask = smooth_mask_preserve_frontier(mask, 8.f, region, comm);
 
       Array talus_smooth = talus;
 
