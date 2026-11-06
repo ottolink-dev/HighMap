@@ -113,6 +113,7 @@ struct LruTileEntry
 {
   Array                        value;
   std::list<TileKey>::iterator lru_it;
+  size_t                       pin_count = 0;
 };
 
 class LruTileStorage : public TileStorage
@@ -135,6 +136,7 @@ protected:
   std::unordered_map<TileKey, LruTileEntry, TileKeyHash> tiles;
   mutable std::mutex                                     mutex;
 
+  void         evict_unpinned_no_mutex_lock(size_t target_count);
   Array       &get_tile_no_mutex_lock(const TileRegion &region);
   virtual void on_evict(const TileKey &key, Array &tile);
 };

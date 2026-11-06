@@ -240,30 +240,39 @@ Array distance_transform(const Array      &array,
       comm.sync_overlap_buffers(dx_east, region, SyncOperation::CopySecond);
       comm.sync_overlap_buffers(g_east, region, SyncOperation::CopySecond);
 
-      for (int j = 0; j < nj; j++)
-        for (int u = 0; u < ni; u++)
+      // Update only West/East horizontal halo strips (x in [0, halo.x) and
+      // [ni - 2 * halo.y, ni - halo.y)) so Y-direction CopyFirst/CopySecond
+      // does not mix mismatched vertical rows into horizontal offsets
+      auto try_update = [&](int u, int j, float cand_dx, float cand_g)
+      {
+        float d2_curr = best_dx(u, j) * best_dx(u, j) +
+                        best_g(u, j) * best_g(u, j);
+        float d2_cand = cand_dx * cand_dx + cand_g * cand_g;
+
+        if (d2_cand < d2_curr)
         {
-          float d2_curr = best_dx(u, j) * best_dx(u, j) +
-                          best_g(u, j) * best_g(u, j);
-          float d2_w = dx_west(u, j) * dx_west(u, j) +
-                       g_west(u, j) * g_west(u, j);
-          float d2_e = dx_east(u, j) * dx_east(u, j) +
-                       g_east(u, j) * g_east(u, j);
+          best_dx(u, j) = cand_dx;
+          best_g(u, j) = cand_g;
+        }
+      };
 
-          if (d2_w < d2_curr)
-          {
-            d2_curr = d2_w;
-            best_dx(u, j) = dx_west(u, j);
-            best_g(u, j) = g_west(u, j);
-          }
+      for (int j = 0; j < nj; j++)
+      {
+        for (int u = 0; u < region.halo.x; u++)
+        {
+          try_update(u, j, dx_west(u, j), g_west(u, j));
+        }
 
-          if (d2_e < d2_curr)
+        if (region.halo.y > 0)
+        {
+          int u0 = std::max(0, ni - 2 * region.halo.y);
+          int u1 = std::min(ni, ni - region.halo.y);
+          for (int u = u0; u < u1; u++)
           {
-            d2_curr = d2_e;
-            best_dx(u, j) = dx_east(u, j);
-            best_g(u, j) = g_east(u, j);
+            try_update(u, j, dx_east(u, j), g_east(u, j));
           }
         }
+      }
 
       update_horizontal_envelope();
     }

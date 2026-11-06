@@ -95,3 +95,87 @@ TEST(SnowSimulation, MeltingReducesSnowVolume)
   EXPECT_GT(s_no_melt.sum(), s_melt.sum());
   EXPECT_GE(s_melt.min(), 0.f);
 }
+
+TEST(SnowSimulation, TiledMinStorageLruMin)
+{
+  gpu::init_opencl();
+
+  const glm::ivec2 shape = {128, 128};
+  const glm::ivec2 tile_shape = {32, 32}; // 4x4 = 16 tiles
+  const int        halo = 8;
+
+  Array z_arr = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
+  remap(z_arr);
+
+  for (auto mode : {ForEachMode::VA_SEQUENTIAL, ForEachMode::VA_DISTRIBUTED})
+  {
+    ComputeMode cm{.mode = mode, .trim_storage = true};
+
+    VirtualArray z(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
+    VirtualArray fall_map(shape,
+                          tile_shape,
+                          halo,
+                          StorageMode::VA_DISK_LRU_MIN);
+    VirtualArray melting_map(shape,
+                             tile_shape,
+                             halo,
+                             StorageMode::VA_DISK_LRU_MIN);
+    VirtualArray talus_map(shape,
+                           tile_shape,
+                           halo,
+                           StorageMode::VA_DISK_LRU_MIN);
+    VirtualArray z_out(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
+    VirtualArray snow_depth_out(shape,
+                                tile_shape,
+                                halo,
+                                StorageMode::VA_DISK_LRU_MIN);
+
+    z.from_array(z_arr, cm);
+    fall_map.fill(1.f, cm);
+    melting_map.fill(0.f, cm);
+    talus_map.fill(1.5f / float(shape.x), cm);
+
+    for_each_tile(
+        {&z, &fall_map, &melting_map, &talus_map},
+        {&z_out, &snow_depth_out},
+        [&](const std::vector<const Array *> &p_arrays_in,
+            std::vector<Array *>             &p_arrays_out,
+            const TileRegion                 &region,
+            ICommunicator                    &comm)
+        {
+          auto [pa_z, pa_fall, pa_melt, pa_talus] = unpack<4>(p_arrays_in);
+          auto [pa_z_out, pa_snow] = unpack<2>(p_arrays_out);
+
+          *pa_snow = gpu::snow_simulation(*pa_z,
+                                          0.1f,
+                                          *pa_fall,
+                                          *pa_melt,
+                                          *pa_talus,
+                                          40,
+                                          0.5f,
+                                          1.f,
+                                          0.5f,
+                                          0.2f,
+                                          0.8f,
+                                          0.8f,
+                                          1.5f,
+                                          0.1f,
+                                          /* post_filter */ true,
+                                          0.8f,
+                                          false,
+                                          0.f,
+                                          true,
+                                          10,
+                                          region,
+                                          comm);
+
+          *pa_z_out = *pa_z + *pa_snow;
+        },
+        cm);
+
+    Array s_res = snow_depth_out.to_array(cm);
+    EXPECT_GT(s_res.sum(), 0.f);
+    EXPECT_GE(s_res.min(), -1e-5f);
+    EXPECT_LE(snow_depth_out.live_tile_count(), 2u);
+  }
+}

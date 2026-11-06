@@ -130,14 +130,16 @@ private:
   int                current_tile_idx = 0;
   int                halo = 0;
   size_t             call_sequence = 0;
+  size_t             sync_sequence = 0;
   std::vector<float> accumulators;
   std::vector<bool>  initialized;
   std::vector<float> accumulated_unique;
-  // Boundary edge buffers for sequential neighbor exchange (keyed by tile
-  // index) east_edges[ty][tx] holds the eastern overlapping halo column
-  // south_edges[ty][tx] holds the southern overlapping halo row
-  std::vector<std::vector<float>> east_edges;
-  std::vector<std::vector<float>> south_edges;
+  // Boundary edge buffers for sequential neighbor exchange (keyed by sync
+  // sequence index and tile index)
+  // east_edges[sync_seq][tile_key] holds the eastern overlapping halo column
+  // south_edges[sync_seq][tile_key] holds the southern overlapping halo row
+  std::vector<std::vector<std::vector<float>>> east_edges;
+  std::vector<std::vector<std::vector<float>>> south_edges;
 };
 
 // =====================================

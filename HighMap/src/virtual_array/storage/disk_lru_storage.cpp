@@ -57,22 +57,17 @@ Array &DiskLruTileStorage::get_tile(const TileRegion &region)
   if (std::filesystem::exists(path))
   {
     // eviction if needed
-    if (tiles.size() >= max_tiles)
+    if (this->max_tiles > 0 && tiles.size() >= max_tiles)
     {
-      const TileKey &evict_key = lru.back();
-      auto           evict_it = tiles.find(evict_key);
-
-      on_evict(evict_key, evict_it->second.value);
-
-      tiles.erase(evict_it);
-      lru.pop_back();
+      this->evict_unpinned_no_mutex_lock(this->max_tiles - 1);
     }
 
     Array tile = load_tile_from_disk(region);
 
     lru.push_front(key);
     auto [inserted_it,
-          _] = tiles.emplace(key, LruTileEntry{std::move(tile), lru.begin()});
+          _] = tiles.emplace(key,
+                             LruTileEntry{std::move(tile), lru.begin(), 1});
 
     return inserted_it->second.value;
   }

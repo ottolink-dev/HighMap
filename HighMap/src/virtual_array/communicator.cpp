@@ -146,6 +146,7 @@ void SequentialTileComm::next_tile(int tile_idx)
 {
   this->current_tile_idx = tile_idx;
   this->call_sequence = 0;
+  this->sync_sequence = 0;
 }
 
 int SequentialTileComm::rank() const
@@ -164,6 +165,20 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
 {
   if (this->halo <= 0) return;
 
+  const size_t seq = this->sync_sequence++;
+
+  if (seq >= this->east_edges.size())
+  {
+    this->east_edges.resize(seq + 1);
+  }
+  if (seq >= this->south_edges.size())
+  {
+    this->south_edges.resize(seq + 1);
+  }
+
+  auto &seq_east_edges = this->east_edges[seq];
+  auto &seq_south_edges = this->south_edges[seq];
+
   // In sequential traversal (raster order tx then ty), a tile can receive
   // incoming overlap data from its west neighbor (tx - 1) and north neighbor
   // (ty - 1), and send its boundary overlap data to its east neighbor (tx + 1)
@@ -173,13 +188,13 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
   const int ty = region.key.ty;
 
   // 1. Ingest Western overlap from (tx - 1, ty) if present
-  if (tx > 0 && !this->east_edges.empty())
+  if (tx > 0 && !seq_east_edges.empty())
   {
     size_t prev_tile_key = static_cast<size_t>(ty * 10000 + (tx - 1));
-    if (prev_tile_key < this->east_edges.size() &&
-        !this->east_edges[prev_tile_key].empty())
+    if (prev_tile_key < seq_east_edges.size() &&
+        !seq_east_edges[prev_tile_key].empty())
     {
-      const auto &src_col = this->east_edges[prev_tile_key];
+      const auto &src_col = seq_east_edges[prev_tile_key];
       // Western halo region in local_tile: x in [0, halo)
       for (int p = 0; p < this->halo; ++p)
       {
@@ -220,13 +235,13 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
   }
 
   // 2. Ingest Northern overlap from (tx, ty - 1) if present
-  if (ty > 0 && !this->south_edges.empty())
+  if (ty > 0 && !seq_south_edges.empty())
   {
     size_t prev_tile_key = static_cast<size_t>((ty - 1) * 10000 + tx);
-    if (prev_tile_key < this->south_edges.size() &&
-        !this->south_edges[prev_tile_key].empty())
+    if (prev_tile_key < seq_south_edges.size() &&
+        !seq_south_edges[prev_tile_key].empty())
     {
-      const auto &src_row = this->south_edges[prev_tile_key];
+      const auto &src_row = seq_south_edges[prev_tile_key];
       // Northern halo region in local_tile: y in [0, halo)
       for (int q = 0; q < this->halo; ++q)
       {
@@ -268,11 +283,11 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
 
   // 3. Stash Eastern boundary cells to pass to (tx + 1, ty)
   size_t curr_key = static_cast<size_t>(ty * 10000 + tx);
-  if (curr_key >= this->east_edges.size())
+  if (curr_key >= seq_east_edges.size())
   {
-    this->east_edges.resize(curr_key + 1);
+    seq_east_edges.resize(curr_key + 1);
   }
-  auto &east_buf = this->east_edges[curr_key];
+  auto &east_buf = seq_east_edges[curr_key];
   east_buf.resize(this->halo * local_tile.shape.y);
 
   for (int p = 0; p < this->halo; ++p)
@@ -285,11 +300,11 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
   }
 
   // 4. Stash Southern boundary cells to pass to (tx, ty + 1)
-  if (curr_key >= this->south_edges.size())
+  if (curr_key >= seq_south_edges.size())
   {
-    this->south_edges.resize(curr_key + 1);
+    seq_south_edges.resize(curr_key + 1);
   }
-  auto &south_buf = this->south_edges[curr_key];
+  auto &south_buf = seq_south_edges[curr_key];
   south_buf.resize(this->halo * local_tile.shape.x);
 
   for (int q = 0; q < this->halo; ++q)
