@@ -2847,6 +2847,7 @@ void recast_cliff_directional(Array       &array,
                               float        gain = 2.f,
                               int          iterations = 500,
                               Array       *p_cliff_mask = nullptr);
+
 /*! @brief See hmap::ridge_accentuate */
 void ridge_accentuate(Array &array,
                       float  strength = 0.1f,
@@ -2874,6 +2875,7 @@ void shrink(Array       &array,
             const Array &kernel,
             const Array *p_mask,
             int          iterations = 1);
+
 /*! @brief See hmap::smooth_cpulse */
 void smooth_cpulse(Array            &array,
                    int               ir,
