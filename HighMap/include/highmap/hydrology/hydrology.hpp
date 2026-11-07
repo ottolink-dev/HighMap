@@ -1276,20 +1276,23 @@ Array flow_direction_d8(const Array &z);
  *
  * @return                         Array Final simulated water depth map.
  */
-Array flow_simulation(const Array &z,
-                      float        water_depth,
-                      const Array &depth_map,
-                      int          iterations,
-                      float        dt = 0.5f,
-                      bool         flux_diffusion = true,
-                      float        flux_diffusion_strength = 0.01f,
-                      float        dry_out_ratio = 0.f,
-                      const Array *p_rain_map = nullptr,
-                      float        rain_rate = 0.f,
-                      float        evap_rate = 0.f,
-                      bool         outflow_boundaries = false,
-                      Array       *p_vel_u = nullptr,
-                      Array       *p_vel_v = nullptr);
+Array flow_simulation(const Array      &z,
+                      float               water_depth,
+                      const Array        &depth_map,
+                      int                 iterations,
+                      float               dt = 0.5f,
+                      bool                flux_diffusion = true,
+                      float               flux_diffusion_strength = 0.01f,
+                      float               dry_out_ratio = 0.f,
+                      const Array        *p_rain_map = nullptr,
+                      float               rain_rate = 0.f,
+                      float               evap_rate = 0.f,
+                      bool                outflow_boundaries = false,
+                      Array              *p_vel_u = nullptr,
+                      Array              *p_vel_v = nullptr,
+                      int                 sync_interval = 0,
+                      const TileRegion   &region = TileRegion::dummy(),
+                      ICommunicator      &comm = SingleArrayComm::instance());
 
 /**
  * @brief GPU viscous shallow-water flow simulation using non-linear thin-film
@@ -1306,19 +1309,25 @@ Array flow_simulation(const Array &z,
  * @param  evap_rate          Evaporation rate per timestep.
  * @param  outflow_boundaries Allows fluid to freely discharge outside domain at
  *                            boundaries.
+ * @param  sync_interval      Number of iterations between communicator tile syncs.
+ * @param  region             Tile region geometry metadata.
+ * @param  comm               Tiled communicator instance.
  *
  * @return                    Array Final simulated water depth map.
  */
-Array flow_simulation_viscous(const Array &z,
-                              float        water_depth,
-                              const Array &depth_map,
-                              int          iterations,
-                              float        dt = -1.f,
-                              float        dry_out_ratio = 0.f,
-                              float        viscosity = 1.f,
-                              float        power = 2.5f,
-                              float        evap_rate = 0.f,
-                              bool         outflow_boundaries = false);
+Array flow_simulation_viscous(const Array      &z,
+                              float             water_depth,
+                              const Array      &depth_map,
+                              int               iterations,
+                              float             dt = -1.f,
+                              float             dry_out_ratio = 0.f,
+                              float             viscosity = 1.f,
+                              float             power = 2.5f,
+                              float             evap_rate = 0.f,
+                              bool              outflow_boundaries = false,
+                              int               sync_interval = 0,
+                              const TileRegion &region = TileRegion::dummy(),
+                              ICommunicator    &comm = SingleArrayComm::instance());
 
 /*! @brief See hmap::generate_riverbed */
 Array generate_riverbed(const Path &path,
