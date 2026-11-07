@@ -229,10 +229,12 @@ Array flooding_from_boundaries(const Array &z,
  * **Result**
  * @image html ex_flooding_from_point.png
  */
-Array flooding_from_point(const Array &z,
-                          int          i,
-                          int          j,
-                          float depth_min = std::numeric_limits<float>::max());
+Array flooding_from_point(const Array      &z,
+                          int               i,
+                          int               j,
+                          float             depth_min = std::numeric_limits<float>::max(),
+                          const TileRegion &region = TileRegion::dummy(),
+                          ICommunicator    &comm = SingleArrayComm::instance());
 
 /**
  * @brief Flood terrain starting from multiple seed points.
@@ -243,6 +245,8 @@ Array flooding_from_point(const Array &z,
  * @param  i         List of X indices for seeds.
  * @param  j         List of Y indices for seeds.
  * @param  depth_min Water depth at the source point (if max, uses 0).
+ * @param  region    Tile region metadata.
+ * @param  comm      Communicator for tiled / distributed execution.
  * @return           Water depth array.
  *
  * **Example**
@@ -254,7 +258,9 @@ Array flooding_from_point(const Array &z,
 Array flooding_from_point(const Array            &z,
                           const std::vector<int> &i,
                           const std::vector<int> &j,
-                          float depth_min = std::numeric_limits<float>::max());
+                          float                   depth_min = std::numeric_limits<float>::max(),
+                          const TileRegion       &region = TileRegion::dummy(),
+                          ICommunicator          &comm = SingleArrayComm::instance());
 
 /**
  * @brief Estimate lake water depths on a terrain by filling depressions.

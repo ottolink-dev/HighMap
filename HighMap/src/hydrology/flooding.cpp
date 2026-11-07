@@ -117,44 +117,164 @@ Array flooding_from_boundaries(const Array &z,
   return water_depth;
 }
 
-Array flooding_from_point(const Array &z,
-                          const int    i,
-                          const int    j,
-                          float        depth_min)
+Array flooding_from_point(const Array      &z,
+                          const int         i,
+                          const int         j,
+                          float             depth_min,
+                          const TileRegion &region,
+                          ICommunicator    &comm)
 {
   if (!validate_non_empty(z)) return Array();
 
-  Array water_depth(z.shape, 0.f);
+  if (depth_min == std::numeric_limits<float>::max()) depth_min = 0.f;
 
   std::vector<glm::ivec2> nbrs =
       {{-1, 0}, {0, 1}, {0, -1}, {1, 0}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
 
-  if (depth_min == std::numeric_limits<float>::max()) depth_min = 0.f;
-  std::vector<glm::ivec2> queue = {{i, j}};
+  // --- Fast path for single tile / non-distributed execution
 
-  // loop around the starting point, anything with elevation lower
-  // than the reference elevation is water. If not, the cell is
-  // outside the "water" mask
-  while (queue.size() > 0)
+  if (comm.size() <= 1)
   {
-    glm::ivec2 ij = queue.back();
-    queue.pop_back();
+    Array water_depth(z.shape, 0.f);
 
-    for (auto &idx : nbrs)
+    if (i < 0 || i >= z.shape.x || j < 0 || j >= z.shape.y)
     {
-      glm::ivec2 pq = ij + idx;
+      return water_depth;
+    }
 
-      if (pq.x >= 0 && pq.x < z.shape.x && pq.y >= 0 && pq.y < z.shape.y)
+    float                   z_level = z(i, j) + depth_min;
+    std::vector<glm::ivec2> queue = {{i, j}};
+
+    while (!queue.empty())
+    {
+      glm::ivec2 ij = queue.back();
+      queue.pop_back();
+
+      for (const auto &idx : nbrs)
       {
-        float dz = z(i, j) + depth_min - z(pq.x, pq.y);
-        if (z(pq.x, pq.y) < z(i, j) + depth_min && dz > water_depth(pq.x, pq.y))
+        glm::ivec2 pq = ij + idx;
+
+        if (pq.x >= 0 && pq.x < z.shape.x && pq.y >= 0 && pq.y < z.shape.y)
         {
-          water_depth(pq.x, pq.y) = dz;
-          queue.push_back({pq.x, pq.y});
+          float dz = z_level - z(pq.x, pq.y);
+
+          if (z(pq.x, pq.y) < z_level && dz > water_depth(pq.x, pq.y))
+          {
+            water_depth(pq.x, pq.y) = dz;
+            queue.push_back({pq.x, pq.y});
+          }
         }
       }
     }
+
+    return water_depth;
   }
+
+  // --- Multi-tile distributed execution
+
+  int my_nominal_w = (region.halo.x == 0) ? (region.shape.x - region.halo.y)
+                                          : 0;
+  int my_nominal_h = (region.halo.z == 0) ? (region.shape.y - region.halo.w)
+                                          : 0;
+
+  float nominal_w_f = comm.all_reduce(float(my_nominal_w), ReduceOp::Max);
+  float nominal_h_f = comm.all_reduce(float(my_nominal_h), ReduceOp::Max);
+
+  int tile_shape_x = int(nominal_w_f);
+  int tile_shape_y = int(nominal_h_f);
+
+  int gx_start = region.key.tx * tile_shape_x - region.halo.x;
+  int gy_start = region.key.ty * tile_shape_y - region.halo.z;
+
+  int local_seed_x = i - gx_start;
+  int local_seed_y = j - gy_start;
+
+  bool owns_seed = (local_seed_x >= 0 && local_seed_x < z.shape.x &&
+                    local_seed_y >= 0 && local_seed_y < z.shape.y);
+
+  float local_z_level = owns_seed ? (z(local_seed_x, local_seed_y) + depth_min)
+                                  : -std::numeric_limits<float>::infinity();
+
+  float z_level = comm.all_reduce(local_z_level, ReduceOp::Max);
+
+  Array water_depth(z.shape, 0.f);
+
+  if (std::isinf(z_level) || std::isnan(z_level))
+  {
+    return water_depth;
+  }
+
+  std::vector<glm::ivec2> queue;
+  if (owns_seed)
+  {
+    queue.push_back({local_seed_x, local_seed_y});
+  }
+
+  int n_sweeps = std::max(1, int(std::ceil(std::sqrt(comm.size()))));
+
+  for (int sweep = 0; sweep < n_sweeps; ++sweep)
+  {
+    while (!queue.empty())
+    {
+      glm::ivec2 ij = queue.back();
+      queue.pop_back();
+
+      for (const auto &idx : nbrs)
+      {
+        glm::ivec2 pq = ij + idx;
+
+        if (pq.x >= 0 && pq.x < z.shape.x && pq.y >= 0 && pq.y < z.shape.y)
+        {
+          float dz = z_level - z(pq.x, pq.y);
+
+          if (z(pq.x, pq.y) < z_level && dz > water_depth(pq.x, pq.y))
+          {
+            water_depth(pq.x, pq.y) = dz;
+            queue.push_back({pq.x, pq.y});
+          }
+        }
+      }
+    }
+
+    comm.sync_overlap_buffers(water_depth, region, SyncOperation::Max);
+
+    if (sweep < n_sweeps - 1)
+    {
+      for (int y = 0; y < z.shape.y; ++y)
+        for (int x = 0; x < z.shape.x; ++x)
+        {
+          bool is_boundary = (x == 0 && region.halo.x > 0) ||
+                             (x == z.shape.x - 1 && region.halo.y > 0) ||
+                             (y == 0 && region.halo.z > 0) ||
+                             (y == z.shape.y - 1 && region.halo.w > 0);
+
+          if (is_boundary && water_depth(x, y) > 0.f)
+          {
+            for (const auto &idx : nbrs)
+            {
+              glm::ivec2 pq = glm::ivec2(x, y) + idx;
+
+              if (pq.x >= 0 && pq.x < z.shape.x && pq.y >= 0 &&
+                  pq.y < z.shape.y)
+              {
+                float dz = z_level - z(pq.x, pq.y);
+
+                if (z(pq.x, pq.y) < z_level && dz > water_depth(pq.x, pq.y))
+                {
+                  queue.push_back({x, y});
+                  break;
+                }
+              }
+            }
+          }
+        }
+    }
+  }
+
+  // --- Threshold small residuals to avoid precision noise in buffer zones
+
+  constexpr float eps = 1e-4f;
+  chop(water_depth, eps);
 
   return water_depth;
 }
@@ -162,7 +282,9 @@ Array flooding_from_point(const Array &z,
 Array flooding_from_point(const Array            &z,
                           const std::vector<int> &i,
                           const std::vector<int> &j,
-                          float                   depth_min)
+                          float                   depth_min,
+                          const TileRegion       &region,
+                          ICommunicator          &comm)
 {
   if (!validate_non_empty(z)) return Array();
   if (i.size() != j.size())
@@ -173,11 +295,14 @@ Array flooding_from_point(const Array            &z,
     return Array();
   }
 
-  Array water_depth(z.shape);
+  Array water_depth(z.shape, 0.f);
 
   for (size_t k = 0; k < i.size(); k++)
-    water_depth = maximum(water_depth,
-                          flooding_from_point(z, i[k], j[k], depth_min));
+  {
+    water_depth = maximum(
+        water_depth,
+        flooding_from_point(z, i[k], j[k], depth_min, region, comm));
+  }
 
   return water_depth;
 }
@@ -202,14 +327,10 @@ Array flooding_lake_system(const Array      &z,
                                     comm);
 
   // compute water depth and threshold negligible residual precision noise
-  constexpr float eps = 1e-4f;
+  water_depth -= z;
 
-  for (int j = 0; j < z.shape.y; j++)
-    for (int i = 0; i < z.shape.x; i++)
-    {
-      float diff = water_depth(i, j) - z(i, j);
-      water_depth(i, j) = (diff > eps) ? diff : 0.f;
-    }
+  constexpr float eps = 1e-4f;
+  chop(water_depth, eps);
 
   // use a connected components analysis to remove small spots if
   // requested
