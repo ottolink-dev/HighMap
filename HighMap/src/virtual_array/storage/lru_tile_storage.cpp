@@ -33,6 +33,30 @@ Array &LruTileStorage::get_tile(const TileRegion &region)
   return this->get_tile_no_mutex_lock(region);
 }
 
+void LruTileStorage::evict_unpinned_no_mutex_lock(size_t target_count)
+{
+  auto r_it = this->lru.rbegin();
+
+  while (this->lru.size() > target_count && r_it != this->lru.rend())
+  {
+    const TileKey evict_key = *r_it;
+    auto          evict_it = this->tiles.find(evict_key);
+
+    if (evict_it != this->tiles.end() && evict_it->second.pin_count == 0)
+    {
+      this->on_evict(evict_key, evict_it->second.value);
+
+      auto list_it = evict_it->second.lru_it;
+      this->tiles.erase(evict_it);
+      r_it = std::list<TileKey>::reverse_iterator(this->lru.erase(list_it));
+    }
+    else
+    {
+      ++r_it;
+    }
+  }
+}
+
 Array &LruTileStorage::get_tile_no_mutex_lock(const TileRegion &region)
 {
   const TileKey &key = region.key;
@@ -43,6 +67,7 @@ Array &LruTileStorage::get_tile_no_mutex_lock(const TileRegion &region)
   if (it != tiles.end())
   {
     this->lru.splice(this->lru.begin(), lru, it->second.lru_it);
+    it->second.pin_count++;
     return it->second.value;
   }
 
@@ -53,15 +78,9 @@ Array &LruTileStorage::get_tile_no_mutex_lock(const TileRegion &region)
 
   // ---- eviction if needed
 
-  if (this->tiles.size() >= this->max_tiles)
+  if (this->max_tiles > 0 && this->lru.size() >= this->max_tiles)
   {
-    const TileKey &evict_key = this->lru.back();
-    auto           evict_it = this->tiles.find(evict_key);
-
-    this->on_evict(evict_key, evict_it->second.value);
-
-    this->tiles.erase(evict_it);
-    this->lru.pop_back();
+    this->evict_unpinned_no_mutex_lock(this->max_tiles - 1);
   }
 
   // ---- insert new tile
@@ -69,7 +88,7 @@ Array &LruTileStorage::get_tile_no_mutex_lock(const TileRegion &region)
   this->lru.push_front(key);
   auto [inserted_it, _] = this->tiles.emplace(
       key,
-      LruTileEntry{std::move(tile), this->lru.begin()});
+      LruTileEntry{std::move(tile), this->lru.begin(), 1});
 
   return inserted_it->second.value;
 }
@@ -87,7 +106,7 @@ size_t LruTileStorage::max_live_tiles() const
 size_t LruTileStorage::live_tile_count() const
 {
   std::lock_guard<std::mutex> lock(mutex);
-  return tiles.size();
+  return this->tiles.size();
 }
 
 size_t LruTileStorage::live_memory_bytes() const
@@ -102,9 +121,20 @@ size_t LruTileStorage::live_memory_bytes() const
   return bytes;
 }
 
-void LruTileStorage::release_tile(const TileRegion & /* region */)
+void LruTileStorage::release_tile(const TileRegion &region)
 {
-  // no-op
+  std::lock_guard<std::mutex> lock(mutex);
+
+  auto it = this->tiles.find(region.key);
+  if (it != this->tiles.end() && it->second.pin_count > 0)
+  {
+    it->second.pin_count--;
+  }
+
+  if (this->lru.size() > this->max_tiles)
+  {
+    this->evict_unpinned_no_mutex_lock(this->max_tiles);
+  }
 }
 
 void LruTileStorage::on_evict(const TileKey & /* key */, Array & /* tile */)

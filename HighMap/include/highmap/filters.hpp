@@ -19,12 +19,14 @@
 #include "highmap/kernels.hpp"
 #include "highmap/local_metrics.hpp"
 #include "highmap/primitives.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap
 {
 
 class Cloud;
 class Point;
+class ICommunicator;
 struct ComputeMode;
 struct VirtualArray;
 
@@ -1956,10 +1958,11 @@ void smooth_cone(Array &array, int ir, const Array *p_mask);
  *
  * See unit tests: @ref test_smooth_cpulse.cpp
  */
-void smooth_cpulse(Array &array, int ir);
-
-/// @overload
-void smooth_cpulse(Array &array, int ir, const Array *p_mask);
+void smooth_cpulse(Array            &array,
+                   int               ir,
+                   const Array      *p_mask = nullptr,
+                   const TileRegion &region = TileRegion::dummy(),
+                   ICommunicator    &comm = SingleArrayComm::instance());
 
 /**
  * @brief Smooths an array while attenuating edges using a gradient-based pulse.
@@ -2844,6 +2847,7 @@ void recast_cliff_directional(Array       &array,
                               float        gain = 2.f,
                               int          iterations = 500,
                               Array       *p_cliff_mask = nullptr);
+
 /*! @brief See hmap::ridge_accentuate */
 void ridge_accentuate(Array &array,
                       float  strength = 0.1f,
@@ -2871,11 +2875,13 @@ void shrink(Array       &array,
             const Array &kernel,
             const Array *p_mask,
             int          iterations = 1);
-/*! @brief See hmap::smooth_cpulse */
-void smooth_cpulse(Array &array, int ir);
 
 /*! @brief See hmap::smooth_cpulse */
-void smooth_cpulse(Array &array, int ir, const Array *p_mask);
+void smooth_cpulse(Array            &array,
+                   int               ir,
+                   const Array      *p_mask = nullptr,
+                   const TileRegion &region = TileRegion::dummy(),
+                   ICommunicator    &comm = SingleArrayComm::instance());
 
 /*! @brief See hmap::smooth_cpulse_edge_removing */
 void smooth_cpulse_edge_removing(Array &array,

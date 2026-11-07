@@ -19,6 +19,7 @@
 
 #include "highmap/algebra.hpp"
 #include "highmap/colormaps.hpp"
+#include "highmap/virtual_array/communicator.hpp"
 
 namespace hmap
 {
@@ -657,9 +658,10 @@ public:
    *        This function computes the maximum value present in the array. If
    * the array is empty, the behavior of this function is undefined.
    *
-   * @return float The maximum value in the array.
+   * @param  comm Optional communicator for collective reduction across tiles.
+   * @return      float The maximum value in the array.
    */
-  float max() const;
+  float max(ICommunicator &comm = SingleArrayComm::instance()) const;
 
   /**
    * @brief Return the mean value of the elements in the array.
@@ -667,9 +669,10 @@ public:
    *        This function calculates the average value of all elements in the
    * array. If the array is empty, the behavior of this function is undefined.
    *
-   * @return float The mean value of the elements in the array.
+   * @param  comm Optional communicator for collective reduction across tiles.
+   * @return      float The mean value of the elements in the array.
    */
-  float mean() const;
+  float mean(ICommunicator &comm = SingleArrayComm::instance()) const;
 
   /**
    * @brief Return the median value of the elements in the array.
@@ -683,9 +686,10 @@ public:
    *        This function computes the minimum value present in the array. If
    * the array is empty, the behavior of this function is undefined.
    *
-   * @return float The minimum value in the array.
+   * @param  comm Optional communicator for collective reduction across tiles.
+   * @return      float The minimum value in the array.
    */
-  float min() const;
+  float min(ICommunicator &comm = SingleArrayComm::instance()) const;
 
   /**
    * @brief Normalize array values so that the sum of all elements is equal
@@ -694,8 +698,10 @@ public:
    *        This function adjusts the values in the array so that their total
    * sum is normalized to 1. This is often used in scenarios where the array
    * represents a probability distribution.
+   *
+   * @param comm Optional communicator for collective reduction across tiles.
    */
-  void normalize();
+  void normalize(ICommunicator &comm = SingleArrayComm::instance());
 
   /**
    * @brief Computes normalization coefficients (a, b) such that a * array + b
@@ -730,17 +736,19 @@ public:
    * which is the difference between the maximum and minimum values in the
    * array.
    *
-   * @return float The peak-to-peak amplitude of the array values.
+   * @param  comm Optional communicator for collective reduction across tiles.
+   * @return      float The peak-to-peak amplitude of the array values.
    */
-  float ptp() const;
+  float ptp(ICommunicator &comm = SingleArrayComm::instance()) const;
 
   /**
    * @brief Computes the minimum and maximum values of the array.
    *
-   * @return glm::vec2 A vector where x contains the minimum value and y
-   *         contains the maximum value.
+   * @param  comm Optional communicator for collective reduction across tiles.
+   * @return      glm::vec2 A vector where x contains the minimum value and y
+   *              contains the maximum value.
    */
-  glm::vec2 range() const;
+  glm::vec2 range(ICommunicator &comm = SingleArrayComm::instance()) const;
 
   /**
    * @brief Computes an approximate percentile range using a histogram.
@@ -874,9 +882,11 @@ public:
 
   /**
    * @brief Return the standard deviation of all array values.
-   * @return float The standard deviation of all elements in the array.
+   *
+   * @param  comm Optional communicator for collective reduction across tiles.
+   * @return      float The standard deviation of all elements in the array.
    */
-  float std() const;
+  float std(ICommunicator &comm = SingleArrayComm::instance()) const;
 
   /**
    * @brief Return the sum of all array values.
@@ -885,9 +895,10 @@ public:
    * array. It can be used to obtain aggregate values or to check the overall
    * magnitude of the array's contents.
    *
-   * @return float The sum of all elements in the array.
+   * @param  comm Optional communicator for collective reduction across tiles.
+   * @return      float The sum of all elements in the array.
    */
-  float sum() const;
+  float sum(ICommunicator &comm = SingleArrayComm::instance()) const;
 
   /**
    * @brief Converts a 2D `Array` to an OpenCV `cv::Mat`.
@@ -1027,9 +1038,12 @@ public:
    *        This function extracts and returns a vector containing all unique
    * values present in the array. The values are sorted in ascending order.
    *
-   * @return std::vector<float> A vector of unique values found in the array.
+   * @param  comm Optional communicator for collective reduction across tiles.
+   * @return      std::vector<float> A vector of unique values found in the
+   *              array.
    */
-  std::vector<float> unique_values() const;
+  std::vector<float> unique_values(
+      ICommunicator &comm = SingleArrayComm::instance()) const;
 };
 
 // ==========================================================================

@@ -8,6 +8,8 @@
 #include "highmap/array.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/array.hpp"
+#include "highmap/virtual_array/communicator.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 float f(int i, float gi)
 {
@@ -22,7 +24,10 @@ int sep(int i, int u, float gi, float gu)
 namespace hmap
 {
 
-Array distance_transform(const Array &array, bool return_squared_distance)
+Array distance_transform(const Array      &array,
+                         bool              return_squared_distance,
+                         const TileRegion &region,
+                         ICommunicator    &comm)
 {
   if (!validate_non_empty(array)) return Array();
 
@@ -30,9 +35,12 @@ Array distance_transform(const Array &array, bool return_squared_distance)
   Array g = Array(array.shape);
   int   ni = array.shape.x;
   int   nj = array.shape.y;
-  float inf = (float)(ni + nj);
 
-  // phase 1
+  // Use a multi-tile-safe upper bound so squared distance does not overflow
+  // float32 while remaining larger than any global grid dimension
+  float inf = (float)((ni + nj) * std::max(1, comm.size()));
+
+  // --- Phase 1: 1D vertical distance transform along y
 
   for (int i = 0; i < ni; i++)
   {
@@ -55,46 +63,225 @@ Array distance_transform(const Array &array, bool return_squared_distance)
       if (g(i, j + 1) < g(i, j)) g(i, j) = 1.f + g(i, j + 1);
   }
 
-  // phase 2
+  // Synchronize and propagate vertical distances across tile boundaries
+  if (comm.size() > 1)
+  {
+    const int n_sweeps = std::min(
+        4,
+        std::max(1, int(std::ceil(std::sqrt(comm.size()))) - 1));
+
+    for (int sweep = 0; sweep < n_sweeps; ++sweep)
+    {
+      comm.sync_overlap_buffers(g, region, SyncOperation::Min);
+
+      for (int i = 0; i < ni; i++)
+      {
+        for (int j = 1; j < nj; j++)
+          g(i, j) = std::min(g(i, j), 1.f + g(i, j - 1));
+
+        for (int j = nj - 2; j > -1; j--)
+          g(i, j) = std::min(g(i, j), 1.f + g(i, j + 1));
+      }
+    }
+
+    comm.sync_overlap_buffers(g, region, SyncOperation::Min);
+  }
+
+  // --- Phase 2: 1D parabolic lower envelope along x
+
   std::vector<int> s(std::max(ni, nj));
   std::vector<int> t(std::max(ni, nj));
 
-  for (int j = 0; j < nj; j++)
+  auto run_row_envelope = [&](const Array &g_in, Array &dt_out)
   {
-    int q = 0;
-    s[0] = 0;
-    t[0] = 0;
-
-    // scan 3
-    for (int u = 1; u < ni; u++)
+    for (int j = 0; j < nj; j++)
     {
-      while ((q >= 0) and (f(t[q] - s[q], g(s[q], j)) > f(t[q] - u, g(u, j))))
-        q--;
+      int q = 0;
+      s[0] = 0;
+      t[0] = 0;
 
-      if (q < 0)
+      // scan 3
+      for (int u = 1; u < ni; u++)
       {
-        q = 0;
-        s[0] = u;
-      }
-      else
-      {
-        int w = 1 + sep(s[q], u, g(s[q], j), g(u, j));
+        while ((q >= 0) and
+               (f(t[q] - s[q], g_in(s[q], j)) > f(t[q] - u, g_in(u, j))))
+          q--;
 
-        if (w < ni)
+        if (q < 0)
         {
-          q++;
-          s[q] = u;
-          t[q] = w;
+          q = 0;
+          s[0] = u;
+        }
+        else
+        {
+          int w = 1 + sep(s[q], u, g_in(s[q], j), g_in(u, j));
+
+          if (w < ni)
+          {
+            q++;
+            s[q] = u;
+            t[q] = w;
+          }
         }
       }
+
+      // scan 4
+      for (int u = ni - 1; u > -1; u--)
+      {
+        dt_out(u, j) = f(u - s[q], g_in(s[q], j));
+        if (u == t[q]) q--;
+      }
+    }
+  };
+
+  if (comm.size() <= 1)
+  {
+    run_row_envelope(g, dt);
+  }
+  else
+  {
+    // Compute signed horizontal offset dx(i, j) = u - x_seed to nearest
+    // parabola center in row j so 2D parabola centers propagate accurately
+    // across East/West tile boundaries
+    Array dx_left(array.shape, 0.f);
+    Array best_g_left = g;
+
+    Array best_dx(array.shape, 0.f);
+    Array best_g = g;
+
+    auto update_horizontal_envelope = [&]()
+    {
+      for (int j = 0; j < nj; j++)
+      {
+        for (int u = 0; u < ni; u++)
+        {
+          float min_d2 = best_dx(u, j) * best_dx(u, j) +
+                         best_g(u, j) * best_g(u, j);
+          float b_dx = best_dx(u, j);
+          float b_g = best_g(u, j);
+
+          for (int i = 0; i < ni; i++)
+          {
+            float cand_dx = float(u - i) + best_dx(i, j);
+            float cand_g = best_g(i, j);
+            float cand_d2 = cand_dx * cand_dx + cand_g * cand_g;
+
+            if (cand_d2 < min_d2)
+            {
+              min_d2 = cand_d2;
+              b_dx = cand_dx;
+              b_g = cand_g;
+            }
+          }
+
+          dx_left(u, j) = b_dx;
+          best_g_left(u, j) = b_g;
+        }
+
+        for (int u = 0; u < ni; u++)
+        {
+          best_dx(u, j) = dx_left(u, j);
+          best_g(u, j) = best_g_left(u, j);
+          dt(u, j) = best_dx(u, j) * best_dx(u, j) +
+                     best_g(u, j) * best_g(u, j);
+        }
+      }
+    };
+
+    // Track (best_dx, best_g) from local Meijster envelope
+    for (int j = 0; j < nj; j++)
+    {
+      int q = 0;
+      s[0] = 0;
+      t[0] = 0;
+
+      for (int u = 1; u < ni; u++)
+      {
+        while ((q >= 0) and (f(t[q] - s[q], g(s[q], j)) > f(t[q] - u, g(u, j))))
+          q--;
+
+        if (q < 0)
+        {
+          q = 0;
+          s[0] = u;
+        }
+        else
+        {
+          int w = 1 + sep(s[q], u, g(s[q], j), g(u, j));
+
+          if (w < ni)
+          {
+            q++;
+            s[q] = u;
+            t[q] = w;
+          }
+        }
+      }
+
+      for (int u = ni - 1; u > -1; u--)
+      {
+        best_dx(u, j) = float(u - s[q]);
+        best_g(u, j) = g(s[q], j);
+        dt(u, j) = f(u - s[q], g(s[q], j));
+        if (u == t[q]) q--;
+      }
     }
 
-    // scan 4
-    for (int u = ni - 1; u > -1; u--)
+    const int n_sweeps = std::min(
+        4,
+        std::max(1, int(std::ceil(std::sqrt(comm.size()))) - 1));
+
+    for (int sweep = 0; sweep < n_sweeps; ++sweep)
     {
-      dt(u, j) = f(u - s[q], g(s[q], j));
-      if (u == t[q]) q--;
+      // Sync best_dx and best_g from West/East using CopyFirst and CopySecond
+      Array dx_west = best_dx;
+      Array g_west = best_g;
+      comm.sync_overlap_buffers(dx_west, region, SyncOperation::CopyFirst);
+      comm.sync_overlap_buffers(g_west, region, SyncOperation::CopyFirst);
+
+      Array dx_east = best_dx;
+      Array g_east = best_g;
+      comm.sync_overlap_buffers(dx_east, region, SyncOperation::CopySecond);
+      comm.sync_overlap_buffers(g_east, region, SyncOperation::CopySecond);
+
+      // Update only West/East horizontal halo strips (x in [0, halo.x) and
+      // [ni - 2 * halo.y, ni - halo.y)) so Y-direction CopyFirst/CopySecond
+      // does not mix mismatched vertical rows into horizontal offsets
+      auto try_update = [&](int u, int j, float cand_dx, float cand_g)
+      {
+        float d2_curr = best_dx(u, j) * best_dx(u, j) +
+                        best_g(u, j) * best_g(u, j);
+        float d2_cand = cand_dx * cand_dx + cand_g * cand_g;
+
+        if (d2_cand < d2_curr)
+        {
+          best_dx(u, j) = cand_dx;
+          best_g(u, j) = cand_g;
+        }
+      };
+
+      for (int j = 0; j < nj; j++)
+      {
+        for (int u = 0; u < region.halo.x; u++)
+        {
+          try_update(u, j, dx_west(u, j), g_west(u, j));
+        }
+
+        if (region.halo.y > 0)
+        {
+          int u0 = std::max(0, ni - 2 * region.halo.y);
+          int u1 = std::min(ni, ni - region.halo.y);
+          for (int u = u0; u < u1; u++)
+          {
+            try_update(u, j, dx_east(u, j), g_east(u, j));
+          }
+        }
+      }
+
+      update_horizontal_envelope();
     }
+
+    comm.sync_overlap_buffers(dt, region, SyncOperation::Min);
   }
 
   if (return_squared_distance)

@@ -28,6 +28,8 @@
 #include "highmap/range.hpp"
 #include "highmap/transform.hpp"
 #include "highmap/vectors.hpp"
+#include "highmap/virtual_array/communicator.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 #define NSIGMA 2
 
@@ -989,9 +991,14 @@ void smooth_cone(Array &array, int ir, const Array *p_mask)
   apply_with_mask(array, p_mask, [&](Array &a) { smooth_cone(a, ir); });
 }
 
-void smooth_cpulse(Array &array, int ir)
+void smooth_cpulse(Array            &array,
+                   int               ir,
+                   const Array      *p_mask,
+                   const TileRegion &region,
+                   ICommunicator    &comm)
 {
   if (!validate_non_empty(array)) return;
+  if (p_mask && !validate_same_shape(array, *p_mask)) return;
 
   // define kernel
   const int          nk = 2 * ir + 1;
@@ -1012,17 +1019,25 @@ void smooth_cpulse(Array &array, int ir)
     k1d[i] /= sum;
   }
 
-  // eventually convolve
-  array = convolve1d_i(array, k1d);
-  array = convolve1d_j(array, k1d);
-}
+  auto run_smooth = [&](Array &a)
+  {
+    a = convolve1d_i(a, k1d);
+    a = convolve1d_j(a, k1d);
+  };
 
-void smooth_cpulse(Array &array, int ir, const Array *p_mask)
-{
-  if (!validate_non_empty(array)) return;
-  if (p_mask && !validate_same_shape(array, *p_mask)) return;
+  if (p_mask)
+  {
+    apply_with_mask(array, p_mask, [&](Array &a) { run_smooth(a); });
+  }
+  else
+  {
+    run_smooth(array);
+  }
 
-  apply_with_mask(array, p_mask, [&](Array &a) { smooth_cpulse(a, ir); });
+  if (comm.size() > 1)
+  {
+    comm.sync_overlap_buffers(array, region, SyncOperation::SmoothBlend);
+  }
 }
 
 void smooth_cpulse_edge_removing(Array &array,

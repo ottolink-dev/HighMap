@@ -18,6 +18,8 @@
 #include "highmap/math/core.hpp"
 #include "highmap/range.hpp"
 #include "highmap/selector.hpp"
+#include "highmap/virtual_array/communicator.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 #include <CL/opencl.hpp>
 
@@ -87,23 +89,28 @@ Array snow_melting_map(const Array &z,
 namespace hmap::gpu
 {
 
-Array snow_simulation(const Array &z,
-                      float        snow_depth,
-                      const Array &fall_map,
-                      const Array &melting_map,
-                      const Array &talus,
-                      int          iterations,
-                      float        dt,
-                      float        fall_iterations_ratio,
-                      float        k_snow,
-                      float        k_visc,
-                      float        k_melt_factor,
-                      float        k_depth_ratio,
-                      float        k_depth_slope_ratio,
-                      float        k_creep,
-                      bool         post_filter,
-                      float        thermal_talus_ratio,
-                      bool         outflow_boundaries)
+Array snow_simulation(const Array      &z,
+                      float             snow_depth,
+                      const Array      &fall_map,
+                      const Array      &melting_map,
+                      const Array      &talus,
+                      int               iterations,
+                      float             dt,
+                      float             fall_iterations_ratio,
+                      float             k_snow,
+                      float             k_visc,
+                      float             k_melt_factor,
+                      float             k_depth_ratio,
+                      float             k_depth_slope_ratio,
+                      float             k_creep,
+                      bool              post_filter,
+                      float             thermal_talus_ratio,
+                      bool              outflow_boundaries,
+                      float             clamp_smin,
+                      bool              rebase_snow_depth_to_zero,
+                      int               sync_interval,
+                      const TileRegion &region,
+                      ICommunicator    &comm)
 {
   if (!validate_non_empty(z)) return Array();
   if (!validate_same_shape(z, fall_map)) return Array();
@@ -120,79 +127,112 @@ Array snow_simulation(const Array &z,
   const int   iterations_fall = std::max(1,
                                        int(fall_iterations_ratio * iterations));
 
-  // --- Device state: snow depth is a ping-pong pair (A/B) on GPU
+  // --- Device state: snow depth is processed in batches between boundary
+  // synchronizations so GPU buffers and host tile memory are released while
+  // other tiles execute
 
   using clwrapper::Direction;
 
-  auto run = clwrapper::Run("snow_simulation");
+  const int batch_size = (comm.size() > 1 && sync_interval > 0) ? sync_interval
+                                                                : iterations;
 
-  run.bind_imagef("z", z.vector, shape.x, shape.y);
-  run.bind_imagef("s_a", s.vector, shape.x, shape.y, Direction::INOUT);
-  run.bind_imagef("talus", talus.vector, shape.x, shape.y);
-  run.bind_imagef("melting_map", melting_map.vector, shape.x, shape.y);
-  run.bind_imagef("s_b", s.vector, shape.x, shape.y, Direction::INOUT);
-
-  run.bind_arguments(shape.x,
-                     shape.y,
-                     dt,
-                     snow_depth,
-                     k_snow,
-                     k_melt,
-                     k_visc,
-                     k_depth_ratio,
-                     k_depth_slope_ratio,
-                     k_creep,
-                     outflow_boundaries ? 1 : 0);
-
-  auto run_fall = std::make_unique<clwrapper::Run>("hydraulic_vpipes_rain_pass",
-                                                   run.get_queue());
-
-  run_fall->bind_image2d("s_a", run.get_image2d("s_a"));
-  run_fall->bind_imagef("fall_map", fall_map.vector, shape.x, shape.y);
-  run_fall->bind_image2d("s_b", run.get_image2d("s_b"));
-  run_fall->bind_arguments(shape.x,
-                           shape.y,
-                           snow_depth / float(iterations_fall),
-                           1);
-
-  // ping-pong handles
-  const std::array<cl::Image2D, 2> img_s = {run.get_image2d("s_a").cl_image,
-                                            run.get_image2d("s_b").cl_image};
-
-  int sc = 0; // index of the current snow depth image
-
-  for (int it = 0; it < iterations; ++it)
+  for (int it_start = 0; it_start < iterations; it_start += batch_size)
   {
-    if (it < iterations_fall)
+    const int it_end = std::min(iterations, it_start + batch_size);
+
     {
-      run_fall->set_argument(0, img_s[sc]);
-      run_fall->set_argument(2, img_s[1 - sc]);
-      run_fall->execute_async({shape.x, shape.y});
-      sc = 1 - sc;
+      auto run = clwrapper::Run("snow_simulation");
+
+      run.bind_imagef("z",
+                      const_cast<std::vector<float> &>(z.vector),
+                      shape.x,
+                      shape.y);
+      run.bind_imagef("s_a", s.vector, shape.x, shape.y, Direction::INOUT);
+      run.bind_imagef("talus",
+                      const_cast<std::vector<float> &>(talus.vector),
+                      shape.x,
+                      shape.y);
+      run.bind_imagef("melting_map",
+                      const_cast<std::vector<float> &>(melting_map.vector),
+                      shape.x,
+                      shape.y);
+      run.bind_imagef("s_b", s.vector, shape.x, shape.y, Direction::INOUT);
+
+      run.bind_arguments(shape.x,
+                         shape.y,
+                         dt,
+                         snow_depth,
+                         k_snow,
+                         k_melt,
+                         k_visc,
+                         k_depth_ratio,
+                         k_depth_slope_ratio,
+                         k_creep,
+                         outflow_boundaries ? 1 : 0);
+
+      auto run_fall = std::make_unique<clwrapper::Run>(
+          "hydraulic_vpipes_rain_pass",
+          run.get_queue());
+
+      run_fall->bind_image2d("s_a", run.get_image2d("s_a"));
+      run_fall->bind_imagef("fall_map",
+                            const_cast<std::vector<float> &>(fall_map.vector),
+                            shape.x,
+                            shape.y);
+      run_fall->bind_image2d("s_b", run.get_image2d("s_b"));
+      run_fall->bind_arguments(shape.x,
+                               shape.y,
+                               snow_depth / float(iterations_fall),
+                               1);
+
+      const std::array<cl::Image2D, 2> img_s = {
+          run.get_image2d("s_a").cl_image,
+          run.get_image2d("s_b").cl_image};
+
+      int sc = 0;
+
+      for (int it = it_start; it < it_end; ++it)
+      {
+        if (it < iterations_fall)
+        {
+          run_fall->set_argument(0, img_s[sc]);
+          run_fall->set_argument(2, img_s[1 - sc]);
+          run_fall->execute_async({shape.x, shape.y});
+          sc = 1 - sc;
+        }
+
+        run.set_argument(1, img_s[sc]);
+        run.set_argument(4, img_s[1 - sc]);
+        run.execute_async({shape.x, shape.y});
+
+        sc = 1 - sc;
+      }
+
+      run.finish();
+      run.read_imagef(sc == 0 ? "s_a" : "s_b");
     }
 
-    run.set_argument(1, img_s[sc]);
-    run.set_argument(4, img_s[1 - sc]);
-    run.execute_async({shape.x, shape.y});
-
-    sc = 1 - sc;
+    if (it_end < iterations)
+    {
+      comm.sync_overlap_buffers(s, region, SyncOperation::SmoothBlend);
+    }
   }
 
-  run.finish();
-
-  // retrieve results (both snow depth images map to the host array `s`)
-  run.read_imagef(sc == 0 ? "s_a" : "s_b");
+  comm.sync_overlap_buffers(s, region, SyncOperation::SmoothBlend);
 
   if (post_filter)
   {
+    // keep this section local, no comm needed, approx. but ok for
+    // results
+    const float s_max = std::max(s.max(comm), 1e-6f);
+
+    Array mask = s / s_max;
+    mask = smooth_mask_preserve_frontier(mask, 8.f);
+
     Array z_wrk = z + s;
 
     {
-      Array mask = s / std::max(s.max(), 1e-6f);
-      mask = smooth_mask_preserve_frontier(mask, 8.f);
-
       Array talus_smooth = talus;
-      // gpu::smooth_cpulse(talus_smooth, 32);
 
       gpu::thermal_conserve(z_wrk,
                             &mask,
@@ -200,12 +240,23 @@ Array snow_simulation(const Array &z,
                             std::min(iterations, 30),
                             0.5f,
                             &z);
+
+      std::vector<float>().swap(mask.vector);
+      std::vector<float>().swap(talus_smooth.vector);
+
+      comm.sync_overlap_buffers(z_wrk, region, SyncOperation::SmoothBlend);
     }
 
     s = z_wrk - z;
   }
 
-  clamp_min(s, 0.f);
+  // clean-up
+  {
+    clamp_min(s, clamp_smin);
+    if (clamp_smin > 0.f) s -= clamp_smin;
+  }
+
+  if (rebase_snow_depth_to_zero) s -= s.min(comm);
 
   return s;
 }

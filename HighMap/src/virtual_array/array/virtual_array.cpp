@@ -242,6 +242,12 @@ float VirtualArray::get(int global_i, int global_j) const
 
 glm::ivec2 VirtualArray::get_max_tiles() const
 {
+  if (this->tile_shape.x <= 0 || this->tile_shape.y <= 0 ||
+      this->shape.x <= 0 || this->shape.y <= 0)
+  {
+    return {0, 0};
+  }
+
   int nx = ceil_div(this->shape.x, this->tile_shape.x);
   int ny = ceil_div(this->shape.y, this->tile_shape.y);
 

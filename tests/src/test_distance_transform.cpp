@@ -1,7 +1,9 @@
 #include "highmap/dbg/assert.hpp"
 #include "highmap/geometry/cloud.hpp"
+#include "highmap/math/array.hpp"
 #include "highmap/morphology.hpp"
 #include "highmap/primitives.hpp"
+#include "highmap/virtual_array/virtual_array.hpp"
 
 #include <gtest/gtest.h>
 
@@ -249,4 +251,82 @@ TEST(DistanceTransform, ApproxMatchesExactWithinTolerance)
       // allow approximation error
       ASSERT_NEAR(a, e, 3.0f) << "Mismatch at (" << i << "," << j << ")";
     }
+}
+
+TEST(DistanceTransform, TiledWithCommunicator)
+{
+  const glm::ivec2 shape{128, 128};
+  const glm::ivec2 tile_shape{64, 64};
+  const int        halo = 8;
+
+  // Test 1: Random sparse mask across 2x2 tiles
+  {
+    Array mask = white_sparse(shape, 0.f, 1.f, 0.05f, 42);
+    Array ref = distance_transform(mask);
+
+    VirtualArray va(shape, tile_shape, halo, StorageMode::VA_RAM);
+    ComputeMode  cm_dist{.mode = ForEachMode::VA_DISTRIBUTED};
+    va.from_array(mask, cm_dist);
+
+    for_each_tile(
+        va,
+        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        { tile = distance_transform(tile, false, region, comm); },
+        cm_dist);
+
+    Array res = va.to_array(cm_dist);
+    Array diff = abs(res - ref);
+
+    EXPECT_LT(diff.max(), 1e-4f);
+  }
+
+  // Test 2: Single seed in tile (0, 0) propagating into empty neighboring tiles
+  {
+    Array mask(shape, 0.f);
+    mask(16, 16) = 1.f;
+
+    Array ref = distance_transform(mask);
+
+    VirtualArray va(shape, tile_shape, halo, StorageMode::VA_RAM);
+    ComputeMode  cm_dist{.mode = ForEachMode::VA_DISTRIBUTED};
+    va.from_array(mask, cm_dist);
+
+    for_each_tile(
+        va,
+        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        { tile = distance_transform(tile, false, region, comm); },
+        cm_dist);
+
+    Array res = va.to_array(cm_dist);
+    Array diff = abs(res - ref);
+
+    EXPECT_LT(diff.max(), 1e-4f);
+  }
+
+  // Test 3: Single seed in bottom-right tile (1, 1) propagating West and North
+  // in VA_SEQUENTIAL mode with VA_DISK_LRU_MIN (2 live tiles)
+  {
+    Array mask(shape, 0.f);
+    mask(100, 100) = 1.f;
+
+    Array ref = distance_transform(mask);
+
+    VirtualArray va(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
+    ComputeMode  cm_seq{.mode = ForEachMode::VA_SEQUENTIAL,
+                        .trim_storage = true};
+    va.from_array(mask, cm_seq);
+
+    for_each_tile(
+        va,
+        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        { tile = distance_transform(tile, false, region, comm); },
+        cm_seq);
+
+    EXPECT_LE(va.live_tile_count(), 2u);
+
+    Array res = va.to_array(cm_seq);
+    Array diff = abs(res - ref);
+
+    EXPECT_LT(diff.max(), 1e-4f);
+  }
 }
