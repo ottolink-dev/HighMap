@@ -9,15 +9,13 @@ using namespace hmap;
 namespace
 {
 
-const std::vector<ForEachMode> k_compute_modes = {
-    ForEachMode::VA_SEQUENTIAL,
-    ForEachMode::VA_DISTRIBUTED,
-    ForEachMode::VA_SINGLE_ARRAY};
+const std::vector<ForEachMode> k_compute_modes = {ForEachMode::VA_SEQUENTIAL,
+                                                  ForEachMode::VA_DISTRIBUTED,
+                                                  ForEachMode::VA_SINGLE_ARRAY};
 
-const std::vector<StorageMode> k_storage_modes = {
-    StorageMode::VA_RAM,
-    StorageMode::VA_DISK_LRU,
-    StorageMode::VA_DISK_LRU_MIN};
+const std::vector<StorageMode> k_storage_modes = {StorageMode::VA_RAM,
+                                                  StorageMode::VA_DISK_LRU,
+                                                  StorageMode::VA_DISK_LRU_MIN};
 
 const std::vector<bool> k_trim_options = {false, true};
 
@@ -31,6 +29,137 @@ protected:
     gpu::init_opencl();
   }
 };
+
+// --- Array Methods with Communicator matrix test (min, max, mean, sum, std,
+// ptp, range, unique_values, normalize)
+
+TEST_F(ComputeModeMatrixTest, ArrayMethodsWithCommMatrix)
+{
+  const glm::ivec2 shape{128, 128};
+  const glm::ivec2 tile_shape{32, 32};
+  const int        halo = 0;
+
+  Array input = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 777);
+  // Introduce a few discrete values to test unique_values
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      input(i, j) = std::round(input(i, j) * 10.f);
+    }
+  }
+
+  // Monolithic reference metrics
+  const float              ref_min = input.min();
+  const float              ref_max = input.max();
+  const float              ref_mean = input.mean();
+  const float              ref_sum = input.sum();
+  const float              ref_std = input.std();
+  const float              ref_ptp = input.ptp();
+  const glm::vec2          ref_range = input.range();
+  const std::vector<float> ref_unique = input.unique_values();
+
+  Array ref_norm = input;
+  ref_norm.normalize();
+
+  for (auto mode : k_compute_modes)
+  {
+    for (auto storage_mode : k_storage_modes)
+    {
+      for (bool trim : k_trim_options)
+      {
+        ComputeMode cm{.mode = mode, .trim_storage = trim};
+
+        VirtualArray va(shape, tile_shape, halo, storage_mode);
+        va.from_array(input, cm);
+
+        // 1. Reductions & metrics using ICommunicator
+        std::atomic<int>   tile_count{0};
+        float              calc_min = 0.f;
+        float              calc_max = 0.f;
+        float              calc_mean = 0.f;
+        float              calc_sum = 0.f;
+        float              calc_std = 0.f;
+        float              calc_ptp = 0.f;
+        glm::vec2          calc_range{0.f, 0.f};
+        std::vector<float> calc_unique;
+
+        for_each_tile(
+            va,
+            [&](const Array &tile, const TileRegion &, ICommunicator &comm)
+            {
+              float              t_min = tile.min(comm);
+              float              t_max = tile.max(comm);
+              float              t_mean = tile.mean(comm);
+              float              t_sum = tile.sum(comm);
+              float              t_std = tile.std(comm);
+              float              t_ptp = tile.ptp(comm);
+              glm::vec2          t_range = tile.range(comm);
+              std::vector<float> t_unique = tile.unique_values(comm);
+
+              if (comm.rank() == 0)
+              {
+                calc_min = t_min;
+                calc_max = t_max;
+                calc_mean = t_mean;
+                calc_sum = t_sum;
+                calc_std = t_std;
+                calc_ptp = t_ptp;
+                calc_range = t_range;
+                calc_unique = t_unique;
+              }
+              ++tile_count;
+            },
+            cm);
+
+        EXPECT_NEAR(calc_min, ref_min, 1e-4f)
+            << "min failed for mode=" << to_string(mode)
+            << " storage=" << to_string(storage_mode) << " trim=" << trim;
+        EXPECT_NEAR(calc_max, ref_max, 1e-4f)
+            << "max failed for mode=" << to_string(mode)
+            << " storage=" << to_string(storage_mode) << " trim=" << trim;
+        EXPECT_NEAR(calc_mean, ref_mean, 1e-4f)
+            << "mean failed for mode=" << to_string(mode)
+            << " storage=" << to_string(storage_mode) << " trim=" << trim;
+        EXPECT_NEAR(calc_sum, ref_sum, 1e-2f)
+            << "sum failed for mode=" << to_string(mode)
+            << " storage=" << to_string(storage_mode) << " trim=" << trim;
+        EXPECT_NEAR(calc_std, ref_std, 1e-4f)
+            << "std failed for mode=" << to_string(mode)
+            << " storage=" << to_string(storage_mode) << " trim=" << trim;
+        EXPECT_NEAR(calc_ptp, ref_ptp, 1e-4f)
+            << "ptp failed for mode=" << to_string(mode)
+            << " storage=" << to_string(storage_mode) << " trim=" << trim;
+        EXPECT_NEAR(calc_range.x, ref_range.x, 1e-4f)
+            << "range.x failed for mode=" << to_string(mode)
+            << " storage=" << to_string(storage_mode) << " trim=" << trim;
+        EXPECT_NEAR(calc_range.y, ref_range.y, 1e-4f)
+            << "range.y failed for mode=" << to_string(mode)
+            << " storage=" << to_string(storage_mode) << " trim=" << trim;
+        EXPECT_EQ(calc_unique, ref_unique)
+            << "unique_values failed for mode=" << to_string(mode)
+            << " storage=" << to_string(storage_mode) << " trim=" << trim;
+
+        // 2. In-place normalize using ICommunicator
+        VirtualArray va_norm(shape, tile_shape, halo, storage_mode);
+        va_norm.from_array(input, cm);
+
+        for_each_tile(
+            va_norm,
+            [](Array &tile, const TileRegion &, ICommunicator &comm)
+            { tile.normalize(comm); },
+            cm);
+
+        Array res_norm = va_norm.to_array(cm);
+        Array diff_norm = abs(res_norm - ref_norm);
+
+        EXPECT_LT(diff_norm.max(), 1e-4f)
+            << "normalize failed for mode=" << to_string(mode)
+            << " storage=" << to_string(storage_mode) << " trim=" << trim;
+      }
+    }
+  }
+}
 
 // --- Remap matrix test
 
@@ -68,8 +197,7 @@ TEST_F(ComputeModeMatrixTest, RemapMatrix)
 
         EXPECT_LT(diff.max(), 1e-4f)
             << "Remap failed for mode: " << to_string(mode)
-            << ", storage: " << to_string(storage_mode)
-            << ", trim: " << trim;
+            << ", storage: " << to_string(storage_mode) << ", trim: " << trim;
       }
     }
   }
@@ -89,7 +217,11 @@ TEST_F(ComputeModeMatrixTest, SmoothCPulseMatrix)
 
   // Reference single-array result with comm
   Array ref = input;
-  smooth_cpulse(ref, ir, nullptr, TileRegion::dummy(), SingleArrayComm::instance());
+  smooth_cpulse(ref,
+                ir,
+                nullptr,
+                TileRegion::dummy(),
+                SingleArrayComm::instance());
 
   for (auto mode : k_compute_modes)
   {
@@ -113,8 +245,7 @@ TEST_F(ComputeModeMatrixTest, SmoothCPulseMatrix)
 
         EXPECT_LT(diff.max(), 5e-4f)
             << "SmoothCPulse failed for mode: " << to_string(mode)
-            << ", storage: " << to_string(storage_mode)
-            << ", trim: " << trim;
+            << ", storage: " << to_string(storage_mode) << ", trim: " << trim;
       }
     }
   }
@@ -131,7 +262,10 @@ TEST_F(ComputeModeMatrixTest, DistanceTransformMatrix)
   Array mask = white_sparse(shape, 0.f, 1.f, 0.03f, 9999);
 
   // Reference monolithic result
-  Array ref = distance_transform(mask, false, TileRegion::dummy(), SingleArrayComm::instance());
+  Array ref = distance_transform(mask,
+                                 false,
+                                 TileRegion::dummy(),
+                                 SingleArrayComm::instance());
 
   for (auto mode : k_compute_modes)
   {
@@ -155,8 +289,7 @@ TEST_F(ComputeModeMatrixTest, DistanceTransformMatrix)
 
         EXPECT_LT(diff.max(), 1e-4f)
             << "DistanceTransform failed for mode: " << to_string(mode)
-            << ", storage: " << to_string(storage_mode)
-            << ", trim: " << trim;
+            << ", storage: " << to_string(storage_mode) << ", trim: " << trim;
       }
     }
   }
@@ -255,14 +388,14 @@ TEST_F(ComputeModeMatrixTest, SnowSimulationMatrix)
           Array diff = abs(res - ref_snow_tiled);
           EXPECT_LT(diff.max(), 1e-4f)
               << "SnowSimulation tiled mismatch for mode: " << to_string(mode)
-              << ", storage: " << to_string(storage_mode)
-              << ", trim: " << trim;
+              << ", storage: " << to_string(storage_mode) << ", trim: " << trim;
         }
       }
     }
   }
 
-  // Cross-verification: tiled simulation with halo blending vs un-tiled single array
+  // Cross-verification: tiled simulation with halo blending vs un-tiled single
+  // array
   if (ref_snow_tiled.shape.x > 0 && ref_snow_single.shape.x > 0)
   {
     Array diff_tiled_single = abs(ref_snow_tiled - ref_snow_single);
