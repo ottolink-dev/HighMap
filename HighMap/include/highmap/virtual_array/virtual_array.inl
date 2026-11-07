@@ -533,7 +533,10 @@ void single_array_compute(const TileAccess &access, Func &&func, int stride = 1)
   const TileRegion va_region = TileRegion(TileKey(),
                                           ref_va->bbox,
                                           shape_wrk,
-                                          {0, 0, 0, 0});
+                                          {0, 0, 0, 0},
+                                          ref_va->shape,
+                                          ref_va->shape,
+                                          {1, 1});
 
   {
     HMAP_PROFILE_ZONE("HighMap::single_array.algorithm");

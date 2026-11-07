@@ -326,3 +326,103 @@ TEST(FloodingFromPoint_Communicator, TiledMatchesMonolithicMultiSeed)
 
   EXPECT_TRUE(assert_almost_equal(result, expected, 1e-4f));
 }
+
+// --- Flooding from boundaries tests
+
+TEST(FloodingFromBoundaries_Communicator, TiledMatchesMonolithicAllBoundaries)
+{
+  const glm::ivec2 shape{64, 64};
+  const glm::vec4  bbox{0.f, 1.f, 0.f, 1.f};
+  const glm::ivec2 tile_shape{32, 32};
+  const int        halo = 4;
+
+  glm::vec2 kw = {3.f, 3.f};
+  Array     input = noise_fbm(NoiseType::PERLIN, shape, kw, 101);
+
+  remap(input, 0.f, 10.f);
+
+  float zref = 6.0f;
+  Array expected = flooding_from_boundaries(input,
+                                            zref,
+                                            true,
+                                            true,
+                                            true,
+                                            true);
+
+  VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  ComputeMode  cm{.mode = ForEachMode::VA_DISTRIBUTED};
+
+  va.from_array(input, cm);
+
+  VirtualArray va_water;
+  va_water.copy_from(va, cm);
+
+  hmap::for_each_tile(
+      va_water,
+      [zref](Array &tile, const TileRegion &region, ICommunicator &comm)
+      {
+        tile = flooding_from_boundaries(tile,
+                                        zref,
+                                        true,
+                                        true,
+                                        true,
+                                        true,
+                                        region,
+                                        comm);
+      },
+      cm);
+
+  Array result = va_water.to_array(cm);
+
+  EXPECT_TRUE(assert_almost_equal(result, expected, 1e-4f));
+}
+
+TEST(FloodingFromBoundaries_Communicator,
+     TiledMatchesMonolithicSelectiveBoundaries)
+{
+  const glm::ivec2 shape{64, 64};
+  const glm::vec4  bbox{0.f, 1.f, 0.f, 1.f};
+  const glm::ivec2 tile_shape{32, 32};
+  const int        halo = 4;
+
+  glm::vec2 kw = {3.f, 3.f};
+  Array     input = noise_fbm(NoiseType::PERLIN, shape, kw, 202);
+
+  remap(input, 0.f, 10.f);
+
+  // flood only from west and south boundaries
+  float zref = 5.5f;
+  Array expected = flooding_from_boundaries(input,
+                                            zref,
+                                            false,
+                                            true,
+                                            false,
+                                            true);
+
+  VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  ComputeMode  cm{.mode = ForEachMode::VA_DISTRIBUTED};
+
+  va.from_array(input, cm);
+
+  VirtualArray va_water;
+  va_water.copy_from(va, cm);
+
+  hmap::for_each_tile(
+      va_water,
+      [zref](Array &tile, const TileRegion &region, ICommunicator &comm)
+      {
+        tile = flooding_from_boundaries(tile,
+                                        zref,
+                                        false,
+                                        true,
+                                        false,
+                                        true,
+                                        region,
+                                        comm);
+      },
+      cm);
+
+  Array result = va_water.to_array(cm);
+
+  EXPECT_TRUE(assert_almost_equal(result, expected, 1e-4f));
+}

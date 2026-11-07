@@ -82,10 +82,10 @@ void depression_filling_priority_flood(Array            &z,
 
   Array z_bckp = apply_post_filter ? z : Array();
 
-  bool tile_outflow_l = (region.halo.x == 0) ? outflow_left : true;
-  bool tile_outflow_r = (region.halo.y == 0) ? outflow_right : true;
-  bool tile_outflow_b = (region.halo.z == 0) ? outflow_bottom : true;
-  bool tile_outflow_t = (region.halo.w == 0) ? outflow_top : true;
+  bool tile_outflow_l = region.is_west_boundary() ? outflow_left : true;
+  bool tile_outflow_r = region.is_east_boundary() ? outflow_right : true;
+  bool tile_outflow_b = region.is_south_boundary() ? outflow_bottom : true;
+  bool tile_outflow_t = region.is_north_boundary() ? outflow_top : true;
 
   int n_tiles = comm.size();
   int side = std::max(1, int(std::ceil(std::sqrt(n_tiles))));

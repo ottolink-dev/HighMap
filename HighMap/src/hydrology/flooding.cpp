@@ -33,85 +33,359 @@ Array flooding_uniform_level(const Array &z, float zref)
   return water_depth;
 }
 
-Array flooding_from_boundaries(const Array &z,
-                               float        zref,
-                               bool         from_east,
-                               bool         from_west,
-                               bool         from_north,
-                               bool         from_south)
+Array flooding_from_boundaries(const Array      &z,
+                               float             zref,
+                               bool              from_east,
+                               bool              from_west,
+                               bool              from_north,
+                               bool              from_south,
+                               const TileRegion &region,
+                               ICommunicator    &comm)
 {
   if (!validate_non_empty(z)) return Array();
 
-  Array water_depth = Array(z.shape);
+  // --- Fast path for single tile / non-distributed execution
 
-  // find lowest points on the boundaries and starts the flooding there
-  // std::vector<int> is, js;
+  if (comm.size() <= 1)
+  {
+    Array water_depth = Array(z.shape, 0.f);
 
+    if (from_east)
+    {
+      int   i = z.shape.x - 1;
+      float vmin = std::numeric_limits<float>::max();
+      int   jmin = 0;
+
+      for (int j = 0; j < z.shape.y - 1; ++j)
+      {
+        if (z(i, j) < vmin)
+        {
+          vmin = z(i, j);
+          jmin = j;
+        }
+      }
+
+      water_depth = flooding_from_point(z, i, jmin, zref - z(i, jmin));
+    }
+
+    if (from_west)
+    {
+      int   i = 0;
+      float vmin = std::numeric_limits<float>::max();
+      int   jmin = 0;
+
+      for (int j = 0; j < z.shape.y - 1; ++j)
+      {
+        if (z(i, j) < vmin)
+        {
+          vmin = z(i, j);
+          jmin = j;
+        }
+      }
+
+      water_depth = maximum(water_depth,
+                            flooding_from_point(z, i, jmin, zref - z(i, jmin)));
+    }
+
+    if (from_north)
+    {
+      int   j = z.shape.y - 1;
+      float vmin = std::numeric_limits<float>::max();
+      int   imin = 0;
+
+      for (int i = 0; i < z.shape.x - 1; ++i)
+      {
+        if (z(i, j) < vmin)
+        {
+          vmin = z(i, j);
+          imin = i;
+        }
+      }
+
+      water_depth = maximum(water_depth,
+                            flooding_from_point(z, imin, j, zref - z(imin, j)));
+    }
+
+    if (from_south)
+    {
+      int   j = 0;
+      float vmin = std::numeric_limits<float>::max();
+      int   imin = 0;
+
+      for (int i = 0; i < z.shape.x - 1; ++i)
+      {
+        if (z(i, j) < vmin)
+        {
+          vmin = z(i, j);
+          imin = i;
+        }
+      }
+
+      water_depth = maximum(water_depth,
+                            flooding_from_point(z, imin, j, zref - z(imin, j)));
+    }
+
+    return water_depth;
+  }
+
+  // --- Multi-tile distributed execution
+
+  int global_nx = region.global_shape.x;
+  int global_ny = region.global_shape.y;
+
+  if (global_nx <= 0 || global_ny <= 0)
+  {
+    hmap::log::error(
+        "flooding_from_boundaries: invalid TileRegion global_shape ({}x{})",
+        global_nx,
+        global_ny);
+    return Array();
+  }
+
+  bool is_east_tile = region.is_east_boundary();
+  bool is_west_tile = region.is_west_boundary();
+  bool is_north_tile = region.is_north_boundary();
+  bool is_south_tile = region.is_south_boundary();
+
+  Array water_depth(z.shape, 0.f);
+
+  // 1. East boundary: x = global_nx - 1, y in [0, global_ny - 1)
   if (from_east)
   {
-    int   i = z.shape.x - 1;
-    float vmin = std::numeric_limits<float>::max();
-    int   jmin = 0;
+    float local_min = std::numeric_limits<float>::max();
 
-    for (int j = 0; j < z.shape.y - 1; ++j)
-      if (z(i, j) < vmin)
+    if (is_east_tile)
+    {
+      int lx = z.shape.x - 1;
+
+      for (int ly = 0; ly < z.shape.y; ++ly)
       {
-        vmin = z(i, j);
-        jmin = j;
-      }
+        int gy = region.local_to_global(lx, ly).y;
 
-    water_depth = flooding_from_point(z, i, jmin, zref - z(i, jmin));
+        if (gy >= 0 && gy < global_ny - 1)
+        {
+          if (z(lx, ly) < local_min)
+          {
+            local_min = z(lx, ly);
+          }
+        }
+      }
+    }
+
+    float global_min = comm.all_reduce(local_min, ReduceOp::Min);
+
+    float local_best_y = std::numeric_limits<float>::max();
+
+    if (is_east_tile)
+    {
+      int lx = z.shape.x - 1;
+
+      for (int ly = 0; ly < z.shape.y; ++ly)
+      {
+        int gy = region.local_to_global(lx, ly).y;
+
+        if (gy >= 0 && gy < global_ny - 1)
+        {
+          if (z(lx, ly) == global_min)
+          {
+            if (float(gy) < local_best_y)
+            {
+              local_best_y = float(gy);
+            }
+          }
+        }
+      }
+    }
+
+    float best_gy_f = comm.all_reduce(local_best_y, ReduceOp::Min);
+    int   seed_i = global_nx - 1;
+    int   seed_j = int(best_gy_f);
+
+    float depth_min = zref - global_min;
+
+    water_depth = flooding_from_point(z,
+                                      seed_i,
+                                      seed_j,
+                                      depth_min,
+                                      region,
+                                      comm);
   }
 
+  // 2. West boundary: x = 0, y in [0, global_ny - 1)
   if (from_west)
   {
-    int   i = 0;
-    float vmin = std::numeric_limits<float>::max();
-    int   jmin = 0;
+    float local_min = std::numeric_limits<float>::max();
 
-    for (int j = 0; j < z.shape.y - 1; ++j)
-      if (z(i, j) < vmin)
+    if (is_west_tile)
+    {
+      int lx = 0;
+
+      for (int ly = 0; ly < z.shape.y; ++ly)
       {
-        vmin = z(i, j);
-        jmin = j;
-      }
+        int gy = region.local_to_global(lx, ly).y;
 
-    water_depth = maximum(water_depth,
-                          flooding_from_point(z, i, jmin, zref - z(i, jmin)));
+        if (gy >= 0 && gy < global_ny - 1)
+        {
+          if (z(lx, ly) < local_min)
+          {
+            local_min = z(lx, ly);
+          }
+        }
+      }
+    }
+
+    float global_min = comm.all_reduce(local_min, ReduceOp::Min);
+
+    float local_best_y = std::numeric_limits<float>::max();
+
+    if (is_west_tile)
+    {
+      int lx = 0;
+
+      for (int ly = 0; ly < z.shape.y; ++ly)
+      {
+        int gy = region.local_to_global(lx, ly).y;
+
+        if (gy >= 0 && gy < global_ny - 1)
+        {
+          if (z(lx, ly) == global_min)
+          {
+            if (float(gy) < local_best_y)
+            {
+              local_best_y = float(gy);
+            }
+          }
+        }
+      }
+    }
+
+    float best_gy_f = comm.all_reduce(local_best_y, ReduceOp::Min);
+    int   seed_i = 0;
+    int   seed_j = int(best_gy_f);
+
+    float depth_min = zref - global_min;
+
+    water_depth = maximum(
+        water_depth,
+        flooding_from_point(z, seed_i, seed_j, depth_min, region, comm));
   }
 
+  // 3. North boundary: y = global_ny - 1, x in [0, global_nx - 1)
   if (from_north)
   {
-    int   j = z.shape.y - 1;
-    float vmin = std::numeric_limits<float>::max();
-    int   imin = 0;
+    float local_min = std::numeric_limits<float>::max();
 
-    for (int i = 0; i < z.shape.x - 1; ++i)
-      if (z(i, j) < vmin)
+    if (is_north_tile)
+    {
+      int ly = z.shape.y - 1;
+
+      for (int lx = 0; lx < z.shape.x; ++lx)
       {
-        vmin = z(i, j);
-        imin = i;
-      }
+        int gx = region.local_to_global(lx, ly).x;
 
-    water_depth = maximum(water_depth,
-                          flooding_from_point(z, imin, j, zref - z(imin, j)));
+        if (gx >= 0 && gx < global_nx - 1)
+        {
+          if (z(lx, ly) < local_min)
+          {
+            local_min = z(lx, ly);
+          }
+        }
+      }
+    }
+
+    float global_min = comm.all_reduce(local_min, ReduceOp::Min);
+
+    float local_best_x = std::numeric_limits<float>::max();
+
+    if (is_north_tile)
+    {
+      int ly = z.shape.y - 1;
+
+      for (int lx = 0; lx < z.shape.x; ++lx)
+      {
+        int gx = region.local_to_global(lx, ly).x;
+
+        if (gx >= 0 && gx < global_nx - 1)
+        {
+          if (z(lx, ly) == global_min)
+          {
+            if (float(gx) < local_best_x)
+            {
+              local_best_x = float(gx);
+            }
+          }
+        }
+      }
+    }
+
+    float best_gx_f = comm.all_reduce(local_best_x, ReduceOp::Min);
+    int   seed_i = int(best_gx_f);
+    int   seed_j = global_ny - 1;
+
+    float depth_min = zref - global_min;
+
+    water_depth = maximum(
+        water_depth,
+        flooding_from_point(z, seed_i, seed_j, depth_min, region, comm));
   }
 
+  // 4. South boundary: y = 0, x in [0, global_nx - 1)
   if (from_south)
   {
-    int   j = 0;
-    float vmin = std::numeric_limits<float>::max();
-    int   imin = 0;
+    float local_min = std::numeric_limits<float>::max();
 
-    for (int i = 0; i < z.shape.x - 1; ++i)
-      if (z(i, j) < vmin)
+    if (is_south_tile)
+    {
+      int ly = 0;
+
+      for (int lx = 0; lx < z.shape.x; ++lx)
       {
-        vmin = z(i, j);
-        imin = i;
-      }
+        int gx = region.local_to_global(lx, ly).x;
 
-    water_depth = maximum(water_depth,
-                          flooding_from_point(z, imin, j, zref - z(imin, j)));
+        if (gx >= 0 && gx < global_nx - 1)
+        {
+          if (z(lx, ly) < local_min)
+          {
+            local_min = z(lx, ly);
+          }
+        }
+      }
+    }
+
+    float global_min = comm.all_reduce(local_min, ReduceOp::Min);
+
+    float local_best_x = std::numeric_limits<float>::max();
+
+    if (is_south_tile)
+    {
+      int ly = 0;
+
+      for (int lx = 0; lx < z.shape.x; ++lx)
+      {
+        int gx = region.local_to_global(lx, ly).x;
+
+        if (gx >= 0 && gx < global_nx - 1)
+        {
+          if (z(lx, ly) == global_min)
+          {
+            if (float(gx) < local_best_x)
+            {
+              local_best_x = float(gx);
+            }
+          }
+        }
+      }
+    }
+
+    float best_gx_f = comm.all_reduce(local_best_x, ReduceOp::Min);
+    int   seed_i = int(best_gx_f);
+    int   seed_j = 0;
+
+    float depth_min = zref - global_min;
+
+    water_depth = maximum(
+        water_depth,
+        flooding_from_point(z, seed_i, seed_j, depth_min, region, comm));
   }
 
   return water_depth;
@@ -172,27 +446,21 @@ Array flooding_from_point(const Array      &z,
 
   // --- Multi-tile distributed execution
 
-  int my_nominal_w = (region.halo.x == 0) ? (region.shape.x - region.halo.y)
-                                          : 0;
-  int my_nominal_h = (region.halo.z == 0) ? (region.shape.y - region.halo.w)
-                                          : 0;
+  if (region.tile_shape.x <= 0 || region.tile_shape.y <= 0)
+  {
+    hmap::log::error(
+        "flooding_from_point: invalid TileRegion tile_shape ({}x{})",
+        region.tile_shape.x,
+        region.tile_shape.y);
+    return Array();
+  }
 
-  float nominal_w_f = comm.all_reduce(float(my_nominal_w), ReduceOp::Max);
-  float nominal_h_f = comm.all_reduce(float(my_nominal_h), ReduceOp::Max);
+  glm::ivec2 local_seed = region.global_to_local(i, j);
 
-  int tile_shape_x = int(nominal_w_f);
-  int tile_shape_y = int(nominal_h_f);
+  bool owns_seed = (local_seed.x >= 0 && local_seed.x < z.shape.x &&
+                    local_seed.y >= 0 && local_seed.y < z.shape.y);
 
-  int gx_start = region.key.tx * tile_shape_x - region.halo.x;
-  int gy_start = region.key.ty * tile_shape_y - region.halo.z;
-
-  int local_seed_x = i - gx_start;
-  int local_seed_y = j - gy_start;
-
-  bool owns_seed = (local_seed_x >= 0 && local_seed_x < z.shape.x &&
-                    local_seed_y >= 0 && local_seed_y < z.shape.y);
-
-  float local_z_level = owns_seed ? (z(local_seed_x, local_seed_y) + depth_min)
+  float local_z_level = owns_seed ? (z(local_seed.x, local_seed.y) + depth_min)
                                   : -std::numeric_limits<float>::infinity();
 
   float z_level = comm.all_reduce(local_z_level, ReduceOp::Max);
@@ -207,10 +475,11 @@ Array flooding_from_point(const Array      &z,
   std::vector<glm::ivec2> queue;
   if (owns_seed)
   {
-    queue.push_back({local_seed_x, local_seed_y});
+    queue.push_back(local_seed);
   }
 
-  int n_sweeps = std::max(1, int(std::ceil(std::sqrt(comm.size()))));
+  int side = std::max(1, int(std::ceil(std::sqrt(comm.size()))));
+  int n_sweeps = std::max(1, 2 * side - 1);
 
   for (int sweep = 0; sweep < n_sweeps; ++sweep)
   {
@@ -243,12 +512,7 @@ Array flooding_from_point(const Array      &z,
       for (int y = 0; y < z.shape.y; ++y)
         for (int x = 0; x < z.shape.x; ++x)
         {
-          bool is_boundary = (x == 0 && region.halo.x > 0) ||
-                             (x == z.shape.x - 1 && region.halo.y > 0) ||
-                             (y == 0 && region.halo.z > 0) ||
-                             (y == z.shape.y - 1 && region.halo.w > 0);
-
-          if (is_boundary && water_depth(x, y) > 0.f)
+          if (water_depth(x, y) > 0.f)
           {
             for (const auto &idx : nbrs)
             {

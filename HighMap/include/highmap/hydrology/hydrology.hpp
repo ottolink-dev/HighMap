@@ -196,6 +196,8 @@ Array flooding_uniform_level(const Array &z, float zref);
  * @param  from_west  Include west boundary.
  * @param  from_north Include north boundary.
  * @param  from_south Include south boundary.
+ * @param  region     Tile region metadata.
+ * @param  comm       Communicator for tiled / distributed execution.
  * @return            Water depth array.
  *
  * **Example**
@@ -204,12 +206,14 @@ Array flooding_uniform_level(const Array &z, float zref);
  * **Result**
  * @image html ex_flooding_from_point.png
  */
-Array flooding_from_boundaries(const Array &z,
-                               float        zref,
-                               bool         from_east = true,
-                               bool         from_west = true,
-                               bool         from_north = true,
-                               bool         from_south = true);
+Array flooding_from_boundaries(const Array      &z,
+                               float             zref,
+                               bool              from_east = true,
+                               bool              from_west = true,
+                               bool              from_north = true,
+                               bool              from_south = true,
+                               const TileRegion &region = TileRegion::dummy(),
+                               ICommunicator    &comm = SingleArrayComm::instance());
 
 /**
  * @brief Flood terrain starting from a single seed point.

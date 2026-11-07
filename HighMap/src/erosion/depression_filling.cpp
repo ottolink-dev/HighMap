@@ -104,10 +104,10 @@ void depression_filling(Array            &z,
   const int   ny = z.shape.y;
 
   // Domain boundary vs inner tile boundary
-  bool tile_outflow_l = (region.halo.x == 0) ? outflow_left : true;
-  bool tile_outflow_r = (region.halo.y == 0) ? outflow_right : true;
-  bool tile_outflow_b = (region.halo.z == 0) ? outflow_bottom : true;
-  bool tile_outflow_t = (region.halo.w == 0) ? outflow_top : true;
+  bool tile_outflow_l = region.is_west_boundary() ? outflow_left : true;
+  bool tile_outflow_r = region.is_east_boundary() ? outflow_right : true;
+  bool tile_outflow_b = region.is_south_boundary() ? outflow_bottom : true;
+  bool tile_outflow_t = region.is_north_boundary() ? outflow_top : true;
 
   int i_min = tile_outflow_l ? 1 : 0;
   int i_max = tile_outflow_r ? nx - 1 : nx;
