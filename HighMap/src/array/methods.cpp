@@ -355,8 +355,11 @@ glm::vec2 Array::range(ICommunicator &comm) const
 
   auto [min_it, max_it] = std::minmax_element(this->vector.begin(),
                                               this->vector.end());
-  float global_min = comm.all_reduce(*min_it, ReduceOp::Min);
-  float global_max = comm.all_reduce(*max_it, ReduceOp::Max);
+  const float local_min = *min_it;
+  const float local_max = *max_it;
+
+  float global_min = comm.all_reduce(local_min, ReduceOp::Min);
+  float global_max = comm.all_reduce(local_max, ReduceOp::Max);
 
   return glm::vec2(global_min, global_max);
 }
@@ -461,12 +464,16 @@ Array Array::remapped() const
 
 Array Array::resample_to_shape(glm::ivec2 new_shape) const
 {
+  if (!validate_shape(new_shape)) return Array();
+  if (this->shape == new_shape) return *this;
+
   return this->resample_to_shape_bilinear(new_shape);
 }
 
 Array Array::resample_to_shape_bicubic(glm::ivec2 new_shape) const
 {
   if (!validate_shape(new_shape)) return Array();
+  if (this->shape == new_shape) return *this;
 
   Array array_out = Array(new_shape);
   interpolate_array_bicubic(*this, array_out);
@@ -477,6 +484,7 @@ Array Array::resample_to_shape_bicubic(glm::ivec2 new_shape) const
 Array Array::resample_to_shape_bilinear(glm::ivec2 new_shape) const
 {
   if (!validate_shape(new_shape)) return Array();
+  if (this->shape == new_shape) return *this;
 
   Array array_out = Array(new_shape);
   interpolate_array_bilinear(*this, array_out);
@@ -487,6 +495,7 @@ Array Array::resample_to_shape_bilinear(glm::ivec2 new_shape) const
 Array Array::resample_to_shape_nearest(glm::ivec2 new_shape) const
 {
   if (!validate_shape(new_shape)) return Array();
+  if (this->shape == new_shape) return *this;
 
   Array array_out = Array(new_shape);
   interpolate_array_nearest(*this, array_out);
