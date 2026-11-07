@@ -201,9 +201,15 @@ Array flooding_lake_system(const Array      &z,
                                     region,
                                     comm);
 
+  // compute water depth and threshold negligible residual precision noise
+  constexpr float eps = 1e-4f;
+
   for (int j = 0; j < z.shape.y; j++)
     for (int i = 0; i < z.shape.x; i++)
-      water_depth(i, j) = std::max(0.f, water_depth(i, j) - z(i, j));
+    {
+      float diff = water_depth(i, j) - z(i, j);
+      water_depth(i, j) = (diff > eps) ? diff : 0.f;
+    }
 
   // use a connected components analysis to remove small spots if
   // requested
