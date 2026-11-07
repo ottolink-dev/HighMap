@@ -141,10 +141,11 @@ private:
   int                   halo = 0;
   size_t                call_sequence = 0;
   size_t                sync_sequence = 0;
+  size_t                union_sequence = 0;
   std::vector<float>    accumulators;
   std::vector<bool>     initialized;
   std::vector<ReduceOp> reduce_ops;
-  std::vector<float>    accumulated_unique;
+  std::vector<std::vector<float>> union_accumulators;
 
   const VirtualArray         *p_ref_va = nullptr;
   std::function<void()>       on_suspend;

@@ -233,15 +233,22 @@ float SequentialTileComm::all_reduce(float local_val, ReduceOp op)
 std::vector<float> SequentialTileComm::all_union(
     const std::vector<float> &local_vals)
 {
-  for (float v : local_vals)
+  size_t seq = this->union_sequence++;
+
+  if (seq >= this->union_accumulators.size())
   {
-    this->accumulated_unique.push_back(v);
+    this->union_accumulators.resize(seq + 1);
   }
 
-  std::sort(this->accumulated_unique.begin(), this->accumulated_unique.end());
-  auto last = std::unique(this->accumulated_unique.begin(),
-                          this->accumulated_unique.end());
-  this->accumulated_unique.erase(last, this->accumulated_unique.end());
+  auto &acc = this->union_accumulators[seq];
+  for (float v : local_vals)
+  {
+    acc.push_back(v);
+  }
+
+  std::sort(acc.begin(), acc.end());
+  auto last = std::unique(acc.begin(), acc.end());
+  acc.erase(last, acc.end());
 
   if (this->p_fiber_scheduler && this->total_tiles > 1)
   {
@@ -249,7 +256,7 @@ std::vector<float> SequentialTileComm::all_union(
     if (this->on_resume) this->on_resume();
   }
 
-  return this->accumulated_unique;
+  return this->union_accumulators[seq];
 }
 
 void SequentialTileComm::barrier()
@@ -272,6 +279,7 @@ void SequentialTileComm::next_tile(int tile_idx)
   this->current_tile_idx = tile_idx;
   this->call_sequence = 0;
   this->sync_sequence = 0;
+  this->union_sequence = 0;
 }
 
 int SequentialTileComm::rank() const
@@ -549,6 +557,7 @@ void SequentialTileComm::run_cooperative_tiles(
 
   constexpr size_t    k_fiber_stack_bytes = 256 * 1024;
   std::vector<size_t> saved_call_sequences(n_tiles, 0);
+  std::vector<size_t> saved_union_sequences(n_tiles, 0);
 
   while (true)
   {
@@ -564,6 +573,7 @@ void SequentialTileComm::run_cooperative_tiles(
       sched.active_tile_idx = t;
       this->current_tile_idx = t;
       this->call_sequence = saved_call_sequences[t];
+      this->union_sequence = saved_union_sequences[t];
 
       if (!fiber.started)
       {
@@ -595,6 +605,7 @@ void SequentialTileComm::run_cooperative_tiles(
 #endif
 
       saved_call_sequences[t] = this->call_sequence;
+      saved_union_sequences[t] = this->union_sequence;
 
       if (fiber.finished)
       {

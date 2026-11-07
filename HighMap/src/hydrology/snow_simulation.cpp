@@ -214,7 +214,6 @@ Array snow_simulation(const Array      &z,
 
     if (it_end < iterations)
     {
-      // Deallocate `s` host vector inside sync_overlap_buffers while suspended
       comm.sync_overlap_buffers(s, region, SyncOperation::SmoothBlend);
     }
   }

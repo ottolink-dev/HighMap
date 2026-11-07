@@ -46,10 +46,8 @@ void LruTileStorage::evict_unpinned_no_mutex_lock(size_t target_count)
     {
       this->on_evict(evict_key, evict_it->second.value);
 
-      std::vector<float>().swap(evict_it->second.value.vector);
-      evict_it->second.in_ram = false;
-
       auto list_it = evict_it->second.lru_it;
+      this->tiles.erase(evict_it);
       r_it = std::list<TileKey>::reverse_iterator(this->lru.erase(list_it));
     }
     else
@@ -68,22 +66,7 @@ Array &LruTileStorage::get_tile_no_mutex_lock(const TileRegion &region)
   auto it = tiles.find(key);
   if (it != tiles.end())
   {
-    if (it->second.in_ram)
-    {
-      this->lru.splice(this->lru.begin(), lru, it->second.lru_it);
-      it->second.pin_count++;
-      return it->second.value;
-    }
-
-    if (this->max_tiles > 0 && this->lru.size() >= this->max_tiles)
-    {
-      this->evict_unpinned_no_mutex_lock(this->max_tiles - 1);
-    }
-
-    it->second.value = Array(region.shape);
-    this->lru.push_front(key);
-    it->second.lru_it = this->lru.begin();
-    it->second.in_ram = true;
+    this->lru.splice(this->lru.begin(), lru, it->second.lru_it);
     it->second.pin_count++;
     return it->second.value;
   }
@@ -105,7 +88,7 @@ Array &LruTileStorage::get_tile_no_mutex_lock(const TileRegion &region)
   this->lru.push_front(key);
   auto [inserted_it, _] = this->tiles.emplace(
       key,
-      LruTileEntry{std::move(tile), this->lru.begin(), 1, true});
+      LruTileEntry{std::move(tile), this->lru.begin(), 1});
 
   return inserted_it->second.value;
 }
@@ -123,7 +106,7 @@ size_t LruTileStorage::max_live_tiles() const
 size_t LruTileStorage::live_tile_count() const
 {
   std::lock_guard<std::mutex> lock(mutex);
-  return this->lru.size();
+  return this->tiles.size();
 }
 
 size_t LruTileStorage::live_memory_bytes() const
@@ -132,11 +115,8 @@ size_t LruTileStorage::live_memory_bytes() const
   size_t                      bytes = 0;
   for (const auto &[key, entry] : tiles)
   {
-    if (entry.in_ram)
-    {
-      bytes += entry.value.vector.capacity() * sizeof(float) +
-               sizeof(LruTileEntry) + sizeof(key);
-    }
+    bytes += entry.value.vector.capacity() * sizeof(float) +
+             sizeof(LruTileEntry) + sizeof(key);
   }
   return bytes;
 }
