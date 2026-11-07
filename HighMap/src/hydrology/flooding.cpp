@@ -13,6 +13,7 @@
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/logger.hpp"
+#include "highmap/math/array.hpp"
 #include "highmap/range.hpp"
 #include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
@@ -218,10 +219,44 @@ VirtualArray flooding_lake_system(const VirtualArray &z,
 {
   if (z.empty()) return VirtualArray();
 
-  VirtualArray water_depth;
+  VirtualArray filled;
+  filled.copy_from(z, cm);
 
-  // use depression filling algo to get lake zones and depths
-  depression_filling_priority_flood(z, false, &water_depth, cm);
+  // use depression filling algo to fill depressions
+  hmap::for_each_tile(
+      filled,
+      [](Array &tile, const TileRegion &region, ICommunicator &comm)
+      {
+        hmap::depression_filling_priority_flood(tile,
+                                                false,
+                                                true,
+                                                true,
+                                                true,
+                                                true,
+                                                region,
+                                                comm);
+      },
+      cm);
+
+  VirtualArray water_depth;
+  water_depth.copy_from(z, cm, /* copy_src_data */ false);
+
+  hmap::for_each_tile(
+      {&z, &filled},
+      {&water_depth},
+      [](const std::vector<const hmap::Array *> &in,
+         const std::vector<hmap::Array *>       &out,
+         const hmap::TileRegion &)
+      {
+        auto [pa_z, pa_filled] = unpack<2>(in);
+        auto [pa_water] = unpack<1>(out);
+
+        for (int j = 0; j < pa_water->shape.y; ++j)
+          for (int i = 0; i < pa_water->shape.x; ++i)
+            (*pa_water)(i, j) = std::max(0.f,
+                                         (*pa_filled)(i, j) - (*pa_z)(i, j));
+      },
+      cm);
 
   // use connected components analysis to remove small spots if requested
   if (surface_threshold > 0.f)

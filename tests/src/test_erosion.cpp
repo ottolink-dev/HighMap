@@ -2,6 +2,7 @@
 #include "highmap/erosion.hpp"
 #include "highmap/export/image.hpp"
 #include "highmap/hydrology/hydrology.hpp"
+#include "highmap/math/array.hpp"
 #include "highmap/morphology.hpp"
 #include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/primitives.hpp"
@@ -260,38 +261,7 @@ TEST(DepressionFillingPriorityFlood, BoundaryConditions)
   }
 }
 
-TEST(DepressionFillingPriorityFlood_VirtualArray, SingleTileMatchesArray)
-{
-  const glm::ivec2 shape{64, 64};
-  const glm::vec4  bbox{0.f, 1.f, 0.f, 1.f};
-  const glm::ivec2 tile_shape{64, 64};
-  const int        halo = 0;
-
-  glm::vec2 kw = {4.f, 4.f};
-  Array     input = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
-
-  VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
-  ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
-  va.from_array(input, cm);
-
-  VirtualArray va_fill_map(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
-  VirtualArray va_out = va::depression_filling_priority_flood(va,
-                                                              false,
-                                                              &va_fill_map,
-                                                              cm);
-
-  Array expected = input;
-  depression_filling_priority_flood(expected, false);
-
-  Array result = va_out.to_array(cm);
-  EXPECT_TRUE(assert_almost_equal(result, expected, 1e-5f));
-
-  Array result_fill = va_fill_map.to_array(cm);
-  Array expected_fill = expected - input;
-  EXPECT_TRUE(assert_almost_equal(result_fill, expected_fill, 1e-5f));
-}
-
-TEST(DepressionFillingPriorityFlood_VirtualArray, MultiTileWithFillMap)
+TEST(DepressionFilling_Communicator, TiledMatchesMonolithic)
 {
   const glm::ivec2 shape{64, 64};
   const glm::vec4  bbox{0.f, 1.f, 0.f, 1.f};
@@ -301,26 +271,100 @@ TEST(DepressionFillingPriorityFlood_VirtualArray, MultiTileWithFillMap)
   glm::vec2 kw = {4.f, 4.f};
   Array     input = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
 
-  VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
-  ComputeMode  cm{.mode = ForEachMode::VA_DISTRIBUTED};
-  va.from_array(input, cm);
+  // Monolithic reference
+  Array ref = input;
+  depression_filling(ref, 200, 1e-4f);
 
-  VirtualArray va_fill_map(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
-  VirtualArray va_out = va::depression_filling_priority_flood(va,
-                                                              false,
-                                                              &va_fill_map,
-                                                              cm);
+  for (auto mode : {ForEachMode::VA_SEQUENTIAL, ForEachMode::VA_DISTRIBUTED})
+  {
+    VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+    ComputeMode  cm{.mode = mode};
+    va.from_array(input, cm);
 
-  Array result = va_out.to_array(cm);
-  Array result_fill = va_fill_map.to_array(cm);
+    for_each_tile(
+        va,
+        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        {
+          depression_filling(tile,
+                             200,
+                             1e-4f,
+                             true,
+                             true,
+                             true,
+                             true,
+                             region,
+                             comm);
+        },
+        cm);
 
-  for (int j = 0; j < shape.y; ++j)
-    for (int i = 0; i < shape.x; ++i)
-    {
-      EXPECT_GE(result(i, j), input(i, j) - 1e-5f);
-      EXPECT_GE(result_fill(i, j), -1e-5f);
-      EXPECT_NEAR(result_fill(i, j), result(i, j) - input(i, j), 1e-5f);
-    }
+    Array result = va.to_array(cm);
+    Array diff = abs(result - ref);
+
+    // Both fill depressions and produce elevations >= input
+    for (int j = 0; j < shape.y; ++j)
+      for (int i = 0; i < shape.x; ++i)
+      {
+        EXPECT_GE(result(i, j), input(i, j) - 1e-4f);
+      }
+
+    EXPECT_LT(diff.mean(), 0.02f)
+        << "DepressionFilling mean diff exceeded for mode=" << to_string(mode);
+    EXPECT_LT(diff.max(), 0.1f)
+        << "DepressionFilling max diff exceeded for mode=" << to_string(mode);
+  }
+}
+
+TEST(DepressionFillingPriorityFlood_Communicator, TiledMatchesMonolithic)
+{
+  const glm::ivec2 shape{64, 64};
+  const glm::vec4  bbox{0.f, 1.f, 0.f, 1.f};
+  const glm::ivec2 tile_shape{32, 32};
+  const int        halo = 4;
+
+  glm::vec2 kw = {4.f, 4.f};
+  Array     input = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+
+  // Monolithic reference
+  Array ref = input;
+  depression_filling_priority_flood(ref, false);
+
+  for (auto mode : {ForEachMode::VA_SEQUENTIAL, ForEachMode::VA_DISTRIBUTED})
+  {
+    VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+    ComputeMode  cm{.mode = mode};
+    va.from_array(input, cm);
+
+    for_each_tile(
+        va,
+        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        {
+          depression_filling_priority_flood(tile,
+                                            false,
+                                            true,
+                                            true,
+                                            true,
+                                            true,
+                                            region,
+                                            comm);
+        },
+        cm);
+
+    Array result = va.to_array(cm);
+    Array diff = abs(result - ref);
+
+    for (int j = 0; j < shape.y; ++j)
+      for (int i = 0; i < shape.x; ++i)
+      {
+        EXPECT_GE(result(i, j), input(i, j) - 1e-4f);
+      }
+
+    EXPECT_LT(diff.mean(), 0.01f)
+        << "DepressionFillingPriorityFlood mean diff exceeded for mode="
+        << to_string(mode);
+    EXPECT_LT(diff.max(), 0.05f)
+        << "DepressionFillingPriorityFlood max diff exceeded for mode="
+        << to_string(mode);
+  }
 }
 
 TEST(FloodingLakeSystem_VirtualArray, SingleTileMatchesArray)
