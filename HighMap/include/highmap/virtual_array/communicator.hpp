@@ -115,9 +115,10 @@ class SequentialTileComm final : public ICommunicator
 {
 public:
   explicit SequentialTileComm(int total_tiles, int halo = 0);
-  SequentialTileComm(const VirtualArray        &ref_va,
-                     const std::function<void()> &on_suspend,
-                     const std::function<void()> &on_resume);
+  SequentialTileComm(
+      const VirtualArray         &ref_va,
+      const std::function<void(int)> &on_suspend_rank = nullptr,
+      const std::function<void(int)> &on_resume_rank = nullptr);
 
   float              all_reduce(float local_val, ReduceOp op) override;
   std::vector<float> all_union(const std::vector<float> &local_vals) override;
@@ -135,6 +136,31 @@ public:
        const std::function<void(const TileRegion &, ICommunicator &)>
            &dispatcher);
 
+  // Per-thread communicator proxy used when running in threaded cooperative mode
+  class TileProxyComm final : public ICommunicator
+  {
+  public:
+    TileProxyComm(SequentialTileComm &parent, int rank);
+
+    float              all_reduce(float local_val, ReduceOp op) override;
+    std::vector<float> all_union(const std::vector<float> &local_vals) override;
+    void               barrier() override;
+    int                rank() const override;
+    int                size() const override;
+    void               sync_overlap_buffers(
+                      Array            &local_tile,
+                      const TileRegion &region,
+                      SyncOperation     op = SyncOperation::SmoothBlend) override;
+
+  private:
+    SequentialTileComm &parent;
+    int                 my_rank;
+    size_t              reduce_seq = 0;
+    size_t              union_seq = 0;
+    size_t              barrier_seq = 0;
+    size_t              sync_seq = 0;
+  };
+
 private:
   int                   total_tiles = 1;
   int                   current_tile_idx = 0;
@@ -147,13 +173,13 @@ private:
   std::vector<ReduceOp> reduce_ops;
   std::vector<std::vector<float>> union_accumulators;
 
-  const VirtualArray         *p_ref_va = nullptr;
-  std::function<void()>       on_suspend;
-  std::function<void()>       on_resume;
-  std::unique_ptr<VirtualArray> sync_va;
-  SyncOperation               pending_sync_op = SyncOperation::SmoothBlend;
-  bool                        has_pending_sync = false;
-  void                       *p_fiber_scheduler = nullptr;
+  const VirtualArray             *p_ref_va = nullptr;
+  std::function<void(int)>        on_suspend_rank;
+  std::function<void(int)>        on_resume_rank;
+  std::unique_ptr<VirtualArray>   sync_va;
+  SyncOperation                   pending_sync_op = SyncOperation::SmoothBlend;
+  bool                            has_pending_sync = false;
+  void                           *p_fiber_scheduler = nullptr;
 
   // Boundary edge buffers for non-cooperative fallback
   std::vector<std::vector<std::vector<float>>> east_edges;

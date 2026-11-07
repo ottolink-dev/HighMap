@@ -161,24 +161,17 @@ void for_each_tile(const TileAccess &access, Func &&func, const ComputeMode &cm)
       }
     };
 
-    SequentialTileComm *p_comm = nullptr;
-
-    auto on_suspend = [&]()
+    auto on_suspend = [&](int rank)
     {
-      if (p_comm) release_rank(p_comm->rank());
+      release_rank(rank);
     };
 
-    auto on_resume = [&]()
+    auto on_resume = [&](int rank)
     {
-      if (p_comm)
-      {
-        const int rank = p_comm->rank();
-        acquire_rank(rank, regions_per_rank[rank]);
-      }
+      acquire_rank(rank, regions_per_rank[rank]);
     };
 
     SequentialTileComm comm(*ref_va, on_suspend, on_resume);
-    p_comm = &comm;
 
     comm.run_cooperative_tiles(
         [&](const TileRegion &region, ICommunicator &c)

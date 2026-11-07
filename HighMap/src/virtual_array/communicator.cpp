@@ -9,23 +9,10 @@
  */
 
 #include <algorithm>
+#include <condition_variable>
 #include <cstdint>
-
-#if defined(_WIN32)
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
-#include <windows.h>
-#define HMAP_HAS_WIN32_FIBERS 1
-#define HMAP_HAS_UCONTEXT 0
-#elif defined(__linux__) || defined(__APPLE__)
-#include <ucontext.h>
-#define HMAP_HAS_WIN32_FIBERS 0
-#define HMAP_HAS_UCONTEXT 1
-#else
-#define HMAP_HAS_WIN32_FIBERS 0
-#define HMAP_HAS_UCONTEXT 0
-#endif
+#include <mutex>
+#include <thread>
 
 #include "highmap/array.hpp"
 #include "highmap/math/core.hpp"
@@ -100,59 +87,110 @@ SingleArrayComm &SingleArrayComm::instance()
 namespace
 {
 
-#if HMAP_HAS_UCONTEXT || HMAP_HAS_WIN32_FIBERS
-struct TileFiber
+/**
+ * @brief Thread-safe sequential barrier that guarantees at most one tile thread
+ * executes at any given instant, allowing tiles to cooperatively synchronize
+ * collective operations (all_reduce, all_union, barrier, sync_overlap_buffers)
+ * and evict to disk without stack-swapping coroutines.
+ */
+class SequentialThreadScheduler
 {
-#if HMAP_HAS_WIN32_FIBERS
-  LPVOID handle = nullptr;
-#else
-  ucontext_t        ctx{};
-  std::vector<char> stack;
-#endif
-  TileRegion region;
-  bool       started = false;
-  bool       finished = false;
+public:
+  SequentialThreadScheduler(int total_threads)
+      : total(total_threads),
+        active(total_threads),
+        waiting(0),
+        turn(0),
+        phase(0)
+  {
+    this->finished.assign(total, false);
+  }
+
+  void acquire_turn(int rank)
+  {
+    std::unique_lock<std::mutex> lock(this->mtx);
+    this->cv.wait(lock, [&]() { return this->turn == rank; });
+  }
+
+  void arrive_and_wait(int                          rank,
+                       const std::function<void()> &on_all_arrived = nullptr)
+  {
+    std::unique_lock<std::mutex> lock(this->mtx);
+    int                          my_phase = this->phase;
+    this->waiting++;
+
+    if (this->waiting < this->active)
+    {
+      this->turn = this->next_active_rank(rank);
+      this->cv.notify_all();
+
+      this->cv.wait(lock,
+                    [&]()
+                    { return this->phase > my_phase && this->turn == rank; });
+    }
+    else
+    {
+      if (on_all_arrived)
+      {
+        on_all_arrived();
+      }
+
+      this->waiting = 0;
+      this->phase++;
+      this->turn = this->first_active_rank();
+      this->cv.notify_all();
+
+      if (rank != this->turn)
+      {
+        this->cv.wait(lock,
+                      [&]()
+                      { return this->phase > my_phase && this->turn == rank; });
+      }
+    }
+  }
+
+  void thread_finishing(int rank)
+  {
+    std::unique_lock<std::mutex> lock(this->mtx);
+    this->finished[rank] = true;
+    this->active--;
+
+    if (this->active > 0)
+    {
+      this->turn = this->next_active_rank(rank);
+      this->cv.notify_all();
+    }
+  }
+
+private:
+  int                     total;
+  int                     active;
+  int                     waiting;
+  int                     turn;
+  int                     phase;
+  std::vector<bool>       finished;
+  std::mutex              mtx;
+  std::condition_variable cv;
+
+  int first_active_rank() const
+  {
+    for (int i = 0; i < this->total; ++i)
+    {
+      if (!this->finished[i]) return i;
+    }
+    return -1;
+  }
+
+  int next_active_rank(int from) const
+  {
+    for (int i = 1; i <= this->total; ++i)
+    {
+      int r = (from + i) % this->total;
+      if (!this->finished[r]) return r;
+    }
+    return -1;
+  }
 };
-
-struct FiberSchedulerState
-{
-#if HMAP_HAS_WIN32_FIBERS
-  LPVOID main_fiber = nullptr;
-#else
-  ucontext_t main_ctx{};
-#endif
-  std::vector<TileFiber> fibers;
-  int                    active_tile_idx = 0;
-  SequentialTileComm    *p_comm = nullptr;
-  const std::function<void(const TileRegion &, ICommunicator &)>
-      *p_dispatcher = nullptr;
-};
-
-#if HMAP_HAS_WIN32_FIBERS
-void WINAPI fiber_trampoline_win32(LPVOID lp_param)
-{
-  auto *sched = static_cast<FiberSchedulerState *>(lp_param);
-  int   idx = sched->active_tile_idx;
-
-  (*sched->p_dispatcher)(sched->fibers[idx].region, *sched->p_comm);
-
-  sched->fibers[idx].finished = true;
-  SwitchToFiber(sched->main_fiber);
-}
-#else
-void fiber_trampoline(uint32_t low, uint32_t high)
-{
-  uintptr_t ptr = (static_cast<uintptr_t>(high) << 32) |
-                  static_cast<uintptr_t>(low);
-  auto *sched = reinterpret_cast<FiberSchedulerState *>(ptr);
-  int   idx = sched->active_tile_idx;
-
-  (*sched->p_dispatcher)(sched->fibers[idx].region, *sched->p_comm);
-
-  sched->fibers[idx].finished = true;
-}
-#endif
-#endif
 
 } // namespace
 
@@ -161,14 +199,15 @@ SequentialTileComm::SequentialTileComm(int total_tiles, int halo)
 {
 }
 
-SequentialTileComm::SequentialTileComm(const VirtualArray          &ref_va,
-                                       const std::function<void()> &on_suspend,
-                                       const std::function<void()> &on_resume)
+SequentialTileComm::SequentialTileComm(
+    const VirtualArray             &ref_va,
+    const std::function<void(int)> &on_suspend_rank,
+    const std::function<void(int)> &on_resume_rank)
     : total_tiles(ref_va.get_ntiles()),
       halo(ref_va.halo),
       p_ref_va(&ref_va),
-      on_suspend(on_suspend),
-      on_resume(on_resume)
+      on_suspend_rank(on_suspend_rank),
+      on_resume_rank(on_resume_rank)
 {
 }
 
@@ -177,7 +216,7 @@ void SequentialTileComm::yield_to_scheduler()
 #if HMAP_HAS_UCONTEXT || HMAP_HAS_WIN32_FIBERS
   if (!this->p_fiber_scheduler) return;
 
-  if (this->on_suspend) this->on_suspend();
+  if (this->on_suspend_rank) this->on_suspend_rank(this->current_tile_idx);
 
   auto *sched = static_cast<FiberSchedulerState *>(this->p_fiber_scheduler);
   int   idx = this->current_tile_idx;
@@ -224,7 +263,7 @@ float SequentialTileComm::all_reduce(float local_val, ReduceOp op)
   if (this->p_fiber_scheduler && this->total_tiles > 1)
   {
     this->yield_to_scheduler();
-    if (this->on_resume) this->on_resume();
+    if (this->on_resume_rank) this->on_resume_rank(this->current_tile_idx);
   }
 
   return this->accumulators[seq];
@@ -253,7 +292,7 @@ std::vector<float> SequentialTileComm::all_union(
   if (this->p_fiber_scheduler && this->total_tiles > 1)
   {
     this->yield_to_scheduler();
-    if (this->on_resume) this->on_resume();
+    if (this->on_resume_rank) this->on_resume_rank(this->current_tile_idx);
   }
 
   return this->union_accumulators[seq];
@@ -264,7 +303,7 @@ void SequentialTileComm::barrier()
   if (this->p_fiber_scheduler && this->total_tiles > 1)
   {
     this->yield_to_scheduler();
-    if (this->on_resume) this->on_resume();
+    if (this->on_resume_rank) this->on_resume_rank(this->current_tile_idx);
   }
 }
 
@@ -333,7 +372,7 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
     // if local_tile IS one of the input/output tiles in VA_DISK_LRU_MIN,
     // local_tile gets the synchronized data instead of being overwritten by
     // the stale disk copy
-    if (this->on_resume) this->on_resume();
+    if (this->on_resume_rank) this->on_resume_rank(this->current_tile_idx);
 
     {
       Array &staging = this->sync_va->storage->get_tile(region);
@@ -511,7 +550,6 @@ void SequentialTileComm::run_cooperative_tiles(
 
   if (n_tiles <= 0) return;
 
-#if HMAP_HAS_UCONTEXT || HMAP_HAS_WIN32_FIBERS
   if (n_tiles == 1)
   {
     this->next_tile(0);
@@ -520,138 +558,44 @@ void SequentialTileComm::run_cooperative_tiles(
     return;
   }
 
-  FiberSchedulerState sched;
-  sched.p_comm = this;
-  sched.p_dispatcher = &dispatcher;
-  sched.fibers.resize(n_tiles);
+  // --- Threaded cooperative execution (1 OS thread per tile, turn-taking
+  // barrier)
+  SequentialThreadScheduler sched(n_tiles);
+  this->p_fiber_scheduler = &sched;
 
-#if HMAP_HAS_WIN32_FIBERS
-  bool converted_thread_to_fiber = false;
-  if (IsThreadAFiber())
-  {
-    sched.main_fiber = GetCurrentFiber();
-  }
-  else
-  {
-    sched.main_fiber = ConvertThreadToFiber(nullptr);
-    converted_thread_to_fiber = (sched.main_fiber != nullptr);
-  }
-#endif
-
-  int idx = 0;
+  std::vector<TileRegion> regions(n_tiles);
+  int                     idx = 0;
   for (int ty = 0; ty < ny; ++ty)
     for (int tx = 0; tx < nx; ++tx)
     {
-      sched.fibers[idx].region = ref_va.tile_region_from_tile_coords(tx, ty);
+      regions[idx] = ref_va.tile_region_from_tile_coords(tx, ty);
       ++idx;
     }
 
-  this->p_fiber_scheduler = &sched;
+  std::vector<std::thread> workers;
+  workers.reserve(n_tiles);
 
-#if !HMAP_HAS_WIN32_FIBERS
-  const uintptr_t ptr_val = reinterpret_cast<uintptr_t>(&sched);
-  const uint32_t  ptr_low = static_cast<uint32_t>(ptr_val & 0xFFFFFFFFULL);
-  const uint32_t  ptr_high = static_cast<uint32_t>((ptr_val >> 32) &
-                                                  0xFFFFFFFFULL);
-#endif
-
-  constexpr size_t    k_fiber_stack_bytes = 256 * 1024;
-  std::vector<size_t> saved_call_sequences(n_tiles, 0);
-  std::vector<size_t> saved_union_sequences(n_tiles, 0);
-
-  while (true)
+  for (int rank = 0; rank < n_tiles; ++rank)
   {
-    bool any_active = false;
-    this->has_pending_sync = false;
-
-    for (int t = 0; t < n_tiles; ++t)
-    {
-      auto &fiber = sched.fibers[t];
-      if (fiber.finished) continue;
-
-      any_active = true;
-      sched.active_tile_idx = t;
-      this->current_tile_idx = t;
-      this->call_sequence = saved_call_sequences[t];
-      this->union_sequence = saved_union_sequences[t];
-
-      if (!fiber.started)
-      {
-        fiber.started = true;
-#if HMAP_HAS_WIN32_FIBERS
-        fiber.handle = CreateFiber(k_fiber_stack_bytes,
-                                   fiber_trampoline_win32,
-                                   &sched);
-#else
-        fiber.stack.resize(k_fiber_stack_bytes);
-
-        getcontext(&fiber.ctx);
-        fiber.ctx.uc_stack.ss_sp = fiber.stack.data();
-        fiber.ctx.uc_stack.ss_size = fiber.stack.size();
-        fiber.ctx.uc_link = &sched.main_ctx;
-
-        makecontext(&fiber.ctx,
-                    reinterpret_cast<void (*)()>(fiber_trampoline),
-                    2,
-                    ptr_low,
-                    ptr_high);
-#endif
-      }
-
-#if HMAP_HAS_WIN32_FIBERS
-      SwitchToFiber(fiber.handle);
-#else
-      swapcontext(&sched.main_ctx, &fiber.ctx);
-#endif
-
-      saved_call_sequences[t] = this->call_sequence;
-      saved_union_sequences[t] = this->union_sequence;
-
-      if (fiber.finished)
-      {
-#if HMAP_HAS_WIN32_FIBERS
-        if (fiber.handle)
+    workers.emplace_back(
+        [&, rank]()
         {
-          DeleteFiber(fiber.handle);
-          fiber.handle = nullptr;
-        }
-#else
-        std::vector<char>().swap(fiber.stack);
-#endif
-      }
-    }
+          sched.acquire_turn(rank);
 
-    if (!any_active) break;
+          TileProxyComm proxy(*this, rank);
+          dispatcher(regions[rank], proxy);
 
-    if (this->has_pending_sync && this->sync_va)
-    {
-      // Stitch all 4 directions across the VirtualArray with at most 2 live
-      // tiles in memory at any point
-      this->sync_va->sync_overlap_buffers(this->pending_sync_op);
-      this->sync_va->trim_storage();
-      this->has_pending_sync = false;
-    }
+          sched.thread_finishing(rank);
+        });
   }
 
-#if HMAP_HAS_WIN32_FIBERS
-  if (converted_thread_to_fiber)
+  for (auto &w : workers)
   {
-    ConvertFiberToThread();
+    if (w.joinable()) w.join();
   }
-#endif
 
   this->p_fiber_scheduler = nullptr;
   this->sync_va.reset();
-#else
-  int tile_idx = 0;
-  for (int ty = 0; ty < ny; ++ty)
-    for (int tx = 0; tx < nx; ++tx)
-    {
-      this->next_tile(tile_idx++);
-      TileRegion region = ref_va.tile_region_from_tile_coords(tx, ty);
-      dispatcher(region, *this);
-    }
-#endif
 }
 
 // =====================================
@@ -1058,6 +1002,188 @@ void ThreadedTileComm::sync_overlap_buffers(Array            &local_tile,
 
   // Step 4: Final barrier so all ranks resume after Rank #0 finishes stitching
   this->barrier();
+}
+
+// =====================================
+// SequentialTileComm::TileProxyComm Implementation
+// =====================================
+
+SequentialTileComm::TileProxyComm::TileProxyComm(SequentialTileComm &parent,
+                                                 int                 rank)
+    : parent(parent), my_rank(rank)
+{
+}
+
+int SequentialTileComm::TileProxyComm::rank() const
+{
+  return this->my_rank;
+}
+
+int SequentialTileComm::TileProxyComm::size() const
+{
+  return this->parent.size();
+}
+
+float SequentialTileComm::TileProxyComm::all_reduce(float    local_val,
+                                                    ReduceOp op)
+{
+  auto *sched = static_cast<SequentialThreadScheduler *>(
+      this->parent.p_fiber_scheduler);
+  if (!sched || this->parent.size() <= 1)
+  {
+    return local_val;
+  }
+
+  const size_t seq = this->reduce_seq++;
+
+  if (seq >= this->parent.accumulators.size())
+  {
+    this->parent.accumulators.resize(seq + 1);
+    this->parent.initialized.resize(seq + 1, false);
+    this->parent.reduce_ops.resize(seq + 1, op);
+  }
+
+  if (!this->parent.initialized[seq])
+  {
+    this->parent.accumulators[seq] = local_val;
+    this->parent.initialized[seq] = true;
+    this->parent.reduce_ops[seq] = op;
+  }
+  else
+  {
+    switch (op)
+    {
+    case ReduceOp::Min:
+      this->parent.accumulators[seq] = std::min(this->parent.accumulators[seq],
+                                                local_val);
+      break;
+    case ReduceOp::Max:
+      this->parent.accumulators[seq] = std::max(this->parent.accumulators[seq],
+                                                local_val);
+      break;
+    case ReduceOp::Sum: this->parent.accumulators[seq] += local_val; break;
+    }
+  }
+
+  if (this->parent.on_suspend_rank) this->parent.on_suspend_rank(this->my_rank);
+
+  sched->arrive_and_wait(this->my_rank);
+
+  if (this->parent.on_resume_rank) this->parent.on_resume_rank(this->my_rank);
+
+  return this->parent.accumulators[seq];
+}
+
+std::vector<float> SequentialTileComm::TileProxyComm::all_union(
+    const std::vector<float> &local_vals)
+{
+  auto *sched = static_cast<SequentialThreadScheduler *>(
+      this->parent.p_fiber_scheduler);
+  if (!sched || this->parent.size() <= 1)
+  {
+    return local_vals;
+  }
+
+  const size_t seq = this->union_seq++;
+
+  if (seq >= this->parent.union_accumulators.size())
+  {
+    this->parent.union_accumulators.resize(seq + 1);
+  }
+
+  auto &acc = this->parent.union_accumulators[seq];
+  for (float v : local_vals)
+  {
+    acc.push_back(v);
+  }
+
+  std::sort(acc.begin(), acc.end());
+  auto last = std::unique(acc.begin(), acc.end());
+  acc.erase(last, acc.end());
+
+  if (this->parent.on_suspend_rank) this->parent.on_suspend_rank(this->my_rank);
+
+  sched->arrive_and_wait(this->my_rank);
+
+  if (this->parent.on_resume_rank) this->parent.on_resume_rank(this->my_rank);
+
+  return this->parent.union_accumulators[seq];
+}
+
+void SequentialTileComm::TileProxyComm::barrier()
+{
+  auto *sched = static_cast<SequentialThreadScheduler *>(
+      this->parent.p_fiber_scheduler);
+  if (!sched || this->parent.size() <= 1)
+  {
+    return;
+  }
+
+  if (this->parent.on_suspend_rank) this->parent.on_suspend_rank(this->my_rank);
+
+  sched->arrive_and_wait(this->my_rank);
+
+  if (this->parent.on_resume_rank) this->parent.on_resume_rank(this->my_rank);
+}
+
+void SequentialTileComm::TileProxyComm::sync_overlap_buffers(
+    Array            &local_tile,
+    const TileRegion &region,
+    SyncOperation     op)
+{
+  if (this->parent.halo <= 0) return;
+
+  auto *sched = static_cast<SequentialThreadScheduler *>(
+      this->parent.p_fiber_scheduler);
+  if (!sched || !this->parent.p_ref_va || this->parent.size() <= 1)
+  {
+    this->parent.sync_overlap_buffers(local_tile, region, op);
+    return;
+  }
+
+  if (!this->parent.sync_va)
+  {
+    this->parent.sync_va = std::make_unique<VirtualArray>(
+        this->parent.p_ref_va->shape,
+        this->parent.p_ref_va->bbox,
+        this->parent.p_ref_va->tile_shape,
+        this->parent.p_ref_va->halo,
+        StorageMode::VA_DISK_LRU_MIN);
+  }
+
+  // 1. Stage tile to disk-backed sync_va and release from RAM
+  const glm::ivec2 saved_shape = local_tile.shape;
+  {
+    Array &staging = this->parent.sync_va->storage->get_tile(region);
+    staging = local_tile;
+    std::vector<float>().swap(local_tile.vector);
+    this->parent.sync_va->storage->release_tile(region);
+    this->parent.sync_va->storage->trim();
+  }
+
+  this->parent.pending_sync_op = op;
+
+  if (this->parent.on_suspend_rank) this->parent.on_suspend_rank(this->my_rank);
+
+  // 2. Barrier: when all tiles arrive, execute sync_overlap_buffers on sync_va
+  sched->arrive_and_wait(this->my_rank,
+                         [&]()
+                         {
+                           this->parent.sync_va->sync_overlap_buffers(
+                               this->parent.pending_sync_op);
+                           this->parent.sync_va->trim_storage();
+                         });
+
+  // 3. Re-acquire tiles
+  if (this->parent.on_resume_rank) this->parent.on_resume_rank(this->my_rank);
+
+  {
+    Array &staging = this->parent.sync_va->storage->get_tile(region);
+    local_tile.shape = saved_shape;
+    local_tile = staging;
+    this->parent.sync_va->storage->release_tile(region);
+    this->parent.sync_va->storage->trim();
+  }
 }
 
 } // namespace hmap

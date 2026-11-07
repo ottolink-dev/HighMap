@@ -404,16 +404,37 @@ TEST_F(ComputeModeMatrixTest, SnowSimulationMatrix)
 }
 TEST_F(ComputeModeMatrixTest, SnowSimulation4KMinimalMemory)
 {
-  std::cout << "Starting SnowRepro (shape 4096, tile 1024, VA_DISK_LRU_MIN)..." << std::endl;
+  std::cout << "Starting SnowRepro (shape 4096, tile 1024, VA_DISK_LRU_MIN)..."
+            << std::endl;
   glm::ivec2 shape = {4096, 4096};
   glm::ivec2 tile_shape = {1024, 1024}; // 4x4 = 16 tiles
   int        halo = 32;
 
-  VirtualArray va_z(shape, {-1.f, 1.f, -1.f, 1.f}, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
-  VirtualArray va_snow(shape, {-1.f, 1.f, -1.f, 1.f}, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
-  VirtualArray va_depth(shape, {-1.f, 1.f, -1.f, 1.f}, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
-  VirtualArray va_talus(shape, {-1.f, 1.f, -1.f, 1.f}, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
-  VirtualArray va_melting(shape, {-1.f, 1.f, -1.f, 1.f}, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
+  VirtualArray va_z(shape,
+                    {-1.f, 1.f, -1.f, 1.f},
+                    tile_shape,
+                    halo,
+                    StorageMode::VA_DISK_LRU_MIN);
+  VirtualArray va_snow(shape,
+                       {-1.f, 1.f, -1.f, 1.f},
+                       tile_shape,
+                       halo,
+                       StorageMode::VA_DISK_LRU_MIN);
+  VirtualArray va_depth(shape,
+                        {-1.f, 1.f, -1.f, 1.f},
+                        tile_shape,
+                        halo,
+                        StorageMode::VA_DISK_LRU_MIN);
+  VirtualArray va_talus(shape,
+                        {-1.f, 1.f, -1.f, 1.f},
+                        tile_shape,
+                        halo,
+                        StorageMode::VA_DISK_LRU_MIN);
+  VirtualArray va_melting(shape,
+                          {-1.f, 1.f, -1.f, 1.f},
+                          tile_shape,
+                          halo,
+                          StorageMode::VA_DISK_LRU_MIN);
 
   ComputeMode cm;
   cm.mode = ForEachMode::VA_SEQUENTIAL;
@@ -461,36 +482,37 @@ TEST_F(ComputeModeMatrixTest, SnowSimulation4KMinimalMemory)
           const TileRegion          &region,
           ICommunicator             &comm)
       {
-        std::cout << "In tile (" << region.key.tx << ", " << region.key.ty << ")" << std::endl;
-        auto [pa_z, pa_depth_map, pa_melting_map, pa_talus_map] =
-            unpack<4>(p_arrays_in);
+        std::cout << "In tile (" << region.key.tx << ", " << region.key.ty
+                  << ")" << std::endl;
+        auto [pa_z, pa_depth_map, pa_melting_map, pa_talus_map] = unpack<4>(
+            p_arrays_in);
         auto [pa_snow_depth] = unpack<1>(p_arrays_out);
 
         const int sync_interval = 10;
-        *pa_snow_depth =
-            gpu::snow_simulation(*pa_z,
-                                 10.0f,
-                                 *pa_depth_map,
-                                 *pa_melting_map,
-                                 *pa_talus_map,
-                                 30, // 30 iterations
-                                 0.5f,
-                                 1.0f,
-                                 0.1f,
-                                 0.1f,
-                                 0.1f,
-                                 0.1f,
-                                 0.1f,
-                                 0.1f,
-                                 true,
-                                 0.5f,
-                                 true,
-                                 0.0f,
-                                 true,
-                                 sync_interval,
-                                 region,
-                                 comm);
-        std::cout << "Tile finished (" << region.key.tx << ", " << region.key.ty << ")" << std::endl;
+        *pa_snow_depth = gpu::snow_simulation(*pa_z,
+                                              10.0f,
+                                              *pa_depth_map,
+                                              *pa_melting_map,
+                                              *pa_talus_map,
+                                              30, // 30 iterations
+                                              0.5f,
+                                              1.0f,
+                                              0.1f,
+                                              0.1f,
+                                              0.1f,
+                                              0.1f,
+                                              0.1f,
+                                              0.1f,
+                                              true,
+                                              0.5f,
+                                              true,
+                                              0.0f,
+                                              true,
+                                              sync_interval,
+                                              region,
+                                              comm);
+        std::cout << "Tile finished (" << region.key.tx << ", " << region.key.ty
+                  << ")" << std::endl;
       },
       cm);
 
