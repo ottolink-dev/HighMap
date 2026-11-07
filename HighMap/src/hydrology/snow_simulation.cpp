@@ -225,7 +225,7 @@ Array snow_simulation(const Array      &z,
     const float s_max = std::max(s.max(comm), 1e-6f);
 
     Array mask = s / s_max;
-    mask = smooth_mask_preserve_frontier(mask, 8.f, region, comm);
+    mask = smooth_mask_preserve_frontier(mask, 8.f);
 
     Array z_wrk = z + s;
 
