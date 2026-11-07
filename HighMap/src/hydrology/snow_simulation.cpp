@@ -222,6 +222,8 @@ Array snow_simulation(const Array      &z,
 
   if (post_filter)
   {
+    // keep this section local, no comm needed, approx. but ok for
+    // results
     const float s_max = std::max(s.max(comm), 1e-6f);
 
     Array mask = s / s_max;
@@ -242,7 +244,6 @@ Array snow_simulation(const Array      &z,
       std::vector<float>().swap(mask.vector);
       std::vector<float>().swap(talus_smooth.vector);
 
-      // TODO in thermal
       comm.sync_overlap_buffers(z_wrk, region, SyncOperation::SmoothBlend);
     }
 

@@ -66,7 +66,9 @@ Array distance_transform(const Array      &array,
   // Synchronize and propagate vertical distances across tile boundaries
   if (comm.size() > 1)
   {
-    const int n_sweeps = std::max(1, comm.size() - 1);
+    const int n_sweeps = std::min(
+        4,
+        std::max(1, int(std::ceil(std::sqrt(comm.size()))) - 1));
 
     for (int sweep = 0; sweep < n_sweeps; ++sweep)
     {
@@ -225,7 +227,9 @@ Array distance_transform(const Array      &array,
       }
     }
 
-    const int n_sweeps = std::max(1, comm.size() - 1);
+    const int n_sweeps = std::min(
+        4,
+        std::max(1, int(std::ceil(std::sqrt(comm.size()))) - 1));
 
     for (int sweep = 0; sweep < n_sweeps; ++sweep)
     {
