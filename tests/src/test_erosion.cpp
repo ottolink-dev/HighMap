@@ -381,7 +381,14 @@ TEST(FloodingLakeSystem_VirtualArray, SingleTileMatchesArray)
   ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
   va.from_array(input, cm);
 
-  VirtualArray va_water = va::flooding_lake_system(va, 0.f, cm);
+  VirtualArray va_water;
+  va_water.copy_from(va, cm);
+
+  hmap::for_each_tile(
+      va_water,
+      [](Array &tile, const TileRegion &region, ICommunicator &comm)
+      { tile = flooding_lake_system(tile, 0.f, region, comm); },
+      cm);
 
   Array expected = flooding_lake_system(input, 0.f);
   Array result = va_water.to_array(cm);
@@ -403,8 +410,16 @@ TEST(FloodingLakeSystem_VirtualArray, MultiTileWithSurfaceThreshold)
   ComputeMode  cm{.mode = ForEachMode::VA_DISTRIBUTED};
   va.from_array(input, cm);
 
-  VirtualArray va_water = va::flooding_lake_system(va, 10.f, cm);
-  Array        result = va_water.to_array(cm);
+  VirtualArray va_water;
+  va_water.copy_from(va, cm);
+
+  hmap::for_each_tile(
+      va_water,
+      [](Array &tile, const TileRegion &region, ICommunicator &comm)
+      { tile = flooding_lake_system(tile, 10.f, region, comm); },
+      cm);
+
+  Array result = va_water.to_array(cm);
 
   EXPECT_GE(result.min(), 0.f);
   for (int j = 0; j < shape.y; ++j)

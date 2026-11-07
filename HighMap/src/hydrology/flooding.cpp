@@ -182,14 +182,24 @@ Array flooding_from_point(const Array            &z,
   return water_depth;
 }
 
-Array flooding_lake_system(const Array &z, float surface_threshold)
+Array flooding_lake_system(const Array      &z,
+                           float             surface_threshold,
+                           const TileRegion &region,
+                           ICommunicator    &comm)
 {
   if (!validate_non_empty(z)) return Array();
 
   Array water_depth = z;
 
-  // use a rough depression filling algo to get the lake zones and depths
-  depression_filling_priority_flood(water_depth);
+  // use a depression filling algo to get the lake zones and depths
+  depression_filling_priority_flood(water_depth,
+                                    false,
+                                    true,
+                                    true,
+                                    true,
+                                    true,
+                                    region,
+                                    comm);
 
   for (int j = 0; j < z.shape.y; j++)
     for (int i = 0; i < z.shape.x; i++)
@@ -197,7 +207,7 @@ Array flooding_lake_system(const Array &z, float surface_threshold)
 
   // use a connected components analysis to remove small spots if
   // requested
-  if (surface_threshold)
+  if (surface_threshold > 0.f)
   {
     Array labels = connected_components(water_depth, surface_threshold);
     for (int j = 0; j < z.shape.y; j++)
@@ -209,75 +219,3 @@ Array flooding_lake_system(const Array &z, float surface_threshold)
 }
 
 } // namespace hmap
-
-namespace hmap::va
-{
-
-VirtualArray flooding_lake_system(const VirtualArray &z,
-                                  float               surface_threshold,
-                                  const ComputeMode  &cm)
-{
-  if (z.empty()) return VirtualArray();
-
-  VirtualArray filled;
-  filled.copy_from(z, cm);
-
-  // use depression filling algo to fill depressions
-  hmap::for_each_tile(
-      filled,
-      [](Array &tile, const TileRegion &region, ICommunicator &comm)
-      {
-        hmap::depression_filling_priority_flood(tile,
-                                                false,
-                                                true,
-                                                true,
-                                                true,
-                                                true,
-                                                region,
-                                                comm);
-      },
-      cm);
-
-  VirtualArray water_depth;
-  water_depth.copy_from(z, cm, /* copy_src_data */ false);
-
-  hmap::for_each_tile(
-      {&z, &filled},
-      {&water_depth},
-      [](const std::vector<const hmap::Array *> &in,
-         const std::vector<hmap::Array *>       &out,
-         const hmap::TileRegion &)
-      {
-        auto [pa_z, pa_filled] = unpack<2>(in);
-        auto [pa_water] = unpack<1>(out);
-
-        for (int j = 0; j < pa_water->shape.y; ++j)
-          for (int i = 0; i < pa_water->shape.x; ++i)
-            (*pa_water)(i, j) = std::max(0.f,
-                                         (*pa_filled)(i, j) - (*pa_z)(i, j));
-      },
-      cm);
-
-  // use connected components analysis to remove small spots if requested
-  if (surface_threshold > 0.f)
-  {
-    hmap::for_each_tile(
-        {},
-        {&water_depth},
-        [surface_threshold](std::vector<const hmap::Array *>,
-                            std::vector<hmap::Array *> p_arrays_out,
-                            const hmap::TileRegion &)
-        {
-          auto [pa_water] = unpack<1>(p_arrays_out);
-          Array labels = connected_components(*pa_water, surface_threshold);
-          for (int j = 0; j < pa_water->shape.y; j++)
-            for (int i = 0; i < pa_water->shape.x; i++)
-              if (labels(i, j) == 0.f) (*pa_water)(i, j) = 0.f;
-        },
-        cm);
-  }
-
-  return water_depth;
-}
-
-} // namespace hmap::va

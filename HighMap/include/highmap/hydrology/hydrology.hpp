@@ -270,6 +270,8 @@ Array flooding_from_point(const Array            &z,
  *                           to be retained. Components smaller than this
  *                           threshold will be removed. The default value is 0
  *                           (no filtering).
+ * @param  region            Tile region metadata (for tiled execution).
+ * @param  comm              Communicator for multi-tile synchronization.
  *
  * @return                   A 2D array representing the water depth for each
  *                           cell. Values are zero where no lake is present and
@@ -283,7 +285,10 @@ Array flooding_from_point(const Array            &z,
  * **Result**
  * @image html ex_flooding_lake_system.png
  */
-Array flooding_lake_system(const Array &z, float surface_threshold = 0);
+Array flooding_lake_system(const Array      &z,
+                           float             surface_threshold = 0.f,
+                           const TileRegion &region = TileRegion::dummy(),
+                           ICommunicator    &comm = SingleArrayComm::instance());
 
 /**
  * @brief Computes the flow accumulation for each cell using the D8 flow
@@ -1476,21 +1481,6 @@ Array water_depth_from_mask(const Array &z,
 
 namespace hmap::va
 {
-
-/**
- * @brief Identifies and floods depression systems (lakes) in a VirtualArray.
- *
- * @param  z                 Input heightmap VirtualArray.
- * @param  surface_threshold Minimum surface area (in pixels) for a lake region
- *                           to be retained. Default is 0 (no filtering).
- * @param  cm                Compute mode configuration.
- * @return                   VirtualArray representing the water depth field.
- *
- * @see                      depression_filling_priority_flood
- */
-VirtualArray flooding_lake_system(const VirtualArray &z,
-                                  float               surface_threshold = 0.f,
-                                  const ComputeMode  &cm = {});
 
 /**
  * @brief Resolves flow sinks on a VirtualArray by computing an MST on a
