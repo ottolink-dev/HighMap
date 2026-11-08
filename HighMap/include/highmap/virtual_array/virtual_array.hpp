@@ -16,6 +16,7 @@
 #include "highmap/logger.hpp"
 #include "highmap/math/core.hpp"
 #include "highmap/profiling.hpp"
+#include "highmap/virtual_array/communicator.hpp"
 #include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/tile_storage.hpp"
 
@@ -25,17 +26,6 @@ namespace hmap
 // =====================================
 // Peripheric classes
 // =====================================
-
-enum class SyncOperation
-{
-  Average,
-  CopyFirst,
-  CopySecond,
-  Min,
-  Max,
-  Mean,
-  SmoothBlend // current sync
-};
 
 enum ForEachMode : int
 {

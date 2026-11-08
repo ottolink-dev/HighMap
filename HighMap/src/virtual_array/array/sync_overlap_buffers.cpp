@@ -18,12 +18,7 @@ namespace hmap
 void VirtualArray::sync_overlap_buffers(SyncOperation op)
 {
   HMAP_PROFILE_ZONE("HighMap::VirtualArray::sync_overlap_buffers");
-  if (this->storage->max_live_tiles() < 2)
-  {
-    hmap::log::error(
-        "sync_overlap_buffers requires at least 2 tiles in memory, skipping");
-    return;
-  }
+  // Tiles are pinned and released per pair dynamically
 
   int nx = ceil_div(this->shape.x, this->tile_shape.x);
   int ny = ceil_div(this->shape.y, this->tile_shape.y);

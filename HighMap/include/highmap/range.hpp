@@ -436,12 +436,16 @@ void remap(Array &array,
  * @param array Input array to be remapped.
  * @param vmin  The lower bound of the target range to remap to (default is 0).
  * @param vmax  The upper bound of the target range to remap to (default is 1).
+ * @param comm  Optional communicator for collective reduction across tiles.
  *
  * See unit tests: @ref test_remap.cpp
  */
 
 /// @overload
-void remap(Array &array, float vmin = 0, float vmax = 1);
+void remap(Array         &array,
+           float          vmin = 0,
+           float          vmax = 1,
+           ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Remap array elements from a starting range to a target range.
@@ -467,11 +471,11 @@ void rescale(Array &array, float scaling, float vref = 0.f);
  *
  * @param array      Input array to be normalized and clipped.
  * @param multiplier Standard deviation multiplier (default is 2.5f).
- * @param std        Standard deviation to use. If <= 0.f (default -1.f), the
- *                   standard deviation is computed from the array.
+ * @param comm       Optional communicator for collective reduction across
+ *                   tiles.
  */
-void normalize_and_clip(Array &array,
-                        float  multiplier = 2.5f,
-                        float  std = -1.f);
+void normalize_and_clip(Array         &array,
+                        float          multiplier = 2.5f,
+                        ICommunicator &comm = SingleArrayComm::instance());
 
 } // namespace hmap

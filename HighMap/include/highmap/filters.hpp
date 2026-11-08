@@ -19,12 +19,14 @@
 #include "highmap/kernels.hpp"
 #include "highmap/local_metrics.hpp"
 #include "highmap/primitives.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap
 {
 
 class Cloud;
 class Point;
+class ICommunicator;
 struct ComputeMode;
 struct VirtualArray;
 
@@ -1956,10 +1958,11 @@ void smooth_cone(Array &array, int ir, const Array *p_mask);
  *
  * See unit tests: @ref test_smooth_cpulse.cpp
  */
-void smooth_cpulse(Array &array, int ir);
-
-/// @overload
-void smooth_cpulse(Array &array, int ir, const Array *p_mask);
+void smooth_cpulse(Array            &array,
+                   int               ir,
+                   const Array      *p_mask = nullptr,
+                   const TileRegion &region = TileRegion::dummy(),
+                   ICommunicator    &comm = SingleArrayComm::instance());
 
 /**
  * @brief Smooths an array while attenuating edges using a gradient-based pulse.
@@ -2761,40 +2764,49 @@ Array project_talus_along_direction(const Array &array,
  * **Result**
  * @image html ex_recast_cliff.png
  */
-void recast_cliff(Array &array,
-                  float  talus,
-                  int    ir,
-                  float  amplitude,
-                  float  gain = 2.f,
-                  int    iterations = 500,
-                  Array *p_cliff_mask = nullptr);
+void recast_cliff(Array            &array,
+                  float             talus,
+                  int               ir,
+                  float             amplitude,
+                  float             gain = 2.f,
+                  int               iterations = 500,
+                  Array            *p_cliff_mask = nullptr,
+                  int               sync_interval = 0,
+                  const TileRegion &region = TileRegion::dummy(),
+                  ICommunicator    &comm = SingleArrayComm::instance());
 
 /// @overload
-void recast_cliff(Array       &array,
-                  float        talus,
-                  int          ir,
-                  float        amplitude,
-                  const Array *p_mask,
-                  float        gain = 2.f,
-                  int          iterations = 500,
-                  Array       *p_cliff_mask = nullptr);
+void recast_cliff(Array            &array,
+                  float             talus,
+                  int               ir,
+                  float             amplitude,
+                  const Array      *p_mask,
+                  float             gain = 2.f,
+                  int               iterations = 500,
+                  Array            *p_cliff_mask = nullptr,
+                  int               sync_interval = 0,
+                  const TileRegion &region = TileRegion::dummy(),
+                  ICommunicator    &comm = SingleArrayComm::instance());
 
 /**
  * @brief Transform heightmap to add directional cliffs where gradients are
  * steep enough using Poisson gradient amplification.
  *
- * @param array        Input array representing the heightmap to be modified.
- * @param talus        Reference talus angle / slope threshold.
- * @param ir           Filter radius used to smooth the heightmap before
- *                     applying the cliff effect.
- * @param amplitude    Amplitude of the cliffs.
- * @param angle        Angle (in degrees) determining the direction of the
- *                     cliffs.
- * @param gain         Gain factor influencing the steepness of the cliffs.
- * @param iterations   Number of Poisson solver iterations (default: 500).
- * @param p_mask       Optional filter mask.
- * @param p_cliff_mask [out] Optional pointer to an array that receives the
- *                     cliff mask.
+ * @param array         Input array representing the heightmap to be modified.
+ * @param talus         Reference talus angle / slope threshold.
+ * @param ir            Filter radius used to smooth the heightmap before
+ *                      applying the cliff effect.
+ * @param amplitude     Amplitude of the cliffs.
+ * @param angle         Angle (in degrees) determining the direction of the
+ *                      cliffs.
+ * @param gain          Gain factor influencing the steepness of the cliffs.
+ * @param iterations    Number of Poisson solver iterations (default: 500).
+ * @param p_mask        Optional filter mask.
+ * @param p_cliff_mask  [out] Optional pointer to an array that receives the
+ *                      cliff mask.
+ * @param sync_interval Number of iterations between communicator tile syncs.
+ * @param region        Tile region geometry metadata.
+ * @param comm          Tiled communicator instance.
  *
  * **Example**
  * @include ex_recast_cliff.cpp
@@ -2804,46 +2816,63 @@ void recast_cliff(Array       &array,
  */
 
 /// @overload
-void recast_cliff_directional(Array &array,
-                              float  talus,
-                              int    ir,
-                              float  amplitude,
-                              float  angle,
-                              float  gain = 2.f,
-                              int    iterations = 500,
-                              Array *p_cliff_mask = nullptr);
+void recast_cliff_directional(
+    Array            &array,
+    float             talus,
+    int               ir,
+    float             amplitude,
+    float             angle,
+    float             gain = 2.f,
+    int               iterations = 500,
+    Array            *p_cliff_mask = nullptr,
+    int               sync_interval = 0,
+    const TileRegion &region = TileRegion::dummy(),
+    ICommunicator    &comm = SingleArrayComm::instance());
 
 /// @overload
-void recast_cliff_directional(Array       &array,
-                              float        talus,
-                              int          ir,
-                              float        amplitude,
-                              float        angle,
-                              const Array *p_mask,
-                              float        gain = 2.f,
-                              int          iterations = 500,
-                              Array       *p_cliff_mask = nullptr);
+void recast_cliff_directional(
+    Array            &array,
+    float             talus,
+    int               ir,
+    float             amplitude,
+    float             angle,
+    const Array      *p_mask,
+    float             gain = 2.f,
+    int               iterations = 500,
+    Array            *p_cliff_mask = nullptr,
+    int               sync_interval = 0,
+    const TileRegion &region = TileRegion::dummy(),
+    ICommunicator    &comm = SingleArrayComm::instance());
 
 /// @overload
-void recast_cliff_directional(Array       &array,
-                              float        talus,
-                              int          ir,
-                              float        amplitude,
-                              const Array &angle,
-                              float        gain = 2.f,
-                              int          iterations = 500,
-                              Array       *p_cliff_mask = nullptr);
+void recast_cliff_directional(
+    Array            &array,
+    float             talus,
+    int               ir,
+    float             amplitude,
+    const Array      &angle,
+    float             gain = 2.f,
+    int               iterations = 500,
+    Array            *p_cliff_mask = nullptr,
+    int               sync_interval = 0,
+    const TileRegion &region = TileRegion::dummy(),
+    ICommunicator    &comm = SingleArrayComm::instance());
 
 /// @overload
-void recast_cliff_directional(Array       &array,
-                              float        talus,
-                              int          ir,
-                              float        amplitude,
-                              const Array &angle,
-                              const Array *p_mask,
-                              float        gain = 2.f,
-                              int          iterations = 500,
-                              Array       *p_cliff_mask = nullptr);
+void recast_cliff_directional(
+    Array            &array,
+    float             talus,
+    int               ir,
+    float             amplitude,
+    const Array      &angle,
+    const Array      *p_mask,
+    float             gain = 2.f,
+    int               iterations = 500,
+    Array            *p_cliff_mask = nullptr,
+    int               sync_interval = 0,
+    const TileRegion &region = TileRegion::dummy(),
+    ICommunicator    &comm = SingleArrayComm::instance());
+
 /*! @brief See hmap::ridge_accentuate */
 void ridge_accentuate(Array &array,
                       float  strength = 0.1f,
@@ -2871,11 +2900,13 @@ void shrink(Array       &array,
             const Array &kernel,
             const Array *p_mask,
             int          iterations = 1);
-/*! @brief See hmap::smooth_cpulse */
-void smooth_cpulse(Array &array, int ir);
 
 /*! @brief See hmap::smooth_cpulse */
-void smooth_cpulse(Array &array, int ir, const Array *p_mask);
+void smooth_cpulse(Array            &array,
+                   int               ir,
+                   const Array      *p_mask = nullptr,
+                   const TileRegion &region = TileRegion::dummy(),
+                   ICommunicator    &comm = SingleArrayComm::instance());
 
 /*! @brief See hmap::smooth_cpulse_edge_removing */
 void smooth_cpulse_edge_removing(Array &array,

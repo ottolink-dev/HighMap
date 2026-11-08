@@ -14,9 +14,24 @@ namespace hmap
 TileRegion::TileRegion(const TileKey    &key,
                        const glm::vec4  &bbox,
                        const glm::ivec2 &shape,
-                       const glm::ivec4 &halo)
-    : key(key), bbox(bbox), shape(shape), halo(halo)
+                       const glm::ivec4 &halo,
+                       const glm::ivec2 &global_shape,
+                       const glm::ivec2 &tile_shape,
+                       const glm::ivec2 &tile_grid)
+    : key(key),
+      bbox(bbox),
+      shape(shape),
+      halo(halo),
+      global_shape(global_shape),
+      tile_shape(tile_shape),
+      tile_grid(tile_grid)
 {
+}
+
+const TileRegion &TileRegion::dummy()
+{
+  static const TileRegion s_dummy;
+  return s_dummy;
 }
 
 glm::vec2 TileRegion::cell_center(int i, int j) const
@@ -42,6 +57,37 @@ glm::vec2 TileRegion::cell_corner(int i, int j) const
   return {x, y};
 }
 
+bool TileRegion::contains_global(int gx, int gy) const
+{
+  glm::ivec2 local = global_to_local(gx, gy);
+
+  return (local.x >= 0 && local.x < shape.x && local.y >= 0 &&
+          local.y < shape.y);
+}
+
+bool TileRegion::contains_global_core(int gx, int gy) const
+{
+  glm::ivec2 local = global_to_local(gx, gy);
+
+  return (local.x >= halo.x && local.x < shape.x - halo.y &&
+          local.y >= halo.z && local.y < shape.y - halo.w);
+}
+
+glm::ivec2 TileRegion::global_offset() const
+{
+  int gx0 = key.tx * tile_shape.x - halo.x;
+  int gy0 = key.ty * tile_shape.y - halo.z;
+
+  return {gx0, gy0};
+}
+
+glm::ivec2 TileRegion::global_to_local(int gx, int gy) const
+{
+  glm::ivec2 offset = global_offset();
+
+  return {gx - offset.x, gy - offset.y};
+}
+
 std::string TileRegion::info_string(int indent) const
 {
   std::ostringstream oss;
@@ -54,6 +100,12 @@ std::string TileRegion::info_string(int indent) const
       << bbox.z << ", " << bbox.w << "]\n";
   oss << pad << "  halo         : [" << halo.x << ", " << halo.y << ", "
       << halo.z << ", " << halo.w << "]\n";
+  oss << pad << "  tile shape   : " << tile_shape.x << " x " << tile_shape.y
+      << "\n";
+  oss << pad << "  tile grid    : " << tile_grid.x << " x " << tile_grid.y
+      << "\n";
+  oss << pad << "  global shape : " << global_shape.x << " x " << global_shape.y
+      << "\n";
   oss << pad << "  cell size    : " << (bbox.y - bbox.x) / float(shape.x)
       << " x " << (bbox.w - bbox.z) / float(shape.y) << "\n";
 
@@ -73,9 +125,41 @@ glm::vec4 TileRegion::inner_bbox() const
   return {inner_x1, inner_x2, inner_y1, inner_y2};
 }
 
+bool TileRegion::is_east_boundary() const
+{
+  return halo.y == 0;
+}
+
+bool TileRegion::is_north_boundary() const
+{
+  return halo.w == 0;
+}
+
+bool TileRegion::is_south_boundary() const
+{
+  return halo.z == 0;
+}
+
+bool TileRegion::is_west_boundary() const
+{
+  return halo.x == 0;
+}
+
 std::string TileRegion::key_as_string() const
 {
   return std::to_string(this->key.tx) + "_" + std::to_string(this->key.ty);
+}
+
+int TileRegion::linear_index() const
+{
+  return key.ty * tile_grid.x + key.tx;
+}
+
+glm::ivec2 TileRegion::local_to_global(int lx, int ly) const
+{
+  glm::ivec2 offset = global_offset();
+
+  return {lx + offset.x, ly + offset.y};
 }
 
 } // namespace hmap

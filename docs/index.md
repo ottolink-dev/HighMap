@@ -20,6 +20,7 @@ Documentation for new users:
 Documentation on codebase architecture, design, and experimental research:
 
 - [Architecture Overview](content/dev/architecture.md): Module hierarchy, layered subsystem design, and architectural principles.
+- [Tiled Communication & Overlap Synchronization](content/dev/tiled_communication.md): Collective communication interface (`ICommunicator`), sequential cooperative scheduler, and halo buffer synchronization.
 - [Hydraulic Erosion Models Comparison](content/dev/hydraulic_comparison.md): Side-by-side visual and qualitative comparison between particle, stream log, and MISE models.
 - [Hydraulic Particle Erosion](content/dev/hydraulic_particle.md): Simulation model, kinematics, sediment transport equations, and implementation details.
 - [Hydraulic Stream Log Erosion](content/dev/hydraulic_stream_log.md): Continuous D-infinity stream power erosion, logarithmic discharge scaling, and multiscale pyramid.

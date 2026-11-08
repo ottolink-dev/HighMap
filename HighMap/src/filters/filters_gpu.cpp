@@ -18,6 +18,8 @@
 #include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/range.hpp"
+#include "highmap/virtual_array/communicator.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap::gpu
 {
@@ -509,9 +511,14 @@ void shrink(Array       &array,
                   [&](Array &a) { gpu::shrink(a, kernel, iterations); });
 }
 
-void smooth_cpulse(Array &array, int ir)
+void smooth_cpulse(Array            &array,
+                   int               ir,
+                   const Array      *p_mask,
+                   const TileRegion &region,
+                   ICommunicator    &comm)
 {
   if (!validate_non_empty(array)) return;
+  if (p_mask && !validate_same_shape(array, *p_mask)) return;
 
   // define kernel
   const int          nk = 2 * ir + 1;
@@ -532,39 +539,45 @@ void smooth_cpulse(Array &array, int ir)
     k1d[i] /= sum;
   }
 
-  auto run = clwrapper::Run("smooth_cpulse");
+  auto run_smooth = [&](Array &a)
+  {
+    auto run = clwrapper::Run("smooth_cpulse");
 
-  run.bind_imagef("in", array.vector, array.shape.x, array.shape.y);
-  run.bind_imagef("weights", k1d, nk, 1);
-  run.bind_imagef("out",
-                  array.vector,
-                  array.shape.x,
-                  array.shape.y,
-                  true); // out
-  run.bind_arguments(array.shape.x, array.shape.y, ir);
+    run.bind_imagef("in", a.vector, a.shape.x, a.shape.y);
+    run.bind_imagef("weights", k1d, nk, 1);
+    run.bind_imagef("out", a.vector, a.shape.x, a.shape.y,
+                    true); // out
+    run.bind_arguments(a.shape.x, a.shape.y, ir);
 
-  int pass_nb;
+    int pass_nb;
 
-  pass_nb = 0; // x
-  run.set_argument(6, pass_nb);
-  run.execute({array.shape.x, array.shape.y});
+    pass_nb = 0; // x
+    run.set_argument(6, pass_nb);
+    run.execute({a.shape.x, a.shape.y});
 
-  run.read_imagef("out");
-  run.write_imagef("in");
+    run.read_imagef("out");
+    run.write_imagef("in");
 
-  pass_nb = 1; // y
-  run.set_argument(6, pass_nb);
-  run.execute({array.shape.x, array.shape.y});
+    pass_nb = 1; // y
+    run.set_argument(6, pass_nb);
+    run.execute({a.shape.x, a.shape.y});
 
-  run.read_imagef("out");
-}
+    run.read_imagef("out");
+  };
 
-void smooth_cpulse(Array &array, int ir, const Array *p_mask)
-{
-  if (!validate_non_empty(array)) return;
-  if (p_mask && !validate_same_shape(array, *p_mask)) return;
+  if (p_mask)
+  {
+    apply_with_mask(array, p_mask, [&](Array &a) { run_smooth(a); });
+  }
+  else
+  {
+    run_smooth(array);
+  }
 
-  apply_with_mask(array, p_mask, [&](Array &a) { gpu::smooth_cpulse(a, ir); });
+  if (comm.size() > 1)
+  {
+    comm.sync_overlap_buffers(array, region, SyncOperation::SmoothBlend);
+  }
 }
 
 void smooth_cpulse_edge_removing(Array &array,

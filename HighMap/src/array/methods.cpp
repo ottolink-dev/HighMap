@@ -295,17 +295,27 @@ glm::ivec2 Array::linear_index_reverse(int k) const
   return ij;
 }
 
-float Array::max() const
+float Array::max(ICommunicator &comm) const
 {
   if (!validate_non_empty(*this)) return 0.f;
-  return *std::max_element(this->vector.begin(), this->vector.end());
+  float local_max = *std::max_element(this->vector.begin(), this->vector.end());
+  return comm.all_reduce(local_max, ReduceOp::Max);
 }
 
-float Array::mean() const
+float Array::mean(ICommunicator &comm) const
 {
   if (!validate_non_empty(*this)) return 0.f;
-  return this->sum() / (float)this->size();
-};
+
+  float total_sum = this->sum(comm);
+  float total_size = static_cast<float>(this->size());
+
+  if (comm.size() > 1)
+  {
+    total_size = comm.all_reduce(total_size, ReduceOp::Sum);
+  }
+
+  return (total_size > 0.f) ? (total_sum / total_size) : 0.f;
+}
 
 float Array::median() const
 {
@@ -313,37 +323,45 @@ float Array::median() const
   return compute_median(this->vector);
 }
 
-float Array::min() const
+float Array::min(ICommunicator &comm) const
 {
   if (!validate_non_empty(*this)) return 0.f;
-  return *std::min_element(this->vector.begin(), this->vector.end());
-};
+  float local_min = *std::min_element(this->vector.begin(), this->vector.end());
+  return comm.all_reduce(local_min, ReduceOp::Min);
+}
 
-void Array::normalize()
+void Array::normalize(ICommunicator &comm)
 {
   if (!validate_non_empty(*this)) return;
 
-  float sum = this->sum();
+  float total_sum = this->sum(comm);
 
-  if (sum != 0.f)
+  if (total_sum != 0.f)
   {
     for (float &v : this->vector)
-      v /= sum;
+      v /= total_sum;
   }
 }
 
-float Array::ptp() const
+float Array::ptp(ICommunicator &comm) const
 {
   if (!validate_non_empty(*this)) return 0.f;
-  return this->max() - this->min();
+  return this->max(comm) - this->min(comm);
 }
 
-glm::vec2 Array::range() const
+glm::vec2 Array::range(ICommunicator &comm) const
 {
   if (!validate_non_empty(*this)) return glm::vec2(0.f, 0.f);
+
   auto [min_it, max_it] = std::minmax_element(this->vector.begin(),
                                               this->vector.end());
-  return glm::vec2(*min_it, *max_it);
+  const float local_min = *min_it;
+  const float local_max = *max_it;
+
+  float global_min = comm.all_reduce(local_min, ReduceOp::Min);
+  float global_max = comm.all_reduce(local_max, ReduceOp::Max);
+
+  return glm::vec2(global_min, global_max);
 }
 
 glm::vec2 Array::range_percentile(float  p_low,
@@ -446,12 +464,16 @@ Array Array::remapped() const
 
 Array Array::resample_to_shape(glm::ivec2 new_shape) const
 {
+  if (!validate_shape(new_shape)) return Array();
+  if (this->shape == new_shape) return *this;
+
   return this->resample_to_shape_bilinear(new_shape);
 }
 
 Array Array::resample_to_shape_bicubic(glm::ivec2 new_shape) const
 {
   if (!validate_shape(new_shape)) return Array();
+  if (this->shape == new_shape) return *this;
 
   Array array_out = Array(new_shape);
   interpolate_array_bicubic(*this, array_out);
@@ -462,6 +484,7 @@ Array Array::resample_to_shape_bicubic(glm::ivec2 new_shape) const
 Array Array::resample_to_shape_bilinear(glm::ivec2 new_shape) const
 {
   if (!validate_shape(new_shape)) return Array();
+  if (this->shape == new_shape) return *this;
 
   Array array_out = Array(new_shape);
   interpolate_array_bilinear(*this, array_out);
@@ -472,6 +495,7 @@ Array Array::resample_to_shape_bilinear(glm::ivec2 new_shape) const
 Array Array::resample_to_shape_nearest(glm::ivec2 new_shape) const
 {
   if (!validate_shape(new_shape)) return Array();
+  if (this->shape == new_shape) return *this;
 
   Array array_out = Array(new_shape);
   interpolate_array_nearest(*this, array_out);
@@ -510,28 +534,46 @@ int Array::size() const
   return this->shape.x * this->shape.y;
 }
 
-float Array::std() const
+float Array::std(ICommunicator &comm) const
 {
   if (!validate_non_empty(*this)) return 0.f;
 
-  float mean = this->mean();
-  Array a2 = (*this) - mean;
-  a2 *= a2;
-  return a2.mean();
-};
+  float global_mean = this->mean(comm);
+  float local_sq_diff_sum = 0.f;
 
-float Array::sum() const
-{
-  if (!validate_non_empty(*this)) return 0.f;
-  return std::accumulate(this->vector.begin(), this->vector.end(), 0.f);
+  for (float v : this->vector)
+  {
+    float diff = v - global_mean;
+    local_sq_diff_sum += diff * diff;
+  }
+
+  float total_sq_diff_sum = comm.all_reduce(local_sq_diff_sum, ReduceOp::Sum);
+  float total_size = static_cast<float>(this->size());
+
+  if (comm.size() > 1)
+  {
+    total_size = comm.all_reduce(total_size, ReduceOp::Sum);
+  }
+
+  return (total_size > 0.f) ? std::sqrt(total_sq_diff_sum / total_size) : 0.f;
 }
 
-std::vector<float> Array::unique_values() const
+float Array::sum(ICommunicator &comm) const
+{
+  if (!validate_non_empty(*this)) return 0.f;
+
+  float local_sum = std::accumulate(this->vector.begin(),
+                                    this->vector.end(),
+                                    0.f);
+  return comm.all_reduce(local_sum, ReduceOp::Sum);
+}
+
+std::vector<float> Array::unique_values(ICommunicator &comm) const
 {
   if (!validate_non_empty(*this)) return {};
   std::vector<float> v = this->vector;
   vector_unique_values(v);
-  return v;
+  return comm.all_union(v);
 }
 
 } // namespace hmap
