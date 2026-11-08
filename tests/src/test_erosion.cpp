@@ -2,6 +2,7 @@
 #include "highmap/erosion.hpp"
 #include "highmap/export/image.hpp"
 #include "highmap/hydrology/hydrology.hpp"
+#include "highmap/math/array.hpp"
 #include "highmap/morphology.hpp"
 #include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/primitives.hpp"
@@ -258,114 +259,6 @@ TEST(DepressionFillingPriorityFlood, BoundaryConditions)
     // fills up to 5.0f
     EXPECT_NEAR(z_test(2, 2), 5.0f, 0.01f);
   }
-}
-
-TEST(DepressionFillingPriorityFlood_VirtualArray, SingleTileMatchesArray)
-{
-  const glm::ivec2 shape{64, 64};
-  const glm::vec4  bbox{0.f, 1.f, 0.f, 1.f};
-  const glm::ivec2 tile_shape{64, 64};
-  const int        halo = 0;
-
-  glm::vec2 kw = {4.f, 4.f};
-  Array     input = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
-
-  VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
-  ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
-  va.from_array(input, cm);
-
-  VirtualArray va_fill_map(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
-  VirtualArray va_out = va::depression_filling_priority_flood(va,
-                                                              false,
-                                                              &va_fill_map,
-                                                              cm);
-
-  Array expected = input;
-  depression_filling_priority_flood(expected, false);
-
-  Array result = va_out.to_array(cm);
-  EXPECT_TRUE(assert_almost_equal(result, expected, 1e-5f));
-
-  Array result_fill = va_fill_map.to_array(cm);
-  Array expected_fill = expected - input;
-  EXPECT_TRUE(assert_almost_equal(result_fill, expected_fill, 1e-5f));
-}
-
-TEST(DepressionFillingPriorityFlood_VirtualArray, MultiTileWithFillMap)
-{
-  const glm::ivec2 shape{64, 64};
-  const glm::vec4  bbox{0.f, 1.f, 0.f, 1.f};
-  const glm::ivec2 tile_shape{32, 32};
-  const int        halo = 4;
-
-  glm::vec2 kw = {4.f, 4.f};
-  Array     input = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
-
-  VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
-  ComputeMode  cm{.mode = ForEachMode::VA_DISTRIBUTED};
-  va.from_array(input, cm);
-
-  VirtualArray va_fill_map(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
-  VirtualArray va_out = va::depression_filling_priority_flood(va,
-                                                              false,
-                                                              &va_fill_map,
-                                                              cm);
-
-  Array result = va_out.to_array(cm);
-  Array result_fill = va_fill_map.to_array(cm);
-
-  for (int j = 0; j < shape.y; ++j)
-    for (int i = 0; i < shape.x; ++i)
-    {
-      EXPECT_GE(result(i, j), input(i, j) - 1e-5f);
-      EXPECT_GE(result_fill(i, j), -1e-5f);
-      EXPECT_NEAR(result_fill(i, j), result(i, j) - input(i, j), 1e-5f);
-    }
-}
-
-TEST(FloodingLakeSystem_VirtualArray, SingleTileMatchesArray)
-{
-  const glm::ivec2 shape{64, 64};
-  const glm::vec4  bbox{0.f, 1.f, 0.f, 1.f};
-  const glm::ivec2 tile_shape{64, 64};
-  const int        halo = 0;
-
-  glm::vec2 kw = {4.f, 4.f};
-  Array     input = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
-
-  VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
-  ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
-  va.from_array(input, cm);
-
-  VirtualArray va_water = va::flooding_lake_system(va, 0.f, cm);
-
-  Array expected = flooding_lake_system(input, 0.f);
-  Array result = va_water.to_array(cm);
-
-  EXPECT_TRUE(assert_almost_equal(result, expected, 1e-5f));
-}
-
-TEST(FloodingLakeSystem_VirtualArray, MultiTileWithSurfaceThreshold)
-{
-  const glm::ivec2 shape{64, 64};
-  const glm::vec4  bbox{0.f, 1.f, 0.f, 1.f};
-  const glm::ivec2 tile_shape{32, 32};
-  const int        halo = 4;
-
-  glm::vec2 kw = {4.f, 4.f};
-  Array     input = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
-
-  VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
-  ComputeMode  cm{.mode = ForEachMode::VA_DISTRIBUTED};
-  va.from_array(input, cm);
-
-  VirtualArray va_water = va::flooding_lake_system(va, 10.f, cm);
-  Array        result = va_water.to_array(cm);
-
-  EXPECT_GE(result.min(), 0.f);
-  for (int j = 0; j < shape.y; ++j)
-    for (int i = 0; i < shape.x; ++i)
-      EXPECT_GE(result(i, j), 0.f);
 }
 
 TEST(HydraulicMusgrave, BasicExecution)

@@ -1,5 +1,7 @@
 #include "highmap/dbg/assert.hpp"
+#include "highmap/math/array.hpp"
 #include "highmap/primitives.hpp"
+#include "highmap/range.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 #include <gtest/gtest.h>
@@ -205,9 +207,8 @@ TEST(VirtualArrayTest, StorageModesPersistence)
   ComputeMode cm{.mode = ForEachMode::VA_SEQUENTIAL};
 
   for (auto mode : {StorageMode::VA_RAM,
-                    StorageMode::VA_DISK_LRU,
-                    StorageMode::VA_DISK_LRU_MIN,
-                    StorageMode::VA_DISK_SEQUENTIAL})
+                    StorageMode::VA_DISK_LRU_STREAM,
+                    StorageMode::VA_DISK_LRU_FULL})
   {
     VirtualArray va(shape, tile_shape, 2, mode);
     va.fill(7.0f, cm);
@@ -247,22 +248,25 @@ TEST(VirtualArrayTest, MemoryFootprintTracking)
     EXPECT_GT(va.live_memory_bytes(), 0);
   }
 
-  // 2. DISK_LRU_MIN holds at most 2 tiles
+  // 2. DISK_LRU_STREAM holds only actively pinned tiles (0 unpinned lingering
+  // after trim)
   {
-    VirtualArray va(shape, tile_shape, 2, StorageMode::VA_DISK_LRU_MIN);
+    VirtualArray va(shape, tile_shape, 2, StorageMode::VA_DISK_LRU_STREAM);
     va.fill(2.0f, cm);
-    EXPECT_LE(va.live_tile_count(), 2);
+    // In sequential stream mode, after fill finishes each tile is unpinned and
+    // evicted
+    EXPECT_EQ(va.live_tile_count(), 0);
 
     va.trim_storage();
     EXPECT_EQ(va.live_tile_count(), 0);
     EXPECT_EQ(va.live_memory_bytes(), 0);
   }
 
-  // 3. DISK_SEQUENTIAL holds at most 1 tile
+  // 3. DISK_LRU_FULL holds tiles in RAM until trim() is called
   {
-    VirtualArray va(shape, tile_shape, 2, StorageMode::VA_DISK_SEQUENTIAL);
+    VirtualArray va(shape, tile_shape, 2, StorageMode::VA_DISK_LRU_FULL);
     va.fill(3.0f, cm);
-    EXPECT_LE(va.live_tile_count(), 1);
+    EXPECT_EQ(va.live_tile_count(), 16);
 
     va.trim_storage();
     EXPECT_EQ(va.live_tile_count(), 0);
@@ -465,4 +469,281 @@ TEST(VirtualArrayTest, SumPerTile)
   // Check that top row tiles have strictly smaller sum than bottom row tiles.
   EXPECT_LT(tile_sums_excl[2], tile_sums_excl[0]);
   EXPECT_LT(tile_sums_excl[3], tile_sums_excl[1]);
+}
+
+TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
+{
+  glm::ivec2 shape{128, 128};
+  glm::ivec2 tile_shape{32, 32};
+  int        halo = 0;
+
+  // 1. Reference monolithic Array
+  Array full_array(shape, 100.0f);
+  // Inject known minimum in a specific tile
+  full_array(42, 75) = -17.25f;
+
+  // Compute with default SingleArrayComm
+  float     ref_min = full_array.min();
+  float     ref_max = full_array.max();
+  float     ref_sum = full_array.sum();
+  float     ref_mean = full_array.mean();
+  float     ref_ptp = full_array.ptp();
+  glm::vec2 ref_range = full_array.range();
+  float     ref_std = full_array.std();
+
+  EXPECT_FLOAT_EQ(ref_min, -17.25f);
+  EXPECT_FLOAT_EQ(ref_max, 100.0f);
+
+  // 2. Test across compute mode: Sequential
+  {
+    VirtualArray va(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_STREAM);
+    ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL, .trim_storage = true};
+
+    va.from_array(full_array, cm);
+
+    float     va_min = std::numeric_limits<float>::infinity();
+    float     va_max = -std::numeric_limits<float>::infinity();
+    float     va_sum = 0.f;
+    float     va_mean = 0.f;
+    float     va_ptp = 0.f;
+    glm::vec2 va_range{0.f, 0.f};
+
+    for_each_tile(
+        va,
+        [&](const Array &tile, const TileRegion &, ICommunicator &comm)
+        {
+          va_min = tile.min(comm);
+          va_max = tile.max(comm);
+          va_sum = tile.sum(comm);
+          va_mean = tile.mean(comm);
+          va_ptp = tile.ptp(comm);
+          va_range = tile.range(comm);
+        },
+        cm);
+
+    EXPECT_FLOAT_EQ(va_min, ref_min);
+    EXPECT_FLOAT_EQ(va_max, ref_max);
+    EXPECT_NEAR(va_sum, ref_sum, 1e-3f);
+    EXPECT_NEAR(va_mean, ref_mean, 1e-4f);
+    EXPECT_FLOAT_EQ(va_ptp, ref_ptp);
+    EXPECT_FLOAT_EQ(va_range.x, ref_range.x);
+    EXPECT_FLOAT_EQ(va_range.y, ref_range.y);
+
+    // Ensure bounded memory footprint under sequential execution
+    EXPECT_LE(va.live_tile_count(), 2);
+  }
+
+  // 3. Test with SingleArrayComm (default standalone argument)
+  {
+    EXPECT_FLOAT_EQ(full_array.min(), ref_min);
+    EXPECT_FLOAT_EQ(full_array.max(), ref_max);
+    EXPECT_NEAR(full_array.sum(), ref_sum, 1e-3f);
+    EXPECT_NEAR(full_array.mean(), ref_mean, 1e-4f);
+    EXPECT_FLOAT_EQ(full_array.ptp(), ref_ptp);
+    EXPECT_FLOAT_EQ(full_array.range().x, ref_range.x);
+    EXPECT_FLOAT_EQ(full_array.range().y, ref_range.y);
+    EXPECT_NEAR(full_array.std(), ref_std, 1e-4f);
+  }
+
+  // 4. Test unique_values() with communicator
+  {
+    Array label_array(shape, 1.0f);
+    label_array(10, 10) = 2.0f;
+    label_array(40, 50) = 5.0f;
+    label_array(100, 110) = 9.0f;
+
+    std::vector<float> ref_unique = label_array.unique_values();
+    std::vector<float> expected{1.0f, 2.0f, 5.0f, 9.0f};
+    EXPECT_EQ(ref_unique, expected);
+
+    VirtualArray va_labels(shape,
+                           tile_shape,
+                           halo,
+                           StorageMode::VA_DISK_LRU_STREAM);
+    ComputeMode  cm_seq{.mode = ForEachMode::VA_SEQUENTIAL,
+                        .trim_storage = true};
+    va_labels.from_array(label_array, cm_seq);
+
+    std::vector<float> va_unique;
+    for_each_tile(
+        va_labels,
+        [&](const Array &tile, const TileRegion &, ICommunicator &comm)
+        { va_unique = tile.unique_values(comm); },
+        cm_seq);
+
+    EXPECT_EQ(va_unique, ref_unique);
+    EXPECT_LE(va_labels.live_tile_count(), 2);
+  }
+
+  // 5. Test sync_overlap_buffers() with communicator
+  {
+    int          va_halo = 4;
+    VirtualArray va_sync(shape, tile_shape, va_halo, StorageMode::VA_RAM);
+    ComputeMode  cm_seq{.mode = ForEachMode::VA_SEQUENTIAL};
+
+    // Fill each tile with a value corresponding to its tile index
+    for_each_tile(
+        va_sync,
+        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        {
+          float tile_val = static_cast<float>(region.key.tx +
+                                              region.key.ty * 10);
+          for (float &v : tile.vector)
+            v = tile_val;
+
+          // Call communicator sync_overlap_buffers directly
+          comm.sync_overlap_buffers(tile, region, SyncOperation::CopyFirst);
+        },
+        cm_seq);
+
+    // Verify west-to-east neighbor halo on tile (1, 0) received tile (0, 0)'s
+    // value
+    TileRegion   r10 = va_sync.tile_region_from_tile_coords(1, 0);
+    const Array &tile10 = va_sync.storage->get_tile(r10);
+    // Western halo is at x in [0, va_halo)
+    EXPECT_FLOAT_EQ(tile10(0, tile10.shape.y / 2),
+                    0.0f); // value from tile (0, 0)
+    va_sync.storage->release_tile(r10);
+  }
+
+  // 6. Test comparison between VirtualArray post-sync and Communicator sync
+  {
+    const glm::ivec2 test_shape{128, 128};
+    const glm::ivec2 test_tile{32, 32};
+    const int        test_halo = 8;
+    const int        smooth_ir = 16;
+
+    Array base_arr = noise_fbm(NoiseType::PERLIN, test_shape, {4.f, 4.f}, 42);
+
+    // Reference: Monolithic smooth
+    Array ref_arr = base_arr;
+    smooth_cpulse(ref_arr, smooth_ir);
+
+    // Mode A: Post-sync via VirtualArray::sync_overlap_buffers()
+    VirtualArray va_post(test_shape, test_tile, test_halo, StorageMode::VA_RAM);
+    ComputeMode  cm_dist{.mode = ForEachMode::VA_DISTRIBUTED};
+    va_post.from_array(base_arr, cm_dist);
+
+    for_each_tile(
+        va_post,
+        [&](Array &tile, const TileRegion &)
+        { smooth_cpulse(tile, smooth_ir); },
+        cm_dist);
+    va_post.sync_overlap_buffers();
+    Array res_post = va_post.to_array(cm_dist);
+
+    // Mode B: Communicator sync inside for_each_tile()
+    VirtualArray va_comm(test_shape, test_tile, test_halo, StorageMode::VA_RAM);
+    va_comm.from_array(base_arr, cm_dist);
+
+    for_each_tile(
+        va_comm,
+        [&](Array &tile, const TileRegion &region, ICommunicator &comm)
+        { gpu::smooth_cpulse(tile, smooth_ir, nullptr, region, comm); },
+        cm_dist);
+    Array res_comm = va_comm.to_array(cm_dist);
+
+    // Both should significantly match each other across boundary regions
+    Array diff_post_comm = hmap::abs(res_post - res_comm);
+    EXPECT_LT(diff_post_comm.mean(), 0.01f);
+
+    // Both should be close to monolithic reference
+    Array diff_comm_ref = hmap::abs(res_comm - ref_arr);
+    EXPECT_LT(diff_comm_ref.mean(), 0.05f);
+  }
+
+  // 7. Test remap and normalize_and_clip with communicator
+  {
+    Array full_test(shape);
+    for (int j = 0; j < shape.y; ++j)
+    {
+      for (int i = 0; i < shape.x; ++i)
+      {
+        full_test(i, j) = static_cast<float>(i + 2 * j);
+      }
+    }
+
+    // Monolithic reference results
+    Array ref_remap = full_test;
+    remap(ref_remap, 0.f, 1.f);
+
+    Array ref_norm = full_test;
+    normalize_and_clip(ref_norm, 2.0f);
+
+    // Distributed test via VirtualArray
+    VirtualArray va_remap(shape, tile_shape, 0, StorageMode::VA_RAM);
+    ComputeMode  cm_dist{.mode = ForEachMode::VA_DISTRIBUTED};
+    va_remap.from_array(full_test, cm_dist);
+
+    for_each_tile(
+        va_remap,
+        [](Array &tile, const TileRegion &, ICommunicator &comm)
+        { remap(tile, 0.f, 1.f, comm); },
+        cm_dist);
+
+    Array res_remap = va_remap.to_array(cm_dist);
+    Array diff_remap = hmap::abs(res_remap - ref_remap);
+    EXPECT_LT(diff_remap.max(), 1e-5f);
+
+    VirtualArray va_norm(shape, tile_shape, 0, StorageMode::VA_RAM);
+    va_norm.from_array(full_test, cm_dist);
+
+    for_each_tile(
+        va_norm,
+        [](Array &tile, const TileRegion &, ICommunicator &comm)
+        { normalize_and_clip(tile, 2.0f, comm); },
+        cm_dist);
+
+    Array res_norm = va_norm.to_array(cm_dist);
+    Array diff_norm = hmap::abs(res_norm - ref_norm);
+    EXPECT_LT(diff_norm.max(), 1e-4f);
+  }
+}
+
+TEST(VirtualArrayTest, StorageClonePersistenceAndDeepCopy)
+{
+  glm::ivec2 shape{32, 32};
+  glm::ivec2 tile_shape{16, 16};
+  int        halo = 2;
+
+  for (auto mode :
+       {StorageMode::VA_DISK_LRU_STREAM, StorageMode::VA_DISK_LRU_FULL})
+  {
+    VirtualArray va(shape, tile_shape, halo, mode);
+    ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
+    va.fill(42.5f, cm);
+
+    // Deep clone
+    auto cloned = va.clone(cm, true);
+    EXPECT_FLOAT_EQ(cloned->min(cm), 42.5f);
+    EXPECT_FLOAT_EQ(cloned->max(cm), 42.5f);
+
+    // Modify original
+    va.fill(10.0f, cm);
+    EXPECT_FLOAT_EQ(va.min(cm), 10.0f);
+
+    // Cloned must retain its own copy
+    EXPECT_FLOAT_EQ(cloned->min(cm), 42.5f);
+  }
+}
+
+TEST(VirtualArrayTest, SchedulerCooperativeExceptionPropagation)
+{
+  glm::ivec2   shape{32, 32};
+  glm::ivec2   tile_shape{16, 16};
+  VirtualArray va(shape, tile_shape, 2, StorageMode::VA_DISK_LRU_STREAM);
+  ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
+
+  // One tile throws an exception inside collective operation
+  auto faulty_lambda =
+      [](Array &, const TileRegion &region, ICommunicator &comm)
+  {
+    if (region.key.tx == 1 && region.key.ty == 1)
+    {
+      throw std::runtime_error("intentional error on tile 1,1");
+    }
+    comm.barrier();
+  };
+
+  EXPECT_THROW(for_each_tile(va, faulty_lambda, cm), std::runtime_error);
 }

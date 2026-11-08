@@ -242,6 +242,12 @@ float VirtualArray::get(int global_i, int global_j) const
 
 glm::ivec2 VirtualArray::get_max_tiles() const
 {
+  if (this->tile_shape.x <= 0 || this->tile_shape.y <= 0 ||
+      this->shape.x <= 0 || this->shape.y <= 0)
+  {
+    return {0, 0};
+  }
+
   int nx = ceil_div(this->shape.x, this->tile_shape.x);
   int ny = ceil_div(this->shape.y, this->tile_shape.y);
 
@@ -341,17 +347,7 @@ glm::ivec2 VirtualArray::local_indices(const TileRegion &region,
                                        int               global_i,
                                        int               global_j) const
 {
-  // tile indices
-  int tx = int(global_i / this->tile_shape.x);
-  int ty = int(global_j / this->tile_shape.y);
-
-  // shift from global to local
-  int di = tx * this->tile_shape.x - region.halo.x;
-  int dj = ty * this->tile_shape.y - region.halo.z;
-
-  glm::ivec2 local = {global_i - di, global_j - dj};
-
-  return local;
+  return region.global_to_local(global_i, global_j);
 }
 
 void VirtualArray::set(int global_i, int global_j, float v)
@@ -385,8 +381,11 @@ TileRegion VirtualArray::tile_region_from_tile_coords(int tile_x,
   // add halo
   glm::ivec4 halo4;
 
-  int tx_max = ceil_div(this->shape.x, this->tile_shape.x) - 1;
-  int ty_max = ceil_div(this->shape.y, this->tile_shape.y) - 1;
+  int nx = ceil_div(this->shape.x, this->tile_shape.x);
+  int ny = ceil_div(this->shape.y, this->tile_shape.y);
+
+  int tx_max = nx - 1;
+  int ty_max = ny - 1;
 
   halo4 = {(tile_x == 0) ? 0 : this->halo,
            (tile_x == tx_max) ? 0 : this->halo,
@@ -411,7 +410,10 @@ TileRegion VirtualArray::tile_region_from_tile_coords(int tile_x,
   return TileRegion(key,
                     glm::vec4(fx1, fx2, fy1, fy2),
                     glm::ivec2(w + halo4.x + halo4.y, h + halo4.z + halo4.w),
-                    halo4);
+                    halo4,
+                    this->shape,
+                    this->tile_shape,
+                    glm::ivec2(nx, ny));
 }
 
 glm::vec2 VirtualArray::tile_region_global_position(
@@ -427,9 +429,7 @@ glm::vec2 VirtualArray::tile_region_global_position(
 glm::ivec2 VirtualArray::tile_region_global_indices(
     const TileRegion &region) const
 {
-  int di = region.key.tx * this->tile_shape.x - region.halo.x;
-  int dj = region.key.ty * this->tile_shape.y - region.halo.z;
-  return {di, dj};
+  return region.global_offset();
 }
 
 Array VirtualArray::to_array(const glm::ivec2  &array_shape,

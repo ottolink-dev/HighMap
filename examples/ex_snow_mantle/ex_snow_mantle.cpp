@@ -22,16 +22,17 @@ int main(void)
                                                  0.45f,    // snowline
                                                  0.10f,    // falloff
                                                  0.80f,    // talus_coverage
-                                                 talus,    // talus_threshold
-                                                 0.00f,    // directional
-                                                 0.00f,    // wind_direction
-                                                 0.30f,    // peaks
-                                                 0.00f,    // melt
-                                                 180.f,    // sun_azimuth
-                                                 45.f,     // sun_zenith
-                                                 100,      // thermal_iterations
-                                                 talus,    // thermal_talus
-                                                 0.50f     // coverage
+                                                 8,
+                                                 talus, // talus_threshold
+                                                 0.00f, // directional
+                                                 0.00f, // wind_direction
+                                                 0.30f, // peaks
+                                                 0.00f, // melt
+                                                 180.f, // sun_azimuth
+                                                 45.f,  // sun_zenith
+                                                 100,   // thermal_iterations
+                                                 talus, // thermal_talus
+                                                 0.50f  // coverage
   );
 
   // Windward vs Leeward directional bias (wind from West -> azimuth 270 deg)
@@ -40,6 +41,7 @@ int main(void)
                                                  0.45f,
                                                  0.10f,
                                                  0.80f,
+                                                 8,
                                                  talus,
                                                  1.00f, // directional bias
                                                  270.f, // wind azimuth
@@ -65,6 +67,7 @@ int main(void)
       0.45f,
       0.10f,
       0.80f,
+      8,
       talus,
       0.40f,
       270.f,

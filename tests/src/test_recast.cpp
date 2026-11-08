@@ -3,6 +3,7 @@
 #include "highmap/filters.hpp"
 #include "highmap/primitives.hpp"
 #include "highmap/range.hpp"
+#include "highmap/virtual_array/virtual_array.hpp"
 
 #include <gtest/gtest.h>
 
@@ -172,4 +173,128 @@ TEST(RecastCliffDirectional, CliffMaskWithVariableAngle)
   EXPECT_EQ(cliff_mask.shape.y, shape.y);
   EXPECT_GE(cliff_mask.min(), 0.f);
   EXPECT_GT(cliff_mask.max(), 0.f);
+}
+
+TEST(RecastCliff, TiledDistributedExecution)
+{
+  const glm::ivec2 shape = {128, 128};
+  const glm::ivec2 tile_shape = {32, 32};
+  const int        halo = 8;
+
+  Array z_arr = noise_fbm(NoiseType::PERLIN, shape, glm::vec2(2.f, 2.f), 42);
+  remap(z_arr);
+
+  float talus = 1.f / shape.x;
+  int   ir = 4;
+  float amplitude = 0.1f;
+  float gain = 2.f;
+  int   iterations = 40;
+  int   sync_interval = 10;
+
+  for (auto [mode, storage_mode] :
+       {std::pair{ForEachMode::VA_SEQUENTIAL, StorageMode::VA_DISK_LRU_STREAM},
+        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU_FULL},
+        std::pair{ForEachMode::VA_DISTRIBUTED,
+                  StorageMode::VA_DISK_LRU_STREAM}})
+  {
+    ComputeMode cm{.mode = mode, .trim_storage = true};
+
+    VirtualArray z(shape, tile_shape, halo, storage_mode);
+    z.from_array(z_arr, cm);
+
+    for_each_tile(
+        z,
+        [&](Array &tile, const TileRegion &region, ICommunicator &comm)
+        {
+          if (mode == ForEachMode::VA_SEQUENTIAL)
+          {
+            EXPECT_LE(z.live_tile_count(), 2u);
+          }
+
+          gpu::recast_cliff(tile,
+                            talus,
+                            ir,
+                            amplitude,
+                            gain,
+                            iterations,
+                            nullptr,
+                            sync_interval,
+                            region,
+                            comm);
+        },
+        cm);
+
+    Array res = z.to_array(cm);
+
+    EXPECT_GT(res.sum(), 0.f);
+    EXPECT_FALSE(assert_almost_equal(res, z_arr, 1e-4f));
+
+    if (mode == ForEachMode::VA_SEQUENTIAL)
+    {
+      EXPECT_LE(z.live_tile_count(), 2u);
+    }
+  }
+}
+
+TEST(RecastCliffDirectional, TiledDistributedExecution)
+{
+  const glm::ivec2 shape = {128, 128};
+  const glm::ivec2 tile_shape = {32, 32};
+  const int        halo = 8;
+
+  Array z_arr = noise_fbm(NoiseType::PERLIN, shape, glm::vec2(2.f, 2.f), 42);
+  remap(z_arr);
+
+  float talus = 1.f / shape.x;
+  int   ir = 4;
+  float amplitude = 0.1f;
+  float angle = 45.f;
+  float gain = 2.f;
+  int   iterations = 40;
+  int   sync_interval = 10;
+
+  for (auto [mode, storage_mode] :
+       {std::pair{ForEachMode::VA_SEQUENTIAL, StorageMode::VA_DISK_LRU_STREAM},
+        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU_FULL},
+        std::pair{ForEachMode::VA_DISTRIBUTED,
+                  StorageMode::VA_DISK_LRU_STREAM}})
+  {
+    ComputeMode cm{.mode = mode, .trim_storage = true};
+
+    VirtualArray z(shape, tile_shape, halo, storage_mode);
+    z.from_array(z_arr, cm);
+
+    for_each_tile(
+        z,
+        [&](Array &tile, const TileRegion &region, ICommunicator &comm)
+        {
+          if (mode == ForEachMode::VA_SEQUENTIAL)
+          {
+            EXPECT_LE(z.live_tile_count(), 2u);
+          }
+
+          gpu::recast_cliff_directional(tile,
+                                        talus,
+                                        ir,
+                                        amplitude,
+                                        angle,
+                                        gain,
+                                        iterations,
+                                        nullptr,
+                                        sync_interval,
+                                        region,
+                                        comm);
+        },
+        cm);
+
+    Array res = z.to_array(cm);
+
+    EXPECT_GT(res.sum(), 0.f);
+    EXPECT_FALSE(assert_almost_equal(res, z_arr, 1e-4f));
+
+    if (mode == ForEachMode::VA_SEQUENTIAL)
+    {
+      EXPECT_LE(z.live_tile_count(), 2u);
+    }
+  }
 }

@@ -81,6 +81,7 @@ All stochastic procedures (noise generators, scattering passes, Monte Carlo simu
 Detailed architectural descriptions of specific subsystems:
 
 - [Scatter Architecture](scatter_field.md): Detailed specification of `ScatterField`, the unified instance model, and specializations `Forest` and `RockField`.
+- [Tiled Communication & Overlap Synchronization](tiled_communication.md): Collective communication interface (`ICommunicator`), sequential cooperative scheduler, and halo buffer synchronization.
 
 ## 5. Investigations and Benchmarks
 

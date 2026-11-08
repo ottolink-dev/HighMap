@@ -41,9 +41,9 @@ float VirtualArray::max(const ComputeMode &cm) const
 
   std::vector<float> max_per_tile(nt.x * nt.y);
 
-  auto lambda = [&max_per_tile, nt](const Array &tile, const TileRegion &region)
+  auto lambda = [&max_per_tile](const Array &tile, const TileRegion &region)
   {
-    int tile_idx = region.key.ty * nt.x + region.key.tx;
+    int tile_idx = region.linear_index();
     max_per_tile[tile_idx] = tile.max();
   };
 
@@ -66,9 +66,9 @@ float VirtualArray::min(const ComputeMode &cm) const
 
   std::vector<float> min_per_tile(nt.x * nt.y);
 
-  auto lambda = [&min_per_tile, nt](const Array &tile, const TileRegion &region)
+  auto lambda = [&min_per_tile](const Array &tile, const TileRegion &region)
   {
-    int tile_idx = region.key.ty * nt.x + region.key.tx;
+    int tile_idx = region.linear_index();
     min_per_tile[tile_idx] = tile.min();
   };
 
@@ -86,10 +86,10 @@ glm::vec2 VirtualArray::range(const ComputeMode &cm) const
   std::vector<float> max_per_tile(nt.x * nt.y);
   std::vector<float> min_per_tile(nt.x * nt.y);
 
-  auto lambda = [&max_per_tile, &min_per_tile, nt](const Array      &tile,
-                                                   const TileRegion &region)
+  auto lambda = [&max_per_tile, &min_per_tile](const Array      &tile,
+                                               const TileRegion &region)
   {
-    int tile_idx = region.key.ty * nt.x + region.key.tx;
+    int tile_idx = region.linear_index();
     max_per_tile[tile_idx] = tile.max();
     min_per_tile[tile_idx] = tile.min();
   };
@@ -123,7 +123,7 @@ glm::vec2 VirtualArray::range_percentile(float              p_low,
 
   auto lambda = [&](const Array &tile, const TileRegion &region)
   {
-    int   tile_idx = region.key.ty * nt.x + region.key.tx;
+    int   tile_idx = region.linear_index();
     auto &hist = hist_per_tile[tile_idx];
 
     // sum over the inner cells only to avoid double count
@@ -208,12 +208,12 @@ float VirtualArray::sum(const ComputeMode &cm) const
 
   std::vector<float> sum_per_tile(nt.x * nt.y);
 
-  auto lambda = [&sum_per_tile, nt](const Array &tile, const TileRegion &region)
+  auto lambda = [&sum_per_tile](const Array &tile, const TileRegion &region)
   {
     // sum over the inner cells only to avoid double count
     const glm::ivec4 &h = region.halo;
     float             sum = 0.f;
-    int               tile_idx = region.key.ty * nt.x + region.key.tx;
+    int               tile_idx = region.linear_index();
 
     for (int j = h.z; j < region.shape.y - h.w; ++j)
       for (int i = h.x; i < region.shape.x - h.y; ++i)
@@ -239,10 +239,9 @@ std::vector<float> VirtualArray::unique_values(const ComputeMode &cm) const
 
   std::vector<std::vector<float>> unique_per_tile(nt.x * nt.y);
 
-  auto lambda =
-      [&unique_per_tile, nt](const Array &tile, const TileRegion &region)
+  auto lambda = [&unique_per_tile](const Array &tile, const TileRegion &region)
   {
-    int tile_idx = region.key.ty * nt.x + region.key.tx;
+    int tile_idx = region.linear_index();
     unique_per_tile[tile_idx] = tile.unique_values();
   };
 

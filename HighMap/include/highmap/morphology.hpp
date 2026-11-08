@@ -21,6 +21,8 @@
 #include "highmap/array.hpp"
 #include "highmap/kernels.hpp"
 #include "highmap/local_metrics.hpp"
+#include "highmap/virtual_array/communicator.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap
 {
@@ -189,8 +191,10 @@ Array dilation_expand_min_value_border_only(const Array &array);
  *
  * See unit tests: @ref test_distance_transform.cpp
  */
-Array distance_transform(const Array &array,
-                         bool         return_squared_distance = false);
+Array distance_transform(const Array      &array,
+                         bool              return_squared_distance = false,
+                         const TileRegion &region = TileRegion::dummy(),
+                         ICommunicator    &comm = SingleArrayComm::instance());
 
 /**
  * @brief Calculates an approximate distance transform of the input array.

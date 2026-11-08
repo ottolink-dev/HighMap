@@ -26,7 +26,7 @@ int main()
   const size_t     halo = 32;
 
   const auto foreach_mode = hmap::ForEachMode::VA_DISTRIBUTED;
-  const auto storage_mode = hmap::StorageMode::VA_DISK_LRU;
+  const auto storage_mode = hmap::StorageMode::VA_DISK_LRU_FULL;
 
   const hmap::ComputeMode cm{
       .mode = foreach_mode,

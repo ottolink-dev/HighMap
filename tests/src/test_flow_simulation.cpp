@@ -436,3 +436,153 @@ TEST(FlowSimulation, RainMapOfOnesEqualsUniformRain)
   EXPECT_GT(d_map.sum(), 0.f);
   EXPECT_EQ(d_map.vector, d_uniform.vector);
 }
+
+TEST(FlowSimulation, TiledDistributedExecution)
+{
+  gpu::init_opencl();
+
+  const glm::ivec2 shape = {128, 128};
+  const glm::ivec2 tile_shape = {32, 32};
+  const int        halo = 8;
+
+  Array z_arr = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
+  remap(z_arr);
+
+  Array depth_map_arr(shape, 1.f);
+
+  for (auto [mode, storage_mode] :
+       {std::pair{ForEachMode::VA_SEQUENTIAL, StorageMode::VA_DISK_LRU_STREAM},
+        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU_FULL},
+        std::pair{ForEachMode::VA_DISTRIBUTED,
+                  StorageMode::VA_DISK_LRU_STREAM}})
+  {
+    ComputeMode cm{.mode = mode, .trim_storage = true};
+
+    VirtualArray z(shape, tile_shape, halo, storage_mode);
+    VirtualArray depth_map(shape, tile_shape, halo, storage_mode);
+    VirtualArray water_out(shape, tile_shape, halo, storage_mode);
+
+    z.from_array(z_arr, cm);
+    depth_map.from_array(depth_map_arr, cm);
+
+    for_each_tile(
+        {&z, &depth_map},
+        {&water_out},
+        [&](std::vector<const Array *> p_arrays_in,
+            std::vector<Array *>       p_arrays_out,
+            const TileRegion          &region,
+            ICommunicator             &comm)
+        {
+          auto [pa_z, pa_depth] = unpack<2>(p_arrays_in);
+          auto [pa_water] = unpack<1>(p_arrays_out);
+
+          if (mode == ForEachMode::VA_SEQUENTIAL)
+          {
+            EXPECT_LE(z.live_tile_count(), 2u);
+            EXPECT_LE(water_out.live_tile_count(), 2u);
+          }
+
+          *pa_water = gpu::flow_simulation(*pa_z,
+                                           0.05f,
+                                           *pa_depth,
+                                           40,
+                                           0.5f,
+                                           true,
+                                           0.01f,
+                                           0.f,
+                                           nullptr,
+                                           0.f,
+                                           0.f,
+                                           false,
+                                           nullptr,
+                                           nullptr,
+                                           10,
+                                           region,
+                                           comm);
+        },
+        cm);
+
+    Array res = water_out.to_array(cm);
+
+    EXPECT_GT(res.sum(), 0.f);
+    EXPECT_GE(res.min(), 0.f);
+
+    if (mode == ForEachMode::VA_SEQUENTIAL)
+    {
+      EXPECT_LE(water_out.live_tile_count(), 2u);
+    }
+  }
+}
+
+TEST(FlowSimulationViscous, TiledDistributedExecution)
+{
+  gpu::init_opencl();
+
+  const glm::ivec2 shape = {128, 128};
+  const glm::ivec2 tile_shape = {32, 32};
+  const int        halo = 8;
+
+  Array z_arr = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
+  remap(z_arr);
+
+  Array depth_map_arr(shape, 1.f);
+
+  for (auto [mode, storage_mode] :
+       {std::pair{ForEachMode::VA_SEQUENTIAL, StorageMode::VA_DISK_LRU_STREAM},
+        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU_FULL},
+        std::pair{ForEachMode::VA_DISTRIBUTED,
+                  StorageMode::VA_DISK_LRU_STREAM}})
+  {
+    ComputeMode cm{.mode = mode, .trim_storage = true};
+
+    VirtualArray z(shape, tile_shape, halo, storage_mode);
+    VirtualArray depth_map(shape, tile_shape, halo, storage_mode);
+    VirtualArray water_out(shape, tile_shape, halo, storage_mode);
+
+    z.from_array(z_arr, cm);
+    depth_map.from_array(depth_map_arr, cm);
+
+    for_each_tile(
+        {&z, &depth_map},
+        {&water_out},
+        [&](std::vector<const Array *> p_arrays_in,
+            std::vector<Array *>       p_arrays_out,
+            const TileRegion          &region,
+            ICommunicator             &comm)
+        {
+          auto [pa_z, pa_depth] = unpack<2>(p_arrays_in);
+          auto [pa_water] = unpack<1>(p_arrays_out);
+
+          if (mode == ForEachMode::VA_SEQUENTIAL)
+          {
+            EXPECT_LE(z.live_tile_count(), 2u);
+            EXPECT_LE(water_out.live_tile_count(), 2u);
+          }
+
+          *pa_water = gpu::flow_simulation_viscous(*pa_z,
+                                                   0.05f,
+                                                   *pa_depth,
+                                                   40,
+                                                   0.1f,
+                                                   0.f,
+                                                   1.f,
+                                                   2.5f,
+                                                   0.f,
+                                                   false,
+                                                   10,
+                                                   region,
+                                                   comm);
+        },
+        cm);
+
+    Array res = water_out.to_array(cm);
+
+    EXPECT_GT(res.sum(), 0.f);
+    EXPECT_GE(res.min(), 0.f);
+
+    if (mode == ForEachMode::VA_SEQUENTIAL)
+    {
+      EXPECT_LE(water_out.live_tile_count(), 2u);
+    }
+  }
+}

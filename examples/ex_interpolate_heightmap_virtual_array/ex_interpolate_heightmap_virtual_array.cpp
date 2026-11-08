@@ -8,7 +8,7 @@ int main(void)
 
   // --- virtual array params
 
-  auto              storage_mode = hmap::StorageMode::VA_DISK_LRU;
+  auto              storage_mode = hmap::StorageMode::VA_DISK_LRU_FULL;
   hmap::ComputeMode cm = {.mode = hmap::ForEachMode::VA_DISTRIBUTED,
                           .trim_storage = false};
   glm::vec4 bbox(0.f, 1.0f, 0.f, 1.f); // local, within the virtual array...

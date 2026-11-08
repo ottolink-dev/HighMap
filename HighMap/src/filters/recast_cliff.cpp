@@ -18,17 +18,22 @@
 #include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/range.hpp"
+#include "highmap/virtual_array/communicator.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap::gpu
 {
 
-void recast_cliff(Array &array,
-                  float  talus,
-                  int    ir,
-                  float  amplitude,
-                  float  gain,
-                  int    iterations,
-                  Array *p_cliff_mask)
+void recast_cliff(Array            &array,
+                  float             talus,
+                  int               ir,
+                  float             amplitude,
+                  float             gain,
+                  int               iterations,
+                  Array            *p_cliff_mask,
+                  int               sync_interval,
+                  const TileRegion &region,
+                  ICommunicator    &comm)
 {
   if (!validate_non_empty(array)) return;
 
@@ -73,61 +78,95 @@ void recast_cliff(Array &array,
 
   Array array_out = array;
 
-  auto run = clwrapper::Run("blend_poisson_red_black");
-  run.bind_buffer<float>("array1", array_out.vector);
-  run.bind_buffer<float>("delta2", rho.vector);
-  gpu::helper_bind_optional_buffer(run, "mask", nullptr);
-  run.bind_arguments(nx, ny, 0, omega, 0);
+  const int batch_size = (comm.size() > 1 && sync_interval > 0) ? sync_interval
+                                                                : iterations;
 
-  run.write_buffer("array1");
-  run.write_buffer("delta2");
-
-  for (int it = 0; it < iterations; it++)
+  for (int it_start = 0; it_start < iterations; it_start += batch_size)
   {
-    // red cells
-    run.set_argument(5, 0);
-    run.execute({nx, ny});
+    const int it_end = std::min(iterations, it_start + batch_size);
 
-    // black cells
-    run.set_argument(5, 1);
-    run.execute({nx, ny});
+    {
+      auto run = clwrapper::Run("blend_poisson_red_black");
+
+      run.bind_buffer<float>("array1", array_out.vector);
+      run.bind_buffer<float>("delta2", rho.vector);
+      gpu::helper_bind_optional_buffer(run, "mask", nullptr);
+      run.bind_arguments(nx, ny, 0, omega, 0);
+
+      run.write_buffer("array1");
+      run.write_buffer("delta2");
+
+      for (int it = it_start; it < it_end; it++)
+      {
+        // red cells
+        run.set_argument(5, 0);
+        run.execute({nx, ny});
+
+        // black cells
+        run.set_argument(5, 1);
+        run.execute({nx, ny});
+      }
+
+      run.finish();
+      run.read_buffer("array1");
+    }
+
+    if (it_end < iterations)
+    {
+      comm.sync_overlap_buffers(array_out, region, SyncOperation::SmoothBlend);
+    }
   }
 
-  run.read_buffer("array1");
+  comm.sync_overlap_buffers(array_out, region, SyncOperation::SmoothBlend);
+
   array = std::move(array_out);
 }
 
-void recast_cliff(Array       &array,
-                  float        talus,
-                  int          ir,
-                  float        amplitude,
-                  const Array *p_mask,
-                  float        gain,
-                  int          iterations,
-                  Array       *p_cliff_mask)
+void recast_cliff(Array            &array,
+                  float             talus,
+                  int               ir,
+                  float             amplitude,
+                  const Array      *p_mask,
+                  float             gain,
+                  int               iterations,
+                  Array            *p_cliff_mask,
+                  int               sync_interval,
+                  const TileRegion &region,
+                  ICommunicator    &comm)
 {
   if (!validate_non_empty(array)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;
 
-  apply_with_mask(
-      array,
-      p_mask,
-      [&](Array &a)
-      {
-        recast_cliff(a, talus, ir, amplitude, gain, iterations, p_cliff_mask);
-      });
+  apply_with_mask(array,
+                  p_mask,
+                  [&](Array &a)
+                  {
+                    recast_cliff(a,
+                                 talus,
+                                 ir,
+                                 amplitude,
+                                 gain,
+                                 iterations,
+                                 p_cliff_mask,
+                                 sync_interval,
+                                 region,
+                                 comm);
+                  });
 
   if (p_mask && p_cliff_mask) *p_cliff_mask *= *p_mask;
 }
 
-void recast_cliff_directional(Array &array,
-                              float  talus,
-                              int    ir,
-                              float  amplitude,
-                              float  angle,
-                              float  gain,
-                              int    iterations,
-                              Array *p_cliff_mask)
+void recast_cliff_directional(Array            &array,
+                              float             talus,
+                              int               ir,
+                              float             amplitude,
+                              float             angle,
+                              float             gain,
+                              int               iterations,
+                              Array            *p_cliff_mask,
+                              int               sync_interval,
+                              const TileRegion &region,
+                              ICommunicator    &comm)
 {
   if (!validate_non_empty(array)) return;
 
@@ -140,18 +179,24 @@ void recast_cliff_directional(Array &array,
                            nullptr,
                            gain,
                            iterations,
-                           p_cliff_mask);
+                           p_cliff_mask,
+                           sync_interval,
+                           region,
+                           comm);
 }
 
-void recast_cliff_directional(Array       &array,
-                              float        talus,
-                              int          ir,
-                              float        amplitude,
-                              float        angle,
-                              const Array *p_mask,
-                              float        gain,
-                              int          iterations,
-                              Array       *p_cliff_mask)
+void recast_cliff_directional(Array            &array,
+                              float             talus,
+                              int               ir,
+                              float             amplitude,
+                              float             angle,
+                              const Array      *p_mask,
+                              float             gain,
+                              int               iterations,
+                              Array            *p_cliff_mask,
+                              int               sync_interval,
+                              const TileRegion &region,
+                              ICommunicator    &comm)
 {
   if (!validate_non_empty(array)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;
@@ -165,17 +210,23 @@ void recast_cliff_directional(Array       &array,
                            p_mask,
                            gain,
                            iterations,
-                           p_cliff_mask);
+                           p_cliff_mask,
+                           sync_interval,
+                           region,
+                           comm);
 }
 
-void recast_cliff_directional(Array       &array,
-                              float        talus,
-                              int          ir,
-                              float        amplitude,
-                              const Array &angle,
-                              float        gain,
-                              int          iterations,
-                              Array       *p_cliff_mask)
+void recast_cliff_directional(Array            &array,
+                              float             talus,
+                              int               ir,
+                              float             amplitude,
+                              const Array      &angle,
+                              float             gain,
+                              int               iterations,
+                              Array            *p_cliff_mask,
+                              int               sync_interval,
+                              const TileRegion &region,
+                              ICommunicator    &comm)
 {
   recast_cliff_directional(array,
                            talus,
@@ -185,18 +236,24 @@ void recast_cliff_directional(Array       &array,
                            nullptr,
                            gain,
                            iterations,
-                           p_cliff_mask);
+                           p_cliff_mask,
+                           sync_interval,
+                           region,
+                           comm);
 }
 
-void recast_cliff_directional(Array       &array,
-                              float        talus,
-                              int          ir,
-                              float        amplitude,
-                              const Array &angle,
-                              const Array *p_mask,
-                              float        gain,
-                              int          iterations,
-                              Array       *p_cliff_mask)
+void recast_cliff_directional(Array            &array,
+                              float             talus,
+                              int               ir,
+                              float             amplitude,
+                              const Array      &angle,
+                              const Array      *p_mask,
+                              float             gain,
+                              int               iterations,
+                              Array            *p_cliff_mask,
+                              int               sync_interval,
+                              const TileRegion &region,
+                              ICommunicator    &comm)
 {
   if (!validate_non_empty(array) || !validate_same_shape(array, angle)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;
@@ -215,7 +272,10 @@ void recast_cliff_directional(Array       &array,
                                                nullptr,
                                                gain,
                                                iterations,
-                                               p_cliff_mask);
+                                               p_cliff_mask,
+                                               sync_interval,
+                                               region,
+                                               comm);
                     });
 
     if (p_cliff_mask) *p_cliff_mask *= *p_mask;
@@ -273,27 +333,47 @@ void recast_cliff_directional(Array       &array,
 
   Array array_out = array;
 
-  auto run = clwrapper::Run("blend_poisson_red_black");
-  run.bind_buffer<float>("array1", array_out.vector);
-  run.bind_buffer<float>("delta2", rho.vector);
-  gpu::helper_bind_optional_buffer(run, "mask", nullptr);
-  run.bind_arguments(nx, ny, 0, omega, 0);
+  const int batch_size = (comm.size() > 1 && sync_interval > 0) ? sync_interval
+                                                                : iterations;
 
-  run.write_buffer("array1");
-  run.write_buffer("delta2");
-
-  for (int it = 0; it < iterations; it++)
+  for (int it_start = 0; it_start < iterations; it_start += batch_size)
   {
-    // red cells
-    run.set_argument(5, 0);
-    run.execute({nx, ny});
+    const int it_end = std::min(iterations, it_start + batch_size);
 
-    // black cells
-    run.set_argument(5, 1);
-    run.execute({nx, ny});
+    {
+      auto run = clwrapper::Run("blend_poisson_red_black");
+
+      run.bind_buffer<float>("array1", array_out.vector);
+      run.bind_buffer<float>("delta2", rho.vector);
+      gpu::helper_bind_optional_buffer(run, "mask", nullptr);
+      run.bind_arguments(nx, ny, 0, omega, 0);
+
+      run.write_buffer("array1");
+      run.write_buffer("delta2");
+
+      for (int it = it_start; it < it_end; it++)
+      {
+        // red cells
+        run.set_argument(5, 0);
+        run.execute({nx, ny});
+
+        // black cells
+        run.set_argument(5, 1);
+        run.execute({nx, ny});
+      }
+
+      run.finish();
+      run.read_buffer("array1");
+    }
+
+    if (it_end < iterations)
+    {
+      comm.sync_overlap_buffers(array_out, region, SyncOperation::SmoothBlend);
+    }
   }
 
-  run.read_buffer("array1");
+  comm.sync_overlap_buffers(array_out, region, SyncOperation::SmoothBlend);
+
   array = std::move(array_out);
 }
 

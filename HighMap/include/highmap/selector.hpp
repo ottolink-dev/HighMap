@@ -14,6 +14,8 @@
 
 #include "highmap/array.hpp"
 #include "highmap/range.hpp"
+#include "highmap/virtual_array/communicator.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap
 {
@@ -485,7 +487,11 @@ Array select_valley(const Array &z, int ir, bool ridge_select = false);
  * @return               Array         Smoothed mask with smooth falloff of the
  *                       1s.
  */
-Array smooth_mask_preserve_frontier(const Array &mask, float feather_width);
+Array smooth_mask_preserve_frontier(
+    const Array      &mask,
+    float             feather_width,
+    const TileRegion &region = TileRegion::dummy(),
+    ICommunicator    &comm = SingleArrayComm::instance());
 
 } // namespace hmap
 
