@@ -39,6 +39,11 @@ Array &RamTileStorage::get_tile(const TileRegion &region)
   return inserted_it->second;
 }
 
+std::string RamTileStorage::info_string() const
+{
+  return "RAM";
+};
+
 size_t RamTileStorage::max_live_tiles() const
 {
   return std::numeric_limits<size_t>::max();

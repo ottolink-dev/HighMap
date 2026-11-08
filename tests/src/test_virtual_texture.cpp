@@ -150,7 +150,7 @@ TEST(VirtualTextureTest, MixNormalMapThreeChannels)
 TEST(VirtualTextureTest, MemoryFootprintAndTrim)
 {
   glm::ivec2     shape{32, 32};
-  VirtualTexture tex(shape, {16, 16}, 2, 4, StorageMode::VA_DISK_LRU_MIN);
+  VirtualTexture tex(shape, {16, 16}, 2, 4, StorageMode::VA_DISK_LRU_FULL);
   ComputeMode    cm{.mode = ForEachMode::VA_SEQUENTIAL};
 
   tex.fill(1.0f, cm);

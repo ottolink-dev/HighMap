@@ -68,4 +68,3 @@ void depression_filling_priority_flood(
     ICommunicator    &comm = SingleArrayComm::instance());
 
 } // namespace hmap
-

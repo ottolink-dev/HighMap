@@ -111,9 +111,10 @@ TEST(SnowSimulation, TiledMinStorageLruMin)
   Array s_dist_ram;
 
   for (auto [mode, storage_mode] :
-       {std::pair{ForEachMode::VA_SEQUENTIAL, StorageMode::VA_DISK_LRU_MIN},
-        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU},
-        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU_MIN}})
+       {std::pair{ForEachMode::VA_SEQUENTIAL, StorageMode::VA_DISK_LRU_STREAM},
+        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU_FULL},
+        std::pair{ForEachMode::VA_DISTRIBUTED,
+                  StorageMode::VA_DISK_LRU_STREAM}})
   {
     ComputeMode cm{.mode = mode, .trim_storage = true};
 
@@ -206,8 +207,8 @@ TEST(SnowSimulation, TiledMinStorageLruMin)
     }
   }
 
-  // Verify that cooperative VA_SEQUENTIAL + VA_DISK_LRU_MIN produces the exact
-  // same multi-pass synchronized result as VA_DISTRIBUTED + VA_RAM
+  // Verify that cooperative VA_SEQUENTIAL + VA_DISK_LRU_STREAM produces the
+  // exact same multi-pass synchronized result as VA_DISTRIBUTED + VA_RAM
   Array diff = abs(s_seq - s_dist_ram);
   EXPECT_LT(diff.max(), 1e-4f);
 }

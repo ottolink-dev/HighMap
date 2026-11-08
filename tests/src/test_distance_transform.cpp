@@ -304,14 +304,14 @@ TEST(DistanceTransform, TiledWithCommunicator)
   }
 
   // Test 3: Single seed in bottom-right tile (1, 1) propagating West and North
-  // in VA_SEQUENTIAL mode with VA_DISK_LRU_MIN (2 live tiles)
+  // in VA_SEQUENTIAL mode with VA_DISK_LRU_STREAM (2 live tiles)
   {
     Array mask(shape, 0.f);
     mask(100, 100) = 1.f;
 
     Array ref = distance_transform(mask);
 
-    VirtualArray va(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
+    VirtualArray va(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_STREAM);
     ComputeMode  cm_seq{.mode = ForEachMode::VA_SEQUENTIAL,
                         .trim_storage = true};
     va.from_array(mask, cm_seq);

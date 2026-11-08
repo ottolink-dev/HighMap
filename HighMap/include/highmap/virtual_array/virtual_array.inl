@@ -76,12 +76,12 @@ void for_each_tile(const TileAccess &access, Func &&func, const ComputeMode &cm)
     effective_mode = ForEachMode::VA_SEQUENTIAL;
   }
 
-  constexpr bool uses_comm = std::is_invocable_v<
-      Func,
-      const std::vector<const Array *> &,
-      std::vector<Array *> &,
-      const TileRegion &,
-      ICommunicator &>;
+  constexpr bool uses_comm =
+      std::is_invocable_v<Func,
+                          const std::vector<const Array *> &,
+                          std::vector<Array *> &,
+                          const TileRegion &,
+                          ICommunicator &>;
 
   if (effective_mode == ForEachMode::VA_SEQUENTIAL && uses_comm && n_tiles > 1)
   {
@@ -103,12 +103,10 @@ void for_each_tile(const TileAccess &access, Func &&func, const ComputeMode &cm)
     for (size_t r = 0; r < n_tiles; ++r)
     {
       for (size_t i = 0; i < access.inputs.size(); ++i)
-        if (access.inputs[i])
-          in_tiles_per_rank[r][i] = &in_tiles_val[r][i];
+        if (access.inputs[i]) in_tiles_per_rank[r][i] = &in_tiles_val[r][i];
 
       for (size_t i = 0; i < access.outputs.size(); ++i)
-        if (access.outputs[i])
-          out_tiles_per_rank[r][i] = &out_tiles_val[r][i];
+        if (access.outputs[i]) out_tiles_per_rank[r][i] = &out_tiles_val[r][i];
     }
 
     auto acquire_rank = [&](int rank, const TileRegion &region)
@@ -161,15 +159,10 @@ void for_each_tile(const TileAccess &access, Func &&func, const ComputeMode &cm)
       }
     };
 
-    auto on_suspend = [&](int rank)
-    {
-      release_rank(rank);
-    };
+    auto on_suspend = [&](int rank) { release_rank(rank); };
 
     auto on_resume = [&](int rank)
-    {
-      acquire_rank(rank, regions_per_rank[rank]);
-    };
+    { acquire_rank(rank, regions_per_rank[rank]); };
 
     SequentialTileComm comm(*ref_va, on_suspend, on_resume);
 
@@ -182,10 +175,7 @@ void for_each_tile(const TileAccess &access, Func &&func, const ComputeMode &cm)
 
           if constexpr (uses_comm)
           {
-            func(in_tiles_per_rank[rank],
-                 out_tiles_per_rank[rank],
-                 region,
-                 c);
+            func(in_tiles_per_rank[rank], out_tiles_per_rank[rank], region, c);
           }
 
           release_rank(rank);
@@ -268,11 +258,9 @@ void for_each_tile(const VirtualArray &va, Func &&func, const ComputeMode &cm)
   TileAccess acc;
   acc.outputs = {&mutable_va};
 
-  constexpr bool uses_comm = std::is_invocable_v<Func,
-                                                 Array &,
-                                                 const TileRegion &,
-                                                 ICommunicator &> ||
-                             std::is_invocable_v<Func, Array &, ICommunicator &>;
+  constexpr bool uses_comm =
+      std::is_invocable_v<Func, Array &, const TileRegion &, ICommunicator &> ||
+      std::is_invocable_v<Func, Array &, ICommunicator &>;
 
   if constexpr (uses_comm)
   {
@@ -303,10 +291,7 @@ void for_each_tile(const VirtualArray &va, Func &&func, const ComputeMode &cm)
         acc,
         [&](const std::vector<const Array *> &,
             std::vector<Array *> &out,
-            const TileRegion     &region)
-        {
-          func(*out[0], region);
-        },
+            const TileRegion     &region) { func(*out[0], region); },
         cm);
   }
 }
@@ -318,11 +303,9 @@ void for_each_tile(VirtualArray &va, Func &&func, const ComputeMode &cm)
   TileAccess acc;
   acc.outputs = {&va};
 
-  constexpr bool uses_comm = std::is_invocable_v<Func,
-                                                 Array &,
-                                                 const TileRegion &,
-                                                 ICommunicator &> ||
-                             std::is_invocable_v<Func, Array &, ICommunicator &>;
+  constexpr bool uses_comm =
+      std::is_invocable_v<Func, Array &, const TileRegion &, ICommunicator &> ||
+      std::is_invocable_v<Func, Array &, ICommunicator &>;
 
   if constexpr (uses_comm)
   {
@@ -353,10 +336,7 @@ void for_each_tile(VirtualArray &va, Func &&func, const ComputeMode &cm)
         acc,
         [&](const std::vector<const Array *> &,
             std::vector<Array *> &out,
-            const TileRegion     &region)
-        {
-          func(*out[0], region);
-        },
+            const TileRegion     &region) { func(*out[0], region); },
         cm);
   }
 }
@@ -371,12 +351,12 @@ void for_each_tile(const std::vector<const VirtualArray *> &inputs,
   acc.inputs = inputs;
   acc.outputs = outputs;
 
-  constexpr bool uses_comm = std::is_invocable_v<
-      Func,
-      const std::vector<const Array *> &,
-      std::vector<Array *> &,
-      const TileRegion &,
-      ICommunicator &>;
+  constexpr bool uses_comm =
+      std::is_invocable_v<Func,
+                          const std::vector<const Array *> &,
+                          std::vector<Array *> &,
+                          const TileRegion &,
+                          ICommunicator &>;
 
   if constexpr (uses_comm)
   {
@@ -385,10 +365,7 @@ void for_each_tile(const std::vector<const VirtualArray *> &inputs,
         [&](const std::vector<const Array *> &in,
             std::vector<Array *>             &out,
             const TileRegion                 &region,
-            ICommunicator                    &comm)
-        {
-          func(in, out, region, comm);
-        },
+            ICommunicator &comm) { func(in, out, region, comm); },
         cm);
   }
   else
@@ -397,10 +374,7 @@ void for_each_tile(const std::vector<const VirtualArray *> &inputs,
         acc,
         [&](const std::vector<const Array *> &in,
             std::vector<Array *>             &out,
-            const TileRegion                 &region)
-        {
-          func(in, out, region);
-        },
+            const TileRegion &region) { func(in, out, region); },
         cm);
   }
 }
@@ -491,10 +465,10 @@ void single_array_compute(const TileAccess &access, Func &&func, int stride = 1)
     if (va && va->storage && va->storage->max_live_tiles() < n_tiles)
       low_mem_storage = true;
 
-  const ComputeMode cm_local = {
-      .mode = low_mem_storage ? ForEachMode::VA_SEQUENTIAL
-                              : ForEachMode::VA_DISTRIBUTED,
-      .trim_storage = false};
+  const ComputeMode cm_local = {.mode = low_mem_storage
+                                            ? ForEachMode::VA_SEQUENTIAL
+                                            : ForEachMode::VA_DISTRIBUTED,
+                                .trim_storage = false};
 
   glm::ivec2 shape_wrk = ref_va->shape;
 

@@ -107,18 +107,16 @@ public:
 /**
  * @brief Communicator for single-threaded sequential tile traversal. Supports
  * cooperative fiber suspension (Option A2) so iterative collective calls
- * (sync_overlap_buffers, all_reduce, all_union, barrier) synchronize across
- * all tiles using a disk-backed temporary VirtualArray (VA_DISK_LRU_MIN) with
- * at most 2 live tiles in memory.
+ * (sync_overlap_buffers, all_reduce, all_union, barrier) synchronize across all
+ * tiles using a disk-backed temporary VirtualArray (VA_DISK_LRU_STREAM).
  */
 class SequentialTileComm final : public ICommunicator
 {
 public:
   explicit SequentialTileComm(int total_tiles, int halo = 0);
-  SequentialTileComm(
-      const VirtualArray         &ref_va,
-      const std::function<void(int)> &on_suspend_rank = nullptr,
-      const std::function<void(int)> &on_resume_rank = nullptr);
+  SequentialTileComm(const VirtualArray             &ref_va,
+                     const std::function<void(int)> &on_suspend_rank = nullptr,
+                     const std::function<void(int)> &on_resume_rank = nullptr);
 
   float              all_reduce(float local_val, ReduceOp op) override;
   std::vector<float> all_union(const std::vector<float> &local_vals) override;
@@ -136,7 +134,8 @@ public:
        const std::function<void(const TileRegion &, ICommunicator &)>
            &dispatcher);
 
-  // Per-thread communicator proxy used when running in threaded cooperative mode
+  // Per-thread communicator proxy used when running in threaded cooperative
+  // mode
   class TileProxyComm final : public ICommunicator
   {
   public:
@@ -162,24 +161,24 @@ public:
   };
 
 private:
-  int                   total_tiles = 1;
-  int                   current_tile_idx = 0;
-  int                   halo = 0;
-  size_t                call_sequence = 0;
-  size_t                sync_sequence = 0;
-  size_t                union_sequence = 0;
-  std::vector<float>    accumulators;
-  std::vector<bool>     initialized;
-  std::vector<ReduceOp> reduce_ops;
+  int                             total_tiles = 1;
+  int                             current_tile_idx = 0;
+  int                             halo = 0;
+  size_t                          call_sequence = 0;
+  size_t                          sync_sequence = 0;
+  size_t                          union_sequence = 0;
+  std::vector<float>              accumulators;
+  std::vector<bool>               initialized;
+  std::vector<ReduceOp>           reduce_ops;
   std::vector<std::vector<float>> union_accumulators;
 
-  const VirtualArray             *p_ref_va = nullptr;
-  std::function<void(int)>        on_suspend_rank;
-  std::function<void(int)>        on_resume_rank;
-  std::unique_ptr<VirtualArray>   sync_va;
-  SyncOperation                   pending_sync_op = SyncOperation::SmoothBlend;
-  bool                            has_pending_sync = false;
-  void                           *p_thread_scheduler = nullptr;
+  const VirtualArray           *p_ref_va = nullptr;
+  std::function<void(int)>      on_suspend_rank;
+  std::function<void(int)>      on_resume_rank;
+  std::unique_ptr<VirtualArray> sync_va;
+  SyncOperation                 pending_sync_op = SyncOperation::SmoothBlend;
+  bool                          has_pending_sync = false;
+  void                         *p_thread_scheduler = nullptr;
 
   // Boundary edge buffers for non-cooperative fallback
   std::vector<std::vector<std::vector<float>>> east_edges;

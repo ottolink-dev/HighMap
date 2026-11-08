@@ -23,70 +23,51 @@ namespace hmap
 {
 
 // =====================================
-// Peripheric classes
+// Storage Modes
 // =====================================
 
 enum StorageMode : int
 {
-  VA_RAM,
-  VA_DISK_LRU,
-  VA_DISK_LRU_MIN,   // 2 live tiles, min mem footprint
-  VA_DISK_SEQUENTIAL // sequential for/each, no smooth_overlap
+  VA_RAM = 0,
+  VA_DISK_LRU_STREAM = 1,
+  VA_DISK_LRU_FULL = 2
 };
 
-inline std::string to_string(StorageMode m)
-{
-  switch (m)
-  {
-  case StorageMode::VA_RAM: return "VA_RAM";
-  case StorageMode::VA_DISK_LRU: return "VA_DISK_LRU";
-  case StorageMode::VA_DISK_LRU_MIN: return "VA_DISK_LRU_MIN";
-  case StorageMode::VA_DISK_SEQUENTIAL: return "VA_DISK_SEQUENTIAL";
-  }
-  return "UNKNOWN";
-}
+std::string to_string(StorageMode m);
 
 struct TileKeyHash
 {
   size_t operator()(const TileKey &k) const
   {
     if constexpr (sizeof(size_t) >= 8)
-    {
       return (static_cast<size_t>(k.tx) << 32) ^ static_cast<size_t>(k.ty);
-    }
     else
-    {
       return (static_cast<size_t>(k.tx) << 16) ^ static_cast<size_t>(k.ty);
-    }
   }
 };
 
 // =====================================
-// Abstract class
+// Abstract TileStorage
 // =====================================
 
 class TileStorage
 {
 public:
   virtual ~TileStorage() = default;
-  virtual Array &get_tile(const TileRegion &region) = 0;
-  virtual void   release_tile(const TileRegion &region) = 0;
-  virtual size_t max_live_tiles() const = 0;
+
   virtual std::unique_ptr<TileStorage> clone() const = 0;
-  virtual std::string                  info_string() const = 0;
 
-  // Live memory tracking
-  virtual size_t live_tile_count() const = 0;
-  virtual size_t live_memory_bytes() const = 0;
-
-  // Opportunistically free memory while keeping data persistent.
-  virtual void trim()
-  {
-  }
+  virtual Array      &get_tile(const TileRegion &region) = 0;
+  virtual std::string info_string() const = 0;
+  virtual size_t      live_tile_count() const = 0;
+  virtual size_t      live_memory_bytes() const = 0;
+  virtual size_t      max_live_tiles() const = 0;
+  virtual void        release_tile(const TileRegion &region) = 0;
+  virtual void        trim();
 };
 
 // =====================================
-// RAM storage
+// RAM Storage
 // =====================================
 
 class RamTileStorage : public TileStorage
@@ -98,14 +79,11 @@ public:
   std::unique_ptr<TileStorage> clone() const override;
 
   Array      &get_tile(const TileRegion &region) override;
-  void        release_tile(const TileRegion &region) override;
-  size_t      max_live_tiles() const override;
+  std::string info_string() const override;
   size_t      live_tile_count() const override;
   size_t      live_memory_bytes() const override;
-  std::string info_string() const override
-  {
-    return "RAM";
-  };
+  size_t      max_live_tiles() const override;
+  void        release_tile(const TileRegion &region) override;
 
 private:
   mutable std::mutex                              mtx;
@@ -113,7 +91,7 @@ private:
 };
 
 // =====================================
-// LRU storage
+// Disk LRU Storage
 // =====================================
 
 struct LruTileEntry
@@ -124,93 +102,42 @@ struct LruTileEntry
   bool                         dirty = true;
 };
 
-class LruTileStorage : public TileStorage
+class DiskLruTileStorage : public TileStorage
 {
 public:
-  explicit LruTileStorage(size_t max_tiles);
+  explicit DiskLruTileStorage(
+      StorageMode mode = StorageMode::VA_DISK_LRU_STREAM);
+  ~DiskLruTileStorage() override;
 
   std::unique_ptr<TileStorage> clone() const override;
 
   Array      &get_tile(const TileRegion &region) override;
-  void        release_tile(const TileRegion &region) override;
-  size_t      max_live_tiles() const override;
+  std::string info_string() const override;
   size_t      live_tile_count() const override;
   size_t      live_memory_bytes() const override;
-  std::string info_string() const override;
+  size_t      max_live_tiles() const override;
+  void        release_tile(const TileRegion &region) override;
+  void        trim() override;
 
-protected:
-  size_t                                                 max_tiles;
+  StorageMode get_mode() const;
+
+private:
+  StorageMode                                            mode;
+  std::filesystem::path                                  root_dir;
   std::list<TileKey>                                     lru;
   std::unordered_map<TileKey, LruTileEntry, TileKeyHash> tiles;
   mutable std::mutex                                     mutex;
 
-  void         evict_unpinned_no_mutex_lock(size_t target_count);
-  Array       &get_tile_no_mutex_lock(const TileRegion &region);
-  virtual void on_evict(const TileKey &key, Array &tile);
-};
-
-// =====================================
-// DISK-LRU storage
-// =====================================
-
-class DiskLruTileStorage : public LruTileStorage
-{
-public:
-  DiskLruTileStorage(size_t max_tiles);
-  ~DiskLruTileStorage();
-
-  std::unique_ptr<TileStorage> clone() const override;
-
-  Array &get_tile(const TileRegion &region) override;
-  size_t max_live_tiles() const override;
-  void   trim() override;
-
-protected:
-  void on_evict(const TileKey &key, Array &tile) override;
-
-private:
-  std::filesystem::path root_dir;
-
   std::filesystem::path tile_path(const TileKey &key) const;
   Array                 load_tile_from_disk(const TileRegion &region);
+  void save_tile_to_disk(const TileKey &key, const Array &tile);
+  void evict_entry_no_mutex_lock(
+      std::unordered_map<TileKey, LruTileEntry, TileKeyHash>::iterator it);
+  void evict_all_unpinned_no_mutex_lock();
 };
 
 // =====================================
-// DISK-sequential storage
-// =====================================
-
-class DiskSequentialTileStorage : public TileStorage
-{
-public:
-  DiskSequentialTileStorage();
-  DiskSequentialTileStorage(const DiskSequentialTileStorage &other);
-  ~DiskSequentialTileStorage() override;
-
-  std::unique_ptr<TileStorage> clone() const override;
-
-  Array      &get_tile(const TileRegion &region) override;
-  void        release_tile(const TileRegion &region) override;
-  size_t      max_live_tiles() const override;
-  size_t      live_tile_count() const override;
-  size_t      live_memory_bytes() const override;
-  void        trim() override;
-  std::string info_string() const override
-  {
-    return "DiskSequential";
-  };
-
-private:
-  std::filesystem::path root_dir;
-  TileKey               current_key{};
-  std::optional<Array>  current_tile;
-
-  Array                 load_or_create(const TileRegion &region);
-  void                  save_tile(const TileKey &key, const Array &tile);
-  std::filesystem::path tile_path(const TileKey &key) const;
-};
-
-// =====================================
-// functions
+// Factory function
 // =====================================
 
 std::unique_ptr<TileStorage> make_storage(glm::ivec2  shape,

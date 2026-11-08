@@ -207,9 +207,8 @@ TEST(VirtualArrayTest, StorageModesPersistence)
   ComputeMode cm{.mode = ForEachMode::VA_SEQUENTIAL};
 
   for (auto mode : {StorageMode::VA_RAM,
-                    StorageMode::VA_DISK_LRU,
-                    StorageMode::VA_DISK_LRU_MIN,
-                    StorageMode::VA_DISK_SEQUENTIAL})
+                    StorageMode::VA_DISK_LRU_STREAM,
+                    StorageMode::VA_DISK_LRU_FULL})
   {
     VirtualArray va(shape, tile_shape, 2, mode);
     va.fill(7.0f, cm);
@@ -249,22 +248,25 @@ TEST(VirtualArrayTest, MemoryFootprintTracking)
     EXPECT_GT(va.live_memory_bytes(), 0);
   }
 
-  // 2. DISK_LRU_MIN holds at most 2 tiles
+  // 2. DISK_LRU_STREAM holds only actively pinned tiles (0 unpinned lingering
+  // after trim)
   {
-    VirtualArray va(shape, tile_shape, 2, StorageMode::VA_DISK_LRU_MIN);
+    VirtualArray va(shape, tile_shape, 2, StorageMode::VA_DISK_LRU_STREAM);
     va.fill(2.0f, cm);
-    EXPECT_LE(va.live_tile_count(), 2);
+    // In sequential stream mode, after fill finishes each tile is unpinned and
+    // evicted
+    EXPECT_EQ(va.live_tile_count(), 0);
 
     va.trim_storage();
     EXPECT_EQ(va.live_tile_count(), 0);
     EXPECT_EQ(va.live_memory_bytes(), 0);
   }
 
-  // 3. DISK_SEQUENTIAL holds at most 1 tile
+  // 3. DISK_LRU_FULL holds tiles in RAM until trim() is called
   {
-    VirtualArray va(shape, tile_shape, 2, StorageMode::VA_DISK_SEQUENTIAL);
+    VirtualArray va(shape, tile_shape, 2, StorageMode::VA_DISK_LRU_FULL);
     va.fill(3.0f, cm);
-    EXPECT_LE(va.live_tile_count(), 1);
+    EXPECT_EQ(va.live_tile_count(), 16);
 
     va.trim_storage();
     EXPECT_EQ(va.live_tile_count(), 0);
@@ -494,7 +496,7 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
 
   // 2. Test across compute mode: Sequential
   {
-    VirtualArray va(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_MIN);
+    VirtualArray va(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_STREAM);
     ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL, .trim_storage = true};
 
     va.from_array(full_array, cm);
@@ -557,7 +559,7 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
     VirtualArray va_labels(shape,
                            tile_shape,
                            halo,
-                           StorageMode::VA_DISK_LRU_MIN);
+                           StorageMode::VA_DISK_LRU_STREAM);
     ComputeMode  cm_seq{.mode = ForEachMode::VA_SEQUENTIAL,
                         .trim_storage = true};
     va_labels.from_array(label_array, cm_seq);
@@ -704,7 +706,8 @@ TEST(VirtualArrayTest, StorageClonePersistenceAndDeepCopy)
   glm::ivec2 tile_shape{16, 16};
   int        halo = 2;
 
-  for (auto mode : {StorageMode::VA_DISK_SEQUENTIAL, StorageMode::VA_DISK_LRU})
+  for (auto mode :
+       {StorageMode::VA_DISK_LRU_STREAM, StorageMode::VA_DISK_LRU_FULL})
   {
     VirtualArray va(shape, tile_shape, halo, mode);
     ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
@@ -728,7 +731,7 @@ TEST(VirtualArrayTest, SchedulerCooperativeExceptionPropagation)
 {
   glm::ivec2   shape{32, 32};
   glm::ivec2   tile_shape{16, 16};
-  VirtualArray va(shape, tile_shape, 2, StorageMode::VA_DISK_LRU_MIN);
+  VirtualArray va(shape, tile_shape, 2, StorageMode::VA_DISK_LRU_STREAM);
   ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
 
   // One tile throws an exception inside collective operation

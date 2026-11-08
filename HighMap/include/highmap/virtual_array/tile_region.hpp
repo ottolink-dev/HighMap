@@ -39,7 +39,8 @@ struct TileRegion
   TileKey    key;          // ID
   glm::vec4  bbox;         // (x1, x2, y1, y2) in arbitrary coordinates
   glm::ivec2 shape;        // number of cells in tile (incl. halo)
-  glm::ivec4 halo;         // number of extra cells around overlapping with other
+  glm::ivec4 halo;         // number of extra cells around overlapping with
+                           // other
                            // tiles: (west, east, south, north)
   glm::ivec2 global_shape; // total domain shape (nx, ny)
   glm::ivec2 tile_shape;   // nominal tile shape (excluding halo)

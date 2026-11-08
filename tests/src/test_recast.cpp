@@ -192,9 +192,10 @@ TEST(RecastCliff, TiledDistributedExecution)
   int   sync_interval = 10;
 
   for (auto [mode, storage_mode] :
-       {std::pair{ForEachMode::VA_SEQUENTIAL, StorageMode::VA_DISK_LRU_MIN},
-        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU},
-        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU_MIN}})
+       {std::pair{ForEachMode::VA_SEQUENTIAL, StorageMode::VA_DISK_LRU_STREAM},
+        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU_FULL},
+        std::pair{ForEachMode::VA_DISTRIBUTED,
+                  StorageMode::VA_DISK_LRU_STREAM}})
   {
     ComputeMode cm{.mode = mode, .trim_storage = true};
 
@@ -253,9 +254,10 @@ TEST(RecastCliffDirectional, TiledDistributedExecution)
   int   sync_interval = 10;
 
   for (auto [mode, storage_mode] :
-       {std::pair{ForEachMode::VA_SEQUENTIAL, StorageMode::VA_DISK_LRU_MIN},
-        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU},
-        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU_MIN}})
+       {std::pair{ForEachMode::VA_SEQUENTIAL, StorageMode::VA_DISK_LRU_STREAM},
+        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU_FULL},
+        std::pair{ForEachMode::VA_DISTRIBUTED,
+                  StorageMode::VA_DISK_LRU_STREAM}})
   {
     ComputeMode cm{.mode = mode, .trim_storage = true};
 

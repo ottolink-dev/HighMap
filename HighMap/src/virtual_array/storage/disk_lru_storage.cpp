@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <filesystem>
 #include <fstream>
+#include <limits>
 #include <list>
 #include <memory>
 #include <mutex>
@@ -23,10 +24,9 @@
 namespace hmap
 {
 
-DiskLruTileStorage::DiskLruTileStorage(size_t max_tiles)
-    : LruTileStorage(max_tiles)
+DiskLruTileStorage::DiskLruTileStorage(StorageMode mode) : mode(mode)
 {
-  this->root_dir = make_unique_temp_dir("va_lru");
+  this->root_dir = make_unique_temp_dir("va_disk");
 }
 
 DiskLruTileStorage::~DiskLruTileStorage()
@@ -37,7 +37,11 @@ DiskLruTileStorage::~DiskLruTileStorage()
 
 std::unique_ptr<TileStorage> DiskLruTileStorage::clone() const
 {
-  auto new_storage = std::make_unique<DiskLruTileStorage>(this->max_tiles);
+  std::lock_guard<std::mutex> lock(this->mutex);
+  // Flush any in-memory tiles to disk first so copied directory is up to date
+  const_cast<DiskLruTileStorage *>(this)->evict_all_unpinned_no_mutex_lock();
+
+  auto new_storage = std::make_unique<DiskLruTileStorage>(this->mode);
   std::error_code ec;
   if (std::filesystem::exists(this->root_dir))
   {
@@ -50,51 +54,141 @@ std::unique_ptr<TileStorage> DiskLruTileStorage::clone() const
   return new_storage;
 }
 
-Array &DiskLruTileStorage::get_tile(const TileRegion &region)
+void DiskLruTileStorage::evict_entry_no_mutex_lock(
+    std::unordered_map<TileKey, LruTileEntry, TileKeyHash>::iterator it)
 {
-  std::lock_guard<std::mutex> lock(mutex);
+  if (it == this->tiles.end() || it->second.pin_count > 0) return;
 
-  const TileKey &key = region.key;
-
-  // ---- RAM hit → delegate to base
-
-  auto it = tiles.find(key);
-  if (it != tiles.end())
+  if (it->second.dirty)
   {
-    return LruTileStorage::get_tile_no_mutex_lock(region);
+    this->save_tile_to_disk(it->first, it->second.value);
   }
 
-  // ---- disk hit
+  this->lru.erase(it->second.lru_it);
+  this->tiles.erase(it);
+}
 
-  auto path = tile_path(key);
+void DiskLruTileStorage::evict_all_unpinned_no_mutex_lock()
+{
+  for (auto it = this->tiles.begin(); it != this->tiles.end();)
+  {
+    if (it->second.pin_count == 0)
+    {
+      if (it->second.dirty)
+      {
+        this->save_tile_to_disk(it->first, it->second.value);
+      }
+      this->lru.erase(it->second.lru_it);
+      it = this->tiles.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
+  }
+}
+
+StorageMode DiskLruTileStorage::get_mode() const
+{
+  return this->mode;
+}
+
+Array &DiskLruTileStorage::get_tile(const TileRegion &region)
+{
+  std::lock_guard<std::mutex> lock(this->mutex);
+  const TileKey              &key = region.key;
+
+  // 1. RAM hit
+  auto it = this->tiles.find(key);
+  if (it != this->tiles.end())
+  {
+    this->lru.splice(this->lru.begin(), this->lru, it->second.lru_it);
+    it->second.pin_count++;
+    it->second.dirty = true;
+    return it->second.value;
+  }
+
+  // 2. Disk hit
+  auto path = this->tile_path(key);
   if (std::filesystem::exists(path))
   {
-    // eviction if needed
-    if (this->max_tiles > 0 && this->lru.size() >= this->max_tiles)
-    {
-      this->evict_unpinned_no_mutex_lock(this->max_tiles - 1);
-    }
-
-    Array tile = load_tile_from_disk(region);
-
-    lru.push_front(key);
-    auto [inserted_it,
-          _] = tiles.emplace(key,
-                             LruTileEntry{std::move(tile), lru.begin(), 1});
-
+    Array tile = this->load_tile_from_disk(region);
+    this->lru.push_front(key);
+    auto [inserted_it, _] = this->tiles.emplace(
+        key,
+        LruTileEntry{std::move(tile), this->lru.begin(), 1, true});
     return inserted_it->second.value;
   }
 
-  // ---- miss everywhere → empty tile
+  // 3. New tile allocation
+  Array tile(region.shape);
+  this->lru.push_front(key);
+  auto [inserted_it, _] = this->tiles.emplace(
+      key,
+      LruTileEntry{std::move(tile), this->lru.begin(), 1, true});
+  return inserted_it->second.value;
+}
 
-  return LruTileStorage::get_tile_no_mutex_lock(region);
+void DiskLruTileStorage::release_tile(const TileRegion &region)
+{
+  std::lock_guard<std::mutex> lock(this->mutex);
+  auto                        it = this->tiles.find(region.key);
+  if (it == this->tiles.end()) return;
+
+  if (it->second.pin_count > 0)
+  {
+    it->second.pin_count--;
+  }
+
+  // Strict stream: as soon as pin count drops to 0, immediately evict to disk
+  if (this->mode == StorageMode::VA_DISK_LRU_STREAM &&
+      it->second.pin_count == 0)
+  {
+    this->evict_entry_no_mutex_lock(it);
+  }
+}
+
+size_t DiskLruTileStorage::max_live_tiles() const
+{
+  return (this->mode == StorageMode::VA_DISK_LRU_STREAM)
+             ? 0
+             : std::numeric_limits<size_t>::max();
+}
+
+size_t DiskLruTileStorage::live_tile_count() const
+{
+  std::lock_guard<std::mutex> lock(this->mutex);
+  return this->tiles.size();
+}
+
+size_t DiskLruTileStorage::live_memory_bytes() const
+{
+  std::lock_guard<std::mutex> lock(this->mutex);
+  size_t                      bytes = 0;
+  for (const auto &[key, entry] : this->tiles)
+  {
+    bytes += entry.value.vector.capacity() * sizeof(float) +
+             sizeof(LruTileEntry) + sizeof(key);
+  }
+  return bytes;
+}
+
+void DiskLruTileStorage::trim()
+{
+  std::lock_guard<std::mutex> lock(this->mutex);
+  this->evict_all_unpinned_no_mutex_lock();
+}
+
+std::string DiskLruTileStorage::info_string() const
+{
+  return (this->mode == StorageMode::VA_DISK_LRU_STREAM) ? "DiskLRU (Stream)"
+                                                         : "DiskLRU (Full)";
 }
 
 Array DiskLruTileStorage::load_tile_from_disk(const TileRegion &region)
 {
   Array tile(region.shape);
-
-  auto path = tile_path(region.key);
+  auto  path = this->tile_path(region.key);
 
   std::ifstream in(path, std::ios::binary);
   if (!in) throw std::runtime_error("DiskLRU: cannot open tile for reading");
@@ -110,14 +204,10 @@ Array DiskLruTileStorage::load_tile_from_disk(const TileRegion &region)
   return tile;
 }
 
-size_t DiskLruTileStorage::max_live_tiles() const
+void DiskLruTileStorage::save_tile_to_disk(const TileKey &key,
+                                           const Array   &tile)
 {
-  return this->max_tiles;
-}
-
-void DiskLruTileStorage::on_evict(const TileKey &key, Array &tile)
-{
-  auto path = tile_path(key);
+  auto path = this->tile_path(key);
   auto tmp_path = path;
   tmp_path += ".tmp";
 
@@ -148,15 +238,8 @@ void DiskLruTileStorage::on_evict(const TileKey &key, Array &tile)
 
 std::filesystem::path DiskLruTileStorage::tile_path(const TileKey &key) const
 {
-  return root_dir / ("tile_" + std::to_string(key.tx) + "_" +
-                     std::to_string(key.ty) + ".bin");
-}
-
-void DiskLruTileStorage::trim()
-{
-  std::lock_guard<std::mutex> lock(mutex);
-
-  this->evict_unpinned_no_mutex_lock(0);
+  return this->root_dir / ("tile_" + std::to_string(key.tx) + "_" +
+                           std::to_string(key.ty) + ".bin");
 }
 
 } // namespace hmap

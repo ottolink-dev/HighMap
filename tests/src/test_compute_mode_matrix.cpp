@@ -13,9 +13,10 @@ const std::vector<ForEachMode> k_compute_modes = {ForEachMode::VA_SEQUENTIAL,
                                                   ForEachMode::VA_DISTRIBUTED,
                                                   ForEachMode::VA_SINGLE_ARRAY};
 
-const std::vector<StorageMode> k_storage_modes = {StorageMode::VA_RAM,
-                                                  StorageMode::VA_DISK_LRU,
-                                                  StorageMode::VA_DISK_LRU_MIN};
+const std::vector<StorageMode> k_storage_modes = {
+    StorageMode::VA_RAM,
+    StorageMode::VA_DISK_LRU_STREAM,
+    StorageMode::VA_DISK_LRU_FULL};
 
 const std::vector<bool> k_trim_options = {false, true};
 
@@ -404,8 +405,9 @@ TEST_F(ComputeModeMatrixTest, SnowSimulationMatrix)
 }
 TEST_F(ComputeModeMatrixTest, SnowSimulation4KMinimalMemory)
 {
-  std::cout << "Starting SnowRepro (shape 4096, tile 1024, VA_DISK_LRU_MIN)..."
-            << std::endl;
+  std::cout
+      << "Starting SnowRepro (shape 4096, tile 1024, VA_DISK_LRU_STREAM)..."
+      << std::endl;
   glm::ivec2 shape = {4096, 4096};
   glm::ivec2 tile_shape = {1024, 1024}; // 4x4 = 16 tiles
   int        halo = 32;
@@ -414,27 +416,27 @@ TEST_F(ComputeModeMatrixTest, SnowSimulation4KMinimalMemory)
                     {-1.f, 1.f, -1.f, 1.f},
                     tile_shape,
                     halo,
-                    StorageMode::VA_DISK_LRU_MIN);
+                    StorageMode::VA_DISK_LRU_STREAM);
   VirtualArray va_snow(shape,
                        {-1.f, 1.f, -1.f, 1.f},
                        tile_shape,
                        halo,
-                       StorageMode::VA_DISK_LRU_MIN);
+                       StorageMode::VA_DISK_LRU_STREAM);
   VirtualArray va_depth(shape,
                         {-1.f, 1.f, -1.f, 1.f},
                         tile_shape,
                         halo,
-                        StorageMode::VA_DISK_LRU_MIN);
+                        StorageMode::VA_DISK_LRU_STREAM);
   VirtualArray va_talus(shape,
                         {-1.f, 1.f, -1.f, 1.f},
                         tile_shape,
                         halo,
-                        StorageMode::VA_DISK_LRU_MIN);
+                        StorageMode::VA_DISK_LRU_STREAM);
   VirtualArray va_melting(shape,
                           {-1.f, 1.f, -1.f, 1.f},
                           tile_shape,
                           halo,
-                          StorageMode::VA_DISK_LRU_MIN);
+                          StorageMode::VA_DISK_LRU_STREAM);
 
   ComputeMode cm;
   cm.mode = ForEachMode::VA_SEQUENTIAL;

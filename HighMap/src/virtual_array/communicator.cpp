@@ -400,7 +400,7 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
   if (this->halo <= 0) return;
 
   // --- Option A2: Cooperative fiber suspension + disk-backed VirtualArray
-  // (VA_DISK_LRU_MIN, max 2 live tiles in memory)
+  // (VA_DISK_LRU_STREAM, max 2 live tiles in memory)
   if (this->p_thread_scheduler && this->p_ref_va && this->total_tiles > 1)
   {
     if (!this->sync_va)
@@ -410,7 +410,7 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
           this->p_ref_va->bbox,
           this->p_ref_va->tile_shape,
           this->p_ref_va->halo,
-          StorageMode::VA_DISK_LRU_MIN);
+          StorageMode::VA_DISK_LRU_STREAM);
     }
 
     // 1. Write current tile state to disk-backed sync_va and release
@@ -431,7 +431,7 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
     // no-op for non-threaded sequential mode
 
     // 3. Re-acquire input/output tiles FIRST, then reload local_tile so that
-    // if local_tile IS one of the input/output tiles in VA_DISK_LRU_MIN,
+    // if local_tile IS one of the input/output tiles in VA_DISK_LRU_STREAM,
     // local_tile gets the synchronized data instead of being overwritten by
     // the stale disk copy
     if (this->on_resume_rank) this->on_resume_rank(this->current_tile_idx);
@@ -1237,7 +1237,7 @@ void SequentialTileComm::TileProxyComm::sync_overlap_buffers(
         this->parent.p_ref_va->bbox,
         this->parent.p_ref_va->tile_shape,
         this->parent.p_ref_va->halo,
-        StorageMode::VA_DISK_LRU_MIN);
+        StorageMode::VA_DISK_LRU_STREAM);
   }
 
   // 1. Stage tile to disk-backed sync_va and release from RAM

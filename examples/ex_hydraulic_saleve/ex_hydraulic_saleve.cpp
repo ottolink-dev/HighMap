@@ -101,9 +101,9 @@ int main(void)
     const size_t     halo = 32;
 
     // const auto storage_mode = hmap::StorageMode::VA_RAM;
-    const auto storage_mode = hmap::StorageMode::VA_DISK_LRU;
-    // const auto storage_mode = hmap::StorageMode::VA_DISK_LRU_MIN;
-    // const auto storage_mode = hmap::StorageMode::VA_DISK_SEQUENTIAL;
+    const auto storage_mode = hmap::StorageMode::VA_DISK_LRU_FULL;
+    // const auto storage_mode = hmap::StorageMode::VA_DISK_LRU_STREAM;
+    // const auto storage_mode = hmap::StorageMode::VA_DISK_LRU_STREAM;
 
     const auto foreach_mode = hmap::ForEachMode::VA_DISTRIBUTED;
     // const auto foreach_mode = hmap::ForEachMode::VA_SEQUENTIAL;
