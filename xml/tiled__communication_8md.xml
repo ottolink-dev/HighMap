@@ -1,0 +1,242 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="tiled__communication_8md" kind="file" language="Markdown">
+    <compoundname>tiled_communication.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Tiled<sp/>Communication<sp/>and<sp/>Overlap<sp/>Synchronization</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>document<sp/>explains<sp/>the<sp/>architecture<sp/>of<sp/>the<sp/>tiled<sp/>communication<sp/>system<sp/>in<sp/>HighMap,<sp/>how<sp/>collective<sp/>directives<sp/>operate<sp/>across<sp/>execution<sp/>modes,<sp/>and<sp/>how<sp/>halo<sp/>overlap<sp/>buffers<sp/>are<sp/>synchronized<sp/>during<sp/>iterative<sp/>simulations.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>1.<sp/>Overview<sp/>and<sp/>Purpose</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Terrain<sp/>processing<sp/>algorithms<sp/>operating<sp/>on<sp/>large<sp/>spatial<sp/>domains<sp/>must<sp/>frequently<sp/>scale<sp/>beyond<sp/>available<sp/>GPU<sp/>VRAM<sp/>or<sp/>system<sp/>RAM.<sp/>HighMap<sp/>achieves<sp/>out-of-core<sp/>scalability<sp/>through<sp/>the<sp/>`VirtualArray`<sp/>container,<sp/>which<sp/>subdivides<sp/>heightmaps<sp/>into<sp/>a<sp/>regular<sp/>grid<sp/>of<sp/>overlapping<sp/>tiles.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">While<sp/>local<sp/>kernel<sp/>operations<sp/>(e.g.<sp/>stencil<sp/>filters<sp/>with<sp/>radius<sp/>smaller<sp/>than<sp/>halo)<sp/>require<sp/>only<sp/>local<sp/>neighborhood<sp/>information,<sp/>global<sp/>and<sp/>iterative<sp/>algorithms<sp/>require<sp/>communication<sp/>across<sp/>tile<sp/>boundaries:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>Global<sp/>reductions<sp/>(computing<sp/>global<sp/>minimum,<sp/>maximum,<sp/>volume,<sp/>or<sp/>convergence<sp/>residuals).</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Global<sp/>unions<sp/>(collecting<sp/>feature<sp/>points,<sp/>active<sp/>wavefronts,<sp/>or<sp/>sink<sp/>lists).</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Execution<sp/>synchronization<sp/>barriers.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Iterative<sp/>boundary<sp/>halo<sp/>exchanges<sp/>(diffusion,<sp/>wave<sp/>propagation,<sp/>flooding,<sp/>snow<sp/>creep,<sp/>viscous<sp/>flow,<sp/>Poisson<sp/>solvers).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">HighMap<sp/>provides<sp/>an<sp/>abstract<sp/>communicator<sp/>interface,<sp/>`ICommunicator`,<sp/>decoupling<sp/>simulation<sp/>code<sp/>from<sp/>the<sp/>underlying<sp/>concurrency<sp/>model.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>2.<sp/>Communicator<sp/>Interface<sp/>(`ICommunicator`)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>`ICommunicator`<sp/>interface<sp/>provides<sp/>an<sp/>MPI-like<sp/>abstraction<sp/>tailored<sp/>to<sp/>2D<sp/>raster<sp/>tile<sp/>topologies:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```cpp</highlight></codeline>
+<codeline><highlight class="normal">class<sp/>ICommunicator</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal">public:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>virtual<sp/>~ICommunicator()<sp/>=<sp/>default;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>virtual<sp/>float<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>all_reduce(float<sp/>local_val,<sp/>ReduceOp<sp/>op)<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>virtual<sp/>std::vector&lt;float&gt;<sp/>all_union(const<sp/>std::vector&lt;float&gt;<sp/>&amp;local_vals)<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>virtual<sp/>void<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>barrier()<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>virtual<sp/>int<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rank()<sp/>const<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>virtual<sp/>int<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>size()<sp/>const<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>virtual<sp/>void<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sync_overlap_buffers(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;local_tile,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>TileRegion<sp/>&amp;region,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SyncOperation<sp/><sp/><sp/><sp/><sp/>op<sp/>=<sp/>SyncOperation::SmoothBlend)<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Supported<sp/>Operations</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>**`all_reduce(local_val,<sp/>op)`**:<sp/>Aggregates<sp/>a<sp/>scalar<sp/>across<sp/>all<sp/>tiles<sp/>using<sp/>`ReduceOp::Min`,<sp/>`ReduceOp::Max`,<sp/>or<sp/>`ReduceOp::Sum`.<sp/>Returns<sp/>the<sp/>identical<sp/>aggregated<sp/>value<sp/>to<sp/>all<sp/>calling<sp/>tiles.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**`all_union(local_vals)`**:<sp/>Gathers<sp/>and<sp/>combines<sp/>lists<sp/>of<sp/>scalar<sp/>items<sp/>(such<sp/>as<sp/>active<sp/>seeds<sp/>or<sp/>coordinates)<sp/>across<sp/>all<sp/>tiles.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**`barrier()`**:<sp/>Blocks<sp/>execution<sp/>until<sp/>all<sp/>tiles<sp/>in<sp/>the<sp/>current<sp/>collective<sp/>phase<sp/>reach<sp/>the<sp/>synchronization<sp/>point.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**`sync_overlap_buffers(local_tile,<sp/>region,<sp/>op)`**:<sp/>Synchronizes<sp/>seam<sp/>buffers<sp/>along<sp/>tile<sp/>overlaps<sp/>using<sp/>a<sp/>selected<sp/>`SyncOperation`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Overlap<sp/>Synchronization<sp/>Modes<sp/>(`SyncOperation`)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>**`SmoothBlend`**:<sp/>Blends<sp/>overlapping<sp/>cells<sp/>smoothly<sp/>using<sp/>a<sp/>quintic<sp/>polynomial<sp/>($C^2$<sp/>smoothstep).<sp/>Used<sp/>by<sp/>diffusion,<sp/>flow<sp/>simulations,<sp/>snow<sp/>settling,<sp/>and<sp/>Poisson<sp/>boundary<sp/>relaxations<sp/>to<sp/>prevent<sp/>sharp<sp/>seam<sp/>artifacts.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**`Average`<sp/>/<sp/>`Mean`**:<sp/>Computes<sp/>the<sp/>arithmetic<sp/>mean<sp/>between<sp/>corresponding<sp/>overlap<sp/>cells.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**`Min`**:<sp/>Takes<sp/>the<sp/>element-wise<sp/>minimum<sp/>across<sp/>overlapping<sp/>regions.<sp/>Used<sp/>by<sp/>distance<sp/>transforms<sp/>and<sp/>geodesic<sp/>propagation.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**`Max`**:<sp/>Takes<sp/>the<sp/>element-wise<sp/>maximum<sp/>across<sp/>overlapping<sp/>regions.<sp/>Used<sp/>by<sp/>priority-flood<sp/>depression<sp/>filling<sp/>and<sp/>water<sp/>elevation<sp/>surfaces.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**`CopyFirst`<sp/>/<sp/>`CopySecond`**:<sp/>Directional<sp/>copy<sp/>from<sp/>one<sp/>tile<sp/>to<sp/>another<sp/>along<sp/>boundary<sp/>interfaces.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>3.<sp/>Execution<sp/>Engines</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>communicator<sp/>adapts<sp/>dynamically<sp/>to<sp/>the<sp/>compute<sp/>configuration<sp/>specified<sp/>in<sp/>`ComputeMode`:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Single-Array<sp/>Mode<sp/>(`SingleArrayComm`)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">When<sp/>an<sp/>algorithm<sp/>is<sp/>invoked<sp/>directly<sp/>on<sp/>a<sp/>monolithic<sp/>`Array`<sp/>without<sp/>tiling,<sp/>`SingleArrayComm::instance()`<sp/>serves<sp/>as<sp/>the<sp/>default<sp/>communicator:</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`size()`<sp/>returns<sp/>`1`,<sp/>and<sp/>`rank()`<sp/>returns<sp/>`0`.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`all_reduce`<sp/>returns<sp/>the<sp/>input<sp/>scalar<sp/>directly<sp/>with<sp/>zero<sp/>overhead.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`all_union`<sp/>returns<sp/>the<sp/>input<sp/>vector<sp/>unchanged.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`barrier()`<sp/>and<sp/>`sync_overlap_buffers()`<sp/>are<sp/>immediate<sp/>no-ops.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Algorithms<sp/>written<sp/>with<sp/>communicator<sp/>parameters<sp/>incur<sp/>zero<sp/>memory<sp/>or<sp/>synchronization<sp/>penalty<sp/>when<sp/>run<sp/>monolithically.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Multithreaded<sp/>Distributed<sp/>Mode<sp/>(`ThreadedTileComm`)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>`ForEachMode::VA_DISTRIBUTED`<sp/>when<sp/>sufficient<sp/>memory<sp/>exists<sp/>to<sp/>hold<sp/>all<sp/>tiles<sp/>simultaneously,<sp/>tiles<sp/>execute<sp/>concurrently<sp/>across<sp/>a<sp/>thread<sp/>pool:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>**Registration**:<sp/>Every<sp/>thread<sp/>registers<sp/>its<sp/>tile<sp/>pointer<sp/>and<sp/>`TileRegion`<sp/>in<sp/>a<sp/>shared<sp/>`ThreadedCollectiveState`.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>**Barrier**:<sp/>Threads<sp/>enter<sp/>a<sp/>condition-variable<sp/>barrier<sp/>waiting<sp/>for<sp/>all<sp/>ranks<sp/>to<sp/>register.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>**Seam<sp/>Exchange**:<sp/>Rank<sp/>0<sp/>iterates<sp/>through<sp/>the<sp/>horizontal<sp/>($x$)<sp/>and<sp/>vertical<sp/>($y$)<sp/>tile<sp/>seams,<sp/>reading<sp/>and<sp/>writing<sp/>the<sp/>overlapping<sp/>memory<sp/>regions<sp/>between<sp/>neighboring<sp/>`Array`<sp/>buffers<sp/>according<sp/>to<sp/>the<sp/>requested<sp/>`SyncOperation`.</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>**Resumption**:<sp/>A<sp/>second<sp/>barrier<sp/>releases<sp/>all<sp/>threads<sp/>once<sp/>seam<sp/>synchronization<sp/>is<sp/>complete.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Out-of-Core<sp/>Sequential<sp/>Mode<sp/>(`SequentialTileComm`)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">When<sp/>memory<sp/>constraints<sp/>dictate<sp/>strict<sp/>out-of-core<sp/>execution<sp/>(e.g.<sp/>`StorageMode::VA_DISK_LRU_MIN`,<sp/>where<sp/>at<sp/>most<sp/>2<sp/>live<sp/>tiles<sp/>are<sp/>kept<sp/>in<sp/>memory<sp/>at<sp/>any<sp/>instant),<sp/>threads<sp/>cannot<sp/>execute<sp/>in<sp/>parallel.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">HighMap<sp/>implements<sp/>a<sp/>cooperative<sp/>sequential<sp/>scheduler<sp/>(`SequentialThreadScheduler`):</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>**Tile<sp/>Fibers**:<sp/>Each<sp/>tile<sp/>runs<sp/>inside<sp/>a<sp/>cooperative<sp/>thread.<sp/>Exactly<sp/>one<sp/>tile<sp/>executes<sp/>at<sp/>any<sp/>time.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>**Staging<sp/>Cache**:<sp/>When<sp/>a<sp/>tile<sp/>calls<sp/>`sync_overlap_buffers`,<sp/>its<sp/>updated<sp/>contents<sp/>are<sp/>flushed<sp/>to<sp/>a<sp/>temporary<sp/>disk-backed<sp/>`VirtualArray`<sp/>(`sync_va`).</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>**Turn<sp/>Passing**:<sp/>The<sp/>active<sp/>tile<sp/>suspends,<sp/>freeing<sp/>its<sp/>RAM<sp/>tile<sp/>allocation,<sp/>and<sp/>yields<sp/>execution<sp/>to<sp/>the<sp/>next<sp/>rank<sp/>in<sp/>round-robin<sp/>order.</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>**Global<sp/>Seam<sp/>Sweep**:<sp/>Once<sp/>all<sp/>tiles<sp/>reach<sp/>the<sp/>synchronization<sp/>point,<sp/>the<sp/>scheduler<sp/>executes<sp/>`sync_va-&gt;sync_overlap_buffers(op)`<sp/>using<sp/>the<sp/>low-memory<sp/>2-tile<sp/>sliding<sp/>window<sp/>cache.</highlight></codeline>
+<codeline><highlight class="normal">5.<sp/>**Tile<sp/>Resumption**:<sp/>Ranks<sp/>wake<sp/>up<sp/>in<sp/>sequence<sp/>and<sp/>reload<sp/>the<sp/>updated,<sp/>synchronized<sp/>tile<sp/>data<sp/>from<sp/>`sync_va`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>mechanism<sp/>guarantees<sp/>strict<sp/>adherence<sp/>to<sp/>low<sp/>memory<sp/>ceilings<sp/>(e.g.<sp/>maximum<sp/>2<sp/>live<sp/>tiles)<sp/>while<sp/>preserving<sp/>multi-pass<sp/>synchronization<sp/>consistency<sp/>across<sp/>the<sp/>entire<sp/>grid.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>4.<sp/>How<sp/>Overlap<sp/>Buffering<sp/>Works</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Each<sp/>tile<sp/>in<sp/>a<sp/>`VirtualArray`<sp/>consists<sp/>of<sp/>a<sp/>core<sp/>nominal<sp/>area<sp/>augmented<sp/>by<sp/>a<sp/>border<sp/>of<sp/>width<sp/>$H$<sp/>(the<sp/>halo):</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```text</highlight></codeline>
+<codeline><highlight class="normal">+-------------------------------------------------------+</highlight></codeline>
+<codeline><highlight class="normal">|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Top<sp/>Halo<sp/>(North)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/><sp/><sp/>+-----------------------------------------------+<sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>L<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>R<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>e<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>i<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>f<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Core<sp/>Tile<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>g<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>t<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Nominal<sp/>Domain)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>h<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>t<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>H<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>a<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>H<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>l<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>a<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>o<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>l<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/><sp/><sp/>+-----------------------------------------------+<sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bottom<sp/>Halo<sp/>(South)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">+-------------------------------------------------------+</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">When<sp/>two<sp/>adjacent<sp/>tiles<sp/>$T_0$<sp/>and<sp/>$T_1$<sp/>are<sp/>placed<sp/>side-by-side<sp/>along<sp/>the<sp/>$x$-axis:</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>The<sp/>right<sp/>halo<sp/>of<sp/>$T_0$<sp/>covers<sp/>the<sp/>left<sp/>core<sp/>edge<sp/>of<sp/>$T_1$.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>The<sp/>left<sp/>halo<sp/>of<sp/>$T_1$<sp/>covers<sp/>the<sp/>right<sp/>core<sp/>edge<sp/>of<sp/>$T_0$.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>The<sp/>total<sp/>overlap<sp/>width<sp/>between<sp/>$T_0$<sp/>and<sp/>$T_1$<sp/>is<sp/>$2H$.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">During<sp/>`SmoothBlend`<sp/>seam<sp/>stitching,<sp/>cells<sp/>across<sp/>the<sp/>overlap<sp/>$[0,<sp/>H)$<sp/>are<sp/>blended<sp/>smoothly:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$r<sp/>=<sp/>\text{smoothstep5}\left(\frac{p}{H<sp/>-<sp/>1}\right)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">$$\text{value}(p)<sp/>=<sp/>(1<sp/>-<sp/>r)<sp/>\cdot<sp/>T_0(p_{\text{buf}})<sp/>+<sp/>r<sp/>\cdot<sp/>T_1(p)$$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>resulting<sp/>blended<sp/>values<sp/>are<sp/>written<sp/>to<sp/>both<sp/>tiles,<sp/>ensuring<sp/>continuous<sp/>derivatives<sp/>across<sp/>the<sp/>seam.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>5.<sp/>Iteration<sp/>Batching<sp/>in<sp/>Domain<sp/>Algorithms</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Iterative<sp/>physical<sp/>simulations<sp/>(such<sp/>as<sp/>hydraulic<sp/>erosion,<sp/>shallow<sp/>water<sp/>flow,<sp/>snow<sp/>creep,<sp/>or<sp/>Poisson<sp/>pressure<sp/>solvers)<sp/>run<sp/>for<sp/>tens<sp/>to<sp/>hundreds<sp/>of<sp/>iterations.<sp/>Synchronizing<sp/>seams<sp/>after<sp/>every<sp/>individual<sp/>step<sp/>would<sp/>incur<sp/>prohibitive<sp/>synchronization<sp/>overhead.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">HighMap<sp/>algorithms<sp/>expose<sp/>a<sp/>`sync_interval`<sp/>parameter<sp/>enabling<sp/>**iteration<sp/>batching**:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```text</highlight></codeline>
+<codeline><highlight class="normal">Total<sp/>Iterations:<sp/>[================================================]</highlight></codeline>
+<codeline><highlight class="normal">Batch<sp/>0:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[==========]<sp/>-&gt;<sp/>sync_overlap_buffers</highlight></codeline>
+<codeline><highlight class="normal">Batch<sp/>1:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[==========]<sp/>-&gt;<sp/>sync_overlap_buffers</highlight></codeline>
+<codeline><highlight class="normal">Batch<sp/>2:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[==========]<sp/>-&gt;<sp/>sync_overlap_buffers</highlight></codeline>
+<codeline><highlight class="normal">Final:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[==========]<sp/>-&gt;<sp/>sync_overlap_buffers</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Batching<sp/>Loop<sp/>Pattern</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Algorithms<sp/>follow<sp/>a<sp/>standard<sp/>batching<sp/>structure:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```cpp</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>int<sp/>batch_size<sp/>=<sp/>(comm.size()<sp/>&gt;<sp/>1<sp/>&amp;&amp;<sp/>sync_interval<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>sync_interval</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>iterations;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">for<sp/>(int<sp/>it_start<sp/>=<sp/>0;<sp/>it_start<sp/>&lt;<sp/>iterations;<sp/>it_start<sp/>+=<sp/>batch_size)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>const<sp/>int<sp/>it_end<sp/>=<sp/>std::min(iterations,<sp/>it_start<sp/>+<sp/>batch_size);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>1.<sp/>Scope<sp/>GPU<sp/>kernel<sp/>execution<sp/>for<sp/>[it_start,<sp/>it_end)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>run<sp/>=<sp/>clwrapper::Run(&quot;kernel_name&quot;);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>...</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>(int<sp/>it<sp/>=<sp/>it_start;<sp/>it<sp/>&lt;<sp/>it_end;<sp/>++it)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>run.execute_async(...);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>run.finish();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>2.<sp/>Read<sp/>back<sp/>device<sp/>buffers<sp/>to<sp/>host<sp/>Array</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>run.read_imagef(&quot;out&quot;);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>//<sp/>3.<sp/>Synchronize<sp/>halo<sp/>boundaries<sp/>between<sp/>batches</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>if<sp/>(it_end<sp/>&lt;<sp/>iterations)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>comm.sync_overlap_buffers(local_tile,<sp/>region,<sp/>SyncOperation::SmoothBlend);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>4.<sp/>Final<sp/>boundary<sp/>synchronization</highlight></codeline>
+<codeline><highlight class="normal">comm.sync_overlap_buffers(local_tile,<sp/>region,<sp/>SyncOperation::SmoothBlend);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">By<sp/>scoping<sp/>OpenCL<sp/>`Run`<sp/>objects<sp/>to<sp/>each<sp/>batch,<sp/>device<sp/>resources<sp/>and<sp/>command<sp/>queues<sp/>are<sp/>flushed<sp/>and<sp/>synchronized<sp/>with<sp/>host<sp/>memory<sp/>before<sp/>collective<sp/>communicator<sp/>operations<sp/>execute.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>6.<sp/>Integration<sp/>and<sp/>Usage<sp/>Example</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">To<sp/>write<sp/>a<sp/>filter<sp/>or<sp/>simulation<sp/>supporting<sp/>both<sp/>monolithic<sp/>and<sp/>tiled<sp/>execution:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```cpp</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>my_simulation(Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;z,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iterations,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sync_interval<sp/>=<sp/>0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>TileRegion<sp/>&amp;region<sp/>=<sp/>TileRegion::dummy(),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ICommunicator<sp/><sp/><sp/><sp/>&amp;comm<sp/>=<sp/>SingleArrayComm::instance())</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>if<sp/>(!validate_non_empty(z))<sp/>return;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>const<sp/>int<sp/>batch_size<sp/>=<sp/>(comm.size()<sp/>&gt;<sp/>1<sp/>&amp;&amp;<sp/>sync_interval<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>sync_interval</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>iterations;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>for<sp/>(int<sp/>it_start<sp/>=<sp/>0;<sp/>it_start<sp/>&lt;<sp/>iterations;<sp/>it_start<sp/>+=<sp/>batch_size)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>const<sp/>int<sp/>it_end<sp/>=<sp/>std::min(iterations,<sp/>it_start<sp/>+<sp/>batch_size);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>(int<sp/>it<sp/>=<sp/>it_start;<sp/>it<sp/>&lt;<sp/>it_end;<sp/>++it)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>perform<sp/>local<sp/>simulation<sp/>step<sp/>on<sp/>z</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>(it_end<sp/>&lt;<sp/>iterations)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>comm.sync_overlap_buffers(z,<sp/>region,<sp/>SyncOperation::SmoothBlend);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>comm.sync_overlap_buffers(z,<sp/>region,<sp/>SyncOperation::SmoothBlend);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Invoking<sp/>through<sp/>`for_each_tile`<sp/>automatically<sp/>injects<sp/>the<sp/>active<sp/>communicator<sp/>and<sp/>region<sp/>metadata:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```cpp</highlight></codeline>
+<codeline><highlight class="normal">ComputeMode<sp/>cm{.mode<sp/>=<sp/>ForEachMode::VA_DISTRIBUTED};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">for_each_tile(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>va,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>[](Array<sp/>&amp;tile,<sp/>const<sp/>TileRegion<sp/>&amp;region,<sp/>ICommunicator<sp/>&amp;comm)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>my_simulation(tile,<sp/>100,<sp/>10,<sp/>region,<sp/>comm);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+    </programlisting>
+    <location file="docs/content/dev/tiled_communication.md"/>
+  </compounddef>
+</doxygen>

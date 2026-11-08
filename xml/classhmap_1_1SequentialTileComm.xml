@@ -1,0 +1,573 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classhmap_1_1SequentialTileComm" kind="class" language="C++" prot="public" final="yes">
+    <compoundname>hmap::SequentialTileComm</compoundname>
+    <basecompoundref refid="classhmap_1_1ICommunicator" prot="public" virt="non-virtual">hmap::ICommunicator</basecompoundref>
+    <includes refid="communicator_8hpp" local="no">communicator.hpp</includes>
+    <innerclass refid="classhmap_1_1SequentialTileComm_1_1TileProxyComm" prot="public">hmap::SequentialTileComm::TileProxyComm</innerclass>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1af11ddc27d2af04ab39c6c2bed39af109" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hmap::SequentialTileComm::total_tiles</definition>
+        <argsstring></argsstring>
+        <name>total_tiles</name>
+        <qualifiedname>hmap::SequentialTileComm::total_tiles</qualifiedname>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="164" column="35" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1a34dee41c0942afe549158bb9daad20b0" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hmap::SequentialTileComm::current_tile_idx</definition>
+        <argsstring></argsstring>
+        <name>current_tile_idx</name>
+        <qualifiedname>hmap::SequentialTileComm::current_tile_idx</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="165" column="35" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1abd22936f710f91e630f697b9265a2321" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hmap::SequentialTileComm::halo</definition>
+        <argsstring></argsstring>
+        <name>halo</name>
+        <qualifiedname>hmap::SequentialTileComm::halo</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="166" column="35" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1ab10f871ebf9f938963bcf21c210e3d4c" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hmap::SequentialTileComm::call_sequence</definition>
+        <argsstring></argsstring>
+        <name>call_sequence</name>
+        <qualifiedname>hmap::SequentialTileComm::call_sequence</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="167" column="35" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1a648da57ce0f3721e3bca535d3968a045" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hmap::SequentialTileComm::sync_sequence</definition>
+        <argsstring></argsstring>
+        <name>sync_sequence</name>
+        <qualifiedname>hmap::SequentialTileComm::sync_sequence</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="168" column="35" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1a35e67e57bd79724bb76fb92c9523fbcd" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hmap::SequentialTileComm::union_sequence</definition>
+        <argsstring></argsstring>
+        <name>union_sequence</name>
+        <qualifiedname>hmap::SequentialTileComm::union_sequence</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="169" column="35" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1aeabccfeb6110ec336b0eb3df35ded3d8" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; hmap::SequentialTileComm::accumulators</definition>
+        <argsstring></argsstring>
+        <name>accumulators</name>
+        <qualifiedname>hmap::SequentialTileComm::accumulators</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="170" column="28" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1ac62b766615aa7e40ec6f7a0fa5ab839e" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; bool &gt;</type>
+        <definition>std::vector&lt;bool&gt; hmap::SequentialTileComm::initialized</definition>
+        <argsstring></argsstring>
+        <name>initialized</name>
+        <qualifiedname>hmap::SequentialTileComm::initialized</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="171" column="29" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1ac37e604a4c205e3dca8893f69a5d7525" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="namespacehmap_1a53ddf39f16d1bda499b7fce512478e9f" kindref="member">ReduceOp</ref> &gt;</type>
+        <definition>std::vector&lt;ReduceOp&gt; hmap::SequentialTileComm::reduce_ops</definition>
+        <argsstring></argsstring>
+        <name>reduce_ops</name>
+        <qualifiedname>hmap::SequentialTileComm::reduce_ops</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="172" column="25" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1ace41b554551554e8c2fc4ce98023dd62" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::vector&lt; float &gt; &gt;</type>
+        <definition>std::vector&lt;std::vector&lt;float&gt; &gt; hmap::SequentialTileComm::union_accumulators</definition>
+        <argsstring></argsstring>
+        <name>union_accumulators</name>
+        <qualifiedname>hmap::SequentialTileComm::union_accumulators</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="173" column="15" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1a1a3c3d6e39c1f8f0fde9c6788df5c35e" prot="private" static="no" mutable="no">
+        <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> *</type>
+        <definition>const VirtualArray* hmap::SequentialTileComm::p_ref_va</definition>
+        <argsstring></argsstring>
+        <name>p_ref_va</name>
+        <qualifiedname>hmap::SequentialTileComm::p_ref_va</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="175" column="32" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1a53ff7ca99172989a43ec3ea547cc89cd" prot="private" static="no" mutable="no">
+        <type>std::function&lt; void(int)&gt;</type>
+        <definition>std::function&lt;void(int)&gt; hmap::SequentialTileComm::on_suspend_rank</definition>
+        <argsstring></argsstring>
+        <name>on_suspend_rank</name>
+        <qualifiedname>hmap::SequentialTileComm::on_suspend_rank</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="176" column="22" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1ac9459576349db78da4cd28c685a0f855" prot="private" static="no" mutable="no">
+        <type>std::function&lt; void(int)&gt;</type>
+        <definition>std::function&lt;void(int)&gt; hmap::SequentialTileComm::on_resume_rank</definition>
+        <argsstring></argsstring>
+        <name>on_resume_rank</name>
+        <qualifiedname>hmap::SequentialTileComm::on_resume_rank</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="177" column="22" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1a371df1cd477773181a653c22bd629bf4" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;VirtualArray&gt; hmap::SequentialTileComm::sync_va</definition>
+        <argsstring></argsstring>
+        <name>sync_va</name>
+        <qualifiedname>hmap::SequentialTileComm::sync_va</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="178" column="19" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1a9de6a90e29fb97204bd754ea926f30f0" prot="private" static="no" mutable="no">
+        <type><ref refid="namespacehmap_1a2ebe9b34048adbbb55abe1182603a1f8" kindref="member">SyncOperation</ref></type>
+        <definition>SyncOperation hmap::SequentialTileComm::pending_sync_op</definition>
+        <argsstring></argsstring>
+        <name>pending_sync_op</name>
+        <qualifiedname>hmap::SequentialTileComm::pending_sync_op</qualifiedname>
+        <initializer>= <ref refid="namespacehmap_1a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d" kindref="member">SyncOperation::SmoothBlend</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="179" column="33" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1a3ba0da4600b7ae4107c33ff1ddc45141" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool hmap::SequentialTileComm::has_pending_sync</definition>
+        <argsstring></argsstring>
+        <name>has_pending_sync</name>
+        <qualifiedname>hmap::SequentialTileComm::has_pending_sync</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="180" column="33" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1ab9dfc47d5bef017489477a5b25ccd7c4" prot="private" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* hmap::SequentialTileComm::p_thread_scheduler</definition>
+        <argsstring></argsstring>
+        <name>p_thread_scheduler</name>
+        <qualifiedname>hmap::SequentialTileComm::p_thread_scheduler</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="181" column="32" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1a54feb783e2d9e542562e45b9a8621a23" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::vector&lt; std::vector&lt; float &gt; &gt; &gt;</type>
+        <definition>std::vector&lt;std::vector&lt;std::vector&lt;float&gt; &gt; &gt; hmap::SequentialTileComm::east_edges</definition>
+        <argsstring></argsstring>
+        <name>east_edges</name>
+        <qualifiedname>hmap::SequentialTileComm::east_edges</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="184" column="15" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhmap_1_1SequentialTileComm_1af2a1f3e96baffdee7cd0dbf262262749" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::vector&lt; std::vector&lt; float &gt; &gt; &gt;</type>
+        <definition>std::vector&lt;std::vector&lt;std::vector&lt;float&gt; &gt; &gt; hmap::SequentialTileComm::south_edges</definition>
+        <argsstring></argsstring>
+        <name>south_edges</name>
+        <qualifiedname>hmap::SequentialTileComm::south_edges</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="185" column="15" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="185" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhmap_1_1SequentialTileComm_1ac1534d4b66f2371938a8bd8cf5464a4f" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hmap::SequentialTileComm::SequentialTileComm</definition>
+        <argsstring>(int total_tiles, int halo=0)</argsstring>
+        <name>SequentialTileComm</name>
+        <qualifiedname>hmap::SequentialTileComm::SequentialTileComm</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>total_tiles</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>halo</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="116" column="12" bodyfile="HighMap/src/virtual_array/communicator.cpp" bodystart="264" bodyend="267"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1SequentialTileComm_1abbc5bf0fe5ed79cba802bd86378385b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hmap::SequentialTileComm::SequentialTileComm</definition>
+        <argsstring>(const VirtualArray &amp;ref_va, const std::function&lt; void(int)&gt; &amp;on_suspend_rank=nullptr, const std::function&lt; void(int)&gt; &amp;on_resume_rank=nullptr)</argsstring>
+        <name>SequentialTileComm</name>
+        <qualifiedname>hmap::SequentialTileComm::SequentialTileComm</qualifiedname>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>ref_va</declname>
+        </param>
+        <param>
+          <type>const std::function&lt; void(int)&gt; &amp;</type>
+          <declname>on_suspend_rank</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const std::function&lt; void(int)&gt; &amp;</type>
+          <declname>on_resume_rank</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="117" column="3" bodyfile="HighMap/src/virtual_array/communicator.cpp" bodystart="269" bodyend="279"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1SequentialTileComm_1ae52bf50b30f25ba5cd6599b643b1cb14" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>float</type>
+        <definition>float hmap::SequentialTileComm::all_reduce</definition>
+        <argsstring>(float local_val, ReduceOp op) override</argsstring>
+        <name>all_reduce</name>
+        <qualifiedname>hmap::SequentialTileComm::all_reduce</qualifiedname>
+        <reimplements refid="classhmap_1_1ICommunicator_1a4443ebbbdd4ace883125829842c047d2">all_reduce</reimplements>
+        <param>
+          <type>float</type>
+          <declname>local_val</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a53ddf39f16d1bda499b7fce512478e9f" kindref="member">ReduceOp</ref></type>
+          <declname>op</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="121" column="22" bodyfile="HighMap/src/virtual_array/communicator.cpp" bodystart="284" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1SequentialTileComm_1a20793b4b9cf5992decb59cae3030689d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt; float &gt; hmap::SequentialTileComm::all_union</definition>
+        <argsstring>(const std::vector&lt; float &gt; &amp;local_vals) override</argsstring>
+        <name>all_union</name>
+        <qualifiedname>hmap::SequentialTileComm::all_union</qualifiedname>
+        <reimplements refid="classhmap_1_1ICommunicator_1a7f020409ae9f8b25c37b0b003251fc26">all_union</reimplements>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>local_vals</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="122" column="15" bodyfile="HighMap/src/virtual_array/communicator.cpp" bodystart="323" bodyend="362"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1SequentialTileComm_1ac0df293a05fd49f271f38d774c87c9dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hmap::SequentialTileComm::barrier</definition>
+        <argsstring>() override</argsstring>
+        <name>barrier</name>
+        <qualifiedname>hmap::SequentialTileComm::barrier</qualifiedname>
+        <reimplements refid="classhmap_1_1ICommunicator_1a5206083416314f55fed96d1584a20c64">barrier</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="123" column="22" bodyfile="HighMap/src/virtual_array/communicator.cpp" bodystart="364" bodyend="370"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1SequentialTileComm_1ac1ed00d3140aa52081de1b388251e99e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>int hmap::SequentialTileComm::rank</definition>
+        <argsstring>() const override</argsstring>
+        <name>rank</name>
+        <qualifiedname>hmap::SequentialTileComm::rank</qualifiedname>
+        <reimplements refid="classhmap_1_1ICommunicator_1a79f3d5872fcfd5d05f117ac4f97c4544">rank</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="124" column="22" bodyfile="HighMap/src/virtual_array/communicator.cpp" bodystart="386" bodyend="389"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1SequentialTileComm_1a46e09e556613f427b189e583d06fbc2a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>int hmap::SequentialTileComm::size</definition>
+        <argsstring>() const override</argsstring>
+        <name>size</name>
+        <qualifiedname>hmap::SequentialTileComm::size</qualifiedname>
+        <reimplements refid="classhmap_1_1ICommunicator_1a9b01f0bca5a0d7a08e07742828e22dd3">size</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="125" column="22" bodyfile="HighMap/src/virtual_array/communicator.cpp" bodystart="391" bodyend="394"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1SequentialTileComm_1accafe86e232aea3d662238caa8dbdfb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hmap::SequentialTileComm::sync_overlap_buffers</definition>
+        <argsstring>(Array &amp;local_tile, const TileRegion &amp;region, SyncOperation op=SyncOperation::SmoothBlend) override</argsstring>
+        <name>sync_overlap_buffers</name>
+        <qualifiedname>hmap::SequentialTileComm::sync_overlap_buffers</qualifiedname>
+        <reimplements refid="classhmap_1_1ICommunicator_1a9070e5952f201f9b59bfc712e23a117c">sync_overlap_buffers</reimplements>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>local_tile</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref> &amp;</type>
+          <declname>region</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a2ebe9b34048adbbb55abe1182603a1f8" kindref="member">SyncOperation</ref></type>
+          <declname>op</declname>
+          <defval><ref refid="namespacehmap_1a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d" kindref="member">SyncOperation::SmoothBlend</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="126" column="22" bodyfile="HighMap/src/virtual_array/communicator.cpp" bodystart="396" bodyend="601"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1SequentialTileComm_1ab3b94315afcf0dfb93777c9a22f23a57" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float hmap::SequentialTileComm::get_accumulated_value</definition>
+        <argsstring>(size_t seq=0) const</argsstring>
+        <name>get_accumulated_value</name>
+        <qualifiedname>hmap::SequentialTileComm::get_accumulated_value</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>seq</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="131" column="9" bodyfile="HighMap/src/virtual_array/communicator.cpp" bodystart="372" bodyend="376"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1SequentialTileComm_1a1b02530b831c8af1bab8b9c73cdddc5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::SequentialTileComm::next_tile</definition>
+        <argsstring>(int tile_idx)</argsstring>
+        <name>next_tile</name>
+        <qualifiedname>hmap::SequentialTileComm::next_tile</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>tile_idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="132" column="9" bodyfile="HighMap/src/virtual_array/communicator.cpp" bodystart="378" bodyend="384"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1SequentialTileComm_1a969e67204f69cbd23545d268c33346c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::SequentialTileComm::run_cooperative_tiles</definition>
+        <argsstring>(const std::function&lt; void(const TileRegion &amp;, ICommunicator &amp;)&gt; &amp;dispatcher)</argsstring>
+        <name>run_cooperative_tiles</name>
+        <qualifiedname>hmap::SequentialTileComm::run_cooperative_tiles</qualifiedname>
+        <param>
+          <type>const std::function&lt; void(const <ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref> &amp;, <ref refid="classhmap_1_1ICommunicator" kindref="compound">ICommunicator</ref> &amp;)&gt; &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="133" column="9" bodyfile="HighMap/src/virtual_array/communicator.cpp" bodystart="603" bodyend="675"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Communicator for single-threaded sequential tile traversal. Supports cooperative fiber suspension (Option A2) so iterative collective calls (sync_overlap_buffers, all_reduce, all_union, barrier) synchronize across all tiles using a disk-backed temporary <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> (VA_DISK_LRU_STREAM). </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>hmap::ICommunicator</label>
+        <link refid="classhmap_1_1ICommunicator"/>
+      </node>
+      <node id="1">
+        <label>hmap::SequentialTileComm</label>
+        <link refid="classhmap_1_1SequentialTileComm"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>hmap::ICommunicator</label>
+        <link refid="classhmap_1_1ICommunicator"/>
+      </node>
+      <node id="1">
+        <label>hmap::SequentialTileComm</label>
+        <link refid="classhmap_1_1SequentialTileComm"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="113" column="1" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="114" bodyend="188"/>
+    <listofallmembers>
+      <member refid="classhmap_1_1SequentialTileComm_1aeabccfeb6110ec336b0eb3df35ded3d8" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>accumulators</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1ae52bf50b30f25ba5cd6599b643b1cb14" prot="public" virt="virtual"><scope>hmap::SequentialTileComm</scope><name>all_reduce</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1a20793b4b9cf5992decb59cae3030689d" prot="public" virt="virtual"><scope>hmap::SequentialTileComm</scope><name>all_union</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1ac0df293a05fd49f271f38d774c87c9dd" prot="public" virt="virtual"><scope>hmap::SequentialTileComm</scope><name>barrier</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1ab10f871ebf9f938963bcf21c210e3d4c" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>call_sequence</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1a34dee41c0942afe549158bb9daad20b0" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>current_tile_idx</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1a54feb783e2d9e542562e45b9a8621a23" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>east_edges</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1ab3b94315afcf0dfb93777c9a22f23a57" prot="public" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>get_accumulated_value</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1abd22936f710f91e630f697b9265a2321" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>halo</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1a3ba0da4600b7ae4107c33ff1ddc45141" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>has_pending_sync</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1ac62b766615aa7e40ec6f7a0fa5ab839e" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>initialized</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1a1b02530b831c8af1bab8b9c73cdddc5a" prot="public" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>next_tile</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1ac9459576349db78da4cd28c685a0f855" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>on_resume_rank</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1a53ff7ca99172989a43ec3ea547cc89cd" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>on_suspend_rank</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1a1a3c3d6e39c1f8f0fde9c6788df5c35e" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>p_ref_va</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1ab9dfc47d5bef017489477a5b25ccd7c4" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>p_thread_scheduler</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1a9de6a90e29fb97204bd754ea926f30f0" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>pending_sync_op</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1ac1ed00d3140aa52081de1b388251e99e" prot="public" virt="virtual"><scope>hmap::SequentialTileComm</scope><name>rank</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1ac37e604a4c205e3dca8893f69a5d7525" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>reduce_ops</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1a969e67204f69cbd23545d268c33346c5" prot="public" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>run_cooperative_tiles</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1ac1534d4b66f2371938a8bd8cf5464a4f" prot="public" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>SequentialTileComm</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1abbc5bf0fe5ed79cba802bd86378385b0" prot="public" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>SequentialTileComm</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1a46e09e556613f427b189e583d06fbc2a" prot="public" virt="virtual"><scope>hmap::SequentialTileComm</scope><name>size</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1af2a1f3e96baffdee7cd0dbf262262749" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>south_edges</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1accafe86e232aea3d662238caa8dbdfb7" prot="public" virt="virtual"><scope>hmap::SequentialTileComm</scope><name>sync_overlap_buffers</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1a648da57ce0f3721e3bca535d3968a045" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>sync_sequence</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1a371df1cd477773181a653c22bd629bf4" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>sync_va</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1af11ddc27d2af04ab39c6c2bed39af109" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>total_tiles</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1ace41b554551554e8c2fc4ce98023dd62" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>union_accumulators</name></member>
+      <member refid="classhmap_1_1SequentialTileComm_1a35e67e57bd79724bb76fb92c9523fbcd" prot="private" virt="non-virtual"><scope>hmap::SequentialTileComm</scope><name>union_sequence</name></member>
+      <member refid="classhmap_1_1ICommunicator_1aa439b2a629e41691622ee478a44043b7" prot="public" virt="virtual"><scope>hmap::SequentialTileComm</scope><name>~ICommunicator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -24,5 +24,5 @@ var selector_8cpp =
     [ "select_rivers", "selector_8cpp.html#a1f35e2238ee222ab2aa87304f6692ce6", null ],
     [ "select_transitions", "selector_8cpp.html#ac6dcaa05c7c34302fa2560ddedbb9931", null ],
     [ "select_valley", "selector_8cpp.html#ac72cb684be1045c7f2a5c8941f905772", null ],
-    [ "smooth_mask_preserve_frontier", "selector_8cpp.html#a11a2a1f3cd9295fd38e05e61819b06fd", null ]
+    [ "smooth_mask_preserve_frontier", "selector_8cpp.html#ad6fe0af5cc79ba757c476dfe19601cb6", null ]
 ];

@@ -1,0 +1,93 @@
+\doxysection{hmap\+::Threaded\+Collective\+State Class Reference}
+\hypertarget{classhmap_1_1ThreadedCollectiveState}{}\label{classhmap_1_1ThreadedCollectiveState}\index{hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}}
+
+
+Shared synchronization state for multi-\/threaded tile communication.  
+
+
+
+
+{\ttfamily \#include $<$communicator.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_ae8a629922784fbeba19e1175d6682163}{Threaded\+Collective\+State}} (int num\+\_\+threads)
+\item 
+float \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a81d5993b70bfdcf9e04f0790fbf5f4b5}{all\+\_\+reduce}} (size\+\_\+t seq, float val, \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{Reduce\+Op}} op)
+\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a28137e7813b38a7b32488f93be803bba}{all\+\_\+union}} (size\+\_\+t seq, const std\+::vector$<$ float $>$ \&vals)
+\item 
+void \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a6dd9d9caba7a99326bacd2787fd51bd3}{barrier}} (size\+\_\+t seq)
+\item 
+int \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a5086b4265d4d8cb75a7482e823b09b4e}{get\+\_\+total\+\_\+threads}} () const
+\item 
+void \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a3d49d6ffe622200471adfc246e0a1db5}{register\+\_\+tile}} (int tile\+\_\+idx, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}tile, const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \&region)
+\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_ae23fa495a6aab9e7fbbf0cad434dd9b9}{get\+\_\+registered\+\_\+tile}} (int tile\+\_\+idx) const
+\item 
+const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_af151b530a23e39def3db07515ea74284}{get\+\_\+registered\+\_\+region}} (int tile\+\_\+idx) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Shared synchronization state for multi-\/threaded tile communication. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classhmap_1_1ThreadedCollectiveState_ae8a629922784fbeba19e1175d6682163}\label{classhmap_1_1ThreadedCollectiveState_ae8a629922784fbeba19e1175d6682163} 
+\index{hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}!ThreadedCollectiveState@{ThreadedCollectiveState}}
+\index{ThreadedCollectiveState@{ThreadedCollectiveState}!hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}}
+\doxysubsubsection{\texorpdfstring{ThreadedCollectiveState()}{ThreadedCollectiveState()}}
+{\footnotesize\ttfamily hmap\+::\+Threaded\+Collective\+State\+::\+Threaded\+Collective\+State (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+threads }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classhmap_1_1ThreadedCollectiveState_a81d5993b70bfdcf9e04f0790fbf5f4b5}\label{classhmap_1_1ThreadedCollectiveState_a81d5993b70bfdcf9e04f0790fbf5f4b5} 
+\index{hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}!all\_reduce@{all\_reduce}}
+\index{all\_reduce@{all\_reduce}!hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}}
+\doxysubsubsection{\texorpdfstring{all\_reduce()}{all\_reduce()}}
+{\footnotesize\ttfamily float hmap\+::\+Threaded\+Collective\+State\+::all\+\_\+reduce (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{seq,  }\item[{float}]{val,  }\item[{\mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{Reduce\+Op}}}]{op }\end{DoxyParamCaption})}
+
+\Hypertarget{classhmap_1_1ThreadedCollectiveState_a28137e7813b38a7b32488f93be803bba}\label{classhmap_1_1ThreadedCollectiveState_a28137e7813b38a7b32488f93be803bba} 
+\index{hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}!all\_union@{all\_union}}
+\index{all\_union@{all\_union}!hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}}
+\doxysubsubsection{\texorpdfstring{all\_union()}{all\_union()}}
+{\footnotesize\ttfamily std\+::vector$<$ float $>$ hmap\+::\+Threaded\+Collective\+State\+::all\+\_\+union (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{seq,  }\item[{const std\+::vector$<$ float $>$ \&}]{vals }\end{DoxyParamCaption})}
+
+\Hypertarget{classhmap_1_1ThreadedCollectiveState_a6dd9d9caba7a99326bacd2787fd51bd3}\label{classhmap_1_1ThreadedCollectiveState_a6dd9d9caba7a99326bacd2787fd51bd3} 
+\index{hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}!barrier@{barrier}}
+\index{barrier@{barrier}!hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}}
+\doxysubsubsection{\texorpdfstring{barrier()}{barrier()}}
+{\footnotesize\ttfamily void hmap\+::\+Threaded\+Collective\+State\+::barrier (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{seq }\end{DoxyParamCaption})}
+
+\Hypertarget{classhmap_1_1ThreadedCollectiveState_a5086b4265d4d8cb75a7482e823b09b4e}\label{classhmap_1_1ThreadedCollectiveState_a5086b4265d4d8cb75a7482e823b09b4e} 
+\index{hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}!get\_total\_threads@{get\_total\_threads}}
+\index{get\_total\_threads@{get\_total\_threads}!hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}}
+\doxysubsubsection{\texorpdfstring{get\_total\_threads()}{get\_total\_threads()}}
+{\footnotesize\ttfamily int hmap\+::\+Threaded\+Collective\+State\+::get\+\_\+total\+\_\+threads (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classhmap_1_1ThreadedCollectiveState_a3d49d6ffe622200471adfc246e0a1db5}\label{classhmap_1_1ThreadedCollectiveState_a3d49d6ffe622200471adfc246e0a1db5} 
+\index{hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}!register\_tile@{register\_tile}}
+\index{register\_tile@{register\_tile}!hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}}
+\doxysubsubsection{\texorpdfstring{register\_tile()}{register\_tile()}}
+{\footnotesize\ttfamily void hmap\+::\+Threaded\+Collective\+State\+::register\+\_\+tile (\begin{DoxyParamCaption}\item[{int}]{tile\+\_\+idx,  }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{tile,  }\item[{const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \&}]{region }\end{DoxyParamCaption})}
+
+\Hypertarget{classhmap_1_1ThreadedCollectiveState_ae23fa495a6aab9e7fbbf0cad434dd9b9}\label{classhmap_1_1ThreadedCollectiveState_ae23fa495a6aab9e7fbbf0cad434dd9b9} 
+\index{hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}!get\_registered\_tile@{get\_registered\_tile}}
+\index{get\_registered\_tile@{get\_registered\_tile}!hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}}
+\doxysubsubsection{\texorpdfstring{get\_registered\_tile()}{get\_registered\_tile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*} hmap\+::\+Threaded\+Collective\+State\+::get\+\_\+registered\+\_\+tile (\begin{DoxyParamCaption}\item[{int}]{tile\+\_\+idx }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classhmap_1_1ThreadedCollectiveState_af151b530a23e39def3db07515ea74284}\label{classhmap_1_1ThreadedCollectiveState_af151b530a23e39def3db07515ea74284} 
+\index{hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}!get\_registered\_region@{get\_registered\_region}}
+\index{get\_registered\_region@{get\_registered\_region}!hmap::ThreadedCollectiveState@{hmap::ThreadedCollectiveState}}
+\doxysubsubsection{\texorpdfstring{get\_registered\_region()}{get\_registered\_region()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \texorpdfstring{$\ast$}{*} hmap\+::\+Threaded\+Collective\+State\+::get\+\_\+registered\+\_\+region (\begin{DoxyParamCaption}\item[{int}]{tile\+\_\+idx }\end{DoxyParamCaption}) const}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+High\+Map/include/highmap/virtual\+\_\+array/\mbox{\hyperlink{communicator_8hpp}{communicator.\+hpp}}\item 
+High\+Map/src/virtual\+\_\+array/\mbox{\hyperlink{communicator_8cpp}{communicator.\+cpp}}\end{DoxyCompactItemize}

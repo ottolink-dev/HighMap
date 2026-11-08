@@ -130,31 +130,48 @@ var NAVTREE =
     [ "Thermal Weathering and Talus Erosion Algorithms", "md_docs_2content_2dev_2thermal__erosion.html", [
       [ "1. Physical Foundations", "md_docs_2content_2dev_2thermal__erosion.html#autotoc_md95", null ]
     ] ],
+    [ "Tiled Communication and Overlap Synchronization", "md_docs_2content_2dev_2tiled__communication.html", [
+      [ "1. Overview and Purpose", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md110", null ],
+      [ "2. Communicator Interface (<tt>ICommunicator</tt>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md111", [
+        [ "Supported Operations", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md112", null ],
+        [ "Overlap Synchronization Modes (<tt>SyncOperation</tt>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md113", null ]
+      ] ],
+      [ "3. Execution Engines", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md114", [
+        [ "Single-Array Mode (<tt>SingleArrayComm</tt>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md115", null ],
+        [ "Multithreaded Distributed Mode (<tt>ThreadedTileComm</tt>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md116", null ],
+        [ "Out-of-Core Sequential Mode (<tt>SequentialTileComm</tt>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md117", null ]
+      ] ],
+      [ "4. How Overlap Buffering Works", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md118", null ],
+      [ "5. Iteration Batching in Domain Algorithms", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md119", [
+        [ "Batching Loop Pattern", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md120", null ]
+      ] ],
+      [ "6. Integration and Usage Example", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md121", null ]
+    ] ],
     [ "Core Concepts", "md_docs_2content_2getting__started_2core__concepts.html", [
-      [ "1. Elevation Representations", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md110", [
-        [ "Array", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md111", null ]
+      [ "1. Elevation Representations", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md123", [
+        [ "Array", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md124", null ]
       ] ],
-      [ "2. Bivariate Functions", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md112", null ],
-      [ "3. Geometric Primitives", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md113", null ],
-      [ "4. Talus vs. Slope", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md114", [
-        [ "Talus (Grid-Space Elevation Difference)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md115", null ],
-        [ "Slope (Metric Surface Gradient)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md116", null ],
-        [ "Relationship: talus = slope / nx", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md117", null ]
+      [ "2. Bivariate Functions", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md125", null ],
+      [ "3. Geometric Primitives", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md126", null ],
+      [ "4. Talus vs. Slope", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md127", [
+        [ "Talus (Grid-Space Elevation Difference)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md128", null ],
+        [ "Slope (Metric Surface Gradient)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md129", null ],
+        [ "Relationship: talus = slope / nx", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md130", null ]
       ] ],
-      [ "5. Scattering", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md118", null ]
+      [ "5. Scattering", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md131", null ]
     ] ],
     [ "Quickstart", "md_docs_2content_2getting__started_2quickstart.html", [
-      [ "1. Example", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md120", null ],
-      [ "2. CMake Integration", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md121", null ],
-      [ "3. Basic Operations", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md122", null ],
-      [ "4. Next Steps", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md123", null ]
+      [ "1. Example", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md133", null ],
+      [ "2. CMake Integration", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md134", null ],
+      [ "3. Basic Operations", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md135", null ],
+      [ "4. Next Steps", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md136", null ]
     ] ],
     [ "HighMap Documentation", "md_docs_2index.html", [
-      [ "Documentation", "md_docs_2index.html#autotoc_md125", [
-        [ "Getting Started", "md_docs_2index.html#autotoc_md126", null ],
-        [ "Developer Documentation", "md_docs_2index.html#autotoc_md127", null ]
+      [ "Documentation", "md_docs_2index.html#autotoc_md138", [
+        [ "Getting Started", "md_docs_2index.html#autotoc_md139", null ],
+        [ "Developer Documentation", "md_docs_2index.html#autotoc_md140", null ]
       ] ],
-      [ "Installation", "md_docs_2index.html#autotoc_md128", null ]
+      [ "Installation", "md_docs_2index.html#autotoc_md141", null ]
     ] ],
     [ "Optional Tracy CPU profiling", "md_docs_2profiling.html", null ],
     [ "Bibliography", "citelist.html", null ],
@@ -197,41 +214,42 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "add__noise_8cpp.html",
-"classhmap_1_1Array.html#a000acd474d036adfa4e5e334139788ce",
-"classhmap_1_1BigTiffWriter.html#ab76555869ed2459371d5187374ebb557",
-"classhmap_1_1CoordFrame.html#ab1c8fa8ed0244f4a54759253b629255c",
-"classhmap_1_1FieldFunction.html#abd0ed9592d4ff58306a41b1d118a9ae7",
-"classhmap_1_1KDTree.html#a6a69c840c8d2421d96fa453063b135e2",
-"classhmap_1_1PdfSampler.html",
-"classhmap_1_1ScatterField.html#ac41168040f8d2d54d29e27b8fd9c3b3d",
-"classhmap_1_1TileStorage.html",
-"coastal__fetch_8cpp.html#ad20345f6e15426e0b6a150a1fd9e4bfa",
-"dendry_8cpp.html#ae067755e4e2def08c3e4e94834cb2977",
-"export__normal__map_8cpp.html#a9648a23e61a84a702d89159d516dd4ec",
-"filters_8hpp.html#ae00605c7af4addcb5092c90260e2d61b",
-"functions_vars_x.html",
-"hydraulic__mise_8cpp.html#a76f11d9a0a47b94f72c2d0e77fb32240",
-"interpolate__heightmap__virtual__array_8cpp.html",
-"math_2array_8hpp.html#aa5cc0ca00f731884d7a1dad714a254c8",
-"morphology_8hpp.html#ae87241d6c556abd06c6b977f45f48a3f",
-"namespacehmap.html#a2d7b71e9231efc67e4bae209bd7fa84a",
-"namespacehmap.html#a5fbbe4a3db33c7783faa794c3051ddb4",
-"namespacehmap.html#aa3154bd93dda630a0d17f1b75ab6b3c5",
-"namespacehmap.html#ad1d77ab375dfcca54183bbb687c82e9d",
-"namespacehmap_1_1gpu.html#a244398042a7032506bf76ca61805094a",
-"namespacehmap_1_1gpu_1_1detail.html#abb035c47e52efb592dea2146b5708897",
-"path__functions_8cpp.html#aa309f6eee87b7e83c78afeff1adb3eaf",
-"print__array_8cpp.html",
-"sdf__2d__graph_8cpp.html#a82ff6c6d52746555b6182997dc25ceca",
-"structhmap_1_1AABB2D.html#a4559d426fe8d02c20427504407d1e895",
-"structhmap_1_1MiseParams.html#a2c66fa300bcdeedf78522809f0655387",
-"structhmap_1_1Species.html#adb2143684e78eac17d179bd946d2882a",
-"structhmap_1_1VirtualArray.html#ace64d9290dd6116a38ac034f6b72dc91",
-"test__cloud_8cpp.html#a064a6bd0cfd4fa184c9da238d457f6dc",
-"test__gpu__cpu_8cpp.html#ab68ec3acee0ee4fccee1960479be5e77",
-"test__point_8cpp.html#a2fbaba1eb395010e629b2df4b9ba1926",
-"test__trench_8cpp.html#a3d3ced51a118a187849871c9973f06a2",
-"validation_8hpp.html#a2e0228ee67d8c47cd32a3c9d9c6cb9d4"
+"classhmap_1_1Array.html",
+"classhmap_1_1BigTiffWriter.html#a987e894b5f2e516dfd74ba2a9640c020",
+"classhmap_1_1CoordFrame.html#ab015ceb2231eee4beeee57ee07bb19f3",
+"classhmap_1_1Forest.html#a37dee264f422bb2af2450782852875e2",
+"classhmap_1_1KDTree.html#a6470b709082cd4c65c46cbb7582a6718",
+"classhmap_1_1PerlinHalfFunction.html#aaa6beefa4abe388c28195618897dee4a",
+"classhmap_1_1ScatterField.html#afc5177c65e51e710c80d2e367a7888c5",
+"classhmap_1_1Texture.html#a85b55025bed0bf39d40426964a609692",
+"classhmap_1_1WorleyFunction.html#ac2affa031c10570860b72962089fa0ee",
+"core_8cpp.html#a2752dc48a6d7bac9d3798033d1e7b3dd",
+"distance__transform__jfa_8cpp.html#a1dbc83521075f7c0179c7157f292b2b2",
+"filters_8hpp.html#a674c37bb9520cc642026fdcc62c23185",
+"functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195ad0d2c07cd30954b90b955e9432df0752",
+"hash_8cpp.html",
+"interpolate2d_8hpp.html#a5bfab5d68e822294ff90fde21b85f581a4beec3d16f7dc0a1873bb04d85ea6eec",
+"local__metrics__gpu_8cpp.html#a74594cae7628bcfb1c038ac6930fe97d",
+"morphology_8cpp.html#a1cf22c68188d0e35aa74983f3a01c488",
+"namespacehmap.html#a1cf22c68188d0e35aa74983f3a01c488",
+"namespacehmap.html#a4db26523148bcbdedc64cd342a122964",
+"namespacehmap.html#a8b7bdf4f052ba72e3dc8150d324a53b6",
+"namespacehmap.html#ac3436096f5ea39274658f503d7c950c1",
+"namespacehmap.html#af12f56824dfe06e29f7063fa59b2d1f9",
+"namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa892abed7945357817b7504339fdcee14",
+"openexr__writer_8hpp.html",
+"primitives_2functions_8hpp.html#a2b25a71f7da0b8324df986e01e5b08dc",
+"ridgelines_8cpp.html#a74f6ef0464e0ec67df5179f49e14e35a",
+"spawner_8cpp.html#a3422ba41de7725000577effbfd9189b5",
+"structhmap_1_1ImageWriterConfig.html#a4ac6d4d2808bb0ad060df78f9cbb8a38",
+"structhmap_1_1RockSimulationOptions.html",
+"structhmap_1_1TileRegion.html#a1ee79e1a24fa9d72dd13a2e404026895",
+"terrain__super__resolution_8cpp.html#a7f0a7ab07d0cf2936dcebe1e2c473049",
+"test__erosion_8cpp.html#abc3d4c545d6d7957bf2237c1a272a30d",
+"test__math_8cpp.html#a58ef841cc8e6c2abce03014603302f3d",
+"test__saturate_8cpp.html#a8812e367d3fa2e6fa7220927501e6646",
+"thermal__erosion_8hpp_source.html",
+"voronoi__shrink_8cpp.html#aa51712f5cbff96e7704de3813cfa3435"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -19,6 +19,5 @@ var searchData=
   ['list_16',['list',['../structhmap_1_1SpeciesLookup.html#a0cdecbd556760fea134bd78adec3c90c',1,'hmap::SpeciesLookup']]],
   ['loc_17',['loc',['../structhmap_1_1log_1_1format__string__with__loc.html#ab3a11e4b6aabb05b776944e597250bdd',1,'hmap::log::format_string_with_loc']]],
   ['lrate_18',['lrate',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a9d7d3bf7812591411cbb92a28f30f540',1,'hmap::gpu::McDonaldParams::PhysicalParams']]],
-  ['lru_19',['lru',['../classhmap_1_1LruTileStorage.html#a503160ae137678b2255088de204a5d7c',1,'hmap::LruTileStorage']]],
-  ['lru_5fit_20',['lru_it',['../structhmap_1_1LruTileEntry.html#a4b419114b2a041fe2e303cf6dbea4c39',1,'hmap::LruTileEntry']]]
+  ['lru_5fit_19',['lru_it',['../structhmap_1_1LruTileEntry.html#a4b419114b2a041fe2e303cf6dbea4c39',1,'hmap::LruTileEntry']]]
 ];

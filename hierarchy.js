@@ -69,6 +69,12 @@ var hierarchy =
       [ "hmap::WaveTriangularFunction", "classhmap_1_1WaveTriangularFunction.html", null ]
     ] ],
     [ "hmap::GaussianPush", "structhmap_1_1GaussianPush.html", null ],
+    [ "hmap::ICommunicator", "classhmap_1_1ICommunicator.html", [
+      [ "hmap::SequentialTileComm", "classhmap_1_1SequentialTileComm.html", null ],
+      [ "hmap::SequentialTileComm::TileProxyComm", "classhmap_1_1SequentialTileComm_1_1TileProxyComm.html", null ],
+      [ "hmap::SingleArrayComm", "classhmap_1_1SingleArrayComm.html", null ],
+      [ "hmap::ThreadedTileComm", "classhmap_1_1ThreadedTileComm.html", null ]
+    ] ],
     [ "hmap::ImageWriter", "classhmap_1_1ImageWriter.html", [
       [ "hmap::BigTiffWriter", "classhmap_1_1BigTiffWriter.html", null ],
       [ "hmap::OpenCVWriter", "classhmap_1_1OpenCVWriter.html", null ],
@@ -126,19 +132,18 @@ var hierarchy =
     [ "hmap::TerrainTextureParams", "structhmap_1_1TerrainTextureParams.html", null ],
     [ "hmap::TerrainTriMesh", "classhmap_1_1TerrainTriMesh.html", null ],
     [ "testing::Test", null, [
+      [ "ComputeModeMatrixTest", "classComputeModeMatrixTest.html", null ],
       [ "JaggedTest", "classJaggedTest.html", null ],
       [ "VoronoiShrinkTest", "classVoronoiShrinkTest.html", null ]
     ] ],
     [ "hmap::Texture", "classhmap_1_1Texture.html", null ],
+    [ "hmap::ThreadedCollectiveState", "classhmap_1_1ThreadedCollectiveState.html", null ],
     [ "TileAccess", "structTileAccess.html", null ],
     [ "hmap::TileKey", "structhmap_1_1TileKey.html", null ],
     [ "hmap::TileKeyHash", "structhmap_1_1TileKeyHash.html", null ],
     [ "hmap::TileRegion", "structhmap_1_1TileRegion.html", null ],
     [ "hmap::TileStorage", "classhmap_1_1TileStorage.html", [
-      [ "hmap::DiskSequentialTileStorage", "classhmap_1_1DiskSequentialTileStorage.html", null ],
-      [ "hmap::LruTileStorage", "classhmap_1_1LruTileStorage.html", [
-        [ "hmap::DiskLruTileStorage", "classhmap_1_1DiskLruTileStorage.html", null ]
-      ] ],
+      [ "hmap::DiskLruTileStorage", "classhmap_1_1DiskLruTileStorage.html", null ],
       [ "hmap::RamTileStorage", "classhmap_1_1RamTileStorage.html", null ]
     ] ],
     [ "hmap::Timer", "classhmap_1_1Timer.html", null ],

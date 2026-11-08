@@ -9,5 +9,6 @@ var test__distance__transform_8cpp =
     [ "TEST", "test__distance__transform_8cpp.html#aae15b391a16e2692dd1daac06ed552b8", null ],
     [ "TEST", "test__distance__transform_8cpp.html#a0da1093217c0aa901caf4bc01377ce7f", null ],
     [ "TEST", "test__distance__transform_8cpp.html#a15c97e0ceaccca23fb324bdebbc881e2", null ],
-    [ "TEST", "test__distance__transform_8cpp.html#a84b68cab40bddc4a3b4dff78a3126dd5", null ]
+    [ "TEST", "test__distance__transform_8cpp.html#a84b68cab40bddc4a3b4dff78a3126dd5", null ],
+    [ "TEST", "test__distance__transform_8cpp.html#a0851541028fba7d5d52e677b41d0f920", null ]
 ];

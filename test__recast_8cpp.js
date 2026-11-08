@@ -5,5 +5,7 @@ var test__recast_8cpp =
     [ "TEST", "test__recast_8cpp.html#a23e6a7ab95639b6932b50490990572d7", null ],
     [ "TEST", "test__recast_8cpp.html#ae4b67f5d2f61540e4a82e969a9d9f6ff", null ],
     [ "TEST", "test__recast_8cpp.html#aa6e9472cc8fd0b21fc9663b74d656de6", null ],
-    [ "TEST", "test__recast_8cpp.html#a0f177f81c9ba44331011ff9d3cdba9d4", null ]
+    [ "TEST", "test__recast_8cpp.html#a0f177f81c9ba44331011ff9d3cdba9d4", null ],
+    [ "TEST", "test__recast_8cpp.html#aa2ea4eada403d4736f85046b5dc9a77a", null ],
+    [ "TEST", "test__recast_8cpp.html#adf5199a58bd4613e42df07654f6c81ea", null ]
 ];

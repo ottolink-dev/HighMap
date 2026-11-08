@@ -25,7 +25,7 @@ var selector_8hpp =
     [ "select_rivers", "selector_8hpp.html#a1f35e2238ee222ab2aa87304f6692ce6", null ],
     [ "select_transitions", "selector_8hpp.html#ac6dcaa05c7c34302fa2560ddedbb9931", null ],
     [ "select_valley", "selector_8hpp.html#ac72cb684be1045c7f2a5c8941f905772", null ],
-    [ "smooth_mask_preserve_frontier", "selector_8hpp.html#a11a2a1f3cd9295fd38e05e61819b06fd", null ],
+    [ "smooth_mask_preserve_frontier", "selector_8hpp.html#ad6fe0af5cc79ba757c476dfe19601cb6", null ],
     [ "select_cavities", "selector_8hpp.html#a9d2e42789abe01802177574660804fa1", null ],
     [ "select_soil_flow", "selector_8hpp.html#afb62cf56466c5bdfb9b6a26458a52d12", null ],
     [ "select_soil_rocks", "selector_8hpp.html#a735421f1b5f42ade55224b932603c58e", null ],

@@ -12,5 +12,7 @@ var test__flow__simulation_8cpp =
     [ "TEST", "test__flow__simulation_8cpp.html#a56ba59eda1edafea80d4a49d8f5b53c9", null ],
     [ "TEST", "test__flow__simulation_8cpp.html#afbc530619b799f14f9c92d847eba0538", null ],
     [ "TEST", "test__flow__simulation_8cpp.html#a1680fbb583d6e31fafc9eb04a2da5368", null ],
-    [ "TEST", "test__flow__simulation_8cpp.html#aa43cbefc00d5c5e1774050a11d4d6937", null ]
+    [ "TEST", "test__flow__simulation_8cpp.html#aa43cbefc00d5c5e1774050a11d4d6937", null ],
+    [ "TEST", "test__flow__simulation_8cpp.html#a4ce63c5c86ba06566d24c86be9626f30", null ],
+    [ "TEST", "test__flow__simulation_8cpp.html#a2f4661978611709c704fb8d596d5d2b4", null ]
 ];

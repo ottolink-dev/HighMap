@@ -1,0 +1,118 @@
+\doxysection{hmap\+::ICommunicator Class Reference}
+\hypertarget{classhmap_1_1ICommunicator}{}\label{classhmap_1_1ICommunicator}\index{hmap::ICommunicator@{hmap::ICommunicator}}
+
+
+Abstract communicator interface providing MPI-\/style collective directives.  
+
+
+
+
+{\ttfamily \#include $<$communicator.\+hpp$>$}
+
+
+
+Inheritance diagram for hmap\+::ICommunicator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classhmap_1_1ICommunicator__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classhmap_1_1ICommunicator_aa439b2a629e41691622ee478a44043b7}{\texorpdfstring{$\sim$}{\string~}\+ICommunicator}} ()=default
+\item 
+virtual float \mbox{\hyperlink{classhmap_1_1ICommunicator_a4443ebbbdd4ace883125829842c047d2}{all\+\_\+reduce}} (float local\+\_\+val, \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{Reduce\+Op}} op)=0
+\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1ICommunicator_a7f020409ae9f8b25c37b0b003251fc26}{all\+\_\+union}} (const std\+::vector$<$ float $>$ \&local\+\_\+vals)=0
+\item 
+virtual void \mbox{\hyperlink{classhmap_1_1ICommunicator_a5206083416314f55fed96d1584a20c64}{barrier}} ()=0
+\item 
+virtual int \mbox{\hyperlink{classhmap_1_1ICommunicator_a79f3d5872fcfd5d05f117ac4f97c4544}{rank}} () const =0
+\item 
+virtual int \mbox{\hyperlink{classhmap_1_1ICommunicator_a9b01f0bca5a0d7a08e07742828e22dd3}{size}} () const =0
+\item 
+virtual void \mbox{\hyperlink{classhmap_1_1ICommunicator_a9070e5952f201f9b59bfc712e23a117c}{sync\+\_\+overlap\+\_\+buffers}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&local\+\_\+tile, const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \&region, \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{Sync\+Operation}} op=\mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{Sync\+Operation\+::\+Smooth\+Blend}})=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract communicator interface providing MPI-\/style collective directives. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classhmap_1_1ICommunicator_aa439b2a629e41691622ee478a44043b7}\label{classhmap_1_1ICommunicator_aa439b2a629e41691622ee478a44043b7} 
+\index{hmap::ICommunicator@{hmap::ICommunicator}!````~ICommunicator@{\texorpdfstring{$\sim$}{\string~}ICommunicator}}
+\index{````~ICommunicator@{\texorpdfstring{$\sim$}{\string~}ICommunicator}!hmap::ICommunicator@{hmap::ICommunicator}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ICommunicator()}{\string~ICommunicator()}}
+{\footnotesize\ttfamily virtual hmap\+::\+ICommunicator\+::\texorpdfstring{$\sim$}{\string~}\+ICommunicator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classhmap_1_1ICommunicator_a4443ebbbdd4ace883125829842c047d2}\label{classhmap_1_1ICommunicator_a4443ebbbdd4ace883125829842c047d2} 
+\index{hmap::ICommunicator@{hmap::ICommunicator}!all\_reduce@{all\_reduce}}
+\index{all\_reduce@{all\_reduce}!hmap::ICommunicator@{hmap::ICommunicator}}
+\doxysubsubsection{\texorpdfstring{all\_reduce()}{all\_reduce()}}
+{\footnotesize\ttfamily virtual float hmap\+::\+ICommunicator\+::all\+\_\+reduce (\begin{DoxyParamCaption}\item[{float}]{local\+\_\+val,  }\item[{\mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{Reduce\+Op}}}]{op }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classhmap_1_1SingleArrayComm_ad9e9e76fb5bb1748f2d858cb2feac0c2}{hmap\+::\+Single\+Array\+Comm}}, \mbox{\hyperlink{classhmap_1_1SequentialTileComm_ae52bf50b30f25ba5cd6599b643b1cb14}{hmap\+::\+Sequential\+Tile\+Comm}}, \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_aa01feca43e44939fd9c46280196243ae}{hmap\+::\+Sequential\+Tile\+Comm\+::\+Tile\+Proxy\+Comm}}, and \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_a6c5052e4f8fbeb0ecf26dc1ded15a724}{hmap\+::\+Threaded\+Tile\+Comm}}.
+
+\Hypertarget{classhmap_1_1ICommunicator_a7f020409ae9f8b25c37b0b003251fc26}\label{classhmap_1_1ICommunicator_a7f020409ae9f8b25c37b0b003251fc26} 
+\index{hmap::ICommunicator@{hmap::ICommunicator}!all\_union@{all\_union}}
+\index{all\_union@{all\_union}!hmap::ICommunicator@{hmap::ICommunicator}}
+\doxysubsubsection{\texorpdfstring{all\_union()}{all\_union()}}
+{\footnotesize\ttfamily virtual std\+::vector$<$ float $>$ hmap\+::\+ICommunicator\+::all\+\_\+union (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{local\+\_\+vals }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a22198d1de124dd4af05deb3adf837c2d}{hmap\+::\+Single\+Array\+Comm}}, \mbox{\hyperlink{classhmap_1_1SequentialTileComm_a20793b4b9cf5992decb59cae3030689d}{hmap\+::\+Sequential\+Tile\+Comm}}, \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_ae8c03ab10b4c2fb18320f1204c4ee8f6}{hmap\+::\+Sequential\+Tile\+Comm\+::\+Tile\+Proxy\+Comm}}, and \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_aacb7425282ea78efc04d9123713ce0d9}{hmap\+::\+Threaded\+Tile\+Comm}}.
+
+\Hypertarget{classhmap_1_1ICommunicator_a5206083416314f55fed96d1584a20c64}\label{classhmap_1_1ICommunicator_a5206083416314f55fed96d1584a20c64} 
+\index{hmap::ICommunicator@{hmap::ICommunicator}!barrier@{barrier}}
+\index{barrier@{barrier}!hmap::ICommunicator@{hmap::ICommunicator}}
+\doxysubsubsection{\texorpdfstring{barrier()}{barrier()}}
+{\footnotesize\ttfamily virtual void hmap\+::\+ICommunicator\+::barrier (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a35cf0db66b5f7f9ec806fb53bb3410fa}{hmap\+::\+Single\+Array\+Comm}}, \mbox{\hyperlink{classhmap_1_1SequentialTileComm_ac0df293a05fd49f271f38d774c87c9dd}{hmap\+::\+Sequential\+Tile\+Comm}}, \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_aa8219fb47e5851518a0e329f0e548fff}{hmap\+::\+Sequential\+Tile\+Comm\+::\+Tile\+Proxy\+Comm}}, and \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_a36cef5c57611c5f8e16ba13f1d4922b6}{hmap\+::\+Threaded\+Tile\+Comm}}.
+
+\Hypertarget{classhmap_1_1ICommunicator_a79f3d5872fcfd5d05f117ac4f97c4544}\label{classhmap_1_1ICommunicator_a79f3d5872fcfd5d05f117ac4f97c4544} 
+\index{hmap::ICommunicator@{hmap::ICommunicator}!rank@{rank}}
+\index{rank@{rank}!hmap::ICommunicator@{hmap::ICommunicator}}
+\doxysubsubsection{\texorpdfstring{rank()}{rank()}}
+{\footnotesize\ttfamily virtual int hmap\+::\+ICommunicator\+::rank (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a6bfce55e7447ae82be7d37487177d181}{hmap\+::\+Single\+Array\+Comm}}, \mbox{\hyperlink{classhmap_1_1SequentialTileComm_ac1ed00d3140aa52081de1b388251e99e}{hmap\+::\+Sequential\+Tile\+Comm}}, \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_a0ea62b1acbdababd2b9d92bdb754a8a9}{hmap\+::\+Sequential\+Tile\+Comm\+::\+Tile\+Proxy\+Comm}}, and \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_ad169acdf9cdb1bc7c9b6500a3118e8aa}{hmap\+::\+Threaded\+Tile\+Comm}}.
+
+\Hypertarget{classhmap_1_1ICommunicator_a9b01f0bca5a0d7a08e07742828e22dd3}\label{classhmap_1_1ICommunicator_a9b01f0bca5a0d7a08e07742828e22dd3} 
+\index{hmap::ICommunicator@{hmap::ICommunicator}!size@{size}}
+\index{size@{size}!hmap::ICommunicator@{hmap::ICommunicator}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily virtual int hmap\+::\+ICommunicator\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classhmap_1_1SingleArrayComm_ac2dedc3083535895ca1b37657ae39df6}{hmap\+::\+Single\+Array\+Comm}}, \mbox{\hyperlink{classhmap_1_1SequentialTileComm_a46e09e556613f427b189e583d06fbc2a}{hmap\+::\+Sequential\+Tile\+Comm}}, \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_a8d1db111e6d2e78ee5891055018880f7}{hmap\+::\+Sequential\+Tile\+Comm\+::\+Tile\+Proxy\+Comm}}, and \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_ae40f2d403f3f251cecf52cb605a72927}{hmap\+::\+Threaded\+Tile\+Comm}}.
+
+\Hypertarget{classhmap_1_1ICommunicator_a9070e5952f201f9b59bfc712e23a117c}\label{classhmap_1_1ICommunicator_a9070e5952f201f9b59bfc712e23a117c} 
+\index{hmap::ICommunicator@{hmap::ICommunicator}!sync\_overlap\_buffers@{sync\_overlap\_buffers}}
+\index{sync\_overlap\_buffers@{sync\_overlap\_buffers}!hmap::ICommunicator@{hmap::ICommunicator}}
+\doxysubsubsection{\texorpdfstring{sync\_overlap\_buffers()}{sync\_overlap\_buffers()}}
+{\footnotesize\ttfamily virtual void hmap\+::\+ICommunicator\+::sync\+\_\+overlap\+\_\+buffers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{local\+\_\+tile,  }\item[{const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \&}]{region,  }\item[{\mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{Sync\+Operation}}}]{op = {\ttfamily \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{Sync\+Operation\+::\+Smooth\+Blend}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a11afd290007a8fd5a97715ca11cb11f0}{hmap\+::\+Single\+Array\+Comm}}, \mbox{\hyperlink{classhmap_1_1SequentialTileComm_accafe86e232aea3d662238caa8dbdfb7}{hmap\+::\+Sequential\+Tile\+Comm}}, \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_a0f9f5343f9e1a6f33eb26f7e3cfacb47}{hmap\+::\+Sequential\+Tile\+Comm\+::\+Tile\+Proxy\+Comm}}, and \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_aaf40ff9df9f3eb1e46a8822e4c3cb0c8}{hmap\+::\+Threaded\+Tile\+Comm}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+High\+Map/include/highmap/virtual\+\_\+array/\mbox{\hyperlink{communicator_8hpp}{communicator.\+hpp}}\end{DoxyCompactItemize}

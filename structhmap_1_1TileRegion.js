@@ -1,13 +1,26 @@
 var structhmap_1_1TileRegion =
 [
-    [ "TileRegion", "structhmap_1_1TileRegion.html#a8cd8079c9aebcf4bdf1075a34297680f", null ],
+    [ "TileRegion", "structhmap_1_1TileRegion.html#a08bbfdea476e4db4ad25e0d2110b278c", null ],
     [ "cell_center", "structhmap_1_1TileRegion.html#a2160f3e52bb07aebad44bf689d5fe690", null ],
     [ "cell_corner", "structhmap_1_1TileRegion.html#a773fcee90fae6c3950a9fa5617de2f62", null ],
+    [ "contains_global", "structhmap_1_1TileRegion.html#a24d5561321154b47964d8398f0a12d84", null ],
+    [ "contains_global_core", "structhmap_1_1TileRegion.html#a833dfc3c625878f92549a8dad8b8851e", null ],
+    [ "global_offset", "structhmap_1_1TileRegion.html#ab27aa2f4836f3b30b12b3e48297292a6", null ],
+    [ "global_to_local", "structhmap_1_1TileRegion.html#a3a410878e0750d88a6b5a490007bf298", null ],
     [ "info_string", "structhmap_1_1TileRegion.html#adfd726429cd45259258bdddb714e2414", null ],
     [ "inner_bbox", "structhmap_1_1TileRegion.html#a4754b0823d3ef2d7b97ffb37735084c4", null ],
+    [ "is_east_boundary", "structhmap_1_1TileRegion.html#a9c49add411fe1d63bdc173f330d09958", null ],
+    [ "is_north_boundary", "structhmap_1_1TileRegion.html#ac8d07a12a0144e9ee835566aa4b3fb4c", null ],
+    [ "is_south_boundary", "structhmap_1_1TileRegion.html#a87c0966f82279ad78ea2061200708b0c", null ],
+    [ "is_west_boundary", "structhmap_1_1TileRegion.html#a9e81acf1b7ee007c8093d7bd3a5c98d8", null ],
     [ "key_as_string", "structhmap_1_1TileRegion.html#ae00731982da2e860d89cbdaec916a080", null ],
+    [ "linear_index", "structhmap_1_1TileRegion.html#ab6a992457a0e7e5b1fce94272495be47", null ],
+    [ "local_to_global", "structhmap_1_1TileRegion.html#a535ccc04882589763e8d0c181ffbb642", null ],
     [ "key", "structhmap_1_1TileRegion.html#afb89981844bdc0270441e8464f00ccdc", null ],
     [ "bbox", "structhmap_1_1TileRegion.html#a1ee79e1a24fa9d72dd13a2e404026895", null ],
     [ "shape", "structhmap_1_1TileRegion.html#a525824dd7a3c589436a33b1d232a8433", null ],
-    [ "halo", "structhmap_1_1TileRegion.html#a49c3eebc47bb7e161fd3c6ce87f01cca", null ]
+    [ "halo", "structhmap_1_1TileRegion.html#a49c3eebc47bb7e161fd3c6ce87f01cca", null ],
+    [ "global_shape", "structhmap_1_1TileRegion.html#a47059ba38d48e102f7d0f90fec99a3d0", null ],
+    [ "tile_shape", "structhmap_1_1TileRegion.html#ae9bab41ceab087ec60f8512f5da9fd43", null ],
+    [ "tile_grid", "structhmap_1_1TileRegion.html#afb58907ce0f038ee3d739943fec5922d", null ]
 ];

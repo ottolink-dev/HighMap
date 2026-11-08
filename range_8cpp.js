@@ -23,8 +23,8 @@ var range_8cpp =
     [ "minimum", "range_8cpp.html#a6f9cfb0636b57a00160dbcadfd8b8076", null ],
     [ "minimum_smooth", "range_8cpp.html#a453090213e0cf160406d6af6c129d872", null ],
     [ "minimum_smooth", "range_8cpp.html#a94d994f910d44a006acfae7ff453a53d", null ],
-    [ "remap", "range_8cpp.html#ad470ab979489b088a4e8405830efdbe8", null ],
+    [ "remap", "range_8cpp.html#a5822bf67b9f3c0dcad0525f1d4c4805d", null ],
     [ "remap", "range_8cpp.html#a262e6495cb2d02598f36a2b46114b2b4", null ],
     [ "rescale", "range_8cpp.html#ac126773f7c7af2364cfb4d7a6922ed96", null ],
-    [ "normalize_and_clip", "range_8cpp.html#a813489b177fe9e94a7a7a7a8cb82ce63", null ]
+    [ "normalize_and_clip", "range_8cpp.html#aef47632b1721c98929cc15c4075c9025", null ]
 ];

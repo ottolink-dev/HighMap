@@ -12,5 +12,8 @@ var test__virtual__array_8cpp =
     [ "TEST", "test__virtual__array_8cpp.html#ab3e3f4d1f882feed7201bde39825551b", null ],
     [ "TEST", "test__virtual__array_8cpp.html#ae76e6b32b142c69a3df66a2aa697737d", null ],
     [ "TEST", "test__virtual__array_8cpp.html#a47da2db1583289bfe375c1af2f180533", null ],
-    [ "TEST", "test__virtual__array_8cpp.html#a85e09af473a5daab3a35c261463a3de2", null ]
+    [ "TEST", "test__virtual__array_8cpp.html#a85e09af473a5daab3a35c261463a3de2", null ],
+    [ "TEST", "test__virtual__array_8cpp.html#a90ec4d0e3bd77b3ec07ff1ba74343a0b", null ],
+    [ "TEST", "test__virtual__array_8cpp.html#ab044ee6036cb3a3c5aae6959b122212a", null ],
+    [ "TEST", "test__virtual__array_8cpp.html#a3d556954bfd42ba6fd4e678ceb2c37f4", null ]
 ];

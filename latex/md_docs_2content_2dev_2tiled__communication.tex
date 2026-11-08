@@ -1,0 +1,232 @@
+\chapter{Tiled Communication and Overlap Synchronization}
+\hypertarget{md_docs_2content_2dev_2tiled__communication}{}\label{md_docs_2content_2dev_2tiled__communication}\index{Tiled Communication and Overlap Synchronization@{Tiled Communication and Overlap Synchronization}}
+\label{md_docs_2content_2dev_2tiled__communication_autotoc_md109}%
+\Hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md109}%
+ This document explains the architecture of the tiled communication system in High\+Map, how collective directives operate across execution modes, and how halo overlap buffers are synchronized during iterative simulations.\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md110}{}\doxysection{\texorpdfstring{1. Overview and Purpose}{1. Overview and Purpose}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md110}
+Terrain processing algorithms operating on large spatial domains must frequently scale beyond available GPU VRAM or system RAM. High\+Map achieves out-\/of-\/core scalability through the {\ttfamily Virtual\+Array} container, which subdivides heightmaps into a regular grid of overlapping tiles.
+
+While local kernel operations (e.\+g. stencil filters with radius smaller than halo) require only local neighborhood information, global and iterative algorithms require communication across tile boundaries\+:
+
+
+\begin{DoxyItemize}
+\item Global reductions (computing global minimum, maximum, volume, or convergence residuals).
+\item Global unions (collecting feature points, active wavefronts, or sink lists).
+\item Execution synchronization barriers.
+\item Iterative boundary halo exchanges (diffusion, wave propagation, flooding, snow creep, viscous flow, Poisson solvers).
+\end{DoxyItemize}
+
+High\+Map provides an abstract communicator interface, {\ttfamily ICommunicator}, decoupling simulation code from the underlying concurrency model.\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md111}{}\doxysection{\texorpdfstring{2. Communicator Interface ($<$tt$>$\+ICommunicator$<$/tt$>$)}{2. Communicator Interface (<tt>ICommunicator</tt>)}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md111}
+The {\ttfamily ICommunicator} interface provides an MPI-\/like abstraction tailored to 2D raster tile topologies\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }ICommunicator}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \string~ICommunicator()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ all\_reduce(\textcolor{keywordtype}{float}\ local\_val,\ ReduceOp\ op)\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ std::vector<float>\ all\_union(\textcolor{keyword}{const}\ std::vector<float>\ \&local\_vals)\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ barrier()\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{hydraulic__mise_8cpp_a7103bde565cfac40b7653f88a0d7c7c4}{rank}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sync\_overlap\_buffers(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Array\ \ \ \ \ \ \ \ \ \ \ \ \&local\_tile,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ TileRegion\ \&region,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SyncOperation\ \ \ \ \ op\ =\ SyncOperation::SmoothBlend)\ =\ 0;}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md112}{}\doxysubsection{\texorpdfstring{Supported Operations}{Supported Operations}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md112}
+
+\begin{DoxyItemize}
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily all\+\_\+reduce(local\+\_\+val, op)}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Aggregates a scalar across all tiles using {\ttfamily Reduce\+Op\+::\+Min}, {\ttfamily Reduce\+Op\+::\+Max}, or {\ttfamily Reduce\+Op\+::\+Sum}. Returns the identical aggregated value to all calling tiles.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily all\+\_\+union(local\+\_\+vals)}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Gathers and combines lists of scalar items (such as active seeds or coordinates) across all tiles.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily barrier()}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Blocks execution until all tiles in the current collective phase reach the synchronization point.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily sync\+\_\+overlap\+\_\+buffers(local\+\_\+tile, region, op)}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Synchronizes seam buffers along tile overlaps using a selected {\ttfamily Sync\+Operation}.
+\end{DoxyItemize}\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md113}{}\doxysubsection{\texorpdfstring{Overlap Synchronization Modes ($<$tt$>$\+Sync\+Operation$<$/tt$>$)}{Overlap Synchronization Modes (<tt>SyncOperation</tt>)}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md113}
+
+\begin{DoxyItemize}
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily Smooth\+Blend}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Blends overlapping cells smoothly using a quintic polynomial (\$C\texorpdfstring{$^\wedge$}{\string^}2\$ smoothstep). Used by diffusion, flow simulations, snow settling, and Poisson boundary relaxations to prevent sharp seam artifacts.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily Average} / {\ttfamily Mean}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Computes the arithmetic mean between corresponding overlap cells.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily Min}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Takes the element-\/wise minimum across overlapping regions. Used by distance transforms and geodesic propagation.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily Max}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Takes the element-\/wise maximum across overlapping regions. Used by priority-\/flood depression filling and water elevation surfaces.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily Copy\+First} / {\ttfamily Copy\+Second}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Directional copy from one tile to another along boundary interfaces.
+\end{DoxyItemize}\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md114}{}\doxysection{\texorpdfstring{3. Execution Engines}{3. Execution Engines}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md114}
+The communicator adapts dynamically to the compute configuration specified in {\ttfamily Compute\+Mode}\+:\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md115}{}\doxysubsection{\texorpdfstring{Single-\/\+Array Mode ($<$tt$>$\+Single\+Array\+Comm$<$/tt$>$)}{Single-Array Mode (<tt>SingleArrayComm</tt>)}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md115}
+When an algorithm is invoked directly on a monolithic {\ttfamily Array} without tiling, {\ttfamily Single\+Array\+Comm\+::instance()} serves as the default communicator\+:
+\begin{DoxyItemize}
+\item {\ttfamily size()} returns {\ttfamily 1}, and {\ttfamily \doxylink{hydraulic__mise_8cpp_a7103bde565cfac40b7653f88a0d7c7c4}{rank()}} returns {\ttfamily 0}.
+\item {\ttfamily all\+\_\+reduce} returns the input scalar directly with zero overhead.
+\item {\ttfamily all\+\_\+union} returns the input vector unchanged.
+\item {\ttfamily barrier()} and {\ttfamily sync\+\_\+overlap\+\_\+buffers()} are immediate no-\/ops.
+\end{DoxyItemize}
+
+Algorithms written with communicator parameters incur zero memory or synchronization penalty when run monolithically.\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md116}{}\doxysubsection{\texorpdfstring{Multithreaded Distributed Mode ($<$tt$>$\+Threaded\+Tile\+Comm$<$/tt$>$)}{Multithreaded Distributed Mode (<tt>ThreadedTileComm</tt>)}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md116}
+In {\ttfamily For\+Each\+Mode\+::\+VA\+\_\+\+DISTRIBUTED} when sufficient memory exists to hold all tiles simultaneously, tiles execute concurrently across a thread pool\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Registration}}\+: Every thread registers its tile pointer and {\ttfamily Tile\+Region} in a shared {\ttfamily Threaded\+Collective\+State}.
+\item {\bfseries{Barrier}}\+: Threads enter a condition-\/variable barrier waiting for all ranks to register.
+\item {\bfseries{Seam Exchange}}\+: Rank 0 iterates through the horizontal (\$x\$) and vertical (\$y\$) tile seams, reading and writing the overlapping memory regions between neighboring {\ttfamily Array} buffers according to the requested {\ttfamily Sync\+Operation}.
+\item {\bfseries{Resumption}}\+: A second barrier releases all threads once seam synchronization is complete.
+\end{DoxyEnumerate}\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md117}{}\doxysubsection{\texorpdfstring{Out-\/of-\/\+Core Sequential Mode ($<$tt$>$\+Sequential\+Tile\+Comm$<$/tt$>$)}{Out-of-Core Sequential Mode (<tt>SequentialTileComm</tt>)}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md117}
+When memory constraints dictate strict out-\/of-\/core execution (e.\+g. {\ttfamily Storage\+Mode\+::\+VA\+\_\+\+DISK\+\_\+\+LRU\+\_\+\+MIN}, where at most 2 live tiles are kept in memory at any instant), threads cannot execute in parallel.
+
+High\+Map implements a cooperative sequential scheduler ({\ttfamily Sequential\+Thread\+Scheduler})\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Tile Fibers}}\+: Each tile runs inside a cooperative thread. Exactly one tile executes at any time.
+\item {\bfseries{Staging Cache}}\+: When a tile calls {\ttfamily sync\+\_\+overlap\+\_\+buffers}, its updated contents are flushed to a temporary disk-\/backed {\ttfamily Virtual\+Array} ({\ttfamily sync\+\_\+va}).
+\item {\bfseries{Turn Passing}}\+: The active tile suspends, freeing its RAM tile allocation, and yields execution to the next rank in round-\/robin order.
+\item {\bfseries{Global Seam Sweep}}\+: Once all tiles reach the synchronization point, the scheduler executes {\ttfamily sync\+\_\+va-\/\texorpdfstring{$>$}{>}sync\+\_\+overlap\+\_\+buffers(op)} using the low-\/memory 2-\/tile sliding window cache.
+\item {\bfseries{Tile Resumption}}\+: Ranks wake up in sequence and reload the updated, synchronized tile data from {\ttfamily sync\+\_\+va}.
+\end{DoxyEnumerate}
+
+This mechanism guarantees strict adherence to low memory ceilings (e.\+g. maximum 2 live tiles) while preserving multi-\/pass synchronization consistency across the entire grid.\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md118}{}\doxysection{\texorpdfstring{4. How Overlap Buffering Works}{4. How Overlap Buffering Works}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md118}
+Each tile in a {\ttfamily Virtual\+Array} consists of a core nominal area augmented by a border of width \$\+H\$ (the halo)\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+}
+\DoxyCodeLine{|\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Top\ Halo\ (North)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{|\ \ \ +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+\ \ \ |}
+\DoxyCodeLine{|\ L\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ R\ |}
+\DoxyCodeLine{|\ e\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ i\ |}
+\DoxyCodeLine{|\ f\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Core\ Tile\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ g\ |}
+\DoxyCodeLine{|\ t\ |\ \ \ \ \ \ \ \ \ \ \ \ \ (Nominal\ Domain)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ h\ |}
+\DoxyCodeLine{|\ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ t\ |}
+\DoxyCodeLine{|\ H\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ |}
+\DoxyCodeLine{|\ a\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ H\ |}
+\DoxyCodeLine{|\ l\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ a\ |}
+\DoxyCodeLine{|\ o\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ l\ |}
+\DoxyCodeLine{|\ \ \ +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+\ \ \ |}
+\DoxyCodeLine{|\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Bottom\ Halo\ (South)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+}
+
+\end{DoxyCode}
+
+
+When two adjacent tiles \$\+T\+\_\+0\$ and \$\+T\+\_\+1\$ are placed side-\/by-\/side along the \$x\$-\/axis\+:
+\begin{DoxyItemize}
+\item The right halo of \$\+T\+\_\+0\$ covers the left core edge of \$\+T\+\_\+1\$.
+\item The left halo of \$\+T\+\_\+1\$ covers the right core edge of \$\+T\+\_\+0\$.
+\item The total overlap width between \$\+T\+\_\+0\$ and \$\+T\+\_\+1\$ is \$2\+H\$.
+\end{DoxyItemize}
+
+During {\ttfamily Smooth\+Blend} seam stitching, cells across the overlap \$\mbox{[}0, H)\$ are blended smoothly\+:
+
+\$\$r = \textbackslash{}text\{smoothstep5\}\textbackslash{}left(\textbackslash{}frac\{p\}\{H -\/ 1\}\textbackslash{}right)\$\$
+
+\$\$\textbackslash{}text\{value\}(p) = (1 -\/ r) \textbackslash{}cdot T\+\_\+0(p\+\_\+\{\textbackslash{}text\{buf\}\}) + r \textbackslash{}cdot T\+\_\+1(p)\$\$
+
+The resulting blended values are written to both tiles, ensuring continuous derivatives across the seam.\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md119}{}\doxysection{\texorpdfstring{5. Iteration Batching in Domain Algorithms}{5. Iteration Batching in Domain Algorithms}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md119}
+Iterative physical simulations (such as hydraulic erosion, shallow water flow, snow creep, or Poisson pressure solvers) run for tens to hundreds of iterations. Synchronizing seams after every individual step would incur prohibitive synchronization overhead.
+
+High\+Map algorithms expose a {\ttfamily sync\+\_\+interval} parameter enabling {\bfseries{iteration batching}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Total\ Iterations:\ [================================================]}
+\DoxyCodeLine{Batch\ 0:\ \ \ \ \ \ \ \ \ \ [==========]\ -\/>\ sync\_overlap\_buffers}
+\DoxyCodeLine{Batch\ 1:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [==========]\ -\/>\ sync\_overlap\_buffers}
+\DoxyCodeLine{Batch\ 2:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [==========]\ -\/>\ sync\_overlap\_buffers}
+\DoxyCodeLine{Final:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [==========]\ -\/>\ sync\_overlap\_buffers}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md120}{}\doxysubsection{\texorpdfstring{Batching Loop Pattern}{Batching Loop Pattern}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md120}
+Algorithms follow a standard batching structure\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ batch\_size\ =\ (comm.size()\ >\ 1\ \&\&\ sync\_interval\ >\ 0)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ sync\_interval}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ iterations;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ it\_start\ =\ 0;\ it\_start\ <\ iterations;\ it\_start\ +=\ batch\_size)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ it\_end\ =\ std::min(iterations,\ it\_start\ +\ batch\_size);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 1.\ Scope\ GPU\ kernel\ execution\ for\ [it\_start,\ it\_end)}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ run\ =\ clwrapper::Run(\textcolor{stringliteral}{"{}kernel\_name"{}});}
+\DoxyCodeLine{\ \ \ \ ...}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ it\ =\ it\_start;\ it\ <\ it\_end;\ ++it)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ run.execute\_async(...);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ run.finish();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 2.\ Read\ back\ device\ buffers\ to\ host\ Array}}
+\DoxyCodeLine{\ \ \ \ run.read\_imagef(\textcolor{stringliteral}{"{}out"{}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ 3.\ Synchronize\ halo\ boundaries\ between\ batches}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (it\_end\ <\ iterations)}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ comm.sync\_overlap\_buffers(local\_tile,\ region,\ SyncOperation::SmoothBlend);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ 4.\ Final\ boundary\ synchronization}}
+\DoxyCodeLine{comm.sync\_overlap\_buffers(local\_tile,\ region,\ SyncOperation::SmoothBlend);}
+
+\end{DoxyCode}
+
+
+By scoping Open\+CL {\ttfamily Run} objects to each batch, device resources and command queues are flushed and synchronized with host memory before collective communicator operations execute.\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md121}{}\doxysection{\texorpdfstring{6. Integration and Usage Example}{6. Integration and Usage Example}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md121}
+To write a filter or simulation supporting both monolithic and tiled execution\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ my\_simulation(Array\ \ \ \ \ \ \ \ \ \ \ \ \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iterations,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sync\_interval\ =\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ TileRegion\ \&region\ =\ TileRegion::dummy(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ICommunicator\ \ \ \ \&comm\ =\ SingleArrayComm::instance())}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{namespacehmap_ada207723c327adabe73af8554e48e5bd}{validate\_non\_empty}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}))\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ batch\_size\ =\ (comm.size()\ >\ 1\ \&\&\ sync\_interval\ >\ 0)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ sync\_interval}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ iterations;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ it\_start\ =\ 0;\ it\_start\ <\ iterations;\ it\_start\ +=\ batch\_size)}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ it\_end\ =\ std::min(iterations,\ it\_start\ +\ batch\_size);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ it\ =\ it\_start;\ it\ <\ it\_end;\ ++it)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ perform\ local\ simulation\ step\ on\ z}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (it\_end\ <\ iterations)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ comm.sync\_overlap\_buffers(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ region,\ SyncOperation::SmoothBlend);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ comm.sync\_overlap\_buffers(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ region,\ SyncOperation::SmoothBlend);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Invoking through {\ttfamily for\+\_\+each\+\_\+tile} automatically injects the active communicator and region metadata\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ComputeMode\ cm\{.mode\ =\ ForEachMode::VA\_DISTRIBUTED\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{virtual__array_8inl_ab533899554e393dbefccf9a5602faa39}{for\_each\_tile}}(}
+\DoxyCodeLine{\ \ \ \ va,}
+\DoxyCodeLine{\ \ \ \ [](Array\ \&tile,\ \textcolor{keyword}{const}\ TileRegion\ \&region,\ ICommunicator\ \&comm)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ my\_simulation(tile,\ 100,\ 10,\ region,\ comm);}
+\DoxyCodeLine{\ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ cm);}
+
+\end{DoxyCode}
+ 

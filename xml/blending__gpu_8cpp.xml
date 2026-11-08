@@ -40,8 +40,8 @@
 <codeline lineno="29"><highlight class="normal"><sp/><sp/>Array<sp/>dn1<sp/>=<sp/><ref refid="namespacehmap_1a5f58c4149344b401d82f0be3c3807156" kindref="member">hmap::gradient_norm</ref>(array1);</highlight></codeline>
 <codeline lineno="30"><highlight class="normal"><sp/><sp/>Array<sp/>dn2<sp/>=<sp/><ref refid="namespacehmap_1a5f58c4149344b401d82f0be3c3807156" kindref="member">hmap::gradient_norm</ref>(array2);</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a7d2aae253f1f67bbdbc718859f83ef0a" kindref="member">gpu::smooth_cpulse</ref>(dn1,<sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>);</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a7d2aae253f1f67bbdbc718859f83ef0a" kindref="member">gpu::smooth_cpulse</ref>(dn2,<sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a5308a7a11f7c65d0ed2218f11c8a315a" kindref="member">gpu::smooth_cpulse</ref>(dn1,<sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a5308a7a11f7c65d0ed2218f11c8a315a" kindref="member">gpu::smooth_cpulse</ref>(dn2,<sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>);</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight></codeline>
 <codeline lineno="35"><highlight class="normal"><sp/><sp/>Array<sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref><sp/>=<sp/><ref refid="namespacehmap_1a9e903d1c88db888832bea8cbafb19246" kindref="member">hmap::maximum_smooth</ref>(dn1,<sp/>dn2,<sp/>0.1f<sp/>/<sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)array1.shape.x);</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">remap</ref>(<ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>);</highlight></codeline>
@@ -142,13 +142,13 @@
 <codeline lineno="131"><highlight class="normal"></highlight></codeline>
 <codeline lineno="132"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>high-pass<sp/>spatial<sp/>filter</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="133"><highlight class="normal"><sp/><sp/>Array<sp/>w<sp/>=<sp/>-source;</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a7d2aae253f1f67bbdbc718859f83ef0a" kindref="member">gpu::smooth_cpulse</ref>(w,<sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a5308a7a11f7c65d0ed2218f11c8a315a" kindref="member">gpu::smooth_cpulse</ref>(w,<sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>);</highlight></codeline>
 <codeline lineno="135"><highlight class="normal"><sp/><sp/>w<sp/>+=<sp/>source;</highlight></codeline>
 <codeline lineno="136"><highlight class="normal"></highlight></codeline>
 <codeline lineno="137"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(target_prefiltering)</highlight></codeline>
 <codeline lineno="138"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
 <codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>target_f<sp/>=<sp/><ref refid="sls__deformation_8cpp_1a2975431cdfb0da699844afbc6058ebc9" kindref="member">target</ref>;</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a7d2aae253f1f67bbdbc718859f83ef0a" kindref="member">gpu::smooth_cpulse</ref>(target_f,<sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a5308a7a11f7c65d0ed2218f11c8a315a" kindref="member">gpu::smooth_cpulse</ref>(target_f,<sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>);</highlight></codeline>
 <codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>w<sp/>=<sp/>target_f<sp/>+<sp/><ref refid="sls__deformation_8cpp_1a31bef58f966d97b1ace9bd3a58ffd9a6" kindref="member">amplitude</ref><sp/>*<sp/>w;</highlight></codeline>
 <codeline lineno="142"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="143"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>

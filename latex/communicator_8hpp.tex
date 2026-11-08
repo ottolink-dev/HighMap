@@ -1,0 +1,55 @@
+\doxysection{High\+Map/include/highmap/virtual\+\_\+array/communicator.hpp File Reference}
+\hypertarget{communicator_8hpp}{}\label{communicator_8hpp}\index{HighMap/include/highmap/virtual\_array/communicator.hpp@{HighMap/include/highmap/virtual\_array/communicator.hpp}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classhmap_1_1ICommunicator}{hmap\+::\+ICommunicator}}
+\begin{DoxyCompactList}\small\item\em Abstract communicator interface providing MPI-\/style collective directives. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1SingleArrayComm}{hmap\+::\+Single\+Array\+Comm}}
+\begin{DoxyCompactList}\small\item\em Default standalone communicator for single-\/array computation. All collective calls are identity or no-\/ops, resulting in zero overhead. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1SequentialTileComm}{hmap\+::\+Sequential\+Tile\+Comm}}
+\begin{DoxyCompactList}\small\item\em Communicator for single-\/threaded sequential tile traversal. Supports cooperative fiber suspension (Option A2) so iterative collective calls (sync\+\_\+overlap\+\_\+buffers, all\+\_\+reduce, all\+\_\+union, barrier) synchronize across all tiles using a disk-\/backed temporary \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} (VA\+\_\+\+DISK\+\_\+\+LRU\+\_\+\+STREAM). \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm}{hmap\+::\+Sequential\+Tile\+Comm\+::\+Tile\+Proxy\+Comm}}
+\item 
+class \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState}{hmap\+::\+Threaded\+Collective\+State}}
+\begin{DoxyCompactList}\small\item\em Shared synchronization state for multi-\/threaded tile communication. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1ThreadedTileComm}{hmap\+::\+Threaded\+Tile\+Comm}}
+\begin{DoxyCompactList}\small\item\em Thread-\/local communicator proxy connected to a \doxylink{classhmap_1_1ThreadedCollectiveState}{Threaded\+Collective\+State}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacehmap}{hmap}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{hmap\+::\+Reduce\+Op}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9fa78d811e98514cd165dda532286610fd2}{hmap\+::\+Min}}
+, \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9fa6a061313d22e51e0f25b7cd4dc065233}{hmap\+::\+Max}}
+, \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5}{hmap\+::\+Sum}}
+ \}
+\item 
+enum class \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{hmap\+::\+Sync\+Operation}} \{ \newline
+\mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8ab1897515d548a960afe49ecf66a29021}{hmap\+::\+Average}}
+, \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2acc11db629257b2f64fff4429c45539}{hmap\+::\+Copy\+First}}
+, \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a7d46a7568c3814519ecbe11966f17d55}{hmap\+::\+Copy\+Second}}
+, \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a78d811e98514cd165dda532286610fd2}{hmap\+::\+Min}}
+, \newline
+\mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a6a061313d22e51e0f25b7cd4dc065233}{hmap\+::\+Max}}
+, \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a3d6c9ac08ada31c184094bbc67afe00d}{hmap\+::\+Mean}}
+, \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{hmap\+::\+Smooth\+Blend}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{namespacehmap_af51191620f4e1671658a1d677e9291de}{hmap\+::to\+\_\+string}} (\mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{Reduce\+Op}} op)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Otto Link (\href{mailto:otto.link.bv@gmail.com}{\texttt{ otto.\+link.\+bv@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2026 
+\end{DoxyCopyright}
