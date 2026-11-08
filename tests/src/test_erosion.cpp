@@ -541,3 +541,52 @@ TEST(HydraulicSchottErosionGPU, BasicExecution)
       EXPECT_GE(flow(i, j), 1.f);
     }
 }
+
+TEST(AeolianErosionGPU, BasicExecutionAndConservation)
+{
+  hmap::gpu::init_opencl();
+
+  glm::ivec2 shape = {64, 64};
+  Array      z0(shape, 2.f);
+  Array      z = z0;
+  Array      sed(shape);
+  Array      bed(shape);
+
+  // Initial sediment uniform layer on flat bedrock (0.f)
+  // Without abrasion, total sand volume should be conserved under transport
+  aeolian_erosion(z,
+                  50,
+                  1234u,
+                  {3.f, 0.f},
+                  nullptr,
+                  nullptr,
+                  nullptr,
+                  &sed,
+                  &bed,
+                  0.05f,
+                  shape.x * shape.y,
+                  33.f,
+                  5.f,
+                  15.f,
+                  10.f,
+                  0.f,
+                  0.35f);
+
+  EXPECT_EQ(z.shape, shape);
+  EXPECT_EQ(sed.shape, shape);
+  EXPECT_EQ(bed.shape, shape);
+
+  // Total volume before and after should be almost equal (no abrasion)
+  float sum_init = z0.sum();
+  float sum_final = z.sum();
+  EXPECT_NEAR(sum_init, sum_final, sum_init * 0.01f);
+
+  for (int j = 0; j < z.shape.y; j++)
+    for (int i = 0; i < z.shape.x; i++)
+    {
+      EXPECT_FALSE(std::isnan(z(i, j)));
+      EXPECT_FALSE(std::isinf(z(i, j)));
+      EXPECT_GE(sed(i, j), 0.f);
+    }
+}
+

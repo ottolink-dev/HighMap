@@ -1,0 +1,130 @@
+#include <iostream>
+
+#include "highmap.hpp"
+
+int main(void)
+{
+  hmap::gpu::init_opencl();
+
+  glm::ivec2 shape = {256, 256};
+  std::uint32_t seed = 42u;
+
+  constexpr int steps = 1000;
+  constexpr float alpha = 0.f / 180.f * M_PI;
+  constexpr glm::vec2 wind_dir = {std::cos(alpha), std::sin(alpha)};
+  
+  // --- 1. Transverse sand dunes (unimodal wind with abundant sand supply)
+
+  hmap::Array z_transverse(shape, 4.f);
+
+  hmap::aeolian_erosion(z_transverse,
+                        steps,
+                        /* seed */ seed,
+                        3.f * wind_dir,
+                        /* p_bedrock */ nullptr,
+                        /* p_vegetation */ nullptr,
+                        /* p_abrasion_mask */ nullptr,
+                        /* p_sediment_map */ nullptr,
+                        /* p_bedrock_map */ nullptr,
+                        /* matter_to_move */ 0.1f,
+                        /* samples_per_step */ shape.x * shape.y,
+                        /* sand_repose_angle */ 33.f,
+                        /* shadow_angle_min */ 5.f,
+                        /* shadow_angle_max */ 15.f,
+                        /* max_shadow_dist */ 12.f,
+                        /* abrasion_rate */ 0.f,
+                        /* repose_rate */ 0.35f);
+
+  // --- 2. Transverse dunes with bedrock bumps (sand flowing around and piling)
+
+  hmap::Array bed_bumps = hmap::noise_fbm(hmap::NoiseType::PERLIN,
+                                          shape,
+                                          {3.f, 3.f},
+                                          seed + 10u,
+                                          4,
+                                          0.5f);
+  hmap::remap(bed_bumps, 0.f, 5.f);
+  hmap::clamp_min(bed_bumps, 0.5f * bed_bumps.max());
+  bed_bumps -= 0.5f;
+  bed_bumps *= 10.f;
+
+  // Initial terrain: bedrock bumps + abundant sand layer (4 units)
+  hmap::Array z_bumps = bed_bumps + hmap::Array(shape, 4.f);
+
+  hmap::aeolian_erosion(z_bumps,
+                        steps,
+                        /* seed */ seed,
+                        3.f * wind_dir,
+                        /* p_bedrock */ &bed_bumps,
+                        /* p_vegetation */ nullptr,
+                        /* p_abrasion_mask */ nullptr,
+                        /* p_sediment_map */ nullptr,
+                        /* p_bedrock_map */ nullptr,
+                        /* matter_to_move */ 0.1f,
+                        /* samples_per_step */ shape.x * shape.y,
+                        /* sand_repose_angle */ 33.f,
+                        /* shadow_angle_min */ 5.f,
+                        /* shadow_angle_max */ 15.f,
+                        /* max_shadow_dist */ 12.f,
+                        /* abrasion_rate */ 0.f,
+                        /* repose_rate */ 0.35f);
+
+  // --- 3. Barchan dunes (higher wind speed with lower sand supply)
+
+  hmap::Array z_barchan(shape, 1.f);
+
+  hmap::aeolian_erosion(z_barchan,
+                        steps,
+                        /* seed */ seed,
+                        5.f * wind_dir,
+                        /* p_bedrock */ nullptr,
+                        /* p_vegetation */ nullptr,
+                        /* p_abrasion_mask */ nullptr,
+                        /* p_sediment_map */ nullptr,
+                        /* p_bedrock_map */ nullptr,
+                        /* matter_to_move */ 0.1f,
+                        /* samples_per_step */ shape.x * shape.y,
+                        /* sand_repose_angle */ 33.f,
+                        /* shadow_angle_min */ 5.f,
+                        /* shadow_angle_max */ 15.f,
+                        /* max_shadow_dist */ 12.f,
+                        /* abrasion_rate */ 0.f,
+                        /* repose_rate */ 0.35f);
+
+  // --- 4. Yardangs (wind abrasion carving corrugated bedrock corridors)
+
+  hmap::Array z_yardang(shape, 0.5f);
+  hmap::Array abrasion_mask = hmap::noise_fbm(hmap::NoiseType::PERLIN,
+                                              shape,
+                                              {4.f, 16.f},
+                                              seed);
+  hmap::remap(abrasion_mask, 0.2f, 1.f);
+
+  hmap::aeolian_erosion(z_yardang,
+                        steps,
+                        /* seed */ seed,
+                        3.f * wind_dir,
+                        /* p_bedrock */ nullptr,
+                        /* p_vegetation */ nullptr,
+                        /* p_abrasion_mask */ &abrasion_mask,
+                        /* p_sediment_map */ nullptr,
+                        /* p_bedrock_map */ nullptr,
+                        /* matter_to_move */ 0.1f,
+                        /* samples_per_step */ shape.x * shape.y,
+                        /* sand_repose_angle */ 33.f,
+                        /* shadow_angle_min */ 5.f,
+                        /* shadow_angle_max */ 15.f,
+                        /* max_shadow_dist */ 12.f,
+                        /* abrasion_rate */ 0.05f,
+                        /* repose_rate */ 0.35f);
+
+  // --- 5. Export banner
+
+  hmap::export_banner_png("ex_aeolian_erosion.png",
+                          {z_transverse, z_bumps, z_barchan, z_yardang},
+                          hmap::Cmap::TERRAIN,
+                          true, true);
+
+  std::cout << "ex_aeolian_erosion successfully executed." << std::endl;
+  return 0;
+}

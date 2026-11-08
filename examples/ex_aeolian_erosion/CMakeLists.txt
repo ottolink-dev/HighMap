@@ -1,0 +1,2 @@
+add_executable(ex_aeolian_erosion ex_aeolian_erosion.cpp)
+target_link_libraries(ex_aeolian_erosion highmap)

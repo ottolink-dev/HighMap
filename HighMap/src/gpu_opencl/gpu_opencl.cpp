@@ -134,6 +134,9 @@ bool init_opencl()
   // --- Erosion and geomorphology
 
   add(
+#include "kernels/erosion/aeolian.cl"
+  );
+  add(
 #include "kernels/erosion/hydraulic_mcdonald.cl"
   );
   add(

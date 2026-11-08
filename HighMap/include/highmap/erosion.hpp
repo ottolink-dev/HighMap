@@ -10,6 +10,7 @@
  */
 #pragma once
 
+#include "highmap/erosion/aeolian_erosion.hpp"
 #include "highmap/erosion/coastal_erosion.hpp"
 #include "highmap/erosion/depression_filling.hpp"
 #include "highmap/erosion/erosion_maps.hpp"
