@@ -106,17 +106,37 @@ public:
     this->finished.assign(total, false);
   }
 
+  void abort(std::exception_ptr exp)
+  {
+    std::unique_lock<std::mutex> lock(this->mtx);
+    if (!this->first_exception)
+    {
+      this->first_exception = exp;
+    }
+    this->aborted = true;
+    this->cv.notify_all();
+  }
+
   void acquire_turn(int rank)
   {
     std::unique_lock<std::mutex> lock(this->mtx);
-    this->cv.wait(lock, [&]() { return this->turn == rank; });
+    this->cv.wait(lock, [&]() { return this->aborted || this->turn == rank; });
+    if (this->aborted)
+    {
+      throw std::runtime_error("SequentialThreadScheduler: execution aborted");
+    }
   }
 
   void arrive_and_wait(int                          rank,
                        const std::function<void()> &on_all_arrived = nullptr)
   {
     std::unique_lock<std::mutex> lock(this->mtx);
-    int                          my_phase = this->phase;
+    if (this->aborted)
+    {
+      throw std::runtime_error("SequentialThreadScheduler: execution aborted");
+    }
+
+    int my_phase = this->phase;
     this->waiting++;
 
     if (this->waiting < this->active)
@@ -126,13 +146,34 @@ public:
 
       this->cv.wait(lock,
                     [&]()
-                    { return this->phase > my_phase && this->turn == rank; });
+                    {
+                      return this->aborted ||
+                             (this->phase > my_phase && this->turn == rank);
+                    });
+      if (this->aborted)
+      {
+        throw std::runtime_error(
+            "SequentialThreadScheduler: execution aborted");
+      }
     }
     else
     {
       if (on_all_arrived)
       {
-        on_all_arrived();
+        try
+        {
+          on_all_arrived();
+        }
+        catch (...)
+        {
+          if (!this->first_exception)
+          {
+            this->first_exception = std::current_exception();
+          }
+          this->aborted = true;
+          this->cv.notify_all();
+          throw;
+        }
       }
 
       this->waiting = 0;
@@ -144,7 +185,15 @@ public:
       {
         this->cv.wait(lock,
                       [&]()
-                      { return this->phase > my_phase && this->turn == rank; });
+                      {
+                        return this->aborted ||
+                               (this->phase > my_phase && this->turn == rank);
+                      });
+        if (this->aborted)
+        {
+          throw std::runtime_error(
+              "SequentialThreadScheduler: execution aborted");
+        }
       }
     }
   }
@@ -157,9 +206,25 @@ public:
 
     if (this->active > 0)
     {
-      this->turn = this->next_active_rank(rank);
-      this->cv.notify_all();
+      if (this->waiting == this->active)
+      {
+        this->waiting = 0;
+        this->phase++;
+        this->turn = this->first_active_rank();
+        this->cv.notify_all();
+      }
+      else
+      {
+        this->turn = this->next_active_rank(rank);
+        this->cv.notify_all();
+      }
     }
+  }
+
+  std::exception_ptr get_exception() const
+  {
+    std::unique_lock<std::mutex> lock(this->mtx);
+    return this->first_exception;
   }
 
 private:
@@ -168,8 +233,10 @@ private:
   int                     waiting;
   int                     turn;
   int                     phase;
+  bool                    aborted = false;
+  std::exception_ptr      first_exception = nullptr;
   std::vector<bool>       finished;
-  std::mutex              mtx;
+  mutable std::mutex      mtx;
   std::condition_variable cv;
 
   int first_active_rank() const
@@ -211,23 +278,8 @@ SequentialTileComm::SequentialTileComm(
 {
 }
 
-void SequentialTileComm::yield_to_scheduler()
-{
-#if HMAP_HAS_UCONTEXT || HMAP_HAS_WIN32_FIBERS
-  if (!this->p_fiber_scheduler) return;
-
-  if (this->on_suspend_rank) this->on_suspend_rank(this->current_tile_idx);
-
-  auto *sched = static_cast<FiberSchedulerState *>(this->p_fiber_scheduler);
-  int   idx = this->current_tile_idx;
-
-#if HMAP_HAS_WIN32_FIBERS
-  SwitchToFiber(sched->main_fiber);
-#else
-  swapcontext(&sched->fibers[idx].ctx, &sched->main_ctx);
-#endif
-#endif
-}
+// yield_to_scheduler removed: thread synchronization handled via
+// SequentialThreadScheduler
 
 float SequentialTileComm::all_reduce(float local_val, ReduceOp op)
 {
@@ -260,10 +312,9 @@ float SequentialTileComm::all_reduce(float local_val, ReduceOp op)
     }
   }
 
-  if (this->p_fiber_scheduler && this->total_tiles > 1)
+  if (this->p_thread_scheduler && this->total_tiles > 1)
   {
-    this->yield_to_scheduler();
-    if (this->on_resume_rank) this->on_resume_rank(this->current_tile_idx);
+    // no-op for non-threaded sequential mode
   }
 
   return this->accumulators[seq];
@@ -285,14 +336,26 @@ std::vector<float> SequentialTileComm::all_union(
     acc.push_back(v);
   }
 
-  std::sort(acc.begin(), acc.end());
-  auto last = std::unique(acc.begin(), acc.end());
+  std::sort(acc.begin(),
+            acc.end(),
+            [](float a, float b)
+            {
+              if (std::isnan(a)) return false;
+              if (std::isnan(b)) return true;
+              return a < b;
+            });
+  auto last = std::unique(acc.begin(),
+                          acc.end(),
+                          [](float a, float b)
+                          {
+                            if (std::isnan(a) && std::isnan(b)) return true;
+                            return a == b;
+                          });
   acc.erase(last, acc.end());
 
-  if (this->p_fiber_scheduler && this->total_tiles > 1)
+  if (this->p_thread_scheduler && this->total_tiles > 1)
   {
-    this->yield_to_scheduler();
-    if (this->on_resume_rank) this->on_resume_rank(this->current_tile_idx);
+    // no-op for non-threaded sequential mode
   }
 
   return this->union_accumulators[seq];
@@ -300,10 +363,9 @@ std::vector<float> SequentialTileComm::all_union(
 
 void SequentialTileComm::barrier()
 {
-  if (this->p_fiber_scheduler && this->total_tiles > 1)
+  if (this->p_thread_scheduler && this->total_tiles > 1)
   {
-    this->yield_to_scheduler();
-    if (this->on_resume_rank) this->on_resume_rank(this->current_tile_idx);
+    // no-op for non-threaded sequential mode
   }
 }
 
@@ -339,7 +401,7 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
 
   // --- Option A2: Cooperative fiber suspension + disk-backed VirtualArray
   // (VA_DISK_LRU_MIN, max 2 live tiles in memory)
-  if (this->p_fiber_scheduler && this->p_ref_va && this->total_tiles > 1)
+  if (this->p_thread_scheduler && this->p_ref_va && this->total_tiles > 1)
   {
     if (!this->sync_va)
     {
@@ -366,7 +428,7 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
 
     // 2. Suspend this tile fiber until all tiles reach this sync point and
     // the scheduler executes sync_va->sync_overlap_buffers(op)
-    this->yield_to_scheduler();
+    // no-op for non-threaded sequential mode
 
     // 3. Re-acquire input/output tiles FIRST, then reload local_tile so that
     // if local_tile IS one of the input/output tiles in VA_DISK_LRU_MIN,
@@ -561,7 +623,7 @@ void SequentialTileComm::run_cooperative_tiles(
   // --- Threaded cooperative execution (1 OS thread per tile, turn-taking
   // barrier)
   SequentialThreadScheduler sched(n_tiles);
-  this->p_fiber_scheduler = &sched;
+  this->p_thread_scheduler = &sched;
 
   std::vector<TileRegion> regions(n_tiles);
   int                     idx = 0;
@@ -580,12 +642,20 @@ void SequentialTileComm::run_cooperative_tiles(
     workers.emplace_back(
         [&, rank]()
         {
-          sched.acquire_turn(rank);
+          try
+          {
+            sched.acquire_turn(rank);
 
-          TileProxyComm proxy(*this, rank);
-          dispatcher(regions[rank], proxy);
+            TileProxyComm proxy(*this, rank);
+            dispatcher(regions[rank], proxy);
 
-          sched.thread_finishing(rank);
+            sched.thread_finishing(rank);
+          }
+          catch (...)
+          {
+            sched.abort(std::current_exception());
+            sched.thread_finishing(rank);
+          }
         });
   }
 
@@ -594,8 +664,14 @@ void SequentialTileComm::run_cooperative_tiles(
     if (w.joinable()) w.join();
   }
 
-  this->p_fiber_scheduler = nullptr;
+  this->p_thread_scheduler = nullptr;
   this->sync_va.reset();
+
+  auto exp = sched.get_exception();
+  if (exp)
+  {
+    std::rethrow_exception(exp);
+  }
 }
 
 // =====================================
@@ -1028,7 +1104,7 @@ float SequentialTileComm::TileProxyComm::all_reduce(float    local_val,
                                                     ReduceOp op)
 {
   auto *sched = static_cast<SequentialThreadScheduler *>(
-      this->parent.p_fiber_scheduler);
+      this->parent.p_thread_scheduler);
   if (!sched || this->parent.size() <= 1)
   {
     return local_val;
@@ -1078,7 +1154,7 @@ std::vector<float> SequentialTileComm::TileProxyComm::all_union(
     const std::vector<float> &local_vals)
 {
   auto *sched = static_cast<SequentialThreadScheduler *>(
-      this->parent.p_fiber_scheduler);
+      this->parent.p_thread_scheduler);
   if (!sched || this->parent.size() <= 1)
   {
     return local_vals;
@@ -1097,8 +1173,21 @@ std::vector<float> SequentialTileComm::TileProxyComm::all_union(
     acc.push_back(v);
   }
 
-  std::sort(acc.begin(), acc.end());
-  auto last = std::unique(acc.begin(), acc.end());
+  std::sort(acc.begin(),
+            acc.end(),
+            [](float a, float b)
+            {
+              if (std::isnan(a)) return false;
+              if (std::isnan(b)) return true;
+              return a < b;
+            });
+  auto last = std::unique(acc.begin(),
+                          acc.end(),
+                          [](float a, float b)
+                          {
+                            if (std::isnan(a) && std::isnan(b)) return true;
+                            return a == b;
+                          });
   acc.erase(last, acc.end());
 
   if (this->parent.on_suspend_rank) this->parent.on_suspend_rank(this->my_rank);
@@ -1113,7 +1202,7 @@ std::vector<float> SequentialTileComm::TileProxyComm::all_union(
 void SequentialTileComm::TileProxyComm::barrier()
 {
   auto *sched = static_cast<SequentialThreadScheduler *>(
-      this->parent.p_fiber_scheduler);
+      this->parent.p_thread_scheduler);
   if (!sched || this->parent.size() <= 1)
   {
     return;
@@ -1134,7 +1223,7 @@ void SequentialTileComm::TileProxyComm::sync_overlap_buffers(
   if (this->parent.halo <= 0) return;
 
   auto *sched = static_cast<SequentialThreadScheduler *>(
-      this->parent.p_fiber_scheduler);
+      this->parent.p_thread_scheduler);
   if (!sched || !this->parent.p_ref_va || this->parent.size() <= 1)
   {
     this->parent.sync_overlap_buffers(local_tile, region, op);

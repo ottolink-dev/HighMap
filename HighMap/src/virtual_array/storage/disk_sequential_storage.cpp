@@ -25,6 +25,26 @@ DiskSequentialTileStorage::DiskSequentialTileStorage()
   root_dir = make_unique_temp_dir("va_seq");
 }
 
+DiskSequentialTileStorage::DiskSequentialTileStorage(
+    const DiskSequentialTileStorage &other)
+{
+  root_dir = make_unique_temp_dir("va_seq");
+  current_key = other.current_key;
+  if (other.current_tile)
+  {
+    current_tile = *other.current_tile;
+  }
+  std::error_code ec;
+  if (std::filesystem::exists(other.root_dir))
+  {
+    std::filesystem::copy(other.root_dir,
+                          root_dir,
+                          std::filesystem::copy_options::recursive |
+                              std::filesystem::copy_options::overwrite_existing,
+                          ec);
+  }
+}
+
 DiskSequentialTileStorage::~DiskSequentialTileStorage()
 {
   std::error_code ec;
@@ -58,10 +78,17 @@ Array DiskSequentialTileStorage::load_or_create(const TileRegion &region)
   if (std::filesystem::exists(path))
   {
     std::ifstream in(path, std::ios::binary);
-    if (!in) throw std::runtime_error("DiskSequential: cannot read tile");
+    if (!in)
+      throw std::runtime_error("DiskSequential: cannot open tile for reading");
 
-    in.read(reinterpret_cast<char *>(tile.vector.data()),
-            tile.size() * sizeof(float));
+    const std::streamsize expected_bytes = static_cast<std::streamsize>(
+        tile.size() * sizeof(float));
+    in.read(reinterpret_cast<char *>(tile.vector.data()), expected_bytes);
+    if (in.gcount() != expected_bytes)
+    {
+      throw std::runtime_error(
+          "DiskSequential: incomplete tile read from disk");
+    }
   }
 
   return tile;
@@ -101,12 +128,34 @@ void DiskSequentialTileStorage::release_tile(const TileRegion &region)
 void DiskSequentialTileStorage::save_tile(const TileKey &key, const Array &tile)
 {
   auto path = tile_path(key);
+  auto tmp_path = path;
+  tmp_path += ".tmp";
 
-  std::ofstream out(path, std::ios::binary | std::ios::trunc);
-  if (!out) throw std::runtime_error("DiskSequential: cannot write tile");
+  {
+    std::ofstream out(tmp_path, std::ios::binary | std::ios::trunc);
+    if (!out)
+      throw std::runtime_error(
+          "DiskSequential: cannot write tile to temp file");
 
-  out.write(reinterpret_cast<const char *>(tile.vector.data()),
-            tile.size() * sizeof(float));
+    const std::streamsize expected_bytes = static_cast<std::streamsize>(
+        tile.size() * sizeof(float));
+    out.write(reinterpret_cast<const char *>(tile.vector.data()),
+              expected_bytes);
+    out.flush();
+    if (!out.good())
+    {
+      throw std::runtime_error("DiskSequential: failed to flush tile to disk");
+    }
+  }
+
+  std::error_code ec;
+  std::filesystem::rename(tmp_path, path, ec);
+  if (ec)
+  {
+    std::filesystem::remove(tmp_path, ec);
+    throw std::runtime_error(
+        "DiskSequential: cannot rename temp tile to destination");
+  }
 }
 
 std::filesystem::path DiskSequentialTileStorage::tile_path(

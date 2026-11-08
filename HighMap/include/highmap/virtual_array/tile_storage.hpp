@@ -50,7 +50,14 @@ struct TileKeyHash
 {
   size_t operator()(const TileKey &k) const
   {
-    return (static_cast<size_t>(k.tx) << 32) ^ static_cast<size_t>(k.ty);
+    if constexpr (sizeof(size_t) >= 8)
+    {
+      return (static_cast<size_t>(k.tx) << 32) ^ static_cast<size_t>(k.ty);
+    }
+    else
+    {
+      return (static_cast<size_t>(k.tx) << 16) ^ static_cast<size_t>(k.ty);
+    }
   }
 };
 
@@ -114,6 +121,7 @@ struct LruTileEntry
   Array                        value;
   std::list<TileKey>::iterator lru_it;
   size_t                       pin_count = 0;
+  bool                         dirty = true;
 };
 
 class LruTileStorage : public TileStorage
@@ -175,6 +183,7 @@ class DiskSequentialTileStorage : public TileStorage
 {
 public:
   DiskSequentialTileStorage();
+  DiskSequentialTileStorage(const DiskSequentialTileStorage &other);
   ~DiskSequentialTileStorage() override;
 
   std::unique_ptr<TileStorage> clone() const override;

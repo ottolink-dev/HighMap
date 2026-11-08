@@ -179,13 +179,13 @@ private:
   std::unique_ptr<VirtualArray>   sync_va;
   SyncOperation                   pending_sync_op = SyncOperation::SmoothBlend;
   bool                            has_pending_sync = false;
-  void                           *p_fiber_scheduler = nullptr;
+  void                           *p_thread_scheduler = nullptr;
 
   // Boundary edge buffers for non-cooperative fallback
   std::vector<std::vector<std::vector<float>>> east_edges;
   std::vector<std::vector<std::vector<float>>> south_edges;
 
-  void yield_to_scheduler();
+  // cooperative scheduling handled by SequentialThreadScheduler
 };
 
 // =====================================

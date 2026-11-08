@@ -37,7 +37,17 @@ DiskLruTileStorage::~DiskLruTileStorage()
 
 std::unique_ptr<TileStorage> DiskLruTileStorage::clone() const
 {
-  return std::make_unique<DiskLruTileStorage>(this->max_tiles);
+  auto new_storage = std::make_unique<DiskLruTileStorage>(this->max_tiles);
+  std::error_code ec;
+  if (std::filesystem::exists(this->root_dir))
+  {
+    std::filesystem::copy(this->root_dir,
+                          new_storage->root_dir,
+                          std::filesystem::copy_options::recursive |
+                              std::filesystem::copy_options::overwrite_existing,
+                          ec);
+  }
+  return new_storage;
 }
 
 Array &DiskLruTileStorage::get_tile(const TileRegion &region)
@@ -87,10 +97,15 @@ Array DiskLruTileStorage::load_tile_from_disk(const TileRegion &region)
   auto path = tile_path(region.key);
 
   std::ifstream in(path, std::ios::binary);
-  if (!in) throw std::runtime_error("DiskLRU: cannot read tile");
+  if (!in) throw std::runtime_error("DiskLRU: cannot open tile for reading");
 
-  const size_t count = tile.size();
-  in.read(reinterpret_cast<char *>(tile.vector.data()), count * sizeof(float));
+  const std::streamsize expected_bytes = static_cast<std::streamsize>(
+      tile.size() * sizeof(float));
+  in.read(reinterpret_cast<char *>(tile.vector.data()), expected_bytes);
+  if (in.gcount() != expected_bytes)
+  {
+    throw std::runtime_error("DiskLRU: incomplete tile read from disk");
+  }
 
   return tile;
 }
@@ -103,13 +118,32 @@ size_t DiskLruTileStorage::max_live_tiles() const
 void DiskLruTileStorage::on_evict(const TileKey &key, Array &tile)
 {
   auto path = tile_path(key);
+  auto tmp_path = path;
+  tmp_path += ".tmp";
 
-  std::ofstream out(path, std::ios::binary | std::ios::trunc);
-  if (!out) throw std::runtime_error("DiskLRU: cannot write tile");
+  {
+    std::ofstream out(tmp_path, std::ios::binary | std::ios::trunc);
+    if (!out)
+      throw std::runtime_error("DiskLRU: cannot write tile to temp file");
 
-  const size_t count = tile.size();
-  out.write(reinterpret_cast<const char *>(tile.vector.data()),
-            count * sizeof(float));
+    const std::streamsize expected_bytes = static_cast<std::streamsize>(
+        tile.size() * sizeof(float));
+    out.write(reinterpret_cast<const char *>(tile.vector.data()),
+              expected_bytes);
+    out.flush();
+    if (!out.good())
+    {
+      throw std::runtime_error("DiskLRU: failed to flush tile to disk");
+    }
+  }
+
+  std::error_code ec;
+  std::filesystem::rename(tmp_path, path, ec);
+  if (ec)
+  {
+    std::filesystem::remove(tmp_path, ec);
+    throw std::runtime_error("DiskLRU: cannot rename temp tile to destination");
+  }
 }
 
 std::filesystem::path DiskLruTileStorage::tile_path(const TileKey &key) const

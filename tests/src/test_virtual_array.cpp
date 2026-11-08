@@ -697,3 +697,50 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
     EXPECT_LT(diff_norm.max(), 1e-4f);
   }
 }
+
+TEST(VirtualArrayTest, StorageClonePersistenceAndDeepCopy)
+{
+  glm::ivec2 shape{32, 32};
+  glm::ivec2 tile_shape{16, 16};
+  int        halo = 2;
+
+  for (auto mode : {StorageMode::VA_DISK_SEQUENTIAL, StorageMode::VA_DISK_LRU})
+  {
+    VirtualArray va(shape, tile_shape, halo, mode);
+    ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
+    va.fill(42.5f, cm);
+
+    // Deep clone
+    auto cloned = va.clone(cm, true);
+    EXPECT_FLOAT_EQ(cloned->min(cm), 42.5f);
+    EXPECT_FLOAT_EQ(cloned->max(cm), 42.5f);
+
+    // Modify original
+    va.fill(10.0f, cm);
+    EXPECT_FLOAT_EQ(va.min(cm), 10.0f);
+
+    // Cloned must retain its own copy
+    EXPECT_FLOAT_EQ(cloned->min(cm), 42.5f);
+  }
+}
+
+TEST(VirtualArrayTest, SchedulerCooperativeExceptionPropagation)
+{
+  glm::ivec2   shape{32, 32};
+  glm::ivec2   tile_shape{16, 16};
+  VirtualArray va(shape, tile_shape, 2, StorageMode::VA_DISK_LRU_MIN);
+  ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
+
+  // One tile throws an exception inside collective operation
+  auto faulty_lambda =
+      [](Array &, const TileRegion &region, ICommunicator &comm)
+  {
+    if (region.key.tx == 1 && region.key.ty == 1)
+    {
+      throw std::runtime_error("intentional error on tile 1,1");
+    }
+    comm.barrier();
+  };
+
+  EXPECT_THROW(for_each_tile(va, faulty_lambda, cm), std::runtime_error);
+}
