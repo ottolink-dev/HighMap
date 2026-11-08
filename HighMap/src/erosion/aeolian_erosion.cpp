@@ -2,8 +2,6 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 
-#include "highmap/erosion/aeolian_erosion.hpp"
-
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
@@ -12,6 +10,7 @@
 #include "cl_wrapper/run.hpp"
 
 #include "highmap/array.hpp"
+#include "highmap/erosion/aeolian_erosion.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/operator.hpp"
@@ -36,6 +35,7 @@ void aeolian_erosion(Array        &z,
                      const Array  *p_abrasion_mask,
                      Array        *p_sediment_map,
                      Array        *p_bedrock_map,
+                     float         cell_size,
                      float         matter_to_move,
                      int           samples_per_step,
                      float         sand_repose_angle,
@@ -54,12 +54,13 @@ void aeolian_erosion(Array        &z,
   const int ny = z.shape.y;
   const int total_cells = nx * ny;
 
+  if (cell_size <= 0.f) cell_size = 1.f / static_cast<float>(nx);
+
   int n_samples = (samples_per_step > 0) ? samples_per_step : total_cells;
 
   // Bedrock layer: initialize from input if provided, otherwise zero
   Array bed(z.shape, 0.f);
-  if (p_bedrock)
-    bed = *p_bedrock;
+  if (p_bedrock) bed = *p_bedrock;
 
   // Sediment layer: initial loose material is z - bedrock
   Array sed = z - bed;
@@ -93,6 +94,7 @@ void aeolian_erosion(Array        &z,
                          wind.x,
                          wind.y,
                          matter_to_move,
+                         cell_size,
                          tan_shadow_min,
                          tan_shadow_max,
                          max_shadow_dist,
@@ -115,7 +117,7 @@ void aeolian_erosion(Array        &z,
       run_stab.bind_buffer<float>("sed_in", sed.vector);
       run_stab.bind_buffer<float>("sed_out", sed_temp.vector);
 
-      run_stab.bind_arguments(nx, ny, tan_repose, repose_rate);
+      run_stab.bind_arguments(nx, ny, cell_size, tan_repose, repose_rate);
 
       run_stab.write_buffer("bedrock");
       run_stab.write_buffer("sed_in");

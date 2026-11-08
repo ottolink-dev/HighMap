@@ -563,7 +563,8 @@ TEST(AeolianErosionGPU, BasicExecutionAndConservation)
                   nullptr,
                   &sed,
                   &bed,
-                  0.05f,
+                  /* cell_size */ 1.f / shape.x,
+                  /* matter_to_move */ 0.001f,
                   shape.x * shape.y,
                   33.f,
                   5.f,
@@ -589,4 +590,3 @@ TEST(AeolianErosionGPU, BasicExecutionAndConservation)
       EXPECT_GE(sed(i, j), 0.f);
     }
 }
-

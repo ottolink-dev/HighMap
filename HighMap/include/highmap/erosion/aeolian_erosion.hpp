@@ -38,6 +38,8 @@ namespace hmap
  * @param p_abrasion_mask   Optional rock erodibility/susceptibility mask in [0, 1].
  * @param p_sediment_map    Optional output array receiving final sand thickness.
  * @param p_bedrock_map     Optional output array receiving final bedrock elevation.
+ * @param cell_size         Horizontal grid spacing in world units. If <= 0,
+ *                          defaults to 1.f / z.shape.x.
  * @param matter_to_move    Volume/height of sand grain packet displaced per hop.
  * @param samples_per_step  Number of stochastic saltation samples evaluated per step.
  *                          If <= 0, defaults to total cell count (nx * ny).
@@ -63,7 +65,8 @@ void aeolian_erosion(Array        &z,
                      const Array  *p_abrasion_mask = nullptr,
                      Array        *p_sediment_map = nullptr,
                      Array        *p_bedrock_map = nullptr,
-                     float         matter_to_move = 0.1f,
+                     float         cell_size = -1.f,
+                     float         matter_to_move = 0.001f,
                      int           samples_per_step = 0,
                      float         sand_repose_angle = 33.f,
                      float         shadow_angle_min = 5.f,

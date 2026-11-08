@@ -66,6 +66,7 @@ inline float helper_aeolian_is_in_shadow(global const float *bedrock,
                                          int                 nx,
                                          int                 ny,
                                          float2              wind_dir,
+                                         float               cell_size,
                                          float               tan_shadow_min,
                                          float               tan_shadow_max,
                                          float               max_shadow_dist)
@@ -85,7 +86,8 @@ inline float helper_aeolian_is_in_shadow(global const float *bedrock,
 
     float up_h = helper_aeolian_height_bilinear(bedrock, sediment, up_x, up_y, nx, ny);
     float dh = up_h - curr_h;
-    float tan_angle = dh / step;
+    float dist_phys = step * cell_size;
+    float tan_angle = dh / dist_phys;
 
     float shadow = smoothstep(tan_shadow_min, tan_shadow_max, tan_angle);
     max_shadow = max(max_shadow, shadow);
@@ -109,6 +111,7 @@ void kernel aeolian_transport(global float       *bedrock,
                               const float         wind_x,
                               const float         wind_y,
                               const float         matter_to_move,
+                              const float         cell_size,
                               const float         tan_shadow_min,
                               const float         tan_shadow_max,
                               const float         max_shadow_dist,
@@ -141,7 +144,8 @@ void kernel aeolian_transport(global float       *bedrock,
   float h_north = helper_aeolian_height(bedrock, sediment, start_i, (start_j + 1) % ny, nx, ny);
   float h_south = helper_aeolian_height(bedrock, sediment, start_i, (start_j - 1 + ny) % ny, nx, ny);
 
-  float2 grad = (float2)(0.5f * (h_east - h_west), 0.5f * (h_north - h_south));
+  float  inv_2dx = 0.5f / cell_size;
+  float2 grad = (float2)((h_east - h_west) * inv_2dx, (h_north - h_south) * inv_2dx);
   float  wind_speedup = 1.f;
 
   if (base_wind_len > 1e-5f)
@@ -162,6 +166,7 @@ void kernel aeolian_transport(global float       *bedrock,
                                                   nx,
                                                   ny,
                                                   eff_wind,
+                                                  cell_size,
                                                   tan_shadow_min,
                                                   tan_shadow_max,
                                                   max_shadow_dist);
@@ -222,6 +227,7 @@ void kernel aeolian_transport(global float       *bedrock,
                                                     nx,
                                                     ny,
                                                     eff_wind,
+                                                    cell_size,
                                                     tan_shadow_min,
                                                     tan_shadow_max,
                                                     max_shadow_dist);
@@ -255,6 +261,7 @@ void kernel aeolian_stabilize_sediment(global const float *bedrock,
                                        global float       *sed_out,
                                        const int           nx,
                                        const int           ny,
+                                       const float         cell_size,
                                        const float         tan_repose,
                                        const float         rate)
 {
@@ -274,10 +281,17 @@ void kernel aeolian_stabilize_sediment(global const float *bedrock,
     return;
   }
 
-  // D8 neighbor offsets and distances
+  // D8 neighbor offsets and physical distances
   int   di[8] = {-1, 1, 0, 0, -1, 1, -1, 1};
   int   dj[8] = {0, 0, -1, 1, -1, -1, 1, 1};
-  float dist[8] = {1.f, 1.f, 1.f, 1.f, 1.41421356f, 1.41421356f, 1.41421356f, 1.41421356f};
+  float dist[8] = {cell_size,
+                   cell_size,
+                   cell_size,
+                   cell_size,
+                   1.41421356f * cell_size,
+                   1.41421356f * cell_size,
+                   1.41421356f * cell_size,
+                   1.41421356f * cell_size};
 
   // 1. Calculate outflow to neighbors that exceed angle of repose
   float excess[8];
