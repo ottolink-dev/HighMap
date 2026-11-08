@@ -7,9 +7,9 @@ int main(void)
   hmap::gpu::init_opencl();
 
   glm::ivec2 shape = {256, 256};
-  std::uint32_t seed = 42u;
+  std::uint32_t seed = 0;
 
-  constexpr int steps = 1000;
+  constexpr int steps = 500;
   constexpr float alpha = 0.f / 180.f * M_PI;
   constexpr glm::vec2 wind_dir = {std::cos(alpha), std::sin(alpha)};
   
