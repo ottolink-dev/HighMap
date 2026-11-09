@@ -11,15 +11,17 @@
 namespace hmap::gpu
 {
 
-Array select_soil_flow(const Array &z,
-                       int          ir_gradient,
-                       float        gradient_weight,
-                       float        gradient_scaling_factor,
-                       float        flow_weight,
-                       float        talus_ref,
-                       float        clipping_ratio,
-                       float        flow_gamma,
-                       float        k_smooth)
+Array select_soil_flow(const Array   &z,
+                       int            ir_gradient,
+                       float          gradient_weight,
+                       float          gradient_scaling_factor,
+                       float          flow_weight,
+                       float          talus_ref,
+                       float          clipping_ratio,
+                       float          flow_gamma,
+                       float          k_smooth,
+                       bool           normalize,
+                       ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return Array();
 
@@ -37,6 +39,11 @@ Array select_soil_flow(const Array &z,
 
   Array c = hmap::maximum_smooth(gradient_weight * dn, sr, k_smooth);
   c *= (flow_weight + dn) / (flow_weight + 1.f);
+
+  if (normalize)
+  {
+    normalize_and_clip(c, 2.5f, true, comm);
+  }
 
   return c;
 }

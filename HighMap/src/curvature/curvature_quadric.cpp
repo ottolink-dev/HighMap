@@ -26,7 +26,7 @@ Array curvature_quadric(const Array &z, int ir, CurvatureType curvature_type)
   if (!validate_non_empty(z)) return Array();
 
   const glm::ivec2 &shape = z.shape;
-  const int         w = 2 * ir + 1; // window size
+  const int         w = (ir == 0) ? 0 : 2 * ir + 1; // window size
 
   // --- Adaptor to terrain-descriptors classes
 

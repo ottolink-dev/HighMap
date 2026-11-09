@@ -76,7 +76,10 @@ Array select_angle(const Array &array, float angle, float sigma)
   return res;
 }
 
-Array select_blob_log(const Array &array, int ir)
+Array select_blob_log(const Array   &array,
+                      int            ir,
+                      bool           normalize,
+                      ICommunicator &comm)
 {
   if (!validate_non_empty(array)) return Array();
 
@@ -84,10 +87,20 @@ Array select_blob_log(const Array &array, int ir)
   smooth_cpulse(c, ir);
   c = -laplacian(c);
   extrapolate_borders(c, ir + 1, 0.1f);
+
+  if (normalize)
+  {
+    normalize_and_clip(c, 2.5f, true, comm);
+  }
+
   return c;
 }
 
-Array select_cavities(const Array &array, int ir, bool concave)
+Array select_cavities(const Array   &array,
+                      int            ir,
+                      bool           concave,
+                      bool           normalize,
+                      ICommunicator &comm)
 {
   if (!validate_non_empty(array)) return Array();
 
@@ -98,6 +111,12 @@ Array select_cavities(const Array &array, int ir, bool concave)
   if (!concave) c *= -1.f;
 
   clamp_min(c, 0.f);
+
+  if (normalize)
+  {
+    normalize_and_clip(c, 2.5f, true, comm);
+  }
+
   return c;
 }
 
@@ -480,14 +499,23 @@ Array select_transitions(const Array &array1,
   return mask;
 }
 
-Array select_valley(const Array &z, int ir, bool ridge_select)
+Array select_valley(const Array   &z,
+                    int            ir,
+                    bool           ridge_select,
+                    bool           normalize,
+                    ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return Array();
 
-  if (ridge_select)
-    return morphological_top_hat(z, ir);
-  else
-    return morphological_black_hat(z, ir);
+  Array out = ridge_select ? morphological_top_hat(z, ir)
+                           : morphological_black_hat(z, ir);
+
+  if (normalize)
+  {
+    normalize_and_clip(out, 2.5f, true, comm);
+  }
+
+  return out;
 }
 
 Array smooth_mask_preserve_frontier(const Array      &mask,

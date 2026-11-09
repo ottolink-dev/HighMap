@@ -12,14 +12,16 @@
 namespace hmap::gpu
 {
 
-Array select_soil_weathered(const Array &z,
-                            int          ir_curvature,
-                            int          ir_gradient,
-                            ClampMode    curvature_clamp_mode,
-                            float        curvature_clamping,
-                            float        curvature_weight,
-                            float        gradient_weight,
-                            float        gradient_scaling_factor)
+Array select_soil_weathered(const Array   &z,
+                            int            ir_curvature,
+                            int            ir_gradient,
+                            ClampMode      curvature_clamp_mode,
+                            float          curvature_clamping,
+                            float          curvature_weight,
+                            float          gradient_weight,
+                            float          gradient_scaling_factor,
+                            bool           normalize,
+                            ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return Array();
 
@@ -36,17 +38,21 @@ Array select_soil_weathered(const Array &z,
                                curvature_clamping,
                                curvature_weight,
                                gradient_weight,
-                               gradient_scaling_factor);
+                               gradient_scaling_factor,
+                               normalize,
+                               comm);
 }
 
-Array select_soil_weathered(const Array &z,
-                            const Array &gradient_norm,
-                            int          ir_curvature,
-                            ClampMode    curvature_clamp_mode,
-                            float        curvature_clamping,
-                            float        curvature_weight,
-                            float        gradient_weight,
-                            float        gradient_scaling_factor)
+Array select_soil_weathered(const Array   &z,
+                            const Array   &gradient_norm,
+                            int            ir_curvature,
+                            ClampMode      curvature_clamp_mode,
+                            float          curvature_clamping,
+                            float          curvature_weight,
+                            float          gradient_weight,
+                            float          gradient_scaling_factor,
+                            bool           normalize,
+                            ICommunicator &comm)
 {
   if (!validate_non_empty(z) || !validate_same_shape(z, gradient_norm))
     return Array();
@@ -60,7 +66,14 @@ Array select_soil_weathered(const Array &z,
        gpu::curvature_quadric(cm, 0, CurvatureType::CT_MEAN);
   clamp(cm, curvature_clamping, curvature_clamp_mode);
 
-  return curvature_weight * cm + gradient_weight * gradient_norm;
+  Array out = curvature_weight * cm + gradient_weight * gradient_norm;
+
+  if (normalize)
+  {
+    normalize_and_clip(out, 2.5f, true, comm);
+  }
+
+  return out;
 }
 
 } // namespace hmap::gpu

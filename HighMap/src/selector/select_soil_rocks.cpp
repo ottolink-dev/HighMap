@@ -13,13 +13,15 @@
 namespace hmap::gpu
 {
 
-Array select_soil_rocks(const Array &z,
-                        int          ir_max,
-                        int          ir_min,
-                        int          steps,
-                        float        smaller_scales_weight,
-                        ClampMode    curvature_clamp_mode,
-                        float        curvature_clamping)
+Array select_soil_rocks(const Array   &z,
+                        int            ir_max,
+                        int            ir_min,
+                        int            steps,
+                        float          smaller_scales_weight,
+                        ClampMode      curvature_clamp_mode,
+                        float          curvature_clamping,
+                        bool           normalize,
+                        ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return Array();
 
@@ -48,6 +50,11 @@ Array select_soil_rocks(const Array &z,
     sr = maximum(sr, cm);
 
     scale /= smaller_scales_weight;
+  }
+
+  if (normalize)
+  {
+    normalize_and_clip(sr, 2.5f, true, comm);
   }
 
   return sr;

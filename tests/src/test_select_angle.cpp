@@ -1,5 +1,6 @@
 #include "highmap/dbg/assert.hpp"
 #include "highmap/gradient.hpp"
+#include "highmap/math/array.hpp"
 #include "highmap/selector.hpp"
 
 #include <gtest/gtest.h>
@@ -181,4 +182,138 @@ TEST(SelectRange, ValidationEmpty)
   Array empty;
   Array sel = select_range(empty, 0.2f, 0.8f, 0.1f);
   EXPECT_EQ(sel.size(), 0);
+}
+
+// --- Selector Global Normalization Tests
+
+TEST(SelectorNormalization, SelectCavitiesNormalization)
+{
+  Array z(glm::ivec2(16, 16), 0.f);
+  for (int j = 0; j < 16; ++j)
+    for (int i = 0; i < 16; ++i)
+      z(i, j) = std::sin(i * 0.5f) * std::cos(j * 0.5f);
+
+  Array unnorm = select_cavities(z, 2, true, false);
+  Array norm = select_cavities(z, 2, true, true);
+
+  // Normalized outputs should be clipped within [-1, 1]
+  for (int j = 0; j < 16; ++j)
+  {
+    for (int i = 0; i < 16; ++i)
+    {
+      EXPECT_GE(norm(i, j), -1.f);
+      EXPECT_LE(norm(i, j), 1.f);
+    }
+  }
+
+  // Unnormalized differs from normalized
+  EXPECT_GT(hmap::abs(norm - unnorm).max(), 0.01f);
+}
+
+TEST(SelectorNormalization, SelectValleyNormalization)
+{
+  Array z(glm::ivec2(16, 16), 0.f);
+  for (int j = 0; j < 16; ++j)
+    for (int i = 0; i < 16; ++i)
+      z(i, j) = static_cast<float>(i + j * j);
+
+  Array unnorm = select_valley(z, 2, false, false);
+  Array norm = select_valley(z, 2, false, true);
+
+  for (int j = 0; j < 16; ++j)
+  {
+    for (int i = 0; i < 16; ++i)
+    {
+      EXPECT_GE(norm(i, j), -1.f);
+      EXPECT_LE(norm(i, j), 1.f);
+    }
+  }
+
+  EXPECT_GT(hmap::abs(norm - unnorm).max(), 0.01f);
+}
+
+TEST(SelectorNormalization, SelectBlobLogNormalization)
+{
+  Array z(glm::ivec2(16, 16), 0.f);
+  for (int j = 0; j < 16; ++j)
+    for (int i = 0; i < 16; ++i)
+      z(i, j) = static_cast<float>(i * i + j);
+
+  Array unnorm = select_blob_log(z, 2, false);
+  Array norm = select_blob_log(z, 2, true);
+
+  for (int j = 0; j < 16; ++j)
+  {
+    for (int i = 0; i < 16; ++i)
+    {
+      EXPECT_GE(norm(i, j), -1.f);
+      EXPECT_LE(norm(i, j), 1.f);
+    }
+  }
+
+  EXPECT_GT(hmap::abs(norm - unnorm).max(), 0.01f);
+}
+
+TEST(SelectorNormalization, GpuSelectorsNormalization)
+{
+  Array z(glm::ivec2(16, 16), 0.f);
+  for (int j = 0; j < 16; ++j)
+    for (int i = 0; i < 16; ++i)
+      z(i, j) = std::sin(i * 0.4f) + std::cos(j * 0.4f);
+
+  // select_cavities GPU
+  Array cav_gpu = gpu::select_cavities(z, 2, true, true);
+  for (int k = 0; k < cav_gpu.size(); ++k)
+  {
+    EXPECT_GE(cav_gpu.vector[k], -1.f);
+    EXPECT_LE(cav_gpu.vector[k], 1.f);
+  }
+
+  // select_valley GPU
+  Array val_gpu = gpu::select_valley(z, 2, false, true);
+  for (int k = 0; k < val_gpu.size(); ++k)
+  {
+    EXPECT_GE(val_gpu.vector[k], -1.f);
+    EXPECT_LE(val_gpu.vector[k], 1.f);
+  }
+
+  // select_soil_flow GPU
+  Array soil_flow =
+      gpu::select_soil_flow(z, 1, 1.f, 0.f, 0.05f, 0.f, 50.f, 1.f, 0.01f, true);
+  for (int k = 0; k < soil_flow.size(); ++k)
+  {
+    EXPECT_GE(soil_flow.vector[k], -1.f);
+    EXPECT_LE(soil_flow.vector[k], 1.f);
+  }
+
+  // select_soil_rocks GPU
+  Array soil_rocks = gpu::select_soil_rocks(z,
+                                            8,
+                                            1,
+                                            3,
+                                            1.f,
+                                            ClampMode::POSITIVE_ONLY,
+                                            1.f,
+                                            true);
+  for (int k = 0; k < soil_rocks.size(); ++k)
+  {
+    EXPECT_GE(soil_rocks.vector[k], -1.f);
+    EXPECT_LE(soil_rocks.vector[k], 1.f);
+  }
+
+  // select_soil_weathered GPU
+  Array soil_weathered = gpu::select_soil_weathered(z,
+                                                    2,
+                                                    2,
+                                                    ClampMode::POSITIVE_ONLY,
+                                                    10.f,
+                                                    1.f,
+                                                    1.f,
+                                                    0.f,
+                                                    true);
+  for (int k = 0; k < soil_weathered.size(); ++k)
+  {
+    EXPECT_GE(soil_weathered.vector[k], -1.f);
+    EXPECT_LE(soil_weathered.vector[k], 1.f);
+  }
 }

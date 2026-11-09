@@ -68,9 +68,9 @@ void aeolian_erosion(Array            &z,
   float tan_repose = std::tan(sand_repose_angle * static_cast<float>(M_PI) /
                               180.f);
   float tan_shadow_min = std::tan(shadow_angle_min * static_cast<float>(M_PI) /
-                              180.f);
+                                  180.f);
   float tan_shadow_max = std::tan(shadow_angle_max * static_cast<float>(M_PI) /
-                              180.f);
+                                  180.f);
 
   // Resolution-invariant spatial scaling heuristic calibrated at reference grid
   // 256
@@ -140,7 +140,8 @@ void aeolian_erosion(Array            &z,
 
       run_transport_b.bind_buffer("bedrock",
                                   run_transport_a.get_buffer("bedrock"));
-      run_transport_b.bind_buffer("sediment", run_stab_ab.get_buffer("sed_out"));
+      run_transport_b.bind_buffer("sediment",
+                                  run_stab_ab.get_buffer("sed_out"));
       run_transport_b.bind_buffer("vegetation",
                                   run_transport_a.get_buffer("vegetation"));
       run_transport_b.bind_buffer("abrasion_mask",
@@ -168,7 +169,8 @@ void aeolian_erosion(Array            &z,
 
       run_stab_ba.bind_buffer("bedrock", run_transport_a.get_buffer("bedrock"));
       run_stab_ba.bind_buffer("sed_in", run_stab_ab.get_buffer("sed_out"));
-      run_stab_ba.bind_buffer("sed_out", run_transport_a.get_buffer("sediment"));
+      run_stab_ba.bind_buffer("sed_out",
+                              run_transport_a.get_buffer("sediment"));
 
       run_stab_ba.bind_arguments(nx, ny, cell_size, tan_repose, repose_rate);
 

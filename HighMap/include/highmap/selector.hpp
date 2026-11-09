@@ -94,9 +94,12 @@ Array select_angle(const Array &array, float angle, float sigma);
 /**
  * @brief Return blob detection using the Laplacian of Gaussian (LoG) approach.
  *
- * @param  array Input array.
- * @param  ir    Kernel radius.
- * @return       Array Output array.
+ * @param  array             Input array.
+ * @param  ir                Kernel radius.
+ * @param  normalize         If true, normalize and clip output using standard
+ *                           deviation with a smooth transition.
+ * @param  comm              Communicator for collective normalization.
+ * @return                   Array Output array.
  *
  * **Example**
  * @include ex_select_blob.cpp
@@ -105,17 +108,23 @@ Array select_angle(const Array &array, float angle, float sigma);
  * @image html ex_select_blob0.png
  * @image html ex_select_blob1.png
  */
-Array select_blob_log(const Array &array, int ir);
+Array select_blob_log(const Array   &array,
+                      int            ir,
+                      bool           normalize = false,
+                      ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Return holes or bumps detection based on the mean curvature of the
  * heightmap.
  *
- * @param  array   Input array.
- * @param  ir      Kernel radius.
- * @param  concave Select 'holes' if set to true, and select 'bumps' if set to
- *                 false.
- * @return         Array Output array.
+ * @param  array             Input array.
+ * @param  ir                Kernel radius.
+ * @param  concave           Select 'holes' if set to true, and select 'bumps' if
+ *                           set to false.
+ * @param  normalize         If true, normalize and clip output using standard
+ *                           deviation with a smooth transition.
+ * @param  comm              Communicator for collective normalization.
+ * @return                   Array Output array.
  *
  * **Example**
  * @include ex_select_cavities.cpp
@@ -123,7 +132,11 @@ Array select_blob_log(const Array &array, int ir);
  * **Result**
  * @image html ex_select_cavities.png
  */
-Array select_cavities(const Array &array, int ir, bool concave = true);
+Array select_cavities(const Array   &array,
+                      int            ir,
+                      bool           concave = true,
+                      bool           normalize = false,
+                      ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief
@@ -472,7 +485,11 @@ Array select_transitions(const Array &array1,
                          const Array &array2,
                          const Array &array_blend);
 
-Array select_valley(const Array &z, int ir, bool ridge_select = false);
+Array select_valley(const Array   &z,
+                    int            ir,
+                    bool           ridge_select = false,
+                    bool           normalize = false,
+                    ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Smooths a binary mask with an inward falloff while preserving its
@@ -499,7 +516,11 @@ namespace hmap::gpu
 {
 
 /*! @brief See hmap::select_cavities */
-Array select_cavities(const Array &array, int ir, bool concave = true);
+Array select_cavities(const Array   &array,
+                      int            ir,
+                      bool           concave = true,
+                      bool           normalize = false,
+                      ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Computes a soil–flow selection map based on terrain gradient, river
@@ -517,6 +538,9 @@ Array select_cavities(const Array &array, int ir, bool concave = true);
  * @param  flow_gamma              Gamma correction exponent applied to the
  *                                 river mask; 1.0 disables correction.
  * @param  k_smooth                Smoothing parameter for the maximum blending.
+ * @param  normalize               If true, normalize and clip output using
+ *                                 standard deviation with a smooth transition.
+ * @param  comm                    Communicator for collective normalization.
  *
  * @return                         A 2D Array representing the final soil-flow
  *                                 selection mask.
@@ -527,15 +551,17 @@ Array select_cavities(const Array &array, int ir, bool concave = true);
  * **Result**
  * @image html ex_select_soil_weathered.png
  */
-Array select_soil_flow(const Array &z,
-                       int          ir_gradient = 1,
-                       float        gradient_weight = 1.f,
-                       float        gradient_scaling_factor = 0.f,
-                       float        flow_weight = 0.05f,
-                       float        talus_ref = 0.f,
-                       float        clipping_ratio = 50.f,
-                       float        flow_gamma = 1.f,
-                       float        k_smooth = 0.01f);
+Array select_soil_flow(const Array   &z,
+                       int            ir_gradient = 1,
+                       float          gradient_weight = 1.f,
+                       float          gradient_scaling_factor = 0.f,
+                       float          flow_weight = 0.05f,
+                       float          talus_ref = 0.f,
+                       float          clipping_ratio = 50.f,
+                       float          flow_gamma = 1.f,
+                       float          k_smooth = 0.01f,
+                       bool           normalize = false,
+                       ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Computes a multi-scale soil/rock selector using curvature analysis.
@@ -553,6 +579,9 @@ Array select_soil_flow(const Array &z,
  * @param  smaller_scales_weight Weight factor applied when descending scales.
  * @param  curvature_clamp_mode  Mode used to clamp curvature values.
  * @param  curvature_clamping    Curvature clamp threshold.
+ * @param  normalize             If true, normalize and clip output using
+ *                               standard deviation with a smooth transition.
+ * @param  comm                  Communicator for collective normalization.
  *
  * @return                       An Array representing soil/rock selection
  *                               values across scales.
@@ -565,13 +594,15 @@ Array select_soil_flow(const Array &z,
  */
 
 Array select_soil_rocks(
-    const Array &z,
-    int          ir_max = 64,
-    int          ir_min = 0,
-    int          steps = 4,
-    float        smaller_scales_weight = 1.f,
-    ClampMode    curvature_clamp_mode = ClampMode::POSITIVE_ONLY,
-    float        curvature_clamping = 1.f);
+    const Array   &z,
+    int            ir_max = 64,
+    int            ir_min = 0,
+    int            steps = 4,
+    float          smaller_scales_weight = 1.f,
+    ClampMode      curvature_clamp_mode = ClampMode::POSITIVE_ONLY,
+    float          curvature_clamping = 1.f,
+    bool           normalize = false,
+    ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Computes a soil weathering selection map based on curvature and
@@ -599,6 +630,9 @@ Array select_soil_rocks(
  * @param gradient_scaling_factor Empirical scaling factor for both curvature
  *                                and gradient terms. If non-positive, defaults
  *                                to `z.shape.x`.
+ * @param normalize               If true, normalize and clip output using
+ *                                standard deviation with a smooth transition.
+ * @param comm                    Communicator for collective normalization.
  *
  * **Example**
  * @include ex_select_soil_weathered.cpp
@@ -607,26 +641,35 @@ Array select_soil_rocks(
  * @image html ex_select_soil_weathered.png
  */
 Array select_soil_weathered(
-    const Array &z,
-    int          ir_curvature = 0,
-    int          ir_gradient = 4,
-    ClampMode    curvature_clamp_mode = ClampMode::POSITIVE_ONLY,
-    float        curvature_clamping = 10.f,
-    float        curvature_weight = 1.f,
-    float        gradient_weight = 1.f,
-    float        gradient_scaling_factor = 0.f);
+    const Array   &z,
+    int            ir_curvature = 0,
+    int            ir_gradient = 4,
+    ClampMode      curvature_clamp_mode = ClampMode::POSITIVE_ONLY,
+    float          curvature_clamping = 10.f,
+    float          curvature_weight = 1.f,
+    float          gradient_weight = 1.f,
+    float          gradient_scaling_factor = 0.f,
+    bool           normalize = false,
+    ICommunicator &comm = SingleArrayComm::instance());
 
 // if the gradient norm is known before-hand
-Array select_soil_weathered(const Array &z,
-                            const Array &gradient_norm, // in [0, 1]
-                            int          ir_curvature,
-                            ClampMode    curvature_clamp_mode,
-                            float        curvature_clamping,
-                            float        curvature_weight,
-                            float        gradient_weight,
-                            float gradient_scaling_factor); // for curvature
+Array select_soil_weathered(
+    const Array   &z,
+    const Array   &gradient_norm, // in [0, 1]
+    int            ir_curvature,
+    ClampMode      curvature_clamp_mode,
+    float          curvature_clamping,
+    float          curvature_weight,
+    float          gradient_weight,
+    float          gradient_scaling_factor, // for curvature
+    bool           normalize = false,
+    ICommunicator &comm = SingleArrayComm::instance());
 
 /*! @brief See hmap::select_valley */
-Array select_valley(const Array &z, int ir, bool ridge_select = false);
+Array select_valley(const Array   &z,
+                    int            ir,
+                    bool           ridge_select = false,
+                    bool           normalize = false,
+                    ICommunicator &comm = SingleArrayComm::instance());
 
 } // namespace hmap::gpu
