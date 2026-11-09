@@ -67,6 +67,13 @@ void aeolian_erosion(Array        &z,
   float tan_shadow_max = std::tan(shadow_angle_max * static_cast<float>(M_PI) /
                                   180.f);
 
+  // Resolution-invariant spatial scaling heuristic calibrated at reference grid
+  // 256
+  constexpr float ref_nx = 256.f;
+  const float     scale = static_cast<float>(nx) / ref_nx;
+  glm::vec2       eff_wind_base = wind * scale;
+  float           eff_max_shadow = max_shadow_dist * scale;
+
   // Buffer for double-buffered repose stabilization
   Array sed_temp(z.shape, 0.f);
 
@@ -85,13 +92,13 @@ void aeolian_erosion(Array        &z,
                                  n_samples,
                                  seed,
                                  0u,
-                                 wind.x,
-                                 wind.y,
+                                 eff_wind_base.x,
+                                 eff_wind_base.y,
                                  matter_to_move,
                                  cell_size,
                                  tan_shadow_min,
                                  tan_shadow_max,
-                                 max_shadow_dist,
+                                 eff_max_shadow,
                                  abrasion_rate,
                                  p_vegetation ? 1 : 0,
                                  p_abrasion_mask ? 1 : 0);
@@ -125,13 +132,13 @@ void aeolian_erosion(Array        &z,
                                  n_samples,
                                  seed,
                                  0u,
-                                 wind.x,
-                                 wind.y,
+                                 eff_wind_base.x,
+                                 eff_wind_base.y,
                                  matter_to_move,
                                  cell_size,
                                  tan_shadow_min,
                                  tan_shadow_max,
-                                 max_shadow_dist,
+                                 eff_max_shadow,
                                  abrasion_rate,
                                  p_vegetation ? 1 : 0,
                                  p_abrasion_mask ? 1 : 0);
