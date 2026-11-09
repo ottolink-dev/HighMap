@@ -26,7 +26,6 @@
 #include "highmap/rocks/rock_field.hpp"
 #include "highmap/scatter/scatter_item.hpp"
 
-#include "core/animatable.hh"
 #include "core/prim.hh"
 #include "core/typed-attribute.hh"
 #include "lightusd.hh"
