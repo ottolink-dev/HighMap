@@ -2,8 +2,8 @@ var selector_8cpp =
 [
     [ "scan_mask", "selector_8cpp.html#a6c6abf2b8bd3161610e273ef97ee4771", null ],
     [ "select_angle", "selector_8cpp.html#a6482a57b7ab3fa5ce2d763c7e2fce5a6", null ],
-    [ "select_blob_log", "selector_8cpp.html#aeaaf7a8ae8cf8de1dad3a82950879473", null ],
-    [ "select_cavities", "selector_8cpp.html#ac3436096f5ea39274658f503d7c950c1", null ],
+    [ "select_blob_log", "selector_8cpp.html#a103a2b2b57eb1459aa163f99cef5f967", null ],
+    [ "select_cavities", "selector_8cpp.html#a6c6d0217bb50f87246f7d0d40cc80402", null ],
     [ "select_elevation_slope", "selector_8cpp.html#aee36bf04c8ae880814a5341d4ea262f4", null ],
     [ "select_elevation_slope", "selector_8cpp.html#a13c7f71c6fa727ee090e483c328270a0", null ],
     [ "select_eq", "selector_8cpp.html#acd41c33e7bb689f6e3b94274f15869b3", null ],
@@ -23,6 +23,6 @@ var selector_8cpp =
     [ "select_range", "selector_8cpp.html#afb9a43596fc6c1ac725b503904a82623", null ],
     [ "select_rivers", "selector_8cpp.html#a1f35e2238ee222ab2aa87304f6692ce6", null ],
     [ "select_transitions", "selector_8cpp.html#ac6dcaa05c7c34302fa2560ddedbb9931", null ],
-    [ "select_valley", "selector_8cpp.html#ac72cb684be1045c7f2a5c8941f905772", null ],
+    [ "select_valley", "selector_8cpp.html#ac472278880526ccb0609d818b741929d", null ],
     [ "smooth_mask_preserve_frontier", "selector_8cpp.html#ad6fe0af5cc79ba757c476dfe19601cb6", null ]
 ];

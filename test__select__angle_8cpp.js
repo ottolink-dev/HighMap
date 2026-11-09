@@ -10,5 +10,9 @@ var test__select__angle_8cpp =
     [ "TEST", "test__select__angle_8cpp.html#a6b4e7c07093e81a3d1725a9a569a840f", null ],
     [ "TEST", "test__select__angle_8cpp.html#ae457e289981622d6c6c1fd83efe3e0e1", null ],
     [ "TEST", "test__select__angle_8cpp.html#a01a9bb83137deb60050c7c7b5e483d9a", null ],
-    [ "TEST", "test__select__angle_8cpp.html#ad193605782f1a6f950ff9e38fe894bc7", null ]
+    [ "TEST", "test__select__angle_8cpp.html#ad193605782f1a6f950ff9e38fe894bc7", null ],
+    [ "TEST", "test__select__angle_8cpp.html#a9a174bd5ddbbc00a756692ded38c1c89", null ],
+    [ "TEST", "test__select__angle_8cpp.html#a2dbd4ea63c2401568c787c4acf1fbc5a", null ],
+    [ "TEST", "test__select__angle_8cpp.html#ab88eab34431400e146a7c6ef6b0b947b", null ],
+    [ "TEST", "test__select__angle_8cpp.html#ada9778b7811571faa193e945f64cca7e", null ]
 ];
