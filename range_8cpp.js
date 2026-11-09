@@ -26,5 +26,5 @@ var range_8cpp =
     [ "remap", "range_8cpp.html#a5822bf67b9f3c0dcad0525f1d4c4805d", null ],
     [ "remap", "range_8cpp.html#a262e6495cb2d02598f36a2b46114b2b4", null ],
     [ "rescale", "range_8cpp.html#ac126773f7c7af2364cfb4d7a6922ed96", null ],
-    [ "normalize_and_clip", "range_8cpp.html#a207c29622a50ad3ffcc8186cc24e81c2", null ]
+    [ "normalize_and_clip", "range_8cpp.html#aad9eef5302613ac41b6dc8a4525eff01", null ]
 ];

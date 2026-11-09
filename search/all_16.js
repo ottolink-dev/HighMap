@@ -53,7 +53,7 @@ var searchData=
   ['normalizationmethod_50',['NormalizationMethod',['../namespacehmap.html#ad9d7f866e3a5140ed694e502c1db44ae',1,'hmap']]],
   ['normalize_51',['normalize',['../classhmap_1_1Array.html#a094c220ce34e6c47576c51e533a9d93a',1,'hmap::Array::normalize()'],['../namespacehmap.html#a27faed8c5c8f89f271b6882c8a7cc81b',1,'hmap::normalize()']]],
   ['normalize_2ecpp_52',['normalize.cpp',['../normalize_8cpp.html',1,'']]],
-  ['normalize_5fand_5fclip_53',['normalize_and_clip',['../namespacehmap.html#a207c29622a50ad3ffcc8186cc24e81c2',1,'hmap']]],
+  ['normalize_5fand_5fclip_53',['normalize_and_clip',['../namespacehmap.html#aad9eef5302613ac41b6dc8a4525eff01',1,'hmap']]],
   ['normalized_54',['normalized',['../namespacehmap.html#a3d6212896d8cd828bd5bd827d24a0344',1,'hmap']]],
   ['normalized_5fdistance_5fto_5fedges_55',['normalized_distance_to_edges',['../classhmap_1_1CoordFrame.html#af1f76997d4d33cc1cc1e63ffb1ca3ebd',1,'hmap::CoordFrame']]],
   ['normalized_5fshape_5ffactor_56',['normalized_shape_factor',['../classhmap_1_1CoordFrame.html#ab1c8fa8ed0244f4a54759253b629255c',1,'hmap::CoordFrame']]],
