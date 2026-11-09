@@ -14,6 +14,7 @@
 #include <limits>
 
 #include "highmap/array.hpp"
+#include "highmap/math/constants.hpp"
 
 namespace hmap
 {
@@ -189,7 +190,7 @@ private:
   const int   di[8] = {1, 1, 0, -1, -1, -1, 0, 1};
   const int   dj[8] = {0, -1, -1, -1, 0, 1, 1, 1};
   const float cd[8] =
-      {1.f, M_SQRT1_2, 1.f, M_SQRT1_2, 1.f, M_SQRT1_2, 1.f, M_SQRT1_2};
+      {1.f, cte::inv_sqrt2, 1.f, cte::inv_sqrt2, 1.f, cte::inv_sqrt2, 1.f, cte::inv_sqrt2};
 };
 
 /**

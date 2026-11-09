@@ -12,6 +12,7 @@
 #include "highmap/array.hpp"
 #include "highmap/functions.hpp"
 #include "highmap/interpolate/interpolate2d.hpp"
+#include "highmap/math/constants.hpp"
 #include "highmap/math/profiles.hpp"
 
 #define HMAP_GRADIENT_OFFSET 0.001f
@@ -961,7 +962,7 @@ Array vorolines(glm::ivec2        shape,
                 float             k_smoothing = 0.f,
                 float             exp_sigma = 0.f,
                 float             alpha = 0.f,
-                float             alpha_span = M_PI,
+                float             alpha_span = cte::pi,
                 VoronoiReturnType return_type = VoronoiReturnType::F1_SQUARED,
                 const Array      *p_noise_x = nullptr,
                 const Array      *p_noise_y = nullptr,
@@ -1030,7 +1031,7 @@ Array vorolines_fbm(
     float             k_smoothing = 0.f,
     float             exp_sigma = 0.f,
     float             alpha = 0.f,
-    float             alpha_span = M_PI,
+    float             alpha_span = cte::pi,
     VoronoiReturnType return_type = VoronoiReturnType::F1_SQUARED,
     int               octaves = 8,
     float             weight = 0.7f,

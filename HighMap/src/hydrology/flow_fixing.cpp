@@ -18,6 +18,7 @@
 #include "highmap/hydrology/drainage_basin_cell_based.hpp"
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/math/constants.hpp"
 #include "highmap/math/profiles.hpp"
 
 #include <unordered_map>
@@ -337,7 +338,7 @@ Array flow_fixing_drainage_basin(const Array        &z,
 
         int   dx = i.x - j.x;
         int   dy = i.y - j.y;
-        float dist = (dx != 0 && dy != 0) ? M_SQRT2 : 1.f;
+        float dist = (dx != 0 && dy != 0) ? cte::sqrt2 : 1.f;
         float max_receiver_z = zb(i) - riverbed_talus * dist;
 
         // If the downstream receiver is higher than the current node, carve the

@@ -7,6 +7,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/math/constants.hpp"
 
 namespace hmap
 {
@@ -33,7 +34,7 @@ Array distance_transform_approx(const Array &array,
         if (i > 0) edt(i, j) = std::min(edt(i, j), edt(i - 1, j) + 1.f);
         if (j > 0) edt(i, j) = std::min(edt(i, j), edt(i, j - 1) + 1.f);
         if (i > 0 && j > 0)
-          edt(i, j) = std::min(edt(i, j), edt(i - 1, j - 1) + (float)M_SQRT2);
+          edt(i, j) = std::min(edt(i, j), edt(i - 1, j - 1) + cte::sqrt2);
       }
 
   // second pass: bottom-right to top-left
@@ -46,7 +47,7 @@ Array distance_transform_approx(const Array &array,
         if (j < shape.y - 1)
           edt(i, j) = std::min(edt(i, j), edt(i, j + 1) + 1.f);
         if (i < shape.x - 1 && j < shape.y - 1)
-          edt(i, j) = std::min(edt(i, j), edt(i + 1, j + 1) + (float)M_SQRT2);
+          edt(i, j) = std::min(edt(i, j), edt(i + 1, j + 1) + cte::sqrt2);
       }
 
   if (return_squared_distance)

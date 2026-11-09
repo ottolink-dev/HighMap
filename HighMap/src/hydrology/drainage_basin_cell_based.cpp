@@ -195,7 +195,7 @@ Array DrainageBasinCellBased::compute_response_times(const Array &area_acc,
       {
         int   dx = i.x - j.x;
         int   dy = i.y - j.y;
-        float distance = (dx != 0 && dy != 0) ? M_SQRT2 : 1.f;
+        float distance = (dx != 0 && dy != 0) ? cte::sqrt2 : 1.f;
 
         float celerity = erodibility(i) *
                          std::pow(std::max(area_acc(i), 1e-8f), m_exp);
@@ -523,7 +523,7 @@ float DrainageBasinCellBased::update_elevations(const Array &response_times,
       // slope limiting
       int   dx = i.x - j.x;
       int   dy = i.y - j.y;
-      float distance = (dx != 0 && dy != 0) ? M_SQRT2 : 1.f;
+      float distance = (dx != 0 && dy != 0) ? cte::sqrt2 : 1.f;
 
       float slope = (new_elevation - z(j)) / distance;
       float max_slope_n = max_slope(i) * zptp;

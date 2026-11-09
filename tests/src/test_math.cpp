@@ -1,6 +1,7 @@
 #include "highmap/array.hpp"
 #include "highmap/dbg/assert.hpp"
 #include "highmap/math/array.hpp"
+#include "highmap/math/constants.hpp"
 #include "highmap/math/convolve.hpp"
 #include "highmap/math/core.hpp"
 
@@ -426,3 +427,22 @@ TEST(MathTest, LogSafeArray)
   EXPECT_NEAR(out(0, 0), 0.f, 1e-6f);
   EXPECT_NEAR(out(0, 1), std::log(1e-3f), 1e-6f);
 }
+
+// ------------------------------------------------------------
+// CONSTANTS
+// ------------------------------------------------------------
+
+TEST(MathTest, Constants)
+{
+  EXPECT_NEAR(cte::pi, 3.14159265f, 1e-6f);
+  EXPECT_NEAR(cte::two_pi, 2.f * cte::pi, 1e-6f);
+  EXPECT_NEAR(cte::half_pi, 0.5f * cte::pi, 1e-6f);
+  EXPECT_NEAR(cte::pi * cte::inv_pi, 1.f, 1e-6f);
+
+  EXPECT_NEAR(cte::sqrt2, 1.41421356f, 1e-6f);
+  EXPECT_NEAR(cte::sqrt2 * cte::inv_sqrt2, 1.f, 1e-6f);
+
+  EXPECT_NEAR(180.f * cte::deg_to_rad, cte::pi, 1e-6f);
+  EXPECT_NEAR(cte::pi * cte::rad_to_deg, 180.f, 1e-5f);
+}
+

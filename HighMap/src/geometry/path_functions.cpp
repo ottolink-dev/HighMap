@@ -21,6 +21,7 @@
 #include "highmap/internal/validation.hpp"
 #include "highmap/interpolate/interpolate1d.hpp"
 #include "highmap/interpolate/interpolate_curve.hpp"
+#include "highmap/math/constants.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/sdf.hpp"
 
@@ -392,9 +393,9 @@ Path meanderize(const Path            &path,
       Point p = lerp(path[k], path[kp1], 0.5f);
 
       if (orientation >= 0.f)
-        alpha += M_PI_2;
+        alpha += cte::half_pi;
       else
-        alpha -= M_PI_2;
+        alpha -= cte::half_pi;
 
       dist *= ratio * (1.f + dis(gen));
 

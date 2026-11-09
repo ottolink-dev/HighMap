@@ -22,6 +22,7 @@
 #include "highmap/geometry/point.hpp"
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/math/constants.hpp"
 #include "highmap/math/profiles.hpp"
 #include "highmap/shortest_path.hpp"
 #include "highmap/terrain_tri_mesh.hpp"
@@ -58,7 +59,7 @@ Array flow_fixing_mst(const Array  &z,
 
   const int   di[8] = {-1, 0, 0, 1, -1, -1, 1, 1};
   const int   dj[8] = {0, 1, -1, 0, -1, 1, -1, 1};
-  const float cd[8] = {1.f, 1.f, 1.f, 1.f, M_SQRT2, M_SQRT2, M_SQRT2, M_SQRT2};
+  const float cd[8] = {1.f, 1.f, 1.f, 1.f, cte::sqrt2, cte::sqrt2, cte::sqrt2, cte::sqrt2};
 
   auto is_inside = [&shape](int i, int j)
   { return i >= 0 && i < shape.x && j >= 0 && j < shape.y; };

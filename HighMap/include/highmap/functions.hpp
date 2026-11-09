@@ -24,6 +24,7 @@
 #include "FastNoiseLite.h"
 
 #include "highmap/array.hpp"
+#include "highmap/math/constants.hpp"
 #include "highmap/math/core.hpp"
 
 /**
@@ -377,8 +378,8 @@ public:
   void set_angle(float new_angle)
   {
     this->angle = new_angle;
-    this->ca = std::cos(angle / 180.f * M_PI);
-    this->sa = std::sin(angle / 180.f * M_PI);
+    this->ca = std::cos(angle / 180.f * cte::pi);
+    this->sa = std::sin(angle / 180.f * cte::pi);
   }
 
 protected:
@@ -425,8 +426,8 @@ public:
   void set_angle(float new_angle)
   {
     this->angle = new_angle;
-    this->ca = std::cos(angle / 180.f * M_PI);
-    this->sa = std::sin(angle / 180.f * M_PI);
+    this->ca = std::cos(angle / 180.f * cte::pi);
+    this->sa = std::sin(angle / 180.f * cte::pi);
   }
 
 protected:
@@ -468,8 +469,8 @@ public:
   void set_angle(float new_angle)
   {
     this->angle = new_angle;
-    this->ca = std::cos(angle / 180.f * M_PI);
-    this->sa = std::sin(angle / 180.f * M_PI);
+    this->ca = std::cos(angle / 180.f * cte::pi);
+    this->sa = std::sin(angle / 180.f * cte::pi);
   }
 
 protected:
@@ -509,8 +510,8 @@ public:
   void set_angle(float new_angle)
   {
     this->angle = new_angle;
-    this->ca = std::cos(angle / 180.f * M_PI);
-    this->sa = std::sin(angle / 180.f * M_PI);
+    this->ca = std::cos(angle / 180.f * cte::pi);
+    this->sa = std::sin(angle / 180.f * cte::pi);
   }
 
 protected:
@@ -562,8 +563,8 @@ public:
   void set_angle(float new_angle)
   {
     this->angle = new_angle;
-    this->ca = std::cos(angle / 180.f * M_PI);
-    this->sa = std::sin(angle / 180.f * M_PI);
+    this->ca = std::cos(angle / 180.f * cte::pi);
+    this->sa = std::sin(angle / 180.f * cte::pi);
   }
 
 protected:
@@ -612,8 +613,8 @@ public:
   void set_angle(float new_angle)
   {
     this->angle = new_angle;
-    this->ca = std::cos(angle / 180.f * M_PI);
-    this->sa = std::sin(angle / 180.f * M_PI);
+    this->ca = std::cos(angle / 180.f * cte::pi);
+    this->sa = std::sin(angle / 180.f * cte::pi);
   }
 
 protected:
@@ -659,8 +660,8 @@ public:
   void set_angle(float new_angle)
   {
     this->angle = new_angle;
-    this->ca = std::cos(angle / 180.f * M_PI);
-    this->sa = std::sin(angle / 180.f * M_PI);
+    this->ca = std::cos(angle / 180.f * cte::pi);
+    this->sa = std::sin(angle / 180.f * cte::pi);
   }
 
 protected:
@@ -709,8 +710,8 @@ public:
   void set_angle(float new_angle)
   {
     this->angle = new_angle;
-    this->ca = std::cos(angle / 180.f * M_PI);
-    this->sa = std::sin(angle / 180.f * M_PI);
+    this->ca = std::cos(angle / 180.f * cte::pi);
+    this->sa = std::sin(angle / 180.f * cte::pi);
   }
 
 protected:
