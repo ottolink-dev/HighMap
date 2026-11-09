@@ -90,7 +90,7 @@ Array select_blob_log(const Array   &array,
 
   if (normalize)
   {
-    normalize_and_clip(c, 2.5f, true, comm);
+    normalize_and_clip(c, 2.5f, true, true, comm);
   }
 
   return c;
@@ -114,28 +114,10 @@ Array select_cavities(const Array   &array,
 
   if (normalize)
   {
-    normalize_and_clip(c, 2.5f, true, comm);
+    normalize_and_clip(c, 2.5f, true, true, comm);
   }
 
   return c;
-}
-
-Array select_elevation_slope(const Array &array,
-                             float        gradient_scale,
-                             float        vmax)
-{
-  if (!validate_non_empty(array)) return Array();
-
-  Array da = gradient_norm(array) * gradient_scale * (float)array.shape.x;
-  clamp_max(da, vmax);
-
-  return pow((vmax - array) * (vmax - da), 0.5f);
-}
-
-Array select_elevation_slope(const Array &array, float gradient_scale)
-{
-  if (!validate_non_empty(array)) return Array();
-  return select_elevation_slope(array, gradient_scale, array.max());
 }
 
 Array select_eq(const Array &array, float value)
@@ -512,7 +494,7 @@ Array select_valley(const Array   &z,
 
   if (normalize)
   {
-    normalize_and_clip(out, 2.5f, true, comm);
+    normalize_and_clip(out, 2.5f, true, true, comm);
   }
 
   return out;

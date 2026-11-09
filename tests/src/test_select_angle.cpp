@@ -196,12 +196,12 @@ TEST(SelectorNormalization, SelectCavitiesNormalization)
   Array unnorm = select_cavities(z, 2, true, false);
   Array norm = select_cavities(z, 2, true, true);
 
-  // Normalized outputs should be clipped within [-1, 1]
+  // Normalized outputs should be clipped within [0, 1]
   for (int j = 0; j < 16; ++j)
   {
     for (int i = 0; i < 16; ++i)
     {
-      EXPECT_GE(norm(i, j), -1.f);
+      EXPECT_GE(norm(i, j), 0.f);
       EXPECT_LE(norm(i, j), 1.f);
     }
   }
@@ -224,7 +224,7 @@ TEST(SelectorNormalization, SelectValleyNormalization)
   {
     for (int i = 0; i < 16; ++i)
     {
-      EXPECT_GE(norm(i, j), -1.f);
+      EXPECT_GE(norm(i, j), 0.f);
       EXPECT_LE(norm(i, j), 1.f);
     }
   }
@@ -246,7 +246,7 @@ TEST(SelectorNormalization, SelectBlobLogNormalization)
   {
     for (int i = 0; i < 16; ++i)
     {
-      EXPECT_GE(norm(i, j), -1.f);
+      EXPECT_GE(norm(i, j), 0.f);
       EXPECT_LE(norm(i, j), 1.f);
     }
   }
@@ -265,7 +265,7 @@ TEST(SelectorNormalization, GpuSelectorsNormalization)
   Array cav_gpu = gpu::select_cavities(z, 2, true, true);
   for (int k = 0; k < cav_gpu.size(); ++k)
   {
-    EXPECT_GE(cav_gpu.vector[k], -1.f);
+    EXPECT_GE(cav_gpu.vector[k], 0.f);
     EXPECT_LE(cav_gpu.vector[k], 1.f);
   }
 
@@ -273,7 +273,7 @@ TEST(SelectorNormalization, GpuSelectorsNormalization)
   Array val_gpu = gpu::select_valley(z, 2, false, true);
   for (int k = 0; k < val_gpu.size(); ++k)
   {
-    EXPECT_GE(val_gpu.vector[k], -1.f);
+    EXPECT_GE(val_gpu.vector[k], 0.f);
     EXPECT_LE(val_gpu.vector[k], 1.f);
   }
 
@@ -282,7 +282,7 @@ TEST(SelectorNormalization, GpuSelectorsNormalization)
       gpu::select_soil_flow(z, 1, 1.f, 0.f, 0.05f, 0.f, 50.f, 1.f, 0.01f, true);
   for (int k = 0; k < soil_flow.size(); ++k)
   {
-    EXPECT_GE(soil_flow.vector[k], -1.f);
+    EXPECT_GE(soil_flow.vector[k], 0.f);
     EXPECT_LE(soil_flow.vector[k], 1.f);
   }
 
@@ -297,7 +297,7 @@ TEST(SelectorNormalization, GpuSelectorsNormalization)
                                             true);
   for (int k = 0; k < soil_rocks.size(); ++k)
   {
-    EXPECT_GE(soil_rocks.vector[k], -1.f);
+    EXPECT_GE(soil_rocks.vector[k], 0.f);
     EXPECT_LE(soil_rocks.vector[k], 1.f);
   }
 
@@ -313,7 +313,27 @@ TEST(SelectorNormalization, GpuSelectorsNormalization)
                                                     true);
   for (int k = 0; k < soil_weathered.size(); ++k)
   {
-    EXPECT_GE(soil_weathered.vector[k], -1.f);
+    EXPECT_GE(soil_weathered.vector[k], 0.f);
     EXPECT_LE(soil_weathered.vector[k], 1.f);
   }
+
+  // select_slope GPU with ir == 0 (gradient norm)
+  Array slope_ir0_unnorm = gpu::select_slope(z, 0, false);
+  Array slope_ir0_norm = gpu::select_slope(z, 0, true);
+  for (int k = 0; k < slope_ir0_norm.size(); ++k)
+  {
+    EXPECT_GE(slope_ir0_norm.vector[k], 0.f);
+    EXPECT_LE(slope_ir0_norm.vector[k], 1.f);
+  }
+  EXPECT_GT(hmap::abs(slope_ir0_norm - slope_ir0_unnorm).max(), 0.01f);
+
+  // select_slope GPU with ir > 0 (morphological gradient)
+  Array slope_ir2_unnorm = gpu::select_slope(z, 2, false);
+  Array slope_ir2_norm = gpu::select_slope(z, 2, true);
+  for (int k = 0; k < slope_ir2_norm.size(); ++k)
+  {
+    EXPECT_GE(slope_ir2_norm.vector[k], 0.f);
+    EXPECT_LE(slope_ir2_norm.vector[k], 1.f);
+  }
+  EXPECT_GT(hmap::abs(slope_ir2_norm - slope_ir2_unnorm).max(), 0.01f);
 }

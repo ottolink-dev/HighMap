@@ -447,6 +447,7 @@ void rescale(Array &array, float scaling, float vref)
 void normalize_and_clip(Array         &array,
                         float          multiplier,
                         bool           smooth_transition,
+                        bool           range_01,
                         ICommunicator &comm)
 {
   if (!validate_non_empty(array)) return;
@@ -455,20 +456,45 @@ void normalize_and_clip(Array         &array,
   const float sigma = array.std(&mean, comm);
   const float denom = std::max(multiplier * sigma, 1e-12f);
 
-  if (smooth_transition)
+  if (range_01)
   {
-    for (float &v : array.vector)
+    if (smooth_transition)
     {
-      const float clamped = std::clamp((v - mean) / denom, -1.f, 1.f);
-      const float t = 0.5f * (clamped + 1.f);
+      for (float &v : array.vector)
+      {
+        const float clamped = std::clamp((v - mean) / denom, -1.f, 1.f);
+        const float t = 0.5f * (clamped + 1.f);
 
-      v = 2.f * smoothstep3(t) - 1.f;
+        v = smoothstep3(t);
+      }
+    }
+    else
+    {
+      for (float &v : array.vector)
+      {
+        const float clamped = std::clamp((v - mean) / denom, -1.f, 1.f);
+
+        v = 0.5f * (clamped + 1.f);
+      }
     }
   }
   else
   {
-    for (float &v : array.vector)
-      v = std::clamp((v - mean) / denom, -1.f, 1.f);
+    if (smooth_transition)
+    {
+      for (float &v : array.vector)
+      {
+        const float clamped = std::clamp((v - mean) / denom, -1.f, 1.f);
+        const float t = 0.5f * (clamped + 1.f);
+
+        v = 2.f * smoothstep3(t) - 1.f;
+      }
+    }
+    else
+    {
+      for (float &v : array.vector)
+        v = std::clamp((v - mean) / denom, -1.f, 1.f);
+    }
   }
 }
 

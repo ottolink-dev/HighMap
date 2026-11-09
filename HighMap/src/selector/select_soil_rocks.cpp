@@ -54,7 +54,7 @@ Array select_soil_rocks(const Array   &z,
 
   if (normalize)
   {
-    normalize_and_clip(sr, 2.5f, true, comm);
+    normalize_and_clip(sr, 2.5f, true, true, comm);
   }
 
   return sr;

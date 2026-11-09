@@ -200,3 +200,30 @@ TEST(RangeNormalizeAndClip, WithSmoothing)
     EXPECT_LE(a_smooth(0, j), 1.f);
   }
 }
+
+TEST(RangeNormalizeAndClip, Range01)
+{
+  Array a_smooth = Array({{-100.f, -2.f, 0.f, 2.f, 100.f}});
+  Array a_raw = a_smooth;
+
+  normalize_and_clip(a_raw, 0.5f, false, true);
+  normalize_and_clip(a_smooth, 0.5f, true, true);
+
+  // Mean is 0. Both should keep mean mapped to 0.5
+  EXPECT_FLOAT_EQ(a_raw(0, 2), 0.5f);
+  EXPECT_FLOAT_EQ(a_smooth(0, 2), 0.5f);
+
+  // Extremes were clamped to 0 and 1
+  EXPECT_FLOAT_EQ(a_raw(0, 0), 0.f);
+  EXPECT_FLOAT_EQ(a_raw(0, 4), 1.f);
+  EXPECT_FLOAT_EQ(a_smooth(0, 0), 0.f);
+  EXPECT_FLOAT_EQ(a_smooth(0, 4), 1.f);
+
+  for (int j = 0; j < 5; ++j)
+  {
+    EXPECT_GE(a_smooth(0, j), 0.f);
+    EXPECT_LE(a_smooth(0, j), 1.f);
+    EXPECT_GE(a_raw(0, j), 0.f);
+    EXPECT_LE(a_raw(0, j), 1.f);
+  }
+}

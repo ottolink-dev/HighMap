@@ -42,7 +42,7 @@ Array select_soil_flow(const Array   &z,
 
   if (normalize)
   {
-    normalize_and_clip(c, 2.5f, true, comm);
+    normalize_and_clip(c, 2.5f, true, true, comm);
   }
 
   return c;

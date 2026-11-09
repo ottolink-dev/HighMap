@@ -4,6 +4,7 @@
 #include "highmap/array.hpp"
 #include "highmap/curvature.hpp"
 #include "highmap/filters.hpp"
+#include "highmap/gradient.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/morphology.hpp"
 #include "highmap/range.hpp"
@@ -30,10 +31,32 @@ Array select_cavities(const Array   &array,
 
   if (normalize)
   {
-    normalize_and_clip(c, 2.5f, true, comm);
+    normalize_and_clip(c, 2.5f, true, true, comm);
   }
 
   return c;
+}
+
+Array select_slope(const Array      &z,
+                   int               ir,
+                   bool              normalize,
+                   const TileRegion &region,
+                   ICommunicator    &comm)
+{
+  if (!validate_non_empty(z)) return Array();
+
+  Array out;
+
+  if (ir == 0)
+    out = hmap::gradient_norm(z);
+  else
+    out = gpu::morphological_gradient(z, ir);
+
+  comm.sync_overlap_buffers(out, region, SyncOperation::SmoothBlend);
+
+  if (normalize) normalize_and_clip(out, 2.5f, true, true, comm);
+
+  return out;
 }
 
 Array select_valley(const Array   &z,
@@ -49,7 +72,7 @@ Array select_valley(const Array   &z,
 
   if (normalize)
   {
-    normalize_and_clip(out, 2.5f, true, comm);
+    normalize_and_clip(out, 2.5f, true, true, comm);
   }
 
   return out;

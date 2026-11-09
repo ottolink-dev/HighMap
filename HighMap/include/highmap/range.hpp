@@ -464,21 +464,24 @@ void remap(Array         &array,
 void rescale(Array &array, float scaling, float vref = 0.f);
 
 /**
- * @brief Normalize an array around its mean and clip values to [-1, 1].
+ * @brief Normalize an array around its mean and clip values.
  *
  * Centers the array by subtracting its mean, scales by (multiplier * std), and
- * clamps the result to [-1, 1]. When smooth_transition is enabled, applies
- * smoothstep3 to soften transitions around the clipping boundaries.
+ * clamps the result to [-1, 1] (or [0, 1] if range_01 is true). When
+ * smooth_transition is enabled, applies smoothstep3 to soften transitions
+ * around the clipping boundaries.
  *
  * @param array             Input array to be normalized and clipped.
  * @param multiplier        Standard deviation multiplier (default is 2.5f).
  * @param smooth_transition If true, applies smoothstep3 to the clipped output.
+ * @param range_01          If true, maps output to [0, 1]; if false, [-1, 1].
  * @param comm              Optional communicator for collective reduction across
  *                          tiles.
  */
 void normalize_and_clip(Array         &array,
                         float          multiplier = 2.5f,
                         bool           smooth_transition = true,
+                        bool           range_01 = false,
                         ICommunicator &comm = SingleArrayComm::instance());
 
 } // namespace hmap

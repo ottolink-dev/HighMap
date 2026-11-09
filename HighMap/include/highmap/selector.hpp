@@ -96,7 +96,7 @@ Array select_angle(const Array &array, float angle, float sigma);
  *
  * @param  array             Input array.
  * @param  ir                Kernel radius.
- * @param  normalize         If true, normalize and clip output using standard
+ * @param  normalize         If true, normalize and clip output to [0, 1] using standard
  *                           deviation with a smooth transition.
  * @param  comm              Communicator for collective normalization.
  * @return                   Array Output array.
@@ -121,7 +121,7 @@ Array select_blob_log(const Array   &array,
  * @param  ir                Kernel radius.
  * @param  concave           Select 'holes' if set to true, and select 'bumps' if
  *                           set to false.
- * @param  normalize         If true, normalize and clip output using standard
+ * @param  normalize         If true, normalize and clip output to [0, 1] using standard
  *                           deviation with a smooth transition.
  * @param  comm              Communicator for collective normalization.
  * @return                   Array Output array.
@@ -137,26 +137,6 @@ Array select_cavities(const Array   &array,
                       bool           concave = true,
                       bool           normalize = false,
                       ICommunicator &comm = SingleArrayComm::instance());
-
-/**
- * @brief
- *
- * @param  array
- * @return       Array
- *
- * **Example**
- * @include ex_select_elevation_slope.cpp
- *
- * **Result**
- * @image html ex_select_elevation_slope0.png
- * @image html ex_select_elevation_slope1.png
- */
-Array select_elevation_slope(const Array &array, float gradient_scale);
-
-/// @overload
-Array select_elevation_slope(const Array &array,
-                             float        gradient_scale,
-                             float        vmax);
 
 /**
  * @brief Return an array with elements equal to 1 where input elements are
@@ -538,7 +518,7 @@ Array select_cavities(const Array   &array,
  * @param  flow_gamma              Gamma correction exponent applied to the
  *                                 river mask; 1.0 disables correction.
  * @param  k_smooth                Smoothing parameter for the maximum blending.
- * @param  normalize               If true, normalize and clip output using
+ * @param  normalize               If true, normalize and clip output to [0, 1] using
  *                                 standard deviation with a smooth transition.
  * @param  comm                    Communicator for collective normalization.
  *
@@ -579,7 +559,7 @@ Array select_soil_flow(const Array   &z,
  * @param  smaller_scales_weight Weight factor applied when descending scales.
  * @param  curvature_clamp_mode  Mode used to clamp curvature values.
  * @param  curvature_clamping    Curvature clamp threshold.
- * @param  normalize             If true, normalize and clip output using
+ * @param  normalize             If true, normalize and clip output to [0, 1] using
  *                               standard deviation with a smooth transition.
  * @param  comm                  Communicator for collective normalization.
  *
@@ -630,7 +610,7 @@ Array select_soil_rocks(
  * @param gradient_scaling_factor Empirical scaling factor for both curvature
  *                                and gradient terms. If non-positive, defaults
  *                                to `z.shape.x`.
- * @param normalize               If true, normalize and clip output using
+ * @param normalize               If true, normalize and clip output to [0, 1] using
  *                                standard deviation with a smooth transition.
  * @param comm                    Communicator for collective normalization.
  *
@@ -664,6 +644,26 @@ Array select_soil_weathered(
     float          gradient_scaling_factor, // for curvature
     bool           normalize = false,
     ICommunicator &comm = SingleArrayComm::instance());
+
+/**
+ * @brief Selects terrain slope.
+ *
+ * Computes slope from heightmap. If ir == 0, uses gradient norm; if ir > 0,
+ * uses morphological gradient with kernel radius ir.
+ *
+ * @param  z         Input heightmap.
+ * @param  ir        Kernel radius. If 0, uses gradient norm; if > 0, uses
+ *                   morphological gradient.
+ * @param  normalize If true, normalize and clip output to [0, 1] using standard
+ *                   deviation with a smooth transition.
+ * @param  comm      Communicator for collective normalization.
+ * @return           Array Output slope array.
+ */
+Array select_slope(const Array   &z,
+                   int            ir = 0,
+                   bool           normalize = false,
+                   const TileRegion &region = TileRegion::dummy(),
+                   ICommunicator &comm = SingleArrayComm::instance());
 
 /*! @brief See hmap::select_valley */
 Array select_valley(const Array   &z,
