@@ -1,10 +1,16 @@
 var NAVTREEINDEX26 =
 {
+"reverse__midpoint_8cpp.html#af5440364a346b297246885e95793ef45":[17,0,1,1,2,4,1],
+"ridge__accentuate_8cpp.html":[17,0,1,1,15,15],
+"ridge__accentuate_8cpp.html#a99a2046c1536aef27a965709811898fc":[17,0,1,1,15,15,0],
+"ridge__accentuate_8cpp.html#ae9761a6d8d3b32eda18f767d10489e73":[17,0,1,1,15,15,1],
+"ridgelines_8cpp.html":[17,0,1,1,2,5],
+"ridgelines_8cpp.html#a4e7db58b8b58def3b862476f18b6005e":[17,0,1,1,2,5,1],
 "ridgelines_8cpp.html#a74f6ef0464e0ec67df5179f49e14e35a":[17,0,1,1,2,5,0],
 "rift_8cpp.html":[17,0,1,1,30,2,12],
 "rift_8cpp.html#a0da433ef9eb80cc11084bd3adbe75051":[17,0,1,1,30,2,12,0],
-"rifts__gpu_8cpp.html":[17,0,1,1,12,23],
-"rifts__gpu_8cpp.html#ace06af8ac4d53033c221b1e0f7462a54":[17,0,1,1,12,23,0],
+"rifts__gpu_8cpp.html":[17,0,1,1,12,24],
+"rifts__gpu_8cpp.html#ace06af8ac4d53033c221b1e0f7462a54":[17,0,1,1,12,24,0],
 "roads_8hpp.html":[17,0,1,0,0,47],
 "roads_8hpp.html#a286e4e74e6495802dba7f873c06ccb20":[17,0,1,0,0,47,0],
 "roads_8hpp_source.html":[17,0,1,0,0,47],
@@ -243,11 +249,5 @@ var NAVTREEINDEX26 =
 "snow__simulation_8cpp.html":[17,0,1,1,21,21],
 "snow__simulation_8cpp.html#a78419f7981186b40c4a2d04456e4e63f":[17,0,1,1,21,21,0],
 "snow__simulation_8cpp.html#af74b1835cceaab13d6642462236f76e6":[17,0,1,1,21,21,1],
-"solve__poisson__gauss__seidel_8cpp.html":[17,0,1,1,20,4],
-"solve__poisson__gauss__seidel_8cpp.html#a0bcc84aa462aee73e1a3a52729f21ea6":[17,0,1,1,20,4,0],
-"sparse__max__convolution_8cpp.html":[17,0,1,1,8,2],
-"sparse__max__convolution_8cpp.html#a0020f712944fdb63ee2894c19eaa27ca":[17,0,1,1,8,2,0],
-"sparse__max__convolution_8cpp.html#a3070705e0a58ac06120981a963e17e0d":[17,0,1,1,8,2,1],
-"spawner_8cpp.html":[17,0,1,1,29,0],
-"spawner_8cpp.html#a2b8cded11b92020a1eb168ed690540f1":[17,0,1,1,29,0,3]
+"solve__poisson__gauss__seidel_8cpp.html":[17,0,1,1,20,4]
 };

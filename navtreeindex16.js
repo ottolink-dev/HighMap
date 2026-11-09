@@ -1,5 +1,10 @@
 var NAVTREEINDEX16 =
 {
+"local__metrics__gpu_8cpp.html#a36a5f96566c4074dd1032c63bf95ee5e":[17,0,1,1,24,1,8],
+"local__metrics__gpu_8cpp.html#a62292cc4bf9f6eb5c7b63b1e26f8cc88":[17,0,1,1,24,1,18],
+"local__metrics__gpu_8cpp.html#a6d96c1601f55373944acfc5fe8cabaa2":[17,0,1,1,24,1,9],
+"local__metrics__gpu_8cpp.html#a72341578d241e21b4c31d7497287cfc3":[17,0,1,1,24,1,5],
+"local__metrics__gpu_8cpp.html#a72bc00f99bc995d29856b9f7138e2184":[17,0,1,1,24,1,3],
 "local__metrics__gpu_8cpp.html#a74594cae7628bcfb1c038ac6930fe97d":[17,0,1,1,24,1,20],
 "local__metrics__gpu_8cpp.html#a778cf36acffc481571ad51d607a1719e":[17,0,1,1,24,1,15],
 "local__metrics__gpu_8cpp.html#aa40b626be86c63829e7e118fa389d260":[17,0,1,1,24,1,12],
@@ -244,10 +249,5 @@ var NAVTREEINDEX16 =
 "md_docs_2index.html#autotoc_md138":[12,0],
 "md_docs_2index.html#autotoc_md139":[12,0,0],
 "md_docs_2index.html#autotoc_md140":[12,0,1],
-"md_docs_2index.html#autotoc_md141":[12,1],
-"md_docs_2profiling.html":[13],
-"methods_8cpp.html":[17,0,1,1,1,3],
-"morphology_8cpp.html":[17,0,1,1,26,3],
-"morphology_8cpp.html#a01f3be1fd053428ea67030e3736d15ca":[17,0,1,1,26,3,11],
-"morphology_8cpp.html#a11ddd5ab1aa625db9419d9b65c0eaa64":[17,0,1,1,26,3,23]
+"md_docs_2index.html#autotoc_md141":[12,1]
 };

@@ -21,6 +21,11 @@ var NAVTREEINDEX0 =
 "advection__particle__gpu_8cpp.html#aca34d6d9c564608ab00416589687813e":[17,0,1,1,44,0,7],
 "advection__particle__gpu_8cpp.html#ad6c7808daa55d0a20d36357c7276d46a":[17,0,1,1,44,0,14],
 "advection__particle__gpu_8cpp.html#ae417768dcdebcb493f1e99d3dc8764b6":[17,0,1,1,44,0,4],
+"aeolian__erosion_8cpp.html":[17,0,1,1,12,0],
+"aeolian__erosion_8cpp.html#aba26e6197f4ca798b603c13bbe2759bf":[17,0,1,1,12,0,0],
+"aeolian__erosion_8hpp.html":[17,0,1,0,0,1,0],
+"aeolian__erosion_8hpp.html#aba26e6197f4ca798b603c13bbe2759bf":[17,0,1,0,0,1,0,0],
+"aeolian__erosion_8hpp_source.html":[17,0,1,0,0,1,0],
 "algebra_8cpp.html":[17,0,1,1,0,0],
 "algebra_8cpp.html#af3cb67926262ec806d4d64c2755b1ddd":[17,0,1,1,0,0,0],
 "algebra_8hpp.html":[17,0,1,0,0,15],
@@ -244,10 +249,5 @@ var NAVTREEINDEX0 =
 "citelist.html":[14],
 "classComputeModeMatrixTest.html":[16,0,1],
 "classComputeModeMatrixTest.html#a7c83e7775be5176a7fd1b7847e056f4e":[16,0,1,0],
-"classJaggedTest.html":[16,0,2],
-"classJaggedTest.html#a1f456dd76286876c4f22c4255a6074b6":[16,0,2,0],
-"classVoronoiShrinkTest.html":[16,0,4],
-"classVoronoiShrinkTest.html#acc46a8a0c8db6fbccbb8bb6d6358b4b8":[16,0,4,0],
-"classes.html":[16,1],
-"classhmap_1_1Array.html":[16,0,0,4]
+"classJaggedTest.html":[16,0,2]
 };

@@ -1,5 +1,6 @@
 var dir_1bed6a359ba9efb1507bbdcef4bacbaa =
 [
+    [ "aeolian_erosion.cpp", "aeolian__erosion_8cpp.html", "aeolian__erosion_8cpp" ],
     [ "coastal_erosion.cpp", "coastal__erosion_8cpp.html", "coastal__erosion_8cpp" ],
     [ "deposition.cpp", "deposition_8cpp.html", "deposition_8cpp" ],
     [ "deposition_fill_holes.cpp", "deposition__fill__holes_8cpp.html", "deposition__fill__holes_8cpp" ],

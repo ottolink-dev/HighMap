@@ -1099,6 +1099,9 @@ Functions</h2></td></tr>
 <tr class="separator:a8198f43613e6d5926a01fd7e44444094"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa162bbea6fc85aa1403204af49364230" id="r_aa162bbea6fc85aa1403204af49364230"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#aa162bbea6fc85aa1403204af49364230">dump_visual_check</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, const std::string &amp;fname=&quot;check.png&quot;)</td></tr>
 <tr class="separator:aa162bbea6fc85aa1403204af49364230"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba26e6197f4ca798b603c13bbe2759bf" id="r_aba26e6197f4ca798b603c13bbe2759bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#aba26e6197f4ca798b603c13bbe2759bf">aeolian_erosion</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;<a class="el" href="hydraulic__mise_8cpp.html#aa14e04bff7de9e968e46a953f71f29f3">z</a>, int steps=300, std::uint32_t seed=1337u, glm::vec2 wind={3.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_bedrock=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_vegetation=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_abrasion_mask=nullptr, <a class="el" href="classhmap_1_1Array.html">Array</a> *p_sediment_map=nullptr, <a class="el" href="classhmap_1_1Array.html">Array</a> *p_bedrock_map=nullptr, float cell_size=-1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float matter_to_move=0.001<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int samples_per_step=0, float sand_repose_angle=33.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float shadow_angle_min=5.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float shadow_angle_max=15.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float max_shadow_dist=12.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float abrasion_rate=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float repose_rate=0.35<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int sync_interval=0, const <a class="el" href="structhmap_1_1TileRegion.html">TileRegion</a> &amp;region=<a class="el" href="structhmap_1_1TileRegion.html#af2c439296397945553d847df0ecc1899">TileRegion::dummy</a>(), <a class="el" href="classhmap_1_1ICommunicator.html">ICommunicator</a> &amp;comm=<a class="el" href="classhmap_1_1SingleArrayComm.html#a4cc8e4cdcf75624d4dbf641f4da8435a">SingleArrayComm::instance</a>())</td></tr>
+<tr class="memdesc:aba26e6197f4ca798b603c13bbe2759bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simulates wind-driven aeolian terrain erosion, sand transport, and dune dynamics on GPU.  <br /></td></tr>
+<tr class="separator:aba26e6197f4ca798b603c13bbe2759bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18a33814eb6bc286dfe516a9781819cf" id="r_a18a33814eb6bc286dfe516a9781819cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a18a33814eb6bc286dfe516a9781819cf">coastal_erosion_diffusion</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;<a class="el" href="hydraulic__mise_8cpp.html#aa14e04bff7de9e968e46a953f71f29f3">z</a>, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;water_depth, float additional_depth, int iterations=10, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_mask=nullptr, <a class="el" href="classhmap_1_1Array.html">Array</a> *p_water_mask=nullptr)</td></tr>
 <tr class="memdesc:a18a33814eb6bc286dfe516a9781819cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simulates terrain diffusion due to coastal erosion.  <br /></td></tr>
 <tr class="separator:a18a33814eb6bc286dfe516a9781819cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -11058,6 +11061,333 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
       </table>
 </div><div class="memdoc">
 
+</div>
+</div>
+<a id="aba26e6197f4ca798b603c13bbe2759bf" name="aba26e6197f4ca798b603c13bbe2759bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba26e6197f4ca798b603c13bbe2759bf">&#9670;&#160;</a></span>aeolian_erosion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::aeolian_erosion </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>z</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>steps</em> = <code>300</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>seed</em> = <code>1337u</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec2&#160;</td>
+          <td class="paramname"><em>wind</em> = <code>{3.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> *&#160;</td>
+          <td class="paramname"><em>p_bedrock</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> *&#160;</td>
+          <td class="paramname"><em>p_vegetation</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> *&#160;</td>
+          <td class="paramname"><em>p_abrasion_mask</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> *&#160;</td>
+          <td class="paramname"><em>p_sediment_map</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> *&#160;</td>
+          <td class="paramname"><em>p_bedrock_map</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>cell_size</em> = <code>-1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>matter_to_move</em> = <code>0.001<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>samples_per_step</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>sand_repose_angle</em> = <code>33.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>shadow_angle_min</em> = <code>5.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>shadow_angle_max</em> = <code>15.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>max_shadow_dist</em> = <code>12.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>abrasion_rate</em> = <code>0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>repose_rate</em> = <code>0.35<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sync_interval</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1TileRegion.html">TileRegion</a> &amp;&#160;</td>
+          <td class="paramname"><em>region</em> = <code><a class="el" href="structhmap_1_1TileRegion.html#af2c439296397945553d847df0ecc1899">TileRegion::dummy</a>()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1ICommunicator.html">ICommunicator</a> &amp;&#160;</td>
+          <td class="paramname"><em>comm</em> = <code><a class="el" href="classhmap_1_1SingleArrayComm.html#a4cc8e4cdcf75624d4dbf641f4da8435a">SingleArrayComm::instance</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Simulates wind-driven aeolian terrain erosion, sand transport, and dune dynamics on GPU. </p>
+<p>This algorithm is adapted from the research by Axel Paris, Adrien Peytavie, Eric Guérin, Oscar Argudo, and Eric Galin (Pacific Graphics 2019 / Computer Graphics Forum), "Desertscapes Simulation".</p>
+<p>It simulates:</p><ul>
+<li>Wind-directed sand saltation and reptation across the landscape.</li>
+<li>Lee-side aerodynamic wind shadows triggering dune deposition.</li>
+<li>Vegetation interaction, anchoring sand to form vegetated mounds (nabkhas).</li>
+<li>Bedrock abrasion in high-energy, sediment-sparse regions, carving yardangs.</li>
+<li>Angle-of-repose avalanching maintaining realistic slipfaces.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">z</td><td>Input/output total elevation heightmap (modified in-place). On output, <code>z</code> equals bedrock + sediment. </td></tr>
+    <tr><td class="paramname">steps</td><td>Number of simulation iterations. </td></tr>
+    <tr><td class="paramname">seed</td><td>Random seed for stochastic sampling. </td></tr>
+    <tr><td class="paramname">wind</td><td>Base wind direction vector (in grid units). </td></tr>
+    <tr><td class="paramname">p_bedrock</td><td>Optional input bedrock elevation array. If null, bedrock is initialized to zero. </td></tr>
+    <tr><td class="paramname">p_vegetation</td><td>Optional vegetation density mask in [0, 1]. </td></tr>
+    <tr><td class="paramname">p_abrasion_mask</td><td>Optional rock erodibility/susceptibility mask in [0, 1]. </td></tr>
+    <tr><td class="paramname">p_sediment_map</td><td>Optional output array receiving final sand thickness. </td></tr>
+    <tr><td class="paramname">p_bedrock_map</td><td>Optional output array receiving final bedrock elevation. </td></tr>
+    <tr><td class="paramname">cell_size</td><td>Horizontal grid spacing in world units. If &lt;= 0, defaults to 1.f / z.shape.x. </td></tr>
+    <tr><td class="paramname">matter_to_move</td><td>Volume/height of sand grain packet displaced per hop. </td></tr>
+    <tr><td class="paramname">samples_per_step</td><td>Number of stochastic saltation samples evaluated per step. If &lt;= 0, defaults to total cell count (nx * ny). </td></tr>
+    <tr><td class="paramname">sand_repose_angle</td><td>Angle of repose for loose sediment (in degrees, typically ~33°). </td></tr>
+    <tr><td class="paramname">shadow_angle_min</td><td>Minimum wind shadow angle threshold (in degrees, typically ~5°). </td></tr>
+    <tr><td class="paramname">shadow_angle_max</td><td>Maximum wind shadow angle threshold (in degrees, typically ~15°). </td></tr>
+    <tr><td class="paramname">max_shadow_dist</td><td>Maximum raymarch distance for wind shadow detection (in grid cells). </td></tr>
+    <tr><td class="paramname">abrasion_rate</td><td>Abrasion wear rate on exposed bedrock (0 to disable). </td></tr>
+    <tr><td class="paramname">repose_rate</td><td>Rate of sediment redistribution during repose stabilization. </td></tr>
+    <tr><td class="paramname">sync_interval</td><td>Number of simulation steps between communicator tile syncs. </td></tr>
+    <tr><td class="paramname">region</td><td>Tile region geometry metadata. </td></tr>
+    <tr><td class="paramname">comm</td><td>Tiled communicator instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Example</b> </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="highmap_8hpp.html">highmap.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
+<div class="line">{</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap_1_1gpu.html#adb8336ed4d83c15500872185dee45d50">hmap::gpu::init_opencl</a>();</div>
+<div class="line"> </div>
+<div class="line">  glm::ivec2 <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a> = {256, 256};</div>
+<div class="line">  <span class="comment">// shape = {1024, 1024};</span></div>
+<div class="line">  <span class="comment">// shape = {512, 512};</span></div>
+<div class="line">  std::uint32_t seed = 0;</div>
+<div class="line"> </div>
+<div class="line">  <span class="keyword">constexpr</span> <span class="keywordtype">int</span>       steps = 500;</div>
+<div class="line">  <span class="keyword">constexpr</span> <span class="keywordtype">float</span>     alpha = 0.f / 180.f * M_PI;</div>
+<div class="line">  <span class="keyword">constexpr</span> glm::vec2 wind_dir = {std::cos(alpha), std::sin(alpha)};</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// --- 1. Transverse sand dunes (unimodal wind with abundant sand supply)</span></div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z_transverse(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, 0.05f);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#aba26e6197f4ca798b603c13bbe2759bf">hmap::aeolian_erosion</a>(z_transverse,</div>
+<div class="line">                        steps,</div>
+<div class="line">                        <span class="comment">/* seed */</span> seed,</div>
+<div class="line">                        3.f * wind_dir,</div>
+<div class="line">                        <span class="comment">/* p_bedrock */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* p_vegetation */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* p_abrasion_mask */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* p_sediment_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* p_bedrock_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* cell_size */</span> -1.f,</div>
+<div class="line">                        <span class="comment">/* matter_to_move */</span> 0.001f,</div>
+<div class="line">                        <span class="comment">/* samples_per_step */</span> <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.x * <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.y,</div>
+<div class="line">                        <span class="comment">/* sand_repose_angle */</span> 33.f,</div>
+<div class="line">                        <span class="comment">/* shadow_angle_min */</span> 5.f,</div>
+<div class="line">                        <span class="comment">/* shadow_angle_max */</span> 15.f,</div>
+<div class="line">                        <span class="comment">/* max_shadow_dist */</span> 12.f,</div>
+<div class="line">                        <span class="comment">/* abrasion_rate */</span> 0.f,</div>
+<div class="line">                        <span class="comment">/* repose_rate */</span> 0.35f);</div>
+<div class="line"> </div>
+<div class="line">  z_transverse.dump(<span class="stringliteral">&quot;zt.png&quot;</span>);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// --- 2. Transverse dunes with bedrock bumps (sand flowing around and piling)</span></div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> bed_bumps = <a class="code hl_function" href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>,</div>
+<div class="line">                                          <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
+<div class="line">                                          {3.f, 3.f},</div>
+<div class="line">                                          seed + 10u,</div>
+<div class="line">                                          8,</div>
+<div class="line">                                          0.f);</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#a262e6495cb2d02598f36a2b46114b2b4">hmap::remap</a>(bed_bumps, 0.f, 0.5f);</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#a2badbebec49b12d0d721970a18eb420d">hmap::clamp_min</a>(bed_bumps, 0.5f * bed_bumps.<a class="code hl_function" href="classhmap_1_1Array.html#afdba5b214c8378e78db1978188676703">max</a>());</div>
+<div class="line">  bed_bumps -= 0.5f * bed_bumps.<a class="code hl_function" href="classhmap_1_1Array.html#afdba5b214c8378e78db1978188676703">max</a>();</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// Initial terrain: bedrock bumps + abundant sand layer (0.05 units)</span></div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">float</span> smax = 0.01f;</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z_bumps = bed_bumps + <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, smax);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#aba26e6197f4ca798b603c13bbe2759bf">hmap::aeolian_erosion</a>(z_bumps,</div>
+<div class="line">                        steps,</div>
+<div class="line">                        <span class="comment">/* seed */</span> seed,</div>
+<div class="line">                        3.f * wind_dir,</div>
+<div class="line">                        <span class="comment">/* p_bedrock */</span> &amp;bed_bumps,</div>
+<div class="line">                        <span class="comment">/* p_vegetation */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* p_abrasion_mask */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* p_sediment_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* p_bedrock_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* cell_size */</span> -1.f,</div>
+<div class="line">                        <span class="comment">/* matter_to_move */</span> smax / 50.f,</div>
+<div class="line">                        <span class="comment">/* samples_per_step */</span> <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.x * <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.y,</div>
+<div class="line">                        <span class="comment">/* sand_repose_angle */</span> 33.f,</div>
+<div class="line">                        <span class="comment">/* shadow_angle_min */</span> 5.f,</div>
+<div class="line">                        <span class="comment">/* shadow_angle_max */</span> 15.f,</div>
+<div class="line">                        <span class="comment">/* max_shadow_dist */</span> 12.f,</div>
+<div class="line">                        <span class="comment">/* abrasion_rate */</span> 0.f,</div>
+<div class="line">                        <span class="comment">/* repose_rate */</span> 0.35f);</div>
+<div class="line"> </div>
+<div class="line">  bed_bumps.<a class="code hl_function" href="classhmap_1_1Array.html#a00b8f7462c1e22b1da8a67ec62d4c8c8">dump</a>(<span class="stringliteral">&quot;z.png&quot;</span>);</div>
+<div class="line">  (z_bumps - bed_bumps).dump(<span class="stringliteral">&quot;s.png&quot;</span>);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// --- 3. Barchan dunes (higher wind speed with lower sand supply)</span></div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z_barchan(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, 0.0125f);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#aba26e6197f4ca798b603c13bbe2759bf">hmap::aeolian_erosion</a>(z_barchan,</div>
+<div class="line">                        steps,</div>
+<div class="line">                        <span class="comment">/* seed */</span> seed,</div>
+<div class="line">                        5.f * wind_dir,</div>
+<div class="line">                        <span class="comment">/* p_bedrock */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* p_vegetation */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* p_abrasion_mask */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* p_sediment_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* p_bedrock_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* cell_size */</span> -1.f,</div>
+<div class="line">                        <span class="comment">/* matter_to_move */</span> 0.001f,</div>
+<div class="line">                        <span class="comment">/* samples_per_step */</span> <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.x * <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.y,</div>
+<div class="line">                        <span class="comment">/* sand_repose_angle */</span> 33.f,</div>
+<div class="line">                        <span class="comment">/* shadow_angle_min */</span> 5.f,</div>
+<div class="line">                        <span class="comment">/* shadow_angle_max */</span> 15.f,</div>
+<div class="line">                        <span class="comment">/* max_shadow_dist */</span> 12.f,</div>
+<div class="line">                        <span class="comment">/* abrasion_rate */</span> 0.f,</div>
+<div class="line">                        <span class="comment">/* repose_rate */</span> 0.35f);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// --- 4. Yardangs (wind abrasion carving corrugated bedrock corridors)</span></div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> bed_yardang(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, 0.05f);</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z_yardang = bed_yardang + <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(<a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>, 0.005f);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> abrasion_mask = <a class="code hl_function" href="namespacehmap.html#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>,</div>
+<div class="line">                                              <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>,</div>
+<div class="line">                                              {4.f, 16.f},</div>
+<div class="line">                                              seed);</div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#a262e6495cb2d02598f36a2b46114b2b4">hmap::remap</a>(abrasion_mask, 0.2f, 1.f);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#aba26e6197f4ca798b603c13bbe2759bf">hmap::aeolian_erosion</a>(z_yardang,</div>
+<div class="line">                        steps,</div>
+<div class="line">                        <span class="comment">/* seed */</span> seed,</div>
+<div class="line">                        3.f * wind_dir,</div>
+<div class="line">                        <span class="comment">/* p_bedrock */</span> &amp;bed_yardang,</div>
+<div class="line">                        <span class="comment">/* p_vegetation */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* p_abrasion_mask */</span> &amp;abrasion_mask,</div>
+<div class="line">                        <span class="comment">/* p_sediment_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* p_bedrock_map */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                        <span class="comment">/* cell_size */</span> -1.f,</div>
+<div class="line">                        <span class="comment">/* matter_to_move */</span> 0.001f,</div>
+<div class="line">                        <span class="comment">/* samples_per_step */</span> <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.x * <a class="code hl_variable" href="elevation__from__contours_8cpp.html#af339e609a44f3516574ffecaf5245fa3">shape</a>.y,</div>
+<div class="line">                        <span class="comment">/* sand_repose_angle */</span> 33.f,</div>
+<div class="line">                        <span class="comment">/* shadow_angle_min */</span> 5.f,</div>
+<div class="line">                        <span class="comment">/* shadow_angle_max */</span> 15.f,</div>
+<div class="line">                        <span class="comment">/* max_shadow_dist */</span> 12.f,</div>
+<div class="line">                        <span class="comment">/* abrasion_rate */</span> 0.0005f,</div>
+<div class="line">                        <span class="comment">/* repose_rate */</span> 0.35f);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// --- 5. Export banner</span></div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="namespacehmap.html#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_aeolian_erosion.png&quot;</span>,</div>
+<div class="line">                          {z_transverse, z_bumps, z_barchan, z_yardang},</div>
+<div class="line">                          <a class="code hl_enumvalue" href="namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>,</div>
+<div class="line">                          <span class="keyword">true</span>,</div>
+<div class="line">                          <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;ex_aeolian_erosion successfully executed.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+<div class="ttc" id="anamespacehmap_html_aba26e6197f4ca798b603c13bbe2759bf"><div class="ttname"><a href="namespacehmap.html#aba26e6197f4ca798b603c13bbe2759bf">hmap::aeolian_erosion</a></div><div class="ttdeci">void aeolian_erosion(Array &amp;z, int steps=300, std::uint32_t seed=1337u, glm::vec2 wind={3.f, 0.f}, const Array *p_bedrock=nullptr, const Array *p_vegetation=nullptr, const Array *p_abrasion_mask=nullptr, Array *p_sediment_map=nullptr, Array *p_bedrock_map=nullptr, float cell_size=-1.f, float matter_to_move=0.001f, int samples_per_step=0, float sand_repose_angle=33.f, float shadow_angle_min=5.f, float shadow_angle_max=15.f, float max_shadow_dist=12.f, float abrasion_rate=0.f, float repose_rate=0.35f, int sync_interval=0, const TileRegion &amp;region=TileRegion::dummy(), ICommunicator &amp;comm=SingleArrayComm::instance())</div><div class="ttdoc">Simulates wind-driven aeolian terrain erosion, sand transport, and dune dynamics on GPU.</div><div class="ttdef"><b>Definition</b> aeolian_erosion.cpp:24</div></div>
+</div><!-- fragment --><p><b>Result</b> </p><div class="image">
+<img src="ex_aeolian_erosion.png" alt=""/>
+</div>
+ 
 </div>
 </div>
 <a id="a18a33814eb6bc286dfe516a9781819cf" name="a18a33814eb6bc286dfe516a9781819cf"></a>

@@ -1,5 +1,6 @@
 var dir_1996643133fe3e10fa0b8aa245e991d6 =
 [
+    [ "aeolian_erosion.hpp", "aeolian__erosion_8hpp.html", "aeolian__erosion_8hpp" ],
     [ "coastal_erosion.hpp", "coastal__erosion_8hpp.html", "coastal__erosion_8hpp" ],
     [ "deprecated.hpp", "deprecated_8hpp.html", "deprecated_8hpp" ],
     [ "depression_filling.hpp", "depression__filling_8hpp.html", "depression__filling_8hpp" ],
