@@ -590,3 +590,80 @@ TEST(AeolianErosionGPU, BasicExecutionAndConservation)
       EXPECT_GE(sed(i, j), 0.f);
     }
 }
+
+TEST(AeolianErosionGPU, TiledDistributedExecution)
+{
+  hmap::gpu::init_opencl();
+
+  const glm::ivec2 shape = {128, 128};
+  const glm::ivec2 tile_shape = {32, 32};
+  const int        halo = 8;
+
+  Array z_arr(shape, 0.05f);
+
+  for (auto [mode, storage_mode] :
+       {std::pair{ForEachMode::VA_SEQUENTIAL, StorageMode::VA_DISK_LRU_STREAM},
+        std::pair{ForEachMode::VA_DISTRIBUTED, StorageMode::VA_DISK_LRU_FULL},
+        std::pair{ForEachMode::VA_DISTRIBUTED,
+                  StorageMode::VA_DISK_LRU_STREAM}})
+  {
+    ComputeMode cm{.mode = mode, .trim_storage = true};
+
+    VirtualArray z(shape, tile_shape, halo, storage_mode);
+    VirtualArray z_out(shape, tile_shape, halo, storage_mode);
+
+    z.from_array(z_arr, cm);
+
+    for_each_tile(
+        {&z},
+        {&z_out},
+        [&](std::vector<const Array *> p_arrays_in,
+            std::vector<Array *>       p_arrays_out,
+            const TileRegion          &region,
+            ICommunicator             &comm)
+        {
+          auto [pa_z] = unpack<1>(p_arrays_in);
+          auto [pa_out] = unpack<1>(p_arrays_out);
+
+          if (mode == ForEachMode::VA_SEQUENTIAL)
+          {
+            EXPECT_LE(z.live_tile_count(), 2u);
+            EXPECT_LE(z_out.live_tile_count(), 2u);
+          }
+
+          *pa_out = *pa_z;
+          aeolian_erosion(*pa_out,
+                          40,
+                          1337u,
+                          {2.f, 0.f},
+                          nullptr,
+                          nullptr,
+                          nullptr,
+                          nullptr,
+                          nullptr,
+                          /* cell_size */ -1.f,
+                          /* matter_to_move */ 0.001f,
+                          pa_out->shape.x * pa_out->shape.y,
+                          33.f,
+                          5.f,
+                          15.f,
+                          12.f,
+                          0.f,
+                          0.35f,
+                          10,
+                          region,
+                          comm);
+        },
+        cm);
+
+    Array res = z_out.to_array(cm);
+
+    EXPECT_GT(res.sum(), 0.f);
+    EXPECT_GE(res.min(), 0.f);
+
+    if (mode == ForEachMode::VA_SEQUENTIAL)
+    {
+      EXPECT_LE(z_out.live_tile_count(), 2u);
+    }
+  }
+}

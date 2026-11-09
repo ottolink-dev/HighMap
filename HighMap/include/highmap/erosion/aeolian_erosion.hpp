@@ -8,9 +8,12 @@
 #include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap
 {
+
+class ICommunicator;
 
 /**
  * @brief Simulates wind-driven aeolian terrain erosion, sand transport, and
@@ -49,6 +52,9 @@ namespace hmap
  * @param max_shadow_dist   Maximum raymarch distance for wind shadow detection (in grid cells).
  * @param abrasion_rate     Abrasion wear rate on exposed bedrock (0 to disable).
  * @param repose_rate       Rate of sediment redistribution during repose stabilization.
+ * @param sync_interval     Number of simulation steps between communicator tile syncs.
+ * @param region            Tile region geometry metadata.
+ * @param comm              Tiled communicator instance.
  *
  * **Example**
  * @include ex_aeolian_erosion.cpp
@@ -56,23 +62,26 @@ namespace hmap
  * **Result**
  * @image html ex_aeolian_erosion.png
  */
-void aeolian_erosion(Array        &z,
-                     int           steps = 300,
-                     std::uint32_t seed = 1337u,
-                     glm::vec2     wind = {3.f, 0.f},
-                     const Array  *p_bedrock = nullptr,
-                     const Array  *p_vegetation = nullptr,
-                     const Array  *p_abrasion_mask = nullptr,
-                     Array        *p_sediment_map = nullptr,
-                     Array        *p_bedrock_map = nullptr,
-                     float         cell_size = -1.f,
-                     float         matter_to_move = 0.001f,
-                     int           samples_per_step = 0,
-                     float         sand_repose_angle = 33.f,
-                     float         shadow_angle_min = 5.f,
-                     float         shadow_angle_max = 15.f,
-                     float         max_shadow_dist = 12.f,
-                     float         abrasion_rate = 0.f,
-                     float         repose_rate = 0.35f);
+void aeolian_erosion(Array            &z,
+                     int               steps = 300,
+                     std::uint32_t     seed = 1337u,
+                     glm::vec2         wind = {3.f, 0.f},
+                     const Array      *p_bedrock = nullptr,
+                     const Array      *p_vegetation = nullptr,
+                     const Array      *p_abrasion_mask = nullptr,
+                     Array            *p_sediment_map = nullptr,
+                     Array            *p_bedrock_map = nullptr,
+                     float             cell_size = -1.f,
+                     float             matter_to_move = 0.001f,
+                     int               samples_per_step = 0,
+                     float             sand_repose_angle = 33.f,
+                     float             shadow_angle_min = 5.f,
+                     float             shadow_angle_max = 15.f,
+                     float             max_shadow_dist = 12.f,
+                     float             abrasion_rate = 0.f,
+                     float             repose_rate = 0.35f,
+                     int               sync_interval = 0,
+                     const TileRegion &region = TileRegion::dummy(),
+                     ICommunicator    &comm = SingleArrayComm::instance());
 
 } // namespace hmap
