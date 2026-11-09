@@ -544,49 +544,51 @@
 <codeline lineno="534"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x<sp/>*<sp/>this-&gt;<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y;</highlight></codeline>
 <codeline lineno="535"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="536"><highlight class="normal"></highlight></codeline>
-<codeline lineno="537"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Array_1a152d9172b6f2e59ee5469fedc7a3ca30" kindref="member">Array::std</ref>(ICommunicator<sp/>&amp;comm)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Array_1a7b4999df76dfa1598fb783f5269bf9f5" kindref="member">Array::std</ref>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*p_mean,<sp/>ICommunicator<sp/>&amp;comm)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="538"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="539"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0.f;</highlight></codeline>
 <codeline lineno="540"><highlight class="normal"></highlight></codeline>
 <codeline lineno="541"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>global_mean<sp/>=<sp/>this-&gt;<ref refid="classhmap_1_1Array_1a026d337c68a4be86549c025d30466987" kindref="member">mean</ref>(comm);</highlight></codeline>
-<codeline lineno="542"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>local_sq_diff_sum<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_mean)<sp/>*p_mean<sp/>=<sp/>global_mean;</highlight></codeline>
 <codeline lineno="543"><highlight class="normal"></highlight></codeline>
-<codeline lineno="544"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>v<sp/>:<sp/>this-&gt;<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>)</highlight></codeline>
-<codeline lineno="545"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>diff<sp/>=<sp/>v<sp/>-<sp/>global_mean;</highlight></codeline>
-<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/>local_sq_diff_sum<sp/>+=<sp/>diff<sp/>*<sp/>diff;</highlight></codeline>
-<codeline lineno="548"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="549"><highlight class="normal"></highlight></codeline>
-<codeline lineno="550"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>total_sq_diff_sum<sp/>=<sp/>comm.all_reduce(local_sq_diff_sum,<sp/><ref refid="namespacehmap_1a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5" kindref="member">ReduceOp::Sum</ref>);</highlight></codeline>
-<codeline lineno="551"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>total_size<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(this-&gt;<ref refid="classhmap_1_1Array_1a16e6671dbf3202dbc86f5eccb0fcb1ad" kindref="member">size</ref>());</highlight></codeline>
-<codeline lineno="552"><highlight class="normal"></highlight></codeline>
-<codeline lineno="553"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(comm.size()<sp/>&gt;<sp/>1)</highlight></codeline>
-<codeline lineno="554"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/>total_size<sp/>=<sp/>comm.all_reduce(total_size,<sp/><ref refid="namespacehmap_1a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5" kindref="member">ReduceOp::Sum</ref>);</highlight></codeline>
-<codeline lineno="556"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="557"><highlight class="normal"></highlight></codeline>
-<codeline lineno="558"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(total_size<sp/>&gt;<sp/>0.f)<sp/>?<sp/>std::sqrt(total_sq_diff_sum<sp/>/<sp/>total_size)<sp/>:<sp/>0.f;</highlight></codeline>
-<codeline lineno="559"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="560"><highlight class="normal"></highlight></codeline>
-<codeline lineno="561"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Array_1a1ee19380a96cf71e11a076f949ae3f9e" kindref="member">Array::sum</ref>(ICommunicator<sp/>&amp;comm)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="562"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="563"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0.f;</highlight></codeline>
-<codeline lineno="564"><highlight class="normal"></highlight></codeline>
-<codeline lineno="565"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>local_sum<sp/>=<sp/>std::accumulate(this-&gt;<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>.begin(),</highlight></codeline>
-<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;vector.end(),</highlight></codeline>
-<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.f);</highlight></codeline>
-<codeline lineno="568"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>comm.all_reduce(local_sum,<sp/><ref refid="namespacehmap_1a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5" kindref="member">ReduceOp::Sum</ref>);</highlight></codeline>
-<codeline lineno="569"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="570"><highlight class="normal"></highlight></codeline>
-<codeline lineno="571"><highlight class="normal">std::vector&lt;float&gt;<sp/><ref refid="classhmap_1_1Array_1ab364daf525ff393071ae2a2f38d83c02" kindref="member">Array::unique_values</ref>(ICommunicator<sp/>&amp;comm)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="572"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="573"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{};</highlight></codeline>
-<codeline lineno="574"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>v<sp/>=<sp/>this-&gt;<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>;</highlight></codeline>
-<codeline lineno="575"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac95d63662a6878f27011c0b4c7c70078" kindref="member">vector_unique_values</ref>(v);</highlight></codeline>
-<codeline lineno="576"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>comm.all_union(v);</highlight></codeline>
-<codeline lineno="577"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="578"><highlight class="normal"></highlight></codeline>
-<codeline lineno="579"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>local_sq_diff_sum<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>v<sp/>:<sp/>this-&gt;<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>)</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>diff<sp/>=<sp/>v<sp/>-<sp/>global_mean;</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/>local_sq_diff_sum<sp/>+=<sp/>diff<sp/>*<sp/>diff;</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"></highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>total_sq_diff_sum<sp/>=<sp/>comm.all_reduce(local_sq_diff_sum,<sp/><ref refid="namespacehmap_1a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5" kindref="member">ReduceOp::Sum</ref>);</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>total_size<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(this-&gt;<ref refid="classhmap_1_1Array_1a16e6671dbf3202dbc86f5eccb0fcb1ad" kindref="member">size</ref>());</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"></highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(comm.size()<sp/>&gt;<sp/>1)</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/>total_size<sp/>=<sp/>comm.all_reduce(total_size,<sp/><ref refid="namespacehmap_1a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5" kindref="member">ReduceOp::Sum</ref>);</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"></highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(total_size<sp/>&gt;<sp/>0.f)<sp/>?<sp/>std::sqrt(total_sq_diff_sum<sp/>/<sp/>total_size)<sp/>:<sp/>0.f;</highlight></codeline>
+<codeline lineno="561"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"></highlight></codeline>
+<codeline lineno="563"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Array_1a1ee19380a96cf71e11a076f949ae3f9e" kindref="member">Array::sum</ref>(ICommunicator<sp/>&amp;comm)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="564"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0.f;</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"></highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>local_sum<sp/>=<sp/>std::accumulate(this-&gt;<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>.begin(),</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;vector.end(),</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.f);</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>comm.all_reduce(local_sum,<sp/><ref refid="namespacehmap_1a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5" kindref="member">ReduceOp::Sum</ref>);</highlight></codeline>
+<codeline lineno="571"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"></highlight></codeline>
+<codeline lineno="573"><highlight class="normal">std::vector&lt;float&gt;<sp/><ref refid="classhmap_1_1Array_1ab364daf525ff393071ae2a2f38d83c02" kindref="member">Array::unique_values</ref>(ICommunicator<sp/>&amp;comm)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="574"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{};</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>v<sp/>=<sp/>this-&gt;<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>;</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac95d63662a6878f27011c0b4c7c70078" kindref="member">vector_unique_values</ref>(v);</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>comm.all_union(v);</highlight></codeline>
+<codeline lineno="579"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"></highlight></codeline>
+<codeline lineno="581"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="HighMap/src/array/methods.cpp"/>
   </compounddef>

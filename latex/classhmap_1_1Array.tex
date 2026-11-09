@@ -174,7 +174,7 @@ void \mbox{\hyperlink{classhmap_1_1Array_a9ec7cf1a94d2ae13669af376e1699edc}{set\
 \begin{DoxyCompactList}\small\item\em This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classhmap_1_1Array_a16e6671dbf3202dbc86f5eccb0fcb1ad}{size}} () const
 \begin{DoxyCompactList}\small\item\em Return the total number of elements in the array. \end{DoxyCompactList}\item 
-float \mbox{\hyperlink{classhmap_1_1Array_a152d9172b6f2e59ee5469fedc7a3ca30}{std}} (\mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}} \&comm=\mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{Single\+Array\+Comm\+::instance}}()) const
+float \mbox{\hyperlink{classhmap_1_1Array_a7b4999df76dfa1598fb783f5269bf9f5}{std}} (float \texorpdfstring{$\ast$}{*}p\+\_\+mean=nullptr, \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}} \&comm=\mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{Single\+Array\+Comm\+::instance}}()) const
 \begin{DoxyCompactList}\small\item\em Return the standard deviation of all array values. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{classhmap_1_1Array_a1ee19380a96cf71e11a076f949ae3f9e}{sum}} (\mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}} \&comm=\mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{Single\+Array\+Comm\+::instance}}()) const
 \begin{DoxyCompactList}\small\item\em Return the sum of all array values. \end{DoxyCompactList}\item 
@@ -1698,11 +1698,11 @@ Return the total number of elements in the array.
 \begin{DoxyReturn}{Returns}
 int The total number of elements in the array. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1Array_a152d9172b6f2e59ee5469fedc7a3ca30}\label{classhmap_1_1Array_a152d9172b6f2e59ee5469fedc7a3ca30} 
+\Hypertarget{classhmap_1_1Array_a7b4999df76dfa1598fb783f5269bf9f5}\label{classhmap_1_1Array_a7b4999df76dfa1598fb783f5269bf9f5} 
 \index{hmap::Array@{hmap::Array}!std@{std}}
 \index{std@{std}!hmap::Array@{hmap::Array}}
 \doxysubsubsection{\texorpdfstring{std()}{std()}}
-{\footnotesize\ttfamily float hmap\+::\+Array\+::std (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}} \&}]{comm = {\ttfamily \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{Single\+Array\+Comm\+::instance}}()} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily float hmap\+::\+Array\+::std (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{p\+\_\+mean = {\ttfamily nullptr},  }\item[{\mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}} \&}]{comm = {\ttfamily \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{Single\+Array\+Comm\+::instance}}()} }\end{DoxyParamCaption}) const}
 
 
 
@@ -1710,6 +1710,8 @@ Return the standard deviation of all array values.
 
 
 \begin{DoxyParams}{Parameters}
+{\em p\+\_\+mean} & Optional pointer to receive the calculated array mean. \\
+\hline
 {\em comm} & Optional communicator for collective reduction across tiles. \\
 \hline
 \end{DoxyParams}

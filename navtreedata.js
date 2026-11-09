@@ -232,9 +232,9 @@ var NAVTREEINDEX =
 "local__metrics__gpu_8cpp.html#a36a5f96566c4074dd1032c63bf95ee5e",
 "md_docs_2profiling.html",
 "namespacehmap.html#a1ba9d4ce7afe3309f8ae8e617f7154eeadb9a04ab3508704543b5dd43ae495fe7",
-"namespacehmap.html#a4c42905cbb910cb4017ef3e026a31d59",
-"namespacehmap.html#a8a7a083e583afe812239d1fe6aa479cd",
-"namespacehmap.html#ac165dd1b73f61f632f03e45c2f831fc2",
+"namespacehmap.html#a4c21ef9d4f7d33f2413c7fe391b86253",
+"namespacehmap.html#a8a5ff34f817dd9993eb2dc1df44373e5",
+"namespacehmap.html#ac14815cf025b7430d31d08125a5c6f0d",
 "namespacehmap.html#aef71b544e3f4e5321cb3d41a7366e0f3",
 "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa3fb8064f9087e5af79c85dce2c655112",
 "opencv__wrapper_8cpp.html#a518f05118e1b9704160a7c3276a2f483",
@@ -247,9 +247,9 @@ var NAVTREEINDEX =
 "terrain__features_8hpp_source.html",
 "test__erosion_8cpp.html#a8b502ba0361a7963fa843302373b2e6f",
 "test__math_8cpp.html",
-"test__saturate_8cpp.html#a1c03fddb0cb7944abac1e900b80b7b75",
-"thermal__erosion_8hpp.html#ab753c4abd819aa6945c1cfc5e25ccec4",
-"virtual__texture_8inl.html#ac8177181b343f820027e9c46cc22f146"
+"test__rocks_8cpp.html#affe75027effe93d9104900729a70eb3c",
+"thermal__erosion_8hpp.html#a72c9d220589d2724b4e48e9c37ff55ad",
+"virtual__texture_8inl.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

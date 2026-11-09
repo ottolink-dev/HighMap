@@ -295,7 +295,7 @@ var searchData=
   ['stateless_20processing_20functions_292',['Stateless Processing Functions',['../md_docs_2content_2dev_2architecture.html#autotoc_md12',1,'']]],
   ['statistics_2ecpp_293',['statistics.cpp',['../statistics_8cpp.html',1,'']]],
   ['statistics_2ehpp_294',['statistics.hpp',['../statistics_8hpp.html',1,'']]],
-  ['std_295',['std',['../classhmap_1_1Array.html#a152d9172b6f2e59ee5469fedc7a3ca30',1,'hmap::Array']]],
+  ['std_295',['std',['../classhmap_1_1Array.html#a7b4999df76dfa1598fb783f5269bf9f5',1,'hmap::Array']]],
   ['steep_296',['steep',['../hydraulic__mise_8cpp.html#a9fcc7f55292bbdeebe70c01203afbc6f',1,'hydraulic_mise.cpp']]],
   ['steepen_297',['steepen',['../namespacehmap.html#a38fb422e7a9cd383d40c9a25a06767d5',1,'hmap::steepen(Array &amp;array, float scale, int ir=8)'],['../namespacehmap.html#a3dac1291a901a399f36a17476859353a',1,'hmap::steepen(Array &amp;array, float scale, const Array *p_mask, int ir=8)']]],
   ['steepen_5fconvective_298',['steepen_convective',['../namespacehmap.html#a8a7a083e583afe812239d1fe6aa479cd',1,'hmap::steepen_convective(Array &amp;array, float angle, int iterations=1, int ir=0, float dt=0.1f)'],['../namespacehmap.html#ab46e625ea919327a4e2899dd53fff18d',1,'hmap::steepen_convective(Array &amp;array, float angle, const Array *p_mask, int iterations=1, int ir=0, float dt=0.1f)']]],

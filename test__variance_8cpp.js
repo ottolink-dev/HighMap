@@ -6,5 +6,6 @@ var test__variance_8cpp =
     [ "TEST", "test__variance_8cpp.html#a5901933ecacba95c74c9c5ed346a1e1e", null ],
     [ "TEST", "test__variance_8cpp.html#aff81b6e2efc34be6e2bed9fccd92b4df", null ],
     [ "TEST", "test__variance_8cpp.html#ad7215d329caa480f1b6a2d05fd762150", null ],
-    [ "TEST", "test__variance_8cpp.html#a7906931a52c09841d3919814ce5389a8", null ]
+    [ "TEST", "test__variance_8cpp.html#a7906931a52c09841d3919814ce5389a8", null ],
+    [ "TEST", "test__variance_8cpp.html#a1f1dfaf50dbb920ca1fbafe0b615c3ee", null ]
 ];

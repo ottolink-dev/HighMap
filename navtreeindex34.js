@@ -1,5 +1,7 @@
 var NAVTREEINDEX34 =
 {
+"test__rocks_8cpp.html#affe75027effe93d9104900729a70eb3c":[17,0,2,0,71,15],
+"test__saturate_8cpp.html":[17,0,2,0,72],
 "test__saturate_8cpp.html#a1c03fddb0cb7944abac1e900b80b7b75":[17,0,2,0,72,8],
 "test__saturate_8cpp.html#a20a613f35fe7628a3b711e40709abeed":[17,0,2,0,72,0],
 "test__saturate_8cpp.html#a2b6226626e21b20f16feddf72cdc2ed5":[17,0,2,0,72,9],
@@ -177,6 +179,7 @@ var NAVTREEINDEX34 =
 "test__valley__head_8cpp.html#aa92c3a14701a738fce065d611705a84b":[17,0,2,0,88,6],
 "test__valley__head_8cpp.html#af478737096e154b1687df45d8dcf1859":[17,0,2,0,88,10],
 "test__variance_8cpp.html":[17,0,2,0,89],
+"test__variance_8cpp.html#a1f1dfaf50dbb920ca1fbafe0b615c3ee":[17,0,2,0,89,7],
 "test__variance_8cpp.html#a5901933ecacba95c74c9c5ed346a1e1e":[17,0,2,0,89,3],
 "test__variance_8cpp.html#a7906931a52c09841d3919814ce5389a8":[17,0,2,0,89,6],
 "test__variance_8cpp.html#aaac60150ac35437eb59734a8301c75e5":[17,0,2,0,89,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX34 =
 "thermal__erosion_8hpp.html#a525c9818a95840ee8dfaa0c4e0d4f779":[17,0,1,0,0,1,8,19],
 "thermal__erosion_8hpp.html#a551ff43fadc1798ab22617dfe68f231b":[17,0,1,0,0,1,8,6],
 "thermal__erosion_8hpp.html#a5a5275d0f2588dbbd766e2c5b1a8d55a":[17,0,1,0,0,1,8,9],
-"thermal__erosion_8hpp.html#a659c9749a413a9042480f0de9c4133cc":[17,0,1,0,0,1,8,20],
-"thermal__erosion_8hpp.html#a72c9d220589d2724b4e48e9c37ff55ad":[17,0,1,0,0,1,8,14],
-"thermal__erosion_8hpp.html#a76130f083fcac4a25954f37f7ff6b34e":[17,0,1,0,0,1,8,7],
-"thermal__erosion_8hpp.html#a812be167a39917ce8c869f7399dee231":[17,0,1,0,0,1,8,16]
+"thermal__erosion_8hpp.html#a659c9749a413a9042480f0de9c4133cc":[17,0,1,0,0,1,8,20]
 };

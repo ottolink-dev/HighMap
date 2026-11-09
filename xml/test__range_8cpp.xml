@@ -326,6 +326,44 @@
         </inbodydescription>
         <location file="tests/src/test_range.cpp" line="158" column="1" bodyfile="tests/src/test_range.cpp" bodystart="158" bodyend="164"/>
       </memberdef>
+      <memberdef kind="function" id="test__range_8cpp_1a65d7a47c4c1a6dd7a415568ace456c85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(RangeNormalizeAndClip, WithoutSmoothing)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>RangeNormalizeAndClip</type>
+        </param>
+        <param>
+          <type>WithoutSmoothing</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_range.cpp" line="166" column="1" bodyfile="tests/src/test_range.cpp" bodystart="166" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="test__range_8cpp_1a83800fe321e3ee89fc5891f1b405b727" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(RangeNormalizeAndClip, WithSmoothing)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>RangeNormalizeAndClip</type>
+        </param>
+        <param>
+          <type>WithSmoothing</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_range.cpp" line="176" column="1" bodyfile="tests/src/test_range.cpp" bodystart="176" bodyend="202"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -496,6 +534,44 @@
 <codeline lineno="162"><highlight class="normal"></highlight></codeline>
 <codeline lineno="163"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(a(0,<sp/>1),<sp/>2.f,<sp/>1e-5);</highlight></codeline>
 <codeline lineno="164"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><ref refid="test__range_8cpp_1a33779b46ea02294de819a69275c5f216" kindref="member">TEST</ref>(RangeNormalizeAndClip,<sp/>WithoutSmoothing)</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>a<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{-10.f,<sp/>0.f,<sp/>10.f}});</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a207c29622a50ad3ffcc8186cc24e81c2" kindref="member">normalize_and_clip</ref>(a,<sp/>1.0f);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(a(0,<sp/>0),<sp/>-1.f);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(a(0,<sp/>1),<sp/>0.f);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(a(0,<sp/>2),<sp/>1.f);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><ref refid="test__range_8cpp_1a33779b46ea02294de819a69275c5f216" kindref="member">TEST</ref>(RangeNormalizeAndClip,<sp/>WithSmoothing)</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>a_smooth<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{-100.f,<sp/>-2.f,<sp/>0.f,<sp/>2.f,<sp/>100.f}});</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>a_raw<sp/>=<sp/>a_smooth;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a207c29622a50ad3ffcc8186cc24e81c2" kindref="member">normalize_and_clip</ref>(a_raw,<sp/>0.5f,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a207c29622a50ad3ffcc8186cc24e81c2" kindref="member">normalize_and_clip</ref>(a_smooth,<sp/>0.5f,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Mean<sp/>is<sp/>0.<sp/>Both<sp/>should<sp/>keep<sp/>mean<sp/>at<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(a_smooth(0,<sp/>2),<sp/>0.f);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Extremes<sp/>were<sp/>clamped<sp/>to<sp/>-1<sp/>and<sp/>1,<sp/>so<sp/>smoothstep<sp/>maps<sp/>them<sp/>to<sp/>-1<sp/>and<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(a_smooth(0,<sp/>0),<sp/>-1.f);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(a_smooth(0,<sp/>4),<sp/>1.f);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Smoothstep<sp/>S-curve<sp/>softens<sp/>transitions<sp/>near<sp/>boundaries</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>For<sp/>intermediate<sp/>positive<sp/>value,<sp/>t<sp/>in<sp/>(0.5,<sp/>1.0),<sp/>so<sp/>smoothstep3(t)<sp/>&gt;<sp/>t<sp/>and</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>thus<sp/>a_smooth<sp/>&gt;<sp/>a_raw</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/>EXPECT_GT(a_smooth(0,<sp/>3),<sp/>a_raw(0,<sp/>3));</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/>EXPECT_LT(a_smooth(0,<sp/>1),<sp/>a_raw(0,<sp/>1));</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>&lt;<sp/>5;<sp/>++<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_GE(a_smooth(0,<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>),<sp/>-1.f);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_LE(a_smooth(0,<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>),<sp/>1.f);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_range.cpp"/>
   </compounddef>

@@ -76,7 +76,7 @@ var classhmap_1_1Array =
     [ "set_slice", "classhmap_1_1Array.html#ae2de60a38ccc6d03828840311fd6b095", null ],
     [ "set_slice", "classhmap_1_1Array.html#a9ec7cf1a94d2ae13669af376e1699edc", null ],
     [ "size", "classhmap_1_1Array.html#a16e6671dbf3202dbc86f5eccb0fcb1ad", null ],
-    [ "std", "classhmap_1_1Array.html#a152d9172b6f2e59ee5469fedc7a3ca30", null ],
+    [ "std", "classhmap_1_1Array.html#a7b4999df76dfa1598fb783f5269bf9f5", null ],
     [ "sum", "classhmap_1_1Array.html#a1ee19380a96cf71e11a076f949ae3f9e", null ],
     [ "to_cv_mat", "classhmap_1_1Array.html#abc4875ad6cfe16bd03004ba52f94587c", null ],
     [ "to_exr", "classhmap_1_1Array.html#aa681ff740560464d3830d5f7259282fd", null ],

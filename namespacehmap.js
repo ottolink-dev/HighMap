@@ -1163,7 +1163,7 @@ var namespacehmap =
     [ "remap", "namespacehmap.html#a262e6495cb2d02598f36a2b46114b2b4", null ],
     [ "remap", "namespacehmap.html#a5822bf67b9f3c0dcad0525f1d4c4805d", null ],
     [ "rescale", "namespacehmap.html#ac126773f7c7af2364cfb4d7a6922ed96", null ],
-    [ "normalize_and_clip", "namespacehmap.html#aef47632b1721c98929cc15c4075c9025", null ],
+    [ "normalize_and_clip", "namespacehmap.html#a207c29622a50ad3ffcc8186cc24e81c2", null ],
     [ "generate_network_alpha_model", "namespacehmap.html#a286e4e74e6495802dba7f873c06ccb20", null ],
     [ "build_rock_density", "namespacehmap.html#af9752df3baf8e8ba199fd6c18b0268fc", null ],
     [ "place_rocks_procedural", "namespacehmap.html#ad344c29b6eb84464be0072663cb292b8", null ],
