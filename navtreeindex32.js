@@ -1,8 +1,5 @@
 var NAVTREEINDEX32 =
 {
-"test__erosion_8cpp.html#a8b502ba0361a7963fa843302373b2e6f":[17,0,2,0,26,2],
-"test__erosion_8cpp.html#a96a4f2dbf67bc7e1100baf25ad164c77":[17,0,2,0,26,21],
-"test__erosion_8cpp.html#a9bae9a744ca718ed36cf13bdff48e830":[17,0,2,0,26,18],
 "test__erosion_8cpp.html#aa16aec3877aecedf0e74161aa39566b1":[17,0,2,0,26,23],
 "test__erosion_8cpp.html#aabca7a5db65fdf35f03d75416c48644f":[17,0,2,0,26,12],
 "test__erosion_8cpp.html#ab096ac019bba9e404fe8c1fe30c69546":[17,0,2,0,26,15],
@@ -249,5 +246,8 @@ var NAVTREEINDEX32 =
 "test__loose__symmetry_8cpp.html#ab818c4abce7e7f31f0e072ff96def10e":[17,0,2,0,50,3],
 "test__loose__symmetry_8cpp.html#ac9c1f6d09b6e1b0e1b22e084bbb299ff":[17,0,2,0,50,7],
 "test__loose__symmetry_8cpp.html#acd91e6b67ccd106165ce88705e12ab4d":[17,0,2,0,50,1],
-"test__loose__symmetry_8cpp.html#af27c5d60eb628d3b3c74f34e9dd171a1":[17,0,2,0,50,0]
+"test__loose__symmetry_8cpp.html#af27c5d60eb628d3b3c74f34e9dd171a1":[17,0,2,0,50,0],
+"test__math_8cpp.html":[17,0,2,0,51],
+"test__math_8cpp.html#a1686db8319d7c3529f478b86ed16b566":[17,0,2,0,51,28],
+"test__math_8cpp.html#a1acefd28ba9ae08d29d65450cbbe1908":[17,0,2,0,51,19]
 };

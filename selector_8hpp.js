@@ -5,8 +5,6 @@ var selector_8hpp =
     [ "select_angle", "selector_8hpp.html#a6482a57b7ab3fa5ce2d763c7e2fce5a6", null ],
     [ "select_blob_log", "selector_8hpp.html#a103a2b2b57eb1459aa163f99cef5f967", null ],
     [ "select_cavities", "selector_8hpp.html#a6c6d0217bb50f87246f7d0d40cc80402", null ],
-    [ "select_elevation_slope", "selector_8hpp.html#a13c7f71c6fa727ee090e483c328270a0", null ],
-    [ "select_elevation_slope", "selector_8hpp.html#aee36bf04c8ae880814a5341d4ea262f4", null ],
     [ "select_eq", "selector_8hpp.html#acd41c33e7bb689f6e3b94274f15869b3", null ],
     [ "select_gradient_angle", "selector_8hpp.html#aa387b6418bf9dac2b4f05b41a2a106d5", null ],
     [ "select_gradient_binary", "selector_8hpp.html#acd0eee71be926266e51f908bdc7e2199", null ],
@@ -31,5 +29,6 @@ var selector_8hpp =
     [ "select_soil_rocks", "selector_8hpp.html#a28e454a987e0ad5d10821c91cc11136c", null ],
     [ "select_soil_weathered", "selector_8hpp.html#a86f721abab35358a360195c559d18976", null ],
     [ "select_soil_weathered", "selector_8hpp.html#a86fde62cf532ddd03545e8d227444786", null ],
+    [ "select_slope", "selector_8hpp.html#a8482e3a99816f862151269fca7b8a899", null ],
     [ "select_valley", "selector_8hpp.html#af90e7fbc49413268d88ff8339556aa5e", null ]
 ];

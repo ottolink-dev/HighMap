@@ -1,6 +1,5 @@
 var NAVTREEINDEX23 =
 {
-"namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895f":[15,0,0,0,2],
 "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa3fb8064f9087e5af79c85dce2c655112":[15,0,0,0,2,3],
 "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa46f15a0ffd71deff0ddbc5599acfff87":[15,0,0,0,2,11],
 "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fa568c1c82b138902b43e26249e63d8618":[15,0,0,0,2,13],
@@ -27,7 +26,7 @@ var NAVTREEINDEX23 =
 "namespacehmap_1_1gpu.html#ab7698c2ed65e59a06231e0a84838165c":[15,0,0,0,172],
 "namespacehmap_1_1gpu.html#ab8f6820b9bd796b3283e763f4d872a51":[15,0,0,0,42],
 "namespacehmap_1_1gpu.html#ab92f0fe4baf9678ac1c1d6f454725038":[15,0,0,0,97],
-"namespacehmap_1_1gpu.html#ab9c874e198a5bd41587dd58207bafee8":[15,0,0,0,260],
+"namespacehmap_1_1gpu.html#ab9c874e198a5bd41587dd58207bafee8":[15,0,0,0,261],
 "namespacehmap_1_1gpu.html#abba4a517024f34bfbb7263e7f7fdabbb":[15,0,0,0,219],
 "namespacehmap_1_1gpu.html#abe223a120cbca1cedc1eb8b8392a93b8":[15,0,0,0,76],
 "namespacehmap_1_1gpu.html#abfffd9aa12ea86a2c191a7a5b9cbe5f8":[15,0,0,0,52],
@@ -37,7 +36,7 @@ var NAVTREEINDEX23 =
 "namespacehmap_1_1gpu.html#ac59d12f0ff106b61211236a17af19436":[15,0,0,0,207],
 "namespacehmap_1_1gpu.html#ac726e3e56563a153c2c62f0603d53381":[15,0,0,0,33],
 "namespacehmap_1_1gpu.html#ac87a6d725bf0751510f6b1f426a8af27":[15,0,0,0,55],
-"namespacehmap_1_1gpu.html#aca34d6d9c564608ab00416589687813e":[15,0,0,0,259],
+"namespacehmap_1_1gpu.html#aca34d6d9c564608ab00416589687813e":[15,0,0,0,260],
 "namespacehmap_1_1gpu.html#acb80d6cda31177534d6e63c97675d46d":[15,0,0,0,120],
 "namespacehmap_1_1gpu.html#acdb08d6ebb8ddb8e5595c11278cf81e0":[15,0,0,0,38],
 "namespacehmap_1_1gpu.html#ace06af8ac4d53033c221b1e0f7462a54":[15,0,0,0,34],
@@ -51,7 +50,7 @@ var NAVTREEINDEX23 =
 "namespacehmap_1_1gpu.html#ad44fefa43fdf773f241dcf4c46795e80":[15,0,0,0,153],
 "namespacehmap_1_1gpu.html#ad4f4bf91f0acf068f5dbc4af926f3e07":[15,0,0,0,194],
 "namespacehmap_1_1gpu.html#ad6240ccabf3a0f858698dc0b77ab619e":[15,0,0,0,73],
-"namespacehmap_1_1gpu.html#ad6c7808daa55d0a20d36357c7276d46a":[15,0,0,0,263],
+"namespacehmap_1_1gpu.html#ad6c7808daa55d0a20d36357c7276d46a":[15,0,0,0,264],
 "namespacehmap_1_1gpu.html#ad6ef648576e9339058037a28ce17d225":[15,0,0,0,168],
 "namespacehmap_1_1gpu.html#ad899151ee039affa2137db4a0e01be56":[15,0,0,0,94],
 "namespacehmap_1_1gpu.html#ad8a556d7caa0d6bda80d7f28b8374b4a":[15,0,0,0,58],
@@ -66,7 +65,7 @@ var NAVTREEINDEX23 =
 "namespacehmap_1_1gpu.html#ae20d5b7f78d4c3eb5064490a3a407533":[15,0,0,0,232],
 "namespacehmap_1_1gpu.html#ae2fae1e296687dd0fb94a4720b42e54d":[15,0,0,0,142],
 "namespacehmap_1_1gpu.html#ae3402d591c3b13ef13cece96cdab85b4":[15,0,0,0,54],
-"namespacehmap_1_1gpu.html#ae417768dcdebcb493f1e99d3dc8764b6":[15,0,0,0,253],
+"namespacehmap_1_1gpu.html#ae417768dcdebcb493f1e99d3dc8764b6":[15,0,0,0,254],
 "namespacehmap_1_1gpu.html#ae48f61cbb9bf94ccc5418bf2f81da966":[15,0,0,0,132],
 "namespacehmap_1_1gpu.html#ae57a1e9bd94f218d4be17c9d8be012c3":[15,0,0,0,63],
 "namespacehmap_1_1gpu.html#ae64f19dccba3c247ebf45e8b1b65acd8":[15,0,0,0,160],
@@ -85,7 +84,7 @@ var NAVTREEINDEX23 =
 "namespacehmap_1_1gpu.html#af74b1835cceaab13d6642462236f76e6":[15,0,0,0,143],
 "namespacehmap_1_1gpu.html#af794a4c54c3766ca86b7e4a06346ab91":[15,0,0,0,138],
 "namespacehmap_1_1gpu.html#af8893c7f1ae300a5bd801d4e8a2bf425":[15,0,0,0,18],
-"namespacehmap_1_1gpu.html#af90e7fbc49413268d88ff8339556aa5e":[15,0,0,0,248],
+"namespacehmap_1_1gpu.html#af90e7fbc49413268d88ff8339556aa5e":[15,0,0,0,249],
 "namespacehmap_1_1gpu.html#af91952894dcc204a1d8d527758412ae8":[15,0,0,0,185],
 "namespacehmap_1_1gpu.html#af9603ba2d41af899dbef9b0bd16b39bd":[15,0,0,0,233],
 "namespacehmap_1_1gpu.html#afab20683fccb546cab8ab2b5dc20f3af":[15,0,0,0,155],
@@ -249,5 +248,6 @@ var NAVTREEINDEX23 =
 "normalize_8cpp.html#a27faed8c5c8f89f271b6882c8a7cc81b":[17,0,1,1,40,2,0],
 "normalize_8cpp.html#a3d6212896d8cd828bd5bd827d24a0344":[17,0,1,1,40,2,1],
 "opencv__wrapper_8cpp.html":[17,0,1,1,1,4],
-"opencv__wrapper_8cpp.html#a4fca3ce1ffb84dbc8a627b3313b1d1fb":[17,0,1,1,1,4,0]
+"opencv__wrapper_8cpp.html#a4fca3ce1ffb84dbc8a627b3313b1d1fb":[17,0,1,1,1,4,0],
+"opencv__wrapper_8cpp.html#a518f05118e1b9704160a7c3276a2f483":[17,0,1,1,1,4,1]
 };

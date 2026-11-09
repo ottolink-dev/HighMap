@@ -62746,10 +62746,10 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </inbodydescription>
         <location file="HighMap/src/range/range.cpp" line="429" column="6" bodyfile="HighMap/src/range/range.cpp" bodystart="429" bodyend="445" declfile="HighMap/include/highmap/range.hpp" declline="464" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1aad9eef5302613ac41b6dc8a4525eff01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1ad0b236f6ba6c79e39064dc55cceaa33e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::normalize_and_clip</definition>
-        <argsstring>(Array &amp;array, float multiplier=2.5f, bool smooth_transition=true, ICommunicator &amp;comm=SingleArrayComm::instance())</argsstring>
+        <argsstring>(Array &amp;array, float multiplier=2.5f, bool smooth_transition=true, bool range_01=false, ICommunicator &amp;comm=SingleArrayComm::instance())</argsstring>
         <name>normalize_and_clip</name>
         <qualifiedname>hmap::normalize_and_clip</qualifiedname>
         <param>
@@ -62767,15 +62767,20 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
           <defval>true</defval>
         </param>
         <param>
+          <type>bool</type>
+          <declname>range_01</declname>
+          <defval>false</defval>
+        </param>
+        <param>
           <type><ref refid="classhmap_1_1ICommunicator" kindref="compound">ICommunicator</ref> &amp;</type>
           <declname>comm</declname>
           <defval><ref refid="classhmap_1_1SingleArrayComm_1a4cc8e4cdcf75624d4dbf641f4da8435a" kindref="member">SingleArrayComm::instance</ref>()</defval>
         </param>
         <briefdescription>
-<para>Normalize an array around its mean and clip values to [-1, 1]. </para>
+<para>Normalize an array around its mean and clip values. </para>
         </briefdescription>
         <detaileddescription>
-<para>Centers the array by subtracting its mean, scales by (multiplier * std), and clamps the result to [-1, 1]. When smooth_transition is enabled, applies smoothstep3 to soften transitions around the clipping boundaries.</para>
+<para>Centers the array by subtracting its mean, scales by (multiplier * std), and clamps the result to [-1, 1] (or [0, 1] if range_01 is true). When smooth_transition is enabled, applies smoothstep3 to soften transitions around the clipping boundaries.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>array</parametername>
@@ -62802,6 +62807,14 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
 </parameteritem>
 <parameteritem>
 <parameternamelist>
+<parametername>range_01</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, maps output to [0, 1]; if false, [-1, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
 <parametername>comm</parametername>
 </parameternamelist>
 <parameterdescription>
@@ -62813,7 +62826,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/range/range.cpp" line="447" column="6" bodyfile="HighMap/src/range/range.cpp" bodystart="447" bodyend="473" declfile="HighMap/include/highmap/range.hpp" declline="479" declcolumn="6"/>
+        <location file="HighMap/src/range/range.cpp" line="447" column="6" bodyfile="HighMap/src/range/range.cpp" bodystart="447" bodyend="499" declfile="HighMap/include/highmap/range.hpp" declline="481" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a286e4e74e6495802dba7f873c06ccb20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref></type>
@@ -64805,7 +64818,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
 <parametername>normalize</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>If true, normalize and clip output using standard deviation with a smooth transition. </para>
+<para>If true, normalize and clip output to [0, 1] using standard deviation with a smooth transition. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -64906,7 +64919,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
 <parametername>normalize</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>If true, normalize and clip output using standard deviation with a smooth transition. </para>
+<para>If true, normalize and clip output to [0, 1] using standard deviation with a smooth transition. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -64948,87 +64961,6 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/src/selector/selector.cpp" line="99" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="99" bodyend="121" declfile="HighMap/include/highmap/selector.hpp" declline="135" declcolumn="7"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a13c7f71c6fa727ee090e483c328270a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
-        <definition>Array hmap::select_elevation_slope</definition>
-        <argsstring>(const Array &amp;array, float gradient_scale)</argsstring>
-        <name>select_elevation_slope</name>
-        <qualifiedname>hmap::select_elevation_slope</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>array</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>gradient_scale</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>array</parametername>
-</parameternamelist>
-<parameterdescription>
-<para></para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></para>
-</simplesect>
-<bold>Example</bold> <programlisting filename="ex_select_elevation_slope.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline><highlight class="normal">{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec2<sp/><sp/>res<sp/>=<sp/>{4.f,<sp/>4.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>1;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref><sp/>=<sp/><ref refid="namespacehmap_1a7d699a468a18be16c70654958ee13b41" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>res,<sp/>seed);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>-1.f,<sp/>2.f);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>gradient_scale<sp/>=<sp/>0.05f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>c<sp/>=<sp/><ref refid="namespacehmap_1a13c7f71c6fa727ee090e483c328270a0" kindref="member">hmap::select_elevation_slope</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>gradient_scale);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>.to_png(</highlight><highlight class="stringliteral">&quot;ex_select_elevation_slope0.png&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>c.<ref refid="classhmap_1_1Array_1a9ff7b2c0be8f2b5dd9fc33085cd647d1" kindref="member">to_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_select_elevation_slope1.png&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>);</highlight></codeline>
-<codeline><highlight class="normal">}</highlight></codeline>
-</programlisting></para>
-<para><bold>Result</bold> <image type="html" name="ex_select_elevation_slope0.png"></image>
- <image type="html" name="ex_select_elevation_slope1.png"></image>
- </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="135" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="135" bodyend="139" declfile="HighMap/include/highmap/selector.hpp" declline="154" declcolumn="7"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1aee36bf04c8ae880814a5341d4ea262f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
-        <definition>Array hmap::select_elevation_slope</definition>
-        <argsstring>(const Array &amp;array, float gradient_scale, float vmax)</argsstring>
-        <name>select_elevation_slope</name>
-        <qualifiedname>hmap::select_elevation_slope</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>array</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>gradient_scale</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>vmax</declname>
-        </param>
-        <briefdescription>
-<para>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="123" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="123" bodyend="133" declfile="HighMap/include/highmap/selector.hpp" declline="157" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1acd41c33e7bb689f6e3b94274f15869b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65101,7 +65033,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="141" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="141" bodyend="150" declfile="HighMap/include/highmap/selector.hpp" declline="179" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="123" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="123" bodyend="132" declfile="HighMap/include/highmap/selector.hpp" declline="159" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa387b6418bf9dac2b4f05b41a2a106d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65144,7 +65076,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="163" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="163" bodyend="174" declfile="HighMap/include/highmap/selector.hpp" declline="189" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="145" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="145" bodyend="156" declfile="HighMap/include/highmap/selector.hpp" declline="169" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1acd0eee71be926266e51f908bdc7e2199" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65187,7 +65119,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="176" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="176" bodyend="185" declfile="HighMap/include/highmap/selector.hpp" declline="199" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="158" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="158" bodyend="167" declfile="HighMap/include/highmap/selector.hpp" declline="179" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a4c42905cbb910cb4017ef3e026a31d59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65242,7 +65174,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="187" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="187" bodyend="197" declfile="HighMap/include/highmap/selector.hpp" declline="210" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="169" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="169" bodyend="179" declfile="HighMap/include/highmap/selector.hpp" declline="190" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a60843740c9f6153042e0466b696239fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65297,7 +65229,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="199" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="199" bodyend="209" declfile="HighMap/include/highmap/selector.hpp" declline="223" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="181" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="181" bodyend="191" declfile="HighMap/include/highmap/selector.hpp" declline="203" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5c54b11ce530d2b0cfc75de360e25ebf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65370,7 +65302,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="152" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="152" bodyend="161" declfile="HighMap/include/highmap/selector.hpp" declline="245" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="134" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="134" bodyend="143" declfile="HighMap/include/highmap/selector.hpp" declline="225" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a849d37221d492c5d96d945dc64b02754" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65455,7 +65387,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="211" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="211" bodyend="225" declfile="HighMap/include/highmap/selector.hpp" declline="266" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="193" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="193" bodyend="207" declfile="HighMap/include/highmap/selector.hpp" declline="246" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9fdc6086f5eb14b779b6351b2b49471a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65532,7 +65464,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="227" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="227" bodyend="261" declfile="HighMap/include/highmap/selector.hpp" declline="282" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="209" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="209" bodyend="243" declfile="HighMap/include/highmap/selector.hpp" declline="262" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a01db711d188b71bc0ff2118364f3d60b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65605,7 +65537,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="263" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="263" bodyend="272" declfile="HighMap/include/highmap/selector.hpp" declline="304" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="245" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="245" bodyend="254" declfile="HighMap/include/highmap/selector.hpp" declline="284" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a7b42d7b9a8dfdf8b67a1a482974ee33f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65689,7 +65621,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="274" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="274" bodyend="294" declfile="HighMap/include/highmap/selector.hpp" declline="322" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="256" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="256" bodyend="276" declfile="HighMap/include/highmap/selector.hpp" declline="302" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a565788418282bab28d9d3384622abd9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -65750,7 +65682,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="296" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="296" bodyend="300" declfile="HighMap/include/highmap/selector.hpp" declline="340" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="278" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="278" bodyend="282" declfile="HighMap/include/highmap/selector.hpp" declline="320" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a6ee46e297f2d253660bfe461b9321fe2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -65908,7 +65840,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="302" column="6" bodyfile="HighMap/src/selector/selector.cpp" bodystart="302" bodyend="346" declfile="HighMap/include/highmap/selector.hpp" declline="372" declcolumn="6"/>
+        <location file="HighMap/src/selector/selector.cpp" line="284" column="6" bodyfile="HighMap/src/selector/selector.cpp" bodystart="284" bodyend="328" declfile="HighMap/include/highmap/selector.hpp" declline="352" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a3ce44e59b5eeb5c47a597f893f53eadb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -66042,7 +65974,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="348" column="6" bodyfile="HighMap/src/selector/selector.cpp" bodystart="348" bodyend="370" declfile="HighMap/include/highmap/selector.hpp" declline="407" declcolumn="6"/>
+        <location file="HighMap/src/selector/selector.cpp" line="330" column="6" bodyfile="HighMap/src/selector/selector.cpp" bodystart="330" bodyend="352" declfile="HighMap/include/highmap/selector.hpp" declline="387" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a183508644aea6442e249cfc2973fef97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -66116,7 +66048,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="372" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="372" bodyend="387" declfile="HighMap/include/highmap/selector.hpp" declline="431" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="354" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="354" bodyend="369" declfile="HighMap/include/highmap/selector.hpp" declline="411" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1afb9a43596fc6c1ac725b503904a82623" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -66187,7 +66119,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="389" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="389" bodyend="420" declfile="HighMap/include/highmap/selector.hpp" declline="447" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="371" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="371" bodyend="402" declfile="HighMap/include/highmap/selector.hpp" declline="427" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a1f35e2238ee222ab2aa87304f6692ce6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -66263,7 +66195,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="422" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="422" bodyend="435" declfile="HighMap/include/highmap/selector.hpp" declline="465" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="404" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="404" bodyend="417" declfile="HighMap/include/highmap/selector.hpp" declline="445" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac6dcaa05c7c34302fa2560ddedbb9931" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -66359,7 +66291,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="437" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="437" bodyend="500" declfile="HighMap/include/highmap/selector.hpp" declline="484" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="419" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="419" bodyend="482" declfile="HighMap/include/highmap/selector.hpp" declline="464" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac472278880526ccb0609d818b741929d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -66396,7 +66328,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="502" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="502" bodyend="519" declfile="HighMap/include/highmap/selector.hpp" declline="488" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="484" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="484" bodyend="501" declfile="HighMap/include/highmap/selector.hpp" declline="468" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ad6fe0af5cc79ba757c476dfe19601cb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -66450,7 +66382,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/selector/selector.cpp" line="521" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="521" bodyend="546" declfile="HighMap/include/highmap/selector.hpp" declline="507" declcolumn="7"/>
+        <location file="HighMap/src/selector/selector.cpp" line="503" column="7" bodyfile="HighMap/src/selector/selector.cpp" bodystart="503" bodyend="528" declfile="HighMap/include/highmap/selector.hpp" declline="487" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1acbc412801dcbcce77b0e60b219dc946a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

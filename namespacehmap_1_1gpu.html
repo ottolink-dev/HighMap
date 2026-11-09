@@ -850,6 +850,9 @@ Functions</h2></td></tr>
 <tr class="separator:a86f721abab35358a360195c559d18976"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86fde62cf532ddd03545e8d227444786" id="r_a86fde62cf532ddd03545e8d227444786"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap_1_1gpu.html#a86fde62cf532ddd03545e8d227444786">select_soil_weathered</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;<a class="el" href="hydraulic__mise_8cpp.html#aa14e04bff7de9e968e46a953f71f29f3">z</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;<a class="el" href="namespacehmap.html#a5f58c4149344b401d82f0be3c3807156">gradient_norm</a>, int ir_curvature, <a class="el" href="namespacehmap.html#ad4876bd26d1f3b33a1492645bfe50fbe">ClampMode</a> curvature_clamp_mode, float curvature_clamping, float curvature_weight, float gradient_weight, float gradient_scaling_factor, bool <a class="el" href="namespacehmap.html#a27faed8c5c8f89f271b6882c8a7cc81b">normalize</a>=false, <a class="el" href="classhmap_1_1ICommunicator.html">ICommunicator</a> &amp;comm=<a class="el" href="classhmap_1_1SingleArrayComm.html#a4cc8e4cdcf75624d4dbf641f4da8435a">SingleArrayComm::instance</a>())</td></tr>
 <tr class="separator:a86fde62cf532ddd03545e8d227444786"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8482e3a99816f862151269fca7b8a899" id="r_a8482e3a99816f862151269fca7b8a899"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap_1_1gpu.html#a8482e3a99816f862151269fca7b8a899">select_slope</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;<a class="el" href="hydraulic__mise_8cpp.html#aa14e04bff7de9e968e46a953f71f29f3">z</a>, int <a class="el" href="sls__deformation_8cpp.html#a108a1d0fcea4288c9e48f5dc4fa0a1b0">ir</a>=0, bool <a class="el" href="namespacehmap.html#a27faed8c5c8f89f271b6882c8a7cc81b">normalize</a>=false, const <a class="el" href="structhmap_1_1TileRegion.html">TileRegion</a> &amp;region=<a class="el" href="structhmap_1_1TileRegion.html#af2c439296397945553d847df0ecc1899">TileRegion::dummy</a>(), <a class="el" href="classhmap_1_1ICommunicator.html">ICommunicator</a> &amp;comm=<a class="el" href="classhmap_1_1SingleArrayComm.html#a4cc8e4cdcf75624d4dbf641f4da8435a">SingleArrayComm::instance</a>())</td></tr>
+<tr class="memdesc:a8482e3a99816f862151269fca7b8a899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects terrain slope.  <br /></td></tr>
+<tr class="separator:a8482e3a99816f862151269fca7b8a899"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af90e7fbc49413268d88ff8339556aa5e" id="r_af90e7fbc49413268d88ff8339556aa5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap_1_1gpu.html#af90e7fbc49413268d88ff8339556aa5e">select_valley</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;<a class="el" href="hydraulic__mise_8cpp.html#aa14e04bff7de9e968e46a953f71f29f3">z</a>, int <a class="el" href="sls__deformation_8cpp.html#a108a1d0fcea4288c9e48f5dc4fa0a1b0">ir</a>, bool ridge_select=false, bool <a class="el" href="namespacehmap.html#a27faed8c5c8f89f271b6882c8a7cc81b">normalize</a>=false, <a class="el" href="classhmap_1_1ICommunicator.html">ICommunicator</a> &amp;comm=<a class="el" href="classhmap_1_1SingleArrayComm.html#a4cc8e4cdcf75624d4dbf641f4da8435a">SingleArrayComm::instance</a>())</td></tr>
 <tr class="memdesc:af90e7fbc49413268d88ff8339556aa5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="namespacehmap.html#ac472278880526ccb0609d818b741929d">hmap::select_valley</a>.  <br /></td></tr>
 <tr class="separator:af90e7fbc49413268d88ff8339556aa5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -21751,7 +21754,7 @@ The sign of the SDF is negative inside polygons and positive outside.</dd></dl>
     <tr><td class="paramname">clipping_ratio</td><td>Clipping ratio used in the river selection step. </td></tr>
     <tr><td class="paramname">flow_gamma</td><td>Gamma correction exponent applied to the river mask; 1.0 disables correction. </td></tr>
     <tr><td class="paramname">k_smooth</td><td>Smoothing parameter for the maximum blending. </td></tr>
-    <tr><td class="paramname">normalize</td><td>If true, normalize and clip output using standard deviation with a smooth transition. </td></tr>
+    <tr><td class="paramname">normalize</td><td>If true, normalize and clip output to [0, 1] using standard deviation with a smooth transition. </td></tr>
     <tr><td class="paramname">comm</td><td>Communicator for collective normalization.</td></tr>
   </table>
   </dd>
@@ -21883,7 +21886,7 @@ The sign of the SDF is negative inside polygons and positive outside.</dd></dl>
     <tr><td class="paramname">smaller_scales_weight</td><td>Weight factor applied when descending scales. </td></tr>
     <tr><td class="paramname">curvature_clamp_mode</td><td>Mode used to clamp curvature values. </td></tr>
     <tr><td class="paramname">curvature_clamping</td><td>Curvature clamp threshold. </td></tr>
-    <tr><td class="paramname">normalize</td><td>If true, normalize and clip output using standard deviation with a smooth transition. </td></tr>
+    <tr><td class="paramname">normalize</td><td>If true, normalize and clip output to [0, 1] using standard deviation with a smooth transition. </td></tr>
     <tr><td class="paramname">comm</td><td>Communicator for collective normalization.</td></tr>
   </table>
   </dd>
@@ -22008,7 +22011,7 @@ The sign of the SDF is negative inside polygons and positive outside.</dd></dl>
     <tr><td class="paramname">curvature_weight</td><td>Weight applied to the curvature component in the final mix. </td></tr>
     <tr><td class="paramname">gradient_weight</td><td>Weight applied to the gradient component in the final mix. </td></tr>
     <tr><td class="paramname">gradient_scaling_factor</td><td>Empirical scaling factor for both curvature and gradient terms. If non-positive, defaults to <code>z.shape.x</code>. </td></tr>
-    <tr><td class="paramname">normalize</td><td>If true, normalize and clip output using standard deviation with a smooth transition. </td></tr>
+    <tr><td class="paramname">normalize</td><td>If true, normalize and clip output to [0, 1] using standard deviation with a smooth transition. </td></tr>
     <tr><td class="paramname">comm</td><td>Communicator for collective normalization.</td></tr>
   </table>
   </dd>
@@ -22130,6 +22133,65 @@ The sign of the SDF is negative inside polygons and positive outside.</dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8482e3a99816f862151269fca7b8a899" name="a8482e3a99816f862151269fca7b8a899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8482e3a99816f862151269fca7b8a899">&#9670;&#160;</a></span>select_slope()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1Array.html">Array</a> hmap::gpu::select_slope </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>z</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ir</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>normalize</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1TileRegion.html">TileRegion</a> &amp;&#160;</td>
+          <td class="paramname"><em>region</em> = <code><a class="el" href="structhmap_1_1TileRegion.html#af2c439296397945553d847df0ecc1899">TileRegion::dummy</a>()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1ICommunicator.html">ICommunicator</a> &amp;&#160;</td>
+          <td class="paramname"><em>comm</em> = <code><a class="el" href="classhmap_1_1SingleArrayComm.html#a4cc8e4cdcf75624d4dbf641f4da8435a">SingleArrayComm::instance</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Selects terrain slope. </p>
+<p>Computes slope from heightmap. If ir == 0, uses gradient norm; if ir &gt; 0, uses morphological gradient with kernel radius ir.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">z</td><td>Input heightmap. </td></tr>
+    <tr><td class="paramname">ir</td><td>Kernel radius. If 0, uses gradient norm; if &gt; 0, uses morphological gradient. </td></tr>
+    <tr><td class="paramname">normalize</td><td>If true, normalize and clip output to [0, 1] using standard deviation with a smooth transition. </td></tr>
+    <tr><td class="paramname">comm</td><td>Communicator for collective normalization. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> Output slope array. </dd></dl>
 
 </div>
 </div>

@@ -268,6 +268,7 @@ var namespacehmap_1_1gpu =
     [ "select_soil_rocks", "namespacehmap_1_1gpu.html#a28e454a987e0ad5d10821c91cc11136c", null ],
     [ "select_soil_weathered", "namespacehmap_1_1gpu.html#a86f721abab35358a360195c559d18976", null ],
     [ "select_soil_weathered", "namespacehmap_1_1gpu.html#a86fde62cf532ddd03545e8d227444786", null ],
+    [ "select_slope", "namespacehmap_1_1gpu.html#a8482e3a99816f862151269fca7b8a899", null ],
     [ "select_valley", "namespacehmap_1_1gpu.html#af90e7fbc49413268d88ff8339556aa5e", null ],
     [ "advection_particle", "namespacehmap_1_1gpu.html#a646bc97523a9d9d93712405e77c0c14b", null ],
     [ "advection_particle", "namespacehmap_1_1gpu.html#a5ee665a5cb2f8e4779b9de4162c41217", null ],

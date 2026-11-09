@@ -4,8 +4,6 @@ var selector_8cpp =
     [ "select_angle", "selector_8cpp.html#a6482a57b7ab3fa5ce2d763c7e2fce5a6", null ],
     [ "select_blob_log", "selector_8cpp.html#a103a2b2b57eb1459aa163f99cef5f967", null ],
     [ "select_cavities", "selector_8cpp.html#a6c6d0217bb50f87246f7d0d40cc80402", null ],
-    [ "select_elevation_slope", "selector_8cpp.html#aee36bf04c8ae880814a5341d4ea262f4", null ],
-    [ "select_elevation_slope", "selector_8cpp.html#a13c7f71c6fa727ee090e483c328270a0", null ],
     [ "select_eq", "selector_8cpp.html#acd41c33e7bb689f6e3b94274f15869b3", null ],
     [ "select_gt", "selector_8cpp.html#a5c54b11ce530d2b0cfc75de360e25ebf", null ],
     [ "select_gradient_angle", "selector_8cpp.html#aa387b6418bf9dac2b4f05b41a2a106d5", null ],
