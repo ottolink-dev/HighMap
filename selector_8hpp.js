@@ -29,6 +29,6 @@ var selector_8hpp =
     [ "select_soil_rocks", "selector_8hpp.html#a28e454a987e0ad5d10821c91cc11136c", null ],
     [ "select_soil_weathered", "selector_8hpp.html#a86f721abab35358a360195c559d18976", null ],
     [ "select_soil_weathered", "selector_8hpp.html#a86fde62cf532ddd03545e8d227444786", null ],
-    [ "select_slope", "selector_8hpp.html#a8482e3a99816f862151269fca7b8a899", null ],
+    [ "select_slope", "selector_8hpp.html#ae0b22391c4e9fc7e39067ee535b7f8ac", null ],
     [ "select_valley", "selector_8hpp.html#af90e7fbc49413268d88ff8339556aa5e", null ]
 ];

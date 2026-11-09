@@ -47,7 +47,7 @@ var searchData=
   ['select_5fpulse_44',['select_pulse',['../namespacehmap.html#a183508644aea6442e249cfc2973fef97',1,'hmap']]],
   ['select_5frange_45',['select_range',['../namespacehmap.html#afb9a43596fc6c1ac725b503904a82623',1,'hmap']]],
   ['select_5frivers_46',['select_rivers',['../namespacehmap.html#a1f35e2238ee222ab2aa87304f6692ce6',1,'hmap']]],
-  ['select_5fslope_47',['select_slope',['../namespacehmap_1_1gpu.html#a8482e3a99816f862151269fca7b8a899',1,'hmap::gpu']]],
+  ['select_5fslope_47',['select_slope',['../namespacehmap_1_1gpu.html#ae0b22391c4e9fc7e39067ee535b7f8ac',1,'hmap::gpu']]],
   ['select_5fsoil_5fflow_48',['select_soil_flow',['../namespacehmap_1_1gpu.html#a0d02efe8bcec37bd7556747b2f9dafb8',1,'hmap::gpu']]],
   ['select_5fsoil_5frocks_49',['select_soil_rocks',['../namespacehmap_1_1gpu.html#a28e454a987e0ad5d10821c91cc11136c',1,'hmap::gpu']]],
   ['select_5fsoil_5fweathered_50',['select_soil_weathered',['../namespacehmap_1_1gpu.html#a86f721abab35358a360195c559d18976',1,'hmap::gpu::select_soil_weathered(const Array &amp;z, int ir_curvature=0, int ir_gradient=4, ClampMode curvature_clamp_mode=ClampMode::POSITIVE_ONLY, float curvature_clamping=10.f, float curvature_weight=1.f, float gradient_weight=1.f, float gradient_scaling_factor=0.f, bool normalize=false, ICommunicator &amp;comm=SingleArrayComm::instance())'],['../namespacehmap_1_1gpu.html#a86fde62cf532ddd03545e8d227444786',1,'hmap::gpu::select_soil_weathered(const Array &amp;z, const Array &amp;gradient_norm, int ir_curvature, ClampMode curvature_clamp_mode, float curvature_clamping, float curvature_weight, float gradient_weight, float gradient_scaling_factor, bool normalize=false, ICommunicator &amp;comm=SingleArrayComm::instance())']]],
