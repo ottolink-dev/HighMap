@@ -19,13 +19,6 @@
 namespace hmap
 {
 
-namespace
-{
-
-constexpr float pi = 3.14159265358979323846f;
-
-} // namespace
-
 void aeolian_erosion(Array        &z,
                      int           steps,
                      std::uint32_t seed,
@@ -67,65 +60,122 @@ void aeolian_erosion(Array        &z,
   clamp_min(sed, 0.f);
 
   // Convert angles to tangents
-  float tan_repose = std::tan(sand_repose_angle * pi / 180.f);
-  float tan_shadow_min = std::tan(shadow_angle_min * pi / 180.f);
-  float tan_shadow_max = std::tan(shadow_angle_max * pi / 180.f);
+  float tan_repose = std::tan(sand_repose_angle * static_cast<float>(M_PI) /
+                              180.f);
+  float tan_shadow_min = std::tan(shadow_angle_min * static_cast<float>(M_PI) /
+                                  180.f);
+  float tan_shadow_max = std::tan(shadow_angle_max * static_cast<float>(M_PI) /
+                                  180.f);
 
   // Buffer for double-buffered repose stabilization
   Array sed_temp(z.shape, 0.f);
 
-  // Simulation loop
+  // Initialize kernels with double-buffered sediment resident on GPU
+  auto run_transport_a = clwrapper::Run("aeolian_transport");
+
+  run_transport_a.bind_buffer<float>("bedrock", bed.vector);
+  run_transport_a.bind_buffer<float>("sediment", sed.vector);
+  gpu::helper_bind_optional_buffer(run_transport_a, "vegetation", p_vegetation);
+  gpu::helper_bind_optional_buffer(run_transport_a,
+                                   "abrasion_mask",
+                                   p_abrasion_mask);
+
+  run_transport_a.bind_arguments(nx,
+                                 ny,
+                                 n_samples,
+                                 seed,
+                                 0u,
+                                 wind.x,
+                                 wind.y,
+                                 matter_to_move,
+                                 cell_size,
+                                 tan_shadow_min,
+                                 tan_shadow_max,
+                                 max_shadow_dist,
+                                 abrasion_rate,
+                                 p_vegetation ? 1 : 0,
+                                 p_abrasion_mask ? 1 : 0);
+
+  run_transport_a.write_buffer("bedrock");
+  run_transport_a.write_buffer("sediment");
+
+  // run_stab_ab: repose stabilization reading sed_a and writing sed_b
+  auto run_stab_ab = clwrapper::Run("aeolian_stabilize_sediment",
+                                    run_transport_a.get_queue());
+
+  run_stab_ab.bind_buffer("bedrock", run_transport_a.get_buffer("bedrock"));
+  run_stab_ab.bind_buffer("sed_in", run_transport_a.get_buffer("sediment"));
+  run_stab_ab.bind_buffer<float>("sed_out", sed_temp.vector);
+
+  run_stab_ab.bind_arguments(nx, ny, cell_size, tan_repose, repose_rate);
+
+  // run_transport_b: saltation pass operating on sed_b (sed_out of stab_ab)
+  auto run_transport_b = clwrapper::Run("aeolian_transport",
+                                        run_transport_a.get_queue());
+
+  run_transport_b.bind_buffer("bedrock", run_transport_a.get_buffer("bedrock"));
+  run_transport_b.bind_buffer("sediment", run_stab_ab.get_buffer("sed_out"));
+  run_transport_b.bind_buffer("vegetation",
+                              run_transport_a.get_buffer("vegetation"));
+  run_transport_b.bind_buffer("abrasion_mask",
+                              run_transport_a.get_buffer("abrasion_mask"));
+
+  run_transport_b.bind_arguments(nx,
+                                 ny,
+                                 n_samples,
+                                 seed,
+                                 0u,
+                                 wind.x,
+                                 wind.y,
+                                 matter_to_move,
+                                 cell_size,
+                                 tan_shadow_min,
+                                 tan_shadow_max,
+                                 max_shadow_dist,
+                                 abrasion_rate,
+                                 p_vegetation ? 1 : 0,
+                                 p_abrasion_mask ? 1 : 0);
+
+  // run_stab_ba: repose stabilization reading sed_b and writing sed_a
+  auto run_stab_ba = clwrapper::Run("aeolian_stabilize_sediment",
+                                    run_transport_a.get_queue());
+
+  run_stab_ba.bind_buffer("bedrock", run_transport_a.get_buffer("bedrock"));
+  run_stab_ba.bind_buffer("sed_in", run_stab_ab.get_buffer("sed_out"));
+  run_stab_ba.bind_buffer("sed_out", run_transport_a.get_buffer("sediment"));
+
+  run_stab_ba.bind_arguments(nx, ny, cell_size, tan_repose, repose_rate);
+
+  // Simulation loop: entire state remains on GPU across all steps
   for (int step = 0; step < steps; ++step)
   {
-    // 1. Saltation, wind transport, and abrasion
+    if (step % 2 == 0)
     {
-      auto run = clwrapper::Run("aeolian_transport");
+      run_transport_a.set_argument(8, static_cast<std::uint32_t>(step));
+      run_transport_a.execute(n_samples);
 
-      run.bind_buffer<float>("bedrock", bed.vector);
-      run.bind_buffer<float>("sediment", sed.vector);
-      gpu::helper_bind_optional_buffer(run, "vegetation", p_vegetation);
-      gpu::helper_bind_optional_buffer(run, "abrasion_mask", p_abrasion_mask);
-
-      run.bind_arguments(nx,
-                         ny,
-                         n_samples,
-                         seed,
-                         static_cast<std::uint32_t>(step),
-                         wind.x,
-                         wind.y,
-                         matter_to_move,
-                         cell_size,
-                         tan_shadow_min,
-                         tan_shadow_max,
-                         max_shadow_dist,
-                         abrasion_rate,
-                         p_vegetation ? 1 : 0,
-                         p_abrasion_mask ? 1 : 0);
-
-      run.write_buffer("bedrock");
-      run.write_buffer("sediment");
-      run.execute(n_samples);
-      run.read_buffer("bedrock");
-      run.read_buffer("sediment");
+      run_stab_ab.execute({nx, ny});
     }
-
-    // 2. Angle-of-repose stabilization pass
+    else
     {
-      auto run_stab = clwrapper::Run("aeolian_stabilize_sediment");
+      run_transport_b.set_argument(8, static_cast<std::uint32_t>(step));
+      run_transport_b.execute(n_samples);
 
-      run_stab.bind_buffer<float>("bedrock", bed.vector);
-      run_stab.bind_buffer<float>("sed_in", sed.vector);
-      run_stab.bind_buffer<float>("sed_out", sed_temp.vector);
-
-      run_stab.bind_arguments(nx, ny, cell_size, tan_repose, repose_rate);
-
-      run_stab.write_buffer("bedrock");
-      run_stab.write_buffer("sed_in");
-      run_stab.execute({nx, ny});
-      run_stab.read_buffer("sed_out");
-
-      sed = sed_temp;
+      run_stab_ba.execute({nx, ny});
     }
+  }
+
+  // Read back results
+  run_transport_a.read_buffer("bedrock");
+
+  if (steps % 2 == 1)
+  {
+    run_stab_ab.read_buffer("sed_out");
+    sed = sed_temp;
+  }
+  else if (steps > 0)
+  {
+    run_transport_a.read_buffer("sediment");
   }
 
   // Update total elevation

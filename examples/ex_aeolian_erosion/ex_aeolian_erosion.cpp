@@ -6,7 +6,9 @@ int main(void)
 {
   hmap::gpu::init_opencl();
 
-  glm::ivec2    shape = {256, 256};
+  glm::ivec2 shape = {256, 256};
+  // shape = {1024, 1024};
+  // shape = {512, 512};
   std::uint32_t seed = 0;
 
   constexpr int       steps = 500;
@@ -36,20 +38,24 @@ int main(void)
                         /* abrasion_rate */ 0.f,
                         /* repose_rate */ 0.35f);
 
+  z_transverse.dump("zt.png");
+
   // --- 2. Transverse dunes with bedrock bumps (sand flowing around and piling)
 
   hmap::Array bed_bumps = hmap::noise_fbm(hmap::NoiseType::PERLIN,
                                           shape,
                                           {3.f, 3.f},
                                           seed + 10u,
-                                          4,
-                                          0.5f);
+                                          8,
+                                          0.f);
   hmap::remap(bed_bumps, 0.f, 0.5f);
   hmap::clamp_min(bed_bumps, 0.5f * bed_bumps.max());
   bed_bumps -= 0.5f * bed_bumps.max();
 
   // Initial terrain: bedrock bumps + abundant sand layer (0.05 units)
-  hmap::Array z_bumps = bed_bumps + hmap::Array(shape, 0.05f);
+  const float smax = 0.01f;
+
+  hmap::Array z_bumps = bed_bumps + hmap::Array(shape, smax);
 
   hmap::aeolian_erosion(z_bumps,
                         steps,
@@ -61,7 +67,7 @@ int main(void)
                         /* p_sediment_map */ nullptr,
                         /* p_bedrock_map */ nullptr,
                         /* cell_size */ -1.f,
-                        /* matter_to_move */ 0.001f,
+                        /* matter_to_move */ smax / 50.f,
                         /* samples_per_step */ shape.x * shape.y,
                         /* sand_repose_angle */ 33.f,
                         /* shadow_angle_min */ 5.f,
@@ -69,6 +75,9 @@ int main(void)
                         /* max_shadow_dist */ 12.f,
                         /* abrasion_rate */ 0.f,
                         /* repose_rate */ 0.35f);
+
+  bed_bumps.dump("z.png");
+  (z_bumps - bed_bumps).dump("s.png");
 
   // --- 3. Barchan dunes (higher wind speed with lower sand supply)
 
