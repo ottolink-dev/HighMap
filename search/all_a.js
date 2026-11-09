@@ -32,7 +32,7 @@ var searchData=
   ['below_29',['BELOW',['../namespacehmap.html#aaa31d3f4691447f824bf7ca1e88897a2a7e9c666cdfeb7b317902253fda25e978',1,'hmap']]],
   ['benchmark_20measurements_30',['3. Benchmark Measurements',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md66',1,'']]],
   ['benchmarks_31',['5. Investigations and Benchmarks',['../md_docs_2content_2dev_2architecture.html#autotoc_md15',1,'']]],
-  ['bezier_32',['bezier',['../namespacehmap.html#aa78bf111867e13c63d8bd2ec005ad6c8ac56fe3b521e08a04c926e75d7fba28f8',1,'hmap::BEZIER'],['../namespacehmap.html#ac39b5e32d90e0351f4124ea61334461d',1,'hmap::bezier(const Path &amp;path, float curvature_ratio=0.3f, int edge_divisions=10, Path::EdgeDivisionMode edm=Path::EdgeDivisionMode::EDM_PER_EDGE)']]],
+  ['bezier_32',['bezier',['../namespacehmap.html#ac39b5e32d90e0351f4124ea61334461d',1,'hmap::bezier(const Path &amp;path, float curvature_ratio=0.3f, int edge_divisions=10, Path::EdgeDivisionMode edm=Path::EdgeDivisionMode::EDM_PER_EDGE)'],['../namespacehmap.html#aa78bf111867e13c63d8bd2ec005ad6c8ac56fe3b521e08a04c926e75d7fba28f8',1,'hmap::BEZIER']]],
   ['bezier_5fround_33',['bezier_round',['../namespacehmap.html#a3beb0c80491a827b346e9e69cadf4228',1,'hmap']]],
   ['bhead_34',['bhead',['../hydraulic__mise_8cpp.html#a7a5dcbf1ee87dd3c79068bfff522a6ed',1,'hydraulic_mise.cpp']]],
   ['bibliography_35',['Bibliography',['../citelist.html',1,'']]],
