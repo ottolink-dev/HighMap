@@ -478,7 +478,7 @@ void rescale(Array &array, float scaling, float vref = 0.f);
  */
 void normalize_and_clip(Array         &array,
                         float          multiplier = 2.5f,
-                        bool           smooth_transition = false,
+                        bool           smooth_transition = true,
                         ICommunicator &comm = SingleArrayComm::instance());
 
 } // namespace hmap
