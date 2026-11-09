@@ -124,7 +124,7 @@ set(LIGHTUSD_WITH_QJS
 FetchContent_Declare(
   LightUSD
   GIT_REPOSITORY https://github.com/lighttransport/LightUSD.git
-  GIT_TAG main
+  GIT_TAG 1fdd60a6171724b5ce0e6716c25b2bba1aed7ad3
   GIT_SHALLOW TRUE)
 
 FetchContent_MakeAvailable(LightUSD)
