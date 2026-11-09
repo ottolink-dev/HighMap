@@ -162,3 +162,41 @@ TEST(RangeRescale, WithReference)
 
   EXPECT_NEAR(a(0, 1), 2.f, 1e-5);
 }
+
+TEST(RangeNormalizeAndClip, WithoutSmoothing)
+{
+  Array a = Array({{-10.f, 0.f, 10.f}});
+  normalize_and_clip(a, 1.0f);
+
+  EXPECT_FLOAT_EQ(a(0, 0), -1.f);
+  EXPECT_FLOAT_EQ(a(0, 1), 0.f);
+  EXPECT_FLOAT_EQ(a(0, 2), 1.f);
+}
+
+TEST(RangeNormalizeAndClip, WithSmoothing)
+{
+  Array a_smooth = Array({{-100.f, -2.f, 0.f, 2.f, 100.f}});
+  Array a_raw = a_smooth;
+
+  normalize_and_clip(a_raw, 0.5f, false);
+  normalize_and_clip(a_smooth, 0.5f, true);
+
+  // Mean is 0. Both should keep mean at 0
+  EXPECT_FLOAT_EQ(a_smooth(0, 2), 0.f);
+
+  // Extremes were clamped to -1 and 1, so smoothstep maps them to -1 and 1
+  EXPECT_FLOAT_EQ(a_smooth(0, 0), -1.f);
+  EXPECT_FLOAT_EQ(a_smooth(0, 4), 1.f);
+
+  // Smoothstep S-curve softens transitions near boundaries
+  // For intermediate positive value, t in (0.5, 1.0), so smoothstep3(t) > t and
+  // thus a_smooth > a_raw
+  EXPECT_GT(a_smooth(0, 3), a_raw(0, 3));
+  EXPECT_LT(a_smooth(0, 1), a_raw(0, 1));
+
+  for (int j = 0; j < 5; ++j)
+  {
+    EXPECT_GE(a_smooth(0, j), -1.f);
+    EXPECT_LE(a_smooth(0, j), 1.f);
+  }
+}

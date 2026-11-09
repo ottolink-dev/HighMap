@@ -883,10 +883,12 @@ public:
   /**
    * @brief Return the standard deviation of all array values.
    *
-   * @param  comm Optional communicator for collective reduction across tiles.
-   * @return      float The standard deviation of all elements in the array.
+   * @param  p_mean Optional pointer to receive the calculated array mean.
+   * @param  comm   Optional communicator for collective reduction across tiles.
+   * @return        float The standard deviation of all elements in the array.
    */
-  float std(ICommunicator &comm = SingleArrayComm::instance()) const;
+  float std(float         *p_mean = nullptr,
+            ICommunicator &comm = SingleArrayComm::instance()) const;
 
   /**
    * @brief Return the sum of all array values.

@@ -534,11 +534,13 @@ int Array::size() const
   return this->shape.x * this->shape.y;
 }
 
-float Array::std(ICommunicator &comm) const
+float Array::std(float *p_mean, ICommunicator &comm) const
 {
   if (!validate_non_empty(*this)) return 0.f;
 
   float global_mean = this->mean(comm);
+  if (p_mean) *p_mean = global_mean;
+
   float local_sq_diff_sum = 0.f;
 
   for (float v : this->vector)

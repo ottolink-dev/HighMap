@@ -691,7 +691,7 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
     for_each_tile(
         va_norm,
         [](Array &tile, const TileRegion &, ICommunicator &comm)
-        { normalize_and_clip(tile, 2.0f, comm); },
+        { normalize_and_clip(tile, 2.0f, false, comm); },
         cm_dist);
 
     Array res_norm = va_norm.to_array(cm_dist);

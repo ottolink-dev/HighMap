@@ -81,3 +81,14 @@ TEST(Variance, NonSquareArray)
 
   EXPECT_GT(var, 0.f);
 }
+
+TEST(ArrayStd, MeanOutputPointer)
+{
+  Array input = Array({{1.f, 2.f}, {3.f, 4.f}});
+
+  float mean_out = 0.f;
+  float std_val = input.std(&mean_out);
+
+  EXPECT_NEAR(mean_out, 2.5f, 1e-6f);
+  EXPECT_NEAR(std_val, std::sqrt(1.25f), 1e-6f);
+}

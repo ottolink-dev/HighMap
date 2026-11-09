@@ -93,7 +93,7 @@ TEST_F(ComputeModeMatrixTest, ArrayMethodsWithCommMatrix)
               float              t_max = tile.max(comm);
               float              t_mean = tile.mean(comm);
               float              t_sum = tile.sum(comm);
-              float              t_std = tile.std(comm);
+              float              t_std = tile.std(nullptr, comm);
               float              t_ptp = tile.ptp(comm);
               glm::vec2          t_range = tile.range(comm);
               std::vector<float> t_unique = tile.unique_values(comm);
