@@ -13,6 +13,7 @@
 #pragma once
 
 #include "highmap/array.hpp"
+#include "highmap/local_metrics.hpp"
 #include "highmap/range.hpp"
 #include "highmap/virtual_array/communicator.hpp"
 #include "highmap/virtual_array/tile_region.hpp"
@@ -651,19 +652,21 @@ Array select_soil_weathered(
  * Computes slope from heightmap. If ir == 0, uses gradient norm; if ir > 0,
  * uses morphological gradient with kernel radius ir.
  *
- * @param  z         Input heightmap.
- * @param  ir        Kernel radius. If 0, uses gradient norm; if > 0, uses
- *                   morphological gradient.
- * @param  normalize If true, normalize and clip output to [0, 1] using standard
- *                   deviation with a smooth transition.
- * @param  comm      Communicator for collective normalization.
- * @return           Array Output slope array.
+ * @param  z           Input heightmap.
+ * @param  ir          Kernel radius. If 0, uses gradient norm; if > 0, uses
+ *                     morphological gradient.
+ * @param  normalize   If true, normalize and clip output to [0, 1] using standard
+ *                     deviation with a smooth transition.
+ * @param  kernel_type Kernel footprint type (default: MinMaxKernel::OCTAGON).
+ * @param  comm        Communicator for collective normalization.
+ * @return             Array Output slope array.
  */
-Array select_slope(const Array   &z,
-                   int            ir = 0,
-                   bool           normalize = false,
+Array select_slope(const Array      &z,
+                   int               ir = 0,
+                   bool              normalize = false,
+                   MinMaxKernel      kernel_type = MinMaxKernel::OCTAGON,
                    const TileRegion &region = TileRegion::dummy(),
-                   ICommunicator &comm = SingleArrayComm::instance());
+                   ICommunicator    &comm = SingleArrayComm::instance());
 
 /*! @brief See hmap::select_valley */
 Array select_valley(const Array   &z,

@@ -40,6 +40,7 @@ Array select_cavities(const Array   &array,
 Array select_slope(const Array      &z,
                    int               ir,
                    bool              normalize,
+                   MinMaxKernel      kernel_type,
                    const TileRegion &region,
                    ICommunicator    &comm)
 {
@@ -50,7 +51,7 @@ Array select_slope(const Array      &z,
   if (ir == 0)
     out = hmap::gradient_norm(z);
   else
-    out = gpu::morphological_gradient(z, ir);
+    out = gpu::morphological_gradient(z, ir, kernel_type);
 
   comm.sync_overlap_buffers(out, region, SyncOperation::SmoothBlend);
 
