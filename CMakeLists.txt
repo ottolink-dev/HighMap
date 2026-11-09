@@ -122,7 +122,7 @@ find_package(zstd REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 # OpenMP
-add_compile_options(${OpenMP_CXX_FLAGS})
+add_compile_options($<$<COMPILE_LANGUAGE:CXX>:${OpenMP_CXX_FLAGS}>)
 
 # OpenCL
 add_compile_definitions(CL_HPP_MINIMUM_OPENCL_VERSION=120
