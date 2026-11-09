@@ -127,7 +127,7 @@ set(LIGHTUSD_NATIVE_PRODUCT
 FetchContent_Declare(
   LightUSD
   GIT_REPOSITORY https://github.com/lighttransport/LightUSD.git
-  GIT_TAG 1fdd60a6171724b5ce0e6716c25b2bba1aed7ad3
+  GIT_TAG v1.0.0-rc4
   GIT_SHALLOW TRUE)
 
 FetchContent_MakeAvailable(LightUSD)
