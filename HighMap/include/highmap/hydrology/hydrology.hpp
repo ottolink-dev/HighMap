@@ -379,10 +379,14 @@ Array flow_accumulation_stochastic(const Array  &z,
  * value of the heightmap can be used as a reference.
  *
  * @param  z         Input array representing the heightmap values.
- * @param  talus_ref Reference talus used to locally define the flow-partition
- *                   exponent. Small values will result in thinner flow streams.
- * @return           Array An array where each cell contains the computed flow
- *                   accumulation.
+ * @param  talus_ref  Reference talus used to locally define the flow-partition
+ *                    exponent. Small values will result in thinner flow streams.
+ * @param  iterations Maximum number of boundary exchange iterations across
+ *                    tiles (0 defaults to auto: grid diameter).
+ * @param  region     TileRegion descriptor for tiled domain positioning.
+ * @param  comm       Communicator for multi-tile synchronization.
+ * @return            Array An array where each cell contains the computed flow
+ *                    accumulation.
  *
  * **Example**
  * @include ex_flow_accumulation_dinf.cpp
@@ -394,7 +398,12 @@ Array flow_accumulation_stochastic(const Array  &z,
  *
  * @see              flow_direction_dinf, flow_accumulation_d8
  */
-Array flow_accumulation_dinf(const Array &z, float talus_ref);
+Array flow_accumulation_dinf(
+    const Array      &z,
+    float             talus_ref = 0.1f,
+    int               iterations = 0,
+    const TileRegion &region = {},
+    ICommunicator    &comm = SingleArrayComm::instance());
 
 /**
  * @brief Computes averaged D-infinity flow accumulation with terrain
@@ -416,6 +425,10 @@ Array flow_accumulation_dinf(const Array &z, float talus_ref);
  * @param  seed      Base random seed (incremented for each sample).
  * @param  amp       Amplitude of the noise perturbation.
  * @param  bbox      Bounding box used for noise generation.
+ * @param  iterations Maximum number of boundary exchange iterations across
+ *                    tiles (0 defaults to auto).
+ * @param  region     TileRegion descriptor for tiled domain positioning.
+ * @param  comm       Communicator for multi-tile synchronization.
  *
  * @return           Averaged flow accumulation array.
  *
@@ -428,14 +441,18 @@ Array flow_accumulation_dinf(const Array &z, float talus_ref);
  * @image html ex_flow_accumulation_dinf2.png
  */
 
-Array flow_accumulation_dinf_perturbed(const Array  &z,
-                                       float         talus_ref,
-                                       int           nsamples,
-                                       glm::vec2     kw,
-                                       std::uint32_t seed,
-                                       float         amp,
-                                       const Array *p_perturb_scaling = nullptr,
-                                       glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
+Array flow_accumulation_dinf_perturbed(
+    const Array      &z,
+    float             talus_ref,
+    int               nsamples,
+    glm::vec2         kw,
+    std::uint32_t     seed,
+    float             amp,
+    const Array      *p_perturb_scaling = nullptr,
+    glm::vec4         bbox = {0.f, 1.f, 0.f, 1.f},
+    int               iterations = 0,
+    const TileRegion &region = {},
+    ICommunicator    &comm = SingleArrayComm::instance());
 
 /**
  * @brief Computes the flow direction from each cell to its downslope neighbor

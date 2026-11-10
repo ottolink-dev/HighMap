@@ -20,11 +20,17 @@
 #include "highmap/primitives/coherent_noise.hpp"
 #include "highmap/primitives/functions.hpp"
 #include "highmap/range.hpp"
+#include "highmap/virtual_array/communicator.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap
 {
 
-Array flow_accumulation_dinf(const Array &z, float talus_ref)
+Array flow_accumulation_dinf(const Array      &z,
+                             float             talus_ref,
+                             int               iterations,
+                             const TileRegion &region,
+                             ICommunicator    &comm)
 {
   if (!validate_non_empty(z)) return Array();
 
@@ -35,14 +41,90 @@ Array flow_accumulation_dinf(const Array &z, float talus_ref)
   const int         ny = shape.y;
   const int         ncells = nx * ny;
 
-  Array facc = constant(shape, 1.f);
-  // use raw pointer to avoid operator() overhead
+  // --- Fast path for single tile / non-distributed execution
+
+  if (comm.size() <= 1)
+  {
+    Array  facc = constant(shape, 1.f);
+    float *facc_ptr = facc.vector.data();
+
+    std::vector<float> dinf = flow_direction_dinf_flat(z, talus_ref);
+
+    // build nidp — parallelized with atomic increments
+    std::vector<int> nidp(ncells, 0);
+
+#pragma omp parallel for schedule(static)
+    for (int j = 1; j < ny - 1; ++j)
+      for (int i = 1; i < nx - 1; ++i)
+      {
+        const int base = (j * nx + i) * nb;
+        for (size_t k = 0; k < nb; ++k)
+        {
+          if (dinf[base + k] > 0.f)
+          {
+            const int nidx = (j + neighbors[k].offset.y) * nx +
+                             (i + neighbors[k].offset.x);
+#pragma omp atomic
+            nidp[nidx]++;
+          }
+        }
+      }
+
+    // seed queue with source cells (nidp == 0)
+    std::vector<int> queue;
+    queue.reserve(ncells / 4);
+
+    for (int j = 1; j < ny - 1; ++j)
+      for (int i = 1; i < nx - 1; ++i)
+        if (nidp[j * nx + i] == 0) queue.push_back(j * nx + i);
+
+    // topological accumulation, inherently sequential
+    while (!queue.empty())
+    {
+      const int idx = queue.back();
+      queue.pop_back();
+
+      const int   i = idx % nx;
+      const int   j = idx / nx;
+      const float acc = facc_ptr[idx];
+      const int   base = idx * nb;
+
+      for (size_t k = 0; k < nb; ++k)
+      {
+        const float wgt = dinf[base + k];
+        if (wgt == 0.f) continue;
+
+        const int nidx = (j + neighbors[k].offset.y) * nx +
+                         (i + neighbors[k].offset.x);
+        facc_ptr[nidx] += acc * wgt;
+
+        if (--nidp[nidx] == 0) queue.push_back(nidx);
+      }
+    }
+
+    fill_borders(facc);
+    return facc;
+  }
+
+  // Multi-tile distributed execution with communicator synchronization
+
+  // Identify internal core bounds vs halo
+  const int h_w = region.halo.x;
+  const int h_e = region.halo.y;
+  const int h_s = region.halo.z;
+  const int h_n = region.halo.w;
+
+  // Initialize accumulation: 1.0 on core cells, 0.0 on incoming halo cells
+  Array facc(shape, 0.f);
+  for (int j = h_s; j < ny - h_n; ++j)
+    for (int i = h_w; i < nx - h_e; ++i)
+      facc(i, j) = 1.f;
+
   float *facc_ptr = facc.vector.data();
 
   std::vector<float> dinf = flow_direction_dinf_flat(z, talus_ref);
 
-  // build nidp — parallelized with atomic increments
-  std::vector<int> nidp(ncells, 0); // int, not uint8_t (atomic-safe)
+  std::vector<int> nidp_base(ncells, 0);
 
 #pragma omp parallel for schedule(static)
   for (int j = 1; j < ny - 1; ++j)
@@ -56,55 +138,137 @@ Array flow_accumulation_dinf(const Array &z, float talus_ref)
           const int nidx = (j + neighbors[k].offset.y) * nx +
                            (i + neighbors[k].offset.x);
 #pragma omp atomic
-          nidp[nidx]++;
+          nidp_base[nidx]++;
         }
       }
     }
 
-  // seed queue with source cells (nidp == 0)
-  std::vector<int> queue;
-  queue.reserve(ncells / 4);
-
-  for (int j = 1; j < ny - 1; ++j)
-    for (int i = 1; i < nx - 1; ++i)
-      if (nidp[j * nx + i] == 0) queue.push_back(j * nx + i);
-
-  // topological accumulation, inherently sequential
-  while (!queue.empty())
+  // Determine number of sweeping iterations
+  int n_sweeps = iterations;
+  if (n_sweeps <= 0)
   {
-    const int idx = queue.back();
-    queue.pop_back();
+    int side = std::max(1, int(std::ceil(std::sqrt(comm.size()))));
+    n_sweeps = std::max(2, 2 * side);
+  }
 
-    const int   i = idx % nx;
-    const int   j = idx / nx;
-    const float acc = facc_ptr[idx];
-    const int   base = idx * nb;
+  // Delta to propagate downstream in this tile.
+  // Initially, every cell's local 1.f is the delta to accumulate.
+  Array  delta_acc = facc;
+  float *delta_ptr = delta_acc.vector.data();
 
-    for (size_t k = 0; k < nb; ++k)
+  for (int sweep = 0; sweep < n_sweeps; ++sweep)
+  {
+    // Local topological accumulation of delta_acc into facc
+    std::vector<int> nidp = nidp_base;
+    std::vector<int> queue;
+    queue.reserve(ncells / 4);
+
+    for (int j = 1; j < ny - 1; ++j)
+      for (int i = 1; i < nx - 1; ++i)
+        if (nidp[j * nx + i] == 0) queue.push_back(j * nx + i);
+
+    while (!queue.empty())
     {
-      const float wgt = dinf[base + k];
-      if (wgt == 0.f) continue;
+      const int idx = queue.back();
+      queue.pop_back();
 
-      const int nidx = (j + neighbors[k].offset.y) * nx +
-                       (i + neighbors[k].offset.x);
-      facc_ptr[nidx] += acc * wgt;
+      const int   i = idx % nx;
+      const int   j = idx / nx;
+      const float d_val = delta_ptr[idx];
+      const int   base = idx * nb;
 
-      if (--nidp[nidx] == 0) queue.push_back(nidx);
+      for (size_t k = 0; k < nb; ++k)
+      {
+        const float wgt = dinf[base + k];
+        if (wgt == 0.f) continue;
+
+        const int nidx = (j + neighbors[k].offset.y) * nx +
+                         (i + neighbors[k].offset.x);
+        if (d_val > 0.f)
+        {
+          const float added = d_val * wgt;
+          facc_ptr[nidx] += added;
+          delta_ptr[nidx] += added;
+        }
+
+        if (--nidp[nidx] == 0) queue.push_back(nidx);
+      }
+    }
+
+    if (sweep == n_sweeps - 1) break;
+
+    // Synchronize full facc across overlap boundaries using Max
+    Array prev_facc = facc;
+    comm.sync_overlap_buffers(facc, region, SyncOperation::Max);
+
+    // Any positive increase on incoming halo cells becomes the new delta to
+    // propagate
+    delta_acc = Array(shape, 0.f);
+    delta_ptr = delta_acc.vector.data();
+
+    // Western halo cells (incoming from West)
+    if (h_w > 0)
+    {
+      for (int j = 0; j < ny; ++j)
+        for (int i = 0; i < h_w; ++i)
+        {
+          float diff = facc(i, j) - prev_facc(i, j);
+          if (diff > 1e-4f) delta_acc(i, j) = diff;
+        }
+    }
+
+    // Eastern halo cells (incoming from East)
+    if (h_e > 0)
+    {
+      for (int j = 0; j < ny; ++j)
+        for (int i = nx - h_e; i < nx; ++i)
+        {
+          float diff = facc(i, j) - prev_facc(i, j);
+          if (diff > 1e-4f) delta_acc(i, j) = diff;
+        }
+    }
+
+    // Southern halo cells (incoming from South)
+    if (h_s > 0)
+    {
+      for (int j = 0; j < h_s; ++j)
+        for (int i = 0; i < nx; ++i)
+        {
+          float diff = facc(i, j) - prev_facc(i, j);
+          if (diff > 1e-4f) delta_acc(i, j) = diff;
+        }
+    }
+
+    // Northern halo cells (incoming from North)
+    if (h_n > 0)
+    {
+      for (int j = ny - h_n; j < ny; ++j)
+        for (int i = 0; i < nx; ++i)
+        {
+          float diff = facc(i, j) - prev_facc(i, j);
+          if (diff > 1e-4f) delta_acc(i, j) = diff;
+        }
     }
   }
+
+  // Smooth blend along the overlap seams for clean tile stitching
+  comm.sync_overlap_buffers(facc, region, SyncOperation::SmoothBlend);
 
   fill_borders(facc);
   return facc;
 }
 
-Array flow_accumulation_dinf_perturbed(const Array  &z,
-                                       float         talus_ref,
-                                       int           nsamples,
-                                       glm::vec2     kw,
-                                       std::uint32_t seed,
-                                       float         amp,
-                                       const Array  *p_perturb_scaling,
-                                       glm::vec4     bbox)
+Array flow_accumulation_dinf_perturbed(const Array      &z,
+                                       float             talus_ref,
+                                       int               nsamples,
+                                       glm::vec2         kw,
+                                       std::uint32_t     seed,
+                                       float             amp,
+                                       const Array      *p_perturb_scaling,
+                                       glm::vec4         bbox,
+                                       int               iterations,
+                                       const TileRegion &region,
+                                       ICommunicator    &comm)
 {
   if (!validate_non_empty(z)) return Array();
   if (p_perturb_scaling && !validate_same_shape(z, *p_perturb_scaling))
@@ -112,6 +276,12 @@ Array flow_accumulation_dinf_perturbed(const Array  &z,
 
   const glm::ivec2 shape = z.shape;
   Array            facc(shape);
+
+  // If a valid region bbox is provided, prefer it for coherent noise across
+  // tiles
+  glm::vec4 noise_bbox = (region.shape.x > 0 && region.shape.y > 0)
+                             ? region.bbox
+                             : bbox;
 
   for (int n = 0; n < nsamples; ++n)
   {
@@ -122,12 +292,12 @@ Array flow_accumulation_dinf_perturbed(const Array  &z,
                      seed + n,
                      nullptr,
                      nullptr,
-                     bbox);
+                     noise_bbox);
 
     if (p_perturb_scaling) dz *= *p_perturb_scaling;
     zp += amp * dz;
 
-    facc += flow_accumulation_dinf(zp, talus_ref);
+    facc += flow_accumulation_dinf(zp, talus_ref, iterations, region, comm);
   }
 
   return facc / float(nsamples);

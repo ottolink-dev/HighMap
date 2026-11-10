@@ -503,6 +503,7 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
             case SyncOperation::Max:
               local_tile(p, q) = std::max(v_prev, v_curr);
               break;
+            case SyncOperation::Sum: local_tile(p, q) = v_prev + v_curr; break;
             case SyncOperation::SmoothBlend:
             {
               float r = (this->halo > 1) ? float(p) / float(this->halo - 1)
@@ -550,6 +551,7 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
             case SyncOperation::Max:
               local_tile(p, q) = std::max(v_prev, v_curr);
               break;
+            case SyncOperation::Sum: local_tile(p, q) = v_prev + v_curr; break;
             case SyncOperation::SmoothBlend:
             {
               float r = (this->halo > 1) ? float(q) / float(this->halo - 1)
@@ -960,6 +962,19 @@ void ThreadedTileComm::sync_overlap_buffers(Array            &local_tile,
           }
           break;
 
+        case SyncOperation::Sum:
+          for (int p = 0; p < halo; ++p)
+          {
+            int pbuf = tile0.shape.x - 2 * halo + p;
+            for (int q = 0; q < tile0.shape.y; ++q)
+            {
+              float s = tile0(pbuf, q) + tile1(p, q);
+              tile0(pbuf, q) = s;
+              tile1(p, q) = s;
+            }
+          }
+          break;
+
         case SyncOperation::SmoothBlend:
           for (int p = 0; p < halo; ++p)
           {
@@ -1053,6 +1068,19 @@ void ThreadedTileComm::sync_overlap_buffers(Array            &local_tile,
               float m = std::max(tile0(p, qbuf), tile1(p, q));
               tile0(p, qbuf) = m;
               tile1(p, q) = m;
+            }
+          }
+          break;
+
+        case SyncOperation::Sum:
+          for (int q = 0; q < halo; ++q)
+          {
+            int qbuf = tile0.shape.y - 2 * halo + q;
+            for (int p = 0; p < tile0.shape.x; ++p)
+            {
+              float s = tile0(p, qbuf) + tile1(p, q);
+              tile0(p, qbuf) = s;
+              tile1(p, q) = s;
             }
           }
           break;

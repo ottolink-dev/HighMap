@@ -43,7 +43,8 @@ enum class SyncOperation
   Min,
   Max,
   Mean,
-  SmoothBlend
+  SmoothBlend,
+  Sum
 };
 
 // Forward declarations

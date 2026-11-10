@@ -209,3 +209,76 @@ TEST(FlowFixingMST, VirtualArrayTriangulatedExecution)
 
   EXPECT_NEAR(max_diff, 0.f, 0.1f);
 }
+
+TEST(FlowAccumulationDinf, StandaloneVsTiledCommunicator)
+{
+  glm::ivec2 shape = {64, 64};
+  glm::ivec2 tile_shape = {32, 32};
+  const int  halo = 4;
+  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
+
+  // Generate test terrain: inclined plane with some perlin noise
+  hmap::Array z = hmap::noise(hmap::NoiseType::PERLIN, shape, {2.f, 2.f}, 42);
+  hmap::remap(z, 0.f, 0.5f);
+
+  for (int j = 0; j < shape.y; ++j)
+  {
+    for (int i = 0; i < shape.x; ++i)
+    {
+      // Sloping from (0,0) down to (63,63)
+      z(i, j) += 2.0f - float(i + j) / float(shape.x + shape.y);
+    }
+  }
+
+  // 1. Monolithic standalone reference
+  hmap::Array facc_ref = hmap::flow_accumulation_dinf(z, 0.1f);
+
+  EXPECT_EQ(facc_ref.shape.x, shape.x);
+  EXPECT_EQ(facc_ref.shape.y, shape.y);
+  EXPECT_GT(facc_ref.max(), 1.f);
+  EXPECT_GE(facc_ref.min(), 1.f);
+
+  // 2. Distributed execution across tiles using for_each_tile with
+  // ICommunicator
+  hmap::VirtualArray z_va(shape,
+                          bbox,
+                          tile_shape,
+                          halo,
+                          hmap::StorageMode::VA_RAM);
+  hmap::VirtualArray facc_va(shape,
+                             bbox,
+                             tile_shape,
+                             halo,
+                             hmap::StorageMode::VA_RAM);
+
+  hmap::ComputeMode cm{.mode = hmap::ForEachMode::VA_DISTRIBUTED};
+  z_va.from_array(z, cm);
+
+  hmap::for_each_tile(
+      {&z_va},
+      {&facc_va},
+      [&](std::vector<const hmap::Array *> p_arrays_in,
+          std::vector<hmap::Array *>       p_arrays_out,
+          const hmap::TileRegion          &region,
+          hmap::ICommunicator             &comm)
+      {
+        auto [pa_z] = hmap::unpack<1>(p_arrays_in);
+        auto [pa_facc] = hmap::unpack<1>(p_arrays_out);
+
+        *pa_facc = hmap::flow_accumulation_dinf(*pa_z, 0.1f, 0, region, comm);
+      },
+      cm);
+
+  hmap::Array facc_tiled = facc_va.to_array(cm);
+
+  EXPECT_EQ(facc_tiled.shape.x, shape.x);
+  EXPECT_EQ(facc_tiled.shape.y, shape.y);
+  EXPECT_GE(facc_tiled.min(), 1.f);
+
+  // Flow accumulation should have accumulated significantly in downstream
+  // regions
+  EXPECT_GT(facc_tiled.max(), 10.f);
+
+  // Mean flow accumulation between monolithic and tiled should correlate well
+  EXPECT_NEAR(facc_tiled.mean(), facc_ref.mean(), facc_ref.mean() * 0.35f);
+}

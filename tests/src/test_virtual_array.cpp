@@ -407,6 +407,28 @@ TEST(VirtualArrayTest, SyncOverlapBuffersOperations)
     va.storage->release_tile(r0);
     va.storage->release_tile(r1);
   }
+
+  // Test Sum
+  {
+    VirtualArray va = setup_va();
+    va.sync_overlap_buffers(SyncOperation::Sum);
+
+    TileRegion r0 = va.tile_region_from_tile_coords(0, 0);
+    TileRegion r1 = va.tile_region_from_tile_coords(1, 0);
+    Array     &t0 = va.storage->get_tile(r0);
+    Array     &t1 = va.storage->get_tile(r1);
+
+    int pbuf = t0.shape.x - 2 * halo;
+    EXPECT_FLOAT_EQ(t0(pbuf, 0), 1.f); // 0 + 1
+    EXPECT_FLOAT_EQ(t1(0, 0), 1.f);
+
+    int pbuf_end = t0.shape.x - halo - 1;
+    EXPECT_FLOAT_EQ(t0(pbuf_end, 0), 1.f); // 0 + 1
+    EXPECT_FLOAT_EQ(t1(halo - 1, 0), 1.f);
+
+    va.storage->release_tile(r0);
+    va.storage->release_tile(r1);
+  }
 }
 
 TEST(VirtualArrayTest, SumPerTile)

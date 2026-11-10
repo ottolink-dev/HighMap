@@ -94,6 +94,19 @@ void VirtualArray::sync_overlap_buffers(SyncOperation op)
         }
         break;
 
+      case SyncOperation::Sum:
+        for (int p = 0; p < this->halo; p++)
+        {
+          int pbuf = tile0.shape.x - 2 * this->halo + p;
+          for (int q = 0; q < tile0.shape.y; q++)
+          {
+            float s = tile0(pbuf, q) + tile1(p, q);
+            tile0(pbuf, q) = s;
+            tile1(p, q) = s;
+          }
+        }
+        break;
+
       case SyncOperation::SmoothBlend:
         for (int p = 0; p < this->halo; p++)
         {
@@ -182,6 +195,19 @@ void VirtualArray::sync_overlap_buffers(SyncOperation op)
             float m = std::max(tile0(p, qbuf), tile1(p, q));
             tile0(p, qbuf) = m;
             tile1(p, q) = m;
+          }
+        }
+        break;
+
+      case SyncOperation::Sum:
+        for (int q = 0; q < this->halo; q++)
+        {
+          int qbuf = tile0.shape.y - 2 * this->halo + q;
+          for (int p = 0; p < tile0.shape.x; p++)
+          {
+            float s = tile0(p, qbuf) + tile1(p, q);
+            tile0(p, qbuf) = s;
+            tile1(p, q) = s;
           }
         }
         break;
