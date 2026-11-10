@@ -16,7 +16,7 @@ float stratify_rand(const float val,
   // apply recruve function using a cell-based (but pointwise)
   // approach
   float i = floor(out);
-  float u = out - i;
+  float u = clamp(out - i, 0.f, 1.f);
 
   float rnd = 2.f * hash11f(i, fseed) - 1.f;
   float gamma_r = gamma * (1.f + gamma_noise_ratio * rnd);
@@ -25,13 +25,20 @@ float stratify_rand(const float val,
   if (linear_gamma)
   {
     // sharp linear gamma
-    float a = pow(1.f / gamma_r, 1.f / (gamma_r - 1.f));
-    float b = pow(gamma_r, -gamma_r / (gamma_r - 1.f));
-
-    if (u < a)
-      u *= b / a;
+    if (fabs(gamma_r - 1.f) < 1e-4f)
+    {
+      // identity when gamma_r is close to 1 to avoid 0/0 and 1/0 singularities
+    }
     else
-      u = b + (1.f - b) * (u - a) / (1.f - a);
+    {
+      float a = clamp(pow(1.f / gamma_r, 1.f / (gamma_r - 1.f)), 1e-5f, 1.f - 1e-5f);
+      float b = pow(gamma_r, -gamma_r / (gamma_r - 1.f));
+
+      if (u < a)
+        u *= b / a;
+      else
+        u = b + (1.f - b) * (u - a) / (1.f - a);
+    }
   }
   else
   {

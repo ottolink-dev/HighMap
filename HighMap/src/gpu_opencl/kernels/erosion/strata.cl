@@ -15,18 +15,25 @@ float stratify(const float val,
   // apply recruve function using a cell-based (but pointwise)
   // approach
   float i = floor(out);
-  float u = out - i;
+  float u = clamp(out - i, 0.f, 1.f);
 
   if (linear_gamma)
   {
     // sharp linear gamma
-    float a = pow(1.f / gamma, 1.f / (gamma - 1.f));
-    float b = pow(gamma, -gamma / (gamma - 1.f));
-
-    if (u < a)
-      u *= b / a;
+    if (fabs(gamma - 1.f) < 1e-4f)
+    {
+      // identity when gamma is close to 1 to avoid 0/0 and 1/0 singularities
+    }
     else
-      u = b + (1.f - b) * (u - a) / (1.f - a);
+    {
+      float a = clamp(pow(1.f / gamma, 1.f / (gamma - 1.f)), 1e-5f, 1.f - 1e-5f);
+      float b = pow(gamma, -gamma / (gamma - 1.f));
+
+      if (u < a)
+        u *= b / a;
+      else
+        u = b + (1.f - b) * (u - a) / (1.f - a);
+    }
   }
   else
   {
@@ -124,7 +131,7 @@ void kernel strata(global float *output,
   for (int k = 0; k < octaves; ++k)
   {
     val = stratify(val,
-                   shift + noise_amp * noise / kz_n,
+                   shift + noise_amp * noise / fmax(kz_n, 1e-6f),
                    kz_n,
                    gamma_r,
                    linear_gamma);
@@ -136,7 +143,7 @@ void kernel strata(global float *output,
   {
     float t = 1.f;
 
-    if (apply_elevation_mask) t *= pow(val0, mask_gamma);
+    if (apply_elevation_mask) t *= pow(clamp(val0, 0.f, 1.f), mask_gamma);
     if (apply_ridge_mask) t *= noise_v;
 
     val = lerp(val0, val, t);

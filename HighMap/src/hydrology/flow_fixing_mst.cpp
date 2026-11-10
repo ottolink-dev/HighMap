@@ -59,7 +59,8 @@ Array flow_fixing_mst(const Array  &z,
 
   const int   di[8] = {-1, 0, 0, 1, -1, -1, 1, 1};
   const int   dj[8] = {0, 1, -1, 0, -1, 1, -1, 1};
-  const float cd[8] = {1.f, 1.f, 1.f, 1.f, cte::sqrt2, cte::sqrt2, cte::sqrt2, cte::sqrt2};
+  const float cd[8] =
+      {1.f, 1.f, 1.f, 1.f, cte::sqrt2, cte::sqrt2, cte::sqrt2, cte::sqrt2};
 
   auto is_inside = [&shape](int i, int j)
   { return i >= 0 && i < shape.x && j >= 0 && j < shape.y; };

@@ -667,3 +667,25 @@ TEST(AeolianErosionGPU, TiledDistributedExecution)
     }
   }
 }
+
+TEST(Strata, NoNaNAtHighResolution)
+{
+  gpu::init_opencl();
+
+  Array z({1024, 1024}, 0.5f);
+
+  // Test across multiple gamma values including gamma around 1.0
+  std::vector<float> gammas = {0.7f, 1.0f, 1.00001f, 0.99999f, 2.0f};
+
+  for (float gamma : gammas)
+  {
+    Array z_test = z;
+    gpu::strata(z_test, 30.f, 2.f, gamma, 42u);
+
+    for (float v : z_test.vector)
+    {
+      ASSERT_FALSE(std::isnan(v));
+      ASSERT_FALSE(std::isinf(v));
+    }
+  }
+}
