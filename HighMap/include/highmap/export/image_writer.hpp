@@ -36,7 +36,7 @@ enum class ImageDataType : int
 struct ImageWriterConfig
 {
   glm::ivec2    image_shape = {0, 0};
-  glm::ivec2    tile_shape = {512, 512};
+  glm::ivec2    tile_shape = {0, 0};
   ImageDataType data_type = ImageDataType::FLOAT32;
   int           channels = 1;
   std::string   compression = "default";
