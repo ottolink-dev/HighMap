@@ -339,7 +339,7 @@ var searchData=
   ['subsystem_20deep_20dives_336',['4. Subsystem Deep Dives',['../md_docs_2content_2dev_2architecture.html#autotoc_md14',1,'']]],
   ['subsystem_20tt_20forest_20tt_337',['Flora Subsystem (&lt;tt&gt;Forest&lt;/tt&gt;)',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md91',1,'']]],
   ['subsystem_20tt_20rockfield_20tt_338',['Rocks Subsystem (&lt;tt&gt;RockField&lt;/tt&gt;)',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md92',1,'']]],
-  ['sum_339',['sum',['../namespacehmap.html#a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5',1,'hmap::Sum'],['../structhmap_1_1VirtualArray.html#af98faefefaaeb9ffc84bcc5997fbae8e',1,'hmap::VirtualArray::sum()'],['../classhmap_1_1Array.html#a1ee19380a96cf71e11a076f949ae3f9e',1,'hmap::Array::sum()']]],
+  ['sum_339',['sum',['../namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8aa0ec87054b5e5b7847d0d8780a01a3d5',1,'hmap::Sum'],['../namespacehmap.html#a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5',1,'hmap::Sum'],['../structhmap_1_1VirtualArray.html#af98faefefaaeb9ffc84bcc5997fbae8e',1,'hmap::VirtualArray::sum()'],['../classhmap_1_1Array.html#a1ee19380a96cf71e11a076f949ae3f9e',1,'hmap::Array::sum()']]],
   ['sum_5fper_5ftile_340',['sum_per_tile',['../namespacehmap.html#a37e8c8ed7997432da123d8989639c8a5',1,'hmap']]],
   ['support_20for_20domain_20warping_20and_20path_20closure_341',['Support for Domain Warping and Path Closure',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md65',1,'']]],
   ['supported_20operations_342',['Supported Operations',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md112',1,'']]],

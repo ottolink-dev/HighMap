@@ -451,7 +451,8 @@ var namespacehmap =
       [ "Min", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a78d811e98514cd165dda532286610fd2", null ],
       [ "Max", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a6a061313d22e51e0f25b7cd4dc065233", null ],
       [ "Mean", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a3d6c9ac08ada31c184094bbc67afe00d", null ],
-      [ "SmoothBlend", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d", null ]
+      [ "SmoothBlend", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d", null ],
+      [ "Sum", "namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8aa0ec87054b5e5b7847d0d8780a01a3d5", null ]
     ] ],
     [ "StorageMode", "namespacehmap.html#ad21b93a34c88a47d6b54f3a4d5b65e6e", [
       [ "VA_RAM", "namespacehmap.html#ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce", null ],
@@ -849,8 +850,8 @@ var namespacehmap =
     [ "flooding_lake_system", "namespacehmap.html#a3907272cbded16bf1a1108e77cff8801", null ],
     [ "flow_accumulation_d8", "namespacehmap.html#a27b43e17baebd07ebb43808ca0dceb42", null ],
     [ "flow_accumulation_stochastic", "namespacehmap.html#aa774e7d04ba3c90c4d76dedfd8f76245", null ],
-    [ "flow_accumulation_dinf", "namespacehmap.html#a58ba4910af868f70849f343e0c73adf3", null ],
-    [ "flow_accumulation_dinf_perturbed", "namespacehmap.html#a9a75c558c8576802e0661ca9cabc7475", null ],
+    [ "flow_accumulation_dinf", "namespacehmap.html#aefb4c4d2f59ac95d7178b3e8de971e80", null ],
+    [ "flow_accumulation_dinf_perturbed", "namespacehmap.html#a6324a4ef5e1be2f50bb57af1c3e98ea6", null ],
     [ "flow_direction_d8", "namespacehmap.html#af8f580c9d50a07585257569bd1160891", null ],
     [ "flow_direction_dinf", "namespacehmap.html#a819fc20190d598c4664d442ee824fc96", null ],
     [ "flow_direction_dinf_flat", "namespacehmap.html#aa84fc9cbd0704c16abf21ef12c9c5fad", null ],

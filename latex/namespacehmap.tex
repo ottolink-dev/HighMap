@@ -612,6 +612,7 @@ enum class \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{Syn
 \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a6a061313d22e51e0f25b7cd4dc065233}{Max}}
 , \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a3d6c9ac08ada31c184094bbc67afe00d}{Mean}}
 , \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{Smooth\+Blend}}
+, \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8aa0ec87054b5e5b7847d0d8780a01a3d5}{Sum}}
  \}
 \item 
 enum \mbox{\hyperlink{namespacehmap_ad21b93a34c88a47d6b54f3a4d5b65e6e}{Storage\+Mode}} \+: int \{ \mbox{\hyperlink{namespacehmap_ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce}{VA\+\_\+\+RAM}} = 0
@@ -1399,9 +1400,9 @@ std\+::vector$<$ glm\+::ivec2 $>$ \mbox{\hyperlink{namespacehmap_a823804201f4a5d
 \begin{DoxyCompactList}\small\item\em Computes the flow accumulation for each cell using the D8 flow direction model. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_aa774e7d04ba3c90c4d76dedfd8f76245}{flow\+\_\+accumulation\+\_\+stochastic}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}, int n\+\_\+samples=1$<$$<$ 19, std\+::uint32\+\_\+t seed=0, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+source=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+decay=nullptr)
 \begin{DoxyCompactList}\small\item\em Computes flow accumulation using a stochastic (Monte-\/\+Carlo) transport estimator. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a58ba4910af868f70849f343e0c73adf3}{flow\+\_\+accumulation\+\_\+dinf}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}, float talus\+\_\+ref)
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_aefb4c4d2f59ac95d7178b3e8de971e80}{flow\+\_\+accumulation\+\_\+dinf}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}, float talus\+\_\+ref=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int iterations=0, const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \&region=\{\}, \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}} \&comm=\mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{Single\+Array\+Comm\+::instance}}())
 \begin{DoxyCompactList}\small\item\em Computes the flow accumulation for each cell using the Multiple Flow Direction (MFD) model. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a9a75c558c8576802e0661ca9cabc7475}{flow\+\_\+accumulation\+\_\+dinf\+\_\+perturbed}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}, float talus\+\_\+ref, int nsamples, glm\+::vec2 kw, std\+::uint32\+\_\+t seed, float amp, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+perturb\+\_\+scaling=nullptr, glm\+::vec4 \mbox{\hyperlink{sdf__2d__polyline__bezier_8cpp_a8396e15b291639eaa79ecd3badbdff48}{bbox}}=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a6324a4ef5e1be2f50bb57af1c3e98ea6}{flow\+\_\+accumulation\+\_\+dinf\+\_\+perturbed}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}, float talus\+\_\+ref, int nsamples, glm\+::vec2 kw, std\+::uint32\+\_\+t seed, float amp, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+perturb\+\_\+scaling=nullptr, glm\+::vec4 \mbox{\hyperlink{sdf__2d__polyline__bezier_8cpp_a8396e15b291639eaa79ecd3badbdff48}{bbox}}=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, int iterations=0, const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \&region=\{\}, \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}} \&comm=\mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{Single\+Array\+Comm\+::instance}}())
 \begin{DoxyCompactList}\small\item\em Computes averaged D-\/infinity flow accumulation with terrain perturbations. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_af8f580c9d50a07585257569bd1160891}{flow\+\_\+direction\+\_\+d8}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}})
 \begin{DoxyCompactList}\small\item\em Computes the flow direction from each cell to its downslope neighbor using the D8 model. \end{DoxyCompactList}\item 
@@ -3811,6 +3812,10 @@ Mean&\\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SmoothBlend@{SmoothBlend}!hmap@{hmap}}\index{hmap@{hmap}!SmoothBlend@{SmoothBlend}}}\Hypertarget{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}\label{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d} 
 Smooth\+Blend&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Sum@{Sum}!hmap@{hmap}}\index{hmap@{hmap}!Sum@{Sum}}}\Hypertarget{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8aa0ec87054b5e5b7847d0d8780a01a3d5}\label{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8aa0ec87054b5e5b7847d0d8780a01a3d5} 
+Sum&\\
 \hline
 
 \end{DoxyEnumFields}
@@ -8282,7 +8287,7 @@ Apply hydraulic erosion based on a flow accumulation map.
 \hline
 {\em c\+\_\+erosion} & Erosion coefficient. \\
 \hline
-{\em talus\+\_\+ref} & Reference talus used to localy define the flow-\/partition exponent (small values of {\ttfamily talus\+\_\+ref} will lead to thinner flow streams, see {\ttfamily \doxylink{namespacehmap_a58ba4910af868f70849f343e0c73adf3}{flow\+\_\+accumulation\+\_\+dinf}}). \\
+{\em talus\+\_\+ref} & Reference talus used to localy define the flow-\/partition exponent (small values of {\ttfamily talus\+\_\+ref} will lead to thinner flow streams, see {\ttfamily \doxylink{namespacehmap_aefb4c4d2f59ac95d7178b3e8de971e80}{flow\+\_\+accumulation\+\_\+dinf}}). \\
 \hline
 {\em p\+\_\+bedrock} & Lower elevation limit. \\
 \hline
@@ -8393,7 +8398,7 @@ Apply hydraulic erosion based on a flow accumulation map, alternative formulatio
 \hline
 {\em c\+\_\+erosion} & Erosion coefficient controlling the intensity of erosion. \\
 \hline
-{\em talus\+\_\+ref} & Reference talus used to locally define the flow-\/partition exponent. Small values lead to thinner flow streams (see {\ttfamily \doxylink{namespacehmap_a58ba4910af868f70849f343e0c73adf3}{flow\+\_\+accumulation\+\_\+dinf}}). \\
+{\em talus\+\_\+ref} & Reference talus used to locally define the flow-\/partition exponent. Small values lead to thinner flow streams (see {\ttfamily \doxylink{namespacehmap_aefb4c4d2f59ac95d7178b3e8de971e80}{flow\+\_\+accumulation\+\_\+dinf}}). \\
 \hline
 {\em deposition\+\_\+ir} & Kernel radius for sediment deposition. If greater than 1, a smoothing effect is applied. \\
 \hline
@@ -20290,7 +20295,7 @@ Results are reproducible up to floating-\/point summation order (deposits accumu
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ Dinf\ for\ visual\ reference}}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ facc\_d8\ =\ \mbox{\hyperlink{namespacehmap_a27b43e17baebd07ebb43808ca0dceb42}{hmap::flow\_accumulation\_d8}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}});}
-\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ facc\_dinf\ =\ \mbox{\hyperlink{namespacehmap_a58ba4910af868f70849f343e0c73adf3}{hmap::flow\_accumulation\_dinf}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ 1.f\ /\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x);}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ facc\_dinf\ =\ \mbox{\hyperlink{namespacehmap_aefb4c4d2f59ac95d7178b3e8de971e80}{hmap::flow\_accumulation\_dinf}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ 1.f\ /\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x);}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ facc\_st\ =\ \mbox{\hyperlink{namespacehmap_aa774e7d04ba3c90c4d76dedfd8f76245}{hmap::flow\_accumulation\_stochastic}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ 1\ <<\ 18,\ 1);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_1_1gpu_adb8336ed4d83c15500872185dee45d50}{hmap::gpu::init\_opencl}}();}
@@ -20338,11 +20343,11 @@ Results are reproducible up to floating-\/point summation order (deposits accumu
 \begin{DoxySeeAlso}{See also}
 \doxylink{namespacehmap_a27b43e17baebd07ebb43808ca0dceb42}{flow\+\_\+accumulation\+\_\+d8} 
 \end{DoxySeeAlso}
-\Hypertarget{namespacehmap_a58ba4910af868f70849f343e0c73adf3}\label{namespacehmap_a58ba4910af868f70849f343e0c73adf3} 
+\Hypertarget{namespacehmap_aefb4c4d2f59ac95d7178b3e8de971e80}\label{namespacehmap_aefb4c4d2f59ac95d7178b3e8de971e80} 
 \index{hmap@{hmap}!flow\_accumulation\_dinf@{flow\_accumulation\_dinf}}
 \index{flow\_accumulation\_dinf@{flow\_accumulation\_dinf}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{flow\_accumulation\_dinf()}{flow\_accumulation\_dinf()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::flow\+\_\+accumulation\+\_\+dinf (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{float}]{talus\+\_\+ref }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::flow\+\_\+accumulation\+\_\+dinf (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{float}]{talus\+\_\+ref = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{int}]{iterations = {\ttfamily 0},  }\item[{const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \&}]{region = {\ttfamily \{\}},  }\item[{\mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}} \&}]{comm = {\ttfamily \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{Single\+Array\+Comm\+::instance}}()} }\end{DoxyParamCaption})}
 
 
 
@@ -20355,6 +20360,12 @@ This function calculates the flow accumulation for each cell based on the MFD mo
 {\em z} & Input array representing the heightmap values. \\
 \hline
 {\em talus\+\_\+ref} & Reference talus used to locally define the flow-\/partition exponent. Small values will result in thinner flow streams. \\
+\hline
+{\em iterations} & Maximum number of boundary exchange iterations across tiles (0 defaults to auto\+: grid diameter). \\
+\hline
+{\em region} & \doxylink{structhmap_1_1TileRegion}{Tile\+Region} descriptor for tiled domain positioning. \\
+\hline
+{\em comm} & Communicator for multi-\/tile synchronization. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -20373,7 +20384,7 @@ This function calculates the flow accumulation for each cell based on the MFD mo
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ res,\ seed);}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ talus\ =\ \mbox{\hyperlink{namespacehmap_a618fb6d396a832c3dd1f053bfd27eed4}{hmap::gradient\_talus}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}});}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ facc\ =\ \mbox{\hyperlink{namespacehmap_a58ba4910af868f70849f343e0c73adf3}{hmap::flow\_accumulation\_dinf}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ talus.\mbox{\hyperlink{classhmap_1_1Array_afdba5b214c8378e78db1978188676703}{max}}());}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ facc\ =\ \mbox{\hyperlink{namespacehmap_aefb4c4d2f59ac95d7178b3e8de971e80}{hmap::flow\_accumulation\_dinf}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ talus.\mbox{\hyperlink{classhmap_1_1Array_afdba5b214c8378e78db1978188676703}{max}}());}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ very\ high\ values\ are\ less\ relevant}}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ae239201a0a4193e1ce78bdf1fce4c151}{hmap::clamp\_max}}(facc,\ 200.f);}
@@ -20383,7 +20394,7 @@ This function calculates the flow accumulation for each cell based on the MFD mo
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ amp\ =\ 0.1f;}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ scaling\ =\ \mbox{\hyperlink{namespacehmap_a38c0a582a98d48f73f49f12ebf1b78f9}{hmap::cubic\_pulse}}(\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr});}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ facc\_p\ =\ \mbox{\hyperlink{namespacehmap_a9a75c558c8576802e0661ca9cabc7475}{hmap::flow\_accumulation\_dinf\_perturbed}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ facc\_p\ =\ \mbox{\hyperlink{namespacehmap_a6324a4ef5e1be2f50bb57af1c3e98ea6}{hmap::flow\_accumulation\_dinf\_perturbed}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ talus.\mbox{\hyperlink{classhmap_1_1Array_afdba5b214c8378e78db1978188676703}{max}}(),}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nsamples,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kw,}
@@ -20406,11 +20417,11 @@ This function calculates the flow accumulation for each cell based on the MFD mo
 \begin{DoxySeeAlso}{See also}
 \doxylink{namespacehmap_a819fc20190d598c4664d442ee824fc96}{flow\+\_\+direction\+\_\+dinf}, \doxylink{namespacehmap_a27b43e17baebd07ebb43808ca0dceb42}{flow\+\_\+accumulation\+\_\+d8} 
 \end{DoxySeeAlso}
-\Hypertarget{namespacehmap_a9a75c558c8576802e0661ca9cabc7475}\label{namespacehmap_a9a75c558c8576802e0661ca9cabc7475} 
+\Hypertarget{namespacehmap_a6324a4ef5e1be2f50bb57af1c3e98ea6}\label{namespacehmap_a6324a4ef5e1be2f50bb57af1c3e98ea6} 
 \index{hmap@{hmap}!flow\_accumulation\_dinf\_perturbed@{flow\_accumulation\_dinf\_perturbed}}
 \index{flow\_accumulation\_dinf\_perturbed@{flow\_accumulation\_dinf\_perturbed}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{flow\_accumulation\_dinf\_perturbed()}{flow\_accumulation\_dinf\_perturbed()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::flow\+\_\+accumulation\+\_\+dinf\+\_\+perturbed (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{float}]{talus\+\_\+ref,  }\item[{int}]{nsamples,  }\item[{glm\+::vec2}]{kw,  }\item[{std\+::uint32\+\_\+t}]{seed,  }\item[{float}]{amp,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+perturb\+\_\+scaling = {\ttfamily nullptr},  }\item[{glm\+::vec4}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::flow\+\_\+accumulation\+\_\+dinf\+\_\+perturbed (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z,  }\item[{float}]{talus\+\_\+ref,  }\item[{int}]{nsamples,  }\item[{glm\+::vec2}]{kw,  }\item[{std\+::uint32\+\_\+t}]{seed,  }\item[{float}]{amp,  }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+perturb\+\_\+scaling = {\ttfamily nullptr},  }\item[{glm\+::vec4}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}},  }\item[{int}]{iterations = {\ttfamily 0},  }\item[{const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \&}]{region = {\ttfamily \{\}},  }\item[{\mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}} \&}]{comm = {\ttfamily \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{Single\+Array\+Comm\+::instance}}()} }\end{DoxyParamCaption})}
 
 
 
@@ -20434,7 +20445,13 @@ The perturbation introduces stochastic variability, which can help reduce numeri
 \hline
 {\em amp} & Amplitude of the noise perturbation. \\
 \hline
-{\em bbox} & Bounding box used for noise generation.\\
+{\em bbox} & Bounding box used for noise generation. \\
+\hline
+{\em iterations} & Maximum number of boundary exchange iterations across tiles (0 defaults to auto). \\
+\hline
+{\em region} & \doxylink{structhmap_1_1TileRegion}{Tile\+Region} descriptor for tiled domain positioning. \\
+\hline
+{\em comm} & Communicator for multi-\/tile synchronization.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -20453,7 +20470,7 @@ Averaged flow accumulation array.
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ res,\ seed);}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ talus\ =\ \mbox{\hyperlink{namespacehmap_a618fb6d396a832c3dd1f053bfd27eed4}{hmap::gradient\_talus}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}});}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ facc\ =\ \mbox{\hyperlink{namespacehmap_a58ba4910af868f70849f343e0c73adf3}{hmap::flow\_accumulation\_dinf}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ talus.\mbox{\hyperlink{classhmap_1_1Array_afdba5b214c8378e78db1978188676703}{max}}());}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ facc\ =\ \mbox{\hyperlink{namespacehmap_aefb4c4d2f59ac95d7178b3e8de971e80}{hmap::flow\_accumulation\_dinf}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ talus.\mbox{\hyperlink{classhmap_1_1Array_afdba5b214c8378e78db1978188676703}{max}}());}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ very\ high\ values\ are\ less\ relevant}}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ae239201a0a4193e1ce78bdf1fce4c151}{hmap::clamp\_max}}(facc,\ 200.f);}
@@ -20463,7 +20480,7 @@ Averaged flow accumulation array.
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ amp\ =\ 0.1f;}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ scaling\ =\ \mbox{\hyperlink{namespacehmap_a38c0a582a98d48f73f49f12ebf1b78f9}{hmap::cubic\_pulse}}(\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr});}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ facc\_p\ =\ \mbox{\hyperlink{namespacehmap_a9a75c558c8576802e0661ca9cabc7475}{hmap::flow\_accumulation\_dinf\_perturbed}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ facc\_p\ =\ \mbox{\hyperlink{namespacehmap_a6324a4ef5e1be2f50bb57af1c3e98ea6}{hmap::flow\_accumulation\_dinf\_perturbed}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ talus.\mbox{\hyperlink{classhmap_1_1Array_afdba5b214c8378e78db1978188676703}{max}}(),}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nsamples,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kw,}

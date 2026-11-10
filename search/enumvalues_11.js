@@ -19,7 +19,7 @@ var searchData=
   ['stlb_16',['STLB',['../namespacehmap.html#ac3d35efc6e5b596f508e2b17a5aa871bac692212c784096efd35f54c700a039f6',1,'hmap']]],
   ['stp_17',['STP',['../namespacehmap.html#ac3d35efc6e5b596f508e2b17a5aa871ba95e433ab6ec047421d332a80d727fd29',1,'hmap']]],
   ['substract_18',['SUBSTRACT',['../namespacehmap.html#a5101273ec456f5267dddc3e22dae223ba2c10f19f935a5c6dd7fb0ac7bbb2c4ed',1,'hmap']]],
-  ['sum_19',['Sum',['../namespacehmap.html#a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5',1,'hmap']]],
+  ['sum_19',['sum',['../namespacehmap.html#a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5',1,'hmap::Sum'],['../namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8aa0ec87054b5e5b7847d0d8780a01a3d5',1,'hmap::Sum']]],
   ['symmetric_5fz_20',['SYMMETRIC_Z',['../structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a273ae8b085bc1309827cb47afdc2ea9aa3db07082ff51d740670b0f24f3a1cb79',1,'hmap::TerrainTriMesh::MeshPathCostConfig']]],
   ['symmetry_5fbottom_5fto_5ftop_21',['SYMMETRY_BOTTOM_TO_TOP',['../namespacehmap.html#a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad',1,'hmap']]],
   ['symmetry_5fleft_5fto_5fright_22',['SYMMETRY_LEFT_TO_RIGHT',['../namespacehmap.html#a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85',1,'hmap']]],

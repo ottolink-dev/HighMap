@@ -1,5 +1,6 @@
 var NAVTREEINDEX16 =
 {
+"local__metrics_8hpp.html#af5117ffbcd95bf910f3b70b095bee604":[17,0,1,0,0,36,3],
 "local__metrics_8hpp.html#afab20683fccb546cab8ab2b5dc20f3af":[17,0,1,0,0,36,16],
 "local__metrics_8hpp_source.html":[17,0,1,0,0,36],
 "local__metrics__gpu_8cpp.html":[17,0,1,1,24,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX16 =
 "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md129":[10,3,1],
 "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md130":[10,3,2],
 "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md131":[10,4],
-"md_docs_2content_2getting__started_2quickstart.html":[11],
-"md_docs_2content_2getting__started_2quickstart.html#autotoc_md133":[11,0]
+"md_docs_2content_2getting__started_2quickstart.html":[11]
 };

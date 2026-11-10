@@ -18,7 +18,8 @@ var communicator_8hpp =
       [ "Min", "communicator_8hpp.html#a2ebe9b34048adbbb55abe1182603a1f8a78d811e98514cd165dda532286610fd2", null ],
       [ "Max", "communicator_8hpp.html#a2ebe9b34048adbbb55abe1182603a1f8a6a061313d22e51e0f25b7cd4dc065233", null ],
       [ "Mean", "communicator_8hpp.html#a2ebe9b34048adbbb55abe1182603a1f8a3d6c9ac08ada31c184094bbc67afe00d", null ],
-      [ "SmoothBlend", "communicator_8hpp.html#a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d", null ]
+      [ "SmoothBlend", "communicator_8hpp.html#a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d", null ],
+      [ "Sum", "communicator_8hpp.html#a2ebe9b34048adbbb55abe1182603a1f8aa0ec87054b5e5b7847d0d8780a01a3d5", null ]
     ] ],
     [ "to_string", "communicator_8hpp.html#af51191620f4e1671658a1d677e9291de", null ]
 ];

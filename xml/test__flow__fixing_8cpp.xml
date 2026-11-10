@@ -98,6 +98,25 @@
         </inbodydescription>
         <location file="tests/src/test_flow_fixing.cpp" line="148" column="1" bodyfile="tests/src/test_flow_fixing.cpp" bodystart="148" bodyend="211"/>
       </memberdef>
+      <memberdef kind="function" id="test__flow__fixing_8cpp_1ad52dc1f65df70f49d13ace8a4a09657d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(FlowAccumulationDinf, StandaloneVsTiledCommunicator)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>FlowAccumulationDinf</type>
+        </param>
+        <param>
+          <type>StandaloneVsTiledCommunicator</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_flow_fixing.cpp" line="213" column="1" bodyfile="tests/src/test_flow_fixing.cpp" bodystart="213" bodyend="284"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -315,6 +334,79 @@
 <codeline lineno="209"><highlight class="normal"></highlight></codeline>
 <codeline lineno="210"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(max_diff,<sp/>0.f,<sp/>0.1f);</highlight></codeline>
 <codeline lineno="211"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><ref refid="test__flow__fixing_8cpp_1aa86d061a27567f4108f6dc475e9698fe" kindref="member">TEST</ref>(FlowAccumulationDinf,<sp/>StandaloneVsTiledCommunicator)</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>tile_shape<sp/>=<sp/>{32,<sp/>32};</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>halo<sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref><sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Generate<sp/>test<sp/>terrain:<sp/>inclined<sp/>plane<sp/>with<sp/>some<sp/>perlin<sp/>noise</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref><sp/>=<sp/><ref refid="namespacehmap_1a0f94056bb01fb9798ce72d3c4b1be4d2" kindref="member">hmap::noise</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{2.f,<sp/>2.f},<sp/>42);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>0.f,<sp/>0.5f);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>&lt;<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y;<sp/>++<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Sloping<sp/>from<sp/>(0,0)<sp/>down<sp/>to<sp/>(63,63)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)<sp/>+=<sp/>2.0f<sp/>-<sp/>float(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>+<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)<sp/>/<sp/>float(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>+<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>1.<sp/>Monolithic<sp/>standalone<sp/>reference</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>facc_ref<sp/>=<sp/><ref refid="namespacehmap_1aefb4c4d2f59ac95d7178b3e8de971e80" kindref="member">hmap::flow_accumulation_dinf</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>0.1f);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/>EXPECT_EQ(facc_ref.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/>EXPECT_EQ(facc_ref.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/>EXPECT_GT(facc_ref.<ref refid="classhmap_1_1Array_1afdba5b214c8378e78db1978188676703" kindref="member">max</ref>(),<sp/>1.f);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/>EXPECT_GE(facc_ref.<ref refid="classhmap_1_1Array_1a9636778a72fa18be1bf20fba816f6c4d" kindref="member">min</ref>(),<sp/>1.f);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>2.<sp/>Distributed<sp/>execution<sp/>across<sp/>tiles<sp/>using<sp/>for_each_tile<sp/>with</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>ICommunicator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">hmap::VirtualArray</ref><sp/>z_va(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>,</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_shape,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo,</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">hmap::StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">hmap::VirtualArray</ref><sp/>facc_va(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>,</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_shape,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo,</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">hmap::StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">hmap::ComputeMode</ref><sp/>cm{.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5" kindref="member">hmap::ForEachMode::VA_DISTRIBUTED</ref>};</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/>z_va.from_array(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>cm);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">hmap::for_each_tile</ref>(</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;z_va},</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;facc_va},</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;](std::vector&lt;const<sp/>hmap::Array<sp/>*&gt;<sp/>p_arrays_in,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;hmap::Array<sp/>*&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_arrays_out,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">hmap::TileRegion</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;region,</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1ICommunicator" kindref="compound">hmap::ICommunicator</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;comm)</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_z]<sp/>=<sp/>hmap::unpack&lt;1&gt;(p_arrays_in);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[pa_facc]<sp/>=<sp/>hmap::unpack&lt;1&gt;(p_arrays_out);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pa_facc<sp/>=<sp/><ref refid="namespacehmap_1aefb4c4d2f59ac95d7178b3e8de971e80" kindref="member">hmap::flow_accumulation_dinf</ref>(*pa_z,<sp/>0.1f,<sp/>0,<sp/>region,<sp/>comm);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>facc_tiled<sp/>=<sp/>facc_va.to_array(cm);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/>EXPECT_EQ(facc_tiled.shape.x,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/>EXPECT_EQ(facc_tiled.shape.y,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/>EXPECT_GE(facc_tiled.min(),<sp/>1.f);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Flow<sp/>accumulation<sp/>should<sp/>have<sp/>accumulated<sp/>significantly<sp/>in<sp/>downstream</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>regions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/>EXPECT_GT(facc_tiled.max(),<sp/>10.f);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Mean<sp/>flow<sp/>accumulation<sp/>between<sp/>monolithic<sp/>and<sp/>tiled<sp/>should<sp/>correlate<sp/>well</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(facc_tiled.mean(),<sp/>facc_ref.<ref refid="classhmap_1_1Array_1a026d337c68a4be86549c025d30466987" kindref="member">mean</ref>(),<sp/>facc_ref.<ref refid="classhmap_1_1Array_1a026d337c68a4be86549c025d30466987" kindref="member">mean</ref>()<sp/>*<sp/>0.35f);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_flow_fixing.cpp"/>
   </compounddef>

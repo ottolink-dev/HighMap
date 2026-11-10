@@ -42,213 +42,214 @@
 \DoxyCodeLine{00043\ \ \ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9fa78d811e98514cd165dda532286610fd2}{Min}},}
 \DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9fa6a061313d22e51e0f25b7cd4dc065233}{Max}},}
 \DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a3d6c9ac08ada31c184094bbc67afe00d}{Mean}},}
-\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SmoothBlend}}}
-\DoxyCodeLine{00047\ \};}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \textcolor{comment}{//\ Forward\ declarations}}
-\DoxyCodeLine{00050\ \textcolor{keyword}{class\ }Array;}
-\DoxyCodeLine{00051\ \textcolor{keyword}{struct\ }TileRegion;}
-\DoxyCodeLine{00052\ \textcolor{keyword}{struct\ }VirtualArray;}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00055\ \textcolor{comment}{//\ Communicator\ Interface}}
-\DoxyCodeLine{00056\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00062\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}}
-\DoxyCodeLine{00063\ \{}
-\DoxyCodeLine{00064\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classhmap_1_1ICommunicator_aa439b2a629e41691622ee478a44043b7}{\string~ICommunicator}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ICommunicator_a4443ebbbdd4ace883125829842c047d2}{all\_reduce}}(\textcolor{keywordtype}{float}\ local\_val,\ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{ReduceOp}}\ op)\ =\ 0;}
-\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{virtual}\ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1ICommunicator_a7f020409ae9f8b25c37b0b003251fc26}{all\_union}}(}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<float>\ \&local\_vals)\ =\ 0;}
-\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1ICommunicator_a5206083416314f55fed96d1584a20c64}{barrier}}()\ =\ 0;}
-\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \ \mbox{\hyperlink{classhmap_1_1ICommunicator_a79f3d5872fcfd5d05f117ac4f97c4544}{rank}}()\ \textcolor{keyword}{const}\ =\ 0;}
-\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \ \mbox{\hyperlink{classhmap_1_1ICommunicator_a9b01f0bca5a0d7a08e07742828e22dd3}{size}}()\ \textcolor{keyword}{const}\ =\ 0;}
-\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1ICommunicator_a9070e5952f201f9b59bfc712e23a117c}{sync\_overlap\_buffers}}(}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \&local\_tile,}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region,}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{SyncOperation}}\ \ \ \ \ op\ =\ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SyncOperation::SmoothBlend}})\ =\ 0;}
-\DoxyCodeLine{00077\ \};}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00080\ \textcolor{comment}{//\ Single\ Array\ Communicator\ (Standalone)}}
-\DoxyCodeLine{00081\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00087\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1SingleArrayComm}{SingleArrayComm}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}}
-\DoxyCodeLine{00088\ \{}
-\DoxyCodeLine{00089\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_ad9e9e76fb5bb1748f2d858cb2feac0c2}{all\_reduce}}(\textcolor{keywordtype}{float}\ local\_val,\ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{ReduceOp}}\ op)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00091\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a22198d1de124dd4af05deb3adf837c2d}{all\_union}}(\textcolor{keyword}{const}\ std::vector<float>\ \&local\_vals)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a35cf0db66b5f7f9ec806fb53bb3410fa}{barrier}}()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a6bfce55e7447ae82be7d37487177d181}{rank}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_ac2dedc3083535895ca1b37657ae39df6}{size}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a11afd290007a8fd5a97715ca11cb11f0}{sync\_overlap\_buffers}}(}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \&local\_tile,}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region,}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{SyncOperation}}\ \ \ \ \ op\ =\ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SyncOperation::SmoothBlend}})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00099\ }
-\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classhmap_1_1SingleArrayComm}{SingleArrayComm}}\ \&\mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{instance}}();}
-\DoxyCodeLine{00101\ \};}
-\DoxyCodeLine{00102\ }
-\DoxyCodeLine{00103\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00104\ \textcolor{comment}{//\ Sequential\ Tile\ Communicator}}
-\DoxyCodeLine{00105\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00113\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1SequentialTileComm}{SequentialTileComm}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}}
-\DoxyCodeLine{00114\ \{}
-\DoxyCodeLine{00115\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00116\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classhmap_1_1SequentialTileComm}{SequentialTileComm}}(\textcolor{keywordtype}{int}\ total\_tiles,\ \textcolor{keywordtype}{int}\ halo\ =\ 0);}
-\DoxyCodeLine{00117\ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm}{SequentialTileComm}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1VirtualArray}{VirtualArray}}\ \ \ \ \ \ \ \ \ \ \ \ \ \&ref\_va,}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::function<\textcolor{keywordtype}{void}(\textcolor{keywordtype}{int})>\ \&on\_suspend\_rank\ =\ \textcolor{keyword}{nullptr},}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::function<\textcolor{keywordtype}{void}(\textcolor{keywordtype}{int})>\ \&on\_resume\_rank\ =\ \textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_ae52bf50b30f25ba5cd6599b643b1cb14}{all\_reduce}}(\textcolor{keywordtype}{float}\ local\_val,\ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{ReduceOp}}\ op)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00122\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_a20793b4b9cf5992decb59cae3030689d}{all\_union}}(\textcolor{keyword}{const}\ std::vector<float>\ \&local\_vals)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_ac0df293a05fd49f271f38d774c87c9dd}{barrier}}()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_ac1ed00d3140aa52081de1b388251e99e}{rank}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_a46e09e556613f427b189e583d06fbc2a}{size}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_accafe86e232aea3d662238caa8dbdfb7}{sync\_overlap\_buffers}}(}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \&local\_tile,}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region,}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{SyncOperation}}\ \ \ \ \ op\ =\ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SyncOperation::SmoothBlend}})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00130\ }
-\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_ab3b94315afcf0dfb93777c9a22f23a57}{get\_accumulated\_value}}(\textcolor{keywordtype}{size\_t}\ seq\ =\ 0)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{void}\ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_a1b02530b831c8af1bab8b9c73cdddc5a}{next\_tile}}(\textcolor{keywordtype}{int}\ tile\_idx);}
-\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{void}\ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_a969e67204f69cbd23545d268c33346c5}{run\_cooperative\_tiles}}(}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&,\ \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}\ \&)>}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \&dispatcher);}
-\DoxyCodeLine{00136\ }
-\DoxyCodeLine{00137\ \ \ \textcolor{comment}{//\ Per-\/thread\ communicator\ proxy\ used\ when\ running\ in\ threaded\ cooperative}}
-\DoxyCodeLine{00138\ \ \ \textcolor{comment}{//\ mode}}
-\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm}{TileProxyComm}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}}
-\DoxyCodeLine{00140\ \ \ \{}
-\DoxyCodeLine{00141\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00142\ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm}{TileProxyComm}}(\mbox{\hyperlink{classhmap_1_1SequentialTileComm}{SequentialTileComm}}\ \&parent,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_a0ea62b1acbdababd2b9d92bdb754a8a9}{rank}});}
-\DoxyCodeLine{00143\ }
-\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_aa01feca43e44939fd9c46280196243ae}{all\_reduce}}(\textcolor{keywordtype}{float}\ local\_val,\ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{ReduceOp}}\ op)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00145\ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_ae8c03ab10b4c2fb18320f1204c4ee8f6}{all\_union}}(\textcolor{keyword}{const}\ std::vector<float>\ \&local\_vals)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_aa8219fb47e5851518a0e329f0e548fff}{barrier}}()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_a0ea62b1acbdababd2b9d92bdb754a8a9}{rank}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_a8d1db111e6d2e78ee5891055018880f7}{size}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_a0f9f5343f9e1a6f33eb26f7e3cfacb47}{sync\_overlap\_buffers}}(}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \&local\_tile,}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region,}
-\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{SyncOperation}}\ \ \ \ \ op\ =\ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SyncOperation::SmoothBlend}})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00153\ }
-\DoxyCodeLine{00154\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00155\ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm}{SequentialTileComm}}\ \&\mbox{\hyperlink{elevation__from__contours_8cpp_accb5beeabad0347d9d80378ada00759f}{parent}};}
-\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ my\_rank;}
-\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ reduce\_seq\ =\ 0;}
-\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ union\_seq\ =\ 0;}
-\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ barrier\_seq\ =\ 0;}
-\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ sync\_seq\ =\ 0;}
-\DoxyCodeLine{00161\ \ \ \};}
-\DoxyCodeLine{00162\ }
-\DoxyCodeLine{00163\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00164\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ total\_tiles\ =\ 1;}
-\DoxyCodeLine{00165\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_tile\_idx\ =\ 0;}
-\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ halo\ =\ 0;}
-\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ call\_sequence\ =\ 0;}
-\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sync\_sequence\ =\ 0;}
-\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ union\_sequence\ =\ 0;}
-\DoxyCodeLine{00170\ \ \ std::vector<float>\ \ \ \ \ \ \ \ \ \ \ \ \ \ accumulators;}
-\DoxyCodeLine{00171\ \ \ std::vector<bool>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ initialized;}
-\DoxyCodeLine{00172\ \ \ std::vector<ReduceOp>\ \ \ \ \ \ \ \ \ \ \ reduce\_ops;}
-\DoxyCodeLine{00173\ \ \ std::vector<std::vector<float>>\ union\_accumulators;}
-\DoxyCodeLine{00174\ }
-\DoxyCodeLine{00175\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1VirtualArray}{VirtualArray}}\ \ \ \ \ \ \ \ \ \ \ *p\_ref\_va\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00176\ \ \ std::function<void(\textcolor{keywordtype}{int})>\ \ \ \ \ \ on\_suspend\_rank;}
-\DoxyCodeLine{00177\ \ \ std::function<void(\textcolor{keywordtype}{int})>\ \ \ \ \ \ on\_resume\_rank;}
-\DoxyCodeLine{00178\ \ \ std::unique\_ptr<VirtualArray>\ sync\_va;}
-\DoxyCodeLine{00179\ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{SyncOperation}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pending\_sync\_op\ =\ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SyncOperation::SmoothBlend}};}
-\DoxyCodeLine{00180\ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ has\_pending\_sync\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00181\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *p\_thread\_scheduler\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00182\ }
-\DoxyCodeLine{00183\ \ \ \textcolor{comment}{//\ Boundary\ edge\ buffers\ for\ non-\/cooperative\ fallback}}
-\DoxyCodeLine{00184\ \ \ std::vector<std::vector<std::vector<float>>>\ east\_edges;}
-\DoxyCodeLine{00185\ \ \ std::vector<std::vector<std::vector<float>>>\ south\_edges;}
-\DoxyCodeLine{00186\ }
-\DoxyCodeLine{00187\ \ \ \textcolor{comment}{//\ cooperative\ scheduling\ handled\ by\ SequentialThreadScheduler}}
-\DoxyCodeLine{00188\ \};}
-\DoxyCodeLine{00189\ }
-\DoxyCodeLine{00190\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00191\ \textcolor{comment}{//\ Threaded\ Collective\ State\ \&\ Communicator}}
-\DoxyCodeLine{00192\ \textcolor{comment}{//\ =====================================}}
-\DoxyCodeLine{00193\ }
-\DoxyCodeLine{00197\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState}{ThreadedCollectiveState}}}
-\DoxyCodeLine{00198\ \{}
-\DoxyCodeLine{00199\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00200\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState}{ThreadedCollectiveState}}(\textcolor{keywordtype}{int}\ num\_threads);}
-\DoxyCodeLine{00201\ }
-\DoxyCodeLine{00202\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a81d5993b70bfdcf9e04f0790fbf5f4b5}{all\_reduce}}(\textcolor{keywordtype}{size\_t}\ seq,\ \textcolor{keywordtype}{float}\ val,\ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{ReduceOp}}\ op);}
-\DoxyCodeLine{00203\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a28137e7813b38a7b32488f93be803bba}{all\_union}}(\textcolor{keywordtype}{size\_t}\ seq,\ \textcolor{keyword}{const}\ std::vector<float>\ \&vals);}
-\DoxyCodeLine{00204\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a6dd9d9caba7a99326bacd2787fd51bd3}{barrier}}(\textcolor{keywordtype}{size\_t}\ seq);}
-\DoxyCodeLine{00205\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a5086b4265d4d8cb75a7482e823b09b4e}{get\_total\_threads}}()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00206\ }
-\DoxyCodeLine{00207\ \ \ \textcolor{keywordtype}{void}\ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a3d49d6ffe622200471adfc246e0a1db5}{register\_tile}}(\textcolor{keywordtype}{int}\ tile\_idx,\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ *tile,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region);}
-\DoxyCodeLine{00208\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ *\mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_ae23fa495a6aab9e7fbbf0cad434dd9b9}{get\_registered\_tile}}(\textcolor{keywordtype}{int}\ tile\_idx)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00209\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ *\mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_af151b530a23e39def3db07515ea74284}{get\_registered\_region}}(\textcolor{keywordtype}{int}\ tile\_idx)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00210\ }
-\DoxyCodeLine{00211\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00212\ \ \ \textcolor{keyword}{struct\ }ReduceSlot}
-\DoxyCodeLine{00213\ \ \ \{}
-\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordtype}{float}\ value\ =\ 0.f;}
-\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ remaining\ =\ 0;}
-\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ ready\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00217\ \ \ \};}
-\DoxyCodeLine{00218\ }
-\DoxyCodeLine{00219\ \ \ \textcolor{keyword}{struct\ }UnionSlot}
-\DoxyCodeLine{00220\ \ \ \{}
-\DoxyCodeLine{00221\ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{sls__deformation_8cpp_aa3f9c59d276fad4520b1bf5012a8140f}{values}};}
-\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ remaining\ =\ 0;}
-\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ready\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00224\ \ \ \};}
-\DoxyCodeLine{00225\ }
-\DoxyCodeLine{00226\ \ \ \textcolor{keyword}{struct\ }BarrierSlot}
-\DoxyCodeLine{00227\ \ \ \{}
-\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordtype}{int}\ \ remaining\ =\ 0;}
-\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{bool}\ ready\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00230\ \ \ \};}
-\DoxyCodeLine{00231\ }
-\DoxyCodeLine{00232\ \ \ \textcolor{keyword}{mutable}\ std::mutex\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mtx;}
-\DoxyCodeLine{00233\ \ \ std::condition\_variable\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cv;}
-\DoxyCodeLine{00234\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ total\_threads;}
-\DoxyCodeLine{00235\ \ \ std::unordered\_map<size\_t,\ ReduceSlot>\ \ reduce\_slots;}
-\DoxyCodeLine{00236\ \ \ std::unordered\_map<size\_t,\ UnionSlot>\ \ \ union\_slots;}
-\DoxyCodeLine{00237\ \ \ std::unordered\_map<size\_t,\ BarrierSlot>\ barrier\_slots;}
-\DoxyCodeLine{00238\ \ \ std::unordered\_map<int,\ Array\ *>\ \ \ \ \ \ \ \ registered\_tiles;}
-\DoxyCodeLine{00239\ \ \ std::unordered\_map<int,\ TileRegion>\ \ \ \ \ registered\_regions;}
-\DoxyCodeLine{00240\ \};}
-\DoxyCodeLine{00241\ }
-\DoxyCodeLine{00246\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1ThreadedTileComm}{ThreadedTileComm}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}}
-\DoxyCodeLine{00247\ \{}
-\DoxyCodeLine{00248\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00249\ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm}{ThreadedTileComm}}(std::shared\_ptr<ThreadedCollectiveState>\ state,}
-\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ thread\_rank,}
-\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ total\_size,}
-\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ grid\_nx\ =\ 1);}
-\DoxyCodeLine{00253\ }
-\DoxyCodeLine{00254\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_a6c5052e4f8fbeb0ecf26dc1ded15a724}{all\_reduce}}(\textcolor{keywordtype}{float}\ local\_val,\ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{ReduceOp}}\ op)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00255\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_aacb7425282ea78efc04d9123713ce0d9}{all\_union}}(\textcolor{keyword}{const}\ std::vector<float>\ \&local\_vals)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00256\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_a36cef5c57611c5f8e16ba13f1d4922b6}{barrier}}()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00257\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_ad169acdf9cdb1bc7c9b6500a3118e8aa}{rank}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00258\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_ae40f2d403f3f251cecf52cb605a72927}{size}}()\ \textcolor{keyword}{const\ override};}
-\DoxyCodeLine{00259\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_aaf40ff9df9f3eb1e46a8822e4c3cb0c8}{sync\_overlap\_buffers}}(}
-\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \&local\_tile,}
-\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region,}
-\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{SyncOperation}}\ \ \ \ \ op\ =\ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SyncOperation::SmoothBlend}})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00263\ }
-\DoxyCodeLine{00264\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00265\ \ \ std::shared\_ptr<ThreadedCollectiveState>\ state;}
-\DoxyCodeLine{00266\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ thread\_rank;}
-\DoxyCodeLine{00267\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ total\_size;}
-\DoxyCodeLine{00268\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ grid\_nx;}
-\DoxyCodeLine{00269\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reduce\_sequence\ =\ 0;}
-\DoxyCodeLine{00270\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ union\_sequence\ =\ 0;}
-\DoxyCodeLine{00271\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ barrier\_sequence\ =\ 0;}
-\DoxyCodeLine{00272\ \};}
-\DoxyCodeLine{00273\ }
-\DoxyCodeLine{00274\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SmoothBlend}},}
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5}{Sum}}}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ Forward\ declarations}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{class\ }Array;}
+\DoxyCodeLine{00052\ \textcolor{keyword}{struct\ }TileRegion;}
+\DoxyCodeLine{00053\ \textcolor{keyword}{struct\ }VirtualArray;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ Communicator\ Interface}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}}
+\DoxyCodeLine{00064\ \{}
+\DoxyCodeLine{00065\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classhmap_1_1ICommunicator_aa439b2a629e41691622ee478a44043b7}{\string~ICommunicator}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ICommunicator_a4443ebbbdd4ace883125829842c047d2}{all\_reduce}}(\textcolor{keywordtype}{float}\ local\_val,\ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{ReduceOp}}\ op)\ =\ 0;}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{virtual}\ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1ICommunicator_a7f020409ae9f8b25c37b0b003251fc26}{all\_union}}(}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<float>\ \&local\_vals)\ =\ 0;}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1ICommunicator_a5206083416314f55fed96d1584a20c64}{barrier}}()\ =\ 0;}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \ \mbox{\hyperlink{classhmap_1_1ICommunicator_a79f3d5872fcfd5d05f117ac4f97c4544}{rank}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \ \mbox{\hyperlink{classhmap_1_1ICommunicator_a9b01f0bca5a0d7a08e07742828e22dd3}{size}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1ICommunicator_a9070e5952f201f9b59bfc712e23a117c}{sync\_overlap\_buffers}}(}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \&local\_tile,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{SyncOperation}}\ \ \ \ \ op\ =\ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SyncOperation::SmoothBlend}})\ =\ 0;}
+\DoxyCodeLine{00078\ \};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ Single\ Array\ Communicator\ (Standalone)}}
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1SingleArrayComm}{SingleArrayComm}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}}
+\DoxyCodeLine{00089\ \{}
+\DoxyCodeLine{00090\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_ad9e9e76fb5bb1748f2d858cb2feac0c2}{all\_reduce}}(\textcolor{keywordtype}{float}\ local\_val,\ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{ReduceOp}}\ op)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00092\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a22198d1de124dd4af05deb3adf837c2d}{all\_union}}(\textcolor{keyword}{const}\ std::vector<float>\ \&local\_vals)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a35cf0db66b5f7f9ec806fb53bb3410fa}{barrier}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a6bfce55e7447ae82be7d37487177d181}{rank}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_ac2dedc3083535895ca1b37657ae39df6}{size}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a11afd290007a8fd5a97715ca11cb11f0}{sync\_overlap\_buffers}}(}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \&local\_tile,}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{SyncOperation}}\ \ \ \ \ op\ =\ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SyncOperation::SmoothBlend}})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classhmap_1_1SingleArrayComm}{SingleArrayComm}}\ \&\mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{instance}}();}
+\DoxyCodeLine{00102\ \};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00105\ \textcolor{comment}{//\ Sequential\ Tile\ Communicator}}
+\DoxyCodeLine{00106\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1SequentialTileComm}{SequentialTileComm}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}}
+\DoxyCodeLine{00115\ \{}
+\DoxyCodeLine{00116\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classhmap_1_1SequentialTileComm}{SequentialTileComm}}(\textcolor{keywordtype}{int}\ total\_tiles,\ \textcolor{keywordtype}{int}\ halo\ =\ 0);}
+\DoxyCodeLine{00118\ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm}{SequentialTileComm}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1VirtualArray}{VirtualArray}}\ \ \ \ \ \ \ \ \ \ \ \ \ \&ref\_va,}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::function<\textcolor{keywordtype}{void}(\textcolor{keywordtype}{int})>\ \&on\_suspend\_rank\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::function<\textcolor{keywordtype}{void}(\textcolor{keywordtype}{int})>\ \&on\_resume\_rank\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_ae52bf50b30f25ba5cd6599b643b1cb14}{all\_reduce}}(\textcolor{keywordtype}{float}\ local\_val,\ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{ReduceOp}}\ op)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00123\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_a20793b4b9cf5992decb59cae3030689d}{all\_union}}(\textcolor{keyword}{const}\ std::vector<float>\ \&local\_vals)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_ac0df293a05fd49f271f38d774c87c9dd}{barrier}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_ac1ed00d3140aa52081de1b388251e99e}{rank}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_a46e09e556613f427b189e583d06fbc2a}{size}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_accafe86e232aea3d662238caa8dbdfb7}{sync\_overlap\_buffers}}(}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \&local\_tile,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{SyncOperation}}\ \ \ \ \ op\ =\ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SyncOperation::SmoothBlend}})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_ab3b94315afcf0dfb93777c9a22f23a57}{get\_accumulated\_value}}(\textcolor{keywordtype}{size\_t}\ seq\ =\ 0)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{void}\ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_a1b02530b831c8af1bab8b9c73cdddc5a}{next\_tile}}(\textcolor{keywordtype}{int}\ tile\_idx);}
+\DoxyCodeLine{00134\ \ \ \textcolor{keywordtype}{void}\ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_a969e67204f69cbd23545d268c33346c5}{run\_cooperative\_tiles}}(}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&,\ \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}\ \&)>}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \&dispatcher);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \textcolor{comment}{//\ Per-\/thread\ communicator\ proxy\ used\ when\ running\ in\ threaded\ cooperative}}
+\DoxyCodeLine{00139\ \ \ \textcolor{comment}{//\ mode}}
+\DoxyCodeLine{00140\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm}{TileProxyComm}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}}
+\DoxyCodeLine{00141\ \ \ \{}
+\DoxyCodeLine{00142\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00143\ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm}{TileProxyComm}}(\mbox{\hyperlink{classhmap_1_1SequentialTileComm}{SequentialTileComm}}\ \&parent,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_a0ea62b1acbdababd2b9d92bdb754a8a9}{rank}});}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_aa01feca43e44939fd9c46280196243ae}{all\_reduce}}(\textcolor{keywordtype}{float}\ local\_val,\ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{ReduceOp}}\ op)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00146\ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_ae8c03ab10b4c2fb18320f1204c4ee8f6}{all\_union}}(\textcolor{keyword}{const}\ std::vector<float>\ \&local\_vals)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_aa8219fb47e5851518a0e329f0e548fff}{barrier}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_a0ea62b1acbdababd2b9d92bdb754a8a9}{rank}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_a8d1db111e6d2e78ee5891055018880f7}{size}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm_1_1TileProxyComm_a0f9f5343f9e1a6f33eb26f7e3cfacb47}{sync\_overlap\_buffers}}(}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \&local\_tile,}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region,}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{SyncOperation}}\ \ \ \ \ op\ =\ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SyncOperation::SmoothBlend}})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00156\ \ \ \ \ \mbox{\hyperlink{classhmap_1_1SequentialTileComm}{SequentialTileComm}}\ \&\mbox{\hyperlink{elevation__from__contours_8cpp_accb5beeabad0347d9d80378ada00759f}{parent}};}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ my\_rank;}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ reduce\_seq\ =\ 0;}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ union\_seq\ =\ 0;}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ barrier\_seq\ =\ 0;}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ sync\_seq\ =\ 0;}
+\DoxyCodeLine{00162\ \ \ \};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ total\_tiles\ =\ 1;}
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_tile\_idx\ =\ 0;}
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ halo\ =\ 0;}
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ call\_sequence\ =\ 0;}
+\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sync\_sequence\ =\ 0;}
+\DoxyCodeLine{00170\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ union\_sequence\ =\ 0;}
+\DoxyCodeLine{00171\ \ \ std::vector<float>\ \ \ \ \ \ \ \ \ \ \ \ \ \ accumulators;}
+\DoxyCodeLine{00172\ \ \ std::vector<bool>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ initialized;}
+\DoxyCodeLine{00173\ \ \ std::vector<ReduceOp>\ \ \ \ \ \ \ \ \ \ \ reduce\_ops;}
+\DoxyCodeLine{00174\ \ \ std::vector<std::vector<float>>\ union\_accumulators;}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1VirtualArray}{VirtualArray}}\ \ \ \ \ \ \ \ \ \ \ *p\_ref\_va\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00177\ \ \ std::function<void(\textcolor{keywordtype}{int})>\ \ \ \ \ \ on\_suspend\_rank;}
+\DoxyCodeLine{00178\ \ \ std::function<void(\textcolor{keywordtype}{int})>\ \ \ \ \ \ on\_resume\_rank;}
+\DoxyCodeLine{00179\ \ \ std::unique\_ptr<VirtualArray>\ sync\_va;}
+\DoxyCodeLine{00180\ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{SyncOperation}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pending\_sync\_op\ =\ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SyncOperation::SmoothBlend}};}
+\DoxyCodeLine{00181\ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ has\_pending\_sync\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00182\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *p\_thread\_scheduler\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \textcolor{comment}{//\ Boundary\ edge\ buffers\ for\ non-\/cooperative\ fallback}}
+\DoxyCodeLine{00185\ \ \ std::vector<std::vector<std::vector<float>>>\ east\_edges;}
+\DoxyCodeLine{00186\ \ \ std::vector<std::vector<std::vector<float>>>\ south\_edges;}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \textcolor{comment}{//\ cooperative\ scheduling\ handled\ by\ SequentialThreadScheduler}}
+\DoxyCodeLine{00189\ \};}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00192\ \textcolor{comment}{//\ Threaded\ Collective\ State\ \&\ Communicator}}
+\DoxyCodeLine{00193\ \textcolor{comment}{//\ =====================================}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00198\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState}{ThreadedCollectiveState}}}
+\DoxyCodeLine{00199\ \{}
+\DoxyCodeLine{00200\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00201\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState}{ThreadedCollectiveState}}(\textcolor{keywordtype}{int}\ num\_threads);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a81d5993b70bfdcf9e04f0790fbf5f4b5}{all\_reduce}}(\textcolor{keywordtype}{size\_t}\ seq,\ \textcolor{keywordtype}{float}\ val,\ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{ReduceOp}}\ op);}
+\DoxyCodeLine{00204\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a28137e7813b38a7b32488f93be803bba}{all\_union}}(\textcolor{keywordtype}{size\_t}\ seq,\ \textcolor{keyword}{const}\ std::vector<float>\ \&vals);}
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a6dd9d9caba7a99326bacd2787fd51bd3}{barrier}}(\textcolor{keywordtype}{size\_t}\ seq);}
+\DoxyCodeLine{00206\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a5086b4265d4d8cb75a7482e823b09b4e}{get\_total\_threads}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \textcolor{keywordtype}{void}\ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_a3d49d6ffe622200471adfc246e0a1db5}{register\_tile}}(\textcolor{keywordtype}{int}\ tile\_idx,\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ *tile,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region);}
+\DoxyCodeLine{00209\ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ *\mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_ae23fa495a6aab9e7fbbf0cad434dd9b9}{get\_registered\_tile}}(\textcolor{keywordtype}{int}\ tile\_idx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00210\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ *\mbox{\hyperlink{classhmap_1_1ThreadedCollectiveState_af151b530a23e39def3db07515ea74284}{get\_registered\_region}}(\textcolor{keywordtype}{int}\ tile\_idx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00213\ \ \ \textcolor{keyword}{struct\ }ReduceSlot}
+\DoxyCodeLine{00214\ \ \ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordtype}{float}\ value\ =\ 0.f;}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ remaining\ =\ 0;}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ ready\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00218\ \ \ \};}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \textcolor{keyword}{struct\ }UnionSlot}
+\DoxyCodeLine{00221\ \ \ \{}
+\DoxyCodeLine{00222\ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{sls__deformation_8cpp_aa3f9c59d276fad4520b1bf5012a8140f}{values}};}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ remaining\ =\ 0;}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ready\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00225\ \ \ \};}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \textcolor{keyword}{struct\ }BarrierSlot}
+\DoxyCodeLine{00228\ \ \ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{int}\ \ remaining\ =\ 0;}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordtype}{bool}\ ready\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00231\ \ \ \};}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \textcolor{keyword}{mutable}\ std::mutex\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mtx;}
+\DoxyCodeLine{00234\ \ \ std::condition\_variable\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cv;}
+\DoxyCodeLine{00235\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ total\_threads;}
+\DoxyCodeLine{00236\ \ \ std::unordered\_map<size\_t,\ ReduceSlot>\ \ reduce\_slots;}
+\DoxyCodeLine{00237\ \ \ std::unordered\_map<size\_t,\ UnionSlot>\ \ \ union\_slots;}
+\DoxyCodeLine{00238\ \ \ std::unordered\_map<size\_t,\ BarrierSlot>\ barrier\_slots;}
+\DoxyCodeLine{00239\ \ \ std::unordered\_map<int,\ Array\ *>\ \ \ \ \ \ \ \ registered\_tiles;}
+\DoxyCodeLine{00240\ \ \ std::unordered\_map<int,\ TileRegion>\ \ \ \ \ registered\_regions;}
+\DoxyCodeLine{00241\ \};}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00247\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1ThreadedTileComm}{ThreadedTileComm}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}}
+\DoxyCodeLine{00248\ \{}
+\DoxyCodeLine{00249\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00250\ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm}{ThreadedTileComm}}(std::shared\_ptr<ThreadedCollectiveState>\ state,}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ thread\_rank,}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ total\_size,}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ grid\_nx\ =\ 1);}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_a6c5052e4f8fbeb0ecf26dc1ded15a724}{all\_reduce}}(\textcolor{keywordtype}{float}\ local\_val,\ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{ReduceOp}}\ op)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00256\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_aacb7425282ea78efc04d9123713ce0d9}{all\_union}}(\textcolor{keyword}{const}\ std::vector<float>\ \&local\_vals)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00257\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_a36cef5c57611c5f8e16ba13f1d4922b6}{barrier}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00258\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_ad169acdf9cdb1bc7c9b6500a3118e8aa}{rank}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00259\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_ae40f2d403f3f251cecf52cb605a72927}{size}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00260\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ThreadedTileComm_aaf40ff9df9f3eb1e46a8822e4c3cb0c8}{sync\_overlap\_buffers}}(}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \&local\_tile,}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileRegion}{TileRegion}}\ \&region,}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{SyncOperation}}\ \ \ \ \ op\ =\ \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{SyncOperation::SmoothBlend}})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00266\ \ \ std::shared\_ptr<ThreadedCollectiveState>\ state;}
+\DoxyCodeLine{00267\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ thread\_rank;}
+\DoxyCodeLine{00268\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ total\_size;}
+\DoxyCodeLine{00269\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ grid\_nx;}
+\DoxyCodeLine{00270\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reduce\_sequence\ =\ 0;}
+\DoxyCodeLine{00271\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ union\_sequence\ =\ 0;}
+\DoxyCodeLine{00272\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ barrier\_sequence\ =\ 0;}
+\DoxyCodeLine{00273\ \};}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
 
 \end{DoxyCode}
