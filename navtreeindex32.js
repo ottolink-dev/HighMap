@@ -15,6 +15,7 @@ var NAVTREEINDEX32 =
 "test__erosion_8cpp.html#a81814063043766e7de0427749d9bd612":[17,0,2,0,26,22],
 "test__erosion_8cpp.html#a8552ab8dee14fcaa71c7b7ffaf8402ab":[17,0,2,0,26,14],
 "test__erosion_8cpp.html#a8b502ba0361a7963fa843302373b2e6f":[17,0,2,0,26,2],
+"test__erosion_8cpp.html#a9218d59952ebad8d77c376b3d4d79259":[17,0,2,0,26,24],
 "test__erosion_8cpp.html#a96a4f2dbf67bc7e1100baf25ad164c77":[17,0,2,0,26,21],
 "test__erosion_8cpp.html#a9bae9a744ca718ed36cf13bdff48e830":[17,0,2,0,26,18],
 "test__erosion_8cpp.html#aa16aec3877aecedf0e74161aa39566b1":[17,0,2,0,26,23],
@@ -248,6 +249,5 @@ var NAVTREEINDEX32 =
 "test__local__metrics_8cpp.html#ac1f1eccbe6b333c14b1ae8f76f0f5829":[17,0,2,0,48,2],
 "test__local__metrics_8cpp.html#ae8f968d6ecdf69657629dc6670c48be8":[17,0,2,0,48,8],
 "test__local__metrics_8cpp.html#af63bbcabd1a911e7ede59b2494378a22":[17,0,2,0,48,12],
-"test__local__metrics_8cpp.html#afa354b590b34bf8a57162c0cc251d3b1":[17,0,2,0,48,6],
-"test__logger_8cpp.html":[17,0,2,0,49]
+"test__local__metrics_8cpp.html#afa354b590b34bf8a57162c0cc251d3b1":[17,0,2,0,48,6]
 };

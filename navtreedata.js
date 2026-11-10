@@ -246,10 +246,10 @@ var NAVTREEINDEX =
 "structhmap_1_1TerrainTriMesh_1_1Triangle.html#ae9aad7a87fbe77a3736ca6f891443bb3",
 "synthesis_8hpp.html",
 "test__elevation__from__sparse__constraints_8cpp.html#a435f98060d7d27d31175bcf2658945c2",
-"test__logger_8cpp.html#a494d50264d4f08120cd14fddfb14de7e",
-"test__rocks_8cpp.html#a3e526630a0ead578f8b3d44f2f79c81e",
-"texture__transform_8cpp.html#a078f509a586adcdf1ff75eb828d7ceb5",
-"virtual__array_8inl.html#a54eec3c94e3409f3990876e68a581322"
+"test__logger_8cpp.html",
+"test__rocks_8cpp.html#a39bc8b1ea85e0af3975f202ba68d12dc",
+"texture__transform_8cpp.html",
+"virtual__array_8inl.html#a248e8e1edddfcc281ea3ce1b2c69b944"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
