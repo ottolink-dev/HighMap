@@ -1,6 +1,5 @@
 var NAVTREEINDEX13 =
 {
-"functions_8hpp.html#a0139c2cbbb516591c54fe8a743dc139d":[17,0,1,0,0,30,40],
 "functions_8hpp.html#a84ca1f41de32e4beacb10787127b4b8a":[17,0,1,0,0,30,39],
 "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195":[17,0,1,0,0,30,38],
 "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195a035bda7c8c2179b47b9a766531c2e89e":[17,0,1,0,0,30,38,10],
@@ -97,18 +96,18 @@ var NAVTREEINDEX13 =
 "functions_y.html":[16,3,0,24],
 "functions_z.html":[16,3,0,25],
 "functions_~.html":[16,3,0,26],
-"gabor_8cpp.html":[17,0,1,1,30,0,2],
-"gabor_8cpp.html#a1f7e1705ee83aee82d27676cfc0308f0":[17,0,1,1,30,0,2,0],
+"gabor_8cpp.html":[17,0,1,1,29,0,2],
+"gabor_8cpp.html#a1f7e1705ee83aee82d27676cfc0308f0":[17,0,1,1,29,0,2,0],
 "generate__bedrock_8cpp.html":[17,0,1,1,12,7],
 "generate__bedrock_8cpp.html#ae80026143790cc7a8f0dd1f4c7bc8e24":[17,0,1,1,12,7,0],
 "generate__riverbed_8cpp.html":[17,0,1,1,21,17],
 "generate__riverbed_8cpp.html#a30d55fae5c75a1c45a005a3f9a9467eb":[17,0,1,1,21,17,0],
 "generate__riverbed__gpu_8cpp.html":[17,0,1,1,21,18],
 "generate__riverbed__gpu_8cpp.html#a129b54789c706428d04afd91d5eb8ae6":[17,0,1,1,21,18,0],
-"generate__terrain__tri__mesh__from__heightmap_8cpp.html":[17,0,1,1,43,0],
-"generate__terrain__tri__mesh__from__heightmap_8cpp.html#a5078af3eb73fb47ab1aad6cc872ab29a":[17,0,1,1,43,0,1],
-"generate__terrain__tri__mesh__from__heightmap_8cpp.html#ac5a99fc7607556be58fb75ae10125940":[17,0,1,1,43,0,2],
-"generate__terrain__tri__mesh__from__heightmap_8cpp.html#af9fdabd692817be603ff5c44e68ea619":[17,0,1,1,43,0,0],
+"generate__terrain__tri__mesh__from__heightmap_8cpp.html":[17,0,1,1,42,0],
+"generate__terrain__tri__mesh__from__heightmap_8cpp.html#a5078af3eb73fb47ab1aad6cc872ab29a":[17,0,1,1,42,0,1],
+"generate__terrain__tri__mesh__from__heightmap_8cpp.html#ac5a99fc7607556be58fb75ae10125940":[17,0,1,1,42,0,2],
+"generate__terrain__tri__mesh__from__heightmap_8cpp.html#af9fdabd692817be603ff5c44e68ea619":[17,0,1,1,42,0,0],
 "geo_8hpp.html":[17,0,1,0,0,11,2],
 "geo_8hpp.html#a00a0ccdfd693f9da70f172169b7f36a7":[17,0,1,0,0,11,2,7],
 "geo_8hpp.html#a0da433ef9eb80cc11084bd3adbe75051":[17,0,1,0,0,11,2,6],
@@ -249,5 +248,6 @@ var NAVTREEINDEX13 =
 "grids_8hpp.html#a6b1a4665bde6beaf3b96d40d027083a7":[17,0,1,0,0,5,4,7],
 "grids_8hpp.html#aa9061db538c0b776f46d7088bbcdc289":[17,0,1,0,0,5,4,4],
 "grids_8hpp.html#aaf79b79d8bf33769e641a751c317a3e0":[17,0,1,0,0,5,4,5],
-"grids_8hpp.html#ab085d07bc0e897729ca16c0dd2035fe1":[17,0,1,0,0,5,4,2]
+"grids_8hpp.html#ab085d07bc0e897729ca16c0dd2035fe1":[17,0,1,0,0,5,4,2],
+"grids_8hpp.html#abae56b1864390cd2f2f03acc442b423a":[17,0,1,0,0,5,4,3]
 };

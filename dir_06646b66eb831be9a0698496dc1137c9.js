@@ -42,7 +42,6 @@ var dir_06646b66eb831be9a0698496dc1137c9 =
     [ "morphology.hpp", "morphology_8hpp.html", "morphology_8hpp" ],
     [ "openmp.hpp", "openmp_8hpp.html", "openmp_8hpp" ],
     [ "operator.hpp", "operator_8hpp.html", "operator_8hpp" ],
-    [ "particles.hpp", "particles_8hpp.html", "particles_8hpp" ],
     [ "primitives.hpp", "primitives_8hpp.html", null ],
     [ "profiling.hpp", "profiling_8hpp.html", null ],
     [ "random.hpp", "random_8hpp.html", "random_8hpp" ],
