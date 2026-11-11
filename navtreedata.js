@@ -249,11 +249,11 @@ var NAVTREEINDEX =
 "structhmap_1_1RockSeedingOptions.html#abd5f9bec8368c3669a6803a84a8d3720",
 "structhmap_1_1TileKeyHash.html#a7231b3026e5cbd723cba9e9ee184f500",
 "terrain__features_8hpp_source.html",
-"test__erosion_8cpp.html#a8552ab8dee14fcaa71c7b7ffaf8402ab",
-"test__loose__symmetry_8cpp.html#ab818c4abce7e7f31f0e072ff96def10e",
-"test__rocks_8cpp.html#abacdb945e6f5b6951939e63a676d5a1a",
-"thermal__erosion_8hpp.html#a13e5b18eb4ff1cf1f7357a9b29bf9368",
-"virtual__texture_8hpp.html#a051c3f6f1ceda0feaf3c36c97bd7fef9"
+"test__erosion_8cpp.html#a81814063043766e7de0427749d9bd612",
+"test__loose__symmetry_8cpp.html#ab2c37bcb434ddc8d46688f9f4e3c860a",
+"test__rocks_8cpp.html#aaee64c8193c76b9fbc7926d2a74f0d49",
+"thermal__erosion_8hpp.html#a00b54f4e60a8fbd6ed5213600d598869",
+"virtual__texture_8hpp.html#a034df9fe48c4e9a2bead1da021ffd437"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
