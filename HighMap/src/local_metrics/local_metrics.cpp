@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "highmap/array.hpp"
+#include "highmap/boundary.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/local_metrics.hpp"
@@ -133,7 +134,14 @@ Array roughness(const Array &array, int ir)
 
   Array smoothed = array;
   smooth_cpulse(smoothed, ir);
-  return abs(array - smoothed);
+  Array out = abs(array - smoothed);
+
+  out = local_mean(out, ir);
+  smooth_cpulse(out, ir);
+
+  extrapolate_borders(out, ir / 2, /* sigma */ 0.f, /* vmin */ 0.f);
+
+  return out;
 }
 
 Array ruggedness(const Array &array, int ir)
