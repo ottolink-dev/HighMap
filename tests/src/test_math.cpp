@@ -445,4 +445,3 @@ TEST(MathTest, Constants)
   EXPECT_NEAR(180.f * cte::deg_to_rad, cte::pi, 1e-6f);
   EXPECT_NEAR(cte::pi * cte::rad_to_deg, 180.f, 1e-5f);
 }
-
