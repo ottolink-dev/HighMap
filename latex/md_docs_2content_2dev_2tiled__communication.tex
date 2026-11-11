@@ -229,29 +229,4 @@ Invoking through {\ttfamily for\+\_\+each\+\_\+tile} automatically injects the a
 \DoxyCodeLine{\ \ \ \ cm);}
 
 \end{DoxyCode}
-\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md122}{}\doxysection{\texorpdfstring{7. Buffer Shape Invariance and Nested Multiscale Pipelines}{7. Buffer Shape Invariance and Nested Multiscale Pipelines}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md122}
-A fundamental invariant of the tiled communication model is that any {\ttfamily Array} buffer passed to {\ttfamily sync\+\_\+overlap\+\_\+buffers(local\+\_\+tile, region, op)} must match the full tile geometry described by {\ttfamily region.\+shape} (nominal tile size plus halo margins).\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md123}{}\doxysubsection{\texorpdfstring{Incompatibility with Nested Multiscale Pyramids}{Incompatibility with Nested Multiscale Pyramids}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md123}
-Algorithms that construct internal resolution pyramids (such as multiscale filters or cascades that downsample local tiles to coarse ladder shapes \$\+L\+\_\+i\$) cannot propagate the outer {\ttfamily Tile\+Region} or {\ttfamily ICommunicator} into the coarse levels\+:
-
-
-\begin{DoxyItemize}
-\item The downsampled buffer \$z\+\_\+\{\textbackslash{}text\{coarse\}\}\$ possesses dimensions \$\+L\+\_\+i\$, whereas {\ttfamily region.\+shape} and {\ttfamily region.\+halo} correspond to the full tile resolution.
-\item Seam indexing logic assumes the halo margins and stride match {\ttfamily region.\+shape}. If invoked on a downsampled buffer, halo offsets exceed the array boundaries, leading to heap corruption.
-\item Intermediate downsampled levels represent purely local approximations used to calculate local delta adjustments (e.\+g. coarse valley carving), and are not decomposed into valid global sub-\/domains.
-\end{DoxyItemize}
-
-In such multiscale pipelines\+:
-\begin{DoxyItemize}
-\item Intermediate/coarse levels must run {\bfseries{locally}} using {\ttfamily Tile\+Region\+::dummy()} and {\ttfamily Single\+Array\+Comm\+::instance()}.
-\item The active {\ttfamily Tile\+Region} and {\ttfamily ICommunicator} must only be passed to the final resolution level where the buffer dimensions match {\ttfamily region.\+shape}.
-\end{DoxyItemize}\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md124}{}\doxysubsection{\texorpdfstring{Runtime Shape Validation}{Runtime Shape Validation}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md124}
-Both {\ttfamily Threaded\+Tile\+Comm} and {\ttfamily Sequential\+Tile\+Comm} validate that {\ttfamily local\+\_\+tile.\+shape == region.\+shape} at the beginning of {\ttfamily sync\+\_\+overlap\+\_\+buffers}. If a mismatch is detected, an error is logged and synchronization is skipped to safeguard memory integrity\+:
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{sync\_overlap\_buffers:\ buffer\ shape\ (x,\ y)\ does\ not\ match\ region\ shape\ (rx,\ ry).}
-\DoxyCodeLine{This\ may\ happen\ if\ sync\ is\ invoked\ on\ an\ internal\ or\ nested\ downsampled\ buffer\ (e.g.\ multiscale\ pyramid).}
-\DoxyCodeLine{Skipping\ synchronization\ to\ prevent\ memory\ corruption.}
-
-\end{DoxyCode}
  

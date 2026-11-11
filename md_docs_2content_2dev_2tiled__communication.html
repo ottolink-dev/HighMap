@@ -295,27 +295,6 @@ Batching Loop Pattern</h2>
 <div class="line">    },</div>
 <div class="line">    cm);</div>
 <div class="ttc" id="avirtual__array_8inl_html_ab533899554e393dbefccf9a5602faa39"><div class="ttname"><a href="virtual__array_8inl.html#ab533899554e393dbefccf9a5602faa39">for_each_tile</a></div><div class="ttdeci">void for_each_tile(const TileAccess &amp;access, Func &amp;&amp;func, const ComputeMode &amp;cm)</div><div class="ttdef"><b>Definition</b> virtual_array.inl:22</div></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md122"></a>
-7. Buffer Shape Invariance and Nested Multiscale Pipelines</h1>
-<p>A fundamental invariant of the tiled communication model is that any <code>Array</code> buffer passed to <code>sync_overlap_buffers(local_tile, region, op)</code> must match the full tile geometry described by <code>region.shape</code> (nominal tile size plus halo margins).</p>
-<h2><a class="anchor" id="autotoc_md123"></a>
-Incompatibility with Nested Multiscale Pyramids</h2>
-<p>Algorithms that construct internal resolution pyramids (such as multiscale filters or cascades that downsample local tiles to coarse ladder shapes $L_i$) cannot propagate the outer <code>TileRegion</code> or <code>ICommunicator</code> into the coarse levels:</p>
-<ul>
-<li>The downsampled buffer $z_{\text{coarse}}$ possesses dimensions $L_i$, whereas <code>region.shape</code> and <code>region.halo</code> correspond to the full tile resolution.</li>
-<li>Seam indexing logic assumes the halo margins and stride match <code>region.shape</code>. If invoked on a downsampled buffer, halo offsets exceed the array boundaries, leading to heap corruption.</li>
-<li>Intermediate downsampled levels represent purely local approximations used to calculate local delta adjustments (e.g. coarse valley carving), and are not decomposed into valid global sub-domains.</li>
-</ul>
-<p>In such multiscale pipelines:</p><ul>
-<li>Intermediate/coarse levels must run <b>locally</b> using <code>TileRegion::dummy()</code> and <code>SingleArrayComm::instance()</code>.</li>
-<li>The active <code>TileRegion</code> and <code>ICommunicator</code> must only be passed to the final resolution level where the buffer dimensions match <code>region.shape</code>.</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md124"></a>
-Runtime Shape Validation</h2>
-<p>Both <code>ThreadedTileComm</code> and <code>SequentialTileComm</code> validate that <code>local_tile.shape == region.shape</code> at the beginning of <code>sync_overlap_buffers</code>. If a mismatch is detected, an error is logged and synchronization is skipped to safeguard memory integrity:</p>
-<div class="fragment"><div class="line">sync_overlap_buffers: buffer shape (x, y) does not match region shape (rx, ry).</div>
-<div class="line">This may happen if sync is invoked on an internal or nested downsampled buffer (e.g. multiscale pyramid).</div>
-<div class="line">Skipping synchronization to prevent memory corruption.</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

@@ -1,16 +1,13 @@
 var NAVTREEINDEX17 =
 {
-"md_docs_2content_2getting__started_2core__concepts.html#autotoc_md134":[10,4],
-"md_docs_2content_2getting__started_2quickstart.html":[11],
-"md_docs_2content_2getting__started_2quickstart.html#autotoc_md136":[11,0],
-"md_docs_2content_2getting__started_2quickstart.html#autotoc_md137":[11,1],
-"md_docs_2content_2getting__started_2quickstart.html#autotoc_md138":[11,2],
-"md_docs_2content_2getting__started_2quickstart.html#autotoc_md139":[11,3],
+"md_docs_2content_2getting__started_2quickstart.html#autotoc_md134":[11,1],
+"md_docs_2content_2getting__started_2quickstart.html#autotoc_md135":[11,2],
+"md_docs_2content_2getting__started_2quickstart.html#autotoc_md136":[11,3],
 "md_docs_2index.html":[12],
-"md_docs_2index.html#autotoc_md141":[12,0],
-"md_docs_2index.html#autotoc_md142":[12,0,0],
-"md_docs_2index.html#autotoc_md143":[12,0,1],
-"md_docs_2index.html#autotoc_md144":[12,1],
+"md_docs_2index.html#autotoc_md138":[12,0],
+"md_docs_2index.html#autotoc_md139":[12,0,0],
+"md_docs_2index.html#autotoc_md140":[12,0,1],
+"md_docs_2index.html#autotoc_md141":[12,1],
 "md_docs_2profiling.html":[13],
 "methods_8cpp.html":[17,0,1,1,1,3],
 "morphology_8cpp.html":[17,0,1,1,26,3],
@@ -249,5 +246,8 @@ var NAVTREEINDEX17 =
 "namespacehmap.html#a18b032bb8f2dd4a18b9e0944dae85ae8":[15,0,0,1005],
 "namespacehmap.html#a18d33562e8ffbb8be79e2ec87bcf285f":[15,0,0,1033],
 "namespacehmap.html#a19148ad2a95f7ad5b05161e9a0f0f732":[15,0,0,963],
-"namespacehmap.html#a199fe70937b1653266fe9c9bedc4653d":[15,0,0,236]
+"namespacehmap.html#a199fe70937b1653266fe9c9bedc4653d":[15,0,0,236],
+"namespacehmap.html#a19dc770c90b02c1f4664bde14ee764f7":[15,0,0,252],
+"namespacehmap.html#a19dec938e688ef4b73cf27ff3934043b":[15,0,0,944],
+"namespacehmap.html#a1aa09f318d1dbe53c09727fe200eb9cb":[15,0,0,280]
 };

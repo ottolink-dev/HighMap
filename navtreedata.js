@@ -145,37 +145,33 @@ var NAVTREE =
       [ "5. Iteration Batching in Domain Algorithms", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md119", [
         [ "Batching Loop Pattern", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md120", null ]
       ] ],
-      [ "6. Integration and Usage Example", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md121", null ],
-      [ "7. Buffer Shape Invariance and Nested Multiscale Pipelines", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md122", [
-        [ "Incompatibility with Nested Multiscale Pyramids", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md123", null ],
-        [ "Runtime Shape Validation", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md124", null ]
-      ] ]
+      [ "6. Integration and Usage Example", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md121", null ]
     ] ],
     [ "Core Concepts", "md_docs_2content_2getting__started_2core__concepts.html", [
-      [ "1. Elevation Representations", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md126", [
-        [ "Array", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md127", null ]
+      [ "1. Elevation Representations", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md123", [
+        [ "Array", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md124", null ]
       ] ],
-      [ "2. Bivariate Functions", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md128", null ],
-      [ "3. Geometric Primitives", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md129", null ],
-      [ "4. Talus vs. Slope", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md130", [
-        [ "Talus (Grid-Space Elevation Difference)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md131", null ],
-        [ "Slope (Metric Surface Gradient)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md132", null ],
-        [ "Relationship: talus = slope / nx", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md133", null ]
+      [ "2. Bivariate Functions", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md125", null ],
+      [ "3. Geometric Primitives", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md126", null ],
+      [ "4. Talus vs. Slope", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md127", [
+        [ "Talus (Grid-Space Elevation Difference)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md128", null ],
+        [ "Slope (Metric Surface Gradient)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md129", null ],
+        [ "Relationship: talus = slope / nx", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md130", null ]
       ] ],
-      [ "5. Scattering", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md134", null ]
+      [ "5. Scattering", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md131", null ]
     ] ],
     [ "Quickstart", "md_docs_2content_2getting__started_2quickstart.html", [
-      [ "1. Example", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md136", null ],
-      [ "2. CMake Integration", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md137", null ],
-      [ "3. Basic Operations", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md138", null ],
-      [ "4. Next Steps", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md139", null ]
+      [ "1. Example", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md133", null ],
+      [ "2. CMake Integration", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md134", null ],
+      [ "3. Basic Operations", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md135", null ],
+      [ "4. Next Steps", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md136", null ]
     ] ],
     [ "HighMap Documentation", "md_docs_2index.html", [
-      [ "Documentation", "md_docs_2index.html#autotoc_md141", [
-        [ "Getting Started", "md_docs_2index.html#autotoc_md142", null ],
-        [ "Developer Documentation", "md_docs_2index.html#autotoc_md143", null ]
+      [ "Documentation", "md_docs_2index.html#autotoc_md138", [
+        [ "Getting Started", "md_docs_2index.html#autotoc_md139", null ],
+        [ "Developer Documentation", "md_docs_2index.html#autotoc_md140", null ]
       ] ],
-      [ "Installation", "md_docs_2index.html#autotoc_md144", null ]
+      [ "Installation", "md_docs_2index.html#autotoc_md141", null ]
     ] ],
     [ "Optional Tracy CPU profiling", "md_docs_2profiling.html", null ],
     [ "Bibliography", "citelist.html", null ],
@@ -234,26 +230,26 @@ var NAVTREEINDEX =
 "grids_8hpp_source.html",
 "interpolate1d_8hpp.html#a46291bb4766800deacc1ce9b45a9ea6ba842713d3dc1b52f8b51bb2eaeb8bcf7e",
 "local__metrics_8hpp.html#afab20683fccb546cab8ab2b5dc20f3af",
-"md_docs_2content_2getting__started_2core__concepts.html#autotoc_md134",
-"namespacehmap.html#a19dc770c90b02c1f4664bde14ee764f7",
-"namespacehmap.html#a4b6f135c6e81d313ca54ae1efac5f2c9aa90e813d22c88c29e9effe934ce6149d",
-"namespacehmap.html#a8776cc91b81a545c90b2a1623f011887",
-"namespacehmap.html#abef85b092005d7c5b1d2962c3ed27ef0",
-"namespacehmap.html#aeddca5280bfeacef3cdf4bee68a2195f",
-"namespacehmap_1_1gpu.html#aa5fcd126e87b5f08fc84c85ac5631add",
-"noise__functions_8cpp.html",
-"points_8cpp.html#ada80d13d395d9c4d2c5457a21b932602",
-"recurve_8cpp.html#ad4c8b8b2361aa1fec5c984287a837461",
-"snow__mantle_8cpp.html",
-"structhmap_1_1ImageWriterConfig.html",
-"structhmap_1_1RockSeedingOptions.html#abd5f9bec8368c3669a6803a84a8d3720",
-"structhmap_1_1TileKeyHash.html#a7231b3026e5cbd723cba9e9ee184f500",
-"terrain__features_8hpp_source.html",
-"test__erosion_8cpp.html#a81814063043766e7de0427749d9bd612",
-"test__loose__symmetry_8cpp.html#ab2c37bcb434ddc8d46688f9f4e3c860a",
-"test__rocks_8cpp.html#aaee64c8193c76b9fbc7926d2a74f0d49",
-"thermal__erosion_8hpp.html#a00b54f4e60a8fbd6ed5213600d598869",
-"virtual__texture_8hpp.html#a034df9fe48c4e9a2bead1da021ffd437"
+"md_docs_2content_2getting__started_2quickstart.html#autotoc_md134",
+"namespacehmap.html#a1add8a2d0a618e4ac8e67dc1a9c0b1a3",
+"namespacehmap.html#a4b6f135c6e81d313ca54ae1efac5f2c9ac3a721c2d521e171c529d24f3b768803",
+"namespacehmap.html#a889405ce11be91e33cc80ca4dbd192b0",
+"namespacehmap.html#abf9521082ba09eb022834306bc6c354b",
+"namespacehmap.html#aeeb8f48ea78cb59de79c16ab28d1d855",
+"namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad",
+"non__parameteric__sampling_8cpp.html#a0a359831aea68622813f65f4a989a75a",
+"points_8cpp.html#aef71b544e3f4e5321cb3d41a7366e0f3",
+"recurve_8cpp.html#af9e3033eb08345c1e3c46bde5dcd29a1",
+"snow__simulation_8cpp.html#a78419f7981186b40c4a2d04456e4e63f",
+"structhmap_1_1ImageWriterConfig.html#a481586b28e6d78db02843fcb819e0583",
+"structhmap_1_1RockSeedingOptions.html#aca6ad1d77615f1daa14f51938ac5971d",
+"structhmap_1_1TileRegion.html#a08bbfdea476e4db4ad25e0d2110b278c",
+"terrain__super__resolution_8cpp.html#a255cb99f1c4125463b5e3e5e2406cc72",
+"test__erosion_8cpp.html#a9bae9a744ca718ed36cf13bdff48e830",
+"test__math_8cpp.html#a1686db8319d7c3529f478b86ed16b566",
+"test__rocks_8cpp.html#afa77a04c20fe18ada6619e9943fd7d14",
+"thermal__erosion_8hpp.html#a435a38880a6bcabfb8991d5834a0f786",
+"virtual__texture_8hpp.html#a6f991e3bdf7c5c4bed631f2b7fb4f072"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

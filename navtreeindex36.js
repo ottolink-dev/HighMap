@@ -1,11 +1,5 @@
 var NAVTREEINDEX36 =
 {
-"virtual__texture_8hpp.html#a034df9fe48c4e9a2bead1da021ffd437":[17,0,1,0,0,14,5,8],
-"virtual__texture_8hpp.html#a051c3f6f1ceda0feaf3c36c97bd7fef9":[17,0,1,0,0,14,5,5],
-"virtual__texture_8hpp.html#a1025088e008bb5709c8f88bc025ab1cb":[17,0,1,0,0,14,5,9],
-"virtual__texture_8hpp.html#a14c2ff528ad95764b5b2c5330087fac4":[17,0,1,0,0,14,5,6],
-"virtual__texture_8hpp.html#a221887dae102efd3756a1a8559eadeee":[17,0,1,0,0,14,5,3],
-"virtual__texture_8hpp.html#a6bbca26bba2f2faac320f59df0ae8d8a":[17,0,1,0,0,14,5,11],
 "virtual__texture_8hpp.html#a6f991e3bdf7c5c4bed631f2b7fb4f072":[17,0,1,0,0,14,5,2],
 "virtual__texture_8hpp.html#a973e9eeaf1bc68c61a860bcff379461b":[17,0,1,0,0,14,5,4],
 "virtual__texture_8hpp.html#aa0a65dc38f8ea42c2e9d36c6fd80cfc9":[17,0,1,0,0,14,5,7],

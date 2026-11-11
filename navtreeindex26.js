@@ -1,8 +1,5 @@
 var NAVTREEINDEX26 =
 {
-"recurve_8cpp.html#ad4c8b8b2361aa1fec5c984287a837461":[17,0,1,1,15,14,13],
-"recurve_8cpp.html#ad8482d5a5c0650c20ffe1dc86b5f8a61":[17,0,1,1,15,14,3],
-"recurve_8cpp.html#af080317ac939503049515f0a792c84b3":[17,0,1,1,15,14,6],
 "recurve_8cpp.html#af9e3033eb08345c1e3c46bde5dcd29a1":[17,0,1,1,15,14,2],
 "recurve_8cpp.html#affcc500f17897f37cdb0717bc579d2b4":[17,0,1,1,15,14,10],
 "reverse__midpoint_8cpp.html":[17,0,1,1,2,4],
@@ -249,5 +246,8 @@ var NAVTREEINDEX26 =
 "sls__deformation_8cpp.html#ac1148b6c7c73300331ae93335f42241d":[17,0,1,1,2,6,6],
 "sls__deformation_8cpp.html#acb559820d9ca11295b4500f179ef6392":[17,0,1,1,2,6,13],
 "sls__deformation_8cpp.html#aeb4aca717b10b3f05f897485b4e1e9a6":[17,0,1,1,2,6,10],
-"sls__deformation_8cpp.html#afb03c971cc5b8b009a1f4fec7261199a":[17,0,1,1,2,6,15]
+"sls__deformation_8cpp.html#afb03c971cc5b8b009a1f4fec7261199a":[17,0,1,1,2,6,15],
+"snow__mantle_8cpp.html":[17,0,1,1,21,20],
+"snow__mantle_8cpp.html#ae2fae1e296687dd0fb94a4720b42e54d":[17,0,1,1,21,20,0],
+"snow__simulation_8cpp.html":[17,0,1,1,21,21]
 };
