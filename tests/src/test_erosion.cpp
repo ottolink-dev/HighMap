@@ -668,6 +668,72 @@ TEST(AeolianErosionGPU, TiledDistributedExecution)
   }
 }
 
+TEST(HydraulicStreamGPU, TiledDistributedExecution)
+{
+  gpu::init_opencl();
+
+  const glm::ivec2 shape = {256, 256};
+  const glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
+  const glm::ivec2 tile_shape = {128, 128};
+  const size_t     halo = 16;
+
+  Array z_in = noise_fbm(NoiseType::PERLIN, shape, {4.f, 4.f}, 42).remapped();
+
+  for (auto mode : {ForEachMode::VA_DISTRIBUTED})
+  {
+    ComputeMode cm{
+        .mode = mode,
+        .trim_storage = false,
+        .stride = 1,
+    };
+
+    VirtualArray z_va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+    VirtualArray z_out(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+
+    z_va.from_array(z_in, cm);
+
+    for_each_tile(
+        {&z_va},
+        {&z_out},
+        [](std::vector<const Array *> p_arrays_in,
+           std::vector<Array *>       p_arrays_out,
+           const TileRegion          &region,
+           ICommunicator             &comm)
+        {
+          auto [pa_z] = unpack<1>(p_arrays_in);
+          auto [pa_out] = unpack<1>(p_arrays_out);
+
+          *pa_out = *pa_z;
+          gpu::hydraulic_stream_log(*pa_out,
+                                    0.05f,
+                                    1e-2f,
+                                    /*deposition_ir=*/8,
+                                    /*deposition_scale_ratio=*/0.5f,
+                                    /*gradient_power=*/0.8f,
+                                    /*gradient_scaling_ratio=*/1.f,
+                                    /*gradient_prefilter_ir=*/4,
+                                    /*saturation_ratio=*/1.f,
+                                    nullptr,
+                                    nullptr,
+                                    nullptr,
+                                    nullptr,
+                                    nullptr,
+                                    region,
+                                    comm);
+        },
+        cm);
+
+    Array res = z_out.to_array(cm);
+
+    EXPECT_EQ(res.shape, shape);
+    for (float v : res.vector)
+    {
+      ASSERT_FALSE(std::isnan(v));
+      ASSERT_FALSE(std::isinf(v));
+    }
+  }
+}
+
 TEST(Strata, NoNaNAtHighResolution)
 {
   gpu::init_opencl();
