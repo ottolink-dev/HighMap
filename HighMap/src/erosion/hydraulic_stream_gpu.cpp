@@ -16,28 +16,24 @@
 #include "highmap/local_metrics.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/range.hpp"
-#include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap::gpu
 {
 
-void hydraulic_stream_log(Array            &z,
-                          float             c_erosion,
-                          float             talus_ref,
-                          int               deposition_ir,
-                          float             deposition_scale_ratio,
-                          float             gradient_power,
-                          float             gradient_scaling_ratio,
-                          int               gradient_prefilter_ir,
-                          float             saturation_ratio,
-                          const Array      *p_bedrock,
-                          const Array      *p_moisture_map,
-                          Array            *p_erosion_map,
-                          Array            *p_deposition_map,
-                          Array            *p_flow_map,
-                          const TileRegion &region,
-                          ICommunicator    &comm)
+void hydraulic_stream_log(Array       &z,
+                          float        c_erosion,
+                          float        talus_ref,
+                          int          deposition_ir,
+                          float        deposition_scale_ratio,
+                          float        gradient_power,
+                          float        gradient_scaling_ratio,
+                          int          gradient_prefilter_ir,
+                          float        saturation_ratio,
+                          const Array *p_bedrock,
+                          const Array *p_moisture_map,
+                          Array       *p_erosion_map,
+                          Array       *p_deposition_map,
+                          Array       *p_flow_map)
 {
   if (!validate_non_empty(z)) return;
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
@@ -49,14 +45,9 @@ void hydraulic_stream_log(Array            &z,
   if (p_erosion_map || p_deposition_map) z_bckp = z;
 
   // use flow accumulation to determine erosion intensity
-  Array facc = flow_accumulation_dinf(z,
-                                      talus_ref,
-                                      /*iterations=*/0,
-                                      region,
-                                      comm);
-  clamp_min(facc, 1.f);
+  Array facc = flow_accumulation_dinf(z, talus_ref);
   facc = log10(facc);
-  remap(facc, 0.f, 1.f, comm);
+  remap(facc);
 
   if (saturation_ratio < 1.f)
     saturate(facc, 0.f, saturation_ratio, 0.1f * saturation_ratio);
@@ -66,9 +57,8 @@ void hydraulic_stream_log(Array            &z,
 
   // TODO next operations in one local pass
   {
-    gpu::smooth_cpulse(gn, gradient_prefilter_ir, nullptr, region, comm);
-    remap(gn, 0.f, 1.f, comm);
-    clamp(gn, 0.f, 1.f);
+    gpu::smooth_cpulse(gn, gradient_prefilter_ir);
+    remap(gn);
     gn = pow(gn, gradient_power);
     gn = smoothstep5_lower(gn);
     facc *= (1.f - gradient_scaling_ratio) + gradient_scaling_ratio * gn;
@@ -77,7 +67,6 @@ void hydraulic_stream_log(Array            &z,
   // preserve local peaks
   {
     Array re = gpu::relative_elevation_square_kernel(z, gradient_prefilter_ir);
-    clamp(re, 0.f, 1.f);
     re = smoothstep3(1.f - re);
     facc *= re;
   }
@@ -110,46 +99,23 @@ void hydraulic_stream_log(Array            &z,
   }
 
   if (p_flow_map) *p_flow_map = facc;
-
-  // sync buffers at the end for multi-tile distributed execution
-  if (comm.size() > 1)
-  {
-    comm.sync_overlap_buffers(z, region, SyncOperation::SmoothBlend);
-
-    if (p_erosion_map)
-      comm.sync_overlap_buffers(*p_erosion_map,
-                                region,
-                                SyncOperation::SmoothBlend);
-
-    if (p_deposition_map)
-      comm.sync_overlap_buffers(*p_deposition_map,
-                                region,
-                                SyncOperation::SmoothBlend);
-
-    if (p_flow_map)
-      comm.sync_overlap_buffers(*p_flow_map,
-                                region,
-                                SyncOperation::SmoothBlend);
-  }
 }
 
-void hydraulic_stream_log(Array            &z,
-                          float             c_erosion,
-                          float             talus_ref,
-                          const Array      *p_mask,
-                          int               deposition_ir,
-                          float             deposition_scale_ratio,
-                          float             gradient_power,
-                          float             gradient_scaling_ratio,
-                          int               gradient_prefilter_ir,
-                          float             saturation_ratio,
-                          const Array      *p_bedrock,
-                          const Array      *p_moisture_map,
-                          Array            *p_erosion_map,
-                          Array            *p_deposition_map,
-                          Array            *p_flow_map,
-                          const TileRegion &region,
-                          ICommunicator    &comm)
+void hydraulic_stream_log(Array       &z,
+                          float        c_erosion,
+                          float        talus_ref,
+                          const Array *p_mask,
+                          int          deposition_ir,
+                          float        deposition_scale_ratio,
+                          float        gradient_power,
+                          float        gradient_scaling_ratio,
+                          int          gradient_prefilter_ir,
+                          float        saturation_ratio,
+                          const Array *p_bedrock,
+                          const Array *p_moisture_map,
+                          Array       *p_erosion_map,
+                          Array       *p_deposition_map,
+                          Array       *p_flow_map)
 {
   if (!validate_non_empty(z)) return;
   if (p_mask && !validate_same_shape(z, *p_mask)) return;
@@ -170,9 +136,7 @@ void hydraulic_stream_log(Array            &z,
                               p_moisture_map,
                               p_erosion_map,
                               p_deposition_map,
-                              p_flow_map,
-                              region,
-                              comm);
+                              p_flow_map);
   else
   {
     Array z_f = z;
@@ -189,56 +153,29 @@ void hydraulic_stream_log(Array            &z,
                               p_moisture_map,
                               p_erosion_map,
                               p_deposition_map,
-                              p_flow_map,
-                              region,
-                              comm);
+                              p_flow_map);
     z = lerp(z, z_f, *(p_mask));
-
-    if (p_erosion_map) *p_erosion_map *= *(p_mask);
-    if (p_deposition_map) *p_deposition_map *= *(p_mask);
-
-    if (comm.size() > 1)
-    {
-      comm.sync_overlap_buffers(z, region, SyncOperation::SmoothBlend);
-
-      if (p_erosion_map)
-        comm.sync_overlap_buffers(*p_erosion_map,
-                                  region,
-                                  SyncOperation::SmoothBlend);
-
-      if (p_deposition_map)
-        comm.sync_overlap_buffers(*p_deposition_map,
-                                  region,
-                                  SyncOperation::SmoothBlend);
-
-      if (p_flow_map)
-        comm.sync_overlap_buffers(*p_flow_map,
-                                  region,
-                                  SyncOperation::SmoothBlend);
-    }
   }
 }
 
-void hydraulic_stream_log_multiscale(Array            &z,
-                                     float             c_erosion,
-                                     float             talus_ref,
-                                     int               levels,
-                                     int               deposition_ir,
-                                     float             deposition_scale_ratio,
-                                     float             gradient_power,
-                                     float             gradient_scaling_ratio,
-                                     int               gradient_prefilter_ir,
-                                     float             saturation_ratio,
-                                     const Array      *p_bedrock,
-                                     const Array      *p_moisture_map,
-                                     Array            *p_erosion_map,
-                                     Array            *p_deposition_map,
-                                     Array            *p_flow_map,
-                                     float             mix,
-                                     float             warp,
-                                     std::uint32_t     seed,
-                                     const TileRegion &region,
-                                     ICommunicator    &comm)
+void hydraulic_stream_log_multiscale(Array        &z,
+                                     float         c_erosion,
+                                     float         talus_ref,
+                                     int           levels,
+                                     int           deposition_ir,
+                                     float         deposition_scale_ratio,
+                                     float         gradient_power,
+                                     float         gradient_scaling_ratio,
+                                     int           gradient_prefilter_ir,
+                                     float         saturation_ratio,
+                                     const Array  *p_bedrock,
+                                     const Array  *p_moisture_map,
+                                     Array        *p_erosion_map,
+                                     Array        *p_deposition_map,
+                                     Array        *p_flow_map,
+                                     float         mix,
+                                     float         warp,
+                                     std::uint32_t seed)
 {
   if (!validate_non_empty(z)) return;
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
@@ -293,7 +230,7 @@ void hydraulic_stream_log_multiscale(Array            &z,
       float level_talus_ref = talus_ref * static_cast<float>(z.shape.x) /
                               static_cast<float>(ladder[i].x);
 
-      // run erosion on coarse grid without deposition (local only, no tile comm)
+      // run erosion on coarse grid without deposition
       gpu::hydraulic_stream_log(z_coarse,
                                 c_erosion,
                                 level_talus_ref,
@@ -307,9 +244,7 @@ void hydraulic_stream_log_multiscale(Array            &z,
                                 p_lvl_moisture,
                                 nullptr,
                                 nullptr,
-                                nullptr,
-                                TileRegion::dummy(),
-                                SingleArrayComm::instance());
+                                nullptr);
 
       // compute incision delta and upsample smoothly to full resolution with
       // optional domain warp
@@ -345,9 +280,7 @@ void hydraulic_stream_log_multiscale(Array            &z,
                                 p_moisture_map,
                                 nullptr,
                                 nullptr,
-                                p_flow_map,
-                                region,
-                                comm);
+                                p_flow_map);
     }
   }
 
@@ -363,50 +296,27 @@ void hydraulic_stream_log_multiscale(Array            &z,
     *p_deposition_map = z - z_bckp;
     clamp_min(*p_deposition_map, 0.f);
   }
-
-  // sync buffers at the end for multi-tile distributed execution
-  if (comm.size() > 1)
-  {
-    comm.sync_overlap_buffers(z, region, SyncOperation::SmoothBlend);
-
-    if (p_erosion_map)
-      comm.sync_overlap_buffers(*p_erosion_map,
-                                region,
-                                SyncOperation::SmoothBlend);
-
-    if (p_deposition_map)
-      comm.sync_overlap_buffers(*p_deposition_map,
-                                region,
-                                SyncOperation::SmoothBlend);
-
-    if (p_flow_map)
-      comm.sync_overlap_buffers(*p_flow_map,
-                                region,
-                                SyncOperation::SmoothBlend);
-  }
 }
 
-void hydraulic_stream_log_multiscale(Array            &z,
-                                     float             c_erosion,
-                                     float             talus_ref,
-                                     const Array      *p_mask,
-                                     int               levels,
-                                     int               deposition_ir,
-                                     float             deposition_scale_ratio,
-                                     float             gradient_power,
-                                     float             gradient_scaling_ratio,
-                                     int               gradient_prefilter_ir,
-                                     float             saturation_ratio,
-                                     const Array      *p_bedrock,
-                                     const Array      *p_moisture_map,
-                                     Array            *p_erosion_map,
-                                     Array            *p_deposition_map,
-                                     Array            *p_flow_map,
-                                     float             mix,
-                                     float             warp,
-                                     std::uint32_t     seed,
-                                     const TileRegion &region,
-                                     ICommunicator    &comm)
+void hydraulic_stream_log_multiscale(Array        &z,
+                                     float         c_erosion,
+                                     float         talus_ref,
+                                     const Array  *p_mask,
+                                     int           levels,
+                                     int           deposition_ir,
+                                     float         deposition_scale_ratio,
+                                     float         gradient_power,
+                                     float         gradient_scaling_ratio,
+                                     int           gradient_prefilter_ir,
+                                     float         saturation_ratio,
+                                     const Array  *p_bedrock,
+                                     const Array  *p_moisture_map,
+                                     Array        *p_erosion_map,
+                                     Array        *p_deposition_map,
+                                     Array        *p_flow_map,
+                                     float         mix,
+                                     float         warp,
+                                     std::uint32_t seed)
 {
   if (!validate_non_empty(z)) return;
   if (p_mask && !validate_same_shape(z, *p_mask)) return;
@@ -431,9 +341,7 @@ void hydraulic_stream_log_multiscale(Array            &z,
                                          p_flow_map,
                                          mix,
                                          warp,
-                                         seed,
-                                         region,
-                                         comm);
+                                         seed);
   else
   {
     Array z_f = z;
@@ -454,33 +362,8 @@ void hydraulic_stream_log_multiscale(Array            &z,
                                          p_flow_map,
                                          mix,
                                          warp,
-                                         seed,
-                                         region,
-                                         comm);
+                                         seed);
     z = lerp(z, z_f, *(p_mask));
-
-    if (p_erosion_map) *p_erosion_map *= *(p_mask);
-    if (p_deposition_map) *p_deposition_map *= *(p_mask);
-
-    if (comm.size() > 1)
-    {
-      comm.sync_overlap_buffers(z, region, SyncOperation::SmoothBlend);
-
-      if (p_erosion_map)
-        comm.sync_overlap_buffers(*p_erosion_map,
-                                  region,
-                                  SyncOperation::SmoothBlend);
-
-      if (p_deposition_map)
-        comm.sync_overlap_buffers(*p_deposition_map,
-                                  region,
-                                  SyncOperation::SmoothBlend);
-
-      if (p_flow_map)
-        comm.sync_overlap_buffers(*p_flow_map,
-                                  region,
-                                  SyncOperation::SmoothBlend);
-    }
   }
 }
 
