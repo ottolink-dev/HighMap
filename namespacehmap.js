@@ -535,7 +535,7 @@ var namespacehmap =
     [ "shade_color", "namespacehmap.html#a54eb8ce4196d73517024dbe2af5af81b", null ],
     [ "shade_color", "namespacehmap.html#a473177c74de27a056808d861d35eb1f3", null ],
     [ "shade_topographic_residual", "namespacehmap.html#aa26e98751bbe16f0223c8c117a35ec6e", null ],
-    [ "terrain_texture", "namespacehmap.html#ab5360dca8a2e541c6d715bba73be7759", null ],
+    [ "terrain_texture", "namespacehmap.html#aad001c1f08de81a941f331183f2ab619", null ],
     [ "get_colormap_data", "namespacehmap.html#a2f2ca726f4e41128135e6c77120c66d8", null ],
     [ "level_set_curvature", "namespacehmap.html#aa1f2e119a09d246fe0cf27e859ddb2e6", null ],
     [ "curvature_quadric", "namespacehmap.html#a4e2b7df70a18f94ad7f4d7cd934ec767", null ],

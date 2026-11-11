@@ -9962,10 +9962,10 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </inbodydescription>
         <location file="HighMap/src/colorize/color_adjust.cpp" line="161" column="6" bodyfile="HighMap/src/colorize/color_adjust.cpp" bodystart="161" bodyend="183" declfile="HighMap/include/highmap/colorize.hpp" declline="532" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1ab5360dca8a2e541c6d715bba73be7759" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1aad001c1f08de81a941f331183f2ab619" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Texture" kindref="compound">Texture</ref></type>
         <definition>Texture hmap::terrain_texture</definition>
-        <argsstring>(const Array &amp;z, const Array *p_deposition, const TerrainTextureParams &amp;params, const glm::vec4 &amp;bbox=glm::vec4(0.f, 0.f, 1.f, 1.f), float zmin=0.f, float zmax=-1.f, const Array *p_noise=nullptr)</argsstring>
+        <argsstring>(const Array &amp;z, const Array *p_deposition=nullptr, const Array *p_snow_depth=nullptr, const TerrainTextureParams &amp;params=TerrainTextureParams(), const glm::vec4 &amp;bbox=glm::vec4(0.f, 0.f, 1.f, 1.f), const Array *p_noise=nullptr, ICommunicator &amp;comm=SingleArrayComm::instance())</argsstring>
         <name>terrain_texture</name>
         <qualifiedname>hmap::terrain_texture</qualifiedname>
         <param>
@@ -9975,10 +9975,17 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         <param>
           <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_deposition</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_snow_depth</declname>
+          <defval>nullptr</defval>
         </param>
         <param>
           <type>const <ref refid="structhmap_1_1TerrainTextureParams" kindref="compound">TerrainTextureParams</ref> &amp;</type>
           <declname>params</declname>
+          <defval><ref refid="structhmap_1_1TerrainTextureParams" kindref="compound">TerrainTextureParams</ref>()</defval>
         </param>
         <param>
           <type>const glm::vec4 &amp;</type>
@@ -9986,19 +9993,14 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
           <defval>glm::vec4(0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>)</defval>
         </param>
         <param>
-          <type>float</type>
-          <declname>zmin</declname>
-          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>zmax</declname>
-          <defval>-1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
           <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_noise</declname>
           <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1ICommunicator" kindref="compound">ICommunicator</ref> &amp;</type>
+          <declname>comm</declname>
+          <defval><ref refid="classhmap_1_1SingleArrayComm_1a4cc8e4cdcf75624d4dbf641f4da8435a" kindref="member">SingleArrayComm::instance</ref>()</defval>
         </param>
         <briefdescription>
 <para>Generate a procedural terrain texture from elevation and surface analysis. </para>
@@ -10023,6 +10025,14 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 </parameteritem>
 <parameteritem>
 <parameternamelist>
+<parametername>p_snow_depth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional snow depth array (may be nullptr). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
 <parametername>params</parametername>
 </parameternamelist>
 <parameterdescription>
@@ -10039,26 +10049,18 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>zmin</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Minimum elevation to consider (computed from z if zmin &gt; zmax). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>zmax</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Maximum elevation to consider (computed from z if zmin &gt; zmax). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
 <parametername>p_noise</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Optional custom noise array (bypasses procedural noise if provided). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>comm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Communicator for collective normalization across tiles. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -10068,7 +10070,7 @@ f_\text{blend} = \frac{\sum_i f_i^{\alpha+1}}{\sum_i f_i^\alpha}
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/colorize/terrain_texture.cpp" line="25" column="9" bodyfile="HighMap/src/colorize/terrain_texture.cpp" bodystart="25" bodyend="271" declfile="HighMap/include/highmap/colorize.hpp" declline="556" declcolumn="9"/>
+        <location file="HighMap/src/colorize/terrain_texture.cpp" line="25" column="9" bodyfile="HighMap/src/colorize/terrain_texture.cpp" bodystart="25" bodyend="286" declfile="HighMap/include/highmap/colorize.hpp" declline="554" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2f2ca726f4e41128135e6c77120c66d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; glm::vec3 &gt;</type>
@@ -12344,13 +12346,13 @@ additional_depth)</computeroutput>.</para>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z3<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>deposition_ir<sp/>=<sp/>32;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>c_erosion<sp/>=<sp/>0.2f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a7e51491ac0bc571828955e8a54b143dc" kindref="member">hmap::gpu::hydraulic_stream_log</ref>(z3,<sp/>c_erosion,<sp/>talus_ref,<sp/>deposition_ir);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aeca6b25ae30fc8b842918f86a6933003" kindref="member">hmap::gpu::hydraulic_stream_log</ref>(z3,<sp/>c_erosion,<sp/>talus_ref,<sp/>deposition_ir);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>z3.dump();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>multiscale<sp/>log<sp/>scale</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z4<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a263168c2e1e24e25a4c1cba0142bdbc0" kindref="member">hmap::gpu::hydraulic_stream_log_multiscale</ref>(z4,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aaefd0ab7d1057310545af8b75192ace5" kindref="member">hmap::gpu::hydraulic_stream_log_multiscale</ref>(z4,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c_erosion,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_ref,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>levels<sp/>*/</highlight><highlight class="normal"><sp/>3,</highlight></codeline>
@@ -12665,13 +12667,13 @@ additional_depth)</computeroutput>.</para>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z3<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>deposition_ir<sp/>=<sp/>32;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>c_erosion<sp/>=<sp/>0.2f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a7e51491ac0bc571828955e8a54b143dc" kindref="member">hmap::gpu::hydraulic_stream_log</ref>(z3,<sp/>c_erosion,<sp/>talus_ref,<sp/>deposition_ir);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aeca6b25ae30fc8b842918f86a6933003" kindref="member">hmap::gpu::hydraulic_stream_log</ref>(z3,<sp/>c_erosion,<sp/>talus_ref,<sp/>deposition_ir);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>z3.dump();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>multiscale<sp/>log<sp/>scale</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z4<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a263168c2e1e24e25a4c1cba0142bdbc0" kindref="member">hmap::gpu::hydraulic_stream_log_multiscale</ref>(z4,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aaefd0ab7d1057310545af8b75192ace5" kindref="member">hmap::gpu::hydraulic_stream_log_multiscale</ref>(z4,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c_erosion,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_ref,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>levels<sp/>*/</highlight><highlight class="normal"><sp/>3,</highlight></codeline>

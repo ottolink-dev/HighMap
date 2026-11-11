@@ -236,7 +236,7 @@ var NAVTREEINDEX =
 "namespacehmap.html#a889405ce11be91e33cc80ca4dbd192b0",
 "namespacehmap.html#abf9521082ba09eb022834306bc6c354b",
 "namespacehmap.html#aeeb8f48ea78cb59de79c16ab28d1d855",
-"namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad",
+"namespacehmap_1_1gpu.html#aa7f770a100604c3bd345c26f3402433b",
 "non__parameteric__sampling_8cpp.html#a0a359831aea68622813f65f4a989a75a",
 "points_8cpp.html#aef71b544e3f4e5321cb3d41a7366e0f3",
 "recurve_8cpp.html#af9e3033eb08345c1e3c46bde5dcd29a1",
@@ -246,10 +246,10 @@ var NAVTREEINDEX =
 "structhmap_1_1TileRegion.html#a08bbfdea476e4db4ad25e0d2110b278c",
 "terrain__super__resolution_8cpp.html#a255cb99f1c4125463b5e3e5e2406cc72",
 "test__erosion_8cpp.html#a9bae9a744ca718ed36cf13bdff48e830",
-"test__math_8cpp.html#a1686db8319d7c3529f478b86ed16b566",
-"test__rocks_8cpp.html#afa77a04c20fe18ada6619e9943fd7d14",
-"thermal__erosion_8hpp.html#a4e8be6889c281171b841805b17b42b7f",
-"virtual__texture_8hpp.html#a973e9eeaf1bc68c61a860bcff379461b"
+"test__math_8cpp.html",
+"test__rocks_8cpp.html#ae3012e285f372d797461a86fe9421f80",
+"thermal__erosion_8hpp.html#a36a2eba6d158e44d0ef917d9582987fe",
+"virtual__texture_8hpp.html#a6bbca26bba2f2faac320f59df0ae8d8a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

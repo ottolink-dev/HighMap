@@ -33,5 +33,5 @@ var colorize_8hpp =
     [ "shade_color", "colorize_8hpp.html#a54eb8ce4196d73517024dbe2af5af81b", null ],
     [ "shade_color", "colorize_8hpp.html#a473177c74de27a056808d861d35eb1f3", null ],
     [ "shade_topographic_residual", "colorize_8hpp.html#aa26e98751bbe16f0223c8c117a35ec6e", null ],
-    [ "terrain_texture", "colorize_8hpp.html#ab5360dca8a2e541c6d715bba73be7759", null ]
+    [ "terrain_texture", "colorize_8hpp.html#aad001c1f08de81a941f331183f2ab619", null ]
 ];
