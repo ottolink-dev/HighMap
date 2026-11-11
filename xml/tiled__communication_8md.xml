@@ -236,6 +236,32 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>},</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
 <codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>7.<sp/>Buffer<sp/>Shape<sp/>Invariance<sp/>and<sp/>Nested<sp/>Multiscale<sp/>Pipelines</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">A<sp/>fundamental<sp/>invariant<sp/>of<sp/>the<sp/>tiled<sp/>communication<sp/>model<sp/>is<sp/>that<sp/>any<sp/>`Array`<sp/>buffer<sp/>passed<sp/>to<sp/>`sync_overlap_buffers(local_tile,<sp/>region,<sp/>op)`<sp/>must<sp/>match<sp/>the<sp/>full<sp/>tile<sp/>geometry<sp/>described<sp/>by<sp/>`region.shape`<sp/>(nominal<sp/>tile<sp/>size<sp/>plus<sp/>halo<sp/>margins).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Incompatibility<sp/>with<sp/>Nested<sp/>Multiscale<sp/>Pyramids</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Algorithms<sp/>that<sp/>construct<sp/>internal<sp/>resolution<sp/>pyramids<sp/>(such<sp/>as<sp/>multiscale<sp/>filters<sp/>or<sp/>cascades<sp/>that<sp/>downsample<sp/>local<sp/>tiles<sp/>to<sp/>coarse<sp/>ladder<sp/>shapes<sp/>$L_i$)<sp/>cannot<sp/>propagate<sp/>the<sp/>outer<sp/>`TileRegion`<sp/>or<sp/>`ICommunicator`<sp/>into<sp/>the<sp/>coarse<sp/>levels:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>The<sp/>downsampled<sp/>buffer<sp/>$z_{\text{coarse}}$<sp/>possesses<sp/>dimensions<sp/>$L_i$,<sp/>whereas<sp/>`region.shape`<sp/>and<sp/>`region.halo`<sp/>correspond<sp/>to<sp/>the<sp/>full<sp/>tile<sp/>resolution.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Seam<sp/>indexing<sp/>logic<sp/>assumes<sp/>the<sp/>halo<sp/>margins<sp/>and<sp/>stride<sp/>match<sp/>`region.shape`.<sp/>If<sp/>invoked<sp/>on<sp/>a<sp/>downsampled<sp/>buffer,<sp/>halo<sp/>offsets<sp/>exceed<sp/>the<sp/>array<sp/>boundaries,<sp/>leading<sp/>to<sp/>heap<sp/>corruption.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Intermediate<sp/>downsampled<sp/>levels<sp/>represent<sp/>purely<sp/>local<sp/>approximations<sp/>used<sp/>to<sp/>calculate<sp/>local<sp/>delta<sp/>adjustments<sp/>(e.g.<sp/>coarse<sp/>valley<sp/>carving),<sp/>and<sp/>are<sp/>not<sp/>decomposed<sp/>into<sp/>valid<sp/>global<sp/>sub-domains.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>such<sp/>multiscale<sp/>pipelines:</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Intermediate/coarse<sp/>levels<sp/>must<sp/>run<sp/>**locally**<sp/>using<sp/>`TileRegion::dummy()`<sp/>and<sp/>`SingleArrayComm::instance()`.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>The<sp/>active<sp/>`TileRegion`<sp/>and<sp/>`ICommunicator`<sp/>must<sp/>only<sp/>be<sp/>passed<sp/>to<sp/>the<sp/>final<sp/>resolution<sp/>level<sp/>where<sp/>the<sp/>buffer<sp/>dimensions<sp/>match<sp/>`region.shape`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Runtime<sp/>Shape<sp/>Validation</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Both<sp/>`ThreadedTileComm`<sp/>and<sp/>`SequentialTileComm`<sp/>validate<sp/>that<sp/>`local_tile.shape<sp/>==<sp/>region.shape`<sp/>at<sp/>the<sp/>beginning<sp/>of<sp/>`sync_overlap_buffers`.<sp/>If<sp/>a<sp/>mismatch<sp/>is<sp/>detected,<sp/>an<sp/>error<sp/>is<sp/>logged<sp/>and<sp/>synchronization<sp/>is<sp/>skipped<sp/>to<sp/>safeguard<sp/>memory<sp/>integrity:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```text</highlight></codeline>
+<codeline><highlight class="normal">sync_overlap_buffers:<sp/>buffer<sp/>shape<sp/>(x,<sp/>y)<sp/>does<sp/>not<sp/>match<sp/>region<sp/>shape<sp/>(rx,<sp/>ry).</highlight></codeline>
+<codeline><highlight class="normal">This<sp/>may<sp/>happen<sp/>if<sp/>sync<sp/>is<sp/>invoked<sp/>on<sp/>an<sp/>internal<sp/>or<sp/>nested<sp/>downsampled<sp/>buffer<sp/>(e.g.<sp/>multiscale<sp/>pyramid).</highlight></codeline>
+<codeline><highlight class="normal">Skipping<sp/>synchronization<sp/>to<sp/>prevent<sp/>memory<sp/>corruption.</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
     </programlisting>
     <location file="docs/content/dev/tiled_communication.md"/>
   </compounddef>

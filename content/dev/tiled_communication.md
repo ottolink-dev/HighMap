@@ -227,3 +227,29 @@ for_each_tile(
     },
     cm);
 ```
+
+## 7. Buffer Shape Invariance and Nested Multiscale Pipelines
+
+A fundamental invariant of the tiled communication model is that any `Array` buffer passed to `sync_overlap_buffers(local_tile, region, op)` must match the full tile geometry described by `region.shape` (nominal tile size plus halo margins).
+
+### Incompatibility with Nested Multiscale Pyramids
+
+Algorithms that construct internal resolution pyramids (such as multiscale filters or cascades that downsample local tiles to coarse ladder shapes $L_i$) cannot propagate the outer `TileRegion` or `ICommunicator` into the coarse levels:
+
+- The downsampled buffer $z_{\text{coarse}}$ possesses dimensions $L_i$, whereas `region.shape` and `region.halo` correspond to the full tile resolution.
+- Seam indexing logic assumes the halo margins and stride match `region.shape`. If invoked on a downsampled buffer, halo offsets exceed the array boundaries, leading to heap corruption.
+- Intermediate downsampled levels represent purely local approximations used to calculate local delta adjustments (e.g. coarse valley carving), and are not decomposed into valid global sub-domains.
+
+In such multiscale pipelines:
+- Intermediate/coarse levels must run **locally** using `TileRegion::dummy()` and `SingleArrayComm::instance()`.
+- The active `TileRegion` and `ICommunicator` must only be passed to the final resolution level where the buffer dimensions match `region.shape`.
+
+### Runtime Shape Validation
+
+Both `ThreadedTileComm` and `SequentialTileComm` validate that `local_tile.shape == region.shape` at the beginning of `sync_overlap_buffers`. If a mismatch is detected, an error is logged and synchronization is skipped to safeguard memory integrity:
+
+```text
+sync_overlap_buffers: buffer shape (x, y) does not match region shape (rx, ry).
+This may happen if sync is invoked on an internal or nested downsampled buffer (e.g. multiscale pyramid).
+Skipping synchronization to prevent memory corruption.
+```

@@ -222,7 +222,34 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>my_simulation(tile,<sp/>100,<sp/>10,<sp/>region,<sp/>comm);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>},</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
+</programlisting></para>
+</sect1>
+<sect1 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md122">
+<title>7. Buffer Shape Invariance and Nested Multiscale Pipelines</title>
+<para>A fundamental invariant of the tiled communication model is that any <computeroutput>Array</computeroutput> buffer passed to <computeroutput>sync_overlap_buffers(local_tile, region, op)</computeroutput> must match the full tile geometry described by <computeroutput>region.shape</computeroutput> (nominal tile size plus halo margins).</para>
+<sect2 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md123">
+<title>Incompatibility with Nested Multiscale Pyramids</title>
+<para>Algorithms that construct internal resolution pyramids (such as multiscale filters or cascades that downsample local tiles to coarse ladder shapes $L_i$) cannot propagate the outer <computeroutput>TileRegion</computeroutput> or <computeroutput>ICommunicator</computeroutput> into the coarse levels:</para>
+<para><itemizedlist>
+<listitem><para>The downsampled buffer $z_{\text{coarse}}$ possesses dimensions $L_i$, whereas <computeroutput>region.shape</computeroutput> and <computeroutput>region.halo</computeroutput> correspond to the full tile resolution.</para>
+</listitem><listitem><para>Seam indexing logic assumes the halo margins and stride match <computeroutput>region.shape</computeroutput>. If invoked on a downsampled buffer, halo offsets exceed the array boundaries, leading to heap corruption.</para>
+</listitem><listitem><para>Intermediate downsampled levels represent purely local approximations used to calculate local delta adjustments (e.g. coarse valley carving), and are not decomposed into valid global sub-domains.</para>
+</listitem></itemizedlist>
+</para>
+<para>In such multiscale pipelines:<itemizedlist>
+<listitem><para>Intermediate/coarse levels must run <bold>locally</bold> using <computeroutput>TileRegion::dummy()</computeroutput> and <computeroutput>SingleArrayComm::instance()</computeroutput>.</para>
+</listitem><listitem><para>The active <computeroutput>TileRegion</computeroutput> and <computeroutput>ICommunicator</computeroutput> must only be passed to the final resolution level where the buffer dimensions match <computeroutput>region.shape</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md124">
+<title>Runtime Shape Validation</title>
+<para>Both <computeroutput>ThreadedTileComm</computeroutput> and <computeroutput>SequentialTileComm</computeroutput> validate that <computeroutput>local_tile.shape == region.shape</computeroutput> at the beginning of <computeroutput>sync_overlap_buffers</computeroutput>. If a mismatch is detected, an error is logged and synchronization is skipped to safeguard memory integrity:</para>
+<para><programlisting filename=".text"><codeline><highlight class="normal">sync_overlap_buffers:<sp/>buffer<sp/>shape<sp/>(x,<sp/>y)<sp/>does<sp/>not<sp/>match<sp/>region<sp/>shape<sp/>(rx,<sp/>ry).</highlight></codeline>
+<codeline><highlight class="normal">This<sp/>may<sp/>happen<sp/>if<sp/>sync<sp/>is<sp/>invoked<sp/>on<sp/>an<sp/>internal<sp/>or<sp/>nested<sp/>downsampled<sp/>buffer<sp/>(e.g.<sp/>multiscale<sp/>pyramid).</highlight></codeline>
+<codeline><highlight class="normal">Skipping<sp/>synchronization<sp/>to<sp/>prevent<sp/>memory<sp/>corruption.</highlight></codeline>
 </programlisting> </para>
+</sect2>
 </sect1>
     </detaileddescription>
     <location file="docs/content/dev/tiled_communication.md"/>
