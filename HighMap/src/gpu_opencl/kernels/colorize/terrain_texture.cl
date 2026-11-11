@@ -211,21 +211,21 @@ void kernel terrain_shade(read_only image2d_t in_z,
 
   // --- Snow
   float snow_mask = 0.f;
+  float snow_sh = 0.f;
 
   if (use_snow_depth)
   {
     const float depth = read_imagef(in_snow_depth, sampler_nn, g).x;
-    const float snow_val = depth - 0.02f + 0.04f * nf;
-    snow_mask = snow_amount * smoothstep3_gl(snow_val, -0.02f, 0.05f);
+    snow_mask = snow_amount * smoothstep3_gl(depth, 0.f, 0.05f);
+    snow_sh = -0.3f * max(-c, 0.f);
   }
   else
   {
     const float snow_val = h - snow_line + 0.08f * nm + 0.04f * nf -
                            0.15f * max(0.f, s - 0.9f) - 0.05f * c;
     snow_mask = snow_amount * smoothstep3_gl(snow_val, -0.04f, 0.04f);
+    snow_sh = 0.15f * nf - 0.3f * max(-c, 0.f);
   }
-
-  const float snow_sh = 0.15f * nf - 0.3f * max(-c, 0.f);
 
   col = mix(col, terrain_shade_color(col_snow, snow_sh), snow_mask);
 
