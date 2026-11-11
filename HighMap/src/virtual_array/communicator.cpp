@@ -15,6 +15,7 @@
 #include <thread>
 
 #include "highmap/array.hpp"
+#include "highmap/logger.hpp"
 #include "highmap/math/core.hpp"
 #include "highmap/virtual_array/communicator.hpp"
 #include "highmap/virtual_array/tile_region.hpp"
@@ -398,6 +399,21 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
                                               SyncOperation     op)
 {
   if (this->halo <= 0) return;
+
+  if (region.shape.x > 0 && region.shape.y > 0 &&
+      local_tile.shape != region.shape)
+  {
+    hmap::log::error(
+        "sync_overlap_buffers: buffer shape ({}, {}) does not match region "
+        "shape ({}, {}). This may happen if sync is invoked on an internal or "
+        "nested downsampled buffer (e.g. multiscale pyramid). Skipping "
+        "synchronization to prevent memory corruption.",
+        local_tile.shape.x,
+        local_tile.shape.y,
+        region.shape.x,
+        region.shape.y);
+    return;
+  }
 
   // --- Option A2: Cooperative fiber suspension + disk-backed VirtualArray
   // (VA_DISK_LRU_STREAM, max 2 live tiles in memory)
@@ -870,6 +886,21 @@ void ThreadedTileComm::sync_overlap_buffers(Array            &local_tile,
   const int halo = std::max(
       {region.halo.x, region.halo.y, region.halo.z, region.halo.w});
   if (halo <= 0) return;
+
+  if (region.shape.x > 0 && region.shape.y > 0 &&
+      local_tile.shape != region.shape)
+  {
+    hmap::log::error(
+        "sync_overlap_buffers: buffer shape ({}, {}) does not match region "
+        "shape ({}, {}). This may happen if sync is invoked on an internal or "
+        "nested downsampled buffer (e.g. multiscale pyramid). Skipping "
+        "synchronization to prevent memory corruption.",
+        local_tile.shape.x,
+        local_tile.shape.y,
+        region.shape.x,
+        region.shape.y);
+    return;
+  }
 
   // Step 1: Every rank registers its local tile and region
   this->state->register_tile(this->thread_rank, &local_tile, region);

@@ -270,7 +270,7 @@ void hydraulic_stream_log_multiscale(Array            &z,
       float level_talus_ref = talus_ref * static_cast<float>(z.shape.x) /
                               static_cast<float>(ladder[i].x);
 
-      // run erosion on coarse grid without deposition
+      // run erosion on coarse grid without deposition (local only, no tile comm)
       gpu::hydraulic_stream_log(z_coarse,
                                 c_erosion,
                                 level_talus_ref,
@@ -285,8 +285,8 @@ void hydraulic_stream_log_multiscale(Array            &z,
                                 nullptr,
                                 nullptr,
                                 nullptr,
-                                region,
-                                comm);
+                                TileRegion::dummy(),
+                                SingleArrayComm::instance());
 
       // compute incision delta and upsample smoothly to full resolution with
       // optional domain warp
