@@ -54,6 +54,7 @@ void hydraulic_stream_log(Array            &z,
                                       /*iterations=*/0,
                                       region,
                                       comm);
+  clamp_min(facc, 1.f);
   facc = log10(facc);
   remap(facc, 0.f, 1.f, comm);
 
@@ -67,6 +68,7 @@ void hydraulic_stream_log(Array            &z,
   {
     gpu::smooth_cpulse(gn, gradient_prefilter_ir, nullptr, region, comm);
     remap(gn, 0.f, 1.f, comm);
+    clamp(gn, 0.f, 1.f);
     gn = pow(gn, gradient_power);
     gn = smoothstep5_lower(gn);
     facc *= (1.f - gradient_scaling_ratio) + gradient_scaling_ratio * gn;
@@ -75,6 +77,7 @@ void hydraulic_stream_log(Array            &z,
   // preserve local peaks
   {
     Array re = gpu::relative_elevation_square_kernel(z, gradient_prefilter_ir);
+    clamp(re, 0.f, 1.f);
     re = smoothstep3(1.f - re);
     facc *= re;
   }
@@ -191,8 +194,28 @@ void hydraulic_stream_log(Array            &z,
                               comm);
     z = lerp(z, z_f, *(p_mask));
 
+    if (p_erosion_map) *p_erosion_map *= *(p_mask);
+    if (p_deposition_map) *p_deposition_map *= *(p_mask);
+
     if (comm.size() > 1)
+    {
       comm.sync_overlap_buffers(z, region, SyncOperation::SmoothBlend);
+
+      if (p_erosion_map)
+        comm.sync_overlap_buffers(*p_erosion_map,
+                                  region,
+                                  SyncOperation::SmoothBlend);
+
+      if (p_deposition_map)
+        comm.sync_overlap_buffers(*p_deposition_map,
+                                  region,
+                                  SyncOperation::SmoothBlend);
+
+      if (p_flow_map)
+        comm.sync_overlap_buffers(*p_flow_map,
+                                  region,
+                                  SyncOperation::SmoothBlend);
+    }
   }
 }
 
@@ -436,8 +459,28 @@ void hydraulic_stream_log_multiscale(Array            &z,
                                          comm);
     z = lerp(z, z_f, *(p_mask));
 
+    if (p_erosion_map) *p_erosion_map *= *(p_mask);
+    if (p_deposition_map) *p_deposition_map *= *(p_mask);
+
     if (comm.size() > 1)
+    {
       comm.sync_overlap_buffers(z, region, SyncOperation::SmoothBlend);
+
+      if (p_erosion_map)
+        comm.sync_overlap_buffers(*p_erosion_map,
+                                  region,
+                                  SyncOperation::SmoothBlend);
+
+      if (p_deposition_map)
+        comm.sync_overlap_buffers(*p_deposition_map,
+                                  region,
+                                  SyncOperation::SmoothBlend);
+
+      if (p_flow_map)
+        comm.sync_overlap_buffers(*p_flow_map,
+                                  region,
+                                  SyncOperation::SmoothBlend);
+    }
   }
 }
 

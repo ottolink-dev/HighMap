@@ -734,6 +734,108 @@ TEST(HydraulicStreamGPU, TiledDistributedExecution)
   }
 }
 
+TEST(HydraulicStreamGPU, TiledDistributedExecutionMultiscaleWithOutputs)
+{
+  gpu::init_opencl();
+
+  const glm::ivec2 shape = {256, 256};
+  const glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
+  const glm::ivec2 tile_shape = {128, 128};
+  const size_t     halo = 16;
+
+  Array z_in = noise_fbm(NoiseType::PERLIN, shape, {4.f, 4.f}, 42).remapped();
+
+  ComputeMode cm{
+      .mode = ForEachMode::VA_DISTRIBUTED,
+      .trim_storage = false,
+      .stride = 1,
+  };
+
+  VirtualArray z_va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  VirtualArray z_out(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  VirtualArray erosion_va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  VirtualArray deposition_va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  VirtualArray flow_va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+
+  VirtualArray mask_va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  Array        mask_in(shape, 1.f);
+  mask_va.from_array(mask_in, cm);
+
+  z_va.from_array(z_in, cm);
+
+  for_each_tile(
+      {&z_va, &mask_va},
+      {&z_out, &erosion_va, &deposition_va, &flow_va},
+      [](std::vector<const Array *> p_arrays_in,
+         std::vector<Array *>       p_arrays_out,
+         const TileRegion          &region,
+         ICommunicator             &comm)
+      {
+        auto [pa_z, pa_mask] = unpack<2>(p_arrays_in);
+        auto [pa_out, pa_erosion, pa_deposition, pa_flow] =
+            unpack<4>(p_arrays_out);
+
+        *pa_out = *pa_z;
+        gpu::hydraulic_stream_log_multiscale(*pa_out,
+                                             0.1f,
+                                             0.1f,
+                                             /*p_mask=*/pa_mask,
+                                             /*levels=*/3,
+                                             /*deposition_ir=*/25,
+                                             /*deposition_scale_ratio=*/0.5f,
+                                             /*gradient_power=*/0.6f,
+                                             /*gradient_scaling_ratio=*/1.f,
+                                             /*gradient_prefilter_ir=*/25,
+                                             /*saturation_ratio=*/1.f,
+                                             /*p_bedrock=*/nullptr,
+                                             /*p_moisture_map=*/nullptr,
+                                             pa_erosion,
+                                             pa_deposition,
+                                             pa_flow,
+                                             /*mix=*/0.7f,
+                                             /*warp=*/0.8f,
+                                             /*seed=*/0u,
+                                             region,
+                                             comm);
+      },
+      cm);
+
+  // Remap outputs like Hesiod does
+  erosion_va.remap(0.f, 1.f, cm);
+  deposition_va.remap(0.f, 1.f, cm);
+  flow_va.remap(0.f, 1.f, cm);
+
+  Array res = z_out.to_array(cm);
+  Array erosion = erosion_va.to_array(cm);
+  Array deposition = deposition_va.to_array(cm);
+  Array flow = flow_va.to_array(cm);
+
+  EXPECT_EQ(res.shape, shape);
+  for (float v : res.vector)
+  {
+    ASSERT_FALSE(std::isnan(v));
+    ASSERT_FALSE(std::isinf(v));
+  }
+
+  for (float v : erosion.vector)
+  {
+    ASSERT_FALSE(std::isnan(v));
+    ASSERT_FALSE(std::isinf(v));
+  }
+
+  for (float v : deposition.vector)
+  {
+    ASSERT_FALSE(std::isnan(v));
+    ASSERT_FALSE(std::isinf(v));
+  }
+
+  for (float v : flow.vector)
+  {
+    ASSERT_FALSE(std::isnan(v));
+    ASSERT_FALSE(std::isinf(v));
+  }
+}
+
 TEST(HydraulicStreamGPU, TiledDistributedExecutionMultiscale)
 {
   gpu::init_opencl();
