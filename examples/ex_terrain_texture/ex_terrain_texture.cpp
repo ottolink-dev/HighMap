@@ -279,7 +279,10 @@ int main(void)
 
   for (const auto &entry : presets)
   {
-    hmap::Texture tex = hmap::terrain_texture(z, &deposition, entry.params);
+    hmap::Texture tex = hmap::terrain_texture(z,
+                                              &deposition,
+                                              nullptr,
+                                              entry.params);
     tex.to_png("ex_terrain_texture_" + entry.name + ".png");
     textures.push_back(std::move(tex));
   }

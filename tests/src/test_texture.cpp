@@ -247,7 +247,7 @@ TEST(TextureColorize, BivariateReverseAndNoise)
   EXPECT_NEAR(color.b, 0.f, 1e-5f);
 }
 
-TEST(TextureColorize, TerrainTextureZMinZMax)
+TEST(TextureColorize, TerrainTextureBasic)
 {
   glm::ivec2 shape = {16, 16};
   Array      z(shape, 10.f);
@@ -256,46 +256,18 @@ TEST(TextureColorize, TerrainTextureZMinZMax)
 
   TerrainTextureParams params;
 
-  // Default guard values: should recompute zmin = 5, zmax = 15
-  Texture tex_default = terrain_texture(z, nullptr, params);
+  // Default computation: should automatically compute zmin and zmax
+  Texture tex_default = terrain_texture(z, nullptr, nullptr, params);
   EXPECT_EQ(tex_default.shape, shape);
   EXPECT_EQ(tex_default.num_channels(), 4);
-
-  // Explicit guard values
-  Texture tex_guard = terrain_texture(z,
-                                      nullptr,
-                                      params,
-                                      glm::vec4(0.f, 0.f, 1.f, 1.f),
-                                      0.f,
-                                      -1.f);
-  EXPECT_EQ(tex_guard.shape, shape);
-  EXPECT_EQ(tex_guard.num_channels(), 4);
-
-  // Verify that default guard and explicit guard produce identical results
-  for (int c = 0; c < 4; ++c)
-    EXPECT_TRUE(assert_almost_equal(tex_default[c], tex_guard[c], 1e-5f));
-
-  // Explicit custom elevation range (zmin <= zmax)
-  Texture tex_custom = terrain_texture(z,
-                                       nullptr,
-                                       params,
-                                       glm::vec4(0.f, 0.f, 1.f, 1.f),
-                                       5.f,
-                                       15.f);
-  EXPECT_EQ(tex_custom.shape, shape);
-  EXPECT_EQ(tex_custom.num_channels(), 4);
-
-  for (int c = 0; c < 4; ++c)
-    EXPECT_TRUE(assert_almost_equal(tex_default[c], tex_custom[c], 1e-5f));
 
   // Invalid custom noise shape should fail validation and return empty Texture
   Array   wrong_noise(glm::ivec2(8, 8), 0.5f);
   Texture tex_invalid = terrain_texture(z,
                                         nullptr,
+                                        nullptr,
                                         params,
                                         glm::vec4(0.f, 0.f, 1.f, 1.f),
-                                        0.f,
-                                        -1.f,
                                         &wrong_noise);
   EXPECT_TRUE(tex_invalid.is_empty());
 
@@ -303,19 +275,60 @@ TEST(TextureColorize, TerrainTextureZMinZMax)
   Array   custom_noise(shape, 0.5f);
   Texture tex_custom_noise = terrain_texture(z,
                                              nullptr,
+                                             nullptr,
                                              params,
                                              glm::vec4(0.f, 0.f, 1.f, 1.f),
-                                             0.f,
-                                             -1.f,
                                              &custom_noise);
   EXPECT_EQ(tex_custom_noise.shape, shape);
   EXPECT_EQ(tex_custom_noise.num_channels(), 4);
 
   // Deactivated color noise (color_noise <= 0)
   params.color_noise = 0.f;
-  Texture tex_no_color_noise = terrain_texture(z, nullptr, params);
+  Texture tex_no_color_noise = terrain_texture(z, nullptr, nullptr, params);
   EXPECT_EQ(tex_no_color_noise.shape, shape);
   EXPECT_EQ(tex_no_color_noise.num_channels(), 4);
+}
+
+TEST(TextureColorize, TerrainTextureSnowDepth)
+{
+  glm::ivec2 shape = {32, 32};
+  Array      z(shape, 0.f);
+
+  TerrainTextureParams params;
+  params.snow_amount = 1.0f;
+  params.snow_line = 0.99f; // high snow line so elevation-based snow is absent
+  params.color_noise = 0.f;
+
+  // 1. Without snow depth and elevation below snow line -> no snow
+  Texture tex_no_snow = terrain_texture(z, nullptr, nullptr, params);
+  EXPECT_EQ(tex_no_snow.shape, shape);
+
+  // 2. With snow depth array provided (unnormalized depth values, e.g. 5.0f)
+  Array snow_depth(shape, 0.f);
+  for (int j = 0; j < 16; ++j)
+    for (int i = 0; i < 32; ++i)
+      snow_depth(i, j) = 5.0f;
+
+  Texture tex_snow = terrain_texture(z, nullptr, &snow_depth, params);
+  EXPECT_EQ(tex_snow.shape, shape);
+
+  // Snowy half should differ from non-snowy half and approach params.snow color
+  glm::vec3 sample_snowy(tex_snow[0](16, 8),
+                         tex_snow[1](16, 8),
+                         tex_snow[2](16, 8));
+  glm::vec3 sample_no_snow(tex_snow[0](16, 24),
+                           tex_snow[1](16, 24),
+                           tex_snow[2](16, 24));
+  EXPECT_GT(sample_snowy.r, sample_no_snow.r);
+  EXPECT_NEAR(sample_snowy.r, params.snow.r, 0.1f);
+
+  // 3. Snow amount acts as overall multiplier (snow_amount = 0 eliminates snow)
+  params.snow_amount = 0.f;
+  Texture tex_zero_snow = terrain_texture(z, nullptr, &snow_depth, params);
+  for (int c = 0; c < 3; ++c)
+  {
+    EXPECT_TRUE(assert_almost_equal(tex_zero_snow[c], tex_no_snow[c], 1e-4f));
+  }
 }
 
 TEST(TextureTransform, BasicTransforms)

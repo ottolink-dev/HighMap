@@ -543,23 +543,21 @@ void shade_topographic_residual(Texture     &tex,
  *
  * @param  z            Elevation input array.
  * @param  p_deposition Optional deposition array (may be nullptr).
+ * @param  p_snow_depth Optional snow depth array (may be nullptr).
  * @param  params       Terrain texturing parameters.
  * @param  bbox         Bounding box for coherent noise coordinates.
- * @param  zmin         Minimum elevation to consider (computed from z if zmin >
- *                      zmax).
- * @param  zmax         Maximum elevation to consider (computed from z if zmin >
- *                      zmax).
  * @param  p_noise      Optional custom noise array (bypasses procedural noise
  *                      if provided).
+ * @param  comm         Communicator for collective normalization across tiles.
  * @return              4-channel RGBA Texture.
  */
 Texture terrain_texture(const Array                &z,
-                        const Array                *p_deposition,
-                        const TerrainTextureParams &params,
+                        const Array                *p_deposition = nullptr,
+                        const Array                *p_snow_depth = nullptr,
+                        const TerrainTextureParams &params = TerrainTextureParams(),
                         const glm::vec4 &bbox = glm::vec4(0.f, 0.f, 1.f, 1.f),
-                        float            zmin = 0.f,
-                        float            zmax = -1.f,
-                        const Array     *p_noise = nullptr);
+                        const Array     *p_noise = nullptr,
+                        ICommunicator   &comm = SingleArrayComm::instance());
 
 } // namespace hmap
 

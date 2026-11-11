@@ -24,22 +24,20 @@ namespace hmap
 
 Texture terrain_texture(const Array                &z,
                         const Array                *p_deposition,
+                        const Array                *p_snow_depth,
                         const TerrainTextureParams &p,
                         const glm::vec4            &bbox,
-                        float                       zmin,
-                        float                       zmax,
-                        const Array                *p_noise)
+                        const Array                *p_noise,
+                        ICommunicator              &comm)
 {
   if (!validate_non_empty(z)) return Texture();
   if (p_noise && !validate_same_shape(z, *p_noise)) return Texture();
+  if (p_snow_depth && !validate_same_shape(z, *p_snow_depth)) return Texture();
 
   // resolve elevation range
-  if (zmin > zmax)
-  {
-    const glm::vec2 z_range = z.range();
-    zmin = z_range.x;
-    zmax = z_range.y;
-  }
+  const glm::vec2 z_range = z.range(comm);
+  const float     zmin = z_range.x;
+  const float     zmax = z_range.y;
 
   const glm::ivec2 shape = z.shape;
   const int        nx = shape.x;
@@ -84,24 +82,37 @@ Texture terrain_texture(const Array                &z,
   const Array region = gpu::topographic_residual(z, ir_region, true);
 
   // drainage on a log scale: 0 on the ridges, 1 in the main river
-  Array flow = flow_accumulation_dinf(zs, 0.1f);
+  Array flow = flow_accumulation_dinf(zs, 0.1f, 0, {}, comm);
   {
-    const float lmax = std::log(std::max(flow.max(), 2.f));
+    const float lmax = std::log(std::max(flow.max(comm), 2.f));
     for (float &v : flow.vector)
       v = std::log(std::max(v, 1.f)) / lmax;
   }
   Array moisture = flow;
   gpu::smooth_cpulse(moisture, ir_crest);
 
-  // normalize deposition into [0, 1] relative to the 90th percentile
+  // normalize deposition into [0, 1] relative to the maximum
   Array deposit(shape, 0.f);
   if (p_deposition && p_deposition->shape == shape)
   {
-    const float ref = p_deposition->range_percentile(0.f, 0.9f, 1024, true).y;
+    const float ref = p_deposition->max(comm);
     if (ref > 1e-6f)
     {
       deposit = *p_deposition / ref;
       clamp(deposit, 0.f, 1.f);
+    }
+  }
+
+  // normalize snow depth into [0, 1] relative to global maximum across tiles
+  const bool has_snow_depth = (p_snow_depth != nullptr);
+  Array      snow_depth(shape, 0.f);
+  if (has_snow_depth)
+  {
+    const float max_snow_depth = p_snow_depth->max(comm);
+    if (max_snow_depth > 1e-6f)
+    {
+      snow_depth = *p_snow_depth / max_snow_depth;
+      clamp(snow_depth, 0.f, 1.f);
     }
   }
 
@@ -219,6 +230,7 @@ Texture terrain_texture(const Array                &z,
     run_shade.bind_imagef("in_nm", n_mid.vector, nx, ny);
     run_shade.bind_imagef("in_nf", n_fine.vector, nx, ny);
     run_shade.bind_imagef("in_ng", n_grain.vector, nx, ny);
+    run_shade.bind_imagef("in_snow_depth", snow_depth.vector, nx, ny);
 
     run_shade.bind_buffer<float>("out_r", out[0].vector);
     run_shade.bind_buffer<float>("out_g", out[1].vector);
@@ -235,8 +247,11 @@ Texture terrain_texture(const Array                &z,
     cl_float3 col_ridge = {{p.ridge.r, p.ridge.g, p.ridge.b, 0.f}};
     cl_float3 col_snow = {{p.snow.r, p.snow.g, p.snow.b, 0.f}};
 
+    const int use_snow_depth = has_snow_depth ? 1 : 0;
+
     run_shade.bind_arguments(nx,
                              ny,
+                             use_snow_depth,
                              zmin,
                              zrange,
                              p.rock_talus,

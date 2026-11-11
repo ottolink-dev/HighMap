@@ -96,12 +96,14 @@ void kernel terrain_shade(read_only image2d_t in_z,
                           read_only image2d_t in_nm,
                           read_only image2d_t in_nf,
                           read_only image2d_t in_ng,
+                          read_only image2d_t in_snow_depth,
                           global float       *out_r,
                           global float       *out_g,
                           global float       *out_b,
                           global float       *out_a,
                           const int           nx,
                           const int           ny,
+                          const int           use_snow_depth,
                           const float         zmin,
                           const float         zrange,
                           const float         rock_talus,
@@ -208,9 +210,21 @@ void kernel terrain_shade(read_only image2d_t in_z,
   col = mix(col, terrain_shade_color(col_ridge, ridge_sh), spill_mask);
 
   // --- Snow
-  const float snow_val = h - snow_line + 0.08f * nm + 0.04f * nf -
-                         0.15f * max(0.f, s - 0.9f) - 0.05f * c;
-  const float snow_mask = snow_amount * smoothstep3_gl(snow_val, -0.04f, 0.04f);
+  float snow_mask = 0.f;
+
+  if (use_snow_depth)
+  {
+    const float depth = read_imagef(in_snow_depth, sampler_nn, g).x;
+    const float snow_val = depth - 0.02f + 0.04f * nf;
+    snow_mask = snow_amount * smoothstep3_gl(snow_val, -0.02f, 0.05f);
+  }
+  else
+  {
+    const float snow_val = h - snow_line + 0.08f * nm + 0.04f * nf -
+                           0.15f * max(0.f, s - 0.9f) - 0.05f * c;
+    snow_mask = snow_amount * smoothstep3_gl(snow_val, -0.04f, 0.04f);
+  }
+
   const float snow_sh = 0.15f * nf - 0.3f * max(-c, 0.f);
 
   col = mix(col, terrain_shade_color(col_snow, snow_sh), snow_mask);
