@@ -554,13 +554,13 @@ TEST(CloudTest, SetValuesFromArrayRadius)
   cloud.emplace_back(0.5f, 0.5f, -1.f);
   cloud.emplace_back(2.f, 2.f, -1.f);
 
-  cloud.set_values_from_array(z, hmap::ArraySampling::MAX, 0.15f);
+  cloud.set_values_from_array(z, hmap::ArraySampling::AS_MAX, 0.15f);
   EXPECT_NEAR(cloud[0].v, 5.f, 1e-5f);
 
-  cloud.set_values_from_array(z, hmap::ArraySampling::MIN, 0.15f);
+  cloud.set_values_from_array(z, hmap::ArraySampling::AS_MIN, 0.15f);
   EXPECT_NEAR(cloud[0].v, 1.f, 1e-5f);
 
-  cloud.set_values_from_array(z, hmap::ArraySampling::MEAN, 0.15f);
+  cloud.set_values_from_array(z, hmap::ArraySampling::AS_MEAN, 0.15f);
   EXPECT_GT(cloud[0].v, 1.f);
   EXPECT_LT(cloud[0].v, 5.f);
 

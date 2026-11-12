@@ -1,0 +1,2 @@
+add_executable(ex_flatten_around_points_terrain_aware ex_flatten_around_points_terrain_aware.cpp)
+target_link_libraries(ex_flatten_around_points_terrain_aware highmap)

@@ -168,6 +168,75 @@ void flatten_around_points(
     glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
+ * @brief Terrain-aware flattening around a set of seed points.
+ *
+ * From each seed, a Dijkstra propagation computes an accumulated cost distance
+ * over the heightmap. The step cost is the step length multiplied by
+ * `1 + slope_weight * slope + uphill_weight * climb / radius`, so the flattened
+ * region follows valleys and spreads easily over flat areas but is reduced on
+ * steep or higher terrain. Cells are reached only while the cost is below the
+ * radius and the Euclidean distance is below the radius (the radius is thus a
+ * maximum geometric extent) and the elevation is not above the height limit.
+ *
+ * The cost distance replaces the Euclidean distance in the radial profile. The
+ * target surface is the seed elevation plus a fraction (`terrain_follow`) of the
+ * smoothed terrain relief relative to the seed, so it is not an exact plateau.
+ * Contributions of several seeds are combined as in flatten_around_points.
+ *
+ * @param[in,out] z      Heightmap array to modify in place.
+ * @param[in]     xp     Seed x coordinates (in the bounding box).
+ * @param[in]     yp     Seed y coordinates.
+ * @param[in]     zp     Seed reference elevations.
+ * @param[in]     radius Maximum geometric extent of each seed (bbox units).
+ * @param[in]     slope_weight     Penalty on the local slope (0: ignored).
+ * @param[in]     uphill_weight    Penalty on climbing above the seed elevation
+ *                                 (0: ignored).
+ * @param[in]     max_height_above Cells higher than `seed elevation +
+ *                                 max_height_above` are never reached
+ *                                 (negative: no limit).
+ * @param[in]     terrain_follow   Amount of smoothed relief kept in the target
+ *                                 surface: 0 gives an exact plateau, 1 keeps the
+ *                                 whole relief.
+ * @param[in]     strength         Flattening strength in [0, 1].
+ * @param[in]     radial_profile   Radial profile used for the falloff.
+ * @param[in]     profile_param    Shape parameter of the radial profile.
+ * @param[out]    p_mask Optional output blending weights.
+ * @param[in]     bbox   Bounding box of the heightmap.
+ */
+void flatten_around_points_terrain_aware(
+    Array                    &z,
+    const std::vector<float> &xp,
+    const std::vector<float> &yp,
+    const std::vector<float> &zp,
+    const std::vector<float> &radius,
+    float                     slope_weight = 1.f,
+    float                     uphill_weight = 2.f,
+    float                     max_height_above = -1.f,
+    float                     terrain_follow = 0.5f,
+    float                     strength = 1.f,
+    RadialProfile             radial_profile = RadialProfile::RP_SMOOTHSTEP,
+    float                     profile_param = 1.f,
+    Array                    *p_mask = nullptr,
+    glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
+
+/// @brief Overload with a single radius shared by all seeds.
+void flatten_around_points_terrain_aware(
+    Array                    &z,
+    const std::vector<float> &xp,
+    const std::vector<float> &yp,
+    const std::vector<float> &zp,
+    float                     radius,
+    float                     slope_weight = 1.f,
+    float                     uphill_weight = 2.f,
+    float                     max_height_above = -1.f,
+    float                     terrain_follow = 0.5f,
+    float                     strength = 1.f,
+    RadialProfile             radial_profile = RadialProfile::RP_SMOOTHSTEP,
+    float                     profile_param = 1.f,
+    Array                    *p_mask = nullptr,
+    glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
  * @brief Blends a flatbed carve into an existing heightmap.
  *
  * Carves and blends a flatbed shape along a path into the provided array, using

@@ -289,7 +289,7 @@ public:
    * @param sampling Sampling strategy (value at the point, or min / max / mean
    *                 within a radius).
    * @param radius   Radius (in bbox units) of the neighborhood, ignored for
-   *                 ArraySampling::POINT.
+   *                 ArraySampling::AS_POINT.
    * @param bbox     Bounding box mapping the point coordinates to the array.
    */
   void set_values_from_array(const Array     &array,
