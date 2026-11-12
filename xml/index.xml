@@ -243,6 +243,7 @@
     <member refid="classhmap_1_1Cloud_1a604e61fbcbd8cc469ed21501e65f5c7b" kind="function"><name>set_values</name></member>
     <member refid="classhmap_1_1Cloud_1a540b582307b8457f38c43d12d899f2bf" kind="function"><name>set_values</name></member>
     <member refid="classhmap_1_1Cloud_1a5ac84550aceffbb9053c3b58490e7126" kind="function"><name>set_values_from_array</name></member>
+    <member refid="classhmap_1_1Cloud_1a2eb3e9fac2148525bd2a3b49fdf5761d" kind="function"><name>set_values_from_array</name></member>
     <member refid="classhmap_1_1Cloud_1a4349b98daebf829b1dd2d54d02e61231" kind="function"><name>set_values_from_border_distance</name></member>
     <member refid="classhmap_1_1Cloud_1adf0b7a7c0c7d414e5d01e19be624aa3c" kind="function"><name>set_values_from_chull_distance</name></member>
     <member refid="classhmap_1_1Cloud_1ad8b2d626436107c4b0e2c9877747375f" kind="function"><name>set_values_from_min_distance</name></member>
@@ -1959,6 +1960,11 @@
     <member refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a035bda7c8c2179b47b9a766531c2e89e" kind="enumvalue"><name>WORLEY</name></member>
     <member refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a1d1ba101960a8a8234df2d16ac305d45" kind="enumvalue"><name>WORLEY_DOUBLE</name></member>
     <member refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a803cca1f65b9596dbde7c54039773a39" kind="enumvalue"><name>WORLEY_VALUE</name></member>
+    <member refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670" kind="enum"><name>ArraySampling</name></member>
+    <member refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670ae917a7a69f95d0944d9db8bd50ac1483" kind="enumvalue"><name>AS_POINT</name></member>
+    <member refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670ade783ba3bcee865456df9537ea63b8e0" kind="enumvalue"><name>AS_MIN</name></member>
+    <member refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670ae19372edb8b516f64baf28db3f8be338" kind="enumvalue"><name>AS_MAX</name></member>
+    <member refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670a35b7b1e0a176f1576070081a51d562e5" kind="enumvalue"><name>AS_MEAN</name></member>
     <member refid="namespacehmap_1aba758c4143b6e499ec6f4385467a6d77" kind="enum"><name>PointSamplingMethod</name></member>
     <member refid="namespacehmap_1aba758c4143b6e499ec6f4385467a6d77aea0acc8d27d5a8a13e107f49120c084e" kind="enumvalue"><name>RND_RANDOM</name></member>
     <member refid="namespacehmap_1aba758c4143b6e499ec6f4385467a6d77a99ca15104343ff0356c6fc0ffe4f837d" kind="enumvalue"><name>RND_HALTON</name></member>
@@ -2173,6 +2179,10 @@
     <member refid="namespacehmap_1a8e2364315f5b159daae10f508dd1d2a8" kind="function"><name>zeroed_edges</name></member>
     <member refid="namespacehmap_1acf2e3177a8b9b776c6fb7e3b53c6cd34" kind="function"><name>carve_river</name></member>
     <member refid="namespacehmap_1a3a29e127d53bc5b547af422da36da1cc" kind="function"><name>dig_path</name></member>
+    <member refid="namespacehmap_1aebf1ae5fd4f7a3985a938703eeb6bdb0" kind="function"><name>flatten_around_points</name></member>
+    <member refid="namespacehmap_1ad469b6940021dce125ee989001a6626e" kind="function"><name>flatten_around_points</name></member>
+    <member refid="namespacehmap_1a844786248a3241e5834594b6e17f1387" kind="function"><name>flatten_around_points_terrain_aware</name></member>
+    <member refid="namespacehmap_1a5aea91d33cf85549400f927990052b01" kind="function"><name>flatten_around_points_terrain_aware</name></member>
     <member refid="namespacehmap_1a5f979c31af1c9ee6ad499882335ca6fb" kind="function"><name>flatbed_carve</name></member>
     <member refid="namespacehmap_1a2d7b71e9231efc67e4bae209bd7fa84a" kind="function"><name>trench</name></member>
     <member refid="namespacehmap_1ae10d017da6e13ba9d619298709e64917" kind="function"><name>trench</name></member>
@@ -3740,6 +3750,10 @@
   </compound>
   <compound refid="flatbed__carve_8cpp" kind="file"><name>flatbed_carve.cpp</name>
   </compound>
+  <compound refid="flatten__around__points_8cpp" kind="file"><name>flatten_around_points.cpp</name>
+  </compound>
+  <compound refid="flatten__around__points__terrain__aware_8cpp" kind="file"><name>flatten_around_points_terrain_aware.cpp</name>
+  </compound>
   <compound refid="trench_8cpp" kind="file"><name>trench.cpp</name>
   </compound>
   <compound refid="color__adjust_8cpp" kind="file"><name>color_adjust.cpp</name>
@@ -4450,6 +4464,7 @@
     <member refid="test__cloud_8cpp_1a88d19cb9d2f09747e6668473c3df525b" kind="function"><name>TEST</name></member>
     <member refid="test__cloud_8cpp_1aee9ad40383097b71eeb75b813a3b4b93" kind="function"><name>TEST</name></member>
     <member refid="test__cloud_8cpp_1a32b6a086db4cf0e6569402e0bd273c99" kind="function"><name>TEST</name></member>
+    <member refid="test__cloud_8cpp_1afef07475b5960e6b160236e888c19205" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__color__match__mask_8cpp" kind="file"><name>test_color_match_mask.cpp</name>
     <member refid="test__color__match__mask_8cpp_1a9f74774378747f1f9030f75d555fd1b1" kind="function"><name>TEST</name></member>
@@ -4589,6 +4604,15 @@
     <member refid="test__fill__talus_8cpp_1a1bdba2da485936ec4ac2cc0e73f54baf" kind="function"><name>TEST</name></member>
     <member refid="test__fill__talus_8cpp_1afd0c8055ddae8fc4aae66adcaab1bc3b" kind="function"><name>TEST</name></member>
     <member refid="test__fill__talus_8cpp_1a0bca07af047d5bef3d5efd2ac01b934f" kind="function"><name>TEST</name></member>
+  </compound>
+  <compound refid="test__flatten__around__points_8cpp" kind="file"><name>test_flatten_around_points.cpp</name>
+    <member refid="test__flatten__around__points_8cpp_1af7bd180270d3a520e5851e8d4ee37fb8" kind="function"><name>TEST</name></member>
+    <member refid="test__flatten__around__points_8cpp_1aacc8de431ab7150a98e1d7101a54aade" kind="function"><name>TEST</name></member>
+  </compound>
+  <compound refid="test__flatten__around__points__terrain__aware_8cpp" kind="file"><name>test_flatten_around_points_terrain_aware.cpp</name>
+    <member refid="test__flatten__around__points__terrain__aware_8cpp_1a274964ff6d100c508511bb17f1bc6c61" kind="function"><name>TEST</name></member>
+    <member refid="test__flatten__around__points__terrain__aware_8cpp_1a90d95f65a569843973f48e7e2d751cc7" kind="function"><name>TEST</name></member>
+    <member refid="test__flatten__around__points__terrain__aware_8cpp_1a184aaad40ebb60c334269e8feba41b81" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__flood__fill_8cpp" kind="file"><name>test_flood_fill.cpp</name>
     <member refid="test__flood__fill_8cpp_1a20f96a8cb0e702aa9a198c71309cd464" kind="function"><name>TEST</name></member>

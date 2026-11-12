@@ -87,7 +87,7 @@ var searchData=
   ['set_5fsymmetric_84',['set_symmetric',['../structhmap_1_1InteractionMatrix.html#aa66fb98eb4a53c6d6a0539aae4fbe1fe',1,'hmap::InteractionMatrix']]],
   ['set_5fvalue_5ffrom_5farray_85',['set_value_from_array',['../classhmap_1_1Point.html#a8db4bb3b9fc4a56e95aed9d6dfd77ef7',1,'hmap::Point']]],
   ['set_5fvalues_86',['set_values',['../classhmap_1_1Cloud.html#a604e61fbcbd8cc469ed21501e65f5c7b',1,'hmap::Cloud::set_values(const std::vector&lt; float &gt; &amp;new_values)'],['../classhmap_1_1Cloud.html#a540b582307b8457f38c43d12d899f2bf',1,'hmap::Cloud::set_values(float new_value)']]],
-  ['set_5fvalues_5ffrom_5farray_87',['set_values_from_array',['../classhmap_1_1Cloud.html#a5ac84550aceffbb9053c3b58490e7126',1,'hmap::Cloud']]],
+  ['set_5fvalues_5ffrom_5farray_87',['set_values_from_array',['../classhmap_1_1Cloud.html#a5ac84550aceffbb9053c3b58490e7126',1,'hmap::Cloud::set_values_from_array(const Array &amp;array, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})'],['../classhmap_1_1Cloud.html#a2eb3e9fac2148525bd2a3b49fdf5761d',1,'hmap::Cloud::set_values_from_array(const Array &amp;array, ArraySampling sampling, float radius=0.f, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})']]],
   ['set_5fvalues_5ffrom_5fborder_5fdistance_88',['set_values_from_border_distance',['../classhmap_1_1Cloud.html#a4349b98daebf829b1dd2d54d02e61231',1,'hmap::Cloud']]],
   ['set_5fvalues_5ffrom_5fchull_5fdistance_89',['set_values_from_chull_distance',['../classhmap_1_1Cloud.html#adf0b7a7c0c7d414e5d01e19be624aa3c',1,'hmap::Cloud']]],
   ['set_5fvalues_5ffrom_5fmin_5fdistance_90',['set_values_from_min_distance',['../classhmap_1_1Cloud.html#ad8b2d626436107c4b0e2c9877747375f',1,'hmap::Cloud']]],

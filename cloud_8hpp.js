@@ -1,6 +1,12 @@
 var cloud_8hpp =
 [
     [ "hmap::Cloud", "classhmap_1_1Cloud.html", "classhmap_1_1Cloud" ],
+    [ "hmap::ArraySampling", "namespacehmap.html#a45c97713b7e5ebf3235a3b3e886d2670", [
+      [ "hmap::ArraySampling::AS_POINT", "namespacehmap.html#a45c97713b7e5ebf3235a3b3e886d2670ae917a7a69f95d0944d9db8bd50ac1483", null ],
+      [ "hmap::ArraySampling::AS_MIN", "namespacehmap.html#a45c97713b7e5ebf3235a3b3e886d2670ade783ba3bcee865456df9537ea63b8e0", null ],
+      [ "hmap::ArraySampling::AS_MAX", "namespacehmap.html#a45c97713b7e5ebf3235a3b3e886d2670ae19372edb8b516f64baf28db3f8be338", null ],
+      [ "hmap::ArraySampling::AS_MEAN", "namespacehmap.html#a45c97713b7e5ebf3235a3b3e886d2670a35b7b1e0a176f1576070081a51d562e5", null ]
+    ] ],
     [ "hmap::cloud_sdf_to_array", "namespacehmap.html#aad6694d36e91a15ded7373064d15b88c", null ],
     [ "hmap::has_duplicates", "namespacehmap.html#a248e8293399d0a3ae57265562aecd659", null ],
     [ "hmap::interpolate_values_from_array", "namespacehmap.html#ab62e174cd14e34aa08ec4c5f00c14df8", null ],

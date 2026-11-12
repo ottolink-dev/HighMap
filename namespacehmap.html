@@ -482,6 +482,12 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:ab8197c4c7a85dacb616fee7a7d0df195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of various noise types used for procedural generation.  <a href="#ab8197c4c7a85dacb616fee7a7d0df195">More...</a><br /></td></tr>
+<tr class="memitem:a45c97713b7e5ebf3235a3b3e886d2670" id="r_a45c97713b7e5ebf3235a3b3e886d2670"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45c97713b7e5ebf3235a3b3e886d2670">ArraySampling</a> : int { <a class="el" href="#a45c97713b7e5ebf3235a3b3e886d2670ae917a7a69f95d0944d9db8bd50ac1483">AS_POINT</a>
+, <a class="el" href="#a45c97713b7e5ebf3235a3b3e886d2670ade783ba3bcee865456df9537ea63b8e0">AS_MIN</a>
+, <a class="el" href="#a45c97713b7e5ebf3235a3b3e886d2670ae19372edb8b516f64baf28db3f8be338">AS_MAX</a>
+, <a class="el" href="#a45c97713b7e5ebf3235a3b3e886d2670a35b7b1e0a176f1576070081a51d562e5">AS_MEAN</a>
+ }</td></tr>
+<tr class="memdesc:a45c97713b7e5ebf3235a3b3e886d2670"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strategy used to extract a point value from an array.  <a href="#a45c97713b7e5ebf3235a3b3e886d2670">More...</a><br /></td></tr>
 <tr class="memitem:aba758c4143b6e499ec6f4385467a6d77" id="r_aba758c4143b6e499ec6f4385467a6d77"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba758c4143b6e499ec6f4385467a6d77">PointSamplingMethod</a> : int { <a class="el" href="#aba758c4143b6e499ec6f4385467a6d77aea0acc8d27d5a8a13e107f49120c084e">RND_RANDOM</a>
 , <a class="el" href="#aba758c4143b6e499ec6f4385467a6d77a99ca15104343ff0356c6fc0ffe4f837d">RND_HALTON</a>
 , <a class="el" href="#aba758c4143b6e499ec6f4385467a6d77aeebf5714b383e3b3be100ceba46d8fe5">RND_HAMMERSLEY</a>
@@ -798,6 +804,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:acf2e3177a8b9b776c6fb7e3b53c6cd34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carves a continuous river network into a heightmap along a directed flow <a class="el" href="classhmap_1_1Graph.html" title="Graph class, to manipulate graphs in 2D.">Graph</a>.  <br /></td></tr>
 <tr class="memitem:a3a29e127d53bc5b547af422da36da1cc" id="r_a3a29e127d53bc5b547af422da36da1cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a29e127d53bc5b547af422da36da1cc">dig_path</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, <a class="el" href="classhmap_1_1Path.html">Path</a> &amp;path, int width=1, int decay=2, int flattening_radius=16, bool force_downhill=false, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}, float depth=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
 <tr class="memdesc:a3a29e127d53bc5b547af422da36da1cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dig a path on a heightmap.  <br /></td></tr>
+<tr class="memitem:aebf1ae5fd4f7a3985a938703eeb6bdb0" id="r_aebf1ae5fd4f7a3985a938703eeb6bdb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aebf1ae5fd4f7a3985a938703eeb6bdb0">flatten_around_points</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, const std::vector&lt; float &gt; &amp;xp, const std::vector&lt; float &gt; &amp;yp, const std::vector&lt; float &gt; &amp;zp, const std::vector&lt; float &gt; &amp;radius, float strength=1.0f, <a class="el" href="#a2affc745bc33b7555352665745741f90">RadialProfile</a> radial_profile=<a class="el" href="#a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd">RadialProfile::RP_SMOOTHSTEP</a>, float profile_param=1.0f, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
+<tr class="memdesc:aebf1ae5fd4f7a3985a938703eeb6bdb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a heightmap locally around a set of reference points.  <br /></td></tr>
+<tr class="memitem:ad469b6940021dce125ee989001a6626e" id="r_ad469b6940021dce125ee989001a6626e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad469b6940021dce125ee989001a6626e">flatten_around_points</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, const std::vector&lt; float &gt; &amp;xp, const std::vector&lt; float &gt; &amp;yp, const std::vector&lt; float &gt; &amp;zp, float radius=0.2<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float strength=1.0f, <a class="el" href="#a2affc745bc33b7555352665745741f90">RadialProfile</a> radial_profile=<a class="el" href="#a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd">RadialProfile::RP_SMOOTHSTEP</a>, float profile_param=1.0f, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
+<tr class="memdesc:ad469b6940021dce125ee989001a6626e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload of flatten_around_points with a single radius shared by all points.  <br /></td></tr>
+<tr class="memitem:a844786248a3241e5834594b6e17f1387" id="r_a844786248a3241e5834594b6e17f1387"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a844786248a3241e5834594b6e17f1387">flatten_around_points_terrain_aware</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, const std::vector&lt; float &gt; &amp;xp, const std::vector&lt; float &gt; &amp;yp, const std::vector&lt; float &gt; &amp;zp, const std::vector&lt; float &gt; &amp;radius, float slope_weight=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float uphill_weight=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float max_height_above=-1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float terrain_follow=0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float strength=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, <a class="el" href="#a2affc745bc33b7555352665745741f90">RadialProfile</a> radial_profile=<a class="el" href="#a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd">RadialProfile::RP_SMOOTHSTEP</a>, float profile_param=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, <a class="el" href="classhmap_1_1Array.html">Array</a> *p_mask=nullptr, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
+<tr class="memdesc:a844786248a3241e5834594b6e17f1387"><td class="mdescLeft">&#160;</td><td class="mdescRight">Terrain-aware flattening around a set of seed points.  <br /></td></tr>
+<tr class="memitem:a5aea91d33cf85549400f927990052b01" id="r_a5aea91d33cf85549400f927990052b01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5aea91d33cf85549400f927990052b01">flatten_around_points_terrain_aware</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, const std::vector&lt; float &gt; &amp;xp, const std::vector&lt; float &gt; &amp;yp, const std::vector&lt; float &gt; &amp;zp, float radius, float slope_weight=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float uphill_weight=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float max_height_above=-1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float terrain_follow=0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float strength=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, <a class="el" href="#a2affc745bc33b7555352665745741f90">RadialProfile</a> radial_profile=<a class="el" href="#a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd">RadialProfile::RP_SMOOTHSTEP</a>, float profile_param=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, <a class="el" href="classhmap_1_1Array.html">Array</a> *p_mask=nullptr, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
+<tr class="memdesc:a5aea91d33cf85549400f927990052b01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload with a single radius shared by all seeds.  <br /></td></tr>
 <tr class="memitem:a5f979c31af1c9ee6ad499882335ca6fb" id="r_a5f979c31af1c9ee6ad499882335ca6fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f979c31af1c9ee6ad499882335ca6fb">flatbed_carve</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, const <a class="el" href="classhmap_1_1Path.html">Path</a> &amp;path, float bottom_extent=32.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float vmin=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float depth=0.05<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float falloff_distance=128.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float outer_slope=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, bool preserve_bedshape=true, <a class="el" href="#a2affc745bc33b7555352665745741f90">RadialProfile</a> radial_profile=<a class="el" href="#a2affc745bc33b7555352665745741f90ac0cd381f8918df73dd4bc6df1190d7ba">RadialProfile::RP_GAIN</a>, float radial_profile_parameter=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, <a class="el" href="classhmap_1_1Array.html">Array</a> *p_falloff_mask=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_r=nullptr, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
 <tr class="memdesc:a5f979c31af1c9ee6ad499882335ca6fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blends a flatbed carve into an existing heightmap.  <br /></td></tr>
 <tr class="memitem:a2d7b71e9231efc67e4bae209bd7fa84a" id="r_a2d7b71e9231efc67e4bae209bd7fa84a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d7b71e9231efc67e4bae209bd7fa84a">trench</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, const <a class="el" href="classhmap_1_1Path.html">Path</a> &amp;path, float width, bool enable_width_depth_scaling=true, bool enable_width_distance_scaling=true, bool enable_width_curvature_scaling=false, float curvature_radius_min=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float curv_width_ratio_min=0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float curv_width_ratio_max=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, <a class="el" href="#a2affc745bc33b7555352665745741f90">RadialProfile</a> radial_profile=<a class="el" href="#a2affc745bc33b7555352665745741f90acedc11502bd1441e893fdc5a699b6d59">RadialProfile::RP_SMOOTHSTEP_UPPER</a>, float radial_profile_parameter=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, <a class="el" href="#a22e54d4ecd4b37d658c1d9ac9531377d">ElevationLongitudinalProfile</a> longitudinal_profile=<a class="el" href="#a22e54d4ecd4b37d658c1d9ac9531377daf9b3bb1e76572464d8a6a413d9f12cef">ElevationLongitudinalProfile::ELP_DECREASING</a>, float elevation_shift=-0.05<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float shift_ramp_start_ratio=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float shift_ramp_end_ratio=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float min_slope=0.001<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, size_t k_neighbors=8, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_r=nullptr, <a class="el" href="classhmap_1_1Array.html">Array</a> *p_bending_mask=nullptr, int tile_size=32, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
@@ -2928,6 +2942,40 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
 
 </div>
 </div>
+<a id="a45c97713b7e5ebf3235a3b3e886d2670" name="a45c97713b7e5ebf3235a3b3e886d2670"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45c97713b7e5ebf3235a3b3e886d2670">&#9670;&#160;</a></span>ArraySampling</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a45c97713b7e5ebf3235a3b3e886d2670">hmap::ArraySampling</a> : int</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Strategy used to extract a point value from an array. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a45c97713b7e5ebf3235a3b3e886d2670ae917a7a69f95d0944d9db8bd50ac1483" name="a45c97713b7e5ebf3235a3b3e886d2670ae917a7a69f95d0944d9db8bd50ac1483"></a>AS_POINT&#160;</td><td class="fielddoc"><p><a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> value at the point (interpolated). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a45c97713b7e5ebf3235a3b3e886d2670ade783ba3bcee865456df9537ea63b8e0" name="a45c97713b7e5ebf3235a3b3e886d2670ade783ba3bcee865456df9537ea63b8e0"></a>AS_MIN&#160;</td><td class="fielddoc"><p>Minimum of the array values within a radius. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a45c97713b7e5ebf3235a3b3e886d2670ae19372edb8b516f64baf28db3f8be338" name="a45c97713b7e5ebf3235a3b3e886d2670ae19372edb8b516f64baf28db3f8be338"></a>AS_MAX&#160;</td><td class="fielddoc"><p>Maximum of the array values within a radius. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a45c97713b7e5ebf3235a3b3e886d2670a35b7b1e0a176f1576070081a51d562e5" name="a45c97713b7e5ebf3235a3b3e886d2670a35b7b1e0a176f1576070081a51d562e5"></a>AS_MEAN&#160;</td><td class="fielddoc"><p>Average of the array values within a radius. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="aba758c4143b6e499ec6f4385467a6d77" name="aba758c4143b6e499ec6f4385467a6d77"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aba758c4143b6e499ec6f4385467a6d77">&#9670;&#160;</a></span>PointSamplingMethod</h2>
 
@@ -3964,8 +4012,8 @@ template&lt;typename Fn&gt; </div>
 <div class="line">}</div>
 <div class="ttc" id="aclasshmap_1_1Array_html_a0a68f43a6e0cf3a2b0392a161ea18339"><div class="ttname"><a href="classhmap_1_1Array.html#a0a68f43a6e0cf3a2b0392a161ea18339">hmap::Array::infos</a></div><div class="ttdeci">void infos(const std::string &amp;msg=&quot;&quot;) const</div><div class="ttdoc">Display various information about the array.</div><div class="ttdef"><b>Definition</b> io.cpp:66</div></div>
 <div class="ttc" id="aclasshmap_1_1Array_html_a9ff7b2c0be8f2b5dd9fc33085cd647d1"><div class="ttname"><a href="classhmap_1_1Array.html#a9ff7b2c0be8f2b5dd9fc33085cd647d1">hmap::Array::to_png</a></div><div class="ttdeci">void to_png(const std::string &amp;fname, int cmap, bool hillshading=false, int depth=CV_8U) const</div><div class="ttdoc">Export the array as a PNG image file with a specified colormap and hillshading.</div><div class="ttdef"><b>Definition</b> io.cpp:131</div></div>
-<div class="ttc" id="aclasshmap_1_1Cloud_html"><div class="ttname"><a href="classhmap_1_1Cloud.html">hmap::Cloud</a></div><div class="ttdoc">Represents a collection of unordered points in 2D space.</div><div class="ttdef"><b>Definition</b> cloud.hpp:50</div></div>
-<div class="ttc" id="aclasshmap_1_1Cloud_html_ac9ab31444357a0a0c3922b4d16ccef7f"><div class="ttname"><a href="classhmap_1_1Cloud.html#ac9ab31444357a0a0c3922b4d16ccef7f">hmap::Cloud::push_back</a></div><div class="ttdeci">void push_back(const Point &amp;p)</div><div class="ttdoc">Appends a point.</div><div class="ttdef"><b>Definition</b> cloud.cpp:578</div></div>
+<div class="ttc" id="aclasshmap_1_1Cloud_html"><div class="ttname"><a href="classhmap_1_1Cloud.html">hmap::Cloud</a></div><div class="ttdoc">Represents a collection of unordered points in 2D space.</div><div class="ttdef"><b>Definition</b> cloud.hpp:61</div></div>
+<div class="ttc" id="aclasshmap_1_1Cloud_html_ac9ab31444357a0a0c3922b4d16ccef7f"><div class="ttname"><a href="classhmap_1_1Cloud.html#ac9ab31444357a0a0c3922b4d16ccef7f">hmap::Cloud::push_back</a></div><div class="ttdeci">void push_back(const Point &amp;p)</div><div class="ttdoc">Appends a point.</div><div class="ttdef"><b>Definition</b> cloud.cpp:661</div></div>
 <div class="ttc" id="aclasshmap_1_1Point_html"><div class="ttname"><a href="classhmap_1_1Point.html">hmap::Point</a></div><div class="ttdoc">A class to represent and manipulate 2D points that can carry a value.</div><div class="ttdef"><b>Definition</b> point.hpp:25</div></div>
 <div class="ttc" id="anamespacehmap_html_a6123c18788ae302332416d5d7585fd9f"><div class="ttname"><a href="#a6123c18788ae302332416d5d7585fd9f">hmap::alter_elevation</a></div><div class="ttdeci">void alter_elevation(Array &amp;array, const Cloud &amp;cloud, int ir, float footprint_ratio=1.f, glm::vec2 shift={0.f, 0.f}, glm::vec2 scale={1.f, 1.f})</div><div class="ttdoc">Point-wise alteration: locally enforce a new elevation value while maintaining the &#39;shape&#39; of the hei...</div><div class="ttdef"><b>Definition</b> alter_elevation.cpp:17</div></div>
 <div class="ttc" id="anamespacehmap_html_a7d699a468a18be16c70654958ee13b41"><div class="ttname"><a href="#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a></div><div class="ttdeci">Array noise_fbm(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:45</div></div>
@@ -5345,12 +5393,12 @@ spacing</span> at their farthest interior point, or sink by the same amount when
 <div class="line">  kernel.<a class="code hl_function" href="classhmap_1_1Array.html#a9ff7b2c0be8f2b5dd9fc33085cd647d1">to_png</a>(<span class="stringliteral">&quot;ex_stamping1.png&quot;</span>, <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143">hmap::Cmap::INFERNO</a>);</div>
 <div class="line">  z.<a class="code hl_function" href="classhmap_1_1Array.html#a9ff7b2c0be8f2b5dd9fc33085cd647d1">to_png</a>(<span class="stringliteral">&quot;ex_stamping2.png&quot;</span>, <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143">hmap::Cmap::INFERNO</a>);</div>
 <div class="line">}</div>
-<div class="ttc" id="aclasshmap_1_1Cloud_html_a36e47d4857108c56193755e32374184d"><div class="ttname"><a href="classhmap_1_1Cloud.html#a36e47d4857108c56193755e32374184d">hmap::Cloud::to_array</a></div><div class="ttdeci">void to_array(Array &amp;array, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}) const</div><div class="ttdoc">Project the cloud points onto an array.</div><div class="ttdef"><b>Definition</b> cloud.cpp:659</div></div>
+<div class="ttc" id="aclasshmap_1_1Cloud_html_a36e47d4857108c56193755e32374184d"><div class="ttname"><a href="classhmap_1_1Cloud.html#a36e47d4857108c56193755e32374184d">hmap::Cloud::to_array</a></div><div class="ttdeci">void to_array(Array &amp;array, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}) const</div><div class="ttdoc">Project the cloud points onto an array.</div><div class="ttdef"><b>Definition</b> cloud.cpp:742</div></div>
 <div class="ttc" id="aclasshmap_1_1Cloud_html_a53cb47401f1e9d027a638f3680c3004d"><div class="ttname"><a href="classhmap_1_1Cloud.html#a53cb47401f1e9d027a638f3680c3004d">hmap::Cloud::get_values</a></div><div class="ttdeci">std::vector&lt; float &gt; get_values() const</div><div class="ttdoc">Get the values assigned to the points in the cloud.</div><div class="ttdef"><b>Definition</b> cloud.cpp:219</div></div>
 <div class="ttc" id="aclasshmap_1_1Cloud_html_aab450c9376e44def1d4e4465f0b1b691"><div class="ttname"><a href="classhmap_1_1Cloud.html#aab450c9376e44def1d4e4465f0b1b691">hmap::Cloud::get_x</a></div><div class="ttdeci">std::vector&lt; float &gt; get_x() const</div><div class="ttdoc">Get the x coordinates of the points in the cloud.</div><div class="ttdef"><b>Definition</b> cloud.cpp:250</div></div>
 <div class="ttc" id="aclasshmap_1_1Cloud_html_abf5f933e3506395b5369cb090119002e"><div class="ttname"><a href="classhmap_1_1Cloud.html#abf5f933e3506395b5369cb090119002e">hmap::Cloud::get_y</a></div><div class="ttdeci">std::vector&lt; float &gt; get_y() const</div><div class="ttdoc">Get the y coordinates of the points in the cloud.</div><div class="ttdef"><b>Definition</b> cloud.cpp:271</div></div>
 <div class="ttc" id="anamespacehmap_html_a5101273ec456f5267dddc3e22dae223babafe4f4d1051eb7afe0eab09badd28ad"><div class="ttname"><a href="#a5101273ec456f5267dddc3e22dae223babafe4f4d1051eb7afe0eab09badd28ad">hmap::MAXIMUM</a></div><div class="ttdeci">@ MAXIMUM</div><div class="ttdoc">maximum</div><div class="ttdef"><b>Definition</b> authoring.hpp:19</div></div>
-<div class="ttc" id="anamespacehmap_html_ac56218126b8f4fafd161848508bb040b"><div class="ttname"><a href="#ac56218126b8f4fafd161848508bb040b">hmap::random_cloud</a></div><div class="ttdeci">Cloud random_cloud(size_t count, std::uint32_t seed, const PointSamplingMethod &amp;method=PointSamplingMethod::RND_LHS, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a random cloud of points within a bounding box.</div><div class="ttdef"><b>Definition</b> cloud.cpp:806</div></div>
+<div class="ttc" id="anamespacehmap_html_ac56218126b8f4fafd161848508bb040b"><div class="ttname"><a href="#ac56218126b8f4fafd161848508bb040b">hmap::random_cloud</a></div><div class="ttdeci">Cloud random_cloud(size_t count, std::uint32_t seed, const PointSamplingMethod &amp;method=PointSamplingMethod::RND_LHS, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a random cloud of points within a bounding box.</div><div class="ttdef"><b>Definition</b> cloud.cpp:889</div></div>
 <div class="ttc" id="anamespacehmap_html_ae1374e51e008a4c88b6e9fe53360e150"><div class="ttname"><a href="#ae1374e51e008a4c88b6e9fe53360e150">hmap::gabor</a></div><div class="ttdeci">Array gabor(glm::ivec2 shape, float kw, float angle, bool quad_phase_shift=false)</div><div class="ttdoc">Generates a Gabor kernel of the specified shape.</div><div class="ttdef"><b>Definition</b> kernels.cpp:294</div></div>
 <div class="ttc" id="anamespacehmap_html_ae7ea4f9f968fc3a4aa706ea3b9cc1f0a"><div class="ttname"><a href="#ae7ea4f9f968fc3a4aa706ea3b9cc1f0a">hmap::stamping</a></div><div class="ttdeci">Array stamping(glm::ivec2 shape, const std::vector&lt; float &gt; &amp;xr, const std::vector&lt; float &gt; &amp;yr, const std::vector&lt; float &gt; &amp;zr, Array kernel, int kernel_ir, bool kernel_scale_radius, bool kernel_scale_amplitude, StampingBlendMethod blend_method, std::uint32_t seed, float k_smoothing=0.1f, bool kernel_flip=true, bool kernel_rotate=false, glm::vec4 bbox_array={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generate a heightmap by stamping a kernel at predefined locations.</div><div class="ttdef"><b>Definition</b> stamping.cpp:22</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
@@ -6972,6 +7020,325 @@ spacing</span> at their farthest interior point, or sink by the same amount when
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aebf1ae5fd4f7a3985a938703eeb6bdb0" name="aebf1ae5fd4f7a3985a938703eeb6bdb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebf1ae5fd4f7a3985a938703eeb6bdb0">&#9670;&#160;</a></span>flatten_around_points() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::flatten_around_points </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>z</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>yp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>zp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>strength</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0f</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a2affc745bc33b7555352665745741f90">RadialProfile</a></td>          <td class="paramname"><span class="paramname"><em>radial_profile</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd">RadialProfile::RP_SMOOTHSTEP</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>profile_param</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0f</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec4</td>          <td class="paramname"><span class="paramname"><em>bbox</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flattens a heightmap locally around a set of reference points. </p>
+<p>Each point has its own influence radius. For a given cell, only the points whose radius covers the cell are kept, and the target elevation is the average of their elevations weighted by <span class="tt"><a class="el" href="#a9dd09c08e06c1144910d3fa30250643c" title="Applies a falloff effect to the input array based on distance.">falloff</a> * radius</span> (larger radius, larger influence). The cell is blended toward this target using the sum of the falloffs (clamped to 1), which keeps the transition smooth.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">z</td><td>Heightmap array to modify in place. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">xp</td><td><a class="el" href="classhmap_1_1Point.html" title="A class to represent and manipulate 2D points that can carry a value.">Point</a> x coordinates (in the bounding box). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">yp</td><td><a class="el" href="classhmap_1_1Point.html" title="A class to represent and manipulate 2D points that can carry a value.">Point</a> y coordinates (in the bounding box). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">zp</td><td>Reference elevations of the points. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">radius</td><td>Influence radius of each point. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">strength</td><td>Flattening strength in [0, 1]. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">radial_profile</td><td>Radial profile type used for distance falloff. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">profile_param</td><td>Shape parameter for the radial profile. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bbox</td><td>Bounding box of the heightmap. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad469b6940021dce125ee989001a6626e" name="ad469b6940021dce125ee989001a6626e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad469b6940021dce125ee989001a6626e">&#9670;&#160;</a></span>flatten_around_points() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::flatten_around_points </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>z</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>yp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>zp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>radius</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.2<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>strength</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0f</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a2affc745bc33b7555352665745741f90">RadialProfile</a></td>          <td class="paramname"><span class="paramname"><em>radial_profile</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd">RadialProfile::RP_SMOOTHSTEP</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>profile_param</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0f</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec4</td>          <td class="paramname"><span class="paramname"><em>bbox</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Overload of flatten_around_points with a single radius shared by all points. </p>
+
+</div>
+</div>
+<a id="a844786248a3241e5834594b6e17f1387" name="a844786248a3241e5834594b6e17f1387"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a844786248a3241e5834594b6e17f1387">&#9670;&#160;</a></span>flatten_around_points_terrain_aware() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::flatten_around_points_terrain_aware </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>z</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>yp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>zp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>slope_weight</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>uphill_weight</em></span><span class="paramdefsep"> = </span><span class="paramdefval">2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>max_height_above</em></span><span class="paramdefsep"> = </span><span class="paramdefval">-1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>terrain_follow</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>strength</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a2affc745bc33b7555352665745741f90">RadialProfile</a></td>          <td class="paramname"><span class="paramname"><em>radial_profile</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd">RadialProfile::RP_SMOOTHSTEP</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>profile_param</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> *</td>          <td class="paramname"><span class="paramname"><em>p_mask</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec4</td>          <td class="paramname"><span class="paramname"><em>bbox</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Terrain-aware flattening around a set of seed points. </p>
+<p>From each seed, a Dijkstra propagation computes an accumulated cost distance over the heightmap. The step cost is the step length multiplied by <span class="tt">1 + slope_weight * <a class="el" href="#a04e7abe100708990e2464cc5df2ccafa" title="Return an array corresponding to a slope with a given overall.">slope</a> + uphill_weight * climb / radius</span>, so the flattened region follows valleys and spreads easily over flat areas but is reduced on steep or higher terrain. Cells are reached only while the cost is below the radius and the Euclidean distance is below the radius (the radius is thus a maximum geometric extent) and the elevation is not above the height limit.</p>
+<p>The cost distance replaces the Euclidean distance in the radial profile. The target surface is the seed elevation plus a fraction (<span class="tt">terrain_follow</span>) of the smoothed terrain relief relative to the seed, so it is not an exact plateau. Contributions of several seeds are combined as in flatten_around_points.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">z</td><td>Heightmap array to modify in place. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">xp</td><td>Seed x coordinates (in the bounding box). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">yp</td><td>Seed y coordinates. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">zp</td><td>Seed reference elevations. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">radius</td><td>Maximum geometric extent of each seed (bbox units). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">slope_weight</td><td>Penalty on the local slope (0: ignored). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">uphill_weight</td><td>Penalty on climbing above the seed elevation (0: ignored). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">max_height_above</td><td>Cells higher than <span class="tt">seed elevation +
+                                max_height_above</span> are never reached (negative: no limit). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">terrain_follow</td><td>Amount of smoothed relief kept in the target surface: 0 gives an exact plateau, 1 keeps the whole relief. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">strength</td><td>Flattening strength in [0, 1]. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">radial_profile</td><td>Radial profile used for the falloff. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">profile_param</td><td>Shape parameter of the radial profile. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">p_mask</td><td>Optional output blending weights. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bbox</td><td>Bounding box of the heightmap. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5aea91d33cf85549400f927990052b01" name="a5aea91d33cf85549400f927990052b01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5aea91d33cf85549400f927990052b01">&#9670;&#160;</a></span>flatten_around_points_terrain_aware() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::flatten_around_points_terrain_aware </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>z</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>yp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>zp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>slope_weight</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>uphill_weight</em></span><span class="paramdefsep"> = </span><span class="paramdefval">2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>max_height_above</em></span><span class="paramdefsep"> = </span><span class="paramdefval">-1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>terrain_follow</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>strength</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a2affc745bc33b7555352665745741f90">RadialProfile</a></td>          <td class="paramname"><span class="paramname"><em>radial_profile</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd">RadialProfile::RP_SMOOTHSTEP</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>profile_param</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> *</td>          <td class="paramname"><span class="paramname"><em>p_mask</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec4</td>          <td class="paramname"><span class="paramname"><em>bbox</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Overload with a single radius shared by all seeds. </p>
 
 </div>
 </div>
@@ -21914,21 +22281,21 @@ The y-axis is flipped so that higher indices appear lower in the text output. </
 <div class="line">    <a class="code hl_function" href="#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_point_sampling3.png&quot;</span>, zs, <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a4eb53d94f58e93c3bdb554d8cca7f306">hmap::Cmap::BONE</a>);</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-<div class="ttc" id="aclasshmap_1_1Cloud_html_ad8b2d626436107c4b0e2c9877747375f"><div class="ttname"><a href="classhmap_1_1Cloud.html#ad8b2d626436107c4b0e2c9877747375f">hmap::Cloud::set_values_from_min_distance</a></div><div class="ttdeci">void set_values_from_min_distance()</div><div class="ttdoc">Sets point values based on the distance to their nearest neighbor.</div><div class="ttdef"><b>Definition</b> cloud.cpp:419</div></div>
-<div class="ttc" id="aclasshmap_1_1Cloud_html_adc675e8b2769a94b4c23bf7e69348f84"><div class="ttname"><a href="classhmap_1_1Cloud.html#adc675e8b2769a94b4c23bf7e69348f84">hmap::Cloud::size</a></div><div class="ttdeci">size_t size() const</div><div class="ttdoc">Get the number of points in the cloud.</div><div class="ttdef"><b>Definition</b> cloud.cpp:593</div></div>
+<div class="ttc" id="aclasshmap_1_1Cloud_html_ad8b2d626436107c4b0e2c9877747375f"><div class="ttname"><a href="classhmap_1_1Cloud.html#ad8b2d626436107c4b0e2c9877747375f">hmap::Cloud::set_values_from_min_distance</a></div><div class="ttdeci">void set_values_from_min_distance()</div><div class="ttdoc">Sets point values based on the distance to their nearest neighbor.</div><div class="ttdef"><b>Definition</b> cloud.cpp:502</div></div>
+<div class="ttc" id="aclasshmap_1_1Cloud_html_adc675e8b2769a94b4c23bf7e69348f84"><div class="ttname"><a href="classhmap_1_1Cloud.html#adc675e8b2769a94b4c23bf7e69348f84">hmap::Cloud::size</a></div><div class="ttdeci">size_t size() const</div><div class="ttdoc">Get the number of points in the cloud.</div><div class="ttdef"><b>Definition</b> cloud.cpp:676</div></div>
 <div class="ttc" id="aclasshmap_1_1InverseSampler2D_html"><div class="ttname"><a href="classhmap_1_1InverseSampler2D.html">hmap::InverseSampler2D</a></div><div class="ttdoc">Sequential 2D inverse transform point sampler based on a 2D density array.</div><div class="ttdef"><b>Definition</b> inverse_sampler_2d.hpp:34</div></div>
-<div class="ttc" id="anamespacehmap_html_a388bc10e3be92ca51045709f8715c3cc"><div class="ttname"><a href="#a388bc10e3be92ca51045709f8715c3cc">hmap::random_cloud_inverse_sampling</a></div><div class="ttdeci">Cloud random_cloud_inverse_sampling(size_t count, const Array &amp;density, std::uint32_t seed, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a random cloud of points using inverse transform sampling on a 2D density array.</div><div class="ttdef"><b>Definition</b> cloud.cpp:828</div></div>
-<div class="ttc" id="anamespacehmap_html_a67333ce244d3eadae6009a5f6c24ac4c"><div class="ttname"><a href="#a67333ce244d3eadae6009a5f6c24ac4c">hmap::random_cloud_distance_weibull</a></div><div class="ttdeci">Cloud random_cloud_distance_weibull(float dist_min, float lambda, float k, std::uint32_t seed, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a random cloud of points with distances drawn from a Weibull distribution.</div><div class="ttdef"><b>Definition</b> cloud.cpp:877</div></div>
-<div class="ttc" id="anamespacehmap_html_a82932e580ffbdbf8c332ae4eb822c98d"><div class="ttname"><a href="#a82932e580ffbdbf8c332ae4eb822c98d">hmap::random_cloud_distance_power_law</a></div><div class="ttdeci">Cloud random_cloud_distance_power_law(float dist_min, float dist_max, float alpha, std::uint32_t seed, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a random cloud of points with distances drawn from a power-law distribution.</div><div class="ttdef"><b>Definition</b> cloud.cpp:862</div></div>
+<div class="ttc" id="anamespacehmap_html_a388bc10e3be92ca51045709f8715c3cc"><div class="ttname"><a href="#a388bc10e3be92ca51045709f8715c3cc">hmap::random_cloud_inverse_sampling</a></div><div class="ttdeci">Cloud random_cloud_inverse_sampling(size_t count, const Array &amp;density, std::uint32_t seed, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a random cloud of points using inverse transform sampling on a 2D density array.</div><div class="ttdef"><b>Definition</b> cloud.cpp:911</div></div>
+<div class="ttc" id="anamespacehmap_html_a67333ce244d3eadae6009a5f6c24ac4c"><div class="ttname"><a href="#a67333ce244d3eadae6009a5f6c24ac4c">hmap::random_cloud_distance_weibull</a></div><div class="ttdeci">Cloud random_cloud_distance_weibull(float dist_min, float lambda, float k, std::uint32_t seed, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a random cloud of points with distances drawn from a Weibull distribution.</div><div class="ttdef"><b>Definition</b> cloud.cpp:960</div></div>
+<div class="ttc" id="anamespacehmap_html_a82932e580ffbdbf8c332ae4eb822c98d"><div class="ttname"><a href="#a82932e580ffbdbf8c332ae4eb822c98d">hmap::random_cloud_distance_power_law</a></div><div class="ttdeci">Cloud random_cloud_distance_power_law(float dist_min, float dist_max, float alpha, std::uint32_t seed, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a random cloud of points with distances drawn from a power-law distribution.</div><div class="ttdef"><b>Definition</b> cloud.cpp:945</div></div>
 <div class="ttc" id="anamespacehmap_html_aa01ff551bebcd0540dbac8b91732c0b1"><div class="ttname"><a href="#aa01ff551bebcd0540dbac8b91732c0b1">hmap::rejection_filter_density</a></div><div class="ttdeci">void rejection_filter_density(Cloud &amp;cloud, const Array &amp;density_mask, std::uint32_t seed, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Filter a point cloud using rejection sampling based on a density mask.</div><div class="ttdef"><b>Definition</b> cloud_functions.cpp:141</div></div>
-<div class="ttc" id="anamespacehmap_html_aa598e1e50dd0a4171a4c8fd6cd114dd0"><div class="ttname"><a href="#aa598e1e50dd0a4171a4c8fd6cd114dd0">hmap::random_cloud_jittered</a></div><div class="ttdeci">Cloud random_cloud_jittered(size_t count, const glm::vec2 &amp;jitter_amount, const glm::vec2 &amp;stagger_ratio, std::uint32_t seed, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a jittered grid cloud of points.</div><div class="ttdef"><b>Definition</b> cloud.cpp:888</div></div>
-<div class="ttc" id="anamespacehmap_html_ab95c01f14ee3cce55edb9a349d59ede0"><div class="ttname"><a href="#ab95c01f14ee3cce55edb9a349d59ede0">hmap::random_cloud_distance</a></div><div class="ttdeci">Cloud random_cloud_distance(float min_dist, std::uint32_t seed, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a random cloud of points separated by at least a given minimum distance.</div><div class="ttdef"><b>Definition</b> cloud.cpp:840</div></div>
+<div class="ttc" id="anamespacehmap_html_aa598e1e50dd0a4171a4c8fd6cd114dd0"><div class="ttname"><a href="#aa598e1e50dd0a4171a4c8fd6cd114dd0">hmap::random_cloud_jittered</a></div><div class="ttdeci">Cloud random_cloud_jittered(size_t count, const glm::vec2 &amp;jitter_amount, const glm::vec2 &amp;stagger_ratio, std::uint32_t seed, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a jittered grid cloud of points.</div><div class="ttdef"><b>Definition</b> cloud.cpp:971</div></div>
+<div class="ttc" id="anamespacehmap_html_ab95c01f14ee3cce55edb9a349d59ede0"><div class="ttname"><a href="#ab95c01f14ee3cce55edb9a349d59ede0">hmap::random_cloud_distance</a></div><div class="ttdeci">Cloud random_cloud_distance(float min_dist, std::uint32_t seed, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a random cloud of points separated by at least a given minimum distance.</div><div class="ttdef"><b>Definition</b> cloud.cpp:923</div></div>
 <div class="ttc" id="anamespacehmap_html_aba758c4143b6e499ec6f4385467a6d77a8943dd2a2e3993c1e0cff37be3f65957"><div class="ttname"><a href="#aba758c4143b6e499ec6f4385467a6d77a8943dd2a2e3993c1e0cff37be3f65957">hmap::RND_LHS</a></div><div class="ttdeci">@ RND_LHS</div><div class="ttdoc">Latin Hypercube Sampling.</div><div class="ttdef"><b>Definition</b> point_sampling.hpp:38</div></div>
 <div class="ttc" id="anamespacehmap_html_aba758c4143b6e499ec6f4385467a6d77a99ca15104343ff0356c6fc0ffe4f837d"><div class="ttname"><a href="#aba758c4143b6e499ec6f4385467a6d77a99ca15104343ff0356c6fc0ffe4f837d">hmap::RND_HALTON</a></div><div class="ttdeci">@ RND_HALTON</div><div class="ttdoc">Low-discrepancy Halton sequence sampling.</div><div class="ttdef"><b>Definition</b> point_sampling.hpp:36</div></div>
 <div class="ttc" id="anamespacehmap_html_aba758c4143b6e499ec6f4385467a6d77aea0acc8d27d5a8a13e107f49120c084e"><div class="ttname"><a href="#aba758c4143b6e499ec6f4385467a6d77aea0acc8d27d5a8a13e107f49120c084e">hmap::RND_RANDOM</a></div><div class="ttdeci">@ RND_RANDOM</div><div class="ttdoc">Purely random uniform sampling.</div><div class="ttdef"><b>Definition</b> point_sampling.hpp:35</div></div>
 <div class="ttc" id="anamespacehmap_html_aba758c4143b6e499ec6f4385467a6d77aeebf5714b383e3b3be100ceba46d8fe5"><div class="ttname"><a href="#aba758c4143b6e499ec6f4385467a6d77aeebf5714b383e3b3be100ceba46d8fe5">hmap::RND_HAMMERSLEY</a></div><div class="ttdeci">@ RND_HAMMERSLEY</div><div class="ttdoc">Low-discrepancy Hammersley sequence sampling.</div><div class="ttdef"><b>Definition</b> point_sampling.hpp:37</div></div>
 <div class="ttc" id="anamespacehmap_html_ac70fe3cbb32e0340d5dd3e15cdcf9369a4eb53d94f58e93c3bdb554d8cca7f306"><div class="ttname"><a href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a4eb53d94f58e93c3bdb554d8cca7f306">hmap::BONE</a></div><div class="ttdeci">@ BONE</div><div class="ttdef"><b>Definition</b> colormaps.hpp:84</div></div>
-<div class="ttc" id="anamespacehmap_html_ad1c0d440da90fd4f08bb0ed691cc717c"><div class="ttname"><a href="#ad1c0d440da90fd4f08bb0ed691cc717c">hmap::random_cloud_density</a></div><div class="ttdeci">Cloud random_cloud_density(size_t count, const Array &amp;density, std::uint32_t seed, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a random cloud of points based on a spatial density map.</div><div class="ttdef"><b>Definition</b> cloud.cpp:816</div></div>
+<div class="ttc" id="anamespacehmap_html_ad1c0d440da90fd4f08bb0ed691cc717c"><div class="ttname"><a href="#ad1c0d440da90fd4f08bb0ed691cc717c">hmap::random_cloud_density</a></div><div class="ttdeci">Cloud random_cloud_density(size_t count, const Array &amp;density, std::uint32_t seed, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a random cloud of points based on a spatial density map.</div><div class="ttdef"><b>Definition</b> cloud.cpp:899</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_point_sampling0.png" alt=""/>
 </div>
@@ -29896,7 +30263,7 @@ Transport for Terrain Erosion Simulation" (N. McDonald, G. Cordonnier), <a href=
 <div class="line">                          <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced">hmap::Cmap::JET</a>,</div>
 <div class="line">                          <span class="keyword">true</span>);</div>
 <div class="line">}</div>
-<div class="ttc" id="aclasshmap_1_1Cloud_html_a89f21637cf9c4857bf65ad6a6009eff9"><div class="ttname"><a href="classhmap_1_1Cloud.html#a89f21637cf9c4857bf65ad6a6009eff9">hmap::Cloud::empty</a></div><div class="ttdeci">bool empty() const</div><div class="ttdoc">Check whether the cloud has no points.</div><div class="ttdef"><b>Definition</b> cloud.cpp:521</div></div>
+<div class="ttc" id="aclasshmap_1_1Cloud_html_a89f21637cf9c4857bf65ad6a6009eff9"><div class="ttname"><a href="classhmap_1_1Cloud.html#a89f21637cf9c4857bf65ad6a6009eff9">hmap::Cloud::empty</a></div><div class="ttdeci">bool empty() const</div><div class="ttdoc">Check whether the cloud has no points.</div><div class="ttdef"><b>Definition</b> cloud.cpp:604</div></div>
 <div class="ttc" id="aclasshmap_1_1Graph_html"><div class="ttname"><a href="classhmap_1_1Graph.html">hmap::Graph</a></div><div class="ttdoc">Graph class, to manipulate graphs in 2D.</div><div class="ttdef"><b>Definition</b> graph.hpp:70</div></div>
 <div class="ttc" id="aclasshmap_1_1Graph_html_a231644afacc52964b79dfe909963b818"><div class="ttname"><a href="classhmap_1_1Graph.html#a231644afacc52964b79dfe909963b818">hmap::Graph::enforce_downhill_elevation</a></div><div class="ttdeci">void enforce_downhill_elevation(float min_slope=0.001f)</div><div class="ttdoc">Enforce monotonic downhill elevations on all graph nodes.</div><div class="ttdef"><b>Definition</b> graph.cpp:520</div></div>
 <div class="ttc" id="aclasshmap_1_1Graph_html_a5d27935b935d6d788a934bc0e4f4082f"><div class="ttname"><a href="classhmap_1_1Graph.html#a5d27935b935d6d788a934bc0e4f4082f">hmap::Graph::to_array</a></div><div class="ttdeci">void to_array(Array &amp;array, glm::vec4 bbox, bool color_by_edge_weight=true) const</div><div class="ttdoc">Project the graph to an array and optionally color by edge weight.</div><div class="ttdef"><b>Definition</b> graph.cpp:902</div></div>
@@ -32158,7 +32525,7 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
 <div class="line">                          {z0, z1, z2, z3, z4, z5, z6},</div>
 <div class="line">                          <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143">hmap::Cmap::INFERNO</a>);</div>
 <div class="line">}</div>
-<div class="ttc" id="aclasshmap_1_1Cloud_html_a7b26dc92e0d2217b8438f1ce9376ea0d"><div class="ttname"><a href="classhmap_1_1Cloud.html#a7b26dc92e0d2217b8438f1ce9376ea0d">hmap::Cloud::snap_points_to_bounding_box</a></div><div class="ttdeci">void snap_points_to_bounding_box(const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f}, float tolerance_ratio=1.f)</div><div class="ttdoc">Snap points to the bounding box edges and corners.</div><div class="ttdef"><b>Definition</b> cloud.cpp:598</div></div>
+<div class="ttc" id="aclasshmap_1_1Cloud_html_a7b26dc92e0d2217b8438f1ce9376ea0d"><div class="ttname"><a href="classhmap_1_1Cloud.html#a7b26dc92e0d2217b8438f1ce9376ea0d">hmap::Cloud::snap_points_to_bounding_box</a></div><div class="ttdeci">void snap_points_to_bounding_box(const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f}, float tolerance_ratio=1.f)</div><div class="ttdoc">Snap points to the bounding box edges and corners.</div><div class="ttdef"><b>Definition</b> cloud.cpp:681</div></div>
 <div class="ttc" id="anamespacehmap_html_a5bfab5d68e822294ff90fde21b85f581a4beec3d16f7dc0a1873bb04d85ea6eec"><div class="ttname"><a href="#a5bfab5d68e822294ff90fde21b85f581a4beec3d16f7dc0a1873bb04d85ea6eec">hmap::ITP2D_IDW</a></div><div class="ttdeci">@ ITP2D_IDW</div><div class="ttdoc">Inverse Distance Weighting.</div><div class="ttdef"><b>Definition</b> interpolate2d.hpp:44</div></div>
 <div class="ttc" id="anamespacehmap_html_a5bfab5d68e822294ff90fde21b85f581a5fc536ff63a05f254ff7583cccac8a12"><div class="ttname"><a href="#a5bfab5d68e822294ff90fde21b85f581a5fc536ff63a05f254ff7583cccac8a12">hmap::ITP2D_DELAUNAY</a></div><div class="ttdeci">@ ITP2D_DELAUNAY</div><div class="ttdoc">Delaunay triangulation method for 2D interpolation.</div><div class="ttdef"><b>Definition</b> interpolate2d.hpp:42</div></div>
 <div class="ttc" id="anamespacehmap_html_a5bfab5d68e822294ff90fde21b85f581a95b33e28ebad4905884242b69db8de0d"><div class="ttname"><a href="#a5bfab5d68e822294ff90fde21b85f581a95b33e28ebad4905884242b69db8de0d">hmap::ITP2D_NNI</a></div><div class="ttdeci">@ ITP2D_NNI</div><div class="ttdoc">Natural Neighbor Interpolation.</div><div class="ttdef"><b>Definition</b> interpolate2d.hpp:46</div></div>

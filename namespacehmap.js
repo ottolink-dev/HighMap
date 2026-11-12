@@ -281,6 +281,12 @@ var namespacehmap =
       [ "WORLEY_DOUBLE", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a1d1ba101960a8a8234df2d16ac305d45", null ],
       [ "WORLEY_VALUE", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a803cca1f65b9596dbde7c54039773a39", null ]
     ] ],
+    [ "ArraySampling", "namespacehmap.html#a45c97713b7e5ebf3235a3b3e886d2670", [
+      [ "AS_POINT", "namespacehmap.html#a45c97713b7e5ebf3235a3b3e886d2670ae917a7a69f95d0944d9db8bd50ac1483", null ],
+      [ "AS_MIN", "namespacehmap.html#a45c97713b7e5ebf3235a3b3e886d2670ade783ba3bcee865456df9537ea63b8e0", null ],
+      [ "AS_MAX", "namespacehmap.html#a45c97713b7e5ebf3235a3b3e886d2670ae19372edb8b516f64baf28db3f8be338", null ],
+      [ "AS_MEAN", "namespacehmap.html#a45c97713b7e5ebf3235a3b3e886d2670a35b7b1e0a176f1576070081a51d562e5", null ]
+    ] ],
     [ "PointSamplingMethod", "namespacehmap.html#aba758c4143b6e499ec6f4385467a6d77", [
       [ "RND_RANDOM", "namespacehmap.html#aba758c4143b6e499ec6f4385467a6d77aea0acc8d27d5a8a13e107f49120c084e", null ],
       [ "RND_HALTON", "namespacehmap.html#aba758c4143b6e499ec6f4385467a6d77a99ca15104343ff0356c6fc0ffe4f837d", null ],
@@ -511,6 +517,10 @@ var namespacehmap =
     [ "zeroed_edges", "namespacehmap.html#a8e2364315f5b159daae10f508dd1d2a8", null ],
     [ "carve_river", "namespacehmap.html#acf2e3177a8b9b776c6fb7e3b53c6cd34", null ],
     [ "dig_path", "namespacehmap.html#a3a29e127d53bc5b547af422da36da1cc", null ],
+    [ "flatten_around_points", "namespacehmap.html#aebf1ae5fd4f7a3985a938703eeb6bdb0", null ],
+    [ "flatten_around_points", "namespacehmap.html#ad469b6940021dce125ee989001a6626e", null ],
+    [ "flatten_around_points_terrain_aware", "namespacehmap.html#a844786248a3241e5834594b6e17f1387", null ],
+    [ "flatten_around_points_terrain_aware", "namespacehmap.html#a5aea91d33cf85549400f927990052b01", null ],
     [ "flatbed_carve", "namespacehmap.html#a5f979c31af1c9ee6ad499882335ca6fb", null ],
     [ "trench", "namespacehmap.html#a2d7b71e9231efc67e4bae209bd7fa84a", null ],
     [ "trench", "namespacehmap.html#ae10d017da6e13ba9d619298709e64917", null ],

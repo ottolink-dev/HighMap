@@ -1161,6 +1161,51 @@
         </inbodydescription>
         <location file="HighMap/include/highmap/functions.hpp" line="66" column="1" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="67" bodyend="81"/>
       </memberdef>
+      <memberdef kind="enum" id="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670" prot="public" static="no" strong="yes">
+        <type>int</type>
+        <name>ArraySampling</name>
+        <qualifiedname>hmap::ArraySampling</qualifiedname>
+        <enumvalue id="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670ae917a7a69f95d0944d9db8bd50ac1483" prot="public">
+          <name>AS_POINT</name>
+          <briefdescription>
+<para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> value at the point (interpolated). </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670ade783ba3bcee865456df9537ea63b8e0" prot="public">
+          <name>AS_MIN</name>
+          <briefdescription>
+<para>Minimum of the array values within a radius. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670ae19372edb8b516f64baf28db3f8be338" prot="public">
+          <name>AS_MAX</name>
+          <briefdescription>
+<para>Maximum of the array values within a radius. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670a35b7b1e0a176f1576070081a51d562e5" prot="public">
+          <name>AS_MEAN</name>
+          <briefdescription>
+<para>Average of the array values within a radius. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Strategy used to extract a point value from an array. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/geometry/cloud.hpp" line="38" column="1" bodyfile="HighMap/include/highmap/geometry/cloud.hpp" bodystart="39" bodyend="44"/>
+      </memberdef>
       <memberdef kind="enum" id="namespacehmap_1aba758c4143b6e499ec6f4385467a6d77" prot="public" static="no" strong="no">
         <type>int</type>
         <name>PointSamplingMethod</name>
@@ -7211,6 +7256,468 @@
         </inbodydescription>
         <location file="HighMap/src/carving/dig_path.cpp" line="19" column="6" bodyfile="HighMap/src/carving/dig_path.cpp" bodystart="19" bodyend="70" declfile="HighMap/include/highmap/carving.hpp" declline="116" declcolumn="6"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1aebf1ae5fd4f7a3985a938703eeb6bdb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::flatten_around_points</definition>
+        <argsstring>(Array &amp;z, const std::vector&lt; float &gt; &amp;xp, const std::vector&lt; float &gt; &amp;yp, const std::vector&lt; float &gt; &amp;zp, const std::vector&lt; float &gt; &amp;radius, float strength=1.0f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP, float profile_param=1.0f, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>flatten_around_points</name>
+        <qualifiedname>hmap::flatten_around_points</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>xp</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>yp</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>zp</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>radius</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>strength</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90" kindref="member">RadialProfile</ref></type>
+          <declname>radial_profile</declname>
+          <defval><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd" kindref="member">RadialProfile::RP_SMOOTHSTEP</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>profile_param</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Flattens a heightmap locally around a set of reference points. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Each point has its own influence radius. For a given cell, only the points whose radius covers the cell are kept, and the target elevation is the average of their elevations weighted by <computeroutput><ref refid="namespacehmap_1a9dd09c08e06c1144910d3fa30250643c" kindref="member">falloff</ref> * radius</computeroutput> (larger radius, larger influence). The cell is blended toward this target using the sum of the falloffs (clamped to 1), which keeps the transition smooth.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Heightmap array to modify in place. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">xp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classhmap_1_1Point" kindref="compound">Point</ref> x coordinates (in the bounding box). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">yp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classhmap_1_1Point" kindref="compound">Point</ref> y coordinates (in the bounding box). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">zp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference elevations of the points. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">radius</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Influence radius of each point. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">strength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flattening strength in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">radial_profile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Radial profile type used for distance falloff. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">profile_param</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shape parameter for the radial profile. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box of the heightmap. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/carving/flatten_around_points.cpp" line="15" column="6" bodyfile="HighMap/src/carving/flatten_around_points.cpp" bodystart="15" bodyend="98" declfile="HighMap/include/highmap/carving.hpp" declline="144" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ad469b6940021dce125ee989001a6626e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::flatten_around_points</definition>
+        <argsstring>(Array &amp;z, const std::vector&lt; float &gt; &amp;xp, const std::vector&lt; float &gt; &amp;yp, const std::vector&lt; float &gt; &amp;zp, float radius=0.2f, float strength=1.0f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP, float profile_param=1.0f, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>flatten_around_points</name>
+        <qualifiedname>hmap::flatten_around_points</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>xp</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>yp</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>zp</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>radius</declname>
+          <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>strength</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90" kindref="member">RadialProfile</ref></type>
+          <declname>radial_profile</declname>
+          <defval><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd" kindref="member">RadialProfile::RP_SMOOTHSTEP</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>profile_param</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Overload of flatten_around_points with a single radius shared by all points. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/carving/flatten_around_points.cpp" line="100" column="6" bodyfile="HighMap/src/carving/flatten_around_points.cpp" bodystart="100" bodyend="121" declfile="HighMap/include/highmap/carving.hpp" declline="159" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a844786248a3241e5834594b6e17f1387" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::flatten_around_points_terrain_aware</definition>
+        <argsstring>(Array &amp;z, const std::vector&lt; float &gt; &amp;xp, const std::vector&lt; float &gt; &amp;yp, const std::vector&lt; float &gt; &amp;zp, const std::vector&lt; float &gt; &amp;radius, float slope_weight=1.f, float uphill_weight=2.f, float max_height_above=-1.f, float terrain_follow=0.5f, float strength=1.f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP, float profile_param=1.f, Array *p_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>flatten_around_points_terrain_aware</name>
+        <qualifiedname>hmap::flatten_around_points_terrain_aware</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>xp</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>yp</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>zp</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>radius</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>slope_weight</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>uphill_weight</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_height_above</declname>
+          <defval>-1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>terrain_follow</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>strength</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90" kindref="member">RadialProfile</ref></type>
+          <declname>radial_profile</declname>
+          <defval><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd" kindref="member">RadialProfile::RP_SMOOTHSTEP</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>profile_param</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_mask</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Terrain-aware flattening around a set of seed points. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>From each seed, a Dijkstra propagation computes an accumulated cost distance over the heightmap. The step cost is the step length multiplied by <computeroutput>1 + slope_weight * <ref refid="namespacehmap_1a04e7abe100708990e2464cc5df2ccafa" kindref="member">slope</ref> + uphill_weight * climb / radius</computeroutput>, so the flattened region follows valleys and spreads easily over flat areas but is reduced on steep or higher terrain. Cells are reached only while the cost is below the radius and the Euclidean distance is below the radius (the radius is thus a maximum geometric extent) and the elevation is not above the height limit.</para>
+<para>The cost distance replaces the Euclidean distance in the radial profile. The target surface is the seed elevation plus a fraction (<computeroutput>terrain_follow</computeroutput>) of the smoothed terrain relief relative to the seed, so it is not an exact plateau. Contributions of several seeds are combined as in flatten_around_points.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Heightmap array to modify in place. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">xp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seed x coordinates (in the bounding box). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">yp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seed y coordinates. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">zp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seed reference elevations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">radius</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum geometric extent of each seed (bbox units). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">slope_weight</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Penalty on the local slope (0: ignored). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">uphill_weight</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Penalty on climbing above the seed elevation (0: ignored). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">max_height_above</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cells higher than <computeroutput>seed elevation + max_height_above</computeroutput> are never reached (negative: no limit). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">terrain_follow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Amount of smoothed relief kept in the target surface: 0 gives an exact plateau, 1 keeps the whole relief. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">strength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flattening strength in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">radial_profile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Radial profile used for the falloff. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">profile_param</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shape parameter of the radial profile. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">p_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output blending weights. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box of the heightmap. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/carving/flatten_around_points_terrain_aware.cpp" line="20" column="6" bodyfile="HighMap/src/carving/flatten_around_points_terrain_aware.cpp" bodystart="20" bodyend="189" declfile="HighMap/include/highmap/carving.hpp" declline="206" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a5aea91d33cf85549400f927990052b01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::flatten_around_points_terrain_aware</definition>
+        <argsstring>(Array &amp;z, const std::vector&lt; float &gt; &amp;xp, const std::vector&lt; float &gt; &amp;yp, const std::vector&lt; float &gt; &amp;zp, float radius, float slope_weight=1.f, float uphill_weight=2.f, float max_height_above=-1.f, float terrain_follow=0.5f, float strength=1.f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP, float profile_param=1.f, Array *p_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>flatten_around_points_terrain_aware</name>
+        <qualifiedname>hmap::flatten_around_points_terrain_aware</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>xp</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>yp</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>zp</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>radius</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>slope_weight</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>uphill_weight</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_height_above</declname>
+          <defval>-1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>terrain_follow</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>strength</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90" kindref="member">RadialProfile</ref></type>
+          <declname>radial_profile</declname>
+          <defval><ref refid="namespacehmap_1a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd" kindref="member">RadialProfile::RP_SMOOTHSTEP</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>profile_param</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_mask</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Overload with a single radius shared by all seeds. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/carving/flatten_around_points_terrain_aware.cpp" line="191" column="6" bodyfile="HighMap/src/carving/flatten_around_points_terrain_aware.cpp" bodystart="191" bodyend="222" declfile="HighMap/include/highmap/carving.hpp" declline="223" declcolumn="6"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5f979c31af1c9ee6ad499882335ca6fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::flatbed_carve</definition>
@@ -7459,7 +7966,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/flatbed_carve.cpp" line="120" column="6" bodyfile="HighMap/src/carving/flatbed_carve.cpp" bodystart="120" bodyend="157" declfile="HighMap/include/highmap/carving.hpp" declline="152" declcolumn="6"/>
+        <location file="HighMap/src/carving/flatbed_carve.cpp" line="120" column="6" bodyfile="HighMap/src/carving/flatbed_carve.cpp" bodystart="120" bodyend="157" declfile="HighMap/include/highmap/carving.hpp" declline="266" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2d7b71e9231efc67e4bae209bd7fa84a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7762,7 +8269,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/trench.cpp" line="535" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="535" bodyend="581" declfile="HighMap/include/highmap/carving.hpp" declline="226" declcolumn="6"/>
+        <location file="HighMap/src/carving/trench.cpp" line="535" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="535" bodyend="581" declfile="HighMap/include/highmap/carving.hpp" declline="340" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ae10d017da6e13ba9d619298709e64917" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -7878,7 +8385,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/trench.cpp" line="321" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="321" bodyend="533" declfile="HighMap/include/highmap/carving.hpp" declline="249" declcolumn="6"/>
+        <location file="HighMap/src/carving/trench.cpp" line="321" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="321" bodyend="533" declfile="HighMap/include/highmap/carving.hpp" declline="363" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a6629d7932feda7b2c5c1cc7e33da66bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -8075,7 +8582,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/trench.cpp" line="583" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="583" bodyend="829" declfile="HighMap/include/highmap/carving.hpp" declline="302" declcolumn="6"/>
+        <location file="HighMap/src/carving/trench.cpp" line="583" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="583" bodyend="829" declfile="HighMap/include/highmap/carving.hpp" declline="416" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac812451135eef116e28dfb44b5ec7a8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -8271,7 +8778,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/trench.cpp" line="831" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="831" bodyend="863" declfile="HighMap/include/highmap/carving.hpp" declline="342" declcolumn="6"/>
+        <location file="HighMap/src/carving/trench.cpp" line="831" column="6" bodyfile="HighMap/src/carving/trench.cpp" bodystart="831" bodyend="863" declfile="HighMap/include/highmap/carving.hpp" declline="456" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a76b37b88acf83d6a5b21f1be1b50697e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -27029,7 +27536,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud_functions.cpp" line="22" column="7" bodyfile="HighMap/src/geometry/cloud_functions.cpp" bodystart="22" bodyend="63" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="653" declcolumn="7"/>
+        <location file="HighMap/src/geometry/cloud_functions.cpp" line="22" column="7" bodyfile="HighMap/src/geometry/cloud_functions.cpp" bodystart="22" bodyend="63" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="682" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a248e8293399d0a3ae57265562aecd659" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -27086,7 +27593,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud_functions.cpp" line="65" column="6" bodyfile="HighMap/src/geometry/cloud_functions.cpp" bodystart="65" bodyend="96" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="667" declcolumn="6"/>
+        <location file="HighMap/src/geometry/cloud_functions.cpp" line="65" column="6" bodyfile="HighMap/src/geometry/cloud_functions.cpp" bodystart="65" bodyend="96" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="696" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ab62e174cd14e34aa08ec4c5f00c14df8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -27134,7 +27641,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud_functions.cpp" line="98" column="13" bodyfile="HighMap/src/geometry/cloud_functions.cpp" bodystart="98" bodyend="139" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="681" declcolumn="13"/>
+        <location file="HighMap/src/geometry/cloud_functions.cpp" line="98" column="13" bodyfile="HighMap/src/geometry/cloud_functions.cpp" bodystart="98" bodyend="139" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="710" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1abd7c616c225d31eb2fd4e3ff023e3ed5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -27177,7 +27684,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud.cpp" line="781" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="781" bodyend="788" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="696" declcolumn="7"/>
+        <location file="HighMap/src/geometry/cloud.cpp" line="864" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="864" bodyend="871" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="725" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1afc6e9a8850aaebd3cca94aefb3c54114" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -27206,7 +27713,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud.cpp" line="790" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="790" bodyend="804" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="703" declcolumn="7"/>
+        <location file="HighMap/src/geometry/cloud.cpp" line="873" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="873" bodyend="887" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="732" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac56218126b8f4fafd161848508bb040b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -27465,7 +27972,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud.cpp" line="806" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="806" bodyend="814" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="726" declcolumn="7"/>
+        <location file="HighMap/src/geometry/cloud.cpp" line="889" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="889" bodyend="897" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="755" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ad1c0d440da90fd4f08bb0ed691cc717c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -27724,7 +28231,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud.cpp" line="816" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="816" bodyend="826" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="755" declcolumn="7"/>
+        <location file="HighMap/src/geometry/cloud.cpp" line="899" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="899" bodyend="909" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="784" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -27792,7 +28299,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud.cpp" line="828" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="828" bodyend="838" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="772" declcolumn="7"/>
+        <location file="HighMap/src/geometry/cloud.cpp" line="911" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="911" bodyend="921" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="801" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ab95c01f14ee3cce55edb9a349d59ede0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -28039,7 +28546,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud.cpp" line="840" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="840" bodyend="847" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="801" declcolumn="7"/>
+        <location file="HighMap/src/geometry/cloud.cpp" line="923" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="923" bodyend="930" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="830" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1abb202506f601d0ab08eb286f8d3375d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -28310,7 +28817,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud.cpp" line="849" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="849" bodyend="860" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="830" declcolumn="7"/>
+        <location file="HighMap/src/geometry/cloud.cpp" line="932" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="932" bodyend="943" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="859" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a82932e580ffbdbf8c332ae4eb822c98d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -28581,7 +29088,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud.cpp" line="862" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="862" bodyend="875" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="861" declcolumn="7"/>
+        <location file="HighMap/src/geometry/cloud.cpp" line="945" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="945" bodyend="958" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="890" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a67333ce244d3eadae6009a5f6c24ac4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -28852,7 +29359,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud.cpp" line="877" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="877" bodyend="886" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="893" declcolumn="7"/>
+        <location file="HighMap/src/geometry/cloud.cpp" line="960" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="960" bodyend="969" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="922" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa598e1e50dd0a4171a4c8fd6cd114dd0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -29123,7 +29630,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud.cpp" line="888" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="888" bodyend="901" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="925" declcolumn="7"/>
+        <location file="HighMap/src/geometry/cloud.cpp" line="971" column="7" bodyfile="HighMap/src/geometry/cloud.cpp" bodystart="971" bodyend="984" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="954" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa01ff551bebcd0540dbac8b91732c0b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -29182,7 +29689,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud_functions.cpp" line="141" column="6" bodyfile="HighMap/src/geometry/cloud_functions.cpp" bodystart="141" bodyend="161" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="945" declcolumn="6"/>
+        <location file="HighMap/src/geometry/cloud_functions.cpp" line="141" column="6" bodyfile="HighMap/src/geometry/cloud_functions.cpp" bodystart="141" bodyend="161" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="974" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -29239,7 +29746,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud_functions.cpp" line="163" column="7" bodyfile="HighMap/src/geometry/cloud_functions.cpp" bodystart="163" bodyend="171" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="964" declcolumn="7"/>
+        <location file="HighMap/src/geometry/cloud_functions.cpp" line="163" column="7" bodyfile="HighMap/src/geometry/cloud_functions.cpp" bodystart="163" bodyend="171" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="993" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a9a638ac47c11caaa7cc00ad151cd8356" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -29266,7 +29773,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/geometry/cloud_functions.cpp" line="173" column="7" bodyfile="HighMap/src/geometry/cloud_functions.cpp" bodystart="173" bodyend="176" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="968" declcolumn="7"/>
+        <location file="HighMap/src/geometry/cloud_functions.cpp" line="173" column="7" bodyfile="HighMap/src/geometry/cloud_functions.cpp" bodystart="173" bodyend="176" declfile="HighMap/include/highmap/geometry/cloud.hpp" declline="997" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ab085d07bc0e897729ca16c0dd2035fe1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>

@@ -412,6 +412,12 @@ enum \mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195}{Noise\+Ty
 \mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a803cca1f65b9596dbde7c54039773a39}{WORLEY\+\_\+\+VALUE}}
  \}
 \begin{DoxyCompactList}\small\item\em Enumeration of various noise types used for procedural generation. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670}{Array\+Sampling}} \+: int \{ \mbox{\hyperlink{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670ae917a7a69f95d0944d9db8bd50ac1483}{AS\+\_\+\+POINT}}
+, \mbox{\hyperlink{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670ade783ba3bcee865456df9537ea63b8e0}{AS\+\_\+\+MIN}}
+, \mbox{\hyperlink{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670ae19372edb8b516f64baf28db3f8be338}{AS\+\_\+\+MAX}}
+, \mbox{\hyperlink{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670a35b7b1e0a176f1576070081a51d562e5}{AS\+\_\+\+MEAN}}
+ \}
+\begin{DoxyCompactList}\small\item\em Strategy used to extract a point value from an array. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{namespacehmap_aba758c4143b6e499ec6f4385467a6d77}{Point\+Sampling\+Method}} \+: int \{ \mbox{\hyperlink{namespacehmap_aba758c4143b6e499ec6f4385467a6d77aea0acc8d27d5a8a13e107f49120c084e}{RND\+\_\+\+RANDOM}}
 , \mbox{\hyperlink{namespacehmap_aba758c4143b6e499ec6f4385467a6d77a99ca15104343ff0356c6fc0ffe4f837d}{RND\+\_\+\+HALTON}}
 , \mbox{\hyperlink{namespacehmap_aba758c4143b6e499ec6f4385467a6d77aeebf5714b383e3b3be100ceba46d8fe5}{RND\+\_\+\+HAMMERSLEY}}
@@ -722,6 +728,14 @@ void \mbox{\hyperlink{namespacehmap_acf2e3177a8b9b776c6fb7e3b53c6cd34}{carve\+\_
 \begin{DoxyCompactList}\small\item\em Carves a continuous river network into a heightmap along a directed flow \doxylink{classhmap_1_1Graph}{Graph}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a3a29e127d53bc5b547af422da36da1cc}{dig\+\_\+path}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&path, int width=1, int decay=2, int flattening\+\_\+radius=16, bool force\+\_\+downhill=false, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, float depth=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Dig a path on a heightmap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_aebf1ae5fd4f7a3985a938703eeb6bdb0}{flatten\+\_\+around\+\_\+points}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, const std\+::vector$<$ float $>$ \&xp, const std\+::vector$<$ float $>$ \&yp, const std\+::vector$<$ float $>$ \&zp, const std\+::vector$<$ float $>$ \&radius, float strength=1.\+0f, \mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90}{Radial\+Profile}} radial\+\_\+profile=\mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd}{Radial\+Profile\+::\+RP\+\_\+\+SMOOTHSTEP}}, float profile\+\_\+param=1.\+0f, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Flattens a heightmap locally around a set of reference points. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_ad469b6940021dce125ee989001a6626e}{flatten\+\_\+around\+\_\+points}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, const std\+::vector$<$ float $>$ \&xp, const std\+::vector$<$ float $>$ \&yp, const std\+::vector$<$ float $>$ \&zp, float radius=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float strength=1.\+0f, \mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90}{Radial\+Profile}} radial\+\_\+profile=\mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd}{Radial\+Profile\+::\+RP\+\_\+\+SMOOTHSTEP}}, float profile\+\_\+param=1.\+0f, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Overload of flatten\+\_\+around\+\_\+points with a single radius shared by all points. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a844786248a3241e5834594b6e17f1387}{flatten\+\_\+around\+\_\+points\+\_\+terrain\+\_\+aware}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, const std\+::vector$<$ float $>$ \&xp, const std\+::vector$<$ float $>$ \&yp, const std\+::vector$<$ float $>$ \&zp, const std\+::vector$<$ float $>$ \&radius, float slope\+\_\+weight=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float uphill\+\_\+weight=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float max\+\_\+height\+\_\+above=-\/1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float terrain\+\_\+follow=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float strength=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, \mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90}{Radial\+Profile}} radial\+\_\+profile=\mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd}{Radial\+Profile\+::\+RP\+\_\+\+SMOOTHSTEP}}, float profile\+\_\+param=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Terrain-\/aware flattening around a set of seed points. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a5aea91d33cf85549400f927990052b01}{flatten\+\_\+around\+\_\+points\+\_\+terrain\+\_\+aware}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, const std\+::vector$<$ float $>$ \&xp, const std\+::vector$<$ float $>$ \&yp, const std\+::vector$<$ float $>$ \&zp, float radius, float slope\+\_\+weight=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float uphill\+\_\+weight=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float max\+\_\+height\+\_\+above=-\/1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float terrain\+\_\+follow=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float strength=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, \mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90}{Radial\+Profile}} radial\+\_\+profile=\mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd}{Radial\+Profile\+::\+RP\+\_\+\+SMOOTHSTEP}}, float profile\+\_\+param=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Overload with a single radius shared by all seeds. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a5f979c31af1c9ee6ad499882335ca6fb}{flatbed\+\_\+carve}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&path, float bottom\+\_\+extent=32.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float vmin=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float depth=0.\+05\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float falloff\+\_\+distance=128.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float outer\+\_\+slope=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, bool preserve\+\_\+bedshape=true, \mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90}{Radial\+Profile}} radial\+\_\+profile=\mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90ac0cd381f8918df73dd4bc6df1190d7ba}{Radial\+Profile\+::\+RP\+\_\+\+GAIN}}, float radial\+\_\+profile\+\_\+parameter=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+falloff\+\_\+mask=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+r=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Blends a flatbed carve into an existing heightmap. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a2d7b71e9231efc67e4bae209bd7fa84a}{trench}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, const \mbox{\hyperlink{classhmap_1_1Path}{Path}} \&path, float width, bool enable\+\_\+width\+\_\+depth\+\_\+scaling=true, bool enable\+\_\+width\+\_\+distance\+\_\+scaling=true, bool enable\+\_\+width\+\_\+curvature\+\_\+scaling=false, float curvature\+\_\+radius\+\_\+min=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float curv\+\_\+width\+\_\+ratio\+\_\+min=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float curv\+\_\+width\+\_\+ratio\+\_\+max=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, \mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90}{Radial\+Profile}} radial\+\_\+profile=\mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90acedc11502bd1441e893fdc5a699b6d59}{Radial\+Profile\+::\+RP\+\_\+\+SMOOTHSTEP\+\_\+\+UPPER}}, float radial\+\_\+profile\+\_\+parameter=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, \mbox{\hyperlink{namespacehmap_a22e54d4ecd4b37d658c1d9ac9531377d}{Elevation\+Longitudinal\+Profile}} longitudinal\+\_\+profile=\mbox{\hyperlink{namespacehmap_a22e54d4ecd4b37d658c1d9ac9531377daf9b3bb1e76572464d8a6a413d9f12cef}{Elevation\+Longitudinal\+Profile\+::\+ELP\+\_\+\+DECREASING}}, float elevation\+\_\+shift=-\/0.\+05\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float shift\+\_\+ramp\+\_\+start\+\_\+ratio=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float shift\+\_\+ramp\+\_\+end\+\_\+ratio=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float min\+\_\+slope=0.\+001\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, size\+\_\+t k\+\_\+neighbors=8, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+r=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+bending\+\_\+mask=nullptr, int tile\+\_\+size=32, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
@@ -3033,6 +3047,34 @@ WORLEY\+\_\+\+DOUBLE&Worley double. \\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{WORLEY\_VALUE@{WORLEY\_VALUE}!hmap@{hmap}}\index{hmap@{hmap}!WORLEY\_VALUE@{WORLEY\_VALUE}}}\Hypertarget{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a803cca1f65b9596dbde7c54039773a39}\label{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a803cca1f65b9596dbde7c54039773a39} 
 WORLEY\+\_\+\+VALUE&Worley (cell value return). \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670}\index{hmap@{hmap}!ArraySampling@{ArraySampling}}
+\index{ArraySampling@{ArraySampling}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{ArraySampling}{ArraySampling}}
+{\footnotesize\ttfamily \label{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670} 
+enum class \mbox{\hyperlink{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670}{hmap\+::\+Array\+Sampling}} \+: int\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Strategy used to extract a point value from an array. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AS\_POINT@{AS\_POINT}!hmap@{hmap}}\index{hmap@{hmap}!AS\_POINT@{AS\_POINT}}}\Hypertarget{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670ae917a7a69f95d0944d9db8bd50ac1483}\label{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670ae917a7a69f95d0944d9db8bd50ac1483} 
+AS\+\_\+\+POINT&\doxylink{classhmap_1_1Array}{Array} value at the point (interpolated). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AS\_MIN@{AS\_MIN}!hmap@{hmap}}\index{hmap@{hmap}!AS\_MIN@{AS\_MIN}}}\Hypertarget{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670ade783ba3bcee865456df9537ea63b8e0}\label{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670ade783ba3bcee865456df9537ea63b8e0} 
+AS\+\_\+\+MIN&Minimum of the array values within a radius. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AS\_MAX@{AS\_MAX}!hmap@{hmap}}\index{hmap@{hmap}!AS\_MAX@{AS\_MAX}}}\Hypertarget{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670ae19372edb8b516f64baf28db3f8be338}\label{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670ae19372edb8b516f64baf28db3f8be338} 
+AS\+\_\+\+MAX&Maximum of the array values within a radius. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AS\_MEAN@{AS\_MEAN}!hmap@{hmap}}\index{hmap@{hmap}!AS\_MEAN@{AS\_MEAN}}}\Hypertarget{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670a35b7b1e0a176f1576070081a51d562e5}\label{namespacehmap_a45c97713b7e5ebf3235a3b3e886d2670a35b7b1e0a176f1576070081a51d562e5} 
+AS\+\_\+\+MEAN&Average of the array values within a radius. \\
 \hline
 
 \end{DoxyEnumFields}
@@ -6134,6 +6176,104 @@ This function modifies a heightmap array by "{}digging"{} a path into it based o
 {\em depth} & Optional depth parameter to specify the maximum depth of the dig. If not provided, the default depth of 0.\+f is used. \\
 \hline
 \end{DoxyParams}
+\Hypertarget{namespacehmap_aebf1ae5fd4f7a3985a938703eeb6bdb0}\index{hmap@{hmap}!flatten\_around\_points@{flatten\_around\_points}}
+\index{flatten\_around\_points@{flatten\_around\_points}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{flatten\_around\_points()}{flatten\_around\_points()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_aebf1ae5fd4f7a3985a938703eeb6bdb0} 
+void hmap\+::flatten\+\_\+around\+\_\+points (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z}{, }\item[{const std\+::vector$<$ float $>$ \&}]{xp}{, }\item[{const std\+::vector$<$ float $>$ \&}]{yp}{, }\item[{const std\+::vector$<$ float $>$ \&}]{zp}{, }\item[{const std\+::vector$<$ float $>$ \&}]{radius}{, }\item[{float}]{strength}{ = {\ttfamily 1.0f}, }\item[{\mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90}{Radial\+Profile}}}]{radial\+\_\+profile}{ = {\ttfamily \mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd}{Radial\+Profile\+::\+RP\+\_\+\+SMOOTHSTEP}}}, }\item[{float}]{profile\+\_\+param}{ = {\ttfamily 1.0f}, }\item[{glm\+::vec4}]{bbox}{ = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}}}\end{DoxyParamCaption})}
+
+
+
+Flattens a heightmap locally around a set of reference points. 
+
+Each point has its own influence radius. For a given cell, only the points whose radius covers the cell are kept, and the target elevation is the average of their elevations weighted by {\ttfamily \doxylink{namespacehmap_a9dd09c08e06c1144910d3fa30250643c}{falloff} \texorpdfstring{$\ast$}{*} radius} (larger radius, larger influence). The cell is blended toward this target using the sum of the falloffs (clamped to 1), which keeps the transition smooth.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in,out}}  & {\em z} & Heightmap array to modify in place. \\
+\hline
+\mbox{\texttt{in}}  & {\em xp} & \doxylink{classhmap_1_1Point}{Point} x coordinates (in the bounding box). \\
+\hline
+\mbox{\texttt{in}}  & {\em yp} & \doxylink{classhmap_1_1Point}{Point} y coordinates (in the bounding box). \\
+\hline
+\mbox{\texttt{in}}  & {\em zp} & Reference elevations of the points. \\
+\hline
+\mbox{\texttt{in}}  & {\em radius} & Influence radius of each point. \\
+\hline
+\mbox{\texttt{in}}  & {\em strength} & Flattening strength in \mbox{[}0, 1\mbox{]}. \\
+\hline
+\mbox{\texttt{in}}  & {\em radial\+\_\+profile} & Radial profile type used for distance falloff. \\
+\hline
+\mbox{\texttt{in}}  & {\em profile\+\_\+param} & Shape parameter for the radial profile. \\
+\hline
+\mbox{\texttt{in}}  & {\em bbox} & Bounding box of the heightmap. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_ad469b6940021dce125ee989001a6626e}\index{hmap@{hmap}!flatten\_around\_points@{flatten\_around\_points}}
+\index{flatten\_around\_points@{flatten\_around\_points}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{flatten\_around\_points()}{flatten\_around\_points()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_ad469b6940021dce125ee989001a6626e} 
+void hmap\+::flatten\+\_\+around\+\_\+points (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z}{, }\item[{const std\+::vector$<$ float $>$ \&}]{xp}{, }\item[{const std\+::vector$<$ float $>$ \&}]{yp}{, }\item[{const std\+::vector$<$ float $>$ \&}]{zp}{, }\item[{float}]{radius}{ = {\ttfamily 0.2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{strength}{ = {\ttfamily 1.0f}, }\item[{\mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90}{Radial\+Profile}}}]{radial\+\_\+profile}{ = {\ttfamily \mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd}{Radial\+Profile\+::\+RP\+\_\+\+SMOOTHSTEP}}}, }\item[{float}]{profile\+\_\+param}{ = {\ttfamily 1.0f}, }\item[{glm\+::vec4}]{bbox}{ = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}}}\end{DoxyParamCaption})}
+
+
+
+Overload of flatten\+\_\+around\+\_\+points with a single radius shared by all points. 
+
+\Hypertarget{namespacehmap_a844786248a3241e5834594b6e17f1387}\index{hmap@{hmap}!flatten\_around\_points\_terrain\_aware@{flatten\_around\_points\_terrain\_aware}}
+\index{flatten\_around\_points\_terrain\_aware@{flatten\_around\_points\_terrain\_aware}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{flatten\_around\_points\_terrain\_aware()}{flatten\_around\_points\_terrain\_aware()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a844786248a3241e5834594b6e17f1387} 
+void hmap\+::flatten\+\_\+around\+\_\+points\+\_\+terrain\+\_\+aware (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z}{, }\item[{const std\+::vector$<$ float $>$ \&}]{xp}{, }\item[{const std\+::vector$<$ float $>$ \&}]{yp}{, }\item[{const std\+::vector$<$ float $>$ \&}]{zp}{, }\item[{const std\+::vector$<$ float $>$ \&}]{radius}{, }\item[{float}]{slope\+\_\+weight}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{uphill\+\_\+weight}{ = {\ttfamily 2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{max\+\_\+height\+\_\+above}{ = {\ttfamily -\/1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{terrain\+\_\+follow}{ = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{strength}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{\mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90}{Radial\+Profile}}}]{radial\+\_\+profile}{ = {\ttfamily \mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd}{Radial\+Profile\+::\+RP\+\_\+\+SMOOTHSTEP}}}, }\item[{float}]{profile\+\_\+param}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+mask}{ = {\ttfamily nullptr}, }\item[{glm\+::vec4}]{bbox}{ = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}}}\end{DoxyParamCaption})}
+
+
+
+Terrain-\/aware flattening around a set of seed points. 
+
+From each seed, a Dijkstra propagation computes an accumulated cost distance over the heightmap. The step cost is the step length multiplied by {\ttfamily 1 + slope\+\_\+weight \texorpdfstring{$\ast$}{*} \doxylink{namespacehmap_a04e7abe100708990e2464cc5df2ccafa}{slope} + uphill\+\_\+weight \texorpdfstring{$\ast$}{*} climb / radius}, so the flattened region follows valleys and spreads easily over flat areas but is reduced on steep or higher terrain. Cells are reached only while the cost is below the radius and the Euclidean distance is below the radius (the radius is thus a maximum geometric extent) and the elevation is not above the height limit.
+
+The cost distance replaces the Euclidean distance in the radial profile. The target surface is the seed elevation plus a fraction ({\ttfamily terrain\+\_\+follow}) of the smoothed terrain relief relative to the seed, so it is not an exact plateau. Contributions of several seeds are combined as in flatten\+\_\+around\+\_\+points.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in,out}}  & {\em z} & Heightmap array to modify in place. \\
+\hline
+\mbox{\texttt{in}}  & {\em xp} & Seed x coordinates (in the bounding box). \\
+\hline
+\mbox{\texttt{in}}  & {\em yp} & Seed y coordinates. \\
+\hline
+\mbox{\texttt{in}}  & {\em zp} & Seed reference elevations. \\
+\hline
+\mbox{\texttt{in}}  & {\em radius} & Maximum geometric extent of each seed (bbox units). \\
+\hline
+\mbox{\texttt{in}}  & {\em slope\+\_\+weight} & Penalty on the local slope (0\+: ignored). \\
+\hline
+\mbox{\texttt{in}}  & {\em uphill\+\_\+weight} & Penalty on climbing above the seed elevation (0\+: ignored). \\
+\hline
+\mbox{\texttt{in}}  & {\em max\+\_\+height\+\_\+above} & Cells higher than {\ttfamily seed elevation + max\+\_\+height\+\_\+above} are never reached (negative\+: no limit). \\
+\hline
+\mbox{\texttt{in}}  & {\em terrain\+\_\+follow} & Amount of smoothed relief kept in the target surface\+: 0 gives an exact plateau, 1 keeps the whole relief. \\
+\hline
+\mbox{\texttt{in}}  & {\em strength} & Flattening strength in \mbox{[}0, 1\mbox{]}. \\
+\hline
+\mbox{\texttt{in}}  & {\em radial\+\_\+profile} & Radial profile used for the falloff. \\
+\hline
+\mbox{\texttt{in}}  & {\em profile\+\_\+param} & Shape parameter of the radial profile. \\
+\hline
+\mbox{\texttt{out}}  & {\em p\+\_\+mask} & Optional output blending weights. \\
+\hline
+\mbox{\texttt{in}}  & {\em bbox} & Bounding box of the heightmap. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_a5aea91d33cf85549400f927990052b01}\index{hmap@{hmap}!flatten\_around\_points\_terrain\_aware@{flatten\_around\_points\_terrain\_aware}}
+\index{flatten\_around\_points\_terrain\_aware@{flatten\_around\_points\_terrain\_aware}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{flatten\_around\_points\_terrain\_aware()}{flatten\_around\_points\_terrain\_aware()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a5aea91d33cf85549400f927990052b01} 
+void hmap\+::flatten\+\_\+around\+\_\+points\+\_\+terrain\+\_\+aware (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z}{, }\item[{const std\+::vector$<$ float $>$ \&}]{xp}{, }\item[{const std\+::vector$<$ float $>$ \&}]{yp}{, }\item[{const std\+::vector$<$ float $>$ \&}]{zp}{, }\item[{float}]{radius}{, }\item[{float}]{slope\+\_\+weight}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{uphill\+\_\+weight}{ = {\ttfamily 2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{max\+\_\+height\+\_\+above}{ = {\ttfamily -\/1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{terrain\+\_\+follow}{ = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{strength}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{\mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90}{Radial\+Profile}}}]{radial\+\_\+profile}{ = {\ttfamily \mbox{\hyperlink{namespacehmap_a2affc745bc33b7555352665745741f90ad18fad6ec8edf55050af29b51e14fffd}{Radial\+Profile\+::\+RP\+\_\+\+SMOOTHSTEP}}}, }\item[{float}]{profile\+\_\+param}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+mask}{ = {\ttfamily nullptr}, }\item[{glm\+::vec4}]{bbox}{ = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}}}\end{DoxyParamCaption})}
+
+
+
+Overload with a single radius shared by all seeds. 
+
 \Hypertarget{namespacehmap_a5f979c31af1c9ee6ad499882335ca6fb}\index{hmap@{hmap}!flatbed\_carve@{flatbed\_carve}}
 \index{flatbed\_carve@{flatbed\_carve}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{flatbed\_carve()}{flatbed\_carve()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}

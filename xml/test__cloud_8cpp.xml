@@ -698,6 +698,25 @@
         </inbodydescription>
         <location file="tests/src/test_cloud.cpp" line="491" column="1" bodyfile="tests/src/test_cloud.cpp" bodystart="491" bodyend="546"/>
       </memberdef>
+      <memberdef kind="function" id="test__cloud_8cpp_1afef07475b5960e6b160236e888c19205" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(CloudTest, SetValuesFromArrayRadius)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>CloudTest</type>
+        </param>
+        <param>
+          <type>SetValuesFromArrayRadius</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_cloud.cpp" line="548" column="1" bodyfile="tests/src/test_cloud.cpp" bodystart="548" bodyend="569"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -1250,6 +1269,29 @@
 <codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_LE(pt.y,<sp/>0.8f);</highlight></codeline>
 <codeline lineno="545"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="546"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"></highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><ref refid="test__cloud_8cpp_1ad2fb29c6c499be88712ced2359b13832" kindref="member">TEST</ref>(CloudTest,<sp/>SetValuesFromArrayRadius)</highlight></codeline>
+<codeline lineno="549"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z({11,<sp/>11},<sp/>1.f);</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/>z(5,<sp/>5)<sp/>=<sp/>5.f;</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"></highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud;</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1af8a784f76736b7ec459fbfa1bf7618d7" kindref="member">emplace_back</ref>(0.5f,<sp/>0.5f,<sp/>-1.f);</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1af8a784f76736b7ec459fbfa1bf7618d7" kindref="member">emplace_back</ref>(2.f,<sp/>2.f,<sp/>-1.f);</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"></highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a5ac84550aceffbb9053c3b58490e7126" kindref="member">set_values_from_array</ref>(z,<sp/><ref refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670ae19372edb8b516f64baf28db3f8be338" kindref="member">hmap::ArraySampling::AS_MAX</ref>,<sp/>0.15f);</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(cloud[0].v,<sp/>5.f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"></highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a5ac84550aceffbb9053c3b58490e7126" kindref="member">set_values_from_array</ref>(z,<sp/><ref refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670ade783ba3bcee865456df9537ea63b8e0" kindref="member">hmap::ArraySampling::AS_MIN</ref>,<sp/>0.15f);</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(cloud[0].v,<sp/>1.f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"></highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a5ac84550aceffbb9053c3b58490e7126" kindref="member">set_values_from_array</ref>(z,<sp/><ref refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670a35b7b1e0a176f1576070081a51d562e5" kindref="member">hmap::ArraySampling::AS_MEAN</ref>,<sp/>0.15f);</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/>EXPECT_GT(cloud[0].v,<sp/>1.f);</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/>EXPECT_LT(cloud[0].v,<sp/>5.f);</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"></highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>outside<sp/>the<sp/>bbox:<sp/>untouched</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(cloud[1].v,<sp/>-1.f,<sp/>1e-6f);</highlight></codeline>
+<codeline lineno="569"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_cloud.cpp"/>
   </compounddef>

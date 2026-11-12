@@ -30,6 +30,8 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_export_asset.cpp", "test__export__asset_8cpp.html", "test__export__asset_8cpp" ],
     [ "test_export_usd.cpp", "test__export__usd_8cpp.html", "test__export__usd_8cpp" ],
     [ "test_fill_talus.cpp", "test__fill__talus_8cpp.html", "test__fill__talus_8cpp" ],
+    [ "test_flatten_around_points.cpp", "test__flatten__around__points_8cpp.html", "test__flatten__around__points_8cpp" ],
+    [ "test_flatten_around_points_terrain_aware.cpp", "test__flatten__around__points__terrain__aware_8cpp.html", "test__flatten__around__points__terrain__aware_8cpp" ],
     [ "test_flood_fill.cpp", "test__flood__fill_8cpp.html", "test__flood__fill_8cpp" ],
     [ "test_flora.cpp", "test__flora_8cpp.html", "test__flora_8cpp" ],
     [ "test_flow_fixing.cpp", "test__flow__fixing_8cpp.html", "test__flow__fixing_8cpp" ],

@@ -1,5 +1,7 @@
 var NAVTREEINDEX8 =
 {
+"classhmap_1_1WaveDuneFunction.html#a7020902d580eccad59145bc15fd976e0":[15,0,0,44,4],
+"classhmap_1_1WaveDuneFunction.html#a7020902d580eccad59145bc15fd976e0":[16,0,0,42,4],
 "classhmap_1_1WaveDuneFunction.html#a723f11d859d984fa5655e487e993235e":[15,0,0,44,3],
 "classhmap_1_1WaveDuneFunction.html#a723f11d859d984fa5655e487e993235e":[16,0,0,42,3],
 "classhmap_1_1WaveDuneFunction.html#a8e7f9a3d4e10dc545609201883c52d34":[15,0,0,44,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX8 =
 "elevation__from__sparse__constraints_8cpp.html":[17,0,1,1,2,3],
 "erosion_8hpp.html":[17,0,1,0,0,25],
 "erosion_8hpp_source.html":[17,0,1,0,0,25],
-"erosion__maps_8cpp.html":[17,0,1,1,12,6],
-"erosion__maps_8hpp.html":[17,0,1,0,0,1,4],
-"erosion__maps_8hpp_source.html":[17,0,1,0,0,1,4]
+"erosion__maps_8cpp.html":[17,0,1,1,12,6]
 };

@@ -1,5 +1,7 @@
 var NAVTREEINDEX9 =
 {
+"erosion__maps_8hpp.html":[17,0,1,0,0,1,4],
+"erosion__maps_8hpp_source.html":[17,0,1,0,0,1,4],
 "erosion__parameters_8hpp.html":[17,0,1,0,0,1,5],
 "erosion__parameters_8hpp_source.html":[17,0,1,0,0,1,5],
 "erosion__profile__function_8cpp.html":[17,0,1,1,25,2],
@@ -35,6 +37,8 @@ var NAVTREEINDEX9 =
 "find__path__midpoint_8cpp.html":[17,0,1,1,38,3],
 "find__path__multiscale_8cpp.html":[17,0,1,1,38,4],
 "flatbed__carve_8cpp.html":[17,0,1,1,5,2],
+"flatten__around__points_8cpp.html":[17,0,1,1,5,3],
+"flatten__around__points__terrain__aware_8cpp.html":[17,0,1,1,5,4],
 "flooding_8cpp.html":[17,0,1,1,21,6],
 "flora_8hpp.html":[17,0,1,0,0,29],
 "flora_8hpp_source.html":[17,0,1,0,0,29],
@@ -245,9 +249,5 @@ var NAVTREEINDEX9 =
 "interpolate__array_8hpp_source.html":[17,0,1,0,0,8,2],
 "interpolate__array__gpu_8cpp.html":[17,0,1,1,22,11],
 "interpolate__curve_8cpp.html":[17,0,1,1,22,12],
-"interpolate__curve_8hpp.html":[17,0,1,0,0,8,3],
-"interpolate__curve_8hpp_source.html":[17,0,1,0,0,8,3],
-"interpolate__heightmap__virtual__array_8cpp.html":[17,0,1,1,22,13],
-"inverse__sampler__2d_8cpp.html":[17,0,1,1,18,6],
-"inverse__sampler__2d_8hpp.html":[17,0,1,0,0,5,5]
+"interpolate__curve_8hpp.html":[17,0,1,0,0,8,3]
 };
