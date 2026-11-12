@@ -1030,6 +1030,41 @@ TEST(TreeDensityTest, ZeroWeightsFailsafe)
   }
 }
 
+TEST(TreeDensityTest, FlatTerrainAndLinearSlope)
+{
+  // Test flat terrain (zeroed array) and linear slope terrain
+  glm::ivec2 shape = {32, 32};
+  Array      flat(shape, 0.0f);
+
+  Array density_flat = build_tree_density(flat);
+  ASSERT_EQ(density_flat.shape, shape);
+
+  for (float v : density_flat.vector)
+  {
+    EXPECT_FALSE(std::isnan(v));
+    EXPECT_FALSE(std::isinf(v));
+    EXPECT_GE(v, 0.0f);
+    EXPECT_LE(v, 1.0f);
+  }
+
+  // Linear slope along x direction
+  Array slope(shape, 0.0f);
+  for (int j = 0; j < shape.y; ++j)
+    for (int i = 0; i < shape.x; ++i)
+      slope(i, j) = static_cast<float>(i) / static_cast<float>(shape.x);
+
+  Array density_slope = build_tree_density(slope);
+  ASSERT_EQ(density_slope.shape, shape);
+
+  for (float v : density_slope.vector)
+  {
+    EXPECT_FALSE(std::isnan(v));
+    EXPECT_FALSE(std::isinf(v));
+    EXPECT_GE(v, 0.0f);
+    EXPECT_LE(v, 1.0f);
+  }
+}
+
 // --- VirtualArray Seeding Tests
 
 TEST(ForestSeedingTest, VirtualArrayBasicClusterSeeding)
