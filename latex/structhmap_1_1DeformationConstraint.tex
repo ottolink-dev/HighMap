@@ -35,52 +35,54 @@ float \mbox{\hyperlink{structhmap_1_1DeformationConstraint_ad4a798b89d549031c1c4
 \doxysubsection{Detailed Description}
 Per-\/vertex penalty term used by \doxylink{namespacehmap_abec90e80c5d42318a7aadf6dd1016fec}{sls\+\_\+deformation}. 
 
-Each constraint contributes {\ttfamily scale \texorpdfstring{$\ast$}{*} \doxylink{structhmap_1_1DeformationConstraint_af0e2e25f46be9570214dcfa57bc83083}{weight(x, y)} \texorpdfstring{$\ast$}{*} (\doxylink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z(x, y)} -\/ \doxylink{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b}{target(x, y)})\texorpdfstring{$^\wedge$}{\string^}2} to the fitness of a vertex, gated by its type\+: for {\ttfamily MATCH} the penalty always applies, for {\ttfamily ABOVE} only where {\ttfamily z \texorpdfstring{$<$}{<} target}, for {\ttfamily BELOW} only where {\ttfamily z \texorpdfstring{$>$}{>} target}. Vertices with a zero weight are unconstrained by that term. Several constraints are summed, so the {\ttfamily scale} factor can be used to normalize competing terms.
+Each constraint contributes {\ttfamily \doxylink{structhmap_1_1DeformationConstraint_ad4a798b89d549031c1c431409a25a465}{scale} \texorpdfstring{$\ast$}{*} \doxylink{structhmap_1_1DeformationConstraint_af0e2e25f46be9570214dcfa57bc83083}{weight(x, y)} \texorpdfstring{$\ast$}{*} (z(x, y) -\/ \doxylink{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b}{target(x, y)})\texorpdfstring{$^\wedge$}{\string^}2} to the fitness of a vertex, gated by its type\+: for {\ttfamily \doxylink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2aa5529116b7eb6406ffb42de58ae3314d}{MATCH}} the penalty always applies, for {\ttfamily \doxylink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2a4a4ff914bd69d6b43e40b58f08627a3e}{ABOVE}} only where {\ttfamily z \texorpdfstring{$<$}{<} \doxylink{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b}{target}}, for {\ttfamily \doxylink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2a7e9c666cdfeb7b317902253fda25e978}{BELOW}} only where {\ttfamily z \texorpdfstring{$>$}{>} \doxylink{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b}{target}}. Vertices with a zero weight are unconstrained by that term. Several constraints are summed, so the {\ttfamily \doxylink{structhmap_1_1DeformationConstraint_ad4a798b89d549031c1c431409a25a465}{scale}} factor can be used to normalize competing terms.
 
 Typical uses (after Stachniak \& Stuerzlinger, 2005)\+:
 \begin{DoxyItemize}
-\item match a reference height map\+: {\ttfamily target = ref, weight = 1, MATCH};
-\item shape mask (island)\+: {\ttfamily target = water\+\_\+level, weight = mask, ABOVE} plus {\ttfamily target = water\+\_\+level, weight = 1 -\/ mask, BELOW};
-\item flat road\+: {\ttfamily target = road\+\_\+height, weight = path, MATCH} plus {\ttfamily target = original, weight = 1 -\/ path, MATCH} (preserve the rest);
-\item edge matching\+: {\ttfamily target} = neighbour terrain edge values, {\ttfamily weight} non-\/zero along the edge only, {\ttfamily MATCH}. 
+\item match a reference height map\+: {\ttfamily \doxylink{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b}{target} = ref, \doxylink{structhmap_1_1DeformationConstraint_af0e2e25f46be9570214dcfa57bc83083}{weight} = 1, \doxylink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2aa5529116b7eb6406ffb42de58ae3314d}{MATCH}};
+\item shape mask (island)\+: {\ttfamily \doxylink{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b}{target} = water\+\_\+level, \doxylink{structhmap_1_1DeformationConstraint_af0e2e25f46be9570214dcfa57bc83083}{weight} = mask, \doxylink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2a4a4ff914bd69d6b43e40b58f08627a3e}{ABOVE}} plus {\ttfamily \doxylink{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b}{target} = water\+\_\+level, \doxylink{structhmap_1_1DeformationConstraint_af0e2e25f46be9570214dcfa57bc83083}{weight} = 1 -\/ mask, \doxylink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2a7e9c666cdfeb7b317902253fda25e978}{BELOW}};
+\item flat road\+: {\ttfamily \doxylink{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b}{target} = road\+\_\+height, \doxylink{structhmap_1_1DeformationConstraint_af0e2e25f46be9570214dcfa57bc83083}{weight} = path, \doxylink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2aa5529116b7eb6406ffb42de58ae3314d}{MATCH}} plus {\ttfamily \doxylink{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b}{target} = original, \doxylink{structhmap_1_1DeformationConstraint_af0e2e25f46be9570214dcfa57bc83083}{weight} = 1 -\/ path, \doxylink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2aa5529116b7eb6406ffb42de58ae3314d}{MATCH}} (preserve the rest);
+\item edge matching\+: {\ttfamily \doxylink{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b}{target}} = neighbour terrain edge values, {\ttfamily \doxylink{structhmap_1_1DeformationConstraint_af0e2e25f46be9570214dcfa57bc83083}{weight}} non-\/zero along the edge only, {\ttfamily \doxylink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2aa5529116b7eb6406ffb42de58ae3314d}{MATCH}}. 
 \end{DoxyItemize}
 
+\label{doc-variable-members}
+\Hypertarget{structhmap_1_1DeformationConstraint_doc-variable-members}
 \doxysubsection{Member Data Documentation}
-\Hypertarget{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b}\label{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b} 
-\index{hmap::DeformationConstraint@{hmap::DeformationConstraint}!target@{target}}
+\Hypertarget{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b}\index{hmap::DeformationConstraint@{hmap::DeformationConstraint}!target@{target}}
 \index{target@{target}!hmap::DeformationConstraint@{hmap::DeformationConstraint}}
 \doxysubsubsection{\texorpdfstring{target}{target}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::\+Deformation\+Constraint\+::target}
+{\footnotesize\ttfamily \label{structhmap_1_1DeformationConstraint_a8f3ae7134e1a09cedb0f8e67a5a0040b} 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::\+Deformation\+Constraint\+::target}
 
 
 
 desired height field 
 
-\Hypertarget{structhmap_1_1DeformationConstraint_af0e2e25f46be9570214dcfa57bc83083}\label{structhmap_1_1DeformationConstraint_af0e2e25f46be9570214dcfa57bc83083} 
-\index{hmap::DeformationConstraint@{hmap::DeformationConstraint}!weight@{weight}}
+\Hypertarget{structhmap_1_1DeformationConstraint_af0e2e25f46be9570214dcfa57bc83083}\index{hmap::DeformationConstraint@{hmap::DeformationConstraint}!weight@{weight}}
 \index{weight@{weight}!hmap::DeformationConstraint@{hmap::DeformationConstraint}}
 \doxysubsubsection{\texorpdfstring{weight}{weight}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::\+Deformation\+Constraint\+::weight}
+{\footnotesize\ttfamily \label{structhmap_1_1DeformationConstraint_af0e2e25f46be9570214dcfa57bc83083} 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::\+Deformation\+Constraint\+::weight}
 
 
 
 per-\/vertex weight (0 = free) 
 
-\Hypertarget{structhmap_1_1DeformationConstraint_a745bd7aee21aacf0ef756e777aa8df9d}\label{structhmap_1_1DeformationConstraint_a745bd7aee21aacf0ef756e777aa8df9d} 
-\index{hmap::DeformationConstraint@{hmap::DeformationConstraint}!type@{type}}
+\Hypertarget{structhmap_1_1DeformationConstraint_a745bd7aee21aacf0ef756e777aa8df9d}\index{hmap::DeformationConstraint@{hmap::DeformationConstraint}!type@{type}}
 \index{type@{type}!hmap::DeformationConstraint@{hmap::DeformationConstraint}}
 \doxysubsubsection{\texorpdfstring{type}{type}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2}{Deformation\+Constraint\+Type}} hmap\+::\+Deformation\+Constraint\+::type = \mbox{\hyperlink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2aa5529116b7eb6406ffb42de58ae3314d}{MATCH}}}
+{\footnotesize\ttfamily \label{structhmap_1_1DeformationConstraint_a745bd7aee21aacf0ef756e777aa8df9d} 
+\mbox{\hyperlink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2}{Deformation\+Constraint\+Type}} hmap\+::\+Deformation\+Constraint\+::type = \mbox{\hyperlink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2aa5529116b7eb6406ffb42de58ae3314d}{MATCH}}}
 
 
 
 penalty type 
 
-\Hypertarget{structhmap_1_1DeformationConstraint_ad4a798b89d549031c1c431409a25a465}\label{structhmap_1_1DeformationConstraint_ad4a798b89d549031c1c431409a25a465} 
-\index{hmap::DeformationConstraint@{hmap::DeformationConstraint}!scale@{scale}}
+\Hypertarget{structhmap_1_1DeformationConstraint_ad4a798b89d549031c1c431409a25a465}\index{hmap::DeformationConstraint@{hmap::DeformationConstraint}!scale@{scale}}
 \index{scale@{scale}!hmap::DeformationConstraint@{hmap::DeformationConstraint}}
 \doxysubsubsection{\texorpdfstring{scale}{scale}}
-{\footnotesize\ttfamily float hmap\+::\+Deformation\+Constraint\+::scale = 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}
+{\footnotesize\ttfamily \label{structhmap_1_1DeformationConstraint_ad4a798b89d549031c1c431409a25a465} 
+float hmap\+::\+Deformation\+Constraint\+::scale = 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}
 
 
 

@@ -14,7 +14,7 @@
 \DoxyCodeLine{00015\ }
 \DoxyCodeLine{00024\ std::vector<size\_t>\ \mbox{\hyperlink{namespacehmap_a8be122241fa42b0f6a7ef67106391780}{argsort}}(\textcolor{keyword}{const}\ std::vector<float>\ \&v);}
 \DoxyCodeLine{00025\ }
-\DoxyCodeLine{00031\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_a9f89bb49dba35b60582df3749d8524b8}{compute\_median}}(std::vector<float>\ \mbox{\hyperlink{sls__deformation_8cpp_aa3f9c59d276fad4520b1bf5012a8140f}{values}});}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_a9f89bb49dba35b60582df3749d8524b8}{compute\_median}}(std::vector<float>\ values);}
 \DoxyCodeLine{00032\ }
 \DoxyCodeLine{00042\ std::vector<size\_t>\ \mbox{\hyperlink{namespacehmap_a03345527b3df79e1825d2f91d776ba35}{find\_sign\_changes}}(\textcolor{keyword}{const}\ std::vector<float>\ \&data);}
 \DoxyCodeLine{00043\ }
@@ -33,7 +33,7 @@
 \DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ max\_value,}
 \DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ seed);}
 \DoxyCodeLine{00100\ }
-\DoxyCodeLine{00109\ std::string\ \mbox{\hyperlink{namespacehmap_a47f7c4ead587ead4a75c9c7f4fc4b079}{make\_histogram}}(\textcolor{keyword}{const}\ std::vector<float>\ \&\mbox{\hyperlink{sls__deformation_8cpp_aa3f9c59d276fad4520b1bf5012a8140f}{values}},}
+\DoxyCodeLine{00109\ std::string\ \mbox{\hyperlink{namespacehmap_a47f7c4ead587ead4a75c9c7f4fc4b079}{make\_histogram}}(\textcolor{keyword}{const}\ std::vector<float>\ \&values,}
 \DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bin\_count,}
 \DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hist\_height);}
 \DoxyCodeLine{00112\ }
@@ -53,16 +53,16 @@
 \DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_max\ =\ 1.f);}
 \DoxyCodeLine{00157\ }
 \DoxyCodeLine{00165\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00166\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_ad465af1e2c3cc465b53657b457bf68a5}{shuffle\_vector}}(std::vector<T>\ \&\mbox{\hyperlink{sls__deformation_8cpp_aa3f9c59d276fad4520b1bf5012a8140f}{values}},\ std::uint32\_t\ seed)}
+\DoxyCodeLine{00166\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacehmap_ad465af1e2c3cc465b53657b457bf68a5}{shuffle\_vector}}(std::vector<T>\ \&values,\ std::uint32\_t\ seed)}
 \DoxyCodeLine{00167\ \{}
 \DoxyCodeLine{00168\ \ \ std::mt19937\ rng(seed);}
-\DoxyCodeLine{00169\ \ \ std::shuffle(\mbox{\hyperlink{sls__deformation_8cpp_aa3f9c59d276fad4520b1bf5012a8140f}{values}}.begin(),\ \mbox{\hyperlink{sls__deformation_8cpp_aa3f9c59d276fad4520b1bf5012a8140f}{values}}.end(),\ rng);}
+\DoxyCodeLine{00169\ \ \ std::shuffle(values.begin(),\ values.end(),\ rng);}
 \DoxyCodeLine{00170\ \}}
 \DoxyCodeLine{00171\ }
 \DoxyCodeLine{00180\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00181\ std::vector<T>\ \mbox{\hyperlink{namespacehmap_a0520c7ad885d5776f6e06ec12e7f1729}{shuffled\_vector}}(\textcolor{keyword}{const}\ std::vector<T>\ \&\mbox{\hyperlink{sls__deformation_8cpp_aa3f9c59d276fad4520b1bf5012a8140f}{values}},\ std::uint32\_t\ seed)}
+\DoxyCodeLine{00181\ std::vector<T>\ \mbox{\hyperlink{namespacehmap_a0520c7ad885d5776f6e06ec12e7f1729}{shuffled\_vector}}(\textcolor{keyword}{const}\ std::vector<T>\ \&values,\ std::uint32\_t\ seed)}
 \DoxyCodeLine{00182\ \{}
-\DoxyCodeLine{00183\ \ \ std::vector<T>\ result\ =\ \mbox{\hyperlink{sls__deformation_8cpp_aa3f9c59d276fad4520b1bf5012a8140f}{values}};}
+\DoxyCodeLine{00183\ \ \ std::vector<T>\ result\ =\ values;}
 \DoxyCodeLine{00184\ \ \ \mbox{\hyperlink{namespacehmap_ad465af1e2c3cc465b53657b457bf68a5}{shuffle\_vector}}(result,\ seed);}
 \DoxyCodeLine{00185\ \ \ \textcolor{keywordflow}{return}\ result;}
 \DoxyCodeLine{00186\ \}}

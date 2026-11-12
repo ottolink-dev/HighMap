@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="test__quilting_8cpp" kind="file" language="C++">
     <compoundname>test_quilting.cpp</compoundname>
     <sectiondef kind="func">
@@ -178,11 +178,11 @@
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">namespace</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>make_sample_array(glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>std::uint32_t<sp/>seed)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>make_sample_array(glm::ivec2<sp/>shape,<sp/>std::uint32_t<sp/>seed)</highlight></codeline>
 <codeline lineno="19"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref><sp/>=<sp/><ref refid="namespacehmap_1a7d699a468a18be16c70654958ee13b41" kindref="member">noise_fbm</ref>(NoiseType::PERLIN,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>glm::vec2(4.f,<sp/>4.f),<sp/>seed);</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">remap</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>);</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1a7d699a468a18be16c70654958ee13b41" kindref="member">noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">NoiseType::PERLIN</ref>,<sp/>shape,<sp/>glm::vec2(4.f,<sp/>4.f),<sp/>seed);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">remap</ref>(z);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>z;</highlight></codeline>
 <codeline lineno="23"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight></codeline>
 <codeline lineno="25"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace</highlight><highlight class="normal"></highlight></codeline>
@@ -191,21 +191,21 @@
 <codeline lineno="28"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>input<sp/>=<sp/>make_sample_array({64,<sp/>64},<sp/>1);</highlight></codeline>
 <codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ada12bd91a1719f64ff4b652bf1462d2a" kindref="member">quilting</ref>({},<sp/>{16,<sp/>16},<sp/>{2,<sp/>2},<sp/>0.5f,<sp/>1).vector.empty())</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ada12bd91a1719f64ff4b652bf1462d2a" kindref="member">quilting</ref>({},<sp/>{16,<sp/>16},<sp/>{2,<sp/>2},<sp/>0.5f,<sp/>1).<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>.empty())</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;empty<sp/>input<sp/>array<sp/>list&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ada12bd91a1719f64ff4b652bf1462d2a" kindref="member">quilting</ref>({&amp;input},<sp/>{0,<sp/>16},<sp/>{2,<sp/>2},<sp/>0.5f,<sp/>1).vector.empty())</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ada12bd91a1719f64ff4b652bf1462d2a" kindref="member">quilting</ref>({&amp;input},<sp/>{0,<sp/>16},<sp/>{2,<sp/>2},<sp/>0.5f,<sp/>1).<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>.empty())</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;invalid<sp/>patch_base_shape&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ada12bd91a1719f64ff4b652bf1462d2a" kindref="member">quilting</ref>({&amp;input},<sp/>{16,<sp/>16},<sp/>{0,<sp/>2},<sp/>0.5f,<sp/>1).vector.empty())</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ada12bd91a1719f64ff4b652bf1462d2a" kindref="member">quilting</ref>({&amp;input},<sp/>{16,<sp/>16},<sp/>{0,<sp/>2},<sp/>0.5f,<sp/>1).<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>.empty())</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;invalid<sp/>tiling&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"></highlight></codeline>
 <codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>empty_arr;</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ada12bd91a1719f64ff4b652bf1462d2a" kindref="member">quilting</ref>({&amp;empty_arr},<sp/>{16,<sp/>16},<sp/>{2,<sp/>2},<sp/>0.5f,<sp/>1).vector.empty())</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ada12bd91a1719f64ff4b652bf1462d2a" kindref="member">quilting</ref>({&amp;empty_arr},<sp/>{16,<sp/>16},<sp/>{2,<sp/>2},<sp/>0.5f,<sp/>1).<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>.empty())</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;empty<sp/>array<sp/>in<sp/>input<sp/>list&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a8407611dc51d0372c4626c6c6fa94acd" kindref="member">quilting_blend</ref>({},<sp/>{16,<sp/>16},<sp/>0.5f,<sp/>1).vector.empty());</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a8407611dc51d0372c4626c6c6fa94acd" kindref="member">quilting_blend</ref>({},<sp/>{16,<sp/>16},<sp/>0.5f,<sp/>1).<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>.empty());</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1aad762d7a12d68d42ffd90e07be88fcb3" kindref="member">quilting_expand</ref>(empty_arr,<sp/>2.f,<sp/>{16,<sp/>16},<sp/>0.5f,<sp/>1).vector.empty());</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1adb1405cd7f9a219c82c149bcaa55cafc" kindref="member">quilting_shuffle</ref>(empty_arr,<sp/>{16,<sp/>16},<sp/>0.5f,<sp/>1).vector.empty());</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1aad762d7a12d68d42ffd90e07be88fcb3" kindref="member">quilting_expand</ref>(empty_arr,<sp/>2.f,<sp/>{16,<sp/>16},<sp/>0.5f,<sp/>1).<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>.empty());</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1adb1405cd7f9a219c82c149bcaa55cafc" kindref="member">quilting_shuffle</ref>(empty_arr,<sp/>{16,<sp/>16},<sp/>0.5f,<sp/>1).<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>.empty());</highlight></codeline>
 <codeline lineno="46"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"></highlight></codeline>
 <codeline lineno="48"><highlight class="normal"><ref refid="test__quilting_8cpp_1a3080ad8ce411f35b52c886ff88c18101" kindref="member">TEST</ref>(Quilting,<sp/>BasicQuiltingAndShape)</highlight></codeline>
@@ -219,7 +219,7 @@
 <codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1ada12bd91a1719f64ff4b652bf1462d2a" kindref="member">quilting</ref>({&amp;input},<sp/>patch_base_shape,<sp/>tiling,<sp/>overlap,<sp/>42);</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"></highlight></codeline>
 <codeline lineno="58"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>patch_shape<sp/>=<sp/>{(int)(patch_base_shape.x<sp/>*<sp/>(1.f<sp/>+<sp/>overlap)),</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(patch_base_shape.y<sp/>*<sp/>(1.f<sp/>+<sp/>overlap))};</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(int)(patch_base_shape.y<sp/>*<sp/>(1.f<sp/>+<sp/>overlap))};</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>expected_shape<sp/>=<sp/>{</highlight></codeline>
 <codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tiling.x<sp/>*<sp/>patch_base_shape.x<sp/>+<sp/>(patch_shape.x<sp/>-<sp/>patch_base_shape.x),</highlight></codeline>
 <codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tiling.y<sp/>*<sp/>patch_base_shape.y<sp/>+<sp/>(patch_shape.y<sp/>-<sp/>patch_base_shape.y)};</highlight></codeline>
@@ -227,7 +227,7 @@
 <codeline lineno="64"><highlight class="normal"><sp/><sp/>EXPECT_EQ(out.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x,<sp/>expected_shape.x);</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"><sp/><sp/>EXPECT_EQ(out.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y,<sp/>expected_shape.y);</highlight></codeline>
 <codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>v<sp/>:<sp/>out.vector)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>v<sp/>:<sp/>out.<ref refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kindref="member">vector</ref>)</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_TRUE(std::isfinite(v));</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
@@ -310,14 +310,14 @@
 <codeline lineno="147"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1log_1a8329d2e0f083133cd0e3ff79fb74f2d9" kindref="member">error</ref>(0,<sp/>2)<sp/>=<sp/>0.f;</highlight></codeline>
 <codeline lineno="148"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1log_1a8329d2e0f083133cd0e3ff79fb74f2d9" kindref="member">error</ref>(1,<sp/>3)<sp/>=<sp/>0.f;</highlight></codeline>
 <codeline lineno="149"><highlight class="normal"></highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/>std::vector&lt;int&gt;<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>;</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ae0a3c73cc23a288fe03bf5ed6ac73c3d" kindref="member">find_vertical_cut_path</ref>(error,<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/>std::vector&lt;int&gt;<sp/>path;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ae0a3c73cc23a288fe03bf5ed6ac73c3d" kindref="member">find_vertical_cut_path</ref>(error,<sp/>path);</highlight></codeline>
 <codeline lineno="152"><highlight class="normal"></highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/>ASSERT_EQ(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>4u);</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>[0],<sp/>2);</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>[1],<sp/>1);</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>[2],<sp/>0);</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>[3],<sp/>1);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/>ASSERT_EQ(path.size(),<sp/>4u);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[0],<sp/>2);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[1],<sp/>1);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[2],<sp/>0);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[3],<sp/>1);</highlight></codeline>
 <codeline lineno="158"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="159"><highlight class="normal"></highlight></codeline>
 <codeline lineno="160"><highlight class="normal"><ref refid="test__quilting_8cpp_1a3080ad8ce411f35b52c886ff88c18101" kindref="member">TEST</ref>(Quilting,<sp/>ZeroOverlapQuilting)</highlight></codeline>

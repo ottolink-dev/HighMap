@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="test__cloud_8cpp" kind="file" language="C++">
     <compoundname>test_cloud.cpp</compoundname>
     <sectiondef kind="var">
       <memberdef kind="variable" id="test__cloud_8cpp_1aaea08d40b276c0525347d2adcdc9cf9e" prot="public" static="yes" constexpr="yes" mutable="no">
-        <type>constexpr float</type>
-        <definition>constexpr float eps</definition>
+        <type>float</type>
+        <definition>float eps</definition>
         <argsstring></argsstring>
         <name>eps</name>
         <initializer>= 1e-5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></initializer>
@@ -728,8 +728,8 @@
 <codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tol<sp/>=<sp/>eps)</highlight></codeline>
 <codeline lineno="23"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"><sp/><sp/>ASSERT_EQ(a.size(),<sp/>b.size());</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>a.size();<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(a[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>],<sp/>b[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>],<sp/>tol);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>a.size();<sp/>++i)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(a[i],<sp/>b[i],<sp/>tol);</highlight></codeline>
 <codeline lineno="27"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"></highlight></codeline>
 <codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/>------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
@@ -744,23 +744,23 @@
 <codeline lineno="38"><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"><ref refid="test__cloud_8cpp_1ad2fb29c6c499be88712ced2359b13832" kindref="member">TEST</ref>(CloudTest,<sp/>ConstructFromXY)</highlight></codeline>
 <codeline lineno="40"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref><sp/>=<sp/>{0.f,<sp/>1.f};</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref><sp/>=<sp/>{2.f,<sp/>3.f};</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>x<sp/>=<sp/>{0.f,<sp/>1.f};</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>y<sp/>=<sp/>{2.f,<sp/>3.f};</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>cloud(<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>cloud(x,<sp/>y);</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight></codeline>
 <codeline lineno="46"><highlight class="normal"><sp/><sp/>ASSERT_EQ(cloud.size(),<sp/>2);</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[0].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>0.f));</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[0].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>2.f));</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[0].x,<sp/>0.f));</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[0].y,<sp/>2.f));</highlight></codeline>
 <codeline lineno="49"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
 <codeline lineno="51"><highlight class="normal"><ref refid="test__cloud_8cpp_1ad2fb29c6c499be88712ced2359b13832" kindref="member">TEST</ref>(CloudTest,<sp/>ConstructFromXYV)</highlight></codeline>
 <codeline lineno="52"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref><sp/>=<sp/>{0.f,<sp/>1.f};</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref><sp/>=<sp/>{2.f,<sp/>3.f};</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>x<sp/>=<sp/>{0.f,<sp/>1.f};</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>y<sp/>=<sp/>{2.f,<sp/>3.f};</highlight></codeline>
 <codeline lineno="55"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>v<sp/>=<sp/>{10.f,<sp/>20.f};</highlight></codeline>
 <codeline lineno="56"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>cloud(<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>v);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>cloud(x,<sp/>y,<sp/>v);</highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"><sp/><sp/>ASSERT_EQ(cloud.size(),<sp/>2);</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[1].v,<sp/>20.f));</highlight></codeline>
@@ -773,10 +773,10 @@
 <codeline lineno="67"><highlight class="normal"></highlight></codeline>
 <codeline lineno="68"><highlight class="normal"><sp/><sp/>ASSERT_EQ(c1.size(),<sp/>c2.size());</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>c1.size();<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>c1.size();<sp/>++i)</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(c1[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>c2[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>eps);</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(c1[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>c2[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>eps);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(c1[i].x,<sp/>c2[i].x,<sp/>eps);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(c1[i].y,<sp/>c2[i].y,<sp/>eps);</highlight></codeline>
 <codeline lineno="74"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="75"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"></highlight></codeline>
@@ -800,7 +800,7 @@
 <codeline lineno="94"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1af93934b0c344c81d0260680988643d32" kindref="member">erase</ref>(cloud.<ref refid="classhmap_1_1Cloud_1a3f115445c5a6bb481aebdf75d83f4705" kindref="member">begin</ref>());</highlight></codeline>
 <codeline lineno="95"><highlight class="normal"></highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/>ASSERT_EQ(cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>1);</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[0].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>1.f));</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[0].x,<sp/>1.f));</highlight></codeline>
 <codeline lineno="98"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="99"><highlight class="normal"></highlight></codeline>
 <codeline lineno="100"><highlight class="normal"><ref refid="test__cloud_8cpp_1ad2fb29c6c499be88712ced2359b13832" kindref="member">TEST</ref>(CloudTest,<sp/>ClearEmptiesCloud)</highlight></codeline>
@@ -820,12 +820,12 @@
 <codeline lineno="114"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="115"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>cloud(std::vector&lt;Point&gt;{{-1.f,<sp/>2.f,<sp/>0.f},<sp/>{3.f,<sp/>4.f,<sp/>0.f}});</highlight></codeline>
 <codeline lineno="116"><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/>glm::vec4<sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref><sp/>=<sp/>cloud.<ref refid="classhmap_1_1Cloud_1ae5ba6ffbe371603545c312e51601615f" kindref="member">get_bbox</ref>();</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>glm::vec4<sp/>bbox<sp/>=<sp/>cloud.<ref refid="classhmap_1_1Cloud_1ae5ba6ffbe371603545c312e51601615f" kindref="member">get_bbox</ref>();</highlight></codeline>
 <codeline lineno="118"><highlight class="normal"></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(<ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>.x,<sp/>-1.f));</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(<ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>.y,<sp/>3.f));</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(<ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>.z,<sp/>2.f));</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(<ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>.w,<sp/>4.f));</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(bbox.x,<sp/>-1.f));</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(bbox.y,<sp/>3.f));</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(bbox.z,<sp/>2.f));</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(bbox.w,<sp/>4.f));</highlight></codeline>
 <codeline lineno="123"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="124"><highlight class="normal"></highlight></codeline>
 <codeline lineno="125"><highlight class="normal"><ref refid="test__cloud_8cpp_1ad2fb29c6c499be88712ced2359b13832" kindref="member">TEST</ref>(CloudTest,<sp/>GetCenterCorrect)</highlight></codeline>
@@ -842,9 +842,9 @@
 <codeline lineno="136"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="137"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>cloud(std::vector&lt;Point&gt;{{0,<sp/>0,<sp/>1},<sp/>{1,<sp/>1,<sp/>2}});</highlight></codeline>
 <codeline lineno="138"><highlight class="normal"></highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1aa3f9c59d276fad4520b1bf5012a8140f" kindref="member">values</ref><sp/>=<sp/>cloud.<ref refid="classhmap_1_1Cloud_1a53cb47401f1e9d027a638f3680c3004d" kindref="member">get_values</ref>();</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>values<sp/>=<sp/>cloud.<ref refid="classhmap_1_1Cloud_1a53cb47401f1e9d027a638f3680c3004d" kindref="member">get_values</ref>();</highlight></codeline>
 <codeline lineno="140"><highlight class="normal"></highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><ref refid="test__cloud_8cpp_1afbb5b1c88e88a97044e5571bce02ddb0" kindref="member">expectVecNear</ref>(<ref refid="sls__deformation_8cpp_1aa3f9c59d276fad4520b1bf5012a8140f" kindref="member">values</ref>,<sp/>{1.f,<sp/>2.f});</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><ref refid="test__cloud_8cpp_1afbb5b1c88e88a97044e5571bce02ddb0" kindref="member">expectVecNear</ref>(values,<sp/>{1.f,<sp/>2.f});</highlight></codeline>
 <codeline lineno="142"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="143"><highlight class="normal"></highlight></codeline>
 <codeline lineno="144"><highlight class="normal"><ref refid="test__cloud_8cpp_1ad2fb29c6c499be88712ced2359b13832" kindref="member">TEST</ref>(CloudTest,<sp/>GetValuesMinMax)</highlight></codeline>
@@ -911,8 +911,8 @@
 <codeline lineno="205"><highlight class="normal"></highlight></codeline>
 <codeline lineno="206"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a35d0d2e48f4063bd7b582bd24a132294" kindref="member">remap_values</ref>(0.f,<sp/>1.f);</highlight></codeline>
 <codeline lineno="207"><highlight class="normal"></highlight></codeline>
-<codeline lineno="208"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.<ref refid="classhmap_1_1Cloud_1a9194835457c70bfa13d0dfa66d964f01" kindref="member">get_values_min</ref>(),<sp/>0.f));</highlight></codeline>
-<codeline lineno="209"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.<ref refid="classhmap_1_1Cloud_1abe70a230c2bfecad67112321b3040286" kindref="member">get_values_max</ref>(),<sp/>1.f));</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.get_values_min(),<sp/>0.f));</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.get_values_max(),<sp/>1.f));</highlight></codeline>
 <codeline lineno="210"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="211"><highlight class="normal"></highlight></codeline>
 <codeline lineno="212"><highlight class="normal"></highlight><highlight class="comment">//<sp/>------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
@@ -927,10 +927,10 @@
 <codeline lineno="221"><highlight class="normal"><sp/><sp/>c1.<ref refid="classhmap_1_1Cloud_1aa6f1b0089949fc2e8ed6e7e3ce465448" kindref="member">randomize</ref>(42);</highlight></codeline>
 <codeline lineno="222"><highlight class="normal"><sp/><sp/>c2.randomize(42);</highlight></codeline>
 <codeline lineno="223"><highlight class="normal"></highlight></codeline>
-<codeline lineno="224"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>c1.size();<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>c1.size();<sp/>++i)</highlight></codeline>
 <codeline lineno="225"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(c1[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>c2[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>eps);</highlight></codeline>
-<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(c1[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>c2[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>eps);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(c1[i].x,<sp/>c2[i].x,<sp/>eps);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(c1[i].y,<sp/>c2[i].y,<sp/>eps);</highlight></codeline>
 <codeline lineno="228"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="229"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="230"><highlight class="normal"></highlight></codeline>
@@ -942,10 +942,10 @@
 <codeline lineno="236"><highlight class="normal"><sp/><sp/>c1.<ref refid="classhmap_1_1Cloud_1a40ce66b57cb73cbe322b1aa875021c98" kindref="member">shuffle</ref>(1.f,<sp/>1.f,<sp/>42,<sp/>1.f);</highlight></codeline>
 <codeline lineno="237"><highlight class="normal"><sp/><sp/>c2.shuffle(1.f,<sp/>1.f,<sp/>42,<sp/>1.f);</highlight></codeline>
 <codeline lineno="238"><highlight class="normal"></highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>c1.size();<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>c1.size();<sp/>++i)</highlight></codeline>
 <codeline lineno="240"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(c1[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>c2[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>eps);</highlight></codeline>
-<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(c1[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].v,<sp/>c2[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].v,<sp/>eps);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(c1[i].x,<sp/>c2[i].x,<sp/>eps);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(c1[i].v,<sp/>c2[i].v,<sp/>eps);</highlight></codeline>
 <codeline lineno="243"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="244"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="245"><highlight class="normal"></highlight></codeline>
@@ -999,15 +999,15 @@
 <codeline lineno="293"><highlight class="normal"></highlight></codeline>
 <codeline lineno="294"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Default<sp/>center<sp/>of<sp/>unit<sp/>bbox<sp/>is<sp/>(0.5,<sp/>0.5).<sp/>Scale<sp/>0.8<sp/>should<sp/>shrink<sp/>towards</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="295"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>(0.5,<sp/>0.5)<sp/>x:<sp/>0.5<sp/>+<sp/>0.8<sp/>*<sp/>(0<sp/>-<sp/>0.5)<sp/>=<sp/>0.1<sp/>y:<sp/>0.5<sp/>+<sp/>0.8<sp/>*<sp/>(1<sp/>-<sp/>0.5)<sp/>=<sp/>0.9</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="296"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>scaled<sp/>=<sp/><ref refid="sls__deformation_8cpp_1a1d28dec57cce925ad92342891bd71e7c" kindref="member">scale</ref>(cloud,<sp/>0.8f);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>scaled<sp/>=<sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>(cloud,<sp/>0.8f);</highlight></codeline>
 <codeline lineno="297"><highlight class="normal"></highlight></codeline>
 <codeline lineno="298"><highlight class="normal"><sp/><sp/>ASSERT_EQ(scaled.size(),<sp/>2);</highlight></codeline>
-<codeline lineno="299"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>0.1f,<sp/>eps);</highlight></codeline>
-<codeline lineno="300"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>0.1f,<sp/>eps);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].x,<sp/>0.1f,<sp/>eps);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].y,<sp/>0.1f,<sp/>eps);</highlight></codeline>
 <codeline lineno="301"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].v,<sp/>10.f,<sp/>eps);</highlight></codeline>
 <codeline lineno="302"><highlight class="normal"></highlight></codeline>
-<codeline lineno="303"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[1].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>0.9f,<sp/>eps);</highlight></codeline>
-<codeline lineno="304"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[1].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>0.9f,<sp/>eps);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[1].x,<sp/>0.9f,<sp/>eps);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[1].y,<sp/>0.9f,<sp/>eps);</highlight></codeline>
 <codeline lineno="305"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[1].v,<sp/>20.f,<sp/>eps);</highlight></codeline>
 <codeline lineno="306"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="307"><highlight class="normal"></highlight></codeline>
@@ -1018,11 +1018,11 @@
 <codeline lineno="312"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Scale<sp/>x<sp/>by<sp/>2,<sp/>y<sp/>by<sp/>0.5<sp/>relative<sp/>to<sp/>(1.f,<sp/>1.f)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="313"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>x:<sp/>1<sp/>+<sp/>2<sp/>*<sp/>(1<sp/>-<sp/>1)<sp/>=<sp/>1</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="314"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>y:<sp/>1<sp/>+<sp/>0.5<sp/>*<sp/>(2<sp/>-<sp/>1)<sp/>=<sp/>1.5</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="315"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>scaled<sp/>=<sp/><ref refid="sls__deformation_8cpp_1a1d28dec57cce925ad92342891bd71e7c" kindref="member">scale</ref>(cloud,<sp/>glm::vec2(2.f,<sp/>0.5f),<sp/>glm::vec2(1.f,<sp/>1.f));</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>scaled<sp/>=<sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>(cloud,<sp/>glm::vec2(2.f,<sp/>0.5f),<sp/>glm::vec2(1.f,<sp/>1.f));</highlight></codeline>
 <codeline lineno="316"><highlight class="normal"></highlight></codeline>
 <codeline lineno="317"><highlight class="normal"><sp/><sp/>ASSERT_EQ(scaled.size(),<sp/>1);</highlight></codeline>
-<codeline lineno="318"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>1.f,<sp/>eps);</highlight></codeline>
-<codeline lineno="319"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>1.5f,<sp/>eps);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].x,<sp/>1.f,<sp/>eps);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].y,<sp/>1.5f,<sp/>eps);</highlight></codeline>
 <codeline lineno="320"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].v,<sp/>5.f,<sp/>eps);</highlight></codeline>
 <codeline lineno="321"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="322"><highlight class="normal"></highlight></codeline>
@@ -1034,13 +1034,13 @@
 <codeline lineno="328"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Scale<sp/>0.5<sp/>relative<sp/>to<sp/>custom<sp/>center<sp/>(15,<sp/>30)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="329"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>p0:<sp/>x<sp/>=<sp/>15<sp/>+<sp/>0.5<sp/>*<sp/>(10<sp/>-<sp/>15)<sp/>=<sp/>12.5,<sp/>y<sp/>=<sp/>30<sp/>+<sp/>0.5<sp/>*<sp/>(20<sp/>-<sp/>30)<sp/>=<sp/>25</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="330"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>p1:<sp/>x<sp/>=<sp/>15<sp/>+<sp/>0.5<sp/>*<sp/>(20<sp/>-<sp/>15)<sp/>=<sp/>17.5,<sp/>y<sp/>=<sp/>30<sp/>+<sp/>0.5<sp/>*<sp/>(40<sp/>-<sp/>30)<sp/>=<sp/>35</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="331"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>scaled<sp/>=<sp/><ref refid="sls__deformation_8cpp_1a1d28dec57cce925ad92342891bd71e7c" kindref="member">scale</ref>(cloud,<sp/>0.5f,<sp/>center);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>scaled<sp/>=<sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>(cloud,<sp/>0.5f,<sp/>center);</highlight></codeline>
 <codeline lineno="332"><highlight class="normal"></highlight></codeline>
 <codeline lineno="333"><highlight class="normal"><sp/><sp/>ASSERT_EQ(scaled.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>2);</highlight></codeline>
-<codeline lineno="334"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>12.5f,<sp/>eps);</highlight></codeline>
-<codeline lineno="335"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>25.f,<sp/>eps);</highlight></codeline>
-<codeline lineno="336"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[1].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>17.5f,<sp/>eps);</highlight></codeline>
-<codeline lineno="337"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[1].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>35.f,<sp/>eps);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].x,<sp/>12.5f,<sp/>eps);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[0].y,<sp/>25.f,<sp/>eps);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[1].x,<sp/>17.5f,<sp/>eps);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(scaled[1].y,<sp/>35.f,<sp/>eps);</highlight></codeline>
 <codeline lineno="338"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="339"><highlight class="normal"></highlight></codeline>
 <codeline lineno="340"><highlight class="normal"><ref refid="test__cloud_8cpp_1ad2fb29c6c499be88712ced2359b13832" kindref="member">TEST</ref>(CloudTest,<sp/>ScalePreservesPointValues)</highlight></codeline>
@@ -1051,7 +1051,7 @@
 <codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0.9f,<sp/>0.8f,<sp/>3.1415f},</highlight></codeline>
 <codeline lineno="346"><highlight class="normal"><sp/><sp/>});</highlight></codeline>
 <codeline lineno="347"><highlight class="normal"></highlight></codeline>
-<codeline lineno="348"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>scaled<sp/>=<sp/><ref refid="sls__deformation_8cpp_1a1d28dec57cce925ad92342891bd71e7c" kindref="member">scale</ref>(cloud,<sp/>glm::vec2(0.5f,<sp/>1.5f));</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>scaled<sp/>=<sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>(cloud,<sp/>glm::vec2(0.5f,<sp/>1.5f));</highlight></codeline>
 <codeline lineno="349"><highlight class="normal"></highlight></codeline>
 <codeline lineno="350"><highlight class="normal"><sp/><sp/>ASSERT_EQ(scaled.size(),<sp/>3u);</highlight></codeline>
 <codeline lineno="351"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(scaled[0].v,<sp/>100.5f);</highlight></codeline>
@@ -1068,8 +1068,8 @@
 <codeline lineno="362"><highlight class="normal"><sp/><sp/>std::vector&lt;Point&gt;<sp/>pts<sp/>=<sp/>{{1.f,<sp/>2.f,<sp/>3.f},<sp/>{4.f,<sp/>5.f,<sp/>6.f}};</highlight></codeline>
 <codeline lineno="363"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud(std::move(pts));</highlight></codeline>
 <codeline lineno="364"><highlight class="normal"></highlight></codeline>
-<codeline lineno="365"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>2);</highlight></codeline>
-<codeline lineno="366"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[0].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>1.f));</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.size(),<sp/>2);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[0].x,<sp/>1.f));</highlight></codeline>
 <codeline lineno="367"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[1].v,<sp/>6.f));</highlight></codeline>
 <codeline lineno="368"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="369"><highlight class="normal"></highlight></codeline>
@@ -1078,14 +1078,14 @@
 <codeline lineno="372"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>cloud(std::vector&lt;Point&gt;{{1.f,<sp/>2.f,<sp/>3.f},<sp/>{4.f,<sp/>5.f,<sp/>6.f}});</highlight></codeline>
 <codeline lineno="373"><highlight class="normal"></highlight></codeline>
 <codeline lineno="374"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Indexing</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="375"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[0].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>1.f));</highlight></codeline>
-<codeline lineno="376"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.<ref refid="classhmap_1_1Cloud_1a866ec6610eec3e9c0de92aacbfcbefb1" kindref="member">at</ref>(1).<ref refid="classhmap_1_1Point_1aa045aed7ca12dffe13ba8f2db730a9bf" kindref="member">y</ref>,<sp/>5.f));</highlight></codeline>
-<codeline lineno="377"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.<ref refid="classhmap_1_1Cloud_1a8cae222f807dfaab9f9bf5d75493da0b" kindref="member">front</ref>().<ref refid="classhmap_1_1Point_1ac67fb22939ed39d6c5ff4194b4405efb" kindref="member">v</ref>,<sp/>3.f));</highlight></codeline>
-<codeline lineno="378"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.<ref refid="classhmap_1_1Cloud_1a0ccd5b43ebbf2d1f1ef4777f66943553" kindref="member">back</ref>().<ref refid="classhmap_1_1Point_1ac0d4eaf8062b8f11638db83e08198e48" kindref="member">x</ref>,<sp/>4.f));</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[0].x,<sp/>1.f));</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.at(1).y,<sp/>5.f));</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.front().v,<sp/>3.f));</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.back().x,<sp/>4.f));</highlight></codeline>
 <codeline lineno="379"><highlight class="normal"></highlight></codeline>
 <codeline lineno="380"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Mutation<sp/>via<sp/>reference</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="381"><highlight class="normal"><sp/><sp/>cloud[0].x<sp/>=<sp/>10.f;</highlight></codeline>
-<codeline lineno="382"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[0].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>10.f));</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud[0].x,<sp/>10.f));</highlight></codeline>
 <codeline lineno="383"><highlight class="normal"></highlight></codeline>
 <codeline lineno="384"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Range-based<sp/>for<sp/>loop</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="385"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sum_v<sp/>=<sp/>0.f;</highlight></codeline>
@@ -1094,20 +1094,20 @@
 <codeline lineno="388"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(sum_v,<sp/>9.f));</highlight></codeline>
 <codeline lineno="389"><highlight class="normal"></highlight></codeline>
 <codeline lineno="390"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Capacity,<sp/>emplace_back<sp/>&amp;<sp/>push_back</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="391"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a69be0a85718c0df9f66eb194b5cfaa15" kindref="member">reserve</ref>(10);</highlight></codeline>
-<codeline lineno="392"><highlight class="normal"><sp/><sp/>EXPECT_GE(cloud.<ref refid="classhmap_1_1Cloud_1a1544c5da7b03e5f5f914250707ce2bf0" kindref="member">capacity</ref>(),<sp/>10u);</highlight></codeline>
-<codeline lineno="393"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1af8a784f76736b7ec459fbfa1bf7618d7" kindref="member">emplace_back</ref>(7.f,<sp/>8.f,<sp/>9.f);</highlight></codeline>
-<codeline lineno="394"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>3u);</highlight></codeline>
-<codeline lineno="395"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.<ref refid="classhmap_1_1Cloud_1a0ccd5b43ebbf2d1f1ef4777f66943553" kindref="member">back</ref>().<ref refid="classhmap_1_1Point_1ac67fb22939ed39d6c5ff4194b4405efb" kindref="member">v</ref>,<sp/>9.f));</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/>cloud.reserve(10);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/>EXPECT_GE(cloud.capacity(),<sp/>10u);</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/>cloud.emplace_back(7.f,<sp/>8.f,<sp/>9.f);</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.size(),<sp/>3u);</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.back().v,<sp/>9.f));</highlight></codeline>
 <codeline lineno="396"><highlight class="normal"></highlight></codeline>
 <codeline lineno="397"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Point" kindref="compound">Point</ref><sp/>p_lvalue(10.f,<sp/>11.f,<sp/>12.f);</highlight></codeline>
-<codeline lineno="398"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(p_lvalue);</highlight></codeline>
-<codeline lineno="399"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1ac9ab31444357a0a0c3922b4d16ccef7f" kindref="member">push_back</ref>(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(13.f,<sp/>14.f,<sp/>15.f));</highlight></codeline>
-<codeline lineno="400"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>5u);</highlight></codeline>
-<codeline lineno="401"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.<ref refid="classhmap_1_1Cloud_1a0ccd5b43ebbf2d1f1ef4777f66943553" kindref="member">back</ref>().<ref refid="classhmap_1_1Point_1ac0d4eaf8062b8f11638db83e08198e48" kindref="member">x</ref>,<sp/>13.f));</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/>cloud.push_back(p_lvalue);</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/>cloud.push_back(<ref refid="classhmap_1_1Point" kindref="compound">Point</ref>(13.f,<sp/>14.f,<sp/>15.f));</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.size(),<sp/>5u);</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(cloud.back().x,<sp/>13.f));</highlight></codeline>
 <codeline lineno="402"><highlight class="normal"></highlight></codeline>
-<codeline lineno="403"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>it<sp/>=<sp/>cloud.<ref refid="classhmap_1_1Cloud_1af93934b0c344c81d0260680988643d32" kindref="member">erase</ref>(cloud.<ref refid="classhmap_1_1Cloud_1a3f115445c5a6bb481aebdf75d83f4705" kindref="member">begin</ref>()<sp/>+<sp/>1);</highlight></codeline>
-<codeline lineno="404"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>4u);</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>it<sp/>=<sp/>cloud.erase(cloud.begin()<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.size(),<sp/>4u);</highlight></codeline>
 <codeline lineno="405"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(it-&gt;x,<sp/>7.f));</highlight></codeline>
 <codeline lineno="406"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="407"><highlight class="normal"></highlight></codeline>
@@ -1119,7 +1119,7 @@
 <codeline lineno="413"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="414"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Cloud<sp/>of<sp/>10<sp/>points</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="415"><highlight class="normal"><sp/><sp/>std::vector&lt;Point&gt;<sp/>pts;</highlight></codeline>
-<codeline lineno="416"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>10;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>10;<sp/>++i)</highlight></codeline>
 <codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/>pts.emplace_back(0.5f,<sp/>0.5f,<sp/>0.f);</highlight></codeline>
 <codeline lineno="418"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>cloud(pts);</highlight></codeline>
 <codeline lineno="419"><highlight class="normal"></highlight></codeline>
@@ -1127,8 +1127,8 @@
 <codeline lineno="421"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>zero_mask({10,<sp/>10},<sp/>0.f);</highlight></codeline>
 <codeline lineno="422"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aa01ff551bebcd0540dbac8b91732c0b1" kindref="member">rejection_filter_density</ref>(cloud,<sp/>zero_mask,<sp/>42);</highlight></codeline>
 <codeline lineno="423"><highlight class="normal"></highlight></codeline>
-<codeline lineno="424"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>0u);</highlight></codeline>
-<codeline lineno="425"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(cloud.<ref refid="classhmap_1_1Cloud_1a89f21637cf9c4857bf65ad6a6009eff9" kindref="member">empty</ref>());</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.size(),<sp/>0u);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(cloud.empty());</highlight></codeline>
 <codeline lineno="426"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="427"><highlight class="normal"></highlight></codeline>
 <codeline lineno="428"><highlight class="normal"><ref refid="test__cloud_8cpp_1ad2fb29c6c499be88712ced2359b13832" kindref="member">TEST</ref>(CloudTest,<sp/>RemapValuesEmptyCloudSafe)</highlight></codeline>
@@ -1152,29 +1152,29 @@
 <codeline lineno="446"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>array({10,<sp/>10},<sp/>0.f);</highlight></codeline>
 <codeline lineno="447"><highlight class="normal"></highlight></codeline>
 <codeline lineno="448"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Degenerate<sp/>bbox<sp/>(width<sp/>=<sp/>0,<sp/>height<sp/>=<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="449"><highlight class="normal"><sp/><sp/>EXPECT_NO_THROW(cloud.<ref refid="classhmap_1_1Cloud_1a36e47d4857108c56193755e32374184d" kindref="member">to_array</ref>(array,<sp/>{0.f,<sp/>0.f,<sp/>0.f,<sp/>0.f}));</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/>EXPECT_NO_THROW(cloud.to_array(array,<sp/>{0.f,<sp/>0.f,<sp/>0.f,<sp/>0.f}));</highlight></codeline>
 <codeline lineno="450"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="451"><highlight class="normal"></highlight></codeline>
 <codeline lineno="452"><highlight class="normal"><ref refid="test__cloud_8cpp_1ad2fb29c6c499be88712ced2359b13832" kindref="member">TEST</ref>(CloudTest,<sp/>InverseSamplingPointsAndCloud)</highlight></codeline>
 <codeline lineno="453"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="454"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{32,<sp/>32};</highlight></codeline>
-<codeline lineno="455"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>density(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>0.f);</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{32,<sp/>32};</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>density(shape,<sp/>0.f);</highlight></codeline>
 <codeline lineno="456"><highlight class="normal"></highlight></codeline>
 <codeline lineno="457"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>non-zero<sp/>density<sp/>in<sp/>top-right<sp/>quadrant</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="458"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref><sp/>=<sp/>16;<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref><sp/>&lt;<sp/>32;<sp/>++<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>)</highlight></codeline>
-<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref><sp/>=<sp/>16;<sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref><sp/>&lt;<sp/>32;<sp/>++<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>)</highlight></codeline>
-<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>density(<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>)<sp/>=<sp/>1.f;</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>16;<sp/>y<sp/>&lt;<sp/>32;<sp/>++y)</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>16;<sp/>x<sp/>&lt;<sp/>32;<sp/>++x)</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>density(x,<sp/>y)<sp/>=<sp/>1.f;</highlight></codeline>
 <codeline lineno="461"><highlight class="normal"></highlight></codeline>
-<codeline lineno="462"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref><sp/>=<sp/>500;</highlight></codeline>
-<codeline lineno="463"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/>pts<sp/>=<sp/><ref refid="namespacehmap_1ae12837cb378af86d9842f43cf248b7d3" kindref="member">random_points_inverse_sampling</ref>(<ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>count<sp/>=<sp/>500;</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/>pts<sp/>=<sp/><ref refid="namespacehmap_1ae12837cb378af86d9842f43cf248b7d3" kindref="member">random_points_inverse_sampling</ref>(count,</highlight></codeline>
 <codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>density,</highlight></codeline>
 <codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>123,</highlight></codeline>
 <codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f});</highlight></codeline>
 <codeline lineno="467"><highlight class="normal"></highlight></codeline>
-<codeline lineno="468"><highlight class="normal"><sp/><sp/>EXPECT_EQ(pts[0].size(),<sp/><ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>);</highlight></codeline>
-<codeline lineno="469"><highlight class="normal"><sp/><sp/>EXPECT_EQ(pts[1].size(),<sp/><ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>);</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/>EXPECT_EQ(pts[0].size(),<sp/>count);</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/>EXPECT_EQ(pts[1].size(),<sp/>count);</highlight></codeline>
 <codeline lineno="470"><highlight class="normal"></highlight></codeline>
-<codeline lineno="471"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/><ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>;<sp/>++k)</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>count;<sp/>++k)</highlight></codeline>
 <codeline lineno="472"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
 <codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_GE(pts[0][k],<sp/>0.f);</highlight></codeline>
 <codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_LE(pts[0][k],<sp/>1.f);</highlight></codeline>
@@ -1182,22 +1182,22 @@
 <codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_LE(pts[1][k],<sp/>1.f);</highlight></codeline>
 <codeline lineno="477"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="478"><highlight class="normal"></highlight></codeline>
-<codeline lineno="479"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>cloud<sp/>=<sp/><ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">random_cloud_inverse_sampling</ref>(<ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>cloud<sp/>=<sp/><ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">random_cloud_inverse_sampling</ref>(count,</highlight></codeline>
 <codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>density,</highlight></codeline>
 <codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>123,</highlight></codeline>
 <codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f});</highlight></codeline>
-<codeline lineno="483"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/><ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>);</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>count);</highlight></codeline>
 <codeline lineno="484"><highlight class="normal"></highlight></codeline>
 <codeline lineno="485"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Empty<sp/>array<sp/>case</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="486"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>empty_arr;</highlight></codeline>
-<codeline lineno="487"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ae12837cb378af86d9842f43cf248b7d3" kindref="member">random_points_inverse_sampling</ref>(<ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,<sp/>empty_arr,<sp/>123)[0].empty());</highlight></codeline>
-<codeline lineno="488"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">random_cloud_inverse_sampling</ref>(<ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,<sp/>empty_arr,<sp/>123).empty());</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ae12837cb378af86d9842f43cf248b7d3" kindref="member">random_points_inverse_sampling</ref>(count,<sp/>empty_arr,<sp/>123)[0].empty());</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">random_cloud_inverse_sampling</ref>(count,<sp/>empty_arr,<sp/>123).empty());</highlight></codeline>
 <codeline lineno="489"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="490"><highlight class="normal"></highlight></codeline>
 <codeline lineno="491"><highlight class="normal"><ref refid="test__cloud_8cpp_1ad2fb29c6c499be88712ced2359b13832" kindref="member">TEST</ref>(CloudTest,<sp/>InverseSampler2DSequentialAndRegionUpdate)</highlight></codeline>
 <codeline lineno="492"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="493"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{32,<sp/>32};</highlight></codeline>
-<codeline lineno="494"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>density(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>1.f);</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{32,<sp/>32};</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>density(shape,<sp/>1.f);</highlight></codeline>
 <codeline lineno="495"><highlight class="normal"></highlight></codeline>
 <codeline lineno="496"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1InverseSampler2D" kindref="compound">InverseSampler2D</ref><sp/>sampler(density,<sp/>42,<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f});</highlight></codeline>
 <codeline lineno="497"><highlight class="normal"><sp/><sp/>EXPECT_GT(sampler.get_total_weight(),<sp/>0.f);</highlight></codeline>
@@ -1226,10 +1226,10 @@
 <codeline lineno="520"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="521"><highlight class="normal"></highlight></codeline>
 <codeline lineno="522"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Update<sp/>region<sp/>from<sp/>another<sp/>array</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="523"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>updated(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>0.f);</highlight></codeline>
-<codeline lineno="524"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref><sp/>=<sp/>0;<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref><sp/>&lt;<sp/>16;<sp/>++<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>)</highlight></codeline>
-<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref><sp/>=<sp/>0;<sp/><ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref><sp/>&lt;<sp/>16;<sp/>++<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>)</highlight></codeline>
-<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>updated(<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/><ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>)<sp/>=<sp/>10.f;</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>updated(shape,<sp/>0.f);</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>0;<sp/>y<sp/>&lt;<sp/>16;<sp/>++y)</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>0;<sp/>x<sp/>&lt;<sp/>16;<sp/>++x)</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>updated(x,<sp/>y)<sp/>=<sp/>10.f;</highlight></codeline>
 <codeline lineno="527"><highlight class="normal"></highlight></codeline>
 <codeline lineno="528"><highlight class="normal"><sp/><sp/>sampler.update_region(updated,<sp/>{0,<sp/>15},<sp/>{0,<sp/>15});</highlight></codeline>
 <codeline lineno="529"><highlight class="normal"><sp/><sp/>EXPECT_GT(sampler.get_total_weight(),<sp/>0.f);</highlight></codeline>

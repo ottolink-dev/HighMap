@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="bvh_8cpp" kind="file" language="C++">
     <compoundname>bvh.cpp</compoundname>
     <innernamespace refid="namespacehmap">hmap</innernamespace>
@@ -43,19 +43,19 @@
 <codeline lineno="33"><highlight class="normal"><sp/><sp/>this-&gt;segments.clear();</highlight></codeline>
 <codeline lineno="34"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal">int32_t<sp/>BVH2D::build_recursive(uint32_t<sp/>start,<sp/>uint32_t<sp/><ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>padding)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">int32_t<sp/>BVH2D::build_recursive(uint32_t<sp/>start,<sp/>uint32_t<sp/>count,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>padding)</highlight></codeline>
 <codeline lineno="37"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/>Node<sp/>node;</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/>node.seg_start<sp/>=<sp/>start;</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/>node.seg_count<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BVH2D_1_1Node" kindref="compound">Node</ref><sp/>node;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>node.<ref refid="structhmap_1_1BVH2D_1_1Node_1a3fe3bc6814f8a056f8f445160e3a509f" kindref="member">seg_start</ref><sp/>=<sp/>start;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>node.seg_count<sp/>=<sp/>count;</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>compute<sp/>bounding<sp/>box<sp/>of<sp/>all<sp/>segments<sp/>in<sp/>this<sp/>node</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"><sp/><sp/>AABB2D<sp/>node_bbox;</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/>AABB2D<sp/>centroid_bbox;</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(uint32_t<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/><ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(uint32_t<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>count;<sp/>++i)</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;seg<sp/>=<sp/>this-&gt;segments[start<sp/>+<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>];</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;seg<sp/>=<sp/>this-&gt;segments[start<sp/>+<sp/>i];</highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>node_bbox.expand(seg.bounds(padding));</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
 <codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>glm::vec2<sp/>centroid<sp/>=<sp/>0.5f<sp/>*<sp/>(seg.p0<sp/>+<sp/>seg.p1);</highlight></codeline>
@@ -65,7 +65,7 @@
 <codeline lineno="55"><highlight class="normal"><sp/><sp/>node.bbox<sp/>=<sp/>node_bbox;</highlight></codeline>
 <codeline lineno="56"><highlight class="normal"></highlight></codeline>
 <codeline lineno="57"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>leaf<sp/>condition:<sp/>small<sp/>number<sp/>of<sp/>segments</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref><sp/>&lt;=<sp/>4)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(count<sp/>&lt;=<sp/>4)</highlight></codeline>
 <codeline lineno="59"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/>node_idx<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">int32_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(this-&gt;nodes.size());</highlight></codeline>
 <codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>this-&gt;nodes.push_back(node);</highlight></codeline>
@@ -77,8 +77,8 @@
 <codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>axis<sp/>=<sp/>(ext.x<sp/>&gt;=<sp/>ext.y)<sp/>?<sp/>0<sp/>:<sp/>1;</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"></highlight></codeline>
 <codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>begin_it<sp/>=<sp/>this-&gt;segments.begin()<sp/>+<sp/>start;</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>mid_it<sp/>=<sp/>begin_it<sp/>+<sp/>(<ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref><sp/>/<sp/>2);</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>end_it<sp/>=<sp/>begin_it<sp/>+<sp/><ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref>;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>mid_it<sp/>=<sp/>begin_it<sp/>+<sp/>(count<sp/>/<sp/>2);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>end_it<sp/>=<sp/>begin_it<sp/>+<sp/>count;</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"></highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(axis<sp/>==<sp/>0)</highlight></codeline>
 <codeline lineno="74"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
@@ -97,8 +97,8 @@
 <codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(a.p0.y<sp/>+<sp/>a.p1.y)<sp/>&lt;<sp/>(b.p0.y<sp/>+<sp/>b.p1.y);<sp/>});</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/>uint32_t<sp/>left_count<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref><sp/>/<sp/>2;</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/>uint32_t<sp/>right_count<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1a76d971a3c552bc58ba9f0d5fceae9806" kindref="member">count</ref><sp/>-<sp/>left_count;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>uint32_t<sp/>left_count<sp/>=<sp/>count<sp/>/<sp/>2;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>uint32_t<sp/>right_count<sp/>=<sp/>count<sp/>-<sp/>left_count;</highlight></codeline>
 <codeline lineno="92"><highlight class="normal"></highlight></codeline>
 <codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>allocate<sp/>node<sp/>slot</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="94"><highlight class="normal"><sp/><sp/>int32_t<sp/>node_idx<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">int32_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(this-&gt;nodes.size());</highlight></codeline>
@@ -115,7 +115,7 @@
 <codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>node_idx;</highlight></codeline>
 <codeline lineno="106"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1BVH2D_1a23d014d33dd25a88f48b35acfccc5524" kindref="member">BVH2D::query_box</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>AABB2D<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;query_box,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1BVH2D_1a23d014d33dd25a88f48b35acfccc5524" kindref="member">BVH2D::query_box</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1AABB2D" kindref="compound">AABB2D</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;query_box,</highlight></codeline>
 <codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;uint32_t&gt;<sp/>&amp;out_seg_indices)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="110"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="111"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this-&gt;<ref refid="classhmap_1_1BVH2D_1ab25969c65bdb3891244c24ba6aed84bd" kindref="member">empty</ref>())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
@@ -134,9 +134,9 @@
 <codeline lineno="124"><highlight class="normal"></highlight></codeline>
 <codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(node.is_leaf())</highlight></codeline>
 <codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(uint32_t<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>node.seg_count;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(uint32_t<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>node.seg_count;<sp/>++i)</highlight></codeline>
 <codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out_seg_indices.push_back(this-&gt;segments[node.seg_start<sp/>+<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].id);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out_seg_indices.push_back(this-&gt;segments[node.seg_start<sp/>+<sp/>i].id);</highlight></codeline>
 <codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
@@ -165,9 +165,9 @@
 <codeline lineno="155"><highlight class="normal"></highlight></codeline>
 <codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(node.is_leaf())</highlight></codeline>
 <codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(uint32_t<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>node.seg_count;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(uint32_t<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>node.seg_count;<sp/>++i)</highlight></codeline>
 <codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out_seg_indices.push_back(this-&gt;segments[node.seg_start<sp/>+<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>].id);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out_seg_indices.push_back(this-&gt;segments[node.seg_start<sp/>+<sp/>i].id);</highlight></codeline>
 <codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>

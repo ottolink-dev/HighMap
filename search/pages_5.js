@@ -1,6 +1,11 @@
 var searchData=
 [
-  ['fft_20vs_20gpu_20convolution_20and_20morphological_20expansion_0',['FFT vs. GPU Convolution and Morphological Expansion',['../md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology.html',1,'']]],
-  ['for_20path_20sdf_20computation_1',['BVH2D Spatial Indexing for Path SDF Computation',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html',1,'']]],
-  ['forest_20and_20rockfield_2',['Scatter Architecture: ScatterField, Forest, and RockField',['../md_docs_2content_2dev_2scatter__field.html',1,'']]]
+  ['5_20c_20api_20reference_0',['5 C API Reference',['..//home/runner/work/HighMap/HighMap/docs/content/dev/hydraulic_mise.md#autotoc_md33',1,'5. C++ API Reference'],['../md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md59',1,'5. C++ API Reference'],['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md108',1,'5. C++ API Reference']]],
+  ['5_20investigations_20and_20benchmarks_1',['5. Investigations and Benchmarks',['../md_docs_2content_2dev_2architecture.html#autotoc_md15',1,'']]],
+  ['5_20iteration_20batching_20in_20domain_20algorithms_2',['5. Iteration Batching in Domain Algorithms',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md119',1,'']]],
+  ['5_20multi_20pass_20and_20multi_20scale_20architectures_3',['5. Multi-Pass and Multi-Scale Architectures',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md44',1,'']]],
+  ['5_20scattering_4',['5. Scattering',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md131',1,'']]],
+  ['5_20thermal_20ridge_20thermal_5fridge_5',['5. Thermal Ridge (&lt;span class=&quot;tt&quot;&gt;thermal_ridge&lt;/span&gt;)',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md104',1,'']]],
+  ['5_20verification_20of_20bézier_20polyline_20sdf_20sdf_5f2d_5fpolyline_5fbezier_6',['5. Verification of Bézier Polyline SDF (&lt;span class=&quot;tt&quot;&gt;sdf_2d_polyline_bezier&lt;/span&gt;)',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md70',1,'']]],
+  ['512_24_20grid_7',['Execution Time Comparison ($512 \\times 512$ Grid)',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md67',1,'']]]
 ];

@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="md_docs_2content_2dev_2tiled__communication" kind="page">
     <compoundname>md_docs_2content_2dev_2tiled__communication</compoundname>
     <title>Tiled Communication and Overlap Synchronization</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><anchor id="md_docs_2content_2dev_2tiled__communication_1autotoc_md109"/> This document explains the architecture of the tiled communication system in HighMap, how collective directives operate across execution modes, and how halo overlap buffers are synchronized during iterative simulations.</para>
+<para><anchor id="md_docs_2content_2dev_2tiled__communication_1autotoc_md109"/></para>
+<para>This document explains the architecture of the tiled communication system in HighMap, how collective directives operate across execution modes, and how halo overlap buffers are synchronized during iterative simulations.</para>
 <sect1 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md110">
-<title>1. Overview and Purpose</title>
-<para>Terrain processing algorithms operating on large spatial domains must frequently scale beyond available GPU VRAM or system RAM. HighMap achieves out-of-core scalability through the <computeroutput>VirtualArray</computeroutput> container, which subdivides heightmaps into a regular grid of overlapping tiles.</para>
+<title>1. Overview and Purpose</title><para>Terrain processing algorithms operating on large spatial domains must frequently scale beyond available GPU VRAM or system RAM. HighMap achieves out-of-core scalability through the <computeroutput>VirtualArray</computeroutput> container, which subdivides heightmaps into a regular grid of overlapping tiles.</para>
 <para>While local kernel operations (e.g. stencil filters with radius smaller than halo) require only local neighborhood information, global and iterative algorithms require communication across tile boundaries:</para>
 <para><itemizedlist>
 <listitem><para>Global reductions (computing global minimum, maximum, volume, or convergence residuals).</para>
@@ -21,8 +21,7 @@
 <para>HighMap provides an abstract communicator interface, <computeroutput>ICommunicator</computeroutput>, decoupling simulation code from the underlying concurrency model.</para>
 </sect1>
 <sect1 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md111">
-<title>2. Communicator Interface (&lt;tt&gt;ICommunicator&lt;/tt&gt;)</title>
-<para>The <computeroutput>ICommunicator</computeroutput> interface provides an MPI-like abstraction tailored to 2D raster tile topologies:</para>
+<title>2. Communicator Interface (<computeroutput>ICommunicator</computeroutput>)</title><para>The <computeroutput>ICommunicator</computeroutput> interface provides an MPI-like abstraction tailored to 2D raster tile topologies:</para>
 <para><programlisting filename=".cpp"><codeline><highlight class="keyword">class<sp/></highlight><highlight class="normal">ICommunicator</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
@@ -31,7 +30,7 @@
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>all_reduce(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>local_val,<sp/>ReduceOp<sp/>op)<sp/>=<sp/>0;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;float&gt;<sp/>all_union(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;float&gt;<sp/>&amp;local_vals)<sp/>=<sp/>0;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>barrier()<sp/>=<sp/>0;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="hydraulic__mise_8cpp_1a7103bde565cfac40b7653f88a0d7c7c4" kindref="member">rank</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rank()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>size()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sync_overlap_buffers(</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;local_tile,</highlight></codeline>
@@ -40,34 +39,30 @@
 <codeline><highlight class="normal">};</highlight></codeline>
 </programlisting></para>
 <sect2 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md112">
-<title>Supported Operations</title>
-<para><itemizedlist>
-<listitem><para>**<computeroutput>all_reduce(local_val, op)</computeroutput>**: Aggregates a scalar across all tiles using <computeroutput>ReduceOp::Min</computeroutput>, <computeroutput>ReduceOp::Max</computeroutput>, or <computeroutput>ReduceOp::Sum</computeroutput>. Returns the identical aggregated value to all calling tiles.</para>
-</listitem><listitem><para>**<computeroutput>all_union(local_vals)</computeroutput>**: Gathers and combines lists of scalar items (such as active seeds or coordinates) across all tiles.</para>
-</listitem><listitem><para>**<computeroutput>barrier()</computeroutput>**: Blocks execution until all tiles in the current collective phase reach the synchronization point.</para>
-</listitem><listitem><para>**<computeroutput>sync_overlap_buffers(local_tile, region, op)</computeroutput>**: Synchronizes seam buffers along tile overlaps using a selected <computeroutput>SyncOperation</computeroutput>.</para>
+<title>Supported Operations</title><para><itemizedlist>
+<listitem><para><bold><computeroutput>all_reduce(local_val, op)</computeroutput></bold>: Aggregates a scalar across all tiles using <computeroutput>ReduceOp::Min</computeroutput>, <computeroutput>ReduceOp::Max</computeroutput>, or <computeroutput>ReduceOp::Sum</computeroutput>. Returns the identical aggregated value to all calling tiles.</para>
+</listitem><listitem><para><bold><computeroutput>all_union(local_vals)</computeroutput></bold>: Gathers and combines lists of scalar items (such as active seeds or coordinates) across all tiles.</para>
+</listitem><listitem><para><bold><computeroutput>barrier()</computeroutput></bold>: Blocks execution until all tiles in the current collective phase reach the synchronization point.</para>
+</listitem><listitem><para><bold><computeroutput>sync_overlap_buffers(local_tile, region, op)</computeroutput></bold>: Synchronizes seam buffers along tile overlaps using a selected <computeroutput>SyncOperation</computeroutput>.</para>
 </listitem></itemizedlist>
 </para>
 </sect2>
 <sect2 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md113">
-<title>Overlap Synchronization Modes (&lt;tt&gt;SyncOperation&lt;/tt&gt;)</title>
-<para><itemizedlist>
-<listitem><para>**<computeroutput>SmoothBlend</computeroutput>**: Blends overlapping cells smoothly using a quintic polynomial ($C^2$ smoothstep). Used by diffusion, flow simulations, snow settling, and Poisson boundary relaxations to prevent sharp seam artifacts.</para>
-</listitem><listitem><para>**<computeroutput>Average</computeroutput> / <computeroutput>Mean</computeroutput>**: Computes the arithmetic mean between corresponding overlap cells.</para>
-</listitem><listitem><para>**<computeroutput>Min</computeroutput>**: Takes the element-wise minimum across overlapping regions. Used by distance transforms and geodesic propagation.</para>
-</listitem><listitem><para>**<computeroutput>Max</computeroutput>**: Takes the element-wise maximum across overlapping regions. Used by priority-flood depression filling and water elevation surfaces.</para>
-</listitem><listitem><para>**<computeroutput>CopyFirst</computeroutput> / <computeroutput>CopySecond</computeroutput>**: Directional copy from one tile to another along boundary interfaces.</para>
+<title>Overlap Synchronization Modes (<computeroutput>SyncOperation</computeroutput>)</title><para><itemizedlist>
+<listitem><para><bold><computeroutput>SmoothBlend</computeroutput></bold>: Blends overlapping cells smoothly using a quintic polynomial ($C^2$ smoothstep). Used by diffusion, flow simulations, snow settling, and Poisson boundary relaxations to prevent sharp seam artifacts.</para>
+</listitem><listitem><para><bold><computeroutput>Average</computeroutput> / <computeroutput>Mean</computeroutput></bold>: Computes the arithmetic mean between corresponding overlap cells.</para>
+</listitem><listitem><para><bold><computeroutput>Min</computeroutput></bold>: Takes the element-wise minimum across overlapping regions. Used by distance transforms and geodesic propagation.</para>
+</listitem><listitem><para><bold><computeroutput>Max</computeroutput></bold>: Takes the element-wise maximum across overlapping regions. Used by priority-flood depression filling and water elevation surfaces.</para>
+</listitem><listitem><para><bold><computeroutput>CopyFirst</computeroutput> / <computeroutput>CopySecond</computeroutput></bold>: Directional copy from one tile to another along boundary interfaces.</para>
 </listitem></itemizedlist>
 </para>
 </sect2>
 </sect1>
 <sect1 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md114">
-<title>3. Execution Engines</title>
-<para>The communicator adapts dynamically to the compute configuration specified in <computeroutput>ComputeMode</computeroutput>:</para>
+<title>3. Execution Engines</title><para>The communicator adapts dynamically to the compute configuration specified in <computeroutput>ComputeMode</computeroutput>:</para>
 <sect2 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md115">
-<title>Single-Array Mode (&lt;tt&gt;SingleArrayComm&lt;/tt&gt;)</title>
-<para>When an algorithm is invoked directly on a monolithic <computeroutput>Array</computeroutput> without tiling, <computeroutput>SingleArrayComm::instance()</computeroutput> serves as the default communicator:<itemizedlist>
-<listitem><para><computeroutput>size()</computeroutput> returns <computeroutput>1</computeroutput>, and <computeroutput><ref refid="hydraulic__mise_8cpp_1a7103bde565cfac40b7653f88a0d7c7c4" kindref="member">rank()</ref></computeroutput> returns <computeroutput>0</computeroutput>.</para>
+<title>Single-Array Mode (<computeroutput>SingleArrayComm</computeroutput>)</title><para>When an algorithm is invoked directly on a monolithic <computeroutput>Array</computeroutput> without tiling, <computeroutput>SingleArrayComm::instance()</computeroutput> serves as the default communicator:<itemizedlist>
+<listitem><para><computeroutput>size()</computeroutput> returns <computeroutput>1</computeroutput>, and <computeroutput>rank()</computeroutput> returns <computeroutput>0</computeroutput>.</para>
 </listitem><listitem><para><computeroutput>all_reduce</computeroutput> returns the input scalar directly with zero overhead.</para>
 </listitem><listitem><para><computeroutput>all_union</computeroutput> returns the input vector unchanged.</para>
 </listitem><listitem><para><computeroutput>barrier()</computeroutput> and <computeroutput>sync_overlap_buffers()</computeroutput> are immediate no-ops.</para>
@@ -76,8 +71,7 @@
 <para>Algorithms written with communicator parameters incur zero memory or synchronization penalty when run monolithically.</para>
 </sect2>
 <sect2 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md116">
-<title>Multithreaded Distributed Mode (&lt;tt&gt;ThreadedTileComm&lt;/tt&gt;)</title>
-<para>In <computeroutput>ForEachMode::VA_DISTRIBUTED</computeroutput> when sufficient memory exists to hold all tiles simultaneously, tiles execute concurrently across a thread pool:</para>
+<title>Multithreaded Distributed Mode (<computeroutput>ThreadedTileComm</computeroutput>)</title><para>In <computeroutput>ForEachMode::VA_DISTRIBUTED</computeroutput> when sufficient memory exists to hold all tiles simultaneously, tiles execute concurrently across a thread pool:</para>
 <para><orderedlist>
 <listitem><para><bold>Registration</bold>: Every thread registers its tile pointer and <computeroutput>TileRegion</computeroutput> in a shared <computeroutput>ThreadedCollectiveState</computeroutput>.</para>
 </listitem><listitem><para><bold>Barrier</bold>: Threads enter a condition-variable barrier waiting for all ranks to register.</para>
@@ -87,8 +81,7 @@
 </para>
 </sect2>
 <sect2 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md117">
-<title>Out-of-Core Sequential Mode (&lt;tt&gt;SequentialTileComm&lt;/tt&gt;)</title>
-<para>When memory constraints dictate strict out-of-core execution (e.g. <computeroutput>StorageMode::VA_DISK_LRU_MIN</computeroutput>, where at most 2 live tiles are kept in memory at any instant), threads cannot execute in parallel.</para>
+<title>Out-of-Core Sequential Mode (<computeroutput>SequentialTileComm</computeroutput>)</title><para>When memory constraints dictate strict out-of-core execution (e.g. <computeroutput>StorageMode::VA_DISK_LRU_MIN</computeroutput>, where at most 2 live tiles are kept in memory at any instant), threads cannot execute in parallel.</para>
 <para>HighMap implements a cooperative sequential scheduler (<computeroutput>SequentialThreadScheduler</computeroutput>):</para>
 <para><orderedlist>
 <listitem><para><bold>Tile Fibers</bold>: Each tile runs inside a cooperative thread. Exactly one tile executes at any time.</para>
@@ -102,8 +95,7 @@
 </sect2>
 </sect1>
 <sect1 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md118">
-<title>4. How Overlap Buffering Works</title>
-<para>Each tile in a <computeroutput>VirtualArray</computeroutput> consists of a core nominal area augmented by a border of width $H$ (the halo):</para>
+<title>4. How Overlap Buffering Works</title><para>Each tile in a <computeroutput>VirtualArray</computeroutput> consists of a core nominal area augmented by a border of width $H$ (the halo):</para>
 <para><programlisting filename=".text"><codeline><highlight class="normal">+-------------------------------------------------------+</highlight></codeline>
 <codeline><highlight class="normal">|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Top<sp/>Halo<sp/>(North)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
 <codeline><highlight class="normal">|<sp/><sp/><sp/>+-----------------------------------------------+<sp/><sp/><sp/>|</highlight></codeline>
@@ -132,8 +124,7 @@
 <para>The resulting blended values are written to both tiles, ensuring continuous derivatives across the seam.</para>
 </sect1>
 <sect1 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md119">
-<title>5. Iteration Batching in Domain Algorithms</title>
-<para>Iterative physical simulations (such as hydraulic erosion, shallow water flow, snow creep, or Poisson pressure solvers) run for tens to hundreds of iterations. Synchronizing seams after every individual step would incur prohibitive synchronization overhead.</para>
+<title>5. Iteration Batching in Domain Algorithms</title><para>Iterative physical simulations (such as hydraulic erosion, shallow water flow, snow creep, or Poisson pressure solvers) run for tens to hundreds of iterations. Synchronizing seams after every individual step would incur prohibitive synchronization overhead.</para>
 <para>HighMap algorithms expose a <computeroutput>sync_interval</computeroutput> parameter enabling <bold>iteration batching</bold>:</para>
 <para><programlisting filename=".text"><codeline><highlight class="normal">Total<sp/>Iterations:<sp/>[================================================]</highlight></codeline>
 <codeline><highlight class="normal">Batch<sp/>0:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[==========]<sp/>-&gt;<sp/>sync_overlap_buffers</highlight></codeline>
@@ -142,8 +133,7 @@
 <codeline><highlight class="normal">Final:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[==========]<sp/>-&gt;<sp/>sync_overlap_buffers</highlight></codeline>
 </programlisting></para>
 <sect2 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md120">
-<title>Batching Loop Pattern</title>
-<para>Algorithms follow a standard batching structure:</para>
+<title>Batching Loop Pattern</title><para>Algorithms follow a standard batching structure:</para>
 <para><programlisting filename=".cpp"><codeline><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>batch_size<sp/>=<sp/>(comm.size()<sp/>&gt;<sp/>1<sp/>&amp;&amp;<sp/>sync_interval<sp/>&gt;<sp/>0)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>sync_interval</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>iterations;</highlight></codeline>
@@ -180,15 +170,14 @@
 </sect2>
 </sect1>
 <sect1 id="md_docs_2content_2dev_2tiled__communication_1autotoc_md121">
-<title>6. Integration and Usage Example</title>
-<para>To write a filter or simulation supporting both monolithic and tiled execution:</para>
-<para><programlisting filename=".cpp"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>my_simulation(Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,</highlight></codeline>
+<title>6. Integration and Usage Example</title><para>To write a filter or simulation supporting both monolithic and tiled execution:</para>
+<para><programlisting filename=".cpp"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>my_simulation(Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;z,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iterations,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sync_interval<sp/>=<sp/>0,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TileRegion<sp/>&amp;region<sp/>=<sp/>TileRegion::dummy(),</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ICommunicator<sp/><sp/><sp/><sp/>&amp;comm<sp/>=<sp/>SingleArrayComm::instance())</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(z))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>batch_size<sp/>=<sp/>(comm.size()<sp/>&gt;<sp/>1<sp/>&amp;&amp;<sp/>sync_interval<sp/>&gt;<sp/>0)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>sync_interval</highlight></codeline>
@@ -205,14 +194,14 @@
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(it_end<sp/>&lt;<sp/>iterations)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>comm.sync_overlap_buffers(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>region,<sp/>SyncOperation::SmoothBlend);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>comm.sync_overlap_buffers(z,<sp/>region,<sp/>SyncOperation::SmoothBlend);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>comm.sync_overlap_buffers(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>region,<sp/>SyncOperation::SmoothBlend);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>comm.sync_overlap_buffers(z,<sp/>region,<sp/>SyncOperation::SmoothBlend);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
-<para>Invoking through <computeroutput>for_each_tile</computeroutput> automatically injects the active communicator and region metadata:</para>
+<para>Invoking through <computeroutput><ref refid="virtual__array_8inl_1ab533899554e393dbefccf9a5602faa39" kindref="member">for_each_tile</ref></computeroutput> automatically injects the active communicator and region metadata:</para>
 <para><programlisting filename=".cpp"><codeline><highlight class="normal">ComputeMode<sp/>cm{.mode<sp/>=<sp/>ForEachMode::VA_DISTRIBUTED};</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><ref refid="virtual__array_8inl_1ab533899554e393dbefccf9a5602faa39" kindref="member">for_each_tile</ref>(</highlight></codeline>

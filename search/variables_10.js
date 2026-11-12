@@ -1,4 +1,25 @@
 var searchData=
 [
-  ['qs_0',['qs',['../hydraulic__mise_8cpp.html#ad5c488f9406a6c7b92122e11639568ce',1,'hydraulic_mise.cpp']]]
+  ['rad_5fto_5fdeg_0',['rad_to_deg',['../namespacehmap_1_1cte.html#a0edd090ff0e9e86838c69d6383541501',1,'hmap::cte']]],
+  ['radius_1',['radius',['../structhmap_1_1Species.html#a2eea15f2e301e204e45860743a9f5063',1,'hmap::Species::radius'],['../classhmap_1_1CraterFunction.html#adae66715438224e2baf42c710132a856',1,'hmap::CraterFunction::radius'],['../classhmap_1_1DiskFunction.html#a94f70fc17523d10d49f443d7d4a2ebec',1,'hmap::DiskFunction::radius'],['../classhmap_1_1ScatterItem.html#a361256b8cf58d145198a3bf459e698ae',1,'hmap::ScatterItem::radius']]],
+  ['radius_5fmax_2',['radius_max',['../structhmap_1_1Species.html#ae3c2fc7e1ca6c6a5db56d4e058dbf021',1,'hmap::Species::radius_max'],['../structhmap_1_1RockDistribution.html#a159ba0c156af8943c9b0f4313c57e48c',1,'hmap::RockDistribution::radius_max']]],
+  ['radius_5fmin_3',['radius_min',['../structhmap_1_1Species.html#abd1d74b21cd611f3d8bbbb0875c4254c',1,'hmap::Species::radius_min'],['../structhmap_1_1RockDistribution.html#aa8ec1160f5037b6ad653cbfde4f8d026',1,'hmap::RockDistribution::radius_min']]],
+  ['rainfall_4',['rainfall',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a06dd77debc3c3a49b2a5d5a414660e3f',1,'hmap::gpu::McDonaldParams::PhysicalParams']]],
+  ['ratio_5',['ratio',['../classhmap_1_1WorleyDoubleFunction.html#a88899456b80da0d707ae74964ead8bc0',1,'hmap::WorleyDoubleFunction']]],
+  ['receiver_5fexp_6',['receiver_exp',['../structhmap_1_1MiseParams.html#a5b1461ef5054b07fc654a37f871061f9',1,'hmap::MiseParams']]],
+  ['receivers_7',['receivers',['../classhmap_1_1DrainageBasinCellBased.html#a6ec9232c7f0ea270f48d9659dacbf055',1,'hmap::DrainageBasinCellBased']]],
+  ['relief_5fscale_8',['relief_scale',['../structhmap_1_1gpu_1_1McDonaldParams.html#a37f6ecca05e08dd313553aa601023d08',1,'hmap::gpu::McDonaldParams']]],
+  ['remap_5fmax_9',['remap_max',['../structhmap_1_1ImageWriterConfig.html#ac758f750850b5f064a647b14e8505232',1,'hmap::ImageWriterConfig']]],
+  ['remap_5fmin_10',['remap_min',['../structhmap_1_1ImageWriterConfig.html#af0c7c17bdff85662e0a448d9162dc1f8',1,'hmap::ImageWriterConfig']]],
+  ['respawn_5fout_5fof_5fbounds_11',['respawn_out_of_bounds',['../structhmap_1_1RockSimulationOptions.html#a78f0777ea563f1e4da954608278fb544',1,'hmap::RockSimulationOptions']]],
+  ['ret_12',['ret',['../structhmap_1_1AssertResults.html#a8999b609fb640f3c04ee1c54d2195ef5',1,'hmap::AssertResults']]],
+  ['ridge_13',['ridge',['../structhmap_1_1TerrainTextureParams.html#afd4d1c04553909a31b2dfbb164ecb7c6',1,'hmap::TerrainTextureParams']]],
+  ['right_14',['right',['../structhmap_1_1BVH2D_1_1Node.html#a5ae3aa3b4b06823e6c7d208523d6114e',1,'hmap::BVH2D::Node']]],
+  ['rock_15',['rock',['../structhmap_1_1TerrainTextureParams.html#a8fe287ffa2141604cd4cbc6fada163eb',1,'hmap::TerrainTextureParams']]],
+  ['rock_5fedge_16',['rock_edge',['../structhmap_1_1TerrainTextureParams.html#a14538dd1a36c1018ffd330dd1d9da19a',1,'hmap::TerrainTextureParams']]],
+  ['rock_5ftalus_17',['rock_talus',['../structhmap_1_1TerrainTextureParams.html#aee3761b5126695abf6719969fef1b1a4',1,'hmap::TerrainTextureParams']]],
+  ['rolling_5fresistance_18',['rolling_resistance',['../structhmap_1_1RockSimulationOptions.html#a60d030d641551fccabed148ab4bb8b17',1,'hmap::RockSimulationOptions']]],
+  ['roots_19',['roots',['../classhmap_1_1DrainageBasinCellBased.html#af086db7261ccb7e0f08cffb7b1e9a1a5',1,'hmap::DrainageBasinCellBased']]],
+  ['rx_20',['rx',['../classhmap_1_1RectangleFunction.html#a4cb4e1ecf55533045db6f660d410de2f',1,'hmap::RectangleFunction']]],
+  ['ry_21',['ry',['../classhmap_1_1RectangleFunction.html#a522e126417d6f1b6b8069ee05cf523a7',1,'hmap::RectangleFunction']]]
 ];

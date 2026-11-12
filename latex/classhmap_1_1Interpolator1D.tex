@@ -12,20 +12,20 @@ A class for performing 1D interpolation using the GSL library.
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classhmap_1_1Interpolator1D_aa44413e63632c955aacb403ab71f247f}{Interpolator1D}} (const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}, const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}}, \mbox{\hyperlink{namespacehmap_a46291bb4766800deacc1ce9b45a9ea6b}{Interpolation\+Method1D}} method=\mbox{\hyperlink{namespacehmap_a46291bb4766800deacc1ce9b45a9ea6ba26ec6481025765e03b9c750137bd9d84}{Interpolation\+Method1\+D\+::\+LINEAR}})
+\mbox{\hyperlink{classhmap_1_1Interpolator1D_aa44413e63632c955aacb403ab71f247f}{Interpolator1D}} (const std\+::vector$<$ float $>$ \&x, const std\+::vector$<$ float $>$ \&y, \mbox{\hyperlink{namespacehmap_a46291bb4766800deacc1ce9b45a9ea6b}{Interpolation\+Method1D}} method=\mbox{\hyperlink{namespacehmap_a46291bb4766800deacc1ce9b45a9ea6ba26ec6481025765e03b9c750137bd9d84}{Interpolation\+Method1\+D\+::\+LINEAR}})
 \begin{DoxyCompactList}\small\item\em Constructs an {\ttfamily \doxylink{classhmap_1_1Interpolator1D}{Interpolator1D}} object with the given data and method. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Interpolator1D_afce7ba6809a4c7b28a561c7c646227e3}{\texorpdfstring{$\sim$}{\string~}\+Interpolator1D}} ()
 \begin{DoxyCompactList}\small\item\em Destructor for {\ttfamily \doxylink{classhmap_1_1Interpolator1D}{Interpolator1D}}. \end{DoxyCompactList}\item 
-float \mbox{\hyperlink{classhmap_1_1Interpolator1D_a47dab539e9e8ce30c350278d01dfb1aa}{operator()}} (float \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}) const
+float \mbox{\hyperlink{classhmap_1_1Interpolator1D_a47dab539e9e8ce30c350278d01dfb1aa}{operator()}} (float x) const
 \begin{DoxyCompactList}\small\item\em \doxylink{classhmap_1_1Function}{Function} call operator for performing interpolation. \end{DoxyCompactList}\item 
-float \mbox{\hyperlink{classhmap_1_1Interpolator1D_a1ab067195430386cae3158bfccf4847f}{interpolate}} (float \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}) const
+float \mbox{\hyperlink{classhmap_1_1Interpolator1D_a1ab067195430386cae3158bfccf4847f}{interpolate}} (float x) const
 \begin{DoxyCompactList}\small\item\em Interpolates the value at the specified x coordinate. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 A class for performing 1D interpolation using the GSL library. 
 
-The {\ttfamily \doxylink{classhmap_1_1Interpolator1D}{Interpolator1D}} class provides an interface for performing 1D interpolation on a set of data points. The interpolation methods supported are defined by the {\ttfamily Interpolation\+Method1D} enumeration. The class uses the GSL library for the interpolation computations.
+The {\ttfamily \doxylink{classhmap_1_1Interpolator1D}{Interpolator1D}} class provides an interface for performing 1D interpolation on a set of data points. The interpolation methods supported are defined by the {\ttfamily \doxylink{namespacehmap_a46291bb4766800deacc1ce9b45a9ea6b}{Interpolation\+Method1D}} enumeration. The class uses the GSL library for the interpolation computations.
 
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
@@ -35,24 +35,24 @@ The {\ttfamily \doxylink{classhmap_1_1Interpolator1D}{Interpolator1D}} class pro
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ std::vector<float>\ \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}\ =\ \{0.f,\ 0.1f,\ 0.5f,\ 0.7f,\ 1.f\};}
-\DoxyCodeLine{\ \ std::vector<float>\ \mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}}\ =\ \{0.2f,\ 0.1f,\ 0.5f,\ 0.6f,\ 0.4f\};}
+\DoxyCodeLine{\ \ std::vector<float>\ x\ =\ \{0.f,\ 0.1f,\ 0.5f,\ 0.7f,\ 1.f\};}
+\DoxyCodeLine{\ \ std::vector<float>\ y\ =\ \{0.2f,\ 0.1f,\ 0.5f,\ 0.6f,\ 0.4f\};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ std::vector<float>\ xi\ =\ \mbox{\hyperlink{namespacehmap_a3957ac4ae673f8ad402b5dd71e99b015}{hmap::linspace}}(0.f,\ 1.f,\ 50);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Interpolator1D}{hmap::Interpolator1D}}\ fl\ =\ \mbox{\hyperlink{classhmap_1_1Interpolator1D}{hmap::Interpolator1D}}(}
-\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}},}
-\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}},}
+\DoxyCodeLine{\ \ \ \ \ \ x,}
+\DoxyCodeLine{\ \ \ \ \ \ y,}
 \DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a46291bb4766800deacc1ce9b45a9ea6ba26ec6481025765e03b9c750137bd9d84}{hmap::InterpolationMethod1D::LINEAR}});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Interpolator1D}{hmap::Interpolator1D}}\ fc\ =\ \mbox{\hyperlink{classhmap_1_1Interpolator1D}{hmap::Interpolator1D}}(}
-\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}},}
-\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}},}
+\DoxyCodeLine{\ \ \ \ \ \ x,}
+\DoxyCodeLine{\ \ \ \ \ \ y,}
 \DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a46291bb4766800deacc1ce9b45a9ea6ba212e7c8d91a9697cccd7df7d006a5547}{hmap::InterpolationMethod1D::CUBIC}});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Interpolator1D}{hmap::Interpolator1D}}\ fa\ =\ \mbox{\hyperlink{classhmap_1_1Interpolator1D}{hmap::Interpolator1D}}(}
-\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}},}
-\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}},}
+\DoxyCodeLine{\ \ \ \ \ \ x,}
+\DoxyCodeLine{\ \ \ \ \ \ y,}
 \DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a46291bb4766800deacc1ce9b45a9ea6ba55d2df97f3e8f051fb84453093374c96}{hmap::InterpolationMethod1D::AKIMA}});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ std::vector<float>\ yl,\ yc,\ ya;}
@@ -77,12 +77,14 @@ The {\ttfamily \doxylink{classhmap_1_1Interpolator1D}{Interpolator1D}} class pro
 
 {\bfseries{Result}}    
 
+\label{doc-constructors}
+\Hypertarget{classhmap_1_1Interpolator1D_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{classhmap_1_1Interpolator1D_aa44413e63632c955aacb403ab71f247f}\label{classhmap_1_1Interpolator1D_aa44413e63632c955aacb403ab71f247f} 
-\index{hmap::Interpolator1D@{hmap::Interpolator1D}!Interpolator1D@{Interpolator1D}}
+\Hypertarget{classhmap_1_1Interpolator1D_aa44413e63632c955aacb403ab71f247f}\index{hmap::Interpolator1D@{hmap::Interpolator1D}!Interpolator1D@{Interpolator1D}}
 \index{Interpolator1D@{Interpolator1D}!hmap::Interpolator1D@{hmap::Interpolator1D}}
 \doxysubsubsection{\texorpdfstring{Interpolator1D()}{Interpolator1D()}}
-{\footnotesize\ttfamily hmap\+::\+Interpolator1\+D\+::\+Interpolator1D (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{x,  }\item[{const std\+::vector$<$ float $>$ \&}]{y,  }\item[{\mbox{\hyperlink{namespacehmap_a46291bb4766800deacc1ce9b45a9ea6b}{Interpolation\+Method1D}}}]{method = {\ttfamily \mbox{\hyperlink{namespacehmap_a46291bb4766800deacc1ce9b45a9ea6ba26ec6481025765e03b9c750137bd9d84}{Interpolation\+Method1\+D\+::\+LINEAR}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1Interpolator1D_aa44413e63632c955aacb403ab71f247f} 
+hmap\+::\+Interpolator1\+D\+::\+Interpolator1D (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{x}{, }\item[{const std\+::vector$<$ float $>$ \&}]{y}{, }\item[{\mbox{\hyperlink{namespacehmap_a46291bb4766800deacc1ce9b45a9ea6b}{Interpolation\+Method1D}}}]{method}{ = {\ttfamily \mbox{\hyperlink{namespacehmap_a46291bb4766800deacc1ce9b45a9ea6ba26ec6481025765e03b9c750137bd9d84}{Interpolation\+Method1\+D\+::\+LINEAR}}}}\end{DoxyParamCaption})}
 
 
 
@@ -106,11 +108,11 @@ Coincident x coordinates are merged (keeping the first y) so that valid-\/but-\/
 {\em std\+::invalid\+\_\+argument} & \\
 \hline
 \end{DoxyExceptions}
-If x and y have different sizes, if there are fewer than two points with distinct x values, if x is not sorted in increasing order, or if the method requires monotonic data and the provided data is not monotonic. \Hypertarget{classhmap_1_1Interpolator1D_afce7ba6809a4c7b28a561c7c646227e3}\label{classhmap_1_1Interpolator1D_afce7ba6809a4c7b28a561c7c646227e3} 
-\index{hmap::Interpolator1D@{hmap::Interpolator1D}!````~Interpolator1D@{\texorpdfstring{$\sim$}{\string~}Interpolator1D}}
+If x and y have different sizes, if there are fewer than two points with distinct x values, if x is not sorted in increasing order, or if the method requires monotonic data and the provided data is not monotonic. \Hypertarget{classhmap_1_1Interpolator1D_afce7ba6809a4c7b28a561c7c646227e3}\index{hmap::Interpolator1D@{hmap::Interpolator1D}!````~Interpolator1D@{\texorpdfstring{$\sim$}{\string~}Interpolator1D}}
 \index{````~Interpolator1D@{\texorpdfstring{$\sim$}{\string~}Interpolator1D}!hmap::Interpolator1D@{hmap::Interpolator1D}}
 \doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Interpolator1D()}{\string~Interpolator1D()}}
-{\footnotesize\ttfamily hmap\+::\+Interpolator1\+D\+::\texorpdfstring{$\sim$}{\string~}\+Interpolator1D (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1Interpolator1D_afce7ba6809a4c7b28a561c7c646227e3} 
+hmap\+::\+Interpolator1\+D\+::\texorpdfstring{$\sim$}{\string~}\+Interpolator1D (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
@@ -118,12 +120,14 @@ Destructor for {\ttfamily \doxylink{classhmap_1_1Interpolator1D}{Interpolator1D}
 
 The destructor frees the GSL resources used by the interpolation object. 
 
+\label{doc-func-members}
+\Hypertarget{classhmap_1_1Interpolator1D_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classhmap_1_1Interpolator1D_a47dab539e9e8ce30c350278d01dfb1aa}\label{classhmap_1_1Interpolator1D_a47dab539e9e8ce30c350278d01dfb1aa} 
-\index{hmap::Interpolator1D@{hmap::Interpolator1D}!operator()@{operator()}}
+\Hypertarget{classhmap_1_1Interpolator1D_a47dab539e9e8ce30c350278d01dfb1aa}\index{hmap::Interpolator1D@{hmap::Interpolator1D}!operator()@{operator()}}
 \index{operator()@{operator()}!hmap::Interpolator1D@{hmap::Interpolator1D}}
 \doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
-{\footnotesize\ttfamily float hmap\+::\+Interpolator1\+D\+::operator() (\begin{DoxyParamCaption}\item[{float}]{x }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1Interpolator1D_a47dab539e9e8ce30c350278d01dfb1aa} 
+float hmap\+::\+Interpolator1\+D\+::operator() (\begin{DoxyParamCaption}\item[{float}]{x}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -139,11 +143,11 @@ This operator overload allows the {\ttfamily \doxylink{classhmap_1_1Interpolator
 \begin{DoxyReturn}{Returns}
 The interpolated y value corresponding to the given x. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1Interpolator1D_a1ab067195430386cae3158bfccf4847f}\label{classhmap_1_1Interpolator1D_a1ab067195430386cae3158bfccf4847f} 
-\index{hmap::Interpolator1D@{hmap::Interpolator1D}!interpolate@{interpolate}}
+\Hypertarget{classhmap_1_1Interpolator1D_a1ab067195430386cae3158bfccf4847f}\index{hmap::Interpolator1D@{hmap::Interpolator1D}!interpolate@{interpolate}}
 \index{interpolate@{interpolate}!hmap::Interpolator1D@{hmap::Interpolator1D}}
 \doxysubsubsection{\texorpdfstring{interpolate()}{interpolate()}}
-{\footnotesize\ttfamily float hmap\+::\+Interpolator1\+D\+::interpolate (\begin{DoxyParamCaption}\item[{float}]{x }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1Interpolator1D_a1ab067195430386cae3158bfccf4847f} 
+float hmap\+::\+Interpolator1\+D\+::interpolate (\begin{DoxyParamCaption}\item[{float}]{x}{}\end{DoxyParamCaption}) const}
 
 
 

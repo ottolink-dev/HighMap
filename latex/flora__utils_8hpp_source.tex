@@ -26,7 +26,7 @@
 \DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
 \DoxyCodeLine{00023\ \{}
 \DoxyCodeLine{00024\ }
-\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1ForestScaleSampler}{ForestScaleSampler}}}
+\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a718cd251deebe40bffad00d2caa2d444}{ForestScaleSampler}}}
 \DoxyCodeLine{00031\ \{}
 \DoxyCodeLine{00032\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ *\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ad4f8dd5bb78fd7cd1013c61a13cc8f04}{scale\_array}}\ =\ \textcolor{keyword}{nullptr};}
 \DoxyCodeLine{00033\ \ \ glm::vec4\ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a89e004d7e12902c4efe1068997311f62}{bbox}}\ =\ \{0.f,\ 1.f,\ 0.f,\ 1.f\};}
@@ -41,37 +41,37 @@
 \DoxyCodeLine{00042\ \ \ \ \ \ \ :\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ad4f8dd5bb78fd7cd1013c61a13cc8f04}{scale\_array}}(\&array),}
 \DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a89e004d7e12902c4efe1068997311f62}{bbox}}(bounds),}
 \DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a1df5b468312e12c0231a886268158907}{strength}}(std::\mbox{\hyperlink{namespacehmap_ae6dfd87b0368629657c3138dbf24cbc4}{clamp}}(strength\_factor,\ 0.0f,\ 1.0f)),}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a5b52199da1105ede4c35127216826394}{bbox\_dx}}(bounds.\mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}}\ -\/\ bounds.\mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}),}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a97788d3f9626dafe95907209d15f56b4}{bbox\_dy}}(bounds.w\ -\/\ bounds.\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}})}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a5b52199da1105ede4c35127216826394}{bbox\_dx}}(bounds.y\ -\/\ bounds.x),}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a97788d3f9626dafe95907209d15f56b4}{bbox\_dy}}(bounds.w\ -\/\ bounds.z)}
 \DoxyCodeLine{00047\ \ \ \{}
 \DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_data\ =\ !array.\mbox{\hyperlink{classhmap_1_1Array_af586ddce153ac93df48a6d26609d7264}{vector}}.empty()\ \&\&\ \mbox{\hyperlink{namespacehmap_ada207723c327adabe73af8554e48e5bd}{validate\_non\_empty}}(array);}
 \DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ valid\_bbox\ =\ (std::abs(\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a5b52199da1105ede4c35127216826394}{bbox\_dx}})\ >\ 1e-\/7f\ \&\&\ std::abs(\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a97788d3f9626dafe95907209d15f56b4}{bbox\_dy}})\ >\ 1e-\/7f);}
 \DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ab0f487da4890a5e22f38a55b41003bb6}{active}}\ =\ (has\_data\ \&\&\ valid\_bbox\ \&\&\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a1df5b468312e12c0231a886268158907}{strength}}\ >\ 0.0f);}
 \DoxyCodeLine{00051\ \ \ \}}
 \DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ [[nodiscard]]\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ae74f404036eca9f6613ab9b148a4661a}{sample}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00053\ \ \ [[nodiscard]]\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ae74f404036eca9f6613ab9b148a4661a}{sample}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00054\ \textcolor{keyword}{\ \ }\{}
 \DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ab0f487da4890a5e22f38a55b41003bb6}{active}}\ ||\ !\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ad4f8dd5bb78fd7cd1013c61a13cc8f04}{scale\_array}})\ \textcolor{keywordflow}{return}\ 1.0f;}
 \DoxyCodeLine{00056\ }
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{float}\ u\_norm\ =\ std::clamp((\mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}\ -\/\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a89e004d7e12902c4efe1068997311f62}{bbox}}.x)\ /\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a5b52199da1105ede4c35127216826394}{bbox\_dx}},\ 0.0f,\ 1.0f);}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{float}\ v\_norm\ =\ std::clamp((\mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}}\ -\/\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a89e004d7e12902c4efe1068997311f62}{bbox}}.z)\ /\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a97788d3f9626dafe95907209d15f56b4}{bbox\_dy}},\ 0.0f,\ 1.0f);}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{float}\ u\_norm\ =\ std::clamp((x\ -\/\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a89e004d7e12902c4efe1068997311f62}{bbox}}.x)\ /\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a5b52199da1105ede4c35127216826394}{bbox\_dx}},\ 0.0f,\ 1.0f);}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{float}\ v\_norm\ =\ std::clamp((y\ -\/\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a89e004d7e12902c4efe1068997311f62}{bbox}}.z)\ /\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a97788d3f9626dafe95907209d15f56b4}{bbox\_dy}},\ 0.0f,\ 1.0f);}
 \DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{float}\ xn\ =\ u\_norm\ *\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ad4f8dd5bb78fd7cd1013c61a13cc8f04}{scale\_array}}-\/>\mbox{\hyperlink{classhmap_1_1Array_a9ee3e85888021b80660357e73f35a5ea}{shape}}.x\ -\/\ 1);}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{float}\ yn\ =\ v\_norm\ *\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ad4f8dd5bb78fd7cd1013c61a13cc8f04}{scale\_array}}-\/>\mbox{\hyperlink{classhmap_1_1Array_a9ee3e85888021b80660357e73f35a5ea}{shape}}.y\ -\/\ 1);}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{float}\ xn\ =\ u\_norm\ *\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ad4f8dd5bb78fd7cd1013c61a13cc8f04}{scale\_array}}-\/>shape.x\ -\/\ 1);}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{float}\ yn\ =\ v\_norm\ *\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ad4f8dd5bb78fd7cd1013c61a13cc8f04}{scale\_array}}-\/>shape.y\ -\/\ 1);}
 \DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(xn);}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(yn);}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(xn);}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{int}\ j\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(yn);}
 \DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{float}\ u\ =\ xn\ -\/\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}});}
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{float}\ v\ =\ yn\ -\/\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}});}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{float}\ s\_raw\ =\ std::clamp(\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ad4f8dd5bb78fd7cd1013c61a13cc8f04}{scale\_array}}-\/>\mbox{\hyperlink{classhmap_1_1Array_a12eb51c18154e3e452afe9743636085f}{get\_value\_bilinear\_at}}(\mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}},\ \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}},\ u,\ v),}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{float}\ u\ =\ xn\ -\/\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(i);}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{float}\ v\ =\ yn\ -\/\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(j);}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{float}\ s\_raw\ =\ std::clamp(\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ad4f8dd5bb78fd7cd1013c61a13cc8f04}{scale\_array}}-\/>get\_value\_bilinear\_at(i,\ j,\ u,\ v),}
 \DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.0f,}
 \DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1.0f);}
 \DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacehmap_ac14815cf025b7430d31d08125a5c6f0d}{lerp}}(1.f,\ s\_raw,\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a1df5b468312e12c0231a886268158907}{strength}});}
 \DoxyCodeLine{00072\ \ \ \}}
 \DoxyCodeLine{00073\ \};}
 \DoxyCodeLine{00074\ }
-\DoxyCodeLine{00079\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1SpeciesLookup}{SpeciesLookup}}}
+\DoxyCodeLine{00079\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1SpeciesLookup_af4b39dcb497f91388c5fb8141ec26c94}{SpeciesLookup}}}
 \DoxyCodeLine{00080\ \{}
 \DoxyCodeLine{00081\ \ \ std::unordered\_map<uint32\_t,\ Species>\ \mbox{\hyperlink{structhmap_1_1SpeciesLookup_a7e23964d24d7f40a71e0471a6329f21a}{map}};}
 \DoxyCodeLine{00082\ \ \ \textcolor{keyword}{const}\ std::vector<Species>\ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structhmap_1_1SpeciesLookup_a0cdecbd556760fea134bd78adec3c90c}{list}}\ =\ \textcolor{keyword}{nullptr};}
@@ -84,7 +84,7 @@
 \DoxyCodeLine{00089\ \ \ \ \ \}}
 \DoxyCodeLine{00090\ \ \ \}}
 \DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \ \ [[nodiscard]]\ \mbox{\hyperlink{structhmap_1_1Species}{Species}}\ \mbox{\hyperlink{structhmap_1_1SpeciesLookup_ac03ce9b6b9784eadcdc1717302b9bd70}{get}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1ScatterItem}{Tree}}\ \&tree)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00092\ \ \ [[nodiscard]]\ \mbox{\hyperlink{structhmap_1_1Species}{Species}}\ \mbox{\hyperlink{structhmap_1_1SpeciesLookup_ac03ce9b6b9784eadcdc1717302b9bd70}{get}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacehmap_a527656b2ec2ff9bbc343a996ea62070e}{Tree}}\ \&tree)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00093\ \textcolor{keyword}{\ \ }\{}
 \DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ \mbox{\hyperlink{structhmap_1_1SpeciesLookup_a7e23964d24d7f40a71e0471a6329f21a}{map}}.find(tree.\mbox{\hyperlink{classhmap_1_1ScatterItem_acb2a7deaaf83ef31844de9221b3f86dd}{class\_id}});}
 \DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ \mbox{\hyperlink{structhmap_1_1SpeciesLookup_a7e23964d24d7f40a71e0471a6329f21a}{map}}.end())}

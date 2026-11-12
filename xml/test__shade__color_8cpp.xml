@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="test__shade__color_8cpp" kind="file" language="C++">
     <compoundname>test_shade_color.cpp</compoundname>
     <sectiondef kind="func">
@@ -115,16 +115,16 @@
 <codeline lineno="9"><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal"><ref refid="test__shade__color_8cpp_1a8859e914a8e1518bd2ec539af45af949" kindref="member">TEST</ref>(ShadeColor,<sp/>TextureBasicAndAlphaPreservation)</highlight></codeline>
 <codeline lineno="11"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{4,<sp/>4};</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>r(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>0.5f);</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>g(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>0.4f);</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>b(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>0.3f);</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>a(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>0.9f);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{4,<sp/>4};</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>r(shape,<sp/>0.5f);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>g(shape,<sp/>0.4f);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>b(shape,<sp/>0.3f);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>a(shape,<sp/>0.9f);</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">Texture</ref><sp/>tex(r,<sp/>g,<sp/>b,<sp/>a);</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tex.num_channels(),<sp/>4);</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>factor(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>0.5f);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>factor(shape,<sp/>0.5f);</highlight></codeline>
 <codeline lineno="22"><highlight class="normal"><sp/><sp/>factor(0,<sp/>0)<sp/>=<sp/>0.0f;</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><sp/><sp/>factor(1,<sp/>1)<sp/>=<sp/>1.0f;</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight></codeline>
@@ -149,9 +149,9 @@
 <codeline lineno="43"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(tex(0,<sp/>1,<sp/>2),<sp/>expected_01.b,<sp/>1e-6f);</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight></codeline>
 <codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>verify<sp/>alpha<sp/>channel<sp/>was<sp/>preserved</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>&lt;<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y;<sp/>++<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_EQ(tex(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>,<sp/>3),<sp/>0.9f);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>shape.y;<sp/>++j)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>shape.x;<sp/>++i)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_EQ(tex(i,<sp/>j,<sp/>3),<sp/>0.9f);</highlight></codeline>
 <codeline lineno="49"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
 <codeline lineno="51"><highlight class="normal"><ref refid="test__shade__color_8cpp_1a8859e914a8e1518bd2ec539af45af949" kindref="member">TEST</ref>(ShadeColor,<sp/>EmptyOrMismatchedInputs)</highlight></codeline>
@@ -179,36 +179,36 @@
 <codeline lineno="73"><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"><ref refid="test__shade__color_8cpp_1a8859e914a8e1518bd2ec539af45af949" kindref="member">TEST</ref>(ShadeTopographicResidual,<sp/>FlatTerrainProducesNeutralShade)</highlight></codeline>
 <codeline lineno="75"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{16,<sp/>16};</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>100.0f);<sp/></highlight><highlight class="comment">//<sp/>completely<sp/>flat<sp/>terrain</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{16,<sp/>16};</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>z(shape,<sp/>100.0f);<sp/></highlight><highlight class="comment">//<sp/>completely<sp/>flat<sp/>terrain</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="78"><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">Texture</ref><sp/>tex(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>3,<sp/>0.6f);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">Texture</ref><sp/>tex(shape,<sp/>3,<sp/>0.6f);</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aa26e98751bbe16f0223c8c117a35ec6e" kindref="member">shade_topographic_residual</ref>(tex,<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>3,<sp/>1.0f);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aa26e98751bbe16f0223c8c117a35ec6e" kindref="member">shade_topographic_residual</ref>(tex,<sp/>z,<sp/>3,<sp/>1.0f);</highlight></codeline>
 <codeline lineno="82"><highlight class="normal"></highlight></codeline>
 <codeline lineno="83"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>For<sp/>flat<sp/>terrain,<sp/>residual<sp/>is<sp/>0<sp/>everywhere,<sp/>so<sp/>factor<sp/>is<sp/>0.5<sp/>+<sp/>0.5<sp/>*<sp/>0<sp/>=</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>0.5</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="85"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>expected<sp/>=<sp/><ref refid="namespacehmap_1a54eb8ce4196d73517024dbe2af5af81b" kindref="member">shade_color</ref>(glm::vec3(0.6f,<sp/>0.6f,<sp/>0.6f),<sp/>0.5f);</highlight></codeline>
 <codeline lineno="86"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref><sp/>&lt;<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y;<sp/>++<ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>)</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>shape.y;<sp/>++j)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>shape.x;<sp/>++i)</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_NEAR(tex(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>,<sp/>0),<sp/>expected.r,<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_NEAR(tex(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>,<sp/>1),<sp/>expected.g,<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_NEAR(tex(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/><ref refid="sls__deformation_8cpp_1a37d972ae0b47b9099e30983131d31916" kindref="member">j</ref>,<sp/>2),<sp/>expected.b,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_NEAR(tex(i,<sp/>j,<sp/>0),<sp/>expected.r,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_NEAR(tex(i,<sp/>j,<sp/>1),<sp/>expected.g,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_NEAR(tex(i,<sp/>j,<sp/>2),<sp/>expected.b,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="94"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="95"><highlight class="normal"></highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><ref refid="test__shade__color_8cpp_1a8859e914a8e1518bd2ec539af45af949" kindref="member">TEST</ref>(ShadeTopographicResidual,<sp/>PeakAndValley)</highlight></codeline>
 <codeline lineno="97"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>{17,<sp/>17};</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>0.0f);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{17,<sp/>17};</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>z(shape,<sp/>0.0f);</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"></highlight></codeline>
 <codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>a<sp/>peak<sp/>in<sp/>the<sp/>center</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>(8,<sp/>8)<sp/>=<sp/>10.0f;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>z(8,<sp/>8)<sp/>=<sp/>10.0f;</highlight></codeline>
 <codeline lineno="103"><highlight class="normal"></highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">Texture</ref><sp/>tex(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>3,<sp/>0.5f);</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aa26e98751bbe16f0223c8c117a35ec6e" kindref="member">shade_topographic_residual</ref>(tex,<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>3,<sp/>1.0f);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">Texture</ref><sp/>tex(shape,<sp/>3,<sp/>0.5f);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aa26e98751bbe16f0223c8c117a35ec6e" kindref="member">shade_topographic_residual</ref>(tex,<sp/>z,<sp/>3,<sp/>1.0f);</highlight></codeline>
 <codeline lineno="106"><highlight class="normal"></highlight></codeline>
 <codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Peak<sp/>has<sp/>positive<sp/>residual,<sp/>so<sp/>factor<sp/>&gt;<sp/>0.5</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>center_r<sp/>=<sp/>tex(8,<sp/>8,<sp/>0);</highlight></codeline>
@@ -221,9 +221,9 @@
 <codeline lineno="115"><highlight class="normal"><ref refid="test__shade__color_8cpp_1a8859e914a8e1518bd2ec539af45af949" kindref="member">TEST</ref>(ShadeTopographicResidual,<sp/>InvalidInputs)</highlight></codeline>
 <codeline lineno="116"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="117"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">Texture</ref><sp/>empty_tex;</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>({8,<sp/>8},<sp/>1.0f);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/>z({8,<sp/>8},<sp/>1.0f);</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"></highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aa26e98751bbe16f0223c8c117a35ec6e" kindref="member">shade_topographic_residual</ref>(empty_tex,<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>2);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aa26e98751bbe16f0223c8c117a35ec6e" kindref="member">shade_topographic_residual</ref>(empty_tex,<sp/>z,<sp/>2);</highlight></codeline>
 <codeline lineno="121"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(empty_tex.<ref refid="classhmap_1_1Texture_1af2319e8977c56256c0b23a9f821ec1ad" kindref="member">is_empty</ref>());</highlight></codeline>
 <codeline lineno="122"><highlight class="normal"></highlight></codeline>
 <codeline lineno="123"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">Texture</ref><sp/>valid_tex({8,<sp/>8},<sp/>3,<sp/>0.5f);</highlight></codeline>

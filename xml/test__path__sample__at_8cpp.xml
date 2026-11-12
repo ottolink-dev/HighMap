@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="test__path__sample__at_8cpp" kind="file" language="C++">
     <compoundname>test_path_sample_at.cpp</compoundname>
     <sectiondef kind="func">
@@ -130,11 +130,11 @@
 <codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Simple<sp/>interpolation<sp/>on<sp/>a<sp/>two-point<sp/>path.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"><ref refid="test__path__sample__at_8cpp_1a0303a86bdff92e4275a44741c3b2d182" kindref="member">TEST</ref>(PathSampleAt,<sp/>InterpolatesPositionValueAndTangent)</highlight></codeline>
 <codeline lineno="7"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="8"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>(</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path(</highlight></codeline>
 <codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;hmap::Point&gt;{{0.f,<sp/>0.f,<sp/>0.f},<sp/>{10.f,<sp/>0.f,<sp/>100.f}});</highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>tangent;</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>sample<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.<ref refid="classhmap_1_1Path_1abed9b04c8138125196946f7453e4aea9" kindref="member">sample_at</ref>(0.5f,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>&amp;tangent);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>sample<sp/>=<sp/>path.<ref refid="classhmap_1_1Path_1abed9b04c8138125196946f7453e4aea9" kindref="member">sample_at</ref>(0.5f,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>&amp;tangent);</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(sample.x,<sp/>5.f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(sample.y,<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
@@ -147,15 +147,15 @@
 <codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Sampling<sp/>exactly<sp/>at<sp/>arc-length<sp/>control<sp/>points.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><ref refid="test__path__sample__at_8cpp_1a0303a86bdff92e4275a44741c3b2d182" kindref="member">TEST</ref>(PathSampleAt,<sp/>SamplesAtControlPoints)</highlight></codeline>
 <codeline lineno="24"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>(std::vector&lt;hmap::Point&gt;{{0.f,<sp/>0.f,<sp/>10.f},</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path(std::vector&lt;hmap::Point&gt;{{0.f,<sp/>0.f,<sp/>10.f},</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1.f,<sp/>0.f,<sp/>20.f},</highlight></codeline>
 <codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{4.f,<sp/>0.f,<sp/>40.f}});</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>arc<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.<ref refid="classhmap_1_1Path_1a0ef4a309bc181ea182c0b7a75c8fdae7" kindref="member">get_arc_length</ref>();</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>arc<sp/>=<sp/>path.<ref refid="classhmap_1_1Path_1a0ef4a309bc181ea182c0b7a75c8fdae7" kindref="member">get_arc_length</ref>();</highlight></codeline>
 <codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>s0<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.sample_at(arc[0]);</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>s1<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.sample_at(arc[1]);</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>s2<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.sample_at(arc[2]);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>s0<sp/>=<sp/>path.sample_at(arc[0]);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>s1<sp/>=<sp/>path.sample_at(arc[1]);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>s2<sp/>=<sp/>path.sample_at(arc[2]);</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight></codeline>
 <codeline lineno="35"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(s0.x,<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(s0.y,<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
@@ -173,11 +173,11 @@
 <codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Verify<sp/>that<sp/>t<sp/>is<sp/>clamped<sp/>into<sp/>[0,<sp/>1].</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><ref refid="test__path__sample__at_8cpp_1a0303a86bdff92e4275a44741c3b2d182" kindref="member">TEST</ref>(PathSampleAt,<sp/>ClampsParameter)</highlight></codeline>
 <codeline lineno="50"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>(</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path(</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;hmap::Point&gt;{{0.f,<sp/>0.f,<sp/>0.f},<sp/>{10.f,<sp/>0.f,<sp/>100.f}});</highlight></codeline>
 <codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>before<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.<ref refid="classhmap_1_1Path_1abed9b04c8138125196946f7453e4aea9" kindref="member">sample_at</ref>(-1.f);</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>after<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.sample_at(2.f);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>before<sp/>=<sp/>path.<ref refid="classhmap_1_1Path_1abed9b04c8138125196946f7453e4aea9" kindref="member">sample_at</ref>(-1.f);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>after<sp/>=<sp/>path.sample_at(2.f);</highlight></codeline>
 <codeline lineno="56"><highlight class="normal"></highlight></codeline>
 <codeline lineno="57"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(before.x,<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="58"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(before.y,<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
@@ -191,12 +191,12 @@
 <codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Non-uniform<sp/>path:<sp/>verify<sp/>interpolation<sp/>follows<sp/>arc<sp/>length.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="67"><highlight class="normal"><ref refid="test__path__sample__at_8cpp_1a0303a86bdff92e4275a44741c3b2d182" kindref="member">TEST</ref>(PathSampleAt,<sp/>UsesArcLengthParameterization)</highlight></codeline>
 <codeline lineno="68"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>(std::vector&lt;hmap::Point&gt;{{0.f,<sp/>0.f,<sp/>0.f},</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path(std::vector&lt;hmap::Point&gt;{{0.f,<sp/>0.f,<sp/>0.f},</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1.f,<sp/>0.f,<sp/>10.f},</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{4.f,<sp/>0.f,<sp/>40.f}});</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"></highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Arc-length<sp/>values<sp/>are<sp/>[0,<sp/>0.25,<sp/>1].</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>sample<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.<ref refid="classhmap_1_1Path_1abed9b04c8138125196946f7453e4aea9" kindref="member">sample_at</ref>(0.5f);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>sample<sp/>=<sp/>path.<ref refid="classhmap_1_1Path_1abed9b04c8138125196946f7453e4aea9" kindref="member">sample_at</ref>(0.5f);</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"></highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>0.5<sp/>lies<sp/>in<sp/>the<sp/>second<sp/>segment:</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>r<sp/>=<sp/>(0.5<sp/>-<sp/>0.25)<sp/>/<sp/>(1<sp/>-<sp/>0.25)<sp/>=<sp/>1/3.</highlight><highlight class="normal"></highlight></codeline>
@@ -208,14 +208,14 @@
 <codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Verify<sp/>that<sp/>a<sp/>supplied<sp/>arc<sp/>vector<sp/>is<sp/>used.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><ref refid="test__path__sample__at_8cpp_1a0303a86bdff92e4275a44741c3b2d182" kindref="member">TEST</ref>(PathSampleAt,<sp/>UsesProvidedArcVector)</highlight></codeline>
 <codeline lineno="85"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>(std::vector&lt;hmap::Point&gt;{{0.f,<sp/>0.f,<sp/>0.f},</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path(std::vector&lt;hmap::Point&gt;{{0.f,<sp/>0.f,<sp/>0.f},</highlight></codeline>
 <codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1.f,<sp/>0.f,<sp/>10.f},</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{2.f,<sp/>0.f,<sp/>20.f}});</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"></highlight></codeline>
 <codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Artificial<sp/>parameterization.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="91"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>arc{0.f,<sp/>0.5f,<sp/>1.f};</highlight></codeline>
 <codeline lineno="92"><highlight class="normal"></highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>sample<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.<ref refid="classhmap_1_1Path_1abed9b04c8138125196946f7453e4aea9" kindref="member">sample_at</ref>(0.25f,<sp/>&amp;arc);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>glm::vec3<sp/>sample<sp/>=<sp/>path.<ref refid="classhmap_1_1Path_1abed9b04c8138125196946f7453e4aea9" kindref="member">sample_at</ref>(0.25f,<sp/>&amp;arc);</highlight></codeline>
 <codeline lineno="94"><highlight class="normal"></highlight></codeline>
 <codeline lineno="95"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(sample.x,<sp/>0.5f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(sample.y,<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
@@ -225,10 +225,10 @@
 <codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Degenerate<sp/>segment:<sp/>tangent<sp/>should<sp/>fall<sp/>back<sp/>to<sp/>(1,<sp/>0).</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="101"><highlight class="normal"><ref refid="test__path__sample__at_8cpp_1a0303a86bdff92e4275a44741c3b2d182" kindref="member">TEST</ref>(PathSampleAt,<sp/>DegenerateSegmentUsesDefaultTangent)</highlight></codeline>
 <codeline lineno="102"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>(std::vector&lt;hmap::Point&gt;{{1.f,<sp/>2.f,<sp/>3.f},<sp/>{1.f,<sp/>2.f,<sp/>5.f}});</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path(std::vector&lt;hmap::Point&gt;{{1.f,<sp/>2.f,<sp/>3.f},<sp/>{1.f,<sp/>2.f,<sp/>5.f}});</highlight></codeline>
 <codeline lineno="104"><highlight class="normal"></highlight></codeline>
 <codeline lineno="105"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>tangent;</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.<ref refid="classhmap_1_1Path_1abed9b04c8138125196946f7453e4aea9" kindref="member">sample_at</ref>(0.5f,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>&amp;tangent);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1abed9b04c8138125196946f7453e4aea9" kindref="member">sample_at</ref>(0.5f,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>&amp;tangent);</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"></highlight></codeline>
 <codeline lineno="108"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(tangent.x,<sp/>1.f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="109"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(tangent.y,<sp/>0.f,<sp/>1e-5f);</highlight></codeline>

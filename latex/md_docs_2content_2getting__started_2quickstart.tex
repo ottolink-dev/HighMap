@@ -1,8 +1,10 @@
-\chapter{Quickstart}
+\chapter{Quickstart }
 \hypertarget{md_docs_2content_2getting__started_2quickstart}{}\label{md_docs_2content_2getting__started_2quickstart}\index{Quickstart@{Quickstart}}
 \label{md_docs_2content_2getting__started_2quickstart_autotoc_md132}%
 \Hypertarget{md_docs_2content_2getting__started_2quickstart_autotoc_md132}%
- This guide shows how to generate and export a heightmap using High\+Map.\hypertarget{md_docs_2content_2getting__started_2quickstart_autotoc_md133}{}\doxysection{\texorpdfstring{1. Example}{1. Example}}\label{md_docs_2content_2getting__started_2quickstart_autotoc_md133}
+
+
+This guide shows how to generate and export a heightmap using High\+Map.\hypertarget{md_docs_2content_2getting__started_2quickstart_autotoc_md133}{}\doxysection{\texorpdfstring{1. Example}{1. Example}}\label{md_docs_2content_2getting__started_2quickstart_autotoc_md133}
 The following program generates a 2D elevation grid using Perlin fractal Brownian motion (f\+Bm), remaps its values to the interval \$\mbox{[}0, 1\mbox{]}\$, and writes the result to a 16-\/bit PNG file.
 
 
@@ -12,23 +14,23 @@ The following program generates a 2D elevation grid using Perlin fractal Brownia
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ glm::ivec2\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}\ =\ \{512,\ 512\};}
+\DoxyCodeLine{\ \ glm::ivec2\ shape\ =\ \{512,\ 512\};}
 \DoxyCodeLine{\ \ glm::vec2\ res\ =\ \{4.0f,\ 4.0f\};}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ seed\ =\ 42;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ Generate\ elevation\ data}}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ res,\ seed);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ shape,\ res,\ seed);}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ std::cout\ <<\ \textcolor{stringliteral}{"{}min:\ "{}}\ <<\ \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}.min()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
-\DoxyCodeLine{\ \ std::cout\ <<\ \textcolor{stringliteral}{"{}max:\ "{}}\ <<\ \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}.max()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ std::cout\ <<\ \textcolor{stringliteral}{"{}min:\ "{}}\ <<\ z.\mbox{\hyperlink{classhmap_1_1Array_a9636778a72fa18be1bf20fba816f6c4d}{min}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ std::cout\ <<\ \textcolor{stringliteral}{"{}max:\ "{}}\ <<\ z.\mbox{\hyperlink{classhmap_1_1Array_afdba5b214c8378e78db1978188676703}{max}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ Remap\ elevation\ values\ to\ [0,\ 1]}}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}.remap(0.0f,\ 1.0f);}
+\DoxyCodeLine{\ \ z.remap(0.0f,\ 1.0f);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ Export\ to\ image}}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{structhmap_1_1ImageWriterConfig}{hmap::ImageWriterConfig}}\ config;}
 \DoxyCodeLine{\ \ config.\mbox{\hyperlink{structhmap_1_1ImageWriterConfig_a481586b28e6d78db02843fcb819e0583}{data\_type}}\ =\ \mbox{\hyperlink{namespacehmap_a451ad02eb796f23b2f68e062e8de9875a48d8f1a723d44ff4a87db1bb6c551c62}{hmap::ImageDataType::UINT16}};}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ae45c9c8f938fb4f94a3a3816d16bcc36}{hmap::export\_image}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ \textcolor{stringliteral}{"{}terrain.png"{}},\ config);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ae45c9c8f938fb4f94a3a3816d16bcc36}{hmap::export\_image}}(z,\ \textcolor{stringliteral}{"{}terrain.png"{}},\ config);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
 \DoxyCodeLine{\}}
@@ -57,20 +59,20 @@ Common operations on an {\ttfamily Array}\+:
 \begin{DoxyItemize}
 \item {\bfseries{Smoothing}}\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}\ =\ \mbox{\hyperlink{namespacehmap_ad81052648d6008d2b7b4a5a36a2d7830}{hmap::smooth}}(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ 3);}
+\DoxyCodeLine{z\ =\ \mbox{\hyperlink{namespacehmap_ad81052648d6008d2b7b4a5a36a2d7830}{hmap::smooth}}(z,\ 3);}
 
 \end{DoxyCode}
 
 \item {\bfseries{Clamping}}\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}.clamp(0.0f,\ 1.0f);}
+\DoxyCodeLine{z.clamp(0.0f,\ 1.0f);}
 
 \end{DoxyCode}
 
 \item {\bfseries{Blending}}\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ overlay\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}},\ \{8.f,\ 8.f\},\ 101);}
-\DoxyCodeLine{\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}}\ =\ hmap::blend\_max(\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ overlay\ *\ 0.5f);}
+\DoxyCodeLine{\mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ overlay\ =\ \mbox{\hyperlink{namespacehmap_a7d699a468a18be16c70654958ee13b41}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ shape,\ \{8.f,\ 8.f\},\ 101);}
+\DoxyCodeLine{z\ =\ hmap::blend\_max(z,\ overlay\ *\ 0.5f);}
 
 \end{DoxyCode}
 

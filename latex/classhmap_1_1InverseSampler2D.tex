@@ -14,13 +14,13 @@ Sequential 2D inverse transform point sampler based on a 2D density array.
 \item 
 \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a954da8aa0eeb1a0309093f793a521ea5}{Inverse\+Sampler2D}} ()=default
 \item 
-\mbox{\hyperlink{classhmap_1_1InverseSampler2D_afebac5bcbfe00b292dfc4d60842d9cab}{Inverse\+Sampler2D}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, std\+::uint32\+\_\+t seed=0, const glm\+::vec4 \&\mbox{\hyperlink{sdf__2d__polyline__bezier_8cpp_a8396e15b291639eaa79ecd3badbdff48}{bbox}}=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\mbox{\hyperlink{classhmap_1_1InverseSampler2D_afebac5bcbfe00b292dfc4d60842d9cab}{Inverse\+Sampler2D}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, std\+::uint32\+\_\+t seed=0, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Constructs an inverse sampler for a 2D density array. \end{DoxyCompactList}\item 
 glm\+::vec2 \mbox{\hyperlink{classhmap_1_1InverseSampler2D_ac41cafc646d29404842e7a8158431a49}{sample}} ()
 \begin{DoxyCompactList}\small\item\em Samples a single point sequentially using the internal RNG. \end{DoxyCompactList}\item 
 glm\+::vec2 \mbox{\hyperlink{classhmap_1_1InverseSampler2D_ae9b20270190b81dc01a5f8607fc46f40}{sample}} (float u, float u2)
 \begin{DoxyCompactList}\small\item\em Samples a single point with user-\/provided uniform random numbers. \end{DoxyCompactList}\item 
-std\+::array$<$ std\+::vector$<$ float $>$, 2 $>$ \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a6fbe2c9ce84700619ce50914111a13d7}{sample}} (size\+\_\+t \mbox{\hyperlink{hydraulic__mise_8cpp_a76d971a3c552bc58ba9f0d5fceae9806}{count}})
+std\+::array$<$ std\+::vector$<$ float $>$, 2 $>$ \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a6fbe2c9ce84700619ce50914111a13d7}{sample}} (size\+\_\+t count)
 \begin{DoxyCompactList}\small\item\em Samples multiple points sequentially. \end{DoxyCompactList}\item 
 glm\+::vec2 \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a4615c1c193ea85c46bd6c86379aaa1c2}{sample}} (const glm\+::vec4 \&restricted\+\_\+bbox)
 \begin{DoxyCompactList}\small\item\em Samples a single point sequentially within a restricted bounding box. \end{DoxyCompactList}\item 
@@ -28,9 +28,9 @@ glm\+::vec2 \mbox{\hyperlink{classhmap_1_1InverseSampler2D_aafeffda960bdd2bfa4bc
 \begin{DoxyCompactList}\small\item\em Samples a single point within a restricted bounding box with user-\/provided uniform random numbers. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_af79e583520d87ace8894e28e06f20d71}{update\+\_\+region}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&updated\+\_\+array, const glm\+::ivec2 \&range\+\_\+i, const glm\+::ivec2 \&range\+\_\+j)
 \begin{DoxyCompactList}\small\item\em Updates the density in the sub-\/region \mbox{[}imin, imax\mbox{]} x \mbox{[}jmin, jmax\mbox{]} from another array. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_aecc916072e42ac4a42a8d447f26723d3}{update\+\_\+region}} (const std\+::function$<$ float(int \mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}, int \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}, float current)$>$ \&updater, const glm\+::ivec2 \&range\+\_\+i, const glm\+::ivec2 \&range\+\_\+j)
+void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_aecc916072e42ac4a42a8d447f26723d3}{update\+\_\+region}} (const std\+::function$<$ float(int i, int j, float current)$>$ \&updater, const glm\+::ivec2 \&range\+\_\+i, const glm\+::ivec2 \&range\+\_\+j)
 \begin{DoxyCompactList}\small\item\em Updates the density in the sub-\/region \mbox{[}imin, imax\mbox{]} x \mbox{[}jmin, jmax\mbox{]} using a modifier function. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a81b37fb1f46c4b21f838727dd579b897}{reset}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, std\+::uint32\+\_\+t seed=0, const glm\+::vec4 \&\mbox{\hyperlink{sdf__2d__polyline__bezier_8cpp_a8396e15b291639eaa79ecd3badbdff48}{bbox}}=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a81b37fb1f46c4b21f838727dd579b897}{reset}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&density, std\+::uint32\+\_\+t seed=0, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Reinitializes the sampler with a new density array. \end{DoxyCompactList}\item 
 const glm\+::vec4 \& \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a4e68f18b865ea72b234a475a506e3d07}{get\+\_\+bbox}} () const
 \begin{DoxyCompactList}\small\item\em Gets the bounding box. \end{DoxyCompactList}\item 
@@ -38,7 +38,7 @@ const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \& \mbox{\hyperlink{classhmap
 \begin{DoxyCompactList}\small\item\em Gets the current density array. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{classhmap_1_1InverseSampler2D_ae33248c92a5bd80e35291f1e1cea16f8}{get\+\_\+total\+\_\+weight}} () const
 \begin{DoxyCompactList}\small\item\em Gets the total integrated weight. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a09b0e81d2bf53b91b95ba3c5f67b5850}{set\+\_\+bbox}} (const glm\+::vec4 \&\mbox{\hyperlink{sdf__2d__polyline__bezier_8cpp_a8396e15b291639eaa79ecd3badbdff48}{bbox}})
+void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a09b0e81d2bf53b91b95ba3c5f67b5850}{set\+\_\+bbox}} (const glm\+::vec4 \&bbox)
 \begin{DoxyCompactList}\small\item\em Sets the bounding box. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1InverseSampler2D_a13be72189caeb33d362350218aa091f0}{set\+\_\+seed}} (std\+::uint32\+\_\+t seed)
 \begin{DoxyCompactList}\small\item\em Sets the RNG seed. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -49,18 +49,20 @@ Sequential 2D inverse transform point sampler based on a 2D density array.
 
 Supports generating points one-\/by-\/one and dynamically updating density in local bounding box or index sub-\/regions \mbox{[}imin, imax\mbox{]} x \mbox{[}jmin, jmax\mbox{]}. 
 
+\label{doc-constructors}
+\Hypertarget{classhmap_1_1InverseSampler2D_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{classhmap_1_1InverseSampler2D_a954da8aa0eeb1a0309093f793a521ea5}\label{classhmap_1_1InverseSampler2D_a954da8aa0eeb1a0309093f793a521ea5} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!InverseSampler2D@{InverseSampler2D}}
+\Hypertarget{classhmap_1_1InverseSampler2D_a954da8aa0eeb1a0309093f793a521ea5}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!InverseSampler2D@{InverseSampler2D}}
 \index{InverseSampler2D@{InverseSampler2D}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{InverseSampler2D()}{InverseSampler2D()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily hmap\+::\+Inverse\+Sampler2\+D\+::\+Inverse\+Sampler2D (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_a954da8aa0eeb1a0309093f793a521ea5} 
+hmap\+::\+Inverse\+Sampler2\+D\+::\+Inverse\+Sampler2D (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
-\Hypertarget{classhmap_1_1InverseSampler2D_afebac5bcbfe00b292dfc4d60842d9cab}\label{classhmap_1_1InverseSampler2D_afebac5bcbfe00b292dfc4d60842d9cab} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!InverseSampler2D@{InverseSampler2D}}
+\Hypertarget{classhmap_1_1InverseSampler2D_afebac5bcbfe00b292dfc4d60842d9cab}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!InverseSampler2D@{InverseSampler2D}}
 \index{InverseSampler2D@{InverseSampler2D}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{InverseSampler2D()}{InverseSampler2D()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily hmap\+::\+Inverse\+Sampler2\+D\+::\+Inverse\+Sampler2D (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{density,  }\item[{std\+::uint32\+\_\+t}]{seed = {\ttfamily 0},  }\item[{const glm\+::vec4 \&}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_afebac5bcbfe00b292dfc4d60842d9cab} 
+hmap\+::\+Inverse\+Sampler2\+D\+::\+Inverse\+Sampler2D (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{density}{, }\item[{std\+::uint32\+\_\+t}]{seed}{ = {\ttfamily 0}, }\item[{const glm\+::vec4 \&}]{bbox}{ = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}}}\end{DoxyParamCaption})}
 
 
 
@@ -77,12 +79,14 @@ Constructs an inverse sampler for a 2D density array.
 \end{DoxyParams}
 
 
+\label{doc-func-members}
+\Hypertarget{classhmap_1_1InverseSampler2D_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classhmap_1_1InverseSampler2D_ac41cafc646d29404842e7a8158431a49}\label{classhmap_1_1InverseSampler2D_ac41cafc646d29404842e7a8158431a49} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
+\Hypertarget{classhmap_1_1InverseSampler2D_ac41cafc646d29404842e7a8158431a49}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
 \index{sample@{sample}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{sample()}{sample()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
-{\footnotesize\ttfamily glm\+::vec2 hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_ac41cafc646d29404842e7a8158431a49} 
+glm\+::vec2 hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
@@ -91,11 +95,11 @@ Samples a single point sequentially using the internal RNG.
 \begin{DoxyReturn}{Returns}
 2D point coordinates within the bounding box. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1InverseSampler2D_ae9b20270190b81dc01a5f8607fc46f40}\label{classhmap_1_1InverseSampler2D_ae9b20270190b81dc01a5f8607fc46f40} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
+\Hypertarget{classhmap_1_1InverseSampler2D_ae9b20270190b81dc01a5f8607fc46f40}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
 \index{sample@{sample}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{sample()}{sample()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
-{\footnotesize\ttfamily glm\+::vec2 hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}\item[{float}]{u,  }\item[{float}]{u2 }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_ae9b20270190b81dc01a5f8607fc46f40} 
+glm\+::vec2 hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}\item[{float}]{u}{, }\item[{float}]{u2}{}\end{DoxyParamCaption})}
 
 
 
@@ -111,11 +115,11 @@ Samples a single point with user-\/provided uniform random numbers.
 \begin{DoxyReturn}{Returns}
 2D point coordinates within the bounding box. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1InverseSampler2D_a6fbe2c9ce84700619ce50914111a13d7}\label{classhmap_1_1InverseSampler2D_a6fbe2c9ce84700619ce50914111a13d7} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
+\Hypertarget{classhmap_1_1InverseSampler2D_a6fbe2c9ce84700619ce50914111a13d7}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
 \index{sample@{sample}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{sample()}{sample()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
-{\footnotesize\ttfamily std\+::array$<$ std\+::vector$<$ float $>$, 2 $>$ hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_a6fbe2c9ce84700619ce50914111a13d7} 
+std\+::array$<$ std\+::vector$<$ float $>$, 2 $>$ hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count}{}\end{DoxyParamCaption})}
 
 
 
@@ -129,11 +133,11 @@ Samples multiple points sequentially.
 \begin{DoxyReturn}{Returns}
 A pair of coordinate vectors \{x\+\_\+coords, y\+\_\+coords\}. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1InverseSampler2D_a4615c1c193ea85c46bd6c86379aaa1c2}\label{classhmap_1_1InverseSampler2D_a4615c1c193ea85c46bd6c86379aaa1c2} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
+\Hypertarget{classhmap_1_1InverseSampler2D_a4615c1c193ea85c46bd6c86379aaa1c2}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
 \index{sample@{sample}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{sample()}{sample()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
-{\footnotesize\ttfamily glm\+::vec2 hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}\item[{const glm\+::vec4 \&}]{restricted\+\_\+bbox }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_a4615c1c193ea85c46bd6c86379aaa1c2} 
+glm\+::vec2 hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}\item[{const glm\+::vec4 \&}]{restricted\+\_\+bbox}{}\end{DoxyParamCaption})}
 
 
 
@@ -147,11 +151,11 @@ Samples a single point sequentially within a restricted bounding box.
 \begin{DoxyReturn}{Returns}
 2D point coordinates within the restricted bounding box. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1InverseSampler2D_aafeffda960bdd2bfa4bcc33237321426}\label{classhmap_1_1InverseSampler2D_aafeffda960bdd2bfa4bcc33237321426} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
+\Hypertarget{classhmap_1_1InverseSampler2D_aafeffda960bdd2bfa4bcc33237321426}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!sample@{sample}}
 \index{sample@{sample}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{sample()}{sample()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
-{\footnotesize\ttfamily glm\+::vec2 hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}\item[{const glm\+::vec4 \&}]{restricted\+\_\+bbox,  }\item[{float}]{u,  }\item[{float}]{u2 }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_aafeffda960bdd2bfa4bcc33237321426} 
+glm\+::vec2 hmap\+::\+Inverse\+Sampler2\+D\+::sample (\begin{DoxyParamCaption}\item[{const glm\+::vec4 \&}]{restricted\+\_\+bbox}{, }\item[{float}]{u}{, }\item[{float}]{u2}{}\end{DoxyParamCaption})}
 
 
 
@@ -169,11 +173,11 @@ Samples a single point within a restricted bounding box with user-\/provided uni
 \begin{DoxyReturn}{Returns}
 2D point coordinates within the restricted bounding box. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1InverseSampler2D_af79e583520d87ace8894e28e06f20d71}\label{classhmap_1_1InverseSampler2D_af79e583520d87ace8894e28e06f20d71} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!update\_region@{update\_region}}
+\Hypertarget{classhmap_1_1InverseSampler2D_af79e583520d87ace8894e28e06f20d71}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!update\_region@{update\_region}}
 \index{update\_region@{update\_region}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{update\_region()}{update\_region()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void hmap\+::\+Inverse\+Sampler2\+D\+::update\+\_\+region (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{updated\+\_\+array,  }\item[{const glm\+::ivec2 \&}]{range\+\_\+i,  }\item[{const glm\+::ivec2 \&}]{range\+\_\+j }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_af79e583520d87ace8894e28e06f20d71} 
+void hmap\+::\+Inverse\+Sampler2\+D\+::update\+\_\+region (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{updated\+\_\+array}{, }\item[{const glm\+::ivec2 \&}]{range\+\_\+i}{, }\item[{const glm\+::ivec2 \&}]{range\+\_\+j}{}\end{DoxyParamCaption})}
 
 
 
@@ -188,11 +192,11 @@ Updates the density in the sub-\/region \mbox{[}imin, imax\mbox{]} x \mbox{[}jmi
 {\em range\+\_\+j} & Row index range \{jmin, jmax\} (inclusive). \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1InverseSampler2D_aecc916072e42ac4a42a8d447f26723d3}\label{classhmap_1_1InverseSampler2D_aecc916072e42ac4a42a8d447f26723d3} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!update\_region@{update\_region}}
+\Hypertarget{classhmap_1_1InverseSampler2D_aecc916072e42ac4a42a8d447f26723d3}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!update\_region@{update\_region}}
 \index{update\_region@{update\_region}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{update\_region()}{update\_region()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void hmap\+::\+Inverse\+Sampler2\+D\+::update\+\_\+region (\begin{DoxyParamCaption}\item[{const std\+::function$<$ float(int \mbox{\hyperlink{sls__deformation_8cpp_acb559820d9ca11295b4500f179ef6392}{i}}, int \mbox{\hyperlink{sls__deformation_8cpp_a37d972ae0b47b9099e30983131d31916}{j}}, float current)$>$ \&}]{updater,  }\item[{const glm\+::ivec2 \&}]{range\+\_\+i,  }\item[{const glm\+::ivec2 \&}]{range\+\_\+j }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_aecc916072e42ac4a42a8d447f26723d3} 
+void hmap\+::\+Inverse\+Sampler2\+D\+::update\+\_\+region (\begin{DoxyParamCaption}\item[{const std\+::function$<$ float(int i, int j, float current)$>$ \&}]{updater}{, }\item[{const glm\+::ivec2 \&}]{range\+\_\+i}{, }\item[{const glm\+::ivec2 \&}]{range\+\_\+j}{}\end{DoxyParamCaption})}
 
 
 
@@ -207,11 +211,11 @@ Updates the density in the sub-\/region \mbox{[}imin, imax\mbox{]} x \mbox{[}jmi
 {\em range\+\_\+j} & Row index range \{jmin, jmax\} (inclusive). \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1InverseSampler2D_a81b37fb1f46c4b21f838727dd579b897}\label{classhmap_1_1InverseSampler2D_a81b37fb1f46c4b21f838727dd579b897} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!reset@{reset}}
+\Hypertarget{classhmap_1_1InverseSampler2D_a81b37fb1f46c4b21f838727dd579b897}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!reset@{reset}}
 \index{reset@{reset}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{reset()}{reset()}}
-{\footnotesize\ttfamily void hmap\+::\+Inverse\+Sampler2\+D\+::reset (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{density,  }\item[{std\+::uint32\+\_\+t}]{seed = {\ttfamily 0},  }\item[{const glm\+::vec4 \&}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_a81b37fb1f46c4b21f838727dd579b897} 
+void hmap\+::\+Inverse\+Sampler2\+D\+::reset (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{density}{, }\item[{std\+::uint32\+\_\+t}]{seed}{ = {\ttfamily 0}, }\item[{const glm\+::vec4 \&}]{bbox}{ = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}}}\end{DoxyParamCaption})}
 
 
 
@@ -226,51 +230,51 @@ Reinitializes the sampler with a new density array.
 {\em bbox} & Bounding box (xmin, xmax, ymin, ymax). \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1InverseSampler2D_a4e68f18b865ea72b234a475a506e3d07}\label{classhmap_1_1InverseSampler2D_a4e68f18b865ea72b234a475a506e3d07} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!get\_bbox@{get\_bbox}}
+\Hypertarget{classhmap_1_1InverseSampler2D_a4e68f18b865ea72b234a475a506e3d07}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!get\_bbox@{get\_bbox}}
 \index{get\_bbox@{get\_bbox}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{get\_bbox()}{get\_bbox()}}
-{\footnotesize\ttfamily const glm\+::vec4 \& hmap\+::\+Inverse\+Sampler2\+D\+::get\+\_\+bbox (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_a4e68f18b865ea72b234a475a506e3d07} 
+const glm\+::vec4 \& hmap\+::\+Inverse\+Sampler2\+D\+::get\+\_\+bbox (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Gets the bounding box. 
 
-\Hypertarget{classhmap_1_1InverseSampler2D_ad2987746ad3c556f2404e688ffc31bf7}\label{classhmap_1_1InverseSampler2D_ad2987746ad3c556f2404e688ffc31bf7} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!get\_density@{get\_density}}
+\Hypertarget{classhmap_1_1InverseSampler2D_ad2987746ad3c556f2404e688ffc31bf7}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!get\_density@{get\_density}}
 \index{get\_density@{get\_density}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{get\_density()}{get\_density()}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \& hmap\+::\+Inverse\+Sampler2\+D\+::get\+\_\+density (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_ad2987746ad3c556f2404e688ffc31bf7} 
+const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \& hmap\+::\+Inverse\+Sampler2\+D\+::get\+\_\+density (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Gets the current density array. 
 
-\Hypertarget{classhmap_1_1InverseSampler2D_ae33248c92a5bd80e35291f1e1cea16f8}\label{classhmap_1_1InverseSampler2D_ae33248c92a5bd80e35291f1e1cea16f8} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!get\_total\_weight@{get\_total\_weight}}
+\Hypertarget{classhmap_1_1InverseSampler2D_ae33248c92a5bd80e35291f1e1cea16f8}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!get\_total\_weight@{get\_total\_weight}}
 \index{get\_total\_weight@{get\_total\_weight}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{get\_total\_weight()}{get\_total\_weight()}}
-{\footnotesize\ttfamily float hmap\+::\+Inverse\+Sampler2\+D\+::get\+\_\+total\+\_\+weight (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_ae33248c92a5bd80e35291f1e1cea16f8} 
+float hmap\+::\+Inverse\+Sampler2\+D\+::get\+\_\+total\+\_\+weight (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Gets the total integrated weight. 
 
-\Hypertarget{classhmap_1_1InverseSampler2D_a09b0e81d2bf53b91b95ba3c5f67b5850}\label{classhmap_1_1InverseSampler2D_a09b0e81d2bf53b91b95ba3c5f67b5850} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!set\_bbox@{set\_bbox}}
+\Hypertarget{classhmap_1_1InverseSampler2D_a09b0e81d2bf53b91b95ba3c5f67b5850}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!set\_bbox@{set\_bbox}}
 \index{set\_bbox@{set\_bbox}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{set\_bbox()}{set\_bbox()}}
-{\footnotesize\ttfamily void hmap\+::\+Inverse\+Sampler2\+D\+::set\+\_\+bbox (\begin{DoxyParamCaption}\item[{const glm\+::vec4 \&}]{bbox }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_a09b0e81d2bf53b91b95ba3c5f67b5850} 
+void hmap\+::\+Inverse\+Sampler2\+D\+::set\+\_\+bbox (\begin{DoxyParamCaption}\item[{const glm\+::vec4 \&}]{bbox}{}\end{DoxyParamCaption})}
 
 
 
 Sets the bounding box. 
 
-\Hypertarget{classhmap_1_1InverseSampler2D_a13be72189caeb33d362350218aa091f0}\label{classhmap_1_1InverseSampler2D_a13be72189caeb33d362350218aa091f0} 
-\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!set\_seed@{set\_seed}}
+\Hypertarget{classhmap_1_1InverseSampler2D_a13be72189caeb33d362350218aa091f0}\index{hmap::InverseSampler2D@{hmap::InverseSampler2D}!set\_seed@{set\_seed}}
 \index{set\_seed@{set\_seed}!hmap::InverseSampler2D@{hmap::InverseSampler2D}}
 \doxysubsubsection{\texorpdfstring{set\_seed()}{set\_seed()}}
-{\footnotesize\ttfamily void hmap\+::\+Inverse\+Sampler2\+D\+::set\+\_\+seed (\begin{DoxyParamCaption}\item[{std\+::uint32\+\_\+t}]{seed }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1InverseSampler2D_a13be72189caeb33d362350218aa091f0} 
+void hmap\+::\+Inverse\+Sampler2\+D\+::set\+\_\+seed (\begin{DoxyParamCaption}\item[{std\+::uint32\+\_\+t}]{seed}{}\end{DoxyParamCaption})}
 
 
 

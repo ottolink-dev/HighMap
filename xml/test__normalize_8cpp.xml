@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="test__normalize_8cpp" kind="file" language="C++">
     <compoundname>test_normalize.cpp</compoundname>
     <sectiondef kind="func">
@@ -210,7 +210,7 @@
 <codeline lineno="9"><highlight class="normal"><ref refid="test__normalize_8cpp_1a9d643f05fd60ae56eac69e39a21c368b" kindref="member">TEST</ref>(Normalize,<sp/>MinMax_RangeIs0To1)</highlight></codeline>
 <codeline lineno="10"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>input<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{0.f,<sp/>5.f,<sp/>10.f}});</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/>NormalizationMethod::NM_MIN_MAX);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/><ref refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44aea4680230e1e65f446536dc824ba4985ca" kindref="member">NormalizationMethod::NM_MIN_MAX</ref>);</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(out.min(),<sp/>0.f,<sp/>1e-5);</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(out.max(),<sp/>1.f,<sp/>1e-5);</highlight></codeline>
@@ -219,16 +219,16 @@
 <codeline lineno="18"><highlight class="normal"><ref refid="test__normalize_8cpp_1a9d643f05fd60ae56eac69e39a21c368b" kindref="member">TEST</ref>(Normalize,<sp/>MinMax_MonotonicityPreserved)</highlight></codeline>
 <codeline lineno="19"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>input<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{1.f,<sp/>2.f,<sp/>3.f,<sp/>4.f}});</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/>NormalizationMethod::NM_MIN_MAX);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/><ref refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44aea4680230e1e65f446536dc824ba4985ca" kindref="member">NormalizationMethod::NM_MIN_MAX</ref>);</highlight></codeline>
 <codeline lineno="22"><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>1;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>input.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x;<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_LE(out(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>-<sp/>1,<sp/>0),<sp/>out(<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>,<sp/>0));</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>input.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x;<sp/>++i)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_LE(out(i<sp/>-<sp/>1,<sp/>0),<sp/>out(i,<sp/>0));</highlight></codeline>
 <codeline lineno="25"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
 <codeline lineno="27"><highlight class="normal"><ref refid="test__normalize_8cpp_1a9d643f05fd60ae56eac69e39a21c368b" kindref="member">TEST</ref>(Normalize,<sp/>MinMax_ConstantField)</highlight></codeline>
 <codeline lineno="28"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>input<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{5.f,<sp/>5.f,<sp/>5.f}});</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/>NormalizationMethod::NM_MIN_MAX);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/><ref refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44aea4680230e1e65f446536dc824ba4985ca" kindref="member">NormalizationMethod::NM_MIN_MAX</ref>);</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
 <codeline lineno="32"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(out,<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{0.f,<sp/>0.f,<sp/>0.f}})));</highlight></codeline>
 <codeline lineno="33"><highlight class="normal">}</highlight></codeline>
@@ -236,7 +236,7 @@
 <codeline lineno="35"><highlight class="normal"><ref refid="test__normalize_8cpp_1a9d643f05fd60ae56eac69e39a21c368b" kindref="member">TEST</ref>(Normalize,<sp/>Standardize_MeanZero)</highlight></codeline>
 <codeline lineno="36"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>input<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{1.f,<sp/>2.f,<sp/>3.f}});</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/>NormalizationMethod::NM_STANDARDIZE);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/><ref refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44aeae57ff6409cf6f0f59120845c765b349b" kindref="member">NormalizationMethod::NM_STANDARDIZE</ref>);</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>mean<sp/>=<sp/>out.mean();</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
@@ -246,7 +246,7 @@
 <codeline lineno="45"><highlight class="normal"><ref refid="test__normalize_8cpp_1a9d643f05fd60ae56eac69e39a21c368b" kindref="member">TEST</ref>(Normalize,<sp/>Standardize_UnitVariance)</highlight></codeline>
 <codeline lineno="46"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>input<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{1.f,<sp/>2.f,<sp/>3.f}});</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/>NormalizationMethod::NM_STANDARDIZE);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/><ref refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44aeae57ff6409cf6f0f59120845c765b349b" kindref="member">NormalizationMethod::NM_STANDARDIZE</ref>);</highlight></codeline>
 <codeline lineno="49"><highlight class="normal"></highlight></codeline>
 <codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>var<sp/>=<sp/><ref refid="namespacehmap_1aec6ff7b54fb5d02804aa8de94bcd4caa" kindref="member">variance</ref>(out);</highlight></codeline>
 <codeline lineno="51"><highlight class="normal"></highlight></codeline>
@@ -258,8 +258,8 @@
 <codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>a<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{1.f,<sp/>2.f,<sp/>3.f}});</highlight></codeline>
 <codeline lineno="58"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>b<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{101.f,<sp/>102.f,<sp/>103.f}});</highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>na<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(a,<sp/>NormalizationMethod::NM_STANDARDIZE);</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>nb<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(b,<sp/>NormalizationMethod::NM_STANDARDIZE);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>na<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(a,<sp/><ref refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44aeae57ff6409cf6f0f59120845c765b349b" kindref="member">NormalizationMethod::NM_STANDARDIZE</ref>);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>nb<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(b,<sp/><ref refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44aeae57ff6409cf6f0f59120845c765b349b" kindref="member">NormalizationMethod::NM_STANDARDIZE</ref>);</highlight></codeline>
 <codeline lineno="62"><highlight class="normal"></highlight></codeline>
 <codeline lineno="63"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(na,<sp/>nb));</highlight></codeline>
 <codeline lineno="64"><highlight class="normal">}</highlight></codeline>
@@ -267,7 +267,7 @@
 <codeline lineno="66"><highlight class="normal"><ref refid="test__normalize_8cpp_1a9d643f05fd60ae56eac69e39a21c368b" kindref="member">TEST</ref>(Normalize,<sp/>Robust_CenteringAroundMedian)</highlight></codeline>
 <codeline lineno="67"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>input<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{1.f,<sp/>2.f,<sp/>100.f}});</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/>NormalizationMethod::NM_ROBUST);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/><ref refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44aeaf15cebde3e8fe2d5c3633e5d118d423c" kindref="member">NormalizationMethod::NM_ROBUST</ref>);</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"></highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>median<sp/>=<sp/>out.median();</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"></highlight></codeline>
@@ -279,8 +279,8 @@
 <codeline lineno="78"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>a<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{1.f,<sp/>2.f,<sp/>3.f,<sp/>100.f}});</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>b<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{10.f,<sp/>11.f,<sp/>12.f,<sp/>109.f}});</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>na<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(a,<sp/>NormalizationMethod::NM_ROBUST);</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>nb<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(b,<sp/>NormalizationMethod::NM_ROBUST);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>na<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(a,<sp/><ref refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44aeaf15cebde3e8fe2d5c3633e5d118d423c" kindref="member">NormalizationMethod::NM_ROBUST</ref>);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>nb<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(b,<sp/><ref refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44aeaf15cebde3e8fe2d5c3633e5d118d423c" kindref="member">NormalizationMethod::NM_ROBUST</ref>);</highlight></codeline>
 <codeline lineno="83"><highlight class="normal"></highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(na,<sp/>nb));</highlight></codeline>
 <codeline lineno="85"><highlight class="normal">}</highlight></codeline>
@@ -289,11 +289,11 @@
 <codeline lineno="88"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>input<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref>({{5.f,<sp/>5.f,<sp/>5.f,<sp/>6.f}});</highlight></codeline>
 <codeline lineno="90"><highlight class="normal"></highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/>NormalizationMethod::NM_ROBUST);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a3d6212896d8cd828bd5bd827d24a0344" kindref="member">normalized</ref>(input,<sp/><ref refid="namespacehmap_1ad9d7f866e3a5140ed694e502c1db44aeaf15cebde3e8fe2d5c3633e5d118d423c" kindref="member">NormalizationMethod::NM_ROBUST</ref>);</highlight></codeline>
 <codeline lineno="92"><highlight class="normal"></highlight></codeline>
 <codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>should<sp/>not<sp/>explode</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>=<sp/>0;<sp/><ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref><sp/>&lt;<sp/>input.<ref refid="classhmap_1_1Array_1a16e6671dbf3202dbc86f5eccb0fcb1ad" kindref="member">size</ref>();<sp/>++<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>)</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_TRUE(std::isfinite(out.vector[<ref refid="sls__deformation_8cpp_1acb559820d9ca11295b4500f179ef6392" kindref="member">i</ref>]));</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>input.<ref refid="classhmap_1_1Array_1a16e6671dbf3202dbc86f5eccb0fcb1ad" kindref="member">size</ref>();<sp/>++i)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_TRUE(std::isfinite(out.vector[i]));</highlight></codeline>
 <codeline lineno="96"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"></highlight></codeline>
 <codeline lineno="98"><highlight class="normal"><ref refid="test__normalize_8cpp_1a9d643f05fd60ae56eac69e39a21c368b" kindref="member">TEST</ref>(Normalize,<sp/>InvalidMethodThrows)</highlight></codeline>

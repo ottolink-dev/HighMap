@@ -3,7 +3,7 @@ var searchData=
   ['icommunicator_0',['ICommunicator',['../classhmap_1_1ICommunicator.html',1,'hmap']]],
   ['imagewriter_1',['ImageWriter',['../classhmap_1_1ImageWriter.html',1,'hmap']]],
   ['imagewriterconfig_2',['ImageWriterConfig',['../structhmap_1_1ImageWriterConfig.html',1,'hmap']]],
-  ['impl_3',['impl',['../structhmap_1_1BigTiffWriter_1_1Impl.html',1,'hmap::BigTiffWriter::Impl'],['../structhmap_1_1KDTree_1_1Impl.html',1,'hmap::KDTree::Impl'],['../structhmap_1_1OpenCVWriter_1_1Impl.html',1,'hmap::OpenCVWriter::Impl'],['../structhmap_1_1OpenEXRWriter_1_1Impl.html',1,'hmap::OpenEXRWriter::Impl']]],
+  ['impl_3',['Impl',['../structhmap_1_1BigTiffWriter_1_1Impl.html',1,'hmap::BigTiffWriter::Impl'],['../structhmap_1_1KDTree_1_1Impl.html',1,'hmap::KDTree::Impl'],['../structhmap_1_1OpenCVWriter_1_1Impl.html',1,'hmap::OpenCVWriter::Impl'],['../structhmap_1_1OpenEXRWriter_1_1Impl.html',1,'hmap::OpenEXRWriter::Impl']]],
   ['interactionmatrix_4',['InteractionMatrix',['../structhmap_1_1InteractionMatrix.html',1,'hmap']]],
   ['interpolator1d_5',['Interpolator1D',['../classhmap_1_1Interpolator1D.html',1,'hmap']]],
   ['interpolatorcurve_6',['InterpolatorCurve',['../classhmap_1_1InterpolatorCurve.html',1,'hmap']]],

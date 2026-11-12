@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['parameters_0',['Multiscale Parameters',['..//home/runner/work/HighMap/HighMap/docs/content/dev/hydraulic_mise.md#autotoc_md32',1,'']]],
+  ['parity_20fixes_20on_20gpu_1',['Numerical Stability and Parity Fixes on GPU',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md76',1,'']]],
+  ['particle_20erosion_2',['Hydraulic Particle Erosion',['../md_docs_2content_2dev_2hydraulic__particle.html',1,'']]],
+  ['particle_20kinematics_20and_20trajectories_3',['2. Particle Kinematics and Trajectories',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md36',1,'']]],
+  ['pass_20and_20multi_20scale_20architectures_4',['5. Multi-Pass and Multi-Scale Architectures',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md44',1,'']]],
+  ['pass_20iterations_5',['Multi-Pass Iterations',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md45',1,'']]],
+  ['path_20closure_6',['Support for Domain Warping and Path Closure',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md65',1,'']]],
+  ['path_20sdf_20computation_7',['BVH2D Spatial Indexing for Path SDF Computation',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html',1,'']]],
+  ['pattern_8',['Batching Loop Pattern',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md120',1,'']]],
+  ['peak_20preservation_9',['Ridge and Peak Preservation',['../md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md54',1,'']]],
+  ['performance_20analysis_3a_20gpu_20brute_20force_20vs_20cpu_20bvh2d_10',['Performance Analysis: GPU Brute Force vs CPU BVH2D',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md74',1,'']]],
+  ['physical_20foundations_11',['1. Physical Foundations',['../md_docs_2content_2dev_2thermal__erosion.html#autotoc_md95',1,'']]],
+  ['polyline_20sdf_20sdf_5f2d_5fpolyline_5fbezier_12',['5. Verification of Bézier Polyline SDF (&lt;span class=&quot;tt&quot;&gt;sdf_2d_polyline_bezier&lt;/span&gt;)',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md70',1,'']]],
+  ['power_13',['Gradient Modulation and Stream Power',['../md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md53',1,'']]],
+  ['power_20erosion_20mise_14',['Multiscale Implicit Stream-Power Erosion (MISE)',['../md_docs_2content_2dev_2hydraulic__mise.html',1,'']]],
+  ['power_20incision_15',['Fluvial Stream-Power Incision',['..//home/runner/work/HighMap/HighMap/docs/content/dev/hydraulic_mise.md#autotoc_md25',1,'']]],
+  ['preservation_16',['Ridge and Peak Preservation',['../md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md54',1,'']]],
+  ['preserving_20thermal_20erosion_20thermal_5fconserve_17',['2. Mass-Preserving Thermal Erosion (&lt;span class=&quot;tt&quot;&gt;thermal_conserve&lt;/span&gt;)',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md101',1,'']]],
+  ['primitives_18',['3. Geometric Primitives',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md126',1,'']]],
+  ['principles_19',['Principles',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md86',1,'2. Design Principles'],['../md_docs_2content_2dev_2architecture.html#autotoc_md9',1,'3. Design Principles']]],
+  ['processes_20and_20debris_20flow_20',['Hillslope Processes and Debris Flow',['..//home/runner/work/HighMap/HighMap/docs/content/dev/hydraulic_mise.md#autotoc_md26',1,'']]],
+  ['processing_21',['Array Processing',['../md_docs_2content_2dev_2architecture.html#autotoc_md6',1,'']]],
+  ['processing_20functions_22',['Stateless Processing Functions',['../md_docs_2content_2dev_2architecture.html#autotoc_md12',1,'']]],
+  ['profiling_23',['Optional Tracy CPU profiling',['../md_docs_2profiling.html',1,'']]],
+  ['purpose_24',['1. Overview and Purpose',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md110',1,'']]]
+];

@@ -1,7 +1,26 @@
 var searchData=
 [
-  ['particle_20erosion_0',['Hydraulic Particle Erosion',['../md_docs_2content_2dev_2hydraulic__particle.html',1,'']]],
-  ['path_20sdf_20computation_1',['BVH2D Spatial Indexing for Path SDF Computation',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html',1,'']]],
-  ['power_20erosion_20mise_2',['Multiscale Implicit Stream-Power Erosion (MISE)',['../md_docs_2content_2dev_2hydraulic__mise.html',1,'']]],
-  ['profiling_3',['Optional Tracy CPU profiling',['../md_docs_2profiling.html',1,'']]]
+  ['elevation_20difference_0',['Talus (Grid-Space Elevation Difference)',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md128',1,'']]],
+  ['elevation_20representations_1',['1. Elevation Representations',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md123',1,'']]],
+  ['energy_20conservation_2',['Velocity and Energy Conservation',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md39',1,'']]],
+  ['engines_3',['3. Execution Engines',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md114',1,'']]],
+  ['equations_4',['3. Algorithm Details and Equations',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md99',1,'']]],
+  ['equilibrium_20slope_5',['Equilibrium Slope',['..//home/runner/work/HighMap/HighMap/docs/content/dev/hydraulic_mise.md#autotoc_md28',1,'']]],
+  ['erosion_6',['Erosion',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md42',1,'Erosion'],['../md_docs_2content_2dev_2hydraulic__particle.html',1,'Hydraulic Particle Erosion'],['../md_docs_2content_2dev_2hydraulic__stream__log.html',1,'Hydraulic Stream Log Erosion']]],
+  ['erosion_20algorithms_7',['Thermal Weathering and Talus Erosion Algorithms',['../md_docs_2content_2dev_2thermal__erosion.html',1,'']]],
+  ['erosion_20difference_20maps_8',['Erosion Difference Maps',['../md_docs_2content_2dev_2hydraulic__comparison.html#autotoc_md18',1,'']]],
+  ['erosion_20mise_9',['Multiscale Implicit Stream-Power Erosion (MISE)',['../md_docs_2content_2dev_2hydraulic__mise.html',1,'']]],
+  ['erosion_20models_20comparison_10',['Hydraulic Erosion Models Comparison',['../md_docs_2content_2dev_2hydraulic__comparison.html',1,'']]],
+  ['erosion_20thermal_5fconserve_11',['2. Mass-Preserving Thermal Erosion (&lt;span class=&quot;tt&quot;&gt;thermal_conserve&lt;/span&gt;)',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md101',1,'']]],
+  ['evaluation_12',['Surface Interpolation and Gradient Evaluation',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md37',1,'']]],
+  ['example_13',['Example',['../md_docs_2content_2getting__started_2quickstart.html#autotoc_md133',1,'1. Example'],['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md121',1,'6. Integration and Usage Example']]],
+  ['example_3a_14',['Usage Example:',['../classhmap_1_1Timer.html#autotoc_md0',1,'']]],
+  ['execution_20engines_15',['3. Execution Engines',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md114',1,'']]],
+  ['execution_20time_20comparison_20_24256_20256_24_20grid_16',['Execution Time Comparison ($256 \\times 256$ Grid)',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md68',1,'']]],
+  ['execution_20time_20comparison_20_24512_20512_24_20grid_17',['Execution Time Comparison ($512 \\times 512$ Grid)',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md67',1,'']]],
+  ['expansion_18',['Expansion',['..//home/runner/work/HighMap/HighMap/docs/content/dev/investigations/fft_convolution_and_morphology.md#autotoc_md81',1,'3. Experiment 2: Morphological Expansion'],['../md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology.html',1,'FFT vs. GPU Convolution and Morphological Expansion']]],
+  ['experiment_201_3a_202d_20convolution_19',['2. Experiment 1: 2D Convolution',['..//home/runner/work/HighMap/HighMap/docs/content/dev/investigations/fft_convolution_and_morphology.md#autotoc_md79',1,'']]],
+  ['experiment_202_3a_20morphological_20expansion_20',['3. Experiment 2: Morphological Expansion',['..//home/runner/work/HighMap/HighMap/docs/content/dev/investigations/fft_convolution_and_morphology.md#autotoc_md81',1,'']]],
+  ['explicit_20memory_20control_21',['Contiguous Storage and Explicit Memory Control',['../md_docs_2content_2dev_2architecture.html#autotoc_md10',1,'']]],
+  ['export_20i_20o_22',['Export &amp;amp; I/O',['../md_docs_2content_2dev_2architecture.html#autotoc_md8',1,'']]]
 ];

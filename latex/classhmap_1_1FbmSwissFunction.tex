@@ -39,7 +39,7 @@ void \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a21cf0b7a0a44a271bacc0a8c095
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{hmap\+::\+Generic\+Fractal\+Function}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classhmap_1_1GenericFractalFunction_afe25e31c4669a13d18da6d69458b95c1}{Generic\+Fractal\+Function}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction}{Noise\+Function}} $>$ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a8fec1973e7b8a6dcca079c8017326ab2}{p\+\_\+base}}, int \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3ee2dbe91dd0512d380a8b28b11438b9}{octaves}}, float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a57139030bd456787c06bf3d7d808837a}{weight}}, float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_ab14745ebb9beee94828d13aa587de69a}{persistence}}, float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a9a205468c861c5f142b738d514b2d9ce}{lacunarity}})
+\mbox{\hyperlink{classhmap_1_1GenericFractalFunction_afe25e31c4669a13d18da6d69458b95c1}{Generic\+Fractal\+Function}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction_a9823b1c76555631d442f52a3d768c162}{Noise\+Function}} $>$ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a8fec1973e7b8a6dcca079c8017326ab2}{p\+\_\+base}}, int \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3ee2dbe91dd0512d380a8b28b11438b9}{octaves}}, float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a57139030bd456787c06bf3d7d808837a}{weight}}, float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_ab14745ebb9beee94828d13aa587de69a}{persistence}}, float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a9a205468c861c5f142b738d514b2d9ce}{lacunarity}})
 \begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classhmap_1_1GenericFractalFunction}{Generic\+Fractal\+Function} object. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a7e8c9518e231829411033fb44003eaea}{set\+\_\+kw}} (glm\+::vec2 new\+\_\+kw) override
 \begin{DoxyCompactList}\small\item\em Set the frequency scaling vector. \end{DoxyCompactList}\item 
@@ -85,7 +85,7 @@ virtual \mbox{\hyperlink{classhmap_1_1Function_a8efd89e31947f2508ce45b133e30322f
 \begin{DoxyCompactList}\small\item\em Constructor to initialize with a specific delegate function. \end{DoxyCompactList}\item 
 HMAP\+\_\+\+FCT\+\_\+\+XY\+\_\+\+TYPE \mbox{\hyperlink{classhmap_1_1Function_a32214e30c36be7650c47867fd14f6a0c}{get\+\_\+delegate}} () const
 \begin{DoxyCompactList}\small\item\em Get the current delegate function. \end{DoxyCompactList}\item 
-float \mbox{\hyperlink{classhmap_1_1Function_a82fb7788314b339a062cb80115e2e1da}{get\+\_\+value}} (float \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}, float \mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}}, float ctrl\+\_\+param) const
+float \mbox{\hyperlink{classhmap_1_1Function_a82fb7788314b339a062cb80115e2e1da}{get\+\_\+value}} (float x, float y, float ctrl\+\_\+param) const
 \begin{DoxyCompactList}\small\item\em Call the delegate function with given arguments. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1Function_a6163e6f231dc77a7e7d83e74d2b44abe}{set\+\_\+delegate}} (HMAP\+\_\+\+FCT\+\_\+\+XY\+\_\+\+TYPE new\+\_\+delegate)
 \begin{DoxyCompactList}\small\item\em Set a new delegate function. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -99,7 +99,7 @@ float \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_ae661014ee328014ab1556f8742
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{hmap\+::\+Generic\+Fractal\+Function}}}
 \begin{DoxyCompactItemize}
 \item 
-std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction}{Noise\+Function}} $>$ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a8fec1973e7b8a6dcca079c8017326ab2}{p\+\_\+base}}
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction_a9823b1c76555631d442f52a3d768c162}{Noise\+Function}} $>$ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a8fec1973e7b8a6dcca079c8017326ab2}{p\+\_\+base}}
 \begin{DoxyCompactList}\small\item\em Unique pointer to the base noise function. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3ee2dbe91dd0512d380a8b28b11438b9}{octaves}}
 \begin{DoxyCompactList}\small\item\em Number of octaves in the fractal noise. \end{DoxyCompactList}\item 
@@ -129,12 +129,14 @@ void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_ae14db6b39dcdae409ad15
 \doxysubsection{Detailed Description}
 Swiss layering function class. 
 
+\label{doc-constructors}
+\Hypertarget{classhmap_1_1FbmSwissFunction_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{classhmap_1_1FbmSwissFunction_ac2caf4487ce785bdec87552db2141b0e}\label{classhmap_1_1FbmSwissFunction_ac2caf4487ce785bdec87552db2141b0e} 
-\index{hmap::FbmSwissFunction@{hmap::FbmSwissFunction}!FbmSwissFunction@{FbmSwissFunction}}
+\Hypertarget{classhmap_1_1FbmSwissFunction_ac2caf4487ce785bdec87552db2141b0e}\index{hmap::FbmSwissFunction@{hmap::FbmSwissFunction}!FbmSwissFunction@{FbmSwissFunction}}
 \index{FbmSwissFunction@{FbmSwissFunction}!hmap::FbmSwissFunction@{hmap::FbmSwissFunction}}
 \doxysubsubsection{\texorpdfstring{FbmSwissFunction()}{FbmSwissFunction()}}
-{\footnotesize\ttfamily hmap\+::\+Fbm\+Swiss\+Function\+::\+Fbm\+Swiss\+Function (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction}{Noise\+Function}} $>$}]{p\+\_\+base,  }\item[{int}]{octaves,  }\item[{float}]{weight,  }\item[{float}]{persistence,  }\item[{float}]{lacunarity,  }\item[{float}]{warp\+\_\+scale }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1FbmSwissFunction_ac2caf4487ce785bdec87552db2141b0e} 
+hmap\+::\+Fbm\+Swiss\+Function\+::\+Fbm\+Swiss\+Function (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction}{Noise\+Function}} $>$}]{p\+\_\+base}{, }\item[{int}]{octaves}{, }\item[{float}]{weight}{, }\item[{float}]{persistence}{, }\item[{float}]{lacunarity}{, }\item[{float}]{warp\+\_\+scale}{}\end{DoxyParamCaption})}
 
 
 
@@ -157,12 +159,14 @@ Construct a new Fbm Swiss \doxylink{classhmap_1_1Function}{Function} object.
 \end{DoxyParams}
 
 
+\label{doc-func-members}
+\Hypertarget{classhmap_1_1FbmSwissFunction_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classhmap_1_1FbmSwissFunction_a21cf0b7a0a44a271bacc0a8c095e698b}\label{classhmap_1_1FbmSwissFunction_a21cf0b7a0a44a271bacc0a8c095e698b} 
-\index{hmap::FbmSwissFunction@{hmap::FbmSwissFunction}!set\_warp\_scale@{set\_warp\_scale}}
+\Hypertarget{classhmap_1_1FbmSwissFunction_a21cf0b7a0a44a271bacc0a8c095e698b}\index{hmap::FbmSwissFunction@{hmap::FbmSwissFunction}!set\_warp\_scale@{set\_warp\_scale}}
 \index{set\_warp\_scale@{set\_warp\_scale}!hmap::FbmSwissFunction@{hmap::FbmSwissFunction}}
 \doxysubsubsection{\texorpdfstring{set\_warp\_scale()}{set\_warp\_scale()}}
-{\footnotesize\ttfamily void hmap\+::\+Fbm\+Swiss\+Function\+::set\+\_\+warp\+\_\+scale (\begin{DoxyParamCaption}\item[{float}]{new\+\_\+warp\+\_\+scale }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{classhmap_1_1FbmSwissFunction_a21cf0b7a0a44a271bacc0a8c095e698b} 
+void hmap\+::\+Fbm\+Swiss\+Function\+::set\+\_\+warp\+\_\+scale (\begin{DoxyParamCaption}\item[{float}]{new\+\_\+warp\+\_\+scale}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -175,22 +179,24 @@ Set the warp scale.
 \end{DoxyParams}
 
 
+\label{doc-variable-members}
+\Hypertarget{classhmap_1_1FbmSwissFunction_doc-variable-members}
 \doxysubsection{Member Data Documentation}
-\Hypertarget{classhmap_1_1FbmSwissFunction_acf6aa4df64b19333e9ad64a76c19b75a}\label{classhmap_1_1FbmSwissFunction_acf6aa4df64b19333e9ad64a76c19b75a} 
-\index{hmap::FbmSwissFunction@{hmap::FbmSwissFunction}!warp\_scale@{warp\_scale}}
+\Hypertarget{classhmap_1_1FbmSwissFunction_acf6aa4df64b19333e9ad64a76c19b75a}\index{hmap::FbmSwissFunction@{hmap::FbmSwissFunction}!warp\_scale@{warp\_scale}}
 \index{warp\_scale@{warp\_scale}!hmap::FbmSwissFunction@{hmap::FbmSwissFunction}}
 \doxysubsubsection{\texorpdfstring{warp\_scale}{warp\_scale}}
-{\footnotesize\ttfamily float hmap\+::\+Fbm\+Swiss\+Function\+::warp\+\_\+scale\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \label{classhmap_1_1FbmSwissFunction_acf6aa4df64b19333e9ad64a76c19b75a} 
+float hmap\+::\+Fbm\+Swiss\+Function\+::warp\+\_\+scale\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
 Warping scale. 
 
-\Hypertarget{classhmap_1_1FbmSwissFunction_ae661014ee328014ab1556f87425fbe06}\label{classhmap_1_1FbmSwissFunction_ae661014ee328014ab1556f87425fbe06} 
-\index{hmap::FbmSwissFunction@{hmap::FbmSwissFunction}!warp\_scale\_normalized@{warp\_scale\_normalized}}
+\Hypertarget{classhmap_1_1FbmSwissFunction_ae661014ee328014ab1556f87425fbe06}\index{hmap::FbmSwissFunction@{hmap::FbmSwissFunction}!warp\_scale\_normalized@{warp\_scale\_normalized}}
 \index{warp\_scale\_normalized@{warp\_scale\_normalized}!hmap::FbmSwissFunction@{hmap::FbmSwissFunction}}
 \doxysubsubsection{\texorpdfstring{warp\_scale\_normalized}{warp\_scale\_normalized}}
-{\footnotesize\ttfamily float hmap\+::\+Fbm\+Swiss\+Function\+::warp\+\_\+scale\+\_\+normalized\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \label{classhmap_1_1FbmSwissFunction_ae661014ee328014ab1556f87425fbe06} 
+float hmap\+::\+Fbm\+Swiss\+Function\+::warp\+\_\+scale\+\_\+normalized\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 

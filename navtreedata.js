@@ -32,7 +32,7 @@ var NAVTREE =
         [ "Core Data Structures", "md_docs_2content_2dev_2architecture.html#autotoc_md5", null ],
         [ "Array Processing", "md_docs_2content_2dev_2architecture.html#autotoc_md6", null ],
         [ "Domain Simulations", "md_docs_2content_2dev_2architecture.html#autotoc_md7", null ],
-        [ "Export & I/O", "md_docs_2content_2dev_2architecture.html#autotoc_md8", null ]
+        [ "Export &amp; I/O", "md_docs_2content_2dev_2architecture.html#autotoc_md8", null ]
       ] ],
       [ "3. Design Principles", "md_docs_2content_2dev_2architecture.html#autotoc_md9", [
         [ "Contiguous Storage and Explicit Memory Control", "md_docs_2content_2dev_2architecture.html#autotoc_md10", null ],
@@ -70,7 +70,7 @@ var NAVTREE =
       [ "4. Bank Collapse and Thermal Relaxation", "md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md43", null ],
       [ "5. Multi-Pass and Multi-Scale Architectures", "md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md44", [
         [ "Multi-Pass Iterations", "md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md45", null ],
-        [ "Multi-Scale Cascade (<tt>hydraulic_particle_multiscale</tt>)", "md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md46", null ]
+        [ "Multi-Scale Cascade (<span class=\"tt\">hydraulic_particle_multiscale</span>)", "md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md46", null ]
       ] ],
       [ "6. C++ API Reference", "md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md47", null ]
     ] ],
@@ -84,7 +84,7 @@ var NAVTREE =
         [ "Surface Incision", "md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md55", null ]
       ] ],
       [ "3. Deposition Mechanics", "md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md56", null ],
-      [ "4. Multiscale Architecture (<tt>hydraulic_stream_log_multiscale</tt>)", "md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md57", [
+      [ "4. Multiscale Architecture (<span class=\"tt\">hydraulic_stream_log_multiscale</span>)", "md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md57", [
         [ "Multiscale Algorithm Steps", "md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md58", null ]
       ] ],
       [ "5. C++ API Reference", "md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md59", null ]
@@ -101,7 +101,7 @@ var NAVTREE =
         [ "Execution Time Comparison ($256 \\times 256$ Grid)", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md68", null ]
       ] ],
       [ "4. API Design and Integration", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md69", null ],
-      [ "5. Verification of Bézier Polyline SDF (<tt>sdf_2d_polyline_bezier</tt>)", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md70", [
+      [ "5. Verification of Bézier Polyline SDF (<span class=\"tt\">sdf_2d_polyline_bezier</span>)", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md70", [
         [ "Root Cause Analysis", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md71", null ],
         [ "BVH2D Acceleration for Bézier Curves", "md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md72", null ]
       ] ],
@@ -122,8 +122,8 @@ var NAVTREE =
         [ "Descriptor Separation", "md_docs_2content_2dev_2scatter__field.html#autotoc_md89", null ]
       ] ],
       [ "3. Subsystem Connections", "md_docs_2content_2dev_2scatter__field.html#autotoc_md90", [
-        [ "Flora Subsystem (<tt>Forest</tt>)", "md_docs_2content_2dev_2scatter__field.html#autotoc_md91", null ],
-        [ "Rocks Subsystem (<tt>RockField</tt>)", "md_docs_2content_2dev_2scatter__field.html#autotoc_md92", null ]
+        [ "Flora Subsystem (<span class=\"tt\">Forest</span>)", "md_docs_2content_2dev_2scatter__field.html#autotoc_md91", null ],
+        [ "Rocks Subsystem (<span class=\"tt\">RockField</span>)", "md_docs_2content_2dev_2scatter__field.html#autotoc_md92", null ]
       ] ],
       [ "4. Converting to Raster Fields", "md_docs_2content_2dev_2scatter__field.html#autotoc_md93", null ]
     ] ],
@@ -132,14 +132,14 @@ var NAVTREE =
     ] ],
     [ "Tiled Communication and Overlap Synchronization", "md_docs_2content_2dev_2tiled__communication.html", [
       [ "1. Overview and Purpose", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md110", null ],
-      [ "2. Communicator Interface (<tt>ICommunicator</tt>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md111", [
+      [ "2. Communicator Interface (<span class=\"tt\">ICommunicator</span>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md111", [
         [ "Supported Operations", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md112", null ],
-        [ "Overlap Synchronization Modes (<tt>SyncOperation</tt>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md113", null ]
+        [ "Overlap Synchronization Modes (<span class=\"tt\">SyncOperation</span>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md113", null ]
       ] ],
       [ "3. Execution Engines", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md114", [
-        [ "Single-Array Mode (<tt>SingleArrayComm</tt>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md115", null ],
-        [ "Multithreaded Distributed Mode (<tt>ThreadedTileComm</tt>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md116", null ],
-        [ "Out-of-Core Sequential Mode (<tt>SequentialTileComm</tt>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md117", null ]
+        [ "Single-Array Mode (<span class=\"tt\">SingleArrayComm</span>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md115", null ],
+        [ "Multithreaded Distributed Mode (<span class=\"tt\">ThreadedTileComm</span>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md116", null ],
+        [ "Out-of-Core Sequential Mode (<span class=\"tt\">SequentialTileComm</span>)", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md117", null ]
       ] ],
       [ "4. How Overlap Buffering Works", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md118", null ],
       [ "5. Iteration Batching in Domain Algorithms", "md_docs_2content_2dev_2tiled__communication.html#autotoc_md119", [
@@ -203,8 +203,7 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", "globals_dup" ],
-        [ "Functions", "globals_func.html", "globals_func" ],
-        [ "Variables", "globals_vars.html", null ]
+        [ "Functions", "globals_func.html", "globals_func" ]
       ] ]
     ] ],
     [ "Examples", "examples.html", "examples" ]
@@ -214,43 +213,33 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "add__noise_8cpp.html",
-"classJaggedTest.html#a1f456dd76286876c4f22c4255a6074b6",
-"classhmap_1_1BigTiffWriter.html#a82f4cd33c936daaf0da9c419971c7152",
-"classhmap_1_1CoordFrame.html#a8d816754189a8244628bd4c6eefaf09c",
-"classhmap_1_1Forest.html",
-"classhmap_1_1KDTree.html#a28e014b1d02cf4a168ec74be0cb28ab1",
-"classhmap_1_1PerlinHalfFunction.html#a1009eb75ebcbd52423fd37eb8a2de011",
-"classhmap_1_1ScatterField.html#aeb89e13a2a22fc06a08bc02e0fdcaa61",
-"classhmap_1_1Texture.html#a7e68630c4908e71e9cfb91e3e891d472",
-"classhmap_1_1WorleyDoubleFunction.html#af26f43647e20fe6fc3ff88ed4c1e1274",
-"convolve_8hpp.html#a6108df0909730083cb6dd7cf4a217c1b",
-"distance__functions_8hpp_source.html",
-"filters_8hpp.html#a56f425774168f76ab81c2c8a06145761",
-"functions_8hpp.html#a84ca1f41de32e4beacb10787127b4b8a",
-"grids_8hpp_source.html",
-"interpolate1d_8hpp.html#a46291bb4766800deacc1ce9b45a9ea6ba842713d3dc1b52f8b51bb2eaeb8bcf7e",
-"local__metrics_8hpp.html#afab20683fccb546cab8ab2b5dc20f3af",
-"md_docs_2content_2getting__started_2quickstart.html#autotoc_md134",
-"namespacehmap.html#a1add8a2d0a618e4ac8e67dc1a9c0b1a3",
-"namespacehmap.html#a4b6f135c6e81d313ca54ae1efac5f2c9ac3a721c2d521e171c529d24f3b768803",
-"namespacehmap.html#a889405ce11be91e33cc80ca4dbd192b0",
-"namespacehmap.html#abf9521082ba09eb022834306bc6c354b",
-"namespacehmap.html#aeeb8f48ea78cb59de79c16ab28d1d855",
-"namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad",
-"non__parameteric__sampling_8cpp.html#a0a359831aea68622813f65f4a989a75a",
-"points_8cpp.html#aef71b544e3f4e5321cb3d41a7366e0f3",
-"recurve_8cpp.html#af9e3033eb08345c1e3c46bde5dcd29a1",
-"snow__simulation_8cpp.html#a78419f7981186b40c4a2d04456e4e63f",
-"structhmap_1_1ImageWriterConfig.html#a481586b28e6d78db02843fcb819e0583",
-"structhmap_1_1RockSeedingOptions.html#aca6ad1d77615f1daa14f51938ac5971d",
-"structhmap_1_1TileRegion.html#a08bbfdea476e4db4ad25e0d2110b278c",
-"terrain__super__resolution_8cpp.html#a255cb99f1c4125463b5e3e5e2406cc72",
-"test__erosion_8cpp.html#a9bae9a744ca718ed36cf13bdff48e830",
-"test__math_8cpp.html#a1686db8319d7c3529f478b86ed16b566",
-"test__rocks_8cpp.html#afa77a04c20fe18ada6619e9943fd7d14",
-"thermal__erosion_8hpp.html#a435a38880a6bcabfb8991d5834a0f786",
-"virtual__texture_8hpp.html#a6f991e3bdf7c5c4bed631f2b7fb4f072"
+"classhmap_1_1Array.html#afff00e67eea65de385d7cd2e9ea4d189",
+"classhmap_1_1Cloud.html#ab96aeb01451ed1123b6674eb10d1dbac",
+"classhmap_1_1FbmJordanFunction.html#a0824dd4ee83417af8814542accede613",
+"classhmap_1_1ImageWriter.html#af52835d3a85ae22dbac7721cec209ea7",
+"classhmap_1_1Path.html#a9816b231362dd1ca5208a839626f1f68",
+"classhmap_1_1ScatterField.html#a7c80447fb56419149c47b8ab7b77c9d9",
+"classhmap_1_1TerrainTriMesh.html#aae715400b4086c69d625a00a9bd4fd17",
+"classhmap_1_1WaveDuneFunction.html#a723f11d859d984fa5655e487e993235e",
+"erosion__parameters_8hpp.html",
+"inverse__sampler__2d_8hpp_source.html",
+"namespacehmap.html#a17cbec9c3162ef357a9418351d66fcfdacd996d3184761601a0e44e587a012d4f",
+"namespacehmap.html#a47f7c4ead587ead4a75c9c7f4fc4b079",
+"namespacehmap.html#a85cee5ad021421a670fb62211b5913e5",
+"namespacehmap.html#abc7eb3ca1df902fff8e54584547cf841",
+"namespacehmap.html#ae80026143790cc7a8f0dd1f4c7bc8e24",
+"namespacehmap_1_1gpu.html#a99659d06f84b0e92e6731f28ca28937c",
+"namespacemembers_v.html",
+"structhmap_1_1ComputeMode.html",
+"structhmap_1_1OpenEXRWriter_1_1Impl.html#ad86ddfe96befe0a4f017380b9075ef74",
+"structhmap_1_1TerrainTriMesh_1_1BoundingBox.html#aab730cab7ff6492a6c4a68fd2080d87b",
+"structhmap_1_1gpu_1_1McDonaldParams.html#ade24cbf1c7e3dac028493914320f9a9f",
+"test__distance__shaper_8cpp.html#a5e8b1fadae78206b390ed8aeb7508830",
+"test__jagged_8cpp.html#a58c970f4028d9de1b284340abeeee329",
+"test__recast_8cpp.html#a23e6a7ab95639b6932b50490990572d7",
+"test__variance_8cpp.html#ad7215d329caa480f1b6a2d05fd762150"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';
+var LISTOFALLMEMBERS = 'List of all members';

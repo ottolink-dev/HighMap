@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="snow__mantle_8cpp" kind="file" language="C++">
     <compoundname>snow_mantle.cpp</compoundname>
     <innernamespace refid="namespacehmap">hmap</innernamespace>
@@ -30,7 +30,7 @@
 <codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap_1_1gpu" kindref="compound">hmap::gpu</ref></highlight></codeline>
 <codeline lineno="20"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1ae2fae1e296687dd0fb94a4720b42e54d" kindref="member">snow_mantle</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1ae2fae1e296687dd0fb94a4720b42e54d" kindref="member">snow_mantle</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>&amp;z,</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>snowline,</highlight></codeline>
 <codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a9dd09c08e06c1144910d3fa30250643c" kindref="member">falloff</ref>,</highlight></codeline>
@@ -50,52 +50,52 @@
 <codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>*p_mask,</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/>*p_noise)</highlight></codeline>
 <codeline lineno="41"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_existing_snow<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>*p_existing_snow))</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(z))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_existing_snow<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(z,<sp/>*p_existing_snow))</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_mask<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>*p_mask))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_noise<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>*p_noise))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_mask<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(z,<sp/>*p_mask))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_noise<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(z,<sp/>*p_noise))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>.shape;</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>n_pixels<sp/>=<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x<sp/>*<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>z.shape;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>n_pixels<sp/>=<sp/>shape.x<sp/>*<sp/>shape.y;</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
 <codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Altitude<sp/>accumulation<sp/>factor:<sp/>smoothstep<sp/>transition<sp/>around<sp/>snowline</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>alt_min<sp/>=<sp/>snowline<sp/>-<sp/><ref refid="namespacehmap_1a9dd09c08e06c1144910d3fa30250643c" kindref="member">falloff</ref>;</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>alt_max<sp/>=<sp/>snowline<sp/>+<sp/><ref refid="namespacehmap_1a9dd09c08e06c1144910d3fa30250643c" kindref="member">falloff</ref>;</highlight></codeline>
 <codeline lineno="55"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/>Array<sp/>altitude_factor(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>Array<sp/>altitude_factor(shape);</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"></highlight></codeline>
 <codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(alt_max<sp/>&lt;=<sp/>alt_min<sp/>+<sp/>1e-9f)</highlight></codeline>
 <codeline lineno="59"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>n_pixels;<sp/>++k)</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>altitude_factor.vector[k]<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>.vector[k]<sp/>&gt;=<sp/>snowline<sp/>?<sp/>1.f<sp/>:<sp/>0.f;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>altitude_factor.vector[k]<sp/>=<sp/>z.vector[k]<sp/>&gt;=<sp/>snowline<sp/>?<sp/>1.f<sp/>:<sp/>0.f;</highlight></codeline>
 <codeline lineno="62"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="64"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>n_pixels;<sp/>++k)</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>altitude_factor.vector[k]<sp/>=<sp/><ref refid="namespacehmap_1a49cba67ac4811585d8c11f10972f6d8c" kindref="member">threshold_smooth</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>.vector[k],</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>altitude_factor.vector[k]<sp/>=<sp/><ref refid="namespacehmap_1a49cba67ac4811585d8c11f10972f6d8c" kindref="member">threshold_smooth</ref>(z.vector[k],</highlight></codeline>
 <codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alt_min,</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alt_max);</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"></highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Filtered<sp/>elevation<sp/>for<sp/>gradients</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/>Array<sp/><ref refid="hydraulic__mise_8cpp_1a6fa43bb426753ec35d096e82fc2cab61" kindref="member">zf</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>Array<sp/>zf;</highlight></codeline>
 <codeline lineno="74"><highlight class="normal"></highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(talus_coverage<sp/>&gt;<sp/>0.f<sp/>||<sp/>directional<sp/>&gt;<sp/>0.f)</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="hydraulic__mise_8cpp_1a6fa43bb426753ec35d096e82fc2cab61" kindref="member">zf</ref><sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a5308a7a11f7c65d0ed2218f11c8a315a" kindref="member">gpu::smooth_cpulse</ref>(<ref refid="hydraulic__mise_8cpp_1a6fa43bb426753ec35d096e82fc2cab61" kindref="member">zf</ref>,<sp/>prefilter_ir);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>zf<sp/>=<sp/>z;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a5308a7a11f7c65d0ed2218f11c8a315a" kindref="member">gpu::smooth_cpulse</ref>(zf,<sp/>prefilter_ir);</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"></highlight></codeline>
 <codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Talus<sp/>exclusion<sp/>factor:<sp/>steep<sp/>talus<sp/>slopes<sp/>shed<sp/>snow</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="82"><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/>Array<sp/>talus_factor(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>1.f);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/>Array<sp/>talus_factor(shape,<sp/>1.f);</highlight></codeline>
 <codeline lineno="84"><highlight class="normal"></highlight></codeline>
 <codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(talus_coverage<sp/>&gt;<sp/>0.f)</highlight></codeline>
 <codeline lineno="86"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus<sp/>=<sp/><ref refid="namespacehmap_1a5f58c4149344b401d82f0be3c3807156" kindref="member">gradient_norm</ref>(<ref refid="hydraulic__mise_8cpp_1a6fa43bb426753ec35d096e82fc2cab61" kindref="member">zf</ref>);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus<sp/>=<sp/><ref refid="namespacehmap_1a5f58c4149344b401d82f0be3c3807156" kindref="member">gradient_norm</ref>(zf);</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>talus_upper<sp/>=<sp/>talus_threshold<sp/>*<sp/>1.5f<sp/>+<sp/>1e-9f;</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"></highlight></codeline>
 <codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>n_pixels;<sp/>++k)</highlight></codeline>
@@ -107,7 +107,7 @@
 <codeline lineno="96"><highlight class="normal"></highlight></codeline>
 <codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Directional<sp/>wind<sp/>bias</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/>Array<sp/>wind_factor(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>1.f);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/>Array<sp/>wind_factor(shape,<sp/>1.f);</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"></highlight></codeline>
 <codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(directional<sp/>&gt;<sp/>0.f)</highlight></codeline>
 <codeline lineno="102"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
@@ -115,8 +115,8 @@
 <codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cos_w<sp/>=<sp/>std::cos(wind_rad);</highlight></codeline>
 <codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sin_w<sp/>=<sp/>std::sin(wind_rad);</highlight></codeline>
 <codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>dx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(<ref refid="hydraulic__mise_8cpp_1a6fa43bb426753ec35d096e82fc2cab61" kindref="member">zf</ref>)<sp/>*<sp/>float(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x);</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>dy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(<ref refid="hydraulic__mise_8cpp_1a6fa43bb426753ec35d096e82fc2cab61" kindref="member">zf</ref>)<sp/>*<sp/>float(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>dx<sp/>=<sp/><ref refid="namespacehmap_1a11d438a3f643427c957d160b7c1a04de" kindref="member">gradient_x</ref>(zf)<sp/>*<sp/>float(shape.x);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>dy<sp/>=<sp/><ref refid="namespacehmap_1a8dbef7ccc1936646831eb5a24db58d81" kindref="member">gradient_y</ref>(zf)<sp/>*<sp/>float(shape.y);</highlight></codeline>
 <codeline lineno="109"><highlight class="normal"></highlight></codeline>
 <codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>n_pixels;<sp/>++k)</highlight></codeline>
 <codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -125,11 +125,11 @@
 <codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>norm<sp/>=<sp/>std::sqrt(gx<sp/>*<sp/>gx<sp/>+<sp/>gy<sp/>*<sp/>gy<sp/>+<sp/>1.f);</highlight></codeline>
 <codeline lineno="115"><highlight class="normal"></highlight></codeline>
 <codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Unit<sp/>normal<sp/>(pointing<sp/>out<sp/>of<sp/>terrain)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="hydraulic__mise_8cpp_1a02d47a4f36ec0bcce348696534567e30" kindref="member">nx</ref><sp/>=<sp/>-gx<sp/>/<sp/>norm;</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="hydraulic__mise_8cpp_1a9f4e20a91b26459133b83992e9d8d381" kindref="member">ny</ref><sp/>=<sp/>-gy<sp/>/<sp/>norm;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>nx<sp/>=<sp/>-gx<sp/>/<sp/>norm;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ny<sp/>=<sp/>-gy<sp/>/<sp/>norm;</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"></highlight></codeline>
 <codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Leeward<sp/>accumulation<sp/>/<sp/>windward<sp/>erosion</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>dot_wind<sp/>=<sp/>-(<ref refid="hydraulic__mise_8cpp_1a02d47a4f36ec0bcce348696534567e30" kindref="member">nx</ref><sp/>*<sp/>cos_w<sp/>+<sp/><ref refid="hydraulic__mise_8cpp_1a9f4e20a91b26459133b83992e9d8d381" kindref="member">ny</ref><sp/>*<sp/>sin_w);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>dot_wind<sp/>=<sp/>-(nx<sp/>*<sp/>cos_w<sp/>+<sp/>ny<sp/>*<sp/>sin_w);</highlight></codeline>
 <codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>w<sp/>=<sp/>1.f<sp/>+<sp/>directional<sp/>*<sp/>dot_wind;</highlight></codeline>
 <codeline lineno="123"><highlight class="normal"></highlight></codeline>
 <codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>wind_factor.vector[k]<sp/>=<sp/>std::max(0.f,<sp/>w);</highlight></codeline>
@@ -138,23 +138,23 @@
 <codeline lineno="127"><highlight class="normal"></highlight></codeline>
 <codeline lineno="128"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Peaks<sp/>/<sp/>Ridges<sp/>bonus<sp/>accumulation</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="129"><highlight class="normal"></highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/>Array<sp/>peak_factor(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>1.f);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/>Array<sp/>peak_factor(shape,<sp/>1.f);</highlight></codeline>
 <codeline lineno="131"><highlight class="normal"></highlight></codeline>
 <codeline lineno="132"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(peaks<sp/>&gt;<sp/>0.f)</highlight></codeline>
 <codeline lineno="133"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/><ref refid="trench_8cpp_1a2a8b34df1e011428d61871e56e0b76ef" kindref="member">curvature</ref><sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a7bfb7fecab3f34a73a57d7907c3ace7d" kindref="member">gpu::curvature_quadric</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,<sp/>2,<sp/><ref refid="namespacehmap_1ad4d5e191ca7dd12e389c842188bde88aad171888e3143edfa1d5916611c9a9f7f" kindref="member">CurvatureType::CT_MEAN</ref>);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/><ref refid="namespacehmap_1a30122e874f6a99af65954458cc9e4de9" kindref="member">curvature</ref><sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a7bfb7fecab3f34a73a57d7907c3ace7d" kindref="member">gpu::curvature_quadric</ref>(z,<sp/>2,<sp/><ref refid="namespacehmap_1ad4d5e191ca7dd12e389c842188bde88aad171888e3143edfa1d5916611c9a9f7f" kindref="member">CurvatureType::CT_MEAN</ref>);</highlight></codeline>
 <codeline lineno="135"><highlight class="normal"></highlight></codeline>
 <codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>n_pixels;<sp/>++k)</highlight></codeline>
 <codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Positive<sp/>convex<sp/>curvature<sp/>(peaks<sp/>and<sp/>sharp<sp/>ridges)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>conv<sp/>=<sp/>std::max(0.f,<sp/>-<ref refid="trench_8cpp_1a2a8b34df1e011428d61871e56e0b76ef" kindref="member">curvature</ref>.vector[k]);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>conv<sp/>=<sp/>std::max(0.f,<sp/>-<ref refid="namespacehmap_1a30122e874f6a99af65954458cc9e4de9" kindref="member">curvature</ref>.vector[k]);</highlight></codeline>
 <codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>peak_factor.vector[k]<sp/>=<sp/>1.f<sp/>+<sp/>peaks<sp/>*<sp/>std::min(conv<sp/>*<sp/>10.f,<sp/>2.f);</highlight></codeline>
 <codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="142"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="143"><highlight class="normal"></highlight></codeline>
 <codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Base<sp/>accumulation<sp/>layer</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="145"><highlight class="normal"></highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/>Array<sp/>b(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>Array<sp/>b(shape);</highlight></codeline>
 <codeline lineno="147"><highlight class="normal"></highlight></codeline>
 <codeline lineno="148"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>n_pixels;<sp/>++k)</highlight></codeline>
 <codeline lineno="149"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
@@ -166,7 +166,7 @@
 <codeline lineno="155"><highlight class="normal"></highlight></codeline>
 <codeline lineno="156"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(melt<sp/>&gt;<sp/>0.f)</highlight></codeline>
 <codeline lineno="157"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>melt_map<sp/>=<sp/><ref refid="namespacehmap_1a78419f7981186b40c4a2d04456e4e63f" kindref="member">snow_melting_map</ref>(<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>melt_map<sp/>=<sp/><ref refid="namespacehmap_1a78419f7981186b40c4a2d04456e4e63f" kindref="member">snow_melting_map</ref>(z,</highlight></codeline>
 <codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>snowline<sp/>-<sp/><ref refid="namespacehmap_1a9dd09c08e06c1144910d3fa30250643c" kindref="member">falloff</ref>,</highlight></codeline>
 <codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>snowline<sp/>+<sp/><ref refid="namespacehmap_1a9dd09c08e06c1144910d3fa30250643c" kindref="member">falloff</ref>,</highlight></codeline>
 <codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.f,</highlight></codeline>
@@ -210,18 +210,18 @@
 <codeline lineno="199"><highlight class="normal"></highlight></codeline>
 <codeline lineno="200"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(thermal_iterations<sp/>&gt;<sp/>0)</highlight></codeline>
 <codeline lineno="201"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>z_wrk<sp/>=<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref><sp/>+<sp/>b;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>z_wrk<sp/>=<sp/>z<sp/>+<sp/>b;</highlight></codeline>
 <codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>snow_mask<sp/>=<sp/>b<sp/>/<sp/>std::max(b.max(),<sp/>1e-6f);</highlight></codeline>
-<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>talus_map(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>thermal_talus);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/>Array<sp/>talus_map(shape,<sp/>thermal_talus);</highlight></codeline>
 <codeline lineno="205"><highlight class="normal"></highlight></codeline>
 <codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a551ff43fadc1798ab22617dfe68f231b" kindref="member">gpu::thermal_conserve</ref>(z_wrk,</highlight></codeline>
 <codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;snow_mask,</highlight></codeline>
 <codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_map,</highlight></codeline>
 <codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>thermal_iterations,</highlight></codeline>
 <codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.5f,</highlight></codeline>
-<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;z);</highlight></codeline>
 <codeline lineno="212"><highlight class="normal"></highlight></codeline>
-<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/>b<sp/>=<sp/>z_wrk<sp/>-<sp/><ref refid="hydraulic__mise_8cpp_1aa14e04bff7de9e968e46a953f71f29f3" kindref="member">z</ref>;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/>b<sp/>=<sp/>z_wrk<sp/>-<sp/>z;</highlight></codeline>
 <codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a2badbebec49b12d0d721970a18eb420d" kindref="member">clamp_min</ref>(b,<sp/>0.f);</highlight></codeline>
 <codeline lineno="215"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="216"><highlight class="normal"></highlight></codeline>

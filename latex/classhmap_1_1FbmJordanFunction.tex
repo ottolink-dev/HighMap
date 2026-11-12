@@ -45,7 +45,7 @@ void \mbox{\hyperlink{classhmap_1_1FbmJordanFunction_afe48b45117e451dc53cbf627f0
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{hmap\+::\+Generic\+Fractal\+Function}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classhmap_1_1GenericFractalFunction_afe25e31c4669a13d18da6d69458b95c1}{Generic\+Fractal\+Function}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction}{Noise\+Function}} $>$ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a8fec1973e7b8a6dcca079c8017326ab2}{p\+\_\+base}}, int \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3ee2dbe91dd0512d380a8b28b11438b9}{octaves}}, float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a57139030bd456787c06bf3d7d808837a}{weight}}, float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_ab14745ebb9beee94828d13aa587de69a}{persistence}}, float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a9a205468c861c5f142b738d514b2d9ce}{lacunarity}})
+\mbox{\hyperlink{classhmap_1_1GenericFractalFunction_afe25e31c4669a13d18da6d69458b95c1}{Generic\+Fractal\+Function}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction_a9823b1c76555631d442f52a3d768c162}{Noise\+Function}} $>$ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a8fec1973e7b8a6dcca079c8017326ab2}{p\+\_\+base}}, int \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3ee2dbe91dd0512d380a8b28b11438b9}{octaves}}, float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a57139030bd456787c06bf3d7d808837a}{weight}}, float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_ab14745ebb9beee94828d13aa587de69a}{persistence}}, float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a9a205468c861c5f142b738d514b2d9ce}{lacunarity}})
 \begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classhmap_1_1GenericFractalFunction}{Generic\+Fractal\+Function} object. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a7e8c9518e231829411033fb44003eaea}{set\+\_\+kw}} (glm\+::vec2 new\+\_\+kw) override
 \begin{DoxyCompactList}\small\item\em Set the frequency scaling vector. \end{DoxyCompactList}\item 
@@ -91,7 +91,7 @@ virtual \mbox{\hyperlink{classhmap_1_1Function_a8efd89e31947f2508ce45b133e30322f
 \begin{DoxyCompactList}\small\item\em Constructor to initialize with a specific delegate function. \end{DoxyCompactList}\item 
 HMAP\+\_\+\+FCT\+\_\+\+XY\+\_\+\+TYPE \mbox{\hyperlink{classhmap_1_1Function_a32214e30c36be7650c47867fd14f6a0c}{get\+\_\+delegate}} () const
 \begin{DoxyCompactList}\small\item\em Get the current delegate function. \end{DoxyCompactList}\item 
-float \mbox{\hyperlink{classhmap_1_1Function_a82fb7788314b339a062cb80115e2e1da}{get\+\_\+value}} (float \mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}, float \mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}}, float ctrl\+\_\+param) const
+float \mbox{\hyperlink{classhmap_1_1Function_a82fb7788314b339a062cb80115e2e1da}{get\+\_\+value}} (float x, float y, float ctrl\+\_\+param) const
 \begin{DoxyCompactList}\small\item\em Call the delegate function with given arguments. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1Function_a6163e6f231dc77a7e7d83e74d2b44abe}{set\+\_\+delegate}} (HMAP\+\_\+\+FCT\+\_\+\+XY\+\_\+\+TYPE new\+\_\+delegate)
 \begin{DoxyCompactList}\small\item\em Set a new delegate function. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -109,7 +109,7 @@ float \mbox{\hyperlink{classhmap_1_1FbmJordanFunction_a6d47676cc66bda619a526f361
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{hmap\+::\+Generic\+Fractal\+Function}}}
 \begin{DoxyCompactItemize}
 \item 
-std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction}{Noise\+Function}} $>$ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a8fec1973e7b8a6dcca079c8017326ab2}{p\+\_\+base}}
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction_a9823b1c76555631d442f52a3d768c162}{Noise\+Function}} $>$ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a8fec1973e7b8a6dcca079c8017326ab2}{p\+\_\+base}}
 \begin{DoxyCompactList}\small\item\em Unique pointer to the base noise function. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3ee2dbe91dd0512d380a8b28b11438b9}{octaves}}
 \begin{DoxyCompactList}\small\item\em Number of octaves in the fractal noise. \end{DoxyCompactList}\item 
@@ -139,12 +139,14 @@ void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_ae14db6b39dcdae409ad15
 \doxysubsection{Detailed Description}
 Jordan layering function class. 
 
+\label{doc-constructors}
+\Hypertarget{classhmap_1_1FbmJordanFunction_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{classhmap_1_1FbmJordanFunction_a504a5a2b87ca74bc228254f503e032c6}\label{classhmap_1_1FbmJordanFunction_a504a5a2b87ca74bc228254f503e032c6} 
-\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!FbmJordanFunction@{FbmJordanFunction}}
+\Hypertarget{classhmap_1_1FbmJordanFunction_a504a5a2b87ca74bc228254f503e032c6}\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!FbmJordanFunction@{FbmJordanFunction}}
 \index{FbmJordanFunction@{FbmJordanFunction}!hmap::FbmJordanFunction@{hmap::FbmJordanFunction}}
 \doxysubsubsection{\texorpdfstring{FbmJordanFunction()}{FbmJordanFunction()}}
-{\footnotesize\ttfamily hmap\+::\+Fbm\+Jordan\+Function\+::\+Fbm\+Jordan\+Function (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction}{Noise\+Function}} $>$}]{p\+\_\+base,  }\item[{int}]{octaves,  }\item[{float}]{weight,  }\item[{float}]{persistence,  }\item[{float}]{lacunarity,  }\item[{float}]{warp0,  }\item[{float}]{damp0,  }\item[{float}]{warp\+\_\+scale,  }\item[{float}]{damp\+\_\+scale }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1FbmJordanFunction_a504a5a2b87ca74bc228254f503e032c6} 
+hmap\+::\+Fbm\+Jordan\+Function\+::\+Fbm\+Jordan\+Function (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction}{Noise\+Function}} $>$}]{p\+\_\+base}{, }\item[{int}]{octaves}{, }\item[{float}]{weight}{, }\item[{float}]{persistence}{, }\item[{float}]{lacunarity}{, }\item[{float}]{warp0}{, }\item[{float}]{damp0}{, }\item[{float}]{warp\+\_\+scale}{, }\item[{float}]{damp\+\_\+scale}{}\end{DoxyParamCaption})}
 
 
 
@@ -173,12 +175,14 @@ Construct a new Fbm Jordan \doxylink{classhmap_1_1Function}{Function} object.
 \end{DoxyParams}
 
 
+\label{doc-func-members}
+\Hypertarget{classhmap_1_1FbmJordanFunction_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classhmap_1_1FbmJordanFunction_a1303ae8503b9fb234860590c39c469ee}\label{classhmap_1_1FbmJordanFunction_a1303ae8503b9fb234860590c39c469ee} 
-\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!set\_warp0@{set\_warp0}}
+\Hypertarget{classhmap_1_1FbmJordanFunction_a1303ae8503b9fb234860590c39c469ee}\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!set\_warp0@{set\_warp0}}
 \index{set\_warp0@{set\_warp0}!hmap::FbmJordanFunction@{hmap::FbmJordanFunction}}
 \doxysubsubsection{\texorpdfstring{set\_warp0()}{set\_warp0()}}
-{\footnotesize\ttfamily void hmap\+::\+Fbm\+Jordan\+Function\+::set\+\_\+warp0 (\begin{DoxyParamCaption}\item[{float}]{new\+\_\+warp0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{classhmap_1_1FbmJordanFunction_a1303ae8503b9fb234860590c39c469ee} 
+void hmap\+::\+Fbm\+Jordan\+Function\+::set\+\_\+warp0 (\begin{DoxyParamCaption}\item[{float}]{new\+\_\+warp0}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -189,11 +193,11 @@ Set the initial warp.
 {\em new\+\_\+warp0} & New initial warp. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1FbmJordanFunction_a07e241ae20d3f0388d57b284ec4c6238}\label{classhmap_1_1FbmJordanFunction_a07e241ae20d3f0388d57b284ec4c6238} 
-\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!set\_damp0@{set\_damp0}}
+\Hypertarget{classhmap_1_1FbmJordanFunction_a07e241ae20d3f0388d57b284ec4c6238}\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!set\_damp0@{set\_damp0}}
 \index{set\_damp0@{set\_damp0}!hmap::FbmJordanFunction@{hmap::FbmJordanFunction}}
 \doxysubsubsection{\texorpdfstring{set\_damp0()}{set\_damp0()}}
-{\footnotesize\ttfamily void hmap\+::\+Fbm\+Jordan\+Function\+::set\+\_\+damp0 (\begin{DoxyParamCaption}\item[{float}]{new\+\_\+damp0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{classhmap_1_1FbmJordanFunction_a07e241ae20d3f0388d57b284ec4c6238} 
+void hmap\+::\+Fbm\+Jordan\+Function\+::set\+\_\+damp0 (\begin{DoxyParamCaption}\item[{float}]{new\+\_\+damp0}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -204,11 +208,11 @@ Set the initial damp.
 {\em new\+\_\+damp0} & New initial damp. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1FbmJordanFunction_ad26948453a06c40b7daf50a4d03b78e4}\label{classhmap_1_1FbmJordanFunction_ad26948453a06c40b7daf50a4d03b78e4} 
-\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!set\_warp\_scale@{set\_warp\_scale}}
+\Hypertarget{classhmap_1_1FbmJordanFunction_ad26948453a06c40b7daf50a4d03b78e4}\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!set\_warp\_scale@{set\_warp\_scale}}
 \index{set\_warp\_scale@{set\_warp\_scale}!hmap::FbmJordanFunction@{hmap::FbmJordanFunction}}
 \doxysubsubsection{\texorpdfstring{set\_warp\_scale()}{set\_warp\_scale()}}
-{\footnotesize\ttfamily void hmap\+::\+Fbm\+Jordan\+Function\+::set\+\_\+warp\+\_\+scale (\begin{DoxyParamCaption}\item[{float}]{new\+\_\+warp\+\_\+scale }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{classhmap_1_1FbmJordanFunction_ad26948453a06c40b7daf50a4d03b78e4} 
+void hmap\+::\+Fbm\+Jordan\+Function\+::set\+\_\+warp\+\_\+scale (\begin{DoxyParamCaption}\item[{float}]{new\+\_\+warp\+\_\+scale}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -219,11 +223,11 @@ Set the warp scale.
 {\em new\+\_\+warp\+\_\+scale} & New warp scale. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1FbmJordanFunction_afe48b45117e451dc53cbf627f08e9c5f}\label{classhmap_1_1FbmJordanFunction_afe48b45117e451dc53cbf627f08e9c5f} 
-\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!set\_damp\_scale@{set\_damp\_scale}}
+\Hypertarget{classhmap_1_1FbmJordanFunction_afe48b45117e451dc53cbf627f08e9c5f}\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!set\_damp\_scale@{set\_damp\_scale}}
 \index{set\_damp\_scale@{set\_damp\_scale}!hmap::FbmJordanFunction@{hmap::FbmJordanFunction}}
 \doxysubsubsection{\texorpdfstring{set\_damp\_scale()}{set\_damp\_scale()}}
-{\footnotesize\ttfamily void hmap\+::\+Fbm\+Jordan\+Function\+::set\+\_\+damp\+\_\+scale (\begin{DoxyParamCaption}\item[{float}]{new\+\_\+damp\+\_\+scale }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{classhmap_1_1FbmJordanFunction_afe48b45117e451dc53cbf627f08e9c5f} 
+void hmap\+::\+Fbm\+Jordan\+Function\+::set\+\_\+damp\+\_\+scale (\begin{DoxyParamCaption}\item[{float}]{new\+\_\+damp\+\_\+scale}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -236,42 +240,44 @@ Set the damp scale.
 \end{DoxyParams}
 
 
+\label{doc-variable-members}
+\Hypertarget{classhmap_1_1FbmJordanFunction_doc-variable-members}
 \doxysubsection{Member Data Documentation}
-\Hypertarget{classhmap_1_1FbmJordanFunction_a0824dd4ee83417af8814542accede613}\label{classhmap_1_1FbmJordanFunction_a0824dd4ee83417af8814542accede613} 
-\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!warp0@{warp0}}
+\Hypertarget{classhmap_1_1FbmJordanFunction_a0824dd4ee83417af8814542accede613}\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!warp0@{warp0}}
 \index{warp0@{warp0}!hmap::FbmJordanFunction@{hmap::FbmJordanFunction}}
 \doxysubsubsection{\texorpdfstring{warp0}{warp0}}
-{\footnotesize\ttfamily float hmap\+::\+Fbm\+Jordan\+Function\+::warp0\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \label{classhmap_1_1FbmJordanFunction_a0824dd4ee83417af8814542accede613} 
+float hmap\+::\+Fbm\+Jordan\+Function\+::warp0\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
 Initial warp. 
 
-\Hypertarget{classhmap_1_1FbmJordanFunction_a978908a8865a237426d1220774b72c33}\label{classhmap_1_1FbmJordanFunction_a978908a8865a237426d1220774b72c33} 
-\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!damp0@{damp0}}
+\Hypertarget{classhmap_1_1FbmJordanFunction_a978908a8865a237426d1220774b72c33}\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!damp0@{damp0}}
 \index{damp0@{damp0}!hmap::FbmJordanFunction@{hmap::FbmJordanFunction}}
 \doxysubsubsection{\texorpdfstring{damp0}{damp0}}
-{\footnotesize\ttfamily float hmap\+::\+Fbm\+Jordan\+Function\+::damp0\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \label{classhmap_1_1FbmJordanFunction_a978908a8865a237426d1220774b72c33} 
+float hmap\+::\+Fbm\+Jordan\+Function\+::damp0\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
 Initial damp. 
 
-\Hypertarget{classhmap_1_1FbmJordanFunction_ae414da2792a0bac7b5fba61d2ecef892}\label{classhmap_1_1FbmJordanFunction_ae414da2792a0bac7b5fba61d2ecef892} 
-\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!warp\_scale@{warp\_scale}}
+\Hypertarget{classhmap_1_1FbmJordanFunction_ae414da2792a0bac7b5fba61d2ecef892}\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!warp\_scale@{warp\_scale}}
 \index{warp\_scale@{warp\_scale}!hmap::FbmJordanFunction@{hmap::FbmJordanFunction}}
 \doxysubsubsection{\texorpdfstring{warp\_scale}{warp\_scale}}
-{\footnotesize\ttfamily float hmap\+::\+Fbm\+Jordan\+Function\+::warp\+\_\+scale\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \label{classhmap_1_1FbmJordanFunction_ae414da2792a0bac7b5fba61d2ecef892} 
+float hmap\+::\+Fbm\+Jordan\+Function\+::warp\+\_\+scale\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
 Warp scale. 
 
-\Hypertarget{classhmap_1_1FbmJordanFunction_a6d47676cc66bda619a526f361ace79bc}\label{classhmap_1_1FbmJordanFunction_a6d47676cc66bda619a526f361ace79bc} 
-\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!damp\_scale@{damp\_scale}}
+\Hypertarget{classhmap_1_1FbmJordanFunction_a6d47676cc66bda619a526f361ace79bc}\index{hmap::FbmJordanFunction@{hmap::FbmJordanFunction}!damp\_scale@{damp\_scale}}
 \index{damp\_scale@{damp\_scale}!hmap::FbmJordanFunction@{hmap::FbmJordanFunction}}
 \doxysubsubsection{\texorpdfstring{damp\_scale}{damp\_scale}}
-{\footnotesize\ttfamily float hmap\+::\+Fbm\+Jordan\+Function\+::damp\+\_\+scale\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \label{classhmap_1_1FbmJordanFunction_a6d47676cc66bda619a526f361ace79bc} 
+float hmap\+::\+Fbm\+Jordan\+Function\+::damp\+\_\+scale\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 

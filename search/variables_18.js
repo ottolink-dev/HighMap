@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['y_0',['y',['../classhmap_1_1Point.html#aa045aed7ca12dffe13ba8f2db730a9bf',1,'hmap::Point::y'],['../kd__tree_8cpp.html#ad6f02b2c4d57d479201316e67c3103d3',1,'y:&#160;kd_tree.cpp']]],
-  ['yr_1',['yr',['../classhmap_1_1FieldFunction.html#a166abea10da916bc21f4b917cd9c3811',1,'hmap::FieldFunction']]]
+  ['z_0',['z',['../classhmap_1_1DrainageBasinCellBased.html#a89f0fe7b521edf3d390096710fa60291',1,'hmap::DrainageBasinCellBased']]],
+  ['z_5fscale_5fkm_1',['z_scale_km',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a4cbc778efd4a5d60da6c60e14028f8a0',1,'hmap::gpu::McDonaldParams::PhysicalParams']]],
+  ['zr_2',['zr',['../classhmap_1_1FieldFunction.html#afe97b341521215c0a76a27c48206c90e',1,'hmap::FieldFunction']]]
 ];

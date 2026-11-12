@@ -56,7 +56,7 @@ std\+::vector$<$ std\+::vector$<$ size\+\_\+t $>$ $>$ \mbox{\hyperlink{classhmap
 \begin{DoxyCompactList}\small\item\em Get the main channel paths of the flow network. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1DrainageBasin_a81376d87a5f35274d6a541c9c9832bda}{remove\+\_\+lakes}} (const std\+::vector$<$ size\+\_\+t $>$ \&subroot)
 \begin{DoxyCompactList}\small\item\em Remove lakes by draining local depressions. \end{DoxyCompactList}\item 
-std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1DrainageBasin_a97ae87db86facdff8c4955454553766a}{compute\+\_\+response\+\_\+times}} (const std\+::vector$<$ float $>$ \&area\+\_\+acc, const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{hydraulic__mise_8cpp_aea391a706628d8001fa6d048d4a28ef5}{erodibility}}, float m\+\_\+exp) const
+std\+::vector$<$ float $>$ \mbox{\hyperlink{classhmap_1_1DrainageBasin_a97ae87db86facdff8c4955454553766a}{compute\+\_\+response\+\_\+times}} (const std\+::vector$<$ float $>$ \&area\+\_\+acc, const std\+::vector$<$ float $>$ \&erodibility, float m\+\_\+exp) const
 \begin{DoxyCompactList}\small\item\em Compute response times of the basin vertices. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1DrainageBasin_a68cd031a86f51ed6107652ce336a51fa}{flow\+\_\+breach}} ()
 \begin{DoxyCompactList}\small\item\em Perform flow breaching to resolve depressions. \end{DoxyCompactList}\item 
@@ -64,11 +64,11 @@ std\+::vector$<$ std\+::vector$<$ glm\+::vec3 $>$ $>$ \mbox{\hyperlink{classhmap
 \begin{DoxyCompactList}\small\item\em Compute the breaching paths for depressions. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{classhmap_1_1DrainageBasin_a61c39bccd602d2c04dfed14e653d01a6}{update\+\_\+elevations}} (const std\+::vector$<$ float $>$ \&response\+\_\+times, float uplift\+\_\+rate, const std\+::vector$<$ float $>$ \&max\+\_\+slope)
 \begin{DoxyCompactList}\small\item\em Update terrain elevations based on response times and uplift. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1DrainageBasin_a6864378e3110c92b84c033b3579d58d3}{accumulate\+\_\+area\+\_\+by\+\_\+outlet}} (const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{hydraulic__mise_8cpp_aaf398867f4e5a34468f33eb7755c55a6}{area}}, std\+::vector$<$ float $>$ \&acc) const
+void \mbox{\hyperlink{classhmap_1_1DrainageBasin_a6864378e3110c92b84c033b3579d58d3}{accumulate\+\_\+area\+\_\+by\+\_\+outlet}} (const std\+::vector$<$ float $>$ \&area, std\+::vector$<$ float $>$ \&acc) const
 \begin{DoxyCompactList}\small\item\em Accumulate contributing area down the network by outlet. \end{DoxyCompactList}\item 
-const std\+::vector$<$ size\+\_\+t $>$ \& \mbox{\hyperlink{classhmap_1_1DrainageBasin_a7b01ca0613368f0fd3dde8812e326ff1}{for\+\_\+each\+\_\+upstream}} (size\+\_\+t \mbox{\hyperlink{hydraulic__mise_8cpp_a04ae352a41e6a2fb1296b478e5881a66}{outlet}}) const
+const std\+::vector$<$ size\+\_\+t $>$ \& \mbox{\hyperlink{classhmap_1_1DrainageBasin_a7b01ca0613368f0fd3dde8812e326ff1}{for\+\_\+each\+\_\+upstream}} (size\+\_\+t outlet) const
 \begin{DoxyCompactList}\small\item\em Get the cached upstream traversal order from a specific outlet. \end{DoxyCompactList}\item 
-auto \mbox{\hyperlink{classhmap_1_1DrainageBasin_a4160d425b942c7b7dc3238f8e948403d}{for\+\_\+each\+\_\+downstream}} (size\+\_\+t \mbox{\hyperlink{hydraulic__mise_8cpp_a04ae352a41e6a2fb1296b478e5881a66}{outlet}}) const
+auto \mbox{\hyperlink{classhmap_1_1DrainageBasin_a4160d425b942c7b7dc3238f8e948403d}{for\+\_\+each\+\_\+downstream}} (size\+\_\+t outlet) const
 \begin{DoxyCompactList}\small\item\em Get the cached downstream traversal order from a specific outlet. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -77,12 +77,14 @@ Represents a drainage basin network constructed on a 3D terrain mesh.
 
 This class handles the construction and analysis of hydrological flow networks (receivers, streams, outlets) on a 3D triangular mesh. It allows simulating river network development, calculating Strahler orders, inverting receiver maps, breaching lakes, and updating elevations based on response times. 
 
+\label{doc-constructors}
+\Hypertarget{classhmap_1_1DrainageBasin_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{classhmap_1_1DrainageBasin_ac28ba57c1b2b1bd25353aeb7dc9ac54c}\label{classhmap_1_1DrainageBasin_ac28ba57c1b2b1bd25353aeb7dc9ac54c} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!DrainageBasin@{DrainageBasin}}
+\Hypertarget{classhmap_1_1DrainageBasin_ac28ba57c1b2b1bd25353aeb7dc9ac54c}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!DrainageBasin@{DrainageBasin}}
 \index{DrainageBasin@{DrainageBasin}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{DrainageBasin()}{DrainageBasin()}}
-{\footnotesize\ttfamily hmap\+::\+Drainage\+Basin\+::\+Drainage\+Basin (\begin{DoxyParamCaption}\item[{std\+::vector$<$ glm\+::vec3 $>$}]{xyz\+\_\+ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_ac28ba57c1b2b1bd25353aeb7dc9ac54c} 
+hmap\+::\+Drainage\+Basin\+::\+Drainage\+Basin (\begin{DoxyParamCaption}\item[{std\+::vector$<$ glm\+::vec3 $>$}]{xyz\+\_\+}{}\end{DoxyParamCaption})}
 
 
 
@@ -95,12 +97,14 @@ Construct a new Drainage Basin object.
 \end{DoxyParams}
 
 
+\label{doc-func-members}
+\Hypertarget{classhmap_1_1DrainageBasin_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classhmap_1_1DrainageBasin_a62573f79f7df537b2ec3d15e664a9539}\label{classhmap_1_1DrainageBasin_a62573f79f7df537b2ec3d15e664a9539} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!get\_xyz@{get\_xyz}}
+\Hypertarget{classhmap_1_1DrainageBasin_a62573f79f7df537b2ec3d15e664a9539}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!get\_xyz@{get\_xyz}}
 \index{get\_xyz@{get\_xyz}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{get\_xyz()}{get\_xyz()}}
-{\footnotesize\ttfamily const std\+::vector$<$ glm\+::vec3 $>$ \& hmap\+::\+Drainage\+Basin\+::get\+\_\+xyz (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a62573f79f7df537b2ec3d15e664a9539} 
+const std\+::vector$<$ glm\+::vec3 $>$ \& hmap\+::\+Drainage\+Basin\+::get\+\_\+xyz (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -109,11 +113,11 @@ Get the 3D coordinates of the terrain vertices.
 \begin{DoxyReturn}{Returns}
 A const reference to the vector of 3D coordinates. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_adda7eed6e20a483af05ce4272dce8cd6}\label{classhmap_1_1DrainageBasin_adda7eed6e20a483af05ce4272dce8cd6} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!size@{size}}
+\Hypertarget{classhmap_1_1DrainageBasin_adda7eed6e20a483af05ce4272dce8cd6}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!size@{size}}
 \index{size@{size}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{size()}{size()}}
-{\footnotesize\ttfamily size\+\_\+t hmap\+::\+Drainage\+Basin\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_adda7eed6e20a483af05ce4272dce8cd6} 
+size\+\_\+t hmap\+::\+Drainage\+Basin\+::size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -122,11 +126,11 @@ Get the number of vertices in the basin.
 \begin{DoxyReturn}{Returns}
 The size as a size\+\_\+t. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_a11a22b638c875e9832ea8387098d2001}\label{classhmap_1_1DrainageBasin_a11a22b638c875e9832ea8387098d2001} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!to\_csv@{to\_csv}}
+\Hypertarget{classhmap_1_1DrainageBasin_a11a22b638c875e9832ea8387098d2001}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!to\_csv@{to\_csv}}
 \index{to\_csv@{to\_csv}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{to\_csv()}{to\_csv()}}
-{\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+::to\+\_\+csv (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a11a22b638c875e9832ea8387098d2001} 
+void hmap\+::\+Drainage\+Basin\+::to\+\_\+csv (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -137,11 +141,11 @@ Export the drainage basin data to a CSV file.
 {\em filename} & \doxylink{classhmap_1_1Path}{Path} to the output CSV file. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1DrainageBasin_a8ca74e8acd3298c6d254d84707222c24}\label{classhmap_1_1DrainageBasin_a8ca74e8acd3298c6d254d84707222c24} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!get\_mesh@{get\_mesh}}
+\Hypertarget{classhmap_1_1DrainageBasin_a8ca74e8acd3298c6d254d84707222c24}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!get\_mesh@{get\_mesh}}
 \index{get\_mesh@{get\_mesh}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{get\_mesh()}{get\_mesh()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \& hmap\+::\+Drainage\+Basin\+::get\+\_\+mesh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a8ca74e8acd3298c6d254d84707222c24} 
+const \mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \& hmap\+::\+Drainage\+Basin\+::get\+\_\+mesh (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -150,11 +154,11 @@ Get the underlying terrain tri mesh (const).
 \begin{DoxyReturn}{Returns}
 A const reference to the \doxylink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_acb1dcce2b145cb8dc3d129b337dce53f}\label{classhmap_1_1DrainageBasin_acb1dcce2b145cb8dc3d129b337dce53f} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!get\_mesh@{get\_mesh}}
+\Hypertarget{classhmap_1_1DrainageBasin_acb1dcce2b145cb8dc3d129b337dce53f}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!get\_mesh@{get\_mesh}}
 \index{get\_mesh@{get\_mesh}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{get\_mesh()}{get\_mesh()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \& hmap\+::\+Drainage\+Basin\+::get\+\_\+mesh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_acb1dcce2b145cb8dc3d129b337dce53f} 
+\mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \& hmap\+::\+Drainage\+Basin\+::get\+\_\+mesh (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
@@ -163,11 +167,11 @@ Get the underlying terrain tri mesh (non-\/const).
 \begin{DoxyReturn}{Returns}
 A reference to the \doxylink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_a8edaab84381857910e6cc099464a4d88}\label{classhmap_1_1DrainageBasin_a8edaab84381857910e6cc099464a4d88} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!compute\_vertex\_areas@{compute\_vertex\_areas}}
+\Hypertarget{classhmap_1_1DrainageBasin_a8edaab84381857910e6cc099464a4d88}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!compute\_vertex\_areas@{compute\_vertex\_areas}}
 \index{compute\_vertex\_areas@{compute\_vertex\_areas}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{compute\_vertex\_areas()}{compute\_vertex\_areas()}}
-{\footnotesize\ttfamily std\+::vector$<$ float $>$ hmap\+::\+Drainage\+Basin\+::compute\+\_\+vertex\+\_\+areas (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a8edaab84381857910e6cc099464a4d88} 
+std\+::vector$<$ float $>$ hmap\+::\+Drainage\+Basin\+::compute\+\_\+vertex\+\_\+areas (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -176,11 +180,11 @@ Compute the area of each vertex in the mesh.
 \begin{DoxyReturn}{Returns}
 A vector containing the computed vertex areas. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_a754fcec95d5a3b1b5291d4de95dff2d0}\label{classhmap_1_1DrainageBasin_a754fcec95d5a3b1b5291d4de95dff2d0} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!remap@{remap}}
+\Hypertarget{classhmap_1_1DrainageBasin_a754fcec95d5a3b1b5291d4de95dff2d0}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!remap@{remap}}
 \index{remap@{remap}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{remap()}{remap()}}
-{\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+::remap (\begin{DoxyParamCaption}\item[{float}]{zmin = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{zmax = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a754fcec95d5a3b1b5291d4de95dff2d0} 
+void hmap\+::\+Drainage\+Basin\+::remap (\begin{DoxyParamCaption}\item[{float}]{zmin}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{zmax}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption})}
 
 
 
@@ -193,21 +197,21 @@ Remap the elevation (z) values of the mesh vertices to a target range.
 {\em zmax} & Maximum target elevation value. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1DrainageBasin_a41ce9c5a0cb26704823a38d3796df74d}\label{classhmap_1_1DrainageBasin_a41ce9c5a0cb26704823a38d3796df74d} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!compute\_receivers@{compute\_receivers}}
+\Hypertarget{classhmap_1_1DrainageBasin_a41ce9c5a0cb26704823a38d3796df74d}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!compute\_receivers@{compute\_receivers}}
 \index{compute\_receivers@{compute\_receivers}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{compute\_receivers()}{compute\_receivers()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+::compute\+\_\+receivers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a41ce9c5a0cb26704823a38d3796df74d} 
+void hmap\+::\+Drainage\+Basin\+::compute\+\_\+receivers (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
 Compute the flow receiver for each vertex deterministically. 
 
-\Hypertarget{classhmap_1_1DrainageBasin_ae63213d69cf7bc3b56fd61cfdf301592}\label{classhmap_1_1DrainageBasin_ae63213d69cf7bc3b56fd61cfdf301592} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!compute\_receivers@{compute\_receivers}}
+\Hypertarget{classhmap_1_1DrainageBasin_ae63213d69cf7bc3b56fd61cfdf301592}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!compute\_receivers@{compute\_receivers}}
 \index{compute\_receivers@{compute\_receivers}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{compute\_receivers()}{compute\_receivers()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+::compute\+\_\+receivers (\begin{DoxyParamCaption}\item[{unsigned int}]{seed,  }\item[{float}]{noise\+\_\+strength = {\ttfamily 0.25\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_ae63213d69cf7bc3b56fd61cfdf301592} 
+void hmap\+::\+Drainage\+Basin\+::compute\+\_\+receivers (\begin{DoxyParamCaption}\item[{unsigned int}]{seed}{, }\item[{float}]{noise\+\_\+strength}{ = {\ttfamily 0.25\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption})}
 
 
 
@@ -220,11 +224,11 @@ Compute the flow receiver for each vertex with noise for stochastic variations.
 {\em noise\+\_\+strength} & Strength of the noise added to elevations during receiver computation. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1DrainageBasin_ae2d06a498fbe2fc7ba8d4872bafd407b}\label{classhmap_1_1DrainageBasin_ae2d06a498fbe2fc7ba8d4872bafd407b} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!update\_stream\_tree@{update\_stream\_tree}}
+\Hypertarget{classhmap_1_1DrainageBasin_ae2d06a498fbe2fc7ba8d4872bafd407b}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!update\_stream\_tree@{update\_stream\_tree}}
 \index{update\_stream\_tree@{update\_stream\_tree}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{update\_stream\_tree()}{update\_stream\_tree()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+::update\+\_\+stream\+\_\+tree (\begin{DoxyParamCaption}\item[{unsigned int}]{seed,  }\item[{float}]{noise\+\_\+strength }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_ae2d06a498fbe2fc7ba8d4872bafd407b} 
+void hmap\+::\+Drainage\+Basin\+::update\+\_\+stream\+\_\+tree (\begin{DoxyParamCaption}\item[{unsigned int}]{seed}{, }\item[{float}]{noise\+\_\+strength}{}\end{DoxyParamCaption})}
 
 
 
@@ -237,31 +241,31 @@ Update the stream tree stochastically.
 {\em noise\+\_\+strength} & Strength of noise. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1DrainageBasin_ab5608cb8b6accfb29e5fb42976824553}\label{classhmap_1_1DrainageBasin_ab5608cb8b6accfb29e5fb42976824553} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!update\_stream\_tree@{update\_stream\_tree}}
+\Hypertarget{classhmap_1_1DrainageBasin_ab5608cb8b6accfb29e5fb42976824553}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!update\_stream\_tree@{update\_stream\_tree}}
 \index{update\_stream\_tree@{update\_stream\_tree}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{update\_stream\_tree()}{update\_stream\_tree()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+::update\+\_\+stream\+\_\+tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_ab5608cb8b6accfb29e5fb42976824553} 
+void hmap\+::\+Drainage\+Basin\+::update\+\_\+stream\+\_\+tree (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
 Update the stream tree deterministically. 
 
-\Hypertarget{classhmap_1_1DrainageBasin_aac712678f6584ecdcd8e4805e3c50047}\label{classhmap_1_1DrainageBasin_aac712678f6584ecdcd8e4805e3c50047} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!update\_traversals@{update\_traversals}}
+\Hypertarget{classhmap_1_1DrainageBasin_aac712678f6584ecdcd8e4805e3c50047}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!update\_traversals@{update\_traversals}}
 \index{update\_traversals@{update\_traversals}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{update\_traversals()}{update\_traversals()}}
-{\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+::update\+\_\+traversals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_aac712678f6584ecdcd8e4805e3c50047} 
+void hmap\+::\+Drainage\+Basin\+::update\+\_\+traversals (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
 Update cached traversal orders for upstream/downstream computations. 
 
-\Hypertarget{classhmap_1_1DrainageBasin_a75e8fb089bba94af75e6c9ce8ef4493e}\label{classhmap_1_1DrainageBasin_a75e8fb089bba94af75e6c9ce8ef4493e} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!get\_outlets@{get\_outlets}}
+\Hypertarget{classhmap_1_1DrainageBasin_a75e8fb089bba94af75e6c9ce8ef4493e}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!get\_outlets@{get\_outlets}}
 \index{get\_outlets@{get\_outlets}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{get\_outlets()}{get\_outlets()}}
-{\footnotesize\ttfamily const std\+::vector$<$ size\+\_\+t $>$ \& hmap\+::\+Drainage\+Basin\+::get\+\_\+outlets (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a75e8fb089bba94af75e6c9ce8ef4493e} 
+const std\+::vector$<$ size\+\_\+t $>$ \& hmap\+::\+Drainage\+Basin\+::get\+\_\+outlets (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -270,11 +274,11 @@ Get the indices of the outlets in the basin.
 \begin{DoxyReturn}{Returns}
 A const reference to the vector of outlet indices. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_ab11584d1b69b0a836ea1ef1f5ba20274}\label{classhmap_1_1DrainageBasin_ab11584d1b69b0a836ea1ef1f5ba20274} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!set\_outlets@{set\_outlets}}
+\Hypertarget{classhmap_1_1DrainageBasin_ab11584d1b69b0a836ea1ef1f5ba20274}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!set\_outlets@{set\_outlets}}
 \index{set\_outlets@{set\_outlets}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{set\_outlets()}{set\_outlets()}}
-{\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+::set\+\_\+outlets (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ size\+\_\+t $>$ \&}]{outlet\+\_\+indices }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_ab11584d1b69b0a836ea1ef1f5ba20274} 
+void hmap\+::\+Drainage\+Basin\+::set\+\_\+outlets (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ size\+\_\+t $>$ \&}]{outlet\+\_\+indices}{}\end{DoxyParamCaption})}
 
 
 
@@ -285,11 +289,11 @@ Set the outlets of the basin.
 {\em outlet\+\_\+indices} & Vector containing the new outlet indices. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1DrainageBasin_a3c870f93d22d0d5846a042af97165fb2}\label{classhmap_1_1DrainageBasin_a3c870f93d22d0d5846a042af97165fb2} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!get\_receivers@{get\_receivers}}
+\Hypertarget{classhmap_1_1DrainageBasin_a3c870f93d22d0d5846a042af97165fb2}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!get\_receivers@{get\_receivers}}
 \index{get\_receivers@{get\_receivers}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{get\_receivers()}{get\_receivers()}}
-{\footnotesize\ttfamily const std\+::vector$<$ size\+\_\+t $>$ \& hmap\+::\+Drainage\+Basin\+::get\+\_\+receivers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a3c870f93d22d0d5846a042af97165fb2} 
+const std\+::vector$<$ size\+\_\+t $>$ \& hmap\+::\+Drainage\+Basin\+::get\+\_\+receivers (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -298,21 +302,21 @@ Get the receiver index of each vertex.
 \begin{DoxyReturn}{Returns}
 A const reference to the vector of receiver indices. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_a32652e8b38b167fc611b3e723b4ee775}\label{classhmap_1_1DrainageBasin_a32652e8b38b167fc611b3e723b4ee775} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!invert\_receiver\_map@{invert\_receiver\_map}}
+\Hypertarget{classhmap_1_1DrainageBasin_a32652e8b38b167fc611b3e723b4ee775}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!invert\_receiver\_map@{invert\_receiver\_map}}
 \index{invert\_receiver\_map@{invert\_receiver\_map}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{invert\_receiver\_map()}{invert\_receiver\_map()}}
-{\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+::invert\+\_\+receiver\+\_\+map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a32652e8b38b167fc611b3e723b4ee775} 
+void hmap\+::\+Drainage\+Basin\+::invert\+\_\+receiver\+\_\+map (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
 Invert the receiver map to build a map of children/downstream receivers. 
 
-\Hypertarget{classhmap_1_1DrainageBasin_a33de723bf66791f3eeb6858307a9c72d}\label{classhmap_1_1DrainageBasin_a33de723bf66791f3eeb6858307a9c72d} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!compute\_is\_ridge\_node@{compute\_is\_ridge\_node}}
+\Hypertarget{classhmap_1_1DrainageBasin_a33de723bf66791f3eeb6858307a9c72d}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!compute\_is\_ridge\_node@{compute\_is\_ridge\_node}}
 \index{compute\_is\_ridge\_node@{compute\_is\_ridge\_node}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{compute\_is\_ridge\_node()}{compute\_is\_ridge\_node()}}
-{\footnotesize\ttfamily std\+::vector$<$ bool $>$ hmap\+::\+Drainage\+Basin\+::compute\+\_\+is\+\_\+ridge\+\_\+node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a33de723bf66791f3eeb6858307a9c72d} 
+std\+::vector$<$ bool $>$ hmap\+::\+Drainage\+Basin\+::compute\+\_\+is\+\_\+ridge\+\_\+node (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -321,11 +325,11 @@ Compute whether each vertex is a ridge node (no upstream flow).
 \begin{DoxyReturn}{Returns}
 A vector of booleans indicating ridge nodes. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_ad24e268cb15bbe0a47207f7f97a66c2a}\label{classhmap_1_1DrainageBasin_ad24e268cb15bbe0a47207f7f97a66c2a} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!compute\_strahler\_order@{compute\_strahler\_order}}
+\Hypertarget{classhmap_1_1DrainageBasin_ad24e268cb15bbe0a47207f7f97a66c2a}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!compute\_strahler\_order@{compute\_strahler\_order}}
 \index{compute\_strahler\_order@{compute\_strahler\_order}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{compute\_strahler\_order()}{compute\_strahler\_order()}}
-{\footnotesize\ttfamily std\+::vector$<$ size\+\_\+t $>$ hmap\+::\+Drainage\+Basin\+::compute\+\_\+strahler\+\_\+order (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_ad24e268cb15bbe0a47207f7f97a66c2a} 
+std\+::vector$<$ size\+\_\+t $>$ hmap\+::\+Drainage\+Basin\+::compute\+\_\+strahler\+\_\+order (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -334,11 +338,11 @@ Compute the Strahler stream order for each vertex.
 \begin{DoxyReturn}{Returns}
 A vector containing the Strahler order of each vertex. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_a1e1e17194e7b129d89bb4f339d8b8a7d}\label{classhmap_1_1DrainageBasin_a1e1e17194e7b129d89bb4f339d8b8a7d} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!find\_subroots@{find\_subroots}}
+\Hypertarget{classhmap_1_1DrainageBasin_a1e1e17194e7b129d89bb4f339d8b8a7d}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!find\_subroots@{find\_subroots}}
 \index{find\_subroots@{find\_subroots}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{find\_subroots()}{find\_subroots()}}
-{\footnotesize\ttfamily std\+::pair$<$ std\+::vector$<$ size\+\_\+t $>$, bool $>$ hmap\+::\+Drainage\+Basin\+::find\+\_\+subroots (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a1e1e17194e7b129d89bb4f339d8b8a7d} 
+std\+::pair$<$ std\+::vector$<$ size\+\_\+t $>$, bool $>$ hmap\+::\+Drainage\+Basin\+::find\+\_\+subroots (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
@@ -347,11 +351,11 @@ Find subroots of the flow network.
 \begin{DoxyReturn}{Returns}
 A pair containing a vector of subroots indices and a boolean status. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_ad753fddf932df91b9de63dd9222a79a9}\label{classhmap_1_1DrainageBasin_ad753fddf932df91b9de63dd9222a79a9} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!get\_main\_channels@{get\_main\_channels}}
+\Hypertarget{classhmap_1_1DrainageBasin_ad753fddf932df91b9de63dd9222a79a9}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!get\_main\_channels@{get\_main\_channels}}
 \index{get\_main\_channels@{get\_main\_channels}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{get\_main\_channels()}{get\_main\_channels()}}
-{\footnotesize\ttfamily std\+::vector$<$ std\+::vector$<$ size\+\_\+t $>$ $>$ hmap\+::\+Drainage\+Basin\+::get\+\_\+main\+\_\+channels (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_ad753fddf932df91b9de63dd9222a79a9} 
+std\+::vector$<$ std\+::vector$<$ size\+\_\+t $>$ $>$ hmap\+::\+Drainage\+Basin\+::get\+\_\+main\+\_\+channels (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -360,11 +364,11 @@ Get the main channel paths of the flow network.
 \begin{DoxyReturn}{Returns}
 A vector of main channels, each represented as a vector of vertex indices. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_a81376d87a5f35274d6a541c9c9832bda}\label{classhmap_1_1DrainageBasin_a81376d87a5f35274d6a541c9c9832bda} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!remove\_lakes@{remove\_lakes}}
+\Hypertarget{classhmap_1_1DrainageBasin_a81376d87a5f35274d6a541c9c9832bda}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!remove\_lakes@{remove\_lakes}}
 \index{remove\_lakes@{remove\_lakes}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{remove\_lakes()}{remove\_lakes()}}
-{\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+::remove\+\_\+lakes (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ size\+\_\+t $>$ \&}]{subroot }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a81376d87a5f35274d6a541c9c9832bda} 
+void hmap\+::\+Drainage\+Basin\+::remove\+\_\+lakes (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ size\+\_\+t $>$ \&}]{subroot}{}\end{DoxyParamCaption})}
 
 
 
@@ -375,11 +379,11 @@ Remove lakes by draining local depressions.
 {\em subroot} & Vector of subroot indices to process. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1DrainageBasin_a97ae87db86facdff8c4955454553766a}\label{classhmap_1_1DrainageBasin_a97ae87db86facdff8c4955454553766a} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!compute\_response\_times@{compute\_response\_times}}
+\Hypertarget{classhmap_1_1DrainageBasin_a97ae87db86facdff8c4955454553766a}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!compute\_response\_times@{compute\_response\_times}}
 \index{compute\_response\_times@{compute\_response\_times}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{compute\_response\_times()}{compute\_response\_times()}}
-{\footnotesize\ttfamily std\+::vector$<$ float $>$ hmap\+::\+Drainage\+Basin\+::compute\+\_\+response\+\_\+times (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{area\+\_\+acc,  }\item[{const std\+::vector$<$ float $>$ \&}]{erodibility,  }\item[{float}]{m\+\_\+exp }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a97ae87db86facdff8c4955454553766a} 
+std\+::vector$<$ float $>$ hmap\+::\+Drainage\+Basin\+::compute\+\_\+response\+\_\+times (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{area\+\_\+acc}{, }\item[{const std\+::vector$<$ float $>$ \&}]{erodibility}{, }\item[{float}]{m\+\_\+exp}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -397,21 +401,21 @@ Compute response times of the basin vertices.
 \begin{DoxyReturn}{Returns}
 A vector of response times. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_a68cd031a86f51ed6107652ce336a51fa}\label{classhmap_1_1DrainageBasin_a68cd031a86f51ed6107652ce336a51fa} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!flow\_breach@{flow\_breach}}
+\Hypertarget{classhmap_1_1DrainageBasin_a68cd031a86f51ed6107652ce336a51fa}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!flow\_breach@{flow\_breach}}
 \index{flow\_breach@{flow\_breach}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{flow\_breach()}{flow\_breach()}}
-{\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+::flow\+\_\+breach (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a68cd031a86f51ed6107652ce336a51fa} 
+void hmap\+::\+Drainage\+Basin\+::flow\+\_\+breach (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
 Perform flow breaching to resolve depressions. 
 
-\Hypertarget{classhmap_1_1DrainageBasin_a4ec0c83521a03550a6824890b23a1311}\label{classhmap_1_1DrainageBasin_a4ec0c83521a03550a6824890b23a1311} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!flow\_breach\_paths@{flow\_breach\_paths}}
+\Hypertarget{classhmap_1_1DrainageBasin_a4ec0c83521a03550a6824890b23a1311}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!flow\_breach\_paths@{flow\_breach\_paths}}
 \index{flow\_breach\_paths@{flow\_breach\_paths}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{flow\_breach\_paths()}{flow\_breach\_paths()}}
-{\footnotesize\ttfamily std\+::vector$<$ std\+::vector$<$ glm\+::vec3 $>$ $>$ hmap\+::\+Drainage\+Basin\+::flow\+\_\+breach\+\_\+paths (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a4ec0c83521a03550a6824890b23a1311} 
+std\+::vector$<$ std\+::vector$<$ glm\+::vec3 $>$ $>$ hmap\+::\+Drainage\+Basin\+::flow\+\_\+breach\+\_\+paths (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
@@ -420,11 +424,11 @@ Compute the breaching paths for depressions.
 \begin{DoxyReturn}{Returns}
 A vector of paths, each represented as a vector of 3D points. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_a61c39bccd602d2c04dfed14e653d01a6}\label{classhmap_1_1DrainageBasin_a61c39bccd602d2c04dfed14e653d01a6} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!update\_elevations@{update\_elevations}}
+\Hypertarget{classhmap_1_1DrainageBasin_a61c39bccd602d2c04dfed14e653d01a6}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!update\_elevations@{update\_elevations}}
 \index{update\_elevations@{update\_elevations}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{update\_elevations()}{update\_elevations()}}
-{\footnotesize\ttfamily float hmap\+::\+Drainage\+Basin\+::update\+\_\+elevations (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{response\+\_\+times,  }\item[{float}]{uplift\+\_\+rate,  }\item[{const std\+::vector$<$ float $>$ \&}]{max\+\_\+slope }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a61c39bccd602d2c04dfed14e653d01a6} 
+float hmap\+::\+Drainage\+Basin\+::update\+\_\+elevations (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{response\+\_\+times}{, }\item[{float}]{uplift\+\_\+rate}{, }\item[{const std\+::vector$<$ float $>$ \&}]{max\+\_\+slope}{}\end{DoxyParamCaption})}
 
 
 
@@ -442,11 +446,11 @@ Update terrain elevations based on response times and uplift.
 \begin{DoxyReturn}{Returns}
 The maximum change in elevation. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_a6864378e3110c92b84c033b3579d58d3}\label{classhmap_1_1DrainageBasin_a6864378e3110c92b84c033b3579d58d3} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!accumulate\_area\_by\_outlet@{accumulate\_area\_by\_outlet}}
+\Hypertarget{classhmap_1_1DrainageBasin_a6864378e3110c92b84c033b3579d58d3}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!accumulate\_area\_by\_outlet@{accumulate\_area\_by\_outlet}}
 \index{accumulate\_area\_by\_outlet@{accumulate\_area\_by\_outlet}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{accumulate\_area\_by\_outlet()}{accumulate\_area\_by\_outlet()}}
-{\footnotesize\ttfamily void hmap\+::\+Drainage\+Basin\+::accumulate\+\_\+area\+\_\+by\+\_\+outlet (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{area,  }\item[{std\+::vector$<$ float $>$ \&}]{acc }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a6864378e3110c92b84c033b3579d58d3} 
+void hmap\+::\+Drainage\+Basin\+::accumulate\+\_\+area\+\_\+by\+\_\+outlet (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{area}{, }\item[{std\+::vector$<$ float $>$ \&}]{acc}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -459,11 +463,11 @@ Accumulate contributing area down the network by outlet.
 {\em acc} & Output accumulated area. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classhmap_1_1DrainageBasin_a7b01ca0613368f0fd3dde8812e326ff1}\label{classhmap_1_1DrainageBasin_a7b01ca0613368f0fd3dde8812e326ff1} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!for\_each\_upstream@{for\_each\_upstream}}
+\Hypertarget{classhmap_1_1DrainageBasin_a7b01ca0613368f0fd3dde8812e326ff1}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!for\_each\_upstream@{for\_each\_upstream}}
 \index{for\_each\_upstream@{for\_each\_upstream}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{for\_each\_upstream()}{for\_each\_upstream()}}
-{\footnotesize\ttfamily const std\+::vector$<$ size\+\_\+t $>$ \& hmap\+::\+Drainage\+Basin\+::for\+\_\+each\+\_\+upstream (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{outlet }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a7b01ca0613368f0fd3dde8812e326ff1} 
+const std\+::vector$<$ size\+\_\+t $>$ \& hmap\+::\+Drainage\+Basin\+::for\+\_\+each\+\_\+upstream (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{outlet}{}\end{DoxyParamCaption}) const}
 
 
 
@@ -477,11 +481,11 @@ Get the cached upstream traversal order from a specific outlet.
 \begin{DoxyReturn}{Returns}
 Const reference to the vector of vertex indices in upstream order. 
 \end{DoxyReturn}
-\Hypertarget{classhmap_1_1DrainageBasin_a4160d425b942c7b7dc3238f8e948403d}\label{classhmap_1_1DrainageBasin_a4160d425b942c7b7dc3238f8e948403d} 
-\index{hmap::DrainageBasin@{hmap::DrainageBasin}!for\_each\_downstream@{for\_each\_downstream}}
+\Hypertarget{classhmap_1_1DrainageBasin_a4160d425b942c7b7dc3238f8e948403d}\index{hmap::DrainageBasin@{hmap::DrainageBasin}!for\_each\_downstream@{for\_each\_downstream}}
 \index{for\_each\_downstream@{for\_each\_downstream}!hmap::DrainageBasin@{hmap::DrainageBasin}}
 \doxysubsubsection{\texorpdfstring{for\_each\_downstream()}{for\_each\_downstream()}}
-{\footnotesize\ttfamily auto hmap\+::\+Drainage\+Basin\+::for\+\_\+each\+\_\+downstream (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{outlet }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{classhmap_1_1DrainageBasin_a4160d425b942c7b7dc3238f8e948403d} 
+auto hmap\+::\+Drainage\+Basin\+::for\+\_\+each\+\_\+downstream (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{outlet}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 

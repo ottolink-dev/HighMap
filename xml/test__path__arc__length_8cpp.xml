@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="test__path__arc__length_8cpp" kind="file" language="C++">
     <compoundname>test_path_arc_length.cpp</compoundname>
     <sectiondef kind="func">
@@ -132,18 +132,18 @@
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Open,<sp/>non-uniformly<sp/>spaced<sp/>path:<sp/>segments<sp/>of<sp/>length<sp/>1<sp/>then<sp/>3.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"><ref refid="test__path__arc__length_8cpp_1a2c0fa8267683141e3a7f41b4c735f421" kindref="member">TEST</ref>(PathArcLength,<sp/>OpenNonUniformCumulativeDistance)</highlight></codeline>
 <codeline lineno="9"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="10"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>(std::vector&lt;hmap::Point&gt;{{0.f,<sp/>0.f,<sp/>0.f},</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path(std::vector&lt;hmap::Point&gt;{{0.f,<sp/>0.f,<sp/>0.f},</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1.f,<sp/>0.f,<sp/>0.f},</highlight></codeline>
 <codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{4.f,<sp/>0.f,<sp/>0.f}});</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>cdist<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.<ref refid="classhmap_1_1Path_1a9ea0ffcf40358b7e33ff8cffc33f918a" kindref="member">get_cumulative_distance</ref>();</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>cdist<sp/>=<sp/>path.<ref refid="classhmap_1_1Path_1a9ea0ffcf40358b7e33ff8cffc33f918a" kindref="member">get_cumulative_distance</ref>();</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal"><sp/><sp/>ASSERT_EQ(cdist.size(),<sp/>3u);</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(cdist[0],<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(cdist[1],<sp/>1.f,<sp/>1e-5f);<sp/></highlight><highlight class="comment">//<sp/>first<sp/>segment<sp/>length</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="19"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(cdist[2],<sp/>4.f,<sp/>1e-5f);<sp/></highlight><highlight class="comment">//<sp/>total<sp/>length</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>arc<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.get_arc_length();</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>arc<sp/>=<sp/>path.get_arc_length();</highlight></codeline>
 <codeline lineno="22"><highlight class="normal"><sp/><sp/>ASSERT_EQ(arc.size(),<sp/>3u);</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(arc[0],<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(arc[1],<sp/>0.25f,<sp/>1e-5f);</highlight></codeline>
@@ -153,15 +153,15 @@
 <codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Two-point<sp/>open<sp/>path:<sp/>must<sp/>not<sp/>collapse<sp/>to<sp/>a<sp/>zero-length<sp/>(NaN)<sp/>arc.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="29"><highlight class="normal"><ref refid="test__path__arc__length_8cpp_1a2c0fa8267683141e3a7f41b4c735f421" kindref="member">TEST</ref>(PathArcLength,<sp/>OpenTwoPointArcLengthIsFinite)</highlight></codeline>
 <codeline lineno="30"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>(</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path(</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;hmap::Point&gt;{{0.2f,<sp/>0.5f,<sp/>0.f},<sp/>{0.8f,<sp/>0.5f,<sp/>0.f}});</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>cdist<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.<ref refid="classhmap_1_1Path_1a9ea0ffcf40358b7e33ff8cffc33f918a" kindref="member">get_cumulative_distance</ref>();</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>cdist<sp/>=<sp/>path.<ref refid="classhmap_1_1Path_1a9ea0ffcf40358b7e33ff8cffc33f918a" kindref="member">get_cumulative_distance</ref>();</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"><sp/><sp/>ASSERT_EQ(cdist.size(),<sp/>2u);</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(cdist[0],<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(cdist[1],<sp/>0.6f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>arc<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.get_arc_length();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>arc<sp/>=<sp/>path.get_arc_length();</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/>ASSERT_EQ(arc.size(),<sp/>2u);</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(std::isfinite(arc[0]));</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(std::isfinite(arc[1]));</highlight></codeline>
@@ -173,13 +173,13 @@
 <codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">//<sp/>include<sp/>the<sp/>closing<sp/>segment<sp/>(size<sp/>N<sp/>+<sp/>1).</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><ref refid="test__path__arc__length_8cpp_1a2c0fa8267683141e3a7f41b4c735f421" kindref="member">TEST</ref>(PathArcLength,<sp/>ClosedSquareCumulativeDistance)</highlight></codeline>
 <codeline lineno="50"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>(std::vector&lt;hmap::Point&gt;{{0.f,<sp/>0.f,<sp/>0.f},</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path(std::vector&lt;hmap::Point&gt;{{0.f,<sp/>0.f,<sp/>0.f},</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1.f,<sp/>0.f,<sp/>0.f},</highlight></codeline>
 <codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1.f,<sp/>1.f,<sp/>0.f},</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0.f,<sp/>1.f,<sp/>0.f}});</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.<ref refid="classhmap_1_1Path_1aeb2890d2ffbbf4291baf255c621095de" kindref="member">set_closed</ref>(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1aeb2890d2ffbbf4291baf255c621095de" kindref="member">set_closed</ref>(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="56"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>cdist<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.get_cumulative_distance();</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>cdist<sp/>=<sp/>path.get_cumulative_distance();</highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"><sp/><sp/>ASSERT_EQ(cdist.size(),<sp/>5u);</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(cdist[0],<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
@@ -192,11 +192,11 @@
 <codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Zero-length<sp/>/<sp/>degenerate<sp/>path:<sp/>arc<sp/>length<sp/>must<sp/>return<sp/>all<sp/>zeros<sp/>without<sp/>NaNs.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="68"><highlight class="normal"><ref refid="test__path__arc__length_8cpp_1a2c0fa8267683141e3a7f41b4c735f421" kindref="member">TEST</ref>(PathArcLength,<sp/>DegenerateZeroLengthPath)</highlight></codeline>
 <codeline lineno="69"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>(std::vector&lt;hmap::Point&gt;{{1.f,<sp/>1.f,<sp/>0.f},</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path(std::vector&lt;hmap::Point&gt;{{1.f,<sp/>1.f,<sp/>0.f},</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1.f,<sp/>1.f,<sp/>0.f},</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1.f,<sp/>1.f,<sp/>0.f}});</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>arc<sp/>=<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.<ref refid="classhmap_1_1Path_1a0ef4a309bc181ea182c0b7a75c8fdae7" kindref="member">get_arc_length</ref>();</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>arc<sp/>=<sp/>path.get_arc_length();</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/>ASSERT_EQ(arc.size(),<sp/>3u);</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(std::isnan(arc[0]));</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(std::isnan(arc[1]));</highlight></codeline>
@@ -209,13 +209,13 @@
 <codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Empty<sp/>path<sp/>edge<sp/>cases</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="85"><highlight class="normal"><ref refid="test__path__arc__length_8cpp_1a2c0fa8267683141e3a7f41b4c735f421" kindref="member">TEST</ref>(PathArcLength,<sp/>EmptyPathSafety)</highlight></codeline>
 <codeline lineno="86"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path;</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.get_arc_length().empty());</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.get_cumulative_distance().empty());</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.get_curvature().empty());</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.get_tangents().empty());</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.get_normals().empty());</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(path.<ref refid="classhmap_1_1Path_1a0ef4a309bc181ea182c0b7a75c8fdae7" kindref="member">get_arc_length</ref>().empty());</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(path.<ref refid="classhmap_1_1Path_1a9ea0ffcf40358b7e33ff8cffc33f918a" kindref="member">get_cumulative_distance</ref>().empty());</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(path.<ref refid="classhmap_1_1Path_1ab083b81103f72c7c9b9fa81451599357" kindref="member">get_curvature</ref>().empty());</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(path.<ref refid="classhmap_1_1Path_1adb21bc9bdaea145a168b8ecdf43edf80" kindref="member">get_tangents</ref>().empty());</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(path.<ref refid="classhmap_1_1Path_1acfd768645d095235067a01cb7f069155" kindref="member">get_normals</ref>().empty());</highlight></codeline>
 <codeline lineno="94"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="95"><highlight class="normal"></highlight></codeline>
 <codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Tangents<sp/>and<sp/>Curvature<sp/>on<sp/>short<sp/>paths</highlight><highlight class="normal"></highlight></codeline>
@@ -224,16 +224,16 @@
 <codeline lineno="99"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>single_pt(std::vector&lt;hmap::Point&gt;{{1.f,<sp/>2.f,<sp/>3.f}});</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tg1<sp/>=<sp/>single_pt.<ref refid="classhmap_1_1Path_1adb21bc9bdaea145a168b8ecdf43edf80" kindref="member">get_tangents</ref>();</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"><sp/><sp/>ASSERT_EQ(tg1.size(),<sp/>1u);</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(tg1[0].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>1.f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(tg1[0].x,<sp/>1.f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="103"><highlight class="normal"></highlight></codeline>
 <codeline lineno="104"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>two_pts(</highlight></codeline>
 <codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;hmap::Point&gt;{{0.f,<sp/>0.f,<sp/>0.f},<sp/>{10.f,<sp/>0.f,<sp/>0.f}});</highlight></codeline>
 <codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>tg2<sp/>=<sp/>two_pts.<ref refid="classhmap_1_1Path_1adb21bc9bdaea145a168b8ecdf43edf80" kindref="member">get_tangents</ref>();</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"><sp/><sp/>ASSERT_EQ(tg2.size(),<sp/>2u);</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(tg2[0].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>1.f,<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(tg2[0].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(tg2[1].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>1.f,<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(tg2[1].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(tg2[0].x,<sp/>1.f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(tg2[0].y,<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(tg2[1].x,<sp/>1.f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(tg2[1].y,<sp/>0.f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="112"><highlight class="normal"></highlight></codeline>
 <codeline lineno="113"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cv2<sp/>=<sp/>two_pts.get_curvature(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="114"><highlight class="normal"><sp/><sp/>ASSERT_EQ(cv2.size(),<sp/>2u);</highlight></codeline>

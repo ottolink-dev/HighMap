@@ -1,4 +1,25 @@
 var searchData=
 [
-  ['quickstart_0',['Quickstart',['../md_docs_2content_2getting__started_2quickstart.html',1,'']]]
+  ['fft_20vs_20gpu_20convolution_20and_20morphological_20expansion_0',['FFT vs. GPU Convolution and Morphological Expansion',['../md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology.html',1,'']]],
+  ['fields_1',['4. Converting to Raster Fields',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md93',1,'']]],
+  ['filling_2',['Drainage Graph and Depression Filling',['../md_docs_2content_2dev_2hydraulic__mise.html#autotoc_md24',1,'']]],
+  ['findings_3',['Findings',['..//home/runner/work/HighMap/HighMap/docs/content/dev/investigations/fft_convolution_and_morphology.md#autotoc_md80',1,'Findings'],['..//home/runner/work/HighMap/HighMap/docs/content/dev/investigations/fft_convolution_and_morphology.md#autotoc_md82',1,'Findings']]],
+  ['fixes_20on_20gpu_4',['Numerical Stability and Parity Fixes on GPU',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md76',1,'']]],
+  ['flatten_20models_5',['Olsen, Ridge, and Flatten Models',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md98',1,'']]],
+  ['flatten_20thermal_5fflatten_6',['6. Thermal Flatten (&lt;span class=&quot;tt&quot;&gt;thermal_flatten&lt;/span&gt;)',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md105',1,'']]],
+  ['flora_20subsystem_20forest_7',['Flora Subsystem (&lt;span class=&quot;tt&quot;&gt;Forest&lt;/span&gt;)',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md91',1,'']]],
+  ['flow_8',['Hillslope Processes and Debris Flow',['..//home/runner/work/HighMap/HighMap/docs/content/dev/hydraulic_mise.md#autotoc_md26',1,'']]],
+  ['flow_20accumulation_20_24d_5f_9',['Continuous Flow Accumulation ($D_\\infty$)',['../md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md51',1,'']]],
+  ['fluvial_20stream_20power_20incision_10',['Fluvial Stream-Power Incision',['..//home/runner/work/HighMap/HighMap/docs/content/dev/hydraulic_mise.md#autotoc_md25',1,'']]],
+  ['for_20bézier_20curves_11',['BVH2D Acceleration for Bézier Curves',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md72',1,'']]],
+  ['for_20domain_20warping_20and_20path_20closure_12',['Support for Domain Warping and Path Closure',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md65',1,'']]],
+  ['for_20path_20sdf_20computation_13',['BVH2D Spatial Indexing for Path SDF Computation',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html',1,'']]],
+  ['force_14',['Rationale: Keeping the GPU Kernel Brute Force',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md75',1,'']]],
+  ['force_20vs_20cpu_20bvh2d_15',['Performance Analysis: GPU Brute Force vs CPU BVH2D',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md74',1,'']]],
+  ['forest_16',['Flora Subsystem (&lt;span class=&quot;tt&quot;&gt;Forest&lt;/span&gt;)',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md91',1,'']]],
+  ['forest_20and_20rockfield_17',['Scatter Architecture: ScatterField, Forest, and RockField',['../md_docs_2content_2dev_2scatter__field.html',1,'']]],
+  ['formulation_20and_20kinematics_18',['2. Theoretical Formulation and Kinematics',['../md_docs_2content_2dev_2hydraulic__mise.html#autotoc_md23',1,'']]],
+  ['foundational_20math_19',['Foundational Math',['../md_docs_2content_2dev_2architecture.html#autotoc_md4',1,'']]],
+  ['foundations_20',['1. Physical Foundations',['../md_docs_2content_2dev_2thermal__erosion.html#autotoc_md95',1,'']]],
+  ['functions_21',['Functions',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md125',1,'2. Bivariate Functions'],['../md_docs_2content_2dev_2architecture.html#autotoc_md12',1,'Stateless Processing Functions']]]
 ];

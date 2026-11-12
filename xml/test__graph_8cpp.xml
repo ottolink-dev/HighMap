@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="test__graph_8cpp" kind="file" language="C++">
     <compoundname>test_graph.cpp</compoundname>
     <sectiondef kind="func">
@@ -219,8 +219,8 @@
 <codeline lineno="37"><highlight class="normal"></highlight></codeline>
 <codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;nbrs1<sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1a83be20f4cc52c15ed7773d81cf304c2f" kindref="member">neighbors</ref>(1);</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"><sp/><sp/>ASSERT_EQ(nbrs1.size(),<sp/>2u);</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/>EXPECT_EQ(nbrs1[0].<ref refid="sls__deformation_8cpp_1a2975431cdfb0da699844afbc6058ebc9" kindref="member">target</ref>,<sp/>0);</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/>EXPECT_EQ(nbrs1[1].<ref refid="sls__deformation_8cpp_1a2975431cdfb0da699844afbc6058ebc9" kindref="member">target</ref>,<sp/>2);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>EXPECT_EQ(nbrs1[0].target,<sp/>0);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>EXPECT_EQ(nbrs1[1].target,<sp/>2);</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1af9dd5d2b3ff699e1e064f4d189d74d55" kindref="member">set_edge_weight</ref>(0,<sp/>10.f);</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(g.<ref refid="classhmap_1_1Graph_1a8ce4c44596c11ae0bbd651ad78967ca5" kindref="member">get_edge</ref>(0).<ref refid="structhmap_1_1Edge_1a736107901733cccc302516a0890641f1" kindref="member">weight</ref>,<sp/>10.f);</highlight></codeline>
@@ -245,18 +245,18 @@
 <codeline lineno="63"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(1,<sp/>2,<sp/>2.f);</highlight></codeline>
 <codeline lineno="64"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1a85e17398e3cd9215ef189f8bbc03f73f" kindref="member">add_edge</ref>(0,<sp/>2,<sp/>10.f);</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/>std::vector&lt;int&gt;<sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref><sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1aec94f282ad2c0633edaf14ee782ff3a7" kindref="member">dijkstra</ref>(0,<sp/>2);</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/>ASSERT_EQ(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>3u);</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>[0],<sp/>0);</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>[1],<sp/>1);</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>[2],<sp/>2);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>std::vector&lt;int&gt;<sp/>path<sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1aec94f282ad2c0633edaf14ee782ff3a7" kindref="member">dijkstra</ref>(0,<sp/>2);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>ASSERT_EQ(path.size(),<sp/>3u);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[0],<sp/>0);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[1],<sp/>1);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[2],<sp/>2);</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Shortest<sp/>path<sp/>with<sp/>updated<sp/>direct<sp/>edge<sp/>weight</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Graph_1af9dd5d2b3ff699e1e064f4d189d74d55" kindref="member">set_edge_weight</ref>(0,<sp/>2,<sp/>0.5f);</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref><sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1aec94f282ad2c0633edaf14ee782ff3a7" kindref="member">dijkstra</ref>(0,<sp/>2);</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/>ASSERT_EQ(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>2u);</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>[0],<sp/>0);</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="trench_8cpp_1aea4bb978a006652d3ff42b927337913d" kindref="member">path</ref>[1],<sp/>2);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>path<sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1aec94f282ad2c0633edaf14ee782ff3a7" kindref="member">dijkstra</ref>(0,<sp/>2);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>ASSERT_EQ(path.size(),<sp/>2u);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[0],<sp/>0);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/>EXPECT_EQ(path[1],<sp/>2);</highlight></codeline>
 <codeline lineno="78"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"></highlight></codeline>
 <codeline lineno="80"><highlight class="normal"><ref refid="test__graph_8cpp_1ac20850ac7ca37af017fd4133bb14b8d0" kindref="member">TEST</ref>(GraphTest,<sp/>MinimumSpanningTreePrim)</highlight></codeline>
@@ -276,8 +276,8 @@
 <codeline lineno="94"><highlight class="normal"><sp/><sp/>EXPECT_EQ(mst.<ref refid="classhmap_1_1Graph_1a99a6f2b1940db4c49cbf51dcb592a198" kindref="member">num_edges</ref>(),<sp/>2u);</highlight></codeline>
 <codeline lineno="95"><highlight class="normal"></highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>total_weight<sp/>=<sp/>0.f;</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;e<sp/>:<sp/>mst.get_edges())</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>total_weight<sp/>+=<sp/>e.<ref refid="sls__deformation_8cpp_1aeb4aca717b10b3f05f897485b4e1e9a6" kindref="member">weight</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;e<sp/>:<sp/>mst.<ref refid="classhmap_1_1Graph_1a7b1a701b472365f39736aef20e2ce1cc" kindref="member">get_edges</ref>())</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>total_weight<sp/>+=<sp/>e.weight;</highlight></codeline>
 <codeline lineno="99"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(total_weight,<sp/>3.f);<sp/></highlight><highlight class="comment">//<sp/>1<sp/>+<sp/>2</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="100"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"></highlight></codeline>
@@ -294,10 +294,10 @@
 <codeline lineno="112"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref><sp/>cleaned<sp/>=<sp/>g.<ref refid="classhmap_1_1Graph_1a9342d61be778e7fd8525334b5e3b4e00" kindref="member">remove_orphan_points</ref>();</highlight></codeline>
 <codeline lineno="113"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cleaned.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>2u);</highlight></codeline>
 <codeline lineno="114"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cleaned.<ref refid="classhmap_1_1Graph_1a99a6f2b1940db4c49cbf51dcb592a198" kindref="member">num_edges</ref>(),<sp/>1u);</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned[0].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>1.f);</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned[0].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>1.f);</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned[1].<ref refid="kd__tree_8cpp_1a1f4ec255d3d8677a6cd9d6a9a6eb653b" kindref="member">x</ref>,<sp/>2.f);</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned[1].<ref refid="kd__tree_8cpp_1ad6f02b2c4d57d479201316e67c3103d3" kindref="member">y</ref>,<sp/>2.f);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned[0].x,<sp/>1.f);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned[0].y,<sp/>1.f);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned[1].x,<sp/>2.f);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned[1].y,<sp/>2.f);</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cleaned.<ref refid="classhmap_1_1Graph_1a8ce4c44596c11ae0bbd651ad78967ca5" kindref="member">get_edge</ref>(0).<ref refid="structhmap_1_1Edge_1a47ef0094cf5374e9e613a9d0035e5c72" kindref="member">u</ref>,<sp/>0);</highlight></codeline>
 <codeline lineno="120"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cleaned.<ref refid="classhmap_1_1Graph_1a8ce4c44596c11ae0bbd651ad78967ca5" kindref="member">get_edge</ref>(0).<ref refid="structhmap_1_1Edge_1a98358a23447279dde010430f00e4d139" kindref="member">v</ref>,<sp/>1);</highlight></codeline>
 <codeline lineno="121"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(cleaned.<ref refid="classhmap_1_1Graph_1a8ce4c44596c11ae0bbd651ad78967ca5" kindref="member">get_edge</ref>(0).<ref refid="structhmap_1_1Edge_1a736107901733cccc302516a0890641f1" kindref="member">weight</ref>,<sp/>5.f);</highlight></codeline>

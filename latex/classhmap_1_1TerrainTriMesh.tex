@@ -18,16 +18,16 @@ struct \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1Edge}{Edge}}
 \begin{DoxyCompactList}\small\item\em Undirected edge between two vertices. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1EdgeHash}{Edge\+Hash}}
 \begin{DoxyCompactList}\small\item\em Hash functor for \doxylink{structhmap_1_1TerrainTriMesh_1_1Edge}{Edge}. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig}{Mesh\+Path\+Cost\+Config}}
-\begin{DoxyCompactList}\small\item\em Configuration for shortest-\/path edge costs and heuristics. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1Triangle}{Triangle}}
+\begin{DoxyCompactList}\small\item\em \doxylink{structhmap_1_1TerrainTriMesh_1_1Triangle}{Triangle} defined by three vertex indices. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1Neighbor}{Neighbor}}
 \begin{DoxyCompactList}\small\item\em \doxylink{structhmap_1_1TerrainTriMesh_1_1Neighbor}{Neighbor} vertex information. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1NeighborData}{Neighbor\+Data}}
 \begin{DoxyCompactList}\small\item\em Vertex adjacency lists. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1ShortestPathResult}{Shortest\+Path\+Result}}
 \begin{DoxyCompactList}\small\item\em Result of a shortest-\/path computation. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1Triangle}{Triangle}}
-\begin{DoxyCompactList}\small\item\em \doxylink{structhmap_1_1TerrainTriMesh_1_1Triangle}{Triangle} defined by three vertex indices. \end{DoxyCompactList}\end{DoxyCompactItemize}
+struct \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig}{Mesh\+Path\+Cost\+Config}}
+\begin{DoxyCompactList}\small\item\em Configuration for shortest-\/path edge costs and heuristics. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -35,7 +35,7 @@ struct \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1Triangle}{Triangle}}
 \begin{DoxyCompactList}\small\item\em Construct an empty mesh. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1TerrainTriMesh_a37612085ed993e68df599c7917cdae80}{Terrain\+Tri\+Mesh}} (const std\+::vector$<$ glm\+::vec3 $>$ \&ref\+\_\+points)
 \begin{DoxyCompactList}\small\item\em Construct a mesh from 3D points. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1TerrainTriMesh_af20e8dd9d33a54d67734a892dbd0dcb9}{Terrain\+Tri\+Mesh}} (const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_a1f4ec255d3d8677a6cd9d6a9a6eb653b}{x}}, const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{kd__tree_8cpp_ad6f02b2c4d57d479201316e67c3103d3}{y}}, const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}})
+\mbox{\hyperlink{classhmap_1_1TerrainTriMesh_af20e8dd9d33a54d67734a892dbd0dcb9}{Terrain\+Tri\+Mesh}} (const std\+::vector$<$ float $>$ \&x, const std\+::vector$<$ float $>$ \&y, const std\+::vector$<$ float $>$ \&z)
 \begin{DoxyCompactList}\small\item\em Construct a mesh from coordinate arrays. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1TerrainTriMesh_a2b764615c2ac8424ffe60469d7b68970}{triangulate\+\_\+delaunay}} ()
 \begin{DoxyCompactList}\small\item\em Build the Delaunay triangulation. \end{DoxyCompactList}\item 
@@ -57,7 +57,7 @@ void \mbox{\hyperlink{classhmap_1_1TerrainTriMesh_a4a9987cc3413e52602717c0b6d2d5
 \begin{DoxyCompactList}\small\item\em Limit terrain slopes with per-\/vertex thresholds. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1TerrainTriMesh_a8fa381ce42de945e2aff8944e2061def}{subdivise}} ()
 \begin{DoxyCompactList}\small\item\em Subdivide mesh triangles. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classhmap_1_1TerrainTriMesh_a3da697b9cfb9dc0c8b6ff8f5759021c4}{barycentric}} (const glm\+::vec2 \&p, size\+\_\+t \mbox{\hyperlink{sls__deformation_8cpp_a4ebb6d9fc740933a0f821517ed9af3e3}{i0}}, size\+\_\+t \mbox{\hyperlink{sls__deformation_8cpp_ac1148b6c7c73300331ae93335f42241d}{i1}}, size\+\_\+t i2, float \&w0, float \&w1, float \&w2) const
+bool \mbox{\hyperlink{classhmap_1_1TerrainTriMesh_a3da697b9cfb9dc0c8b6ff8f5759021c4}{barycentric}} (const glm\+::vec2 \&p, size\+\_\+t i0, size\+\_\+t i1, size\+\_\+t i2, float \&w0, float \&w1, float \&w2) const
 \begin{DoxyCompactList}\small\item\em Compute barycentric coordinates. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classhmap_1_1TerrainTriMesh_ae5d88ed0cc61c8606bed76faabb77e11}{find\+\_\+triangle}} (const glm\+::vec2 \&p, int start\+\_\+tri=0, bool linear\+\_\+search=false) const
 \begin{DoxyCompactList}\small\item\em Find the triangle containing a point. \end{DoxyCompactList}\item 
@@ -119,7 +119,7 @@ std\+::string \mbox{\hyperlink{classhmap_1_1TerrainTriMesh_a20fa4640aa9133749e40
 \begin{DoxyCompactList}\small\item\em Return a mesh summary string. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1TerrainTriMesh_a5af9d302226d00078fba8f9e40183935}{print\+\_\+info}} () const
 \begin{DoxyCompactList}\small\item\em Print mesh information. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{classhmap_1_1TerrainTriMesh_ad6de466d12b0ab91718c494164087224}{to\+\_\+array}} (const glm\+::ivec2 \&\mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}, const std\+::vector$<$ float $>$ \&\mbox{\hyperlink{sls__deformation_8cpp_aa3f9c59d276fad4520b1bf5012a8140f}{values}}=\{\}, const glm\+::vec4 \&\mbox{\hyperlink{sdf__2d__polyline__bezier_8cpp_a8396e15b291639eaa79ecd3badbdff48}{bbox}}=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}) const
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{classhmap_1_1TerrainTriMesh_ad6de466d12b0ab91718c494164087224}{to\+\_\+array}} (const glm\+::ivec2 \&shape, const std\+::vector$<$ float $>$ \&values=\{\}, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}) const
 \begin{DoxyCompactList}\small\item\em Rasterize the mesh into an array. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1TerrainTriMesh_a634da24b2586bfade4d89f53de17706e}{to\+\_\+csv}} (const std\+::string \&fname) const
 \begin{DoxyCompactList}\small\item\em Export vertices to CSV. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -130,32 +130,34 @@ void \mbox{\hyperlink{classhmap_1_1TerrainTriMesh_a634da24b2586bfade4d89f53de177
 
 Stores vertices, triangulation, connectivity, and provides geometry, interpolation, smoothing, and pathfinding utilities. 
 
+\label{doc-constructors}
+\Hypertarget{classhmap_1_1TerrainTriMesh_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{classhmap_1_1TerrainTriMesh_aae004ef70561e4d1e601f214ff109a1f}\label{classhmap_1_1TerrainTriMesh_aae004ef70561e4d1e601f214ff109a1f} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!TerrainTriMesh@{TerrainTriMesh}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_aae004ef70561e4d1e601f214ff109a1f}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!TerrainTriMesh@{TerrainTriMesh}}
 \index{TerrainTriMesh@{TerrainTriMesh}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{TerrainTriMesh()}{TerrainTriMesh()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily hmap\+::\+Terrain\+Tri\+Mesh\+::\+Terrain\+Tri\+Mesh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_aae004ef70561e4d1e601f214ff109a1f} 
+hmap\+::\+Terrain\+Tri\+Mesh\+::\+Terrain\+Tri\+Mesh (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
 
 
 Construct an empty mesh. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a37612085ed993e68df599c7917cdae80}\label{classhmap_1_1TerrainTriMesh_a37612085ed993e68df599c7917cdae80} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!TerrainTriMesh@{TerrainTriMesh}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a37612085ed993e68df599c7917cdae80}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!TerrainTriMesh@{TerrainTriMesh}}
 \index{TerrainTriMesh@{TerrainTriMesh}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{TerrainTriMesh()}{TerrainTriMesh()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily hmap\+::\+Terrain\+Tri\+Mesh\+::\+Terrain\+Tri\+Mesh (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ glm\+::vec3 $>$ \&}]{ref\+\_\+points }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a37612085ed993e68df599c7917cdae80} 
+hmap\+::\+Terrain\+Tri\+Mesh\+::\+Terrain\+Tri\+Mesh (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ glm\+::vec3 $>$ \&}]{ref\+\_\+points}{}\end{DoxyParamCaption})}
 
 
 
 Construct a mesh from 3D points. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_af20e8dd9d33a54d67734a892dbd0dcb9}\label{classhmap_1_1TerrainTriMesh_af20e8dd9d33a54d67734a892dbd0dcb9} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!TerrainTriMesh@{TerrainTriMesh}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_af20e8dd9d33a54d67734a892dbd0dcb9}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!TerrainTriMesh@{TerrainTriMesh}}
 \index{TerrainTriMesh@{TerrainTriMesh}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{TerrainTriMesh()}{TerrainTriMesh()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily hmap\+::\+Terrain\+Tri\+Mesh\+::\+Terrain\+Tri\+Mesh (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{x,  }\item[{const std\+::vector$<$ float $>$ \&}]{y,  }\item[{const std\+::vector$<$ float $>$ \&}]{z }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_af20e8dd9d33a54d67734a892dbd0dcb9} 
+hmap\+::\+Terrain\+Tri\+Mesh\+::\+Terrain\+Tri\+Mesh (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{x}{, }\item[{const std\+::vector$<$ float $>$ \&}]{y}{, }\item[{const std\+::vector$<$ float $>$ \&}]{z}{}\end{DoxyParamCaption})}
 
 
 
@@ -163,432 +165,434 @@ Construct a mesh from coordinate arrays.
 
 
 
+\label{doc-func-members}
+\Hypertarget{classhmap_1_1TerrainTriMesh_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classhmap_1_1TerrainTriMesh_a2b764615c2ac8424ffe60469d7b68970}\label{classhmap_1_1TerrainTriMesh_a2b764615c2ac8424ffe60469d7b68970} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!triangulate\_delaunay@{triangulate\_delaunay}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a2b764615c2ac8424ffe60469d7b68970}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!triangulate\_delaunay@{triangulate\_delaunay}}
 \index{triangulate\_delaunay@{triangulate\_delaunay}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{triangulate\_delaunay()}{triangulate\_delaunay()}}
-{\footnotesize\ttfamily void hmap\+::\+Terrain\+Tri\+Mesh\+::triangulate\+\_\+delaunay (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a2b764615c2ac8424ffe60469d7b68970} 
+void hmap\+::\+Terrain\+Tri\+Mesh\+::triangulate\+\_\+delaunay (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
 Build the Delaunay triangulation. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a9e62681c4e433aa980191f176ced7423}\label{classhmap_1_1TerrainTriMesh_a9e62681c4e433aa980191f176ced7423} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!compute\_neighbors@{compute\_neighbors}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a9e62681c4e433aa980191f176ced7423}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!compute\_neighbors@{compute\_neighbors}}
 \index{compute\_neighbors@{compute\_neighbors}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{compute\_neighbors()}{compute\_neighbors()}}
-{\footnotesize\ttfamily void hmap\+::\+Terrain\+Tri\+Mesh\+::compute\+\_\+neighbors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a9e62681c4e433aa980191f176ced7423} 
+void hmap\+::\+Terrain\+Tri\+Mesh\+::compute\+\_\+neighbors (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
 Compute vertex adjacency. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_aed32b7cd40a0e0bba5dd777a67fe692f}\label{classhmap_1_1TerrainTriMesh_aed32b7cd40a0e0bba5dd777a67fe692f} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!compute\_gradients@{compute\_gradients}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_aed32b7cd40a0e0bba5dd777a67fe692f}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!compute\_gradients@{compute\_gradients}}
 \index{compute\_gradients@{compute\_gradients}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{compute\_gradients()}{compute\_gradients()}}
-{\footnotesize\ttfamily void hmap\+::\+Terrain\+Tri\+Mesh\+::compute\+\_\+gradients (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_aed32b7cd40a0e0bba5dd777a67fe692f} 
+void hmap\+::\+Terrain\+Tri\+Mesh\+::compute\+\_\+gradients (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
 Compute vertex gradients. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a6974ff34df6b5184f513a17641591dd3}\label{classhmap_1_1TerrainTriMesh_a6974ff34df6b5184f513a17641591dd3} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!relax\_xy@{relax\_xy}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a6974ff34df6b5184f513a17641591dd3}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!relax\_xy@{relax\_xy}}
 \index{relax\_xy@{relax\_xy}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{relax\_xy()}{relax\_xy()}}
-{\footnotesize\ttfamily void hmap\+::\+Terrain\+Tri\+Mesh\+::relax\+\_\+xy (\begin{DoxyParamCaption}\item[{float}]{lambda = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{int}]{iterations = {\ttfamily 1},  }\item[{bool}]{preserve\+\_\+chull = {\ttfamily true} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a6974ff34df6b5184f513a17641591dd3} 
+void hmap\+::\+Terrain\+Tri\+Mesh\+::relax\+\_\+xy (\begin{DoxyParamCaption}\item[{float}]{lambda}{ = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{iterations}{ = {\ttfamily 1}, }\item[{bool}]{preserve\+\_\+chull}{ = {\ttfamily true}}\end{DoxyParamCaption})}
 
 
 
 Relax vertex positions in the XY plane. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_ac5aa5f772fdcbb71c7a393b92c828b4d}\label{classhmap_1_1TerrainTriMesh_ac5aa5f772fdcbb71c7a393b92c828b4d} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!relax\_xyz@{relax\_xyz}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_ac5aa5f772fdcbb71c7a393b92c828b4d}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!relax\_xyz@{relax\_xyz}}
 \index{relax\_xyz@{relax\_xyz}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{relax\_xyz()}{relax\_xyz()}}
-{\footnotesize\ttfamily void hmap\+::\+Terrain\+Tri\+Mesh\+::relax\+\_\+xyz (\begin{DoxyParamCaption}\item[{float}]{lambda = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{int}]{iterations = {\ttfamily 1},  }\item[{bool}]{preserve\+\_\+chull = {\ttfamily true} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_ac5aa5f772fdcbb71c7a393b92c828b4d} 
+void hmap\+::\+Terrain\+Tri\+Mesh\+::relax\+\_\+xyz (\begin{DoxyParamCaption}\item[{float}]{lambda}{ = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{iterations}{ = {\ttfamily 1}, }\item[{bool}]{preserve\+\_\+chull}{ = {\ttfamily true}}\end{DoxyParamCaption})}
 
 
 
 Relax vertex positions in 3D. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_aa3788669edfb1f96c24b6ec24096b570}\label{classhmap_1_1TerrainTriMesh_aa3788669edfb1f96c24b6ec24096b570} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!relax\_xyz\_taubin@{relax\_xyz\_taubin}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_aa3788669edfb1f96c24b6ec24096b570}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!relax\_xyz\_taubin@{relax\_xyz\_taubin}}
 \index{relax\_xyz\_taubin@{relax\_xyz\_taubin}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{relax\_xyz\_taubin()}{relax\_xyz\_taubin()}}
-{\footnotesize\ttfamily void hmap\+::\+Terrain\+Tri\+Mesh\+::relax\+\_\+xyz\+\_\+taubin (\begin{DoxyParamCaption}\item[{float}]{lambda = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{mu = {\ttfamily -\/0.55\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{int}]{iterations = {\ttfamily 1},  }\item[{bool}]{preserve\+\_\+chull = {\ttfamily true} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_aa3788669edfb1f96c24b6ec24096b570} 
+void hmap\+::\+Terrain\+Tri\+Mesh\+::relax\+\_\+xyz\+\_\+taubin (\begin{DoxyParamCaption}\item[{float}]{lambda}{ = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{mu}{ = {\ttfamily -\/0.55\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{iterations}{ = {\ttfamily 1}, }\item[{bool}]{preserve\+\_\+chull}{ = {\ttfamily true}}\end{DoxyParamCaption})}
 
 
 
 Apply Taubin smoothing. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_af46c5c65cea973438ba11a2a8fae5135}\label{classhmap_1_1TerrainTriMesh_af46c5c65cea973438ba11a2a8fae5135} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!remap\_z@{remap\_z}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_af46c5c65cea973438ba11a2a8fae5135}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!remap\_z@{remap\_z}}
 \index{remap\_z@{remap\_z}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{remap\_z()}{remap\_z()}}
-{\footnotesize\ttfamily void hmap\+::\+Terrain\+Tri\+Mesh\+::remap\+\_\+z (\begin{DoxyParamCaption}\item[{float}]{vmin = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{vmax = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_af46c5c65cea973438ba11a2a8fae5135} 
+void hmap\+::\+Terrain\+Tri\+Mesh\+::remap\+\_\+z (\begin{DoxyParamCaption}\item[{float}]{vmin}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{vmax}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption})}
 
 
 
 Remap elevation values. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a294e7c2d93fad24a25300028fe3937b3}\label{classhmap_1_1TerrainTriMesh_a294e7c2d93fad24a25300028fe3937b3} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!slope\_limiter@{slope\_limiter}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a294e7c2d93fad24a25300028fe3937b3}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!slope\_limiter@{slope\_limiter}}
 \index{slope\_limiter@{slope\_limiter}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{slope\_limiter()}{slope\_limiter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void hmap\+::\+Terrain\+Tri\+Mesh\+::slope\+\_\+limiter (\begin{DoxyParamCaption}\item[{float}]{max\+\_\+slope,  }\item[{int}]{iterations = {\ttfamily 10},  }\item[{float}]{sigma = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a294e7c2d93fad24a25300028fe3937b3} 
+void hmap\+::\+Terrain\+Tri\+Mesh\+::slope\+\_\+limiter (\begin{DoxyParamCaption}\item[{float}]{max\+\_\+slope}{, }\item[{int}]{iterations}{ = {\ttfamily 10}, }\item[{float}]{sigma}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption})}
 
 
 
 Limit terrain slopes. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a4a9987cc3413e52602717c0b6d2d5ab5}\label{classhmap_1_1TerrainTriMesh_a4a9987cc3413e52602717c0b6d2d5ab5} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!slope\_limiter@{slope\_limiter}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a4a9987cc3413e52602717c0b6d2d5ab5}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!slope\_limiter@{slope\_limiter}}
 \index{slope\_limiter@{slope\_limiter}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{slope\_limiter()}{slope\_limiter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void hmap\+::\+Terrain\+Tri\+Mesh\+::slope\+\_\+limiter (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{max\+\_\+slope,  }\item[{int}]{iterations = {\ttfamily 10},  }\item[{float}]{sigma = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a4a9987cc3413e52602717c0b6d2d5ab5} 
+void hmap\+::\+Terrain\+Tri\+Mesh\+::slope\+\_\+limiter (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{max\+\_\+slope}{, }\item[{int}]{iterations}{ = {\ttfamily 10}, }\item[{float}]{sigma}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption})}
 
 
 
 Limit terrain slopes with per-\/vertex thresholds. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a8fa381ce42de945e2aff8944e2061def}\label{classhmap_1_1TerrainTriMesh_a8fa381ce42de945e2aff8944e2061def} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!subdivise@{subdivise}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a8fa381ce42de945e2aff8944e2061def}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!subdivise@{subdivise}}
 \index{subdivise@{subdivise}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{subdivise()}{subdivise()}}
-{\footnotesize\ttfamily void hmap\+::\+Terrain\+Tri\+Mesh\+::subdivise (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a8fa381ce42de945e2aff8944e2061def} 
+void hmap\+::\+Terrain\+Tri\+Mesh\+::subdivise (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
 Subdivide mesh triangles. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a3da697b9cfb9dc0c8b6ff8f5759021c4}\label{classhmap_1_1TerrainTriMesh_a3da697b9cfb9dc0c8b6ff8f5759021c4} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!barycentric@{barycentric}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a3da697b9cfb9dc0c8b6ff8f5759021c4}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!barycentric@{barycentric}}
 \index{barycentric@{barycentric}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{barycentric()}{barycentric()}}
-{\footnotesize\ttfamily bool hmap\+::\+Terrain\+Tri\+Mesh\+::barycentric (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{p,  }\item[{size\+\_\+t}]{i0,  }\item[{size\+\_\+t}]{i1,  }\item[{size\+\_\+t}]{i2,  }\item[{float \&}]{w0,  }\item[{float \&}]{w1,  }\item[{float \&}]{w2 }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a3da697b9cfb9dc0c8b6ff8f5759021c4} 
+bool hmap\+::\+Terrain\+Tri\+Mesh\+::barycentric (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{p}{, }\item[{size\+\_\+t}]{i0}{, }\item[{size\+\_\+t}]{i1}{, }\item[{size\+\_\+t}]{i2}{, }\item[{float \&}]{w0}{, }\item[{float \&}]{w1}{, }\item[{float \&}]{w2}{}\end{DoxyParamCaption}) const}
 
 
 
 Compute barycentric coordinates. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_ae5d88ed0cc61c8606bed76faabb77e11}\label{classhmap_1_1TerrainTriMesh_ae5d88ed0cc61c8606bed76faabb77e11} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!find\_triangle@{find\_triangle}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_ae5d88ed0cc61c8606bed76faabb77e11}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!find\_triangle@{find\_triangle}}
 \index{find\_triangle@{find\_triangle}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{find\_triangle()}{find\_triangle()}}
-{\footnotesize\ttfamily int hmap\+::\+Terrain\+Tri\+Mesh\+::find\+\_\+triangle (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{p,  }\item[{int}]{start\+\_\+tri = {\ttfamily 0},  }\item[{bool}]{linear\+\_\+search = {\ttfamily false} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_ae5d88ed0cc61c8606bed76faabb77e11} 
+int hmap\+::\+Terrain\+Tri\+Mesh\+::find\+\_\+triangle (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{p}{, }\item[{int}]{start\+\_\+tri}{ = {\ttfamily 0}, }\item[{bool}]{linear\+\_\+search}{ = {\ttfamily false}}\end{DoxyParamCaption}) const}
 
 
 
 Find the triangle containing a point. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a402e4d126734c83cc388c35736a35a6a}\label{classhmap_1_1TerrainTriMesh_a402e4d126734c83cc388c35736a35a6a} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!neighbor\_triangle@{neighbor\_triangle}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a402e4d126734c83cc388c35736a35a6a}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!neighbor\_triangle@{neighbor\_triangle}}
 \index{neighbor\_triangle@{neighbor\_triangle}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{neighbor\_triangle()}{neighbor\_triangle()}}
-{\footnotesize\ttfamily int hmap\+::\+Terrain\+Tri\+Mesh\+::neighbor\+\_\+triangle (\begin{DoxyParamCaption}\item[{int}]{tri\+\_\+index,  }\item[{int}]{edge\+\_\+index }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a402e4d126734c83cc388c35736a35a6a} 
+int hmap\+::\+Terrain\+Tri\+Mesh\+::neighbor\+\_\+triangle (\begin{DoxyParamCaption}\item[{int}]{tri\+\_\+index}{, }\item[{int}]{edge\+\_\+index}{}\end{DoxyParamCaption}) const}
 
 
 
 Return the neighboring triangle across an edge. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_ad5e0b4845eb75accda1f0348cbdfaf36}\label{classhmap_1_1TerrainTriMesh_ad5e0b4845eb75accda1f0348cbdfaf36} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!interpolate\_z\_linear@{interpolate\_z\_linear}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_ad5e0b4845eb75accda1f0348cbdfaf36}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!interpolate\_z\_linear@{interpolate\_z\_linear}}
 \index{interpolate\_z\_linear@{interpolate\_z\_linear}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{interpolate\_z\_linear()}{interpolate\_z\_linear()}}
-{\footnotesize\ttfamily float hmap\+::\+Terrain\+Tri\+Mesh\+::interpolate\+\_\+z\+\_\+linear (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{p,  }\item[{int \&}]{last\+\_\+tri,  }\item[{float}]{fill\+\_\+value = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_ad5e0b4845eb75accda1f0348cbdfaf36} 
+float hmap\+::\+Terrain\+Tri\+Mesh\+::interpolate\+\_\+z\+\_\+linear (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{p}{, }\item[{int \&}]{last\+\_\+tri}{, }\item[{float}]{fill\+\_\+value}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption}) const}
 
 
 
 Linearly interpolate elevation. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a33b6043ea3e799f78bbc3417ae6b854e}\label{classhmap_1_1TerrainTriMesh_a33b6043ea3e799f78bbc3417ae6b854e} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!interpolate\_z\_linear\_gradient@{interpolate\_z\_linear\_gradient}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a33b6043ea3e799f78bbc3417ae6b854e}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!interpolate\_z\_linear\_gradient@{interpolate\_z\_linear\_gradient}}
 \index{interpolate\_z\_linear\_gradient@{interpolate\_z\_linear\_gradient}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{interpolate\_z\_linear\_gradient()}{interpolate\_z\_linear\_gradient()}}
-{\footnotesize\ttfamily float hmap\+::\+Terrain\+Tri\+Mesh\+::interpolate\+\_\+z\+\_\+linear\+\_\+gradient (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{p,  }\item[{int \&}]{last\+\_\+tri,  }\item[{float}]{fill\+\_\+value = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{gradient\+\_\+scaling = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a33b6043ea3e799f78bbc3417ae6b854e} 
+float hmap\+::\+Terrain\+Tri\+Mesh\+::interpolate\+\_\+z\+\_\+linear\+\_\+gradient (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{p}{, }\item[{int \&}]{last\+\_\+tri}{, }\item[{float}]{fill\+\_\+value}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{gradient\+\_\+scaling}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption}) const}
 
 
 
 Gradient-\/enhanced linear interpolation. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a4a0a37653662a43fbe6ed9465ab39a82}\label{classhmap_1_1TerrainTriMesh_a4a0a37653662a43fbe6ed9465ab39a82} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!interpolate\_z\_nearest@{interpolate\_z\_nearest}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a4a0a37653662a43fbe6ed9465ab39a82}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!interpolate\_z\_nearest@{interpolate\_z\_nearest}}
 \index{interpolate\_z\_nearest@{interpolate\_z\_nearest}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{interpolate\_z\_nearest()}{interpolate\_z\_nearest()}}
-{\footnotesize\ttfamily float hmap\+::\+Terrain\+Tri\+Mesh\+::interpolate\+\_\+z\+\_\+nearest (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{p }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a4a0a37653662a43fbe6ed9465ab39a82} 
+float hmap\+::\+Terrain\+Tri\+Mesh\+::interpolate\+\_\+z\+\_\+nearest (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{p}{}\end{DoxyParamCaption}) const}
 
 
 
 Nearest-\/neighbor interpolation. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_ad5966bc7d2b1181b936b34715940b3d8}\label{classhmap_1_1TerrainTriMesh_ad5966bc7d2b1181b936b34715940b3d8} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!interpolate\_z\_nearest\_approx@{interpolate\_z\_nearest\_approx}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_ad5966bc7d2b1181b936b34715940b3d8}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!interpolate\_z\_nearest\_approx@{interpolate\_z\_nearest\_approx}}
 \index{interpolate\_z\_nearest\_approx@{interpolate\_z\_nearest\_approx}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{interpolate\_z\_nearest\_approx()}{interpolate\_z\_nearest\_approx()}}
-{\footnotesize\ttfamily float hmap\+::\+Terrain\+Tri\+Mesh\+::interpolate\+\_\+z\+\_\+nearest\+\_\+approx (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{p,  }\item[{int \&}]{last\+\_\+tri,  }\item[{float}]{fill\+\_\+value = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_ad5966bc7d2b1181b936b34715940b3d8} 
+float hmap\+::\+Terrain\+Tri\+Mesh\+::interpolate\+\_\+z\+\_\+nearest\+\_\+approx (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{p}{, }\item[{int \&}]{last\+\_\+tri}{, }\item[{float}]{fill\+\_\+value}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption}) const}
 
 
 
 Approximate nearest-\/neighbor interpolation. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_abe70758d6b941cbca110db0ac66f167c}\label{classhmap_1_1TerrainTriMesh_abe70758d6b941cbca110db0ac66f167c} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_bbox@{get\_bbox}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_abe70758d6b941cbca110db0ac66f167c}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_bbox@{get\_bbox}}
 \index{get\_bbox@{get\_bbox}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{get\_bbox()}{get\_bbox()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1BoundingBox}{Terrain\+Tri\+Mesh\+::\+Bounding\+Box}} hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+bbox (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_abe70758d6b941cbca110db0ac66f167c} 
+\mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1BoundingBox}{Terrain\+Tri\+Mesh\+::\+Bounding\+Box}} hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+bbox (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Return the mesh bounding box. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_afccd515255b6a315d9e519ce611f3be8}\label{classhmap_1_1TerrainTriMesh_afccd515255b6a315d9e519ce611f3be8} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_range\_z@{get\_range\_z}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_afccd515255b6a315d9e519ce611f3be8}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_range\_z@{get\_range\_z}}
 \index{get\_range\_z@{get\_range\_z}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{get\_range\_z()}{get\_range\_z()}}
-{\footnotesize\ttfamily glm\+::vec2 hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+range\+\_\+z (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_afccd515255b6a315d9e519ce611f3be8} 
+glm\+::vec2 hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+range\+\_\+z (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Return the elevation range. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_af8810b7e06234e2da4dc91cccbce5c28}\label{classhmap_1_1TerrainTriMesh_af8810b7e06234e2da4dc91cccbce5c28} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_reference\_lengths@{get\_reference\_lengths}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_af8810b7e06234e2da4dc91cccbce5c28}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_reference\_lengths@{get\_reference\_lengths}}
 \index{get\_reference\_lengths@{get\_reference\_lengths}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{get\_reference\_lengths()}{get\_reference\_lengths()}}
-{\footnotesize\ttfamily glm\+::vec3 hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+reference\+\_\+lengths (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_af8810b7e06234e2da4dc91cccbce5c28} 
+glm\+::vec3 hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+reference\+\_\+lengths (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Return reference mesh dimensions. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_aa9304abfd5841779b867001630112f75}\label{classhmap_1_1TerrainTriMesh_aa9304abfd5841779b867001630112f75} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_vertex\_areas@{get\_vertex\_areas}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_aa9304abfd5841779b867001630112f75}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_vertex\_areas@{get\_vertex\_areas}}
 \index{get\_vertex\_areas@{get\_vertex\_areas}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{get\_vertex\_areas()}{get\_vertex\_areas()}}
-{\footnotesize\ttfamily std\+::vector$<$ float $>$ hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+vertex\+\_\+areas (\begin{DoxyParamCaption}\item[{bool}]{normalized }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_aa9304abfd5841779b867001630112f75} 
+std\+::vector$<$ float $>$ hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+vertex\+\_\+areas (\begin{DoxyParamCaption}\item[{bool}]{normalized}{}\end{DoxyParamCaption}) const}
 
 
 
 Compute vertex areas. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a3e9d39039a00946a48cac2b9afea937c}\label{classhmap_1_1TerrainTriMesh_a3e9d39039a00946a48cac2b9afea937c} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_reference\_area\_xy@{get\_reference\_area\_xy}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a3e9d39039a00946a48cac2b9afea937c}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_reference\_area\_xy@{get\_reference\_area\_xy}}
 \index{get\_reference\_area\_xy@{get\_reference\_area\_xy}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{get\_reference\_area\_xy()}{get\_reference\_area\_xy()}}
-{\footnotesize\ttfamily float hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+reference\+\_\+area\+\_\+xy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a3e9d39039a00946a48cac2b9afea937c} 
+float hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+reference\+\_\+area\+\_\+xy (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Return the projected mesh area. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a11aca8515dbf3f60d71d0debf5f4308f}\label{classhmap_1_1TerrainTriMesh_a11aca8515dbf3f60d71d0debf5f4308f} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_reference\_area@{get\_reference\_area}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a11aca8515dbf3f60d71d0debf5f4308f}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_reference\_area@{get\_reference\_area}}
 \index{get\_reference\_area@{get\_reference\_area}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{get\_reference\_area()}{get\_reference\_area()}}
-{\footnotesize\ttfamily float hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+reference\+\_\+area (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a11aca8515dbf3f60d71d0debf5f4308f} 
+float hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+reference\+\_\+area (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Return the mesh surface area. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a9dc6c3e9a3a765e3cd16f1f490da636a}\label{classhmap_1_1TerrainTriMesh_a9dc6c3e9a3a765e3cd16f1f490da636a} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!size@{size}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a9dc6c3e9a3a765e3cd16f1f490da636a}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!size@{size}}
 \index{size@{size}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{size()}{size()}}
-{\footnotesize\ttfamily size\+\_\+t hmap\+::\+Terrain\+Tri\+Mesh\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a9dc6c3e9a3a765e3cd16f1f490da636a} 
+size\+\_\+t hmap\+::\+Terrain\+Tri\+Mesh\+::size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Return the number of vertices. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a572d32bcabab1879831bcfc490bf5532}\label{classhmap_1_1TerrainTriMesh_a572d32bcabab1879831bcfc490bf5532} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!compute\_shortest\_paths\_to\_hull@{compute\_shortest\_paths\_to\_hull}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a572d32bcabab1879831bcfc490bf5532}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!compute\_shortest\_paths\_to\_hull@{compute\_shortest\_paths\_to\_hull}}
 \index{compute\_shortest\_paths\_to\_hull@{compute\_shortest\_paths\_to\_hull}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{compute\_shortest\_paths\_to\_hull()}{compute\_shortest\_paths\_to\_hull()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1ShortestPathResult}{Terrain\+Tri\+Mesh\+::\+Shortest\+Path\+Result}} hmap\+::\+Terrain\+Tri\+Mesh\+::compute\+\_\+shortest\+\_\+paths\+\_\+to\+\_\+hull (\begin{DoxyParamCaption}\item[{bool}]{use\+\_\+delta\+\_\+z = {\ttfamily false},  }\item[{float}]{elevation\+\_\+weight = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a572d32bcabab1879831bcfc490bf5532} 
+\mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1ShortestPathResult}{Terrain\+Tri\+Mesh\+::\+Shortest\+Path\+Result}} hmap\+::\+Terrain\+Tri\+Mesh\+::compute\+\_\+shortest\+\_\+paths\+\_\+to\+\_\+hull (\begin{DoxyParamCaption}\item[{bool}]{use\+\_\+delta\+\_\+z}{ = {\ttfamily false}, }\item[{float}]{elevation\+\_\+weight}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption}) const}
 
 
 
 Compute shortest paths to the convex hull. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a0ba71147927a2addb0e22a310691b8c3}\label{classhmap_1_1TerrainTriMesh_a0ba71147927a2addb0e22a310691b8c3} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!compute\_shortest\_paths@{compute\_shortest\_paths}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a0ba71147927a2addb0e22a310691b8c3}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!compute\_shortest\_paths@{compute\_shortest\_paths}}
 \index{compute\_shortest\_paths@{compute\_shortest\_paths}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{compute\_shortest\_paths()}{compute\_shortest\_paths()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1ShortestPathResult}{Terrain\+Tri\+Mesh\+::\+Shortest\+Path\+Result}} hmap\+::\+Terrain\+Tri\+Mesh\+::compute\+\_\+shortest\+\_\+paths (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::pair$<$ size\+\_\+t, float $>$ $>$ \&}]{sources,  }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig}{Mesh\+Path\+Cost\+Config}} \&}]{config }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a0ba71147927a2addb0e22a310691b8c3} 
+\mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1ShortestPathResult}{Terrain\+Tri\+Mesh\+::\+Shortest\+Path\+Result}} hmap\+::\+Terrain\+Tri\+Mesh\+::compute\+\_\+shortest\+\_\+paths (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::pair$<$ size\+\_\+t, float $>$ $>$ \&}]{sources}{, }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig}{Mesh\+Path\+Cost\+Config}} \&}]{config}{}\end{DoxyParamCaption}) const}
 
 
 
 Compute shortest paths from multiple sources with a cost config. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a05f72e51d5736312655330dd72ae9f12}\label{classhmap_1_1TerrainTriMesh_a05f72e51d5736312655330dd72ae9f12} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!compute\_shortest\_paths@{compute\_shortest\_paths}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a05f72e51d5736312655330dd72ae9f12}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!compute\_shortest\_paths@{compute\_shortest\_paths}}
 \index{compute\_shortest\_paths@{compute\_shortest\_paths}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{compute\_shortest\_paths()}{compute\_shortest\_paths()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1ShortestPathResult}{Terrain\+Tri\+Mesh\+::\+Shortest\+Path\+Result}} hmap\+::\+Terrain\+Tri\+Mesh\+::compute\+\_\+shortest\+\_\+paths (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{start,  }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig}{Mesh\+Path\+Cost\+Config}} \&}]{config }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a05f72e51d5736312655330dd72ae9f12} 
+\mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1ShortestPathResult}{Terrain\+Tri\+Mesh\+::\+Shortest\+Path\+Result}} hmap\+::\+Terrain\+Tri\+Mesh\+::compute\+\_\+shortest\+\_\+paths (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{start}{, }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig}{Mesh\+Path\+Cost\+Config}} \&}]{config}{}\end{DoxyParamCaption}) const}
 
 
 
 Compute shortest paths from a single source with a cost config. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_aad3b7896049e2e13a76dfe09dd6f708d}\label{classhmap_1_1TerrainTriMesh_aad3b7896049e2e13a76dfe09dd6f708d} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!compute\_shortest\_paths@{compute\_shortest\_paths}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_aad3b7896049e2e13a76dfe09dd6f708d}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!compute\_shortest\_paths@{compute\_shortest\_paths}}
 \index{compute\_shortest\_paths@{compute\_shortest\_paths}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{compute\_shortest\_paths()}{compute\_shortest\_paths()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1ShortestPathResult}{Terrain\+Tri\+Mesh\+::\+Shortest\+Path\+Result}} hmap\+::\+Terrain\+Tri\+Mesh\+::compute\+\_\+shortest\+\_\+paths (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{start,  }\item[{bool}]{use\+\_\+delta\+\_\+z = {\ttfamily false},  }\item[{float}]{elevation\+\_\+weight = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{domain\+\_\+center\+\_\+weight = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_aad3b7896049e2e13a76dfe09dd6f708d} 
+\mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1ShortestPathResult}{Terrain\+Tri\+Mesh\+::\+Shortest\+Path\+Result}} hmap\+::\+Terrain\+Tri\+Mesh\+::compute\+\_\+shortest\+\_\+paths (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{start}{, }\item[{bool}]{use\+\_\+delta\+\_\+z}{ = {\ttfamily false}, }\item[{float}]{elevation\+\_\+weight}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{domain\+\_\+center\+\_\+weight}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption}) const}
 
 
 
 Compute shortest paths from a source vertex. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_af0bc9d9d006e47ca2c0246cd98482e83}\label{classhmap_1_1TerrainTriMesh_af0bc9d9d006e47ca2c0246cd98482e83} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!shortest\_path@{shortest\_path}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_af0bc9d9d006e47ca2c0246cd98482e83}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!shortest\_path@{shortest\_path}}
 \index{shortest\_path@{shortest\_path}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{shortest\_path()}{shortest\_path()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily std\+::vector$<$ size\+\_\+t $>$ hmap\+::\+Terrain\+Tri\+Mesh\+::shortest\+\_\+path (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{start,  }\item[{size\+\_\+t}]{end,  }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig}{Mesh\+Path\+Cost\+Config}} \&}]{config }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_af0bc9d9d006e47ca2c0246cd98482e83} 
+std\+::vector$<$ size\+\_\+t $>$ hmap\+::\+Terrain\+Tri\+Mesh\+::shortest\+\_\+path (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{start}{, }\item[{size\+\_\+t}]{end}{, }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig}{Mesh\+Path\+Cost\+Config}} \&}]{config}{}\end{DoxyParamCaption}) const}
 
 
 
 Compute the shortest path between two vertices with a cost config. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_aa1053a02d395e2ad59acbfd028a73edf}\label{classhmap_1_1TerrainTriMesh_aa1053a02d395e2ad59acbfd028a73edf} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!shortest\_path@{shortest\_path}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_aa1053a02d395e2ad59acbfd028a73edf}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!shortest\_path@{shortest\_path}}
 \index{shortest\_path@{shortest\_path}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{shortest\_path()}{shortest\_path()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily std\+::vector$<$ size\+\_\+t $>$ hmap\+::\+Terrain\+Tri\+Mesh\+::shortest\+\_\+path (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{start,  }\item[{size\+\_\+t}]{end,  }\item[{bool}]{use\+\_\+delta\+\_\+z = {\ttfamily false},  }\item[{float}]{elevation\+\_\+weight = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}},  }\item[{float}]{domain\+\_\+center\+\_\+weight = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_aa1053a02d395e2ad59acbfd028a73edf} 
+std\+::vector$<$ size\+\_\+t $>$ hmap\+::\+Terrain\+Tri\+Mesh\+::shortest\+\_\+path (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{start}{, }\item[{size\+\_\+t}]{end}{, }\item[{bool}]{use\+\_\+delta\+\_\+z}{ = {\ttfamily false}, }\item[{float}]{elevation\+\_\+weight}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{domain\+\_\+center\+\_\+weight}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption}) const}
 
 
 
 Compute the shortest path between two vertices. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a517bba7785f15c38e91a5a4742122968}\label{classhmap_1_1TerrainTriMesh_a517bba7785f15c38e91a5a4742122968} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!reconstruct\_path@{reconstruct\_path}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a517bba7785f15c38e91a5a4742122968}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!reconstruct\_path@{reconstruct\_path}}
 \index{reconstruct\_path@{reconstruct\_path}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{reconstruct\_path()}{reconstruct\_path()}}
-{\footnotesize\ttfamily std\+::vector$<$ size\+\_\+t $>$ hmap\+::\+Terrain\+Tri\+Mesh\+::reconstruct\+\_\+path (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{start,  }\item[{size\+\_\+t}]{end,  }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1ShortestPathResult}{Shortest\+Path\+Result}} \&}]{result }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a517bba7785f15c38e91a5a4742122968} 
+std\+::vector$<$ size\+\_\+t $>$ hmap\+::\+Terrain\+Tri\+Mesh\+::reconstruct\+\_\+path (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{start}{, }\item[{size\+\_\+t}]{end}{, }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1ShortestPathResult}{Shortest\+Path\+Result}} \&}]{result}{}\end{DoxyParamCaption}) const}
 
 
 
 Reconstruct a path from start to end from a shortest path result. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_ad7c875682dd45ac1626bdfe6046fc5ca}\label{classhmap_1_1TerrainTriMesh_ad7c875682dd45ac1626bdfe6046fc5ca} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!path\_to\_hull@{path\_to\_hull}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_ad7c875682dd45ac1626bdfe6046fc5ca}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!path\_to\_hull@{path\_to\_hull}}
 \index{path\_to\_hull@{path\_to\_hull}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{path\_to\_hull()}{path\_to\_hull()}}
-{\footnotesize\ttfamily std\+::vector$<$ size\+\_\+t $>$ hmap\+::\+Terrain\+Tri\+Mesh\+::path\+\_\+to\+\_\+hull (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{start,  }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1ShortestPathResult}{Shortest\+Path\+Result}} \&}]{result }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_ad7c875682dd45ac1626bdfe6046fc5ca} 
+std\+::vector$<$ size\+\_\+t $>$ hmap\+::\+Terrain\+Tri\+Mesh\+::path\+\_\+to\+\_\+hull (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{start}{, }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1ShortestPathResult}{Shortest\+Path\+Result}} \&}]{result}{}\end{DoxyParamCaption}) const}
 
 
 
 Reconstruct a path to the convex hull. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_adcf186f3884969d2b85db0b2186b8d34}\label{classhmap_1_1TerrainTriMesh_adcf186f3884969d2b85db0b2186b8d34} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!pick\_mesh\_boundary\_vertex@{pick\_mesh\_boundary\_vertex}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_adcf186f3884969d2b85db0b2186b8d34}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!pick\_mesh\_boundary\_vertex@{pick\_mesh\_boundary\_vertex}}
 \index{pick\_mesh\_boundary\_vertex@{pick\_mesh\_boundary\_vertex}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{pick\_mesh\_boundary\_vertex()}{pick\_mesh\_boundary\_vertex()}}
-{\footnotesize\ttfamily size\+\_\+t hmap\+::\+Terrain\+Tri\+Mesh\+::pick\+\_\+mesh\+\_\+boundary\+\_\+vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacehmap_a1ba9d4ce7afe3309f8ae8e617f7154ee}{Domain\+Boundary}}}]{boundary,  }\item[{std\+::uint32\+\_\+t}]{seed = {\ttfamily 0},  }\item[{bool}]{favor\+\_\+boundary\+\_\+center = {\ttfamily true},  }\item[{bool}]{favor\+\_\+lower\+\_\+elevation = {\ttfamily true},  }\item[{bool}]{favor\+\_\+sinks = {\ttfamily true} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_adcf186f3884969d2b85db0b2186b8d34} 
+size\+\_\+t hmap\+::\+Terrain\+Tri\+Mesh\+::pick\+\_\+mesh\+\_\+boundary\+\_\+vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacehmap_a1ba9d4ce7afe3309f8ae8e617f7154ee}{Domain\+Boundary}}}]{boundary}{, }\item[{std\+::uint32\+\_\+t}]{seed}{ = {\ttfamily 0}, }\item[{bool}]{favor\+\_\+boundary\+\_\+center}{ = {\ttfamily true}, }\item[{bool}]{favor\+\_\+lower\+\_\+elevation}{ = {\ttfamily true}, }\item[{bool}]{favor\+\_\+sinks}{ = {\ttfamily true}}\end{DoxyParamCaption}) const}
 
 
 
 Pick a boundary vertex according to domain boundary and weights. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a9702d210cd3c967a066eb5ae6919476b}\label{classhmap_1_1TerrainTriMesh_a9702d210cd3c967a066eb5ae6919476b} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_points@{get\_points}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a9702d210cd3c967a066eb5ae6919476b}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_points@{get\_points}}
 \index{get\_points@{get\_points}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{get\_points()}{get\_points()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily const std\+::vector$<$ glm\+::vec3 $>$ \& hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a9702d210cd3c967a066eb5ae6919476b} 
+const std\+::vector$<$ glm\+::vec3 $>$ \& hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+points (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Return mesh vertices. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_aae715400b4086c69d625a00a9bd4fd17}\label{classhmap_1_1TerrainTriMesh_aae715400b4086c69d625a00a9bd4fd17} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_points@{get\_points}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_aae715400b4086c69d625a00a9bd4fd17}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_points@{get\_points}}
 \index{get\_points@{get\_points}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{get\_points()}{get\_points()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily std\+::vector$<$ glm\+::vec3 $>$ \& hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_aae715400b4086c69d625a00a9bd4fd17} 
+std\+::vector$<$ glm\+::vec3 $>$ \& hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+points (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
 Return mesh vertices. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_af3fc2aebc71077496e7d794005032887}\label{classhmap_1_1TerrainTriMesh_af3fc2aebc71077496e7d794005032887} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_triangles@{get\_triangles}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_af3fc2aebc71077496e7d794005032887}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_triangles@{get\_triangles}}
 \index{get\_triangles@{get\_triangles}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{get\_triangles()}{get\_triangles()}}
-{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1Triangle}{Terrain\+Tri\+Mesh\+::\+Triangle}} $>$ \& hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+triangles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_af3fc2aebc71077496e7d794005032887} 
+const std\+::vector$<$ \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1Triangle}{Terrain\+Tri\+Mesh\+::\+Triangle}} $>$ \& hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+triangles (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Return mesh triangles. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a023c617be776b6643ceccf8dd2ca22ec}\label{classhmap_1_1TerrainTriMesh_a023c617be776b6643ceccf8dd2ca22ec} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_convex\_hull@{get\_convex\_hull}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a023c617be776b6643ceccf8dd2ca22ec}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_convex\_hull@{get\_convex\_hull}}
 \index{get\_convex\_hull@{get\_convex\_hull}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{get\_convex\_hull()}{get\_convex\_hull()}}
-{\footnotesize\ttfamily const std\+::vector$<$ size\+\_\+t $>$ \& hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+convex\+\_\+hull (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a023c617be776b6643ceccf8dd2ca22ec} 
+const std\+::vector$<$ size\+\_\+t $>$ \& hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+convex\+\_\+hull (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Return convex hull vertex indices. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_adab683cb7235023ccd24630f401f6755}\label{classhmap_1_1TerrainTriMesh_adab683cb7235023ccd24630f401f6755} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_neighbors@{get\_neighbors}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_adab683cb7235023ccd24630f401f6755}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!get\_neighbors@{get\_neighbors}}
 \index{get\_neighbors@{get\_neighbors}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{get\_neighbors()}{get\_neighbors()}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1NeighborData}{Terrain\+Tri\+Mesh\+::\+Neighbor\+Data}} \& hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+neighbors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_adab683cb7235023ccd24630f401f6755} 
+const \mbox{\hyperlink{structhmap_1_1TerrainTriMesh_1_1NeighborData}{Terrain\+Tri\+Mesh\+::\+Neighbor\+Data}} \& hmap\+::\+Terrain\+Tri\+Mesh\+::get\+\_\+neighbors (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Return vertex neighbors. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_aff20c6cfb3730b3c55d6d1c803057bd3}\label{classhmap_1_1TerrainTriMesh_aff20c6cfb3730b3c55d6d1c803057bd3} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!export\_obj@{export\_obj}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_aff20c6cfb3730b3c55d6d1c803057bd3}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!export\_obj@{export\_obj}}
 \index{export\_obj@{export\_obj}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{export\_obj()}{export\_obj()}}
-{\footnotesize\ttfamily bool hmap\+::\+Terrain\+Tri\+Mesh\+::export\+\_\+obj (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filepath }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_aff20c6cfb3730b3c55d6d1c803057bd3} 
+bool hmap\+::\+Terrain\+Tri\+Mesh\+::export\+\_\+obj (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filepath}{}\end{DoxyParamCaption}) const}
 
 
 
 Export the mesh as an OBJ file. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a20fa4640aa9133749e4089022836215a}\label{classhmap_1_1TerrainTriMesh_a20fa4640aa9133749e4089022836215a} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!info\_string@{info\_string}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a20fa4640aa9133749e4089022836215a}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!info\_string@{info\_string}}
 \index{info\_string@{info\_string}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{info\_string()}{info\_string()}}
-{\footnotesize\ttfamily std\+::string hmap\+::\+Terrain\+Tri\+Mesh\+::info\+\_\+string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a20fa4640aa9133749e4089022836215a} 
+std\+::string hmap\+::\+Terrain\+Tri\+Mesh\+::info\+\_\+string (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Return a mesh summary string. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a5af9d302226d00078fba8f9e40183935}\label{classhmap_1_1TerrainTriMesh_a5af9d302226d00078fba8f9e40183935} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!print\_info@{print\_info}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a5af9d302226d00078fba8f9e40183935}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!print\_info@{print\_info}}
 \index{print\_info@{print\_info}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{print\_info()}{print\_info()}}
-{\footnotesize\ttfamily void hmap\+::\+Terrain\+Tri\+Mesh\+::print\+\_\+info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a5af9d302226d00078fba8f9e40183935} 
+void hmap\+::\+Terrain\+Tri\+Mesh\+::print\+\_\+info (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
 Print mesh information. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_ad6de466d12b0ab91718c494164087224}\label{classhmap_1_1TerrainTriMesh_ad6de466d12b0ab91718c494164087224} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!to\_array@{to\_array}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_ad6de466d12b0ab91718c494164087224}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!to\_array@{to\_array}}
 \index{to\_array@{to\_array}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{to\_array()}{to\_array()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::\+Terrain\+Tri\+Mesh\+::to\+\_\+array (\begin{DoxyParamCaption}\item[{const glm\+::ivec2 \&}]{shape,  }\item[{const std\+::vector$<$ float $>$ \&}]{values = {\ttfamily \{\}},  }\item[{const glm\+::vec4 \&}]{bbox = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_ad6de466d12b0ab91718c494164087224} 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::\+Terrain\+Tri\+Mesh\+::to\+\_\+array (\begin{DoxyParamCaption}\item[{const glm\+::ivec2 \&}]{shape}{, }\item[{const std\+::vector$<$ float $>$ \&}]{values}{ = {\ttfamily \{\}}, }\item[{const glm\+::vec4 \&}]{bbox}{ = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}}}\end{DoxyParamCaption}) const}
 
 
 
 Rasterize the mesh into an array. 
 
-\Hypertarget{classhmap_1_1TerrainTriMesh_a634da24b2586bfade4d89f53de17706e}\label{classhmap_1_1TerrainTriMesh_a634da24b2586bfade4d89f53de17706e} 
-\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!to\_csv@{to\_csv}}
+\Hypertarget{classhmap_1_1TerrainTriMesh_a634da24b2586bfade4d89f53de17706e}\index{hmap::TerrainTriMesh@{hmap::TerrainTriMesh}!to\_csv@{to\_csv}}
 \index{to\_csv@{to\_csv}!hmap::TerrainTriMesh@{hmap::TerrainTriMesh}}
 \doxysubsubsection{\texorpdfstring{to\_csv()}{to\_csv()}}
-{\footnotesize\ttfamily void hmap\+::\+Terrain\+Tri\+Mesh\+::to\+\_\+csv (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \label{classhmap_1_1TerrainTriMesh_a634da24b2586bfade4d89f53de17706e} 
+void hmap\+::\+Terrain\+Tri\+Mesh\+::to\+\_\+csv (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{fname}{}\end{DoxyParamCaption}) const}
 
 
 

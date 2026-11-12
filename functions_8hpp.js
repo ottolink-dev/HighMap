@@ -38,21 +38,21 @@ var functions_8hpp =
     [ "hmap::FbmRidgedFunction", "classhmap_1_1FbmRidgedFunction.html", "classhmap_1_1FbmRidgedFunction" ],
     [ "hmap::FbmSwissFunction", "classhmap_1_1FbmSwissFunction.html", "classhmap_1_1FbmSwissFunction" ],
     [ "hmap::FieldFunction", "classhmap_1_1FieldFunction.html", "classhmap_1_1FieldFunction" ],
-    [ "NoiseType", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195", [
-      [ "PARBERRY", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195a2f37fabff52c2f1b6c2e7e6aad77adbd", null ],
-      [ "PERLIN", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581", null ],
-      [ "PERLIN_BILLOW", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195a2497d2d20bd2b0a346a71aa1ff5c0be7", null ],
-      [ "PERLIN_HALF", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195acb1550fb6b10f55ed2d30b10e7ab65bb", null ],
-      [ "SIMPLEX2", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed", null ],
-      [ "SIMPLEX2S", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195a03f4fca6bab010831c1e90a0cce9dd80", null ],
-      [ "VALUE", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195add03c6de4abc2f9a84778572c433f4ca", null ],
-      [ "VALUE_CUBIC", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195ad0d2c07cd30954b90b955e9432df0752", null ],
-      [ "VALUE_DELAUNAY", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195a21c0228de087e15358fc1a394892ba52", null ],
-      [ "VALUE_LINEAR", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195ad0c8bb2f0b3f1b4ace48bcd5b7d159ed", null ],
-      [ "WORLEY", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195a035bda7c8c2179b47b9a766531c2e89e", null ],
-      [ "WORLEY_DOUBLE", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195a1d1ba101960a8a8234df2d16ac305d45", null ],
-      [ "WORLEY_VALUE", "functions_8hpp.html#ab8197c4c7a85dacb616fee7a7d0df195a803cca1f65b9596dbde7c54039773a39", null ]
+    [ "hmap::NoiseType", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195", [
+      [ "hmap::PARBERRY", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a2f37fabff52c2f1b6c2e7e6aad77adbd", null ],
+      [ "hmap::PERLIN", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581", null ],
+      [ "hmap::PERLIN_BILLOW", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a2497d2d20bd2b0a346a71aa1ff5c0be7", null ],
+      [ "hmap::PERLIN_HALF", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195acb1550fb6b10f55ed2d30b10e7ab65bb", null ],
+      [ "hmap::SIMPLEX2", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed", null ],
+      [ "hmap::SIMPLEX2S", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a03f4fca6bab010831c1e90a0cce9dd80", null ],
+      [ "hmap::VALUE", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195add03c6de4abc2f9a84778572c433f4ca", null ],
+      [ "hmap::VALUE_CUBIC", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195ad0d2c07cd30954b90b955e9432df0752", null ],
+      [ "hmap::VALUE_DELAUNAY", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a21c0228de087e15358fc1a394892ba52", null ],
+      [ "hmap::VALUE_LINEAR", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195ad0c8bb2f0b3f1b4ace48bcd5b7d159ed", null ],
+      [ "hmap::WORLEY", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a035bda7c8c2179b47b9a766531c2e89e", null ],
+      [ "hmap::WORLEY_DOUBLE", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a1d1ba101960a8a8234df2d16ac305d45", null ],
+      [ "hmap::WORLEY_VALUE", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a803cca1f65b9596dbde7c54039773a39", null ]
     ] ],
-    [ "make_xy_function_from_array", "functions_8hpp.html#a84ca1f41de32e4beacb10787127b4b8a", null ],
-    [ "create_noise_function_from_type", "functions_8hpp.html#a0139c2cbbb516591c54fe8a743dc139d", null ]
+    [ "hmap::make_xy_function_from_array", "namespacehmap.html#a84ca1f41de32e4beacb10787127b4b8a", null ],
+    [ "hmap::create_noise_function_from_type", "namespacehmap.html#a0139c2cbbb516591c54fe8a743dc139d", null ]
 ];

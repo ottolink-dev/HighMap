@@ -24,6 +24,6 @@ var searchData=
   ['hydraulic_5fstream_5fgpu_2ecpp_21',['hydraulic_stream_gpu.cpp',['../hydraulic__stream__gpu_8cpp.html',1,'']]],
   ['hydraulic_5fstream_5flog_2emd_22',['hydraulic_stream_log.md',['../hydraulic__stream__log_8md.html',1,'']]],
   ['hydraulic_5fvpipes_5fgpu_2ecpp_23',['hydraulic_vpipes_gpu.cpp',['../hydraulic__vpipes__gpu_8cpp.html',1,'']]],
-  ['hydrology_2ehpp_24',['hydrology.hpp',['../hydrology_2hydrology_8hpp.html',1,'(Global Namespace)'],['../hydrology_8hpp.html',1,'(Global Namespace)']]],
+  ['hydrology_2ehpp_24',['hydrology.hpp',['../hydrology_8hpp.html',1,'(Global Namespace)'],['../hydrology_2hydrology_8hpp.html',1,'(Global Namespace)']]],
   ['hydrology_5fpaths_5fto_5fgraph_2ecpp_25',['hydrology_paths_to_graph.cpp',['../hydrology__paths__to__graph_8cpp.html',1,'']]]
 ];

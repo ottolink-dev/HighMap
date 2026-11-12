@@ -1,10 +1,6 @@
 var searchData=
 [
-  ['algorithms_0',['Thermal Weathering and Talus Erosion Algorithms',['../md_docs_2content_2dev_2thermal__erosion.html',1,'']]],
-  ['and_20morphological_20expansion_1',['FFT vs. GPU Convolution and Morphological Expansion',['../md_docs_2content_2dev_2investigations_2fft__convolution__and__morphology.html',1,'']]],
-  ['and_20overlap_20synchronization_2',['Tiled Communication and Overlap Synchronization',['../md_docs_2content_2dev_2tiled__communication.html',1,'']]],
-  ['and_20rockfield_3',['Scatter Architecture: ScatterField, Forest, and RockField',['../md_docs_2content_2dev_2scatter__field.html',1,'']]],
-  ['and_20talus_20erosion_20algorithms_4',['Thermal Weathering and Talus Erosion Algorithms',['../md_docs_2content_2dev_2thermal__erosion.html',1,'']]],
-  ['architecture_20overview_5',['Architecture Overview',['../md_docs_2content_2dev_2architecture.html',1,'']]],
-  ['architecture_3a_20scatterfield_20forest_20and_20rockfield_6',['Scatter Architecture: ScatterField, Forest, and RockField',['../md_docs_2content_2dev_2scatter__field.html',1,'']]]
+  ['_24256_20256_24_20grid_0',['Execution Time Comparison ($256 \\times 256$ Grid)',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md68',1,'']]],
+  ['_24512_20512_24_20grid_1',['Execution Time Comparison ($512 \\times 512$ Grid)',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md67',1,'']]],
+  ['_24d_5f_2',['Continuous Flow Accumulation ($D_\\infty$)',['../md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md51',1,'']]]
 ];

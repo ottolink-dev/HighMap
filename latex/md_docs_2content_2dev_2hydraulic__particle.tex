@@ -1,8 +1,10 @@
-\chapter{Hydraulic Particle Erosion}
+\chapter{Hydraulic Particle Erosion }
 \hypertarget{md_docs_2content_2dev_2hydraulic__particle}{}\label{md_docs_2content_2dev_2hydraulic__particle}\index{Hydraulic Particle Erosion@{Hydraulic Particle Erosion}}
 \label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md34}%
 \Hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md34}%
- This document details the simulation model, kinematics, sediment transport equations, and implementation of particle-\/based hydraulic erosion ({\ttfamily hydraulic\+\_\+particle}) in High\+Map.\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md35}{}\doxysection{\texorpdfstring{1. Overview}{1. Overview}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md35}
+
+
+This document details the simulation model, kinematics, sediment transport equations, and implementation of particle-\/based hydraulic erosion ({\ttfamily hydraulic\+\_\+particle}) in High\+Map.\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md35}{}\doxysection{\texorpdfstring{1. Overview}{1. Overview}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md35}
 Hydraulic erosion models the carving of terrain by surface water runoff. In High\+Map, particle-\/based hydraulic erosion uses a Lagrangian formulation where virtual water droplets (particles) are spawned across the heightfield, navigate downslope according to local terrain kinematics, transport suspended sediment, and iteratively carve channels and deposit alluvial fans.
 
 
@@ -152,8 +154,8 @@ If \$\textbackslash{}text\{slope\}\+\_\+k \texorpdfstring{$>$}{>} \textbackslash
 
 \$\$\textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{collapse\}\} \textbackslash{}leftarrow \textbackslash{}min\textbackslash{}left(\textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{collapse\}\}, \textbackslash{}max(0, z\+\_\+k -\/ z\+\_\+\{\textbackslash{}text\{bedrock\}, k\})\textbackslash{}right)\$\$
 
-\$\$z\+\_\+k \textbackslash{}leftarrow z\+\_\+k -\/ \textbackslash{}frac\{1\}\{2\} \textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{collapse\}\}, \textbackslash{}quad z\+\_\+c \textbackslash{}leftarrow z\+\_\+c + \textbackslash{}frac\{1\}\{2\} \textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{collapse\}\}\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md44}{}\doxysection{\texorpdfstring{5. Multi-\/\+Pass and Multi-\/\+Scale Architectures}{5. Multi-Pass and Multi-Scale Architectures}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md44}
-\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md45}{}\doxysubsection{\texorpdfstring{Multi-\/\+Pass Iterations}{Multi-Pass Iterations}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md45}
+\$\$z\+\_\+k \textbackslash{}leftarrow z\+\_\+k -\/ \textbackslash{}frac\{1\}\{2\} \textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{collapse\}\}, \textbackslash{}quad z\+\_\+c \textbackslash{}leftarrow z\+\_\+c + \textbackslash{}frac\{1\}\{2\} \textbackslash{}\+Delta z\+\_\+\{\textbackslash{}text\{collapse\}\}\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md44}{}\doxysection{\texorpdfstring{5. Multi-\/\+Pass and Multi-\/\+Scale Architectures}{5. Multi-\/\+Pass and Multi-\/\+Scale Architectures}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md44}
+\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md45}{}\doxysubsection{\texorpdfstring{Multi-\/\+Pass Iterations}{Multi-\/\+Pass Iterations}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md45}
 Running all droplets in a single parallel Open\+CL dispatch causes particles to ignore concurrent modifications made by peers. High\+Map splits the particle budget into sequential iterations\+:
 
 
@@ -167,7 +169,7 @@ Running all droplets in a single parallel Open\+CL dispatch causes particles to 
 \end{DoxyCode}
 
 
-Sequential passes allow tributaries to naturally converge into coherent dendritic river systems.\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md46}{}\doxysubsection{\texorpdfstring{Multi-\/\+Scale Cascade ($<$tt$>$hydraulic\+\_\+particle\+\_\+multiscale$<$/tt$>$)}{Multi-Scale Cascade (<tt>hydraulic\_particle\_multiscale</tt>)}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md46}
+Sequential passes allow tributaries to naturally converge into coherent dendritic river systems.\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md46}{}\doxysubsection{\texorpdfstring{Multi-\/\+Scale Cascade ({\ttfamily hydraulic\+\_\+particle\+\_\+multiscale})}{Multi-\/\+Scale Cascade ({\ttfamily hydraulic\+\_\+particle\+\_\+multiscale})}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md46}
 To form continental-\/scale valleys without millions of high-\/resolution particle steps, {\ttfamily hydraulic\+\_\+particle\+\_\+multiscale} downsamples the terrain into a multi-\/resolution pyramid\+:
 
 
@@ -186,7 +188,7 @@ To form continental-\/scale valleys without millions of high-\/resolution partic
 \item The carved elevation deltas are upsampled and blended back into finer stages.
 \item Final fine-\/resolution passes add micro-\/rills and rocky bank debris.
 \end{DoxyEnumerate}\hypertarget{md_docs_2content_2dev_2hydraulic__particle_autotoc_md47}{}\doxysection{\texorpdfstring{6. C++ API Reference}{6. C++ API Reference}}\label{md_docs_2content_2dev_2hydraulic__particle_autotoc_md47}
-The primary interface resides in \href{file:///home/glop/Documents/dev/HighMap/HighMap/include/highmap/erosion/hydraulic_erosion.hpp}{\texttt{ {\ttfamily hydraulic\+\_\+erosion.\+hpp}}}\+:
+The primary interface resides in \href{file:///home/glop/Documents/dev/HighMap/HighMap/include/highmap/erosion/hydraulic_erosion.hpp}{\texttt{{\ttfamily hydraulic\+\_\+erosion.\+hpp}}}\+:
 
 
 \begin{DoxyCode}{0}
@@ -194,7 +196,7 @@ The primary interface resides in \href{file:///home/glop/Documents/dev/HighMap/H
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ Single-\/scale\ particle\ erosion}}
 \DoxyCodeLine{\mbox{\hyperlink{namespacehmap_1_1gpu_a4634556eb8cdc81b0bb52b5ebcd5309b}{hmap::gpu::hydraulic\_particle}}(}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Target\ heightfield\ (in-\/place)}}
+\DoxyCodeLine{\ \ \ \ z,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Target\ heightfield\ (in-\/place)}}
 \DoxyCodeLine{\ \ \ \ nparticles,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Total\ droplet\ count\ (e.g.\ 0.5\ *\ nx\ *\ ny)}}
 \DoxyCodeLine{\ \ \ \ seed,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Random\ seed}}
 \DoxyCodeLine{\ \ \ \ p\_bedrock,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Optional\ bedrock\ constraint\ buffer}}

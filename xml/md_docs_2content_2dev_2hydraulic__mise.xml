@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="md_docs_2content_2dev_2hydraulic__mise" kind="page">
     <compoundname>md_docs_2content_2dev_2hydraulic__mise</compoundname>
     <title>Multiscale Implicit Stream-Power Erosion (MISE)</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><anchor id="md_docs_2content_2dev_2hydraulic__mise_1autotoc_md21"/> This document details the theory, geomorphological formulations, implicit solver, and multiscale architecture of <computeroutput>hydraulic_mise</computeroutput> in HighMap.</para>
+<para><anchor id="md_docs_2content_2dev_2hydraulic__mise_1autotoc_md21"/></para>
+<para>This document details the theory, geomorphological formulations, implicit solver, and multiscale architecture of <computeroutput>hydraulic_mise</computeroutput> in HighMap.</para>
 <sect1 id="md_docs_2content_2dev_2hydraulic__mise_1autotoc_md22">
-<title>1. Overview</title>
-<para><computeroutput>hydraulic_mise</computeroutput> (Multiscale Implicit Stream-power Erosion) simulates long-term landscape evolution by solving coupled equations of fluvial bedrock incision, hillslope diffusion/debris flow, and alluvial sediment deposition across a dynamically re-routed drainage graph.</para>
+<title>1. Overview</title><para><computeroutput>hydraulic_mise</computeroutput> (Multiscale Implicit Stream-power Erosion) simulates long-term landscape evolution by solving coupled equations of fluvial bedrock incision, hillslope diffusion/debris flow, and alluvial sediment deposition across a dynamically re-routed drainage graph.</para>
 <para><image type="html" name="../../images/hydraulic_comparison_mise.png" inline="yes"></image>
 </para>
 <para>Unlike explicit particle tracing or simple height filtering, MISE uses:<itemizedlist>
@@ -35,10 +35,8 @@
 </programlisting></para>
 </sect1>
 <sect1 id="md_docs_2content_2dev_2hydraulic__mise_1autotoc_md23">
-<title>2. Theoretical Formulation and Kinematics</title>
-<sect2 id="md_docs_2content_2dev_2hydraulic__mise_1autotoc_md24">
-<title>Drainage Graph and Depression Filling</title>
-<para>Surface flow routes downhill from donors to receivers. To resolve local depressions (pits, sinks, and closed lakes), the terrain is processed with a priority flood algorithm:</para>
+<title>2. Theoretical Formulation and Kinematics</title><sect2 id="md_docs_2content_2dev_2hydraulic__mise_1autotoc_md24">
+<title>Drainage Graph and Depression Filling</title><para>Surface flow routes downhill from donors to receivers. To resolve local depressions (pits, sinks, and closed lakes), the terrain is processed with a priority flood algorithm:</para>
 <para><orderedlist>
 <listitem><para>A boundary queue seeds the flood, tracking minimum spill elevation.</para>
 </listitem><listitem><para>Pits are identified and tagged (<computeroutput>lake</computeroutput>), grouping flooded basins and their associated spillway outlets (<computeroutput>lake_outlet</computeroutput>).</para>

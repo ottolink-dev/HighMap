@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="test__virtual__texture_8cpp" kind="file" language="C++">
     <compoundname>test_virtual_texture.cpp</compoundname>
     <sectiondef kind="func">
@@ -189,19 +189,19 @@
 <codeline lineno="7"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"><ref refid="test__virtual__texture_8cpp_1a6a684795a5cdb9182ffc190ed1b3ae12" kindref="member">TEST</ref>(VirtualTextureTest,<sp/>ConstructionAndChannels)</highlight></codeline>
 <codeline lineno="9"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="10"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>{48,<sp/>48};</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape{48,<sp/>48};</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>tile_shape{16,<sp/>16};</highlight></codeline>
 <codeline lineno="12"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>2;</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>tile_shape,<sp/>halo,<sp/>4,<sp/>StorageMode::VA_RAM);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex(shape,<sp/>tile_shape,<sp/>halo,<sp/>4,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tex.shape,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tex.shape,<sp/>shape);</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tex.tile_shape,<sp/>tile_shape);</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tex.halo,<sp/>halo);</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tex.channels(),<sp/>4);</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/>EXPECT_EQ(tex.channels_ptr().size(),<sp/>4);</highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/>cm{.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/>ForEachMode::VA_SEQUENTIAL};</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/>cm{.mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5ad610a3b158cd10452fc144bda389aa19" kindref="member">ForEachMode::VA_SEQUENTIAL</ref>};</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><sp/><sp/>tex.fill(1.0f,<sp/>cm);</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight></codeline>
 <codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c<sp/>=<sp/>0;<sp/>c<sp/>&lt;<sp/>4;<sp/>++c)</highlight></codeline>
@@ -215,27 +215,27 @@
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
 <codeline lineno="34"><highlight class="normal"><ref refid="test__virtual__texture_8cpp_1a6a684795a5cdb9182ffc190ed1b3ae12" kindref="member">TEST</ref>(VirtualTextureTest,<sp/>TextureRoundTrip)</highlight></codeline>
 <codeline lineno="35"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>{32,<sp/>32};</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/>StorageMode::VA_RAM);</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/>ForEachMode::VA_SEQUENTIAL};</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/>shape{32,<sp/>32};</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex(shape,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5ad610a3b158cd10452fc144bda389aa19" kindref="member">ForEachMode::VA_SEQUENTIAL</ref>};</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/>tex.channel(0).fill(0.1f,<sp/>cm);</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"><sp/><sp/>tex.channel(1).fill(0.5f,<sp/>cm);</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/>tex.channel(2).fill(0.9f,<sp/>cm);</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">Texture</ref><sp/><ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref><sp/>=<sp/>tex.to_texture(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>cm);</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>.shape,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/>EXPECT_EQ(<ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>.num_channels(),<sp/>3);</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(<ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>[0].mean(),<sp/>0.1f,<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(<ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>[1].mean(),<sp/>0.5f,<sp/>1e-5f);</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(<ref refid="elevation__from__contours_8cpp_1a305c809f0e63e80705b5138b76dc0cc2" kindref="member">t</ref>[2].mean(),<sp/>0.9f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Texture" kindref="compound">Texture</ref><sp/>t<sp/>=<sp/>tex.to_texture(shape,<sp/>cm);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>EXPECT_EQ(t.<ref refid="classhmap_1_1Texture_1ad84007785575c1d7eca558afed9785cf" kindref="member">shape</ref>,<sp/>shape);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>EXPECT_EQ(t.<ref refid="classhmap_1_1Texture_1a3d94e8bea60fdb4d2cd505f67f60e2c4" kindref="member">num_channels</ref>(),<sp/>3);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(t[0].mean(),<sp/>0.1f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(t[1].mean(),<sp/>0.5f,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(t[2].mean(),<sp/>0.9f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="50"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="51"><highlight class="normal"></highlight></codeline>
 <codeline lineno="52"><highlight class="normal"><ref refid="test__virtual__texture_8cpp_1a6a684795a5cdb9182ffc190ed1b3ae12" kindref="member">TEST</ref>(VirtualTextureTest,<sp/>ChannelConversion)</highlight></codeline>
 <codeline lineno="53"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>{32,<sp/>32};</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex3(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/>StorageMode::VA_RAM);</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/>ForEachMode::VA_SEQUENTIAL};</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/>shape{32,<sp/>32};</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex3(shape,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5ad610a3b158cd10452fc144bda389aa19" kindref="member">ForEachMode::VA_SEQUENTIAL</ref>};</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"><sp/><sp/>tex3.fill(0.25f,<sp/>cm);</highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex4<sp/>=<sp/><ref refid="namespacehmap_1af66b37de86e8de6261ab902110b118a0" kindref="member">convert_texture_channels</ref>(tex3,<sp/>4,<sp/>1.0f,<sp/>cm);</highlight></codeline>
@@ -248,15 +248,15 @@
 <codeline lineno="66"><highlight class="normal"></highlight></codeline>
 <codeline lineno="67"><highlight class="normal"><ref refid="test__virtual__texture_8cpp_1a6a684795a5cdb9182ffc190ed1b3ae12" kindref="member">TEST</ref>(VirtualTextureTest,<sp/>Luminance)</highlight></codeline>
 <codeline lineno="68"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>{32,<sp/>32};</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/>StorageMode::VA_RAM);</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/>ForEachMode::VA_SEQUENTIAL};</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/>shape{32,<sp/>32};</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex(shape,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5ad610a3b158cd10452fc144bda389aa19" kindref="member">ForEachMode::VA_SEQUENTIAL</ref>};</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"></highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/>tex.channel(0).fill(1.0f,<sp/>cm);<sp/></highlight><highlight class="comment">//<sp/>R<sp/>=<sp/>1.0</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"><sp/><sp/>tex.channel(1).fill(0.0f,<sp/>cm);<sp/></highlight><highlight class="comment">//<sp/>G<sp/>=<sp/>0.0</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/>tex.channel(2).fill(0.0f,<sp/>cm);<sp/></highlight><highlight class="comment">//<sp/>B<sp/>=<sp/>0.0</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="76"><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>lum(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{16,<sp/>16},<sp/>2,<sp/>StorageMode::VA_RAM);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>lum(shape,<sp/>{16,<sp/>16},<sp/>2,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1af57ba0aebe498d0b79b91159d7e600b5" kindref="member">luminance</ref>(lum,<sp/>tex,<sp/>cm);</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"></highlight></codeline>
 <codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Expected<sp/>perceptual<sp/>luminance<sp/>=<sp/>0.299<sp/>*<sp/>1.0<sp/>=<sp/>0.299</highlight><highlight class="normal"></highlight></codeline>
@@ -265,11 +265,11 @@
 <codeline lineno="83"><highlight class="normal"></highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><ref refid="test__virtual__texture_8cpp_1a6a684795a5cdb9182ffc190ed1b3ae12" kindref="member">TEST</ref>(VirtualTextureTest,<sp/>MixFourChannels)</highlight></codeline>
 <codeline lineno="85"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>{32,<sp/>32};</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>t1(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{16,<sp/>16},<sp/>2,<sp/>4,<sp/>StorageMode::VA_RAM);</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>t2(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{16,<sp/>16},<sp/>2,<sp/>4,<sp/>StorageMode::VA_RAM);</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>out(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{16,<sp/>16},<sp/>2,<sp/>4,<sp/>StorageMode::VA_RAM);</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/>ForEachMode::VA_SEQUENTIAL};</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/>shape{32,<sp/>32};</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>t1(shape,<sp/>{16,<sp/>16},<sp/>2,<sp/>4,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>t2(shape,<sp/>{16,<sp/>16},<sp/>2,<sp/>4,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>out(shape,<sp/>{16,<sp/>16},<sp/>2,<sp/>4,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5ad610a3b158cd10452fc144bda389aa19" kindref="member">ForEachMode::VA_SEQUENTIAL</ref>};</highlight></codeline>
 <codeline lineno="91"><highlight class="normal"></highlight></codeline>
 <codeline lineno="92"><highlight class="normal"><sp/><sp/>t1.fill(0.0f,<sp/>cm);</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"><sp/><sp/>t1.fill(3,<sp/>1.0f,<sp/>cm);<sp/></highlight><highlight class="comment">//<sp/>Alpha<sp/>=<sp/>1.0</highlight><highlight class="normal"></highlight></codeline>
@@ -277,7 +277,7 @@
 <codeline lineno="95"><highlight class="normal"><sp/><sp/>t2.fill(1.0f,<sp/>cm);</highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/>t2.fill(3,<sp/>1.0f,<sp/>cm);<sp/></highlight><highlight class="comment">//<sp/>Alpha<sp/>=<sp/>1.0</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="97"><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ad5894053c042e2076fbbc7003bf69451" kindref="member">mix</ref>(out,<sp/>t1,<sp/>t2,<sp/>cm,<sp/>MixMethod::MM_LINEAR);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ad5894053c042e2076fbbc7003bf69451" kindref="member">mix</ref>(out,<sp/>t1,<sp/>t2,<sp/>cm,<sp/><ref refid="namespacehmap_1ad3b2ee0d951dd1116cc489ab96600c0fadb442265791dc4c41e19aa2d350bd15d" kindref="member">MixMethod::MM_LINEAR</ref>);</highlight></codeline>
 <codeline lineno="99"><highlight class="normal"></highlight></codeline>
 <codeline lineno="100"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(out.channel(0).mean(cm),<sp/>1.0f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(out.channel(3).mean(cm),<sp/>1.0f,<sp/>1e-5f);</highlight></codeline>
@@ -285,26 +285,26 @@
 <codeline lineno="103"><highlight class="normal"></highlight></codeline>
 <codeline lineno="104"><highlight class="normal"><ref refid="test__virtual__texture_8cpp_1a6a684795a5cdb9182ffc190ed1b3ae12" kindref="member">TEST</ref>(VirtualTextureTest,<sp/>ColorizeThreeChannelsDoesNotCrash)</highlight></codeline>
 <codeline lineno="105"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>{32,<sp/>32};</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/><sp/><sp/>level(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{16,<sp/>16},<sp/>2,<sp/>StorageMode::VA_RAM);</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex3(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/>StorageMode::VA_RAM);</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/>ForEachMode::VA_SEQUENTIAL};</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/>shape{32,<sp/>32};</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/><sp/><sp/>level(shape,<sp/>{16,<sp/>16},<sp/>2,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex3(shape,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5ad610a3b158cd10452fc144bda389aa19" kindref="member">ForEachMode::VA_SEQUENTIAL</ref>};</highlight></codeline>
 <codeline lineno="110"><highlight class="normal"></highlight></codeline>
 <codeline lineno="111"><highlight class="normal"><sp/><sp/>level.fill(0.5f,<sp/>cm);</highlight></codeline>
 <codeline lineno="112"><highlight class="normal"></highlight></codeline>
 <codeline lineno="113"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>previously<sp/>crashed<sp/>due<sp/>to<sp/>unconditional<sp/>write<sp/>to<sp/>p_arrays[6]<sp/>(alpha)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/>EXPECT_NO_THROW({<sp/><ref refid="namespacehmap_1a829cc9b8788f9387bcfd7be724b86f14" kindref="member">colorize</ref>(tex3,<sp/>level,<sp/>cm,<sp/>0.f,<sp/>1.f,<sp/>Cmap::VIRIDIS);<sp/>});</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>EXPECT_NO_THROW({<sp/><ref refid="namespacehmap_1a829cc9b8788f9387bcfd7be724b86f14" kindref="member">colorize</ref>(tex3,<sp/>level,<sp/>cm,<sp/>0.f,<sp/>1.f,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492" kindref="member">Cmap::VIRIDIS</ref>);<sp/>});</highlight></codeline>
 <codeline lineno="115"><highlight class="normal"></highlight></codeline>
 <codeline lineno="116"><highlight class="normal"><sp/><sp/>EXPECT_GT(tex3.channel(0).mean(cm),<sp/>0.f);</highlight></codeline>
 <codeline lineno="117"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="118"><highlight class="normal"></highlight></codeline>
 <codeline lineno="119"><highlight class="normal"><ref refid="test__virtual__texture_8cpp_1a6a684795a5cdb9182ffc190ed1b3ae12" kindref="member">TEST</ref>(VirtualTextureTest,<sp/>MixNormalMapThreeChannels)</highlight></codeline>
 <codeline lineno="120"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>{32,<sp/>32};</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>base(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/>StorageMode::VA_RAM);</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>detail(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/>StorageMode::VA_RAM);</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>out(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/>StorageMode::VA_RAM);</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/>ForEachMode::VA_SEQUENTIAL};</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/>shape{32,<sp/>32};</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>base(shape,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>detail(shape,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>out(shape,<sp/>{16,<sp/>16},<sp/>2,<sp/>3,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5ad610a3b158cd10452fc144bda389aa19" kindref="member">ForEachMode::VA_SEQUENTIAL</ref>};</highlight></codeline>
 <codeline lineno="126"><highlight class="normal"></highlight></codeline>
 <codeline lineno="127"><highlight class="normal"><sp/><sp/>base.channel(0).fill(0.5f,<sp/>cm);</highlight></codeline>
 <codeline lineno="128"><highlight class="normal"><sp/><sp/>base.channel(1).fill(0.5f,<sp/>cm);</highlight></codeline>
@@ -320,7 +320,7 @@
 <codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>detail,</highlight></codeline>
 <codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cm,</highlight></codeline>
 <codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f,</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NormalMapBlendingMethod::NMAP_LINEAR);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1abc952321c99ec11d60b4037e3d27db9bac248af7dd230247485e3c09a663cedd0" kindref="member">NormalMapBlendingMethod::NMAP_LINEAR</ref>);</highlight></codeline>
 <codeline lineno="142"><highlight class="normal"><sp/><sp/>});</highlight></codeline>
 <codeline lineno="143"><highlight class="normal"></highlight></codeline>
 <codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Flat<sp/>normal<sp/>mapped<sp/>back<sp/>to<sp/>RGB<sp/>[0.5,<sp/>0.5,<sp/>1.0]</highlight><highlight class="normal"></highlight></codeline>
@@ -331,9 +331,9 @@
 <codeline lineno="149"><highlight class="normal"></highlight></codeline>
 <codeline lineno="150"><highlight class="normal"><ref refid="test__virtual__texture_8cpp_1a6a684795a5cdb9182ffc190ed1b3ae12" kindref="member">TEST</ref>(VirtualTextureTest,<sp/>MemoryFootprintAndTrim)</highlight></codeline>
 <codeline lineno="151"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>{32,<sp/>32};</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>{16,<sp/>16},<sp/>2,<sp/>4,<sp/>StorageMode::VA_DISK_LRU_FULL);</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/>ForEachMode::VA_SEQUENTIAL};</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/>shape{32,<sp/>32};</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex(shape,<sp/>{16,<sp/>16},<sp/>2,<sp/>4,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6ea43d13a1f504643c9e81cb01d4b5b2efc" kindref="member">StorageMode::VA_DISK_LRU_FULL</ref>);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5ad610a3b158cd10452fc144bda389aa19" kindref="member">ForEachMode::VA_SEQUENTIAL</ref>};</highlight></codeline>
 <codeline lineno="155"><highlight class="normal"></highlight></codeline>
 <codeline lineno="156"><highlight class="normal"><sp/><sp/>tex.fill(1.0f,<sp/>cm);</highlight></codeline>
 <codeline lineno="157"><highlight class="normal"><sp/><sp/>EXPECT_GT(tex.live_memory_bytes(),<sp/>0);</highlight></codeline>
@@ -344,11 +344,11 @@
 <codeline lineno="162"><highlight class="normal"></highlight></codeline>
 <codeline lineno="163"><highlight class="normal"><ref refid="test__virtual__texture_8cpp_1a6a684795a5cdb9182ffc190ed1b3ae12" kindref="member">TEST</ref>(VirtualTextureTest,<sp/>SyncOverlapBuffers)</highlight></codeline>
 <codeline lineno="164"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>{32,<sp/>16};</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/>shape{32,<sp/>16};</highlight></codeline>
 <codeline lineno="166"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/><sp/>tile_shape{16,<sp/>16};</highlight></codeline>
 <codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>2;</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>,<sp/>tile_shape,<sp/>halo,<sp/>2,<sp/>StorageMode::VA_RAM);</highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/>ForEachMode::VA_SEQUENTIAL};</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>tex(shape,<sp/>tile_shape,<sp/>halo,<sp/>2,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm{.mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5ad610a3b158cd10452fc144bda389aa19" kindref="member">ForEachMode::VA_SEQUENTIAL</ref>};</highlight></codeline>
 <codeline lineno="170"><highlight class="normal"></highlight></codeline>
 <codeline lineno="171"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Fill<sp/>channel<sp/>0<sp/>tile<sp/>0<sp/>with<sp/>0.0f,<sp/>tile<sp/>1<sp/>with<sp/>1.0f</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="172"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Fill<sp/>channel<sp/>1<sp/>tile<sp/>0<sp/>with<sp/>2.0f,<sp/>tile<sp/>1<sp/>with<sp/>4.0f</highlight><highlight class="normal"></highlight></codeline>
@@ -369,15 +369,15 @@
 <codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
 <codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
 <codeline lineno="189"><highlight class="normal"></highlight></codeline>
-<codeline lineno="190"><highlight class="normal"><sp/><sp/>tex.sync_overlap_buffers(SyncOperation::Average);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/>tex.sync_overlap_buffers(<ref refid="namespacehmap_1a2ebe9b34048adbbb55abe1182603a1f8ab1897515d548a960afe49ecf66a29021" kindref="member">SyncOperation::Average</ref>);</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"></highlight></codeline>
 <codeline lineno="192"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c<sp/>=<sp/>0;<sp/>c<sp/>&lt;<sp/>tex.channels();<sp/>++c)</highlight></codeline>
 <codeline lineno="193"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;va<sp/>=<sp/>tex.channel(c);</highlight></codeline>
-<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r0<sp/>=<sp/>va.tile_region_from_tile_coords(0,<sp/>0);</highlight></codeline>
-<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r1<sp/>=<sp/>va.tile_region_from_tile_coords(1,<sp/>0);</highlight></codeline>
-<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t0<sp/>=<sp/>va.storage-&gt;get_tile(r0);</highlight></codeline>
-<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t1<sp/>=<sp/>va.storage-&gt;get_tile(r1);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="namespacehmap_1_1va" kindref="compound">va</ref><sp/>=<sp/>tex.channel(c);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r0<sp/>=<sp/><ref refid="namespacehmap_1_1va" kindref="compound">va</ref>.tile_region_from_tile_coords(0,<sp/>0);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref><sp/>r1<sp/>=<sp/><ref refid="namespacehmap_1_1va" kindref="compound">va</ref>.tile_region_from_tile_coords(1,<sp/>0);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t0<sp/>=<sp/><ref refid="namespacehmap_1_1va" kindref="compound">va</ref>.storage-&gt;get_tile(r0);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/>&amp;t1<sp/>=<sp/><ref refid="namespacehmap_1_1va" kindref="compound">va</ref>.storage-&gt;get_tile(r1);</highlight></codeline>
 <codeline lineno="199"><highlight class="normal"></highlight></codeline>
 <codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>pbuf<sp/>=<sp/>t0.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x<sp/>-<sp/>2<sp/>*<sp/>halo;</highlight></codeline>
 <codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>expected<sp/>=<sp/>(c<sp/>==<sp/>0)<sp/>?<sp/>0.5f<sp/>:<sp/>3.0f;</highlight></codeline>
@@ -385,8 +385,8 @@
 <codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t0(pbuf,<sp/>0),<sp/>expected);</highlight></codeline>
 <codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_FLOAT_EQ(t1(0,<sp/>0),<sp/>expected);</highlight></codeline>
 <codeline lineno="205"><highlight class="normal"></highlight></codeline>
-<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/>va.storage-&gt;release_tile(r0);</highlight></codeline>
-<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/>va.storage-&gt;release_tile(r1);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1va" kindref="compound">va</ref>.storage-&gt;release_tile(r0);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1_1va" kindref="compound">va</ref>.storage-&gt;release_tile(r1);</highlight></codeline>
 <codeline lineno="208"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="209"><highlight class="normal">}</highlight></codeline>
     </programlisting>

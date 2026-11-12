@@ -2,7 +2,7 @@ var searchData=
 [
   ['radial_5fprofile_5ffunction_2ecpp_0',['radial_profile_function.cpp',['../radial__profile__function_8cpp.html',1,'']]],
   ['ram_5ftile_5fstorage_2ecpp_1',['ram_tile_storage.cpp',['../ram__tile__storage_8cpp.html',1,'']]],
-  ['random_2ehpp_2',['random.hpp',['../random_8hpp.html',1,'(Global Namespace)'],['../primitives_2random_8hpp.html',1,'(Global Namespace)']]],
+  ['random_2ehpp_2',['random.hpp',['../primitives_2random_8hpp.html',1,'(Global Namespace)'],['../random_8hpp.html',1,'(Global Namespace)']]],
   ['range_2ecpp_3',['range.cpp',['../range_8cpp.html',1,'']]],
   ['range_2ehpp_4',['range.hpp',['../range_8hpp.html',1,'']]],
   ['read_5fto_5farray_2ecpp_5',['read_to_array.cpp',['../read__to__array_8cpp.html',1,'']]],

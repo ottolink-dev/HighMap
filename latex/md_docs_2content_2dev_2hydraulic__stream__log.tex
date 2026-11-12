@@ -1,8 +1,10 @@
-\chapter{Hydraulic Stream Log Erosion}
+\chapter{Hydraulic Stream Log Erosion }
 \hypertarget{md_docs_2content_2dev_2hydraulic__stream__log}{}\label{md_docs_2content_2dev_2hydraulic__stream__log}\index{Hydraulic Stream Log Erosion@{Hydraulic Stream Log Erosion}}
 \label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md48}%
 \Hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md48}%
- This document details the algorithm, continuous flow formulation, logarithmic stream power scaling, and implementation of {\ttfamily hydraulic\+\_\+stream\+\_\+log} and {\ttfamily hydraulic\+\_\+stream\+\_\+log\+\_\+multiscale} in High\+Map.\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md49}{}\doxysection{\texorpdfstring{1. Overview}{1. Overview}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md49}
+
+
+This document details the algorithm, continuous flow formulation, logarithmic stream power scaling, and implementation of {\ttfamily hydraulic\+\_\+stream\+\_\+log} and {\ttfamily hydraulic\+\_\+stream\+\_\+log\+\_\+multiscale} in High\+Map.\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md49}{}\doxysection{\texorpdfstring{1. Overview}{1. Overview}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md49}
 While particle-\/based hydraulic erosion ({\ttfamily hydraulic\+\_\+particle}) simulates discrete raindrops advecting across the surface, {\ttfamily hydraulic\+\_\+stream\+\_\+log} is an Eulerian, stream-\/power erosion model. It operates globally across the grid using continuous \$\+D\+\_\+\textbackslash{}infty\$ flow accumulation, logarithmic discharge scaling, local gradient modulation, and hole-\/filling deposition.
 
 
@@ -25,7 +27,7 @@ This method carves continuous, smooth dendritic river valleys and dendritic drai
 
 \end{DoxyCode}
 \hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md50}{}\doxysection{\texorpdfstring{2. Mathematical Model and Kinematics}{2. Mathematical Model and Kinematics}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md50}
-\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md51}{}\doxysubsection{\texorpdfstring{Continuous Flow Accumulation (\$\+D\+\_\+\textbackslash{}infty\$)}{Continuous Flow Accumulation (\$D\_\textbackslash{}infty\$)}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md51}
+\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md51}{}\doxysubsection{\texorpdfstring{Continuous Flow Accumulation (\$\+D\+\_\+\textbackslash{}infty\$)}{Continuous Flow Accumulation (\$\+D\+\_\+\textbackslash{}infty\$)}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md51}
 Water routing is computed using Tarboton\textquotesingle{}s \$\+D\+\_\+\textbackslash{}infty\$ continuous flow direction model. Rather than confining flow to one of eight discrete directions (\$\+D\+\_\+8\$), \$\+D\+\_\+\textbackslash{}infty\$ routes flow along triangular facets as a continuous facet angle \$\textbackslash{}theta \textbackslash{}in \mbox{[}0, 2\textbackslash{}pi)\$.
 
 
@@ -114,7 +116,7 @@ Unlike physical Lagrangian transport where sediment is tracked along particle pa
 \item {\bfseries{Bedrock Enforcement}}\+: If a hard bedrock stratum \$z\+\_\+\{\textbackslash{}text\{bedrock\}\}\$ is provided, elevation is clamped from below\+:
 \end{DoxyEnumerate}
 
-\$\$z \textbackslash{}leftarrow \textbackslash{}max(z\+\_\+\{\textbackslash{}text\{bedrock\}\}, z)\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md57}{}\doxysection{\texorpdfstring{4. Multiscale Architecture ($<$tt$>$hydraulic\+\_\+stream\+\_\+log\+\_\+multiscale$<$/tt$>$)}{4. Multiscale Architecture (<tt>hydraulic\_stream\_log\_multiscale</tt>)}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md57}
+\$\$z \textbackslash{}leftarrow \textbackslash{}max(z\+\_\+\{\textbackslash{}text\{bedrock\}\}, z)\$\$\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md57}{}\doxysection{\texorpdfstring{4. Multiscale Architecture ({\ttfamily hydraulic\+\_\+stream\+\_\+log\+\_\+multiscale})}{4. Multiscale Architecture ({\ttfamily hydraulic\+\_\+stream\+\_\+log\+\_\+multiscale})}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md57}
 When creating expansive mountain landscapes, applying flow accumulation at a single high resolution can produce overly fine, dense rill networks rather than majestic, wide valley corridors.
 
 {\ttfamily hydraulic\+\_\+stream\+\_\+log\+\_\+multiscale} solves this by building an octave downsampling pyramid\+:
@@ -162,7 +164,7 @@ When creating expansive mountain landscapes, applying flow accumulation at a sin
 \item The finest level runs with {\ttfamily deposition\+\_\+scale\+\_\+ratio} active, producing detailed riverbanks, braided streams, and sediment flats.
 \end{DoxyItemize}
 \end{DoxyEnumerate}\hypertarget{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md59}{}\doxysection{\texorpdfstring{5. C++ API Reference}{5. C++ API Reference}}\label{md_docs_2content_2dev_2hydraulic__stream__log_autotoc_md59}
-The functions are declared in \href{file:///home/glop/Documents/dev/HighMap/HighMap/include/highmap/erosion/hydraulic_erosion.hpp}{\texttt{ {\ttfamily hydraulic\+\_\+erosion.\+hpp}}}\+:
+The functions are declared in \href{file:///home/glop/Documents/dev/HighMap/HighMap/include/highmap/erosion/hydraulic_erosion.hpp}{\texttt{{\ttfamily hydraulic\+\_\+erosion.\+hpp}}}\+:
 
 
 \begin{DoxyCode}{0}
@@ -170,9 +172,9 @@ The functions are declared in \href{file:///home/glop/Documents/dev/HighMap/High
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ Single-\/scale\ logarithmic\ stream\ erosion}}
 \DoxyCodeLine{\mbox{\hyperlink{namespacehmap_1_1gpu_a7e51491ac0bc571828955e8a54b143dc}{hmap::gpu::hydraulic\_stream\_log}}(}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Target\ heightfield}}
+\DoxyCodeLine{\ \ \ \ z,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Target\ heightfield}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ c\_erosion\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.2f,}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ talus\_ref\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ 5.0f\ /\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ talus\_ref\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ 5.0f\ /\ shape.x,}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ deposition\_ir\ */}\ \ \ \ \ \ \ \ \ \ 32,}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ deposition\_scale\_ratio\ */}\ 1.0f,}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ gradient\_power\ */}\ \ \ \ \ \ \ \ \ 0.8f,}
@@ -188,9 +190,9 @@ The functions are declared in \href{file:///home/glop/Documents/dev/HighMap/High
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ Multiscale\ logarithmic\ stream\ cascade}}
 \DoxyCodeLine{\mbox{\hyperlink{namespacehmap_1_1gpu_a263168c2e1e24e25a4c1cba0142bdbc0}{hmap::gpu::hydraulic\_stream\_log\_multiscale}}(}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{hydraulic__mise_8cpp_aa14e04bff7de9e968e46a953f71f29f3}{z}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Target\ heightfield}}
+\DoxyCodeLine{\ \ \ \ z,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Target\ heightfield}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ c\_erosion\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.2f,}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ talus\_ref\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ 5.0f\ /\ \mbox{\hyperlink{elevation__from__contours_8cpp_af339e609a44f3516574ffecaf5245fa3}{shape}}.x,}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ talus\_ref\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ 5.0f\ /\ shape.x,}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ levels\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3,}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ deposition\_ir\ */}\ \ \ \ \ \ \ \ \ \ 32,}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ deposition\_scale\_ratio\ */}\ 1.0f,}

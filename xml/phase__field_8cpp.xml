@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="phase__field_8cpp" kind="file" language="C++">
     <compoundname>phase_field.cpp</compoundname>
     <innernamespace refid="namespacehmap">hmap</innernamespace>
@@ -28,7 +28,7 @@
 <codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap_1_1gpu" kindref="compound">hmap::gpu</ref></highlight></codeline>
 <codeline lineno="18"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight></codeline>
-<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1_1gpu_1a8a89eb3b3dcbdd39e57abc1770420bf1" kindref="member">phase_averaging</ref>(Array<sp/>&amp;field_real,<sp/>Array<sp/>&amp;field_imag,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehmap_1_1gpu_1a8a89eb3b3dcbdd39e57abc1770420bf1" kindref="member">phase_averaging</ref>(Array<sp/>&amp;field_real,<sp/>Array<sp/>&amp;field_imag,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ir)</highlight></codeline>
 <codeline lineno="21"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(field_real)<sp/>||</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(field_real,<sp/>field_imag))</highlight></codeline>
@@ -36,21 +36,21 @@
 <codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="27"><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>field_real.shape;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>field_real.shape;</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"></highlight></codeline>
 <codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>run<sp/>=<sp/>clwrapper::Run(</highlight><highlight class="stringliteral">&quot;phase_averaging&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
 <codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>inputs</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/>run.bind_imagef(</highlight><highlight class="stringliteral">&quot;fr&quot;</highlight><highlight class="normal">,<sp/>field_real.vector,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y);</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/>run.bind_imagef(</highlight><highlight class="stringliteral">&quot;fi&quot;</highlight><highlight class="normal">,<sp/>field_imag.vector,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>run.bind_imagef(</highlight><highlight class="stringliteral">&quot;fr&quot;</highlight><highlight class="normal">,<sp/>field_real.vector,<sp/>shape.x,<sp/>shape.y);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>run.bind_imagef(</highlight><highlight class="stringliteral">&quot;fi&quot;</highlight><highlight class="normal">,<sp/>field_imag.vector,<sp/>shape.x,<sp/>shape.y);</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>outputs</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/>run.bind_imagef(</highlight><highlight class="stringliteral">&quot;fr_out&quot;</highlight><highlight class="normal">,<sp/>field_real.vector,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/>run.bind_imagef(</highlight><highlight class="stringliteral">&quot;fi_out&quot;</highlight><highlight class="normal">,<sp/>field_imag.vector,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>run.bind_imagef(</highlight><highlight class="stringliteral">&quot;fr_out&quot;</highlight><highlight class="normal">,<sp/>field_real.vector,<sp/>shape.x,<sp/>shape.y,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>run.bind_imagef(</highlight><highlight class="stringliteral">&quot;fi_out&quot;</highlight><highlight class="normal">,<sp/>field_imag.vector,<sp/>shape.x,<sp/>shape.y,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/>run.bind_arguments(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y,<sp/><ref refid="sls__deformation_8cpp_1a108a1d0fcea4288c9e48f5dc4fa0a1b0" kindref="member">ir</ref>);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>run.bind_arguments(shape.x,<sp/>shape.y,<sp/>ir);</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/>run.execute({<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y});</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>run.execute({shape.x,<sp/>shape.y});</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>update<sp/>flux<sp/>(from<sp/>GPU<sp/>to<sp/>CPU)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="45"><highlight class="normal"><sp/><sp/>run.read_imagef(</highlight><highlight class="stringliteral">&quot;fr_out&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -70,7 +70,7 @@
 <codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/><sp/><sp/><sp/><sp/>*p_noise_y,</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*p_modulus,</highlight></codeline>
 <codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*p_angle_jump_mask,</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox)</highlight></codeline>
 <codeline lineno="63"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_ctrl_param<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(array,<sp/>*p_ctrl_param))</highlight></codeline>
@@ -80,7 +80,7 @@
 <codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_noise_y<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(array,<sp/>*p_noise_y))</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array(array.shape);</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/>array.shape;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>array.shape;</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>compute<sp/>local<sp/>angle</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="75"><highlight class="normal"></highlight></codeline>
@@ -95,7 +95,7 @@
 <codeline lineno="84"><highlight class="normal"></highlight></codeline>
 <codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>compute<sp/>phase</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="86"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/>Array<sp/>phase(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/>Array<sp/>phase(shape);</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"></highlight></codeline>
 <codeline lineno="89"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>run<sp/>=<sp/>clwrapper::Run(</highlight><highlight class="stringliteral">&quot;phase_field&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="90"><highlight class="normal"></highlight></codeline>
@@ -107,8 +107,8 @@
 <codeline lineno="96"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aae6131a978635eb515958f41584bcbfc" kindref="member">helper_bind_optional_buffer</ref>(run,<sp/></highlight><highlight class="stringliteral">&quot;p_noise_y&quot;</highlight><highlight class="normal">,<sp/>p_noise_y);</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aae6131a978635eb515958f41584bcbfc" kindref="member">helper_bind_optional_buffer</ref>(run,<sp/></highlight><highlight class="stringliteral">&quot;p_modulus&quot;</highlight><highlight class="normal">,<sp/>p_modulus);</highlight></codeline>
 <codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/>run.bind_arguments(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x,</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/>run.bind_arguments(shape.x,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape.y,</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw.x,</highlight></codeline>
 <codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw.y,</highlight></codeline>
 <codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
@@ -119,12 +119,12 @@
 <codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_noise_x<sp/>?<sp/>1<sp/>:<sp/>0,</highlight></codeline>
 <codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_noise_y<sp/>?<sp/>1<sp/>:<sp/>0,</highlight></codeline>
 <codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_modulus<sp/>?<sp/>1<sp/>:<sp/>0,</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
 <codeline lineno="112"><highlight class="normal"></highlight></codeline>
 <codeline lineno="113"><highlight class="normal"><sp/><sp/>run.write_buffer(</highlight><highlight class="stringliteral">&quot;angle&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="114"><highlight class="normal"><sp/><sp/>run.write_buffer(</highlight><highlight class="stringliteral">&quot;phase&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="115"><highlight class="normal"></highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/>run.execute({<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y});</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>run.execute({shape.x,<sp/>shape.y});</highlight></codeline>
 <codeline lineno="117"><highlight class="normal"></highlight></codeline>
 <codeline lineno="118"><highlight class="normal"><sp/><sp/>run.read_buffer(</highlight><highlight class="stringliteral">&quot;phase&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_modulus)<sp/>run.read_buffer(</highlight><highlight class="stringliteral">&quot;p_modulus&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -144,7 +144,7 @@
 <codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/><sp/><sp/><sp/><sp/>*p_noise_y,</highlight></codeline>
 <codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*p_modulus,</highlight></codeline>
 <codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*p_angle_jump_mask,</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>)</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox)</highlight></codeline>
 <codeline lineno="137"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
 <codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_ctrl_param<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(array,<sp/>*p_ctrl_param))</highlight></codeline>
@@ -170,7 +170,7 @@
 <codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_noise_y,</highlight></codeline>
 <codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_modulus,</highlight></codeline>
 <codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_angle_jump_mask,</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
 <codeline lineno="163"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="164"><highlight class="normal"></highlight></codeline>
 <codeline lineno="165"><highlight class="normal">Array<sp/><ref refid="namespacehmap_1_1gpu_1ac5795e7d509f085076f5aaa851fff025" kindref="member">phase_field_angle</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" kindref="member">angle</ref>,</highlight></codeline>
@@ -184,7 +184,7 @@
 <codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Array<sp/><sp/><sp/><sp/><sp/>*p_noise_y,</highlight></codeline>
 <codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*p_modulus,</highlight></codeline>
 <codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*p_angle_jump_mask,</highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>)</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glm::vec4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox)</highlight></codeline>
 <codeline lineno="177"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="178"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(<ref refid="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" kindref="member">angle</ref>))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
 <codeline lineno="179"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_ctrl_param<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(<ref refid="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" kindref="member">angle</ref>,<sp/>*p_ctrl_param))</highlight></codeline>
@@ -194,14 +194,14 @@
 <codeline lineno="183"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_noise_y<sp/>&amp;&amp;<sp/>!<ref refid="namespacehmap_1aacc13f5eefdd40efc6fc2e7ef1750c68" kindref="member">validate_same_shape</ref>(<ref refid="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" kindref="member">angle</ref>,<sp/>*p_noise_y))</highlight></codeline>
 <codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array(<ref refid="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" kindref="member">angle</ref>.shape);</highlight></codeline>
 <codeline lineno="185"><highlight class="normal"></highlight></codeline>
-<codeline lineno="186"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref><sp/>=<sp/><ref refid="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" kindref="member">angle</ref>.shape;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/>shape<sp/>=<sp/><ref refid="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" kindref="member">angle</ref>.shape;</highlight></codeline>
 <codeline lineno="187"><highlight class="normal"></highlight></codeline>
 <codeline lineno="188"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_angle_jump_mask)</highlight></codeline>
 <codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/>*p_angle_jump_mask<sp/>=<sp/><ref refid="namespacehmap_1a184b9eed77a8732a8631f8dd73d75a44" kindref="member">talus_jump_mask</ref>(<ref refid="namespacehmap_1aac71bb6c14edc17967957f7918acdbdd" kindref="member">angle</ref>,<sp/>M_PI,<sp/>0.1f<sp/>*<sp/>M_PI);</highlight></codeline>
 <codeline lineno="190"><highlight class="normal"></highlight></codeline>
 <codeline lineno="191"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>compute<sp/>phase</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="192"><highlight class="normal"></highlight></codeline>
-<codeline lineno="193"><highlight class="normal"><sp/><sp/>Array<sp/>phase(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/>Array<sp/>phase(shape);</highlight></codeline>
 <codeline lineno="194"><highlight class="normal"></highlight></codeline>
 <codeline lineno="195"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>run<sp/>=<sp/>clwrapper::Run(</highlight><highlight class="stringliteral">&quot;phase_field&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="196"><highlight class="normal"></highlight></codeline>
@@ -213,8 +213,8 @@
 <codeline lineno="202"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aae6131a978635eb515958f41584bcbfc" kindref="member">helper_bind_optional_buffer</ref>(run,<sp/></highlight><highlight class="stringliteral">&quot;p_noise_y&quot;</highlight><highlight class="normal">,<sp/>p_noise_y);</highlight></codeline>
 <codeline lineno="203"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aae6131a978635eb515958f41584bcbfc" kindref="member">helper_bind_optional_buffer</ref>(run,<sp/></highlight><highlight class="stringliteral">&quot;p_modulus&quot;</highlight><highlight class="normal">,<sp/>p_modulus);</highlight></codeline>
 <codeline lineno="204"><highlight class="normal"></highlight></codeline>
-<codeline lineno="205"><highlight class="normal"><sp/><sp/>run.bind_arguments(<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x,</highlight></codeline>
-<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/>run.bind_arguments(shape.x,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape.y,</highlight></codeline>
 <codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw.x,</highlight></codeline>
 <codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw.y,</highlight></codeline>
 <codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
@@ -225,12 +225,12 @@
 <codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_noise_x<sp/>?<sp/>1<sp/>:<sp/>0,</highlight></codeline>
 <codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_noise_y<sp/>?<sp/>1<sp/>:<sp/>0,</highlight></codeline>
 <codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_modulus<sp/>?<sp/>1<sp/>:<sp/>0,</highlight></codeline>
-<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="sdf__2d__polyline__bezier_8cpp_1a8396e15b291639eaa79ecd3badbdff48" kindref="member">bbox</ref>);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
 <codeline lineno="218"><highlight class="normal"></highlight></codeline>
 <codeline lineno="219"><highlight class="normal"><sp/><sp/>run.write_buffer(</highlight><highlight class="stringliteral">&quot;angle&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="220"><highlight class="normal"><sp/><sp/>run.write_buffer(</highlight><highlight class="stringliteral">&quot;phase&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="221"><highlight class="normal"></highlight></codeline>
-<codeline lineno="222"><highlight class="normal"><sp/><sp/>run.execute({<ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.x,<sp/><ref refid="elevation__from__contours_8cpp_1af339e609a44f3516574ffecaf5245fa3" kindref="member">shape</ref>.y});</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/>run.execute({shape.x,<sp/>shape.y});</highlight></codeline>
 <codeline lineno="223"><highlight class="normal"></highlight></codeline>
 <codeline lineno="224"><highlight class="normal"><sp/><sp/>run.read_buffer(</highlight><highlight class="stringliteral">&quot;phase&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="225"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_modulus)<sp/>run.read_buffer(</highlight><highlight class="stringliteral">&quot;p_modulus&quot;</highlight><highlight class="normal">);</highlight></codeline>
