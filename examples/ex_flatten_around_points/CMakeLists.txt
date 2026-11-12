@@ -1,0 +1,2 @@
+add_executable(ex_flatten_around_points ex_flatten_around_points.cpp)
+target_link_libraries(ex_flatten_around_points highmap)

@@ -123,6 +123,51 @@ void dig_path(Array    &z,
               float     depth = 0.f);
 
 /**
+ * @brief Flattens a heightmap locally around a set of reference points.
+ *
+ * Each point has its own influence radius. For a given cell, only the points
+ * whose radius covers the cell are kept, and the target elevation is the
+ * average of their elevations weighted by `falloff * radius` (larger radius,
+ * larger influence). The cell is blended toward this target using the sum of
+ * the falloffs (clamped to 1), which keeps the transition smooth.
+ *
+ * @param[in,out] z              Heightmap array to modify in place.
+ * @param[in]     xp             Point x coordinates (in the bounding box).
+ * @param[in]     yp             Point y coordinates (in the bounding box).
+ * @param[in]     zp             Reference elevations of the points.
+ * @param[in]     radius         Influence radius of each point.
+ * @param[in]     strength       Flattening strength in [0, 1].
+ * @param[in]     radial_profile Radial profile type used for distance falloff.
+ * @param[in]     profile_param  Shape parameter for the radial profile.
+ * @param[in]     bbox           Bounding box of the heightmap.
+ */
+void flatten_around_points(
+    Array                    &z,
+    const std::vector<float> &xp,
+    const std::vector<float> &yp,
+    const std::vector<float> &zp,
+    const std::vector<float> &radius,
+    float                     strength = 1.0f,
+    RadialProfile             radial_profile = RadialProfile::RP_SMOOTHSTEP,
+    float                     profile_param = 1.0f,
+    glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @brief Overload of flatten_around_points with a single radius shared by all
+ * points.
+ */
+void flatten_around_points(
+    Array                    &z,
+    const std::vector<float> &xp,
+    const std::vector<float> &yp,
+    const std::vector<float> &zp,
+    float                     radius = 0.2f,
+    float                     strength = 1.0f,
+    RadialProfile             radial_profile = RadialProfile::RP_SMOOTHSTEP,
+    float                     profile_param = 1.0f,
+    glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
  * @brief Blends a flatbed carve into an existing heightmap.
  *
  * Carves and blends a flatbed shape along a path into the provided array, using

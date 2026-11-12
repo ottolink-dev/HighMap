@@ -544,3 +544,26 @@ TEST(CloudTest, InverseSampler2DSequentialAndRegionUpdate)
     EXPECT_LE(pt.y, 0.8f);
   }
 }
+
+TEST(CloudTest, SetValuesFromArrayRadius)
+{
+  hmap::Array z({11, 11}, 1.f);
+  z(5, 5) = 5.f;
+
+  hmap::Cloud cloud;
+  cloud.emplace_back(0.5f, 0.5f, -1.f);
+  cloud.emplace_back(2.f, 2.f, -1.f);
+
+  cloud.set_values_from_array(z, hmap::ArraySampling::MAX, 0.15f);
+  EXPECT_NEAR(cloud[0].v, 5.f, 1e-5f);
+
+  cloud.set_values_from_array(z, hmap::ArraySampling::MIN, 0.15f);
+  EXPECT_NEAR(cloud[0].v, 1.f, 1e-5f);
+
+  cloud.set_values_from_array(z, hmap::ArraySampling::MEAN, 0.15f);
+  EXPECT_GT(cloud[0].v, 1.f);
+  EXPECT_LT(cloud[0].v, 5.f);
+
+  // outside the bbox: untouched
+  EXPECT_NEAR(cloud[1].v, -1.f, 1e-6f);
+}
