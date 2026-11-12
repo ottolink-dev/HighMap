@@ -236,6 +236,7 @@ void deposition_fill_holes(Array       &z,
  * @param nparticles        Number of erosion particles to simulate.
  * @param seed              Random seed for particle initialization.
  * @param p_bedrock         Optional bedrock array to limit erosion.
+ * @param p_erodibility     Optional spatial erodibility multiplier array.
  * @param p_moisture_map    Optional moisture map affecting erosion/deposition.
  * @param p_elevation_shift Optional elevation shift map.
  * @param p_erosion_map     Optional output array recording total erosion.
@@ -261,6 +262,7 @@ void hydraulic_particle(Array        &z,
                         int           nparticles,
                         std::uint32_t seed,
                         const Array  *p_bedrock = nullptr,
+                        const Array  *p_erodibility = nullptr,
                         const Array  *p_moisture_map = nullptr,
                         const Array  *p_elevation_shift = nullptr,
                         Array        *p_erosion_map = nullptr,
@@ -281,6 +283,7 @@ void hydraulic_particle(Array        &z,
                         int           nparticles,
                         std::uint32_t seed,
                         const Array  *p_bedrock = nullptr,
+                        const Array  *p_erodibility = nullptr,
                         const Array  *p_moisture_map = nullptr,
                         const Array  *p_elevation_shift = nullptr,
                         Array        *p_erosion_map = nullptr,
@@ -307,6 +310,7 @@ void hydraulic_particle(Array        &z,
  * @param seed              Random seed.
  * @param steps_per_level   Number of iteration steps per level.
  * @param p_bedrock         Optional bedrock array.
+ * @param p_erodibility     Optional spatial erodibility multiplier array.
  * @param p_moisture_map    Optional moisture map.
  * @param p_elevation_shift Optional elevation shift map.
  * @param p_erosion_map     Optional output erosion map.
@@ -329,6 +333,7 @@ void hydraulic_particle_multiscale(
     std::uint32_t           seed,
     const std::vector<int> &steps_per_level = {4, 2, 1},
     const Array            *p_bedrock = nullptr,
+    const Array            *p_erodibility = nullptr,
     const Array            *p_moisture_map = nullptr,
     const Array            *p_elevation_shift = nullptr,
     Array                  *p_erosion_map = nullptr,
@@ -352,6 +357,7 @@ void hydraulic_particle_multiscale(
     std::uint32_t           seed,
     const std::vector<int> &steps_per_level = {4, 2, 1},
     const Array            *p_bedrock = nullptr,
+    const Array            *p_erodibility = nullptr,
     const Array            *p_moisture_map = nullptr,
     const Array            *p_elevation_shift = nullptr,
     Array                  *p_erosion_map = nullptr,
@@ -618,6 +624,7 @@ void hydraulic_stream_log(Array       &z,
                           int          gradient_prefilter_ir = 16,
                           float        saturation_ratio = 1.f,
                           const Array *p_bedrock = nullptr,
+                          const Array *p_erodibility = nullptr,
                           const Array *p_moisture_map = nullptr,
                           Array       *p_erosion_map = nullptr,
                           Array       *p_deposition_map = nullptr,
@@ -635,6 +642,7 @@ void hydraulic_stream_log(Array       &z,
                           int          gradient_prefilter_ir = 16,
                           float        saturation_ratio = 1.f,
                           const Array *p_bedrock = nullptr,
+                          const Array *p_erodibility = nullptr,
                           const Array *p_moisture_map = nullptr,
                           Array       *p_erosion_map = nullptr,
                           Array       *p_deposition_map = nullptr,
@@ -652,6 +660,7 @@ void hydraulic_stream_log_multiscale(Array        &z,
                                      int           gradient_prefilter_ir = 16,
                                      float         saturation_ratio = 1.f,
                                      const Array  *p_bedrock = nullptr,
+                                     const Array  *p_erodibility = nullptr,
                                      const Array  *p_moisture_map = nullptr,
                                      Array        *p_erosion_map = nullptr,
                                      Array        *p_deposition_map = nullptr,
@@ -673,6 +682,7 @@ void hydraulic_stream_log_multiscale(Array        &z,
                                      int           gradient_prefilter_ir = 16,
                                      float         saturation_ratio = 1.f,
                                      const Array  *p_bedrock = nullptr,
+                                     const Array  *p_erodibility = nullptr,
                                      const Array  *p_moisture_map = nullptr,
                                      Array        *p_erosion_map = nullptr,
                                      Array        *p_deposition_map = nullptr,

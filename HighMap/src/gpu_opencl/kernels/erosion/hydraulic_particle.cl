@@ -120,6 +120,7 @@ void kernel hydraulic_particle(global float *z_in,
                                global float *bedrock,
                                global float *moisture_map,
                                global float *elevation_shift,
+                               global float *erodibility,
                                const int     nx,
                                const int     ny,
                                const int     nparticles,
@@ -135,7 +136,8 @@ void kernel hydraulic_particle(global float *z_in,
                                const float   collapse_rate,
                                const int     has_bedrock,
                                const int     has_moisture_map,
-                               const int     has_elevation_shift)
+                               const int     has_elevation_shift,
+                               const int     has_erodibility)
 {
   float dt = 1.f;
 
@@ -274,6 +276,12 @@ void kernel hydraulic_particle(global float *z_in,
         // Boost erosion rate on loose deposited sediment so depressions are
         // easily flushed
         eff_c_erosion = min(1.f, c_erosion * 4.f);
+      }
+
+      if (has_erodibility != 0)
+      {
+        float ke = helper_sample_height(erodibility, ip, jp, nx, ny, up, vp);
+        eff_c_erosion *= max(0.f, ke);
       }
 
       float max_erode = (dz > 0.f) ? dz : delta_sc;

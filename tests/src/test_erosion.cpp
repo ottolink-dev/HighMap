@@ -542,6 +542,111 @@ TEST(HydraulicSchottErosionGPU, BasicExecution)
     }
 }
 
+TEST(HydraulicParticleGPU, ErodibilityInput)
+{
+  hmap::gpu::init_opencl();
+
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+
+  // Spatially varying erodibility (left half 0, right half 1)
+  Array z_half = z0;
+  Array erodibility_half(shape, 0.f);
+  for (int j = 0; j < shape.y; ++j)
+    for (int i = shape.x / 2; i < shape.x; ++i)
+      erodibility_half(i, j) = 1.f;
+
+  gpu::hydraulic_particle(z_half,
+                          4000,
+                          1234,
+                          /* p_bedrock */ nullptr,
+                          &erodibility_half);
+
+  // The erodible right half should experience significantly more erosion than
+  // the non-erodible left half
+  float erosion_left = 0.f;
+  float erosion_right = 0.f;
+
+  for (int j = 2; j < shape.y - 2; ++j)
+  {
+    for (int i = 2; i < shape.x / 2 - 2; ++i)
+      erosion_left += std::max(0.f, z0(i, j) - z_half(i, j));
+
+    for (int i = shape.x / 2 + 2; i < shape.x - 2; ++i)
+      erosion_right += std::max(0.f, z0(i, j) - z_half(i, j));
+  }
+
+  EXPECT_GT(erosion_right, 0.f);
+  EXPECT_GT(erosion_right, erosion_left * 5.f);
+}
+
+TEST(HydraulicStreamLogGPU, ErodibilityInput)
+{
+  hmap::gpu::init_opencl();
+
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42);
+
+  // 1. Uniform erodibility of 1.f should match nullptr
+  Array z_null = z0;
+  gpu::hydraulic_stream_log(z_null,
+                            0.1f,
+                            0.1f,
+                            /* deposition_ir */ 8,
+                            /* deposition_scale_ratio */ 0.f,
+                            /* gradient_power */ 0.8f,
+                            /* gradient_scaling_ratio */ 1.f,
+                            /* gradient_prefilter_ir */ 16,
+                            /* saturation_ratio */ 1.f,
+                            /* p_bedrock */ nullptr,
+                            /* p_erodibility */ nullptr);
+
+  Array z_ones = z0;
+  Array erodibility_ones(shape, 1.f);
+  gpu::hydraulic_stream_log(z_ones,
+                            0.1f,
+                            0.1f,
+                            /* deposition_ir */ 8,
+                            /* deposition_scale_ratio */ 0.f,
+                            /* gradient_power */ 0.8f,
+                            /* gradient_scaling_ratio */ 1.f,
+                            /* gradient_prefilter_ir */ 16,
+                            /* saturation_ratio */ 1.f,
+                            /* p_bedrock */ nullptr,
+                            &erodibility_ones);
+
+  float max_diff_stream = 0.f;
+  for (int j = 0; j < shape.y; ++j)
+    for (int i = 0; i < shape.x; ++i)
+      max_diff_stream = std::max(max_diff_stream,
+                                 std::abs(z_null(i, j) - z_ones(i, j)));
+  EXPECT_TRUE(assert_almost_equal(z_null, z_ones, 1e-5f));
+
+  // 2. Zero erodibility should prevent incision
+  Array z_zero = z0;
+  Array erodibility_zero(shape, 0.f);
+  gpu::hydraulic_stream_log(z_zero,
+                            0.1f,
+                            0.1f,
+                            /* deposition_ir */ 8,
+                            /* deposition_scale_ratio */ 0.f,
+                            /* gradient_power */ 0.8f,
+                            /* gradient_scaling_ratio */ 1.f,
+                            /* gradient_prefilter_ir */ 16,
+                            /* saturation_ratio */ 1.f,
+                            /* p_bedrock */ nullptr,
+                            &erodibility_zero);
+
+  float max_diff_zero = 0.f;
+  for (int j = 0; j < shape.y; ++j)
+    for (int i = 0; i < shape.x; ++i)
+      max_diff_zero = std::max(max_diff_zero,
+                               std::abs(z0(i, j) - z_zero(i, j)));
+  EXPECT_TRUE(assert_almost_equal(z0, z_zero, 1e-5f));
+}
+
 TEST(AeolianErosionGPU, BasicExecutionAndConservation)
 {
   hmap::gpu::init_opencl();

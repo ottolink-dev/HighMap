@@ -122,6 +122,7 @@ void hydraulic_stream_log(Array       &z,
                           int          gradient_prefilter_ir,
                           float        saturation_ratio,
                           const Array *p_bedrock,
+                          const Array *p_erodibility,
                           const Array *p_moisture_map,
                           Array       *p_erosion_map,
                           Array       *p_deposition_map,
@@ -129,6 +130,7 @@ void hydraulic_stream_log(Array       &z,
 {
   if (!validate_non_empty(z)) return;
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
+  if (p_erodibility && !validate_same_shape(z, *p_erodibility)) return;
   if (p_moisture_map && !validate_same_shape(z, *p_moisture_map)) return;
 
   // keep a backup of the input if the erosion / deposition maps need
@@ -163,10 +165,11 @@ void hydraulic_stream_log(Array       &z,
     facc *= re;
   }
 
-  if (p_moisture_map)
-    z -= (*p_moisture_map) * c_erosion * facc;
-  else
-    z -= c_erosion * facc;
+  Array erosion_delta = c_erosion * facc;
+  if (p_moisture_map) erosion_delta *= (*p_moisture_map);
+  if (p_erodibility) erosion_delta *= (*p_erodibility);
+
+  z -= erosion_delta;
 
   // mimic deposition
   Array zd = z;
@@ -204,6 +207,7 @@ void hydraulic_stream_log(Array       &z,
                           int          gradient_prefilter_ir,
                           float        saturation_ratio,
                           const Array *p_bedrock,
+                          const Array *p_erodibility,
                           const Array *p_moisture_map,
                           Array       *p_erosion_map,
                           Array       *p_deposition_map,
@@ -212,6 +216,7 @@ void hydraulic_stream_log(Array       &z,
   if (!validate_non_empty(z)) return;
   if (p_mask && !validate_same_shape(z, *p_mask)) return;
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
+  if (p_erodibility && !validate_same_shape(z, *p_erodibility)) return;
   if (p_moisture_map && !validate_same_shape(z, *p_moisture_map)) return;
 
   if (!p_mask)
@@ -225,6 +230,7 @@ void hydraulic_stream_log(Array       &z,
                          gradient_prefilter_ir,
                          saturation_ratio,
                          p_bedrock,
+                         p_erodibility,
                          p_moisture_map,
                          p_erosion_map,
                          p_deposition_map,
@@ -242,6 +248,7 @@ void hydraulic_stream_log(Array       &z,
                          gradient_prefilter_ir,
                          saturation_ratio,
                          p_bedrock,
+                         p_erodibility,
                          p_moisture_map,
                          p_erosion_map,
                          p_deposition_map,
@@ -261,6 +268,7 @@ void hydraulic_stream_log_multiscale(Array        &z,
                                      int           gradient_prefilter_ir,
                                      float         saturation_ratio,
                                      const Array  *p_bedrock,
+                                     const Array  *p_erodibility,
                                      const Array  *p_moisture_map,
                                      Array        *p_erosion_map,
                                      Array        *p_deposition_map,
@@ -271,6 +279,7 @@ void hydraulic_stream_log_multiscale(Array        &z,
 {
   if (!validate_non_empty(z)) return;
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
+  if (p_erodibility && !validate_same_shape(z, *p_erodibility)) return;
   if (p_moisture_map && !validate_same_shape(z, *p_moisture_map)) return;
 
   int nlevels = std::max(1, levels);
@@ -298,14 +307,20 @@ void hydraulic_stream_log_multiscale(Array        &z,
       Array z_coarse_before = z_coarse;
 
       // resample optional input maps to coarse shape
-      Array        level_bedrock, level_moisture;
+      Array        level_bedrock, level_erodibility, level_moisture;
       const Array *p_lvl_bedrock = nullptr;
+      const Array *p_lvl_erodibility = nullptr;
       const Array *p_lvl_moisture = nullptr;
 
       if (p_bedrock)
       {
         level_bedrock = p_bedrock->resample_to_shape(ladder[i]);
         p_lvl_bedrock = &level_bedrock;
+      }
+      if (p_erodibility)
+      {
+        level_erodibility = p_erodibility->resample_to_shape(ladder[i]);
+        p_lvl_erodibility = &level_erodibility;
       }
       if (p_moisture_map)
       {
@@ -333,6 +348,7 @@ void hydraulic_stream_log_multiscale(Array        &z,
                            level_gradient_prefilter_ir,
                            saturation_ratio,
                            p_lvl_bedrock,
+                           p_lvl_erodibility,
                            p_lvl_moisture,
                            nullptr,
                            nullptr,
@@ -369,6 +385,7 @@ void hydraulic_stream_log_multiscale(Array        &z,
                            gradient_prefilter_ir,
                            saturation_ratio,
                            p_bedrock,
+                           p_erodibility,
                            p_moisture_map,
                            nullptr,
                            nullptr,
@@ -402,6 +419,7 @@ void hydraulic_stream_log_multiscale(Array        &z,
                                      int           gradient_prefilter_ir,
                                      float         saturation_ratio,
                                      const Array  *p_bedrock,
+                                     const Array  *p_erodibility,
                                      const Array  *p_moisture_map,
                                      Array        *p_erosion_map,
                                      Array        *p_deposition_map,
@@ -413,6 +431,7 @@ void hydraulic_stream_log_multiscale(Array        &z,
   if (!validate_non_empty(z)) return;
   if (p_mask && !validate_same_shape(z, *p_mask)) return;
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
+  if (p_erodibility && !validate_same_shape(z, *p_erodibility)) return;
   if (p_moisture_map && !validate_same_shape(z, *p_moisture_map)) return;
 
   if (!p_mask)
@@ -427,6 +446,7 @@ void hydraulic_stream_log_multiscale(Array        &z,
                                     gradient_prefilter_ir,
                                     saturation_ratio,
                                     p_bedrock,
+                                    p_erodibility,
                                     p_moisture_map,
                                     p_erosion_map,
                                     p_deposition_map,
@@ -448,6 +468,7 @@ void hydraulic_stream_log_multiscale(Array        &z,
                                     gradient_prefilter_ir,
                                     saturation_ratio,
                                     p_bedrock,
+                                    p_erodibility,
                                     p_moisture_map,
                                     p_erosion_map,
                                     p_deposition_map,

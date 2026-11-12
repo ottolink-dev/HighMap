@@ -24,6 +24,7 @@ void hydraulic_particle(Array        &z,
                         int           nparticles,
                         std::uint32_t seed,
                         const Array  *p_bedrock,
+                        const Array  *p_erodibility,
                         const Array  *p_moisture_map,
                         const Array  *p_elevation_shift,
                         Array        *p_erosion_map,
@@ -41,6 +42,7 @@ void hydraulic_particle(Array        &z,
 {
   if (!validate_non_empty(z)) return;
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
+  if (p_erodibility && !validate_same_shape(z, *p_erodibility)) return;
   if (p_moisture_map && !validate_same_shape(z, *p_moisture_map)) return;
   if (p_elevation_shift && !validate_same_shape(z, *p_elevation_shift)) return;
 
@@ -75,6 +77,7 @@ void hydraulic_particle(Array        &z,
     helper_bind_optional_buffer(run, "bedrock", p_bedrock);
     helper_bind_optional_buffer(run, "moisture_map", p_moisture_map);
     helper_bind_optional_buffer(run, "elevation_shift", p_elevation_shift);
+    helper_bind_optional_buffer(run, "erodibility", p_erodibility);
 
     float cell_talus = talus_slope / static_cast<float>(shape.x);
 
@@ -93,7 +96,8 @@ void hydraulic_particle(Array        &z,
                        collapse_rate,
                        p_bedrock ? 1 : 0,
                        p_moisture_map ? 1 : 0,
-                       p_elevation_shift ? 1 : 0);
+                       p_elevation_shift ? 1 : 0,
+                       p_erodibility ? 1 : 0);
 
     run.write_buffer("z");
     run.execute(pass_particles);
@@ -121,6 +125,7 @@ void hydraulic_particle(Array        &z,
                         int           nparticles,
                         std::uint32_t seed,
                         const Array  *p_bedrock,
+                        const Array  *p_erodibility,
                         const Array  *p_moisture_map,
                         const Array  *p_elevation_shift,
                         Array        *p_erosion_map,
@@ -144,6 +149,7 @@ void hydraulic_particle(Array        &z,
                                             nparticles,
                                             seed,
                                             p_bedrock,
+                                            p_erodibility,
                                             p_moisture_map,
                                             p_elevation_shift,
                                             p_erosion_map,
@@ -165,6 +171,7 @@ void hydraulic_particle_multiscale(Array                  &z,
                                    std::uint32_t           seed,
                                    const std::vector<int> &steps_per_level,
                                    const Array            *p_bedrock,
+                                   const Array            *p_erodibility,
                                    const Array            *p_moisture_map,
                                    const Array            *p_elevation_shift,
                                    Array                  *p_erosion_map,
@@ -184,6 +191,7 @@ void hydraulic_particle_multiscale(Array                  &z,
 {
   if (!validate_non_empty(z)) return;
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
+  if (p_erodibility && !validate_same_shape(z, *p_erodibility)) return;
   if (p_moisture_map && !validate_same_shape(z, *p_moisture_map)) return;
   if (p_elevation_shift && !validate_same_shape(z, *p_elevation_shift)) return;
 
@@ -217,8 +225,9 @@ void hydraulic_particle_multiscale(Array                  &z,
       Array z_coarse_before = z_coarse;
 
       // Resample optional input maps to level shape if provided
-      Array        level_bedrock, level_moisture, level_shift;
+      Array level_bedrock, level_erodibility, level_moisture, level_shift;
       const Array *p_lvl_bedrock = nullptr;
+      const Array *p_lvl_erodibility = nullptr;
       const Array *p_lvl_moisture = nullptr;
       const Array *p_lvl_shift = nullptr;
 
@@ -226,6 +235,11 @@ void hydraulic_particle_multiscale(Array                  &z,
       {
         level_bedrock = p_bedrock->resample_to_shape(ladder[i]);
         p_lvl_bedrock = &level_bedrock;
+      }
+      if (p_erodibility)
+      {
+        level_erodibility = p_erodibility->resample_to_shape(ladder[i]);
+        p_lvl_erodibility = &level_erodibility;
       }
       if (p_moisture_map)
       {
@@ -242,6 +256,7 @@ void hydraulic_particle_multiscale(Array                  &z,
                               level_particles,
                               seed + static_cast<std::uint32_t>(i * 1000),
                               p_lvl_bedrock,
+                              p_lvl_erodibility,
                               p_lvl_moisture,
                               p_lvl_shift,
                               /* p_erosion_map */ nullptr,
@@ -281,6 +296,7 @@ void hydraulic_particle_multiscale(Array                  &z,
                               level_particles,
                               seed + static_cast<std::uint32_t>(i * 1000),
                               p_bedrock,
+                              p_erodibility,
                               p_moisture_map,
                               p_elevation_shift,
                               /* p_erosion_map */ nullptr,
@@ -317,6 +333,7 @@ void hydraulic_particle_multiscale(Array                  &z,
                                    std::uint32_t           seed,
                                    const std::vector<int> &steps_per_level,
                                    const Array            *p_bedrock,
+                                   const Array            *p_erodibility,
                                    const Array            *p_moisture_map,
                                    const Array            *p_elevation_shift,
                                    Array                  *p_erosion_map,
@@ -342,6 +359,7 @@ void hydraulic_particle_multiscale(Array                  &z,
                                                        seed,
                                                        steps_per_level,
                                                        p_bedrock,
+                                                       p_erodibility,
                                                        p_moisture_map,
                                                        p_elevation_shift,
                                                        p_erosion_map,
