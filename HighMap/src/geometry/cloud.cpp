@@ -383,6 +383,89 @@ void Cloud::set_values_from_array(const Array &array, const glm::vec4 &bbox)
     p.set_value_from_array(array, bbox);
 }
 
+void Cloud::set_values_from_array(const Array     &array,
+                                  ArraySampling    sampling,
+                                  float            radius,
+                                  const glm::vec4 &bbox)
+{
+  if (!validate_non_empty(array)) return;
+
+  const float dx = bbox.y - bbox.x;
+  const float dy = bbox.w - bbox.z;
+
+  if (std::abs(dx) < 1e-7f || std::abs(dy) < 1e-7f) return;
+
+  const int nx = array.shape.x;
+  const int ny = array.shape.y;
+
+  // cell size in bbox units
+  const float cell_dx = nx > 1 ? dx / float(nx - 1) : dx;
+  const float cell_dy = ny > 1 ? dy / float(ny - 1) : dy;
+
+  for (auto &p : *this)
+  {
+    // points outside the bbox are left untouched
+    if (p.x < bbox.x || p.x > bbox.y || p.y < bbox.z || p.y > bbox.w) continue;
+
+    if (sampling == ArraySampling::AS_POINT || radius <= 0.f)
+    {
+      p.set_value_from_array(array, bbox);
+      continue;
+    }
+
+    const int i_min = std::max(
+        0,
+        int(std::ceil((p.x - radius - bbox.x) / cell_dx)));
+    const int i_max = std::min(
+        nx - 1,
+        int(std::floor((p.x + radius - bbox.x) / cell_dx)));
+    const int j_min = std::max(
+        0,
+        int(std::ceil((p.y - radius - bbox.z) / cell_dy)));
+    const int j_max = std::min(
+        ny - 1,
+        int(std::floor((p.y + radius - bbox.z) / cell_dy)));
+
+    const float radius_sq = radius * radius;
+
+    float v_min = std::numeric_limits<float>::max();
+    float v_max = std::numeric_limits<float>::lowest();
+    float v_sum = 0.f;
+    int   count = 0;
+
+    for (int j = j_min; j <= j_max; ++j)
+      for (int i = i_min; i <= i_max; ++i)
+      {
+        const float ddx = bbox.x + float(i) * cell_dx - p.x;
+        const float ddy = bbox.z + float(j) * cell_dy - p.y;
+
+        if (ddx * ddx + ddy * ddy > radius_sq) continue;
+
+        const float v = array(i, j);
+
+        v_min = std::min(v_min, v);
+        v_max = std::max(v_max, v);
+        v_sum += v;
+        count++;
+      }
+
+    // no cell center in the radius: fall back to the value at the point
+    if (count == 0)
+    {
+      p.set_value_from_array(array, bbox);
+      continue;
+    }
+
+    switch (sampling)
+    {
+    case ArraySampling::AS_MIN: p.v = v_min; break;
+    case ArraySampling::AS_MAX: p.v = v_max; break;
+    case ArraySampling::AS_MEAN: p.v = v_sum / float(count); break;
+    default: break;
+    }
+  }
+}
+
 void Cloud::set_values_from_border_distance(const glm::vec4 &bbox)
 {
   std::array<std::vector<float>, 2> xy = {this->get_x(), this->get_y()};

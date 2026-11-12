@@ -32,6 +32,17 @@
 namespace hmap
 {
 
+/**
+ * @brief Strategy used to extract a point value from an array.
+ */
+enum class ArraySampling : int
+{
+  AS_POINT, ///< Array value at the point (interpolated).
+  AS_MIN,   ///< Minimum of the array values within a radius.
+  AS_MAX,   ///< Maximum of the array values within a radius.
+  AS_MEAN,  ///< Average of the array values within a radius.
+};
+
 class Graph;
 
 /**
@@ -266,6 +277,24 @@ public:
    *              points' coordinates to the array's coordinates.
    */
   void set_values_from_array(const Array     &array,
+                             const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+
+  /**
+   * @brief Set the values of the cloud points from an array, using a given
+   * sampling strategy.
+   *
+   * Points lying outside the bounding box are left untouched.
+   *
+   * @param array    The input array.
+   * @param sampling Sampling strategy (value at the point, or min / max / mean
+   *                 within a radius).
+   * @param radius   Radius (in bbox units) of the neighborhood, ignored for
+   *                 ArraySampling::AS_POINT.
+   * @param bbox     Bounding box mapping the point coordinates to the array.
+   */
+  void set_values_from_array(const Array     &array,
+                             ArraySampling    sampling,
+                             float            radius = 0.f,
                              const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
 
   /**
