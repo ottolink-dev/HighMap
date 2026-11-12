@@ -31,28 +31,41 @@ class ICommunicator;
  * - Angle-of-repose avalanching maintaining realistic slipfaces.
  *
  * @param z                 Input/output total elevation heightmap (modified
- *                          in-place). On output, @p z equals bedrock + sediment.
+ *                          in-place). On output, @p z equals bedrock +
+ *                          sediment.
  * @param steps             Number of simulation iterations.
  * @param seed              Random seed for stochastic sampling.
  * @param wind              Base wind direction vector (in grid units).
  * @param p_bedrock         Optional input bedrock elevation array. If null,
  *                          bedrock is initialized to zero.
  * @param p_vegetation      Optional vegetation density mask in [0, 1].
- * @param p_abrasion_mask   Optional rock erodibility/susceptibility mask in [0, 1].
- * @param p_sediment_map    Optional output array receiving final sand thickness.
- * @param p_bedrock_map     Optional output array receiving final bedrock elevation.
+ * @param p_abrasion_mask   Optional rock erodibility/susceptibility mask in [0,
+ *                          1].
+ * @param p_sediment_map    Optional output array receiving final sand
+ *                          thickness.
+ * @param p_bedrock_map     Optional output array receiving final bedrock
+ *                          elevation.
  * @param cell_size         Horizontal grid spacing in world units. If <= 0,
  *                          defaults to 1.f / z.shape.x.
- * @param matter_to_move    Volume/height of sand grain packet displaced per hop.
- * @param samples_per_step  Number of stochastic saltation samples evaluated per step.
- *                          If <= 0, defaults to total cell count (nx * ny).
- * @param sand_repose_angle Angle of repose for loose sediment (in degrees, typically ~33°).
- * @param shadow_angle_min  Minimum wind shadow angle threshold (in degrees, typically ~5°).
- * @param shadow_angle_max  Maximum wind shadow angle threshold (in degrees, typically ~15°).
- * @param max_shadow_dist   Maximum raymarch distance for wind shadow detection (in grid cells).
- * @param abrasion_rate     Abrasion wear rate on exposed bedrock (0 to disable).
- * @param repose_rate       Rate of sediment redistribution during repose stabilization.
- * @param sync_interval     Number of simulation steps between communicator tile syncs.
+ * @param matter_to_move    Volume/height of sand grain packet displaced per
+ *                          hop.
+ * @param samples_per_step  Number of stochastic saltation samples evaluated per
+ *                          step. If <= 0, defaults to total cell count (nx *
+ *                          ny).
+ * @param sand_repose_angle Angle of repose for loose sediment (in degrees,
+ *                          typically ~33°).
+ * @param shadow_angle_min  Minimum wind shadow angle threshold (in degrees,
+ *                          typically ~5°).
+ * @param shadow_angle_max  Maximum wind shadow angle threshold (in degrees,
+ *                          typically ~15°).
+ * @param max_shadow_dist   Maximum raymarch distance for wind shadow detection
+ *                          (in grid cells).
+ * @param abrasion_rate     Abrasion wear rate on exposed bedrock (0 to
+ *                          disable).
+ * @param repose_rate       Rate of sediment redistribution during repose
+ *                          stabilization.
+ * @param sync_interval     Number of simulation steps between communicator tile
+ *                          syncs.
  * @param region            Tile region geometry metadata.
  * @param comm              Tiled communicator instance.
  *

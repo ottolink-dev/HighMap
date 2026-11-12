@@ -378,9 +378,10 @@ Array flow_accumulation_stochastic(const Array  &z,
  * values of `talus_ref` will lead to narrower flow streams. The maximum talus
  * value of the heightmap can be used as a reference.
  *
- * @param  z         Input array representing the heightmap values.
+ * @param  z          Input array representing the heightmap values.
  * @param  talus_ref  Reference talus used to locally define the flow-partition
- *                    exponent. Small values will result in thinner flow streams.
+ *                    exponent. Small values will result in thinner flow
+ *                    streams.
  * @param  iterations Maximum number of boundary exchange iterations across
  *                    tiles (0 defaults to auto: grid diameter).
  * @param  region     TileRegion descriptor for tiled domain positioning.
@@ -396,14 +397,13 @@ Array flow_accumulation_stochastic(const Array  &z,
  * @image html ex_flow_accumulation_dinf1.png
  * @image html ex_flow_accumulation_dinf2.png
  *
- * @see              flow_direction_dinf, flow_accumulation_d8
+ * @see               flow_direction_dinf, flow_accumulation_d8
  */
-Array flow_accumulation_dinf(
-    const Array      &z,
-    float             talus_ref = 0.1f,
-    int               iterations = 0,
-    const TileRegion &region = {},
-    ICommunicator    &comm = SingleArrayComm::instance());
+Array flow_accumulation_dinf(const Array      &z,
+                             float             talus_ref = 0.1f,
+                             int               iterations = 0,
+                             const TileRegion &region = {},
+                             ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Computes averaged D-infinity flow accumulation with terrain
@@ -417,20 +417,20 @@ Array flow_accumulation_dinf(
  * The perturbation introduces stochastic variability, which can help reduce
  * numerical artifacts and improve robustness in flat or ambiguous flow regions.
  *
- * @param  z         Input elevation array.
- * @param  talus_ref Reference talus angle (or slope threshold) used by the D∞
- *                   algorithm.
- * @param  nsamples  Number of noise-perturbed samples to average.
- * @param  kw        Noise frequency scaling factor.
- * @param  seed      Base random seed (incremented for each sample).
- * @param  amp       Amplitude of the noise perturbation.
- * @param  bbox      Bounding box used for noise generation.
+ * @param  z          Input elevation array.
+ * @param  talus_ref  Reference talus angle (or slope threshold) used by the D∞
+ *                    algorithm.
+ * @param  nsamples   Number of noise-perturbed samples to average.
+ * @param  kw         Noise frequency scaling factor.
+ * @param  seed       Base random seed (incremented for each sample).
+ * @param  amp        Amplitude of the noise perturbation.
+ * @param  bbox       Bounding box used for noise generation.
  * @param  iterations Maximum number of boundary exchange iterations across
  *                    tiles (0 defaults to auto).
  * @param  region     TileRegion descriptor for tiled domain positioning.
  * @param  comm       Communicator for multi-tile synchronization.
  *
- * @return           Averaged flow accumulation array.
+ * @return            Averaged flow accumulation array.
  *
  * **Example**
  * @include ex_flow_accumulation_dinf.cpp

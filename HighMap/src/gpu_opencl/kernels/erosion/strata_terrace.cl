@@ -31,7 +31,9 @@ float stratify_rand(const float val,
     }
     else
     {
-      float a = clamp(pow(1.f / gamma_r, 1.f / (gamma_r - 1.f)), 1e-5f, 1.f - 1e-5f);
+      float a = clamp(pow(1.f / gamma_r, 1.f / (gamma_r - 1.f)),
+                      1e-5f,
+                      1.f - 1e-5f);
       float b = pow(gamma_r, -gamma_r / (gamma_r - 1.f));
 
       if (u < a)

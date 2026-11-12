@@ -4,10 +4,10 @@ R""(
  * this software. */
 
 /* Clean-room GPU implementation of the aeolian desert simulation algorithm
- * based on Paris et al. (Pacific Graphics 2019 / CGF), "Desertscapes Simulation".
- * Models wind-driven sand transport (saltation & reptation), wind shadowing,
- * bedrock abrasion (yardang formation), vegetation stabilization (nabkhas),
- * and sediment angle-of-repose relaxation. */
+ * based on Paris et al. (Pacific Graphics 2019 / CGF), "Desertscapes
+ * Simulation". Models wind-driven sand transport (saltation & reptation), wind
+ * shadowing, bedrock abrasion (yardang formation), vegetation stabilization
+ * (nabkhas), and sediment angle-of-repose relaxation. */
 
 #define AEOLIAN_MAX_BOUNCE 3
 
@@ -74,7 +74,12 @@ inline float helper_aeolian_is_in_shadow(global const float *bedrock,
   if (length(wind_dir) < 1e-5f) return 0.f;
 
   float2 uwind = normalize(wind_dir);
-  float  curr_h = helper_aeolian_height_bilinear(bedrock, sediment, curr_x, curr_y, nx, ny);
+  float  curr_h = helper_aeolian_height_bilinear(bedrock,
+                                                sediment,
+                                                curr_x,
+                                                curr_y,
+                                                nx,
+                                                ny);
 
   float max_shadow = 0.f;
 
@@ -84,7 +89,12 @@ inline float helper_aeolian_is_in_shadow(global const float *bedrock,
     float up_x = curr_x - step * uwind.x;
     float up_y = curr_y - step * uwind.y;
 
-    float up_h = helper_aeolian_height_bilinear(bedrock, sediment, up_x, up_y, nx, ny);
+    float up_h = helper_aeolian_height_bilinear(bedrock,
+                                                sediment,
+                                                up_x,
+                                                up_y,
+                                                nx,
+                                                ny);
     float dh = up_h - curr_h;
     float dist_phys = step * cell_size;
     float tan_angle = dh / dist_phys;
@@ -139,13 +149,34 @@ void kernel aeolian_transport(global float       *bedrock,
   float  base_wind_len = length(base_wind);
 
   // Modulate wind by local terrain gradient projected onto wind direction
-  float h_east  = helper_aeolian_height(bedrock, sediment, (start_i + 1) % nx, start_j, nx, ny);
-  float h_west  = helper_aeolian_height(bedrock, sediment, (start_i - 1 + nx) % nx, start_j, nx, ny);
-  float h_north = helper_aeolian_height(bedrock, sediment, start_i, (start_j + 1) % ny, nx, ny);
-  float h_south = helper_aeolian_height(bedrock, sediment, start_i, (start_j - 1 + ny) % ny, nx, ny);
+  float h_east = helper_aeolian_height(bedrock,
+                                       sediment,
+                                       (start_i + 1) % nx,
+                                       start_j,
+                                       nx,
+                                       ny);
+  float h_west = helper_aeolian_height(bedrock,
+                                       sediment,
+                                       (start_i - 1 + nx) % nx,
+                                       start_j,
+                                       nx,
+                                       ny);
+  float h_north = helper_aeolian_height(bedrock,
+                                        sediment,
+                                        start_i,
+                                        (start_j + 1) % ny,
+                                        nx,
+                                        ny);
+  float h_south = helper_aeolian_height(bedrock,
+                                        sediment,
+                                        start_i,
+                                        (start_j - 1 + ny) % ny,
+                                        nx,
+                                        ny);
 
   float  inv_2dx = 0.5f / cell_size;
-  float2 grad = (float2)((h_east - h_west) * inv_2dx, (h_north - h_south) * inv_2dx);
+  float2 grad = (float2)((h_east - h_west) * inv_2dx,
+                         (h_north - h_south) * inv_2dx);
   float  wind_speedup = 1.f;
 
   if (base_wind_len > 1e-5f)
@@ -159,7 +190,7 @@ void kernel aeolian_transport(global float       *bedrock,
 
   // Wind shadow check at lifting site: sheltered cells resist lifting
   float2 curr_pos = (float2)((float)start_i + 0.5f, (float)start_j + 0.5f);
-  float shadow_prob = helper_aeolian_is_in_shadow(bedrock,
+  float  shadow_prob = helper_aeolian_is_in_shadow(bedrock,
                                                   sediment,
                                                   curr_pos.x,
                                                   curr_pos.y,
@@ -183,10 +214,10 @@ void kernel aeolian_transport(global float       *bedrock,
   atomic_add_float(&sediment[start_idx], -matter_to_move);
 
   // 2. Saltation hop loop in continuous subpixel coordinates
-  int bounce = 0;
+  int  bounce = 0;
   bool deposited = false;
-  int dest_i = start_i;
-  int dest_j = start_j;
+  int  dest_i = start_i;
+  int  dest_j = start_j;
 
   while (bounce < AEOLIAN_MAX_BOUNCE)
   {
@@ -212,9 +243,9 @@ void kernel aeolian_transport(global float       *bedrock,
           rock_susceptibility = abrasion_mask[dest_idx];
 
         float veg_prot = (has_vegetation != 0) ? vegetation[dest_idx] : 0.f;
-        float abr = abrasion_rate * rock_susceptibility * (1.f - veg_prot) * length(eff_wind);
-        if (abr > 0.f)
-          atomic_add_float(&bedrock[dest_idx], -abr);
+        float abr = abrasion_rate * rock_susceptibility * (1.f - veg_prot) *
+                    length(eff_wind);
+        if (abr > 0.f) atomic_add_float(&bedrock[dest_idx], -abr);
       }
     }
 
@@ -270,7 +301,7 @@ void kernel aeolian_stabilize_sediment(global const float *bedrock,
 
   if (i >= nx || j >= ny) return;
 
-  int idx = linear_index(i, j, nx);
+  int   idx = linear_index(i, j, nx);
   float s_c = sed_in[idx];
   float b_c = bedrock[idx];
   float h_c = b_c + s_c;
@@ -303,7 +334,7 @@ void kernel aeolian_stabilize_sediment(global const float *bedrock,
     int ni = (i + di[k] % nx + nx) % nx;
     int nj = (j + dj[k] % ny + ny) % ny;
 
-    int n_idx = linear_index(ni, nj, nx);
+    int   n_idx = linear_index(ni, nj, nx);
     float h_n = bedrock[n_idx] + sed_in[n_idx];
     float dh = h_c - h_n;
     float slope = dh / dist[k];
@@ -335,7 +366,7 @@ void kernel aeolian_stabilize_sediment(global const float *bedrock,
     int ni = (i + di[k] % nx + nx) % nx;
     int nj = (j + dj[k] % ny + ny) % ny;
 
-    int n_idx = linear_index(ni, nj, nx);
+    int   n_idx = linear_index(ni, nj, nx);
     float s_n = sed_in[n_idx];
     if (s_n <= 0.f) continue;
 
@@ -354,9 +385,9 @@ void kernel aeolian_stabilize_sediment(global const float *bedrock,
 
       for (int p = 0; p < 8; ++p)
       {
-        int qi = (ni + di[p] % nx + nx) % nx;
-        int qj = (nj + dj[p] % ny + ny) % ny;
-        int q_idx = linear_index(qi, qj, nx);
+        int   qi = (ni + di[p] % nx + nx) % nx;
+        int   qj = (nj + dj[p] % ny + ny) % ny;
+        int   q_idx = linear_index(qi, qj, nx);
         float h_q = bedrock[q_idx] + sed_in[q_idx];
         float n_slope = (h_n - h_q) / dist[p];
 

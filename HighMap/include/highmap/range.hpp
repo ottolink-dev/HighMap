@@ -475,8 +475,8 @@ void rescale(Array &array, float scaling, float vref = 0.f);
  * @param multiplier        Standard deviation multiplier (default is 2.5f).
  * @param smooth_transition If true, applies smoothstep3 to the clipped output.
  * @param range_01          If true, maps output to [0, 1]; if false, [-1, 1].
- * @param comm              Optional communicator for collective reduction across
- *                          tiles.
+ * @param comm              Optional communicator for collective reduction
+ *                          across tiles.
  */
 void normalize_and_clip(Array         &array,
                         float          multiplier = 2.5f,

@@ -26,7 +26,9 @@ float stratify(const float val,
     }
     else
     {
-      float a = clamp(pow(1.f / gamma, 1.f / (gamma - 1.f)), 1e-5f, 1.f - 1e-5f);
+      float a = clamp(pow(1.f / gamma, 1.f / (gamma - 1.f)),
+                      1e-5f,
+                      1.f - 1e-5f);
       float b = pow(gamma, -gamma / (gamma - 1.f));
 
       if (u < a)

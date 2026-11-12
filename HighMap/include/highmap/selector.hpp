@@ -95,12 +95,12 @@ Array select_angle(const Array &array, float angle, float sigma);
 /**
  * @brief Return blob detection using the Laplacian of Gaussian (LoG) approach.
  *
- * @param  array             Input array.
- * @param  ir                Kernel radius.
- * @param  normalize         If true, normalize and clip output to [0, 1] using standard
- *                           deviation with a smooth transition.
- * @param  comm              Communicator for collective normalization.
- * @return                   Array Output array.
+ * @param  array     Input array.
+ * @param  ir        Kernel radius.
+ * @param  normalize If true, normalize and clip output to [0, 1] using standard
+ *                   deviation with a smooth transition.
+ * @param  comm      Communicator for collective normalization.
+ * @return           Array Output array.
  *
  * **Example**
  * @include ex_select_blob.cpp
@@ -118,14 +118,14 @@ Array select_blob_log(const Array   &array,
  * @brief Return holes or bumps detection based on the mean curvature of the
  * heightmap.
  *
- * @param  array             Input array.
- * @param  ir                Kernel radius.
- * @param  concave           Select 'holes' if set to true, and select 'bumps' if
- *                           set to false.
- * @param  normalize         If true, normalize and clip output to [0, 1] using standard
- *                           deviation with a smooth transition.
- * @param  comm              Communicator for collective normalization.
- * @return                   Array Output array.
+ * @param  array     Input array.
+ * @param  ir        Kernel radius.
+ * @param  concave   Select 'holes' if set to true, and select 'bumps' if set to
+ *                   false.
+ * @param  normalize If true, normalize and clip output to [0, 1] using standard
+ *                   deviation with a smooth transition.
+ * @param  comm      Communicator for collective normalization.
+ * @return           Array Output array.
  *
  * **Example**
  * @include ex_select_cavities.cpp
@@ -519,8 +519,9 @@ Array select_cavities(const Array   &array,
  * @param  flow_gamma              Gamma correction exponent applied to the
  *                                 river mask; 1.0 disables correction.
  * @param  k_smooth                Smoothing parameter for the maximum blending.
- * @param  normalize               If true, normalize and clip output to [0, 1] using
- *                                 standard deviation with a smooth transition.
+ * @param  normalize               If true, normalize and clip output to [0, 1]
+ *                                 using standard deviation with a smooth
+ *                                 transition.
  * @param  comm                    Communicator for collective normalization.
  *
  * @return                         A 2D Array representing the final soil-flow
@@ -560,8 +561,9 @@ Array select_soil_flow(const Array   &z,
  * @param  smaller_scales_weight Weight factor applied when descending scales.
  * @param  curvature_clamp_mode  Mode used to clamp curvature values.
  * @param  curvature_clamping    Curvature clamp threshold.
- * @param  normalize             If true, normalize and clip output to [0, 1] using
- *                               standard deviation with a smooth transition.
+ * @param  normalize             If true, normalize and clip output to [0, 1]
+ *                               using standard deviation with a smooth
+ *                               transition.
  * @param  comm                  Communicator for collective normalization.
  *
  * @return                       An Array representing soil/rock selection
@@ -611,8 +613,9 @@ Array select_soil_rocks(
  * @param gradient_scaling_factor Empirical scaling factor for both curvature
  *                                and gradient terms. If non-positive, defaults
  *                                to `z.shape.x`.
- * @param normalize               If true, normalize and clip output to [0, 1] using
- *                                standard deviation with a smooth transition.
+ * @param normalize               If true, normalize and clip output to [0, 1]
+ *                                using standard deviation with a smooth
+ *                                transition.
  * @param comm                    Communicator for collective normalization.
  *
  * **Example**
@@ -634,17 +637,16 @@ Array select_soil_weathered(
     ICommunicator &comm = SingleArrayComm::instance());
 
 // if the gradient norm is known before-hand
-Array select_soil_weathered(
-    const Array   &z,
-    const Array   &gradient_norm, // in [0, 1]
-    int            ir_curvature,
-    ClampMode      curvature_clamp_mode,
-    float          curvature_clamping,
-    float          curvature_weight,
-    float          gradient_weight,
-    float          gradient_scaling_factor, // for curvature
-    bool           normalize = false,
-    ICommunicator &comm = SingleArrayComm::instance());
+Array select_soil_weathered(const Array &z,
+                            const Array &gradient_norm, // in [0, 1]
+                            int          ir_curvature,
+                            ClampMode    curvature_clamp_mode,
+                            float        curvature_clamping,
+                            float        curvature_weight,
+                            float        gradient_weight,
+                            float gradient_scaling_factor, // for curvature
+                            bool  normalize = false,
+                            ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Selects terrain slope.
@@ -655,8 +657,8 @@ Array select_soil_weathered(
  * @param  z           Input heightmap.
  * @param  ir          Kernel radius. If 0, uses gradient norm; if > 0, uses
  *                     morphological gradient.
- * @param  normalize   If true, normalize and clip output to [0, 1] using standard
- *                     deviation with a smooth transition.
+ * @param  normalize   If true, normalize and clip output to [0, 1] using
+ *                     standard deviation with a smooth transition.
  * @param  kernel_type Kernel footprint type (default: MinMaxKernel::OCTAGON).
  * @param  comm        Communicator for collective normalization.
  * @return             Array Output slope array.

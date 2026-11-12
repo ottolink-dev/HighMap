@@ -551,13 +551,14 @@ void shade_topographic_residual(Texture     &tex,
  * @param  comm         Communicator for collective normalization across tiles.
  * @return              4-channel RGBA Texture.
  */
-Texture terrain_texture(const Array                &z,
-                        const Array                *p_deposition = nullptr,
-                        const Array                *p_snow_depth = nullptr,
-                        const TerrainTextureParams &params = TerrainTextureParams(),
-                        const glm::vec4 &bbox = glm::vec4(0.f, 0.f, 1.f, 1.f),
-                        const Array     *p_noise = nullptr,
-                        ICommunicator   &comm = SingleArrayComm::instance());
+Texture terrain_texture(
+    const Array                &z,
+    const Array                *p_deposition = nullptr,
+    const Array                *p_snow_depth = nullptr,
+    const TerrainTextureParams &params = TerrainTextureParams(),
+    const glm::vec4            &bbox = glm::vec4(0.f, 0.f, 1.f, 1.f),
+    const Array                *p_noise = nullptr,
+    ICommunicator              &comm = SingleArrayComm::instance());
 
 } // namespace hmap
 
