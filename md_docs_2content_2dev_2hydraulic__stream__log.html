@@ -228,7 +228,7 @@ Multiscale Algorithm Steps</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="highmap_8hpp.html">highmap.hpp</a>&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Single-scale logarithmic stream erosion</span></div>
-<div class="line"><a class="code hl_function" href="namespacehmap_1_1gpu.html#a7e51491ac0bc571828955e8a54b143dc">hmap::gpu::hydraulic_stream_log</a>(</div>
+<div class="line"><a class="code hl_function" href="namespacehmap_1_1gpu.html#ac453b718c9bf142a8b4966c505ddde13">hmap::gpu::hydraulic_stream_log</a>(</div>
 <div class="line">    z,                              <span class="comment">// Target heightfield</span></div>
 <div class="line">    <span class="comment">/* c_erosion */</span>              0.2f,</div>
 <div class="line">    <span class="comment">/* talus_ref */</span>              5.0f / shape.x,</div>
@@ -246,7 +246,7 @@ Multiscale Algorithm Steps</h2>
 <div class="line">);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Multiscale logarithmic stream cascade</span></div>
-<div class="line"><a class="code hl_function" href="namespacehmap_1_1gpu.html#a263168c2e1e24e25a4c1cba0142bdbc0">hmap::gpu::hydraulic_stream_log_multiscale</a>(</div>
+<div class="line"><a class="code hl_function" href="namespacehmap_1_1gpu.html#a4d3af5c9b4e93ddbf5bcc37ea41c6df4">hmap::gpu::hydraulic_stream_log_multiscale</a>(</div>
 <div class="line">    z,                              <span class="comment">// Target heightfield</span></div>
 <div class="line">    <span class="comment">/* c_erosion */</span>              0.2f,</div>
 <div class="line">    <span class="comment">/* talus_ref */</span>              5.0f / shape.x,</div>
@@ -267,8 +267,8 @@ Multiscale Algorithm Steps</h2>
 <div class="line">    <span class="comment">/* seed */</span>                   1</div>
 <div class="line">);</div>
 <div class="ttc" id="ahighmap_8hpp_html"><div class="ttname"><a href="highmap_8hpp.html">highmap.hpp</a></div></div>
-<div class="ttc" id="anamespacehmap_1_1gpu_html_a263168c2e1e24e25a4c1cba0142bdbc0"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a263168c2e1e24e25a4c1cba0142bdbc0">hmap::gpu::hydraulic_stream_log_multiscale</a></div><div class="ttdeci">void hydraulic_stream_log_multiscale(Array &amp;z, float c_erosion, float talus_ref, int levels=3, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr, float mix=1.f, float warp=0.35f, std::uint32_t seed=1)</div><div class="ttdoc">See hmap::hydraulic_stream_log_multiscale.</div><div class="ttdef"><b>Definition</b> hydraulic_stream_gpu.cpp:161</div></div>
-<div class="ttc" id="anamespacehmap_1_1gpu_html_a7e51491ac0bc571828955e8a54b143dc"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a7e51491ac0bc571828955e8a54b143dc">hmap::gpu::hydraulic_stream_log</a></div><div class="ttdeci">void hydraulic_stream_log(Array &amp;z, float c_erosion, float talus_ref, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</div><div class="ttdoc">See hmap::hydraulic_stream_log.</div><div class="ttdef"><b>Definition</b> hydraulic_stream_gpu.cpp:23</div></div>
+<div class="ttc" id="anamespacehmap_1_1gpu_html_a4d3af5c9b4e93ddbf5bcc37ea41c6df4"><div class="ttname"><a href="namespacehmap_1_1gpu.html#a4d3af5c9b4e93ddbf5bcc37ea41c6df4">hmap::gpu::hydraulic_stream_log_multiscale</a></div><div class="ttdeci">void hydraulic_stream_log_multiscale(Array &amp;z, float c_erosion, float talus_ref, int levels=3, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_erodibility=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr, float mix=1.f, float warp=0.35f, std::uint32_t seed=1)</div><div class="ttdoc">See hmap::hydraulic_stream_log_multiscale.</div><div class="ttdef"><b>Definition</b> hydraulic_stream_gpu.cpp:168</div></div>
+<div class="ttc" id="anamespacehmap_1_1gpu_html_ac453b718c9bf142a8b4966c505ddde13"><div class="ttname"><a href="namespacehmap_1_1gpu.html#ac453b718c9bf142a8b4966c505ddde13">hmap::gpu::hydraulic_stream_log</a></div><div class="ttdeci">void hydraulic_stream_log(Array &amp;z, float c_erosion, float talus_ref, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_erodibility=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</div><div class="ttdoc">See hmap::hydraulic_stream_log.</div><div class="ttdef"><b>Definition</b> hydraulic_stream_gpu.cpp:23</div></div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

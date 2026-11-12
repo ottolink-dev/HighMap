@@ -12345,13 +12345,13 @@ additional_depth)</computeroutput>.</para>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z3<sp/>=<sp/>z;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>deposition_ir<sp/>=<sp/>32;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>c_erosion<sp/>=<sp/>0.2f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a7e51491ac0bc571828955e8a54b143dc" kindref="member">hmap::gpu::hydraulic_stream_log</ref>(z3,<sp/>c_erosion,<sp/>talus_ref,<sp/>deposition_ir);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ac453b718c9bf142a8b4966c505ddde13" kindref="member">hmap::gpu::hydraulic_stream_log</ref>(z3,<sp/>c_erosion,<sp/>talus_ref,<sp/>deposition_ir);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>z3.dump();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>multiscale<sp/>log<sp/>scale</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z4<sp/>=<sp/>z;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a263168c2e1e24e25a4c1cba0142bdbc0" kindref="member">hmap::gpu::hydraulic_stream_log_multiscale</ref>(z4,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a4d3af5c9b4e93ddbf5bcc37ea41c6df4" kindref="member">hmap::gpu::hydraulic_stream_log_multiscale</ref>(z4,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c_erosion,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_ref,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>levels<sp/>*/</highlight><highlight class="normal"><sp/>3,</highlight></codeline>
@@ -12431,10 +12431,10 @@ additional_depth)</computeroutput>.</para>
         </inbodydescription>
         <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="76" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="76" bodyend="113" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="255" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a5d8b448836d569c0f72b668ca1268ef9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a49b0e65f03229a2f7ca05b9dec796825" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::hydraulic_stream_log</definition>
-        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</argsstring>
+        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_erodibility=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</argsstring>
         <name>hydraulic_stream_log</name>
         <qualifiedname>hmap::hydraulic_stream_log</qualifiedname>
         <param>
@@ -12482,6 +12482,11 @@ additional_depth)</computeroutput>.</para>
         <param>
           <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_bedrock</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_erodibility</declname>
           <defval>nullptr</defval>
         </param>
         <param>
@@ -12666,13 +12671,13 @@ additional_depth)</computeroutput>.</para>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z3<sp/>=<sp/>z;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>deposition_ir<sp/>=<sp/>32;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>c_erosion<sp/>=<sp/>0.2f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a7e51491ac0bc571828955e8a54b143dc" kindref="member">hmap::gpu::hydraulic_stream_log</ref>(z3,<sp/>c_erosion,<sp/>talus_ref,<sp/>deposition_ir);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1ac453b718c9bf142a8b4966c505ddde13" kindref="member">hmap::gpu::hydraulic_stream_log</ref>(z3,<sp/>c_erosion,<sp/>talus_ref,<sp/>deposition_ir);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>z3.dump();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>multiscale<sp/>log<sp/>scale</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z4<sp/>=<sp/>z;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a263168c2e1e24e25a4c1cba0142bdbc0" kindref="member">hmap::gpu::hydraulic_stream_log_multiscale</ref>(z4,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a4d3af5c9b4e93ddbf5bcc37ea41c6df4" kindref="member">hmap::gpu::hydraulic_stream_log_multiscale</ref>(z4,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c_erosion,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_ref,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>levels<sp/>*/</highlight><highlight class="normal"><sp/>3,</highlight></codeline>
@@ -12694,12 +12699,12 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="115" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="115" bodyend="194" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="305" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="115" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="115" bodyend="197" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="305" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1ab4ba44ccbb8dbdb8af4ff4e50dd90885" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a5cf95f6410d498f58d45e4ae0756af6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::hydraulic_stream_log</definition>
-        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, const Array *p_mask, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</argsstring>
+        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, const Array *p_mask, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_erodibility=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr)</argsstring>
         <name>hydraulic_stream_log</name>
         <qualifiedname>hmap::hydraulic_stream_log</qualifiedname>
         <param>
@@ -12755,6 +12760,11 @@ additional_depth)</computeroutput>.</para>
         </param>
         <param>
           <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_erodibility</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_moisture_map</declname>
           <defval>nullptr</defval>
         </param>
@@ -12780,12 +12790,12 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="196" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="196" bodyend="251" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="323" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="199" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="199" bodyend="258" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="324" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a0d47acf21b1bf8c1f457f89d50c79f1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1ab69a441f5d85e2affdd5c8e467bcf6a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::hydraulic_stream_log_multiscale</definition>
-        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, int levels=3, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr, float mix=1.f, float warp=0.35f, std::uint32_t seed=1)</argsstring>
+        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, int levels=3, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_erodibility=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr, float mix=1.f, float warp=0.35f, std::uint32_t seed=1)</argsstring>
         <name>hydraulic_stream_log_multiscale</name>
         <qualifiedname>hmap::hydraulic_stream_log_multiscale</qualifiedname>
         <param>
@@ -12838,6 +12848,11 @@ additional_depth)</computeroutput>.</para>
         <param>
           <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_bedrock</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_erodibility</declname>
           <defval>nullptr</defval>
         </param>
         <param>
@@ -12970,6 +12985,14 @@ additional_depth)</computeroutput>.</para>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
+<parametername>p_erodibility</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional spatial erodibility multiplier array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
 <parametername>p_moisture_map</parametername>
 </parameternamelist>
 <parameterdescription>
@@ -13029,12 +13052,12 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="253" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="253" bodyend="391" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="370" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="260" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="260" bodyend="408" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="373" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a362d53a66acb0cf920c3d9f5e7aa2162" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1ac31881d82d55b3bf461de1fe0f62c74c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::hydraulic_stream_log_multiscale</definition>
-        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, const Array *p_mask, int levels=3, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr, float mix=1.f, float warp=0.35f, std::uint32_t seed=1)</argsstring>
+        <argsstring>(Array &amp;z, float c_erosion, float talus_ref, const Array *p_mask, int levels=3, int deposition_ir=32, float deposition_scale_ratio=1.f, float gradient_power=0.8f, float gradient_scaling_ratio=1.f, int gradient_prefilter_ir=16, float saturation_ratio=1.f, const Array *p_bedrock=nullptr, const Array *p_erodibility=nullptr, const Array *p_moisture_map=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr, Array *p_flow_map=nullptr, float mix=1.f, float warp=0.35f, std::uint32_t seed=1)</argsstring>
         <name>hydraulic_stream_log_multiscale</name>
         <qualifiedname>hmap::hydraulic_stream_log_multiscale</qualifiedname>
         <param>
@@ -13095,6 +13118,11 @@ additional_depth)</computeroutput>.</para>
         </param>
         <param>
           <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_erodibility</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_moisture_map</declname>
           <defval>nullptr</defval>
         </param>
@@ -13135,7 +13163,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="393" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="393" bodyend="460" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="392" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_stream.cpp" line="410" column="6" bodyfile="HighMap/src/erosion/hydraulic_stream.cpp" bodystart="410" bodyend="481" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="396" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1adfddcdb8f09d40a4a4e9c8573e142c5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -13623,7 +13651,7 @@ additional_depth)</computeroutput>.</para>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nparticles<sp/>=<sp/>int(0.5f<sp/>*<sp/>shape.x<sp/>*<sp/>shape.y);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/>z0;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a4634556eb8cdc81b0bb52b5ebcd5309b" kindref="member">hmap::gpu::hydraulic_particle</ref>(z1,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a76acb93bf5aed29444816b7a03202f94" kindref="member">hmap::gpu::hydraulic_particle</ref>(z1,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nparticles,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>p_bedrock<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
@@ -13649,17 +13677,17 @@ additional_depth)</computeroutput>.</para>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>elevation_strength<sp/>*/</highlight><highlight class="normal"><sp/>0.05f,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>slope_strength<sp/>*/</highlight><highlight class="normal"><sp/>0.f,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>slope_limit<sp/>*/</highlight><highlight class="normal"><sp/>0.f);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a4634556eb8cdc81b0bb52b5ebcd5309b" kindref="member">hmap::gpu::hydraulic_particle</ref>(z2,<sp/>nparticles,<sp/>seed,<sp/>&amp;zb2);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a76acb93bf5aed29444816b7a03202f94" kindref="member">hmap::gpu::hydraulic_particle</ref>(z2,<sp/>nparticles,<sp/>seed,<sp/>&amp;zb2);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z3<sp/>=<sp/>z0;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>zb3<sp/>=<sp/><ref refid="namespacehmap_1ae80026143790cc7a8f0dd1f4c7bc8e24" kindref="member">hmap::generate_bedrock</ref>(z3,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>elevation_strength<sp/>*/</highlight><highlight class="normal"><sp/>0.f,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>slope_strength<sp/>*/</highlight><highlight class="normal"><sp/>0.1f,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>slope_limit<sp/>*/</highlight><highlight class="normal"><sp/>2.f<sp/>/<sp/>shape.x);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a4634556eb8cdc81b0bb52b5ebcd5309b" kindref="member">hmap::gpu::hydraulic_particle</ref>(z3,<sp/>nparticles,<sp/>seed,<sp/>&amp;zb3);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a76acb93bf5aed29444816b7a03202f94" kindref="member">hmap::gpu::hydraulic_particle</ref>(z3,<sp/>nparticles,<sp/>seed,<sp/>&amp;zb3);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z4<sp/>=<sp/>z0;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1af6790c3c26c5f9dd1649316ff1a52e74" kindref="member">hmap::gpu::hydraulic_particle_multiscale</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a4f810f2fc8d07817fd3dd6e13df3fac2" kindref="member">hmap::gpu::hydraulic_particle_multiscale</ref>(</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>z4,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>steps_per_level<sp/>*/</highlight><highlight class="normal"><sp/>{16,<sp/>8,<sp/>4,<sp/>2,<sp/>1},</highlight></codeline>
@@ -69072,7 +69100,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{4.f,<sp/>4.f},</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a4634556eb8cdc81b0bb52b5ebcd5309b" kindref="member">hmap::gpu::hydraulic_particle</ref>(z,<sp/>30000,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a76acb93bf5aed29444816b7a03202f94" kindref="member">hmap::gpu::hydraulic_particle</ref>(z,<sp/>30000,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(z);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>loose<sp/>symmetry<sp/>parameters</highlight><highlight class="normal"></highlight></codeline>
@@ -70469,7 +70497,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{2.f,<sp/>2.f},</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>+<sp/>1);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a4634556eb8cdc81b0bb52b5ebcd5309b" kindref="member">hmap::gpu::hydraulic_particle</ref>(exemplar,<sp/>500000,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a76acb93bf5aed29444816b7a03202f94" kindref="member">hmap::gpu::hydraulic_particle</ref>(exemplar,<sp/>500000,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(exemplar);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>smooth,<sp/>low-resolution<sp/>input<sp/>terrain<sp/>to<sp/>amplify</highlight><highlight class="normal"></highlight></codeline>
