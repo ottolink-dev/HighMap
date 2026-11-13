@@ -282,12 +282,8 @@ void kernel aeolian_transport(global float       *bedrock,
     if (rand(&rng) < veg_val) return;
   }
 
-  // Lift sediment
-  atomic_add_float(&sediment[start_idx], -matter_to_move);
-
   // 2. Saltation hop loop in continuous subpixel coordinates
   int  bounce = 0;
-  bool deposited = false;
   int  dest_i = start_i;
   int  dest_j = start_j;
 
@@ -317,7 +313,7 @@ void kernel aeolian_transport(global float       *bedrock,
         float veg_prot = (has_vegetation != 0) ? vegetation[dest_idx] : 0.f;
         float abr = abrasion_rate * rock_susceptibility * (1.f - veg_prot) *
                     length(eff_wind);
-        if (abr > 0.f) atomic_add_float(&bedrock[dest_idx], -abr);
+        if (abr > 0.f) bedrock[dest_idx] -= abr;
       }
     }
 
@@ -350,19 +346,18 @@ void kernel aeolian_transport(global float       *bedrock,
 
     if (p < dest_shadow || p < dep_threshold)
     {
-      atomic_add_float(&sediment[dest_idx], matter_to_move);
-      deposited = true;
       break;
     }
 
     bounce++;
   }
 
-  // Fallback: if reached max bounces without landing, deposit at last position
-  if (!deposited)
+  int dest_idx = linear_index(dest_i, dest_j, nx);
+
+  if (dest_idx != start_idx)
   {
-    int dest_idx = linear_index(dest_i, dest_j, nx);
-    atomic_add_float(&sediment[dest_idx], matter_to_move);
+    sediment[start_idx] -= matter_to_move;
+    sediment[dest_idx] += matter_to_move;
   }
 }
 
