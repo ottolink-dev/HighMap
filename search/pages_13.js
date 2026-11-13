@@ -8,7 +8,7 @@ var searchData=
   ['measurements_5',['3. Benchmark Measurements',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md66',1,'']]],
   ['mechanics_6',['3. Deposition Mechanics',['../md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md56',1,'']]],
   ['memory_20control_7',['Contiguous Storage and Explicit Memory Control',['../md_docs_2content_2dev_2architecture.html#autotoc_md10',1,'']]],
-  ['metric_20surface_20gradient_8',['Slope (Metric Surface Gradient)',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md129',1,'']]],
+  ['metric_20surface_20gradient_8',['Slope (Metric Surface Gradient)',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md132',1,'']]],
   ['mise_9',['Multiscale Implicit Stream-Power Erosion (MISE)',['../md_docs_2content_2dev_2hydraulic__mise.html',1,'']]],
   ['mode_20sequentialtilecomm_10',['Out-of-Core Sequential Mode (&lt;span class=&quot;tt&quot;&gt;SequentialTileComm&lt;/span&gt;)',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md117',1,'']]],
   ['mode_20singlearraycomm_11',['Single-Array Mode (&lt;span class=&quot;tt&quot;&gt;SingleArrayComm&lt;/span&gt;)',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md115',1,'']]],
@@ -34,5 +34,7 @@ var searchData=
   ['multiscale_20architecture_20hydraulic_5fstream_5flog_5fmultiscale_31',['4. Multiscale Architecture (&lt;span class=&quot;tt&quot;&gt;hydraulic_stream_log_multiscale&lt;/span&gt;)',['../md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md57',1,'']]],
   ['multiscale_20implicit_20stream_20power_20erosion_20mise_32',['Multiscale Implicit Stream-Power Erosion (MISE)',['../md_docs_2content_2dev_2hydraulic__mise.html',1,'']]],
   ['multiscale_20parameters_33',['Multiscale Parameters',['..//home/runner/work/HighMap/HighMap/docs/content/dev/hydraulic_mise.md#autotoc_md32',1,'']]],
-  ['multithreaded_20distributed_20mode_20threadedtilecomm_34',['Multithreaded Distributed Mode (&lt;span class=&quot;tt&quot;&gt;ThreadedTileComm&lt;/span&gt;)',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md116',1,'']]]
+  ['multiscale_20pipelines_34',['7. Buffer Shape Invariance and Nested Multiscale Pipelines',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md122',1,'']]],
+  ['multiscale_20pyramids_35',['Incompatibility with Nested Multiscale Pyramids',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md123',1,'']]],
+  ['multithreaded_20distributed_20mode_20threadedtilecomm_36',['Multithreaded Distributed Mode (&lt;span class=&quot;tt&quot;&gt;ThreadedTileComm&lt;/span&gt;)',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md116',1,'']]]
 ];

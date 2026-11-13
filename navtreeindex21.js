@@ -1,5 +1,8 @@
 var NAVTREEINDEX21 =
 {
+"structhmap_1_1VirtualTextureStorage.html#aad5813d1a2c06527f85ffb823a24c2b9":[15,0,0,117,3],
+"structhmap_1_1VirtualTextureStorage.html#aad5813d1a2c06527f85ffb823a24c2b9":[16,0,0,115,3],
+"structhmap_1_1VirtualTextureStorage.html#ae5cc37ced709362425ca9e1ce8e766e1":[15,0,0,117,1],
 "structhmap_1_1VirtualTextureStorage.html#ae5cc37ced709362425ca9e1ce8e766e1":[16,0,0,115,1],
 "structhmap_1_1gpu_1_1McDonaldParams.html":[15,0,0,0,1],
 "structhmap_1_1gpu_1_1McDonaldParams.html":[16,0,0,0,0],
@@ -246,8 +249,5 @@ var NAVTREEINDEX21 =
 "test__connected__components_8cpp.html":[17,0,2,0,18],
 "test__connected__components_8cpp.html#a04b88632a1a2ddcf03e40660fe82763a":[17,0,2,0,18,2],
 "test__connected__components_8cpp.html#a66429adbc61fd4358c7d75553989c9d3":[17,0,2,0,18,1],
-"test__connected__components_8cpp.html#a6fa8fc73fece74dc9bfe8db87dcbfb59":[17,0,2,0,18,4],
-"test__connected__components_8cpp.html#a9ffa65302e16acb953e3059e7b9fcf44":[17,0,2,0,18,3],
-"test__connected__components_8cpp.html#ad5263bee605b95b6b01f2e4a73469c0c":[17,0,2,0,18,5],
-"test__connected__components_8cpp.html#afae5dc31f57de99398d19dcc2a87a52e":[17,0,2,0,18,0]
+"test__connected__components_8cpp.html#a6fa8fc73fece74dc9bfe8db87dcbfb59":[17,0,2,0,18,4]
 };

@@ -21,5 +21,5 @@ var searchData=
   ['formulation_20and_20kinematics_18',['2. Theoretical Formulation and Kinematics',['../md_docs_2content_2dev_2hydraulic__mise.html#autotoc_md23',1,'']]],
   ['foundational_20math_19',['Foundational Math',['../md_docs_2content_2dev_2architecture.html#autotoc_md4',1,'']]],
   ['foundations_20',['1. Physical Foundations',['../md_docs_2content_2dev_2thermal__erosion.html#autotoc_md95',1,'']]],
-  ['functions_21',['Functions',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md125',1,'2. Bivariate Functions'],['../md_docs_2content_2dev_2architecture.html#autotoc_md12',1,'Stateless Processing Functions']]]
+  ['functions_21',['Functions',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md128',1,'2. Bivariate Functions'],['../md_docs_2content_2dev_2architecture.html#autotoc_md12',1,'Stateless Processing Functions']]]
 ];

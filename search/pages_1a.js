@@ -1,9 +1,9 @@
 var searchData=
 [
   ['talus_20erosion_20algorithms_0',['Thermal Weathering and Talus Erosion Algorithms',['../md_docs_2content_2dev_2thermal__erosion.html',1,'']]],
-  ['talus_20grid_20space_20elevation_20difference_1',['Talus (Grid-Space Elevation Difference)',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md128',1,'']]],
-  ['talus_20slope_20nx_2',['Relationship: talus = slope / nx',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md130',1,'']]],
-  ['talus_20vs_20slope_3',['4. Talus vs. Slope',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md127',1,'']]],
+  ['talus_20grid_20space_20elevation_20difference_1',['Talus (Grid-Space Elevation Difference)',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md131',1,'']]],
+  ['talus_20slope_20nx_2',['Relationship: talus = slope / nx',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md133',1,'']]],
+  ['talus_20vs_20slope_3',['4. Talus vs. Slope',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md130',1,'']]],
   ['the_20gpu_20kernel_20brute_20force_4',['Rationale: Keeping the GPU Kernel Brute Force',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md75',1,'']]],
   ['theoretical_20formulation_20and_20kinematics_5',['2. Theoretical Formulation and Kinematics',['../md_docs_2content_2dev_2hydraulic__mise.html#autotoc_md23',1,'']]],
   ['thermal_6',['1. Standard Thermal Weathering (&lt;span class=&quot;tt&quot;&gt;thermal&lt;/span&gt;)',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md100',1,'']]],

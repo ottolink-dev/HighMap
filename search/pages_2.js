@@ -1,8 +1,8 @@
 var searchData=
 [
   ['2_20algorithmic_20approach_0',['2. Algorithmic Approach',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md62',1,'']]],
-  ['2_20bivariate_20functions_1',['2. Bivariate Functions',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md125',1,'']]],
-  ['2_20cmake_20integration_2',['2. CMake Integration',['../md_docs_2content_2getting__started_2quickstart.html#autotoc_md134',1,'']]],
+  ['2_20bivariate_20functions_1',['2. Bivariate Functions',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md128',1,'']]],
+  ['2_20cmake_20integration_2',['2. CMake Integration',['../md_docs_2content_2getting__started_2quickstart.html#autotoc_md137',1,'']]],
   ['2_20communicator_20interface_20icommunicator_3',['2. Communicator Interface (&lt;span class=&quot;tt&quot;&gt;ICommunicator&lt;/span&gt;)',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md111',1,'']]],
   ['2_20design_20principles_4',['2. Design Principles',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md86',1,'']]],
   ['2_20experiment_201_3a_202d_20convolution_5',['2. Experiment 1: 2D Convolution',['..//home/runner/work/HighMap/HighMap/docs/content/dev/investigations/fft_convolution_and_morphology.md#autotoc_md79',1,'']]],

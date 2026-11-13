@@ -63,7 +63,7 @@ var searchData=
   ['methods_2ecpp_60',['methods.cpp',['../methods_8cpp.html',1,'']]],
   ['metric_61',['Metric',['../structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a273ae8b085bc1309827cb47afdc2ea9a',1,'hmap::TerrainTriMesh::MeshPathCostConfig']]],
   ['metric_62',['metric',['../structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#aa2e00e48af26fe6bbd9c8513e95c929e',1,'hmap::TerrainTriMesh::MeshPathCostConfig']]],
-  ['metric_20surface_20gradient_63',['Slope (Metric Surface Gradient)',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md129',1,'']]],
+  ['metric_20surface_20gradient_63',['Slope (Metric Surface Gradient)',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md132',1,'']]],
   ['midpoint_64',['midpoint',['../namespacehmap.html#a520a1e42c4e492e81b334914807abc22',1,'hmap']]],
   ['min_65',['Min',['../namespacehmap.html#a53ddf39f16d1bda499b7fce512478e9fa78d811e98514cd165dda532286610fd2',1,'hmap::Min'],['../namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a78d811e98514cd165dda532286610fd2',1,'hmap::Min']]],
   ['min_66',['min',['../structhmap_1_1AABB2D.html#a0c9eb176bf87c9ecc735e388d4c7c29d',1,'hmap::AABB2D::min'],['../structhmap_1_1TerrainTriMesh_1_1BoundingBox.html#aab730cab7ff6492a6c4a68fd2080d87b',1,'hmap::TerrainTriMesh::BoundingBox::min'],['../classhmap_1_1Array.html#a9636778a72fa18be1bf20fba816f6c4d',1,'hmap::Array::min()'],['../classhmap_1_1Texture.html#a088a66adf2c1770d3d00585c1c708bc9',1,'hmap::Texture::min()'],['../structhmap_1_1VirtualArray.html#a86a3950c3cb912d82c694a752bb20f4c',1,'hmap::VirtualArray::min()']]],
@@ -146,8 +146,10 @@ var searchData=
   ['multiscale_20architecture_20hydraulic_5fstream_5flog_5fmultiscale_143',['4. Multiscale Architecture (&lt;span class=&quot;tt&quot;&gt;hydraulic_stream_log_multiscale&lt;/span&gt;)',['../md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md57',1,'']]],
   ['multiscale_20implicit_20stream_20power_20erosion_20mise_144',['Multiscale Implicit Stream-Power Erosion (MISE)',['../md_docs_2content_2dev_2hydraulic__mise.html',1,'']]],
   ['multiscale_20parameters_145',['Multiscale Parameters',['..//home/runner/work/HighMap/HighMap/docs/content/dev/hydraulic_mise.md#autotoc_md32',1,'']]],
-  ['multisteps_146',['multisteps',['../namespacehmap.html#aeeb8f48ea78cb59de79c16ab28d1d855',1,'hmap::multisteps()'],['../namespacehmap_1_1gpu.html#a342e86d5f5b6da70427e3c66c25b419d',1,'hmap::gpu::multisteps()']]],
-  ['multisteps_2ecpp_147',['multisteps.cpp',['../multisteps_8cpp.html',1,'']]],
-  ['multithreaded_20distributed_20mode_20threadedtilecomm_148',['Multithreaded Distributed Mode (&lt;span class=&quot;tt&quot;&gt;ThreadedTileComm&lt;/span&gt;)',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md116',1,'']]],
-  ['mutex_149',['mutex',['../structhmap_1_1BigTiffWriter_1_1Impl.html#a2433e06195ccb0bb72be52a6476815bf',1,'hmap::BigTiffWriter::Impl::mutex'],['../structhmap_1_1OpenCVWriter_1_1Impl.html#a895e9f6e06f28ed04b3f0590ecfca283',1,'hmap::OpenCVWriter::Impl::mutex'],['../structhmap_1_1OpenEXRWriter_1_1Impl.html#a5fb3df28a2336bde9b863271f6cc9308',1,'hmap::OpenEXRWriter::Impl::mutex']]]
+  ['multiscale_20pipelines_146',['7. Buffer Shape Invariance and Nested Multiscale Pipelines',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md122',1,'']]],
+  ['multiscale_20pyramids_147',['Incompatibility with Nested Multiscale Pyramids',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md123',1,'']]],
+  ['multisteps_148',['multisteps',['../namespacehmap.html#aeeb8f48ea78cb59de79c16ab28d1d855',1,'hmap::multisteps()'],['../namespacehmap_1_1gpu.html#a342e86d5f5b6da70427e3c66c25b419d',1,'hmap::gpu::multisteps()']]],
+  ['multisteps_2ecpp_149',['multisteps.cpp',['../multisteps_8cpp.html',1,'']]],
+  ['multithreaded_20distributed_20mode_20threadedtilecomm_150',['Multithreaded Distributed Mode (&lt;span class=&quot;tt&quot;&gt;ThreadedTileComm&lt;/span&gt;)',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md116',1,'']]],
+  ['mutex_151',['mutex',['../structhmap_1_1BigTiffWriter_1_1Impl.html#a2433e06195ccb0bb72be52a6476815bf',1,'hmap::BigTiffWriter::Impl::mutex'],['../structhmap_1_1OpenCVWriter_1_1Impl.html#a895e9f6e06f28ed04b3f0590ecfca283',1,'hmap::OpenCVWriter::Impl::mutex'],['../structhmap_1_1OpenEXRWriter_1_1Impl.html#a5fb3df28a2336bde9b863271f6cc9308',1,'hmap::OpenEXRWriter::Impl::mutex']]]
 ];

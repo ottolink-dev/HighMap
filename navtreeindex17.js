@@ -1,5 +1,8 @@
 var NAVTREEINDEX17 =
 {
+"namespacemembers_func_w.html":[15,1,1,22],
+"namespacemembers_func_z.html":[15,1,1,23],
+"namespacemembers_g.html":[15,1,0,7],
 "namespacemembers_h.html":[15,1,0,8],
 "namespacemembers_i.html":[15,1,0,9],
 "namespacemembers_j.html":[15,1,0,10],
@@ -246,8 +249,5 @@ var NAVTREEINDEX17 =
 "structhmap_1_1ColorAdjust.html#a0d6901dbb470d8b91a91bbd741c95481":[15,0,0,13,7],
 "structhmap_1_1ColorAdjust.html#a0d6901dbb470d8b91a91bbd741c95481":[16,0,0,11,7],
 "structhmap_1_1ColorAdjust.html#a125d99cf1e7850c167137b493f512a76":[15,0,0,13,5],
-"structhmap_1_1ColorAdjust.html#a125d99cf1e7850c167137b493f512a76":[16,0,0,11,5],
-"structhmap_1_1ColorAdjust.html#a22890080427433e2c75ad3f15d3fc2b8":[15,0,0,13,4],
-"structhmap_1_1ColorAdjust.html#a22890080427433e2c75ad3f15d3fc2b8":[16,0,0,11,4],
-"structhmap_1_1ColorAdjust.html#a4c9f3e46e241abba388ee27b20602fe5":[15,0,0,13,11]
+"structhmap_1_1ColorAdjust.html#a125d99cf1e7850c167137b493f512a76":[16,0,0,11,5]
 };

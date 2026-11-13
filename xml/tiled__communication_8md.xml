@@ -58,12 +58,13 @@
 <codeline><highlight class="normal">-<sp/>**`SmoothBlend`**:<sp/>Blends<sp/>overlapping<sp/>cells<sp/>smoothly<sp/>using<sp/>a<sp/>quintic<sp/>polynomial<sp/>($C^2$<sp/>smoothstep).<sp/>Used<sp/>by<sp/>diffusion,<sp/>flow<sp/>simulations,<sp/>snow<sp/>settling,<sp/>and<sp/>Poisson<sp/>boundary<sp/>relaxations<sp/>to<sp/>prevent<sp/>sharp<sp/>seam<sp/>artifacts.</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>**`Average`<sp/>/<sp/>`Mean`**:<sp/>Computes<sp/>the<sp/>arithmetic<sp/>mean<sp/>between<sp/>corresponding<sp/>overlap<sp/>cells.</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>**`Min`**:<sp/>Takes<sp/>the<sp/>element-wise<sp/>minimum<sp/>across<sp/>overlapping<sp/>regions.<sp/>Used<sp/>by<sp/>distance<sp/>transforms<sp/>and<sp/>geodesic<sp/>propagation.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>**`Max`**:<sp/>Takes<sp/>the<sp/>element-wise<sp/>maximum<sp/>across<sp/>overlapping<sp/>regions.<sp/>Used<sp/>by<sp/>priority-flood<sp/>depression<sp/>filling<sp/>and<sp/>water<sp/>elevation<sp/>surfaces.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**`Max`**:<sp/>Takes<sp/>the<sp/>element-wise<sp/>maximum<sp/>across<sp/>overlapping<sp/>regions.<sp/>Used<sp/>by<sp/>priority-flood<sp/>depression<sp/>filling,<sp/>water<sp/>elevation<sp/>surfaces,<sp/>and<sp/>multi-sweep<sp/>flow<sp/>accumulation.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**`Sum`**:<sp/>Computes<sp/>the<sp/>element-wise<sp/>sum<sp/>across<sp/>overlapping<sp/>regions.</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>**`CopyFirst`<sp/>/<sp/>`CopySecond`**:<sp/>Directional<sp/>copy<sp/>from<sp/>one<sp/>tile<sp/>to<sp/>another<sp/>along<sp/>boundary<sp/>interfaces.</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">##<sp/>3.<sp/>Execution<sp/>Engines</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">The<sp/>communicator<sp/>adapts<sp/>dynamically<sp/>to<sp/>the<sp/>compute<sp/>configuration<sp/>specified<sp/>in<sp/>`ComputeMode`:</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>communicator<sp/>adapts<sp/>dynamically<sp/>to<sp/>the<sp/>compute<sp/>configuration<sp/>specified<sp/>in<sp/>`ComputeMode`<sp/>and<sp/>the<sp/>underlying<sp/>`StorageMode`:</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">###<sp/>Single-Array<sp/>Mode<sp/>(`SingleArrayComm`)</highlight></codeline>
 <codeline></codeline>
@@ -77,7 +78,7 @@
 <codeline></codeline>
 <codeline><highlight class="normal">###<sp/>Multithreaded<sp/>Distributed<sp/>Mode<sp/>(`ThreadedTileComm`)</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">In<sp/>`ForEachMode::VA_DISTRIBUTED`<sp/>when<sp/>sufficient<sp/>memory<sp/>exists<sp/>to<sp/>hold<sp/>all<sp/>tiles<sp/>simultaneously,<sp/>tiles<sp/>execute<sp/>concurrently<sp/>across<sp/>a<sp/>thread<sp/>pool:</highlight></codeline>
+<codeline><highlight class="normal">In<sp/>`ForEachMode::VA_DISTRIBUTED`<sp/>when<sp/>all<sp/>tiles<sp/>can<sp/>reside<sp/>in<sp/>memory<sp/>concurrently<sp/>(`StorageMode::VA_RAM`<sp/>or<sp/>`StorageMode::VA_DISK_LRU_FULL`),<sp/>tiles<sp/>execute<sp/>across<sp/>worker<sp/>threads<sp/>with<sp/>a<sp/>1-to-1<sp/>mapping<sp/>between<sp/>tiles<sp/>and<sp/>ranks:</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">1.<sp/>**Registration**:<sp/>Every<sp/>thread<sp/>registers<sp/>its<sp/>tile<sp/>pointer<sp/>and<sp/>`TileRegion`<sp/>in<sp/>a<sp/>shared<sp/>`ThreadedCollectiveState`.</highlight></codeline>
 <codeline><highlight class="normal">2.<sp/>**Barrier**:<sp/>Threads<sp/>enter<sp/>a<sp/>condition-variable<sp/>barrier<sp/>waiting<sp/>for<sp/>all<sp/>ranks<sp/>to<sp/>register.</highlight></codeline>
@@ -86,17 +87,18 @@
 <codeline></codeline>
 <codeline><highlight class="normal">###<sp/>Out-of-Core<sp/>Sequential<sp/>Mode<sp/>(`SequentialTileComm`)</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">When<sp/>memory<sp/>constraints<sp/>dictate<sp/>strict<sp/>out-of-core<sp/>execution<sp/>(e.g.<sp/>`StorageMode::VA_DISK_LRU_MIN`,<sp/>where<sp/>at<sp/>most<sp/>2<sp/>live<sp/>tiles<sp/>are<sp/>kept<sp/>in<sp/>memory<sp/>at<sp/>any<sp/>instant),<sp/>threads<sp/>cannot<sp/>execute<sp/>in<sp/>parallel.</highlight></codeline>
+<codeline><highlight class="normal">When<sp/>memory<sp/>constraints<sp/>dictate<sp/>strict<sp/>out-of-core<sp/>streaming<sp/>(`StorageMode::VA_DISK_LRU_STREAM`,<sp/>where<sp/>unpinned<sp/>tiles<sp/>are<sp/>immediately<sp/>evicted<sp/>to<sp/>disk)<sp/>or<sp/>when<sp/>`ForEachMode::VA_SEQUENTIAL`<sp/>is<sp/>requested<sp/>with<sp/>a<sp/>collective<sp/>communicator,<sp/>tiles<sp/>cannot<sp/>execute<sp/>in<sp/>parallel.</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">HighMap<sp/>implements<sp/>a<sp/>cooperative<sp/>sequential<sp/>scheduler<sp/>(`SequentialThreadScheduler`):</highlight></codeline>
+<codeline><highlight class="normal">HighMap<sp/>implements<sp/>a<sp/>cooperative<sp/>sequential<sp/>scheduler<sp/>(`SequentialThreadScheduler`)<sp/>paired<sp/>with<sp/>per-rank<sp/>`TileProxyComm`<sp/>handles:</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">1.<sp/>**Tile<sp/>Fibers**:<sp/>Each<sp/>tile<sp/>runs<sp/>inside<sp/>a<sp/>cooperative<sp/>thread.<sp/>Exactly<sp/>one<sp/>tile<sp/>executes<sp/>at<sp/>any<sp/>time.</highlight></codeline>
-<codeline><highlight class="normal">2.<sp/>**Staging<sp/>Cache**:<sp/>When<sp/>a<sp/>tile<sp/>calls<sp/>`sync_overlap_buffers`,<sp/>its<sp/>updated<sp/>contents<sp/>are<sp/>flushed<sp/>to<sp/>a<sp/>temporary<sp/>disk-backed<sp/>`VirtualArray`<sp/>(`sync_va`).</highlight></codeline>
-<codeline><highlight class="normal">3.<sp/>**Turn<sp/>Passing**:<sp/>The<sp/>active<sp/>tile<sp/>suspends,<sp/>freeing<sp/>its<sp/>RAM<sp/>tile<sp/>allocation,<sp/>and<sp/>yields<sp/>execution<sp/>to<sp/>the<sp/>next<sp/>rank<sp/>in<sp/>round-robin<sp/>order.</highlight></codeline>
-<codeline><highlight class="normal">4.<sp/>**Global<sp/>Seam<sp/>Sweep**:<sp/>Once<sp/>all<sp/>tiles<sp/>reach<sp/>the<sp/>synchronization<sp/>point,<sp/>the<sp/>scheduler<sp/>executes<sp/>`sync_va-&gt;sync_overlap_buffers(op)`<sp/>using<sp/>the<sp/>low-memory<sp/>2-tile<sp/>sliding<sp/>window<sp/>cache.</highlight></codeline>
-<codeline><highlight class="normal">5.<sp/>**Tile<sp/>Resumption**:<sp/>Ranks<sp/>wake<sp/>up<sp/>in<sp/>sequence<sp/>and<sp/>reload<sp/>the<sp/>updated,<sp/>synchronized<sp/>tile<sp/>data<sp/>from<sp/>`sync_va`.</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>**Cooperative<sp/>Threads**:<sp/>Each<sp/>tile<sp/>rank<sp/>runs<sp/>inside<sp/>an<sp/>OS<sp/>thread<sp/>managed<sp/>by<sp/>`SequentialThreadScheduler`.<sp/>A<sp/>turn-taking<sp/>mutex/condition-variable<sp/>lock<sp/>ensures<sp/>that<sp/>**at<sp/>most<sp/>one<sp/>tile<sp/>thread<sp/>executes<sp/>at<sp/>any<sp/>instant**.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>**Staging<sp/>Cache**:<sp/>When<sp/>a<sp/>tile<sp/>calls<sp/>`sync_overlap_buffers`,<sp/>its<sp/>updated<sp/>contents<sp/>are<sp/>written<sp/>to<sp/>a<sp/>temporary<sp/>disk-backed<sp/>`VirtualArray`<sp/>(`sync_va`<sp/>configured<sp/>with<sp/>`StorageMode::VA_DISK_LRU_STREAM`),<sp/>and<sp/>its<sp/>local<sp/>`Array`<sp/>vector<sp/>is<sp/>deallocated.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>**Turn<sp/>Passing**:<sp/>The<sp/>active<sp/>rank<sp/>triggers<sp/>`on_suspend_rank`<sp/>(releasing<sp/>and<sp/>evicting<sp/>input/output<sp/>tiles<sp/>to<sp/>disk)<sp/>and<sp/>passes<sp/>the<sp/>execution<sp/>turn<sp/>to<sp/>the<sp/>next<sp/>active<sp/>rank<sp/>in<sp/>round-robin<sp/>order.</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>**Global<sp/>Seam<sp/>Sweep**:<sp/>Once<sp/>all<sp/>active<sp/>ranks<sp/>arrive<sp/>at<sp/>the<sp/>synchronization<sp/>barrier,<sp/>the<sp/>scheduler<sp/>executes<sp/>`sync_va-&gt;sync_overlap_buffers(op)`,<sp/>pinning<sp/>and<sp/>releasing<sp/>pairs<sp/>of<sp/>adjacent<sp/>tiles<sp/>on<sp/>demand.</highlight></codeline>
+<codeline><highlight class="normal">5.<sp/>**Tile<sp/>Resumption**:<sp/>Ranks<sp/>wake<sp/>up<sp/>in<sp/>sequence,<sp/>invoke<sp/>`on_resume_rank`<sp/>to<sp/>re-acquire<sp/>their<sp/>input/output<sp/>tiles,<sp/>and<sp/>reload<sp/>the<sp/>synchronized<sp/>tile<sp/>data<sp/>from<sp/>`sync_va`.</highlight></codeline>
+<codeline><highlight class="normal">6.<sp/>**Lifecycle<sp/>&amp;<sp/>Exception<sp/>Safety**:<sp/>If<sp/>a<sp/>rank<sp/>finishes<sp/>early,<sp/>`SequentialThreadScheduler`<sp/>decrements<sp/>the<sp/>active<sp/>participant<sp/>count<sp/>so<sp/>remaining<sp/>ranks<sp/>do<sp/>not<sp/>deadlock.<sp/>If<sp/>any<sp/>rank<sp/>throws<sp/>an<sp/>exception,<sp/>the<sp/>scheduler<sp/>aborts<sp/>all<sp/>waiting<sp/>ranks<sp/>and<sp/>rethrows<sp/>the<sp/>captured<sp/>`std::exception_ptr`<sp/>on<sp/>the<sp/>main<sp/>thread.</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">This<sp/>mechanism<sp/>guarantees<sp/>strict<sp/>adherence<sp/>to<sp/>low<sp/>memory<sp/>ceilings<sp/>(e.g.<sp/>maximum<sp/>2<sp/>live<sp/>tiles)<sp/>while<sp/>preserving<sp/>multi-pass<sp/>synchronization<sp/>consistency<sp/>across<sp/>the<sp/>entire<sp/>grid.</highlight></codeline>
+<codeline><highlight class="normal">For<sp/>non-cooperative<sp/>single-pass<sp/>sequential<sp/>loops<sp/>(`sequential_tile_loop`),<sp/>`SequentialTileComm`<sp/>provides<sp/>a<sp/>lightweight<sp/>fallback<sp/>that<sp/>stashes<sp/>eastern<sp/>and<sp/>southern<sp/>halo<sp/>strips<sp/>in<sp/>memory<sp/>to<sp/>forward<sp/>one-way<sp/>boundary<sp/>conditions<sp/>to<sp/>subsequent<sp/>tiles<sp/>in<sp/>raster<sp/>order.</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">##<sp/>4.<sp/>How<sp/>Overlap<sp/>Buffering<sp/>Works</highlight></codeline>
 <codeline></codeline>
@@ -235,6 +237,28 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>my_simulation(tile,<sp/>100,<sp/>10,<sp/>region,<sp/>comm);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>},</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cm);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>7.<sp/>Buffer<sp/>Shape<sp/>Invariance<sp/>and<sp/>Nested<sp/>Multiscale<sp/>Pipelines</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Any<sp/>`Array`<sp/>buffer<sp/>passed<sp/>to<sp/>`sync_overlap_buffers(local_tile,<sp/>region,<sp/>op)`<sp/>must<sp/>match<sp/>the<sp/>full<sp/>tile<sp/>geometry<sp/>described<sp/>by<sp/>`region.shape`<sp/>(nominal<sp/>tile<sp/>size<sp/>plus<sp/>halo<sp/>margins).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Incompatibility<sp/>with<sp/>Nested<sp/>Multiscale<sp/>Pyramids</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Algorithms<sp/>that<sp/>construct<sp/>internal<sp/>resolution<sp/>pyramids<sp/>(such<sp/>as<sp/>multiscale<sp/>filters<sp/>or<sp/>cascades<sp/>that<sp/>downsample<sp/>local<sp/>tiles<sp/>to<sp/>coarse<sp/>shapes<sp/>$L_i$)<sp/>must<sp/>not<sp/>propagate<sp/>the<sp/>outer<sp/>`TileRegion`<sp/>or<sp/>`ICommunicator`<sp/>into<sp/>the<sp/>coarse<sp/>levels:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>The<sp/>downsampled<sp/>buffer<sp/>$z_{\text{coarse}}$<sp/>has<sp/>dimensions<sp/>$L_i$,<sp/>whereas<sp/>`region.shape`<sp/>and<sp/>`region.halo`<sp/>correspond<sp/>to<sp/>the<sp/>full<sp/>tile<sp/>resolution.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Seam<sp/>indexing<sp/>logic<sp/>assumes<sp/>halo<sp/>margins<sp/>and<sp/>strides<sp/>match<sp/>`region.shape`.<sp/>Invoking<sp/>synchronization<sp/>on<sp/>a<sp/>downsampled<sp/>buffer<sp/>would<sp/>cause<sp/>halo<sp/>offsets<sp/>to<sp/>exceed<sp/>array<sp/>bounds.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>In<sp/>multiscale<sp/>pipelines,<sp/>intermediate<sp/>coarse<sp/>levels<sp/>execute<sp/>locally<sp/>using<sp/>`TileRegion::dummy()`<sp/>and<sp/>`SingleArrayComm::instance()`,<sp/>while<sp/>the<sp/>outer<sp/>`TileRegion`<sp/>and<sp/>`ICommunicator`<sp/>are<sp/>passed<sp/>only<sp/>at<sp/>the<sp/>full-resolution<sp/>level<sp/>where<sp/>buffer<sp/>dimensions<sp/>match<sp/>`region.shape`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Runtime<sp/>Shape<sp/>Validation</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Both<sp/>`ThreadedTileComm`<sp/>and<sp/>`SequentialTileComm`<sp/>verify<sp/>that<sp/>`local_tile.shape<sp/>==<sp/>region.shape`<sp/>at<sp/>the<sp/>entry<sp/>of<sp/>`sync_overlap_buffers`.<sp/>If<sp/>a<sp/>mismatch<sp/>is<sp/>detected,<sp/>an<sp/>error<sp/>is<sp/>logged<sp/>and<sp/>synchronization<sp/>is<sp/>skipped<sp/>to<sp/>prevent<sp/>out-of-bounds<sp/>memory<sp/>access:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```text</highlight></codeline>
+<codeline><highlight class="normal">sync_overlap_buffers:<sp/>buffer<sp/>shape<sp/>(x,<sp/>y)<sp/>does<sp/>not<sp/>match<sp/>region<sp/>shape<sp/>(rx,<sp/>ry).</highlight></codeline>
+<codeline><highlight class="normal">This<sp/>may<sp/>happen<sp/>if<sp/>sync<sp/>is<sp/>invoked<sp/>on<sp/>an<sp/>internal<sp/>or<sp/>nested<sp/>downsampled<sp/>buffer<sp/>(e.g.<sp/>multiscale<sp/>pyramid).</highlight></codeline>
+<codeline><highlight class="normal">Skipping<sp/>synchronization<sp/>to<sp/>prevent<sp/>memory<sp/>corruption.</highlight></codeline>
 <codeline><highlight class="normal">```</highlight></codeline>
     </programlisting>
     <location file="docs/content/dev/tiled_communication.md"/>

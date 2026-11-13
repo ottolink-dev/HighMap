@@ -49,12 +49,13 @@ public:
 - **`SmoothBlend`**: Blends overlapping cells smoothly using a quintic polynomial ($C^2$ smoothstep). Used by diffusion, flow simulations, snow settling, and Poisson boundary relaxations to prevent sharp seam artifacts.
 - **`Average` / `Mean`**: Computes the arithmetic mean between corresponding overlap cells.
 - **`Min`**: Takes the element-wise minimum across overlapping regions. Used by distance transforms and geodesic propagation.
-- **`Max`**: Takes the element-wise maximum across overlapping regions. Used by priority-flood depression filling and water elevation surfaces.
+- **`Max`**: Takes the element-wise maximum across overlapping regions. Used by priority-flood depression filling, water elevation surfaces, and multi-sweep flow accumulation.
+- **`Sum`**: Computes the element-wise sum across overlapping regions.
 - **`CopyFirst` / `CopySecond`**: Directional copy from one tile to another along boundary interfaces.
 
 ## 3. Execution Engines
 
-The communicator adapts dynamically to the compute configuration specified in `ComputeMode`:
+The communicator adapts dynamically to the compute configuration specified in `ComputeMode` and the underlying `StorageMode`:
 
 ### Single-Array Mode (`SingleArrayComm`)
 
@@ -68,7 +69,7 @@ Algorithms written with communicator parameters incur zero memory or synchroniza
 
 ### Multithreaded Distributed Mode (`ThreadedTileComm`)
 
-In `ForEachMode::VA_DISTRIBUTED` when sufficient memory exists to hold all tiles simultaneously, tiles execute concurrently across a thread pool:
+In `ForEachMode::VA_DISTRIBUTED` when all tiles can reside in memory concurrently (`StorageMode::VA_RAM` or `StorageMode::VA_DISK_LRU_FULL`), tiles execute across worker threads with a 1-to-1 mapping between tiles and ranks:
 
 1. **Registration**: Every thread registers its tile pointer and `TileRegion` in a shared `ThreadedCollectiveState`.
 2. **Barrier**: Threads enter a condition-variable barrier waiting for all ranks to register.
@@ -77,17 +78,18 @@ In `ForEachMode::VA_DISTRIBUTED` when sufficient memory exists to hold all tiles
 
 ### Out-of-Core Sequential Mode (`SequentialTileComm`)
 
-When memory constraints dictate strict out-of-core execution (e.g. `StorageMode::VA_DISK_LRU_MIN`, where at most 2 live tiles are kept in memory at any instant), threads cannot execute in parallel.
+When memory constraints dictate strict out-of-core streaming (`StorageMode::VA_DISK_LRU_STREAM`, where unpinned tiles are immediately evicted to disk) or when `ForEachMode::VA_SEQUENTIAL` is requested with a collective communicator, tiles cannot execute in parallel.
 
-HighMap implements a cooperative sequential scheduler (`SequentialThreadScheduler`):
+HighMap implements a cooperative sequential scheduler (`SequentialThreadScheduler`) paired with per-rank `TileProxyComm` handles:
 
-1. **Tile Fibers**: Each tile runs inside a cooperative thread. Exactly one tile executes at any time.
-2. **Staging Cache**: When a tile calls `sync_overlap_buffers`, its updated contents are flushed to a temporary disk-backed `VirtualArray` (`sync_va`).
-3. **Turn Passing**: The active tile suspends, freeing its RAM tile allocation, and yields execution to the next rank in round-robin order.
-4. **Global Seam Sweep**: Once all tiles reach the synchronization point, the scheduler executes `sync_va->sync_overlap_buffers(op)` using the low-memory 2-tile sliding window cache.
-5. **Tile Resumption**: Ranks wake up in sequence and reload the updated, synchronized tile data from `sync_va`.
+1. **Cooperative Threads**: Each tile rank runs inside an OS thread managed by `SequentialThreadScheduler`. A turn-taking mutex/condition-variable lock ensures that **at most one tile thread executes at any instant**.
+2. **Staging Cache**: When a tile calls `sync_overlap_buffers`, its updated contents are written to a temporary disk-backed `VirtualArray` (`sync_va` configured with `StorageMode::VA_DISK_LRU_STREAM`), and its local `Array` vector is deallocated.
+3. **Turn Passing**: The active rank triggers `on_suspend_rank` (releasing and evicting input/output tiles to disk) and passes the execution turn to the next active rank in round-robin order.
+4. **Global Seam Sweep**: Once all active ranks arrive at the synchronization barrier, the scheduler executes `sync_va->sync_overlap_buffers(op)`, pinning and releasing pairs of adjacent tiles on demand.
+5. **Tile Resumption**: Ranks wake up in sequence, invoke `on_resume_rank` to re-acquire their input/output tiles, and reload the synchronized tile data from `sync_va`.
+6. **Lifecycle & Exception Safety**: If a rank finishes early, `SequentialThreadScheduler` decrements the active participant count so remaining ranks do not deadlock. If any rank throws an exception, the scheduler aborts all waiting ranks and rethrows the captured `std::exception_ptr` on the main thread.
 
-This mechanism guarantees strict adherence to low memory ceilings (e.g. maximum 2 live tiles) while preserving multi-pass synchronization consistency across the entire grid.
+For non-cooperative single-pass sequential loops (`sequential_tile_loop`), `SequentialTileComm` provides a lightweight fallback that stashes eastern and southern halo strips in memory to forward one-way boundary conditions to subsequent tiles in raster order.
 
 ## 4. How Overlap Buffering Works
 
@@ -226,4 +228,26 @@ for_each_tile(
       my_simulation(tile, 100, 10, region, comm);
     },
     cm);
+```
+
+## 7. Buffer Shape Invariance and Nested Multiscale Pipelines
+
+Any `Array` buffer passed to `sync_overlap_buffers(local_tile, region, op)` must match the full tile geometry described by `region.shape` (nominal tile size plus halo margins).
+
+### Incompatibility with Nested Multiscale Pyramids
+
+Algorithms that construct internal resolution pyramids (such as multiscale filters or cascades that downsample local tiles to coarse shapes $L_i$) must not propagate the outer `TileRegion` or `ICommunicator` into the coarse levels:
+
+- The downsampled buffer $z_{\text{coarse}}$ has dimensions $L_i$, whereas `region.shape` and `region.halo` correspond to the full tile resolution.
+- Seam indexing logic assumes halo margins and strides match `region.shape`. Invoking synchronization on a downsampled buffer would cause halo offsets to exceed array bounds.
+- In multiscale pipelines, intermediate coarse levels execute locally using `TileRegion::dummy()` and `SingleArrayComm::instance()`, while the outer `TileRegion` and `ICommunicator` are passed only at the full-resolution level where buffer dimensions match `region.shape`.
+
+### Runtime Shape Validation
+
+Both `ThreadedTileComm` and `SequentialTileComm` verify that `local_tile.shape == region.shape` at the entry of `sync_overlap_buffers`. If a mismatch is detected, an error is logged and synchronization is skipped to prevent out-of-bounds memory access:
+
+```text
+sync_overlap_buffers: buffer shape (x, y) does not match region shape (rx, ry).
+This may happen if sync is invoked on an internal or nested downsampled buffer (e.g. multiscale pyramid).
+Skipping synchronization to prevent memory corruption.
 ```

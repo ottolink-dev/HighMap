@@ -98,7 +98,7 @@ $(function(){initNavTree('md_docs_2profiling.html','',''); });
   <div class="headertitle"><div class="title">Optional Tracy CPU profiling </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md142"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md145"></a></p>
 <p><span class="tt">HIGHMAP_ENABLE_TRACY</span> defaults to <span class="tt">OFF</span>; normal builds do not require Tracy. To enable it, install a Tracy client built with <span class="tt">TRACY_ENABLE=ON</span>, then configure with <span class="tt">-DHIGHMAP_ENABLE_TRACY=ON -DTracy_DIR=/path/to/lib/cmake/Tracy</span>. Use matching client and capture/profiler versions. On-demand clients are supported.</p>
 <p>The <span class="tt">highmap</span> CMake target publicly propagates both the client target and <span class="tt">HIGHMAP_ENABLE_TRACY</span>, so consumers instantiate the public tile templates with the same instrumentation as the library. Do not manually enable the macro in only some translation units. Link a single client into the final executable. Disabled hooks discard metadata expressions; enabled metadata is evaluated only while connected.</p>
 <p>Zones cover VirtualArray conversion/write-back, overlap synchronization, VirtualTexture conversion, shared tiled and full-array dispatch, HydraulicBlur stages and asset mesh generation/export. Tile dispatch separates storage acquire, callback and release; full-array dispatch separates gather, callback and scatter. The downscaled scatter includes high-frequency reconstruction. No per-cell zones are emitted. Many small tiles can still generate substantial capture traffic.</p>

@@ -8,7 +8,7 @@ var searchData=
   ['olsen_20ridge_20and_20flatten_20models_5',['Olsen, Ridge, and Flatten Models',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md98',1,'']]],
   ['on_20gpu_6',['Numerical Stability and Parity Fixes on GPU',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md76',1,'']]],
   ['opencl_20assessment_20and_20validation_7',['6. GPU (OpenCL) Assessment and Validation',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md73',1,'']]],
-  ['operations_8',['Operations',['../md_docs_2content_2getting__started_2quickstart.html#autotoc_md135',1,'3. Basic Operations'],['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md112',1,'Supported Operations']]],
+  ['operations_8',['Operations',['../md_docs_2content_2getting__started_2quickstart.html#autotoc_md138',1,'3. Basic Operations'],['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md112',1,'Supported Operations']]],
   ['optional_20tracy_20cpu_20profiling_9',['Optional Tracy CPU profiling',['../md_docs_2profiling.html',1,'']]],
   ['out_20of_20core_20sequential_20mode_20sequentialtilecomm_10',['Out-of-Core Sequential Mode (&lt;span class=&quot;tt&quot;&gt;SequentialTileComm&lt;/span&gt;)',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md117',1,'']]],
   ['overall_20decision_11',['4. Overall Decision',['..//home/runner/work/HighMap/HighMap/docs/content/dev/investigations/fft_convolution_and_morphology.md#autotoc_md83',1,'']]],

@@ -77,7 +77,7 @@ var searchData=
   ['reindex_5fvector_74',['reindex_vector',['../namespacehmap.html#ad122242a8f8cf308215faee96c9471ee',1,'hmap::reindex_vector(std::vector&lt; T &gt; &amp;v, std::vector&lt; size_t &gt; &amp;idx)'],['../namespacehmap.html#ac1fdc0ac0b6e1024faeaddcd30ebe2fe',1,'hmap::reindex_vector(std::vector&lt; int &gt; &amp;v, std::vector&lt; size_t &gt; &amp;idx)'],['../namespacehmap.html#a5cca080874e8af74fa03a3f0f0d2f307',1,'hmap::reindex_vector(std::vector&lt; float &gt; &amp;v, std::vector&lt; size_t &gt; &amp;idx)']]],
   ['reinforce_5fclass_5fclusters_75',['reinforce_class_clusters',['../classhmap_1_1ScatterField.html#aa97bb7dc10919eebaa875018068ebbe4',1,'hmap::ScatterField']]],
   ['rejection_5ffilter_5fdensity_76',['rejection_filter_density',['../namespacehmap.html#aa01ff551bebcd0540dbac8b91732c0b1',1,'hmap']]],
-  ['relationship_3a_20talus_20slope_20nx_77',['Relationship: talus = slope / nx',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md130',1,'']]],
+  ['relationship_3a_20talus_20slope_20nx_77',['Relationship: talus = slope / nx',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md133',1,'']]],
   ['relative_5fdistance_5ffrom_5fskeleton_78',['relative_distance_from_skeleton',['../namespacehmap.html#a7c7d934cc5a3a5e1a6f17c09a0e1e51f',1,'hmap::relative_distance_from_skeleton(const Array &amp;array, int ir_search, bool zero_at_borders=true, int ir_erosion=1)'],['../namespacehmap.html#aac6a0f72428db11736aa16539aca0a5c',1,'hmap::relative_distance_from_skeleton(const Array &amp;array, const Array &amp;skeleton, int ir_search, int ir_erosion=1)'],['../namespacehmap_1_1gpu.html#a5a96e5f24b80d47262daede2c0743ba6',1,'hmap::gpu::relative_distance_from_skeleton(const Array &amp;array, int ir_search, bool zero_at_borders=true, int ir_erosion=1)'],['../namespacehmap_1_1gpu.html#aecfa4981872dbbe775a63f64c9837029',1,'hmap::gpu::relative_distance_from_skeleton(const Array &amp;array, const Array &amp;skeleton, int ir_search, int ir_erosion=1)']]],
   ['relative_5felevation_79',['relative_elevation',['../namespacehmap.html#a941d446cad19c166f4f6c4df857dba65',1,'hmap::relative_elevation()'],['../namespacehmap_1_1gpu.html#a778cf36acffc481571ad51d607a1719e',1,'hmap::gpu::relative_elevation(const Array &amp;array, int ir, MinMaxKernel kernel_type=MinMaxKernel::DISK)']]],
   ['relative_5felevation_5fsquare_5fkernel_80',['relative_elevation_square_kernel',['../namespacehmap_1_1gpu.html#aebca5a0fef9c05a0e2378aef452707ed',1,'hmap::gpu']]],
@@ -100,7 +100,7 @@ var searchData=
   ['remove_5fpoints_5foutside_5fbbox_97',['remove_points_outside_bbox',['../namespacehmap.html#aaab30ec56f0dbaf1879a5be0ab32280b',1,'hmap']]],
   ['reorder_5fnns_98',['reorder_nns',['../classhmap_1_1Path.html#ad68abaa80879402c3758e24626acfb53',1,'hmap::Path']]],
   ['representation_99',['Uniform Instance Representation',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md87',1,'']]],
-  ['representations_100',['1. Elevation Representations',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md123',1,'']]],
+  ['representations_100',['1. Elevation Representations',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md126',1,'']]],
   ['resample_5fbicubic_5fwarp_101',['resample_bicubic_warp',['../namespacehmap.html#a1489cc458b4e23a36b8c35faa960d358',1,'hmap']]],
   ['resample_5fby_5fspacing_102',['resample_by_spacing',['../classhmap_1_1Path.html#a649a385315a3230c058d032b2171424a',1,'hmap::Path']]],
   ['resample_5finterp_103',['resample_interp',['../classhmap_1_1Path.html#afe00587a87fc52524487b197818404f0',1,'hmap::Path']]],
@@ -188,6 +188,7 @@ var searchData=
   ['ruggedness_185',['ruggedness',['../namespacehmap.html#af4ec8b5be149e6749fdf09759daf1e9e',1,'hmap::ruggedness()'],['../namespacehmap_1_1gpu.html#a62292cc4bf9f6eb5c7b63b1e26f8cc88',1,'hmap::gpu::ruggedness()']]],
   ['rugosity_186',['rugosity',['../namespacehmap.html#a85e411c67e97deb8459f25d4440546c3',1,'hmap::rugosity()'],['../namespacehmap_1_1gpu.html#aa5a3e087822525c41f057a51255e2bad',1,'hmap::gpu::rugosity()']]],
   ['run_5fcooperative_5ftiles_187',['run_cooperative_tiles',['../classhmap_1_1SequentialTileComm.html#a969e67204f69cbd23545d268c33346c5',1,'hmap::SequentialTileComm']]],
-  ['rx_188',['rx',['../classhmap_1_1RectangleFunction.html#a4cb4e1ecf55533045db6f660d410de2f',1,'hmap::RectangleFunction']]],
-  ['ry_189',['ry',['../classhmap_1_1RectangleFunction.html#a522e126417d6f1b6b8069ee05cf523a7',1,'hmap::RectangleFunction']]]
+  ['runtime_20shape_20validation_188',['Runtime Shape Validation',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md124',1,'']]],
+  ['rx_189',['rx',['../classhmap_1_1RectangleFunction.html#a4cb4e1ecf55533045db6f660d410de2f',1,'hmap::RectangleFunction']]],
+  ['ry_190',['ry',['../classhmap_1_1RectangleFunction.html#a522e126417d6f1b6b8069ee05cf523a7',1,'hmap::RectangleFunction']]]
 ];

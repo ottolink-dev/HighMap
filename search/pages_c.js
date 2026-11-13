@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['elevation_20difference_0',['Talus (Grid-Space Elevation Difference)',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md128',1,'']]],
-  ['elevation_20representations_1',['1. Elevation Representations',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md123',1,'']]],
+  ['elevation_20difference_0',['Talus (Grid-Space Elevation Difference)',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md131',1,'']]],
+  ['elevation_20representations_1',['1. Elevation Representations',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md126',1,'']]],
   ['energy_20conservation_2',['Velocity and Energy Conservation',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md39',1,'']]],
   ['engines_3',['3. Execution Engines',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md114',1,'']]],
   ['equations_4',['3. Algorithm Details and Equations',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md99',1,'']]],
@@ -13,7 +13,7 @@ var searchData=
   ['erosion_20models_20comparison_10',['Hydraulic Erosion Models Comparison',['../md_docs_2content_2dev_2hydraulic__comparison.html',1,'']]],
   ['erosion_20thermal_5fconserve_11',['2. Mass-Preserving Thermal Erosion (&lt;span class=&quot;tt&quot;&gt;thermal_conserve&lt;/span&gt;)',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md101',1,'']]],
   ['evaluation_12',['Surface Interpolation and Gradient Evaluation',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md37',1,'']]],
-  ['example_13',['Example',['../md_docs_2content_2getting__started_2quickstart.html#autotoc_md133',1,'1. Example'],['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md121',1,'6. Integration and Usage Example']]],
+  ['example_13',['Example',['../md_docs_2content_2getting__started_2quickstart.html#autotoc_md136',1,'1. Example'],['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md121',1,'6. Integration and Usage Example']]],
   ['example_3a_14',['Usage Example:',['../classhmap_1_1Timer.html#autotoc_md0',1,'']]],
   ['execution_20engines_15',['3. Execution Engines',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md114',1,'']]],
   ['execution_20time_20comparison_20_24256_20256_24_20grid_16',['Execution Time Comparison ($256 \\times 256$ Grid)',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md68',1,'']]],

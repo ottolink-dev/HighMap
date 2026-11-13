@@ -52,10 +52,11 @@ The {\ttfamily ICommunicator} interface provides an MPI-\/like abstraction tailo
 \item {\bfseries{{\ttfamily Smooth\+Blend}}}\+: Blends overlapping cells smoothly using a quintic polynomial (\$C\texorpdfstring{$^\wedge$}{\string^}2\$ smoothstep). Used by diffusion, flow simulations, snow settling, and Poisson boundary relaxations to prevent sharp seam artifacts.
 \item {\bfseries{{\ttfamily Average} / {\ttfamily Mean}}}\+: Computes the arithmetic mean between corresponding overlap cells.
 \item {\bfseries{{\ttfamily Min}}}\+: Takes the element-\/wise minimum across overlapping regions. Used by distance transforms and geodesic propagation.
-\item {\bfseries{{\ttfamily Max}}}\+: Takes the element-\/wise maximum across overlapping regions. Used by priority-\/flood depression filling and water elevation surfaces.
+\item {\bfseries{{\ttfamily Max}}}\+: Takes the element-\/wise maximum across overlapping regions. Used by priority-\/flood depression filling, water elevation surfaces, and multi-\/sweep flow accumulation.
+\item {\bfseries{{\ttfamily Sum}}}\+: Computes the element-\/wise sum across overlapping regions.
 \item {\bfseries{{\ttfamily Copy\+First} / {\ttfamily Copy\+Second}}}\+: Directional copy from one tile to another along boundary interfaces.
 \end{DoxyItemize}\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md114}{}\doxysection{\texorpdfstring{3. Execution Engines}{3. Execution Engines}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md114}
-The communicator adapts dynamically to the compute configuration specified in {\ttfamily Compute\+Mode}\+:\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md115}{}\doxysubsection{\texorpdfstring{Single-\/\+Array Mode ({\ttfamily Single\+Array\+Comm})}{Single-\/\+Array Mode ({\ttfamily Single\+Array\+Comm})}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md115}
+The communicator adapts dynamically to the compute configuration specified in {\ttfamily Compute\+Mode} and the underlying {\ttfamily Storage\+Mode}\+:\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md115}{}\doxysubsection{\texorpdfstring{Single-\/\+Array Mode ({\ttfamily Single\+Array\+Comm})}{Single-\/\+Array Mode ({\ttfamily Single\+Array\+Comm})}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md115}
 When an algorithm is invoked directly on a monolithic {\ttfamily Array} without tiling, {\ttfamily Single\+Array\+Comm\+::instance()} serves as the default communicator\+:
 \begin{DoxyItemize}
 \item {\ttfamily size()} returns {\ttfamily 1}, and {\ttfamily rank()} returns {\ttfamily 0}.
@@ -65,7 +66,7 @@ When an algorithm is invoked directly on a monolithic {\ttfamily Array} without 
 \end{DoxyItemize}
 
 Algorithms written with communicator parameters incur zero memory or synchronization penalty when run monolithically.\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md116}{}\doxysubsection{\texorpdfstring{Multithreaded Distributed Mode ({\ttfamily Threaded\+Tile\+Comm})}{Multithreaded Distributed Mode ({\ttfamily Threaded\+Tile\+Comm})}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md116}
-In {\ttfamily For\+Each\+Mode\+::\+VA\+\_\+\+DISTRIBUTED} when sufficient memory exists to hold all tiles simultaneously, tiles execute concurrently across a thread pool\+:
+In {\ttfamily For\+Each\+Mode\+::\+VA\+\_\+\+DISTRIBUTED} when all tiles can reside in memory concurrently ({\ttfamily Storage\+Mode\+::\+VA\+\_\+\+RAM} or {\ttfamily Storage\+Mode\+::\+VA\+\_\+\+DISK\+\_\+\+LRU\+\_\+\+FULL}), tiles execute across worker threads with a 1-\/to-\/1 mapping between tiles and ranks\+:
 
 
 \begin{DoxyEnumerate}
@@ -74,20 +75,21 @@ In {\ttfamily For\+Each\+Mode\+::\+VA\+\_\+\+DISTRIBUTED} when sufficient memory
 \item {\bfseries{Seam Exchange}}\+: Rank 0 iterates through the horizontal (\$x\$) and vertical (\$y\$) tile seams, reading and writing the overlapping memory regions between neighboring {\ttfamily Array} buffers according to the requested {\ttfamily Sync\+Operation}.
 \item {\bfseries{Resumption}}\+: A second barrier releases all threads once seam synchronization is complete.
 \end{DoxyEnumerate}\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md117}{}\doxysubsection{\texorpdfstring{Out-\/of-\/\+Core Sequential Mode ({\ttfamily Sequential\+Tile\+Comm})}{Out-\/of-\/\+Core Sequential Mode ({\ttfamily Sequential\+Tile\+Comm})}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md117}
-When memory constraints dictate strict out-\/of-\/core execution (e.\+g. {\ttfamily Storage\+Mode\+::\+VA\+\_\+\+DISK\+\_\+\+LRU\+\_\+\+MIN}, where at most 2 live tiles are kept in memory at any instant), threads cannot execute in parallel.
+When memory constraints dictate strict out-\/of-\/core streaming ({\ttfamily Storage\+Mode\+::\+VA\+\_\+\+DISK\+\_\+\+LRU\+\_\+\+STREAM}, where unpinned tiles are immediately evicted to disk) or when {\ttfamily For\+Each\+Mode\+::\+VA\+\_\+\+SEQUENTIAL} is requested with a collective communicator, tiles cannot execute in parallel.
 
-High\+Map implements a cooperative sequential scheduler ({\ttfamily Sequential\+Thread\+Scheduler})\+:
+High\+Map implements a cooperative sequential scheduler ({\ttfamily Sequential\+Thread\+Scheduler}) paired with per-\/rank {\ttfamily Tile\+Proxy\+Comm} handles\+:
 
 
 \begin{DoxyEnumerate}
-\item {\bfseries{Tile Fibers}}\+: Each tile runs inside a cooperative thread. Exactly one tile executes at any time.
-\item {\bfseries{Staging Cache}}\+: When a tile calls {\ttfamily sync\+\_\+overlap\+\_\+buffers}, its updated contents are flushed to a temporary disk-\/backed {\ttfamily Virtual\+Array} ({\ttfamily sync\+\_\+va}).
-\item {\bfseries{Turn Passing}}\+: The active tile suspends, freeing its RAM tile allocation, and yields execution to the next rank in round-\/robin order.
-\item {\bfseries{Global Seam Sweep}}\+: Once all tiles reach the synchronization point, the scheduler executes {\ttfamily sync\+\_\+va-\/\texorpdfstring{$>$}{>}sync\+\_\+overlap\+\_\+buffers(op)} using the low-\/memory 2-\/tile sliding window cache.
-\item {\bfseries{Tile Resumption}}\+: Ranks wake up in sequence and reload the updated, synchronized tile data from {\ttfamily sync\+\_\+va}.
+\item {\bfseries{Cooperative Threads}}\+: Each tile rank runs inside an OS thread managed by {\ttfamily Sequential\+Thread\+Scheduler}. A turn-\/taking mutex/condition-\/variable lock ensures that {\bfseries{at most one tile thread executes at any instant}}.
+\item {\bfseries{Staging Cache}}\+: When a tile calls {\ttfamily sync\+\_\+overlap\+\_\+buffers}, its updated contents are written to a temporary disk-\/backed {\ttfamily Virtual\+Array} ({\ttfamily sync\+\_\+va} configured with {\ttfamily Storage\+Mode\+::\+VA\+\_\+\+DISK\+\_\+\+LRU\+\_\+\+STREAM}), and its local {\ttfamily Array} vector is deallocated.
+\item {\bfseries{Turn Passing}}\+: The active rank triggers {\ttfamily on\+\_\+suspend\+\_\+rank} (releasing and evicting input/output tiles to disk) and passes the execution turn to the next active rank in round-\/robin order.
+\item {\bfseries{Global Seam Sweep}}\+: Once all active ranks arrive at the synchronization barrier, the scheduler executes {\ttfamily sync\+\_\+va-\/\texorpdfstring{$>$}{>}sync\+\_\+overlap\+\_\+buffers(op)}, pinning and releasing pairs of adjacent tiles on demand.
+\item {\bfseries{Tile Resumption}}\+: Ranks wake up in sequence, invoke {\ttfamily on\+\_\+resume\+\_\+rank} to re-\/acquire their input/output tiles, and reload the synchronized tile data from {\ttfamily sync\+\_\+va}.
+\item {\bfseries{Lifecycle \& Exception Safety}}\+: If a rank finishes early, {\ttfamily Sequential\+Thread\+Scheduler} decrements the active participant count so remaining ranks do not deadlock. If any rank throws an exception, the scheduler aborts all waiting ranks and rethrows the captured {\ttfamily std\+::exception\+\_\+ptr} on the main thread.
 \end{DoxyEnumerate}
 
-This mechanism guarantees strict adherence to low memory ceilings (e.\+g. maximum 2 live tiles) while preserving multi-\/pass synchronization consistency across the entire grid.\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md118}{}\doxysection{\texorpdfstring{4. How Overlap Buffering Works}{4. How Overlap Buffering Works}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md118}
+For non-\/cooperative single-\/pass sequential loops ({\ttfamily \doxylink{virtual__array_8inl_a248e8e1edddfcc281ea3ce1b2c69b944}{sequential\+\_\+tile\+\_\+loop}}), {\ttfamily Sequential\+Tile\+Comm} provides a lightweight fallback that stashes eastern and southern halo strips in memory to forward one-\/way boundary conditions to subsequent tiles in raster order.\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md118}{}\doxysection{\texorpdfstring{4. How Overlap Buffering Works}{4. How Overlap Buffering Works}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md118}
 Each tile in a {\ttfamily Virtual\+Array} consists of a core nominal area augmented by a border of width \$\+H\$ (the halo)\+:
 
 
@@ -229,6 +231,25 @@ Invoking through {\ttfamily \doxylink{virtual__array_8inl_ab533899554e393dbefccf
 \DoxyCodeLine{\ \ \ \ \ \ my\_simulation(tile,\ 100,\ 10,\ region,\ comm);}
 \DoxyCodeLine{\ \ \ \ \},}
 \DoxyCodeLine{\ \ \ \ cm);}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md122}{}\doxysection{\texorpdfstring{7. Buffer Shape Invariance and Nested Multiscale Pipelines}{7. Buffer Shape Invariance and Nested Multiscale Pipelines}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md122}
+Any {\ttfamily Array} buffer passed to {\ttfamily sync\+\_\+overlap\+\_\+buffers(local\+\_\+tile, region, op)} must match the full tile geometry described by {\ttfamily region.\+shape} (nominal tile size plus halo margins).\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md123}{}\doxysubsection{\texorpdfstring{Incompatibility with Nested Multiscale Pyramids}{Incompatibility with Nested Multiscale Pyramids}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md123}
+Algorithms that construct internal resolution pyramids (such as multiscale filters or cascades that downsample local tiles to coarse shapes \$\+L\+\_\+i\$) must not propagate the outer {\ttfamily Tile\+Region} or {\ttfamily ICommunicator} into the coarse levels\+:
+
+
+\begin{DoxyItemize}
+\item The downsampled buffer \$z\+\_\+\{\textbackslash{}text\{coarse\}\}\$ has dimensions \$\+L\+\_\+i\$, whereas {\ttfamily region.\+shape} and {\ttfamily region.\+halo} correspond to the full tile resolution.
+\item Seam indexing logic assumes halo margins and strides match {\ttfamily region.\+shape}. Invoking synchronization on a downsampled buffer would cause halo offsets to exceed array bounds.
+\item In multiscale pipelines, intermediate coarse levels execute locally using {\ttfamily Tile\+Region\+::dummy()} and {\ttfamily Single\+Array\+Comm\+::instance()}, while the outer {\ttfamily Tile\+Region} and {\ttfamily ICommunicator} are passed only at the full-\/resolution level where buffer dimensions match {\ttfamily region.\+shape}.
+\end{DoxyItemize}\hypertarget{md_docs_2content_2dev_2tiled__communication_autotoc_md124}{}\doxysubsection{\texorpdfstring{Runtime Shape Validation}{Runtime Shape Validation}}\label{md_docs_2content_2dev_2tiled__communication_autotoc_md124}
+Both {\ttfamily Threaded\+Tile\+Comm} and {\ttfamily Sequential\+Tile\+Comm} verify that {\ttfamily local\+\_\+tile.\+shape == region.\+shape} at the entry of {\ttfamily sync\+\_\+overlap\+\_\+buffers}. If a mismatch is detected, an error is logged and synchronization is skipped to prevent out-\/of-\/bounds memory access\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sync\_overlap\_buffers:\ buffer\ shape\ (x,\ y)\ does\ not\ match\ region\ shape\ (rx,\ ry).}
+\DoxyCodeLine{This\ may\ happen\ if\ sync\ is\ invoked\ on\ an\ internal\ or\ nested\ downsampled\ buffer\ (e.g.\ multiscale\ pyramid).}
+\DoxyCodeLine{Skipping\ synchronization\ to\ prevent\ memory\ corruption.}
 
 \end{DoxyCode}
  

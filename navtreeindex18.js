@@ -1,5 +1,8 @@
 var NAVTREEINDEX18 =
 {
+"structhmap_1_1ColorAdjust.html#a22890080427433e2c75ad3f15d3fc2b8":[15,0,0,13,4],
+"structhmap_1_1ColorAdjust.html#a22890080427433e2c75ad3f15d3fc2b8":[16,0,0,11,4],
+"structhmap_1_1ColorAdjust.html#a4c9f3e46e241abba388ee27b20602fe5":[15,0,0,13,11],
 "structhmap_1_1ColorAdjust.html#a4c9f3e46e241abba388ee27b20602fe5":[16,0,0,11,11],
 "structhmap_1_1ColorAdjust.html#a7c18b47518f06e6651f5905306420c32":[15,0,0,13,8],
 "structhmap_1_1ColorAdjust.html#a7c18b47518f06e6651f5905306420c32":[16,0,0,11,8],
@@ -246,8 +249,5 @@ var NAVTREEINDEX18 =
 "structhmap_1_1Neighbor.html#af89fb109a74f9648d04cb4dc6e1d941e":[15,0,0,76,2],
 "structhmap_1_1Neighbor.html#af89fb109a74f9648d04cb4dc6e1d941e":[16,0,0,74,2],
 "structhmap_1_1OpenCVWriter_1_1Impl.html":[15,0,0,24,0],
-"structhmap_1_1OpenCVWriter_1_1Impl.html":[16,0,0,22,0],
-"structhmap_1_1OpenCVWriter_1_1Impl.html#a4dd45fc7f9e75e82d062cce55ffc8a1f":[15,0,0,24,0,0],
-"structhmap_1_1OpenCVWriter_1_1Impl.html#a4dd45fc7f9e75e82d062cce55ffc8a1f":[16,0,0,22,0,0],
-"structhmap_1_1OpenCVWriter_1_1Impl.html#a895e9f6e06f28ed04b3f0590ecfca283":[15,0,0,24,0,3]
+"structhmap_1_1OpenCVWriter_1_1Impl.html":[16,0,0,22,0]
 };

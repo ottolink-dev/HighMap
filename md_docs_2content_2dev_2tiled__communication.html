@@ -143,12 +143,13 @@ Overlap Synchronization Modes (<span class="tt">SyncOperation</span>)</h2>
 <li><b><span class="tt">SmoothBlend</span></b>: Blends overlapping cells smoothly using a quintic polynomial ($C^2$ smoothstep). Used by diffusion, flow simulations, snow settling, and Poisson boundary relaxations to prevent sharp seam artifacts.</li>
 <li><b><span class="tt">Average</span> / <span class="tt">Mean</span></b>: Computes the arithmetic mean between corresponding overlap cells.</li>
 <li><b><span class="tt">Min</span></b>: Takes the element-wise minimum across overlapping regions. Used by distance transforms and geodesic propagation.</li>
-<li><b><span class="tt">Max</span></b>: Takes the element-wise maximum across overlapping regions. Used by priority-flood depression filling and water elevation surfaces.</li>
+<li><b><span class="tt">Max</span></b>: Takes the element-wise maximum across overlapping regions. Used by priority-flood depression filling, water elevation surfaces, and multi-sweep flow accumulation.</li>
+<li><b><span class="tt">Sum</span></b>: Computes the element-wise sum across overlapping regions.</li>
 <li><b><span class="tt">CopyFirst</span> / <span class="tt">CopySecond</span></b>: Directional copy from one tile to another along boundary interfaces.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md114"></a>
 3. Execution Engines</h1>
-<p>The communicator adapts dynamically to the compute configuration specified in <span class="tt">ComputeMode</span>:</p>
+<p>The communicator adapts dynamically to the compute configuration specified in <span class="tt">ComputeMode</span> and the underlying <span class="tt">StorageMode</span>:</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md115"></a>
 Single-Array Mode (<span class="tt">SingleArrayComm</span>)</h2>
 <p>When an algorithm is invoked directly on a monolithic <span class="tt">Array</span> without tiling, <span class="tt">SingleArrayComm::instance()</span> serves as the default communicator:</p><ul>
@@ -160,7 +161,7 @@ Single-Array Mode (<span class="tt">SingleArrayComm</span>)</h2>
 <p>Algorithms written with communicator parameters incur zero memory or synchronization penalty when run monolithically.</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md116"></a>
 Multithreaded Distributed Mode (<span class="tt">ThreadedTileComm</span>)</h2>
-<p>In <span class="tt">ForEachMode::VA_DISTRIBUTED</span> when sufficient memory exists to hold all tiles simultaneously, tiles execute concurrently across a thread pool:</p>
+<p>In <span class="tt">ForEachMode::VA_DISTRIBUTED</span> when all tiles can reside in memory concurrently (<span class="tt">StorageMode::VA_RAM</span> or <span class="tt">StorageMode::VA_DISK_LRU_FULL</span>), tiles execute across worker threads with a 1-to-1 mapping between tiles and ranks:</p>
 <ol type="1">
 <li><b>Registration</b>: Every thread registers its tile pointer and <span class="tt">TileRegion</span> in a shared <span class="tt">ThreadedCollectiveState</span>.</li>
 <li><b>Barrier</b>: Threads enter a condition-variable barrier waiting for all ranks to register.</li>
@@ -169,16 +170,17 @@ Multithreaded Distributed Mode (<span class="tt">ThreadedTileComm</span>)</h2>
 </ol>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md117"></a>
 Out-of-Core Sequential Mode (<span class="tt">SequentialTileComm</span>)</h2>
-<p>When memory constraints dictate strict out-of-core execution (e.g. <span class="tt">StorageMode::VA_DISK_LRU_MIN</span>, where at most 2 live tiles are kept in memory at any instant), threads cannot execute in parallel.</p>
-<p>HighMap implements a cooperative sequential scheduler (<span class="tt">SequentialThreadScheduler</span>):</p>
+<p>When memory constraints dictate strict out-of-core streaming (<span class="tt">StorageMode::VA_DISK_LRU_STREAM</span>, where unpinned tiles are immediately evicted to disk) or when <span class="tt">ForEachMode::VA_SEQUENTIAL</span> is requested with a collective communicator, tiles cannot execute in parallel.</p>
+<p>HighMap implements a cooperative sequential scheduler (<span class="tt">SequentialThreadScheduler</span>) paired with per-rank <span class="tt">TileProxyComm</span> handles:</p>
 <ol type="1">
-<li><b>Tile Fibers</b>: Each tile runs inside a cooperative thread. Exactly one tile executes at any time.</li>
-<li><b>Staging Cache</b>: When a tile calls <span class="tt">sync_overlap_buffers</span>, its updated contents are flushed to a temporary disk-backed <span class="tt">VirtualArray</span> (<span class="tt">sync_va</span>).</li>
-<li><b>Turn Passing</b>: The active tile suspends, freeing its RAM tile allocation, and yields execution to the next rank in round-robin order.</li>
-<li><b>Global Seam Sweep</b>: Once all tiles reach the synchronization point, the scheduler executes <span class="tt">sync_va-&gt;sync_overlap_buffers(op)</span> using the low-memory 2-tile sliding window cache.</li>
-<li><b>Tile Resumption</b>: Ranks wake up in sequence and reload the updated, synchronized tile data from <span class="tt">sync_va</span>.</li>
+<li><b>Cooperative Threads</b>: Each tile rank runs inside an OS thread managed by <span class="tt">SequentialThreadScheduler</span>. A turn-taking mutex/condition-variable lock ensures that <b>at most one tile thread executes at any instant</b>.</li>
+<li><b>Staging Cache</b>: When a tile calls <span class="tt">sync_overlap_buffers</span>, its updated contents are written to a temporary disk-backed <span class="tt">VirtualArray</span> (<span class="tt">sync_va</span> configured with <span class="tt">StorageMode::VA_DISK_LRU_STREAM</span>), and its local <span class="tt">Array</span> vector is deallocated.</li>
+<li><b>Turn Passing</b>: The active rank triggers <span class="tt">on_suspend_rank</span> (releasing and evicting input/output tiles to disk) and passes the execution turn to the next active rank in round-robin order.</li>
+<li><b>Global Seam Sweep</b>: Once all active ranks arrive at the synchronization barrier, the scheduler executes <span class="tt">sync_va-&gt;sync_overlap_buffers(op)</span>, pinning and releasing pairs of adjacent tiles on demand.</li>
+<li><b>Tile Resumption</b>: Ranks wake up in sequence, invoke <span class="tt">on_resume_rank</span> to re-acquire their input/output tiles, and reload the synchronized tile data from <span class="tt">sync_va</span>.</li>
+<li><b>Lifecycle &amp; Exception Safety</b>: If a rank finishes early, <span class="tt">SequentialThreadScheduler</span> decrements the active participant count so remaining ranks do not deadlock. If any rank throws an exception, the scheduler aborts all waiting ranks and rethrows the captured <span class="tt">std::exception_ptr</span> on the main thread.</li>
 </ol>
-<p>This mechanism guarantees strict adherence to low memory ceilings (e.g. maximum 2 live tiles) while preserving multi-pass synchronization consistency across the entire grid.</p>
+<p>For non-cooperative single-pass sequential loops (<span class="tt"><a class="el" href="virtual__array_8inl.html#a248e8e1edddfcc281ea3ce1b2c69b944">sequential_tile_loop</a></span>), <span class="tt">SequentialTileComm</span> provides a lightweight fallback that stashes eastern and southern halo strips in memory to forward one-way boundary conditions to subsequent tiles in raster order.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md118"></a>
 4. How Overlap Buffering Works</h1>
 <p>Each tile in a <span class="tt">VirtualArray</span> consists of a core nominal area augmented by a border of width $H$ (the halo):</p>
@@ -293,6 +295,23 @@ Batching Loop Pattern</h2>
 <div class="line">    },</div>
 <div class="line">    cm);</div>
 <div class="ttc" id="avirtual__array_8inl_html_ab533899554e393dbefccf9a5602faa39"><div class="ttname"><a href="virtual__array_8inl.html#ab533899554e393dbefccf9a5602faa39">for_each_tile</a></div><div class="ttdeci">void for_each_tile(const TileAccess &amp;access, Func &amp;&amp;func, const ComputeMode &amp;cm)</div><div class="ttdef"><b>Definition</b> virtual_array.inl:22</div></div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md122"></a>
+7. Buffer Shape Invariance and Nested Multiscale Pipelines</h1>
+<p>Any <span class="tt">Array</span> buffer passed to <span class="tt">sync_overlap_buffers(local_tile, region, op)</span> must match the full tile geometry described by <span class="tt">region.shape</span> (nominal tile size plus halo margins).</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md123"></a>
+Incompatibility with Nested Multiscale Pyramids</h2>
+<p>Algorithms that construct internal resolution pyramids (such as multiscale filters or cascades that downsample local tiles to coarse shapes $L_i$) must not propagate the outer <span class="tt">TileRegion</span> or <span class="tt">ICommunicator</span> into the coarse levels:</p>
+<ul>
+<li>The downsampled buffer $z_{\text{coarse}}$ has dimensions $L_i$, whereas <span class="tt">region.shape</span> and <span class="tt">region.halo</span> correspond to the full tile resolution.</li>
+<li>Seam indexing logic assumes halo margins and strides match <span class="tt">region.shape</span>. Invoking synchronization on a downsampled buffer would cause halo offsets to exceed array bounds.</li>
+<li>In multiscale pipelines, intermediate coarse levels execute locally using <span class="tt">TileRegion::dummy()</span> and <span class="tt">SingleArrayComm::instance()</span>, while the outer <span class="tt">TileRegion</span> and <span class="tt">ICommunicator</span> are passed only at the full-resolution level where buffer dimensions match <span class="tt">region.shape</span>.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md124"></a>
+Runtime Shape Validation</h2>
+<p>Both <span class="tt">ThreadedTileComm</span> and <span class="tt">SequentialTileComm</span> verify that <span class="tt">local_tile.shape == region.shape</span> at the entry of <span class="tt">sync_overlap_buffers</span>. If a mismatch is detected, an error is logged and synchronization is skipped to prevent out-of-bounds memory access:</p>
+<div class="fragment"><div class="line">sync_overlap_buffers: buffer shape (x, y) does not match region shape (rx, ry).</div>
+<div class="line">This may happen if sync is invoked on an internal or nested downsampled buffer (e.g. multiscale pyramid).</div>
+<div class="line">Skipping synchronization to prevent memory corruption.</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

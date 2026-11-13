@@ -6,9 +6,9 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><anchor id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md122"/></para>
+<para><anchor id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md125"/></para>
 <para>This page describes the primary data structures and representations used in HighMap.</para>
-<sect1 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md123">
+<sect1 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md126">
 <title>1. Elevation Representations</title><para>HighMap provides three main structures for 2D height data:</para>
 <para><table rows="4" cols="3"><row>
 <entry thead="yes" align='left'><para>Structure  </para>
@@ -32,7 +32,7 @@
 </entry></row>
 </table>
 </para>
-<sect2 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md124">
+<sect2 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md127">
 <title>Array</title><para><computeroutput>Array</computeroutput> is the basic container for 2D elevation fields. Data is stored in row-major order. It supports arithmetic operators, statistical queries, slicing, and filtering.</para>
 <para><programlisting filename=".cpp"><codeline><highlight class="normal"><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z({512,<sp/>512});</highlight></codeline>
 <codeline><highlight class="normal">z<sp/>=<sp/>1.0f;</highlight></codeline>
@@ -40,7 +40,7 @@
 </programlisting></para>
 </sect2>
 </sect1>
-<sect1 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md125">
+<sect1 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md128">
 <title>2. Bivariate Functions</title><para>Continuous functions deriving from <computeroutput><ref refid="classhmap_1_1Function" kindref="compound">hmap::Function</ref></computeroutput> represent mathematical surfaces $f(x, y)$ independently of resolution:</para>
 <para><itemizedlist>
 <listitem><para><computeroutput><ref refid="classhmap_1_1NoiseFunction" kindref="compound">hmap::NoiseFunction</ref></computeroutput>: Perlin, Simplex, and cellular noise generators.</para>
@@ -49,7 +49,7 @@
 </listitem></itemizedlist>
 </para>
 </sect1>
-<sect1 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md126">
+<sect1 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md129">
 <title>3. Geometric Primitives</title><para>Geometric entities represent vector features and integrate with height arrays:</para>
 <para><itemizedlist>
 <listitem><para><computeroutput><ref refid="classhmap_1_1Point" kindref="compound">hmap::Point</ref></computeroutput> / <computeroutput><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref></computeroutput>: Individual points and point clouds.</para>
@@ -58,9 +58,9 @@
 </listitem></itemizedlist>
 </para>
 </sect1>
-<sect1 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md127">
+<sect1 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md130">
 <title>4. Talus vs. Slope</title><para>When simulating erosion or analyzing terrain gradients, HighMap distinguishes between <bold>talus</bold> and <bold>slope</bold>:</para>
-<sect2 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md128">
+<sect2 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md131">
 <title>Talus (Grid-Space Elevation Difference)</title><para>In HighMap, the <bold>talus</bold> is defined as the direct elevation difference between neighboring grid cells (or the critical vertical threshold per grid step):</para>
 <para>$$\text{talus} = \Delta z = z_{i+1, j} - z_{i, j}$$</para>
 <para><itemizedlist>
@@ -69,7 +69,7 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md129">
+<sect2 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md132">
 <title>Slope (Metric Surface Gradient)</title><para>The <bold>slope</bold> is the metric rate of change of elevation with respect to physical horizontal distance in the terrain domain:</para>
 <para>$$\text{slope} = \frac{\Delta z}{\Delta x} = \frac{z(\mathbf{x}_2) - z(\mathbf{x}_1)}{|\mathbf{x}_2 - \mathbf{x}_1|}$$</para>
 <para>where $\Delta x = L_x / N_x$ represents the physical cell spacing for a domain of size $L_x$.</para>
@@ -79,7 +79,7 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md130">
+<sect2 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md133">
 <title>Relationship: talus = slope / nx</title><para>In unit-box normalized domains ($L_x = 1$), the physical cell spacing is $\Delta x = 1 / N_x$. Substituting $\Delta x$ into the slope definition yields:</para>
 <para>$$\text{slope} = \frac{\Delta z}{\Delta x} = \frac{\text{talus}}{1 / N_x} = \text{talus} \cdot N_x$$</para>
 <para>Rearranging for the grid-cell talus threshold gives:</para>
@@ -98,7 +98,7 @@
 </programlisting></para>
 </sect2>
 </sect1>
-<sect1 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md131">
+<sect1 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md134">
 <title>5. Scattering</title><para>The scattering system handles the distribution of discrete objects over a terrain:</para>
 <para><itemizedlist>
 <listitem><para><computeroutput><ref refid="classhmap_1_1ScatterItem" kindref="compound">hmap::ScatterItem</ref></computeroutput>: Basic element storing a 3D position, an integer class identifier, and a radius.</para>
