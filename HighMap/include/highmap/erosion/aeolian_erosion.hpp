@@ -102,7 +102,7 @@ void aeolian_erosion(Array            &z,
                      int               sync_interval = 0,
                      const TileRegion &region = TileRegion::dummy(),
                      ICommunicator    &comm = SingleArrayComm::instance(),
-                     int               shadow_map_interval = 0);
+                     int               shadow_map_interval = 1);
 
 /**
  * @brief Multiscale (coarse-to-fine) variant of hmap::aeolian_erosion.
@@ -139,6 +139,7 @@ void aeolian_erosion(Array            &z,
  *                          full resolution.
  * @param min_level_size    Smallest allowed size of a coarse level (levels that
  *                          would be smaller are dropped).
+ * @param shadow_map_interval See hmap::aeolian_erosion (0 = exact shadows).
  */
 void aeolian_erosion_multiscale(Array        &z,
                                 int           steps = 300,
@@ -159,6 +160,7 @@ void aeolian_erosion_multiscale(Array        &z,
                                 float         repose_rate = 0.35f,
                                 int           levels = 3,
                                 float         coarse_fraction = 0.7f,
-                                int           min_level_size = 64);
+                                int           min_level_size = 64,
+                                int           shadow_map_interval = 1);
 
 } // namespace hmap

@@ -773,6 +773,39 @@ TEST(AeolianErosionGPU, TiledDistributedExecution)
   }
 }
 
+TEST(AeolianErosionGPU, MultiscaleExecution)
+{
+  hmap::gpu::init_opencl();
+
+  glm::ivec2 shape = {256, 256};
+  Array      z0(shape, 2.f);
+  Array      z = z0;
+  Array      sed(shape);
+  Array      bed(shape);
+
+  aeolian_erosion_multiscale(z,
+                             60,
+                             1234u,
+                             {3.f, 0.f},
+                             nullptr,
+                             nullptr,
+                             nullptr,
+                             &sed,
+                             &bed);
+
+  EXPECT_EQ(z.shape, shape);
+  EXPECT_EQ(sed.shape, shape);
+  EXPECT_EQ(bed.shape, shape);
+
+  for (int j = 0; j < z.shape.y; j++)
+    for (int i = 0; i < z.shape.x; i++)
+    {
+      EXPECT_FALSE(std::isnan(z(i, j)));
+      EXPECT_FALSE(std::isinf(z(i, j)));
+      EXPECT_GE(sed(i, j), 0.f);
+    }
+}
+
 TEST(Strata, NoNaNAtHighResolution)
 {
   gpu::init_opencl();
