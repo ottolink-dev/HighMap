@@ -1,5 +1,7 @@
 var NAVTREEINDEX17 =
 {
+"namespacemembers_h.html":[15,1,0,8],
+"namespacemembers_i.html":[15,1,0,9],
 "namespacemembers_j.html":[15,1,0,10],
 "namespacemembers_k.html":[15,1,0,11],
 "namespacemembers_l.html":[15,1,0,12],
@@ -93,7 +95,7 @@ var NAVTREEINDEX17 =
 "ridge__accentuate_8cpp.html":[17,0,1,1,15,15],
 "ridgelines_8cpp.html":[17,0,1,1,2,5],
 "rift_8cpp.html":[17,0,1,1,29,2,12],
-"rifts__gpu_8cpp.html":[17,0,1,1,12,24],
+"rifts__gpu_8cpp.html":[17,0,1,1,12,25],
 "roads_8hpp.html":[17,0,1,0,0,46],
 "roads_8hpp_source.html":[17,0,1,0,0,46],
 "rock_8hpp.html":[17,0,1,0,0,12,0],
@@ -162,10 +164,10 @@ var NAVTREEINDEX17 =
 "statistics_8hpp.html":[17,0,1,0,0,53],
 "statistics_8hpp_source.html":[17,0,1,0,0,53],
 "stitching__helpers_8cpp.html":[17,0,1,1,28,4],
-"strata_8cpp.html":[17,0,1,1,12,25],
+"strata_8cpp.html":[17,0,1,1,12,26],
 "strata__erosion_8hpp.html":[17,0,1,0,0,1,7],
 "strata__erosion_8hpp_source.html":[17,0,1,0,0,1,7],
-"strata__plates_8cpp.html":[17,0,1,1,12,26],
+"strata__plates_8cpp.html":[17,0,1,1,12,27],
 "string__utils_8cpp.html":[17,0,1,1,44,0],
 "string__utils_8hpp.html":[17,0,1,0,0,7,2],
 "string__utils_8hpp_source.html":[17,0,1,0,0,7,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX17 =
 "structhmap_1_1ColorAdjust.html#a125d99cf1e7850c167137b493f512a76":[16,0,0,11,5],
 "structhmap_1_1ColorAdjust.html#a22890080427433e2c75ad3f15d3fc2b8":[15,0,0,13,4],
 "structhmap_1_1ColorAdjust.html#a22890080427433e2c75ad3f15d3fc2b8":[16,0,0,11,4],
-"structhmap_1_1ColorAdjust.html#a4c9f3e46e241abba388ee27b20602fe5":[15,0,0,13,11],
-"structhmap_1_1ColorAdjust.html#a4c9f3e46e241abba388ee27b20602fe5":[16,0,0,11,11],
-"structhmap_1_1ColorAdjust.html#a7c18b47518f06e6651f5905306420c32":[15,0,0,13,8]
+"structhmap_1_1ColorAdjust.html#a4c9f3e46e241abba388ee27b20602fe5":[15,0,0,13,11]
 };

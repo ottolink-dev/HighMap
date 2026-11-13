@@ -1,5 +1,6 @@
 var NAVTREEINDEX8 =
 {
+"classhmap_1_1WaveDuneFunction.html#a6e558a2b899ac14169715049592f2edc":[16,0,0,42,5],
 "classhmap_1_1WaveDuneFunction.html#a7020902d580eccad59145bc15fd976e0":[15,0,0,44,4],
 "classhmap_1_1WaveDuneFunction.html#a7020902d580eccad59145bc15fd976e0":[16,0,0,42,4],
 "classhmap_1_1WaveDuneFunction.html#a723f11d859d984fa5655e487e993235e":[15,0,0,44,3],
@@ -90,7 +91,7 @@ var NAVTREEINDEX8 =
 "cloud_8hpp.html":[17,0,1,0,0,5,2],
 "cloud_8hpp_source.html":[17,0,1,0,0,5,2],
 "cloud__functions_8cpp.html":[17,0,1,1,18,3],
-"coastal__erosion_8cpp.html":[17,0,1,1,12,1],
+"coastal__erosion_8cpp.html":[17,0,1,1,12,2],
 "coastal__erosion_8hpp.html":[17,0,1,0,0,1,1],
 "coastal__erosion_8hpp_source.html":[17,0,1,0,0,1,1],
 "coastal__fetch_8cpp.html":[17,0,1,1,21,2],
@@ -132,14 +133,14 @@ var NAVTREEINDEX8 =
 "dendry_8cpp.html":[17,0,1,1,29,0,0],
 "dendry__array__control__function_8hpp.html":[17,0,1,0,0,7,0],
 "dendry__array__control__function_8hpp_source.html":[17,0,1,0,0,7,0],
-"deposition_8cpp.html":[17,0,1,1,12,2],
-"deposition__fill__holes_8cpp.html":[17,0,1,1,12,3],
+"deposition_8cpp.html":[17,0,1,1,12,3],
+"deposition__fill__holes_8cpp.html":[17,0,1,1,12,4],
 "deprecated_8hpp.html":[17,0,1,0,0,1,2],
 "deprecated_8hpp_source.html":[17,0,1,0,0,1,2],
-"depression__filling_8cpp.html":[17,0,1,1,12,4],
+"depression__filling_8cpp.html":[17,0,1,1,12,5],
 "depression__filling_8hpp.html":[17,0,1,0,0,1,3],
 "depression__filling_8hpp_source.html":[17,0,1,0,0,1,3],
-"depression__filling__priority__flood_8cpp.html":[17,0,1,1,12,5],
+"depression__filling__priority__flood_8cpp.html":[17,0,1,1,12,6],
 "dequantize_8cpp.html":[17,0,1,1,15,3],
 "detrend_8cpp.html":[17,0,1,1,39,1],
 "diffusion__limited__aggregation_8cpp.html":[17,0,1,1,29,0,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX8 =
 "elevation__from__contours_8cpp.html":[17,0,1,1,2,2],
 "elevation__from__sparse__constraints_8cpp.html":[17,0,1,1,2,3],
 "erosion_8hpp.html":[17,0,1,0,0,25],
-"erosion_8hpp_source.html":[17,0,1,0,0,25],
-"erosion__maps_8cpp.html":[17,0,1,1,12,6]
+"erosion_8hpp_source.html":[17,0,1,0,0,25]
 };

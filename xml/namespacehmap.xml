@@ -10862,10 +10862,10 @@ See unit tests: <ref refid="test__level__set__curvature_8cpp" kindref="compound"
         </inbodydescription>
         <location file="HighMap/src/dbg/dump_visual_check.cpp" line="16" column="6" bodyfile="HighMap/src/dbg/dump_visual_check.cpp" bodystart="16" bodyend="57" declfile="HighMap/include/highmap/dbg/assert.hpp" declline="52" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1aba26e6197f4ca798b603c13bbe2759bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1ace28ef6c474e9fbd061f4f6b02ce909e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::aeolian_erosion</definition>
-        <argsstring>(Array &amp;z, int steps=300, std::uint32_t seed=1337u, glm::vec2 wind={3.f, 0.f}, const Array *p_bedrock=nullptr, const Array *p_vegetation=nullptr, const Array *p_abrasion_mask=nullptr, Array *p_sediment_map=nullptr, Array *p_bedrock_map=nullptr, float cell_size=-1.f, float matter_to_move=0.001f, int samples_per_step=0, float sand_repose_angle=33.f, float shadow_angle_min=5.f, float shadow_angle_max=15.f, float max_shadow_dist=12.f, float abrasion_rate=0.f, float repose_rate=0.35f, int sync_interval=0, const TileRegion &amp;region=TileRegion::dummy(), ICommunicator &amp;comm=SingleArrayComm::instance())</argsstring>
+        <argsstring>(Array &amp;z, int steps=300, std::uint32_t seed=1337u, glm::vec2 wind={3.f, 0.f}, const Array *p_bedrock=nullptr, const Array *p_vegetation=nullptr, const Array *p_abrasion_mask=nullptr, Array *p_sediment_map=nullptr, Array *p_bedrock_map=nullptr, float cell_size=-1.f, float matter_to_move=0.001f, int samples_per_step=0, float sand_repose_angle=33.f, float shadow_angle_min=5.f, float shadow_angle_max=15.f, float max_shadow_dist=12.f, float abrasion_rate=0.f, float repose_rate=0.35f, int sync_interval=0, const TileRegion &amp;region=TileRegion::dummy(), ICommunicator &amp;comm=SingleArrayComm::instance(), int shadow_map_interval=1, int repose_interval=2)</argsstring>
         <name>aeolian_erosion</name>
         <qualifiedname>hmap::aeolian_erosion</qualifiedname>
         <param>
@@ -10971,6 +10971,16 @@ See unit tests: <ref refid="test__level__set__curvature_8cpp" kindref="compound"
           <type><ref refid="classhmap_1_1ICommunicator" kindref="compound">ICommunicator</ref> &amp;</type>
           <declname>comm</declname>
           <defval><ref refid="classhmap_1_1SingleArrayComm_1a4cc8e4cdcf75624d4dbf641f4da8435a" kindref="member">SingleArrayComm::instance</ref>()</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>shadow_map_interval</declname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>repose_interval</declname>
+          <defval>2</defval>
         </param>
         <briefdescription>
 <para>Simulates wind-driven aeolian terrain erosion, sand transport, and dune dynamics on GPU. </para>
@@ -11150,7 +11160,23 @@ See unit tests: <ref refid="test__level__set__curvature_8cpp" kindref="compound"
 <parametername>comm</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Tiled communicator instance.</para>
+<para>Tiled communicator instance. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shadow_map_interval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If &gt; 0, wind shadows are precomputed on a grid every <computeroutput>shadow_map_interval</computeroutput> steps and looked up by the walkers, instead of ray-marching per walker hop. Much faster, at the cost of a slightly approximate (stale and interpolated) shadow. 0 keeps the exact per-walker ray-marching. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repose_interval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of simulation steps between angle-of-repose stabilization passes.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -11175,7 +11201,7 @@ See unit tests: <ref refid="test__level__set__curvature_8cpp" kindref="compound"
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_transverse(shape,<sp/>0.05f);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aba26e6197f4ca798b603c13bbe2759bf" kindref="member">hmap::aeolian_erosion</ref>(z_transverse,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ace28ef6c474e9fbd061f4f6b02ce909e" kindref="member">hmap::aeolian_erosion</ref>(z_transverse,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>steps,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>seed<sp/>*/</highlight><highlight class="normal"><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3.f<sp/>*<sp/>wind_dir,</highlight></codeline>
@@ -11213,7 +11239,7 @@ See unit tests: <ref refid="test__level__set__curvature_8cpp" kindref="compound"
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_bumps<sp/>=<sp/>bed_bumps<sp/>+<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape,<sp/>smax);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aba26e6197f4ca798b603c13bbe2759bf" kindref="member">hmap::aeolian_erosion</ref>(z_bumps,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ace28ef6c474e9fbd061f4f6b02ce909e" kindref="member">hmap::aeolian_erosion</ref>(z_bumps,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>steps,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>seed<sp/>*/</highlight><highlight class="normal"><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3.f<sp/>*<sp/>wind_dir,</highlight></codeline>
@@ -11239,7 +11265,7 @@ See unit tests: <ref refid="test__level__set__curvature_8cpp" kindref="compound"
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_barchan(shape,<sp/>0.0125f);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aba26e6197f4ca798b603c13bbe2759bf" kindref="member">hmap::aeolian_erosion</ref>(z_barchan,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ace28ef6c474e9fbd061f4f6b02ce909e" kindref="member">hmap::aeolian_erosion</ref>(z_barchan,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>steps,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>seed<sp/>*/</highlight><highlight class="normal"><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5.f<sp/>*<sp/>wind_dir,</highlight></codeline>
@@ -11269,7 +11295,7 @@ See unit tests: <ref refid="test__level__set__curvature_8cpp" kindref="compound"
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(abrasion_mask,<sp/>0.2f,<sp/>1.f);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aba26e6197f4ca798b603c13bbe2759bf" kindref="member">hmap::aeolian_erosion</ref>(z_yardang,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ace28ef6c474e9fbd061f4f6b02ce909e" kindref="member">hmap::aeolian_erosion</ref>(z_yardang,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>steps,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>seed<sp/>*/</highlight><highlight class="normal"><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3.f<sp/>*<sp/>wind_dir,</highlight></codeline>
@@ -11305,7 +11331,310 @@ See unit tests: <ref refid="test__level__set__curvature_8cpp" kindref="compound"
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/aeolian_erosion.cpp" line="24" column="6" bodyfile="HighMap/src/erosion/aeolian_erosion.cpp" bodystart="24" bodyend="237" declfile="HighMap/include/highmap/erosion/aeolian_erosion.hpp" declline="78" declcolumn="6"/>
+        <location file="HighMap/src/erosion/aeolian_erosion.cpp" line="24" column="6" bodyfile="HighMap/src/erosion/aeolian_erosion.cpp" bodystart="24" bodyend="322" declfile="HighMap/include/highmap/erosion/aeolian_erosion.hpp" declline="86" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1aa71900ce729c9a0fa3fdf3527adf820e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::aeolian_erosion_multiscale</definition>
+        <argsstring>(Array &amp;z, int steps=300, std::uint32_t seed=1337u, glm::vec2 wind={3.f, 0.f}, const Array *p_bedrock=nullptr, const Array *p_vegetation=nullptr, const Array *p_abrasion_mask=nullptr, Array *p_sediment_map=nullptr, Array *p_bedrock_map=nullptr, float cell_size=-1.f, float matter_to_move=0.001f, float sand_repose_angle=33.f, float shadow_angle_min=5.f, float shadow_angle_max=15.f, float max_shadow_dist=12.f, float abrasion_rate=0.f, float repose_rate=0.35f, int levels=3, float coarse_fraction=0.7f, int min_level_size=64, int shadow_map_interval=1, int repose_interval=2)</argsstring>
+        <name>aeolian_erosion_multiscale</name>
+        <qualifiedname>hmap::aeolian_erosion_multiscale</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>steps</declname>
+          <defval>300</defval>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+          <defval>1337u</defval>
+        </param>
+        <param>
+          <type>glm::vec2</type>
+          <declname>wind</declname>
+          <defval>{3.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_bedrock</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_vegetation</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_abrasion_mask</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_sediment_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_bedrock_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>cell_size</declname>
+          <defval>-1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>matter_to_move</declname>
+          <defval>0.001<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sand_repose_angle</declname>
+          <defval>33.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>shadow_angle_min</declname>
+          <defval>5.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>shadow_angle_max</declname>
+          <defval>15.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_shadow_dist</declname>
+          <defval>12.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>abrasion_rate</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>repose_rate</declname>
+          <defval>0.35<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>levels</declname>
+          <defval>3</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>coarse_fraction</declname>
+          <defval>0.7<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>min_level_size</declname>
+          <defval>64</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>shadow_map_interval</declname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>repose_interval</declname>
+          <defval>2</defval>
+        </param>
+        <briefdescription>
+<para>Multiscale (coarse-to-fine) variant of <ref refid="namespacehmap_1ace28ef6c474e9fbd061f4f6b02ce909e" kindref="member">hmap::aeolian_erosion</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The simulation is first run on downsampled copies of the terrain, where each step is much cheaper (fewer cells and shorter shadow rays in cells), to develop the large-scale dune pattern. At each level, only the <emphasis>change</emphasis> in sediment (and bedrock) is upsampled and added to the full-resolution layers so that fine details of the input are preserved. The last steps are run at full resolution to restore small-scale features.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input/output total elevation (bedrock + sediment). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>steps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Total number of steps at full resolution (steps are distributed across the levels). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random seed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>wind</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base wind vector (reference grid of 256). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_bedrock</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional bedrock elevation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_vegetation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional vegetation density in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_abrasion_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional abrasion susceptibility in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_sediment_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output sediment thickness. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_bedrock_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output bedrock elevation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cell_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Full-resolution cell size (&lt;= 0 for 1 / z.shape.x). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>matter_to_move</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sand packet displaced per hop. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sand_repose_angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Angle of repose (degrees). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shadow_angle_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum wind shadow angle (degrees). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shadow_angle_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum wind shadow angle (degrees). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_shadow_dist</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum shadow raymarch distance (reference grid). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>abrasion_rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bedrock abrasion rate (0 to disable). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repose_rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Repose stabilization rate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>levels</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of resolution levels (1 = single-scale). Each level halves the resolution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coarse_fraction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Fraction in [0, 1) of the steps spent on coarse levels (shared equally); the remainder is run at full resolution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min_level_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Smallest allowed size of a coarse level (levels that would be smaller are dropped). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shadow_map_interval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>See <ref refid="namespacehmap_1ace28ef6c474e9fbd061f4f6b02ce909e" kindref="member">hmap::aeolian_erosion</ref> (0 = exact shadows). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repose_interval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>See <ref refid="namespacehmap_1ace28ef6c474e9fbd061f4f6b02ce909e" kindref="member">hmap::aeolian_erosion</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/erosion/aeolian_erosion_multiscale.cpp" line="18" column="6" bodyfile="HighMap/src/erosion/aeolian_erosion_multiscale.cpp" bodystart="18" bodyend="207" declfile="HighMap/include/highmap/erosion/aeolian_erosion.hpp" declline="148" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a18a33814eb6bc286dfe516a9781819cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>

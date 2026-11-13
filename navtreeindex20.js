@@ -1,5 +1,7 @@
 var NAVTREEINDEX20 =
 {
+"structhmap_1_1TerrainTextureParams.html#ad2c7f16f4fd75071b771fb1cd1bfd7ac":[16,0,0,12,2],
+"structhmap_1_1TerrainTextureParams.html#ae5df313448151b2bc37c1d9d691ac9da":[15,0,0,14,21],
 "structhmap_1_1TerrainTextureParams.html#ae5df313448151b2bc37c1d9d691ac9da":[16,0,0,12,21],
 "structhmap_1_1TerrainTextureParams.html#aee3761b5126695abf6719969fef1b1a4":[15,0,0,14,7],
 "structhmap_1_1TerrainTextureParams.html#aee3761b5126695abf6719969fef1b1a4":[16,0,0,12,7],
@@ -247,7 +249,5 @@ var NAVTREEINDEX20 =
 "structhmap_1_1VirtualTextureStorage.html#a9fdf43c566dfc78f1310f395377965fa":[16,0,0,115,0],
 "structhmap_1_1VirtualTextureStorage.html#aad5813d1a2c06527f85ffb823a24c2b9":[15,0,0,117,3],
 "structhmap_1_1VirtualTextureStorage.html#aad5813d1a2c06527f85ffb823a24c2b9":[16,0,0,115,3],
-"structhmap_1_1VirtualTextureStorage.html#ae5cc37ced709362425ca9e1ce8e766e1":[15,0,0,117,1],
-"structhmap_1_1VirtualTextureStorage.html#ae5cc37ced709362425ca9e1ce8e766e1":[16,0,0,115,1],
-"structhmap_1_1gpu_1_1McDonaldParams.html":[15,0,0,0,1]
+"structhmap_1_1VirtualTextureStorage.html#ae5cc37ced709362425ca9e1ce8e766e1":[15,0,0,117,1]
 };

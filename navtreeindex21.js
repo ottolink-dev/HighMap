@@ -1,5 +1,7 @@
 var NAVTREEINDEX21 =
 {
+"structhmap_1_1VirtualTextureStorage.html#ae5cc37ced709362425ca9e1ce8e766e1":[16,0,0,115,1],
+"structhmap_1_1gpu_1_1McDonaldParams.html":[15,0,0,0,1],
 "structhmap_1_1gpu_1_1McDonaldParams.html":[16,0,0,0,0],
 "structhmap_1_1gpu_1_1McDonaldParams.html#a15250e4ae46007787eadad79bad7f2d0":[15,0,0,0,1,4],
 "structhmap_1_1gpu_1_1McDonaldParams.html#a15250e4ae46007787eadad79bad7f2d0":[16,0,0,0,0,4],
@@ -247,7 +249,5 @@ var NAVTREEINDEX21 =
 "test__connected__components_8cpp.html#a6fa8fc73fece74dc9bfe8db87dcbfb59":[17,0,2,0,18,4],
 "test__connected__components_8cpp.html#a9ffa65302e16acb953e3059e7b9fcf44":[17,0,2,0,18,3],
 "test__connected__components_8cpp.html#ad5263bee605b95b6b01f2e4a73469c0c":[17,0,2,0,18,5],
-"test__connected__components_8cpp.html#afae5dc31f57de99398d19dcc2a87a52e":[17,0,2,0,18,0],
-"test__convolution__scaling_8cpp.html":[17,0,2,0,19],
-"test__convolution__scaling_8cpp.html#a072356e877b58a1c0a9d10abde9680b4":[17,0,2,0,19,3]
+"test__connected__components_8cpp.html#afae5dc31f57de99398d19dcc2a87a52e":[17,0,2,0,18,0]
 };

@@ -5,6 +5,7 @@ var NAVTREEINDEX0 =
 "aeolian__erosion_8cpp.html":[17,0,1,1,12,0],
 "aeolian__erosion_8hpp.html":[17,0,1,0,0,1,0],
 "aeolian__erosion_8hpp_source.html":[17,0,1,0,0,1,0],
+"aeolian__erosion__multiscale_8cpp.html":[17,0,1,1,12,1],
 "algebra_8cpp.html":[17,0,1,1,0,0],
 "algebra_8hpp.html":[17,0,1,0,0,15],
 "algebra_8hpp_source.html":[17,0,1,0,0,15],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "classhmap_1_1Array.html#afb197b692634f022bb7c284277cb6742":[16,0,0,8,45],
 "classhmap_1_1Array.html#afb1e51a296eee1c7375afa500877b261":[15,0,0,10,72],
 "classhmap_1_1Array.html#afb1e51a296eee1c7375afa500877b261":[16,0,0,8,72],
-"classhmap_1_1Array.html#afdba5b214c8378e78db1978188676703":[15,0,0,10,56],
-"classhmap_1_1Array.html#afdba5b214c8378e78db1978188676703":[16,0,0,8,56]
+"classhmap_1_1Array.html#afdba5b214c8378e78db1978188676703":[15,0,0,10,56]
 };
