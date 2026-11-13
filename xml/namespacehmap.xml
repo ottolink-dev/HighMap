@@ -7254,12 +7254,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/dig_path.cpp" line="19" column="6" bodyfile="HighMap/src/carving/dig_path.cpp" bodystart="19" bodyend="70" declfile="HighMap/include/highmap/carving.hpp" declline="116" declcolumn="6"/>
+        <location file="HighMap/src/carving/dig_path.cpp" line="19" column="6" bodyfile="HighMap/src/carving/dig_path.cpp" bodystart="19" bodyend="70" declfile="HighMap/include/highmap/carving.hpp" declline="115" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1aebf1ae5fd4f7a3985a938703eeb6bdb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1aed07d556d9ef9394d7d79aa647ee86ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::flatten_around_points</definition>
-        <argsstring>(Array &amp;z, const std::vector&lt; float &gt; &amp;xp, const std::vector&lt; float &gt; &amp;yp, const std::vector&lt; float &gt; &amp;zp, const std::vector&lt; float &gt; &amp;radius, float strength=1.0f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP, float profile_param=1.0f, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(Array &amp;z, const std::vector&lt; float &gt; &amp;xp, const std::vector&lt; float &gt; &amp;yp, const std::vector&lt; float &gt; &amp;zp, const std::vector&lt; float &gt; &amp;radius, float strength=1.0f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP, float profile_param=1.0f, Array *p_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>flatten_around_points</name>
         <qualifiedname>hmap::flatten_around_points</qualifiedname>
         <param>
@@ -7296,6 +7296,11 @@
           <type>float</type>
           <declname>profile_param</declname>
           <defval>1.0f</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_mask</declname>
+          <defval>nullptr</defval>
         </param>
         <param>
           <type>glm::vec4</type>
@@ -7373,6 +7378,14 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
+<parametername direction="out">p_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output blending weights. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
 <parametername direction="in">bbox</parametername>
 </parameternamelist>
 <parameterdescription>
@@ -7384,12 +7397,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/flatten_around_points.cpp" line="15" column="6" bodyfile="HighMap/src/carving/flatten_around_points.cpp" bodystart="15" bodyend="98" declfile="HighMap/include/highmap/carving.hpp" declline="144" declcolumn="6"/>
+        <location file="HighMap/src/carving/flatten_around_points.cpp" line="15" column="6" bodyfile="HighMap/src/carving/flatten_around_points.cpp" bodystart="15" bodyend="111" declfile="HighMap/include/highmap/carving.hpp" declline="144" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1ad469b6940021dce125ee989001a6626e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a420170fdc000c3058b7b5e6e9a0cc106" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::flatten_around_points</definition>
-        <argsstring>(Array &amp;z, const std::vector&lt; float &gt; &amp;xp, const std::vector&lt; float &gt; &amp;yp, const std::vector&lt; float &gt; &amp;zp, float radius=0.2f, float strength=1.0f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP, float profile_param=1.0f, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(Array &amp;z, const std::vector&lt; float &gt; &amp;xp, const std::vector&lt; float &gt; &amp;yp, const std::vector&lt; float &gt; &amp;zp, float radius=0.2f, float strength=1.0f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP, float profile_param=1.0f, Array *p_mask=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>flatten_around_points</name>
         <qualifiedname>hmap::flatten_around_points</qualifiedname>
         <param>
@@ -7429,6 +7442,11 @@
           <defval>1.0f</defval>
         </param>
         <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_mask</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
           <type>glm::vec4</type>
           <declname>bbox</declname>
           <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
@@ -7440,7 +7458,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/carving/flatten_around_points.cpp" line="100" column="6" bodyfile="HighMap/src/carving/flatten_around_points.cpp" bodystart="100" bodyend="121" declfile="HighMap/include/highmap/carving.hpp" declline="159" declcolumn="6"/>
+        <location file="HighMap/src/carving/flatten_around_points.cpp" line="113" column="6" bodyfile="HighMap/src/carving/flatten_around_points.cpp" bodystart="113" bodyend="136" declfile="HighMap/include/highmap/carving.hpp" declline="159" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a844786248a3241e5834594b6e17f1387" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
