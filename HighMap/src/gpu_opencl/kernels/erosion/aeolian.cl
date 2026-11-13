@@ -107,6 +107,67 @@ inline float helper_aeolian_is_in_shadow(global const float *bedrock,
   return max_shadow;
 }
 
+// Bilinear lookup of a precomputed shadow map (values sampled at cell centers)
+inline float helper_aeolian_shadow_lookup(global const float *shadow_map,
+                                          float               x,
+                                          float               y,
+                                          int                 nx,
+                                          int                 ny)
+{
+  float tx = fmod(fmod(x - 0.5f, (float)nx) + (float)nx, (float)nx);
+  float ty = fmod(fmod(y - 0.5f, (float)ny) + (float)ny, (float)ny);
+
+  int x0 = (int)floor(tx);
+  int y0 = (int)floor(ty);
+  int x1 = (x0 + 1) % nx;
+  int y1 = (y0 + 1) % ny;
+
+  float fx = tx - (float)x0;
+  float fy = ty - (float)y0;
+
+  float s0 = mix(shadow_map[linear_index(x0, y0, nx)],
+                 shadow_map[linear_index(x1, y0, nx)],
+                 fx);
+  float s1 = mix(shadow_map[linear_index(x0, y1, nx)],
+                 shadow_map[linear_index(x1, y1, nx)],
+                 fx);
+
+  return mix(s0, s1, fy);
+}
+
+// --- Shadow map kernel (one raymarch per cell instead of one per walker hop)
+
+void kernel aeolian_shadow_map(global const float *bedrock,
+                               global const float *sediment,
+                               global float       *shadow_map,
+                               const int           nx,
+                               const int           ny,
+                               const float         wind_x,
+                               const float         wind_y,
+                               const float         cell_size,
+                               const float         tan_shadow_min,
+                               const float         tan_shadow_max,
+                               const float         max_shadow_dist)
+{
+  int i = get_global_id(0);
+  int j = get_global_id(1);
+
+  if (i >= nx || j >= ny) return;
+
+  shadow_map[linear_index(i, j, nx)] = helper_aeolian_is_in_shadow(
+      bedrock,
+      sediment,
+      (float)i + 0.5f,
+      (float)j + 0.5f,
+      nx,
+      ny,
+      (float2)(wind_x, wind_y),
+      cell_size,
+      tan_shadow_min,
+      tan_shadow_max,
+      max_shadow_dist);
+}
+
 // --- Main saltation & abrasion kernel
 
 void kernel aeolian_transport(global float       *bedrock,
@@ -127,7 +188,9 @@ void kernel aeolian_transport(global float       *bedrock,
                               const float         max_shadow_dist,
                               const float         abrasion_rate,
                               const int           has_vegetation,
-                              const int           has_abrasion_mask)
+                              const int           has_abrasion_mask,
+                              const int           use_shadow_map,
+                              global const float *shadow_map)
 {
   int id = get_global_id(0);
   if (id >= n_samples) return;
@@ -190,17 +253,26 @@ void kernel aeolian_transport(global float       *bedrock,
 
   // Wind shadow check at lifting site: sheltered cells resist lifting
   float2 curr_pos = (float2)((float)start_i + 0.5f, (float)start_j + 0.5f);
-  float  shadow_prob = helper_aeolian_is_in_shadow(bedrock,
-                                                  sediment,
-                                                  curr_pos.x,
-                                                  curr_pos.y,
-                                                  nx,
-                                                  ny,
-                                                  eff_wind,
-                                                  cell_size,
-                                                  tan_shadow_min,
-                                                  tan_shadow_max,
-                                                  max_shadow_dist);
+  float  shadow_prob = 0.f;
+
+  if (use_shadow_map != 0)
+    shadow_prob = helper_aeolian_shadow_lookup(shadow_map,
+                                               curr_pos.x,
+                                               curr_pos.y,
+                                               nx,
+                                               ny);
+  else
+    shadow_prob = helper_aeolian_is_in_shadow(bedrock,
+                                              sediment,
+                                              curr_pos.x,
+                                              curr_pos.y,
+                                              nx,
+                                              ny,
+                                              eff_wind,
+                                              cell_size,
+                                              tan_shadow_min,
+                                              tan_shadow_max,
+                                              max_shadow_dist);
   if (rand(&rng) < shadow_prob) return;
 
   // Vegetation protection at lifting site
@@ -251,17 +323,26 @@ void kernel aeolian_transport(global float       *bedrock,
 
     // Deposition probability test
     float p = rand(&rng);
-    float dest_shadow = helper_aeolian_is_in_shadow(bedrock,
-                                                    sediment,
-                                                    curr_pos.x,
-                                                    curr_pos.y,
-                                                    nx,
-                                                    ny,
-                                                    eff_wind,
-                                                    cell_size,
-                                                    tan_shadow_min,
-                                                    tan_shadow_max,
-                                                    max_shadow_dist);
+    float dest_shadow = 0.f;
+
+    if (use_shadow_map != 0)
+      dest_shadow = helper_aeolian_shadow_lookup(shadow_map,
+                                                 curr_pos.x,
+                                                 curr_pos.y,
+                                                 nx,
+                                                 ny);
+    else
+      dest_shadow = helper_aeolian_is_in_shadow(bedrock,
+                                                sediment,
+                                                curr_pos.x,
+                                                curr_pos.y,
+                                                nx,
+                                                ny,
+                                                eff_wind,
+                                                cell_size,
+                                                tan_shadow_min,
+                                                tan_shadow_max,
+                                                max_shadow_dist);
 
     float veg_dest = (has_vegetation != 0) ? vegetation[dest_idx] : 0.f;
     float dep_threshold = (sediment[dest_idx] > 0.f) ? (0.6f + 0.4f * veg_dest)

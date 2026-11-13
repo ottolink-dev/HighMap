@@ -68,6 +68,12 @@ class ICommunicator;
  *                          syncs.
  * @param region            Tile region geometry metadata.
  * @param comm              Tiled communicator instance.
+ * @param shadow_map_interval If > 0, wind shadows are precomputed on a grid
+ *                          every @p shadow_map_interval steps and looked up by
+ *                          the walkers, instead of ray-marching per walker
+ *                          hop. Much faster, at the cost of a slightly
+ *                          approximate (stale and interpolated) shadow. 0
+ *                          keeps the exact per-walker ray-marching.
  *
  * **Example**
  * @include ex_aeolian_erosion.cpp
@@ -95,7 +101,8 @@ void aeolian_erosion(Array            &z,
                      float             repose_rate = 0.35f,
                      int               sync_interval = 0,
                      const TileRegion &region = TileRegion::dummy(),
-                     ICommunicator    &comm = SingleArrayComm::instance());
+                     ICommunicator    &comm = SingleArrayComm::instance(),
+                     int               shadow_map_interval = 0);
 
 /**
  * @brief Multiscale (coarse-to-fine) variant of hmap::aeolian_erosion.

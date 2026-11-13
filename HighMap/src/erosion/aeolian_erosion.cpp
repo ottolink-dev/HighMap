@@ -41,7 +41,8 @@ void aeolian_erosion(Array            &z,
                      float             repose_rate,
                      int               sync_interval,
                      const TileRegion &region,
-                     ICommunicator    &comm)
+                     ICommunicator    &comm,
+                     int               shadow_map_interval)
 {
   if (!validate_non_empty(z)) return;
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
@@ -82,6 +83,10 @@ void aeolian_erosion(Array            &z,
   // Buffer for double-buffered repose stabilization
   Array sed_temp(z.shape, 0.f);
 
+  // Precomputed wind shadow map (a 1-element dummy when disabled)
+  const bool         use_shadow_map = shadow_map_interval > 0;
+  std::vector<float> shadow_map(use_shadow_map ? total_cells : 1, 0.f);
+
   // Simulation loop: processed in batches between boundary synchronizations
   // so GPU buffers and host memory are released while other tiles execute
   const int batch_size = (comm.size() > 1 && sync_interval > 0) ? sync_interval
@@ -119,7 +124,10 @@ void aeolian_erosion(Array            &z,
                                      eff_max_shadow,
                                      abrasion_rate,
                                      p_vegetation ? 1 : 0,
-                                     p_abrasion_mask ? 1 : 0);
+                                     p_abrasion_mask ? 1 : 0,
+                                     use_shadow_map ? 1 : 0);
+
+      run_transport_a.bind_buffer<float>("shadow_map", shadow_map);
 
       run_transport_a.write_buffer("bedrock");
       run_transport_a.write_buffer("sediment");
@@ -161,7 +169,12 @@ void aeolian_erosion(Array            &z,
                                      eff_max_shadow,
                                      abrasion_rate,
                                      p_vegetation ? 1 : 0,
-                                     p_abrasion_mask ? 1 : 0);
+                                     p_abrasion_mask ? 1 : 0,
+                                     use_shadow_map ? 1 : 0);
+
+      // shadow map is the last kernel argument (bound after the scalars)
+      run_transport_b.bind_buffer("shadow_map",
+                                  run_transport_a.get_buffer("shadow_map"));
 
       // run_stab_ba: repose stabilization reading sed_b and writing sed_a
       auto run_stab_ba = clwrapper::Run("aeolian_stabilize_sediment",
@@ -174,12 +187,50 @@ void aeolian_erosion(Array            &z,
 
       run_stab_ba.bind_arguments(nx, ny, cell_size, tan_repose, repose_rate);
 
+      // shadow map kernels: one reading each sediment buffer of the
+      // double-buffering scheme
+      auto run_shadow_a = clwrapper::Run("aeolian_shadow_map",
+                                         run_transport_a.get_queue());
+
+      run_shadow_a.bind_buffer("bedrock",
+                               run_transport_a.get_buffer("bedrock"));
+      run_shadow_a.bind_buffer("sediment",
+                               run_transport_a.get_buffer("sediment"));
+      run_shadow_a.bind_buffer("shadow_map",
+                               run_transport_a.get_buffer("shadow_map"));
+
+      auto run_shadow_b = clwrapper::Run("aeolian_shadow_map",
+                                         run_transport_a.get_queue());
+
+      run_shadow_b.bind_buffer("bedrock",
+                               run_transport_a.get_buffer("bedrock"));
+      run_shadow_b.bind_buffer("sediment", run_stab_ab.get_buffer("sed_out"));
+      run_shadow_b.bind_buffer("shadow_map",
+                               run_transport_a.get_buffer("shadow_map"));
+
+      for (auto *p_run : {&run_shadow_a, &run_shadow_b})
+      {
+        p_run->bind_arguments(nx,
+                              ny,
+                              eff_wind_base.x,
+                              eff_wind_base.y,
+                              cell_size,
+                              tan_shadow_min,
+                              tan_shadow_max,
+                              eff_max_shadow);
+      }
+
       for (int step = step_start; step < step_end; ++step)
       {
         int sub_step = step - step_start;
 
+        const bool update_shadow = use_shadow_map &&
+                                   (sub_step % shadow_map_interval == 0);
+
         if (sub_step % 2 == 0)
         {
+          if (update_shadow) run_shadow_a.execute({nx, ny});
+
           run_transport_a.set_argument(8, static_cast<std::uint32_t>(step));
           run_transport_a.execute(n_samples);
 
@@ -187,6 +238,8 @@ void aeolian_erosion(Array            &z,
         }
         else
         {
+          if (update_shadow) run_shadow_b.execute({nx, ny});
+
           run_transport_b.set_argument(8, static_cast<std::uint32_t>(step));
           run_transport_b.execute(n_samples);
 
