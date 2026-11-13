@@ -7,6 +7,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/erosion/aeolian_erosion.hpp"
+#include "highmap/filters.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/range.hpp"
@@ -129,6 +130,10 @@ void aeolian_erosion_multiscale(Array        &z,
                       shadow_map_interval,
                       repose_interval);
 
+      laplace(sed, /* sigma */ 0.125f, /* iterations */ 1);
+      if (abrasion_rate > 0.f)
+        laplace(bed, /* sigma */ 0.125f, /* iterations */ 1);
+
       continue;
     }
 
@@ -175,6 +180,10 @@ void aeolian_erosion_multiscale(Array        &z,
                     SingleArrayComm::instance(),
                     shadow_map_interval,
                     repose_interval);
+
+    laplace(sed_l, /* sigma */ 0.125f, /* iterations */ 1);
+    if (abrasion_rate > 0.f)
+      laplace(bed_l, /* sigma */ 0.125f, /* iterations */ 1);
 
     // --- Upsample only the changes and apply them to the full resolution
 
