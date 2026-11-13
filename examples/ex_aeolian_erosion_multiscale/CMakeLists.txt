@@ -1,0 +1,2 @@
+add_executable(ex_aeolian_erosion_multiscale ex_aeolian_erosion_multiscale.cpp)
+target_link_libraries(ex_aeolian_erosion_multiscale highmap)

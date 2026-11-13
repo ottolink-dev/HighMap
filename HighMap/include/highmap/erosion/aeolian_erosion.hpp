@@ -97,4 +97,61 @@ void aeolian_erosion(Array            &z,
                      const TileRegion &region = TileRegion::dummy(),
                      ICommunicator    &comm = SingleArrayComm::instance());
 
+/**
+ * @brief Multiscale (coarse-to-fine) variant of hmap::aeolian_erosion.
+ *
+ * The simulation is first run on downsampled copies of the terrain, where each
+ * step is much cheaper (fewer cells and shorter shadow rays in cells), to
+ * develop the large-scale dune pattern. At each level, only the *change* in
+ * sediment (and bedrock) is upsampled and added to the full-resolution layers
+ * so that fine details of the input are preserved. The last steps are run at
+ * full resolution to restore small-scale features.
+ *
+ * @param z                 Input/output total elevation (bedrock + sediment).
+ * @param steps             Total number of steps at full resolution (steps are
+ *                          distributed across the levels).
+ * @param seed              Random seed.
+ * @param wind              Base wind vector (reference grid of 256).
+ * @param p_bedrock         Optional bedrock elevation.
+ * @param p_vegetation      Optional vegetation density in [0, 1].
+ * @param p_abrasion_mask   Optional abrasion susceptibility in [0, 1].
+ * @param p_sediment_map    Optional output sediment thickness.
+ * @param p_bedrock_map     Optional output bedrock elevation.
+ * @param cell_size         Full-resolution cell size (<= 0 for 1 / z.shape.x).
+ * @param matter_to_move    Sand packet displaced per hop.
+ * @param sand_repose_angle Angle of repose (degrees).
+ * @param shadow_angle_min  Minimum wind shadow angle (degrees).
+ * @param shadow_angle_max  Maximum wind shadow angle (degrees).
+ * @param max_shadow_dist   Maximum shadow raymarch distance (reference grid).
+ * @param abrasion_rate     Bedrock abrasion rate (0 to disable).
+ * @param repose_rate       Repose stabilization rate.
+ * @param levels            Number of resolution levels (1 = single-scale). Each
+ *                          level halves the resolution.
+ * @param coarse_fraction   Fraction in [0, 1) of the steps spent on coarse
+ *                          levels (shared equally); the remainder is run at
+ *                          full resolution.
+ * @param min_level_size    Smallest allowed size of a coarse level (levels that
+ *                          would be smaller are dropped).
+ */
+void aeolian_erosion_multiscale(Array        &z,
+                                int           steps = 300,
+                                std::uint32_t seed = 1337u,
+                                glm::vec2     wind = {3.f, 0.f},
+                                const Array  *p_bedrock = nullptr,
+                                const Array  *p_vegetation = nullptr,
+                                const Array  *p_abrasion_mask = nullptr,
+                                Array        *p_sediment_map = nullptr,
+                                Array        *p_bedrock_map = nullptr,
+                                float         cell_size = -1.f,
+                                float         matter_to_move = 0.001f,
+                                float         sand_repose_angle = 33.f,
+                                float         shadow_angle_min = 5.f,
+                                float         shadow_angle_max = 15.f,
+                                float         max_shadow_dist = 12.f,
+                                float         abrasion_rate = 0.f,
+                                float         repose_rate = 0.35f,
+                                int           levels = 3,
+                                float         coarse_fraction = 0.7f,
+                                int           min_level_size = 64);
+
 } // namespace hmap
