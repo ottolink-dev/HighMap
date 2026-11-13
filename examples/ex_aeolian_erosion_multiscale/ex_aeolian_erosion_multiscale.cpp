@@ -33,6 +33,13 @@ int main(int argc, char **argv)
 
     if (is_baseline)
     {
+      const int n_samples = (mode == "baseline" || mode == "baseline_s1")
+                                ? shape.x * shape.y
+                                : 0;
+      const int repose_interval = (mode == "baseline" || mode == "baseline_s1")
+                                      ? 1
+                                      : 2;
+
       hmap::aeolian_erosion(z,
                             steps,
                             seed,
@@ -44,7 +51,7 @@ int main(int argc, char **argv)
                             nullptr,
                             -1.f,
                             0.001f,
-                            shape.x * shape.y,
+                            n_samples,
                             33.f,
                             5.f,
                             15.f,
@@ -54,7 +61,8 @@ int main(int argc, char **argv)
                             0,
                             hmap::TileRegion::dummy(),
                             hmap::SingleArrayComm::instance(),
-                            shadow_map_interval);
+                            shadow_map_interval,
+                            repose_interval);
     }
     else
     {

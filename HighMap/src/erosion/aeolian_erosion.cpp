@@ -42,7 +42,8 @@ void aeolian_erosion(Array            &z,
                      int               sync_interval,
                      const TileRegion &region,
                      ICommunicator    &comm,
-                     int               shadow_map_interval)
+                     int               shadow_map_interval,
+                     int               repose_interval)
 {
   if (!validate_non_empty(z)) return;
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
@@ -55,7 +56,18 @@ void aeolian_erosion(Array            &z,
 
   if (cell_size <= 0.f) cell_size = 1.f / static_cast<float>(nx);
 
-  int n_samples = (samples_per_step > 0) ? samples_per_step : total_cells;
+  // Default to total_cells / 4 walkers with proportionally scaled packet volume
+  int   n_samples = (samples_per_step > 0) ? samples_per_step
+                                           : std::max(1, total_cells / 4);
+  float eff_matter = (samples_per_step > 0)
+                         ? matter_to_move
+                         : matter_to_move * static_cast<float>(total_cells) /
+                               static_cast<float>(n_samples);
+
+  repose_interval = std::max(1, repose_interval);
+  float eff_repose_rate = std::min(1.f,
+                                   repose_rate *
+                                       static_cast<float>(repose_interval));
 
   // Bedrock layer: initialize from input if provided, otherwise zero
   Array bed(z.shape, 0.f);
@@ -117,7 +129,7 @@ void aeolian_erosion(Array            &z,
                                      0u,
                                      eff_wind_base.x,
                                      eff_wind_base.y,
-                                     matter_to_move,
+                                     eff_matter,
                                      cell_size,
                                      tan_shadow_min,
                                      tan_shadow_max,
@@ -140,7 +152,11 @@ void aeolian_erosion(Array            &z,
       run_stab_ab.bind_buffer("sed_in", run_transport_a.get_buffer("sediment"));
       run_stab_ab.bind_buffer<float>("sed_out", sed_temp.vector);
 
-      run_stab_ab.bind_arguments(nx, ny, cell_size, tan_repose, repose_rate);
+      run_stab_ab.bind_arguments(nx,
+                                 ny,
+                                 cell_size,
+                                 tan_repose,
+                                 eff_repose_rate);
 
       // run_transport_b: saltation pass operating on sed_b (sed_out of stab_ab)
       auto run_transport_b = clwrapper::Run("aeolian_transport",
@@ -162,7 +178,7 @@ void aeolian_erosion(Array            &z,
                                      0u,
                                      eff_wind_base.x,
                                      eff_wind_base.y,
-                                     matter_to_move,
+                                     eff_matter,
                                      cell_size,
                                      tan_shadow_min,
                                      tan_shadow_max,
@@ -185,7 +201,11 @@ void aeolian_erosion(Array            &z,
       run_stab_ba.bind_buffer("sed_out",
                               run_transport_a.get_buffer("sediment"));
 
-      run_stab_ba.bind_arguments(nx, ny, cell_size, tan_repose, repose_rate);
+      run_stab_ba.bind_arguments(nx,
+                                 ny,
+                                 cell_size,
+                                 tan_repose,
+                                 eff_repose_rate);
 
       // shadow map kernels: one reading each sediment buffer of the
       // double-buffering scheme
@@ -220,21 +240,29 @@ void aeolian_erosion(Array            &z,
                               eff_max_shadow);
       }
 
+      int active_buf = 0;
+
       for (int step = step_start; step < step_end; ++step)
       {
         int sub_step = step - step_start;
 
         const bool update_shadow = use_shadow_map &&
                                    (sub_step % shadow_map_interval == 0);
+        const bool do_repose = ((sub_step + 1) % repose_interval == 0) ||
+                               (step + 1 == step_end);
 
-        if (sub_step % 2 == 0)
+        if (active_buf == 0)
         {
           if (update_shadow) run_shadow_a.execute({nx, ny});
 
           run_transport_a.set_argument(8, static_cast<std::uint32_t>(step));
           run_transport_a.execute(n_samples);
 
-          run_stab_ab.execute({nx, ny});
+          if (do_repose)
+          {
+            run_stab_ab.execute({nx, ny});
+            active_buf = 1;
+          }
         }
         else
         {
@@ -243,7 +271,11 @@ void aeolian_erosion(Array            &z,
           run_transport_b.set_argument(8, static_cast<std::uint32_t>(step));
           run_transport_b.execute(n_samples);
 
-          run_stab_ba.execute({nx, ny});
+          if (do_repose)
+          {
+            run_stab_ba.execute({nx, ny});
+            active_buf = 0;
+          }
         }
       }
 
@@ -254,7 +286,7 @@ void aeolian_erosion(Array            &z,
         run_transport_a.read_buffer("bedrock");
       }
 
-      if (steps_in_batch % 2 == 1)
+      if (active_buf == 1)
       {
         run_stab_ab.read_buffer("sed_out");
         sed = sed_temp;

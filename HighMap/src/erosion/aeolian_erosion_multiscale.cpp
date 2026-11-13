@@ -34,7 +34,8 @@ void aeolian_erosion_multiscale(Array        &z,
                                 int           levels,
                                 float         coarse_fraction,
                                 int           min_level_size,
-                                int           shadow_map_interval)
+                                int           shadow_map_interval,
+                                int           repose_interval)
 {
   if (!validate_non_empty(z)) return;
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;
@@ -125,7 +126,8 @@ void aeolian_erosion_multiscale(Array        &z,
                       0,
                       TileRegion::dummy(),
                       SingleArrayComm::instance(),
-                      shadow_map_interval);
+                      shadow_map_interval,
+                      repose_interval);
 
       continue;
     }
@@ -171,7 +173,8 @@ void aeolian_erosion_multiscale(Array        &z,
                     0,
                     TileRegion::dummy(),
                     SingleArrayComm::instance(),
-                    shadow_map_interval);
+                    shadow_map_interval,
+                    repose_interval);
 
     // --- Upsample only the changes and apply them to the full resolution
 
