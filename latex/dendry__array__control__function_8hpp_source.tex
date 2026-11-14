@@ -120,50 +120,52 @@
 \DoxyCodeLine{00126\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ m\_array;}
 \DoxyCodeLine{00127\ \};}
 \DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1XyControlFunction_a17fea066925a7016e234f7af232e2cec}{XyControlFunction}}\ :\ \textcolor{keyword}{public}\ ControlFunction<XyControlFunction>}
+\DoxyCodeLine{00129\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1XyControlFunction_a5e31f04aa2f6b360aa24f8e3696d5aeb}{XyControlFunction}}\ :\ \textcolor{keyword}{public}\ ControlFunction<XyControlFunction>}
 \DoxyCodeLine{00130\ \{}
-\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }ControlFunction<\mbox{\hyperlink{classhmap_1_1XyControlFunction_a17fea066925a7016e234f7af232e2cec}{XyControlFunction}}>;}
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }ControlFunction<\mbox{\hyperlink{classhmap_1_1XyControlFunction_a5e31f04aa2f6b360aa24f8e3696d5aeb}{XyControlFunction}}>;}
 \DoxyCodeLine{00132\ }
 \DoxyCodeLine{00133\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00134\ \ \ \mbox{\hyperlink{classhmap_1_1XyControlFunction_a17fea066925a7016e234f7af232e2cec}{XyControlFunction}}(\mbox{\hyperlink{classhmap_1_1NoiseFunction}{NoiseFunction}}\ noise\_function,}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ offset\ =\ 0.f,}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ scaling\ =\ 1.f)}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ :\ noise\_function(noise\_function),\ offset(offset),\ scaling(scaling)}
-\DoxyCodeLine{00138\ \ \ \{}
-\DoxyCodeLine{00139\ \ \ \}}
-\DoxyCodeLine{00140\ }
-\DoxyCodeLine{00141\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classhmap_1_1XyControlFunction_a142161db636fa6eb92dc64a1dd5c98f9}{EvaluateImpl}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00143\ \textcolor{keyword}{\ \ }\{}
-\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{return}\ offset\ +\ scaling\ *\ noise\_function.get\_delegate()(x,\ y,\ 0.f);}
-\DoxyCodeLine{00145\ \ \ \}}
-\DoxyCodeLine{00146\ }
-\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classhmap_1_1XyControlFunction_a803029331138a5fecfe87fe9e1569a08}{InsideDomainImpl}}(\textcolor{keywordtype}{float}\ \textcolor{comment}{/*\ x\ */},\ \textcolor{keywordtype}{float}\ \textcolor{comment}{/*\ y\ */})\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00148\ \textcolor{keyword}{\ \ }\{}
-\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00150\ \ \ \}}
-\DoxyCodeLine{00151\ }
-\DoxyCodeLine{00152\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classhmap_1_1XyControlFunction_a8f38798bd59177d4ab9dbe4f58250651}{DistToDomainImpl}}(\textcolor{keywordtype}{float}\ \textcolor{comment}{/*\ x\ */},\ \textcolor{keywordtype}{float}\ \textcolor{comment}{/*\ y\ */})\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00153\ \textcolor{keyword}{\ \ }\{}
-\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.f;}
-\DoxyCodeLine{00155\ \ \ \}}
-\DoxyCodeLine{00156\ }
-\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classhmap_1_1XyControlFunction_acfe5c441363f35d36a13084fb56c6dca}{MinimumImpl}}()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00158\ \textcolor{keyword}{\ \ }\{}
-\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.f;}
-\DoxyCodeLine{00160\ \ \ \}}
-\DoxyCodeLine{00161\ }
-\DoxyCodeLine{00162\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classhmap_1_1XyControlFunction_ab32abc0861325b3ea6f547b938a9225d}{MaximumImpl}}()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00163\ \textcolor{keyword}{\ \ }\{}
-\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordflow}{return}\ 1.f;}
-\DoxyCodeLine{00165\ \ \ \}}
-\DoxyCodeLine{00166\ }
-\DoxyCodeLine{00167\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00168\ \ \ \mbox{\hyperlink{classhmap_1_1NoiseFunction}{NoiseFunction}}\ noise\_function;}
-\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ offset;}
-\DoxyCodeLine{00170\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ scaling;}
-\DoxyCodeLine{00171\ \};}
-\DoxyCodeLine{00172\ }
-\DoxyCodeLine{00173\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+\DoxyCodeLine{00134\ \ \ \mbox{\hyperlink{classhmap_1_1XyControlFunction_a5e31f04aa2f6b360aa24f8e3696d5aeb}{XyControlFunction}}(std::function<\textcolor{keywordtype}{float}(\textcolor{keywordtype}{float},\ \textcolor{keywordtype}{float},\ \textcolor{keywordtype}{float})>\ noise\_function,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offset\ =\ 0.f,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scaling\ =\ 1.f)}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ :\ noise\_function(std::move(noise\_function)),}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ offset(offset),}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ scaling(scaling)}
+\DoxyCodeLine{00140\ \ \ \{}
+\DoxyCodeLine{00141\ \ \ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classhmap_1_1XyControlFunction_a142161db636fa6eb92dc64a1dd5c98f9}{EvaluateImpl}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00145\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{return}\ offset\ +\ scaling\ *\ noise\_function(x,\ y,\ 0.f);}
+\DoxyCodeLine{00147\ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classhmap_1_1XyControlFunction_a803029331138a5fecfe87fe9e1569a08}{InsideDomainImpl}}(\textcolor{keywordtype}{float}\ \textcolor{comment}{/*\ x\ */},\ \textcolor{keywordtype}{float}\ \textcolor{comment}{/*\ y\ */})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00150\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00152\ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classhmap_1_1XyControlFunction_a8f38798bd59177d4ab9dbe4f58250651}{DistToDomainImpl}}(\textcolor{keywordtype}{float}\ \textcolor{comment}{/*\ x\ */},\ \textcolor{keywordtype}{float}\ \textcolor{comment}{/*\ y\ */})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00155\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.f;}
+\DoxyCodeLine{00157\ \ \ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classhmap_1_1XyControlFunction_acfe5c441363f35d36a13084fb56c6dca}{MinimumImpl}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00160\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.f;}
+\DoxyCodeLine{00162\ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classhmap_1_1XyControlFunction_ab32abc0861325b3ea6f547b938a9225d}{MaximumImpl}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00165\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordflow}{return}\ 1.f;}
+\DoxyCodeLine{00167\ \ \ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00170\ \ \ std::function<float(\textcolor{keywordtype}{float},\ \textcolor{keywordtype}{float},\ \textcolor{keywordtype}{float})>\ noise\_function;}
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offset;}
+\DoxyCodeLine{00172\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scaling;}
+\DoxyCodeLine{00173\ \};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
 
 \end{DoxyCode}

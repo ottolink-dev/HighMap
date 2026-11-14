@@ -1,6 +1,5 @@
 var functions_8hpp =
 [
-    [ "hmap::Function", "classhmap_1_1Function.html", "classhmap_1_1Function" ],
     [ "hmap::ArrayFunction", "classhmap_1_1ArrayFunction.html", "classhmap_1_1ArrayFunction" ],
     [ "hmap::BiquadFunction", "classhmap_1_1BiquadFunction.html", "classhmap_1_1BiquadFunction" ],
     [ "hmap::BumpFunction", "classhmap_1_1BumpFunction.html", "classhmap_1_1BumpFunction" ],
@@ -30,14 +29,14 @@ var functions_8hpp =
     [ "hmap::ValueLinearNoiseFunction", "classhmap_1_1ValueLinearNoiseFunction.html", "classhmap_1_1ValueLinearNoiseFunction" ],
     [ "hmap::WorleyFunction", "classhmap_1_1WorleyFunction.html", "classhmap_1_1WorleyFunction" ],
     [ "hmap::WorleyDoubleFunction", "classhmap_1_1WorleyDoubleFunction.html", "classhmap_1_1WorleyDoubleFunction" ],
-    [ "hmap::GenericFractalFunction", "classhmap_1_1GenericFractalFunction.html", "classhmap_1_1GenericFractalFunction" ],
-    [ "hmap::FbmFunction", "classhmap_1_1FbmFunction.html", "classhmap_1_1FbmFunction" ],
-    [ "hmap::FbmIqFunction", "classhmap_1_1FbmIqFunction.html", "classhmap_1_1FbmIqFunction" ],
-    [ "hmap::FbmJordanFunction", "classhmap_1_1FbmJordanFunction.html", "classhmap_1_1FbmJordanFunction" ],
-    [ "hmap::FbmPingpongFunction", "classhmap_1_1FbmPingpongFunction.html", "classhmap_1_1FbmPingpongFunction" ],
-    [ "hmap::FbmRidgedFunction", "classhmap_1_1FbmRidgedFunction.html", "classhmap_1_1FbmRidgedFunction" ],
-    [ "hmap::FbmSwissFunction", "classhmap_1_1FbmSwissFunction.html", "classhmap_1_1FbmSwissFunction" ],
-    [ "hmap::FieldFunction", "classhmap_1_1FieldFunction.html", "classhmap_1_1FieldFunction" ],
+    [ "hmap::GenericFractalFunction&lt; BaseFn &gt;", "classhmap_1_1GenericFractalFunction.html", "classhmap_1_1GenericFractalFunction" ],
+    [ "hmap::FbmFunction&lt; BaseFn &gt;", "classhmap_1_1FbmFunction.html", "classhmap_1_1FbmFunction" ],
+    [ "hmap::FbmIqFunction&lt; BaseFn &gt;", "classhmap_1_1FbmIqFunction.html", "classhmap_1_1FbmIqFunction" ],
+    [ "hmap::FbmJordanFunction&lt; BaseFn &gt;", "classhmap_1_1FbmJordanFunction.html", "classhmap_1_1FbmJordanFunction" ],
+    [ "hmap::FbmPingpongFunction&lt; BaseFn &gt;", "classhmap_1_1FbmPingpongFunction.html", "classhmap_1_1FbmPingpongFunction" ],
+    [ "hmap::FbmRidgedFunction&lt; BaseFn &gt;", "classhmap_1_1FbmRidgedFunction.html", "classhmap_1_1FbmRidgedFunction" ],
+    [ "hmap::FbmSwissFunction&lt; BaseFn &gt;", "classhmap_1_1FbmSwissFunction.html", "classhmap_1_1FbmSwissFunction" ],
+    [ "hmap::FieldFunction&lt; BaseFn &gt;", "classhmap_1_1FieldFunction.html", "classhmap_1_1FieldFunction" ],
     [ "hmap::NoiseType", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195", [
       [ "hmap::PARBERRY", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a2f37fabff52c2f1b6c2e7e6aad77adbd", null ],
       [ "hmap::PERLIN", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581", null ],
@@ -54,5 +53,5 @@ var functions_8hpp =
       [ "hmap::WORLEY_VALUE", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a803cca1f65b9596dbde7c54039773a39", null ]
     ] ],
     [ "hmap::make_xy_function_from_array", "namespacehmap.html#a84ca1f41de32e4beacb10787127b4b8a", null ],
-    [ "hmap::create_noise_function_from_type", "namespacehmap.html#a0139c2cbbb516591c54fe8a743dc139d", null ]
+    [ "hmap::with_noise_function", "namespacehmap.html#affd2220de085a60e3052a80a376e0c47", null ]
 ];

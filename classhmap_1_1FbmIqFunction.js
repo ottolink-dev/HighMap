@@ -1,6 +1,7 @@
 var classhmap_1_1FbmIqFunction =
 [
-    [ "FbmIqFunction", "classhmap_1_1FbmIqFunction.html#a23b61f2543cc193de8ec4113922a0b6e", null ],
-    [ "set_gradient_scale", "classhmap_1_1FbmIqFunction.html#a8ebc23a176c38767de8fa4aa712caddb", null ],
-    [ "gradient_scale", "classhmap_1_1FbmIqFunction.html#a4b20482a3e3eb46fea4709d36b496c2b", null ]
+    [ "FbmIqFunction", "classhmap_1_1FbmIqFunction.html#ae0c8e67409b0cfea5ec82501cec17309", null ],
+    [ "operator()", "classhmap_1_1FbmIqFunction.html#ab9971e771d975cdd32dcce76add07fc5", null ],
+    [ "set_gradient_scale", "classhmap_1_1FbmIqFunction.html#a8271ec5d7a3dd99b04b50fd9b64095a9", null ],
+    [ "gradient_scale", "classhmap_1_1FbmIqFunction.html#aef5a7ca0f98520a57de8c058849630c7", null ]
 ];

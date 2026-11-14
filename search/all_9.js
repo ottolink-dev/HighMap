@@ -46,7 +46,7 @@ var searchData=
   ['alpha_5fmodel_2ecpp_43',['alpha_model.cpp',['../alpha__model_8cpp.html',1,'']]],
   ['alter_5felevation_44',['alter_elevation',['../namespacehmap.html#a6123c18788ae302332416d5d7585fd9f',1,'hmap']]],
   ['alter_5felevation_2ecpp_45',['alter_elevation.cpp',['../alter__elevation_8cpp.html',1,'']]],
-  ['amp0_46',['amp0',['../classhmap_1_1GenericFractalFunction.html#a60d32ed5ee9b8674fe6323f71ec668cd',1,'hmap::GenericFractalFunction']]],
+  ['amp0_46',['amp0',['../classhmap_1_1GenericFractalFunction.html#aaafe5220adc00696b5745de8ff8d9e09',1,'hmap::GenericFractalFunction']]],
   ['amplitude_47',['amplitude',['../structhmap_1_1GaussianPush.html#a340fa2affea7c89d8575a66d832ab42b',1,'hmap::GaussianPush']]],
   ['analysis_48',['Root Cause Analysis',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md71',1,'']]],
   ['analysis_3a_20gpu_20brute_20force_20vs_20cpu_20bvh2d_49',['Performance Analysis: GPU Brute Force vs CPU BVH2D',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md74',1,'']]],

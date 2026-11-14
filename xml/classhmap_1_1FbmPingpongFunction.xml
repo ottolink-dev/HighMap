@@ -2,12 +2,17 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classhmap_1_1FbmPingpongFunction" kind="class" language="C++" prot="public">
     <compoundname>hmap::FbmPingpongFunction</compoundname>
-    <basecompoundref refid="classhmap_1_1GenericFractalFunction" prot="public" virt="non-virtual">hmap::GenericFractalFunction</basecompoundref>
+    <basecompoundref refid="classhmap_1_1GenericFractalFunction" prot="public" virt="non-virtual">hmap::GenericFractalFunction&lt; BaseFn &gt;</basecompoundref>
     <includes refid="functions_8hpp" local="no">functions.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename BaseFn</type>
+      </param>
+    </templateparamlist>
     <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="classhmap_1_1FbmPingpongFunction_1ae77c4b0f049d8d69f861e2e25df5e635" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="classhmap_1_1FbmPingpongFunction_1a8bbada15909f8dfbcaaa07386b6f96ef" prot="protected" static="no" mutable="no">
         <type>float</type>
-        <definition>float hmap::FbmPingpongFunction::k_smoothing</definition>
+        <definition>float hmap::FbmPingpongFunction&lt; BaseFn &gt;::k_smoothing</definition>
         <argsstring></argsstring>
         <name>k_smoothing</name>
         <qualifiedname>hmap::FbmPingpongFunction::k_smoothing</qualifiedname>
@@ -18,19 +23,46 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1638" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1638" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1653" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1653" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
-      <memberdef kind="function" id="classhmap_1_1FbmPingpongFunction_1a78f86ecaf6f359f6d39e93154d26e4ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1FbmPingpongFunction_1a5b38b4ca59501b07f4318ed449ac6ae7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float hmap::FbmPingpongFunction&lt; BaseFn &gt;::operator()</definition>
+        <argsstring>(float x, float y, float ctrl_param=0.f) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>hmap::FbmPingpongFunction::operator()</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>ctrl_param</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/functions.hpp" line="1625" column="9" bodyfile="HighMap/include/highmap/functions.inl" bodystart="230" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1FbmPingpongFunction_1a66a205f3db76eef213e95c25d7442d13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
-        <definition>hmap::FbmPingpongFunction::FbmPingpongFunction</definition>
-        <argsstring>(std::unique_ptr&lt; NoiseFunction &gt; p_base, int octaves, float weight, float persistence, float lacunarity)</argsstring>
+        <definition>hmap::FbmPingpongFunction&lt; BaseFn &gt;::FbmPingpongFunction</definition>
+        <argsstring>(BaseFn base, int octaves, float weight, float persistence, float lacunarity)</argsstring>
         <name>FbmPingpongFunction</name>
         <qualifiedname>hmap::FbmPingpongFunction::FbmPingpongFunction</qualifiedname>
         <param>
-          <type>std::unique_ptr&lt; <ref refid="classhmap_1_1NoiseFunction" kindref="compound">NoiseFunction</ref> &gt;</type>
-          <declname>p_base</declname>
+          <type>BaseFn</type>
+          <declname>base</declname>
         </param>
         <param>
           <type>int</type>
@@ -49,7 +81,7 @@
           <declname>lacunarity</declname>
         </param>
         <briefdescription>
-<para>Construct a new Fbm Pingpong <ref refid="classhmap_1_1Function" kindref="compound">Function</ref> object. </para>
+<para>Construct a new Fbm Pingpong Function object. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -97,11 +129,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1621" column="3" bodyfile="HighMap/src/functions/fbm_functions.cpp" bodystart="216" bodyend="256"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1636" column="3" bodyfile="HighMap/include/highmap/functions.inl" bodystart="216" bodyend="227"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1FbmPingpongFunction_1a834bee94d51a8ffff5dd728855fb6106" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1FbmPingpongFunction_1a46d7ed8145665db06d4b8f4ac8fe2e54" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
-        <definition>void hmap::FbmPingpongFunction::set_k_smoothing</definition>
+        <definition>void hmap::FbmPingpongFunction&lt; BaseFn &gt;::set_k_smoothing</definition>
         <argsstring>(float new_k_smoothing)</argsstring>
         <name>set_k_smoothing</name>
         <qualifiedname>hmap::FbmPingpongFunction::set_k_smoothing</qualifiedname>
@@ -126,7 +158,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1632" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1632" bodyend="1635"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1647" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1647" bodyend="1650"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -136,17 +168,13 @@
     </detaileddescription>
     <inheritancegraph>
       <node id="1">
-        <label>hmap::FbmPingpongFunction</label>
+        <label>hmap::FbmPingpongFunction&lt; BaseFn &gt;</label>
         <link refid="classhmap_1_1FbmPingpongFunction"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="4">
-        <label>hmap::Function</label>
-        <link refid="classhmap_1_1Function"/>
-      </node>
       <node id="2">
-        <label>hmap::GenericFractalFunction</label>
+        <label>hmap::GenericFractalFunction&lt; BaseFn &gt;</label>
         <link refid="classhmap_1_1GenericFractalFunction"/>
         <childnode refid="3" relation="public-inheritance">
         </childnode>
@@ -154,79 +182,57 @@
       <node id="3">
         <label>hmap::NoiseFunction</label>
         <link refid="classhmap_1_1NoiseFunction"/>
-        <childnode refid="4" relation="public-inheritance">
-        </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
       <node id="1">
-        <label>hmap::FbmPingpongFunction</label>
+        <label>hmap::FbmPingpongFunction&lt; BaseFn &gt;</label>
         <link refid="classhmap_1_1FbmPingpongFunction"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="4">
-        <label>hmap::Function</label>
-        <link refid="classhmap_1_1Function"/>
-      </node>
       <node id="2">
-        <label>hmap::GenericFractalFunction</label>
+        <label>hmap::GenericFractalFunction&lt; BaseFn &gt;</label>
         <link refid="classhmap_1_1GenericFractalFunction"/>
         <childnode refid="3" relation="public-inheritance">
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>p_base</edgelabel>
         </childnode>
       </node>
       <node id="3">
         <label>hmap::NoiseFunction</label>
         <link refid="classhmap_1_1NoiseFunction"/>
-        <childnode refid="4" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="5">
-        <label>std::unique_ptr&lt; hmap::NoiseFunction &gt;</label>
-        <childnode refid="3" relation="usage">
-          <edgelabel>ptr</edgelabel>
-        </childnode>
       </node>
     </collaborationgraph>
-    <location file="HighMap/include/highmap/functions.hpp" line="1609" column="1" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1610" bodyend="1639"/>
+    <location file="HighMap/include/highmap/functions.hpp" line="1622" column="1" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1623" bodyend="1654"/>
     <listofallmembers>
-      <member refid="classhmap_1_1GenericFractalFunction_1a60d32ed5ee9b8674fe6323f71ec668cd" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>amp0</name></member>
-      <member refid="classhmap_1_1FbmPingpongFunction_1a78f86ecaf6f359f6d39e93154d26e4ac" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>FbmPingpongFunction</name></member>
-      <member refid="classhmap_1_1Function_1a1f77a2faa84c84fb147f48af0bfbc96e" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>Function</name></member>
-      <member refid="classhmap_1_1Function_1ae1f9e64626fb671ed37a45d09cf551e8" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>Function</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1afe25e31c4669a13d18da6d69458b95c1" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>GenericFractalFunction</name></member>
-      <member refid="classhmap_1_1Function_1a32214e30c36be7650c47867fd14f6a0c" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>get_delegate</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1aaafe5220adc00696b5745de8ff8d9e09" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>amp0</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a35d80bb49712ecbc404a03d6595b695b" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>base</name></member>
+      <member refid="classhmap_1_1FbmPingpongFunction_1a66a205f3db76eef213e95c25d7442d13" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>FbmPingpongFunction</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a3ba0ccbb38680ae214c3a8317ee19d54" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>GenericFractalFunction</name></member>
       <member refid="classhmap_1_1NoiseFunction_1a34a5caf87c5e28f92616307e1561aaa9" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>get_kw</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a4b6d0013c636b85aaee08e40119dfab0" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>get_lacunarity</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a57b80d6a0cbdc8e14963d1417b1c0b07" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>get_octaves</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1aa2c95085c01b4dd7edbcf3caa8074c91" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>get_persistence</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1abe70b035ce4a0b322b81b59c7140437d" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>get_lacunarity</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a65853f47cb02238346c1965500e90761" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>get_octaves</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a34ce8501f7f31aee4284fcb95a3f5c06" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>get_persistence</name></member>
       <member refid="classhmap_1_1NoiseFunction_1a8f14d149f09e4278bdb9953237e4d7a9" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>get_seed</name></member>
-      <member refid="classhmap_1_1Function_1a82fb7788314b339a062cb80115e2e1da" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>get_value</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a260af30d21b8af880d9208376984c002" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>get_weight</name></member>
-      <member refid="classhmap_1_1FbmPingpongFunction_1ae77c4b0f049d8d69f861e2e25df5e635" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>k_smoothing</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1abc14d9c3208b5a41076b2b598d69faf2" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>get_weight</name></member>
+      <member refid="classhmap_1_1FbmPingpongFunction_1a8bbada15909f8dfbcaaa07386b6f96ef" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>k_smoothing</name></member>
       <member refid="classhmap_1_1NoiseFunction_1a332703b9642cf219cb6d6e91488648cf" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>kw</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a9a205468c861c5f142b738d514b2d9ce" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>lacunarity</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a43e43f87666318f3fe55946df38c43db" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>lacunarity</name></member>
       <member refid="classhmap_1_1NoiseFunction_1a9823b1c76555631d442f52a3d768c162" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>NoiseFunction</name></member>
       <member refid="classhmap_1_1NoiseFunction_1abe0bafe2cca2f6ca2679afbdc54691bb" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>NoiseFunction</name></member>
       <member refid="classhmap_1_1NoiseFunction_1a9006470ba58666184760b40b3478ea68" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>NoiseFunction</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a3ee2dbe91dd0512d380a8b28b11438b9" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>octaves</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a8fec1973e7b8a6dcca079c8017326ab2" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>p_base</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1ab14745ebb9beee94828d13aa587de69a" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>persistence</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a37b6ec1a0d712dc9fbf6fb292b29001e" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>scale_amp0</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1ac47ecc78a6804d4f65c48ec2e296bdde" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>octaves</name></member>
+      <member refid="classhmap_1_1FbmPingpongFunction_1a5b38b4ca59501b07f4318ed449ac6ae7" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>operator()</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a3fc0cf807c3afdaecaa8e884ba7ff267" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>persistence</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a7357b5a2c0eae7e5378e19d3b423d2fe" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>scale_amp0</name></member>
       <member refid="classhmap_1_1NoiseFunction_1afcc0d96413b1b200fc0ec671e43dcbc3" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>seed</name></member>
-      <member refid="classhmap_1_1Function_1a6163e6f231dc77a7e7d83e74d2b44abe" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>set_delegate</name></member>
-      <member refid="classhmap_1_1FbmPingpongFunction_1a834bee94d51a8ffff5dd728855fb6106" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>set_k_smoothing</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a7e8c9518e231829411033fb44003eaea" prot="public" virt="virtual"><scope>hmap::FbmPingpongFunction</scope><name>set_kw</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1ae08ab9d6e6235037d485ccd80d5e9b8d" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>set_lacunarity</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a28608337593666bcbbf91822a28062f5" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>set_octaves</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a310ff66b4c0d7c3d76f6abdbd335bd18" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>set_persistence</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1ae5045c9f1e03eca623df4dd08755c141" prot="public" virt="virtual"><scope>hmap::FbmPingpongFunction</scope><name>set_seed</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1ae14db6b39dcdae409ad1561d471e7d5d" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>update_amp0</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a57139030bd456787c06bf3d7d808837a" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>weight</name></member>
-      <member refid="classhmap_1_1Function_1a8efd89e31947f2508ce45b133e30322f" prot="public" virt="virtual"><scope>hmap::FbmPingpongFunction</scope><name>~Function</name></member>
+      <member refid="classhmap_1_1FbmPingpongFunction_1a46d7ed8145665db06d4b8f4ac8fe2e54" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>set_k_smoothing</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1ad71458ddcd2ea652863b964dc08e0b4a" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>set_kw</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1ab2dc97d5b0e34a930ba4881d750a09c6" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>set_lacunarity</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1ac7158b0120f748bbf7ac1441f609ff01" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>set_octaves</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1ae1ea1d2858835e546601640301ab7eee" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>set_persistence</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a29977995034e64a226088f97335271e4" prot="public" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>set_seed</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a6ed6851394d17ce48348e3f7dcfea89e" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>update_amp0</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a8de993ee56b49ddaf6b65921e0a549d6" prot="protected" virt="non-virtual"><scope>hmap::FbmPingpongFunction</scope><name>weight</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

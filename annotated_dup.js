@@ -38,7 +38,6 @@ var annotated_dup =
       [ "InteractionMatrix", "structhmap_1_1InteractionMatrix.html", "structhmap_1_1InteractionMatrix" ],
       [ "ForestSeedingOptions", "structhmap_1_1ForestSeedingOptions.html", "structhmap_1_1ForestSeedingOptions" ],
       [ "Species", "structhmap_1_1Species.html", "structhmap_1_1Species" ],
-      [ "Function", "classhmap_1_1Function.html", "classhmap_1_1Function" ],
       [ "ArrayFunction", "classhmap_1_1ArrayFunction.html", "classhmap_1_1ArrayFunction" ],
       [ "BiquadFunction", "classhmap_1_1BiquadFunction.html", "classhmap_1_1BiquadFunction" ],
       [ "BumpFunction", "classhmap_1_1BumpFunction.html", "classhmap_1_1BumpFunction" ],

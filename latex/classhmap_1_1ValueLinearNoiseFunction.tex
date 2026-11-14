@@ -32,6 +32,8 @@ Collaboration diagram for hmap\+::Value\+Linear\+Noise\+Function\+:
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+float \mbox{\hyperlink{classhmap_1_1ValueLinearNoiseFunction_adcd66fd0064d69239703672a996c7665}{operator()}} (float x, float y, float ctrl\+\_\+param=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}) const
+\item 
 \mbox{\hyperlink{classhmap_1_1ValueLinearNoiseFunction_a0d3524b6bd69cfa236ea0bb7cba15918}{Value\+Linear\+Noise\+Function}} (glm\+::vec2 \mbox{\hyperlink{classhmap_1_1NoiseFunction_a332703b9642cf219cb6d6e91488648cf}{kw}}, std\+::uint32\+\_\+t \mbox{\hyperlink{classhmap_1_1NoiseFunction_afcc0d96413b1b200fc0ec671e43dcbc3}{seed}})
 \begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classhmap_1_1ValueLinearNoiseFunction}{Value\+Linear\+Noise\+Function} object. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1ValueLinearNoiseFunction_a9d047ec92b696549977ccfeb1d4cfdc2}{set\+\_\+kw}} (glm\+::vec2 new\+\_\+kw)
@@ -52,22 +54,16 @@ void \mbox{\hyperlink{classhmap_1_1ValueLinearNoiseFunction_a811511a1a6517d78a71
 glm\+::vec2 \mbox{\hyperlink{classhmap_1_1NoiseFunction_a34a5caf87c5e28f92616307e1561aaa9}{get\+\_\+kw}} () const
 \begin{DoxyCompactList}\small\item\em Get the frequency scaling vector. \end{DoxyCompactList}\item 
 std\+::uint32\+\_\+t \mbox{\hyperlink{classhmap_1_1NoiseFunction_a8f14d149f09e4278bdb9953237e4d7a9}{get\+\_\+seed}} () const
-\begin{DoxyCompactList}\small\item\em Get the random seed. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classhmap_1_1Function}{hmap\+::\+Function}}}
+\begin{DoxyCompactList}\small\item\em Get the random seed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1NoiseFunction_ac34b31290558204c87dfd1f7860c9dbe}{set\+\_\+seed}} (std\+::uint32\+\_\+t new\+\_\+seed)
+\begin{DoxyCompactList}\small\item\em Set a new random seed for noise generation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1NoiseFunction_a3b04af0d21a14bc54f38c01409d9edac}{set\+\_\+kw}} (glm\+::vec2 new\+\_\+kw)
+\begin{DoxyCompactList}\small\item\em Set a new frequency scaling vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classhmap_1_1Function_a1f77a2faa84c84fb147f48af0bfbc96e}{Function}} ()
-\begin{DoxyCompactList}\small\item\em Default constructor. Initializes the delegate function to a default that returns 0. \end{DoxyCompactList}\item 
-virtual \mbox{\hyperlink{classhmap_1_1Function_a8efd89e31947f2508ce45b133e30322f}{\texorpdfstring{$\sim$}{\string~}\+Function}} ()=default
-\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup in derived classes. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Function_ae1f9e64626fb671ed37a45d09cf551e8}{Function}} (HMAP\+\_\+\+FCT\+\_\+\+XY\+\_\+\+TYPE delegate)
-\begin{DoxyCompactList}\small\item\em Constructor to initialize with a specific delegate function. \end{DoxyCompactList}\item 
-HMAP\+\_\+\+FCT\+\_\+\+XY\+\_\+\+TYPE \mbox{\hyperlink{classhmap_1_1Function_a32214e30c36be7650c47867fd14f6a0c}{get\+\_\+delegate}} () const
-\begin{DoxyCompactList}\small\item\em Get the current delegate function. \end{DoxyCompactList}\item 
-float \mbox{\hyperlink{classhmap_1_1Function_a82fb7788314b339a062cb80115e2e1da}{get\+\_\+value}} (float x, float y, float ctrl\+\_\+param) const
-\begin{DoxyCompactList}\small\item\em Call the delegate function with given arguments. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Function_a6163e6f231dc77a7e7d83e74d2b44abe}{set\+\_\+delegate}} (HMAP\+\_\+\+FCT\+\_\+\+XY\+\_\+\+TYPE new\+\_\+delegate)
-\begin{DoxyCompactList}\small\item\em Set a new delegate function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+std\+::function$<$ float(float, float, float)$>$ \mbox{\hyperlink{classhmap_1_1ValueLinearNoiseFunction_a22be3aacaf1efb7fc2d7dcb49f56eb49}{itp\+\_\+fct}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classhmap_1_1NoiseFunction}{hmap\+::\+Noise\+Function}}}
 \begin{DoxyCompactItemize}
@@ -106,11 +102,17 @@ Construct a new \doxylink{classhmap_1_1ValueLinearNoiseFunction}{Value\+Linear\+
 \label{doc-func-members}
 \Hypertarget{classhmap_1_1ValueLinearNoiseFunction_doc-func-members}
 \doxysubsection{Member Function Documentation}
+\Hypertarget{classhmap_1_1ValueLinearNoiseFunction_adcd66fd0064d69239703672a996c7665}\index{hmap::ValueLinearNoiseFunction@{hmap::ValueLinearNoiseFunction}!operator()@{operator()}}
+\index{operator()@{operator()}!hmap::ValueLinearNoiseFunction@{hmap::ValueLinearNoiseFunction}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily \label{classhmap_1_1ValueLinearNoiseFunction_adcd66fd0064d69239703672a996c7665} 
+float hmap\+::\+Value\+Linear\+Noise\+Function\+::operator() (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{ctrl\+\_\+param}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption}) const}
+
 \Hypertarget{classhmap_1_1ValueLinearNoiseFunction_a9d047ec92b696549977ccfeb1d4cfdc2}\index{hmap::ValueLinearNoiseFunction@{hmap::ValueLinearNoiseFunction}!set\_kw@{set\_kw}}
 \index{set\_kw@{set\_kw}!hmap::ValueLinearNoiseFunction@{hmap::ValueLinearNoiseFunction}}
 \doxysubsubsection{\texorpdfstring{set\_kw()}{set\_kw()}}
 {\footnotesize\ttfamily \label{classhmap_1_1ValueLinearNoiseFunction_a9d047ec92b696549977ccfeb1d4cfdc2} 
-void hmap\+::\+Value\+Linear\+Noise\+Function\+::set\+\_\+kw (\begin{DoxyParamCaption}\item[{glm\+::vec2}]{new\+\_\+kw}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+void hmap\+::\+Value\+Linear\+Noise\+Function\+::set\+\_\+kw (\begin{DoxyParamCaption}\item[{glm\+::vec2}]{new\+\_\+kw}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -121,15 +123,11 @@ Set the wavenumber attribute.
 {\em new\+\_\+kw} & New kw. \\
 \hline
 \end{DoxyParams}
-
-
-Reimplemented from \mbox{\hyperlink{classhmap_1_1NoiseFunction_a3c5e2cffbd3a54a0bfda918f01d2957f}{hmap\+::\+Noise\+Function}}.
-
 \Hypertarget{classhmap_1_1ValueLinearNoiseFunction_aa0666aa17538459d7ca10513acac9203}\index{hmap::ValueLinearNoiseFunction@{hmap::ValueLinearNoiseFunction}!set\_seed@{set\_seed}}
 \index{set\_seed@{set\_seed}!hmap::ValueLinearNoiseFunction@{hmap::ValueLinearNoiseFunction}}
 \doxysubsubsection{\texorpdfstring{set\_seed()}{set\_seed()}}
 {\footnotesize\ttfamily \label{classhmap_1_1ValueLinearNoiseFunction_aa0666aa17538459d7ca10513acac9203} 
-void hmap\+::\+Value\+Linear\+Noise\+Function\+::set\+\_\+seed (\begin{DoxyParamCaption}\item[{std\+::uint32\+\_\+t}]{new\+\_\+seed}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+void hmap\+::\+Value\+Linear\+Noise\+Function\+::set\+\_\+seed (\begin{DoxyParamCaption}\item[{std\+::uint32\+\_\+t}]{new\+\_\+seed}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -140,10 +138,6 @@ Set the seed attribute.
 {\em new\+\_\+seed} & New seed. \\
 \hline
 \end{DoxyParams}
-
-
-Reimplemented from \mbox{\hyperlink{classhmap_1_1NoiseFunction_a51e1afc00318276a35ddfe0c578c5c99}{hmap\+::\+Noise\+Function}}.
-
 \Hypertarget{classhmap_1_1ValueLinearNoiseFunction_a811511a1a6517d78a71ba050250c4ef0}\index{hmap::ValueLinearNoiseFunction@{hmap::ValueLinearNoiseFunction}!update\_interpolation\_function@{update\_interpolation\_function}}
 \index{update\_interpolation\_function@{update\_interpolation\_function}!hmap::ValueLinearNoiseFunction@{hmap::ValueLinearNoiseFunction}}
 \doxysubsubsection{\texorpdfstring{update\_interpolation\_function()}{update\_interpolation\_function()}}
@@ -153,6 +147,17 @@ void hmap\+::\+Value\+Linear\+Noise\+Function\+::update\+\_\+interpolation\+\_\+
 
 
 Update base interpolation. 
+
+
+
+\label{doc-variable-members}
+\Hypertarget{classhmap_1_1ValueLinearNoiseFunction_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classhmap_1_1ValueLinearNoiseFunction_a22be3aacaf1efb7fc2d7dcb49f56eb49}\index{hmap::ValueLinearNoiseFunction@{hmap::ValueLinearNoiseFunction}!itp\_fct@{itp\_fct}}
+\index{itp\_fct@{itp\_fct}!hmap::ValueLinearNoiseFunction@{hmap::ValueLinearNoiseFunction}}
+\doxysubsubsection{\texorpdfstring{itp\_fct}{itp\_fct}}
+{\footnotesize\ttfamily \label{classhmap_1_1ValueLinearNoiseFunction_a22be3aacaf1efb7fc2d7dcb49f56eb49} 
+std\+::function$<$float(float, float, float)$>$ hmap\+::\+Value\+Linear\+Noise\+Function\+::itp\+\_\+fct}
 
 
 

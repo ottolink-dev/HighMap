@@ -1,6 +1,7 @@
 var classhmap_1_1FbmRidgedFunction =
 [
-    [ "FbmRidgedFunction", "classhmap_1_1FbmRidgedFunction.html#a00253f39cfce85c8597cd3e8ca159851", null ],
-    [ "set_k_smoothing", "classhmap_1_1FbmRidgedFunction.html#ae599018f673316ddb8fc5118fff0dcea", null ],
-    [ "k_smoothing", "classhmap_1_1FbmRidgedFunction.html#a9c9642aaca3aad5f54a9efbcb3f9a4fc", null ]
+    [ "FbmRidgedFunction", "classhmap_1_1FbmRidgedFunction.html#a4a6ea423490bdbe59b3580e0cc077baa", null ],
+    [ "operator()", "classhmap_1_1FbmRidgedFunction.html#aeabcf8bffdeb1598e9fbe41feb25d3b9", null ],
+    [ "set_k_smoothing", "classhmap_1_1FbmRidgedFunction.html#a84f4641898bb5bfd9e03762986a0ffa4", null ],
+    [ "k_smoothing", "classhmap_1_1FbmRidgedFunction.html#ac82951229fe7665d66205a5d495b4ba3", null ]
 ];

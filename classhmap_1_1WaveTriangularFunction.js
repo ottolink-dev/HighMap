@@ -1,6 +1,7 @@
 var classhmap_1_1WaveTriangularFunction =
 [
     [ "WaveTriangularFunction", "classhmap_1_1WaveTriangularFunction.html#a397a48af268aa0f905128a7b3d4479a0", null ],
+    [ "operator()", "classhmap_1_1WaveTriangularFunction.html#ad086f8247c768be6f6f721b40b46c1b5", null ],
     [ "set_angle", "classhmap_1_1WaveTriangularFunction.html#af4b2e32e38e99dcaee78fe998bec84c1", null ],
     [ "kw", "classhmap_1_1WaveTriangularFunction.html#aa35fb98f18848ac7c99f15678d0ac71c", null ],
     [ "angle", "classhmap_1_1WaveTriangularFunction.html#ab49a906dde5df326c1263724c2b477e6", null ],

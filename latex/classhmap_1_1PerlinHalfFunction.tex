@@ -32,8 +32,10 @@ Collaboration diagram for hmap\+::Perlin\+Half\+Function\+:
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+float \mbox{\hyperlink{classhmap_1_1PerlinHalfFunction_a65f0e67baabe86e7a46e8f4cf5221180}{operator()}} (float x, float y, float ctrl\+\_\+param=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}) const
+\item 
 \mbox{\hyperlink{classhmap_1_1PerlinHalfFunction_a1009eb75ebcbd52423fd37eb8a2de011}{Perlin\+Half\+Function}} (glm\+::vec2 \mbox{\hyperlink{classhmap_1_1NoiseFunction_a332703b9642cf219cb6d6e91488648cf}{kw}}, std\+::uint32\+\_\+t \mbox{\hyperlink{classhmap_1_1NoiseFunction_afcc0d96413b1b200fc0ec671e43dcbc3}{seed}}, float \mbox{\hyperlink{classhmap_1_1PerlinHalfFunction_aa00e81a0bf0458d37e90807a0f550607}{k}})
-\begin{DoxyCompactList}\small\item\em Construct a new Perlin \doxylink{classhmap_1_1Function}{Function} object. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Construct a new Perlin Function object. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1PerlinHalfFunction_aaa6beefa4abe388c28195618897dee4a}{set\+\_\+seed}} (std\+::uint32\+\_\+t new\+\_\+seed)
 \begin{DoxyCompactList}\small\item\em Set the seed attribute. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classhmap_1_1NoiseFunction}{hmap\+::\+Noise\+Function}}}
@@ -49,23 +51,10 @@ glm\+::vec2 \mbox{\hyperlink{classhmap_1_1NoiseFunction_a34a5caf87c5e28f92616307
 \begin{DoxyCompactList}\small\item\em Get the frequency scaling vector. \end{DoxyCompactList}\item 
 std\+::uint32\+\_\+t \mbox{\hyperlink{classhmap_1_1NoiseFunction_a8f14d149f09e4278bdb9953237e4d7a9}{get\+\_\+seed}} () const
 \begin{DoxyCompactList}\small\item\em Get the random seed. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{classhmap_1_1NoiseFunction_a3c5e2cffbd3a54a0bfda918f01d2957f}{set\+\_\+kw}} (glm\+::vec2 new\+\_\+kw)
+void \mbox{\hyperlink{classhmap_1_1NoiseFunction_ac34b31290558204c87dfd1f7860c9dbe}{set\+\_\+seed}} (std\+::uint32\+\_\+t new\+\_\+seed)
+\begin{DoxyCompactList}\small\item\em Set a new random seed for noise generation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1NoiseFunction_a3b04af0d21a14bc54f38c01409d9edac}{set\+\_\+kw}} (glm\+::vec2 new\+\_\+kw)
 \begin{DoxyCompactList}\small\item\em Set a new frequency scaling vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classhmap_1_1Function}{hmap\+::\+Function}}}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\hyperlink{classhmap_1_1Function_a1f77a2faa84c84fb147f48af0bfbc96e}{Function}} ()
-\begin{DoxyCompactList}\small\item\em Default constructor. Initializes the delegate function to a default that returns 0. \end{DoxyCompactList}\item 
-virtual \mbox{\hyperlink{classhmap_1_1Function_a8efd89e31947f2508ce45b133e30322f}{\texorpdfstring{$\sim$}{\string~}\+Function}} ()=default
-\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup in derived classes. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Function_ae1f9e64626fb671ed37a45d09cf551e8}{Function}} (HMAP\+\_\+\+FCT\+\_\+\+XY\+\_\+\+TYPE delegate)
-\begin{DoxyCompactList}\small\item\em Constructor to initialize with a specific delegate function. \end{DoxyCompactList}\item 
-HMAP\+\_\+\+FCT\+\_\+\+XY\+\_\+\+TYPE \mbox{\hyperlink{classhmap_1_1Function_a32214e30c36be7650c47867fd14f6a0c}{get\+\_\+delegate}} () const
-\begin{DoxyCompactList}\small\item\em Get the current delegate function. \end{DoxyCompactList}\item 
-float \mbox{\hyperlink{classhmap_1_1Function_a82fb7788314b339a062cb80115e2e1da}{get\+\_\+value}} (float x, float y, float ctrl\+\_\+param) const
-\begin{DoxyCompactList}\small\item\em Call the delegate function with given arguments. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classhmap_1_1Function_a6163e6f231dc77a7e7d83e74d2b44abe}{set\+\_\+delegate}} (HMAP\+\_\+\+FCT\+\_\+\+XY\+\_\+\+TYPE new\+\_\+delegate)
-\begin{DoxyCompactList}\small\item\em Set a new delegate function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -95,7 +84,7 @@ hmap\+::\+Perlin\+Half\+Function\+::\+Perlin\+Half\+Function (\begin{DoxyParamCa
 
 
 
-Construct a new Perlin \doxylink{classhmap_1_1Function}{Function} object. 
+Construct a new Perlin Function object. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -111,11 +100,17 @@ Construct a new Perlin \doxylink{classhmap_1_1Function}{Function} object.
 \label{doc-func-members}
 \Hypertarget{classhmap_1_1PerlinHalfFunction_doc-func-members}
 \doxysubsection{Member Function Documentation}
+\Hypertarget{classhmap_1_1PerlinHalfFunction_a65f0e67baabe86e7a46e8f4cf5221180}\index{hmap::PerlinHalfFunction@{hmap::PerlinHalfFunction}!operator()@{operator()}}
+\index{operator()@{operator()}!hmap::PerlinHalfFunction@{hmap::PerlinHalfFunction}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily \label{classhmap_1_1PerlinHalfFunction_a65f0e67baabe86e7a46e8f4cf5221180} 
+float hmap\+::\+Perlin\+Half\+Function\+::operator() (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{ctrl\+\_\+param}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption}) const}
+
 \Hypertarget{classhmap_1_1PerlinHalfFunction_aaa6beefa4abe388c28195618897dee4a}\index{hmap::PerlinHalfFunction@{hmap::PerlinHalfFunction}!set\_seed@{set\_seed}}
 \index{set\_seed@{set\_seed}!hmap::PerlinHalfFunction@{hmap::PerlinHalfFunction}}
 \doxysubsubsection{\texorpdfstring{set\_seed()}{set\_seed()}}
 {\footnotesize\ttfamily \label{classhmap_1_1PerlinHalfFunction_aaa6beefa4abe388c28195618897dee4a} 
-void hmap\+::\+Perlin\+Half\+Function\+::set\+\_\+seed (\begin{DoxyParamCaption}\item[{std\+::uint32\+\_\+t}]{new\+\_\+seed}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+void hmap\+::\+Perlin\+Half\+Function\+::set\+\_\+seed (\begin{DoxyParamCaption}\item[{std\+::uint32\+\_\+t}]{new\+\_\+seed}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -126,10 +121,6 @@ Set the seed attribute.
 {\em new\+\_\+seed} & New seed. \\
 \hline
 \end{DoxyParams}
-
-
-Reimplemented from \mbox{\hyperlink{classhmap_1_1NoiseFunction_a51e1afc00318276a35ddfe0c578c5c99}{hmap\+::\+Noise\+Function}}.
-
 
 
 \label{doc-variable-members}

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['lacunarity_0',['lacunarity',['../classhmap_1_1GenericFractalFunction.html#a9a205468c861c5f142b738d514b2d9ce',1,'hmap::GenericFractalFunction']]],
+  ['lacunarity_0',['lacunarity',['../classhmap_1_1GenericFractalFunction.html#a43e43f87666318f3fe55946df38c43db',1,'hmap::GenericFractalFunction']]],
   ['lake_5ffill_1',['lake_fill',['../structhmap_1_1MiseParams.html#a3c4cbb075d39fdfff551c8d7ed8b2acf',1,'hmap::MiseParams']]],
   ['lakes_2',['Deposition in Depressions and Lakes',['..//home/runner/work/HighMap/HighMap/docs/content/dev/hydraulic_mise.md#autotoc_md29',1,'']]],
   ['laplace_3',['laplace',['../namespacehmap.html#a62f3ce1778309a90b37d34e727e4f040',1,'hmap::laplace(Array &amp;array, float sigma=0.125f, int iterations=3)'],['../namespacehmap.html#af2851ea650ce411e47bac5ba4327c652',1,'hmap::laplace(Array &amp;array, const Array *p_mask, float sigma=0.125f, int iterations=3)'],['../namespacehmap_1_1gpu.html#a13625ec501979795138bac6499ac0f08',1,'hmap::gpu::laplace(Array &amp;array, float sigma=0.2f, int iterations=3)'],['../namespacehmap_1_1gpu.html#a65f49b330320b4c60d8ca5083eda8e86',1,'hmap::gpu::laplace(Array &amp;array, const Array *p_mask, float sigma=0.2f, int iterations=3)']]],

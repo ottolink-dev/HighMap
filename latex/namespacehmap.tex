@@ -70,8 +70,6 @@ struct \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{Forest\+Seeding\+Opt
 \begin{DoxyCompactList}\small\item\em Configuration parameters for forest seeding algorithms. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1Species}{Species}}
 \begin{DoxyCompactList}\small\item\em Encapsulates biological and geometric traits of a tree species. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classhmap_1_1Function}{Function}}
-\begin{DoxyCompactList}\small\item\em A class that wraps a callable entity taking three floats and returning a float. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1ArrayFunction}{Array\+Function}}
 \begin{DoxyCompactList}\small\item\em \doxylink{classhmap_1_1Array}{Array} (x, y) function class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1BiquadFunction}{Biquad\+Function}}
@@ -1154,8 +1152,8 @@ void \mbox{\hyperlink{namespacehmap_a12781eab09d5662bd5490c167c03c8d5}{terrace}}
 \begin{DoxyCompactList}\small\item\em Generates a multi-\/species forest distribution using 2D inverse transform sampling for positions and Point\+Sampler k-\/means clustering to tag species. \end{DoxyCompactList}\item 
 std\+::function$<$ float(float, float)$>$ \mbox{\hyperlink{namespacehmap_a84ca1f41de32e4beacb10787127b4b8a}{make\+\_\+xy\+\_\+function\+\_\+from\+\_\+array}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const glm\+::vec4 \&bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Create a continuous 2D function from a sampled array. \end{DoxyCompactList}\item 
-std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction}{hmap\+::\+Noise\+Function}} $>$ \mbox{\hyperlink{namespacehmap_a0139c2cbbb516591c54fe8a743dc139d}{create\+\_\+noise\+\_\+function\+\_\+from\+\_\+type}} (\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195}{Noise\+Type}} noise\+\_\+type, glm\+::vec2 kw, std\+::uint32\+\_\+t seed)
-\begin{DoxyCompactList}\small\item\em Create a noise function based on the specified noise type. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Fn$>$ }\\decltype(auto) \mbox{\hyperlink{namespacehmap_affd2220de085a60e3052a80a376e0c47}{with\+\_\+noise\+\_\+function}} (\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195}{Noise\+Type}} noise\+\_\+type, glm\+::vec2 kw, std\+::uint32\+\_\+t seed, Fn \&\&fn)
+\begin{DoxyCompactList}\small\item\em Dispatch a noise functor based on the specified noise type. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a2eb54fb6e51f35573926f9255bcd00e4}{add\+\_\+line\+\_\+bresenham}} (\mbox{\hyperlink{classhmap_1_1CellPath}{Cell\+Path}} \&out, glm\+::ivec2 a, glm\+::ivec2 b)
 \begin{DoxyCompactList}\small\item\em Rasterizes a segment between two integer points using Bresenham\textquotesingle{}s algorithm. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_ae2e53495ed85355b7fee99c4293a1d4c}{add\+\_\+noise}} (\mbox{\hyperlink{classhmap_1_1CellPath}{Cell\+Path}} \&path, std\+::uint32\+\_\+t seed, float kw, float amp, const glm\+::ivec2 \&shape, \mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195}{Noise\+Type}} noise\+\_\+type=\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{Noise\+Type\+::\+PERLIN}}, int octaves=8, float weight=0.\+7\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float persistence=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float lacunarity=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
@@ -1858,9 +1856,9 @@ std\+::vector$<$ float $>$ \mbox{\hyperlink{namespacehmap_a068e4d5be8c16ab9e708d
 \begin{DoxyCompactList}\small\item\em Generate a vector of jittered (noised) numbers over a specified interval. \end{DoxyCompactList}\item 
 std\+::vector$<$ float $>$ \mbox{\hyperlink{namespacehmap_a72951e6ba82ab8726d1b5d2f491226b2}{logspace}} (float start, float stop, int num, bool endpoint=true)
 \begin{DoxyCompactList}\small\item\em Generates a logarithmically spaced vector. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a54f6b9fef96254284b27ea73543abe55}{fill\+\_\+array\+\_\+using\+\_\+xy\+\_\+function}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec4 bbox, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+ctrl\+\_\+param, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+stretching, std\+::function$<$ float(float, float, float)$>$ fct\+\_\+xy)
+{\footnotesize template$<$typename Fn$>$ }\\void \mbox{\hyperlink{namespacehmap_a43a06ab877988ecf0e97db0c02762171}{fill\+\_\+array\+\_\+using\+\_\+xy\+\_\+function}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec4 bbox, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+ctrl\+\_\+param, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+stretching, Fn \&\&fct\+\_\+xy)
 \begin{DoxyCompactList}\small\item\em Fill an array using a scalar function based on (x, y) coordinates. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_af1b7865647bb6acd5f3c9720b3677da7}{fill\+\_\+array\+\_\+using\+\_\+xy\+\_\+function}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec4 bbox, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+ctrl\+\_\+param, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+stretching, std\+::function$<$ float(float, float, float)$>$ fct\+\_\+xy, int subsampling)
+{\footnotesize template$<$typename Fn$>$ }\\void \mbox{\hyperlink{namespacehmap_a368ba73caabaa4bc0ea6de0bb7e2a5c7}{fill\+\_\+array\+\_\+using\+\_\+xy\+\_\+function}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec4 bbox, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+ctrl\+\_\+param, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+stretching, Fn \&\&fct\+\_\+xy, int subsampling)
 \begin{DoxyCompactList}\small\item\em Fill an array using a scalar function based on (x, y) coordinates with subsampling. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_ae0a3c73cc23a288fe03bf5ed6ac73c3d}{find\+\_\+vertical\+\_\+cut\+\_\+path}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&error, std\+::vector$<$ int $>$ \&path\+\_\+i)
 \begin{DoxyCompactList}\small\item\em Find the vertical cut path with the minimum cost using dynamic programming. \end{DoxyCompactList}\item 
@@ -1884,7 +1882,7 @@ void \mbox{\hyperlink{namespacehmap_a81ae845564fe0e6f2f641451c063bc65}{swap}} (\
 \begin{DoxyCompactList}\small\item\em Applies a transformation function with optional masked blending. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_ae067755e4e2def08c3e4e94834cb2977}{dendry}} (glm\+::ivec2 shape, glm\+::vec2 kw, std\+::uint32\+\_\+t seed, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&control\+\_\+function, float eps=0.\+05, int resolution=1, float displacement=0.\+075, int primitives\+\_\+resolution\+\_\+steps=3, float slope\+\_\+power=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float noise\+\_\+amplitude\+\_\+proportion=0.\+01, bool add\+\_\+control\+\_\+function=true, float control\+\_\+function\+\_\+overlap=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, int subsampling=1)
 \begin{DoxyCompactList}\small\item\em Dendry is a locally computable procedural function that generates branching patterns at various scales (see {\bfseries \mbox{[}\+Gaillard2019\mbox{]}}). \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a772bd6b8b78d944382991f3064c1f4e1}{dendry}} (glm\+::ivec2 shape, glm\+::vec2 kw, std\+::uint32\+\_\+t seed, \mbox{\hyperlink{classhmap_1_1NoiseFunction}{Noise\+Function}} \&noise\+\_\+function, float noise\+\_\+function\+\_\+offset=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float noise\+\_\+function\+\_\+scaling=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float eps=0.\+05, int resolution=1, float displacement=0.\+075, int primitives\+\_\+resolution\+\_\+steps=3, float slope\+\_\+power=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float noise\+\_\+amplitude\+\_\+proportion=0.\+01, bool add\+\_\+control\+\_\+function=true, float control\+\_\+function\+\_\+overlap=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a4938b0c9f168cb2c0f6769eb59e85d62}{dendry}} (glm\+::ivec2 shape, glm\+::vec2 kw, std\+::uint32\+\_\+t seed, const std\+::function$<$ float(float, float, float)$>$ \&noise\+\_\+function, float noise\+\_\+function\+\_\+offset=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float noise\+\_\+function\+\_\+scaling=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float eps=0.\+05, int resolution=1, float displacement=0.\+075, int primitives\+\_\+resolution\+\_\+steps=3, float slope\+\_\+power=2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float noise\+\_\+amplitude\+\_\+proportion=0.\+01, bool add\+\_\+control\+\_\+function=true, float control\+\_\+function\+\_\+overlap=0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a43cf2b960fc4f48be0548d87e78cdcb2}{diffusion\+\_\+limited\+\_\+aggregation}} (glm\+::ivec2 shape, float \mbox{\hyperlink{namespacehmap_a7e352e19687bc236a6360e56ec92251e}{scale}}, std\+::uint32\+\_\+t seed, float seeding\+\_\+radius=0.\+4\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float seeding\+\_\+outer\+\_\+radius\+\_\+ratio=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float \mbox{\hyperlink{namespacehmap_a04e7abe100708990e2464cc5df2ccafa}{slope}}=8.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float noise\+\_\+ratio=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
 \begin{DoxyCompactList}\small\item\em Generates a diffusion-\/limited aggregation (DLA) pattern. \end{DoxyCompactList}\item 
@@ -8964,6 +8962,7 @@ This function adjusts elevations based on overall height and local slope\+:
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nparticles,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ p\_bedrock\ */}\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ p\_erodibility\ */}\ \textcolor{keyword}{nullptr},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ p\_moisture\_map\ */}\ \textcolor{keyword}{nullptr},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ p\_elevation\_shift\ */}\ \textcolor{keyword}{nullptr},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ p\_erosion\_map\ */}\ \textcolor{keyword}{nullptr},}
@@ -8971,7 +8970,6 @@ This function adjusts elevations based on overall height and local slope\+:
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ c\_capacity\ */}\ 10.f,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ c\_erosion\ */}\ 0.1f,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ c\_deposition\ */}\ 0.1f,}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ c\_inertia\ */}\ 0.f,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ c\_gravity\ */}\ 1.f,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ drag\_rate\ */}\ 0.001f,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ evap\_rate\ */}\ 0.001f,}
@@ -9001,6 +8999,7 @@ This function adjusts elevations based on overall height and local slope\+:
 \DoxyCodeLine{\ \ \ \ \ \ seed,}
 \DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ steps\_per\_level\ */}\ \{16,\ 8,\ 4,\ 2,\ 1\},}
 \DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ p\_bedrock\ */}\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ p\_erodibility\ */}\ \textcolor{keyword}{nullptr},}
 \DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ p\_moisture\_map\ */}\ \textcolor{keyword}{nullptr},}
 \DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ p\_elevation\_shift\ */}\ \textcolor{keyword}{nullptr},}
 \DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ p\_erosion\_map\ */}\ \textcolor{keyword}{nullptr},}
@@ -15112,17 +15111,16 @@ This adaptor takes a discrete 2D array (indexed by i, j) defined over a bounding
 \begin{DoxyReturn}{Returns}
 A function {\ttfamily f(point)} that returns the interpolated value at a 2D position. 
 \end{DoxyReturn}
-\Hypertarget{namespacehmap_a0139c2cbbb516591c54fe8a743dc139d}\index{hmap@{hmap}!create\_noise\_function\_from\_type@{create\_noise\_function\_from\_type}}
-\index{create\_noise\_function\_from\_type@{create\_noise\_function\_from\_type}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{create\_noise\_function\_from\_type()}{create\_noise\_function\_from\_type()}}
-{\footnotesize\ttfamily \label{namespacehmap_a0139c2cbbb516591c54fe8a743dc139d} 
-std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classhmap_1_1NoiseFunction}{Noise\+Function}} $>$ hmap\+::create\+\_\+noise\+\_\+function\+\_\+from\+\_\+type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195}{Noise\+Type}}}]{noise\+\_\+type}{, }\item[{glm\+::vec2}]{kw}{, }\item[{std\+::uint32\+\_\+t}]{seed}{}\end{DoxyParamCaption})}
+\Hypertarget{namespacehmap_affd2220de085a60e3052a80a376e0c47}\index{hmap@{hmap}!with\_noise\_function@{with\_noise\_function}}
+\index{with\_noise\_function@{with\_noise\_function}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{with\_noise\_function()}{with\_noise\_function()}}
+{\footnotesize\ttfamily \label{namespacehmap_affd2220de085a60e3052a80a376e0c47} 
+template$<$typename Fn$>$ \\
+decltype(auto) hmap\+::with\+\_\+noise\+\_\+function (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195}{Noise\+Type}}}]{noise\+\_\+type}{, }\item[{glm\+::vec2}]{kw}{, }\item[{std\+::uint32\+\_\+t}]{seed}{, }\item[{Fn \&\&}]{fn}{}\end{DoxyParamCaption})}
 
 
 
-Create a noise function based on the specified noise type. 
-
-This function creates an instance of a noise function corresponding to the specified {\ttfamily noise\+\_\+type}. It initializes the noise function with the given frequency scaling vector ({\ttfamily kw}) and random seed ({\ttfamily seed}).
+Dispatch a noise functor based on the specified noise type. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -15132,10 +15130,9 @@ This function creates an instance of a noise function corresponding to the speci
 \hline
 {\em seed} & The random seed for noise generation. \\
 \hline
+{\em fn} & Callable invoked with the concrete noise functor. \\
+\hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-A {\ttfamily std\+::unique\+\_\+ptr} to the created noise function. 
-\end{DoxyReturn}
 \Hypertarget{namespacehmap_a2eb54fb6e51f35573926f9255bcd00e4}\index{hmap@{hmap}!add\_line\_bresenham@{add\_line\_bresenham}}
 \index{add\_line\_bresenham@{add\_line\_bresenham}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{add\_line\_bresenham()}{add\_line\_bresenham()}}
@@ -27847,11 +27844,12 @@ Values are distributed evenly in log-\/space between start and stop.
 \begin{DoxyReturn}{Returns}
 Vector of log-\/spaced values 
 \end{DoxyReturn}
-\Hypertarget{namespacehmap_a54f6b9fef96254284b27ea73543abe55}\index{hmap@{hmap}!fill\_array\_using\_xy\_function@{fill\_array\_using\_xy\_function}}
+\Hypertarget{namespacehmap_a43a06ab877988ecf0e97db0c02762171}\index{hmap@{hmap}!fill\_array\_using\_xy\_function@{fill\_array\_using\_xy\_function}}
 \index{fill\_array\_using\_xy\_function@{fill\_array\_using\_xy\_function}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{fill\_array\_using\_xy\_function()}{fill\_array\_using\_xy\_function()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_a54f6b9fef96254284b27ea73543abe55} 
-void hmap\+::fill\+\_\+array\+\_\+using\+\_\+xy\+\_\+function (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{, }\item[{glm\+::vec4}]{bbox}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+ctrl\+\_\+param}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+x}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+y}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+stretching}{, }\item[{std\+::function$<$ float(float, float, float)$>$}]{fct\+\_\+xy}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{namespacehmap_a43a06ab877988ecf0e97db0c02762171} 
+template$<$typename Fn$>$ \\
+void hmap\+::fill\+\_\+array\+\_\+using\+\_\+xy\+\_\+function (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{, }\item[{glm\+::vec4}]{bbox}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+ctrl\+\_\+param}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+x}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+y}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+stretching}{, }\item[{Fn \&\&}]{fct\+\_\+xy}{}\end{DoxyParamCaption})}
 
 
 
@@ -27894,23 +27892,17 @@ This function populates an array with values computed from a scalar function tha
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z1\ =\ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}(shape);}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z2\ =\ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}(shape);}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a54f6b9fef96254284b27ea73543abe55}{fill\_array\_using\_xy\_function}}(z1,}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bbox,}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n,}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n,}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.\mbox{\hyperlink{classhmap_1_1Function_a32214e30c36be7650c47867fd14f6a0c}{get\_delegate}}());}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a43a06ab877988ecf0e97db0c02762171}{fill\_array\_using\_xy\_function}}(z1,\ bbox,\ \textcolor{keyword}{nullptr},\ \&n,\ \&n,\ \textcolor{keyword}{nullptr},\ p);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ subsampling\ =\ 8;}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a54f6b9fef96254284b27ea73543abe55}{fill\_array\_using\_xy\_function}}(z2,}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a43a06ab877988ecf0e97db0c02762171}{fill\_array\_using\_xy\_function}}(z2,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bbox,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},\ \textcolor{comment}{//\ ctrl\_param}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},\ \textcolor{comment}{//\ stretching}}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.\mbox{\hyperlink{classhmap_1_1Function_a32214e30c36be7650c47867fd14f6a0c}{get\_delegate}}(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ subsampling);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_fill\_array\_using\_xy\_function.png"{}},}
@@ -27921,11 +27913,12 @@ This function populates an array with values computed from a scalar function tha
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_af1b7865647bb6acd5f3c9720b3677da7}\index{hmap@{hmap}!fill\_array\_using\_xy\_function@{fill\_array\_using\_xy\_function}}
+{\bfseries{Result}}  \Hypertarget{namespacehmap_a368ba73caabaa4bc0ea6de0bb7e2a5c7}\index{hmap@{hmap}!fill\_array\_using\_xy\_function@{fill\_array\_using\_xy\_function}}
 \index{fill\_array\_using\_xy\_function@{fill\_array\_using\_xy\_function}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{fill\_array\_using\_xy\_function()}{fill\_array\_using\_xy\_function()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_af1b7865647bb6acd5f3c9720b3677da7} 
-void hmap\+::fill\+\_\+array\+\_\+using\+\_\+xy\+\_\+function (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{, }\item[{glm\+::vec4}]{bbox}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+ctrl\+\_\+param}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+x}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+y}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+stretching}{, }\item[{std\+::function$<$ float(float, float, float)$>$}]{fct\+\_\+xy}{, }\item[{int}]{subsampling}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{namespacehmap_a368ba73caabaa4bc0ea6de0bb7e2a5c7} 
+template$<$typename Fn$>$ \\
+void hmap\+::fill\+\_\+array\+\_\+using\+\_\+xy\+\_\+function (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{, }\item[{glm\+::vec4}]{bbox}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+ctrl\+\_\+param}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+x}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+y}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+stretching}{, }\item[{Fn \&\&}]{fct\+\_\+xy}{, }\item[{int}]{subsampling}{}\end{DoxyParamCaption})}
 
 
 
@@ -27970,23 +27963,17 @@ This function is similar to the one above but includes a {\ttfamily subsampling}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z1\ =\ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}(shape);}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z2\ =\ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}(shape);}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a54f6b9fef96254284b27ea73543abe55}{fill\_array\_using\_xy\_function}}(z1,}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bbox,}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n,}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n,}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.\mbox{\hyperlink{classhmap_1_1Function_a32214e30c36be7650c47867fd14f6a0c}{get\_delegate}}());}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a43a06ab877988ecf0e97db0c02762171}{fill\_array\_using\_xy\_function}}(z1,\ bbox,\ \textcolor{keyword}{nullptr},\ \&n,\ \&n,\ \textcolor{keyword}{nullptr},\ p);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ subsampling\ =\ 8;}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a54f6b9fef96254284b27ea73543abe55}{fill\_array\_using\_xy\_function}}(z2,}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a43a06ab877988ecf0e97db0c02762171}{fill\_array\_using\_xy\_function}}(z2,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bbox,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},\ \textcolor{comment}{//\ ctrl\_param}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},\ \textcolor{comment}{//\ stretching}}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.\mbox{\hyperlink{classhmap_1_1Function_a32214e30c36be7650c47867fd14f6a0c}{get\_delegate}}(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ subsampling);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_fill\_array\_using\_xy\_function.png"{}},}
@@ -28303,11 +28290,11 @@ Dendry is a locally computable procedural function that generates branching patt
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a772bd6b8b78d944382991f3064c1f4e1}\index{hmap@{hmap}!dendry@{dendry}}
+{\bfseries{Result}}  \Hypertarget{namespacehmap_a4938b0c9f168cb2c0f6769eb59e85d62}\index{hmap@{hmap}!dendry@{dendry}}
 \index{dendry@{dendry}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{dendry()}{dendry()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_a772bd6b8b78d944382991f3064c1f4e1} 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::dendry (\begin{DoxyParamCaption}\item[{glm\+::ivec2}]{shape}{, }\item[{glm\+::vec2}]{kw}{, }\item[{std\+::uint32\+\_\+t}]{seed}{, }\item[{\mbox{\hyperlink{classhmap_1_1NoiseFunction}{Noise\+Function}} \&}]{noise\+\_\+function}{, }\item[{float}]{noise\+\_\+function\+\_\+offset}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{noise\+\_\+function\+\_\+scaling}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{eps}{ = {\ttfamily 0.05}, }\item[{int}]{resolution}{ = {\ttfamily 1}, }\item[{float}]{displacement}{ = {\ttfamily 0.075}, }\item[{int}]{primitives\+\_\+resolution\+\_\+steps}{ = {\ttfamily 3}, }\item[{float}]{slope\+\_\+power}{ = {\ttfamily 2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{noise\+\_\+amplitude\+\_\+proportion}{ = {\ttfamily 0.01}, }\item[{bool}]{add\+\_\+control\+\_\+function}{ = {\ttfamily true}, }\item[{float}]{control\+\_\+function\+\_\+overlap}{ = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+x}{ = {\ttfamily nullptr}, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+y}{ = {\ttfamily nullptr}, }\item[{glm\+::vec4}]{bbox}{ = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}}}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{namespacehmap_a4938b0c9f168cb2c0f6769eb59e85d62} 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::dendry (\begin{DoxyParamCaption}\item[{glm\+::ivec2}]{shape}{, }\item[{glm\+::vec2}]{kw}{, }\item[{std\+::uint32\+\_\+t}]{seed}{, }\item[{const std\+::function$<$ float(float, float, float)$>$ \&}]{noise\+\_\+function}{, }\item[{float}]{noise\+\_\+function\+\_\+offset}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{noise\+\_\+function\+\_\+scaling}{ = {\ttfamily 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{eps}{ = {\ttfamily 0.05}, }\item[{int}]{resolution}{ = {\ttfamily 1}, }\item[{float}]{displacement}{ = {\ttfamily 0.075}, }\item[{int}]{primitives\+\_\+resolution\+\_\+steps}{ = {\ttfamily 3}, }\item[{float}]{slope\+\_\+power}{ = {\ttfamily 2.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{float}]{noise\+\_\+amplitude\+\_\+proportion}{ = {\ttfamily 0.01}, }\item[{bool}]{add\+\_\+control\+\_\+function}{ = {\ttfamily true}, }\item[{float}]{control\+\_\+function\+\_\+overlap}{ = {\ttfamily 0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+x}{ = {\ttfamily nullptr}, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+y}{ = {\ttfamily nullptr}, }\item[{glm\+::vec4}]{bbox}{ = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}}}\end{DoxyParamCaption})}
 
 \Hypertarget{namespacehmap_a43cf2b960fc4f48be0548d87e78cdcb2}\index{hmap@{hmap}!diffusion\_limited\_aggregation@{diffusion\_limited\_aggregation}}
 \index{diffusion\_limited\_aggregation@{diffusion\_limited\_aggregation}!hmap@{hmap}}
@@ -29978,7 +29965,7 @@ A new \doxylink{classhmap_1_1Array}{Array} object of size {\ttfamily shape} cont
 The function normalizes the Lorentzian curve so that the maximum value is 1 at the center and smoothly decays to 0 at the boundary defined by {\ttfamily radius}.
 \end{DoxyNote}
 \begin{DoxySeeAlso}{See also}
-\doxylink{namespacehmap_a54f6b9fef96254284b27ea73543abe55}{fill\+\_\+array\+\_\+using\+\_\+xy\+\_\+function}
+\doxylink{namespacehmap_a43a06ab877988ecf0e97db0c02762171}{fill\+\_\+array\+\_\+using\+\_\+xy\+\_\+function}
 \end{DoxySeeAlso}
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}

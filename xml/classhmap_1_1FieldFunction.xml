@@ -2,12 +2,16 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classhmap_1_1FieldFunction" kind="class" language="C++" prot="public">
     <compoundname>hmap::FieldFunction</compoundname>
-    <basecompoundref refid="classhmap_1_1Function" prot="public" virt="non-virtual">hmap::Function</basecompoundref>
     <includes refid="functions_8hpp" local="no">functions.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename BaseFn</type>
+      </param>
+    </templateparamlist>
     <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="classhmap_1_1FieldFunction_1a88d43ae418ef4bc85ca228e5a1f6d13d" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="classhmap_1_1FieldFunction_1aa2a892fad7a1b6eb483494a167ccaae7" prot="protected" static="no" mutable="no">
         <type>std::vector&lt; float &gt;</type>
-        <definition>std::vector&lt;float&gt; hmap::FieldFunction::xr</definition>
+        <definition>std::vector&lt;float&gt; hmap::FieldFunction&lt; BaseFn &gt;::xr</definition>
         <argsstring></argsstring>
         <name>xr</name>
         <qualifiedname>hmap::FieldFunction::xr</qualifiedname>
@@ -18,11 +22,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1785" column="15" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1785" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1809" column="15" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1809" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classhmap_1_1FieldFunction_1a166abea10da916bc21f4b917cd9c3811" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="classhmap_1_1FieldFunction_1a50cd153f7cb127115a87a365899f54b7" prot="protected" static="no" mutable="no">
         <type>std::vector&lt; float &gt;</type>
-        <definition>std::vector&lt;float&gt; hmap::FieldFunction::yr</definition>
+        <definition>std::vector&lt;float&gt; hmap::FieldFunction&lt; BaseFn &gt;::yr</definition>
         <argsstring></argsstring>
         <name>yr</name>
         <qualifiedname>hmap::FieldFunction::yr</qualifiedname>
@@ -33,11 +37,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1787" column="15" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1787" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1811" column="15" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1811" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classhmap_1_1FieldFunction_1afe97b341521215c0a76a27c48206c90e" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="classhmap_1_1FieldFunction_1a7a0dfd12b2af034622d8a7b93a76a40b" prot="protected" static="no" mutable="no">
         <type>std::vector&lt; float &gt;</type>
-        <definition>std::vector&lt;float&gt; hmap::FieldFunction::zr</definition>
+        <definition>std::vector&lt;float&gt; hmap::FieldFunction&lt; BaseFn &gt;::zr</definition>
         <argsstring></argsstring>
         <name>zr</name>
         <qualifiedname>hmap::FieldFunction::zr</qualifiedname>
@@ -49,36 +53,63 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1789" column="15" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1789" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1813" column="15" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1813" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="classhmap_1_1FieldFunction_1a5b3b1e6b0a9af9fe071a19413807a157" prot="private" static="no" mutable="no">
-        <type>std::unique_ptr&lt; <ref refid="classhmap_1_1Function_1a1f77a2faa84c84fb147f48af0bfbc96e" kindref="member">Function</ref> &gt;</type>
-        <definition>std::unique_ptr&lt;Function&gt; hmap::FieldFunction::p_base</definition>
+      <memberdef kind="variable" id="classhmap_1_1FieldFunction_1ad0653c5d5e680a4ada51ec3ec641cda7" prot="private" static="no" mutable="no">
+        <type>BaseFn</type>
+        <definition>BaseFn hmap::FieldFunction&lt; BaseFn &gt;::base</definition>
         <argsstring></argsstring>
-        <name>p_base</name>
-        <qualifiedname>hmap::FieldFunction::p_base</qualifiedname>
+        <name>base</name>
+        <qualifiedname>hmap::FieldFunction::base</qualifiedname>
         <briefdescription>
-<para>Unique pointer to the base function. </para>
+<para>Base function functor. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1793" column="19" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1793" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1817" column="10" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1817" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
-      <memberdef kind="function" id="classhmap_1_1FieldFunction_1acd29581d460bbd8883c059e6ba7fb9f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1FieldFunction_1ade90ddbe3829e67f73b6e40ecc757771" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float hmap::FieldFunction&lt; BaseFn &gt;::operator()</definition>
+        <argsstring>(float x, float y, float ctrl_param=0.f) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>hmap::FieldFunction::operator()</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>ctrl_param</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/functions.hpp" line="1751" column="9" bodyfile="HighMap/include/highmap/functions.inl" bodystart="373" bodyend="385"/>
+      </memberdef>
+      <memberdef kind="function" id="classhmap_1_1FieldFunction_1a17613f0a81c1605e901170bf5224afbc" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
         <type></type>
-        <definition>hmap::FieldFunction::FieldFunction</definition>
-        <argsstring>(std::unique_ptr&lt; Function &gt; p_base)</argsstring>
+        <definition>hmap::FieldFunction&lt; BaseFn &gt;::FieldFunction</definition>
+        <argsstring>(BaseFn base)</argsstring>
         <name>FieldFunction</name>
         <qualifiedname>hmap::FieldFunction::FieldFunction</qualifiedname>
         <param>
-          <type>std::unique_ptr&lt; <ref refid="classhmap_1_1Function_1a1f77a2faa84c84fb147f48af0bfbc96e" kindref="member">Function</ref> &gt;</type>
-          <declname>p_base</declname>
+          <type>BaseFn</type>
+          <declname>base</declname>
         </param>
         <briefdescription>
 <para>Construct a new <ref refid="classhmap_1_1FieldFunction" kindref="compound">FieldFunction</ref> object. </para>
@@ -86,10 +117,10 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>p_base</parametername>
+<parametername>base</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Unique pointer to the base function. </para>
+<para>Base function functor. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -97,17 +128,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1735" column="3" bodyfile="HighMap/src/functions/field_function.cpp" bodystart="18" bodyend="29"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1758" column="12" bodyfile="HighMap/include/highmap/functions.inl" bodystart="355" bodyend="358"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1FieldFunction_1acfaece8d19fe130f277072fb82b3b673" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1FieldFunction_1aa11be4ba195fed3ad49de2eeee40c593" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
-        <definition>hmap::FieldFunction::FieldFunction</definition>
-        <argsstring>(std::unique_ptr&lt; Function &gt; p_base, std::vector&lt; float &gt; xr, std::vector&lt; float &gt; yr, std::vector&lt; float &gt; zr)</argsstring>
+        <definition>hmap::FieldFunction&lt; BaseFn &gt;::FieldFunction</definition>
+        <argsstring>(BaseFn base, std::vector&lt; float &gt; xr, std::vector&lt; float &gt; yr, std::vector&lt; float &gt; zr)</argsstring>
         <name>FieldFunction</name>
         <qualifiedname>hmap::FieldFunction::FieldFunction</qualifiedname>
         <param>
-          <type>std::unique_ptr&lt; <ref refid="classhmap_1_1Function_1a1f77a2faa84c84fb147f48af0bfbc96e" kindref="member">Function</ref> &gt;</type>
-          <declname>p_base</declname>
+          <type>BaseFn</type>
+          <declname>base</declname>
         </param>
         <param>
           <type>std::vector&lt; float &gt;</type>
@@ -127,10 +158,10 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>p_base</parametername>
+<parametername>base</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Unique pointer to the base function. </para>
+<para>Base function functor. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -162,11 +193,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1748" column="3" bodyfile="HighMap/src/functions/field_function.cpp" bodystart="31" bodyend="41"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1772" column="3" bodyfile="HighMap/include/highmap/functions.inl" bodystart="361" bodyend="370"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1FieldFunction_1a4eb34013ff18556d6503899ba6ac5591" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1FieldFunction_1a959baebb83ae5b5a28155977cb1a0fc7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
-        <definition>void hmap::FieldFunction::set_xr</definition>
+        <definition>void hmap::FieldFunction&lt; BaseFn &gt;::set_xr</definition>
         <argsstring>(std::vector&lt; float &gt; new_xr)</argsstring>
         <name>set_xr</name>
         <qualifiedname>hmap::FieldFunction::set_xr</qualifiedname>
@@ -191,11 +222,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1758" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1758" bodyend="1761"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1782" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1782" bodyend="1785"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1FieldFunction_1a7fc7d7c63ecf26391c6f568836c51838" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1FieldFunction_1a189b2d18cc74249c3c3184186cf9fa49" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
-        <definition>void hmap::FieldFunction::set_yr</definition>
+        <definition>void hmap::FieldFunction&lt; BaseFn &gt;::set_yr</definition>
         <argsstring>(std::vector&lt; float &gt; new_yr)</argsstring>
         <name>set_yr</name>
         <qualifiedname>hmap::FieldFunction::set_yr</qualifiedname>
@@ -220,11 +251,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1768" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1768" bodyend="1771"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1792" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1792" bodyend="1795"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1FieldFunction_1abd0ed9592d4ff58306a41b1d118a9ae7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1FieldFunction_1a6be35e9ce09ffc09d2901a4c3f847c90" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
-        <definition>void hmap::FieldFunction::set_zr</definition>
+        <definition>void hmap::FieldFunction&lt; BaseFn &gt;::set_zr</definition>
         <argsstring>(std::vector&lt; float &gt; new_zr)</argsstring>
         <name>set_zr</name>
         <qualifiedname>hmap::FieldFunction::set_zr</qualifiedname>
@@ -249,24 +280,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1779" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1779" bodyend="1782"/>
-      </memberdef>
-    </sectiondef>
-    <sectiondef kind="private-func">
-      <memberdef kind="function" id="classhmap_1_1FieldFunction_1a9516a161eeafaaf0e3d7fd7049871a14" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::FieldFunction::setup_delegate</definition>
-        <argsstring>()</argsstring>
-        <name>setup_delegate</name>
-        <qualifiedname>hmap::FieldFunction::setup_delegate</qualifiedname>
-        <briefdescription>
-<para>Setup the delegate function. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1798" column="8" bodyfile="HighMap/src/functions/field_function.cpp" bodystart="43" bodyend="68"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1803" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1803" bodyend="1806"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -274,56 +288,32 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <inheritancegraph>
-      <node id="1">
-        <label>hmap::FieldFunction</label>
-        <link refid="classhmap_1_1FieldFunction"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="2">
-        <label>hmap::Function</label>
-        <link refid="classhmap_1_1Function"/>
-      </node>
-    </inheritancegraph>
     <collaborationgraph>
       <node id="1">
-        <label>hmap::FieldFunction</label>
+        <label>hmap::FieldFunction&lt; BaseFn &gt;</label>
         <link refid="classhmap_1_1FieldFunction"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-        <childnode refid="3" relation="usage">
+        <childnode refid="2" relation="usage">
           <edgelabel>xr</edgelabel>
           <edgelabel>yr</edgelabel>
           <edgelabel>zr</edgelabel>
         </childnode>
       </node>
       <node id="2">
-        <label>hmap::Function</label>
-        <link refid="classhmap_1_1Function"/>
-      </node>
-      <node id="3">
         <label>std::vector&lt; float &gt;</label>
       </node>
     </collaborationgraph>
-    <location file="HighMap/include/highmap/functions.hpp" line="1727" column="1" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1728" bodyend="1799"/>
+    <location file="HighMap/include/highmap/functions.hpp" line="1748" column="12" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1749" bodyend="1818"/>
     <listofallmembers>
-      <member refid="classhmap_1_1FieldFunction_1acd29581d460bbd8883c059e6ba7fb9f2" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>FieldFunction</name></member>
-      <member refid="classhmap_1_1FieldFunction_1acfaece8d19fe130f277072fb82b3b673" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>FieldFunction</name></member>
-      <member refid="classhmap_1_1Function_1a1f77a2faa84c84fb147f48af0bfbc96e" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>Function</name></member>
-      <member refid="classhmap_1_1Function_1ae1f9e64626fb671ed37a45d09cf551e8" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>Function</name></member>
-      <member refid="classhmap_1_1Function_1a32214e30c36be7650c47867fd14f6a0c" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>get_delegate</name></member>
-      <member refid="classhmap_1_1Function_1a82fb7788314b339a062cb80115e2e1da" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>get_value</name></member>
-      <member refid="classhmap_1_1FieldFunction_1a5b3b1e6b0a9af9fe071a19413807a157" prot="private" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>p_base</name></member>
-      <member refid="classhmap_1_1Function_1a6163e6f231dc77a7e7d83e74d2b44abe" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>set_delegate</name></member>
-      <member refid="classhmap_1_1FieldFunction_1a4eb34013ff18556d6503899ba6ac5591" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>set_xr</name></member>
-      <member refid="classhmap_1_1FieldFunction_1a7fc7d7c63ecf26391c6f568836c51838" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>set_yr</name></member>
-      <member refid="classhmap_1_1FieldFunction_1abd0ed9592d4ff58306a41b1d118a9ae7" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>set_zr</name></member>
-      <member refid="classhmap_1_1FieldFunction_1a9516a161eeafaaf0e3d7fd7049871a14" prot="private" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>setup_delegate</name></member>
-      <member refid="classhmap_1_1FieldFunction_1a88d43ae418ef4bc85ca228e5a1f6d13d" prot="protected" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>xr</name></member>
-      <member refid="classhmap_1_1FieldFunction_1a166abea10da916bc21f4b917cd9c3811" prot="protected" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>yr</name></member>
-      <member refid="classhmap_1_1FieldFunction_1afe97b341521215c0a76a27c48206c90e" prot="protected" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>zr</name></member>
-      <member refid="classhmap_1_1Function_1a8efd89e31947f2508ce45b133e30322f" prot="public" virt="virtual"><scope>hmap::FieldFunction</scope><name>~Function</name></member>
+      <member refid="classhmap_1_1FieldFunction_1ad0653c5d5e680a4ada51ec3ec641cda7" prot="private" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>base</name></member>
+      <member refid="classhmap_1_1FieldFunction_1a17613f0a81c1605e901170bf5224afbc" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>FieldFunction</name></member>
+      <member refid="classhmap_1_1FieldFunction_1aa11be4ba195fed3ad49de2eeee40c593" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>FieldFunction</name></member>
+      <member refid="classhmap_1_1FieldFunction_1ade90ddbe3829e67f73b6e40ecc757771" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>operator()</name></member>
+      <member refid="classhmap_1_1FieldFunction_1a959baebb83ae5b5a28155977cb1a0fc7" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>set_xr</name></member>
+      <member refid="classhmap_1_1FieldFunction_1a189b2d18cc74249c3c3184186cf9fa49" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>set_yr</name></member>
+      <member refid="classhmap_1_1FieldFunction_1a6be35e9ce09ffc09d2901a4c3f847c90" prot="public" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>set_zr</name></member>
+      <member refid="classhmap_1_1FieldFunction_1aa2a892fad7a1b6eb483494a167ccaae7" prot="protected" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>xr</name></member>
+      <member refid="classhmap_1_1FieldFunction_1a50cd153f7cb127115a87a365899f54b7" prot="protected" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>yr</name></member>
+      <member refid="classhmap_1_1FieldFunction_1a7a0dfd12b2af034622d8a7b93a76a40b" prot="protected" virt="non-virtual"><scope>hmap::FieldFunction</scope><name>zr</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

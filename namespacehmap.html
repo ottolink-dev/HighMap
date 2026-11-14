@@ -149,8 +149,6 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration parameters for forest seeding algorithms.  <a href="structhmap_1_1ForestSeedingOptions.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Species" id="r_Species"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap_1_1Species.html">Species</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encapsulates biological and geometric traits of a tree species.  <a href="structhmap_1_1Species.html#details">More...</a><br /></td></tr>
-<tr class="memitem:Function" id="r_Function"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1Function.html">Function</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class that wraps a callable entity taking three floats and returning a float.  <a href="classhmap_1_1Function.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ArrayFunction" id="r_ArrayFunction"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1ArrayFunction.html">ArrayFunction</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> (x, y) function class.  <a href="classhmap_1_1ArrayFunction.html#details">More...</a><br /></td></tr>
 <tr class="memitem:BiquadFunction" id="r_BiquadFunction"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1BiquadFunction.html">BiquadFunction</a></td></tr>
@@ -1217,8 +1215,9 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa6ba2bd6f00bf38f87b87f1179dcc70a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a multi-species forest distribution using 2D inverse transform sampling for positions and PointSampler k-means clustering to tag species.  <br /></td></tr>
 <tr class="memitem:a84ca1f41de32e4beacb10787127b4b8a" id="r_a84ca1f41de32e4beacb10787127b4b8a"><td class="memItemLeft" align="right" valign="top">std::function&lt; float(float, float)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84ca1f41de32e4beacb10787127b4b8a">make_xy_function_from_array</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, const glm::vec4 &amp;bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
 <tr class="memdesc:a84ca1f41de32e4beacb10787127b4b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a continuous 2D function from a sampled array.  <br /></td></tr>
-<tr class="memitem:a0139c2cbbb516591c54fe8a743dc139d" id="r_a0139c2cbbb516591c54fe8a743dc139d"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classhmap_1_1NoiseFunction.html">hmap::NoiseFunction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0139c2cbbb516591c54fe8a743dc139d">create_noise_function_from_type</a> (<a class="el" href="#ab8197c4c7a85dacb616fee7a7d0df195">NoiseType</a> noise_type, glm::vec2 kw, std::uint32_t seed)</td></tr>
-<tr class="memdesc:a0139c2cbbb516591c54fe8a743dc139d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a noise function based on the specified noise type.  <br /></td></tr>
+<tr class="memitem:affd2220de085a60e3052a80a376e0c47" id="r_affd2220de085a60e3052a80a376e0c47"><td class="memTemplParams" colspan="2">template&lt;typename Fn&gt; </td></tr>
+<tr class="memitem:affd2220de085a60e3052a80a376e0c47 template"><td class="memItemLeft" align="right" valign="top">decltype(auto)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#affd2220de085a60e3052a80a376e0c47">with_noise_function</a> (<a class="el" href="#ab8197c4c7a85dacb616fee7a7d0df195">NoiseType</a> noise_type, glm::vec2 kw, std::uint32_t seed, Fn &amp;&amp;fn)</td></tr>
+<tr class="memdesc:affd2220de085a60e3052a80a376e0c47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispatch a noise functor based on the specified noise type.  <br /></td></tr>
 <tr class="memitem:a2eb54fb6e51f35573926f9255bcd00e4" id="r_a2eb54fb6e51f35573926f9255bcd00e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2eb54fb6e51f35573926f9255bcd00e4">add_line_bresenham</a> (<a class="el" href="classhmap_1_1CellPath.html">CellPath</a> &amp;out, glm::ivec2 a, glm::ivec2 b)</td></tr>
 <tr class="memdesc:a2eb54fb6e51f35573926f9255bcd00e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rasterizes a segment between two integer points using Bresenham's algorithm.  <br /></td></tr>
 <tr class="memitem:ae2e53495ed85355b7fee99c4293a1d4c" id="r_ae2e53495ed85355b7fee99c4293a1d4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae2e53495ed85355b7fee99c4293a1d4c">add_noise</a> (<a class="el" href="classhmap_1_1CellPath.html">CellPath</a> &amp;path, std::uint32_t seed, float kw, float amp, const glm::ivec2 &amp;shape, <a class="el" href="#ab8197c4c7a85dacb616fee7a7d0df195">NoiseType</a> noise_type=<a class="el" href="#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">NoiseType::PERLIN</a>, int octaves=8, float weight=0.7<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float persistence=0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float lacunarity=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
@@ -1899,10 +1898,12 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
 <tr class="memdesc:a068e4d5be8c16ab9e708dca9678dc8de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a vector of jittered (noised) numbers over a specified interval.  <br /></td></tr>
 <tr class="memitem:a72951e6ba82ab8726d1b5d2f491226b2" id="r_a72951e6ba82ab8726d1b5d2f491226b2"><td class="memItemLeft" align="right" valign="top">std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72951e6ba82ab8726d1b5d2f491226b2">logspace</a> (float start, float stop, int num, bool endpoint=true)</td></tr>
 <tr class="memdesc:a72951e6ba82ab8726d1b5d2f491226b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a logarithmically spaced vector.  <br /></td></tr>
-<tr class="memitem:a54f6b9fef96254284b27ea73543abe55" id="r_a54f6b9fef96254284b27ea73543abe55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54f6b9fef96254284b27ea73543abe55">fill_array_using_xy_function</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, glm::vec4 bbox, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_ctrl_param, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_stretching, std::function&lt; float(float, float, float)&gt; fct_xy)</td></tr>
-<tr class="memdesc:a54f6b9fef96254284b27ea73543abe55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill an array using a scalar function based on (x, y) coordinates.  <br /></td></tr>
-<tr class="memitem:af1b7865647bb6acd5f3c9720b3677da7" id="r_af1b7865647bb6acd5f3c9720b3677da7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1b7865647bb6acd5f3c9720b3677da7">fill_array_using_xy_function</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, glm::vec4 bbox, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_ctrl_param, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_stretching, std::function&lt; float(float, float, float)&gt; fct_xy, int subsampling)</td></tr>
-<tr class="memdesc:af1b7865647bb6acd5f3c9720b3677da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill an array using a scalar function based on (x, y) coordinates with subsampling.  <br /></td></tr>
+<tr class="memitem:a43a06ab877988ecf0e97db0c02762171" id="r_a43a06ab877988ecf0e97db0c02762171"><td class="memTemplParams" colspan="2">template&lt;typename Fn&gt; </td></tr>
+<tr class="memitem:a43a06ab877988ecf0e97db0c02762171 template"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43a06ab877988ecf0e97db0c02762171">fill_array_using_xy_function</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, glm::vec4 bbox, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_ctrl_param, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_stretching, Fn &amp;&amp;fct_xy)</td></tr>
+<tr class="memdesc:a43a06ab877988ecf0e97db0c02762171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill an array using a scalar function based on (x, y) coordinates.  <br /></td></tr>
+<tr class="memitem:a368ba73caabaa4bc0ea6de0bb7e2a5c7" id="r_a368ba73caabaa4bc0ea6de0bb7e2a5c7"><td class="memTemplParams" colspan="2">template&lt;typename Fn&gt; </td></tr>
+<tr class="memitem:a368ba73caabaa4bc0ea6de0bb7e2a5c7 template"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a368ba73caabaa4bc0ea6de0bb7e2a5c7">fill_array_using_xy_function</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, glm::vec4 bbox, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_ctrl_param, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_stretching, Fn &amp;&amp;fct_xy, int subsampling)</td></tr>
+<tr class="memdesc:a368ba73caabaa4bc0ea6de0bb7e2a5c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill an array using a scalar function based on (x, y) coordinates with subsampling.  <br /></td></tr>
 <tr class="memitem:ae0a3c73cc23a288fe03bf5ed6ac73c3d" id="r_ae0a3c73cc23a288fe03bf5ed6ac73c3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0a3c73cc23a288fe03bf5ed6ac73c3d">find_vertical_cut_path</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;error, std::vector&lt; int &gt; &amp;path_i)</td></tr>
 <tr class="memdesc:ae0a3c73cc23a288fe03bf5ed6ac73c3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the vertical cut path with the minimum cost using dynamic programming.  <br /></td></tr>
 <tr class="memitem:ae6817ca5deb78b7edb959b3ea334b25b" id="r_ae6817ca5deb78b7edb959b3ea334b25b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6817ca5deb78b7edb959b3ea334b25b">generate_mask</a> (glm::ivec2 shape, std::vector&lt; int &gt; cut_path_i, int ir)</td></tr>
@@ -1927,7 +1928,7 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
 <tr class="memdesc:a7f6f419f3cc6f376344611faef5ad440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a transformation function with optional masked blending.  <br /></td></tr>
 <tr class="memitem:ae067755e4e2def08c3e4e94834cb2977" id="r_ae067755e4e2def08c3e4e94834cb2977"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae067755e4e2def08c3e4e94834cb2977">dendry</a> (glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;control_function, float eps=0.05, int resolution=1, float displacement=0.075, int primitives_resolution_steps=3, float slope_power=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float noise_amplitude_proportion=0.01, bool add_control_function=true, float control_function_overlap=0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y=nullptr, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}, int subsampling=1)</td></tr>
 <tr class="memdesc:ae067755e4e2def08c3e4e94834cb2977"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dendry is a locally computable procedural function that generates branching patterns at various scales (see <b>[Gaillard2019]</b>).  <br /></td></tr>
-<tr class="memitem:a772bd6b8b78d944382991f3064c1f4e1" id="r_a772bd6b8b78d944382991f3064c1f4e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a772bd6b8b78d944382991f3064c1f4e1">dendry</a> (glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, <a class="el" href="classhmap_1_1NoiseFunction.html">NoiseFunction</a> &amp;noise_function, float noise_function_offset=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float noise_function_scaling=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float eps=0.05, int resolution=1, float displacement=0.075, int primitives_resolution_steps=3, float slope_power=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float noise_amplitude_proportion=0.01, bool add_control_function=true, float control_function_overlap=0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y=nullptr, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
+<tr class="memitem:a4938b0c9f168cb2c0f6769eb59e85d62" id="r_a4938b0c9f168cb2c0f6769eb59e85d62"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4938b0c9f168cb2c0f6769eb59e85d62">dendry</a> (glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, const std::function&lt; float(float, float, float)&gt; &amp;noise_function, float noise_function_offset=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float noise_function_scaling=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float eps=0.05, int resolution=1, float displacement=0.075, int primitives_resolution_steps=3, float slope_power=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float noise_amplitude_proportion=0.01, bool add_control_function=true, float control_function_overlap=0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y=nullptr, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
 <tr class="memitem:a43cf2b960fc4f48be0548d87e78cdcb2" id="r_a43cf2b960fc4f48be0548d87e78cdcb2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43cf2b960fc4f48be0548d87e78cdcb2">diffusion_limited_aggregation</a> (glm::ivec2 shape, float <a class="el" href="#a7e352e19687bc236a6360e56ec92251e">scale</a>, std::uint32_t seed, float seeding_radius=0.4<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float seeding_outer_radius_ratio=0.2<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float <a class="el" href="#a04e7abe100708990e2464cc5df2ccafa">slope</a>=8.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float noise_ratio=0.2<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
 <tr class="memdesc:a43cf2b960fc4f48be0548d87e78cdcb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a diffusion-limited aggregation (DLA) pattern.  <br /></td></tr>
 <tr class="memitem:a1ec94a836ccbf817c489733affc9d472" id="r_a1ec94a836ccbf817c489733affc9d472"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ec94a836ccbf817c489733affc9d472">diffusion_limited_aggregation_trimesh</a> (glm::ivec2 shape, std::uint32_t seed, size_t control_points_count=5000, glm::vec2 seed_position={0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}, float ratio=0.98<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float stop_proba=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float <a class="el" href="#a04e7abe100708990e2464cc5df2ccafa">slope</a>=16.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, <a class="el" href="#a5bfab5d68e822294ff90fde21b85f581">InterpolationMethod2D</a> interpolation_method=<a class="el" href="#a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278">InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y=nullptr)</td></tr>
@@ -4018,7 +4019,7 @@ template&lt;typename Fn&gt; </div>
 <div class="ttc" id="aclasshmap_1_1Cloud_html_ac9ab31444357a0a0c3922b4d16ccef7f"><div class="ttname"><a href="classhmap_1_1Cloud.html#ac9ab31444357a0a0c3922b4d16ccef7f">hmap::Cloud::push_back</a></div><div class="ttdeci">void push_back(const Point &amp;p)</div><div class="ttdoc">Appends a point.</div><div class="ttdef"><b>Definition</b> cloud.cpp:661</div></div>
 <div class="ttc" id="aclasshmap_1_1Point_html"><div class="ttname"><a href="classhmap_1_1Point.html">hmap::Point</a></div><div class="ttdoc">A class to represent and manipulate 2D points that can carry a value.</div><div class="ttdef"><b>Definition</b> point.hpp:25</div></div>
 <div class="ttc" id="anamespacehmap_html_a6123c18788ae302332416d5d7585fd9f"><div class="ttname"><a href="#a6123c18788ae302332416d5d7585fd9f">hmap::alter_elevation</a></div><div class="ttdeci">void alter_elevation(Array &amp;array, const Cloud &amp;cloud, int ir, float footprint_ratio=1.f, glm::vec2 shift={0.f, 0.f}, glm::vec2 scale={1.f, 1.f})</div><div class="ttdoc">Point-wise alteration: locally enforce a new elevation value while maintaining the &#39;shape&#39; of the hei...</div><div class="ttdef"><b>Definition</b> alter_elevation.cpp:17</div></div>
-<div class="ttc" id="anamespacehmap_html_a7d699a468a18be16c70654958ee13b41"><div class="ttname"><a href="#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a></div><div class="ttdeci">Array noise_fbm(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:45</div></div>
+<div class="ttc" id="anamespacehmap_html_a7d699a468a18be16c70654958ee13b41"><div class="ttname"><a href="#a7d699a468a18be16c70654958ee13b41">hmap::noise_fbm</a></div><div class="ttdeci">Array noise_fbm(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:47</div></div>
 <div class="ttc" id="anamespacehmap_html_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581"><div class="ttname"><a href="#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::PERLIN</a></div><div class="ttdeci">@ PERLIN</div><div class="ttdoc">Perlin.</div><div class="ttdef"><b>Definition</b> functions.hpp:69</div></div>
 <div class="ttc" id="anamespacehmap_html_ac2452e568959bc21c9b7b09202e5977a"><div class="ttname"><a href="#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a></div><div class="ttdeci">void export_banner_png(const std::string &amp;fname, const std::vector&lt; Array &gt; &amp;arrays, int cmap, bool hillshading=false, bool normalize_arrays=false)</div><div class="ttdoc">Exports a set of arrays as a banner PNG image file.</div><div class="ttdef"><b>Definition</b> export_banner_png.cpp:18</div></div>
 <div class="ttc" id="anamespacehmap_html_ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143"><div class="ttname"><a href="#ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143">hmap::INFERNO</a></div><div class="ttdeci">@ INFERNO</div><div class="ttdef"><b>Definition</b> colormaps.hpp:87</div></div>
@@ -12120,6 +12121,7 @@ additional_depth)</span>.</li>
 <div class="line">                                nparticles,</div>
 <div class="line">                                seed,</div>
 <div class="line">                                <span class="comment">/* p_bedrock */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">                                <span class="comment">/* p_erodibility */</span> <span class="keyword">nullptr</span>,</div>
 <div class="line">                                <span class="comment">/* p_moisture_map */</span> <span class="keyword">nullptr</span>,</div>
 <div class="line">                                <span class="comment">/* p_elevation_shift */</span> <span class="keyword">nullptr</span>,</div>
 <div class="line">                                <span class="comment">/* p_erosion_map */</span> <span class="keyword">nullptr</span>,</div>
@@ -12127,7 +12129,6 @@ additional_depth)</span>.</li>
 <div class="line">                                <span class="comment">/* c_capacity */</span> 10.f,</div>
 <div class="line">                                <span class="comment">/* c_erosion */</span> 0.1f,</div>
 <div class="line">                                <span class="comment">/* c_deposition */</span> 0.1f,</div>
-<div class="line">                                <span class="comment">/* c_inertia */</span> 0.f,</div>
 <div class="line">                                <span class="comment">/* c_gravity */</span> 1.f,</div>
 <div class="line">                                <span class="comment">/* drag_rate */</span> 0.001f,</div>
 <div class="line">                                <span class="comment">/* evap_rate */</span> 0.001f,</div>
@@ -12157,6 +12158,7 @@ additional_depth)</span>.</li>
 <div class="line">      seed,</div>
 <div class="line">      <span class="comment">/* steps_per_level */</span> {16, 8, 4, 2, 1},</div>
 <div class="line">      <span class="comment">/* p_bedrock */</span> <span class="keyword">nullptr</span>,</div>
+<div class="line">      <span class="comment">/* p_erodibility */</span> <span class="keyword">nullptr</span>,</div>
 <div class="line">      <span class="comment">/* p_moisture_map */</span> <span class="keyword">nullptr</span>,</div>
 <div class="line">      <span class="comment">/* p_elevation_shift */</span> <span class="keyword">nullptr</span>,</div>
 <div class="line">      <span class="comment">/* p_erosion_map */</span> <span class="keyword">nullptr</span>,</div>
@@ -13409,7 +13411,7 @@ The y-axis is flipped so that higher indices appear lower in the text output. </
 <div class="line">  <a class="code hl_function" href="#ad880e48991b3beda92660d62c2bb0294">hmap::export_as_cubemap</a>(<span class="stringliteral">&quot;ex_export_as_cubemap.png&quot;</span>, z);</div>
 <div class="line">}</div>
 <div class="ttc" id="anamespacehmap_html_ad880e48991b3beda92660d62c2bb0294"><div class="ttname"><a href="#ad880e48991b3beda92660d62c2bb0294">hmap::export_as_cubemap</a></div><div class="ttdeci">void export_as_cubemap(const std::string &amp;fname, const Array &amp;z, int cubemap_resolution=128, float overlap=0.25f, int ir=16, Cmap cmap=static_cast&lt; Cmap &gt;(0), bool splitted=false, Array *p_cubemap=nullptr)</div><div class="ttdoc">Exports a 2D array as a cubemap texture with continuity enforcement and overlapping regions.</div><div class="ttdef"><b>Definition</b> export_as_cubemap.cpp:181</div></div>
-<div class="ttc" id="anamespacehmap_html_ae75e563471c02f0c7620f3385be26a18"><div class="ttname"><a href="#ae75e563471c02f0c7620f3385be26a18">hmap::noise_ridged</a></div><div class="ttdeci">Array noise_ridged(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, float k_smoothing=0.1f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm ridged noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:259</div></div>
+<div class="ttc" id="anamespacehmap_html_ae75e563471c02f0c7620f3385be26a18"><div class="ttname"><a href="#ae75e563471c02f0c7620f3385be26a18">hmap::noise_ridged</a></div><div class="ttdeci">Array noise_ridged(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, float k_smoothing=0.1f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm ridged noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:268</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_export_as_cubemap.png" alt=""/>
 </div>
@@ -21805,14 +21807,16 @@ The y-axis is flipped so that higher indices appear lower in the text output. </
 
 </div>
 </div>
-<a id="a0139c2cbbb516591c54fe8a743dc139d" name="a0139c2cbbb516591c54fe8a743dc139d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0139c2cbbb516591c54fe8a743dc139d">&#9670;&#160;</a></span>create_noise_function_from_type()</h2>
+<a id="affd2220de085a60e3052a80a376e0c47" name="affd2220de085a60e3052a80a376e0c47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affd2220de085a60e3052a80a376e0c47">&#9670;&#160;</a></span>with_noise_function()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Fn&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt; <a class="el" href="classhmap_1_1NoiseFunction.html">NoiseFunction</a> &gt; hmap::create_noise_function_from_type </td>
+          <td class="memname">decltype(auto) hmap::with_noise_function </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#ab8197c4c7a85dacb616fee7a7d0df195">NoiseType</a></td>          <td class="paramname"><span class="paramname"><em>noise_type</em></span>, </td>
         </tr>
@@ -21824,22 +21828,26 @@ The y-axis is flipped so that higher indices appear lower in the text output. </
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::uint32_t</td>          <td class="paramname"><span class="paramname"><em>seed</em></span>&#160;)</td>
+          <td class="paramtype">std::uint32_t</td>          <td class="paramname"><span class="paramname"><em>seed</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Fn &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>fn</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Create a noise function based on the specified noise type. </p>
-<p>This function creates an instance of a noise function corresponding to the specified <span class="tt">noise_type</span>. It initializes the noise function with the given frequency scaling vector (<span class="tt">kw</span>) and random seed (<span class="tt">seed</span>).</p>
+<p>Dispatch a noise functor based on the specified noise type. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">noise_type</td><td>The type of noise function to create (e.g., PERLIN, SIMPLEX2, etc.). </td></tr>
     <tr><td class="paramname">kw</td><td>The frequency scaling vector to be used for the noise function. </td></tr>
     <tr><td class="paramname">seed</td><td>The random seed for noise generation. </td></tr>
+    <tr><td class="paramname">fn</td><td>Callable invoked with the concrete noise functor. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <span class="tt">std::unique_ptr</span> to the created noise function. </dd></dl>
 
 </div>
 </div>
@@ -40447,11 +40455,13 @@ f_1 f_2}}{1 + \alpha} \]
 
 </div>
 </div>
-<a id="a54f6b9fef96254284b27ea73543abe55" name="a54f6b9fef96254284b27ea73543abe55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54f6b9fef96254284b27ea73543abe55">&#9670;&#160;</a></span>fill_array_using_xy_function() <span class="overload">[1/2]</span></h2>
+<a id="a43a06ab877988ecf0e97db0c02762171" name="a43a06ab877988ecf0e97db0c02762171"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43a06ab877988ecf0e97db0c02762171">&#9670;&#160;</a></span>fill_array_using_xy_function() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Fn&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void hmap::fill_array_using_xy_function </td>
@@ -40486,7 +40496,7 @@ f_1 f_2}}{1 + \alpha} \]
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::function&lt; float(float, float, float)&gt;</td>          <td class="paramname"><span class="paramname"><em>fct_xy</em></span>&#160;)</td>
+          <td class="paramtype">Fn &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>fct_xy</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -40521,43 +40531,38 @@ f_1 f_2}}{1 + \alpha} \]
 <div class="line">  <span class="keyword">auto</span> z1 = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(shape);</div>
 <div class="line">  <span class="keyword">auto</span> z2 = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(shape);</div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_function" href="#a54f6b9fef96254284b27ea73543abe55">fill_array_using_xy_function</a>(z1,</div>
-<div class="line">                               bbox,</div>
-<div class="line">                               <span class="keyword">nullptr</span>,</div>
-<div class="line">                               &amp;n,</div>
-<div class="line">                               &amp;n,</div>
-<div class="line">                               <span class="keyword">nullptr</span>,</div>
-<div class="line">                               p.<a class="code hl_function" href="classhmap_1_1Function.html#a32214e30c36be7650c47867fd14f6a0c">get_delegate</a>());</div>
+<div class="line">  <a class="code hl_function" href="#a43a06ab877988ecf0e97db0c02762171">fill_array_using_xy_function</a>(z1, bbox, <span class="keyword">nullptr</span>, &amp;n, &amp;n, <span class="keyword">nullptr</span>, p);</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordtype">int</span> subsampling = 8;</div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_function" href="#a54f6b9fef96254284b27ea73543abe55">fill_array_using_xy_function</a>(z2,</div>
+<div class="line">  <a class="code hl_function" href="#a43a06ab877988ecf0e97db0c02762171">fill_array_using_xy_function</a>(z2,</div>
 <div class="line">                               bbox,</div>
 <div class="line">                               <span class="keyword">nullptr</span>, <span class="comment">// ctrl_param</span></div>
 <div class="line">                               &amp;n,</div>
 <div class="line">                               &amp;n,</div>
 <div class="line">                               <span class="keyword">nullptr</span>, <span class="comment">// stretching</span></div>
-<div class="line">                               p.<a class="code hl_function" href="classhmap_1_1Function.html#a32214e30c36be7650c47867fd14f6a0c">get_delegate</a>(),</div>
+<div class="line">                               p,</div>
 <div class="line">                               subsampling);</div>
 <div class="line"> </div>
 <div class="line">  <a class="code hl_function" href="#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_fill_array_using_xy_function.png&quot;</span>,</div>
 <div class="line">                          {z1, z2},</div>
 <div class="line">                          <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced">hmap::Cmap::JET</a>);</div>
 <div class="line">}</div>
-<div class="ttc" id="aclasshmap_1_1Function_html_a32214e30c36be7650c47867fd14f6a0c"><div class="ttname"><a href="classhmap_1_1Function.html#a32214e30c36be7650c47867fd14f6a0c">hmap::Function::get_delegate</a></div><div class="ttdeci">HMAP_FCT_XY_TYPE get_delegate() const</div><div class="ttdoc">Get the current delegate function.</div><div class="ttdef"><b>Definition</b> functions.cpp:44</div></div>
-<div class="ttc" id="aclasshmap_1_1PerlinFunction_html"><div class="ttname"><a href="classhmap_1_1PerlinFunction.html">hmap::PerlinFunction</a></div><div class="ttdoc">Perlin (x, y) function class.</div><div class="ttdef"><b>Definition</b> functions.hpp:888</div></div>
-<div class="ttc" id="anamespacehmap_html_a54f6b9fef96254284b27ea73543abe55"><div class="ttname"><a href="#a54f6b9fef96254284b27ea73543abe55">hmap::fill_array_using_xy_function</a></div><div class="ttdeci">void fill_array_using_xy_function(Array &amp;array, glm::vec4 bbox, const Array *p_ctrl_param, const Array *p_noise_x, const Array *p_noise_y, const Array *p_stretching, std::function&lt; float(float, float, float)&gt; fct_xy)</div><div class="ttdoc">Fill an array using a scalar function based on (x, y) coordinates.</div><div class="ttdef"><b>Definition</b> fill_array.cpp:14</div></div>
+<div class="ttc" id="aclasshmap_1_1PerlinFunction_html"><div class="ttname"><a href="classhmap_1_1PerlinFunction.html">hmap::PerlinFunction</a></div><div class="ttdoc">Perlin (x, y) function class.</div><div class="ttdef"><b>Definition</b> functions.hpp:865</div></div>
+<div class="ttc" id="anamespacehmap_html_a43a06ab877988ecf0e97db0c02762171"><div class="ttname"><a href="#a43a06ab877988ecf0e97db0c02762171">hmap::fill_array_using_xy_function</a></div><div class="ttdeci">void fill_array_using_xy_function(Array &amp;array, glm::vec4 bbox, const Array *p_ctrl_param, const Array *p_noise_x, const Array *p_noise_y, const Array *p_stretching, Fn &amp;&amp;fct_xy)</div><div class="ttdoc">Fill an array using a scalar function based on (x, y) coordinates.</div><div class="ttdef"><b>Definition</b> operator.inl:14</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_fill_array_using_xy_function.png" alt=""/>
 </div>
  
 </div>
 </div>
-<a id="af1b7865647bb6acd5f3c9720b3677da7" name="af1b7865647bb6acd5f3c9720b3677da7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1b7865647bb6acd5f3c9720b3677da7">&#9670;&#160;</a></span>fill_array_using_xy_function() <span class="overload">[2/2]</span></h2>
+<a id="a368ba73caabaa4bc0ea6de0bb7e2a5c7" name="a368ba73caabaa4bc0ea6de0bb7e2a5c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a368ba73caabaa4bc0ea6de0bb7e2a5c7">&#9670;&#160;</a></span>fill_array_using_xy_function() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Fn&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void hmap::fill_array_using_xy_function </td>
@@ -40592,7 +40597,7 @@ f_1 f_2}}{1 + \alpha} \]
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::function&lt; float(float, float, float)&gt;</td>          <td class="paramname"><span class="paramname"><em>fct_xy</em></span>, </td>
+          <td class="paramtype">Fn &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>fct_xy</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -40633,23 +40638,17 @@ f_1 f_2}}{1 + \alpha} \]
 <div class="line">  <span class="keyword">auto</span> z1 = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(shape);</div>
 <div class="line">  <span class="keyword">auto</span> z2 = <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a>(shape);</div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_function" href="#a54f6b9fef96254284b27ea73543abe55">fill_array_using_xy_function</a>(z1,</div>
-<div class="line">                               bbox,</div>
-<div class="line">                               <span class="keyword">nullptr</span>,</div>
-<div class="line">                               &amp;n,</div>
-<div class="line">                               &amp;n,</div>
-<div class="line">                               <span class="keyword">nullptr</span>,</div>
-<div class="line">                               p.<a class="code hl_function" href="classhmap_1_1Function.html#a32214e30c36be7650c47867fd14f6a0c">get_delegate</a>());</div>
+<div class="line">  <a class="code hl_function" href="#a43a06ab877988ecf0e97db0c02762171">fill_array_using_xy_function</a>(z1, bbox, <span class="keyword">nullptr</span>, &amp;n, &amp;n, <span class="keyword">nullptr</span>, p);</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordtype">int</span> subsampling = 8;</div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_function" href="#a54f6b9fef96254284b27ea73543abe55">fill_array_using_xy_function</a>(z2,</div>
+<div class="line">  <a class="code hl_function" href="#a43a06ab877988ecf0e97db0c02762171">fill_array_using_xy_function</a>(z2,</div>
 <div class="line">                               bbox,</div>
 <div class="line">                               <span class="keyword">nullptr</span>, <span class="comment">// ctrl_param</span></div>
 <div class="line">                               &amp;n,</div>
 <div class="line">                               &amp;n,</div>
 <div class="line">                               <span class="keyword">nullptr</span>, <span class="comment">// stretching</span></div>
-<div class="line">                               p.<a class="code hl_function" href="classhmap_1_1Function.html#a32214e30c36be7650c47867fd14f6a0c">get_delegate</a>(),</div>
+<div class="line">                               p,</div>
 <div class="line">                               subsampling);</div>
 <div class="line"> </div>
 <div class="line">  <a class="code hl_function" href="#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_fill_array_using_xy_function.png&quot;</span>,</div>
@@ -41200,8 +41199,8 @@ template&lt;typename Fn&gt; </div>
  
 </div>
 </div>
-<a id="a772bd6b8b78d944382991f3064c1f4e1" name="a772bd6b8b78d944382991f3064c1f4e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a772bd6b8b78d944382991f3064c1f4e1">&#9670;&#160;</a></span>dendry() <span class="overload">[2/2]</span></h2>
+<a id="a4938b0c9f168cb2c0f6769eb59e85d62" name="a4938b0c9f168cb2c0f6769eb59e85d62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4938b0c9f168cb2c0f6769eb59e85d62">&#9670;&#160;</a></span>dendry() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -41224,7 +41223,7 @@ template&lt;typename Fn&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classhmap_1_1NoiseFunction.html">NoiseFunction</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>noise_function</em></span>, </td>
+          <td class="paramtype">const std::function&lt; float(float, float, float)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>noise_function</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -41824,11 +41823,11 @@ template&lt;typename Fn&gt; </div>
 <div class="line">    n.to_png(<span class="stringliteral">&quot;ex_noise_fbm6.png&quot;</span>, <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>, <span class="keyword">true</span>);</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_html_a0711354c55d347b75609d40367e109e4"><div class="ttname"><a href="#a0711354c55d347b75609d40367e109e4">hmap::noise_parberry</a></div><div class="ttdeci">Array noise_parberry(glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, float mu=1.02f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherent fbm Parberry variant of Perlin noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:178</div></div>
-<div class="ttc" id="anamespacehmap_html_a126e35d85212aa55b6c787206a46c77a"><div class="ttname"><a href="#a126e35d85212aa55b6c787206a46c77a">hmap::noise_iq</a></div><div class="ttdeci">Array noise_iq(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, float gradient_scale=0.05f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:86</div></div>
-<div class="ttc" id="anamespacehmap_html_a20e1b76be1649fd95660960f8f865854"><div class="ttname"><a href="#a20e1b76be1649fd95660960f8f865854">hmap::noise_swiss</a></div><div class="ttdeci">Array noise_swiss(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, float warp_scale=0.1f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm swiss noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:302</div></div>
-<div class="ttc" id="anamespacehmap_html_a5b3ff5b67e1b5dbaf914d4d194ca6c90"><div class="ttname"><a href="#a5b3ff5b67e1b5dbaf914d4d194ca6c90">hmap::noise_pingpong</a></div><div class="ttdeci">Array noise_pingpong(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm pingpong noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:218</div></div>
-<div class="ttc" id="anamespacehmap_html_a79addb22d64cf3e7b43466b3a907b76f"><div class="ttname"><a href="#a79addb22d64cf3e7b43466b3a907b76f">hmap::noise_jordan</a></div><div class="ttdeci">Array noise_jordan(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, float warp0=0.4f, float damp0=1.f, float warp_scale=0.4f, float damp_scale=1.f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:129</div></div>
+<div class="ttc" id="anamespacehmap_html_a0711354c55d347b75609d40367e109e4"><div class="ttname"><a href="#a0711354c55d347b75609d40367e109e4">hmap::noise_parberry</a></div><div class="ttdeci">Array noise_parberry(glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, float mu=1.02f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherent fbm Parberry variant of Perlin noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:185</div></div>
+<div class="ttc" id="anamespacehmap_html_a126e35d85212aa55b6c787206a46c77a"><div class="ttname"><a href="#a126e35d85212aa55b6c787206a46c77a">hmap::noise_iq</a></div><div class="ttdeci">Array noise_iq(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, float gradient_scale=0.05f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:89</div></div>
+<div class="ttc" id="anamespacehmap_html_a20e1b76be1649fd95660960f8f865854"><div class="ttname"><a href="#a20e1b76be1649fd95660960f8f865854">hmap::noise_swiss</a></div><div class="ttdeci">Array noise_swiss(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, float warp_scale=0.1f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm swiss noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:313</div></div>
+<div class="ttc" id="anamespacehmap_html_a5b3ff5b67e1b5dbaf914d4d194ca6c90"><div class="ttname"><a href="#a5b3ff5b67e1b5dbaf914d4d194ca6c90">hmap::noise_pingpong</a></div><div class="ttdeci">Array noise_pingpong(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm pingpong noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:225</div></div>
+<div class="ttc" id="anamespacehmap_html_a79addb22d64cf3e7b43466b3a907b76f"><div class="ttname"><a href="#a79addb22d64cf3e7b43466b3a907b76f">hmap::noise_jordan</a></div><div class="ttdeci">Array noise_jordan(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, float warp0=0.4f, float damp0=1.f, float warp_scale=0.4f, float damp_scale=1.f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Return an array filled with coherence fbm noise.</div><div class="ttdef"><b>Definition</b> noise.cpp:134</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_noise_fbm0.png" alt=""/>
 </div>
@@ -43827,7 +43826,7 @@ template&lt;typename Fn&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> object of size <code class="param">shape</code> containing the bump pattern.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function normalizes the Lorentzian curve so that the maximum value is 1 at the center and smoothly decays to 0 at the boundary defined by <code class="param">radius</code>.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a54f6b9fef96254284b27ea73543abe55" title="Fill an array using a scalar function based on (x, y) coordinates.">fill_array_using_xy_function</a></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a43a06ab877988ecf0e97db0c02762171" title="Fill an array using a scalar function based on (x, y) coordinates.">fill_array_using_xy_function</a></dd></dl>
 <p><b>Example</b> </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="highmap_8hpp.html">highmap.hpp</a>&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
@@ -46529,7 +46528,7 @@ template&lt;typename Fn&gt; </div>
 <div class="line">                          <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>,</div>
 <div class="line">                          <span class="keyword">true</span>);</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_1_1gpu_html_ae20d5b7f78d4c3eb5064490a3a407533"><div class="ttname"><a href="namespacehmap_1_1gpu.html#ae20d5b7f78d4c3eb5064490a3a407533">hmap::gpu::island</a></div><div class="ttdeci">Array island(const Array &amp;land_mask, const Array *p_noise_r=nullptr, float apex_elevation=1.f, bool filter_distance=true, int filter_ir=32, float slope_min=0.1f, float slope_max=8.f, float slope_start=0.5f, float slope_end=1.f, float slope_noise_intensity=0.5f, float k_smooth=0.05f, float radial_noise_intensity=0.3f, float radial_profile_gain=2.f, float water_decay=0.05f, float water_depth=0.3f, float lee_angle=30.f, float lee_amp=0.f, float uplift_amp=0.f, Array *p_water_depth=nullptr, Array *p_inland_mask=nullptr)</div><div class="ttdoc">Generates an island heightmap from a land mask using radial profiles, slope shaping,...</div><div class="ttdef"><b>Definition</b> island.cpp:119</div></div>
+<div class="ttc" id="anamespacehmap_1_1gpu_html_ae20d5b7f78d4c3eb5064490a3a407533"><div class="ttname"><a href="namespacehmap_1_1gpu.html#ae20d5b7f78d4c3eb5064490a3a407533">hmap::gpu::island</a></div><div class="ttdeci">Array island(const Array &amp;land_mask, const Array *p_noise_r=nullptr, float apex_elevation=1.f, bool filter_distance=true, int filter_ir=32, float slope_min=0.1f, float slope_max=8.f, float slope_start=0.5f, float slope_end=1.f, float slope_noise_intensity=0.5f, float k_smooth=0.05f, float radial_noise_intensity=0.3f, float radial_profile_gain=2.f, float water_decay=0.05f, float water_depth=0.3f, float lee_angle=30.f, float lee_amp=0.f, float uplift_amp=0.f, Array *p_water_depth=nullptr, Array *p_inland_mask=nullptr)</div><div class="ttdoc">Generates an island heightmap from a land mask using radial profiles, slope shaping,...</div><div class="ttdef"><b>Definition</b> island.cpp:116</div></div>
 <div class="ttc" id="anamespacehmap_html_a8f68239db7ea7bdf2177e0290f4fd250"><div class="ttname"><a href="#a8f68239db7ea7bdf2177e0290f4fd250">hmap::island_land_mask</a></div><div class="ttdeci">Array island_land_mask(glm::ivec2 shape, float radius, std::uint32_t seed, float displacement=0.2f, NoiseType noise_type=NoiseType::SIMPLEX2S, float kw=4.f, int octaves=8, float weight=0.f, float persistence=0.5f, float lacunarity=2.f, const glm::vec2 &amp;center={0.5f, 0.5f}, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Generates a 2D island mask by perturbing a radial boundary with noise.</div><div class="ttdef"><b>Definition</b> island.cpp:25</div></div>
 <div class="ttc" id="anamespacehmap_html_ab8197c4c7a85dacb616fee7a7d0df195"><div class="ttname"><a href="#ab8197c4c7a85dacb616fee7a7d0df195">hmap::NoiseType</a></div><div class="ttdeci">NoiseType</div><div class="ttdoc">Enumeration of various noise types used for procedural generation.</div><div class="ttdef"><b>Definition</b> functions.hpp:67</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">

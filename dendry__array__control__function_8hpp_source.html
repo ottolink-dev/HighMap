@@ -224,64 +224,66 @@ $(function(){initNavTree('dendry__array__control__function_8hpp_source.html','',
 </div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
 <div class="foldopen" id="foldopen00129" data-start="{" data-end="};">
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html">  129</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmap_1_1XyControlFunction.html#a17fea066925a7016e234f7af232e2cec">XyControlFunction</a> : <span class="keyword">public</span> ControlFunction&lt;XyControlFunction&gt;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html">  129</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmap_1_1XyControlFunction.html#a5e31f04aa2f6b360aa24f8e3696d5aeb">XyControlFunction</a> : <span class="keyword">public</span> ControlFunction&lt;XyControlFunction&gt;</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>{</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>  <span class="keyword">friend</span> <span class="keyword">class </span>ControlFunction&lt;<a class="code hl_function" href="classhmap_1_1XyControlFunction.html#a17fea066925a7016e234f7af232e2cec">XyControlFunction</a>&gt;;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>  <span class="keyword">friend</span> <span class="keyword">class </span>ControlFunction&lt;<a class="code hl_function" href="classhmap_1_1XyControlFunction.html#a5e31f04aa2f6b360aa24f8e3696d5aeb">XyControlFunction</a>&gt;;</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="keyword">public</span>:</div>
 <div class="foldopen" id="foldopen00134" data-start="{" data-end="}">
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html#a17fea066925a7016e234f7af232e2cec">  134</a></span>  <a class="code hl_function" href="classhmap_1_1XyControlFunction.html#a17fea066925a7016e234f7af232e2cec">XyControlFunction</a>(<a class="code hl_class" href="classhmap_1_1NoiseFunction.html">NoiseFunction</a> noise_function,</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                    <span class="keywordtype">float</span>         offset = 0.f,</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                    <span class="keywordtype">float</span>         scaling = 1.f)</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>      : noise_function(noise_function), offset(offset), scaling(scaling)</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>  {</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>  }</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html#a5e31f04aa2f6b360aa24f8e3696d5aeb">  134</a></span>  <a class="code hl_function" href="classhmap_1_1XyControlFunction.html#a5e31f04aa2f6b360aa24f8e3696d5aeb">XyControlFunction</a>(std::function&lt;<span class="keywordtype">float</span>(<span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>)&gt; noise_function,</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                    <span class="keywordtype">float</span>                                     offset = 0.f,</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                    <span class="keywordtype">float</span>                                     scaling = 1.f)</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>      : noise_function(std::move(noise_function)),</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        offset(offset),</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        scaling(scaling)</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>  {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>  }</div>
 </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="keyword">protected</span>:</div>
-<div class="foldopen" id="foldopen00142" data-start="{" data-end="}">
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html#a142161db636fa6eb92dc64a1dd5c98f9">  142</a></span>  <span class="keywordtype">double</span> <a class="code hl_function" href="classhmap_1_1XyControlFunction.html#a142161db636fa6eb92dc64a1dd5c98f9">EvaluateImpl</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="keyword">  </span>{</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">return</span> offset + scaling * noise_function.get_delegate()(x, y, 0.f);</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>  }</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="keyword">protected</span>:</div>
+<div class="foldopen" id="foldopen00144" data-start="{" data-end="}">
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html#a142161db636fa6eb92dc64a1dd5c98f9">  144</a></span>  <span class="keywordtype">double</span> <a class="code hl_function" href="classhmap_1_1XyControlFunction.html#a142161db636fa6eb92dc64a1dd5c98f9">EvaluateImpl</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">return</span> offset + scaling * noise_function(x, y, 0.f);</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>  }</div>
 </div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="foldopen" id="foldopen00147" data-start="{" data-end="}">
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html#a803029331138a5fecfe87fe9e1569a08">  147</a></span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmap_1_1XyControlFunction.html#a803029331138a5fecfe87fe9e1569a08">InsideDomainImpl</a>(<span class="keywordtype">float</span> <span class="comment">/* x */</span>, <span class="keywordtype">float</span> <span class="comment">/* y */</span>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="keyword">  </span>{</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>  }</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="foldopen" id="foldopen00149" data-start="{" data-end="}">
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html#a803029331138a5fecfe87fe9e1569a08">  149</a></span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmap_1_1XyControlFunction.html#a803029331138a5fecfe87fe9e1569a08">InsideDomainImpl</a>(<span class="keywordtype">float</span> <span class="comment">/* x */</span>, <span class="keywordtype">float</span> <span class="comment">/* y */</span>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>  }</div>
 </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
-<div class="foldopen" id="foldopen00152" data-start="{" data-end="}">
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html#a8f38798bd59177d4ab9dbe4f58250651">  152</a></span>  <span class="keywordtype">double</span> <a class="code hl_function" href="classhmap_1_1XyControlFunction.html#a8f38798bd59177d4ab9dbe4f58250651">DistToDomainImpl</a>(<span class="keywordtype">float</span> <span class="comment">/* x */</span>, <span class="keywordtype">float</span> <span class="comment">/* y */</span>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="keyword">  </span>{</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">return</span> 0.f;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>  }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="foldopen" id="foldopen00154" data-start="{" data-end="}">
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html#a8f38798bd59177d4ab9dbe4f58250651">  154</a></span>  <span class="keywordtype">double</span> <a class="code hl_function" href="classhmap_1_1XyControlFunction.html#a8f38798bd59177d4ab9dbe4f58250651">DistToDomainImpl</a>(<span class="keywordtype">float</span> <span class="comment">/* x */</span>, <span class="keywordtype">float</span> <span class="comment">/* y */</span>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keywordflow">return</span> 0.f;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>  }</div>
 </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
-<div class="foldopen" id="foldopen00157" data-start="{" data-end="}">
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html#acfe5c441363f35d36a13084fb56c6dca">  157</a></span>  <span class="keywordtype">double</span> <a class="code hl_function" href="classhmap_1_1XyControlFunction.html#acfe5c441363f35d36a13084fb56c6dca">MinimumImpl</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="keyword">  </span>{</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keywordflow">return</span> 0.f;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>  }</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="foldopen" id="foldopen00159" data-start="{" data-end="}">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html#acfe5c441363f35d36a13084fb56c6dca">  159</a></span>  <span class="keywordtype">double</span> <a class="code hl_function" href="classhmap_1_1XyControlFunction.html#acfe5c441363f35d36a13084fb56c6dca">MinimumImpl</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordflow">return</span> 0.f;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>  }</div>
 </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
-<div class="foldopen" id="foldopen00162" data-start="{" data-end="}">
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html#ab32abc0861325b3ea6f547b938a9225d">  162</a></span>  <span class="keywordtype">double</span> <a class="code hl_function" href="classhmap_1_1XyControlFunction.html#ab32abc0861325b3ea6f547b938a9225d">MaximumImpl</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="keyword">  </span>{</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keywordflow">return</span> 1.f;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>  }</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="classhmap_1_1XyControlFunction.html#ab32abc0861325b3ea6f547b938a9225d">  164</a></span>  <span class="keywordtype">double</span> <a class="code hl_function" href="classhmap_1_1XyControlFunction.html#ab32abc0861325b3ea6f547b938a9225d">MaximumImpl</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordflow">return</span> 1.f;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>  }</div>
 </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>  <a class="code hl_class" href="classhmap_1_1NoiseFunction.html">NoiseFunction</a> noise_function;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>  <span class="keywordtype">float</span>         offset;</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>  <span class="keywordtype">float</span>         scaling;</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>};</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>  std::function&lt;float(<span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>)&gt; noise_function;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>  <span class="keywordtype">float</span>                                     offset;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>  <span class="keywordtype">float</span>                                     scaling;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>};</div>
 </div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>} <span class="comment">// namespace hmap</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>} <span class="comment">// namespace hmap</span></div>
 <div class="ttc" id="aarray_8hpp_html"><div class="ttname"><a href="array_8hpp.html">array.hpp</a></div><div class="ttdoc">Declaration of the Array class for 2D floating-point arrays with various mathematical operations and ...</div></div>
 <div class="ttc" id="aclasshmap_1_1ArrayControlFunction_html_a3c40696e8f26f0e6fbd66f0f97b83082"><div class="ttname"><a href="classhmap_1_1ArrayControlFunction.html#a3c40696e8f26f0e6fbd66f0f97b83082">hmap::ArrayControlFunction::DistToDomainImpl</a></div><div class="ttdeci">float DistToDomainImpl(float x, float y) const</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:54</div></div>
 <div class="ttc" id="aclasshmap_1_1ArrayControlFunction_html_a6c382de167439becf0aeda7208790446"><div class="ttname"><a href="classhmap_1_1ArrayControlFunction.html#a6c382de167439becf0aeda7208790446">hmap::ArrayControlFunction::MaximumImpl</a></div><div class="ttdeci">float MaximumImpl() const</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:85</div></div>
@@ -291,13 +293,12 @@ $(function(){initNavTree('dendry__array__control__function_8hpp_source.html','',
 <div class="ttc" id="aclasshmap_1_1ArrayControlFunction_html_afb1177fcaf6160bea1d86be3b16cf55d"><div class="ttname"><a href="classhmap_1_1ArrayControlFunction.html#afb1177fcaf6160bea1d86be3b16cf55d">hmap::ArrayControlFunction::ArrayControlFunction</a></div><div class="ttdeci">ArrayControlFunction(hmap::Array array)</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:36</div></div>
 <div class="ttc" id="aclasshmap_1_1Array_html"><div class="ttname"><a href="classhmap_1_1Array.html">hmap::Array</a></div><div class="ttdoc">Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.</div><div class="ttdef"><b>Definition</b> array.hpp:33</div></div>
 <div class="ttc" id="aclasshmap_1_1Array_html_a9ee3e85888021b80660357e73f35a5ea"><div class="ttname"><a href="classhmap_1_1Array.html#a9ee3e85888021b80660357e73f35a5ea">hmap::Array::shape</a></div><div class="ttdeci">glm::ivec2 shape</div><div class="ttdoc">The shape of the array {ni, nj}.</div><div class="ttdef"><b>Definition</b> array.hpp:39</div></div>
-<div class="ttc" id="aclasshmap_1_1NoiseFunction_html"><div class="ttname"><a href="classhmap_1_1NoiseFunction.html">hmap::NoiseFunction</a></div><div class="ttdoc">A class for generating noise functions.</div><div class="ttdef"><b>Definition</b> functions.hpp:743</div></div>
-<div class="ttc" id="aclasshmap_1_1XyControlFunction_html_a142161db636fa6eb92dc64a1dd5c98f9"><div class="ttname"><a href="classhmap_1_1XyControlFunction.html#a142161db636fa6eb92dc64a1dd5c98f9">hmap::XyControlFunction::EvaluateImpl</a></div><div class="ttdeci">double EvaluateImpl(float x, float y) const</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:142</div></div>
-<div class="ttc" id="aclasshmap_1_1XyControlFunction_html_a17fea066925a7016e234f7af232e2cec"><div class="ttname"><a href="classhmap_1_1XyControlFunction.html#a17fea066925a7016e234f7af232e2cec">hmap::XyControlFunction::XyControlFunction</a></div><div class="ttdeci">XyControlFunction(NoiseFunction noise_function, float offset=0.f, float scaling=1.f)</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:134</div></div>
-<div class="ttc" id="aclasshmap_1_1XyControlFunction_html_a803029331138a5fecfe87fe9e1569a08"><div class="ttname"><a href="classhmap_1_1XyControlFunction.html#a803029331138a5fecfe87fe9e1569a08">hmap::XyControlFunction::InsideDomainImpl</a></div><div class="ttdeci">bool InsideDomainImpl(float, float) const</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:147</div></div>
-<div class="ttc" id="aclasshmap_1_1XyControlFunction_html_a8f38798bd59177d4ab9dbe4f58250651"><div class="ttname"><a href="classhmap_1_1XyControlFunction.html#a8f38798bd59177d4ab9dbe4f58250651">hmap::XyControlFunction::DistToDomainImpl</a></div><div class="ttdeci">double DistToDomainImpl(float, float) const</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:152</div></div>
-<div class="ttc" id="aclasshmap_1_1XyControlFunction_html_ab32abc0861325b3ea6f547b938a9225d"><div class="ttname"><a href="classhmap_1_1XyControlFunction.html#ab32abc0861325b3ea6f547b938a9225d">hmap::XyControlFunction::MaximumImpl</a></div><div class="ttdeci">double MaximumImpl() const</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:162</div></div>
-<div class="ttc" id="aclasshmap_1_1XyControlFunction_html_acfe5c441363f35d36a13084fb56c6dca"><div class="ttname"><a href="classhmap_1_1XyControlFunction.html#acfe5c441363f35d36a13084fb56c6dca">hmap::XyControlFunction::MinimumImpl</a></div><div class="ttdeci">double MinimumImpl() const</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:157</div></div>
+<div class="ttc" id="aclasshmap_1_1XyControlFunction_html_a142161db636fa6eb92dc64a1dd5c98f9"><div class="ttname"><a href="classhmap_1_1XyControlFunction.html#a142161db636fa6eb92dc64a1dd5c98f9">hmap::XyControlFunction::EvaluateImpl</a></div><div class="ttdeci">double EvaluateImpl(float x, float y) const</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:144</div></div>
+<div class="ttc" id="aclasshmap_1_1XyControlFunction_html_a5e31f04aa2f6b360aa24f8e3696d5aeb"><div class="ttname"><a href="classhmap_1_1XyControlFunction.html#a5e31f04aa2f6b360aa24f8e3696d5aeb">hmap::XyControlFunction::XyControlFunction</a></div><div class="ttdeci">XyControlFunction(std::function&lt; float(float, float, float)&gt; noise_function, float offset=0.f, float scaling=1.f)</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:134</div></div>
+<div class="ttc" id="aclasshmap_1_1XyControlFunction_html_a803029331138a5fecfe87fe9e1569a08"><div class="ttname"><a href="classhmap_1_1XyControlFunction.html#a803029331138a5fecfe87fe9e1569a08">hmap::XyControlFunction::InsideDomainImpl</a></div><div class="ttdeci">bool InsideDomainImpl(float, float) const</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:149</div></div>
+<div class="ttc" id="aclasshmap_1_1XyControlFunction_html_a8f38798bd59177d4ab9dbe4f58250651"><div class="ttname"><a href="classhmap_1_1XyControlFunction.html#a8f38798bd59177d4ab9dbe4f58250651">hmap::XyControlFunction::DistToDomainImpl</a></div><div class="ttdeci">double DistToDomainImpl(float, float) const</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:154</div></div>
+<div class="ttc" id="aclasshmap_1_1XyControlFunction_html_ab32abc0861325b3ea6f547b938a9225d"><div class="ttname"><a href="classhmap_1_1XyControlFunction.html#ab32abc0861325b3ea6f547b938a9225d">hmap::XyControlFunction::MaximumImpl</a></div><div class="ttdeci">double MaximumImpl() const</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:164</div></div>
+<div class="ttc" id="aclasshmap_1_1XyControlFunction_html_acfe5c441363f35d36a13084fb56c6dca"><div class="ttname"><a href="classhmap_1_1XyControlFunction.html#acfe5c441363f35d36a13084fb56c6dca">hmap::XyControlFunction::MinimumImpl</a></div><div class="ttdeci">double MinimumImpl() const</div><div class="ttdef"><b>Definition</b> dendry_array_control_function.hpp:159</div></div>
 <div class="ttc" id="afunctions_8hpp_html"><div class="ttname"><a href="functions_8hpp.html">functions.hpp</a></div><div class="ttdoc">Defines modular function objects for procedural generation, including noise algorithms (Perlin,...</div></div>
 <div class="ttc" id="anamespacehmap_html"><div class="ttname"><a href="namespacehmap.html">hmap</a></div><div class="ttdef"><b>Definition</b> algebra.hpp:23</div></div>
 </div><!-- fragment --></div><!-- contents -->

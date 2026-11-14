@@ -4,7 +4,7 @@ var searchData=
   ['gamma_1',['gamma',['../structhmap_1_1ColorAdjust.html#ae2fc513c6d6915e92410bcd7b43e8055',1,'hmap::ColorAdjust']]],
   ['geomorphon_5f8_2',['GEOMORPHON_8',['../namespacehmap_1_1neighborhood.html#a15866a380d109861d405904760c17264',1,'hmap::neighborhood']]],
   ['global_5fshape_3',['global_shape',['../structhmap_1_1TileRegion.html#a47059ba38d48e102f7d0f90fec99a3d0',1,'hmap::TileRegion']]],
-  ['gradient_5fscale_4',['gradient_scale',['../classhmap_1_1FbmIqFunction.html#a4b20482a3e3eb46fea4709d36b496c2b',1,'hmap::FbmIqFunction']]],
+  ['gradient_5fscale_4',['gradient_scale',['../classhmap_1_1FbmIqFunction.html#aef5a7ca0f98520a57de8c058849630c7',1,'hmap::FbmIqFunction']]],
   ['grass_5',['grass',['../structhmap_1_1TerrainTextureParams.html#a2687977db13559ef4d7ef338b4e467f1',1,'hmap::TerrainTextureParams']]],
   ['gravity_6',['gravity',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#ae295be74dc93b1b5e8c0ab5eb0b83944',1,'hmap::gpu::McDonaldParams::PhysicalParams::gravity'],['../structhmap_1_1RockSimulationOptions.html#a07864448efb70a86c51b096ec365e69c',1,'hmap::RockSimulationOptions::gravity']]]
 ];

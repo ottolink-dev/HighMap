@@ -1,6 +1,6 @@
 var classhmap_1_1XyControlFunction =
 [
-    [ "XyControlFunction", "classhmap_1_1XyControlFunction.html#a17fea066925a7016e234f7af232e2cec", null ],
+    [ "XyControlFunction", "classhmap_1_1XyControlFunction.html#a5e31f04aa2f6b360aa24f8e3696d5aeb", null ],
     [ "EvaluateImpl", "classhmap_1_1XyControlFunction.html#a142161db636fa6eb92dc64a1dd5c98f9", null ],
     [ "InsideDomainImpl", "classhmap_1_1XyControlFunction.html#a803029331138a5fecfe87fe9e1569a08", null ],
     [ "DistToDomainImpl", "classhmap_1_1XyControlFunction.html#a8f38798bd59177d4ab9dbe4f58250651", null ],

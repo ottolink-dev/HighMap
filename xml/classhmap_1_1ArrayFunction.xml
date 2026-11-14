@@ -2,7 +2,6 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="classhmap_1_1ArrayFunction" kind="class" language="C++" prot="public">
     <compoundname>hmap::ArrayFunction</compoundname>
-    <basecompoundref refid="classhmap_1_1Function" prot="public" virt="non-virtual">hmap::Function</basecompoundref>
     <includes refid="functions_8hpp" local="no">functions.hpp</includes>
     <sectiondef kind="protected-attrib">
       <memberdef kind="variable" id="classhmap_1_1ArrayFunction_1a8798b3b0589c55bfab6bc24caa48d7c8" prot="protected" static="no" mutable="no">
@@ -18,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="174" column="13" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="174" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="122" column="13" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="122" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classhmap_1_1ArrayFunction_1a5f74e2ba75875e4cc02827be36c933da" prot="protected" static="no" mutable="no">
         <type>bool</type>
@@ -33,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="175" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="175" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="123" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="123" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-attrib">
@@ -50,10 +49,37 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="178" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="178" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="126" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="126" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhmap_1_1ArrayFunction_1a4a662943e51b9394336b009854685b4f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float hmap::ArrayFunction::operator()</definition>
+        <argsstring>(float x, float y, float ctrl_param=0.f) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>hmap::ArrayFunction::operator()</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>ctrl_param</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/functions.hpp" line="99" column="9" bodyfile="HighMap/src/functions/functions.cpp" bodystart="53" bodyend="90"/>
+      </memberdef>
       <memberdef kind="function" id="classhmap_1_1ArrayFunction_1a22fab5551b294f851c55511655dc2026" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>hmap::ArrayFunction::ArrayFunction</definition>
@@ -106,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="161" column="3" bodyfile="HighMap/src/functions/functions.cpp" bodystart="63" bodyend="105"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="109" column="3" bodyfile="HighMap/src/functions/functions.cpp" bodystart="48" bodyend="51"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ArrayFunction_1aaf17df22412deb22894418924ce0a137" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -135,7 +161,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="168" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="168" bodyend="171"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="116" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="116" bodyend="119"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -144,43 +170,14 @@
     <detaileddescription>
 <para>This class functions like an image sampler with normalized coordinates found on a GPU. It is based on a 2D array, allowing interpolation of any value at a given (x, y) coordinate. Specific boundary conditions, such as periodicity, can also be used. </para>
     </detaileddescription>
-    <inheritancegraph>
-      <node id="1">
-        <label>hmap::ArrayFunction</label>
-        <link refid="classhmap_1_1ArrayFunction"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="2">
-        <label>hmap::Function</label>
-        <link refid="classhmap_1_1Function"/>
-      </node>
-    </inheritancegraph>
-    <collaborationgraph>
-      <node id="1">
-        <label>hmap::ArrayFunction</label>
-        <link refid="classhmap_1_1ArrayFunction"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="2">
-        <label>hmap::Function</label>
-        <link refid="classhmap_1_1Function"/>
-      </node>
-    </collaborationgraph>
-    <location file="HighMap/include/highmap/functions.hpp" line="150" column="1" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="151" bodyend="179"/>
+    <location file="HighMap/include/highmap/functions.hpp" line="96" column="1" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="97" bodyend="127"/>
     <listofallmembers>
       <member refid="classhmap_1_1ArrayFunction_1ab28087fec8d98b8b83b4760aa2e2e815" prot="private" virt="non-virtual"><scope>hmap::ArrayFunction</scope><name>array</name></member>
       <member refid="classhmap_1_1ArrayFunction_1a22fab5551b294f851c55511655dc2026" prot="public" virt="non-virtual"><scope>hmap::ArrayFunction</scope><name>ArrayFunction</name></member>
-      <member refid="classhmap_1_1Function_1a1f77a2faa84c84fb147f48af0bfbc96e" prot="public" virt="non-virtual"><scope>hmap::ArrayFunction</scope><name>Function</name></member>
-      <member refid="classhmap_1_1Function_1ae1f9e64626fb671ed37a45d09cf551e8" prot="public" virt="non-virtual"><scope>hmap::ArrayFunction</scope><name>Function</name></member>
-      <member refid="classhmap_1_1Function_1a32214e30c36be7650c47867fd14f6a0c" prot="public" virt="non-virtual"><scope>hmap::ArrayFunction</scope><name>get_delegate</name></member>
-      <member refid="classhmap_1_1Function_1a82fb7788314b339a062cb80115e2e1da" prot="public" virt="non-virtual"><scope>hmap::ArrayFunction</scope><name>get_value</name></member>
       <member refid="classhmap_1_1ArrayFunction_1a8798b3b0589c55bfab6bc24caa48d7c8" prot="protected" virt="non-virtual"><scope>hmap::ArrayFunction</scope><name>kw</name></member>
+      <member refid="classhmap_1_1ArrayFunction_1a4a662943e51b9394336b009854685b4f" prot="public" virt="non-virtual"><scope>hmap::ArrayFunction</scope><name>operator()</name></member>
       <member refid="classhmap_1_1ArrayFunction_1a5f74e2ba75875e4cc02827be36c933da" prot="protected" virt="non-virtual"><scope>hmap::ArrayFunction</scope><name>periodic</name></member>
       <member refid="classhmap_1_1ArrayFunction_1aaf17df22412deb22894418924ce0a137" prot="public" virt="non-virtual"><scope>hmap::ArrayFunction</scope><name>set_array</name></member>
-      <member refid="classhmap_1_1Function_1a6163e6f231dc77a7e7d83e74d2b44abe" prot="public" virt="non-virtual"><scope>hmap::ArrayFunction</scope><name>set_delegate</name></member>
-      <member refid="classhmap_1_1Function_1a8efd89e31947f2508ce45b133e30322f" prot="public" virt="virtual"><scope>hmap::ArrayFunction</scope><name>~Function</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

@@ -10,6 +10,5 @@ var searchData=
   ['forest_7',['Forest',['../classhmap_1_1Forest.html',1,'hmap']]],
   ['forestscalesampler_8',['ForestScaleSampler',['../structhmap_1_1ForestScaleSampler.html',1,'hmap']]],
   ['forestseedingoptions_9',['ForestSeedingOptions',['../structhmap_1_1ForestSeedingOptions.html',1,'hmap']]],
-  ['format_5fstring_5fwith_5floc_10',['format_string_with_loc',['../structhmap_1_1log_1_1format__string__with__loc.html',1,'hmap::log']]],
-  ['function_11',['Function',['../classhmap_1_1Function.html',1,'hmap']]]
+  ['format_5fstring_5fwith_5floc_10',['format_string_with_loc',['../structhmap_1_1log_1_1format__string__with__loc.html',1,'hmap::log']]]
 ];

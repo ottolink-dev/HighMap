@@ -3,20 +3,25 @@
   <compounddef id="classhmap_1_1GenericFractalFunction" kind="class" language="C++" prot="public">
     <compoundname>hmap::GenericFractalFunction</compoundname>
     <basecompoundref refid="classhmap_1_1NoiseFunction" prot="public" virt="non-virtual">hmap::NoiseFunction</basecompoundref>
-    <derivedcompoundref refid="classhmap_1_1FbmFunction" prot="public" virt="non-virtual">hmap::FbmFunction</derivedcompoundref>
-    <derivedcompoundref refid="classhmap_1_1FbmIqFunction" prot="public" virt="non-virtual">hmap::FbmIqFunction</derivedcompoundref>
-    <derivedcompoundref refid="classhmap_1_1FbmJordanFunction" prot="public" virt="non-virtual">hmap::FbmJordanFunction</derivedcompoundref>
-    <derivedcompoundref refid="classhmap_1_1FbmPingpongFunction" prot="public" virt="non-virtual">hmap::FbmPingpongFunction</derivedcompoundref>
-    <derivedcompoundref refid="classhmap_1_1FbmRidgedFunction" prot="public" virt="non-virtual">hmap::FbmRidgedFunction</derivedcompoundref>
-    <derivedcompoundref refid="classhmap_1_1FbmSwissFunction" prot="public" virt="non-virtual">hmap::FbmSwissFunction</derivedcompoundref>
+    <derivedcompoundref refid="classhmap_1_1FbmFunction" prot="public" virt="non-virtual">hmap::FbmFunction&lt; BaseFn &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classhmap_1_1FbmIqFunction" prot="public" virt="non-virtual">hmap::FbmIqFunction&lt; BaseFn &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classhmap_1_1FbmJordanFunction" prot="public" virt="non-virtual">hmap::FbmJordanFunction&lt; BaseFn &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classhmap_1_1FbmPingpongFunction" prot="public" virt="non-virtual">hmap::FbmPingpongFunction&lt; BaseFn &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classhmap_1_1FbmRidgedFunction" prot="public" virt="non-virtual">hmap::FbmRidgedFunction&lt; BaseFn &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classhmap_1_1FbmSwissFunction" prot="public" virt="non-virtual">hmap::FbmSwissFunction&lt; BaseFn &gt;</derivedcompoundref>
     <includes refid="functions_8hpp" local="no">functions.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename BaseFn</type>
+      </param>
+    </templateparamlist>
     <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="classhmap_1_1GenericFractalFunction_1a8fec1973e7b8a6dcca079c8017326ab2" prot="protected" static="no" mutable="no">
-        <type>std::unique_ptr&lt; <ref refid="classhmap_1_1NoiseFunction_1a9823b1c76555631d442f52a3d768c162" kindref="member">NoiseFunction</ref> &gt;</type>
-        <definition>std::unique_ptr&lt;NoiseFunction&gt; hmap::GenericFractalFunction::p_base</definition>
+      <memberdef kind="variable" id="classhmap_1_1GenericFractalFunction_1a35d80bb49712ecbc404a03d6595b695b" prot="protected" static="no" mutable="no">
+        <type>BaseFn</type>
+        <definition>BaseFn hmap::GenericFractalFunction&lt; BaseFn &gt;::base</definition>
         <argsstring></argsstring>
-        <name>p_base</name>
-        <qualifiedname>hmap::GenericFractalFunction::p_base</qualifiedname>
+        <name>base</name>
+        <qualifiedname>hmap::GenericFractalFunction::base</qualifiedname>
         <briefdescription>
 <para>Unique pointer to the base noise function. </para>
         </briefdescription>
@@ -24,11 +29,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1459" column="19" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1459" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1462" column="10" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1462" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classhmap_1_1GenericFractalFunction_1a3ee2dbe91dd0512d380a8b28b11438b9" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="classhmap_1_1GenericFractalFunction_1ac47ecc78a6804d4f65c48ec2e296bdde" prot="protected" static="no" mutable="no">
         <type>int</type>
-        <definition>int hmap::GenericFractalFunction::octaves</definition>
+        <definition>int hmap::GenericFractalFunction&lt; BaseFn &gt;::octaves</definition>
         <argsstring></argsstring>
         <name>octaves</name>
         <qualifiedname>hmap::GenericFractalFunction::octaves</qualifiedname>
@@ -39,11 +44,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1460" column="7" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1460" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1463" column="10" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1463" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classhmap_1_1GenericFractalFunction_1a57139030bd456787c06bf3d7d808837a" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="classhmap_1_1GenericFractalFunction_1a8de993ee56b49ddaf6b65921e0a549d6" prot="protected" static="no" mutable="no">
         <type>float</type>
-        <definition>float hmap::GenericFractalFunction::weight</definition>
+        <definition>float hmap::GenericFractalFunction&lt; BaseFn &gt;::weight</definition>
         <argsstring></argsstring>
         <name>weight</name>
         <qualifiedname>hmap::GenericFractalFunction::weight</qualifiedname>
@@ -54,11 +59,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1461" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1461" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1464" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1464" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classhmap_1_1GenericFractalFunction_1ab14745ebb9beee94828d13aa587de69a" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="classhmap_1_1GenericFractalFunction_1a3fc0cf807c3afdaecaa8e884ba7ff267" prot="protected" static="no" mutable="no">
         <type>float</type>
-        <definition>float hmap::GenericFractalFunction::persistence</definition>
+        <definition>float hmap::GenericFractalFunction&lt; BaseFn &gt;::persistence</definition>
         <argsstring></argsstring>
         <name>persistence</name>
         <qualifiedname>hmap::GenericFractalFunction::persistence</qualifiedname>
@@ -69,11 +74,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1462" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1462" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1465" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1465" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classhmap_1_1GenericFractalFunction_1a9a205468c861c5f142b738d514b2d9ce" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="classhmap_1_1GenericFractalFunction_1a43e43f87666318f3fe55946df38c43db" prot="protected" static="no" mutable="no">
         <type>float</type>
-        <definition>float hmap::GenericFractalFunction::lacunarity</definition>
+        <definition>float hmap::GenericFractalFunction&lt; BaseFn &gt;::lacunarity</definition>
         <argsstring></argsstring>
         <name>lacunarity</name>
         <qualifiedname>hmap::GenericFractalFunction::lacunarity</qualifiedname>
@@ -84,11 +89,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1463" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1463" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1466" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1466" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classhmap_1_1GenericFractalFunction_1a60d32ed5ee9b8674fe6323f71ec668cd" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="classhmap_1_1GenericFractalFunction_1aaafe5220adc00696b5745de8ff8d9e09" prot="protected" static="no" mutable="no">
         <type>float</type>
-        <definition>float hmap::GenericFractalFunction::amp0</definition>
+        <definition>float hmap::GenericFractalFunction&lt; BaseFn &gt;::amp0</definition>
         <argsstring></argsstring>
         <name>amp0</name>
         <qualifiedname>hmap::GenericFractalFunction::amp0</qualifiedname>
@@ -99,19 +104,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1464" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1464" bodyend="-1"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1467" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1467" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
-      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1afe25e31c4669a13d18da6d69458b95c1" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1a3ba0ccbb38680ae214c3a8317ee19d54" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
         <type></type>
-        <definition>hmap::GenericFractalFunction::GenericFractalFunction</definition>
-        <argsstring>(std::unique_ptr&lt; NoiseFunction &gt; p_base, int octaves, float weight, float persistence, float lacunarity)</argsstring>
+        <definition>hmap::GenericFractalFunction&lt; BaseFn &gt;::GenericFractalFunction</definition>
+        <argsstring>(BaseFn base, int octaves, float weight, float persistence, float lacunarity)</argsstring>
         <name>GenericFractalFunction</name>
         <qualifiedname>hmap::GenericFractalFunction::GenericFractalFunction</qualifiedname>
         <param>
-          <type>std::unique_ptr&lt; <ref refid="classhmap_1_1NoiseFunction_1a9823b1c76555631d442f52a3d768c162" kindref="member">NoiseFunction</ref> &gt;</type>
-          <declname>p_base</declname>
+          <type>BaseFn</type>
+          <declname>base</declname>
         </param>
         <param>
           <type>int</type>
@@ -178,15 +183,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1341" column="12" bodyfile="HighMap/src/functions/fbm_functions.cpp" bodystart="375" bodyend="394"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1344" column="12" bodyfile="HighMap/include/highmap/functions.inl" bodystart="18" bodyend="31"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1a7e8c9518e231829411033fb44003eaea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1ad71458ddcd2ea652863b964dc08e0b4a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
-        <definition>void hmap::GenericFractalFunction::set_kw</definition>
-        <argsstring>(glm::vec2 new_kw) override</argsstring>
+        <definition>void hmap::GenericFractalFunction&lt; BaseFn &gt;::set_kw</definition>
+        <argsstring>(glm::vec2 new_kw)</argsstring>
         <name>set_kw</name>
         <qualifiedname>hmap::GenericFractalFunction::set_kw</qualifiedname>
-        <reimplements refid="classhmap_1_1NoiseFunction_1a3c5e2cffbd3a54a0bfda918f01d2957f">set_kw</reimplements>
         <param>
           <type>glm::vec2</type>
           <declname>new_kw</declname>
@@ -208,11 +212,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1352" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1352" bodyend="1356"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1355" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1355" bodyend="1359"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1ae08ab9d6e6235037d485ccd80d5e9b8d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1ab2dc97d5b0e34a930ba4881d750a09c6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
-        <definition>void hmap::GenericFractalFunction::set_lacunarity</definition>
+        <definition>void hmap::GenericFractalFunction&lt; BaseFn &gt;::set_lacunarity</definition>
         <argsstring>(float new_lacunarity)</argsstring>
         <name>set_lacunarity</name>
         <qualifiedname>hmap::GenericFractalFunction::set_lacunarity</qualifiedname>
@@ -237,11 +241,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1363" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1363" bodyend="1366"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1366" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1366" bodyend="1369"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1a28608337593666bcbbf91822a28062f5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1ac7158b0120f748bbf7ac1441f609ff01" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
-        <definition>void hmap::GenericFractalFunction::set_octaves</definition>
+        <definition>void hmap::GenericFractalFunction&lt; BaseFn &gt;::set_octaves</definition>
         <argsstring>(int new_octaves)</argsstring>
         <name>set_octaves</name>
         <qualifiedname>hmap::GenericFractalFunction::set_octaves</qualifiedname>
@@ -266,11 +270,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1373" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1373" bodyend="1377"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1376" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1376" bodyend="1380"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1a310ff66b4c0d7c3d76f6abdbd335bd18" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1ae1ea1d2858835e546601640301ab7eee" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
-        <definition>void hmap::GenericFractalFunction::set_persistence</definition>
+        <definition>void hmap::GenericFractalFunction&lt; BaseFn &gt;::set_persistence</definition>
         <argsstring>(float new_persistence)</argsstring>
         <name>set_persistence</name>
         <qualifiedname>hmap::GenericFractalFunction::set_persistence</qualifiedname>
@@ -295,15 +299,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1384" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1384" bodyend="1388"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1387" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1387" bodyend="1391"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1ae5045c9f1e03eca623df4dd08755c141" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1a29977995034e64a226088f97335271e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
-        <definition>void hmap::GenericFractalFunction::set_seed</definition>
-        <argsstring>(std::uint32_t new_seed) override</argsstring>
+        <definition>void hmap::GenericFractalFunction&lt; BaseFn &gt;::set_seed</definition>
+        <argsstring>(std::uint32_t new_seed)</argsstring>
         <name>set_seed</name>
         <qualifiedname>hmap::GenericFractalFunction::set_seed</qualifiedname>
-        <reimplements refid="classhmap_1_1NoiseFunction_1a51e1afc00318276a35ddfe0c578c5c99">set_seed</reimplements>
         <param>
           <type>std::uint32_t</type>
           <declname>new_seed</declname>
@@ -325,11 +328,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1395" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1395" bodyend="1399"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1398" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1398" bodyend="1402"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1a37b6ec1a0d712dc9fbf6fb292b29001e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1a7357b5a2c0eae7e5378e19d3b423d2fe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
-        <definition>void hmap::GenericFractalFunction::scale_amp0</definition>
+        <definition>void hmap::GenericFractalFunction&lt; BaseFn &gt;::scale_amp0</definition>
         <argsstring>(float scale)</argsstring>
         <name>scale_amp0</name>
         <qualifiedname>hmap::GenericFractalFunction::scale_amp0</qualifiedname>
@@ -354,11 +357,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1406" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1406" bodyend="1409"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1409" column="8" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1409" bodyend="1412"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1a4b6d0013c636b85aaee08e40119dfab0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1abe70b035ce4a0b322b81b59c7140437d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>float</type>
-        <definition>float hmap::GenericFractalFunction::get_lacunarity</definition>
+        <definition>float hmap::GenericFractalFunction&lt; BaseFn &gt;::get_lacunarity</definition>
         <argsstring>() const</argsstring>
         <name>get_lacunarity</name>
         <qualifiedname>hmap::GenericFractalFunction::get_lacunarity</qualifiedname>
@@ -372,11 +375,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1416" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1416" bodyend="1419"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1419" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1419" bodyend="1422"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1a57b80d6a0cbdc8e14963d1417b1c0b07" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1a65853f47cb02238346c1965500e90761" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
-        <definition>int hmap::GenericFractalFunction::get_octaves</definition>
+        <definition>int hmap::GenericFractalFunction&lt; BaseFn &gt;::get_octaves</definition>
         <argsstring>() const</argsstring>
         <name>get_octaves</name>
         <qualifiedname>hmap::GenericFractalFunction::get_octaves</qualifiedname>
@@ -390,11 +393,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1426" column="7" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1426" bodyend="1429"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1429" column="7" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1429" bodyend="1432"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1aa2c95085c01b4dd7edbcf3caa8074c91" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1a34ce8501f7f31aee4284fcb95a3f5c06" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>float</type>
-        <definition>float hmap::GenericFractalFunction::get_persistence</definition>
+        <definition>float hmap::GenericFractalFunction&lt; BaseFn &gt;::get_persistence</definition>
         <argsstring>() const</argsstring>
         <name>get_persistence</name>
         <qualifiedname>hmap::GenericFractalFunction::get_persistence</qualifiedname>
@@ -408,11 +411,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1436" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1436" bodyend="1439"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1439" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1439" bodyend="1442"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1a260af30d21b8af880d9208376984c002" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1abc14d9c3208b5a41076b2b598d69faf2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>float</type>
-        <definition>float hmap::GenericFractalFunction::get_weight</definition>
+        <definition>float hmap::GenericFractalFunction&lt; BaseFn &gt;::get_weight</definition>
         <argsstring>() const</argsstring>
         <name>get_weight</name>
         <qualifiedname>hmap::GenericFractalFunction::get_weight</qualifiedname>
@@ -426,13 +429,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1446" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1446" bodyend="1449"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1449" column="9" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1449" bodyend="1452"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="protected-func">
-      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1ae14db6b39dcdae409ad1561d471e7d5d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1GenericFractalFunction_1a6ed6851394d17ce48348e3f7dcfea89e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>void hmap::GenericFractalFunction::update_amp0</definition>
+        <definition>void hmap::GenericFractalFunction&lt; BaseFn &gt;::update_amp0</definition>
         <argsstring>()</argsstring>
         <name>update_amp0</name>
         <qualifiedname>hmap::GenericFractalFunction::update_amp0</qualifiedname>
@@ -443,7 +446,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions.hpp" line="1456" column="8" bodyfile="HighMap/src/functions/fbm_functions.cpp" bodystart="396" bodyend="406"/>
+        <location file="HighMap/include/highmap/functions.hpp" line="1459" column="8" bodyfile="HighMap/include/highmap/functions.inl" bodystart="33" bodyend="43"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -453,48 +456,44 @@
 <para>The <computeroutput><ref refid="classhmap_1_1GenericFractalFunction" kindref="compound">GenericFractalFunction</ref></computeroutput> class generates fractal noise using an underlying base noise function. It allows customization of the fractal properties such as octaves, weight, persistence, and lacunarity. </para>
     </detaileddescription>
     <inheritancegraph>
-      <node id="4">
-        <label>hmap::FbmFunction</label>
+      <node id="3">
+        <label>hmap::FbmFunction&lt; BaseFn &gt;</label>
         <link refid="classhmap_1_1FbmFunction"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="5">
-        <label>hmap::FbmIqFunction</label>
+      <node id="4">
+        <label>hmap::FbmIqFunction&lt; BaseFn &gt;</label>
         <link refid="classhmap_1_1FbmIqFunction"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="6">
-        <label>hmap::FbmJordanFunction</label>
+      <node id="5">
+        <label>hmap::FbmJordanFunction&lt; BaseFn &gt;</label>
         <link refid="classhmap_1_1FbmJordanFunction"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="7">
-        <label>hmap::FbmPingpongFunction</label>
+      <node id="6">
+        <label>hmap::FbmPingpongFunction&lt; BaseFn &gt;</label>
         <link refid="classhmap_1_1FbmPingpongFunction"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="8">
-        <label>hmap::FbmRidgedFunction</label>
+      <node id="7">
+        <label>hmap::FbmRidgedFunction&lt; BaseFn &gt;</label>
         <link refid="classhmap_1_1FbmRidgedFunction"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="9">
-        <label>hmap::FbmSwissFunction</label>
+      <node id="8">
+        <label>hmap::FbmSwissFunction&lt; BaseFn &gt;</label>
         <link refid="classhmap_1_1FbmSwissFunction"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="3">
-        <label>hmap::Function</label>
-        <link refid="classhmap_1_1Function"/>
-      </node>
       <node id="1">
-        <label>hmap::GenericFractalFunction</label>
+        <label>hmap::GenericFractalFunction&lt; BaseFn &gt;</label>
         <link refid="classhmap_1_1GenericFractalFunction"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
@@ -502,70 +501,47 @@
       <node id="2">
         <label>hmap::NoiseFunction</label>
         <link refid="classhmap_1_1NoiseFunction"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="3">
-        <label>hmap::Function</label>
-        <link refid="classhmap_1_1Function"/>
-      </node>
       <node id="1">
-        <label>hmap::GenericFractalFunction</label>
+        <label>hmap::GenericFractalFunction&lt; BaseFn &gt;</label>
         <link refid="classhmap_1_1GenericFractalFunction"/>
         <childnode refid="2" relation="public-inheritance">
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>p_base</edgelabel>
         </childnode>
       </node>
       <node id="2">
         <label>hmap::NoiseFunction</label>
         <link refid="classhmap_1_1NoiseFunction"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="4">
-        <label>std::unique_ptr&lt; hmap::NoiseFunction &gt;</label>
-        <childnode refid="2" relation="usage">
-          <edgelabel>ptr</edgelabel>
-        </childnode>
       </node>
     </collaborationgraph>
-    <location file="HighMap/include/highmap/functions.hpp" line="1329" column="1" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1330" bodyend="1465"/>
+    <location file="HighMap/include/highmap/functions.hpp" line="1332" column="12" bodyfile="HighMap/include/highmap/functions.hpp" bodystart="1333" bodyend="1468"/>
     <listofallmembers>
-      <member refid="classhmap_1_1GenericFractalFunction_1a60d32ed5ee9b8674fe6323f71ec668cd" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>amp0</name></member>
-      <member refid="classhmap_1_1Function_1a1f77a2faa84c84fb147f48af0bfbc96e" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>Function</name></member>
-      <member refid="classhmap_1_1Function_1ae1f9e64626fb671ed37a45d09cf551e8" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>Function</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1afe25e31c4669a13d18da6d69458b95c1" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>GenericFractalFunction</name></member>
-      <member refid="classhmap_1_1Function_1a32214e30c36be7650c47867fd14f6a0c" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>get_delegate</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1aaafe5220adc00696b5745de8ff8d9e09" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>amp0</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a35d80bb49712ecbc404a03d6595b695b" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>base</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a3ba0ccbb38680ae214c3a8317ee19d54" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>GenericFractalFunction</name></member>
       <member refid="classhmap_1_1NoiseFunction_1a34a5caf87c5e28f92616307e1561aaa9" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>get_kw</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a4b6d0013c636b85aaee08e40119dfab0" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>get_lacunarity</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a57b80d6a0cbdc8e14963d1417b1c0b07" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>get_octaves</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1aa2c95085c01b4dd7edbcf3caa8074c91" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>get_persistence</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1abe70b035ce4a0b322b81b59c7140437d" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>get_lacunarity</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a65853f47cb02238346c1965500e90761" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>get_octaves</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a34ce8501f7f31aee4284fcb95a3f5c06" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>get_persistence</name></member>
       <member refid="classhmap_1_1NoiseFunction_1a8f14d149f09e4278bdb9953237e4d7a9" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>get_seed</name></member>
-      <member refid="classhmap_1_1Function_1a82fb7788314b339a062cb80115e2e1da" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>get_value</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a260af30d21b8af880d9208376984c002" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>get_weight</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1abc14d9c3208b5a41076b2b598d69faf2" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>get_weight</name></member>
       <member refid="classhmap_1_1NoiseFunction_1a332703b9642cf219cb6d6e91488648cf" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>kw</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a9a205468c861c5f142b738d514b2d9ce" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>lacunarity</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a43e43f87666318f3fe55946df38c43db" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>lacunarity</name></member>
       <member refid="classhmap_1_1NoiseFunction_1a9823b1c76555631d442f52a3d768c162" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>NoiseFunction</name></member>
       <member refid="classhmap_1_1NoiseFunction_1abe0bafe2cca2f6ca2679afbdc54691bb" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>NoiseFunction</name></member>
       <member refid="classhmap_1_1NoiseFunction_1a9006470ba58666184760b40b3478ea68" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>NoiseFunction</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a3ee2dbe91dd0512d380a8b28b11438b9" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>octaves</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a8fec1973e7b8a6dcca079c8017326ab2" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>p_base</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1ab14745ebb9beee94828d13aa587de69a" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>persistence</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a37b6ec1a0d712dc9fbf6fb292b29001e" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>scale_amp0</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1ac47ecc78a6804d4f65c48ec2e296bdde" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>octaves</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a3fc0cf807c3afdaecaa8e884ba7ff267" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>persistence</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a7357b5a2c0eae7e5378e19d3b423d2fe" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>scale_amp0</name></member>
       <member refid="classhmap_1_1NoiseFunction_1afcc0d96413b1b200fc0ec671e43dcbc3" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>seed</name></member>
-      <member refid="classhmap_1_1Function_1a6163e6f231dc77a7e7d83e74d2b44abe" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>set_delegate</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a7e8c9518e231829411033fb44003eaea" prot="public" virt="virtual"><scope>hmap::GenericFractalFunction</scope><name>set_kw</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1ae08ab9d6e6235037d485ccd80d5e9b8d" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>set_lacunarity</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a28608337593666bcbbf91822a28062f5" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>set_octaves</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a310ff66b4c0d7c3d76f6abdbd335bd18" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>set_persistence</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1ae5045c9f1e03eca623df4dd08755c141" prot="public" virt="virtual"><scope>hmap::GenericFractalFunction</scope><name>set_seed</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1ae14db6b39dcdae409ad1561d471e7d5d" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>update_amp0</name></member>
-      <member refid="classhmap_1_1GenericFractalFunction_1a57139030bd456787c06bf3d7d808837a" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>weight</name></member>
-      <member refid="classhmap_1_1Function_1a8efd89e31947f2508ce45b133e30322f" prot="public" virt="virtual"><scope>hmap::GenericFractalFunction</scope><name>~Function</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1ad71458ddcd2ea652863b964dc08e0b4a" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>set_kw</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1ab2dc97d5b0e34a930ba4881d750a09c6" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>set_lacunarity</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1ac7158b0120f748bbf7ac1441f609ff01" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>set_octaves</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1ae1ea1d2858835e546601640301ab7eee" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>set_persistence</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a29977995034e64a226088f97335271e4" prot="public" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>set_seed</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a6ed6851394d17ce48348e3f7dcfea89e" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>update_amp0</name></member>
+      <member refid="classhmap_1_1GenericFractalFunction_1a8de993ee56b49ddaf6b65921e0a549d6" prot="protected" virt="non-virtual"><scope>hmap::GenericFractalFunction</scope><name>weight</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

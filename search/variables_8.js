@@ -18,5 +18,6 @@ var searchData=
   ['items_15',['items',['../classhmap_1_1ScatterField.html#aeb89e13a2a22fc06a08bc02e0fdcaa61',1,'hmap::ScatterField']]],
   ['iters0_16',['iters0',['../structhmap_1_1MiseParams.html#a9ad49abe9a33315a61f5424e3a4ab52e',1,'hmap::MiseParams']]],
   ['iters_5fdecay_17',['iters_decay',['../structhmap_1_1MiseParams.html#ae1ba6d69d13230162b42e80d8b23ec11',1,'hmap::MiseParams']]],
-  ['iters_5fmin_18',['iters_min',['../structhmap_1_1MiseParams.html#a4a003fe7c81ee8e9a98403d5d97287f2',1,'hmap::MiseParams']]]
+  ['iters_5fmin_18',['iters_min',['../structhmap_1_1MiseParams.html#a4a003fe7c81ee8e9a98403d5d97287f2',1,'hmap::MiseParams']]],
+  ['itp_5ffct_19',['itp_fct',['../classhmap_1_1ValueDelaunayNoiseFunction.html#a9420f8858c60d684a3989b104c1a84ca',1,'hmap::ValueDelaunayNoiseFunction::itp_fct'],['../classhmap_1_1ValueLinearNoiseFunction.html#a22be3aacaf1efb7fc2d7dcb49f56eb49',1,'hmap::ValueLinearNoiseFunction::itp_fct']]]
 ];

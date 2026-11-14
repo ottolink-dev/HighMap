@@ -2,8 +2,8 @@ var searchData=
 [
   ['d_0',['d',['../structhmap_1_1Segment2D.html#ac57fe92db5f5c0bd2acb8d7f3594582c',1,'hmap::Segment2D']]],
   ['d8_5fflow_1',['D8_FLOW',['../namespacehmap_1_1neighborhood.html#a6b1a4665bde6beaf3b96d40d027083a7',1,'hmap::neighborhood']]],
-  ['damp0_2',['damp0',['../classhmap_1_1FbmJordanFunction.html#a978908a8865a237426d1220774b72c33',1,'hmap::FbmJordanFunction']]],
-  ['damp_5fscale_3',['damp_scale',['../classhmap_1_1FbmJordanFunction.html#a6d47676cc66bda619a526f361ace79bc',1,'hmap::FbmJordanFunction']]],
+  ['damp0_2',['damp0',['../classhmap_1_1FbmJordanFunction.html#aded0dd56fdc2bd4dd022230e98d3020c',1,'hmap::FbmJordanFunction']]],
+  ['damp_5fscale_3',['damp_scale',['../classhmap_1_1FbmJordanFunction.html#aa0b30c248345251ea3d52ec3027c6ab8',1,'hmap::FbmJordanFunction']]],
   ['data_5ftype_4',['data_type',['../structhmap_1_1ImageWriterConfig.html#a481586b28e6d78db02843fcb819e0583',1,'hmap::ImageWriterConfig']]],
   ['debris_5',['debris',['../structhmap_1_1MiseParams.html#ad1ba2da17a0fa03a7378c068e594dc33',1,'hmap::MiseParams']]],
   ['default_5fradius_6',['default_radius',['../structhmap_1_1ScatterSeedingOptions.html#acde123c9a6543999f9f9c42fe9e73164',1,'hmap::ScatterSeedingOptions']]],
