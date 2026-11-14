@@ -26,6 +26,7 @@
 #include <limits>
 
 #include "highmap/array.hpp"
+#include "highmap/erosion/hydraulic_erosion.hpp"
 #include "highmap/geometry/grids.hpp"
 #include "highmap/geometry/path.hpp"
 #include "highmap/hydrology/drainage_basin_cell_based.hpp"
@@ -552,6 +553,33 @@ Array flow_fixing_drainage_basin(
     float               noise_strength = 0.f,
     const Array        *p_noise_x = nullptr,
     const Array        *p_noise_y = nullptr);
+
+/**
+ * @brief Combines flow fixing and stream-limited hydraulic MISE erosion.
+ *
+ * Pre-conditions the terrain with `flow_fixing` to breach depressions,
+ * builds a compactly supported stream erodibility mask from the drainage flow
+ * and breach cells, runs `hydraulic_mise` with that erodibility mask, and
+ * finishes with a `flow_fixing` pass.
+ *
+ * @param  z                      Input elevation array.
+ * @param  params                 MISE solver parameters.
+ * @param  flow_threshold         Minimum normalized flow to define core
+ *                                stream cells.
+ * @param  riverbed_talus         Riverbed talus slope for flow fixing.
+ * @param  merging_distance       Bank transition width in pixels.
+ * @param  flow_fixing_iterations Number of flow-fixing iterations.
+ * @param  prefilter_ir           Prefilter radius for flow fixing.
+ * @return                        Array with eroded stream channels and
+ *                                untouched surrounding terrain.
+ */
+Array flow_fixing_hydraulic_mise(const Array      &z,
+                                 const MiseParams &params = MiseParams(),
+                                 float             flow_threshold = 1e-3f,
+                                 float             riverbed_talus = 1e-4f,
+                                 float             merging_distance = 8.f,
+                                 int               flow_fixing_iterations = 3,
+                                 int               prefilter_ir = 8);
 
 /**
  * @brief Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding

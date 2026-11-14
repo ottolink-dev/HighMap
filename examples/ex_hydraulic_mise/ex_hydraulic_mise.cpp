@@ -51,8 +51,15 @@ int main(void)
   std::cout << "deposition max:   " << deposition_map.max() << "\n";
 
   // export before/after comparison banner
+  hmap::Array z_streams = hmap::flow_fixing_hydraulic_mise(z0, params);
+  hmap::Array diff = hmap::abs(z_streams - z0);
+
+  std::cout << "stream-limited z range: [" << z_streams.min() << ", "
+            << z_streams.max() << "]\n";
+  std::cout << "stream-limited diff max: " << diff.max() << "\n";
+
   hmap::export_banner_png("ex_hydraulic_mise.png",
-                          {z0, z, sediment, flow},
+                          {z0, z, z_streams, diff},
                           hmap::Cmap::TERRAIN,
                           true);
 
