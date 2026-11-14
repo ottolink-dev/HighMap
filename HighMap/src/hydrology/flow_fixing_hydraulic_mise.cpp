@@ -54,7 +54,7 @@ Array flow_fixing_hydraulic_mise(const Array      &z,
     for (int i = 0; i < z.shape.x; ++i)
     {
       float t = 1.f - std::clamp(dist(i, j) * inv_dist, 0.f, 1.f);
-      erodibility(i, j) = t * t * (3.f - 2.f * t);
+      erodibility(i, j) = smoothstep3(t);
     }
 
   // --- Stage 3: Channel-focused hydraulic_mise pass using erodibility mask

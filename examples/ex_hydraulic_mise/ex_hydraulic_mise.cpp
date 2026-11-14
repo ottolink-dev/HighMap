@@ -51,6 +51,8 @@ int main(void)
   std::cout << "deposition max:   " << deposition_map.max() << "\n";
 
   // export before/after comparison banner
+  params.lake_fill = 0.f;
+  
   hmap::Array z_streams = hmap::flow_fixing_hydraulic_mise(z0, params);
   hmap::Array diff = hmap::abs(z_streams - z0);
 
