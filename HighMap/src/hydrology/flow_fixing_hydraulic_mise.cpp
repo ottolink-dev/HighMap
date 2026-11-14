@@ -14,19 +14,26 @@ namespace hmap
 Array flow_fixing_hydraulic_mise(const Array      &z,
                                  const MiseParams &params,
                                  float             flow_threshold,
-                                 float             riverbed_talus,
                                  float             merging_distance,
-                                 int               flow_fixing_iterations,
                                  int               prefilter_ir)
 {
-  // --- Stage 1: Pre-conditioning / flow fixing on working copy
+  // --- Stage 1: Pre-conditioning / MST flow fixing on working copy
 
-  Array z_work = flow_fixing(z,
-                             riverbed_talus,
-                             flow_fixing_iterations,
-                             prefilter_ir,
-                             false,
-                             merging_distance);
+  Array z_work = flow_fixing_mst(z,
+                                 0.f,
+                                 0.95f,
+                                 2.f,
+                                 0.1f,
+                                 0.5f,
+                                 prefilter_ir,
+                                 1e-4f,
+                                 false,
+                                 merging_distance,
+                                 RadialProfile::RP_SMOOTHSTEP_UPPER,
+                                 2.f,
+                                 nullptr,
+                                 true,
+                                 0.2f);
 
   Array mask_breach(z.shape);
 
@@ -37,7 +44,7 @@ Array flow_fixing_hydraulic_mise(const Array      &z,
   // --- Stage 2: Stream erodibility mask construction
 
   Array flow = flow_accumulation_d8(z_work);
-  flow /= static_cast<float>(z.shape.x * z.shape.y);
+  flow /= flow.max();
 
   Array core_stream(z.shape);
 
@@ -54,7 +61,7 @@ Array flow_fixing_hydraulic_mise(const Array      &z,
     for (int i = 0; i < z.shape.x; ++i)
     {
       float t = 1.f - std::clamp(dist(i, j) * inv_dist, 0.f, 1.f);
-      erodibility(i, j) = smoothstep3(t);
+      erodibility(i, j) = t * t * (3.f - 2.f * t);
     }
 
   // --- Stage 3: Channel-focused hydraulic_mise pass using erodibility mask
@@ -72,12 +79,21 @@ Array flow_fixing_hydraulic_mise(const Array      &z,
 
   // --- Stage 4: Final monotonicity enforcement
 
-  return flow_fixing(z_work,
-                     riverbed_talus,
-                     1,
-                     prefilter_ir,
-                     false,
-                     merging_distance);
+  return flow_fixing_mst(z_work,
+                         0.f,
+                         0.95f,
+                         2.f,
+                         0.1f,
+                         0.5f,
+                         prefilter_ir,
+                         1e-4f,
+                         false,
+                         merging_distance,
+                         RadialProfile::RP_SMOOTHSTEP_UPPER,
+                         2.f,
+                         nullptr,
+                         true,
+                         0.2f);
 }
 
 } // namespace hmap
