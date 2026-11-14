@@ -28,6 +28,53 @@
 namespace hmap
 {
 
+namespace
+{
+
+template <typename NoiseType>
+void evaluate_dendry_parallel(Array           &array,
+                              const NoiseType &noise,
+                              glm::vec2        kw,
+                              glm::vec4        bbox,
+                              const Array     *p_noise_x,
+                              const Array     *p_noise_y)
+{
+  const glm::ivec2   shape = array.shape;
+  std::vector<float> x;
+  std::vector<float> y;
+  grid_xy_vector(x, y, shape, bbox, false);
+
+  if (!p_noise_x && !p_noise_y)
+  {
+#pragma omp parallel for schedule(dynamic, 4)
+    for (int j = 0; j < shape.y; j++)
+    {
+      const float ky = kw.y * y[j];
+
+      for (int i = 0; i < shape.x; i++)
+        array(i, j) = noise.evaluateTerrain(kw.x * x[i], ky);
+    }
+  }
+  else
+  {
+#pragma omp parallel for schedule(dynamic, 4)
+    for (int j = 0; j < shape.y; j++)
+    {
+      const float yj = y[j];
+
+      for (int i = 0; i < shape.x; i++)
+      {
+        const float dx = p_noise_x ? (*p_noise_x)(i, j) : 0.f;
+        const float dy = p_noise_y ? (*p_noise_y)(i, j) : 0.f;
+        array(i, j) = noise.evaluateTerrain(kw.x * (x[i] + dx),
+                                            kw.y * (yj + dy));
+      }
+    }
+  }
+}
+
+} // namespace
+
 Array dendry(glm::ivec2    shape,
              glm::vec2     kw,
              std::uint32_t seed,
@@ -88,16 +135,23 @@ Array dendry(glm::ivec2    shape,
                                           false,
                                           false);
 
-  fill_array_using_xy_function(
-      array,
-      bbox,
-      nullptr,
-      p_noise_x,
-      p_noise_y,
-      nullptr,
-      [&noise, &kw](float x, float y, float)
-      { return noise.evaluateTerrain(kw.x * x, kw.y * y); },
-      subsampling);
+  if (subsampling <= 1)
+  {
+    evaluate_dendry_parallel(array, noise, kw, bbox, p_noise_x, p_noise_y);
+  }
+  else
+  {
+    fill_array_using_xy_function(
+        array,
+        bbox,
+        nullptr,
+        p_noise_x,
+        p_noise_y,
+        nullptr,
+        [&noise, &kw](float x, float y, float)
+        { return noise.evaluateTerrain(kw.x * x, kw.y * y); },
+        subsampling);
+  }
 
   return array;
 }
@@ -154,15 +208,7 @@ Array dendry(glm::ivec2                                       shape,
                                        false,
                                        false);
 
-  fill_array_using_xy_function(
-      array,
-      bbox,
-      nullptr,
-      p_noise_x,
-      p_noise_y,
-      nullptr,
-      [&noise, &kw](float x, float y, float)
-      { return noise.evaluateTerrain(kw.x * x, kw.y * y); });
+  evaluate_dendry_parallel(array, noise, kw, bbox, p_noise_x, p_noise_y);
 
   return array;
 }
