@@ -5,14 +5,12 @@ R""(
 
 // --- BASE NOISE
 
-// Wrap a lattice coordinate modulo a period so the noise tiles seamlessly.
-// A non-positive period component disables wrapping on that axis (default,
-// non-periodic behaviour). Lattice coordinates are integer-valued floats, so
-// the result is exact at the period boundary.
-float2 wrap_lattice(float2 c, const int2 period)
+// Wrap an integer lattice coordinate modulo a period so the noise tiles
+// seamlessly. A non-positive period component disables wrapping on that axis.
+int2 wrap_lattice_i(int2 c, const int2 period)
 {
-  if (period.x > 0) c.x = c.x - (float)period.x * floor(c.x / (float)period.x);
-  if (period.y > 0) c.y = c.y - (float)period.y * floor(c.y / (float)period.y);
+  if (period.x > 0) c.x = ((c.x % period.x) + period.x) % period.x;
+  if (period.y > 0) c.y = ((c.y % period.y) + period.y) % period.y;
   return c;
 }
 
@@ -25,18 +23,22 @@ int2 scale_period(int2 period, const float lacunarity)
   return period;
 }
 
-float base_perlin(const float2 p, const float fseed, const int2 period)
+float base_perlin(const float2 p, const uint seed, const int2 period)
 {
   // lattice points
-  float2 i = floor(p);
-  float2 pi;
-  float2 f = fract(p, &pi);
+  float2 pf = floor(p);
+  int2   i = (int2)((int)pf.x, (int)pf.y);
+  float2 f = p - pf;
 
   // gradients at lattice corners (lattice indices wrapped for tileability)
-  float2 g00 = grad22f(wrap_lattice(i + (float2)(0.0f, 0.0f), period), fseed);
-  float2 g10 = grad22f(wrap_lattice(i + (float2)(1.0f, 0.0f), period), fseed);
-  float2 g01 = grad22f(wrap_lattice(i + (float2)(0.0f, 1.0f), period), fseed);
-  float2 g11 = grad22f(wrap_lattice(i + (float2)(1.0f, 1.0f), period), fseed);
+  int2   c00 = wrap_lattice_i(i + (int2)(0, 0), period);
+  int2   c10 = wrap_lattice_i(i + (int2)(1, 0), period);
+  int2   c01 = wrap_lattice_i(i + (int2)(0, 1), period);
+  int2   c11 = wrap_lattice_i(i + (int2)(1, 1), period);
+  float2 g00 = grad22u_f(c00.x, c00.y, seed);
+  float2 g10 = grad22u_f(c10.x, c10.y, seed);
+  float2 g01 = grad22u_f(c01.x, c01.y, seed);
+  float2 g11 = grad22u_f(c11.x, c11.y, seed);
 
   // offset vectors to corners
   float2 d00 = f - (float2)(0.0f, 0.0f);
@@ -62,7 +64,7 @@ float base_perlin(const float2 p, const float fseed, const int2 period)
   return 1.42857f * nxy;
 }
 
-float base_simplex2(const float2 p, const float fseed)
+float base_simplex2(const float2 p, const uint seed)
 {
   const float K1 = 0.366025403f; // (sqrt(3)-1)/2
   const float K2 = 0.211324865f; // (3-sqrt(3))/6
@@ -71,19 +73,20 @@ float base_simplex2(const float2 p, const float fseed)
   float2 p2 = 0.5f * p;
 
   // skew the input space to find the simplex cell
-  float2 i = floor(p2 + dot(p2, (float2)(K1, K1)));
-  float2 a = p2 - i + dot(i, (float2)(K2, K2));
+  float2 ip = floor(p2 + dot(p2, (float2)(K1, K1)));
+  int2   i = (int2)((int)ip.x, (int)ip.y);
+  float2 a = p2 - ip + dot(ip, (float2)(K2, K2));
 
   // determine which simplex we are in
-  float  m = step(a.y, a.x);
-  float2 o = (float2)(m, 1.0f - m);
-  float2 b = a - o + (float2)(K2, K2);
+  int    m = (a.x >= a.y) ? 1 : 0;
+  int2   o = (int2)(m, 1 - m);
+  float2 b = a - (float2)((float)o.x, (float)o.y) + (float2)(K2, K2);
   float2 c = a - 1.0f + 2.0f * (float2)(K2, K2);
 
   // compute gradients at each vertex
-  float2 g0 = grad22f(i, fseed);
-  float2 g1 = grad22f(i + o, fseed);
-  float2 g2 = grad22f(i + (float2)(1.0f, 1.0f), fseed);
+  float2 g0 = grad22u_f(i.x, i.y, seed);
+  float2 g1 = grad22u_f(i.x + o.x, i.y + o.y, seed);
+  float2 g2 = grad22u_f(i.x + 1, i.y + 1, seed);
 
   // compute contributions from each vertex
   float n0 = max(0.5f - dot(a, a), 0.0f);
@@ -98,16 +101,20 @@ float base_simplex2(const float2 p, const float fseed)
   return 100.f * (n0 + n1 + n2);
 }
 
-float base_value(const float2 p, const float fseed, const int2 period)
+float base_value(const float2 p, const uint seed, const int2 period)
 {
-  float2 i = floor(p);
-  float2 pi;
-  float2 f = fract(p, &pi);
+  float2 pf = floor(p);
+  int2   i = (int2)((int)pf.x, (int)pf.y);
+  float2 f = p - pf;
 
-  float v00 = hash12f(wrap_lattice(i + (float2)(0.0f, 0.0f), period), fseed);
-  float v10 = hash12f(wrap_lattice(i + (float2)(1.0f, 0.0f), period), fseed);
-  float v01 = hash12f(wrap_lattice(i + (float2)(0.0f, 1.0f), period), fseed);
-  float v11 = hash12f(wrap_lattice(i + (float2)(1.0f, 1.0f), period), fseed);
+  int2  c00 = wrap_lattice_i(i + (int2)(0, 0), period);
+  int2  c10 = wrap_lattice_i(i + (int2)(1, 0), period);
+  int2  c01 = wrap_lattice_i(i + (int2)(0, 1), period);
+  int2  c11 = wrap_lattice_i(i + (int2)(1, 1), period);
+  float v00 = hash12u_f(c00.x, c00.y, seed);
+  float v10 = hash12u_f(c10.x, c10.y, seed);
+  float v01 = hash12u_f(c01.x, c01.y, seed);
+  float v11 = hash12u_f(c11.x, c11.y, seed);
 
   float2 u = smoothstep3_f2(f);
 
@@ -118,18 +125,20 @@ float base_value(const float2 p, const float fseed, const int2 period)
   return 2.f * nxy - 1.f;
 }
 
-float base_value_cubic(const float2 p, const float fseed, const int2 period)
+float base_value_cubic(const float2 p, const uint seed, const int2 period)
 {
-  float2 i = floor(p);
-  float2 pi;
-  float2 f = fract(p, &pi);
+  float2 pf = floor(p);
+  int2   i = (int2)((int)pf.x, (int)pf.y);
+  float2 f = p - pf;
 
   // collect 16 lattice values around the point
   float v[4][4];
   for (int dy = -1; dy <= 2; dy++)
     for (int dx = -1; dx <= 2; dx++)
-      v[dy + 1][dx + 1] = hash12f(wrap_lattice(i + (float2)(dx, dy), period),
-                                  fseed);
+    {
+      int2 c = wrap_lattice_i(i + (int2)(dx, dy), period);
+      v[dy + 1][dx + 1] = hash12u_f(c.x, c.y, seed);
+    }
 
   // cubic interpolation in the x-direction for each row
   float interp_row[4];
@@ -146,16 +155,20 @@ float base_value_cubic(const float2 p, const float fseed, const int2 period)
   return 1.43f * (value - 0.5f);
 }
 
-float base_value_linear(const float2 p, const float fseed, const int2 period)
+float base_value_linear(const float2 p, const uint seed, const int2 period)
 {
-  float2 i = floor(p);
-  float2 pi;
-  float2 f = fract(p, &pi);
+  float2 pf = floor(p);
+  int2   i = (int2)((int)pf.x, (int)pf.y);
+  float2 f = p - pf;
 
-  float v00 = hash12f(wrap_lattice(i + (float2)(0.0f, 0.0f), period), fseed);
-  float v10 = hash12f(wrap_lattice(i + (float2)(1.0f, 0.0f), period), fseed);
-  float v01 = hash12f(wrap_lattice(i + (float2)(0.0f, 1.0f), period), fseed);
-  float v11 = hash12f(wrap_lattice(i + (float2)(1.0f, 1.0f), period), fseed);
+  int2  c00 = wrap_lattice_i(i + (int2)(0, 0), period);
+  int2  c10 = wrap_lattice_i(i + (int2)(1, 0), period);
+  int2  c01 = wrap_lattice_i(i + (int2)(0, 1), period);
+  int2  c11 = wrap_lattice_i(i + (int2)(1, 1), period);
+  float v00 = hash12u_f(c00.x, c00.y, seed);
+  float v10 = hash12u_f(c10.x, c10.y, seed);
+  float v01 = hash12u_f(c01.x, c01.y, seed);
+  float v11 = hash12u_f(c11.x, c11.y, seed);
 
   float nx0 = lerp(v00, v10, f.x);
   float nx1 = lerp(v01, v11, f.x);
@@ -164,19 +177,21 @@ float base_value_linear(const float2 p, const float fseed, const int2 period)
   return 2.f * nxy - 1.f;
 }
 
-float base_worley(const float2 p, const float fseed, const int2 period)
+float base_worley(const float2 p, const uint seed, const int2 period)
 {
-  float2 i = floor(p);
-  float2 pi;
-  float2 f = fract(p, &pi);
+  float2 pf = floor(p);
+  int2   i = (int2)((int)pf.x, (int)pf.y);
+  float2 f = p - pf;
 
   float min_dist = FLT_MAX;
 
   for (int dx = -1; dx <= 1; dx++)
     for (int dy = -1; dy <= 1; dy++)
     {
-      float2 dr = (float2)(dx, dy);
-      float2 feature_point = dr + hash22f(wrap_lattice(i + dr, period), fseed);
+      int2   dr = (int2)(dx, dy);
+      int2   c = wrap_lattice_i(i + dr, period);
+      float2 feature_point = (float2)((float)dx, (float)dy) +
+                             hash22u_f(c.x, c.y, seed);
       float2 diff = f - feature_point;
       float  dist = dot(diff, diff);
 
@@ -187,25 +202,77 @@ float base_worley(const float2 p, const float fseed, const int2 period)
   return 1.66f * min_dist - 1.f;
 }
 
+float base_worley_double(const float2 p,
+                         const uint   seed,
+                         const float  ratio,
+                         const float  k,
+                         const int2   period)
+{
+  float v1 = base_worley(p, seed, period);
+  float v2 = base_worley(p * k, seed + 1u, period);
+  return max(ratio * v1, (1.f - ratio) * v2);
+}
+
+float base_worley_value(const float2 p, const uint seed, const int2 period)
+{
+  float2 pf = floor(p);
+  int2   i = (int2)((int)pf.x, (int)pf.y);
+  float2 f = p - pf;
+
+  float min_dist = FLT_MAX;
+  int2  best_cell = i;
+
+  for (int dx = -1; dx <= 1; dx++)
+    for (int dy = -1; dy <= 1; dy++)
+    {
+      int2   dr = (int2)(dx, dy);
+      int2   c = wrap_lattice_i(i + dr, period);
+      float2 feature_point = (float2)((float)dx, (float)dy) +
+                             hash22u_f(c.x, c.y, seed);
+      float2 diff = f - feature_point;
+      float  dist = dot(diff, diff);
+
+      if (dist < min_dist)
+      {
+        min_dist = dist;
+        best_cell = c;
+      }
+    }
+
+  return 2.f * hash12u_f(best_cell.x, best_cell.y, seed ^ 0x517cc1b7u) - 1.f;
+}
+
 // --- FBM
+
+float helper_fbm_amp0(const int octaves, const float persistence)
+{
+  float sum = 0.f;
+  float amp = 1.f;
+  for (int i = 0; i < octaves; i++)
+  {
+    sum += amp;
+    amp *= persistence;
+  }
+  return 1.f / sum;
+}
 
 float base_perlin_fbm(const float2 p,
                       const int    octaves,
                       const float  weight,
                       const float  persistence,
                       const float  lacunarity,
-                      const float  fseed,
+                      const uint   seed,
                       const int2   period)
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = 0.6f;
+  float na = helper_fbm_amp0(octaves, persistence);
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
-    float v = base_perlin(p * nf, fseed, per);
+    float v = base_perlin(p * nf, seed, per);
     n += v * na;
-    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
+    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -218,18 +285,18 @@ float base_perlin_billow_fbm(const float2 p,
                              const float  weight,
                              const float  persistence,
                              const float  lacunarity,
-                             const float  fseed,
+                             const uint   seed,
                              const int2   period)
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = 0.6f;
+  float na = helper_fbm_amp0(octaves, persistence);
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
-    float v = 2.f * fabs(base_perlin(p * nf, fseed, per)) - 1.f;
+    float v = 2.f * fabs(base_perlin(p * nf, seed, per)) - 1.f;
     n += v * na;
-    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
+    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -242,18 +309,18 @@ float base_perlin_half_fbm(const float2 p,
                            const float  weight,
                            const float  persistence,
                            const float  lacunarity,
-                           const float  fseed,
+                           const uint   seed,
                            const int2   period)
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = 0.6f;
+  float na = helper_fbm_amp0(octaves, persistence);
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
-    float v = max_smooth(base_perlin(p * nf, fseed, per), 0.f, 0.5f);
+    float v = max_smooth(base_perlin(p * nf, seed, per), 0.f, 0.5f);
     n += v * na;
-    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
+    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -266,16 +333,16 @@ float base_simplex2_fbm(const float2 p,
                         const float  weight,
                         const float  persistence,
                         const float  lacunarity,
-                        const float  fseed)
+                        const uint   seed)
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = 0.6f;
+  float na = helper_fbm_amp0(octaves, persistence);
   for (int i = 0; i < octaves; i++)
   {
-    float v = base_simplex2(p * nf, fseed);
+    float v = base_simplex2(p * nf, seed);
     n += v * na;
-    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
+    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
     na *= persistence;
     nf *= lacunarity;
   }
@@ -287,18 +354,18 @@ float base_value_fbm(const float2 p,
                      const float  weight,
                      const float  persistence,
                      const float  lacunarity,
-                     const float  fseed,
+                     const uint   seed,
                      const int2   period)
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = 0.6f;
+  float na = helper_fbm_amp0(octaves, persistence);
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
-    float v = base_value(p * nf, fseed, per);
+    float v = base_value(p * nf, seed, per);
     n += v * na;
-    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
+    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -311,18 +378,18 @@ float base_value_cubic_fbm(const float2 p,
                            const float  weight,
                            const float  persistence,
                            const float  lacunarity,
-                           const float  fseed,
+                           const uint   seed,
                            const int2   period)
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = 0.6f;
+  float na = helper_fbm_amp0(octaves, persistence);
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
-    float v = base_value_cubic(p * nf, fseed, per);
+    float v = base_value_cubic(p * nf, seed, per);
     n += v * na;
-    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
+    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -335,18 +402,18 @@ float base_value_linear_fbm(const float2 p,
                             const float  weight,
                             const float  persistence,
                             const float  lacunarity,
-                            const float  fseed,
+                            const uint   seed,
                             const int2   period)
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = 0.6f;
+  float na = helper_fbm_amp0(octaves, persistence);
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
-    float v = base_value_linear(p * nf, fseed, per);
+    float v = base_value_linear(p * nf, seed, per);
     n += v * na;
-    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
+    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -359,18 +426,66 @@ float base_worley_fbm(const float2 p,
                       const float  weight,
                       const float  persistence,
                       const float  lacunarity,
-                      const float  fseed,
+                      const uint   seed,
                       const int2   period)
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = 0.6f;
+  float na = helper_fbm_amp0(octaves, persistence);
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
-    float v = base_worley(p * nf, fseed, per);
+    float v = base_worley(p * nf, seed, per);
     n += v * na;
-    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
+    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
+    na *= persistence;
+    nf *= lacunarity;
+    per = scale_period(per, lacunarity);
+  }
+  return n;
+}
+
+float base_worley_double_fbm(const float2 p,
+                             const int    octaves,
+                             const float  weight,
+                             const float  persistence,
+                             const float  lacunarity,
+                             const uint   seed,
+                             const int2   period)
+{
+  float n = 0.f;
+  float nf = 1.f;
+  float na = helper_fbm_amp0(octaves, persistence);
+  int2  per = period;
+  for (int i = 0; i < octaves; i++)
+  {
+    float v = base_worley_double(p * nf, seed, 0.f, 2.f, per);
+    n += v * na;
+    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
+    na *= persistence;
+    nf *= lacunarity;
+    per = scale_period(per, lacunarity);
+  }
+  return n;
+}
+
+float base_worley_value_fbm(const float2 p,
+                            const int    octaves,
+                            const float  weight,
+                            const float  persistence,
+                            const float  lacunarity,
+                            const uint   seed,
+                            const int2   period)
+{
+  float n = 0.f;
+  float nf = 1.f;
+  float na = helper_fbm_amp0(octaves, persistence);
+  int2  per = period;
+  for (int i = 0; i < octaves; i++)
+  {
+    float v = base_worley_value(p * nf, seed, per);
+    n += v * na;
+    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);

@@ -39,7 +39,6 @@ target_link_libraries(
     GSL::gsl
     GSL::gslcblas
     dkm::dkm
-    FastNoiseLite::FastNoiseLite
     hmm::hmm
     libnpy::libnpy
     nanoflann::nanoflann

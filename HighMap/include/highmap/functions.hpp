@@ -21,8 +21,6 @@
 #include <utility>
 #include <vector>
 
-#include "FastNoiseLite.h"
-
 #include "highmap/array.hpp"
 #include "highmap/math/constants.hpp"
 #include "highmap/math/core.hpp"
@@ -883,14 +881,10 @@ public:
   void set_seed(std::uint32_t new_seed)
   {
     NoiseFunction::set_seed(new_seed);
-    this->noise.SetSeed(new_seed);
   }
 
 private:
-  /**
-   * @brief FastNoiseLite noise generator object.
-   */
-  FastNoiseLite noise;
+  bool return_cell_value = false;
 };
 
 /**
@@ -918,14 +912,10 @@ public:
   void set_seed(std::uint32_t new_seed)
   {
     NoiseFunction::set_seed(new_seed);
-    this->noise.SetSeed(new_seed);
   }
 
 private:
-  /**
-   * @brief FastNoiseLite noise generator object.
-   */
-  FastNoiseLite noise;
+  bool return_cell_value = false;
 };
 
 /**
@@ -956,14 +946,10 @@ public:
   void set_seed(std::uint32_t new_seed)
   {
     NoiseFunction::set_seed(new_seed);
-    this->noise.SetSeed(new_seed);
   }
 
 private:
-  /**
-   * @brief FastNoiseLite noise generator object.
-   */
-  FastNoiseLite noise;
+  bool return_cell_value = false;
 };
 
 /**
@@ -991,14 +977,10 @@ public:
   void set_seed(std::uint32_t new_seed)
   {
     NoiseFunction::set_seed(new_seed);
-    this->noise.SetSeed(new_seed);
   }
 
 private:
-  /**
-   * @brief FastNoiseLite noise generator object.
-   */
-  FastNoiseLite noise;
+  bool return_cell_value = false;
 };
 
 /**
@@ -1026,14 +1008,10 @@ public:
   void set_seed(std::uint32_t new_seed)
   {
     NoiseFunction::set_seed(new_seed);
-    this->noise.SetSeed(new_seed);
   }
 
 private:
-  /**
-   * @brief FastNoiseLite noise generator object.
-   */
-  FastNoiseLite noise;
+  bool return_cell_value = false;
 };
 
 /**
@@ -1061,14 +1039,10 @@ public:
   void set_seed(std::uint32_t new_seed)
   {
     NoiseFunction::set_seed(new_seed);
-    this->noise.SetSeed(new_seed);
   }
 
 private:
-  /**
-   * @brief FastNoiseLite noise generator object.
-   */
-  FastNoiseLite noise;
+  bool return_cell_value = false;
 };
 
 /**
@@ -1096,14 +1070,10 @@ public:
   void set_seed(std::uint32_t new_seed)
   {
     NoiseFunction::set_seed(new_seed);
-    this->noise.SetSeed(new_seed);
   }
 
 private:
-  /**
-   * @brief FastNoiseLite noise generator object.
-   */
-  FastNoiseLite noise;
+  bool return_cell_value = false;
 };
 
 /**
@@ -1131,14 +1101,10 @@ public:
   void set_seed(std::uint32_t new_seed)
   {
     NoiseFunction::set_seed(new_seed);
-    this->noise.SetSeed(new_seed);
   }
 
 private:
-  /**
-   * @brief FastNoiseLite noise generator object.
-   */
-  FastNoiseLite noise;
+  bool return_cell_value = false;
 };
 
 /**
@@ -1258,14 +1224,10 @@ public:
   void set_seed(std::uint32_t new_seed)
   {
     NoiseFunction::set_seed(new_seed);
-    this->noise.SetSeed(new_seed);
   }
 
 private:
-  /**
-   * @brief FastNoiseLite noise generator object.
-   */
-  FastNoiseLite noise;
+  bool return_cell_value = false;
 };
 
 /**
@@ -1305,15 +1267,10 @@ public:
   void set_seed(std::uint32_t new_seed)
   {
     NoiseFunction::set_seed(new_seed);
-    this->noise1.SetSeed(new_seed);
-    this->noise2.SetSeed(new_seed + 1);
   }
 
 private:
-  /**
-   * @brief FastNoiseLite noise generator objects.
-   */
-  FastNoiseLite noise1, noise2;
+  bool return_cell_value = false;
 };
 
 //----------------------------------------

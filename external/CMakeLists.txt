@@ -1,6 +1,5 @@
 include(delaunator.cmake)
 include(dkm.cmake)
-include(FastNoiseLite.cmake)
 include(hmm.cmake)
 include(libnpy.cmake)
 include(nn-c.cmake)
