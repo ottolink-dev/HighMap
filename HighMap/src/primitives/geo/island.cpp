@@ -39,34 +39,31 @@ Array island_land_mask(glm::ivec2       shape,
 
   Array mask(shape);
 
-  std::unique_ptr<NoiseFunction> p = create_noise_function_from_type(
+  with_noise_function(
       noise_type,
       glm::vec2(0.5f * kw, 0.5f * kw),
-      seed);
+      seed,
+      [&](const auto &base_fn)
+      {
+        FbmFunction f(base_fn, octaves, weight, persistence, lacunarity);
 
-  FbmFunction f = FbmFunction(std::move(p),
-                              octaves,
-                              weight,
-                              persistence,
-                              lacunarity);
+        for (int j = 0; j < shape.y; j++)
+          for (int i = 0; i < shape.x; i++)
+          {
+            float x = float(i) / float(shape.x - 1);
+            float y = float(j) / float(shape.y - 1);
 
-  for (int j = 0; j < shape.y; j++)
-    for (int i = 0; i < shape.x; i++)
-    {
-      float x = float(i) / float(shape.x - 1);
-      float y = float(j) / float(shape.y - 1);
+            x = (bbox.y - bbox.x) * x + bbox.x - center.x;
+            y = (bbox.w - bbox.z) * y + bbox.z - center.y;
 
-      x = (bbox.y - bbox.x) * x + bbox.x - center.x;
-      y = (bbox.w - bbox.z) * y + bbox.z - center.y;
+            float r = std::hypot(x, y);
+            float theta = std::atan2(y, x);
 
-      float r = std::hypot(x, y);
-      float theta = std::atan2(y, x);
+            float dr = displacement * f(std::cos(theta), std::sin(theta), 0.f);
 
-      float dr = displacement *
-                 f.get_delegate()(std::cos(theta), std::sin(theta), 0.f);
-
-      mask(i, j) = r < radius + dr ? 1.f : 0.f;
-    }
+            mask(i, j) = r < radius + dr ? 1.f : 0.f;
+          }
+      });
 
   return mask;
 }

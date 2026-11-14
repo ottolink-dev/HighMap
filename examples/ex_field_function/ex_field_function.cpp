@@ -8,25 +8,15 @@ int main(void)
   glm::vec4     bbox = hmap::unit_square_bbox();
   glm::vec2     center = {0.f, 0.f};
 
-  // std::unique_ptr<hmap::Function> p = std::unique_ptr<hmap::Function>(
-  //     new hmap::BumpFunction(gain, center));
-
-  std::unique_ptr<hmap::Function> p = std::unique_ptr<hmap::Function>(
-      new hmap::CraterFunction(0.2f, 0.12f, 0.5f, 0.5f, center));
-
-  // std::unique_ptr<hmap::NoiseFunction> f =
-  // std::unique_ptr<hmap::NoiseFunction>(
-  //     new hmap::PerlinFunction({1.f, 1.f}, seed));
-  // std::unique_ptr<hmap::Function> p = std::unique_ptr<hmap::Function>(
-  //     new hmap::FbmFunction(std::move(f), 8, 0.7f, 0.5f, 2.f));
+  hmap::CraterFunction p(0.2f, 0.12f, 0.5f, 0.5f, center);
 
   hmap::Cloud cloud = hmap::Cloud(15, seed, bbox);
   cloud.remap_values(1.f, 4.f);
 
-  hmap::FieldFunction field_fct = hmap::FieldFunction(std::move(p),
-                                                      cloud.get_x(),
-                                                      cloud.get_y(),
-                                                      cloud.get_values());
+  hmap::FieldFunction field_fct(p,
+                                cloud.get_x(),
+                                cloud.get_y(),
+                                cloud.get_values());
 
   //
 
@@ -42,7 +32,7 @@ int main(void)
                                nullptr,
                                nullptr,
                                nullptr,
-                               field_fct.get_delegate());
+                               field_fct);
 
   z.infos("z");
 

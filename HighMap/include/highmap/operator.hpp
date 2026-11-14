@@ -212,14 +212,14 @@ std::vector<float> logspace(float start,
  * **Result**
  * @image html ex_fill_array_using_xy_function.png
  */
-void fill_array_using_xy_function(
-    Array                                    &array,
-    glm::vec4                                 bbox,
-    const Array                              *p_ctrl_param,
-    const Array                              *p_noise_x,
-    const Array                              *p_noise_y,
-    const Array                              *p_stretching,
-    std::function<float(float, float, float)> fct_xy);
+template <typename Fn>
+void fill_array_using_xy_function(Array       &array,
+                                  glm::vec4    bbox,
+                                  const Array *p_ctrl_param,
+                                  const Array *p_noise_x,
+                                  const Array *p_noise_y,
+                                  const Array *p_stretching,
+                                  Fn         &&fct_xy);
 
 /**
  * @brief Fill an array using a scalar function based on (x, y) coordinates with
@@ -254,15 +254,15 @@ void fill_array_using_xy_function(
  */
 
 /// @overload
-void fill_array_using_xy_function(
-    Array                                    &array,
-    glm::vec4                                 bbox,
-    const Array                              *p_ctrl_param,
-    const Array                              *p_noise_x,
-    const Array                              *p_noise_y,
-    const Array                              *p_stretching,
-    std::function<float(float, float, float)> fct_xy,
-    int                                       subsampling);
+template <typename Fn>
+void fill_array_using_xy_function(Array       &array,
+                                  glm::vec4    bbox,
+                                  const Array *p_ctrl_param,
+                                  const Array *p_noise_x,
+                                  const Array *p_noise_y,
+                                  const Array *p_stretching,
+                                  Fn         &&fct_xy,
+                                  int          subsampling);
 
 /**
  * @brief Find the vertical cut path with the minimum cost using dynamic
@@ -450,3 +450,5 @@ Array transform_with_mask(const Array &array, const Array *p_mask, Fn &&fn)
 }
 
 } // namespace hmap
+
+#include "highmap/operator.inl"

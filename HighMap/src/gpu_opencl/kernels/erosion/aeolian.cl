@@ -283,9 +283,9 @@ void kernel aeolian_transport(global float       *bedrock,
   }
 
   // 2. Saltation hop loop in continuous subpixel coordinates
-  int  bounce = 0;
-  int  dest_i = start_i;
-  int  dest_j = start_j;
+  int bounce = 0;
+  int dest_i = start_i;
+  int dest_j = start_j;
 
   while (bounce < AEOLIAN_MAX_BOUNCE)
   {

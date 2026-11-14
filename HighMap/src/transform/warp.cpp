@@ -28,7 +28,7 @@ void warp(Array &array, const Array *p_dx, const Array *p_dy)
                                p_dx,
                                p_dy,
                                nullptr,
-                               f.get_delegate());
+                               f);
 }
 
 void warp_directional(Array &array,

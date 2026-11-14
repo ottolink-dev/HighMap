@@ -67,17 +67,18 @@ void add_noise(CellPath         &path,
   if (!validate_shape(shape)) return;
   if (!validate_min_size(path, 2, "CellPath indices")) return;
 
-  std::unique_ptr<NoiseFunction> p = create_noise_function_from_type(noise_type,
-                                                                     {kw, kw},
-                                                                     seed);
-
-  hmap::FbmFunction f = hmap::FbmFunction(std::move(p),
-                                          octaves,
-                                          weight,
-                                          persistence,
-                                          lacunarity);
-
-  auto noise_fct = f.get_delegate();
+  std::function<float(float, float, float)> noise_fct = with_noise_function(
+      noise_type,
+      {kw, kw},
+      seed,
+      [&](const auto &base_fn) -> std::function<float(float, float, float)>
+      {
+        return hmap::FbmFunction(base_fn,
+                                 octaves,
+                                 weight,
+                                 persistence,
+                                 lacunarity);
+      });
 
   // direction from first to last point
   glm::vec2 p0 = glm::vec2(path.front());

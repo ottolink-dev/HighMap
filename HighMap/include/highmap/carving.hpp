@@ -59,20 +59,21 @@ enum ElevationLongitudinalProfile : int
  *                                         carved river channel.
  * @param[in]     bbox                     Domain bounding box.
  */
-void carve_river(Array        &z,
-                 const Graph  &graph,
-                 float         talus,
-                 float         outlet_width,
-                 float         headwater_width = 0.f,
-                 float         width_exponent = 0.5f,
-                 float         depth = 0.05f,
-                 float         depth_exponent = 0.3f,
-                 std::uint32_t seed = 0,
-                 float         talus_noise_ratio = 0.f,
-                 RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
-                 float         radial_profile_parameter = 2.f,
-                 Array        *p_river_mask = nullptr,
-                 glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+void carve_river(
+    Array        &z,
+    const Graph  &graph,
+    float         talus,
+    float         outlet_width,
+    float         headwater_width = 0.f,
+    float         width_exponent = 0.5f,
+    float         depth = 0.05f,
+    float         depth_exponent = 0.3f,
+    std::uint32_t seed = 0,
+    float         talus_noise_ratio = 0.f,
+    RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
+    float         radial_profile_parameter = 2.f,
+    Array        *p_river_mask = nullptr,
+    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Dig a path on a heightmap.
@@ -141,31 +142,33 @@ void dig_path(Array    &z,
  * @param[out]    p_mask         Optional output blending weights.
  * @param[in]     bbox           Bounding box of the heightmap.
  */
-void flatten_around_points(Array                    &z,
-                           const std::vector<float> &xp,
-                           const std::vector<float> &yp,
-                           const std::vector<float> &zp,
-                           const std::vector<float> &radius,
-                           float                     strength = 1.0f,
-                           RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP,
-                           float         profile_param = 1.0f,
-                           Array        *p_mask = nullptr,
-                           glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+void flatten_around_points(
+    Array                    &z,
+    const std::vector<float> &xp,
+    const std::vector<float> &yp,
+    const std::vector<float> &zp,
+    const std::vector<float> &radius,
+    float                     strength = 1.0f,
+    RadialProfile             radial_profile = RadialProfile::RP_SMOOTHSTEP,
+    float                     profile_param = 1.0f,
+    Array                    *p_mask = nullptr,
+    glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Overload of flatten_around_points with a single radius shared by all
  * points.
  */
-void flatten_around_points(Array                    &z,
-                           const std::vector<float> &xp,
-                           const std::vector<float> &yp,
-                           const std::vector<float> &zp,
-                           float                     radius = 0.2f,
-                           float                     strength = 1.0f,
-                           RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP,
-                           float         profile_param = 1.0f,
-                           Array        *p_mask = nullptr,
-                           glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+void flatten_around_points(
+    Array                    &z,
+    const std::vector<float> &xp,
+    const std::vector<float> &yp,
+    const std::vector<float> &zp,
+    float                     radius = 0.2f,
+    float                     strength = 1.0f,
+    RadialProfile             radial_profile = RadialProfile::RP_SMOOTHSTEP,
+    float                     profile_param = 1.0f,
+    Array                    *p_mask = nullptr,
+    glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Terrain-aware flattening around a set of seed points.
@@ -179,15 +182,17 @@ void flatten_around_points(Array                    &z,
  * maximum geometric extent) and the elevation is not above the height limit.
  *
  * The cost distance replaces the Euclidean distance in the radial profile. The
- * target surface is the seed elevation plus a fraction (`terrain_follow`) of the
- * smoothed terrain relief relative to the seed, so it is not an exact plateau.
- * Contributions of several seeds are combined as in flatten_around_points.
+ * target surface is the seed elevation plus a fraction (`terrain_follow`) of
+ * the smoothed terrain relief relative to the seed, so it is not an exact
+ * plateau. Contributions of several seeds are combined as in
+ * flatten_around_points.
  *
- * @param[in,out] z      Heightmap array to modify in place.
- * @param[in]     xp     Seed x coordinates (in the bounding box).
- * @param[in]     yp     Seed y coordinates.
- * @param[in]     zp     Seed reference elevations.
- * @param[in]     radius Maximum geometric extent of each seed (bbox units).
+ * @param[in,out] z                Heightmap array to modify in place.
+ * @param[in]     xp               Seed x coordinates (in the bounding box).
+ * @param[in]     yp               Seed y coordinates.
+ * @param[in]     zp               Seed reference elevations.
+ * @param[in]     radius           Maximum geometric extent of each seed (bbox
+ *                                 units).
  * @param[in]     slope_weight     Penalty on the local slope (0: ignored).
  * @param[in]     uphill_weight    Penalty on climbing above the seed elevation
  *                                 (0: ignored).
@@ -195,13 +200,13 @@ void flatten_around_points(Array                    &z,
  *                                 max_height_above` are never reached
  *                                 (negative: no limit).
  * @param[in]     terrain_follow   Amount of smoothed relief kept in the target
- *                                 surface: 0 gives an exact plateau, 1 keeps the
- *                                 whole relief.
+ *                                 surface: 0 gives an exact plateau, 1 keeps
+ *                                 the whole relief.
  * @param[in]     strength         Flattening strength in [0, 1].
  * @param[in]     radial_profile   Radial profile used for the falloff.
  * @param[in]     profile_param    Shape parameter of the radial profile.
- * @param[out]    p_mask Optional output blending weights.
- * @param[in]     bbox   Bounding box of the heightmap.
+ * @param[out]    p_mask           Optional output blending weights.
+ * @param[in]     bbox             Bounding box of the heightmap.
  */
 void flatten_around_points_terrain_aware(
     Array                    &z,
@@ -369,8 +374,8 @@ void trench(Array                   &z,
             float                    curvature_radius_min = 1.f,
             float                    curv_width_ratio_min = 0.5f,
             float                    curv_width_ratio_max = 2.f,
-            RadialProfile            radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
-            float                    radial_profile_parameter = 2.f,
+            RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
+            float         radial_profile_parameter = 2.f,
             ElevationLongitudinalProfile longitudinal_profile =
                 ElevationLongitudinalProfile::ELP_DECREASING,
             float        elevation_shift = -0.05f,
@@ -418,8 +423,8 @@ void trench(Array                    &z,
             const std::vector<float> &relative_widths,
             float                     width,
             bool                      enable_width_depth_scaling = true,
-            RadialProfile             radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
-            float                     radial_profile_parameter = 2.f,
+            RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
+            float         radial_profile_parameter = 2.f,
             ElevationLongitudinalProfile longitudinal_profile =
                 ElevationLongitudinalProfile::ELP_DECREASING,
             float        elevation_shift = -0.05f,

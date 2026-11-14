@@ -73,11 +73,10 @@ void aeolian_erosion_multiscale(Array        &z,
   coarse_fraction = std::clamp(coarse_fraction, 0.f, 0.95f);
 
   const int n_coarse = n_levels - 1;
-  const int steps_coarse_total = (n_coarse > 0)
-                                     ? static_cast<int>(coarse_fraction *
-                                                        static_cast<float>(
-                                                            steps))
-                                     : 0;
+  const int steps_coarse_total = (n_coarse > 0) ? static_cast<int>(
+                                                      coarse_fraction *
+                                                      static_cast<float>(steps))
+                                                : 0;
   const int steps_per_coarse = (n_coarse > 0) ? steps_coarse_total / n_coarse
                                               : 0;
 
@@ -98,9 +97,8 @@ void aeolian_erosion_multiscale(Array        &z,
     if (level_steps <= 0) continue;
 
     // seed offset so that levels do not reuse the same random sequence
-    const std::uint32_t level_seed = seed + 7919u *
-                                                static_cast<std::uint32_t>(
-                                                    level);
+    const std::uint32_t level_seed = seed +
+                                     7919u * static_cast<std::uint32_t>(level);
 
     if (is_finest)
     {

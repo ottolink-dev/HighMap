@@ -6,12 +6,12 @@
 
 int main(int argc, char **argv)
 {
-  // usage: ex_aeolian_erosion_multiscale [baseline|multiscale|shadowmap1|shadowmap4]
+  // usage: ex_aeolian_erosion_multiscale
+  // [baseline|multiscale|shadowmap1|shadowmap4]
   const std::string mode = (argc > 1) ? argv[1] : "multiscale";
-  const bool        is_baseline = (mode == "baseline") ||
-                            (mode == "baseline_s1") ||
-                            (mode.rfind("shadowmap", 0) == 0);
-  int               shadow_map_interval = 0;
+  const bool is_baseline = (mode == "baseline") || (mode == "baseline_s1") ||
+                           (mode.rfind("shadowmap", 0) == 0);
+  int shadow_map_interval = 0;
 
   if (mode == "shadowmap1") shadow_map_interval = 1;
   if (mode == "shadowmap4") shadow_map_interval = 4;

@@ -12,18 +12,11 @@ int main(void)
 
   float mu = 1.02f;
 
-  std::unique_ptr<hmap::NoiseFunction> p = std::unique_ptr<hmap::NoiseFunction>(
-      new hmap::ParberryFunction(kw, seed, mu));
+  hmap::ParberryFunction p(kw, seed, mu);
 
-  hmap::FbmFunction f = hmap::FbmFunction(std::move(p), 8, 0.7f, 0.5f, 2.f);
+  hmap::FbmFunction f(p, 8, 0.7f, 0.5f, 2.f);
 
-  fill_array_using_xy_function(z,
-                               bbox,
-                               nullptr,
-                               nullptr,
-                               nullptr,
-                               nullptr,
-                               f.get_delegate());
+  fill_array_using_xy_function(z, bbox, nullptr, nullptr, nullptr, nullptr, f);
 
   z.to_png("out.png", hmap::Cmap::TERRAIN, true);
   z.infos();
