@@ -81,62 +81,8 @@ enum NoiseType : int
 };
 
 //----------------------------------------
-// Base Function class and derived
+// Function functors
 //----------------------------------------
-
-/**
- * @class Function
- * @brief A class that wraps a callable entity taking three floats and returning
- * a float.
- */
-class Function
-{
-public:
-  /**
-   * @brief Default constructor. Initializes the delegate function to a default
-   * that returns 0.
-   */
-  Function() : delegate([](float, float, float) { return 0.f; })
-  {
-  }
-
-  /**
-   * @brief Virtual destructor to ensure proper cleanup in derived classes.
-   */
-  virtual ~Function() = default;
-
-  /**
-   * @brief Constructor to initialize with a specific delegate function.
-   * @param delegate The delegate function to initialize with.
-   */
-  explicit Function(HMAP_FCT_XY_TYPE delegate) : delegate(std::move(delegate))
-  {
-  }
-
-  /**
-   * @brief Get the current delegate function.
-   * @return The current delegate function.
-   */
-  HMAP_FCT_XY_TYPE get_delegate() const;
-
-  /**
-   * @brief Call the delegate function with given arguments.
-   * @param  x          The first float parameter.
-   * @param  y          The second float parameter.
-   * @param  ctrl_param The third float parameter.
-   * @return            The result of the delegate function call.
-   */
-  float get_value(float x, float y, float ctrl_param) const;
-
-  /**
-   * @brief Set a new delegate function.
-   * @param new_delegate The new delegate function to set.
-   */
-  void set_delegate(HMAP_FCT_XY_TYPE new_delegate);
-
-private:
-  HMAP_FCT_XY_TYPE delegate; ///< The stored delegate function object.
-};
 
 /**
  * @class ArrayFunction
@@ -147,9 +93,11 @@ private:
  * given (x, y) coordinate. Specific boundary conditions, such as periodicity,
  * can also be used.
  */
-class ArrayFunction : public Function
+class ArrayFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new ArrayFunction object.
    *
@@ -185,9 +133,11 @@ private:
  * This class models a biquad function with a specified gain and reference
  * center. It extends the base Function class.
  */
-class BiquadFunction : public Function
+class BiquadFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Biquad Function object.
    *
@@ -208,9 +158,11 @@ protected:
  * This class models a bump function with a specified gain and reference center.
  * It extends the base Function class.
  */
-class BumpFunction : public Function
+class BumpFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Bump Function object.
    *
@@ -231,9 +183,11 @@ protected:
  * This class models a crater function with specified radius, depth, lip decay,
  * lip height ratio, and reference center. It extends the base Function class.
  */
-class CraterFunction : public Function
+class CraterFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Crater Function object.
    *
@@ -264,9 +218,11 @@ protected:
  * @class DiskFunction
  * @brief DiskFunction (x, y) function class.
  */
-class DiskFunction : public Function
+class DiskFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Disk Function object.
    *
@@ -289,9 +245,11 @@ protected:
  * This class models a gaussian pulse function. It extends the base Function
  * class.
  */
-class GaussianPulseFunction : public Function
+class GaussianPulseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new GaussianPulse Function object.
    *
@@ -327,9 +285,11 @@ private:
  * bilinear/quadratic interpolation from four corner elevations:
  * c00 (bottom-left), c10 (bottom-right), c01 (top-left), and c11 (top-right).
  */
-class QuadSurfaceFunction : public Function
+class QuadSurfaceFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new QuadSurface Function object.
    *
@@ -352,9 +312,11 @@ protected:
  * @class RectangleFunction
  * @brief RectangleFunction (x, y) function class.
  */
-class RectangleFunction : public Function
+class RectangleFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Rectangle Function object.
    *
@@ -400,9 +362,11 @@ private:
  * This class models a step function with a specified angle, slope, and
  * reference center. It extends the base Function class.
  */
-class RiftFunction : public Function
+class RiftFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Rift Function object.
    *
@@ -449,9 +413,11 @@ private:
  * This class models a slope function with a specified angle, slope, and
  * reference center. It extends the base Function class.
  */
-class SlopeFunction : public Function
+class SlopeFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Slope Function object.
    *
@@ -490,9 +456,11 @@ private:
  * This class models a step function with a specified angle, slope, and
  * reference center. It extends the base Function class.
  */
-class StepFunction : public Function
+class StepFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Step Function object.
    *
@@ -532,9 +500,11 @@ private:
  * rotation angle, slant ratio, and phase shift. It extends the base Function
  * class.
  */
-class WaveDuneFunction : public Function
+class WaveDuneFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Wave Dune Function object.
    *
@@ -588,9 +558,11 @@ private:
  * This class models a wave sine function with specific noise wavenumbers,
  * rotation angle, and phase shift. It extends the base Function class.
  */
-class WaveSineFunction : public Function
+class WaveSineFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Wave Sine Function object.
    *
@@ -635,9 +607,11 @@ private:
  * This class models a wave square function with specific noise wavenumbers,
  * rotation angle, and phase shift. It extends the base Function class.
  */
-class WaveSquareFunction : public Function
+class WaveSquareFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Wave Square Function object.
    *
@@ -683,9 +657,11 @@ private:
  * rotation angle, slant ratio, and phase shift. It extends the base Function
  * class.
  */
-class WaveTriangularFunction : public Function
+class WaveTriangularFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Wave Triangular Function object.
    *
@@ -739,14 +715,14 @@ private:
  * frequency scaling (`kw`) and a random seed (`seed`) to customize the noise
  * generation.
  */
-class NoiseFunction : public Function
+class NoiseFunction
 {
 public:
   /**
    * @brief Default constructor. Initializes with default frequency scaling and
    * seed.
    */
-  NoiseFunction() : Function(), kw(glm::vec2(0.f, 0.f)), seed(0)
+  NoiseFunction() : kw(glm::vec2(0.f, 0.f)), seed(0)
   {
   }
 
@@ -754,7 +730,7 @@ public:
    * @brief Constructor to initialize with specific frequency scaling.
    * @param kw Frequency scaling vector.
    */
-  NoiseFunction(glm::vec2 kw) : Function(), kw(kw), seed(0)
+  NoiseFunction(glm::vec2 kw) : kw(kw), seed(0)
   {
   }
 
@@ -763,8 +739,7 @@ public:
    * @param kw   Frequency scaling vector.
    * @param seed Random seed for noise generation.
    */
-  NoiseFunction(glm::vec2 kw, std::uint32_t seed)
-      : Function(), kw(kw), seed(seed)
+  NoiseFunction(glm::vec2 kw, std::uint32_t seed) : kw(kw), seed(seed)
   {
   }
 
@@ -790,7 +765,7 @@ public:
    * @brief Set a new random seed for noise generation.
    * @param new_seed The new random seed.
    */
-  virtual void set_seed(std::uint32_t new_seed)
+  void set_seed(std::uint32_t new_seed)
   {
     this->seed = new_seed;
   }
@@ -799,7 +774,7 @@ public:
    * @brief Set a new frequency scaling vector.
    * @param new_kw The new frequency scaling vector.
    */
-  virtual void set_kw(glm::vec2 new_kw)
+  void set_kw(glm::vec2 new_kw)
   {
     this->kw = new_kw;
   }
@@ -819,6 +794,8 @@ protected:
 class ParberryFunction : public NoiseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Gradient magnitude exponent.
    */
@@ -887,6 +864,8 @@ private:
 class PerlinFunction : public NoiseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Perlin Function object.
    *
@@ -920,6 +899,8 @@ private:
 class PerlinBillowFunction : public NoiseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Perlin Function object.
    *
@@ -953,6 +934,8 @@ private:
 class PerlinHalfFunction : public NoiseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   float k;
 
   /**
@@ -989,6 +972,8 @@ private:
 class PerlinMixFunction : public NoiseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Perlin Function object.
    *
@@ -1022,6 +1007,8 @@ private:
 class Simplex2Function : public NoiseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Perlin Function object.
    *
@@ -1055,6 +1042,8 @@ private:
 class Simplex2SFunction : public NoiseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Perlin Function object.
    *
@@ -1088,6 +1077,8 @@ private:
 class ValueNoiseFunction : public NoiseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new ValueNoiseFunction object.
    *
@@ -1121,6 +1112,8 @@ private:
 class ValueCubicNoiseFunction : public NoiseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new ValueCubicNoiseFunction object.
    *
@@ -1154,6 +1147,8 @@ private:
 class ValueDelaunayNoiseFunction : public NoiseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new ValueNoiseFunction object.
    *
@@ -1187,7 +1182,8 @@ public:
   /**
    * @brief Update base interpolation.
    */
-  void update_interpolation_function();
+  void                                      update_interpolation_function();
+  std::function<float(float, float, float)> itp_fct;
 };
 
 /**
@@ -1196,6 +1192,8 @@ public:
 class ValueLinearNoiseFunction : public NoiseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new ValueLinearNoiseFunction object.
    *
@@ -1229,7 +1227,8 @@ public:
   /**
    * @brief Update base interpolation.
    */
-  void update_interpolation_function();
+  void                                      update_interpolation_function();
+  std::function<float(float, float, float)> itp_fct;
 };
 
 /**
@@ -1238,6 +1237,8 @@ public:
 class WorleyFunction : public NoiseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Worley Function object.
    *
@@ -1273,6 +1274,8 @@ private:
 class WorleyDoubleFunction : public NoiseFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Amplitude ratio between each Worley noise.
    */
@@ -1326,7 +1329,7 @@ private:
  * underlying base noise function. It allows customization of the fractal
  * properties such as octaves, weight, persistence, and lacunarity.
  */
-class GenericFractalFunction : public NoiseFunction
+template <typename BaseFn> class GenericFractalFunction : public NoiseFunction
 {
 public:
   /**
@@ -1338,21 +1341,21 @@ public:
    * @param persistence Persistence of the fractal noise.
    * @param lacunarity  Lacunarity of the fractal noise.
    */
-  explicit GenericFractalFunction(std::unique_ptr<NoiseFunction> p_base,
-                                  int                            octaves,
-                                  float                          weight,
-                                  float                          persistence,
-                                  float                          lacunarity);
+  explicit GenericFractalFunction(BaseFn base,
+                                  int    octaves,
+                                  float  weight,
+                                  float  persistence,
+                                  float  lacunarity);
 
   /**
    * @brief Set the frequency scaling vector.
    *
    * @param new_kw The new frequency scaling vector.
    */
-  void set_kw(glm::vec2 new_kw) override
+  void set_kw(glm::vec2 new_kw)
   {
     NoiseFunction::set_kw(new_kw);
-    this->p_base->set_kw(new_kw);
+    this->base.set_kw(new_kw);
   }
 
   /**
@@ -1392,10 +1395,10 @@ public:
    *
    * @param new_seed The new random seed.
    */
-  void set_seed(std::uint32_t new_seed) override
+  void set_seed(std::uint32_t new_seed)
   {
     NoiseFunction::set_seed(new_seed);
-    this->p_base->set_seed(new_seed);
+    this->base.set_seed(new_seed);
   }
 
   /**
@@ -1456,21 +1459,24 @@ protected:
   void update_amp0();
 
 protected:
-  std::unique_ptr<NoiseFunction> p_base; ///< Unique pointer to the base noise function.
-  int octaves;                           ///< Number of octaves in the fractal noise.
-  float weight;                          ///< Weight of the base noise function.
-  float persistence;                     ///< Persistence of the fractal noise.
-  float lacunarity;                      ///< Lacunarity of the fractal noise.
-  float amp0;                            ///< Initial amplitude of the fractal noise.
+  BaseFn base;       ///< Unique pointer to the base noise function.
+  int    octaves;    ///< Number of octaves in the fractal noise.
+  float weight;      ///< Weight of the base noise function.
+  float persistence; ///< Persistence of the fractal noise.
+  float lacunarity;  ///< Lacunarity of the fractal noise.
+  float amp0;        ///< Initial amplitude of the fractal noise.
 };
 
 /**
  * @class FbmFunction
  * @brief Fractional Brownian Motion (FBM) function class.
  */
-class FbmFunction : public GenericFractalFunction
+template <typename BaseFn>
+class FbmFunction : public GenericFractalFunction<BaseFn>
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Fbm Function object.
    *
@@ -1480,20 +1486,23 @@ public:
    * @param persistence Octave persistence.
    * @param lacunarity  Defines the wavenumber ratio between each octave.
    */
-  FbmFunction(std::unique_ptr<NoiseFunction> p_base,
-              int                            octaves,
-              float                          weight,
-              float                          persistence,
-              float                          lacunarity);
+  FbmFunction(BaseFn base,
+              int    octaves,
+              float  weight,
+              float  persistence,
+              float  lacunarity);
 };
 
 /**
  * @class FbmIqFunction
  * @brief IQ layering function class.
  */
-class FbmIqFunction : public GenericFractalFunction
+template <typename BaseFn>
+class FbmIqFunction : public GenericFractalFunction<BaseFn>
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Fbm Iq Function object.
    *
@@ -1504,12 +1513,12 @@ public:
    * @param lacunarity     Defines the wavenumber ratio between each octave.
    * @param gradient_scale Gradient scale influence.
    */
-  FbmIqFunction(std::unique_ptr<NoiseFunction> p_base,
-                int                            octaves,
-                float                          weight,
-                float                          persistence,
-                float                          lacunarity,
-                float                          gradient_scale);
+  FbmIqFunction(BaseFn base,
+                int    octaves,
+                float  weight,
+                float  persistence,
+                float  lacunarity,
+                float  gradient_scale);
 
   /**
    * @brief Set the gradient scale.
@@ -1529,9 +1538,12 @@ protected:
  * @class FbmJordanFunction
  * @brief Jordan layering function class.
  */
-class FbmJordanFunction : public GenericFractalFunction
+template <typename BaseFn>
+class FbmJordanFunction : public GenericFractalFunction<BaseFn>
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Fbm Jordan Function object.
    *
@@ -1545,15 +1557,15 @@ public:
    * @param warp_scale  Warp scale.
    * @param damp_scale  Damp scale.
    */
-  FbmJordanFunction(std::unique_ptr<NoiseFunction> p_base,
-                    int                            octaves,
-                    float                          weight,
-                    float                          persistence,
-                    float                          lacunarity,
-                    float                          warp0,
-                    float                          damp0,
-                    float                          warp_scale,
-                    float                          damp_scale);
+  FbmJordanFunction(BaseFn base,
+                    int    octaves,
+                    float  weight,
+                    float  persistence,
+                    float  lacunarity,
+                    float  warp0,
+                    float  damp0,
+                    float  warp_scale,
+                    float  damp_scale);
 
   /**
    * @brief Set the initial warp.
@@ -1606,9 +1618,12 @@ protected:
  * @class FbmPingpongFunction
  * @brief Pingpong layering function class.
  */
-class FbmPingpongFunction : public GenericFractalFunction
+template <typename BaseFn>
+class FbmPingpongFunction : public GenericFractalFunction<BaseFn>
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Fbm Pingpong Function object.
    *
@@ -1618,11 +1633,11 @@ public:
    * @param persistence Octave persistence.
    * @param lacunarity  Defines the wavenumber ratio between each octave.
    */
-  FbmPingpongFunction(std::unique_ptr<NoiseFunction> p_base,
-                      int                            octaves,
-                      float                          weight,
-                      float                          persistence,
-                      float                          lacunarity);
+  FbmPingpongFunction(BaseFn base,
+                      int    octaves,
+                      float  weight,
+                      float  persistence,
+                      float  lacunarity);
 
   /**
    * @brief Set the smoothing parameter.
@@ -1642,9 +1657,12 @@ protected:
  * @class FbmRidgedFunction
  * @brief Ridged layering function class.
  */
-class FbmRidgedFunction : public GenericFractalFunction
+template <typename BaseFn>
+class FbmRidgedFunction : public GenericFractalFunction<BaseFn>
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Fbm Ridged Function object.
    *
@@ -1655,12 +1673,12 @@ public:
    * @param lacunarity  Defines the wavenumber ratio between each octave.
    * @param k_smoothing Smoothing parameter.
    */
-  FbmRidgedFunction(std::unique_ptr<NoiseFunction> p_base,
-                    int                            octaves,
-                    float                          weight,
-                    float                          persistence,
-                    float                          lacunarity,
-                    float                          k_smoothing);
+  FbmRidgedFunction(BaseFn base,
+                    int    octaves,
+                    float  weight,
+                    float  persistence,
+                    float  lacunarity,
+                    float  k_smoothing);
 
   /**
    * @brief Set the smoothing parameter.
@@ -1680,9 +1698,12 @@ protected:
  * @class FbmSwissFunction
  * @brief Swiss layering function class.
  */
-class FbmSwissFunction : public GenericFractalFunction
+template <typename BaseFn>
+class FbmSwissFunction : public GenericFractalFunction<BaseFn>
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new Fbm Swiss Function object.
    *
@@ -1693,12 +1714,12 @@ public:
    * @param lacunarity  Defines the wavenumber ratio between each octave.
    * @param warp_scale  Warping scale.
    */
-  FbmSwissFunction(std::unique_ptr<NoiseFunction> p_base,
-                   int                            octaves,
-                   float                          weight,
-                   float                          persistence,
-                   float                          lacunarity,
-                   float                          warp_scale);
+  FbmSwissFunction(BaseFn base,
+                   int    octaves,
+                   float  weight,
+                   float  persistence,
+                   float  lacunarity,
+                   float  warp_scale);
 
   /**
    * @brief Set the warp scale.
@@ -1724,31 +1745,34 @@ protected:
  * @class FieldFunction
  * @brief Field function class.
  */
-class FieldFunction : public Function
+template <typename BaseFn> class FieldFunction
 {
 public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
   /**
    * @brief Construct a new FieldFunction object.
    *
-   * @param p_base Unique pointer to the base function.
+   * @param base Base function functor.
    */
-  FieldFunction(std::unique_ptr<Function> p_base);
+  explicit FieldFunction(BaseFn base);
 
   /**
    * @brief Construct a new FieldFunction object with given vectors.
    *
-   * @param p_base Unique pointer to the base function.
-   * @param xr     Vector of x coordinates representing the centers of the
-   *               primitive.
-   * @param yr     Vector of y coordinates representing the centers of the
-   *               primitive.
-   * @param zr     Vector of z coordinates used to scale the primitive in x and
-   *               y directions, and also to scale the primitive amplitude if requested.
+   * @param base Base function functor.
+   * @param xr   Vector of x coordinates representing the centers of the
+   *             primitive.
+   * @param yr   Vector of y coordinates representing the centers of the
+   *             primitive.
+   * @param zr   Vector of z coordinates used to scale the primitive in x and y
+   *             directions, and also to scale the primitive amplitude if
+   *             requested.
    */
-  FieldFunction(std::unique_ptr<Function> p_base,
-                std::vector<float>        xr,
-                std::vector<float>        yr,
-                std::vector<float>        zr);
+  FieldFunction(BaseFn             base,
+                std::vector<float> xr,
+                std::vector<float> yr,
+                std::vector<float> zr);
 
   /**
    * @brief Set the x coordinates representing the centers of the primitive.
@@ -1790,12 +1814,7 @@ protected:
   ///< directions, and to scale the primitive amplitude if requested.
 
 private:
-  std::unique_ptr<Function> p_base; ///< Unique pointer to the base function.
-
-  /**
-   * @brief Setup the delegate function.
-   */
-  void setup_delegate();
+  BaseFn base; ///< Base function functor.
 };
 
 //----------------------------------------
@@ -1803,22 +1822,21 @@ private:
 //----------------------------------------
 
 /**
- * @brief Create a noise function based on the specified noise type.
+ * @brief Dispatch a noise functor based on the specified noise type.
  *
- * This function creates an instance of a noise function corresponding to the
- * specified `noise_type`. It initializes the noise function with the given
- * frequency scaling vector (`kw`) and random seed (`seed`).
- *
- * @param  noise_type The type of noise function to create (e.g., PERLIN,
- *                    SIMPLEX2, etc.).
- * @param  kw         The frequency scaling vector to be used for the noise
- *                    function.
- * @param  seed       The random seed for noise generation.
- * @return            A `std::unique_ptr` to the created noise function.
+ * @param noise_type The type of noise function to create (e.g., PERLIN,
+ *                   SIMPLEX2, etc.).
+ * @param kw         The frequency scaling vector to be used for the noise
+ *                   function.
+ * @param seed       The random seed for noise generation.
+ * @param fn         Callable invoked with the concrete noise functor.
  */
-std::unique_ptr<hmap::NoiseFunction> create_noise_function_from_type(
-    NoiseType     noise_type,
-    glm::vec2     kw,
-    std::uint32_t seed);
+template <typename Fn>
+decltype(auto) with_noise_function(NoiseType     noise_type,
+                                   glm::vec2     kw,
+                                   std::uint32_t seed,
+                                   Fn          &&fn);
 
 } // namespace hmap
+
+#include "highmap/functions.inl"

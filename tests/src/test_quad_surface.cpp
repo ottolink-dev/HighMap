@@ -12,15 +12,13 @@ TEST(QuadSurface, CornerValuesInterpolation)
   hmap::QuadSurfaceFunction f(c00, c10, c01, c11);
 
   // check corner values (xmin=0, ymin=0, xmax=1, ymax=1)
-  EXPECT_NEAR(f.get_value(0.f, 0.f, 1.f), c00, 1e-5f);
-  EXPECT_NEAR(f.get_value(1.f, 0.f, 1.f), c10, 1e-5f);
-  EXPECT_NEAR(f.get_value(0.f, 1.f, 1.f), c01, 1e-5f);
-  EXPECT_NEAR(f.get_value(1.f, 1.f, 1.f), c11, 1e-5f);
+  EXPECT_NEAR(f(0.f, 0.f, 1.f), c00, 1e-5f);
+  EXPECT_NEAR(f(1.f, 0.f, 1.f), c10, 1e-5f);
+  EXPECT_NEAR(f(0.f, 1.f, 1.f), c01, 1e-5f);
+  EXPECT_NEAR(f(1.f, 1.f, 1.f), c11, 1e-5f);
 
   // check center value (u = 0.5, v = 0.5)
-  EXPECT_NEAR(f.get_value(0.5f, 0.5f, 1.f),
-              0.25f * (c00 + c10 + c01 + c11),
-              1e-5f);
+  EXPECT_NEAR(f(0.5f, 0.5f, 1.f), 0.25f * (c00 + c10 + c01 + c11), 1e-5f);
 }
 
 TEST(QuadSurface, ArrayEvaluation)
@@ -55,14 +53,14 @@ TEST(QuadSurface, FunctionDirectEvaluation)
   hmap::QuadSurfaceFunction f(0.f, 10.f, 20.f, 30.f);
 
   // Evaluate at corners
-  EXPECT_NEAR(f.get_value(0.f, 0.f, 1.f), 0.f, 1e-6f);
-  EXPECT_NEAR(f.get_value(1.f, 0.f, 1.f), 10.f, 1e-6f);
-  EXPECT_NEAR(f.get_value(0.f, 1.f, 1.f), 20.f, 1e-6f);
-  EXPECT_NEAR(f.get_value(1.f, 1.f, 1.f), 30.f, 1e-6f);
+  EXPECT_NEAR(f(0.f, 0.f, 1.f), 0.f, 1e-6f);
+  EXPECT_NEAR(f(1.f, 0.f, 1.f), 10.f, 1e-6f);
+  EXPECT_NEAR(f(0.f, 1.f, 1.f), 20.f, 1e-6f);
+  EXPECT_NEAR(f(1.f, 1.f, 1.f), 30.f, 1e-6f);
 
   // Evaluate at midpoint (x=0.5, y=0.5)
-  EXPECT_NEAR(f.get_value(0.5f, 0.5f, 1.f), 15.f, 1e-6f);
+  EXPECT_NEAR(f(0.5f, 0.5f, 1.f), 15.f, 1e-6f);
 
   // With ctrl_param multiplier
-  EXPECT_NEAR(f.get_value(0.5f, 0.5f, 2.f), 30.f, 1e-6f);
+  EXPECT_NEAR(f(0.5f, 0.5f, 2.f), 30.f, 1e-6f);
 }

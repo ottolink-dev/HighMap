@@ -329,7 +329,7 @@ Array translate(const Array &array,
                                &dx_array,
                                &dy_array,
                                nullptr,
-                               f.get_delegate());
+                               f);
 
   return array_out;
 }
@@ -379,7 +379,7 @@ Array zoom(const Array &array,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
 
   return array_out;
 }

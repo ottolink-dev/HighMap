@@ -38,7 +38,7 @@ Array biquad_pulse(glm::ivec2   shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 
@@ -109,7 +109,7 @@ Array bump(glm::ivec2   shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 
@@ -226,7 +226,7 @@ Array disk(glm::ivec2   shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 
@@ -253,7 +253,7 @@ Array gaussian_pulse(glm::ivec2   shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 
@@ -325,7 +325,7 @@ Array quad_surface(glm::ivec2   shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 
@@ -355,7 +355,7 @@ Array rectangle(glm::ivec2   shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 
@@ -383,7 +383,7 @@ Array slope(glm::ivec2   shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 
@@ -445,7 +445,7 @@ Array step(glm::ivec2   shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 

@@ -28,17 +28,19 @@ Array noise(NoiseType     noise_type,
 
   Array array = Array(shape);
 
-  std::unique_ptr<NoiseFunction> p = create_noise_function_from_type(noise_type,
-                                                                     kw,
-                                                                     seed);
-
-  fill_array_using_xy_function(array,
-                               bbox,
-                               nullptr,
-                               p_noise_x,
-                               p_noise_y,
-                               nullptr,
-                               p.get()->get_delegate());
+  with_noise_function(noise_type,
+                      kw,
+                      seed,
+                      [&](const auto &base_fn)
+                      {
+                        fill_array_using_xy_function(array,
+                                                     bbox,
+                                                     nullptr,
+                                                     p_noise_x,
+                                                     p_noise_y,
+                                                     nullptr,
+                                                     base_fn);
+                      });
   return array;
 }
 
@@ -63,23 +65,24 @@ Array noise_fbm(NoiseType     noise_type,
 
   Array array = Array(shape);
 
-  std::unique_ptr<NoiseFunction> p = create_noise_function_from_type(noise_type,
-                                                                     kw,
-                                                                     seed);
-
-  hmap::FbmFunction f = hmap::FbmFunction(std::move(p),
-                                          octaves,
-                                          weight,
-                                          persistence,
-                                          lacunarity);
-
-  fill_array_using_xy_function(array,
-                               bbox,
-                               p_ctrl_param,
-                               p_noise_x,
-                               p_noise_y,
-                               nullptr,
-                               f.get_delegate());
+  with_noise_function(noise_type,
+                      kw,
+                      seed,
+                      [&](const auto &base_fn)
+                      {
+                        hmap::FbmFunction f = hmap::FbmFunction(base_fn,
+                                                                octaves,
+                                                                weight,
+                                                                persistence,
+                                                                lacunarity);
+                        fill_array_using_xy_function(array,
+                                                     bbox,
+                                                     p_ctrl_param,
+                                                     p_noise_x,
+                                                     p_noise_y,
+                                                     nullptr,
+                                                     f);
+                      });
   return array;
 }
 
@@ -105,24 +108,26 @@ Array noise_iq(NoiseType     noise_type,
 
   Array array = Array(shape);
 
-  std::unique_ptr<NoiseFunction> p = create_noise_function_from_type(noise_type,
-                                                                     kw,
-                                                                     seed);
-
-  hmap::FbmIqFunction f = hmap::FbmIqFunction(std::move(p),
-                                              octaves,
-                                              weight,
-                                              persistence,
-                                              lacunarity,
-                                              gradient_scale);
-
-  fill_array_using_xy_function(array,
-                               bbox,
-                               p_ctrl_param,
-                               p_noise_x,
-                               p_noise_y,
-                               nullptr,
-                               f.get_delegate());
+  with_noise_function(noise_type,
+                      kw,
+                      seed,
+                      [&](const auto &base_fn)
+                      {
+                        hmap::FbmIqFunction f = hmap::FbmIqFunction(
+                            base_fn,
+                            octaves,
+                            weight,
+                            persistence,
+                            lacunarity,
+                            gradient_scale);
+                        fill_array_using_xy_function(array,
+                                                     bbox,
+                                                     p_ctrl_param,
+                                                     p_noise_x,
+                                                     p_noise_y,
+                                                     nullptr,
+                                                     f);
+                      });
   return array;
 }
 
@@ -151,27 +156,29 @@ Array noise_jordan(NoiseType     noise_type,
 
   Array array = Array(shape);
 
-  std::unique_ptr<NoiseFunction> p = create_noise_function_from_type(noise_type,
-                                                                     kw,
-                                                                     seed);
-
-  hmap::FbmJordanFunction f = hmap::FbmJordanFunction(std::move(p),
-                                                      octaves,
-                                                      weight,
-                                                      persistence,
-                                                      lacunarity,
-                                                      warp0,
-                                                      damp0,
-                                                      warp_scale,
-                                                      damp_scale);
-
-  fill_array_using_xy_function(array,
-                               bbox,
-                               p_ctrl_param,
-                               p_noise_x,
-                               p_noise_y,
-                               nullptr,
-                               f.get_delegate());
+  with_noise_function(noise_type,
+                      kw,
+                      seed,
+                      [&](const auto &base_fn)
+                      {
+                        hmap::FbmJordanFunction f = hmap::FbmJordanFunction(
+                            base_fn,
+                            octaves,
+                            weight,
+                            persistence,
+                            lacunarity,
+                            warp0,
+                            damp0,
+                            warp_scale,
+                            damp_scale);
+                        fill_array_using_xy_function(array,
+                                                     bbox,
+                                                     p_ctrl_param,
+                                                     p_noise_x,
+                                                     p_noise_y,
+                                                     nullptr,
+                                                     f);
+                      });
   return array;
 }
 
@@ -199,7 +206,7 @@ Array noise_parberry(glm::ivec2    shape,
   std::unique_ptr<NoiseFunction> p = std::unique_ptr<NoiseFunction>(
       new ParberryFunction(kw, seed, mu));
 
-  hmap::FbmFunction f = hmap::FbmFunction(std::move(p),
+  hmap::FbmFunction f = hmap::FbmFunction(ParberryFunction(kw, seed, mu),
                                           octaves,
                                           weight,
                                           persistence,
@@ -211,7 +218,7 @@ Array noise_parberry(glm::ivec2    shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 
@@ -236,23 +243,25 @@ Array noise_pingpong(NoiseType     noise_type,
 
   Array array = Array(shape);
 
-  std::unique_ptr<NoiseFunction> p = create_noise_function_from_type(noise_type,
-                                                                     kw,
-                                                                     seed);
-
-  hmap::FbmPingpongFunction f = hmap::FbmPingpongFunction(std::move(p),
-                                                          octaves,
-                                                          weight,
-                                                          persistence,
-                                                          lacunarity);
-
-  fill_array_using_xy_function(array,
-                               bbox,
-                               p_ctrl_param,
-                               p_noise_x,
-                               p_noise_y,
-                               nullptr,
-                               f.get_delegate());
+  with_noise_function(noise_type,
+                      kw,
+                      seed,
+                      [&](const auto &base_fn)
+                      {
+                        hmap::FbmPingpongFunction f = hmap::FbmPingpongFunction(
+                            base_fn,
+                            octaves,
+                            weight,
+                            persistence,
+                            lacunarity);
+                        fill_array_using_xy_function(array,
+                                                     bbox,
+                                                     p_ctrl_param,
+                                                     p_noise_x,
+                                                     p_noise_y,
+                                                     nullptr,
+                                                     f);
+                      });
   return array;
 }
 
@@ -278,24 +287,26 @@ Array noise_ridged(NoiseType     noise_type,
 
   Array array = Array(shape);
 
-  std::unique_ptr<NoiseFunction> p = create_noise_function_from_type(noise_type,
-                                                                     kw,
-                                                                     seed);
-
-  hmap::FbmRidgedFunction f = hmap::FbmRidgedFunction(std::move(p),
-                                                      octaves,
-                                                      weight,
-                                                      persistence,
-                                                      lacunarity,
-                                                      k_smoothing);
-
-  fill_array_using_xy_function(array,
-                               bbox,
-                               p_ctrl_param,
-                               p_noise_x,
-                               p_noise_y,
-                               nullptr,
-                               f.get_delegate());
+  with_noise_function(noise_type,
+                      kw,
+                      seed,
+                      [&](const auto &base_fn)
+                      {
+                        hmap::FbmRidgedFunction f = hmap::FbmRidgedFunction(
+                            base_fn,
+                            octaves,
+                            weight,
+                            persistence,
+                            lacunarity,
+                            k_smoothing);
+                        fill_array_using_xy_function(array,
+                                                     bbox,
+                                                     p_ctrl_param,
+                                                     p_noise_x,
+                                                     p_noise_y,
+                                                     nullptr,
+                                                     f);
+                      });
   return array;
 }
 
@@ -321,24 +332,26 @@ Array noise_swiss(NoiseType     noise_type,
 
   Array array = Array(shape);
 
-  std::unique_ptr<NoiseFunction> p = create_noise_function_from_type(noise_type,
-                                                                     kw,
-                                                                     seed);
-
-  hmap::FbmSwissFunction f = hmap::FbmSwissFunction(std::move(p),
-                                                    octaves,
-                                                    weight,
-                                                    persistence,
-                                                    lacunarity,
-                                                    warp_scale);
-
-  fill_array_using_xy_function(array,
-                               bbox,
-                               p_ctrl_param,
-                               p_noise_x,
-                               p_noise_y,
-                               nullptr,
-                               f.get_delegate());
+  with_noise_function(noise_type,
+                      kw,
+                      seed,
+                      [&](const auto &base_fn)
+                      {
+                        hmap::FbmSwissFunction f = hmap::FbmSwissFunction(
+                            base_fn,
+                            octaves,
+                            weight,
+                            persistence,
+                            lacunarity,
+                            warp_scale);
+                        fill_array_using_xy_function(array,
+                                                     bbox,
+                                                     p_ctrl_param,
+                                                     p_noise_x,
+                                                     p_noise_y,
+                                                     nullptr,
+                                                     f);
+                      });
   return array;
 }
 

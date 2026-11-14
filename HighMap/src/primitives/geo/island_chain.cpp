@@ -73,53 +73,52 @@ Array island_chain_land_mask(glm::ivec2    shape,
 
     if (rk <= 0.f) continue;
 
-    std::unique_ptr<NoiseFunction> p = create_noise_function_from_type(
+    with_noise_function(
         noise_type,
         glm::vec2(0.5f * kw, 0.5f * kw),
-        seed + std::uint32_t(k));
+        seed + std::uint32_t(k),
+        [&](const auto &base_fn)
+        {
+          FbmFunction f(base_fn, octaves, weight, persistence, lacunarity);
 
-    FbmFunction f = FbmFunction(std::move(p),
-                                octaves,
-                                weight,
-                                persistence,
-                                lacunarity);
+          // pixel window around the island (same x/y mapping as
+          // island_land_mask)
+          float lx = bbox.y - bbox.x;
+          float ly = bbox.w - bbox.z;
+          float margin = rk + displacement;
 
-    // pixel window around the island (same x/y mapping as island_land_mask)
-    float lx = bbox.y - bbox.x;
-    float ly = bbox.w - bbox.z;
-    float margin = rk + displacement;
+          int i1 = std::clamp(
+              int((pos.x - margin - bbox.x) / lx * float(shape.x - 1)),
+              0,
+              shape.x - 1);
+          int i2 = std::clamp(
+              int((pos.x + margin - bbox.x) / lx * float(shape.x - 1)) + 1,
+              0,
+              shape.x - 1);
+          int j1 = std::clamp(
+              int((pos.y - margin - bbox.z) / ly * float(shape.y - 1)),
+              0,
+              shape.y - 1);
+          int j2 = std::clamp(
+              int((pos.y + margin - bbox.z) / ly * float(shape.y - 1)) + 1,
+              0,
+              shape.y - 1);
 
-    int i1 = std::clamp(
-        int((pos.x - margin - bbox.x) / lx * float(shape.x - 1)),
-        0,
-        shape.x - 1);
-    int i2 = std::clamp(
-        int((pos.x + margin - bbox.x) / lx * float(shape.x - 1)) + 1,
-        0,
-        shape.x - 1);
-    int j1 = std::clamp(
-        int((pos.y - margin - bbox.z) / ly * float(shape.y - 1)),
-        0,
-        shape.y - 1);
-    int j2 = std::clamp(
-        int((pos.y + margin - bbox.z) / ly * float(shape.y - 1)) + 1,
-        0,
-        shape.y - 1);
+          for (int j = j1; j <= j2; j++)
+            for (int i = i1; i <= i2; i++)
+            {
+              float x = lx * float(i) / float(shape.x - 1) + bbox.x - pos.x;
+              float y = ly * float(j) / float(shape.y - 1) + bbox.z - pos.y;
 
-    for (int j = j1; j <= j2; j++)
-      for (int i = i1; i <= i2; i++)
-      {
-        float x = lx * float(i) / float(shape.x - 1) + bbox.x - pos.x;
-        float y = ly * float(j) / float(shape.y - 1) + bbox.z - pos.y;
+              float r = std::hypot(x, y);
+              float theta = std::atan2(y, x);
 
-        float r = std::hypot(x, y);
-        float theta = std::atan2(y, x);
+              float dr = radius_factor * displacement *
+                         f(std::cos(theta), std::sin(theta), 0.f);
 
-        float dr = radius_factor * displacement *
-                   f.get_delegate()(std::cos(theta), std::sin(theta), 0.f);
-
-        if (r < rk + dr) mask(i, j) = 1.f;
-      }
+              if (r < rk + dr) mask(i, j) = 1.f;
+            }
+        });
   }
 
   return mask;

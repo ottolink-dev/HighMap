@@ -29,7 +29,11 @@ TEST(FlattenAroundPoints, LargerRadiusDominates)
   hmap::Array z({65, 65}, 0.f);
 
   // cell at the middle is covered by both points; the large one dominates
-  hmap::flatten_around_points(z, {0.4f, 0.6f}, {0.5f, 0.5f}, {1.f, 2.f}, {0.1f, 0.4f});
+  hmap::flatten_around_points(z,
+                              {0.4f, 0.6f},
+                              {0.5f, 0.5f},
+                              {1.f, 2.f},
+                              {0.1f, 0.4f});
 
   EXPECT_GT(z(32, 32), 1.5f);
 }

@@ -32,6 +32,7 @@ int main(void)
                                 nparticles,
                                 seed,
                                 /* p_bedrock */ nullptr,
+                                /* p_erodibility */ nullptr,
                                 /* p_moisture_map */ nullptr,
                                 /* p_elevation_shift */ nullptr,
                                 /* p_erosion_map */ nullptr,

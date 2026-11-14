@@ -39,7 +39,7 @@ Array wave_dune(glm::ivec2   shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 
@@ -68,7 +68,7 @@ Array wave_sine(glm::ivec2   shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 
@@ -97,7 +97,7 @@ Array wave_square(glm::ivec2   shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 
@@ -128,7 +128,7 @@ Array wave_triangular(glm::ivec2   shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 

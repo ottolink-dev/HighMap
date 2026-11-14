@@ -38,7 +38,7 @@ Array worley_double(glm::ivec2    shape,
                                p_noise_x,
                                p_noise_y,
                                nullptr,
-                               f.get_delegate());
+                               f);
   return array;
 }
 

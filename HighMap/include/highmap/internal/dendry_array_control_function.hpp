@@ -131,17 +131,19 @@ class XyControlFunction : public ControlFunction<XyControlFunction>
   friend class ControlFunction<XyControlFunction>;
 
 public:
-  XyControlFunction(NoiseFunction noise_function,
-                    float         offset = 0.f,
-                    float         scaling = 1.f)
-      : noise_function(noise_function), offset(offset), scaling(scaling)
+  XyControlFunction(std::function<float(float, float, float)> noise_function,
+                    float                                     offset = 0.f,
+                    float                                     scaling = 1.f)
+      : noise_function(std::move(noise_function)),
+        offset(offset),
+        scaling(scaling)
   {
   }
 
 protected:
   double EvaluateImpl(float x, float y) const
   {
-    return offset + scaling * noise_function.get_delegate()(x, y, 0.f);
+    return offset + scaling * noise_function(x, y, 0.f);
   }
 
   bool InsideDomainImpl(float /* x */, float /* y */) const
@@ -165,9 +167,9 @@ protected:
   }
 
 private:
-  NoiseFunction noise_function;
-  float         offset;
-  float         scaling;
+  std::function<float(float, float, float)> noise_function;
+  float                                     offset;
+  float                                     scaling;
 };
 
 } // namespace hmap
