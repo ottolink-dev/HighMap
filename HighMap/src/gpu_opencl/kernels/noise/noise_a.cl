@@ -266,13 +266,13 @@ float base_perlin_fbm(const float2 p,
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = helper_fbm_amp0(octaves, persistence);
+  float na = 0.6f;
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
     float v = base_perlin(p * nf, seed, per);
     n += v * na;
-    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
+    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -290,13 +290,13 @@ float base_perlin_billow_fbm(const float2 p,
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = helper_fbm_amp0(octaves, persistence);
+  float na = 0.6f;
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
     float v = 2.f * fabs(base_perlin(p * nf, seed, per)) - 1.f;
     n += v * na;
-    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
+    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -314,13 +314,13 @@ float base_perlin_half_fbm(const float2 p,
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = helper_fbm_amp0(octaves, persistence);
+  float na = 0.6f;
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
     float v = max_smooth(base_perlin(p * nf, seed, per), 0.f, 0.5f);
     n += v * na;
-    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
+    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -337,12 +337,12 @@ float base_simplex2_fbm(const float2 p,
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = helper_fbm_amp0(octaves, persistence);
+  float na = 0.6f;
   for (int i = 0; i < octaves; i++)
   {
     float v = base_simplex2(p * nf, seed);
     n += v * na;
-    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
+    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
     na *= persistence;
     nf *= lacunarity;
   }
@@ -359,13 +359,13 @@ float base_value_fbm(const float2 p,
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = helper_fbm_amp0(octaves, persistence);
+  float na = 0.6f;
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
     float v = base_value(p * nf, seed, per);
     n += v * na;
-    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
+    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -383,13 +383,13 @@ float base_value_cubic_fbm(const float2 p,
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = helper_fbm_amp0(octaves, persistence);
+  float na = 0.6f;
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
     float v = base_value_cubic(p * nf, seed, per);
     n += v * na;
-    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
+    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -407,13 +407,13 @@ float base_value_linear_fbm(const float2 p,
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = helper_fbm_amp0(octaves, persistence);
+  float na = 0.6f;
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
     float v = base_value_linear(p * nf, seed, per);
     n += v * na;
-    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
+    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -431,13 +431,13 @@ float base_worley_fbm(const float2 p,
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = helper_fbm_amp0(octaves, persistence);
+  float na = 0.6f;
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
     float v = base_worley(p * nf, seed, per);
     n += v * na;
-    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
+    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -455,13 +455,13 @@ float base_worley_double_fbm(const float2 p,
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = helper_fbm_amp0(octaves, persistence);
+  float na = 0.6f;
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
     float v = base_worley_double(p * nf, seed, 0.f, 2.f, per);
     n += v * na;
-    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
+    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);
@@ -479,13 +479,13 @@ float base_worley_value_fbm(const float2 p,
 {
   float n = 0.f;
   float nf = 1.f;
-  float na = helper_fbm_amp0(octaves, persistence);
+  float na = 0.6f;
   int2  per = period;
   for (int i = 0; i < octaves; i++)
   {
     float v = base_worley_value(p * nf, seed, per);
     n += v * na;
-    na *= (1.f - weight) + weight * clamp(v + 1.f, 0.f, 1.f);
+    na *= (1.f - weight) + weight * min(v + 1.f, 2.f) * 0.5f;
     na *= persistence;
     nf *= lacunarity;
     per = scale_period(per, lacunarity);

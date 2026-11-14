@@ -39,7 +39,7 @@ template <typename BaseFn> void GenericFractalFunction<BaseFn>::update_amp0()
     sum += amp;
     amp *= this->persistence;
   }
-  this->amp0 = 1.f / sum;
+  this->amp0 = 0.6f;
 }
 
 template <typename BaseFn>
@@ -71,7 +71,7 @@ float FbmFunction<BaseFn>::operator()(float x,
     float value = this->base(ki * x, kj * y, 0.f);
     sum += value * amp;
     amp *= (1.f - this->weight) +
-           this->weight * std::clamp(value + 1.f, 0.f, 1.f);
+           this->weight * std::min(value + 1.f, 2.f) * 0.5f;
     amp *= this->persistence;
     ki *= this->lacunarity;
     kj *= this->lacunarity;
@@ -127,7 +127,7 @@ float FbmIqFunction<BaseFn>::operator()(float x,
     sum += value * amp /
            (1.f + this->gradient_scale * (dx_sum * dx_sum + dy_sum * dy_sum));
     amp *= (1.f - this->weight) +
-           this->weight * std::clamp(value + 1.f, 0.f, 1.f);
+           this->weight * std::min(value + 1.f, 2.f) * 0.5f;
     amp *= this->persistence;
     ki *= this->lacunarity;
     kj *= this->lacunarity;
@@ -243,7 +243,7 @@ float FbmPingpongFunction<BaseFn>::operator()(float x,
     value = 2.f * value - 1.f;
     sum += value * amp;
     amp *= (1.f - this->weight) +
-           this->weight * std::clamp(value + 1.f, 0.f, 1.f);
+           this->weight * std::min(value + 1.f, 2.f) * 0.5f;
     amp *= this->persistence;
     ki *= this->lacunarity;
     kj *= this->lacunarity;
@@ -338,7 +338,7 @@ float FbmSwissFunction<BaseFn>::operator()(float x,
 
     sum += value * amp;
     amp *= (1.f - this->weight) +
-           this->weight * std::clamp(value + 1.f, 0.f, 1.f);
+           this->weight * std::min(value + 1.f, 2.f) * 0.5f;
     amp *= this->persistence;
     ki *= this->lacunarity;
     kj *= this->lacunarity;
