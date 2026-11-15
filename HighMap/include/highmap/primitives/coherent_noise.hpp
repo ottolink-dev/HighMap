@@ -222,7 +222,9 @@ Array noise(NoiseType     noise_type,
             std::uint32_t seed,
             const Array  *p_noise_x = nullptr,
             const Array  *p_noise_y = nullptr,
-            glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+            glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+            float         angle = 0.f,
+            float         stretch = 1.f);
 
 /**
  * @brief Return an array filled with coherence fbm noise.
@@ -266,7 +268,10 @@ Array noise_fbm(NoiseType     noise_type,
                 const Array  *p_ctrl_param = nullptr,
                 const Array  *p_noise_x = nullptr,
                 const Array  *p_noise_y = nullptr,
-                glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                float         angle = 0.f,
+                float         stretch = 1.f,
+                float         stretch_decay = 0.f);
 
 /**
  * @brief Return an array filled with coherence fbm noise.
@@ -312,7 +317,10 @@ Array noise_iq(NoiseType     noise_type,
                const Array  *p_ctrl_param = nullptr,
                const Array  *p_noise_x = nullptr,
                const Array  *p_noise_y = nullptr,
-               glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+               glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+               float         angle = 0.f,
+               float         stretch = 1.f,
+               float         stretch_decay = 0.f);
 
 /**
  * @brief Return an array filled with coherence fbm noise.
@@ -364,7 +372,10 @@ Array noise_jordan(NoiseType     noise_type,
                    const Array  *p_ctrl_param = nullptr,
                    const Array  *p_noise_x = nullptr,
                    const Array  *p_noise_y = nullptr,
-                   glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                   glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                   float         angle = 0.f,
+                   float         stretch = 1.f,
+                   float         stretch_decay = 0.f);
 
 /**
  * @brief Return an array filled with coherent fbm Parberry variant of Perlin
@@ -409,7 +420,10 @@ Array noise_parberry(glm::ivec2    shape,
                      const Array  *p_ctrl_param = nullptr,
                      const Array  *p_noise_x = nullptr,
                      const Array  *p_noise_y = nullptr,
-                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                     float         angle = 0.f,
+                     float         stretch = 1.f,
+                     float         stretch_decay = 0.f);
 
 /**
  * @brief Return an array filled with coherence fbm pingpong noise.
@@ -453,7 +467,10 @@ Array noise_pingpong(NoiseType     noise_type,
                      const Array  *p_ctrl_param = nullptr,
                      const Array  *p_noise_x = nullptr,
                      const Array  *p_noise_y = nullptr,
-                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                     float         angle = 0.f,
+                     float         stretch = 1.f,
+                     float         stretch_decay = 0.f);
 
 /**
  * @brief Return an array filled with coherence fbm ridged noise.
@@ -499,7 +516,10 @@ Array noise_ridged(NoiseType     noise_type,
                    const Array  *p_ctrl_param = nullptr,
                    const Array  *p_noise_x = nullptr,
                    const Array  *p_noise_y = nullptr,
-                   glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                   glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                   float         angle = 0.f,
+                   float         stretch = 1.f,
+                   float         stretch_decay = 0.f);
 
 /**
  * @brief Return an array filled with coherence fbm swiss noise.
@@ -545,7 +565,10 @@ Array noise_swiss(NoiseType     noise_type,
                   const Array  *p_ctrl_param = nullptr,
                   const Array  *p_noise_x = nullptr,
                   const Array  *p_noise_y = nullptr,
-                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                  float         angle = 0.f,
+                  float         stretch = 1.f,
+                  float         stretch_decay = 0.f);
 
 /**
  * @brief Return an array filled with the maximum of two Worley (cellular)
@@ -798,7 +821,9 @@ Array noise(NoiseType     noise_type,
             const Array  *p_noise_x = nullptr,
             const Array  *p_noise_y = nullptr,
             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
-            glm::ivec2    period = {0, 0});
+            glm::ivec2    period = {0, 0},
+            float         angle = 0.f,
+            float         stretch = 1.f);
 
 /*! @brief See hmap::noise_fbm. @p period sets the tiling period in lattice
    cells for the base octave. For the heightmap to be periodic with respect to
@@ -819,7 +844,10 @@ Array noise_fbm(NoiseType     noise_type,
                 const Array  *p_noise_x = nullptr,
                 const Array  *p_noise_y = nullptr,
                 glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
-                glm::ivec2    period = {0, 0});
+                glm::ivec2    period = {0, 0},
+                float         angle = 0.f,
+                float         stretch = 1.f,
+                float         stretch_decay = 0.f);
 
 /**
  * @brief Generates a procedural phasor-based pattern.

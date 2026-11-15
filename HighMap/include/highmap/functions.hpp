@@ -1369,6 +1369,26 @@ public:
   }
 
   /**
+   * @brief Configure directional stretching for the fractal noise.
+   *
+   * @param new_angle         Direction angle in degrees.
+   * @param new_stretch       Stretching factor along the direction.
+   * @param new_stretch_decay Progressive decay of stretching across octaves.
+   */
+  void set_stretch(float new_angle,
+                   float new_stretch,
+                   float new_stretch_decay = 0.f)
+  {
+    this->angle = new_angle;
+    this->stretch = new_stretch;
+    this->stretch_decay = new_stretch_decay;
+
+    float theta = new_angle * 3.14159265358979323846f / 180.f;
+    this->cos_a = std::cos(theta);
+    this->sin_a = std::sin(theta);
+  }
+
+  /**
    * @brief Get the lacunarity of the fractal noise.
    *
    * @return The current lacunarity value.
@@ -1415,6 +1435,25 @@ protected:
    */
   void update_amp0();
 
+  /**
+   * @brief Apply directional stretching to coordinates for a given octave.
+   */
+  void apply_stretch(float &x, float &y, int octave) const
+  {
+    if (this->stretch == 1.f) return;
+
+    float decay = std::pow(1.f - std::clamp(this->stretch_decay, 0.f, 1.f),
+                           static_cast<float>(octave));
+    float stretch_k = 1.f + (this->stretch - 1.f) * decay;
+    float inv_stretch = 1.f / std::max(stretch_k, 1e-6f);
+
+    float xl = x * this->cos_a + y * this->sin_a;
+    float yl = -x * this->sin_a + y * this->cos_a;
+    xl *= inv_stretch;
+    x = xl * this->cos_a - yl * this->sin_a;
+    y = xl * this->sin_a + yl * this->cos_a;
+  }
+
 protected:
   BaseFn base;       ///< Unique pointer to the base noise function.
   int    octaves;    ///< Number of octaves in the fractal noise.
@@ -1422,6 +1461,11 @@ protected:
   float persistence; ///< Persistence of the fractal noise.
   float lacunarity;  ///< Lacunarity of the fractal noise.
   float amp0;        ///< Initial amplitude of the fractal noise.
+  float angle = 0.f; ///< Direction angle in degrees.
+  float stretch = 1.f;       ///< Stretching factor along the direction.
+  float stretch_decay = 0.f; ///< Stretching decay across octaves.
+  float cos_a = 1.f;         ///< Cosine of direction angle.
+  float sin_a = 0.f;         ///< Sine of direction angle.
 };
 
 /**
