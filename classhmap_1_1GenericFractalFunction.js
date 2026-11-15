@@ -7,15 +7,22 @@ var classhmap_1_1GenericFractalFunction =
     [ "set_persistence", "classhmap_1_1GenericFractalFunction.html#ae1ea1d2858835e546601640301ab7eee", null ],
     [ "set_seed", "classhmap_1_1GenericFractalFunction.html#a29977995034e64a226088f97335271e4", null ],
     [ "scale_amp0", "classhmap_1_1GenericFractalFunction.html#a7357b5a2c0eae7e5378e19d3b423d2fe", null ],
+    [ "set_stretch", "classhmap_1_1GenericFractalFunction.html#a77394c64df19827c37cd56554b15b2e3", null ],
     [ "get_lacunarity", "classhmap_1_1GenericFractalFunction.html#abe70b035ce4a0b322b81b59c7140437d", null ],
     [ "get_octaves", "classhmap_1_1GenericFractalFunction.html#a65853f47cb02238346c1965500e90761", null ],
     [ "get_persistence", "classhmap_1_1GenericFractalFunction.html#a34ce8501f7f31aee4284fcb95a3f5c06", null ],
     [ "get_weight", "classhmap_1_1GenericFractalFunction.html#abc14d9c3208b5a41076b2b598d69faf2", null ],
     [ "update_amp0", "classhmap_1_1GenericFractalFunction.html#a6ed6851394d17ce48348e3f7dcfea89e", null ],
+    [ "apply_stretch", "classhmap_1_1GenericFractalFunction.html#a80dccbc803bd1a4e72e36eb81394388e", null ],
     [ "base", "classhmap_1_1GenericFractalFunction.html#a35d80bb49712ecbc404a03d6595b695b", null ],
     [ "octaves", "classhmap_1_1GenericFractalFunction.html#ac47ecc78a6804d4f65c48ec2e296bdde", null ],
     [ "weight", "classhmap_1_1GenericFractalFunction.html#a8de993ee56b49ddaf6b65921e0a549d6", null ],
     [ "persistence", "classhmap_1_1GenericFractalFunction.html#a3fc0cf807c3afdaecaa8e884ba7ff267", null ],
     [ "lacunarity", "classhmap_1_1GenericFractalFunction.html#a43e43f87666318f3fe55946df38c43db", null ],
-    [ "amp0", "classhmap_1_1GenericFractalFunction.html#aaafe5220adc00696b5745de8ff8d9e09", null ]
+    [ "amp0", "classhmap_1_1GenericFractalFunction.html#aaafe5220adc00696b5745de8ff8d9e09", null ],
+    [ "angle", "classhmap_1_1GenericFractalFunction.html#a6a5fb46185456ce754680474f39bc09c", null ],
+    [ "stretch", "classhmap_1_1GenericFractalFunction.html#ac7301f9ccc07cc3d382610f6754d65e9", null ],
+    [ "stretch_decay", "classhmap_1_1GenericFractalFunction.html#a0af17572a46e313fc345b8db36bf5e31", null ],
+    [ "cos_a", "classhmap_1_1GenericFractalFunction.html#aa76b12133e29ddea5c853083e53d1699", null ],
+    [ "sin_a", "classhmap_1_1GenericFractalFunction.html#ad93650bf32d3d827d0a76a5e81614cf5", null ]
 ];

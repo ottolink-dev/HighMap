@@ -152,6 +152,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a29977995034e64a226088f97335271e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a new random seed for the noise generation.  <br /></td></tr>
 <tr class="memitem:a7357b5a2c0eae7e5378e19d3b423d2fe" id="r_a7357b5a2c0eae7e5378e19d3b423d2fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7357b5a2c0eae7e5378e19d3b423d2fe">scale_amp0</a> (float <a class="el" href="namespacehmap.html#a7e352e19687bc236a6360e56ec92251e">scale</a>)</td></tr>
 <tr class="memdesc:a7357b5a2c0eae7e5378e19d3b423d2fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale the initial amplitude of the fractal noise.  <br /></td></tr>
+<tr class="memitem:a77394c64df19827c37cd56554b15b2e3" id="r_a77394c64df19827c37cd56554b15b2e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77394c64df19827c37cd56554b15b2e3">set_stretch</a> (float new_angle, float new_stretch, float new_stretch_decay=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
+<tr class="memdesc:a77394c64df19827c37cd56554b15b2e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure directional stretching for the fractal noise.  <br /></td></tr>
 <tr class="memitem:abe70b035ce4a0b322b81b59c7140437d" id="r_abe70b035ce4a0b322b81b59c7140437d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe70b035ce4a0b322b81b59c7140437d">get_lacunarity</a> () const</td></tr>
 <tr class="memdesc:abe70b035ce4a0b322b81b59c7140437d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the lacunarity of the fractal noise.  <br /></td></tr>
 <tr class="memitem:a65853f47cb02238346c1965500e90761" id="r_a65853f47cb02238346c1965500e90761"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65853f47cb02238346c1965500e90761">get_octaves</a> () const</td></tr>
@@ -180,6 +182,8 @@ Public Member Functions</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a6ed6851394d17ce48348e3f7dcfea89e" id="r_a6ed6851394d17ce48348e3f7dcfea89e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ed6851394d17ce48348e3f7dcfea89e">update_amp0</a> ()</td></tr>
 <tr class="memdesc:a6ed6851394d17ce48348e3f7dcfea89e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the initial amplitude (amp0) based on the current octaves and persistence.  <br /></td></tr>
+<tr class="memitem:a80dccbc803bd1a4e72e36eb81394388e" id="r_a80dccbc803bd1a4e72e36eb81394388e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80dccbc803bd1a4e72e36eb81394388e">apply_stretch</a> (float &amp;x, float &amp;y, int octave) const</td></tr>
+<tr class="memdesc:a80dccbc803bd1a4e72e36eb81394388e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply directional stretching to coordinates for a given octave.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-attribs" class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -195,6 +199,16 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:a43e43f87666318f3fe55946df38c43db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lacunarity of the fractal noise.  <br /></td></tr>
 <tr class="memitem:aaafe5220adc00696b5745de8ff8d9e09" id="r_aaafe5220adc00696b5745de8ff8d9e09"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaafe5220adc00696b5745de8ff8d9e09">amp0</a></td></tr>
 <tr class="memdesc:aaafe5220adc00696b5745de8ff8d9e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initial amplitude of the fractal noise.  <br /></td></tr>
+<tr class="memitem:a6a5fb46185456ce754680474f39bc09c" id="r_a6a5fb46185456ce754680474f39bc09c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a5fb46185456ce754680474f39bc09c">angle</a> = 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></td></tr>
+<tr class="memdesc:a6a5fb46185456ce754680474f39bc09c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direction angle in degrees.  <br /></td></tr>
+<tr class="memitem:ac7301f9ccc07cc3d382610f6754d65e9" id="r_ac7301f9ccc07cc3d382610f6754d65e9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7301f9ccc07cc3d382610f6754d65e9">stretch</a> = 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></td></tr>
+<tr class="memdesc:ac7301f9ccc07cc3d382610f6754d65e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stretching factor along the direction.  <br /></td></tr>
+<tr class="memitem:a0af17572a46e313fc345b8db36bf5e31" id="r_a0af17572a46e313fc345b8db36bf5e31"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0af17572a46e313fc345b8db36bf5e31">stretch_decay</a> = 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></td></tr>
+<tr class="memdesc:a0af17572a46e313fc345b8db36bf5e31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stretching decay across octaves.  <br /></td></tr>
+<tr class="memitem:aa76b12133e29ddea5c853083e53d1699" id="r_aa76b12133e29ddea5c853083e53d1699"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa76b12133e29ddea5c853083e53d1699">cos_a</a> = 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></td></tr>
+<tr class="memdesc:aa76b12133e29ddea5c853083e53d1699"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cosine of direction angle.  <br /></td></tr>
+<tr class="memitem:ad93650bf32d3d827d0a76a5e81614cf5" id="r_ad93650bf32d3d827d0a76a5e81614cf5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad93650bf32d3d827d0a76a5e81614cf5">sin_a</a> = 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></td></tr>
+<tr class="memdesc:ad93650bf32d3d827d0a76a5e81614cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sine of direction angle.  <br /></td></tr>
 <tr class="inherit_header pro_attribs_classhmap_1_1NoiseFunction"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classhmap_1_1NoiseFunction')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Protected Attributes inherited from <a class="el" href="classhmap_1_1NoiseFunction.html">hmap::NoiseFunction</a></td></tr>
 <tr class="memitem:a332703b9642cf219cb6d6e91488648cf inherit pro_attribs_classhmap_1_1NoiseFunction" id="r_a332703b9642cf219cb6d6e91488648cf"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1NoiseFunction.html#a332703b9642cf219cb6d6e91488648cf">kw</a></td></tr>
 <tr class="memdesc:a332703b9642cf219cb6d6e91488648cf inherit pro_attribs_classhmap_1_1NoiseFunction"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frequency scaling vector.  <br /></td></tr>
@@ -475,6 +489,52 @@ template&lt;typename BaseFn&gt; </div>
 
 </div>
 </div>
+<a id="a77394c64df19827c37cd56554b15b2e3" name="a77394c64df19827c37cd56554b15b2e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77394c64df19827c37cd56554b15b2e3">&#9670;&#160;</a></span>set_stretch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename BaseFn&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classhmap_1_1GenericFractalFunction.html">hmap::GenericFractalFunction</a>&lt; BaseFn &gt;::set_stretch </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>new_angle</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>new_stretch</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>new_stretch_decay</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Configure directional stretching for the fractal noise. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">new_angle</td><td>Direction angle in degrees. </td></tr>
+    <tr><td class="paramname">new_stretch</td><td>Stretching factor along the direction. </td></tr>
+    <tr><td class="paramname">new_stretch_decay</td><td>Progressive decay of stretching across octaves. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="abe70b035ce4a0b322b81b59c7140437d" name="abe70b035ce4a0b322b81b59c7140437d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abe70b035ce4a0b322b81b59c7140437d">&#9670;&#160;</a></span>get_lacunarity()</h2>
 
@@ -621,6 +681,44 @@ template&lt;typename BaseFn&gt; </div>
 </div><div class="memdoc">
 
 <p>Update the initial amplitude (amp0) based on the current octaves and persistence. </p>
+
+</div>
+</div>
+<a id="a80dccbc803bd1a4e72e36eb81394388e" name="a80dccbc803bd1a4e72e36eb81394388e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80dccbc803bd1a4e72e36eb81394388e">&#9670;&#160;</a></span>apply_stretch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename BaseFn&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classhmap_1_1GenericFractalFunction.html">hmap::GenericFractalFunction</a>&lt; BaseFn &gt;::apply_stretch </td>
+          <td>(</td>
+          <td class="paramtype">float &amp;</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>octave</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Apply directional stretching to coordinates for a given octave. </p>
 
 </div>
 </div>
@@ -778,6 +876,136 @@ template&lt;typename BaseFn&gt; </div>
 </div><div class="memdoc">
 
 <p>Initial amplitude of the fractal noise. </p>
+
+</div>
+</div>
+<a id="a6a5fb46185456ce754680474f39bc09c" name="a6a5fb46185456ce754680474f39bc09c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a5fb46185456ce754680474f39bc09c">&#9670;&#160;</a></span>angle</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename BaseFn&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classhmap_1_1GenericFractalFunction.html">hmap::GenericFractalFunction</a>&lt; BaseFn &gt;::angle = 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Direction angle in degrees. </p>
+
+</div>
+</div>
+<a id="ac7301f9ccc07cc3d382610f6754d65e9" name="ac7301f9ccc07cc3d382610f6754d65e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7301f9ccc07cc3d382610f6754d65e9">&#9670;&#160;</a></span>stretch</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename BaseFn&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classhmap_1_1GenericFractalFunction.html">hmap::GenericFractalFunction</a>&lt; BaseFn &gt;::stretch = 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stretching factor along the direction. </p>
+
+</div>
+</div>
+<a id="a0af17572a46e313fc345b8db36bf5e31" name="a0af17572a46e313fc345b8db36bf5e31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0af17572a46e313fc345b8db36bf5e31">&#9670;&#160;</a></span>stretch_decay</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename BaseFn&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classhmap_1_1GenericFractalFunction.html">hmap::GenericFractalFunction</a>&lt; BaseFn &gt;::stretch_decay = 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stretching decay across octaves. </p>
+
+</div>
+</div>
+<a id="aa76b12133e29ddea5c853083e53d1699" name="aa76b12133e29ddea5c853083e53d1699"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa76b12133e29ddea5c853083e53d1699">&#9670;&#160;</a></span>cos_a</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename BaseFn&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classhmap_1_1GenericFractalFunction.html">hmap::GenericFractalFunction</a>&lt; BaseFn &gt;::cos_a = 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cosine of direction angle. </p>
+
+</div>
+</div>
+<a id="ad93650bf32d3d827d0a76a5e81614cf5" name="ad93650bf32d3d827d0a76a5e81614cf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad93650bf32d3d827d0a76a5e81614cf5">&#9670;&#160;</a></span>sin_a</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename BaseFn&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classhmap_1_1GenericFractalFunction.html">hmap::GenericFractalFunction</a>&lt; BaseFn &gt;::sin_a = 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sine of direction angle. </p>
 
 </div>
 </div>

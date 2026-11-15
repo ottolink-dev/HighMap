@@ -55,6 +55,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_loose_symmetry.cpp", "test__loose__symmetry_8cpp.html", "test__loose__symmetry_8cpp" ],
     [ "test_math.cpp", "test__math_8cpp.html", "test__math_8cpp" ],
     [ "test_math_histogram.cpp", "test__math__histogram_8cpp.html", "test__math__histogram_8cpp" ],
+    [ "test_noise_stretch.cpp", "test__noise__stretch_8cpp.html", "test__noise__stretch_8cpp" ],
     [ "test_normalize.cpp", "test__normalize_8cpp.html", "test__normalize_8cpp" ],
     [ "test_path_arc_length.cpp", "test__path__arc__length_8cpp.html", "test__path__arc__length_8cpp" ],
     [ "test_path_fractalize.cpp", "test__path__fractalize_8cpp.html", "test__path__fractalize_8cpp" ],

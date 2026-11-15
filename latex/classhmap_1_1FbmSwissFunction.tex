@@ -55,6 +55,8 @@ void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a29977995034e64a226088
 \begin{DoxyCompactList}\small\item\em Set a new random seed for the noise generation. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a7357b5a2c0eae7e5378e19d3b423d2fe}{scale\+\_\+amp0}} (float \mbox{\hyperlink{namespacehmap_a7e352e19687bc236a6360e56ec92251e}{scale}})
 \begin{DoxyCompactList}\small\item\em Scale the initial amplitude of the fractal noise. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a77394c64df19827c37cd56554b15b2e3}{set\+\_\+stretch}} (float new\+\_\+angle, float new\+\_\+stretch, float new\+\_\+stretch\+\_\+decay=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Configure directional stretching for the fractal noise. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_abe70b035ce4a0b322b81b59c7140437d}{get\+\_\+lacunarity}} () const
 \begin{DoxyCompactList}\small\item\em Get the lacunarity of the fractal noise. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a65853f47cb02238346c1965500e90761}{get\+\_\+octaves}} () const
@@ -101,7 +103,17 @@ float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3fc0cf807c3afdaecaa8
 float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a43e43f87666318f3fe55946df38c43db}{lacunarity}}
 \begin{DoxyCompactList}\small\item\em Lacunarity of the fractal noise. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_aaafe5220adc00696b5745de8ff8d9e09}{amp0}}
-\begin{DoxyCompactList}\small\item\em Initial amplitude of the fractal noise. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Initial amplitude of the fractal noise. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a6a5fb46185456ce754680474f39bc09c}{angle}} = 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\begin{DoxyCompactList}\small\item\em Direction angle in degrees. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_ac7301f9ccc07cc3d382610f6754d65e9}{stretch}} = 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\begin{DoxyCompactList}\small\item\em Stretching factor along the direction. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a0af17572a46e313fc345b8db36bf5e31}{stretch\+\_\+decay}} = 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\begin{DoxyCompactList}\small\item\em Stretching decay across octaves. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_aa76b12133e29ddea5c853083e53d1699}{cos\+\_\+a}} = 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\begin{DoxyCompactList}\small\item\em Cosine of direction angle. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_ad93650bf32d3d827d0a76a5e81614cf5}{sin\+\_\+a}} = 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\begin{DoxyCompactList}\small\item\em Sine of direction angle. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classhmap_1_1NoiseFunction}{hmap\+::\+Noise\+Function}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -114,7 +126,9 @@ std\+::uint32\+\_\+t \mbox{\hyperlink{classhmap_1_1NoiseFunction_afcc0d96413b1b2
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a6ed6851394d17ce48348e3f7dcfea89e}{update\+\_\+amp0}} ()
-\begin{DoxyCompactList}\small\item\em Update the initial amplitude (amp0) based on the current octaves and persistence. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Update the initial amplitude (amp0) based on the current octaves and persistence. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a80dccbc803bd1a4e72e36eb81394388e}{apply\+\_\+stretch}} (float \&x, float \&y, int octave) const
+\begin{DoxyCompactList}\small\item\em Apply directional stretching to coordinates for a given octave. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

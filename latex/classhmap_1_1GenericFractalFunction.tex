@@ -46,6 +46,8 @@ void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a29977995034e64a226088
 \begin{DoxyCompactList}\small\item\em Set a new random seed for the noise generation. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a7357b5a2c0eae7e5378e19d3b423d2fe}{scale\+\_\+amp0}} (float \mbox{\hyperlink{namespacehmap_a7e352e19687bc236a6360e56ec92251e}{scale}})
 \begin{DoxyCompactList}\small\item\em Scale the initial amplitude of the fractal noise. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a77394c64df19827c37cd56554b15b2e3}{set\+\_\+stretch}} (float new\+\_\+angle, float new\+\_\+stretch, float new\+\_\+stretch\+\_\+decay=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Configure directional stretching for the fractal noise. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_abe70b035ce4a0b322b81b59c7140437d}{get\+\_\+lacunarity}} () const
 \begin{DoxyCompactList}\small\item\em Get the lacunarity of the fractal noise. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a65853f47cb02238346c1965500e90761}{get\+\_\+octaves}} () const
@@ -75,7 +77,9 @@ void \mbox{\hyperlink{classhmap_1_1NoiseFunction_a3b04af0d21a14bc54f38c01409d9ed
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a6ed6851394d17ce48348e3f7dcfea89e}{update\+\_\+amp0}} ()
-\begin{DoxyCompactList}\small\item\em Update the initial amplitude (amp0) based on the current octaves and persistence. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Update the initial amplitude (amp0) based on the current octaves and persistence. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a80dccbc803bd1a4e72e36eb81394388e}{apply\+\_\+stretch}} (float \&x, float \&y, int octave) const
+\begin{DoxyCompactList}\small\item\em Apply directional stretching to coordinates for a given octave. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -90,7 +94,17 @@ float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3fc0cf807c3afdaecaa8
 float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a43e43f87666318f3fe55946df38c43db}{lacunarity}}
 \begin{DoxyCompactList}\small\item\em Lacunarity of the fractal noise. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_aaafe5220adc00696b5745de8ff8d9e09}{amp0}}
-\begin{DoxyCompactList}\small\item\em Initial amplitude of the fractal noise. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Initial amplitude of the fractal noise. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a6a5fb46185456ce754680474f39bc09c}{angle}} = 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\begin{DoxyCompactList}\small\item\em Direction angle in degrees. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_ac7301f9ccc07cc3d382610f6754d65e9}{stretch}} = 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\begin{DoxyCompactList}\small\item\em Stretching factor along the direction. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a0af17572a46e313fc345b8db36bf5e31}{stretch\+\_\+decay}} = 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\begin{DoxyCompactList}\small\item\em Stretching decay across octaves. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_aa76b12133e29ddea5c853083e53d1699}{cos\+\_\+a}} = 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\begin{DoxyCompactList}\small\item\em Cosine of direction angle. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_ad93650bf32d3d827d0a76a5e81614cf5}{sin\+\_\+a}} = 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\begin{DoxyCompactList}\small\item\em Sine of direction angle. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classhmap_1_1NoiseFunction}{hmap\+::\+Noise\+Function}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -235,6 +249,26 @@ Scale the initial amplitude of the fractal noise.
 {\em scale} & The scale factor for the initial amplitude. \\
 \hline
 \end{DoxyParams}
+\Hypertarget{classhmap_1_1GenericFractalFunction_a77394c64df19827c37cd56554b15b2e3}\index{hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}!set\_stretch@{set\_stretch}}
+\index{set\_stretch@{set\_stretch}!hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}}
+\doxysubsubsection{\texorpdfstring{set\_stretch()}{set\_stretch()}}
+{\footnotesize\ttfamily \label{classhmap_1_1GenericFractalFunction_a77394c64df19827c37cd56554b15b2e3} 
+template$<$typename Base\+Fn$>$ \\
+void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{hmap\+::\+Generic\+Fractal\+Function}}$<$ Base\+Fn $>$\+::set\+\_\+stretch (\begin{DoxyParamCaption}\item[{float}]{new\+\_\+angle}{, }\item[{float}]{new\+\_\+stretch}{, }\item[{float}]{new\+\_\+stretch\+\_\+decay}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Configure directional stretching for the fractal noise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+angle} & Direction angle in degrees. \\
+\hline
+{\em new\+\_\+stretch} & Stretching factor along the direction. \\
+\hline
+{\em new\+\_\+stretch\+\_\+decay} & Progressive decay of stretching across octaves. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{classhmap_1_1GenericFractalFunction_abe70b035ce4a0b322b81b59c7140437d}\index{hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}!get\_lacunarity@{get\_lacunarity}}
 \index{get\_lacunarity@{get\_lacunarity}!hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}}
 \doxysubsubsection{\texorpdfstring{get\_lacunarity()}{get\_lacunarity()}}
@@ -301,6 +335,17 @@ void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{hmap\+::\+Generic\+Fr
 
 
 Update the initial amplitude (amp0) based on the current octaves and persistence. 
+
+\Hypertarget{classhmap_1_1GenericFractalFunction_a80dccbc803bd1a4e72e36eb81394388e}\index{hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}!apply\_stretch@{apply\_stretch}}
+\index{apply\_stretch@{apply\_stretch}!hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}}
+\doxysubsubsection{\texorpdfstring{apply\_stretch()}{apply\_stretch()}}
+{\footnotesize\ttfamily \label{classhmap_1_1GenericFractalFunction_a80dccbc803bd1a4e72e36eb81394388e} 
+template$<$typename Base\+Fn$>$ \\
+void \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{hmap\+::\+Generic\+Fractal\+Function}}$<$ Base\+Fn $>$\+::apply\+\_\+stretch (\begin{DoxyParamCaption}\item[{float \&}]{x}{, }\item[{float \&}]{y}{, }\item[{int}]{octave}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Apply directional stretching to coordinates for a given octave. 
 
 
 
@@ -372,6 +417,61 @@ float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{hmap\+::\+Generic\+F
 
 
 Initial amplitude of the fractal noise. 
+
+\Hypertarget{classhmap_1_1GenericFractalFunction_a6a5fb46185456ce754680474f39bc09c}\index{hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}!angle@{angle}}
+\index{angle@{angle}!hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}}
+\doxysubsubsection{\texorpdfstring{angle}{angle}}
+{\footnotesize\ttfamily \label{classhmap_1_1GenericFractalFunction_a6a5fb46185456ce754680474f39bc09c} 
+template$<$typename Base\+Fn$>$ \\
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{hmap\+::\+Generic\+Fractal\+Function}}$<$ Base\+Fn $>$\+::angle = 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Direction angle in degrees. 
+
+\Hypertarget{classhmap_1_1GenericFractalFunction_ac7301f9ccc07cc3d382610f6754d65e9}\index{hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}!stretch@{stretch}}
+\index{stretch@{stretch}!hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}}
+\doxysubsubsection{\texorpdfstring{stretch}{stretch}}
+{\footnotesize\ttfamily \label{classhmap_1_1GenericFractalFunction_ac7301f9ccc07cc3d382610f6754d65e9} 
+template$<$typename Base\+Fn$>$ \\
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{hmap\+::\+Generic\+Fractal\+Function}}$<$ Base\+Fn $>$\+::stretch = 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Stretching factor along the direction. 
+
+\Hypertarget{classhmap_1_1GenericFractalFunction_a0af17572a46e313fc345b8db36bf5e31}\index{hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}!stretch\_decay@{stretch\_decay}}
+\index{stretch\_decay@{stretch\_decay}!hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}}
+\doxysubsubsection{\texorpdfstring{stretch\_decay}{stretch\_decay}}
+{\footnotesize\ttfamily \label{classhmap_1_1GenericFractalFunction_a0af17572a46e313fc345b8db36bf5e31} 
+template$<$typename Base\+Fn$>$ \\
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{hmap\+::\+Generic\+Fractal\+Function}}$<$ Base\+Fn $>$\+::stretch\+\_\+decay = 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Stretching decay across octaves. 
+
+\Hypertarget{classhmap_1_1GenericFractalFunction_aa76b12133e29ddea5c853083e53d1699}\index{hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}!cos\_a@{cos\_a}}
+\index{cos\_a@{cos\_a}!hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}}
+\doxysubsubsection{\texorpdfstring{cos\_a}{cos\_a}}
+{\footnotesize\ttfamily \label{classhmap_1_1GenericFractalFunction_aa76b12133e29ddea5c853083e53d1699} 
+template$<$typename Base\+Fn$>$ \\
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{hmap\+::\+Generic\+Fractal\+Function}}$<$ Base\+Fn $>$\+::cos\+\_\+a = 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Cosine of direction angle. 
+
+\Hypertarget{classhmap_1_1GenericFractalFunction_ad93650bf32d3d827d0a76a5e81614cf5}\index{hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}!sin\_a@{sin\_a}}
+\index{sin\_a@{sin\_a}!hmap::GenericFractalFunction$<$ BaseFn $>$@{hmap::GenericFractalFunction$<$ BaseFn $>$}}
+\doxysubsubsection{\texorpdfstring{sin\_a}{sin\_a}}
+{\footnotesize\ttfamily \label{classhmap_1_1GenericFractalFunction_ad93650bf32d3d827d0a76a5e81614cf5} 
+template$<$typename Base\+Fn$>$ \\
+float \mbox{\hyperlink{classhmap_1_1GenericFractalFunction}{hmap\+::\+Generic\+Fractal\+Function}}$<$ Base\+Fn $>$\+::sin\+\_\+a = 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Sine of direction angle. 
 
 
 
