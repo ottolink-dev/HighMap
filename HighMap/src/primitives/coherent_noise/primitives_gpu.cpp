@@ -577,7 +577,9 @@ Array noise(NoiseType     noise_type,
             const Array  *p_noise_x,
             const Array  *p_noise_y,
             glm::vec4     bbox,
-            glm::ivec2    period)
+            glm::ivec2    period,
+            float         angle,
+            float         stretch)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -603,7 +605,9 @@ Array noise(NoiseType     noise_type,
                      p_noise_y ? 1 : 0,
                      period.x,
                      period.y,
-                     bbox);
+                     bbox,
+                     angle,
+                     stretch);
 
   run.write_buffer("array");
   run.execute({array.shape.x, array.shape.y});
@@ -624,7 +628,10 @@ Array noise_fbm(NoiseType     noise_type,
                 const Array  *p_noise_x,
                 const Array  *p_noise_y,
                 glm::vec4     bbox,
-                glm::ivec2    period)
+                glm::ivec2    period,
+                float         angle,
+                float         stretch,
+                float         stretch_decay)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -658,7 +665,10 @@ Array noise_fbm(NoiseType     noise_type,
                      p_noise_y ? 1 : 0,
                      period.x,
                      period.y,
-                     bbox);
+                     bbox,
+                     angle,
+                     stretch,
+                     stretch_decay);
 
   run.write_buffer("array");
   run.execute({array.shape.x, array.shape.y});

@@ -5,6 +5,65 @@ R""(
 
 // --- OCL KERNEL
 
+float2 apply_stretch(float2 p, float cos_a, float sin_a, float stretch_k)
+{
+  float inv_stretch = 1.f / fmax(stretch_k, 1e-6f);
+  float xl = p.x * cos_a + p.y * sin_a;
+  float yl = -p.x * sin_a + p.y * cos_a;
+  xl *= inv_stretch;
+  return (float2)(xl * cos_a - yl * sin_a, xl * sin_a + yl * cos_a);
+}
+
+float eval_base_noise(const int    noise_id,
+                      const float2 pos,
+                      const uint   seed,
+                      const int2   period)
+{
+  if (noise_id == 1)
+  {
+    return base_perlin(pos, seed, period);
+  }
+  else if (noise_id == 2)
+  {
+    float value = base_perlin(pos, seed, period);
+    return 2.f * fabs(value) - 1.f;
+  }
+  else if (noise_id == 3)
+  {
+    float value = base_perlin(pos, seed, period);
+    return max_smooth(value, 0.f, 0.5f);
+  }
+  else if (noise_id == 4 || noise_id == 5)
+  {
+    return base_simplex2(pos, seed);
+  }
+  else if (noise_id == 6)
+  {
+    return base_value(pos, seed, period);
+  }
+  else if (noise_id == 7)
+  {
+    return base_value_cubic(pos, seed, period);
+  }
+  else if (noise_id == 9)
+  {
+    return base_value_linear(pos, seed, period);
+  }
+  else if (noise_id == 10)
+  {
+    return base_worley(pos, seed, period);
+  }
+  else if (noise_id == 11)
+  {
+    return base_worley_double(pos, seed, 0.f, 2.f, period);
+  }
+  else if (noise_id == 12)
+  {
+    return base_worley_value(pos, seed, period);
+  }
+  return 0.f;
+}
+
 void kernel noise(global float *output,
                   global float *noise_x,
                   global float *noise_y,
@@ -18,7 +77,9 @@ void kernel noise(global float *output,
                   const int     has_noise_y,
                   const int     period_x,
                   const int     period_y,
-                  const float4  bbox)
+                  const float4  bbox,
+                  const float   angle,
+                  const float   stretch)
 {
   int2 g = {get_global_id(0), get_global_id(1)};
 
@@ -33,52 +94,13 @@ void kernel noise(global float *output,
 
   float2 pos = g_to_xy(g, nx, ny, kx, ky, dx, dy, bbox);
 
-  if (noise_id == 1)
+  if (stretch != 1.f)
   {
-    output[index] = base_perlin(pos, seed, period);
+    float theta = angle * 0.017453292519943295f;
+    pos = apply_stretch(pos, cos(theta), sin(theta), stretch);
   }
-  else if (noise_id == 2)
-  {
-    float value = base_perlin(pos, seed, period);
-    output[index] = 2.f * fabs(value) - 1.f;
-  }
-  else if (noise_id == 3)
-  {
-    float value = base_perlin(pos, seed, period);
-    output[index] = max_smooth(value, 0.f, 0.5f);
-  }
-  else if (noise_id == 4 || noise_id == 5)
-  {
-    output[index] = base_simplex2(pos, seed);
-  }
-  else if (noise_id == 6)
-  {
-    output[index] = base_value(pos, seed, period);
-  }
-  else if (noise_id == 7)
-  {
-    output[index] = base_value_cubic(pos, seed, period);
-  }
-  else if (noise_id == 9)
-  {
-    output[index] = base_value_linear(pos, seed, period);
-  }
-  else if (noise_id == 10)
-  {
-    output[index] = base_worley(pos, seed, period);
-  }
-  else if (noise_id == 11)
-  {
-    output[index] = base_worley_double(pos, seed, 0.f, 2.f, period);
-  }
-  else if (noise_id == 12)
-  {
-    output[index] = base_worley_value(pos, seed, period);
-  }
-  else
-  {
-    output[index] = 0.f;
-  }
+
+  output[index] = eval_base_noise(noise_id, pos, seed, period);
 }
 
 void kernel noise_fbm(global float *output,
@@ -100,7 +122,10 @@ void kernel noise_fbm(global float *output,
                       const int     has_noise_y,
                       const int     period_x,
                       const int     period_y,
-                      const float4  bbox)
+                      const float4  bbox,
+                      const float   angle,
+                      const float   stretch,
+                      const float   stretch_decay)
 {
   int2 g = {get_global_id(0), get_global_id(1)};
 
@@ -116,6 +141,34 @@ void kernel noise_fbm(global float *output,
 
   float  new_weight = (1.f - ct) + ct * weight;
   float2 pos = g_to_xy(g, nx, ny, kx, ky, dx, dy, bbox);
+
+  if (stretch != 1.f)
+  {
+    float theta = angle * 0.017453292519943295f;
+    float cos_a = cos(theta);
+    float sin_a = sin(theta);
+    float decay_base = 1.f - clamp(stretch_decay, 0.f, 1.f);
+
+    float n = 0.f;
+    float nf = 1.f;
+    float na = 0.6f;
+    int2  per = period;
+
+    for (int i = 0; i < octaves; i++)
+    {
+      float stretch_k = 1.f + (stretch - 1.f) * pow(decay_base, (float)i);
+      float2 p_s = apply_stretch(pos * nf, cos_a, sin_a, stretch_k);
+      float  v = eval_base_noise(noise_id, p_s, seed, per);
+      n += v * na;
+      na *= (1.f - new_weight) + new_weight * min(v + 1.f, 2.f) * 0.5f;
+      na *= persistence;
+      nf *= lacunarity;
+      per = scale_period(per, lacunarity);
+    }
+
+    output[index] = n;
+    return;
+  }
 
   if (noise_id == 1)
   {

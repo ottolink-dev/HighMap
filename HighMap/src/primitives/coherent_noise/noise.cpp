@@ -20,7 +20,9 @@ Array noise(NoiseType     noise_type,
             std::uint32_t seed,
             const Array  *p_noise_x,
             const Array  *p_noise_y,
-            glm::vec4     bbox)
+            glm::vec4     bbox,
+            float         angle,
+            float         stretch)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -33,13 +35,42 @@ Array noise(NoiseType     noise_type,
                       seed,
                       [&](const auto &base_fn)
                       {
-                        fill_array_using_xy_function(array,
-                                                     bbox,
-                                                     nullptr,
-                                                     p_noise_x,
-                                                     p_noise_y,
-                                                     nullptr,
-                                                     base_fn);
+                        if (stretch == 1.f)
+                        {
+                          fill_array_using_xy_function(array,
+                                                       bbox,
+                                                       nullptr,
+                                                       p_noise_x,
+                                                       p_noise_y,
+                                                       nullptr,
+                                                       base_fn);
+                        }
+                        else
+                        {
+                          float theta = angle * 3.14159265358979323846f / 180.f;
+                          float cos_a = std::cos(theta);
+                          float sin_a = std::sin(theta);
+                          float inv_stretch = 1.f / std::max(stretch, 1e-6f);
+
+                          auto stretched_fn =
+                              [&](float x, float y, float ctrl) -> float
+                          {
+                            float xl = x * cos_a + y * sin_a;
+                            float yl = -x * sin_a + y * cos_a;
+                            xl *= inv_stretch;
+                            float xs = xl * cos_a - yl * sin_a;
+                            float ys = xl * sin_a + yl * cos_a;
+                            return base_fn(xs, ys, ctrl);
+                          };
+
+                          fill_array_using_xy_function(array,
+                                                       bbox,
+                                                       nullptr,
+                                                       p_noise_x,
+                                                       p_noise_y,
+                                                       nullptr,
+                                                       stretched_fn);
+                        }
                       });
   return array;
 }
@@ -55,7 +86,10 @@ Array noise_fbm(NoiseType     noise_type,
                 const Array  *p_ctrl_param,
                 const Array  *p_noise_x,
                 const Array  *p_noise_y,
-                glm::vec4     bbox)
+                glm::vec4     bbox,
+                float         angle,
+                float         stretch,
+                float         stretch_decay)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -75,6 +109,7 @@ Array noise_fbm(NoiseType     noise_type,
                                                                 weight,
                                                                 persistence,
                                                                 lacunarity);
+                        f.set_stretch(angle, stretch, stretch_decay);
                         fill_array_using_xy_function(array,
                                                      bbox,
                                                      p_ctrl_param,
@@ -98,7 +133,10 @@ Array noise_iq(NoiseType     noise_type,
                const Array  *p_ctrl_param,
                const Array  *p_noise_x,
                const Array  *p_noise_y,
-               glm::vec4     bbox)
+               glm::vec4     bbox,
+               float         angle,
+               float         stretch,
+               float         stretch_decay)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -120,6 +158,7 @@ Array noise_iq(NoiseType     noise_type,
                             persistence,
                             lacunarity,
                             gradient_scale);
+                        f.set_stretch(angle, stretch, stretch_decay);
                         fill_array_using_xy_function(array,
                                                      bbox,
                                                      p_ctrl_param,
@@ -146,7 +185,10 @@ Array noise_jordan(NoiseType     noise_type,
                    const Array  *p_ctrl_param,
                    const Array  *p_noise_x,
                    const Array  *p_noise_y,
-                   glm::vec4     bbox)
+                   glm::vec4     bbox,
+                   float         angle,
+                   float         stretch,
+                   float         stretch_decay)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -171,6 +213,7 @@ Array noise_jordan(NoiseType     noise_type,
                             damp0,
                             warp_scale,
                             damp_scale);
+                        f.set_stretch(angle, stretch, stretch_decay);
                         fill_array_using_xy_function(array,
                                                      bbox,
                                                      p_ctrl_param,
@@ -193,7 +236,10 @@ Array noise_parberry(glm::ivec2    shape,
                      const Array  *p_ctrl_param,
                      const Array  *p_noise_x,
                      const Array  *p_noise_y,
-                     glm::vec4     bbox)
+                     glm::vec4     bbox,
+                     float         angle,
+                     float         stretch,
+                     float         stretch_decay)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -211,6 +257,7 @@ Array noise_parberry(glm::ivec2    shape,
                                           weight,
                                           persistence,
                                           lacunarity);
+  f.set_stretch(angle, stretch, stretch_decay);
 
   fill_array_using_xy_function(array,
                                bbox,
@@ -233,7 +280,10 @@ Array noise_pingpong(NoiseType     noise_type,
                      const Array  *p_ctrl_param,
                      const Array  *p_noise_x,
                      const Array  *p_noise_y,
-                     glm::vec4     bbox)
+                     glm::vec4     bbox,
+                     float         angle,
+                     float         stretch,
+                     float         stretch_decay)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -254,6 +304,7 @@ Array noise_pingpong(NoiseType     noise_type,
                             weight,
                             persistence,
                             lacunarity);
+                        f.set_stretch(angle, stretch, stretch_decay);
                         fill_array_using_xy_function(array,
                                                      bbox,
                                                      p_ctrl_param,
@@ -277,7 +328,10 @@ Array noise_ridged(NoiseType     noise_type,
                    const Array  *p_ctrl_param,
                    const Array  *p_noise_x,
                    const Array  *p_noise_y,
-                   glm::vec4     bbox)
+                   glm::vec4     bbox,
+                   float         angle,
+                   float         stretch,
+                   float         stretch_decay)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -299,6 +353,7 @@ Array noise_ridged(NoiseType     noise_type,
                             persistence,
                             lacunarity,
                             k_smoothing);
+                        f.set_stretch(angle, stretch, stretch_decay);
                         fill_array_using_xy_function(array,
                                                      bbox,
                                                      p_ctrl_param,
@@ -322,7 +377,10 @@ Array noise_swiss(NoiseType     noise_type,
                   const Array  *p_ctrl_param,
                   const Array  *p_noise_x,
                   const Array  *p_noise_y,
-                  glm::vec4     bbox)
+                  glm::vec4     bbox,
+                  float         angle,
+                  float         stretch,
+                  float         stretch_decay)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -344,6 +402,7 @@ Array noise_swiss(NoiseType     noise_type,
                             persistence,
                             lacunarity,
                             warp_scale);
+                        f.set_stretch(angle, stretch, stretch_decay);
                         fill_array_using_xy_function(array,
                                                      bbox,
                                                      p_ctrl_param,

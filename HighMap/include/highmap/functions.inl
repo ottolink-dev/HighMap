@@ -68,7 +68,11 @@ float FbmFunction<BaseFn>::operator()(float x,
 
   for (int k = 0; k < this->octaves; k++)
   {
-    float value = this->base(ki * x, kj * y, 0.f);
+    float xw = ki * x;
+    float yw = kj * y;
+    this->apply_stretch(xw, yw, k);
+
+    float value = this->base(xw, yw, 0.f);
     sum += value * amp;
     amp *= (1.f - this->weight) +
            this->weight * std::min(value + 1.f, 2.f) * 0.5f;
@@ -112,6 +116,7 @@ float FbmIqFunction<BaseFn>::operator()(float x,
   {
     float xw = ki * x;
     float yw = kj * y;
+    this->apply_stretch(xw, yw, k);
 
     float value = this->base(xw, yw, 0.f);
     float dx = (this->base(xw + HMAP_GRADIENT_OFFSET, yw, 0.f) -
@@ -163,12 +168,16 @@ float FbmJordanFunction<BaseFn>::operator()(float x,
                                             float y,
                                             float /* ctrl_param */) const
 {
-  float value = this->base(x, y, 0.f);
-  float dx = (this->base(x + HMAP_GRADIENT_OFFSET, y, 0.f) -
-              this->base(x - HMAP_GRADIENT_OFFSET, y, 0.f)) /
+  float x0 = x;
+  float y0 = y;
+  this->apply_stretch(x0, y0, 0);
+
+  float value = this->base(x0, y0, 0.f);
+  float dx = (this->base(x0 + HMAP_GRADIENT_OFFSET, y0, 0.f) -
+              this->base(x0 - HMAP_GRADIENT_OFFSET, y0, 0.f)) /
              (2.f * HMAP_GRADIENT_OFFSET);
-  float dy = (this->base(x, y + HMAP_GRADIENT_OFFSET, 0.f) -
-              this->base(x, y - HMAP_GRADIENT_OFFSET, 0.f)) /
+  float dy = (this->base(x0, y0 + HMAP_GRADIENT_OFFSET, 0.f) -
+              this->base(x0, y0 - HMAP_GRADIENT_OFFSET, 0.f)) /
              (2.f * HMAP_GRADIENT_OFFSET);
 
   float sum = value * value;
@@ -186,6 +195,7 @@ float FbmJordanFunction<BaseFn>::operator()(float x,
   {
     float xw = ki * x + dsum_warp_x;
     float yw = kj * y + dsum_warp_y;
+    this->apply_stretch(xw, yw, k);
 
     float v = this->base(xw, yw, 0.f);
     float dkx = (this->base(xw + HMAP_GRADIENT_OFFSET, yw, 0.f) -
@@ -238,7 +248,11 @@ float FbmPingpongFunction<BaseFn>::operator()(float x,
 
   for (int k = 0; k < this->octaves; k++)
   {
-    float value = (this->base(ki * x, kj * y, 0.f) + 1.f) * 0.5f;
+    float xw = ki * x;
+    float yw = kj * y;
+    this->apply_stretch(xw, yw, k);
+
+    float value = (this->base(xw, yw, 0.f) + 1.f) * 0.5f;
     value = 1.f - std::abs(std::fmod(value * 2.f, 2.f) - 1.f);
     value = 2.f * value - 1.f;
     sum += value * amp;
@@ -280,7 +294,11 @@ float FbmRidgedFunction<BaseFn>::operator()(float x,
 
   for (int k = 0; k < this->octaves; k++)
   {
-    float value = 1.f - std::abs(this->base(ki * x, kj * y, 0.f));
+    float xw = ki * x;
+    float yw = kj * y;
+    this->apply_stretch(xw, yw, k);
+
+    float value = 1.f - std::abs(this->base(xw, yw, 0.f));
     value = value * value;
     sum += value * amp;
     amp *= (1.f - this->weight) + this->weight * std::clamp(value, 0.f, 1.f);
@@ -324,6 +342,7 @@ float FbmSwissFunction<BaseFn>::operator()(float x,
   {
     float xw = ki * x + this->warp_scale * dx_sum;
     float yw = kj * y + this->warp_scale * dy_sum;
+    this->apply_stretch(xw, yw, k);
 
     float value = this->base(xw, yw, 0.f);
     float dx = (this->base(xw + HMAP_GRADIENT_OFFSET, yw, 0.f) -
@@ -409,6 +428,7 @@ decltype(auto) with_noise_function(NoiseType     noise_type,
   case NoiseType::WORLEY: return fn(WorleyFunction(kw, seed));
   case NoiseType::WORLEY_DOUBLE:
     return fn(WorleyDoubleFunction(kw, seed, 0.5f, 0.f));
+  case NoiseType::WORLEY_VALUE: return fn(WorleyFunction(kw, seed, true));
   default:
     throw std::invalid_argument("with_noise_function: unsupported NoiseType");
   }
