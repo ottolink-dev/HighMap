@@ -18,6 +18,7 @@
 #include "highmap/array.hpp"
 #include "highmap/geometry/cloud.hpp"
 #include "highmap/scatter/scatter_item.hpp"
+#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap
 {
@@ -405,15 +406,17 @@ public:
    *                          specific class only.
    * @param  weighted_by_area If true, weights density by footprint area ($\pi
    *                          r^2$).
-   * @param  bbox             Bounding box defining the domain {xmin, xmax,
-   *                          ymin, ymax}.
+   * @param  region           Tile region defining the domain and overlap
+   *                          layout.
+   * @param  comm             Communicator for tile boundary synchronization.
    * @return                  Array 2D continuous density map array.
    */
   Array to_density_map(glm::ivec2              shape,
                        float                   sigma = 0.0f,
                        std::optional<uint32_t> class_id = std::nullopt,
                        bool                    weighted_by_area = false,
-                       glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}) const;
+                       const TileRegion       &region = TileRegion::dummy(),
+                       ICommunicator &comm = SingleArrayComm::instance()) const;
 
   /**
    * @brief Converts the scatter field into a heightmap by representing each

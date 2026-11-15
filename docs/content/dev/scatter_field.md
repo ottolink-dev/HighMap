@@ -24,7 +24,7 @@ classDiagram
         +get_class_ids() vector~uint32_t~
         +prune_collisions(min_distance_factor)
         +densify(target_count, seed)
-        +to_density_map(shape) Array
+        +to_density_map(shape, ..., region, comm) Array
         +set_elevation_from_terrain(terrain)
         +to_heightmap(shape, shape_type, ...) Array
     }

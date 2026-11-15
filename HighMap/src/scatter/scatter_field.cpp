@@ -1211,10 +1211,12 @@ Array ScatterField::to_density_map(glm::ivec2              shape,
                                    float                   sigma,
                                    std::optional<uint32_t> class_id,
                                    bool                    weighted_by_area,
-                                   glm::vec4               bbox) const
+                                   const TileRegion       &region,
+                                   ICommunicator          &comm) const
 {
   if (!validate_shape(shape)) return Array();
 
+  const glm::vec4 &bbox = region.bbox;
   float dx = bbox.y - bbox.x;
   float dy = bbox.w - bbox.z;
   if (std::abs(dx) < 1e-9f || std::abs(dy) < 1e-9f) return Array(shape, 0.0f);
@@ -1298,6 +1300,9 @@ Array ScatterField::to_density_map(glm::ivec2              shape,
       }
     }
   }
+
+  remap(density, 0.f, 1.f, comm);
+  comm.sync_overlap_buffers(density, region, SyncOperation::SmoothBlend);
 
   return density;
 }
