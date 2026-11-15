@@ -156,7 +156,7 @@ void kernel noise_fbm(global float *output,
 
     for (int i = 0; i < octaves; i++)
     {
-      float stretch_k = 1.f + (stretch - 1.f) * pow(decay_base, (float)i);
+      float  stretch_k = 1.f + (stretch - 1.f) * pow(decay_base, (float)i);
       float2 p_s = apply_stretch(pos * nf, cos_a, sin_a, stretch_k);
       float  v = eval_base_noise(noise_id, p_s, seed, per);
       n += v * na;
