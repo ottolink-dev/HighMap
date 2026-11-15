@@ -154,3 +154,94 @@ TEST(GpuCpu, WaterDepthFromMask)
   bool ret = assert_almost_equal(wc, wg, 1e-2f);
   EXPECT_EQ(ret, true);
 }
+
+TEST(GpuCpu, Noise)
+{
+  const glm::ivec2 shape = {64, 64};
+  const glm::vec2  kw = {4.f, 4.f};
+  const uint       seed = 42;
+  const float      tol = 1e-5f;
+
+  Array nx = 0.25f * noise(NoiseType::PERLIN, shape, kw, seed + 10);
+  Array ny = 0.25f * noise(NoiseType::PERLIN, shape, kw, seed + 20);
+
+  std::vector<NoiseType> types = {
+      NoiseType::PERLIN,
+      NoiseType::PERLIN_BILLOW,
+      NoiseType::PERLIN_HALF,
+      NoiseType::SIMPLEX2,
+      NoiseType::SIMPLEX2S,
+      NoiseType::VALUE,
+      NoiseType::VALUE_CUBIC,
+      NoiseType::VALUE_LINEAR,
+      NoiseType::WORLEY,
+      NoiseType::WORLEY_DOUBLE,
+  };
+
+  for (const auto type : types)
+  {
+    Array zc = noise(type, shape, kw, seed, &nx, &ny);
+    Array zg = gpu::noise(type, shape, kw, seed, &nx, &ny);
+
+    EXPECT_TRUE(assert_almost_equal(zc, zg, tol))
+        << "Mismatch for NoiseType " << static_cast<int>(type);
+  }
+}
+
+TEST(GpuCpu, NoiseFbm)
+{
+  const glm::ivec2 shape = {64, 64};
+  const glm::vec2  kw = {4.f, 4.f};
+  const uint       seed = 42;
+  const int        octaves = 6;
+  const float      weight = 0.7f;
+  const float      persistence = 0.5f;
+  const float      lacunarity = 2.f;
+  const float      tol = 1e-5f;
+
+  Array ctrl = 0.5f * (1.f + noise(NoiseType::PERLIN, shape, kw, seed + 5));
+  Array nx = 0.25f * noise(NoiseType::PERLIN, shape, kw, seed + 10);
+  Array ny = 0.25f * noise(NoiseType::PERLIN, shape, kw, seed + 20);
+
+  std::vector<NoiseType> types = {
+      NoiseType::PERLIN,
+      NoiseType::PERLIN_BILLOW,
+      NoiseType::PERLIN_HALF,
+      NoiseType::SIMPLEX2,
+      NoiseType::SIMPLEX2S,
+      NoiseType::VALUE,
+      NoiseType::VALUE_CUBIC,
+      NoiseType::VALUE_LINEAR,
+      NoiseType::WORLEY,
+      NoiseType::WORLEY_DOUBLE,
+  };
+
+  for (const auto type : types)
+  {
+    Array zc = noise_fbm(type,
+                         shape,
+                         kw,
+                         seed,
+                         octaves,
+                         weight,
+                         persistence,
+                         lacunarity,
+                         nullptr,
+                         &nx,
+                         &ny);
+    Array zg = gpu::noise_fbm(type,
+                              shape,
+                              kw,
+                              seed,
+                              octaves,
+                              weight,
+                              persistence,
+                              lacunarity,
+                              nullptr,
+                              &nx,
+                              &ny);
+
+    EXPECT_TRUE(assert_almost_equal(zc, zg, tol))
+        << "Mismatch for FBM NoiseType " << static_cast<int>(type);
+  }
+}

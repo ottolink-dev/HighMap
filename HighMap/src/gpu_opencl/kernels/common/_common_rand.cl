@@ -3,25 +3,14 @@ R""(
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 
-float hash11f(float x, float fseed)
+uint hash32(uint x)
 {
-  float pi;
-  return fract(sin(x * 127.1f + fseed) * 43758.5453123f, &pi);
-}
-
-float hash12f(float2 p, float fseed)
-{
-  float pi;
-  return fract(sin(dot(p, (float2)(127.1f, 311.7f)) + fseed) * 43758.5453123f,
-               &pi);
-}
-
-float hash13f(float3 p, float fseed)
-{
-  float pi;
-  return fract(sin(dot(p, (float3)(127.1f, 311.7f, 74.7f)) + fseed) *
-                   43758.5453123f,
-               &pi);
+  x ^= x >> 16;
+  x *= 0x7feb352dU;
+  x ^= x >> 15;
+  x *= 0x846ca68bU;
+  x ^= x >> 16;
+  return x;
 }
 
 uint hash21u(uint x, uint y)
@@ -33,12 +22,58 @@ uint hash21u(uint x, uint y)
   return h;
 }
 
+uint hash21u_seed(int ix, int iy, uint seed)
+{
+  uint h = (uint)ix * 0x8da6b343u ^ (uint)iy * 0xd8163841u ^ seed * 0x9e3779b9u;
+  return hash32(h);
+}
+
+float hash12u_f(int ix, int iy, uint seed)
+{
+  return (float)(hash21u_seed(ix, iy, seed) >> 8) * (1.f / 16777216.f);
+}
+
+float2 hash22u_f(int ix, int iy, uint seed)
+{
+  uint h0 = hash21u_seed(ix, iy, seed);
+  uint h1 = hash32(h0 ^ 0x9e3779b9u);
+  return (float2)((float)(h0 >> 8) * (1.f / 16777216.f),
+                  (float)(h1 >> 8) * (1.f / 16777216.f));
+}
+
+float2 grad22u_f(int ix, int iy, uint seed)
+{
+  float angle = 6.2831853f * hash12u_f(ix, iy, seed); // 2 * PI
+  return (float2)(cos(angle), sin(angle));
+}
+
+float hash11f(float x, float fseed)
+{
+  uint h = hash32(as_uint(x) ^ as_uint(fseed) * 0x9e3779b9u);
+  return (float)(h >> 8) * (1.f / 16777216.f);
+}
+
+float hash12f(float2 p, float fseed)
+{
+  uint h = hash32(as_uint(p.x) * 0x8da6b343u ^ as_uint(p.y) * 0xd8163841u ^
+                  as_uint(fseed) * 0x9e3779b9u);
+  return (float)(h >> 8) * (1.f / 16777216.f);
+}
+
+float hash13f(float3 p, float fseed)
+{
+  uint h = hash32(as_uint(p.x) * 0x8da6b343u ^ as_uint(p.y) * 0xd8163841u ^
+                  as_uint(p.z) * 0x165667b1u ^ as_uint(fseed) * 0x9e3779b9u);
+  return (float)(h >> 8) * (1.f / 16777216.f);
+}
+
 float2 hash22f(float2 p, float fseed)
 {
-  p = (float2)(dot(p, (float2)(127.1f, 311.7f)),
-               dot(p, (float2)(269.5f, 183.3f)));
-  float2 pi;
-  return fract(sin(p + fseed) * 43758.5453123f, &pi);
+  uint h0 = hash32(as_uint(p.x) * 0x8da6b343u ^ as_uint(p.y) * 0xd8163841u ^
+                   as_uint(fseed) * 0x9e3779b9u);
+  uint h1 = hash32(h0 ^ 0x9e3779b9u);
+  return (float2)((float)(h0 >> 8) * (1.f / 16777216.f),
+                  (float)(h1 >> 8) * (1.f / 16777216.f));
 }
 
 float2 hash22f_poly(float2 x, float fseed)
@@ -51,11 +86,13 @@ float2 hash22f_poly(float2 x, float fseed)
 
 float3 hash33f(float3 p, float fseed)
 {
-  p = (float3)(dot(p, (float3)(127.1f, 311.7f, 74.7f)),
-               dot(p, (float3)(269.5f, 183.3f, 246.1f)),
-               dot(p, (float3)(113.5f, 271.9f, 124.6f)));
-  float3 pi;
-  return fract(sin(p + fseed) * 43758.5453123f, &pi);
+  uint h0 = hash32(as_uint(p.x) * 0x8da6b343u ^ as_uint(p.y) * 0xd8163841u ^
+                   as_uint(p.z) * 0x165667b1u ^ as_uint(fseed) * 0x9e3779b9u);
+  uint h1 = hash32(h0 ^ 0x9e3779b9u);
+  uint h2 = hash32(h1 ^ 0x85ebca6bu);
+  return (float3)((float)(h0 >> 8) * (1.f / 16777216.f),
+                  (float)(h1 >> 8) * (1.f / 16777216.f),
+                  (float)(h2 >> 8) * (1.f / 16777216.f));
 }
 
 float2 grad22f(float2 p, float fseed)
