@@ -1455,17 +1455,17 @@ protected:
   }
 
 protected:
-  BaseFn base;       ///< Unique pointer to the base noise function.
-  int    octaves;    ///< Number of octaves in the fractal noise.
-  float weight;      ///< Weight of the base noise function.
-  float persistence; ///< Persistence of the fractal noise.
-  float lacunarity;  ///< Lacunarity of the fractal noise.
-  float amp0;        ///< Initial amplitude of the fractal noise.
-  float angle = 0.f; ///< Direction angle in degrees.
-  float stretch = 1.f;       ///< Stretching factor along the direction.
-  float stretch_decay = 0.f; ///< Stretching decay across octaves.
-  float cos_a = 1.f;         ///< Cosine of direction angle.
-  float sin_a = 0.f;         ///< Sine of direction angle.
+  BaseFn base;                ///< Unique pointer to the base noise function.
+  int    octaves;             ///< Number of octaves in the fractal noise.
+  float  weight;              ///< Weight of the base noise function.
+  float  persistence;         ///< Persistence of the fractal noise.
+  float  lacunarity;          ///< Lacunarity of the fractal noise.
+  float  amp0;                ///< Initial amplitude of the fractal noise.
+  float  angle = 0.f;         ///< Direction angle in degrees.
+  float  stretch = 1.f;       ///< Stretching factor along the direction.
+  float  stretch_decay = 0.f; ///< Stretching decay across octaves.
+  float  cos_a = 1.f;         ///< Cosine of direction angle.
+  float  sin_a = 0.f;         ///< Sine of direction angle.
 };
 
 /**
