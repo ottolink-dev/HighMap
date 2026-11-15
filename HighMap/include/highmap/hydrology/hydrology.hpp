@@ -601,8 +601,10 @@ Array flow_fixing_mst(
     RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
     float         radial_profile_parameter = 2.f,
     const Array  *p_noise_r = nullptr,
-    bool          use_midpoint = false,
-    float         offset_ratio = 0.2f);
+    bool              use_midpoint = false,
+    float             offset_ratio = 0.2f,
+    const TileRegion &region = TileRegion::dummy(),
+    ICommunicator    &comm = SingleArrayComm::instance());
 
 /**
  * @brief Computes river flow paths resolving depressions via Minimum Spanning
@@ -1548,6 +1550,24 @@ namespace hmap::va
  * @return                          Carved elevation VirtualArray with unbroken
  *                                  flow paths.
  */
+VirtualArray flow_fixing_mst(
+    const ComputeMode  &cm,
+    const VirtualArray &z,
+    float               riverbed_talus = 0.f,
+    float               elevation_ratio = 0.95f,
+    float               distance_exponent = 2.f,
+    float               upward_penalization = 0.1f,
+    float               valley_affinity = 0.f,
+    int                 prefilter_ir = 0,
+    float               minimum_depth = 1e-4f,
+    bool                carve_riverbed = true,
+    float               merging_distance = 4.f,
+    RadialProfile       radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
+    float               radial_profile_parameter = 2.f,
+    const VirtualArray *p_noise_r = nullptr,
+    bool                use_midpoint = true,
+    float               offset_ratio = 0.25f);
+
 std::vector<Path> flow_fixing_mst_paths(const ComputeMode  &cm,
                                         const VirtualArray &z,
                                         size_t control_points_count = 2048,

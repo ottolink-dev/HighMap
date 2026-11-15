@@ -9,6 +9,7 @@
 #include <future>
 #include <iterator>
 #include <limits>
+#include <mutex>
 #include <queue>
 #include <utility>
 #include <vector>
@@ -26,6 +27,7 @@
 #include "highmap/math/profiles.hpp"
 #include "highmap/shortest_path.hpp"
 #include "highmap/terrain_tri_mesh.hpp"
+#include "highmap/virtual_array/communicator.hpp"
 #include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
@@ -35,24 +37,282 @@
 namespace hmap
 {
 
-Array flow_fixing_mst(const Array  &z,
-                      float         riverbed_talus,
-                      float         elevation_ratio,
-                      float         distance_exponent,
-                      float         upward_penalization,
-                      float         valley_affinity,
-                      int           prefilter_ir,
-                      float         minimum_depth,
-                      bool          carve_riverbed,
-                      float         merging_distance,
-                      RadialProfile radial_profile,
-                      float         radial_profile_parameter,
-                      const Array  *p_noise_r,
-                      bool          use_midpoint,
-                      float         offset_ratio)
+Array flow_fixing_mst(const Array      &z,
+                      float             riverbed_talus,
+                      float             elevation_ratio,
+                      float             distance_exponent,
+                      float             upward_penalization,
+                      float             valley_affinity,
+                      int               prefilter_ir,
+                      float             minimum_depth,
+                      bool              carve_riverbed,
+                      float             merging_distance,
+                      RadialProfile     radial_profile,
+                      float             radial_profile_parameter,
+                      const Array      *p_noise_r,
+                      bool              use_midpoint,
+                      float             offset_ratio,
+                      const TileRegion &region,
+                      ICommunicator    &comm)
 {
   if (!validate_non_empty(z)) return Array();
   if (p_noise_r && !validate_same_shape(z, *p_noise_r)) return Array();
+
+  // --- Distributed tile-communicated execution
+
+  if (comm.size() > 1)
+  {
+    Array zb = z;
+
+    const float z_min = comm.all_reduce(z.min(), ReduceOp::Min);
+    const float z_max = comm.all_reduce(z.max(), ReduceOp::Max);
+    const float z_span = std::max(z_max - z_min, 1e-6f);
+
+    Array zf = z;
+    if (prefilter_ir > 0) smooth_cpulse(zf, prefilter_ir);
+
+    std::vector<glm::ivec2> sinks = find_flow_sinks(zf);
+
+    Array valley_field(z.shape, 0.f);
+    if (valley_affinity > 0.f)
+    {
+      valley_field = zf;
+      laplace(valley_field);
+      float max_v = valley_field.max();
+      float min_v = valley_field.min();
+      float span = std::max(max_v - min_v, 1e-6f);
+      for (int j = 0; j < z.shape.y; ++j)
+        for (int i = 0; i < z.shape.x; ++i)
+          valley_field(i, j) = (valley_field(i, j) - min_v) / span;
+    }
+
+    auto to_global = [&region](int i, int j) -> glm::ivec2
+    {
+      int gi = region.key.tx * region.tile_shape.x - region.halo.x + i;
+      int gj = region.key.ty * region.tile_shape.y - region.halo.z + j;
+      return {gi, gj};
+    };
+
+    auto pack_global_id = [&region](int gi, int gj) -> int64_t
+    {
+      return static_cast<int64_t>(gj) *
+                 static_cast<int64_t>(region.global_shape.x) +
+             gi;
+    };
+
+    auto compute_path_cost = [&](const std::vector<glm::ivec2> &path) -> float
+    {
+      if (path.size() < 2) return std::numeric_limits<float>::max();
+
+      float total_cost = 0.f;
+      float z_start = z(path.front());
+
+      for (size_t k = 1; k < path.size(); ++k)
+      {
+        glm::ivec2 p0 = path[k - 1];
+        glm::ivec2 p1 = path[k];
+        float      step_len = glm::length(glm::vec2(p1 - p0));
+        float      dz = z(p1) - z_start;
+        float      up_pen = (dz > 0.f) ? upward_penalization * dz : 0.f;
+        float      elev_cost = elevation_ratio * ((z(p1) - z_min) / z_span);
+        float      valley_bonus = valley_affinity * valley_field(p1);
+        float step_cost = std::pow(step_len, distance_exponent) + elev_cost +
+                          up_pen - valley_bonus;
+        total_cost += std::max(step_cost, 1e-5f);
+      }
+
+      return total_cost;
+    };
+
+    // serialize local edges: [cost, u_id, v_id, z_start, z_end, n_pts, x0, y0,
+    // ...]
+    std::vector<float> local_packed;
+    auto               push_edge = [&](float                          cost,
+                         int64_t                        u_id,
+                         int64_t                        v_id,
+                         const std::vector<glm::ivec2> &path)
+    {
+      local_packed.push_back(cost);
+      local_packed.push_back(static_cast<float>(u_id));
+      local_packed.push_back(static_cast<float>(v_id));
+      local_packed.push_back(z(path.front()));
+      local_packed.push_back(z(path.back()));
+      local_packed.push_back(static_cast<float>(path.size()));
+      for (const auto &p : path)
+      {
+        glm::vec2 c = region.cell_center(p.x, p.y);
+        local_packed.push_back(c.x);
+        local_packed.push_back(c.y);
+      }
+    };
+
+    const int n_sinks = static_cast<int>(sinks.size());
+    const int k_max = std::min(6, std::max(0, n_sinks - 1));
+    const int steps = use_midpoint ? 4 : 6;
+
+    for (int u = 0; u < n_sinks; ++u)
+    {
+      std::vector<std::pair<float, int>> neighbors;
+      for (int v = 0; v < n_sinks; ++v)
+      {
+        if (u == v) continue;
+        float d2 = float((sinks[u].x - sinks[v].x) * (sinks[u].x - sinks[v].x) +
+                         (sinks[u].y - sinks[v].y) * (sinks[u].y - sinks[v].y));
+        neighbors.push_back({d2, v});
+      }
+
+      if (k_max > 0)
+      {
+        std::partial_sort(neighbors.begin(),
+                          neighbors.begin() + k_max,
+                          neighbors.end());
+        for (int i = 0; i < k_max; ++i)
+        {
+          int v = neighbors[i].second;
+          if (u >= v) continue;
+          auto path = find_path_midpoint(z,
+                                         sinks[u],
+                                         sinks[v],
+                                         offset_ratio,
+                                         0,
+                                         steps);
+          if (path.size() >= 2)
+          {
+            glm::ivec2 gu = to_global(sinks[u].x, sinks[u].y);
+            glm::ivec2 gv = to_global(sinks[v].x, sinks[v].y);
+            push_edge(compute_path_cost(path),
+                      pack_global_id(gu.x, gu.y),
+                      pack_global_id(gv.x, gv.y),
+                      path);
+          }
+        }
+      }
+
+      glm::ivec2              p = sinks[u];
+      glm::ivec2              gu = to_global(p.x, p.y);
+      int64_t                 u_id = pack_global_id(gu.x, gu.y);
+      std::vector<glm::ivec2> b_candidates = {{p.x, 0},
+                                              {p.x, z.shape.y - 1},
+                                              {0, p.y},
+                                              {z.shape.x - 1, p.y}};
+
+      for (const auto &b_pt : b_candidates)
+      {
+        auto path = find_path_midpoint(z, p, b_pt, offset_ratio, 0, steps);
+        if (path.size() < 2) continue;
+
+        glm::ivec2 gb = to_global(b_pt.x, b_pt.y);
+        bool       on_global_boundary = (gb.x <= 0 ||
+                                   gb.x >= region.global_shape.x - 1 ||
+                                   gb.y <= 0 ||
+                                   gb.y >= region.global_shape.y - 1);
+        int64_t    v_id = on_global_boundary ? -1 : pack_global_id(gb.x, gb.y);
+        float      norm_z = (z(b_pt) - z_min) / z_span;
+        push_edge(compute_path_cost(path) + 5.f * norm_z, u_id, v_id, path);
+      }
+    }
+
+    std::vector<float> all_packed = comm.all_union(local_packed);
+
+    struct DistEdge
+    {
+      float                  cost;
+      int64_t                u;
+      int64_t                v;
+      float                  z_start;
+      float                  z_end;
+      std::vector<glm::vec2> coords;
+      bool                   operator<(const DistEdge &o) const
+      {
+        return cost < o.cost;
+      }
+    };
+
+    std::vector<DistEdge> edges;
+    size_t                idx = 0;
+    while (idx + 6 <= all_packed.size())
+    {
+      DistEdge e;
+      e.cost = all_packed[idx++];
+      e.u = static_cast<int64_t>(all_packed[idx++]);
+      e.v = static_cast<int64_t>(all_packed[idx++]);
+      e.z_start = all_packed[idx++];
+      e.z_end = all_packed[idx++];
+      size_t n_pts = static_cast<size_t>(all_packed[idx++]);
+      if (idx + 2 * n_pts > all_packed.size()) break;
+      e.coords.reserve(n_pts);
+      for (size_t k = 0; k < n_pts; ++k)
+      {
+        float cx = all_packed[idx++];
+        float cy = all_packed[idx++];
+        e.coords.emplace_back(cx, cy);
+      }
+      edges.push_back(std::move(e));
+    }
+
+    std::sort(edges.begin(), edges.end());
+
+    std::unordered_map<int64_t, int64_t> parent;
+    auto find_root = [&parent](int64_t x) -> int64_t
+    {
+      int64_t root = x;
+      while (parent.count(root) && parent[root] != root)
+        root = parent[root];
+      return root;
+    };
+
+    std::vector<Path> mst_paths;
+    for (const auto &e : edges)
+    {
+      if (!parent.count(e.u)) parent[e.u] = e.u;
+      if (!parent.count(e.v)) parent[e.v] = e.v;
+      int64_t ru = find_root(e.u);
+      int64_t rv = find_root(e.v);
+      if (ru != rv)
+      {
+        parent[ru] = rv;
+        std::vector<Point> pts;
+        pts.reserve(e.coords.size());
+        for (size_t k = 0; k < e.coords.size(); ++k)
+        {
+          float t = float(k) / float(std::max<size_t>(1, e.coords.size() - 1));
+          pts.emplace_back(e.coords[k].x,
+                           e.coords[k].y,
+                           glm::mix(e.z_start, e.z_end, t) - minimum_depth);
+        }
+        mst_paths.emplace_back(pts);
+      }
+    }
+
+    if (carve_riverbed && !mst_paths.empty())
+    {
+      float trench_width = merging_distance / float(region.global_shape.x);
+      trench(zb,
+             mst_paths,
+             trench_width,
+             /* enable_width_depth_scaling */ false,
+             /* enable_width_distance_scaling */ false,
+             /* enable_width_curvature_scaling */ false,
+             /* curvature_radius_min */ 1.f,
+             /* curv_width_ratio_min */ 0.5f,
+             /* curv_width_ratio_max */ 2.f,
+             radial_profile,
+             radial_profile_parameter,
+             ElevationLongitudinalProfile::ELP_DECREASING,
+             /* elevation_shift */ 0.f,
+             /* shift_ramp_start_ratio */ 0.f,
+             /* shift_ramp_end_ratio */ 0.f,
+             /* min_slope */ std::max(riverbed_talus, 1e-4f),
+             /* k_neighbors */ 4,
+             /* p_noise_r */ p_noise_r,
+             /* p_bending_mask */ nullptr,
+             /* tile_size */ 32,
+             /* bbox */ region.bbox);
+    }
+
+    comm.sync_overlap_buffers(zb, region, SyncOperation::Min);
+    return zb;
+  }
 
   const glm::ivec2 shape = z.shape;
   Array            zb = z;
@@ -617,503 +877,340 @@ Array flow_fixing_mst(const Array  &z,
   return zb;
 }
 
-std::vector<Path> flow_fixing_mst_paths(const TerrainTriMesh &mesh,
-                                        float                 riverbed_talus,
-                                        float                 elevation_ratio,
-                                        float                 distance_exponent,
-                                        float upward_penalization,
-                                        float minimum_depth)
-{
-  if (mesh.size() < 3) return {};
-
-  const auto  &points = mesh.get_points();
-  const auto  &nbrs_data = mesh.get_neighbors();
-  const auto  &convex_hull = mesh.get_convex_hull();
-  const size_t n_vertices = points.size();
-
-  std::vector<bool> is_boundary(n_vertices, false);
-  for (size_t idx : convex_hull)
-    is_boundary[idx] = true;
-
-  // --- Identify interior sinks
-
-  std::vector<size_t> sinks;
-  for (size_t i = 0; i < n_vertices; ++i)
-  {
-    if (is_boundary[i]) continue;
-
-    bool is_sink = true;
-    for (const auto &nb : nbrs_data.adjacency[i])
-    {
-      if (points[nb.index].z < points[i].z)
-      {
-        is_sink = false;
-        break;
-      }
-    }
-    if (is_sink) sinks.push_back(i);
-  }
-
-  if (sinks.empty()) return {};
-
-  int n_sinks = static_cast<int>(sinks.size());
-  int boundary_src_id = n_sinks;
-  int total_sources = n_sinks + 1;
-
-  glm::vec2 z_range = mesh.get_range_z();
-  float     z_span = std::max(z_range.y - z_range.x, 1e-6f);
-
-  // --- Multi-source Dijkstra expansion on mesh
-
-  struct MeshMSTEdge
-  {
-    float               cost;
-    int                 u;
-    int                 v;
-    std::vector<size_t> path; // vertex indices from source u to source v
-
-    bool operator<(const MeshMSTEdge &other) const
-    {
-      return cost < other.cost;
-    }
-  };
-
-  struct MeshDijkstraNode
-  {
-    float  dist;
-    size_t u;
-
-    bool operator>(const MeshDijkstraNode &o) const
-    {
-      return dist > o.dist;
-    }
-  };
-
-  std::unordered_map<int64_t, MeshMSTEdge> candidate_edges;
-  auto make_key = [](int u, int v) -> int64_t
-  {
-    if (u > v) std::swap(u, v);
-    return (static_cast<int64_t>(u) << 32) | static_cast<int64_t>(v);
-  };
-
-  std::vector<float>  dist_map(n_vertices, std::numeric_limits<float>::max());
-  std::vector<int>    owner_map(n_vertices, -1);
-  std::vector<size_t> prev_node(n_vertices, size_t(-1));
-
-  std::priority_queue<MeshDijkstraNode,
-                      std::vector<MeshDijkstraNode>,
-                      std::greater<MeshDijkstraNode>>
-      pq;
-
-  // initialize boundary outlets
-  for (size_t idx : convex_hull)
-  {
-    float norm_z = (points[idx].z - z_range.x) / z_span;
-    float init_d = 5.f * norm_z;
-    dist_map[idx] = init_d;
-    owner_map[idx] = boundary_src_id;
-    prev_node[idx] = idx;
-    pq.push({init_d, idx});
-  }
-
-  // initialize interior sinks
-  for (int s = 0; s < n_sinks; ++s)
-  {
-    size_t u = sinks[s];
-    dist_map[u] = 0.f;
-    owner_map[u] = s;
-    prev_node[u] = u;
-    pq.push({0.f, u});
-  }
-
-  while (!pq.empty())
-  {
-    MeshDijkstraNode top = pq.top();
-    pq.pop();
-
-    size_t ci = top.u;
-    if (top.dist > dist_map[ci]) continue;
-
-    int cur_owner = owner_map[ci];
-
-    for (const auto &nb : nbrs_data.adjacency[ci])
-    {
-      size_t ni = nb.index;
-      int    nb_owner = owner_map[ni];
-
-      // when meeting a different source region, record candidate bridge edge
-      if (nb_owner != -1 && nb_owner != cur_owner)
-      {
-        float   total_cost = dist_map[ci] + dist_map[ni] + nb.distance2d;
-        int64_t key = make_key(cur_owner, nb_owner);
-
-        if (candidate_edges.find(key) == candidate_edges.end() ||
-            total_cost < candidate_edges[key].cost)
-        {
-          std::vector<size_t> p1;
-          size_t              curr = ci;
-          while (true)
-          {
-            p1.push_back(curr);
-            size_t nxt = prev_node[curr];
-            if (nxt == curr) break;
-            curr = nxt;
-          }
-          std::reverse(p1.begin(), p1.end()); // from cur_owner to ci
-
-          std::vector<size_t> p2;
-          curr = ni;
-          while (true)
-          {
-            p2.push_back(curr);
-            size_t nxt = prev_node[curr];
-            if (nxt == curr) break;
-            curr = nxt;
-          } // from ni to nb_owner
-
-          p1.insert(p1.end(), p2.begin(), p2.end());
-          candidate_edges[key] = {total_cost,
-                                  cur_owner,
-                                  nb_owner,
-                                  std::move(p1)};
-        }
-      }
-
-      // transition cost
-      float dz = points[ni].z - points[ci].z;
-      float cost_step = (1.f - elevation_ratio) * nb.distance2d;
-
-      if (dz > 0.f)
-        cost_step += upward_penalization * std::pow(dz, distance_exponent);
-      else
-        cost_step += std::abs(dz);
-
-      cost_step += elevation_ratio * std::max(0.f, points[ni].z);
-
-      float new_dist = dist_map[ci] + cost_step;
-
-      if (new_dist < dist_map[ni])
-      {
-        dist_map[ni] = new_dist;
-        owner_map[ni] = cur_owner;
-        prev_node[ni] = ci;
-        pq.push({new_dist, ni});
-      }
-    }
-  }
-
-  // --- Build Kruskal Minimum Spanning Tree across all sinks + boundary outlet
-
-  struct MeshDSU
-  {
-    std::vector<int> parent;
-    MeshDSU(int n) : parent(n)
-    {
-      for (int i = 0; i < n; ++i)
-        parent[i] = i;
-    }
-    int find(int i)
-    {
-      if (parent[i] == i) return i;
-      return parent[i] = find(parent[i]);
-    }
-    bool unite(int i, int j)
-    {
-      int root_i = find(i);
-      int root_j = find(j);
-      if (root_i != root_j)
-      {
-        parent[root_i] = root_j;
-        return true;
-      }
-      return false;
-    }
-  };
-
-  std::vector<MeshMSTEdge> edge_list;
-  edge_list.reserve(candidate_edges.size());
-
-  for (auto &[key, edge] : candidate_edges)
-    edge_list.push_back(edge);
-
-  std::sort(edge_list.begin(), edge_list.end());
-
-  MeshDSU                  dsu(total_sources);
-  std::vector<MeshMSTEdge> mst_edges;
-
-  for (const auto &edge : edge_list)
-  {
-    if (dsu.unite(edge.u, edge.v)) mst_edges.push_back(edge);
-  }
-
-  // Fallback: If any sink component is not connected to the boundary outlet,
-  // connect it directly
-  int boundary_root = dsu.find(boundary_src_id);
-  for (int s = 0; s < n_sinks; ++s)
-  {
-    if (dsu.find(s) != boundary_root)
-    {
-      float       best_cost = std::numeric_limits<float>::max();
-      MeshMSTEdge best_edge;
-      bool        found = false;
-
-      for (const auto &edge : edge_list)
-      {
-        if ((dsu.find(edge.u) == dsu.find(s) &&
-             dsu.find(edge.v) == boundary_root) ||
-            (dsu.find(edge.v) == dsu.find(s) &&
-             dsu.find(edge.u) == boundary_root))
-        {
-          if (edge.cost < best_cost)
-          {
-            best_cost = edge.cost;
-            best_edge = edge;
-            found = true;
-          }
-        }
-      }
-
-      if (found && dsu.unite(best_edge.u, best_edge.v))
-      {
-        mst_edges.push_back(best_edge);
-        boundary_root = dsu.find(boundary_src_id);
-      }
-    }
-  }
-
-  // --- Build directed adjacency tree rooted at the boundary outlet
-
-  std::vector<std::vector<std::pair<int, std::vector<size_t>>>> adj(
-      total_sources);
-  for (const auto &edge : mst_edges)
-  {
-    adj[edge.u].push_back({edge.v, edge.path});
-    std::vector<size_t> rev_path = edge.path;
-    std::reverse(rev_path.begin(), rev_path.end());
-    adj[edge.v].push_back({edge.u, std::move(rev_path)});
-  }
-
-  // BFS from boundary_src_id inward to orient all edges towards boundary
-  std::vector<bool> visited(total_sources, false);
-  std::vector<int>  bfs_queue;
-  bfs_queue.push_back(boundary_src_id);
-  visited[boundary_src_id] = true;
-
-  struct DirectedMeshPath
-  {
-    int                 child;
-    int                 parent;
-    std::vector<size_t> path; // from upstream child to downstream parent
-  };
-  std::vector<DirectedMeshPath> directed_paths;
-
-  size_t qhead = 0;
-  while (qhead < bfs_queue.size())
-  {
-    int u = bfs_queue[qhead++];
-
-    for (const auto &[v, path_u_to_v] : adj[u])
-    {
-      if (!visited[v])
-      {
-        visited[v] = true;
-        bfs_queue.push_back(v);
-
-        std::vector<size_t> path_v_to_u = path_u_to_v;
-        std::reverse(path_v_to_u.begin(), path_v_to_u.end());
-        directed_paths.push_back({v, u, std::move(path_v_to_u)});
-      }
-    }
-  }
-
-  std::reverse(directed_paths.begin(), directed_paths.end());
-
-  // --- Enforce monotonic downstream elevations and construct Path objects
-
-  std::vector<float> node_z(n_vertices);
-  for (size_t i = 0; i < n_vertices; ++i)
-    node_z[i] = points[i].z;
-
-  float min_d = std::max(minimum_depth, 0.f);
-
-  for (const auto &dp : directed_paths)
-  {
-    const auto &path = dp.path;
-    if (path.size() < 2) continue;
-
-    node_z[path.front()] = std::min(node_z[path.front()],
-                                    points[path.front()].z - min_d);
-    float current_z = node_z[path.front()];
-
-    for (size_t idx = 1; idx < path.size(); ++idx)
-    {
-      size_t curr = path[idx];
-      size_t prev = path[idx - 1];
-      float  dx = points[curr].x - points[prev].x;
-      float  dy = points[curr].y - points[prev].y;
-      float  dist = std::hypot(dx, dy);
-
-      current_z -= std::max(riverbed_talus, 1e-6f) * dist;
-      float target_z = std::min(current_z, points[curr].z - min_d);
-
-      if (node_z[curr] > target_z) node_z[curr] = target_z;
-      current_z = node_z[curr];
-    }
-  }
-
-  std::vector<Path> output_paths;
-  output_paths.reserve(directed_paths.size());
-
-  for (const auto &dp : directed_paths)
-  {
-    const auto &path_indices = dp.path;
-    if (path_indices.size() < 2) continue;
-
-    std::vector<Point> pts;
-    pts.reserve(path_indices.size());
-    for (size_t v_idx : path_indices)
-    {
-      pts.push_back(Point(points[v_idx].x, points[v_idx].y, node_z[v_idx]));
-    }
-    output_paths.emplace_back(std::move(pts));
-  }
-
-  return output_paths;
-}
-
-std::vector<Path> flow_fixing_mst_paths(const Array  &z,
-                                        size_t        control_points_count,
-                                        std::uint32_t seed,
-                                        float         riverbed_talus,
-                                        float         elevation_ratio,
-                                        float         distance_exponent,
-                                        float         upward_penalization,
-                                        float         minimum_depth)
-{
-  if (!validate_non_empty(z)) return {};
-
-  TerrainTriMesh mesh = generate_terrain_tri_mesh_from_heightmap_random(
-      z,
-      control_points_count,
-      seed);
-
-  return flow_fixing_mst_paths(mesh,
-                               riverbed_talus,
-                               elevation_ratio,
-                               distance_exponent,
-                               upward_penalization,
-                               minimum_depth);
-}
-
-Array flow_fixing_mst_triangulated(const Array  &z,
-                                   size_t        control_points_count,
-                                   std::uint32_t seed,
-                                   float         riverbed_talus,
-                                   float         elevation_ratio,
-                                   float         distance_exponent,
-                                   float         upward_penalization,
-                                   float         minimum_depth,
-                                   float         merging_distance,
-                                   RadialProfile radial_profile,
-                                   float         radial_profile_parameter,
-                                   const Array  *p_noise_r)
-{
-  if (!validate_non_empty(z)) return Array();
-  if (p_noise_r && !validate_same_shape(z, *p_noise_r)) return Array();
-
-  std::vector<Path> paths = flow_fixing_mst_paths(z,
-                                                  control_points_count,
-                                                  seed,
-                                                  riverbed_talus,
-                                                  elevation_ratio,
-                                                  distance_exponent,
-                                                  upward_penalization,
-                                                  minimum_depth);
-
-  Array zb = z;
-  if (paths.empty()) return zb;
-
-  float trench_width = merging_distance / float(z.shape.x);
-
-  trench(zb,
-         paths,
-         trench_width,
-         /* enable_width_depth_scaling */ false,
-         /* enable_width_distance_scaling */ false,
-         /* enable_width_curvature_scaling */ false,
-         /* curvature_radius_min */ 1.f,
-         /* curv_width_ratio_min */ 0.5f,
-         /* curv_width_ratio_max */ 2.f,
-         radial_profile,
-         radial_profile_parameter,
-         ElevationLongitudinalProfile::ELP_DECREASING,
-         /* elevation_shift */ 0.f,
-         /* shift_ramp_start_ratio */ 0.f,
-         /* shift_ramp_end_ratio */ 0.f,
-         /* min_slope */ std::max(riverbed_talus, 1e-4f),
-         /* k_neighbors */ 4,
-         /* p_noise_r */ p_noise_r);
-
-  return zb;
-}
-
 } // namespace hmap
 
 namespace hmap::va
 {
 
-std::vector<Path> flow_fixing_mst_paths(const ComputeMode  &cm,
-                                        const VirtualArray &z,
-                                        size_t        control_points_count,
-                                        std::uint32_t seed,
-                                        float         riverbed_talus,
-                                        float         elevation_ratio,
-                                        float         distance_exponent,
-                                        float         upward_penalization,
-                                        float         minimum_depth)
+VirtualArray flow_fixing_mst(const ComputeMode  &cm,
+                             const VirtualArray &z,
+                             float               riverbed_talus,
+                             float               elevation_ratio,
+                             float               distance_exponent,
+                             float               upward_penalization,
+                             float               valley_affinity,
+                             int                 prefilter_ir,
+                             float               minimum_depth,
+                             bool                carve_riverbed,
+                             float               merging_distance,
+                             RadialProfile       radial_profile,
+                             float               radial_profile_parameter,
+                             const VirtualArray *p_noise_r,
+                             bool                use_midpoint,
+                             float               offset_ratio)
 {
-  TerrainTriMesh mesh = va::generate_terrain_tri_mesh_from_heightmap_random(
-      cm,
-      z,
-      control_points_count,
-      seed);
-
-  return flow_fixing_mst_paths(mesh,
-                               riverbed_talus,
-                               elevation_ratio,
-                               distance_exponent,
-                               upward_penalization,
-                               minimum_depth);
-}
-
-VirtualArray flow_fixing_mst_triangulated(const ComputeMode  &cm,
-                                          const VirtualArray &z,
-                                          size_t        control_points_count,
-                                          std::uint32_t seed,
-                                          float         riverbed_talus,
-                                          float         elevation_ratio,
-                                          float         distance_exponent,
-                                          float         upward_penalization,
-                                          float         minimum_depth,
-                                          float         merging_distance,
-                                          RadialProfile radial_profile,
-                                          float radial_profile_parameter,
-                                          const VirtualArray *p_noise_r)
-{
-  std::vector<Path> paths = flow_fixing_mst_paths(cm,
-                                                  z,
-                                                  control_points_count,
-                                                  seed,
-                                                  riverbed_talus,
-                                                  elevation_ratio,
-                                                  distance_exponent,
-                                                  upward_penalization,
-                                                  minimum_depth);
-
   VirtualArray zb;
   zb.copy_from(z, cm, /* copy_src_data */ true);
 
-  if (paths.empty()) return zb;
+  if (z.shape.x == 0 || z.shape.y == 0) return zb;
+
+  // --- Global elevation range
+
+  glm::vec2 z_range = {z.min(cm), z.max(cm)};
+  float     z_span = std::max(z_range.y - z_range.x, 1e-6f);
+
+  // --- Generic path-finder abstraction (midpoint by default)
+
+  using PathFinder = std::function<
+      std::vector<glm::ivec2>(const Array &, glm::ivec2, glm::ivec2)>;
+
+  PathFinder path_finder;
+  if (use_midpoint)
+  {
+    path_finder =
+        [offset_ratio](const Array &arr, glm::ivec2 start, glm::ivec2 end)
+    {
+      return find_path_midpoint(arr,
+                                start,
+                                end,
+                                offset_ratio,
+                                0,  // max_it
+                                4); // steps
+    };
+  }
+  else
+  {
+    path_finder =
+        [offset_ratio](const Array &arr, glm::ivec2 start, glm::ivec2 end)
+    {
+      // fallback to midpoint with finer steps when dijkstra is not used
+      return find_path_midpoint(arr,
+                                start,
+                                end,
+                                offset_ratio,
+                                0,  // max_it
+                                6); // steps
+    };
+  }
+
+  // --- Graph structures for global MST across tiles
+
+  struct GlobalEdge
+  {
+    float                  cost;
+    int64_t                u;
+    int64_t                v;
+    std::vector<glm::vec2> path_coords;
+    float                  z_start;
+    float                  z_end;
+
+    bool operator<(const GlobalEdge &other) const
+    {
+      return cost < other.cost;
+    }
+  };
+
+  auto pack_global_id = [&z](int gi, int gj) -> int64_t
+  { return static_cast<int64_t>(gj) * static_cast<int64_t>(z.shape.x) + gi; };
+
+  const int64_t boundary_node_id = -1;
+
+  std::mutex              edges_mutex;
+  std::vector<GlobalEdge> all_edges;
+
+  // --- Per-tile sink detection & local portal graph extraction
+
+  hmap::for_each_tile(
+      {&z},
+      {},
+      [&](std::vector<const hmap::Array *> p_arrays_in,
+          std::vector<hmap::Array *>,
+          const hmap::TileRegion &region)
+      {
+        auto [pa_z] = unpack<1>(p_arrays_in);
+        const glm::ivec2 tshape = pa_z->shape;
+
+        Array zf = *pa_z;
+        if (prefilter_ir > 0) smooth_cpulse(zf, prefilter_ir);
+
+        std::vector<glm::ivec2> sinks = find_flow_sinks(zf);
+        if (sinks.empty()) return;
+
+        // valley affinity field
+        Array valley_field(tshape, 0.f);
+        if (valley_affinity > 0.f)
+        {
+          valley_field = zf;
+          laplace(valley_field);
+          float max_v = valley_field.max();
+          float min_v = valley_field.min();
+          float span = std::max(max_v - min_v, 1e-6f);
+          for (int j = 0; j < tshape.y; ++j)
+            for (int i = 0; i < tshape.x; ++i)
+              valley_field(i, j) = (valley_field(i, j) - min_v) / span;
+        }
+
+        auto to_global = [&region](int i, int j) -> glm::ivec2
+        {
+          int gi = region.key.tx * region.tile_shape.x - region.halo.x + i;
+          int gj = region.key.ty * region.tile_shape.y - region.halo.z + j;
+          return {gi, gj};
+        };
+
+        auto compute_path_cost =
+            [&](const std::vector<glm::ivec2> &path) -> float
+        {
+          if (path.size() < 2) return std::numeric_limits<float>::max();
+
+          float total_cost = 0.f;
+          float z_start = (*pa_z)(path.front());
+
+          for (size_t k = 1; k < path.size(); ++k)
+          {
+            glm::ivec2 p0 = path[k - 1];
+            glm::ivec2 p1 = path[k];
+            float      step_len = glm::length(glm::vec2(p1 - p0));
+            float      dz = (*pa_z)(p1)-z_start;
+            float      up_pen = (dz > 0.f) ? upward_penalization * dz : 0.f;
+            float      elev_cost = elevation_ratio *
+                              (((*pa_z)(p1)-z_range.x) / z_span);
+            float valley_bonus = valley_affinity * valley_field(p1);
+            float step_cost = std::pow(step_len, distance_exponent) +
+                              elev_cost + up_pen - valley_bonus;
+            total_cost += std::max(step_cost, 1e-5f);
+          }
+
+          return total_cost;
+        };
+
+        auto to_coords = [&region](const std::vector<glm::ivec2> &path)
+            -> std::vector<glm::vec2>
+        {
+          std::vector<glm::vec2> coords;
+          coords.reserve(path.size());
+          for (const auto &p : path)
+            coords.push_back(region.cell_center(p.x, p.y));
+          return coords;
+        };
+
+        std::vector<GlobalEdge> local_edges;
+
+        // connect each sink to k nearest local sinks
+        const int n_sinks = static_cast<int>(sinks.size());
+        const int k_max = std::min(6, n_sinks - 1);
+
+        for (int u = 0; u < n_sinks; ++u)
+        {
+          std::vector<std::pair<float, int>> neighbors;
+          neighbors.reserve(n_sinks - 1);
+          for (int v = 0; v < n_sinks; ++v)
+          {
+            if (u == v) continue;
+            float d2 = float(
+                (sinks[u].x - sinks[v].x) * (sinks[u].x - sinks[v].x) +
+                (sinks[u].y - sinks[v].y) * (sinks[u].y - sinks[v].y));
+            neighbors.push_back({d2, v});
+          }
+
+          if (k_max > 0)
+          {
+            std::partial_sort(neighbors.begin(),
+                              neighbors.begin() + k_max,
+                              neighbors.end());
+            for (int i = 0; i < k_max; ++i)
+            {
+              int v = neighbors[i].second;
+              if (u >= v) continue;
+
+              std::vector<glm::ivec2> path = path_finder(*pa_z,
+                                                         sinks[u],
+                                                         sinks[v]);
+              if (path.size() >= 2)
+              {
+                glm::ivec2 gu = to_global(sinks[u].x, sinks[u].y);
+                glm::ivec2 gv = to_global(sinks[v].x, sinks[v].y);
+                local_edges.push_back({compute_path_cost(path),
+                                       pack_global_id(gu.x, gu.y),
+                                       pack_global_id(gv.x, gv.y),
+                                       to_coords(path),
+                                       (*pa_z)(sinks[u]),
+                                       (*pa_z)(sinks[v])});
+              }
+            }
+          }
+        }
+
+        // find lowest boundary cells on each tile edge
+        glm::ivec2 min_b = {0, 0};
+        glm::ivec2 min_t = {0, tshape.y - 1};
+        glm::ivec2 min_l = {0, 0};
+        glm::ivec2 min_r = {tshape.x - 1, 0};
+
+        for (int i = 0; i < tshape.x; ++i)
+        {
+          if ((*pa_z)(i, 0) < (*pa_z)(min_b)) min_b = {i, 0};
+          if ((*pa_z)(i, tshape.y - 1) < (*pa_z)(min_t))
+            min_t = {i, tshape.y - 1};
+        }
+        for (int j = 0; j < tshape.y; ++j)
+        {
+          if ((*pa_z)(0, j) < (*pa_z)(min_l)) min_l = {0, j};
+          if ((*pa_z)(tshape.x - 1, j) < (*pa_z)(min_r))
+            min_r = {tshape.x - 1, j};
+        }
+
+        // connect each sink to tile boundary portals (or global outlet)
+        for (int u = 0; u < n_sinks; ++u)
+        {
+          glm::ivec2 p = sinks[u];
+          glm::ivec2 gu = to_global(p.x, p.y);
+          int64_t    u_id = pack_global_id(gu.x, gu.y);
+
+          std::vector<glm::ivec2> b_candidates = {{p.x, 0},
+                                                  {p.x, tshape.y - 1},
+                                                  {0, p.y},
+                                                  {tshape.x - 1, p.y},
+                                                  min_b,
+                                                  min_t,
+                                                  min_l,
+                                                  min_r};
+
+          for (const auto &b_pt : b_candidates)
+          {
+            std::vector<glm::ivec2> path = path_finder(*pa_z, p, b_pt);
+            if (path.size() < 2) continue;
+
+            glm::ivec2 gb = to_global(b_pt.x, b_pt.y);
+            bool on_global_boundary = (gb.x <= 0 || gb.x >= z.shape.x - 1 ||
+                                       gb.y <= 0 || gb.y >= z.shape.y - 1);
+
+            int64_t v_id = on_global_boundary ? boundary_node_id
+                                              : pack_global_id(gb.x, gb.y);
+
+            float norm_z = ((*pa_z)(b_pt)-z_range.x) / z_span;
+            float cost = compute_path_cost(path) + 5.f * norm_z;
+
+            local_edges.push_back(
+                {cost, u_id, v_id, to_coords(path), (*pa_z)(p), (*pa_z)(b_pt)});
+          }
+        }
+
+        if (!local_edges.empty())
+        {
+          std::lock_guard<std::mutex> lock(edges_mutex);
+          all_edges.insert(all_edges.end(),
+                           std::make_move_iterator(local_edges.begin()),
+                           std::make_move_iterator(local_edges.end()));
+        }
+      },
+      cm);
+
+  if (all_edges.empty()) return zb;
+
+  // --- Build global Kruskal MST across all sinks, portals & boundary outlet
+
+  std::sort(all_edges.begin(), all_edges.end());
+
+  std::unordered_map<int64_t, int64_t> parent;
+  auto find_root = [&parent](int64_t x) -> int64_t
+  {
+    int64_t root = x;
+    while (parent.count(root) && parent[root] != root)
+      root = parent[root];
+    int64_t curr = x;
+    while (curr != root)
+    {
+      int64_t nxt = parent[curr];
+      parent[curr] = root;
+      curr = nxt;
+    }
+    return root;
+  };
+
+  std::vector<Path> mst_paths;
+  for (const auto &edge : all_edges)
+  {
+    if (!parent.count(edge.u)) parent[edge.u] = edge.u;
+    if (!parent.count(edge.v)) parent[edge.v] = edge.v;
+
+    int64_t ru = find_root(edge.u);
+    int64_t rv = find_root(edge.v);
+    if (ru != rv)
+    {
+      parent[ru] = rv;
+
+      std::vector<float> z_vals(edge.path_coords.size());
+      for (size_t k = 0; k < edge.path_coords.size(); ++k)
+      {
+        float t = float(k) /
+                  float(std::max<size_t>(1, edge.path_coords.size() - 1));
+        z_vals[k] = glm::mix(edge.z_start, edge.z_end, t) - minimum_depth;
+      }
+
+      std::vector<Point> pts;
+      pts.reserve(edge.path_coords.size());
+      for (size_t k = 0; k < edge.path_coords.size(); ++k)
+        pts.emplace_back(edge.path_coords[k].x,
+                         edge.path_coords[k].y,
+                         z_vals[k]);
+
+      mst_paths.emplace_back(pts);
+    }
+  }
+
+  if (mst_paths.empty() || !carve_riverbed) return zb;
+
+  // --- Per-tile riverbed carving
 
   float trench_width = merging_distance / float(z.shape.x);
 
@@ -1128,7 +1225,7 @@ VirtualArray flow_fixing_mst_triangulated(const ComputeMode  &cm,
         auto [pa_zb] = unpack<1>(p_arrays_out);
 
         trench(*pa_zb,
-               paths,
+               mst_paths,
                trench_width,
                /* enable_width_depth_scaling */ false,
                /* enable_width_distance_scaling */ false,

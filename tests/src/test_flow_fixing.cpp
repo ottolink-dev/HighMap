@@ -208,6 +208,11 @@ TEST(FlowFixingMST, VirtualArrayTriangulatedExecution)
   }
 
   EXPECT_NEAR(max_diff, 0.f, 0.1f);
+
+  hmap::VirtualArray z_mst_va = hmap::va::flow_fixing_mst(cm, z_va);
+  hmap::Array        z_mst_arr = z_mst_va.to_array(cm);
+  EXPECT_EQ(z_mst_arr.shape, shape);
+  EXPECT_LT(z_mst_arr.min(), z_arr.max());
 }
 
 TEST(FlowAccumulationDinf, StandaloneVsTiledCommunicator)
