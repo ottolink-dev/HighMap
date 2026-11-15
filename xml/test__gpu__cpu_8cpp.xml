@@ -92,6 +92,44 @@
         </inbodydescription>
         <location file="tests/src/test_gpu_cpu.cpp" line="123" column="1" bodyfile="tests/src/test_gpu_cpu.cpp" bodystart="123" bodyend="156"/>
       </memberdef>
+      <memberdef kind="function" id="test__gpu__cpu_8cpp_1a32cb0e93ddc2c232fcc917df035030e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GpuCpu, Noise)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GpuCpu</type>
+        </param>
+        <param>
+          <type>Noise</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_gpu_cpu.cpp" line="158" column="1" bodyfile="tests/src/test_gpu_cpu.cpp" bodystart="158" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="function" id="test__gpu__cpu_8cpp_1a76ab52580641281ea9fbecc3ad4a0bc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(GpuCpu, NoiseFbm)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>GpuCpu</type>
+        </param>
+        <param>
+          <type>NoiseFbm</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_gpu_cpu.cpp" line="191" column="1" bodyfile="tests/src/test_gpu_cpu.cpp" bodystart="191" bodyend="247"/>
+      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -254,6 +292,97 @@
 <codeline lineno="154"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ret<sp/>=<sp/><ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(wc,<sp/>wg,<sp/>1e-2f);</highlight></codeline>
 <codeline lineno="155"><highlight class="normal"><sp/><sp/>EXPECT_EQ(ret,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="156"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><ref refid="test__gpu__cpu_8cpp_1ab68ec3acee0ee4fccee1960479be5e77" kindref="member">TEST</ref>(GpuCpu,<sp/>Noise)</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec2<sp/><sp/>kw<sp/>=<sp/>{4.f,<sp/>4.f};</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint<sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>42;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tol<sp/>=<sp/>1e-5f;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>nx<sp/>=<sp/>0.25f<sp/>*<sp/><ref refid="namespacehmap_1a0f94056bb01fb9798ce72d3c4b1be4d2" kindref="member">noise</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">NoiseType::PERLIN</ref>,<sp/>shape,<sp/>kw,<sp/>seed<sp/>+<sp/>10);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>ny<sp/>=<sp/>0.25f<sp/>*<sp/><ref refid="namespacehmap_1a0f94056bb01fb9798ce72d3c4b1be4d2" kindref="member">noise</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">NoiseType::PERLIN</ref>,<sp/>shape,<sp/>kw,<sp/>seed<sp/>+<sp/>20);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/>std::vector&lt;NoiseType&gt;<sp/>types<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">NoiseType::PERLIN</ref>,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a2497d2d20bd2b0a346a71aa1ff5c0be7" kindref="member">NoiseType::PERLIN_BILLOW</ref>,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195acb1550fb6b10f55ed2d30b10e7ab65bb" kindref="member">NoiseType::PERLIN_HALF</ref>,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed" kindref="member">NoiseType::SIMPLEX2</ref>,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a03f4fca6bab010831c1e90a0cce9dd80" kindref="member">NoiseType::SIMPLEX2S</ref>,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195add03c6de4abc2f9a84778572c433f4ca" kindref="member">NoiseType::VALUE</ref>,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195ad0d2c07cd30954b90b955e9432df0752" kindref="member">NoiseType::VALUE_CUBIC</ref>,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195ad0c8bb2f0b3f1b4ace48bcd5b7d159ed" kindref="member">NoiseType::VALUE_LINEAR</ref>,</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a035bda7c8c2179b47b9a766531c2e89e" kindref="member">NoiseType::WORLEY</ref>,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a1d1ba101960a8a8234df2d16ac305d45" kindref="member">NoiseType::WORLEY_DOUBLE</ref>,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>type<sp/>:<sp/>types)</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>zc<sp/>=<sp/><ref refid="namespacehmap_1a0f94056bb01fb9798ce72d3c4b1be4d2" kindref="member">noise</ref>(type,<sp/>shape,<sp/>kw,<sp/>seed,<sp/>&amp;nx,<sp/>&amp;ny);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>zg<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a10ace74a842f9d2dc1f15dde91263a40" kindref="member">gpu::noise</ref>(type,<sp/>shape,<sp/>kw,<sp/>seed,<sp/>&amp;nx,<sp/>&amp;ny);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(zc,<sp/>zg,<sp/>tol))</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Mismatch<sp/>for<sp/>NoiseType<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(type);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><ref refid="test__gpu__cpu_8cpp_1ab68ec3acee0ee4fccee1960479be5e77" kindref="member">TEST</ref>(GpuCpu,<sp/>NoiseFbm)</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec2<sp/><sp/>kw<sp/>=<sp/>{4.f,<sp/>4.f};</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint<sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>42;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>octaves<sp/>=<sp/>6;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>weight<sp/>=<sp/>0.7f;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>persistence<sp/>=<sp/>0.5f;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>lacunarity<sp/>=<sp/>2.f;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tol<sp/>=<sp/>1e-5f;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>ctrl<sp/>=<sp/>0.5f<sp/>*<sp/>(1.f<sp/>+<sp/><ref refid="namespacehmap_1a0f94056bb01fb9798ce72d3c4b1be4d2" kindref="member">noise</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">NoiseType::PERLIN</ref>,<sp/>shape,<sp/>kw,<sp/>seed<sp/>+<sp/>5));</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>nx<sp/>=<sp/>0.25f<sp/>*<sp/><ref refid="namespacehmap_1a0f94056bb01fb9798ce72d3c4b1be4d2" kindref="member">noise</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">NoiseType::PERLIN</ref>,<sp/>shape,<sp/>kw,<sp/>seed<sp/>+<sp/>10);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>ny<sp/>=<sp/>0.25f<sp/>*<sp/><ref refid="namespacehmap_1a0f94056bb01fb9798ce72d3c4b1be4d2" kindref="member">noise</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">NoiseType::PERLIN</ref>,<sp/>shape,<sp/>kw,<sp/>seed<sp/>+<sp/>20);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/>std::vector&lt;NoiseType&gt;<sp/>types<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">NoiseType::PERLIN</ref>,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a2497d2d20bd2b0a346a71aa1ff5c0be7" kindref="member">NoiseType::PERLIN_BILLOW</ref>,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195acb1550fb6b10f55ed2d30b10e7ab65bb" kindref="member">NoiseType::PERLIN_HALF</ref>,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed" kindref="member">NoiseType::SIMPLEX2</ref>,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a03f4fca6bab010831c1e90a0cce9dd80" kindref="member">NoiseType::SIMPLEX2S</ref>,</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195add03c6de4abc2f9a84778572c433f4ca" kindref="member">NoiseType::VALUE</ref>,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195ad0d2c07cd30954b90b955e9432df0752" kindref="member">NoiseType::VALUE_CUBIC</ref>,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195ad0c8bb2f0b3f1b4ace48bcd5b7d159ed" kindref="member">NoiseType::VALUE_LINEAR</ref>,</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a035bda7c8c2179b47b9a766531c2e89e" kindref="member">NoiseType::WORLEY</ref>,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a1d1ba101960a8a8234df2d16ac305d45" kindref="member">NoiseType::WORLEY_DOUBLE</ref>,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>type<sp/>:<sp/>types)</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>zc<sp/>=<sp/><ref refid="namespacehmap_1a7d699a468a18be16c70654958ee13b41" kindref="member">noise_fbm</ref>(type,</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw,</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>octaves,</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>weight,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>persistence,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lacunarity,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;nx,</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;ny);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>zg<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a04ef5a0e4c0c8d32d63b22f26c3aac7b" kindref="member">gpu::noise_fbm</ref>(type,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw,</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>octaves,</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>weight,</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>persistence,</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lacunarity,</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;nx,</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;ny);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" kindref="member">assert_almost_equal</ref>(zc,<sp/>zg,<sp/>tol))</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Mismatch<sp/>for<sp/>FBM<sp/>NoiseType<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(type);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_gpu_cpu.cpp"/>
   </compounddef>

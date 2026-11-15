@@ -240,8 +240,8 @@ var NAVTREEINDEX =
 "structhmap_1_1VirtualArray.html#a8d74c7c6a84b8c54985a5fdeb4e805f0",
 "test__circus_8cpp.html#a06e74a3ea9715614402ea81ab762f7cb",
 "test__forest__seeding_8cpp.html#a508b48f75c592a7523f87cb524228d9e",
-"test__path__squiggle_8cpp.html#aaec2dc076d0bfd4740f378ccdf514e80",
-"test__snow__mantle_8cpp.html#a3c1be440d6ec24984ec0cef463197006"
+"test__path__squiggle_8cpp.html#a34ef7c050bf3355407693b880e045e83",
+"test__smooth__cpulse_8cpp.html#aeef7d3dfd4814189da5fcd1d523597d1"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
