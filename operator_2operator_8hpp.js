@@ -1,4 +1,4 @@
-var operator_8hpp =
+var operator_2operator_8hpp =
 [
     [ "hmap::add_kernel", "namespacehmap.html#ae51dda5e070b01ad1a85b44d986f5003", null ],
     [ "hmap::add_kernel_maximum_smooth", "namespacehmap.html#a34aa21678ff4bb869bb29ee0f2f68886", null ],

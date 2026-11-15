@@ -1,10 +1,16 @@
 var NAVTREEINDEX18 =
 {
+"statistics_8cpp.html":[17,0,1,1,39,3],
+"statistics_8hpp.html":[17,0,1,0,0,55],
+"statistics_8hpp_source.html":[17,0,1,0,0,55],
+"stitching__helpers_8cpp.html":[17,0,1,1,28,4],
+"strata_8cpp.html":[17,0,1,1,12,26],
+"strata__erosion_8hpp.html":[17,0,1,0,0,1,7],
 "strata__erosion_8hpp_source.html":[17,0,1,0,0,1,7],
 "strata__plates_8cpp.html":[17,0,1,1,12,27],
 "string__utils_8cpp.html":[17,0,1,1,44,0],
-"string__utils_8hpp.html":[17,0,1,0,0,7,2],
-"string__utils_8hpp_source.html":[17,0,1,0,0,7,2],
+"string__utils_8hpp.html":[17,0,1,0,0,8,2],
+"string__utils_8hpp_source.html":[17,0,1,0,0,8,2],
 "structTileAccess.html":[16,0,3],
 "structTileAccess.html#a85ef50f062ccd9e180e515540cca15e0":[16,0,3,0],
 "structTileAccess.html#ab63f94ef811cf598818980a84c2cd39d":[16,0,3,2],
@@ -243,11 +249,5 @@ var NAVTREEINDEX18 =
 "structhmap_1_1LruTileEntry.html#a76d135c8f288db38c55e16c11992f5d0":[16,0,0,109,2],
 "structhmap_1_1Mat.html":[15,0,0,9],
 "structhmap_1_1Mat.html":[16,0,0,7],
-"structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0":[15,0,0,9,8],
-"structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0":[16,0,0,7,8],
-"structhmap_1_1Mat.html#a429366c8daa4495b65f288f3527f2022":[15,0,0,9,3],
-"structhmap_1_1Mat.html#a429366c8daa4495b65f288f3527f2022":[16,0,0,7,3],
-"structhmap_1_1Mat.html#a4a27962ffe15d147fa23386947c08cbf":[15,0,0,9,7],
-"structhmap_1_1Mat.html#a4a27962ffe15d147fa23386947c08cbf":[16,0,0,7,7],
-"structhmap_1_1Mat.html#a4f148a4aa0f08e0bd0c4959b8fcc9aa5":[15,0,0,9,4]
+"structhmap_1_1Mat.html#a1ab58820a1efbf5e7c2f7ee1d51dd7c0":[15,0,0,9,8]
 };

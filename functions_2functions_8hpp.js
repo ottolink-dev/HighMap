@@ -1,4 +1,4 @@
-var functions_8hpp =
+var functions_2functions_8hpp =
 [
     [ "hmap::ArrayFunction", "classhmap_1_1ArrayFunction.html", "classhmap_1_1ArrayFunction" ],
     [ "hmap::BiquadFunction", "classhmap_1_1BiquadFunction.html", "classhmap_1_1BiquadFunction" ],
