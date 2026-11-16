@@ -207,7 +207,7 @@ std::array<std::vector<float>, 2> random_points_inverse_sampling(
  * @param  seed     Random number generator seed.
  * @param  bbox     Bounding box in which to generate the points (a,b,c,d =
  *                  xmin, xmax, ymin, ymax). Defaults to the unit square {0.f,
- *                  1.f, 0.f, 1.f}.
+ * 1.f, 0.f, 1.f}.
  * @return          A pair of float vectors {x_coords, y_coords}.
  */
 std::array<std::vector<float>, 2> random_points_distance(
@@ -228,7 +228,7 @@ std::array<std::vector<float>, 2> random_points_distance(
  * @param  seed     Random number generator seed.
  * @param  bbox     Bounding box in which to generate the points (a,b,c,d =
  *                  xmin, xmax, ymin, ymax). Defaults to the unit square {0.f,
- *                  1.f, 0.f, 1.f}.
+ * 1.f, 0.f, 1.f}.
  * @return          A pair of float vectors {x_coords, y_coords}.
  */
 std::array<std::vector<float>, 2> random_points_distance(
@@ -251,7 +251,7 @@ std::array<std::vector<float>, 2> random_points_distance(
  * @param  seed     Random number generator seed.
  * @param  bbox     Bounding box in which to generate the points (a,b,c,d =
  *                  xmin, xmax, ymin, ymax). Defaults to the unit square {0.f,
- *                  1.f, 0.f, 1.f}.
+ * 1.f, 0.f, 1.f}.
  * @return          A pair of float vectors {x_coords, y_coords}.
  */
 std::array<std::vector<float>, 2> random_points_distance_power_law(
@@ -274,7 +274,7 @@ std::array<std::vector<float>, 2> random_points_distance_power_law(
  * @param  seed     Random number generator seed.
  * @param  bbox     Bounding box in which to generate the points (a,b,c,d =
  *                  xmin, xmax, ymin, ymax). Defaults to the unit square {0.f,
- *                  1.f, 0.f, 1.f}.
+ * 1.f, 0.f, 1.f}.
  * @return          A pair of float vectors {x_coords, y_coords}.
  */
 std::array<std::vector<float>, 2> random_points_distance_weibull(

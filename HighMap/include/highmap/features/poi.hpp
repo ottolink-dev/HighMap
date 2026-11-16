@@ -50,13 +50,12 @@ enum class PoiType : int
  */
 struct PointOfInterest
 {
-  glm::vec2 position = {0.f,
-                        0.f}; ///< Coordinates in domain or normalized units.
-  float     score = 0.f;      ///< Suitability or feature score in [0, 1].
-  float     elevation = 0.f;  ///< Terrain elevation at point.
-  float     slope = 0.f;      ///< Slope magnitude / talus.
-  float     aspect = 0.f;     ///< Aspect angle in radians [-π, π].
-  PoiType   type = PoiType::CUSTOM; ///< Point type classification.
+  glm::vec2 position = {0.f, 0.f}; ///< Coordinates in domain or normalized units.
+  float   score = 0.f;             ///< Suitability or feature score in [0, 1].
+  float   elevation = 0.f;         ///< Terrain elevation at point.
+  float   slope = 0.f;             ///< Slope magnitude / talus.
+  float   aspect = 0.f;            ///< Aspect angle in radians [-π, π].
+  PoiType type = PoiType::CUSTOM;  ///< Point type classification.
 };
 
 /**
@@ -65,23 +64,16 @@ struct PointOfInterest
  */
 struct PoiGenerationOptions
 {
-  int   scale_radius = 8;   ///< Neighborhood radius for local metrics.
-  float prominence = 0.05f; ///< Minimum elevation prominence over neighborhood.
-  float threshold =
-      0.5f; ///< Score / suitability acceptance threshold in [0, 1].
-  float min_distance =
-      0.05f; ///< Minimum Euclidean separation distance between points.
-  size_t max_points = 50;       ///< Maximum number of points to generate.
-  float  border_margin = 0.02f; ///< Exclusion margin near bounding box edges.
-  std::uint32_t seed =
-      1337;            ///< PRNG seed for deterministic generation and jitter.
-  float jitter = 0.0f; ///< Stochastic displacement ratio in [0, 1].
-  const Array
-           *p_mask = nullptr; ///< Optional exclusion / region-of-interest mask.
-  glm::vec4 bbox = {0.f,
-                    1.f,
-                    0.f,
-                    1.f}; ///< Domain bounding box {xmin, xmax, ymin, ymax}.
+  int scale_radius = 8;                  ///< Neighborhood radius for local metrics.
+  float prominence = 0.05f;              ///< Minimum elevation prominence over neighborhood.
+  float threshold = 0.5f;                ///< Score / suitability acceptance threshold in [0, 1].
+  float min_distance = 0.05f;            ///< Minimum Euclidean separation distance between points.
+  size_t max_points = 50;                ///< Maximum number of points to generate.
+  float border_margin = 0.02f;           ///< Exclusion margin near bounding box edges.
+  std::uint32_t seed = 1337;             ///< PRNG seed for deterministic generation and jitter.
+  float jitter = 0.0f;                   ///< Stochastic displacement ratio in [0, 1].
+  const Array *p_mask = nullptr;         ///< Optional exclusion / region-of-interest mask.
+  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}; ///< Domain bounding box {xmin, xmax, ymin, ymax}.
 };
 
 // ============================================================================

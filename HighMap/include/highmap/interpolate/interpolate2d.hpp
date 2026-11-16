@@ -39,11 +39,11 @@ namespace hmap
  */
 enum InterpolationMethod2D : int
 {
-  ITP2D_DELAUNAY, ///< Delaunay triangulation method for 2D interpolation.
-  ITP2D_NEAREST,  ///< Nearest point method for 2D interpolation.
-  ITP2D_IDW,      ///< Inverse Distance Weighting.
-  ITP2D_GAUSSIAN, ///< Gaussian Distance Weighting.
-  ITP2D_NNI,      ///< Natural Neighbor Interpolation.
+  ITP2D_DELAUNAY,          ///< Delaunay triangulation method for 2D interpolation.
+  ITP2D_NEAREST,           ///< Nearest point method for 2D interpolation.
+  ITP2D_IDW,               ///< Inverse Distance Weighting.
+  ITP2D_GAUSSIAN,          ///< Gaussian Distance Weighting.
+  ITP2D_NNI,               ///< Natural Neighbor Interpolation.
   ITP2D_DELAUNAY_GRADIENT, ///< Delaunay triangulation + linear gradient.
 };
 

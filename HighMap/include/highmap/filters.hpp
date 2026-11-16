@@ -1495,7 +1495,7 @@ void recurve(Array                    &array,
  * @param tau    Exponential decay parameter that defines the shape of the
  *               "bumpy"
  *               curve. Higher values of `tau` result in a sharper curve. The
- *               default value is 0.5.
+ * default value is 0.5.
  *
  * **Example**
  * @include ex_recurve_xxx.cpp
@@ -1527,7 +1527,7 @@ void recurve_bexp(Array &array, const Array *p_mask, float tau = 0.5f);
  * @param tau    Exponential decay parameter that defines the shape of the
  *               "sharp"
  *               curve. Higher values of `tau` result in a steeper curve. The
- *               default value is 0.5.
+ * default value is 0.5.
  *
  * **Example**
  * @include ex_recurve_xxx.cpp

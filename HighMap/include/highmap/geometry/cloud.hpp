@@ -104,7 +104,7 @@ public:
    * @param x             A vector of `x` coordinates for the points.
    * @param y             A vector of `y` coordinates for the points.
    * @param default_value The default value assigned to each point. Defaults to
-   *                      0 if not specified.
+   * 0 if not specified.
    */
   Cloud(const std::vector<float> &x,
         const std::vector<float> &y,
@@ -274,7 +274,7 @@ public:
    *
    * @param array The input array from which to derive the values.
    * @param bbox  The bounding box that defines the mapping from the cloud
-   *              points' coordinates to the array's coordinates.
+   * points' coordinates to the array's coordinates.
    */
   void set_values_from_array(const Array     &array,
                              const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
@@ -579,7 +579,7 @@ public:
    * @param array The input array where the cloud points' values will be
    *              projected.
    * @param bbox  The bounding box that defines the mapping from the cloud
-   *              points' coordinates to the array's coordinates.
+   * points' coordinates to the array's coordinates.
    */
   void to_array(Array &array, glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}) const;
 
@@ -598,7 +598,7 @@ public:
    * @param bbox                 The bounding box that defines the cloud's
    *                             coordinate system.
    * @param interpolation_method The method used for interpolation (e.g.,
-   *                             nearest neighbor, bilinear).
+   * nearest neighbor, bilinear).
    * @param p_noise_x            Optional reference to a noise array applied to
    *                             the x-coordinates for domain warping (not in
    *                             pixels).
@@ -637,17 +637,17 @@ public:
    * @brief Saves the current data as a PNG image file.
    *
    * @param fname The file name for the output PNG image. This should include
-   *              the file extension (e.g., "output.png").
+   * the file extension (e.g., "output.png").
    * @param cmap  An integer specifying the colormap to be used for rendering
-   *              the data. This index refers to a predefined colormap.
+   * the data. This index refers to a predefined colormap.
    * @param bbox  A `glm::vec4` specifying the bounding box of the data to be
    *              included in the image. It is given as {xmin, xmax, ymin,
-   *              ymax}. The default is {0.f, 1.f, 0.f, 1.f}.
+   * ymax}. The default is {0.f, 1.f, 0.f, 1.f}.
    * @param depth An integer specifying the bit depth of the image. It should be
-   *              a value defined by OpenCV (e.g., `CV_8U` for 8-bit unsigned).
-   * The default is `CV_8U`.
+   * a value defined by OpenCV (e.g., `CV_8U` for 8-bit unsigned). The default
+   * is `CV_8U`.
    * @param shape A `glm::ivec2` specifying the dimensions of the output image.
-   *              It is given as {width, height}. The default is {512, 512}.
+   * It is given as {width, height}. The default is {512, 512}.
    */
   void to_png(const std::string &fname,
               int                cmap,
@@ -815,7 +815,7 @@ Cloud random_cloud_inverse_sampling(
  * @param  seed     Random number generator seed.
  * @param  bbox     Bounding box in which to generate the points (a,b,c,d =
  *                  xmin, xmax, ymin, ymax). Defaults to the unit square {0.f,
- *                  1.f, 0.f, 1.f}.
+ * 1.f, 0.f, 1.f}.
  * @return          A Cloud containing the generated points.
  *
  * **Example**
@@ -844,7 +844,7 @@ Cloud random_cloud_distance(float            min_dist,
  * @param  seed     Random number generator seed.
  * @param  bbox     Bounding box in which to generate the points (a,b,c,d =
  *                  xmin, xmax, ymin, ymax). Defaults to the unit square {0.f,
- *                  1.f, 0.f, 1.f}.
+ * 1.f, 0.f, 1.f}.
  * @return          A Cloud containing the generated points.
  *
  * **Example**
@@ -875,7 +875,7 @@ Cloud random_cloud_distance(float            min_dist,
  * @param  seed     Random number generator seed.
  * @param  bbox     Bounding box in which to generate the points (a,b,c,d =
  *                  xmin, xmax, ymin, ymax). Defaults to the unit square {0.f,
- *                  1.f, 0.f, 1.f}.
+ * 1.f, 0.f, 1.f}.
  * @return          A Cloud containing the generated points.
  *
  * **Example**
@@ -907,7 +907,7 @@ Cloud random_cloud_distance_power_law(
  * @param  seed     Random number generator seed.
  * @param  bbox     Bounding box in which to generate the points (a,b,c,d =
  *                  xmin, xmax, ymin, ymax). Defaults to the unit square {0.f,
- *                  1.f, 0.f, 1.f}.
+ * 1.f, 0.f, 1.f}.
  * @return          A Cloud containing the generated points.
  *
  * **Example**
