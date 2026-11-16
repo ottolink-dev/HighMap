@@ -538,8 +538,8 @@ public:
 protected:
   glm::vec2 kw;    ///< Frequency scaling vector.
   float     angle; ///< Overall rotation angle (in degrees).
-  float     xtop;  ///< Relative location of the top of the dune profile (in [0, 1]).
-  float xbottom;   ///< Relative location of the foot of the dune profile (in [0,
+  float xtop; ///< Relative location of the top of the dune profile (in [0, 1]).
+  float xbottom; ///< Relative location of the foot of the dune profile (in [0,
   ///< 1]).
   float     phase_shift; ///< Phase shift (in radians).
   glm::vec2 center;      ///< Primitive reference center.
@@ -1811,7 +1811,8 @@ protected:
                          ///< of the primitive.
   std::vector<float> yr; ///< Vector of y coordinates representing the centers
                          ///< of the primitive.
-  std::vector<float> zr; ///< Vector of z coordinates used to scale the primitive in x and y
+  std::vector<float>
+      zr; ///< Vector of z coordinates used to scale the primitive in x and y
   ///< directions, and to scale the primitive amplitude if requested.
 
 private:

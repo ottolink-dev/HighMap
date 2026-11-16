@@ -1742,7 +1742,7 @@ void saturate(Array &array,
               float  from_max,
               float  k = 0.f);
 
-void saturate(Array &array, float vmin, float vmax, float k = 0.f); ///< 
+void saturate(Array &array, float vmin, float vmax, float k = 0.f); ///<
 // @overload
 
 /**

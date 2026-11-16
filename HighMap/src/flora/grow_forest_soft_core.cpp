@@ -15,7 +15,6 @@
 #include "highmap/flora/forest_growth.hpp"
 #include "highmap/flora/species.hpp"
 #include "highmap/flora/tree.hpp"
-#include "highmap/internal/flora_utils.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/core.hpp"
 #include "highmap/scatter/scatter_field.hpp"

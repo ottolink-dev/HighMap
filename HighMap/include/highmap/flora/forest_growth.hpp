@@ -18,6 +18,8 @@
 #include "highmap/flora/forest.hpp"
 #include "highmap/flora/species.hpp"
 
+#include <unordered_map>
+
 namespace hmap
 {
 
@@ -314,5 +316,44 @@ Forest grow_forest_soft_core(const Forest               &forest,
                              float            max_radius_scale_strength = 1.0f,
                              uint32_t         seed = 0,
                              const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+
+/**
+ * @struct ForestScaleSampler
+ * @brief Helper for sampling spatial scaling maps over a 2D bounding box with
+ * blending.
+ */
+struct ForestScaleSampler
+{
+  const Array *scale_array = nullptr;
+  glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f};
+  float        strength = 1.0f;
+  float        bbox_dx = 1.0f;
+  float        bbox_dy = 1.0f;
+  bool         active = false;
+
+  ForestScaleSampler(const Array     &array,
+                     float            strength_factor,
+                     const glm::vec4 &bounds);
+
+  float sample(float x, float y) const;
+};
+
+/**
+ * @struct SpeciesLookup
+ * @brief Helper for querying species traits and pairwise competition factors.
+ */
+struct SpeciesLookup
+{
+  std::unordered_map<uint32_t, Species> map;
+  const std::vector<Species>           *list = nullptr;
+
+  explicit SpeciesLookup(const std::vector<Species> &species);
+
+  Species get(const Tree &tree) const;
+
+  float get_alpha(const Species           &sp_i,
+                  size_t                   s_j,
+                  const InteractionMatrix &matrix) const;
+};
 
 } // namespace hmap

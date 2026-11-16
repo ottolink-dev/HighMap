@@ -55,10 +55,11 @@ public:
    */
   void stop();
 
-  std::string name;                                  ///< The name of the event.
-  int         nb_calls = 0;                          ///< The number of times the event has been recorded.
-  std::chrono::high_resolution_clock::time_point t0; ///< The start time of the event.
-  float total = 0.f;                                 ///< The total time recorded for the event.
+  std::string name; ///< The name of the event.
+  int nb_calls = 0; ///< The number of times the event has been recorded.
+  std::chrono::high_resolution_clock::time_point
+        t0;          ///< The start time of the event.
+  float total = 0.f; ///< The total time recorded for the event.
 };
 
 /**
@@ -176,11 +177,13 @@ private:
   Timer &operator=(const Timer &) = delete;
 
 private:
-  std::string sid;                           ///< An optional identifier for the Timer instance.
-  std::map<std::string, Recorder *> records; ///< A map of event names to their corresponding Recorder
+  std::string sid; ///< An optional identifier for the Timer instance.
+  std::map<std::string, Recorder *>
+      records; ///< A map of event names to their corresponding Recorder
   ///< objects.
-  std::list<Recorder> data; ///< A list of Recorder objects that store timing information.
-  int current_level = 0;    ///< Current nesting level (if applicable).
+  std::list<Recorder>
+      data; ///< A list of Recorder objects that store timing information.
+  int current_level = 0; ///< Current nesting level (if applicable).
 };
 
 struct ScopedTimer
