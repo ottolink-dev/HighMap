@@ -38,14 +38,6 @@ struct \mbox{\hyperlink{structhmap_1_1TerrainTextureParams}{Terrain\+Texture\+Pa
 \item 
 class \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}}
 \item 
-struct \mbox{\hyperlink{structhmap_1_1AssertResults}{Assert\+Results}}
-\item 
-struct \mbox{\hyperlink{structhmap_1_1Recorder}{Recorder}}
-\begin{DoxyCompactList}\small\item\em The \doxylink{structhmap_1_1Recorder}{Recorder} class is responsible for recording timing information for individual events. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classhmap_1_1Timer}{Timer}}
-\begin{DoxyCompactList}\small\item\em The \doxylink{classhmap_1_1Timer}{Timer} class is a singleton that manages multiple Recorders and provides an interface for timing events. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structhmap_1_1ScopedTimer}{Scoped\+Timer}}
-\item 
 struct \mbox{\hyperlink{structhmap_1_1MiseParams}{Mise\+Params}}
 \begin{DoxyCompactList}\small\item\em Parameters for the MISE (Multiscale Implicit Stream-\/power Erosion) solver. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1BigTiffWriter}{Big\+Tiff\+Writer}}
@@ -66,6 +58,10 @@ class \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}
 \begin{DoxyCompactList}\small\item\em Container class representing a collection of \doxylink{namespacehmap_a527656b2ec2ff9bbc343a996ea62070e}{Tree} instances. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{Interaction\+Matrix}}
 \begin{DoxyCompactList}\small\item\em Generic S x S matrix representing pair-\/wise interaction properties between species. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhmap_1_1ForestScaleSampler}{Forest\+Scale\+Sampler}}
+\begin{DoxyCompactList}\small\item\em Helper for sampling spatial scaling maps over a 2D bounding box with blending. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhmap_1_1SpeciesLookup}{Species\+Lookup}}
+\begin{DoxyCompactList}\small\item\em Helper for querying species traits and pairwise competition factors. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{Forest\+Seeding\+Options}}
 \begin{DoxyCompactList}\small\item\em Configuration parameters for forest seeding algorithms. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1Species}{Species}}
@@ -172,14 +168,14 @@ class \mbox{\hyperlink{classhmap_1_1DrainageBasin}{Drainage\+Basin}}
 \begin{DoxyCompactList}\small\item\em Represents a drainage basin network constructed on a 3D terrain mesh. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1DrainageBasinCellBased}{Drainage\+Basin\+Cell\+Based}}
 \begin{DoxyCompactList}\small\item\em Represents a cell-\/based hydrology drainage basin network on a 2D heightmap grid. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classhmap_1_1ArrayControlFunction}{Array\+Control\+Function}}
+struct \mbox{\hyperlink{structhmap_1_1AssertResults}{Assert\+Results}}
 \item 
-class \mbox{\hyperlink{classhmap_1_1XyControlFunction}{Xy\+Control\+Function}}
+struct \mbox{\hyperlink{structhmap_1_1Recorder}{Recorder}}
+\begin{DoxyCompactList}\small\item\em The \doxylink{structhmap_1_1Recorder}{Recorder} class is responsible for recording timing information for individual events. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1Timer}{Timer}}
+\begin{DoxyCompactList}\small\item\em The \doxylink{classhmap_1_1Timer}{Timer} class is a singleton that manages multiple Recorders and provides an interface for timing events. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhmap_1_1ScopedTimer}{Scoped\+Timer}}
 \item 
-struct \mbox{\hyperlink{structhmap_1_1ForestScaleSampler}{Forest\+Scale\+Sampler}}
-\begin{DoxyCompactList}\small\item\em Helper for sampling spatial scaling maps over a 2D bounding box with blending. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structhmap_1_1SpeciesLookup}{Species\+Lookup}}
-\begin{DoxyCompactList}\small\item\em Helper for querying species traits and pairwise competition factors. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1Interpolator1D}{Interpolator1D}}
 \begin{DoxyCompactList}\small\item\em A class for performing 1D interpolation using the GSL library. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1NaturalNeighborInterpolator}{Natural\+Neighbor\+Interpolator}}
@@ -188,6 +184,10 @@ class \mbox{\hyperlink{classhmap_1_1InterpolatorCurve}{Interpolator\+Curve}}
 \begin{DoxyCompactList}\small\item\em Class for performing curve interpolation on a set of points. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1ChebyshevEvaluator}{Chebyshev\+Evaluator}}
 \begin{DoxyCompactList}\small\item\em Evaluates a Chebyshev polynomial series using Clenshaw recurrence. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhmap_1_1ArrayControlFunction}{Array\+Control\+Function}}
+\item 
+class \mbox{\hyperlink{classhmap_1_1XyControlFunction}{Xy\+Control\+Function}}
+\item 
 class \mbox{\hyperlink{classhmap_1_1PdfSampler}{Pdf\+Sampler}}
 \begin{DoxyCompactList}\small\item\em Samples indices from a discrete probability distribution. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structhmap_1_1RockDistribution}{Rock\+Distribution}}
@@ -790,14 +790,6 @@ std\+::vector$<$ glm\+::vec3 $>$ \mbox{\hyperlink{namespacehmap_a2f2ca726f4e4112
 \begin{DoxyCompactList}\small\item\em Computes a signed level-\/set curvature. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a4e2b7df70a18f94ad7f4d7cd934ec767}{curvature\+\_\+quadric}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int ir, \mbox{\hyperlink{namespacehmap_ad4d5e191ca7dd12e389c842188bde88a}{Curvature\+Type}} curvature\+\_\+type)
 \begin{DoxyCompactList}\small\item\em Compute curvature measures on a scalar field. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacehmap_a7d7c20120bea803d47a9a8394007e383}{assert\+\_\+almost\+\_\+equal}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&a, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&b, float tolerance=1e-\/6\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const std\+::string \&fname="{}"{}, \mbox{\hyperlink{structhmap_1_1AssertResults}{Assert\+Results}} \texorpdfstring{$\ast$}{*}p\+\_\+results=nullptr)
-\item 
-bool \mbox{\hyperlink{namespacehmap_a199fe70937b1653266fe9c9bedc4653d}{is\+\_\+subset}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&a, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&b)
-\item 
-void \mbox{\hyperlink{namespacehmap_a8198f43613e6d5926a01fd7e44444094}{print\+\_\+array}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&arr, bool show\+\_\+coords=false, int width=6, int precision=2)
-\item 
-void \mbox{\hyperlink{namespacehmap_aa162bbea6fc85aa1403204af49364230}{dump\+\_\+visual\+\_\+check}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const std\+::string \&fname="{}check.\+png"{})
-\item 
 void \mbox{\hyperlink{namespacehmap_ace28ef6c474e9fbd061f4f6b02ce909e}{aeolian\+\_\+erosion}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int steps=300, std\+::uint32\+\_\+t seed=1337u, glm\+::vec2 wind=\{3.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+bedrock=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+vegetation=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+abrasion\+\_\+mask=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+sediment\+\_\+map=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+bedrock\+\_\+map=nullptr, float cell\+\_\+size=-\/1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float matter\+\_\+to\+\_\+move=0.\+001\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int samples\+\_\+per\+\_\+step=0, float sand\+\_\+repose\+\_\+angle=33.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float shadow\+\_\+angle\+\_\+min=5.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float shadow\+\_\+angle\+\_\+max=15.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float max\+\_\+shadow\+\_\+dist=12.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float abrasion\+\_\+rate=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float repose\+\_\+rate=0.\+35\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int sync\+\_\+interval=0, const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \&region=\mbox{\hyperlink{structhmap_1_1TileRegion_af2c439296397945553d847df0ecc1899}{Tile\+Region\+::dummy}}(), \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}} \&comm=\mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{Single\+Array\+Comm\+::instance}}(), int shadow\+\_\+map\+\_\+interval=1, int repose\+\_\+interval=2)
 \begin{DoxyCompactList}\small\item\em Simulates wind-\/driven aeolian terrain erosion, sand transport, and dune dynamics on GPU. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_aa71900ce729c9a0fa3fdf3527adf820e}{aeolian\+\_\+erosion\+\_\+multiscale}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int steps=300, std\+::uint32\+\_\+t seed=1337u, glm\+::vec2 wind=\{3.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+bedrock=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+vegetation=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+abrasion\+\_\+mask=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+sediment\+\_\+map=nullptr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+bedrock\+\_\+map=nullptr, float cell\+\_\+size=-\/1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float matter\+\_\+to\+\_\+move=0.\+001\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float sand\+\_\+repose\+\_\+angle=33.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float shadow\+\_\+angle\+\_\+min=5.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float shadow\+\_\+angle\+\_\+max=15.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float max\+\_\+shadow\+\_\+dist=12.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float abrasion\+\_\+rate=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float repose\+\_\+rate=0.\+35\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int levels=3, float coarse\+\_\+fraction=0.\+7\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int min\+\_\+level\+\_\+size=64, int shadow\+\_\+map\+\_\+interval=1, int repose\+\_\+interval=2)
@@ -1466,6 +1458,14 @@ void \mbox{\hyperlink{namespacehmap_a3aebd62906b90ccfde11140e13b0853f}{water\+\_
 \begin{DoxyCompactList}\small\item\em Generates a binary mask representing water presence. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_abc5928f49e530927c8fb61a9afea3274}{water\+\_\+mask}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&water\+\_\+depth, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, float additional\+\_\+depth)
 \begin{DoxyCompactList}\small\item\em Computes a gradient-\/based water mask using an extended water depth model. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacehmap_a7d7c20120bea803d47a9a8394007e383}{assert\+\_\+almost\+\_\+equal}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&a, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&b, float tolerance=1e-\/6\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const std\+::string \&fname="{}"{}, \mbox{\hyperlink{structhmap_1_1AssertResults}{Assert\+Results}} \texorpdfstring{$\ast$}{*}p\+\_\+results=nullptr)
+\item 
+bool \mbox{\hyperlink{namespacehmap_a199fe70937b1653266fe9c9bedc4653d}{is\+\_\+subset}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&a, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&b)
+\item 
+void \mbox{\hyperlink{namespacehmap_a8198f43613e6d5926a01fd7e44444094}{print\+\_\+array}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&arr, bool show\+\_\+coords=false, int width=6, int precision=2)
+\item 
+void \mbox{\hyperlink{namespacehmap_aa162bbea6fc85aa1403204af49364230}{dump\+\_\+visual\+\_\+check}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const std\+::string \&fname="{}check.\+png"{})
+\item 
 std\+::filesystem\+::path \mbox{\hyperlink{namespacehmap_a67eae4546cbed6a804eaddcde9350e1c}{add\+\_\+filename\+\_\+suffix}} (const std\+::filesystem\+::path \&file\+\_\+path, const std\+::string \&suffix)
 \begin{DoxyCompactList}\small\item\em Adds a suffix to the filename of a given file path. \end{DoxyCompactList}\item 
 std\+::filesystem\+::path \mbox{\hyperlink{namespacehmap_a0a506d871b395e49e6175499dfa1e903}{make\+\_\+unique\+\_\+temp\+\_\+dir}} (const std\+::string \&prefix)
@@ -7635,31 +7635,7 @@ Computes various curvature descriptors from the input array {\ttfamily z}. If {\
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a7d7c20120bea803d47a9a8394007e383}\index{hmap@{hmap}!assert\_almost\_equal@{assert\_almost\_equal}}
-\index{assert\_almost\_equal@{assert\_almost\_equal}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{assert\_almost\_equal()}{assert\_almost\_equal()}}
-{\footnotesize\ttfamily \label{namespacehmap_a7d7c20120bea803d47a9a8394007e383} 
-bool hmap\+::assert\+\_\+almost\+\_\+equal (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{a}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{b}{, }\item[{float}]{tolerance}{ = {\ttfamily 1e-\/6\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{const std\+::string \&}]{fname}{ = {\ttfamily "{}"{}}, }\item[{\mbox{\hyperlink{structhmap_1_1AssertResults}{Assert\+Results}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+results}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
-
-\Hypertarget{namespacehmap_a199fe70937b1653266fe9c9bedc4653d}\index{hmap@{hmap}!is\_subset@{is\_subset}}
-\index{is\_subset@{is\_subset}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{is\_subset()}{is\_subset()}}
-{\footnotesize\ttfamily \label{namespacehmap_a199fe70937b1653266fe9c9bedc4653d} 
-bool hmap\+::is\+\_\+subset (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{a}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{b}{}\end{DoxyParamCaption})}
-
-\Hypertarget{namespacehmap_a8198f43613e6d5926a01fd7e44444094}\index{hmap@{hmap}!print\_array@{print\_array}}
-\index{print\_array@{print\_array}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{print\_array()}{print\_array()}}
-{\footnotesize\ttfamily \label{namespacehmap_a8198f43613e6d5926a01fd7e44444094} 
-void hmap\+::print\+\_\+array (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{arr}{, }\item[{bool}]{show\+\_\+coords}{ = {\ttfamily false}, }\item[{int}]{width}{ = {\ttfamily 6}, }\item[{int}]{precision}{ = {\ttfamily 2}}\end{DoxyParamCaption})}
-
-\Hypertarget{namespacehmap_aa162bbea6fc85aa1403204af49364230}\index{hmap@{hmap}!dump\_visual\_check@{dump\_visual\_check}}
-\index{dump\_visual\_check@{dump\_visual\_check}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{dump\_visual\_check()}{dump\_visual\_check()}}
-{\footnotesize\ttfamily \label{namespacehmap_aa162bbea6fc85aa1403204af49364230} 
-void hmap\+::dump\+\_\+visual\+\_\+check (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{, }\item[{const std\+::string \&}]{fname}{ = {\ttfamily "{}check.png"{}}}\end{DoxyParamCaption})}
-
-\Hypertarget{namespacehmap_ace28ef6c474e9fbd061f4f6b02ce909e}\index{hmap@{hmap}!aeolian\_erosion@{aeolian\_erosion}}
+{\bfseries{Result}}  \Hypertarget{namespacehmap_ace28ef6c474e9fbd061f4f6b02ce909e}\index{hmap@{hmap}!aeolian\_erosion@{aeolian\_erosion}}
 \index{aeolian\_erosion@{aeolian\_erosion}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{aeolian\_erosion()}{aeolian\_erosion()}}
 {\footnotesize\ttfamily \label{namespacehmap_ace28ef6c474e9fbd061f4f6b02ce909e} 
@@ -9211,7 +9187,7 @@ Iteratively updates elevations using a drainage model with uplift, slope constra
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/dbg/timer.hpp}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/internal/timer.hpp}}"{}}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ <omp.h>}}
 \DoxyCodeLine{}
@@ -9404,7 +9380,7 @@ Eroded heightmap.
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/dbg/timer.hpp}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/internal/timer.hpp}}"{}}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ <omp.h>}}
 \DoxyCodeLine{}
@@ -21561,7 +21537,7 @@ This function is useful for generating extended shoreline masks, erosion influen
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/dbg/timer.hpp}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/internal/timer.hpp}}"{}}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
 \DoxyCodeLine{\{}
@@ -21626,7 +21602,7 @@ This function is more physically plausible than \doxylink{namespacehmap_a136f042
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/dbg/timer.hpp}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/internal/timer.hpp}}"{}}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
 \DoxyCodeLine{\{}
@@ -21812,7 +21788,31 @@ An \doxylink{classhmap_1_1Array}{Array} representing the normalized water extens
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a67eae4546cbed6a804eaddcde9350e1c}\index{hmap@{hmap}!add\_filename\_suffix@{add\_filename\_suffix}}
+{\bfseries{Result}}  \Hypertarget{namespacehmap_a7d7c20120bea803d47a9a8394007e383}\index{hmap@{hmap}!assert\_almost\_equal@{assert\_almost\_equal}}
+\index{assert\_almost\_equal@{assert\_almost\_equal}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{assert\_almost\_equal()}{assert\_almost\_equal()}}
+{\footnotesize\ttfamily \label{namespacehmap_a7d7c20120bea803d47a9a8394007e383} 
+bool hmap\+::assert\+\_\+almost\+\_\+equal (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{a}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{b}{, }\item[{float}]{tolerance}{ = {\ttfamily 1e-\/6\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{const std\+::string \&}]{fname}{ = {\ttfamily "{}"{}}, }\item[{\mbox{\hyperlink{structhmap_1_1AssertResults}{Assert\+Results}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+results}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+\Hypertarget{namespacehmap_a199fe70937b1653266fe9c9bedc4653d}\index{hmap@{hmap}!is\_subset@{is\_subset}}
+\index{is\_subset@{is\_subset}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{is\_subset()}{is\_subset()}}
+{\footnotesize\ttfamily \label{namespacehmap_a199fe70937b1653266fe9c9bedc4653d} 
+bool hmap\+::is\+\_\+subset (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{a}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{b}{}\end{DoxyParamCaption})}
+
+\Hypertarget{namespacehmap_a8198f43613e6d5926a01fd7e44444094}\index{hmap@{hmap}!print\_array@{print\_array}}
+\index{print\_array@{print\_array}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{print\_array()}{print\_array()}}
+{\footnotesize\ttfamily \label{namespacehmap_a8198f43613e6d5926a01fd7e44444094} 
+void hmap\+::print\+\_\+array (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{arr}{, }\item[{bool}]{show\+\_\+coords}{ = {\ttfamily false}, }\item[{int}]{width}{ = {\ttfamily 6}, }\item[{int}]{precision}{ = {\ttfamily 2}}\end{DoxyParamCaption})}
+
+\Hypertarget{namespacehmap_aa162bbea6fc85aa1403204af49364230}\index{hmap@{hmap}!dump\_visual\_check@{dump\_visual\_check}}
+\index{dump\_visual\_check@{dump\_visual\_check}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{dump\_visual\_check()}{dump\_visual\_check()}}
+{\footnotesize\ttfamily \label{namespacehmap_aa162bbea6fc85aa1403204af49364230} 
+void hmap\+::dump\+\_\+visual\+\_\+check (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{, }\item[{const std\+::string \&}]{fname}{ = {\ttfamily "{}check.png"{}}}\end{DoxyParamCaption})}
+
+\Hypertarget{namespacehmap_a67eae4546cbed6a804eaddcde9350e1c}\index{hmap@{hmap}!add\_filename\_suffix@{add\_filename\_suffix}}
 \index{add\_filename\_suffix@{add\_filename\_suffix}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{add\_filename\_suffix()}{add\_filename\_suffix()}}
 {\footnotesize\ttfamily \label{namespacehmap_a67eae4546cbed6a804eaddcde9350e1c} 
@@ -22410,7 +22410,7 @@ This function performs interpolation on a 2D grid using the specified interpolat
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/dbg/timer.hpp}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/internal/timer.hpp}}"{}}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
 \DoxyCodeLine{\{}
@@ -26204,7 +26204,7 @@ Exact transform based on Meijster et al. algorithm {\bfseries \mbox{[}\+Meijster
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/dbg/timer.hpp}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/internal/timer.hpp}}"{}}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
 \DoxyCodeLine{\{}
@@ -26271,7 +26271,7 @@ Calculates an approximate distance transform of the input array.
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/dbg/timer.hpp}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/internal/timer.hpp}}"{}}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
 \DoxyCodeLine{\{}
@@ -26338,7 +26338,7 @@ Calculates the Manhattan distance transform of an array.
 {\bfseries{Example}} 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/dbg/timer.hpp}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/internal/timer.hpp}}"{}}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
 \DoxyCodeLine{\{}
@@ -35795,7 +35795,7 @@ This function solves pathfinding across multiple grid resolutions to drastically
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ <vector>}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/dbg/timer.hpp}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timer_8hpp}{highmap/internal/timer.hpp}}"{}}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
 \DoxyCodeLine{\{}

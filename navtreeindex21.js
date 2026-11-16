@@ -1,6 +1,5 @@
 var NAVTREEINDEX21 =
 {
-"structhmap_1_1VirtualArray.html#a2b173300623c38c8083654ad095217f2":[16,0,0,112,43],
 "structhmap_1_1VirtualArray.html#a2d3721a573d9e21e941148f2e359434b":[15,0,0,114,42],
 "structhmap_1_1VirtualArray.html#a2d3721a573d9e21e941148f2e359434b":[16,0,0,112,42],
 "structhmap_1_1VirtualArray.html#a307123a81d2ea77c85ae28612a1c06c2":[15,0,0,114,33],
@@ -171,15 +170,15 @@ var NAVTREEINDEX21 =
 "structhmap_1_1neighborhood_1_1NeighborWeighted.html#a7bd6755c35ad53dbe3de046138989b15":[16,0,0,1,1,0],
 "swirl_8cpp.html":[17,0,1,1,29,1,6],
 "sync__overlap__buffers_8cpp.html":[17,0,1,1,46,0,0],
-"synthesis_8hpp.html":[17,0,1,0,0,56],
-"synthesis_8hpp_source.html":[17,0,1,0,0,56],
-"terrain__features_8hpp.html":[17,0,1,0,0,3,1],
-"terrain__features_8hpp_source.html":[17,0,1,0,0,3,1],
+"synthesis_8hpp.html":[17,0,1,0,0,55],
+"synthesis_8hpp_source.html":[17,0,1,0,0,55],
+"terrain__features_8hpp.html":[17,0,1,0,0,2,1],
+"terrain__features_8hpp_source.html":[17,0,1,0,0,2,1],
 "terrain__super__resolution_8cpp.html":[17,0,1,1,40,3],
 "terrain__texture_8cpp.html":[17,0,1,1,6,3],
 "terrain__tri__mesh_8cpp.html":[17,0,1,1,42,2],
-"terrain__tri__mesh_8hpp.html":[17,0,1,0,0,57],
-"terrain__tri__mesh_8hpp_source.html":[17,0,1,0,0,57],
+"terrain__tri__mesh_8hpp.html":[17,0,1,0,0,56],
+"terrain__tri__mesh_8hpp_source.html":[17,0,1,0,0,56],
 "test__advection_8cpp.html":[17,0,2,0,1],
 "test__advection_8cpp.html#a36adca8fbf1557747305336e43637a86":[17,0,2,0,1,1],
 "test__advection_8cpp.html#a39d5c8ffd1dbcae2b4c324d52824f50f":[17,0,2,0,1,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX21 =
 "test__bvh__path__sdf_8cpp.html#a65120d065bd9866bd0995f90624ebf42":[17,0,2,0,10,5],
 "test__bvh__path__sdf_8cpp.html#a7862c51e19d63c438f3e37088e3fa453":[17,0,2,0,10,3],
 "test__bvh__path__sdf_8cpp.html#a7d7d9d4eadcd23e68b25547301143a59":[17,0,2,0,10,1],
-"test__bvh__path__sdf_8cpp.html#a80c57ad40392cc5950abf5a603ec2a2d":[17,0,2,0,10,0]
+"test__bvh__path__sdf_8cpp.html#a80c57ad40392cc5950abf5a603ec2a2d":[17,0,2,0,10,0],
+"test__bvh__path__sdf_8cpp.html#ab5135dcd4c98805403157bf818a45269":[17,0,2,0,10,11]
 };

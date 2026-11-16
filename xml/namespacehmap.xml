@@ -13,10 +13,6 @@
     <innerclass refid="structhmap_1_1ColorAdjust" prot="public">hmap::ColorAdjust</innerclass>
     <innerclass refid="structhmap_1_1TerrainTextureParams" prot="public">hmap::TerrainTextureParams</innerclass>
     <innerclass refid="classhmap_1_1CoordFrame" prot="public">hmap::CoordFrame</innerclass>
-    <innerclass refid="structhmap_1_1AssertResults" prot="public">hmap::AssertResults</innerclass>
-    <innerclass refid="structhmap_1_1Recorder" prot="public">hmap::Recorder</innerclass>
-    <innerclass refid="classhmap_1_1Timer" prot="public">hmap::Timer</innerclass>
-    <innerclass refid="structhmap_1_1ScopedTimer" prot="public">hmap::ScopedTimer</innerclass>
     <innerclass refid="structhmap_1_1MiseParams" prot="public">hmap::MiseParams</innerclass>
     <innerclass refid="classhmap_1_1BigTiffWriter" prot="public">hmap::BigTiffWriter</innerclass>
     <innerclass refid="structhmap_1_1ImageWriterConfig" prot="public">hmap::ImageWriterConfig</innerclass>
@@ -27,6 +23,8 @@
     <innerclass refid="structhmap_1_1PoiGenerationOptions" prot="public">hmap::PoiGenerationOptions</innerclass>
     <innerclass refid="classhmap_1_1Forest" prot="public">hmap::Forest</innerclass>
     <innerclass refid="structhmap_1_1InteractionMatrix" prot="public">hmap::InteractionMatrix</innerclass>
+    <innerclass refid="structhmap_1_1ForestScaleSampler" prot="public">hmap::ForestScaleSampler</innerclass>
+    <innerclass refid="structhmap_1_1SpeciesLookup" prot="public">hmap::SpeciesLookup</innerclass>
     <innerclass refid="structhmap_1_1ForestSeedingOptions" prot="public">hmap::ForestSeedingOptions</innerclass>
     <innerclass refid="structhmap_1_1Species" prot="public">hmap::Species</innerclass>
     <innerclass refid="classhmap_1_1ArrayFunction" prot="public">hmap::ArrayFunction</innerclass>
@@ -80,14 +78,16 @@
     <innerclass refid="classhmap_1_1Point" prot="public">hmap::Point</innerclass>
     <innerclass refid="classhmap_1_1DrainageBasin" prot="public">hmap::DrainageBasin</innerclass>
     <innerclass refid="classhmap_1_1DrainageBasinCellBased" prot="public">hmap::DrainageBasinCellBased</innerclass>
-    <innerclass refid="classhmap_1_1ArrayControlFunction" prot="public">hmap::ArrayControlFunction</innerclass>
-    <innerclass refid="classhmap_1_1XyControlFunction" prot="public">hmap::XyControlFunction</innerclass>
-    <innerclass refid="structhmap_1_1ForestScaleSampler" prot="public">hmap::ForestScaleSampler</innerclass>
-    <innerclass refid="structhmap_1_1SpeciesLookup" prot="public">hmap::SpeciesLookup</innerclass>
+    <innerclass refid="structhmap_1_1AssertResults" prot="public">hmap::AssertResults</innerclass>
+    <innerclass refid="structhmap_1_1Recorder" prot="public">hmap::Recorder</innerclass>
+    <innerclass refid="classhmap_1_1Timer" prot="public">hmap::Timer</innerclass>
+    <innerclass refid="structhmap_1_1ScopedTimer" prot="public">hmap::ScopedTimer</innerclass>
     <innerclass refid="classhmap_1_1Interpolator1D" prot="public">hmap::Interpolator1D</innerclass>
     <innerclass refid="classhmap_1_1NaturalNeighborInterpolator" prot="public">hmap::NaturalNeighborInterpolator</innerclass>
     <innerclass refid="classhmap_1_1InterpolatorCurve" prot="public">hmap::InterpolatorCurve</innerclass>
     <innerclass refid="classhmap_1_1ChebyshevEvaluator" prot="public">hmap::ChebyshevEvaluator</innerclass>
+    <innerclass refid="classhmap_1_1ArrayControlFunction" prot="public">hmap::ArrayControlFunction</innerclass>
+    <innerclass refid="classhmap_1_1XyControlFunction" prot="public">hmap::XyControlFunction</innerclass>
     <innerclass refid="classhmap_1_1PdfSampler" prot="public">hmap::PdfSampler</innerclass>
     <innerclass refid="structhmap_1_1RockDistribution" prot="public">hmap::RockDistribution</innerclass>
     <innerclass refid="classhmap_1_1RockField" prot="public">hmap::RockField</innerclass>
@@ -10764,121 +10764,6 @@ See unit tests: <ref refid="test__level__set__curvature_8cpp" kindref="compound"
         </inbodydescription>
         <location file="HighMap/src/curvature/curvature_quadric.cpp" line="24" column="7" bodyfile="HighMap/src/curvature/curvature_quadric.cpp" bodystart="24" bodyend="96" declfile="HighMap/include/highmap/curvature.hpp" declline="91" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>bool</type>
-        <definition>bool hmap::assert_almost_equal</definition>
-        <argsstring>(const Array &amp;a, const Array &amp;b, float tolerance=1e-6f, const std::string &amp;fname=&quot;&quot;, AssertResults *p_results=nullptr)</argsstring>
-        <name>assert_almost_equal</name>
-        <qualifiedname>hmap::assert_almost_equal</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>a</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>b</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>tolerance</declname>
-          <defval>1e-6<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>const std::string &amp;</type>
-          <declname>fname</declname>
-          <defval>&quot;&quot;</defval>
-        </param>
-        <param>
-          <type><ref refid="structhmap_1_1AssertResults" kindref="compound">AssertResults</ref> *</type>
-          <declname>p_results</declname>
-          <defval>nullptr</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/dbg/assert.cpp" line="19" column="6" bodyfile="HighMap/src/dbg/assert.cpp" bodystart="19" bodyend="108" declfile="HighMap/include/highmap/dbg/assert.hpp" declline="38" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a199fe70937b1653266fe9c9bedc4653d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>bool</type>
-        <definition>bool hmap::is_subset</definition>
-        <argsstring>(const Array &amp;a, const Array &amp;b)</argsstring>
-        <name>is_subset</name>
-        <qualifiedname>hmap::is_subset</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>a</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>b</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/dbg/assert.cpp" line="110" column="6" bodyfile="HighMap/src/dbg/assert.cpp" bodystart="110" bodyend="117" declfile="HighMap/include/highmap/dbg/assert.hpp" declline="45" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a8198f43613e6d5926a01fd7e44444094" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::print_array</definition>
-        <argsstring>(const Array &amp;arr, bool show_coords=false, int width=6, int precision=2)</argsstring>
-        <name>print_array</name>
-        <qualifiedname>hmap::print_array</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>arr</declname>
-        </param>
-        <param>
-          <type>bool</type>
-          <declname>show_coords</declname>
-          <defval>false</defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>width</declname>
-          <defval>6</defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>precision</declname>
-          <defval>2</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/dbg/print_array.cpp" line="14" column="6" bodyfile="HighMap/src/dbg/print_array.cpp" bodystart="14" bodyend="50" declfile="HighMap/include/highmap/dbg/assert.hpp" declline="47" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1aa162bbea6fc85aa1403204af49364230" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::dump_visual_check</definition>
-        <argsstring>(const Array &amp;array, const std::string &amp;fname=&quot;check.png&quot;)</argsstring>
-        <name>dump_visual_check</name>
-        <qualifiedname>hmap::dump_visual_check</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>array</declname>
-        </param>
-        <param>
-          <type>const std::string &amp;</type>
-          <declname>fname</declname>
-          <defval>&quot;check.png&quot;</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/dbg/dump_visual_check.cpp" line="16" column="6" bodyfile="HighMap/src/dbg/dump_visual_check.cpp" bodystart="16" bodyend="57" declfile="HighMap/include/highmap/dbg/assert.hpp" declline="52" declcolumn="6"/>
-      </memberdef>
       <memberdef kind="function" id="namespacehmap_1ace28ef6c474e9fbd061f4f6b02ce909e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::aeolian_erosion</definition>
@@ -15076,7 +14961,7 @@ additional_depth)</computeroutput>.</para>
 </parameteritem>
 </parameterlist>
 <bold>Example</bold> <programlisting filename="ex_hydraulic_saleve.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/dbg/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/internal/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;omp.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -15444,7 +15329,7 @@ additional_depth)</computeroutput>.</para>
 <simplesect kind="return"><para>Eroded heightmap.</para>
 </simplesect>
 <bold>Example</bold> <programlisting filename="ex_hydraulic_saleve.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/dbg/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/internal/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;omp.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -26575,7 +26460,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/flora/grow_forest_competition_nn.cpp" line="26" column="8" bodyfile="HighMap/src/flora/grow_forest_competition_nn.cpp" bodystart="26" bodyend="101" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="192" declcolumn="8"/>
+        <location file="HighMap/src/flora/grow_forest_competition_nn.cpp" line="25" column="8" bodyfile="HighMap/src/flora/grow_forest_competition_nn.cpp" bodystart="25" bodyend="100" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="194" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a51ec3fd21f74bdaae31c1403c88cae4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
@@ -26692,7 +26577,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/flora/grow_forest_competition_voronoi.cpp" line="24" column="8" bodyfile="HighMap/src/flora/grow_forest_competition_voronoi.cpp" bodystart="24" bodyend="127" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="239" declcolumn="8"/>
+        <location file="HighMap/src/flora/grow_forest_competition_voronoi.cpp" line="23" column="8" bodyfile="HighMap/src/flora/grow_forest_competition_voronoi.cpp" bodystart="23" bodyend="126" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="241" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a0c6fb1e2c79fb841680cee1e39bb74cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
@@ -26828,7 +26713,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/flora/grow_forest_iterative.cpp" line="26" column="8" bodyfile="HighMap/src/flora/grow_forest_iterative.cpp" bodystart="26" bodyend="162" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="274" declcolumn="8"/>
+        <location file="HighMap/src/flora/grow_forest_iterative.cpp" line="25" column="8" bodyfile="HighMap/src/flora/grow_forest_iterative.cpp" bodystart="25" bodyend="161" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="276" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a12b36f2c693eff09dda2732199468fe8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
@@ -26964,7 +26849,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/flora/grow_forest_soft_core.cpp" line="28" column="8" bodyfile="HighMap/src/flora/grow_forest_soft_core.cpp" bodystart="28" bodyend="184" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="308" declcolumn="8"/>
+        <location file="HighMap/src/flora/grow_forest_soft_core.cpp" line="27" column="8" bodyfile="HighMap/src/flora/grow_forest_soft_core.cpp" bodystart="27" bodyend="183" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="310" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ae7c74f46c267db50e3c562eebb118e27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -40019,7 +39904,7 @@ The output path consists of:<itemizedlist>
 <simplesect kind="note"><para>This function is useful for generating extended shoreline masks, erosion influence regions, or visually expanding water boundaries without performing a physically complete flooding simulation.</para>
 </simplesect>
 <bold>Example</bold> <programlisting filename="ex_water_depth_increase.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/dbg/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/internal/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
@@ -40110,7 +39995,7 @@ The output path consists of:<itemizedlist>
 <simplesect kind="note"><para>This function is more physically plausible than <ref refid="namespacehmap_1a136f042ce2ad8c14033f4d839f56265d" kindref="member">water_depth_increase()</ref>, and is suitable for terrain flooding simulations, overflow analysis, or hydrological studies.</para>
 </simplesect>
 <bold>Example</bold> <programlisting filename="ex_water_depth_increase.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/dbg/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/internal/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
@@ -40364,6 +40249,121 @@ The output path consists of:<itemizedlist>
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/src/hydrology/water_depth.cpp" line="345" column="7" bodyfile="HighMap/src/hydrology/water_depth.cpp" bodystart="345" bodyend="362" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="1166" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a7d7c20120bea803d47a9a8394007e383" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hmap::assert_almost_equal</definition>
+        <argsstring>(const Array &amp;a, const Array &amp;b, float tolerance=1e-6f, const std::string &amp;fname=&quot;&quot;, AssertResults *p_results=nullptr)</argsstring>
+        <name>assert_almost_equal</name>
+        <qualifiedname>hmap::assert_almost_equal</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tolerance</declname>
+          <defval>1e-6<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fname</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type><ref refid="structhmap_1_1AssertResults" kindref="compound">AssertResults</ref> *</type>
+          <declname>p_results</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/internal/assert.cpp" line="19" column="6" bodyfile="HighMap/src/internal/assert.cpp" bodystart="19" bodyend="108" declfile="HighMap/include/highmap/internal/assert.hpp" declline="38" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a199fe70937b1653266fe9c9bedc4653d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hmap::is_subset</definition>
+        <argsstring>(const Array &amp;a, const Array &amp;b)</argsstring>
+        <name>is_subset</name>
+        <qualifiedname>hmap::is_subset</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/internal/assert.cpp" line="110" column="6" bodyfile="HighMap/src/internal/assert.cpp" bodystart="110" bodyend="117" declfile="HighMap/include/highmap/internal/assert.hpp" declline="45" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a8198f43613e6d5926a01fd7e44444094" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::print_array</definition>
+        <argsstring>(const Array &amp;arr, bool show_coords=false, int width=6, int precision=2)</argsstring>
+        <name>print_array</name>
+        <qualifiedname>hmap::print_array</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>arr</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>show_coords</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+          <defval>6</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>precision</declname>
+          <defval>2</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/internal/print_array.cpp" line="14" column="6" bodyfile="HighMap/src/internal/print_array.cpp" bodystart="14" bodyend="50" declfile="HighMap/include/highmap/internal/assert.hpp" declline="47" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1aa162bbea6fc85aa1403204af49364230" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::dump_visual_check</definition>
+        <argsstring>(const Array &amp;array, const std::string &amp;fname=&quot;check.png&quot;)</argsstring>
+        <name>dump_visual_check</name>
+        <qualifiedname>hmap::dump_visual_check</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>array</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fname</declname>
+          <defval>&quot;check.png&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/internal/dump_visual_check.cpp" line="16" column="6" bodyfile="HighMap/src/internal/dump_visual_check.cpp" bodystart="16" bodyend="57" declfile="HighMap/include/highmap/internal/assert.hpp" declline="52" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a67eae4546cbed6a804eaddcde9350e1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::filesystem::path</type>
@@ -41865,7 +41865,7 @@ The output path consists of:<itemizedlist>
 <simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> Output array with interpolated values.</para>
 </simplesect>
 <bold>Example</bold> <programlisting filename="ex_interpolate2d.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/dbg/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/internal/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
@@ -48960,7 +48960,7 @@ f_1 f_2}}{1 + \alpha} \]</formula></para>
 <simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> Reference to the output array.</para>
 </simplesect>
 <bold>Example</bold> <programlisting filename="ex_distance_transform.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/dbg/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/internal/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
@@ -49050,7 +49050,7 @@ f_1 f_2}}{1 + \alpha} \]</formula></para>
 <simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> containing the approximate distance transform of the input array.</para>
 </simplesect>
 <bold>Example</bold> <programlisting filename="ex_distance_transform.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/dbg/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/internal/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
@@ -49140,7 +49140,7 @@ f_1 f_2}}{1 + \alpha} \]</formula></para>
 <simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> containing the Manhattan distance transform of the input array.</para>
 </simplesect>
 <bold>Example</bold> <programlisting filename="ex_distance_transform.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/dbg/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/internal/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
@@ -69573,7 +69573,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
 <bold>Example</bold> <programlisting filename="ex_find_path_multiscale.cpp"><codeline><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/dbg/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/internal/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
