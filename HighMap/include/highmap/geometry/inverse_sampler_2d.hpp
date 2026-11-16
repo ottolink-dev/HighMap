@@ -98,7 +98,7 @@ public:
    *                         sub-region.
    * @param  u               Uniform random number in [0, 1) for row selection.
    * @param  u2              Uniform random number in [0, 1) for column
-   * selection.
+   *                         selection.
    * @return                 2D point coordinates within the restricted bounding
    *                         box.
    */
@@ -125,7 +125,7 @@ public:
    * using a modifier function.
    *
    * @param updater Callback f(i, j, current_val) returning the new density
-   * value.
+   *                value.
    * @param range_i Column index range {imin, imax} (inclusive).
    * @param range_j Row index range {jmin, jmax} (inclusive).
    */

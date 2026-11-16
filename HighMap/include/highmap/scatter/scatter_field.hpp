@@ -287,7 +287,7 @@ public:
    *
    * @param density_mask 2D array defining the spatial density field.
    * @param target_ratio Approximate target fraction of items to retain in [0,
-   * 1].
+   *                     1].
    * @param seed         Random seed for reproducible pruning.
    * @param bbox         Bounding box defining the domain of the density mask.
    */
@@ -379,7 +379,7 @@ public:
    * @brief Randomly shuffles class identifiers between neighboring items.
    *
    * @param ratio       Fraction of items to attempt class shuffling on in [0,
-   * 1].
+   *                    1].
    * @param k_neighbors Number of nearest spatial neighbors to consider.
    * @param seed        Random seed for reproducibility.
    */
@@ -407,7 +407,7 @@ public:
    * @param  weighted_by_area If true, weights density by footprint area ($\pi
    *                          r^2$).
    * @param  region           Tile region defining the domain and overlap
-   * layout.
+   *                          layout.
    * @param  comm             Communicator for tile boundary synchronization.
    * @return                  Array 2D continuous density map array.
    */
@@ -431,10 +431,10 @@ public:
    * @param  p_rock_map          Optional output array for the rock map with
    *                             normalized amplitude in [0, 1].
    * @param  seed                Random seed for procedural shape variation
-   * (e.g. polygon).
+   *                             (e.g. polygon).
    * @param  bbox                Domain bounding box {xmin, xmax, ymin, ymax}.
    * @return                     Array               2D heightmap array
-   * containing accumulated elevations.
+   *                             containing accumulated elevations.
    */
   Array to_heightmap(glm::ivec2              shape,
                      ScatterShape            shape_type = SCATTER_SHAPE_DISK,
@@ -457,7 +457,7 @@ public:
    * @param  background Optional background terrain array.
    * @param  bbox       Bounding box {xmin, xmax, ymin, ymax} of the domain.
    * @param  flip_y     If true, row 0 is top (screen/image space). If false,
-   * row 0 is bottom (Cartesian domain space).
+   *                    row 0 is bottom (Cartesian domain space).
    * @return            std::vector<uint8_t> Interleaved RGB 8-bit image data
    *                    (size = width * height * 3).
    */

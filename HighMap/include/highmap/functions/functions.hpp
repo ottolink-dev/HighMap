@@ -190,9 +190,9 @@ public:
    * @brief Construct a new Crater Function object.
    *
    * @param radius           Radius of the crater (with respect to a unit
-   * domain).
+   *                         domain).
    * @param depth            Depth of the crater (with respect to a unit
-   * domain).
+   *                         domain).
    * @param lip_decay        Decay rate of the crater's lip (with respect to a
    *                         unit domain).
    * @param lip_height_ratio Height ratio of the crater's lip.
@@ -512,7 +512,7 @@ public:
    * @param xtop        Relative location of the top of the dune profile (in [0,
    *                    1]).
    * @param xbottom     Relative location of the foot of the dune profile (in
-   * [0, 1]).
+   *                    [0, 1]).
    * @param phase_shift Phase shift (in radians).
    * @param center      Primitive reference center.
    */
@@ -538,10 +538,8 @@ public:
 protected:
   glm::vec2 kw;    ///< Frequency scaling vector.
   float     angle; ///< Overall rotation angle (in degrees).
-  float     xtop;  ///< Relative location of the top of the dune profile (in [0,
-                   // 1]).
-  float xbottom;   ///< Relative location of the foot of the dune profile (in
-                   // [0,
+  float     xtop;  ///< Relative location of the top of the dune profile (in [0, 1]).
+  float xbottom;   ///< Relative location of the foot of the dune profile (in [0,
   ///< 1]).
   float     phase_shift; ///< Phase shift (in radians).
   glm::vec2 center;      ///< Primitive reference center.
@@ -805,7 +803,7 @@ public:
    * @brief Construct a new Perlin Function object.
    *
    * @param kw   Noise wavenumbers {kx, ky} for each directions, with respect to
-   * a unit domain.
+   *             a unit domain.
    * @param seed Random seed number.
    * @param mu   Gradient magnitude exponent.
    */
@@ -870,7 +868,7 @@ public:
    * @brief Construct a new Perlin Function object.
    *
    * @param kw   Noise wavenumbers {kx, ky} for each directions, with respect to
-   * a unit domain.
+   *             a unit domain.
    * @param seed Random seed number.
    */
   PerlinFunction(glm::vec2 kw, std::uint32_t seed);
@@ -901,7 +899,7 @@ public:
    * @brief Construct a new Perlin Function object.
    *
    * @param kw   Noise wavenumbers {kx, ky} for each directions, with respect to
-   * a unit domain.
+   *             a unit domain.
    * @param seed Random seed number.
    */
   PerlinBillowFunction(glm::vec2 kw, std::uint32_t seed);
@@ -934,7 +932,7 @@ public:
    * @brief Construct a new Perlin Function object.
    *
    * @param kw   Noise wavenumbers {kx, ky} for each directions, with respect to
-   * a unit domain.
+   *             a unit domain.
    * @param seed Random seed number.
    * @param k    Smoothing factor.
    */
@@ -966,7 +964,7 @@ public:
    * @brief Construct a new Perlin Function object.
    *
    * @param kw   Noise wavenumbers {kx, ky} for each directions, with respect to
-   * a unit domain.
+   *             a unit domain.
    * @param seed Random seed number.
    */
   PerlinMixFunction(glm::vec2 kw, std::uint32_t seed);
@@ -997,7 +995,7 @@ public:
    * @brief Construct a new Perlin Function object.
    *
    * @param kw   Noise wavenumbers {kx, ky} for each directions, with respect to
-   * a unit domain.
+   *             a unit domain.
    * @param seed Random seed number.
    */
   Simplex2Function(glm::vec2 kw, std::uint32_t seed);
@@ -1028,7 +1026,7 @@ public:
    * @brief Construct a new Perlin Function object.
    *
    * @param kw   Noise wavenumbers {kx, ky} for each directions, with respect to
-   * a unit domain.
+   *             a unit domain.
    * @param seed Random seed number.
    */
   Simplex2SFunction(glm::vec2 kw, std::uint32_t seed);
@@ -1059,7 +1057,7 @@ public:
    * @brief Construct a new ValueNoiseFunction object.
    *
    * @param kw   Noise wavenumbers {kx, ky} for each directions, with respect to
-   * a unit domain.
+   *             a unit domain.
    * @param seed Random seed number.
    */
   ValueNoiseFunction(glm::vec2 kw, std::uint32_t seed);
@@ -1090,7 +1088,7 @@ public:
    * @brief Construct a new ValueCubicNoiseFunction object.
    *
    * @param kw   Noise wavenumbers {kx, ky} for each directions, with respect to
-   * a unit domain.
+   *             a unit domain.
    * @param seed Random seed number.
    */
   ValueCubicNoiseFunction(glm::vec2 kw, std::uint32_t seed);
@@ -1211,7 +1209,7 @@ public:
    * @brief Construct a new Worley Function object.
    *
    * @param kw   Noise wavenumbers {kx, ky} for each directions, with respect to
-   * a unit domain.
+   *             a unit domain.
    * @param seed Random seed number.
    */
   WorleyFunction(glm::vec2     kw,
@@ -1254,7 +1252,7 @@ public:
    * @brief Construct a new Worley Double Function object.
    *
    * @param kw    Noise wavenumbers {kx, ky} for each directions, with respect
-   * to a unit domain.
+   *              to a unit domain.
    * @param seed  Random seed number.
    * @param ratio Amplitude ratio between each Worley noise.
    * @param k     Transition smoothing parameter.
@@ -1813,8 +1811,7 @@ protected:
                          ///< of the primitive.
   std::vector<float> yr; ///< Vector of y coordinates representing the centers
                          ///< of the primitive.
-  std::vector<float> zr; ///< Vector of z coordinates used to scale the
-                         // primitive in x and y
+  std::vector<float> zr; ///< Vector of z coordinates used to scale the primitive in x and y
   ///< directions, and to scale the primitive amplitude if requested.
 
 private:

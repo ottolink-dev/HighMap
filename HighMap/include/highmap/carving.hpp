@@ -16,9 +16,9 @@ class Graph;
 enum ElevationLongitudinalProfile : int
 {
 	ELP_UNCHANGED,
-	ELP_FLAT,       ///<
-	ELP_DECREASING, ///<
-	ELP_INCREASING, ///<
+	ELP_FLAT,       ///< 
+	ELP_DECREASING, ///< 
+	ELP_INCREASING, ///< 
 };
 // clang-format on
 
@@ -198,7 +198,7 @@ void flatten_around_points(
  *                                 (0: ignored).
  * @param[in]     max_height_above Cells higher than `seed elevation +
  *                                 max_height_above` are never reached
- * (negative: no limit).
+ *                                 (negative: no limit).
  * @param[in]     terrain_follow   Amount of smoothed relief kept in the target
  *                                 surface: 0 gives an exact plateau, 1 keeps
  *                                 the whole relief.
@@ -329,7 +329,7 @@ void flatbed_carve(Array        &z,
  *                                           choose tile_size on the order of
  *                                           the trench width in pixels:
  *                                           tile_size ~ clamp(width / dx, 16,
- * 128).
+ *                                           128).
  * @param[in]     bbox                       Bounding box of the domain as
  *                                           (xmin, xmax, ymin, ymax).
  *
