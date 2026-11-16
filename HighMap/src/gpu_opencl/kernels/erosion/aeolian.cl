@@ -250,7 +250,8 @@ void kernel aeolian_transport(global float       *bedrock,
   }
 
   float2 eff_wind = base_wind * wind_speedup;
-
+)""
+R""(
   // Wind shadow check at lifting site: sheltered cells resist lifting
   float2 curr_pos = (float2)((float)start_i + 0.5f, (float)start_j + 0.5f);
   float  shadow_prob = 0.f;
