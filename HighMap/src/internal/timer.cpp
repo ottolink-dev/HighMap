@@ -10,7 +10,7 @@
 #include <string>
 #include <utility>
 
-#include "highmap/dbg/timer.hpp"
+#include "highmap/internal/timer.hpp"
 
 namespace hmap
 {

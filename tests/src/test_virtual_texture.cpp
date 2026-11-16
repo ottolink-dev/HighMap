@@ -1,4 +1,4 @@
-#include "highmap/dbg/assert.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/virtual_array/virtual_texture.hpp"
 
 #include <gtest/gtest.h>

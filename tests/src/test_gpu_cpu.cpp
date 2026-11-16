@@ -1,6 +1,6 @@
 #include "highmap.hpp"
-#include "highmap/dbg/assert.hpp"
-#include "highmap/dbg/timer.hpp"
+#include "highmap/internal/assert.hpp"
+#include "highmap/internal/timer.hpp"
 
 #include <gtest/gtest.h>
 

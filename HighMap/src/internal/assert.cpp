@@ -8,8 +8,8 @@
 
 #include "highmap/array.hpp"
 #include "highmap/colormaps.hpp"
-#include "highmap/dbg/assert.hpp"
 #include "highmap/export/image.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/range.hpp"
 

@@ -1,6 +1,6 @@
 #include "highmap/array.hpp"
-#include "highmap/dbg/assert.hpp"
 #include "highmap/filters.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/kernels.hpp"
 #include "highmap/local_metrics.hpp"
 #include "highmap/math/convolve.hpp"

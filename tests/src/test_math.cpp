@@ -1,5 +1,5 @@
 #include "highmap/array.hpp"
-#include "highmap/dbg/assert.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/math/constants.hpp"
 #include "highmap/math/convolve.hpp"

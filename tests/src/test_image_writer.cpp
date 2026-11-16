@@ -2,8 +2,8 @@
 #include <fstream>
 
 #include "highmap/array.hpp"
-#include "highmap/dbg/assert.hpp"
 #include "highmap/export.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/primitives.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 #include "highmap/virtual_array/virtual_texture.hpp"

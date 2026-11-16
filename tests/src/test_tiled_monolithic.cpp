@@ -1,6 +1,6 @@
-#include "highmap/dbg/assert.hpp"
 #include "highmap/erosion.hpp"
 #include "highmap/hydrology/hydrology.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/primitives.hpp"
 #include "highmap/range.hpp"

@@ -1,5 +1,5 @@
 #include "highmap/array.hpp"
-#include "highmap/dbg/assert.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/range.hpp"
 
 #include <gtest/gtest.h>

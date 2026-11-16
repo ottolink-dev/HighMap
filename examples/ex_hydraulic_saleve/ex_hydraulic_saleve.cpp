@@ -1,5 +1,5 @@
 #include "highmap.hpp"
-#include "highmap/dbg/timer.hpp"
+#include "highmap/internal/timer.hpp"
 
 #include <omp.h>
 

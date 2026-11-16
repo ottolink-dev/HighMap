@@ -1,5 +1,5 @@
 #include "highmap/colorize.hpp"
-#include "highmap/dbg/assert.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/local_metrics.hpp"
 #include "highmap/texture.hpp"
 

@@ -1,5 +1,5 @@
 #include "highmap/authoring.hpp"
-#include "highmap/dbg/assert.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/opencl/gpu_opencl.hpp"
 
 #include <gtest/gtest.h>

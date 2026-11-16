@@ -1,7 +1,7 @@
 #include <map>
 
-#include "highmap/dbg/assert.hpp"
 #include "highmap/features.hpp"
+#include "highmap/internal/assert.hpp"
 
 #include <gtest/gtest.h>
 

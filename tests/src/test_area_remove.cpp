@@ -1,6 +1,6 @@
 #include <map>
 
-#include "highmap/dbg/assert.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/morphology.hpp"
 
 #include <gtest/gtest.h>

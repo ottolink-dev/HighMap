@@ -1,4 +1,4 @@
-#include "highmap/dbg/assert.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/statistics.hpp"
 
 #include <gtest/gtest.h>

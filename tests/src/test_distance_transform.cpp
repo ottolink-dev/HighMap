@@ -1,5 +1,5 @@
-#include "highmap/dbg/assert.hpp"
 #include "highmap/geometry/cloud.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/morphology.hpp"
 #include "highmap/primitives.hpp"

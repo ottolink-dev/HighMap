@@ -1,6 +1,6 @@
 #include "highmap/array.hpp"
-#include "highmap/dbg/assert.hpp"
 #include "highmap/filters.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/primitives.hpp"
 #include "highmap/range.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"

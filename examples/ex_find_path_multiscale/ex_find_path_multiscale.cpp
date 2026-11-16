@@ -1,7 +1,7 @@
 #include <vector>
 
 #include "highmap.hpp"
-#include "highmap/dbg/timer.hpp"
+#include "highmap/internal/timer.hpp"
 
 int main(void)
 {

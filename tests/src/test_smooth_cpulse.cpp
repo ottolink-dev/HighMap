@@ -1,5 +1,5 @@
-#include "highmap/dbg/assert.hpp"
 #include "highmap/filters.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 #include <gtest/gtest.h>

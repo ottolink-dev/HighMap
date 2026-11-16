@@ -1,7 +1,7 @@
 #include "highmap/blending.hpp"
 #include "highmap/colorize.hpp"
 #include "highmap/colormaps.hpp"
-#include "highmap/dbg/assert.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/primitives.hpp"
 #include "highmap/texture.hpp"
 #include "highmap/transform.hpp"

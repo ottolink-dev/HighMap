@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "highmap.hpp"
-#include "highmap/dbg/assert.hpp"
-#include "highmap/dbg/timer.hpp"
+#include "highmap/internal/assert.hpp"
+#include "highmap/internal/timer.hpp"
 
 template <typename F1, typename F2>
 void compare(F1 fct1, F2 fct2, float tolerance, const std::string &fname)

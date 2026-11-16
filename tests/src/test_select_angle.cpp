@@ -1,5 +1,5 @@
-#include "highmap/dbg/assert.hpp"
 #include "highmap/gradient.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/selector.hpp"
 
