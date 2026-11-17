@@ -21,12 +21,6 @@
     <innerclass refid="classhmap_1_1OpenEXRWriter" prot="public">hmap::OpenEXRWriter</innerclass>
     <innerclass refid="structhmap_1_1PointOfInterest" prot="public">hmap::PointOfInterest</innerclass>
     <innerclass refid="structhmap_1_1PoiGenerationOptions" prot="public">hmap::PoiGenerationOptions</innerclass>
-    <innerclass refid="classhmap_1_1Forest" prot="public">hmap::Forest</innerclass>
-    <innerclass refid="structhmap_1_1InteractionMatrix" prot="public">hmap::InteractionMatrix</innerclass>
-    <innerclass refid="structhmap_1_1ForestScaleSampler" prot="public">hmap::ForestScaleSampler</innerclass>
-    <innerclass refid="structhmap_1_1SpeciesLookup" prot="public">hmap::SpeciesLookup</innerclass>
-    <innerclass refid="structhmap_1_1ForestSeedingOptions" prot="public">hmap::ForestSeedingOptions</innerclass>
-    <innerclass refid="structhmap_1_1Species" prot="public">hmap::Species</innerclass>
     <innerclass refid="classhmap_1_1ArrayFunction" prot="public">hmap::ArrayFunction</innerclass>
     <innerclass refid="classhmap_1_1BiquadFunction" prot="public">hmap::BiquadFunction</innerclass>
     <innerclass refid="classhmap_1_1BumpFunction" prot="public">hmap::BumpFunction</innerclass>
@@ -89,10 +83,6 @@
     <innerclass refid="classhmap_1_1ArrayControlFunction" prot="public">hmap::ArrayControlFunction</innerclass>
     <innerclass refid="classhmap_1_1XyControlFunction" prot="public">hmap::XyControlFunction</innerclass>
     <innerclass refid="classhmap_1_1PdfSampler" prot="public">hmap::PdfSampler</innerclass>
-    <innerclass refid="structhmap_1_1RockDistribution" prot="public">hmap::RockDistribution</innerclass>
-    <innerclass refid="classhmap_1_1RockField" prot="public">hmap::RockField</innerclass>
-    <innerclass refid="structhmap_1_1RockSeedingOptions" prot="public">hmap::RockSeedingOptions</innerclass>
-    <innerclass refid="structhmap_1_1RockSimulationOptions" prot="public">hmap::RockSimulationOptions</innerclass>
     <innerclass refid="classhmap_1_1ScatterField" prot="public">hmap::ScatterField</innerclass>
     <innerclass refid="classhmap_1_1ScatterItem" prot="public">hmap::ScatterItem</innerclass>
     <innerclass refid="structhmap_1_1ScatterSeedingOptions" prot="public">hmap::ScatterSeedingOptions</innerclass>
@@ -114,6 +104,16 @@
     <innerclass refid="structhmap_1_1VirtualArray" prot="public">hmap::VirtualArray</innerclass>
     <innerclass refid="classhmap_1_1VirtualTexture" prot="public">hmap::VirtualTexture</innerclass>
     <innerclass refid="structhmap_1_1VirtualTextureStorage" prot="public">hmap::VirtualTextureStorage</innerclass>
+    <innerclass refid="classhmap_1_1Forest" prot="public">hmap::Forest</innerclass>
+    <innerclass refid="structhmap_1_1InteractionMatrix" prot="public">hmap::InteractionMatrix</innerclass>
+    <innerclass refid="structhmap_1_1ForestScaleSampler" prot="public">hmap::ForestScaleSampler</innerclass>
+    <innerclass refid="structhmap_1_1SpeciesLookup" prot="public">hmap::SpeciesLookup</innerclass>
+    <innerclass refid="structhmap_1_1ForestSeedingOptions" prot="public">hmap::ForestSeedingOptions</innerclass>
+    <innerclass refid="structhmap_1_1Species" prot="public">hmap::Species</innerclass>
+    <innerclass refid="structhmap_1_1RockDistribution" prot="public">hmap::RockDistribution</innerclass>
+    <innerclass refid="classhmap_1_1RockField" prot="public">hmap::RockField</innerclass>
+    <innerclass refid="structhmap_1_1RockSeedingOptions" prot="public">hmap::RockSeedingOptions</innerclass>
+    <innerclass refid="structhmap_1_1RockSimulationOptions" prot="public">hmap::RockSimulationOptions</innerclass>
     <innernamespace refid="namespacehmap_1_1gpu">hmap::gpu</innernamespace>
     <innernamespace refid="namespacehmap_1_1va">hmap::va</innernamespace>
     <innernamespace refid="namespacehmap_1_1neighborhood">hmap::neighborhood</innernamespace>
@@ -2567,7 +2567,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/flora/tree.hpp" line="23" column="1" bodyfile="HighMap/include/highmap/flora/tree.hpp" bodystart="23" bodyend="-1"/>
+        <location file="HighMap/include/highmap/world/flora/tree.hpp" line="23" column="1" bodyfile="HighMap/include/highmap/world/flora/tree.hpp" bodystart="23" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespacehmap_1a39fd8a623d40207a29565cdc3ea898a6" prot="public" static="no">
         <type><ref refid="classhmap_1_1ScatterItem" kindref="compound">ScatterItem</ref></type>
@@ -2582,7 +2582,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/rocks/rock.hpp" line="21" column="1" bodyfile="HighMap/include/highmap/rocks/rock.hpp" bodystart="21" bodyend="-1"/>
+        <location file="HighMap/include/highmap/world/rocks/rock.hpp" line="21" column="1" bodyfile="HighMap/include/highmap/world/rocks/rock.hpp" bodystart="21" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="var">
@@ -26347,952 +26347,6 @@ This function:<itemizedlist>
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/src/filters/filters.cpp" line="1366" column="6" bodyfile="HighMap/src/filters/filters.cpp" bodystart="1366" bodyend="1385" declfile="HighMap/include/highmap/filters.hpp" declline="2327" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a1d6994f2c75c90011f096035df3b4f87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
-        <definition>Forest hmap::grow_forest_competition_nn</definition>
-        <argsstring>(const Forest &amp;forest, const std::vector&lt; Species &gt; &amp;species={}, const InteractionMatrix &amp;competition_matrix={}, const Array &amp;max_radius_scale={}, float max_radius_scale_strength=1.0f, bool prune_unviable=true, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
-        <name>grow_forest_competition_nn</name>
-        <qualifiedname>hmap::grow_forest_competition_nn</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> &amp;</type>
-          <declname>forest</declname>
-        </param>
-        <param>
-          <type>const std::vector&lt; <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> &gt; &amp;</type>
-          <declname>species</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
-          <declname>competition_matrix</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>max_radius_scale</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>max_radius_scale_strength</declname>
-          <defval>1.0f</defval>
-        </param>
-        <param>
-          <type>bool</type>
-          <declname>prune_unviable</declname>
-          <defval>true</defval>
-        </param>
-        <param>
-          <type>const glm::vec4 &amp;</type>
-          <declname>bbox</declname>
-          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
-        </param>
-        <briefdescription>
-<para>Adjusts tree radii based on nearest-neighbor distances and species competition constraints. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>For each tree $i$ with nearest neighbor $j$ at Euclidean distance $d_i = |p_i - p_j|$:<itemizedlist>
-<listitem><para>Looks up competition factor $\alpha = \text{competition_matrix.get}(s_i, s_j)$ (or species $[s_i].\text{competition_factor}$).</para>
-</listitem><listitem><para>Calculates estimated radius $r_i = \alpha \cdot d_i$.</para>
-</listitem><listitem><para>Linearly scales effective maximum radius: $r_{\max,\text{eff}} = r_{\min}(s_i) + s \cdot (r_{\max}(s_i) - r_{\min}(s_i))$, where $s \in [0, 1]$ is sampled from <computeroutput>max_radius_scale</computeroutput> (if provided, default $s = 1.0$).</para>
-</listitem><listitem><para>Clamps $r_i \in [\text{radius_min}(s_i), r_{\max,\text{eff}}]$.</para>
-</listitem><listitem><para>If <computeroutput>prune_unviable</computeroutput> is true and raw calculated radius $r_i &lt; \text{radius_min}(s_i)$, the tree is removed.</para>
-</listitem></itemizedlist>
-</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>forest</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Input forest container. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>species</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Vector of <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>competition_matrix</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional pairwise S x S competition factors (alpha). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_radius_scale</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional 2D array in [0, 1] scaling maximum radius locally (0 -&gt; rmax = rmin, 1 -&gt; rmax = rmax). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_radius_scale_strength</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Blend strength for max_radius_scale in [0, 1] (0 -&gt; no scaling/full rmax, 1 -&gt; full scale array modulation). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>prune_unviable</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Whether to remove trees unable to reach radius_min. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>bbox</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Bounding box {xmin, xmax, ymin, ymax} for sampling <computeroutput>max_radius_scale</computeroutput>. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Grown forest with updated tree radii. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/flora/grow_forest_competition_nn.cpp" line="25" column="8" bodyfile="HighMap/src/flora/grow_forest_competition_nn.cpp" bodystart="25" bodyend="100" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="194" declcolumn="8"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a51ec3fd21f74bdaae31c1403c88cae4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
-        <definition>Forest hmap::grow_forest_competition_voronoi</definition>
-        <argsstring>(const Forest &amp;forest, const std::vector&lt; Species &gt; &amp;species={}, const InteractionMatrix &amp;competition_matrix={}, const Array &amp;max_radius_scale={}, float max_radius_scale_strength=1.0f, bool prune_unviable=true, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
-        <name>grow_forest_competition_voronoi</name>
-        <qualifiedname>hmap::grow_forest_competition_voronoi</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> &amp;</type>
-          <declname>forest</declname>
-        </param>
-        <param>
-          <type>const std::vector&lt; <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> &gt; &amp;</type>
-          <declname>species</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
-          <declname>competition_matrix</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>max_radius_scale</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>max_radius_scale_strength</declname>
-          <defval>1.0f</defval>
-        </param>
-        <param>
-          <type>bool</type>
-          <declname>prune_unviable</declname>
-          <defval>true</defval>
-        </param>
-        <param>
-          <type>const glm::vec4 &amp;</type>
-          <declname>bbox</declname>
-          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
-        </param>
-        <briefdescription>
-<para>Adjusts tree radii based on Voronoi cell areas and species competition constraints. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>Builds a Delaunay triangulation (<ref refid="classhmap_1_1TerrainTriMesh" kindref="compound">TerrainTriMesh</ref>) on the tree positions in the XY plane to compute the local Voronoi/dual cell territory area $A_i$ of each tree:<itemizedlist>
-<listitem><para>Computes equivalent circular territory radius $r_i = \sqrt{A_i / \pi}$.</para>
-</listitem><listitem><para>Multiplies by competition factor $\alpha = \text{species}[s_i].\text{competition_factor}$ (or pairwise $\alpha = \text{competition_matrix.get}(s_i, s_i)$): $r_{\text{est}} = \alpha \cdot r_i$.</para>
-</listitem><listitem><para>Linearly scales effective maximum radius: $r_{\max,\text{eff}} = r_{\min}(s_i) + s \cdot (r_{\max}(s_i) - r_{\min}(s_i))$, where $s \in [0, 1]$ is sampled from <computeroutput>max_radius_scale</computeroutput> (if provided, default $s = 1.0$).</para>
-</listitem><listitem><para>Clamps $r_i \in [\text{radius_min}(s_i), r_{\max,\text{eff}}]$.</para>
-</listitem><listitem><para>If <computeroutput>prune_unviable</computeroutput> is true and raw calculated radius $r_{\text{est}} &lt; \text{radius_min}(s_i)$, the tree is removed.</para>
-</listitem></itemizedlist>
-</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>forest</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Input forest container. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>species</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Vector of <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>competition_matrix</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional pairwise S x S competition factors (alpha). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_radius_scale</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional 2D array in [0, 1] scaling maximum radius locally (0 -&gt; rmax = rmin, 1 -&gt; rmax = rmax). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_radius_scale_strength</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Blend strength for max_radius_scale in [0, 1] (0 -&gt; no scaling/full rmax, 1 -&gt; full scale array modulation). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>prune_unviable</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Whether to remove trees unable to reach radius_min. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>bbox</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Bounding box {xmin, xmax, ymin, ymax} for sampling <computeroutput>max_radius_scale</computeroutput>. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Grown forest with updated tree radii. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/flora/grow_forest_competition_voronoi.cpp" line="23" column="8" bodyfile="HighMap/src/flora/grow_forest_competition_voronoi.cpp" bodystart="23" bodyend="126" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="241" declcolumn="8"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a0c6fb1e2c79fb841680cee1e39bb74cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
-        <definition>Forest hmap::grow_forest_iterative</definition>
-        <argsstring>(const Forest &amp;forest, const std::vector&lt; Species &gt; &amp;species={}, size_t iterations=10, float growth_rate=0.1f, const InteractionMatrix &amp;competition_matrix={}, const Array &amp;max_radius_scale={}, float max_radius_scale_strength=1.0f, bool prune_unviable=true, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
-        <name>grow_forest_iterative</name>
-        <qualifiedname>hmap::grow_forest_iterative</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> &amp;</type>
-          <declname>forest</declname>
-        </param>
-        <param>
-          <type>const std::vector&lt; <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> &gt; &amp;</type>
-          <declname>species</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>size_t</type>
-          <declname>iterations</declname>
-          <defval>10</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>growth_rate</declname>
-          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
-          <declname>competition_matrix</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>max_radius_scale</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>max_radius_scale_strength</declname>
-          <defval>1.0f</defval>
-        </param>
-        <param>
-          <type>bool</type>
-          <declname>prune_unviable</declname>
-          <defval>true</defval>
-        </param>
-        <param>
-          <type>const glm::vec4 &amp;</type>
-          <declname>bbox</declname>
-          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
-        </param>
-        <briefdescription>
-<para>Simulates iterative plant growth with neighborhood competition and mortality. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>Progressively expands plant crowns over multiple time steps according to: r_i^{t+1} = min(r_max_eff, r_i^t + G_i * max(0, 1 - C_i)) where G_i is the growth increment and C_i is the neighborhood competition factor. Suppressed plants falling below species viability or suffocated by larger crowns are pruned.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>forest</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Input forest container. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>species</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Vector of <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>iterations</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Maximum number of growth iterations. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>growth_rate</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Base growth fraction per iteration in [0, 1]. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>competition_matrix</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional pairwise competition matrix. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_radius_scale</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional 2D heightmap array to modulate max radius locally. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_radius_scale_strength</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Strength factor for max_radius_scale in [0, 1]. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>prune_unviable</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Whether to remove suppressed/non-viable plants. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>bbox</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Spatial bounding box for sampling max_radius_scale. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Grown and thinned forest container. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/flora/grow_forest_iterative.cpp" line="25" column="8" bodyfile="HighMap/src/flora/grow_forest_iterative.cpp" bodystart="25" bodyend="161" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="276" declcolumn="8"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a12b36f2c693eff09dda2732199468fe8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
-        <definition>Forest hmap::grow_forest_soft_core</definition>
-        <argsstring>(const Forest &amp;forest, const std::vector&lt; Species &gt; &amp;species={}, const InteractionMatrix &amp;repulsion_distances={}, const InteractionMatrix &amp;repulsion_strengths={}, size_t target_count=0, const Array &amp;max_radius_scale={}, float max_radius_scale_strength=1.0f, uint32_t seed=0, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
-        <name>grow_forest_soft_core</name>
-        <qualifiedname>hmap::grow_forest_soft_core</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> &amp;</type>
-          <declname>forest</declname>
-        </param>
-        <param>
-          <type>const std::vector&lt; <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> &gt; &amp;</type>
-          <declname>species</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
-          <declname>repulsion_distances</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
-          <declname>repulsion_strengths</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>size_t</type>
-          <declname>target_count</declname>
-          <defval>0</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>max_radius_scale</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>max_radius_scale_strength</declname>
-          <defval>1.0f</defval>
-        </param>
-        <param>
-          <type>uint32_t</type>
-          <declname>seed</declname>
-          <defval>0</defval>
-        </param>
-        <param>
-          <type>const glm::vec4 &amp;</type>
-          <declname>bbox</declname>
-          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
-        </param>
-        <briefdescription>
-<para>Performs multi-species Strauss soft-core growth and thinning on an input forest. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>Repels and thins neighboring trees probabilistically based on species pairwise interaction distances and strengths, and clamps resulting crown radii according to species traits and local spatial scale.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>forest</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Input candidate forest. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>species</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Vector of <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>repulsion_distances</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Interaction distance matrix between species. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>repulsion_strengths</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Repulsion strength matrix between species in [0, 1]. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>target_count</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional target number of trees (0 means keep all accepted). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_radius_scale</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional 2D array scaling maximum radius locally. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_radius_scale_strength</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Blend strength for max_radius_scale in [0, 1]. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>seed</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Random number generator seed. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>bbox</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Bounding box {xmin, xmax, ymin, ymax}. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Grown and thinned forest. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/flora/grow_forest_soft_core.cpp" line="27" column="8" bodyfile="HighMap/src/flora/grow_forest_soft_core.cpp" bodystart="27" bodyend="183" declfile="HighMap/include/highmap/flora/forest_growth.hpp" declline="310" declcolumn="8"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1ae7c74f46c267db50e3c562eebb118e27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
-        <definition>Array hmap::build_tree_density</definition>
-        <argsstring>(const Array &amp;heightmap, float min_elev=0.0f, float max_elev=0.9f, float elev_transition_width=0.1f, float min_talus=0.003f, float max_talus=0.005f, float angle=30.0f, float angle_width=90.0f, float weight_elev=1.0f, float weight_talus=1.0f, float weight_angle=0.8f, float weight_twi=0.5f, const Array &amp;secondary_density={}, float weight_secondary=1.0f, const Array &amp;exclusion_mask={}, float exclusion_threshold=0.f)</argsstring>
-        <name>build_tree_density</name>
-        <qualifiedname>hmap::build_tree_density</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>heightmap</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>min_elev</declname>
-          <defval>0.0f</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>max_elev</declname>
-          <defval>0.9<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>elev_transition_width</declname>
-          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>min_talus</declname>
-          <defval>0.003<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>max_talus</declname>
-          <defval>0.005<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>angle</declname>
-          <defval>30.0f</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>angle_width</declname>
-          <defval>90.0f</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>weight_elev</declname>
-          <defval>1.0f</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>weight_talus</declname>
-          <defval>1.0f</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>weight_angle</declname>
-          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>weight_twi</declname>
-          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>secondary_density</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>weight_secondary</declname>
-          <defval>1.0f</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>exclusion_mask</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>exclusion_threshold</declname>
-          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <briefdescription>
-<para>Computes an environmental suitability criteria map in [0, 1] representing tree probability density based on elevation, slope talus, aspect angle, topographic wetness index (TWI), an optional secondary density map, and an optional exclusion mask. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>heightmap</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Input terrain heightmap. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>min_elev</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Minimum elevation threshold. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_elev</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Maximum elevation threshold. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>elev_transition_width</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Elevation transition smoothing width. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>min_talus</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Slope/talus threshold for full suitability (1.0). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_talus</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Slope/talus threshold for zero suitability (0.0). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>angle</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Preferred slope aspect angle in degrees. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>angle_width</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Slope aspect angle tolerance half-width in degrees. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>weight_elev</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Weight for elevation criterion in [0, 1]. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>weight_talus</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Weight for talus/slope criterion in [0, 1]. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>weight_angle</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Weight for aspect angle criterion in [0, 1]. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>weight_twi</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Weight for topographic wetness index criterion in [0, 1]. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>secondary_density</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional secondary density or noise modulation map. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>weight_secondary</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Weight for optional secondary density map in [0, 1]. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>exclusion_mask</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional exclusion mask (where &gt; exclusion_threshold, density is set to 0). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>exclusion_threshold</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Threshold above which exclusion mask excludes trees (default 0.f). </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> Computed density array in [0, 1]. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/flora/forest_seeding.cpp" line="41" column="7" bodyfile="HighMap/src/flora/forest_seeding.cpp" bodystart="41" bodyend="151" declfile="HighMap/include/highmap/flora/forest_seeding.hpp" declline="73" declcolumn="7"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a395c1a2f15f7114fac122c864a1e78e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
-        <definition>Forest hmap::seed_forest_clusters</definition>
-        <argsstring>(size_t species_count, size_t tree_count, const Array &amp;density, const Array &amp;exclusion, float cluster_spread=0.05f, size_t points_per_cluster=8, const ForestSeedingOptions &amp;options={})</argsstring>
-        <name>seed_forest_clusters</name>
-        <qualifiedname>hmap::seed_forest_clusters</qualifiedname>
-        <param>
-          <type>size_t</type>
-          <declname>species_count</declname>
-        </param>
-        <param>
-          <type>size_t</type>
-          <declname>tree_count</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>density</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>exclusion</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>cluster_spread</declname>
-          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>size_t</type>
-          <declname>points_per_cluster</declname>
-          <defval>8</defval>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1ForestSeedingOptions" kindref="compound">ForestSeedingOptions</ref> &amp;</type>
-          <declname>options</declname>
-          <defval>{}</defval>
-        </param>
-        <briefdescription>
-<para>Generates a clustered forest distribution using inverse transform sampling for cluster centers and local cluster regions. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>species_count</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Number of distinct tree species. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>tree_count</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target total number of trees. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>density</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Global density map array. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>exclusion</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Exclusion map array. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>cluster_spread</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Half-extent of the bounding box surrounding each cluster center. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>points_per_cluster</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Number of child points sampled per parent cluster. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>options</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Seeding options. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Sampled forest container. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/flora/forest_seeding.cpp" line="153" column="8" bodyfile="HighMap/src/flora/forest_seeding.cpp" bodystart="153" bodyend="294" declfile="HighMap/include/highmap/flora/forest_seeding.hpp" declline="104" declcolumn="8"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1aa6ba2bd6f00bf38f87b87f1179dcc70a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
-        <definition>Forest hmap::seed_forest_kmeans</definition>
-        <argsstring>(size_t species_count, size_t tree_count, const Array &amp;density, const Array &amp;exclusion, float cluster_randomness=0.0f, size_t k_neighbors=4, const ForestSeedingOptions &amp;options={})</argsstring>
-        <name>seed_forest_kmeans</name>
-        <qualifiedname>hmap::seed_forest_kmeans</qualifiedname>
-        <param>
-          <type>size_t</type>
-          <declname>species_count</declname>
-        </param>
-        <param>
-          <type>size_t</type>
-          <declname>tree_count</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>density</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>exclusion</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>cluster_randomness</declname>
-          <defval>0.0f</defval>
-        </param>
-        <param>
-          <type>size_t</type>
-          <declname>k_neighbors</declname>
-          <defval>4</defval>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1ForestSeedingOptions" kindref="compound">ForestSeedingOptions</ref> &amp;</type>
-          <declname>options</declname>
-          <defval>{}</defval>
-        </param>
-        <briefdescription>
-<para>Generates a multi-species forest distribution using 2D inverse transform sampling for positions and PointSampler k-means clustering to tag species. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="note"><para><ref refid="structhmap_1_1Species" kindref="compound">Species</ref> abundance is governed by spatial cluster partitioning in the compactness feature space; species weights in <computeroutput>options.species</computeroutput> are not taken into account by this function.</para>
-</simplesect>
-<parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>species_count</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Number of distinct tree species. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>tree_count</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target total number of trees. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>density</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Global density map array. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>exclusion</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Exclusion map array. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>cluster_randomness</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Randomness factor in [0, 1] added to cluster features. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>k_neighbors</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Number of nearest spatial neighbors used to extract compactness features. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>options</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Seeding options. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Sampled forest container. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/flora/forest_seeding.cpp" line="296" column="8" bodyfile="HighMap/src/flora/forest_seeding.cpp" bodystart="296" bodyend="512" declfile="HighMap/include/highmap/flora/forest_seeding.hpp" declline="132" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a84ca1f41de32e4beacb10787127b4b8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::function&lt; float(float, float)&gt;</type>
@@ -64013,778 +63067,6 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
         </inbodydescription>
         <location file="HighMap/src/range/range.cpp" line="447" column="6" bodyfile="HighMap/src/range/range.cpp" bodystart="447" bodyend="499" declfile="HighMap/include/highmap/range.hpp" declline="481" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a286e4e74e6495802dba7f873c06ccb20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref></type>
-        <definition>Graph hmap::generate_network_alpha_model</definition>
-        <argsstring>(const std::vector&lt; float &gt; &amp;xc, const std::vector&lt; float &gt; &amp;yc, const std::vector&lt; float &gt; &amp;size, glm::vec4 bbox, const Array &amp;z, std::uint32_t seed, float alpha=0.7f, int n_dummy_nodes=2500, float dz_weight=1.f, const Array *p_weight=nullptr)</argsstring>
-        <name>generate_network_alpha_model</name>
-        <qualifiedname>hmap::generate_network_alpha_model</qualifiedname>
-        <param>
-          <type>const std::vector&lt; float &gt; &amp;</type>
-          <declname>xc</declname>
-        </param>
-        <param>
-          <type>const std::vector&lt; float &gt; &amp;</type>
-          <declname>yc</declname>
-        </param>
-        <param>
-          <type>const std::vector&lt; float &gt; &amp;</type>
-          <declname>size</declname>
-        </param>
-        <param>
-          <type>glm::vec4</type>
-          <declname>bbox</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>z</declname>
-        </param>
-        <param>
-          <type>std::uint32_t</type>
-          <declname>seed</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>alpha</declname>
-          <defval>0.7<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>n_dummy_nodes</declname>
-          <defval>2500</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>dz_weight</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_weight</declname>
-          <defval>nullptr</defval>
-        </param>
-        <briefdescription>
-<para>Generate a large scale road network between &quot;nodes&quot; (or cities) using the alpha model. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>Based on the paper of Molinero et al. <b>[Molinero2020]</b>.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>xc</parametername>
-</parameternamelist>
-<parameterdescription>
-<para><computeroutput>x</computeroutput> locations of the cities. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>yc</parametername>
-</parameternamelist>
-<parameterdescription>
-<para><computeroutput>y</computeroutput> locations of the cities. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>size</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>City sizes (arbitrary unit). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>bbox</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Bounding box. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>z</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Heightmap. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>seed</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Random seed number. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>alpha</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>&quot;Alpha coefficient&quot; of the model (cost difference between creating a new and using an old one). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>n_dummy_nodes</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Number of dummy nodes added for the tesselation. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>dz_weight</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Weight of the elevation difference in the cost function. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>p_weight</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Map defining the local value added to the cost function (can be used to add large penalizations to create &quot;no
-                      go&quot; zones). </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref> Road network, edge weights correspond to the road &quot;size&quot;.</para>
-</simplesect>
-<bold>Example</bold> <programlisting filename="ex_generate_network_alpha_model.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline><highlight class="normal">{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{512,<sp/>512};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>0;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1a8ab34d5f894ffd1ee8723774dc7dbfd8" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{4.f,<sp/>4.f},</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>z.<ref refid="classhmap_1_1Array_1a9ff7b2c0be8f2b5dd9fc33085cd647d1" kindref="member">to_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_generate_network_alpha_model0.png&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9" kindref="member">hmap::Cmap::TERRAIN</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>&quot;cities&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>npoints<sp/>=<sp/>4;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ndummy<sp/>=<sp/>50<sp/>*<sp/>50;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alpha<sp/>=<sp/>0.8f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>bbox<sp/>=<sp/>{1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud<sp/>=<sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref>(npoints,<sp/>seed,<sp/>{1.2f,<sp/>1.8f,<sp/>-0.4f,<sp/>0.4f});</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Graph" kindref="compound">hmap::Graph</ref><sp/>network<sp/>=<sp/><ref refid="namespacehmap_1a286e4e74e6495802dba7f873c06ccb20" kindref="member">hmap::generate_network_alpha_model</ref>(cloud.<ref refid="classhmap_1_1Cloud_1aab450c9376e44def1d4e4465f0b1b691" kindref="member">get_x</ref>(),</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1abf5f933e3506395b5369cb090119002e" kindref="member">get_y</ref>(),</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a53cb47401f1e9d027a638f3680c3004d" kindref="member">get_values</ref>(),</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alpha,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ndummy);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>network.to_csv(</highlight><highlight class="stringliteral">&quot;nodes.csv&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;adj.csv&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>network.set_values(1.f);</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>graph<sp/>view,<sp/>no<sp/>bounding<sp/>box,<sp/>color<sp/>by<sp/>edge<sp/>weight</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>network.to_png(</highlight><highlight class="stringliteral">&quot;ex_generate_network_alpha_model1.png&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>graph<sp/>project<sp/>onto<sp/>an<sp/>array,<sp/>with<sp/>bounding<sp/>box,<sp/>color<sp/>by<sp/>point</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>values</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>g<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>network.to_array(g,<sp/>bbox);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Array_1a9ff7b2c0be8f2b5dd9fc33085cd647d1" kindref="member">to_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_generate_network_alpha_model2.png&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>);</highlight></codeline>
-<codeline><highlight class="normal">}</highlight></codeline>
-</programlisting></para>
-<para><bold>Result</bold> <image type="html" name="ex_generate_network_alpha_model0.png"></image>
- <image type="html" name="ex_generate_network_alpha_model1.png"></image>
- <image type="html" name="ex_generate_network_alpha_model2.png"></image>
- </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/roads/alpha_model.cpp" line="24" column="7" bodyfile="HighMap/src/roads/alpha_model.cpp" bodystart="24" bodyend="176" declfile="HighMap/include/highmap/roads.hpp" declline="50" declcolumn="7"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1af9752df3baf8e8ba199fd6c18b0268fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
-        <definition>Array hmap::build_rock_density</definition>
-        <argsstring>(const Array &amp;heightmap, float max_slope=0.05f, float bulkify_amp=0.01f, float weight_elev=1.0f, float weight_slope=1.0f, float weight_rivers=1.0f, float river_talus_ref=0.1f, float river_clipping_ratio=1000.0f, const Array &amp;secondary_density={}, float weight_secondary=1.0f, const Array &amp;exclusion_mask={}, float exclusion_threshold=0.f, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
-        <name>build_rock_density</name>
-        <qualifiedname>hmap::build_rock_density</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>heightmap</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>max_slope</declname>
-          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>bulkify_amp</declname>
-          <defval>0.01<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>weight_elev</declname>
-          <defval>1.0f</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>weight_slope</declname>
-          <defval>1.0f</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>weight_rivers</declname>
-          <defval>1.0f</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>river_talus_ref</declname>
-          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>river_clipping_ratio</declname>
-          <defval>1000.0f</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>secondary_density</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>weight_secondary</declname>
-          <defval>1.0f</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>exclusion_mask</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>exclusion_threshold</declname>
-          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>glm::vec4</type>
-          <declname>bbox</declname>
-          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
-        </param>
-        <briefdescription>
-<para>Computes a probability density map in [0, 1] for rock placement based on elevation, talus/slope, river drainage paths, an optional secondary density map, and an optional exclusion mask. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>A subtle bulkify filter can be applied to the heightmap prior to computing talus and river beds, eliminating micro-depressions and guiding flow lines.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>heightmap</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Input terrain heightmap. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_slope</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Talus value above which density smoothly falls to zero. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>bulkify_amp</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Amplitude of bulkify pulse filter applied to the terrain (0.f disables). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>weight_elev</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Weight for inverted elevation criterion. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>weight_slope</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Weight for talus/slope criterion. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>weight_rivers</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Weight for river accumulation criterion. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>river_talus_ref</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Reference talus for river flow partitioning. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>river_clipping_ratio</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Flow accumulation clipping ratio. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>secondary_density</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional secondary density modulation map. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>weight_secondary</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Weight for optional secondary density map. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>exclusion_mask</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional exclusion mask (density set to 0 where exclusion &gt; exclusion_threshold). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>exclusion_threshold</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Threshold above which exclusion mask excludes rocks. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>bbox</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Domain bounding box for tiled bulkify synthesis. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> Computed density array in [0, 1]. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/rocks/rock_procedural.cpp" line="33" column="7" bodyfile="HighMap/src/rocks/rock_procedural.cpp" bodystart="33" bodyend="159" declfile="HighMap/include/highmap/rocks/rock_procedural.hpp" declline="52" declcolumn="7"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1ad344c29b6eb84464be0072663cb292b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
-        <definition>RockField hmap::place_rocks_procedural</definition>
-        <argsstring>(size_t rock_count, const Array &amp;elevation, float min_elev=0.f, float max_elev=0.9f, float max_slope=1.f, const Array &amp;density={}, const Array &amp;exclusion={}, float size_slope_weight=0.f, float size_elevation_gain=1.f, float size_elevation_exponent=1.f, const RockSeedingOptions &amp;options={})</argsstring>
-        <name>place_rocks_procedural</name>
-        <qualifiedname>hmap::place_rocks_procedural</qualifiedname>
-        <param>
-          <type>size_t</type>
-          <declname>rock_count</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>elevation</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>min_elev</declname>
-          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>max_elev</declname>
-          <defval>0.9<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>max_slope</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>density</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>exclusion</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>size_slope_weight</declname>
-          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>size_elevation_gain</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>size_elevation_exponent</declname>
-          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1RockSeedingOptions" kindref="compound">RockSeedingOptions</ref> &amp;</type>
-          <declname>options</declname>
-          <defval>{}</defval>
-        </param>
-        <briefdescription>
-<para>Places rocks procedurally on a terrain, without physical simulation. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>Positions are sampled from a density map (defaults to a flat density equal to 1 if none is provided). <ref refid="namespacehmap_1a39fd8a623d40207a29565cdc3ea898a6" kindref="member">Rock</ref> radii are drawn from a bounded power-law (Pareto) distribution between radius_min and a local maximum radius that grows toward radius_max as the elevation decreases: high areas only hold small rocks, whereas low areas hold both small and large rocks (the size distribution broadens when lowering altitude). Steep slopes further reduce the maximum rock size.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>rock_count</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target number of rocks. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>elevation</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Terrain elevation heightmap. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>min_elev</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Elevation mapped to 0 in the normalized elevation. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_elev</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Elevation mapped to 1 in the normalized elevation. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_slope</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Talus threshold above which rock size is attenuated. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>density</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional user density map (if empty, defaults to uniform flat density of 1). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>exclusion</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional exclusion map (same shape as elevation). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>size_slope_weight</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>In [0, 1], reduces the maximum rock size on steep slopes (0 = no effect). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>size_elevation_gain</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Low-elevation influence on the maximum rock size (0 = none). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>size_elevation_exponent</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Power-law exponent of the maximum size / (1 - elevation) relation. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>options</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Seeding options (bbox, seed, exclusion threshold, rock distribution). </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Placed rocks. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/rocks/rock_procedural.cpp" line="161" column="11" bodyfile="HighMap/src/rocks/rock_procedural.cpp" bodystart="161" bodyend="262" declfile="HighMap/include/highmap/rocks/rock_procedural.hpp" declline="99" declcolumn="11"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a8c78151d9fea71bfaebb14a378e8ad81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
-        <definition>RockField hmap::seed_rock_field</definition>
-        <argsstring>(size_t rock_count, const Array &amp;density, const Array &amp;exclusion={}, const RockSeedingOptions &amp;options={})</argsstring>
-        <name>seed_rock_field</name>
-        <qualifiedname>hmap::seed_rock_field</qualifiedname>
-        <param>
-          <type>size_t</type>
-          <declname>rock_count</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>density</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>exclusion</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1RockSeedingOptions" kindref="compound">RockSeedingOptions</ref> &amp;</type>
-          <declname>options</declname>
-          <defval>{}</defval>
-        </param>
-        <briefdescription>
-<para>Seeds a general rock/boulder field using inverse density transform sampling and applies power-law radius distribution and collision resolution. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>rock_count</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target number of rocks. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>density</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Spatial probability density map array. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>exclusion</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional exclusion map array. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>options</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Seeding options. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Sampled rock field. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/rocks/rock_seeding.cpp" line="25" column="11" bodyfile="HighMap/src/rocks/rock_seeding.cpp" bodystart="25" bodyend="51" declfile="HighMap/include/highmap/rocks/rock_seeding.hpp" declline="51" declcolumn="11"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a1b7abfd2113a5f98687a0c5c576ab110" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
-        <definition>RockField hmap::simulate_rock_emission</definition>
-        <argsstring>(size_t rock_count, const Array &amp;emission_density, const Array &amp;elevation, const Array *p_friction_map=nullptr, const RockDistribution &amp;dist={}, const RockSimulationOptions &amp;options={})</argsstring>
-        <name>simulate_rock_emission</name>
-        <qualifiedname>hmap::simulate_rock_emission</qualifiedname>
-        <param>
-          <type>size_t</type>
-          <declname>rock_count</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>emission_density</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>elevation</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_friction_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1RockDistribution" kindref="compound">RockDistribution</ref> &amp;</type>
-          <declname>dist</declname>
-          <defval>{}</defval>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1RockSimulationOptions" kindref="compound">RockSimulationOptions</ref> &amp;</type>
-          <declname>options</declname>
-          <defval>{}</defval>
-        </param>
-        <briefdescription>
-<para>Emits rocks from a spatial emission density map and simulates their trajectories downhill across terrain on GPU. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>rock_count</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target number of rocks to emit and simulate. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>emission_density</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Spatial probability density map where rocks originate. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>elevation</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Terrain elevation heightmap. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>p_friction_map</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional soil friction map (same dimensions as elevation). </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>dist</parametername>
-</parameternamelist>
-<parameterdescription>
-<para><ref refid="namespacehmap_1a39fd8a623d40207a29565cdc3ea898a6" kindref="member">Rock</ref> distribution specifying radii and classes. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>options</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Simulation options. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Field containing the resting rocks. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/rocks/rock_simulation.cpp" line="32" column="11" bodyfile="HighMap/src/rocks/rock_simulation.cpp" bodystart="32" bodyend="60" declfile="HighMap/include/highmap/rocks/rock_simulation.hpp" declline="63" declcolumn="11"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1aa7f9658e594e28641d9c4a3d136c06eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
-        <definition>RockField hmap::simulate_rock_trajectories</definition>
-        <argsstring>(const RockField &amp;rocks, const Array &amp;elevation, const Array *p_friction_map=nullptr, const RockSimulationOptions &amp;options={})</argsstring>
-        <name>simulate_rock_trajectories</name>
-        <qualifiedname>hmap::simulate_rock_trajectories</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> &amp;</type>
-          <declname>rocks</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>elevation</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
-          <declname>p_friction_map</declname>
-          <defval>nullptr</defval>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1RockSimulationOptions" kindref="compound">RockSimulationOptions</ref> &amp;</type>
-          <declname>options</declname>
-          <defval>{}</defval>
-        </param>
-        <briefdescription>
-<para>Simulates physical movement (sliding, rolling, bouncing, and inter-rock collision avoidance) for an existing <ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> across terrain on GPU. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>rocks</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Input rock field with initial positions. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>elevation</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Terrain elevation heightmap. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>p_friction_map</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Optional soil friction map. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>options</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Simulation options. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Updated rock field with resting positions. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/rocks/rock_simulation.cpp" line="62" column="11" bodyfile="HighMap/src/rocks/rock_simulation.cpp" bodystart="62" bodyend="253" declfile="HighMap/include/highmap/rocks/rock_simulation.hpp" declline="82" declcolumn="11"/>
-      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8563414bbbec0c8c61ddad2fd3a358aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1ScatterField" kindref="compound">ScatterField</ref></type>
         <definition>ScatterField hmap::merge_scatter_fields</definition>
@@ -76040,6 +74322,1724 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/include/highmap/virtual_array/virtual_texture.hpp" line="278" column="6" declfile="HighMap/include/highmap/virtual_array/virtual_texture.hpp" declline="278" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a1d6994f2c75c90011f096035df3b4f87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
+        <definition>Forest hmap::grow_forest_competition_nn</definition>
+        <argsstring>(const Forest &amp;forest, const std::vector&lt; Species &gt; &amp;species={}, const InteractionMatrix &amp;competition_matrix={}, const Array &amp;max_radius_scale={}, float max_radius_scale_strength=1.0f, bool prune_unviable=true, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>grow_forest_competition_nn</name>
+        <qualifiedname>hmap::grow_forest_competition_nn</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> &amp;</type>
+          <declname>forest</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> &gt; &amp;</type>
+          <declname>species</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
+          <declname>competition_matrix</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>max_radius_scale</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_radius_scale_strength</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>prune_unviable</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>const glm::vec4 &amp;</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Adjusts tree radii based on nearest-neighbor distances and species competition constraints. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>For each tree $i$ with nearest neighbor $j$ at Euclidean distance $d_i = |p_i - p_j|$:<itemizedlist>
+<listitem><para>Looks up competition factor $\alpha = \text{competition_matrix.get}(s_i, s_j)$ (or species $[s_i].\text{competition_factor}$).</para>
+</listitem><listitem><para>Calculates estimated radius $r_i = \alpha \cdot d_i$.</para>
+</listitem><listitem><para>Linearly scales effective maximum radius: $r_{\max,\text{eff}} = r_{\min}(s_i) + s \cdot (r_{\max}(s_i) - r_{\min}(s_i))$, where $s \in [0, 1]$ is sampled from <computeroutput>max_radius_scale</computeroutput> (if provided, default $s = 1.0$).</para>
+</listitem><listitem><para>Clamps $r_i \in [\text{radius_min}(s_i), r_{\max,\text{eff}}]$.</para>
+</listitem><listitem><para>If <computeroutput>prune_unviable</computeroutput> is true and raw calculated radius $r_i &lt; \text{radius_min}(s_i)$, the tree is removed.</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>forest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input forest container. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>species</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>competition_matrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional pairwise S x S competition factors (alpha). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional 2D array in [0, 1] scaling maximum radius locally (0 -&gt; rmax = rmin, 1 -&gt; rmax = rmax). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale_strength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Blend strength for max_radius_scale in [0, 1] (0 -&gt; no scaling/full rmax, 1 -&gt; full scale array modulation). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>prune_unviable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether to remove trees unable to reach radius_min. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box {xmin, xmax, ymin, ymax} for sampling <computeroutput>max_radius_scale</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Grown forest with updated tree radii. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/world/flora/grow_forest_competition_nn.cpp" line="25" column="8" bodyfile="HighMap/src/world/flora/grow_forest_competition_nn.cpp" bodystart="25" bodyend="100" declfile="HighMap/include/highmap/world/flora/forest_growth.hpp" declline="194" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a51ec3fd21f74bdaae31c1403c88cae4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
+        <definition>Forest hmap::grow_forest_competition_voronoi</definition>
+        <argsstring>(const Forest &amp;forest, const std::vector&lt; Species &gt; &amp;species={}, const InteractionMatrix &amp;competition_matrix={}, const Array &amp;max_radius_scale={}, float max_radius_scale_strength=1.0f, bool prune_unviable=true, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>grow_forest_competition_voronoi</name>
+        <qualifiedname>hmap::grow_forest_competition_voronoi</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> &amp;</type>
+          <declname>forest</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> &gt; &amp;</type>
+          <declname>species</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
+          <declname>competition_matrix</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>max_radius_scale</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_radius_scale_strength</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>prune_unviable</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>const glm::vec4 &amp;</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Adjusts tree radii based on Voronoi cell areas and species competition constraints. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Builds a Delaunay triangulation (<ref refid="classhmap_1_1TerrainTriMesh" kindref="compound">TerrainTriMesh</ref>) on the tree positions in the XY plane to compute the local Voronoi/dual cell territory area $A_i$ of each tree:<itemizedlist>
+<listitem><para>Computes equivalent circular territory radius $r_i = \sqrt{A_i / \pi}$.</para>
+</listitem><listitem><para>Multiplies by competition factor $\alpha = \text{species}[s_i].\text{competition_factor}$ (or pairwise $\alpha = \text{competition_matrix.get}(s_i, s_i)$): $r_{\text{est}} = \alpha \cdot r_i$.</para>
+</listitem><listitem><para>Linearly scales effective maximum radius: $r_{\max,\text{eff}} = r_{\min}(s_i) + s \cdot (r_{\max}(s_i) - r_{\min}(s_i))$, where $s \in [0, 1]$ is sampled from <computeroutput>max_radius_scale</computeroutput> (if provided, default $s = 1.0$).</para>
+</listitem><listitem><para>Clamps $r_i \in [\text{radius_min}(s_i), r_{\max,\text{eff}}]$.</para>
+</listitem><listitem><para>If <computeroutput>prune_unviable</computeroutput> is true and raw calculated radius $r_{\text{est}} &lt; \text{radius_min}(s_i)$, the tree is removed.</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>forest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input forest container. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>species</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>competition_matrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional pairwise S x S competition factors (alpha). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional 2D array in [0, 1] scaling maximum radius locally (0 -&gt; rmax = rmin, 1 -&gt; rmax = rmax). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale_strength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Blend strength for max_radius_scale in [0, 1] (0 -&gt; no scaling/full rmax, 1 -&gt; full scale array modulation). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>prune_unviable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether to remove trees unable to reach radius_min. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box {xmin, xmax, ymin, ymax} for sampling <computeroutput>max_radius_scale</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Grown forest with updated tree radii. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/world/flora/grow_forest_competition_voronoi.cpp" line="23" column="8" bodyfile="HighMap/src/world/flora/grow_forest_competition_voronoi.cpp" bodystart="23" bodyend="126" declfile="HighMap/include/highmap/world/flora/forest_growth.hpp" declline="241" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a0c6fb1e2c79fb841680cee1e39bb74cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
+        <definition>Forest hmap::grow_forest_iterative</definition>
+        <argsstring>(const Forest &amp;forest, const std::vector&lt; Species &gt; &amp;species={}, size_t iterations=10, float growth_rate=0.1f, const InteractionMatrix &amp;competition_matrix={}, const Array &amp;max_radius_scale={}, float max_radius_scale_strength=1.0f, bool prune_unviable=true, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>grow_forest_iterative</name>
+        <qualifiedname>hmap::grow_forest_iterative</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> &amp;</type>
+          <declname>forest</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> &gt; &amp;</type>
+          <declname>species</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>iterations</declname>
+          <defval>10</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>growth_rate</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
+          <declname>competition_matrix</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>max_radius_scale</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_radius_scale_strength</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>prune_unviable</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>const glm::vec4 &amp;</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Simulates iterative plant growth with neighborhood competition and mortality. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Progressively expands plant crowns over multiple time steps according to: r_i^{t+1} = min(r_max_eff, r_i^t + G_i * max(0, 1 - C_i)) where G_i is the growth increment and C_i is the neighborhood competition factor. Suppressed plants falling below species viability or suffocated by larger crowns are pruned.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>forest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input forest container. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>species</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iterations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of growth iterations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>growth_rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base growth fraction per iteration in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>competition_matrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional pairwise competition matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional 2D heightmap array to modulate max radius locally. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale_strength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Strength factor for max_radius_scale in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>prune_unviable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether to remove suppressed/non-viable plants. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Spatial bounding box for sampling max_radius_scale. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Grown and thinned forest container. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/world/flora/grow_forest_iterative.cpp" line="25" column="8" bodyfile="HighMap/src/world/flora/grow_forest_iterative.cpp" bodystart="25" bodyend="161" declfile="HighMap/include/highmap/world/flora/forest_growth.hpp" declline="276" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a12b36f2c693eff09dda2732199468fe8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
+        <definition>Forest hmap::grow_forest_soft_core</definition>
+        <argsstring>(const Forest &amp;forest, const std::vector&lt; Species &gt; &amp;species={}, const InteractionMatrix &amp;repulsion_distances={}, const InteractionMatrix &amp;repulsion_strengths={}, size_t target_count=0, const Array &amp;max_radius_scale={}, float max_radius_scale_strength=1.0f, uint32_t seed=0, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>grow_forest_soft_core</name>
+        <qualifiedname>hmap::grow_forest_soft_core</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> &amp;</type>
+          <declname>forest</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> &gt; &amp;</type>
+          <declname>species</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
+          <declname>repulsion_distances</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1InteractionMatrix" kindref="compound">InteractionMatrix</ref> &amp;</type>
+          <declname>repulsion_strengths</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>target_count</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>max_radius_scale</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_radius_scale_strength</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>seed</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const glm::vec4 &amp;</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Performs multi-species Strauss soft-core growth and thinning on an input forest. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Repels and thins neighboring trees probabilistically based on species pairwise interaction distances and strengths, and clamps resulting crown radii according to species traits and local spatial scale.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>forest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input candidate forest. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>species</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vector of <ref refid="structhmap_1_1Species" kindref="compound">Species</ref> definitions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repulsion_distances</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interaction distance matrix between species. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>repulsion_strengths</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Repulsion strength matrix between species in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>target_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional target number of trees (0 means keep all accepted). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional 2D array scaling maximum radius locally. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_radius_scale_strength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Blend strength for max_radius_scale in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random number generator seed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box {xmin, xmax, ymin, ymax}. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Grown and thinned forest. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/world/flora/grow_forest_soft_core.cpp" line="27" column="8" bodyfile="HighMap/src/world/flora/grow_forest_soft_core.cpp" bodystart="27" bodyend="183" declfile="HighMap/include/highmap/world/flora/forest_growth.hpp" declline="310" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ae7c74f46c267db50e3c562eebb118e27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::build_tree_density</definition>
+        <argsstring>(const Array &amp;heightmap, float min_elev=0.0f, float max_elev=0.9f, float elev_transition_width=0.1f, float min_talus=0.003f, float max_talus=0.005f, float angle=30.0f, float angle_width=90.0f, float weight_elev=1.0f, float weight_talus=1.0f, float weight_angle=0.8f, float weight_twi=0.5f, const Array &amp;secondary_density={}, float weight_secondary=1.0f, const Array &amp;exclusion_mask={}, float exclusion_threshold=0.f)</argsstring>
+        <name>build_tree_density</name>
+        <qualifiedname>hmap::build_tree_density</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>heightmap</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>min_elev</declname>
+          <defval>0.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_elev</declname>
+          <defval>0.9<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>elev_transition_width</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>min_talus</declname>
+          <defval>0.003<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_talus</declname>
+          <defval>0.005<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>angle</declname>
+          <defval>30.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>angle_width</declname>
+          <defval>90.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_elev</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_talus</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_angle</declname>
+          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_twi</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>secondary_density</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_secondary</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion_mask</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>exclusion_threshold</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+<para>Computes an environmental suitability criteria map in [0, 1] representing tree probability density based on elevation, slope talus, aspect angle, topographic wetness index (TWI), an optional secondary density map, and an optional exclusion mask. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>heightmap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input terrain heightmap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum elevation threshold. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum elevation threshold. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>elev_transition_width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Elevation transition smoothing width. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min_talus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slope/talus threshold for full suitability (1.0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_talus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slope/talus threshold for zero suitability (0.0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Preferred slope aspect angle in degrees. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>angle_width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slope aspect angle tolerance half-width in degrees. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for elevation criterion in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_talus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for talus/slope criterion in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for aspect angle criterion in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_twi</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for topographic wetness index criterion in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>secondary_density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional secondary density or noise modulation map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_secondary</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for optional secondary density map in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional exclusion mask (where &gt; exclusion_threshold, density is set to 0). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion_threshold</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Threshold above which exclusion mask excludes trees (default 0.f). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> Computed density array in [0, 1]. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/world/flora/forest_seeding.cpp" line="41" column="7" bodyfile="HighMap/src/world/flora/forest_seeding.cpp" bodystart="41" bodyend="151" declfile="HighMap/include/highmap/world/flora/forest_seeding.hpp" declline="73" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a395c1a2f15f7114fac122c864a1e78e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
+        <definition>Forest hmap::seed_forest_clusters</definition>
+        <argsstring>(size_t species_count, size_t tree_count, const Array &amp;density, const Array &amp;exclusion, float cluster_spread=0.05f, size_t points_per_cluster=8, const ForestSeedingOptions &amp;options={})</argsstring>
+        <name>seed_forest_clusters</name>
+        <qualifiedname>hmap::seed_forest_clusters</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>species_count</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>tree_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>density</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>cluster_spread</declname>
+          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>points_per_cluster</declname>
+          <defval>8</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ForestSeedingOptions" kindref="compound">ForestSeedingOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Generates a clustered forest distribution using inverse transform sampling for cluster centers and local cluster regions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>species_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of distinct tree species. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tree_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target total number of trees. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Global density map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exclusion map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cluster_spread</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Half-extent of the bounding box surrounding each cluster center. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>points_per_cluster</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of child points sampled per parent cluster. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seeding options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Sampled forest container. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/world/flora/forest_seeding.cpp" line="153" column="8" bodyfile="HighMap/src/world/flora/forest_seeding.cpp" bodystart="153" bodyend="294" declfile="HighMap/include/highmap/world/flora/forest_seeding.hpp" declline="104" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1aa6ba2bd6f00bf38f87b87f1179dcc70a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref></type>
+        <definition>Forest hmap::seed_forest_kmeans</definition>
+        <argsstring>(size_t species_count, size_t tree_count, const Array &amp;density, const Array &amp;exclusion, float cluster_randomness=0.0f, size_t k_neighbors=4, const ForestSeedingOptions &amp;options={})</argsstring>
+        <name>seed_forest_kmeans</name>
+        <qualifiedname>hmap::seed_forest_kmeans</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>species_count</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>tree_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>density</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>cluster_randomness</declname>
+          <defval>0.0f</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>k_neighbors</declname>
+          <defval>4</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ForestSeedingOptions" kindref="compound">ForestSeedingOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Generates a multi-species forest distribution using 2D inverse transform sampling for positions and PointSampler k-means clustering to tag species. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para><ref refid="structhmap_1_1Species" kindref="compound">Species</ref> abundance is governed by spatial cluster partitioning in the compactness feature space; species weights in <computeroutput>options.species</computeroutput> are not taken into account by this function.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>species_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of distinct tree species. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tree_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target total number of trees. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Global density map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exclusion map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cluster_randomness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Randomness factor in [0, 1] added to cluster features. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>k_neighbors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of nearest spatial neighbors used to extract compactness features. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seeding options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref> Sampled forest container. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/world/flora/forest_seeding.cpp" line="296" column="8" bodyfile="HighMap/src/world/flora/forest_seeding.cpp" bodystart="296" bodyend="512" declfile="HighMap/include/highmap/world/flora/forest_seeding.hpp" declline="132" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a286e4e74e6495802dba7f873c06ccb20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref></type>
+        <definition>Graph hmap::generate_network_alpha_model</definition>
+        <argsstring>(const std::vector&lt; float &gt; &amp;xc, const std::vector&lt; float &gt; &amp;yc, const std::vector&lt; float &gt; &amp;size, glm::vec4 bbox, const Array &amp;z, std::uint32_t seed, float alpha=0.7f, int n_dummy_nodes=2500, float dz_weight=1.f, const Array *p_weight=nullptr)</argsstring>
+        <name>generate_network_alpha_model</name>
+        <qualifiedname>hmap::generate_network_alpha_model</qualifiedname>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>xc</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>yc</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>alpha</declname>
+          <defval>0.7<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_dummy_nodes</declname>
+          <defval>2500</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>dz_weight</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_weight</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Generate a large scale road network between &quot;nodes&quot; (or cities) using the alpha model. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Based on the paper of Molinero et al. <b>[Molinero2020]</b>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>xc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><computeroutput>x</computeroutput> locations of the cities. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>yc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><computeroutput>y</computeroutput> locations of the cities. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>City sizes (arbitrary unit). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Heightmap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random seed number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>&quot;Alpha coefficient&quot; of the model (cost difference between creating a new and using an old one). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n_dummy_nodes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of dummy nodes added for the tesselation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dz_weight</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight of the elevation difference in the cost function. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_weight</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Map defining the local value added to the cost function (can be used to add large penalizations to create &quot;no
+                      go&quot; zones). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Graph" kindref="compound">Graph</ref> Road network, edge weights correspond to the road &quot;size&quot;.</para>
+</simplesect>
+<bold>Example</bold> <programlisting filename="ex_generate_network_alpha_model.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{512,<sp/>512};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1a8ab34d5f894ffd1ee8723774dc7dbfd8" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{4.f,<sp/>4.f},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>z.<ref refid="classhmap_1_1Array_1a9ff7b2c0be8f2b5dd9fc33085cd647d1" kindref="member">to_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_generate_network_alpha_model0.png&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9" kindref="member">hmap::Cmap::TERRAIN</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>&quot;cities&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>npoints<sp/>=<sp/>4;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ndummy<sp/>=<sp/>50<sp/>*<sp/>50;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alpha<sp/>=<sp/>0.8f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>bbox<sp/>=<sp/>{1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud<sp/>=<sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref>(npoints,<sp/>seed,<sp/>{1.2f,<sp/>1.8f,<sp/>-0.4f,<sp/>0.4f});</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Graph" kindref="compound">hmap::Graph</ref><sp/>network<sp/>=<sp/><ref refid="namespacehmap_1a286e4e74e6495802dba7f873c06ccb20" kindref="member">hmap::generate_network_alpha_model</ref>(cloud.<ref refid="classhmap_1_1Cloud_1aab450c9376e44def1d4e4465f0b1b691" kindref="member">get_x</ref>(),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1abf5f933e3506395b5369cb090119002e" kindref="member">get_y</ref>(),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a53cb47401f1e9d027a638f3680c3004d" kindref="member">get_values</ref>(),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alpha,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ndummy);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>network.to_csv(</highlight><highlight class="stringliteral">&quot;nodes.csv&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;adj.csv&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>network.set_values(1.f);</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>graph<sp/>view,<sp/>no<sp/>bounding<sp/>box,<sp/>color<sp/>by<sp/>edge<sp/>weight</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>network.to_png(</highlight><highlight class="stringliteral">&quot;ex_generate_network_alpha_model1.png&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>graph<sp/>project<sp/>onto<sp/>an<sp/>array,<sp/>with<sp/>bounding<sp/>box,<sp/>color<sp/>by<sp/>point</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>g<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>network.to_array(g,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>g.<ref refid="classhmap_1_1Array_1a9ff7b2c0be8f2b5dd9fc33085cd647d1" kindref="member">to_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_generate_network_alpha_model2.png&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+<para><bold>Result</bold> <image type="html" name="ex_generate_network_alpha_model0.png"></image>
+ <image type="html" name="ex_generate_network_alpha_model1.png"></image>
+ <image type="html" name="ex_generate_network_alpha_model2.png"></image>
+ </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/world/roads/alpha_model.cpp" line="24" column="7" bodyfile="HighMap/src/world/roads/alpha_model.cpp" bodystart="24" bodyend="176" declfile="HighMap/include/highmap/world/roads.hpp" declline="50" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1af9752df3baf8e8ba199fd6c18b0268fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::build_rock_density</definition>
+        <argsstring>(const Array &amp;heightmap, float max_slope=0.05f, float bulkify_amp=0.01f, float weight_elev=1.0f, float weight_slope=1.0f, float weight_rivers=1.0f, float river_talus_ref=0.1f, float river_clipping_ratio=1000.0f, const Array &amp;secondary_density={}, float weight_secondary=1.0f, const Array &amp;exclusion_mask={}, float exclusion_threshold=0.f, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <name>build_rock_density</name>
+        <qualifiedname>hmap::build_rock_density</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>heightmap</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_slope</declname>
+          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>bulkify_amp</declname>
+          <defval>0.01<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_elev</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_slope</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_rivers</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>river_talus_ref</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>river_clipping_ratio</declname>
+          <defval>1000.0f</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>secondary_density</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight_secondary</declname>
+          <defval>1.0f</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion_mask</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>exclusion_threshold</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <briefdescription>
+<para>Computes a probability density map in [0, 1] for rock placement based on elevation, talus/slope, river drainage paths, an optional secondary density map, and an optional exclusion mask. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A subtle bulkify filter can be applied to the heightmap prior to computing talus and river beds, eliminating micro-depressions and guiding flow lines.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>heightmap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input terrain heightmap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_slope</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Talus value above which density smoothly falls to zero. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bulkify_amp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Amplitude of bulkify pulse filter applied to the terrain (0.f disables). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for inverted elevation criterion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_slope</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for talus/slope criterion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_rivers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for river accumulation criterion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>river_talus_ref</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference talus for river flow partitioning. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>river_clipping_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flow accumulation clipping ratio. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>secondary_density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional secondary density modulation map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_secondary</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Weight for optional secondary density map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional exclusion mask (density set to 0 where exclusion &gt; exclusion_threshold). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion_threshold</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Threshold above which exclusion mask excludes rocks. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Domain bounding box for tiled bulkify synthesis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> Computed density array in [0, 1]. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/world/rocks/rock_procedural.cpp" line="33" column="7" bodyfile="HighMap/src/world/rocks/rock_procedural.cpp" bodystart="33" bodyend="159" declfile="HighMap/include/highmap/world/rocks/rock_procedural.hpp" declline="52" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ad344c29b6eb84464be0072663cb292b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
+        <definition>RockField hmap::place_rocks_procedural</definition>
+        <argsstring>(size_t rock_count, const Array &amp;elevation, float min_elev=0.f, float max_elev=0.9f, float max_slope=1.f, const Array &amp;density={}, const Array &amp;exclusion={}, float size_slope_weight=0.f, float size_elevation_gain=1.f, float size_elevation_exponent=1.f, const RockSeedingOptions &amp;options={})</argsstring>
+        <name>place_rocks_procedural</name>
+        <qualifiedname>hmap::place_rocks_procedural</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>rock_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>elevation</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>min_elev</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_elev</declname>
+          <defval>0.9<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_slope</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>density</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>size_slope_weight</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>size_elevation_gain</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>size_elevation_exponent</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1RockSeedingOptions" kindref="compound">RockSeedingOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Places rocks procedurally on a terrain, without physical simulation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Positions are sampled from a density map (defaults to a flat density equal to 1 if none is provided). <ref refid="namespacehmap_1a39fd8a623d40207a29565cdc3ea898a6" kindref="member">Rock</ref> radii are drawn from a bounded power-law (Pareto) distribution between radius_min and a local maximum radius that grows toward radius_max as the elevation decreases: high areas only hold small rocks, whereas low areas hold both small and large rocks (the size distribution broadens when lowering altitude). Steep slopes further reduce the maximum rock size.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rock_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target number of rocks. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>elevation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrain elevation heightmap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Elevation mapped to 0 in the normalized elevation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_elev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Elevation mapped to 1 in the normalized elevation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_slope</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Talus threshold above which rock size is attenuated. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional user density map (if empty, defaults to uniform flat density of 1). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional exclusion map (same shape as elevation). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size_slope_weight</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>In [0, 1], reduces the maximum rock size on steep slopes (0 = no effect). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size_elevation_gain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Low-elevation influence on the maximum rock size (0 = none). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size_elevation_exponent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Power-law exponent of the maximum size / (1 - elevation) relation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seeding options (bbox, seed, exclusion threshold, rock distribution). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Placed rocks. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/world/rocks/rock_procedural.cpp" line="161" column="11" bodyfile="HighMap/src/world/rocks/rock_procedural.cpp" bodystart="161" bodyend="262" declfile="HighMap/include/highmap/world/rocks/rock_procedural.hpp" declline="99" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a8c78151d9fea71bfaebb14a378e8ad81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
+        <definition>RockField hmap::seed_rock_field</definition>
+        <argsstring>(size_t rock_count, const Array &amp;density, const Array &amp;exclusion={}, const RockSeedingOptions &amp;options={})</argsstring>
+        <name>seed_rock_field</name>
+        <qualifiedname>hmap::seed_rock_field</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>rock_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>density</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>exclusion</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1RockSeedingOptions" kindref="compound">RockSeedingOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Seeds a general rock/boulder field using inverse density transform sampling and applies power-law radius distribution and collision resolution. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rock_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target number of rocks. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Spatial probability density map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exclusion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional exclusion map array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seeding options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Sampled rock field. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/world/rocks/rock_seeding.cpp" line="25" column="11" bodyfile="HighMap/src/world/rocks/rock_seeding.cpp" bodystart="25" bodyend="51" declfile="HighMap/include/highmap/world/rocks/rock_seeding.hpp" declline="51" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a1b7abfd2113a5f98687a0c5c576ab110" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
+        <definition>RockField hmap::simulate_rock_emission</definition>
+        <argsstring>(size_t rock_count, const Array &amp;emission_density, const Array &amp;elevation, const Array *p_friction_map=nullptr, const RockDistribution &amp;dist={}, const RockSimulationOptions &amp;options={})</argsstring>
+        <name>simulate_rock_emission</name>
+        <qualifiedname>hmap::simulate_rock_emission</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>rock_count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>emission_density</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>elevation</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_friction_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1RockDistribution" kindref="compound">RockDistribution</ref> &amp;</type>
+          <declname>dist</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1RockSimulationOptions" kindref="compound">RockSimulationOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Emits rocks from a spatial emission density map and simulates their trajectories downhill across terrain on GPU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rock_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target number of rocks to emit and simulate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>emission_density</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Spatial probability density map where rocks originate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>elevation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrain elevation heightmap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_friction_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional soil friction map (same dimensions as elevation). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dist</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="namespacehmap_1a39fd8a623d40207a29565cdc3ea898a6" kindref="member">Rock</ref> distribution specifying radii and classes. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Simulation options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Field containing the resting rocks. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/world/rocks/rock_simulation.cpp" line="32" column="11" bodyfile="HighMap/src/world/rocks/rock_simulation.cpp" bodystart="32" bodyend="60" declfile="HighMap/include/highmap/world/rocks/rock_simulation.hpp" declline="63" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1aa7f9658e594e28641d9c4a3d136c06eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref></type>
+        <definition>RockField hmap::simulate_rock_trajectories</definition>
+        <argsstring>(const RockField &amp;rocks, const Array &amp;elevation, const Array *p_friction_map=nullptr, const RockSimulationOptions &amp;options={})</argsstring>
+        <name>simulate_rock_trajectories</name>
+        <qualifiedname>hmap::simulate_rock_trajectories</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> &amp;</type>
+          <declname>rocks</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>elevation</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_friction_map</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1RockSimulationOptions" kindref="compound">RockSimulationOptions</ref> &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Simulates physical movement (sliding, rolling, bouncing, and inter-rock collision avoidance) for an existing <ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> across terrain on GPU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rocks</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input rock field with initial positions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>elevation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrain elevation heightmap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_friction_map</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional soil friction map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Simulation options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1RockField" kindref="compound">RockField</ref> Updated rock field with resting positions. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/world/rocks/rock_simulation.cpp" line="62" column="11" bodyfile="HighMap/src/world/rocks/rock_simulation.cpp" bodystart="62" bodyend="253" declfile="HighMap/include/highmap/world/rocks/rock_simulation.hpp" declline="82" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aac1a15042e8fae93d9caed60c2318fcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

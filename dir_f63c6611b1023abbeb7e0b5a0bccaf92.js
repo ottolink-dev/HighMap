@@ -15,7 +15,6 @@ var dir_f63c6611b1023abbeb7e0b5a0bccaf92 =
     [ "export", "dir_3bc85fd9086f4b2a437782af9c422553.html", "dir_3bc85fd9086f4b2a437782af9c422553" ],
     [ "features", "dir_7ea3d0e8e962d2de34184481d2ce5fca.html", "dir_7ea3d0e8e962d2de34184481d2ce5fca" ],
     [ "filters", "dir_4c063b982921a5b8720ca60b9a5562e1.html", "dir_4c063b982921a5b8720ca60b9a5562e1" ],
-    [ "flora", "dir_d8003049156228e1ccbd993c95db5a13.html", "dir_d8003049156228e1ccbd993c95db5a13" ],
     [ "functions", "dir_e3af41376e16c5b089bdc3c85ae3f870.html", "dir_e3af41376e16c5b089bdc3c85ae3f870" ],
     [ "geometry", "dir_180bcd2bac99fc5b4a48aa19ac3c5b63.html", "dir_180bcd2bac99fc5b4a48aa19ac3c5b63" ],
     [ "gpu_opencl", "dir_3c4172100491f31b556c8f9a4d709dfc.html", "dir_3c4172100491f31b556c8f9a4d709dfc" ],
@@ -32,8 +31,6 @@ var dir_f63c6611b1023abbeb7e0b5a0bccaf92 =
     [ "primitives", "dir_450955ebc5f60794d6a0b9c68a0325b6.html", "dir_450955ebc5f60794d6a0b9c68a0325b6" ],
     [ "random", "dir_211501a338c3c7d58f3c9708c2a7240f.html", "dir_211501a338c3c7d58f3c9708c2a7240f" ],
     [ "range", "dir_658a2ba9d13e675eced23227c6986469.html", "dir_658a2ba9d13e675eced23227c6986469" ],
-    [ "roads", "dir_183939c49865b23357e62df62e93fc0c.html", "dir_183939c49865b23357e62df62e93fc0c" ],
-    [ "rocks", "dir_a6670d0e17da166a3224c7c28b2d45ac.html", "dir_a6670d0e17da166a3224c7c28b2d45ac" ],
     [ "scatter", "dir_70baf048572cfe00c8407e0cb8559470.html", "dir_70baf048572cfe00c8407e0cb8559470" ],
     [ "sdf", "dir_a43054dad5949a8c0046fef77f5dd9ae.html", "dir_a43054dad5949a8c0046fef77f5dd9ae" ],
     [ "selector", "dir_1cba66e80ee4896e7c0cfb585594799d.html", "dir_1cba66e80ee4896e7c0cfb585594799d" ],
@@ -46,5 +43,6 @@ var dir_f63c6611b1023abbeb7e0b5a0bccaf92 =
     [ "transform", "dir_cf7059bcc3c8d9d07f321966fb202cdc.html", "dir_cf7059bcc3c8d9d07f321966fb202cdc" ],
     [ "utils", "dir_05ca16f795cd0e013c5ff4457fc64f86.html", "dir_05ca16f795cd0e013c5ff4457fc64f86" ],
     [ "vectors", "dir_63ce6eb1f8b81a6b3b5e63b1cef5907c.html", "dir_63ce6eb1f8b81a6b3b5e63b1cef5907c" ],
-    [ "virtual_array", "dir_f3face59d46858be97e2b2d179788010.html", "dir_f3face59d46858be97e2b2d179788010" ]
+    [ "virtual_array", "dir_f3face59d46858be97e2b2d179788010.html", "dir_f3face59d46858be97e2b2d179788010" ],
+    [ "world", "dir_83657a310b03ba7b6e01c3084f6c6e80.html", "dir_83657a310b03ba7b6e01c3084f6c6e80" ]
 ];

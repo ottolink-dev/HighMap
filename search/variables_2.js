@@ -10,7 +10,7 @@ var searchData=
   ['channel_5fstorages_7',['channel_storages',['../structhmap_1_1VirtualTextureStorage.html#a518936a932a928a0b1b135f976491e8b',1,'hmap::VirtualTextureStorage']]],
   ['channels_8',['channels',['../structhmap_1_1ImageWriterConfig.html#aa40e252246ea357b6cc3c6f795651856',1,'hmap::ImageWriterConfig::channels'],['../classhmap_1_1Texture.html#aa47eecec5ca81b281c39164e5a4b562f',1,'hmap::Texture::channels']]],
   ['children_9',['children',['../classhmap_1_1DrainageBasinCellBased.html#ab881041e84158253cc375d9661162472',1,'hmap::DrainageBasinCellBased']]],
-  ['class_5fid_10',['class_id',['../structhmap_1_1RockDistribution.html#a45b23595dd1231ff97352161f339c7a1',1,'hmap::RockDistribution::class_id'],['../classhmap_1_1ScatterItem.html#acb2a7deaaf83ef31844de9221b3f86dd',1,'hmap::ScatterItem::class_id']]],
+  ['class_5fid_10',['class_id',['../classhmap_1_1ScatterItem.html#acb2a7deaaf83ef31844de9221b3f86dd',1,'hmap::ScatterItem::class_id'],['../structhmap_1_1RockDistribution.html#a45b23595dd1231ff97352161f339c7a1',1,'hmap::RockDistribution::class_id']]],
   ['class_5fweights_11',['class_weights',['../structhmap_1_1ScatterSeedingOptions.html#ac659bef734606181a9de0eb22899d2fc',1,'hmap::ScatterSeedingOptions']]],
   ['cliff_12',['cliff',['../structhmap_1_1MiseParams.html#a44eb28ed389425177f42bd9fff92d178',1,'hmap::MiseParams']]],
   ['color_5fnoise_13',['color_noise',['../structhmap_1_1TerrainTextureParams.html#a1d76653911df13820b77e662d82f2a7b',1,'hmap::TerrainTextureParams']]],
