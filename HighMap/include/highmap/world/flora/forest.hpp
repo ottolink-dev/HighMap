@@ -12,8 +12,8 @@
 #include <cstdint>
 #include <vector>
 
-#include "highmap/flora/species.hpp"
-#include "highmap/flora/tree.hpp"
+#include "highmap/world/flora/species.hpp"
+#include "highmap/world/flora/tree.hpp"
 #include "highmap/scatter/scatter_field.hpp"
 
 namespace hmap

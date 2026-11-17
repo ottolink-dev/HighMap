@@ -4,9 +4,9 @@
 #include <algorithm>
 #include <cmath>
 
-#include "highmap/flora/forest_growth.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math.hpp"
+#include "highmap/world/flora/forest_growth.hpp"
 
 namespace hmap
 {

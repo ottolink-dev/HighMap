@@ -8,8 +8,8 @@
  */
 #pragma once
 
-#include "highmap/flora/forest.hpp"
-#include "highmap/flora/forest_growth.hpp"
-#include "highmap/flora/forest_seeding.hpp"
-#include "highmap/flora/species.hpp"
-#include "highmap/flora/tree.hpp"
+#include "highmap/world/flora/forest.hpp"
+#include "highmap/world/flora/forest_growth.hpp"
+#include "highmap/world/flora/forest_seeding.hpp"
+#include "highmap/world/flora/species.hpp"
+#include "highmap/world/flora/tree.hpp"

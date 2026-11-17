@@ -7,9 +7,9 @@
 #include <random>
 #include <vector>
 
-#include "highmap/flora/forest_growth.hpp"
-#include "highmap/flora/species.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/world/flora/forest_growth.hpp"
+#include "highmap/world/flora/species.hpp"
 
 namespace hmap
 {

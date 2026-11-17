@@ -15,12 +15,12 @@
 #include "point_sampler/metrics.hpp"
 #include "point_sampler/point.hpp"
 
-#include "highmap/flora/forest.hpp"
-#include "highmap/flora/species.hpp"
-#include "highmap/flora/tree.hpp"
 #include "highmap/geometry/cloud.hpp"
 #include "highmap/scatter/scatter_field.hpp"
 #include "highmap/scatter/scatter_item.hpp"
+#include "highmap/world/flora/forest.hpp"
+#include "highmap/world/flora/species.hpp"
+#include "highmap/world/flora/tree.hpp"
 
 #include <unordered_map>
 

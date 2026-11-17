@@ -11,7 +11,7 @@
 #include <cstdint>
 #include <string>
 
-#include "highmap/rocks/rock.hpp"
+#include "highmap/world/rocks/rock.hpp"
 
 namespace hmap
 {

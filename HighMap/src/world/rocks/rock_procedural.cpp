@@ -15,13 +15,13 @@
 #include "highmap/math/array.hpp"
 #include "highmap/primitives/functions.hpp"
 #include "highmap/range.hpp"
-#include "highmap/rocks/rock_field.hpp"
-#include "highmap/rocks/rock_procedural.hpp"
-#include "highmap/rocks/rock_seeding.hpp"
 #include "highmap/scatter/scatter_field.hpp"
 #include "highmap/scatter/scatter_seeding.hpp"
 #include "highmap/selector.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
+#include "highmap/world/rocks/rock_field.hpp"
+#include "highmap/world/rocks/rock_procedural.hpp"
+#include "highmap/world/rocks/rock_seeding.hpp"
 
 namespace hmap
 {

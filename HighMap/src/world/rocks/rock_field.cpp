@@ -22,12 +22,12 @@
 #include "highmap/geometry/cloud.hpp"
 #include "highmap/geometry/inverse_sampler_2d.hpp"
 #include "highmap/internal/validation.hpp"
-#include "highmap/rocks/rock.hpp"
-#include "highmap/rocks/rock_distribution.hpp"
-#include "highmap/rocks/rock_field.hpp"
-#include "highmap/rocks/rock_simulation.hpp"
 #include "highmap/scatter/scatter_field.hpp"
 #include "highmap/scatter/scatter_item.hpp"
+#include "highmap/world/rocks/rock.hpp"
+#include "highmap/world/rocks/rock_distribution.hpp"
+#include "highmap/world/rocks/rock_field.hpp"
+#include "highmap/world/rocks/rock_simulation.hpp"
 
 #include <format>
 #include <unordered_map>

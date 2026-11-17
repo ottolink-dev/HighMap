@@ -18,10 +18,6 @@
 #include "point_sampler/utils.hpp"
 
 #include "highmap/array.hpp"
-#include "highmap/flora/forest.hpp"
-#include "highmap/flora/forest_seeding.hpp"
-#include "highmap/flora/species.hpp"
-#include "highmap/flora/tree.hpp"
 #include "highmap/geometry/inverse_sampler_2d.hpp"
 #include "highmap/gradient.hpp"
 #include "highmap/internal/validation.hpp"
@@ -30,6 +26,10 @@
 #include "highmap/range.hpp"
 #include "highmap/selector.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
+#include "highmap/world/flora/forest.hpp"
+#include "highmap/world/flora/forest_seeding.hpp"
+#include "highmap/world/flora/species.hpp"
+#include "highmap/world/flora/tree.hpp"
 
 namespace hmap
 {

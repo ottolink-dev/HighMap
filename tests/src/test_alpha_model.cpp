@@ -2,7 +2,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/geometry/graph.hpp"
-#include "highmap/roads.hpp"
+#include "highmap/world/roads.hpp"
 
 #include <gtest/gtest.h>
 

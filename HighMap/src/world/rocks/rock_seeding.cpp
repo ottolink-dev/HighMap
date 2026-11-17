@@ -8,12 +8,12 @@
 
 #include "highmap/array.hpp"
 #include "highmap/internal/validation.hpp"
-#include "highmap/rocks/rock_distribution.hpp"
-#include "highmap/rocks/rock_field.hpp"
-#include "highmap/rocks/rock_seeding.hpp"
 #include "highmap/scatter/scatter_field.hpp"
 #include "highmap/scatter/scatter_seeding.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
+#include "highmap/world/rocks/rock_distribution.hpp"
+#include "highmap/world/rocks/rock_field.hpp"
+#include "highmap/world/rocks/rock_seeding.hpp"
 
 namespace hmap
 {

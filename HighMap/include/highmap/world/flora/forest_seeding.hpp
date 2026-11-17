@@ -15,8 +15,8 @@
 #include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
-#include "highmap/flora/forest.hpp"
-#include "highmap/flora/species.hpp"
+#include "highmap/world/flora/forest.hpp"
+#include "highmap/world/flora/species.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap

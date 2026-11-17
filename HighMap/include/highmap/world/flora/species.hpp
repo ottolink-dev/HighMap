@@ -11,7 +11,7 @@
 #include <cstdint>
 #include <string>
 
-#include "highmap/flora/tree.hpp"
+#include "highmap/world/flora/tree.hpp"
 
 namespace hmap
 {

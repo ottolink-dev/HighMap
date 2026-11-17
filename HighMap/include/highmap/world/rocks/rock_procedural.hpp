@@ -11,8 +11,8 @@
 #include <cstddef>
 
 #include "highmap/array.hpp"
-#include "highmap/rocks/rock_field.hpp"
-#include "highmap/rocks/rock_seeding.hpp"
+#include "highmap/world/rocks/rock_field.hpp"
+#include "highmap/world/rocks/rock_seeding.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap

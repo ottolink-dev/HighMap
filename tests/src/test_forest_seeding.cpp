@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
-#include "highmap/flora.hpp"
+#include "highmap/world/flora.hpp"
 
 #include <gtest/gtest.h>
 

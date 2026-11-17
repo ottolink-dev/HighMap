@@ -14,13 +14,13 @@
 #include "highmap/array.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/opencl/gpu_opencl.hpp"
-#include "highmap/rocks/rock.hpp"
-#include "highmap/rocks/rock_distribution.hpp"
-#include "highmap/rocks/rock_field.hpp"
-#include "highmap/rocks/rock_seeding.hpp"
-#include "highmap/rocks/rock_simulation.hpp"
 #include "highmap/scatter/scatter_field.hpp"
 #include "highmap/scatter/scatter_item.hpp"
+#include "highmap/world/rocks/rock.hpp"
+#include "highmap/world/rocks/rock_distribution.hpp"
+#include "highmap/world/rocks/rock_field.hpp"
+#include "highmap/world/rocks/rock_seeding.hpp"
+#include "highmap/world/rocks/rock_simulation.hpp"
 
 namespace hmap
 {

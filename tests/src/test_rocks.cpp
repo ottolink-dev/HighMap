@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
-#include "highmap/rocks.hpp"
+#include "highmap/world/rocks.hpp"
 
 #include <gtest/gtest.h>
 
