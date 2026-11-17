@@ -6291,8 +6291,12 @@ spacing</span> at their farthest interior point, or sink by the same amount when
 <div class="line">                          <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143">hmap::Cmap::INFERNO</a>);</div>
 <div class="line"> </div>
 <div class="line">  zt.to_png(<span class="stringliteral">&quot;ex_make_periodic_stitching1.png&quot;</span>, <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143">hmap::Cmap::INFERNO</a>);</div>
+<div class="line"> </div>
+<div class="line">  <span class="keyword">auto</span> zt_grad = <a class="code hl_function" href="#a5f58c4149344b401d82f0be3c3807156">hmap::gradient_norm</a>(zt);</div>
+<div class="line">  zt_grad.to_png(<span class="stringliteral">&quot;ex_make_periodic_stitching_grad.png&quot;</span>, <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143">hmap::Cmap::INFERNO</a>);</div>
 <div class="line">}</div>
 <div class="ttc" id="anamespacehmap_html_a0cfa879188da80b9e5bf16e8c325c9ba"><div class="ttname"><a href="#a0cfa879188da80b9e5bf16e8c325c9ba">hmap::make_periodic_stitching</a></div><div class="ttdeci">Array make_periodic_stitching(const Array &amp;array, float overlap)</div><div class="ttdoc">Creates a periodic array in both directions using a stitching operation that minimizes errors at the ...</div><div class="ttdef"><b>Definition</b> boundary.cpp:297</div></div>
+<div class="ttc" id="anamespacehmap_html_a5f58c4149344b401d82f0be3c3807156"><div class="ttname"><a href="#a5f58c4149344b401d82f0be3c3807156">hmap::gradient_norm</a></div><div class="ttdeci">Array gradient_norm(const Array &amp;array, Array *p_dx=nullptr, Array *p_dy=nullptr)</div><div class="ttdoc">Compute the gradient norm of a 2D array.</div><div class="ttdef"><b>Definition</b> gradient.cpp:131</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_make_periodic_stitching0.png" alt=""/>
 </div>
@@ -6356,7 +6360,7 @@ spacing</span> at their farthest interior point, or sink by the same amount when
 <div class="line">                          {z, zp},</div>
 <div class="line">                          <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>);</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_html_abef85b092005d7c5b1d2962c3ed27ef0"><div class="ttname"><a href="#abef85b092005d7c5b1d2962c3ed27ef0">hmap::make_periodic_tiling</a></div><div class="ttdeci">Array make_periodic_tiling(const Array &amp;array, float overlap, glm::ivec2 tiling)</div><div class="ttdoc">Creates a tiled, periodic array by applying a transition with overlap in both directions.</div><div class="ttdef"><b>Definition</b> boundary.cpp:402</div></div>
+<div class="ttc" id="anamespacehmap_html_abef85b092005d7c5b1d2962c3ed27ef0"><div class="ttname"><a href="#abef85b092005d7c5b1d2962c3ed27ef0">hmap::make_periodic_tiling</a></div><div class="ttdeci">Array make_periodic_tiling(const Array &amp;array, float overlap, glm::ivec2 tiling)</div><div class="ttdoc">Creates a tiled, periodic array by applying a transition with overlap in both directions.</div><div class="ttdef"><b>Definition</b> boundary.cpp:388</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_make_periodic_tiling.png" alt=""/>
 </div>
@@ -10836,7 +10840,6 @@ additional_depth)</span>.</li>
 <div class="line">                          <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9">hmap::Cmap::TERRAIN</a>,</div>
 <div class="line">                          <span class="keyword">true</span>);</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_html_a5f58c4149344b401d82f0be3c3807156"><div class="ttname"><a href="#a5f58c4149344b401d82f0be3c3807156">hmap::gradient_norm</a></div><div class="ttdeci">Array gradient_norm(const Array &amp;array, Array *p_dx=nullptr, Array *p_dy=nullptr)</div><div class="ttdoc">Compute the gradient norm of a 2D array.</div><div class="ttdef"><b>Definition</b> gradient.cpp:131</div></div>
 <div class="ttc" id="anamespacehmap_html_a7b2c04c0b2cd0da363d2382f5a753a81"><div class="ttname"><a href="#a7b2c04c0b2cd0da363d2382f5a753a81">hmap::hydraulic_diffusion</a></div><div class="ttdeci">void hydraulic_diffusion(Array &amp;z, float c_diffusion, float talus, int iterations)</div><div class="ttdoc">Apply cell-based hydraulic erosion using a nonlinear diffusion model.</div><div class="ttdef"><b>Definition</b> hydraulic_diffusion.cpp:13</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_hydraulic_diffusion.png" alt=""/>

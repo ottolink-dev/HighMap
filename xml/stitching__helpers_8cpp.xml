@@ -144,8 +144,8 @@
 <codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(vmin<sp/>!=<sp/>vmax)</highlight></codeline>
 <codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>shape.x;<sp/>i++)</highlight></codeline>
 <codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mask(i,<sp/>j)<sp/>-=<sp/>vmin;</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mask(i,<sp/>j)<sp/>/=<sp/>(vmax<sp/>-<sp/>vmin);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>t<sp/>=<sp/>(mask(i,<sp/>j)<sp/>-<sp/>vmin)<sp/>/<sp/>(vmax<sp/>-<sp/>vmin);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mask(i,<sp/>j)<sp/>=<sp/>t<sp/>*<sp/>t<sp/>*<sp/>t<sp/>*<sp/>(t<sp/>*<sp/>(6.f<sp/>*<sp/>t<sp/>-<sp/>15.f)<sp/>+<sp/>10.f);</highlight></codeline>
 <codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="140"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="141"><highlight class="normal"></highlight></codeline>
