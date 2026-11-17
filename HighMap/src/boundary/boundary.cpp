@@ -352,6 +352,21 @@ Array make_periodic_stitching(const Array &array, float overlap)
       mask = transpose(mask_t);
     }
 
+    // make the north/south mask periodic across the east/west overlap so
+    // the second pass does not break the east/west periodicity near j = 0
+    if (noverlap.x > 0)
+    {
+      for (int j = 0; j < noverlap.y; j++)
+        for (int i = 0; i < noverlap.x; i++)
+        {
+          float t = (noverlap.x > 1) ? (float)i / (float)(noverlap.x - 1) : 0.f;
+          t = t * t * t * (t * (6.f * t - 15.f) + 10.f);
+          float m = lerp(mask(shape.x - noverlap.x + i, j), mask(i, j), t);
+          mask(i, j) = m;
+          mask(shape.x - noverlap.x + i, j) = m;
+        }
+    }
+
     for (int j = 0; j < noverlap.y; j++)
       for (int i = 0; i < shape.x; i++)
       {
@@ -367,36 +382,7 @@ Array make_periodic_stitching(const Array &array, float overlap)
   Array core = array_p.extract_slice(
       glm::ivec4(0, shape.x - noverlap.x, 0, shape.y - noverlap.y));
 
-  // resample core periodically back to target shape
-  Array result(shape);
-  for (int j = 0; j < shape.y; ++j)
-  {
-    float v_norm = (float)j / (float)(shape.y - 1);
-    float src_y = v_norm * (float)(core.shape.y);
-    int   j0 = ((int)std::floor(src_y)) % core.shape.y;
-    int   j1 = (j0 + 1) % core.shape.y;
-    float frac_y = src_y - std::floor(src_y);
-
-    for (int i = 0; i < shape.x; ++i)
-    {
-      float u_norm = (float)i / (float)(shape.x - 1);
-      float src_x = u_norm * (float)(core.shape.x);
-      int   i0 = ((int)std::floor(src_x)) % core.shape.x;
-      int   i1 = (i0 + 1) % core.shape.x;
-      float frac_x = src_x - std::floor(src_x);
-
-      float v00 = core(i0, j0);
-      float v10 = core(i1, j0);
-      float v01 = core(i0, j1);
-      float v11 = core(i1, j1);
-
-      float v0 = v00 + (v10 - v00) * frac_x;
-      float v1 = v01 + (v11 - v01) * frac_x;
-      result(i, j) = v0 + (v1 - v0) * frac_y;
-    }
-  }
-
-  return result;
+  return core.resample_to_shape(shape);
 }
 
 Array make_periodic_tiling(const Array &array, float overlap, glm::ivec2 tiling)
