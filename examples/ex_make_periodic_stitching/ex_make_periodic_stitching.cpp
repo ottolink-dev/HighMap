@@ -23,4 +23,7 @@ int main(void)
                           hmap::Cmap::INFERNO);
 
   zt.to_png("ex_make_periodic_stitching1.png", hmap::Cmap::INFERNO);
+
+  auto zt_grad = hmap::gradient_norm(zt);
+  zt_grad.to_png("ex_make_periodic_stitching_grad.png", hmap::Cmap::INFERNO);
 }

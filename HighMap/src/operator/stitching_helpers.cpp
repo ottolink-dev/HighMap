@@ -134,8 +134,8 @@ Array generate_mask(glm::ivec2 shape, std::vector<int> cut_path_i, int ir)
     if (vmin != vmax)
       for (int i = 0; i < shape.x; i++)
       {
-        mask(i, j) -= vmin;
-        mask(i, j) /= (vmax - vmin);
+        float t = (mask(i, j) - vmin) / (vmax - vmin);
+        mask(i, j) = t * t * t * (t * (6.f * t - 15.f) + 10.f);
       }
   }
 
