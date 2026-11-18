@@ -42061,7 +42061,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="388" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="388" bodyend="427" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="37" declcolumn="6"/>
+        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="398" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="398" bodyend="437" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="37" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aef1dc5b3a25a153ec393f440909854b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -42139,12 +42139,12 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="429" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="429" bodyend="453" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="54" declcolumn="6"/>
+        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="439" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="439" bodyend="463" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="54" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a2d426b7bf43a41b14e57cf3662e48402" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1aac431d556c43836da36b005458707c62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::interpolate_terrain</definition>
-        <argsstring>(const Array &amp;h_source, Array &amp;h_target, const CoordFrame &amp;t_source, const CoordFrame &amp;t_target, bool bilinear=true, float fill_value=0.f)</argsstring>
+        <argsstring>(const Array &amp;h_source, Array &amp;h_target, const CoordFrame &amp;t_source, const CoordFrame &amp;t_target, bool bilinear=true, float fill_value=0.f, Array *p_mask=nullptr)</argsstring>
         <name>interpolate_terrain</name>
         <qualifiedname>hmap::interpolate_terrain</qualifiedname>
         <param>
@@ -42172,6 +42172,11 @@ The output path consists of:<itemizedlist>
           <type>float</type>
           <declname>fill_value</declname>
           <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_mask</declname>
+          <defval>nullptr</defval>
         </param>
         <briefdescription>
 <para>Project and interpolate a source terrain array onto a target terrain array using their world-space coordinate frames. </para>
@@ -42225,12 +42230,20 @@ The output path consists of:<itemizedlist>
 <para>Value assigned to target cells outside <computeroutput>t_source</computeroutput>. </para>
 </parameterdescription>
 </parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output mask (1.f where <computeroutput>fill_value</computeroutput> was used, 0.f where interpolated). </para>
+</parameterdescription>
+</parameteritem>
 </parameterlist>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="343" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="343" bodyend="386" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="72" declcolumn="6"/>
+        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="343" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="343" bodyend="396" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="74" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ab2ccc1e1c927a48b77dc77df3b37b5c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -42320,7 +42333,7 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_terrain.cpp" line="170" column="6" bodyfile="HighMap/src/interpolate/interpolate_terrain.cpp" bodystart="170" bodyend="227" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="93" declcolumn="6"/>
+        <location file="HighMap/src/interpolate/interpolate_terrain.cpp" line="170" column="6" bodyfile="HighMap/src/interpolate/interpolate_terrain.cpp" bodystart="170" bodyend="227" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="96" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a3b2cbd269f964223781b492f223baf8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -42410,12 +42423,12 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_terrain.cpp" line="229" column="6" bodyfile="HighMap/src/interpolate/interpolate_terrain.cpp" bodystart="229" bodyend="263" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="112" declcolumn="6"/>
+        <location file="HighMap/src/interpolate/interpolate_terrain.cpp" line="229" column="6" bodyfile="HighMap/src/interpolate/interpolate_terrain.cpp" bodystart="229" bodyend="263" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="115" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a3e9d2d127e876b6497c5fefd7893a79e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1ac60284987d7fee6c3eb311bbbdb01907" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::interpolate_terrain</definition>
-        <argsstring>(const VirtualArray &amp;h_source, VirtualArray &amp;h_target, const CoordFrame &amp;t_source, const CoordFrame &amp;t_target, const ComputeMode &amp;cm, bool bilinear=true, float fill_value=0.f)</argsstring>
+        <argsstring>(const VirtualArray &amp;h_source, VirtualArray &amp;h_target, const CoordFrame &amp;t_source, const CoordFrame &amp;t_target, const ComputeMode &amp;cm, bool bilinear=true, float fill_value=0.f, VirtualArray *p_mask=nullptr)</argsstring>
         <name>interpolate_terrain</name>
         <qualifiedname>hmap::interpolate_terrain</qualifiedname>
         <param>
@@ -42447,6 +42460,11 @@ The output path consists of:<itemizedlist>
           <type>float</type>
           <declname>fill_value</declname>
           <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> *</type>
+          <declname>p_mask</declname>
+          <defval>nullptr</defval>
         </param>
         <briefdescription>
 <para>Project and interpolate a source terrain <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> onto a target terrain <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> using their world-space coordinate frames. </para>
@@ -42508,12 +42526,20 @@ The output path consists of:<itemizedlist>
 <para>Value assigned to target cells outside <computeroutput>t_source</computeroutput>. </para>
 </parameterdescription>
 </parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output mask (1.f where <computeroutput>fill_value</computeroutput> was used, 0.f where interpolated). </para>
+</parameterdescription>
+</parameteritem>
 </parameterlist>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_terrain.cpp" line="265" column="6" bodyfile="HighMap/src/interpolate/interpolate_terrain.cpp" bodystart="265" bodyend="326" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="132" declcolumn="6"/>
+        <location file="HighMap/src/interpolate/interpolate_terrain.cpp" line="265" column="6" bodyfile="HighMap/src/interpolate/interpolate_terrain.cpp" bodystart="265" bodyend="343" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="137" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a6b058e4341f421d058c4d0d408d30654" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
