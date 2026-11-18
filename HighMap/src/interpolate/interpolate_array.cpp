@@ -10,6 +10,9 @@
 #include "highmap/internal/validation.hpp"
 #include "highmap/interpolate/interpolate2d.hpp"
 #include "highmap/interpolate/interpolate_array.hpp"
+#include "highmap/interpolate/interpolate_terrain.hpp"
+#include "highmap/logger.hpp"
+#include "highmap/math/core.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/random.hpp"
 
@@ -302,6 +305,151 @@ Array resample_bicubic_warp(const Array  &src,
   }
 
   return dst;
+}
+
+namespace
+{
+
+inline float sample_array_rel(const Array &src,
+                              float        us,
+                              float        vs,
+                              bool         bilinear)
+{
+  const float fx = us * static_cast<float>(src.shape.x - 1);
+  const float fy = vs * static_cast<float>(src.shape.y - 1);
+
+  if (bilinear)
+  {
+    int i0 = static_cast<int>(std::floor(fx));
+    int j0 = static_cast<int>(std::floor(fy));
+    i0 = std::clamp(i0, 0, std::max(0, src.shape.x - 2));
+    j0 = std::clamp(j0, 0, std::max(0, src.shape.y - 2));
+
+    const float u = std::clamp(fx - static_cast<float>(i0), 0.f, 1.f);
+    const float v = std::clamp(fy - static_cast<float>(j0), 0.f, 1.f);
+
+    return src.get_value_bilinear_at(i0, j0, u, v);
+  }
+  else
+  {
+    int i = std::clamp(static_cast<int>(std::round(fx)), 0, src.shape.x - 1);
+    int j = std::clamp(static_cast<int>(std::round(fy)), 0, src.shape.y - 1);
+    return src(i, j);
+  }
+}
+
+} // namespace
+
+void interpolate_terrain(const Array      &h_source,
+                         Array            &h_target,
+                         const CoordFrame &t_source,
+                         const CoordFrame &t_target,
+                         bool              bilinear,
+                         float             fill_value)
+{
+  if (!validate_non_empty(h_source) || !validate_non_empty(h_target)) return;
+
+  if (!t_target.intersects(t_source))
+  {
+    h_target = fill_value;
+    return;
+  }
+
+  const AffineTransform2D tf = t_target.compute_relative_transform(t_source);
+  const float             inv_nx = (h_target.shape.x > 1)
+                                       ? (1.f / static_cast<float>(h_target.shape.x - 1))
+                                       : 0.f;
+  const float             inv_ny = (h_target.shape.y > 1)
+                                       ? (1.f / static_cast<float>(h_target.shape.y - 1))
+                                       : 0.f;
+
+#pragma omp parallel for schedule(static)
+  for (int j = 0; j < h_target.shape.y; ++j)
+  {
+    const float ry = static_cast<float>(j) * inv_ny;
+    float       us = tf.bx * ry + tf.cx;
+    float       vs = tf.by * ry + tf.cy;
+    const float dus = tf.ax * inv_nx;
+    const float dvs = tf.ay * inv_nx;
+
+    for (int i = 0; i < h_target.shape.x; ++i)
+    {
+      if (t_source.is_unit_point_within(us, vs))
+        h_target(i, j) = sample_array_rel(h_source, us, vs, bilinear);
+      else
+        h_target(i, j) = fill_value;
+
+      us += dus;
+      vs += dvs;
+    }
+  }
+}
+
+void flatten_terrain(Array            &h_source1,
+                     const Array      &h_source2,
+                     const CoordFrame &t_source1,
+                     const CoordFrame &t_source2,
+                     bool              bilinear)
+{
+  if (!validate_non_empty(h_source1) || !validate_non_empty(h_source2)) return;
+  if (!t_source1.intersects(t_source2)) return;
+
+  const AffineTransform2D tf = t_source1.compute_relative_transform(t_source2);
+  const float             inv_nx = (h_source1.shape.x > 1)
+                                       ? (1.f / static_cast<float>(h_source1.shape.x - 1))
+                                       : 0.f;
+  const float             inv_ny = (h_source1.shape.y > 1)
+                                       ? (1.f / static_cast<float>(h_source1.shape.y - 1))
+                                       : 0.f;
+
+#pragma omp parallel for schedule(static)
+  for (int j = 0; j < h_source1.shape.y; ++j)
+  {
+    const float ry = static_cast<float>(j) * inv_ny;
+    float       us = tf.bx * ry + tf.cx;
+    float       vs = tf.by * ry + tf.cy;
+    const float dus = tf.ax * inv_nx;
+    const float dvs = tf.ay * inv_nx;
+
+    for (int i = 0; i < h_source1.shape.x; ++i)
+    {
+      if (t_source2.is_unit_point_within(us, vs))
+      {
+        const float v2 = sample_array_rel(h_source2, us, vs, bilinear);
+        const float r = t_source2.normalized_shape_factor_rel(us, vs);
+        h_source1(i, j) = lerp(h_source1(i, j), v2, r);
+      }
+
+      us += dus;
+      vs += dvs;
+    }
+  }
+}
+
+void flatten_terrain(const std::vector<const Array *>      &h_sources,
+                     Array                                 &h_target,
+                     const std::vector<const CoordFrame *> &t_sources,
+                     const CoordFrame                      &t_target,
+                     bool                                   bilinear)
+{
+  if (!validate_non_empty(h_sources, "h_sources") ||
+      !validate_non_empty(t_sources, "t_sources"))
+    return;
+
+  if (h_sources.size() != t_sources.size())
+  {
+    hmap::log::warn("Size mismatch between h_sources and t_sources");
+    return;
+  }
+
+  interpolate_terrain(*h_sources[0],
+                      h_target,
+                      *t_sources[0],
+                      t_target,
+                      bilinear);
+
+  for (size_t k = 1; k < h_sources.size(); ++k)
+    flatten_terrain(h_target, *h_sources[k], t_target, *t_sources[k], bilinear);
 }
 
 } // namespace hmap
