@@ -1,4 +1,5 @@
 #include "highmap.hpp"
+#include "highmap/interpolate/interpolate_terrain.hpp"
 
 int main(void)
 {
@@ -43,7 +44,7 @@ int main(void)
 
   // --- interpolate
 
-  hmap::interpolate_heightmap(varray1, varray2, frame1, frame2, cm);
+  hmap::interpolate_terrain(varray1, varray2, frame1, frame2, cm);
 
   varray2.to_array(cm).to_png("out.png", hmap::Cmap::JET);
 }

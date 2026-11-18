@@ -15,10 +15,10 @@
 #include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
+#include "highmap/scatter/scatter_field.hpp"
 #include "highmap/world/rocks/rock.hpp"
 #include "highmap/world/rocks/rock_distribution.hpp"
 #include "highmap/world/rocks/rock_simulation.hpp"
-#include "highmap/scatter/scatter_field.hpp"
 
 namespace hmap
 {

@@ -12,9 +12,9 @@
 #include <cstdint>
 #include <vector>
 
+#include "highmap/scatter/scatter_field.hpp"
 #include "highmap/world/flora/species.hpp"
 #include "highmap/world/flora/tree.hpp"
-#include "highmap/scatter/scatter_field.hpp"
 
 namespace hmap
 {

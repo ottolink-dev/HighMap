@@ -18,9 +18,9 @@
 
 #include "highmap/array.hpp"
 #include "highmap/export/asset.hpp"
-#include "highmap/world/flora/forest.hpp"
 #include "highmap/geometry/cloud.hpp"
 #include "highmap/geometry/path.hpp"
+#include "highmap/world/flora/forest.hpp"
 #include "highmap/world/rocks/rock_field.hpp"
 
 namespace hmap

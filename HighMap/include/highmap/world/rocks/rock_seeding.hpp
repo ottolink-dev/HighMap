@@ -15,9 +15,9 @@
 #include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
+#include "highmap/virtual_array/virtual_array.hpp"
 #include "highmap/world/rocks/rock_distribution.hpp"
 #include "highmap/world/rocks/rock_field.hpp"
-#include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
 {

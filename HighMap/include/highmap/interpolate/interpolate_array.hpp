@@ -11,20 +11,34 @@
  */
 #pragma once
 #include "highmap/array.hpp"
-#include "highmap/coord_frame.hpp"
-#include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
 {
 
-class ComputeMode;  // forward decl.
-class VirtualArray; // forward decl.
-
+/**
+ * @brief Resample an array to a target array using bicubic interpolation.
+ *
+ * @param source         Source array.
+ * @param target         Target array.
+ * @param endpoint       Whether the upper domain endpoint is included.
+ * @param pixel_centered Whether coordinates are pixel-centered.
+ */
 void interpolate_array_bicubic(const Array &source,
                                Array       &target,
                                bool         endpoint = false,
                                bool         pixel_centered = true);
 
+/**
+ * @brief Resample a source array into a target array using bicubic
+ * interpolation between two local axis-aligned bounding boxes.
+ *
+ * @param source         Source array.
+ * @param target         Target array.
+ * @param bbox_source    Source local bounding box {xmin, xmax, ymin, ymax}.
+ * @param bbox_target    Target local bounding box {xmin, xmax, ymin, ymax}.
+ * @param endpoint       Whether the upper domain endpoint is included.
+ * @param pixel_centered Whether coordinates are pixel-centered.
+ */
 void interpolate_array_bicubic(const Array     &source,
                                Array           &target,
                                const glm::vec4 &bbox_source,
@@ -32,11 +46,30 @@ void interpolate_array_bicubic(const Array     &source,
                                bool             endpoint = false,
                                bool             pixel_centered = true);
 
+/**
+ * @brief Resample an array to a target array using bilinear interpolation.
+ *
+ * @param source         Source array.
+ * @param target         Target array.
+ * @param endpoint       Whether the upper domain endpoint is included.
+ * @param pixel_centered Whether coordinates are pixel-centered.
+ */
 void interpolate_array_bilinear(const Array &source,
                                 Array       &target,
                                 bool         endpoint = false,
                                 bool         pixel_centered = true);
 
+/**
+ * @brief Resample a source array into a target array using bilinear
+ * interpolation between two local axis-aligned bounding boxes.
+ *
+ * @param source         Source array.
+ * @param target         Target array.
+ * @param bbox_source    Source local bounding box {xmin, xmax, ymin, ymax}.
+ * @param bbox_target    Target local bounding box {xmin, xmax, ymin, ymax}.
+ * @param endpoint       Whether the upper domain endpoint is included.
+ * @param pixel_centered Whether coordinates are pixel-centered.
+ */
 void interpolate_array_bilinear(const Array     &source,
                                 Array           &target,
                                 const glm::vec4 &bbox_source,
@@ -44,35 +77,33 @@ void interpolate_array_bilinear(const Array     &source,
                                 bool             endpoint = false,
                                 bool             pixel_centered = true);
 
+/**
+ * @brief Resample an array to a target array using nearest-neighbor
+ * interpolation.
+ *
+ * @param source   Source array.
+ * @param target   Target array.
+ * @param endpoint Whether the upper domain endpoint is included.
+ */
 void interpolate_array_nearest(const Array &source,
                                Array       &target,
                                bool         endpoint = false);
 
+/**
+ * @brief Resample a source array into a target array using nearest-neighbor
+ * interpolation between two local axis-aligned bounding boxes.
+ *
+ * @param source      Source array.
+ * @param target      Target array.
+ * @param bbox_source Source local bounding box {xmin, xmax, ymin, ymax}.
+ * @param bbox_target Target local bounding box {xmin, xmax, ymin, ymax}.
+ * @param endpoint    Whether the upper domain endpoint is included.
+ */
 void interpolate_array_nearest(const Array     &source,
                                Array           &target,
                                const glm::vec4 &bbox_source,
                                const glm::vec4 &bbox_target,
                                bool             endpoint = false);
-
-// virtual arrays
-
-void flatten_heightmap(VirtualArray       &h_source1,
-                       const VirtualArray &h_source2,
-                       const CoordFrame   &t_source1,
-                       const CoordFrame   &t_source2,
-                       const ComputeMode  &cm);
-
-void flatten_heightmap(const std::vector<const VirtualArray *> &h_sources,
-                       VirtualArray                            &h_target,
-                       const std::vector<const CoordFrame *>   &t_sources,
-                       const CoordFrame                        &t_target,
-                       const ComputeMode                       &cm);
-
-void interpolate_heightmap(const VirtualArray &h_source,
-                           VirtualArray       &h_target,
-                           const CoordFrame   &t_source,
-                           const CoordFrame   &t_target,
-                           const ComputeMode  &cm);
 
 /**
  * @brief Resample an array to a target shape using cubic B-spline interpolation
