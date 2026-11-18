@@ -398,13 +398,11 @@ void remap(Array &array, float vmin, float vmax, ICommunicator &comm)
     return;
   }
 
-  const float scale = (vmax - vmin) / (max - min);
-  const float offset = vmin - min * scale;
-
-  std::transform(array.vector.begin(),
-                 array.vector.end(),
-                 array.vector.begin(),
-                 [scale, offset](float x) { return x * scale + offset; });
+  // every input lies in [min, max], so the output must lie in [vmin, vmax]:
+  // clamp away the last-ulp rounding error (e.g. 1.00000012f), which
+  // otherwise turns into NaN in pow-based filters (gain, gamma, ...)
+  remap(array, vmin, vmax, min, max);
+  clamp(array, std::min(vmin, vmax), std::max(vmin, vmax));
 }
 
 void remap(Array &array, float vmin, float vmax, float from_min, float from_max)
@@ -418,12 +416,17 @@ void remap(Array &array, float vmin, float vmax, float from_min, float from_max)
   }
 
   const float scale = (vmax - vmin) / (from_max - from_min);
-  const float offset = vmin - from_min * scale;
 
+  // subtract first so that from_min maps exactly onto vmin. The former
+  // 'x * scale + offset' form is contracted into an FMA by compilers that
+  // allow it (Apple Clang / AArch64 by default), which left the minimum at
+  // a tiny non-zero value (e.g. -1e-10 instead of 0) and produced NaN in
+  // downstream pow/log (black tiles on macOS)
   std::transform(array.vector.begin(),
                  array.vector.end(),
                  array.vector.begin(),
-                 [scale, offset](float x) { return x * scale + offset; });
+                 [scale, from_min, vmin](float x)
+                 { return (x - from_min) * scale + vmin; });
 }
 
 void rescale(Array &array, float scaling, float vref)

@@ -235,6 +235,9 @@ void gain(Array &array, float factor)
 
   auto lambda = [&factor](float x)
   {
+    // the gain curve is defined on [0, 1]; values just outside (rounding)
+    // would feed a negative base to pow() and return NaN
+    x = std::clamp(x, 0.f, 1.f);
     return x < 0.5 ? 0.5f * std::pow(2.f * x, factor)
                    : 1.f - 0.5f * std::pow(2.f * (1.f - x), factor);
   };
