@@ -9,10 +9,14 @@ var classhmap_1_1CoordFrame =
     [ "set_size", "classhmap_1_1CoordFrame.html#a6666eb25c743ed5c2f07cc8f12dbf052", null ],
     [ "set_rotation_angle", "classhmap_1_1CoordFrame.html#a309642c71a4058665a48427b0c9248fc", null ],
     [ "compute_bounding_box", "classhmap_1_1CoordFrame.html#a8d816754189a8244628bd4c6eefaf09c", null ],
-    [ "get_heightmap_value_bilinear", "classhmap_1_1CoordFrame.html#a5187c7f902c93fb4f750fb022d3b19b7", null ],
+    [ "intersects", "classhmap_1_1CoordFrame.html#a6c80292ee841eb15b3725585139bc9e3", null ],
     [ "is_point_within", "classhmap_1_1CoordFrame.html#a712f76df08417fcffc44b704e4ddd1be", null ],
+    [ "is_unit_point_within", "classhmap_1_1CoordFrame.html#ad29d7ef68c886538319903bef96d5a3d", null ],
+    [ "compute_relative_transform", "classhmap_1_1CoordFrame.html#a843eb08808abe3a096d1b58e461f68d7", null ],
     [ "map_to_global_coords", "classhmap_1_1CoordFrame.html#a3c9a2d05acd75d7dd6117263861d3cff", null ],
     [ "map_to_relative_coords", "classhmap_1_1CoordFrame.html#aeac43550d5345f7d1b16a469b906fefb", null ],
+    [ "map_to_relative_coords", "classhmap_1_1CoordFrame.html#adff56b9f76f008e28fd9de6ddf02e96f", null ],
     [ "normalized_distance_to_edges", "classhmap_1_1CoordFrame.html#af1f76997d4d33cc1cc1e63ffb1ca3ebd", null ],
-    [ "normalized_shape_factor", "classhmap_1_1CoordFrame.html#ab1c8fa8ed0244f4a54759253b629255c", null ]
+    [ "normalized_shape_factor", "classhmap_1_1CoordFrame.html#ab1c8fa8ed0244f4a54759253b629255c", null ],
+    [ "normalized_shape_factor_rel", "classhmap_1_1CoordFrame.html#a79df20e43ce62599f2cfb86b7adc12ce", null ]
 ];

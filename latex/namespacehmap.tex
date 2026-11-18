@@ -36,6 +36,8 @@ struct \mbox{\hyperlink{structhmap_1_1ColorAdjust}{Color\+Adjust}}
 \item 
 struct \mbox{\hyperlink{structhmap_1_1TerrainTextureParams}{Terrain\+Texture\+Params}}
 \item 
+struct \mbox{\hyperlink{structhmap_1_1AffineTransform2D}{Affine\+Transform2D}}
+\begin{DoxyCompactList}\small\item\em Lightweight 2D affine transformation mapping (x, y) -\/\texorpdfstring{$>$}{>} (ax\texorpdfstring{$\ast$}{*}x + bx\texorpdfstring{$\ast$}{*}y + cx, ay\texorpdfstring{$\ast$}{*}x + by\texorpdfstring{$\ast$}{*}y + cy). \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}}
 \item 
 struct \mbox{\hyperlink{structhmap_1_1MiseParams}{Mise\+Params}}
@@ -1517,25 +1519,31 @@ constexpr float \mbox{\hyperlink{namespacehmap_ad4d954d9eeef8a212738fe8774bfcb92
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a7f56b267f543e34806bfd334272f7392}{interpolate2d\+\_\+nni}} (glm\+::ivec2 shape, const std\+::vector$<$ float $>$ \&x, const std\+::vector$<$ float $>$ \&y, const std\+::vector$<$ float $>$ \&values, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em 2D interpolation using the Natural \doxylink{structhmap_1_1Neighbor}{Neighbor} Interpolation method. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a9e8b724d238450ef72e9bd083acb9b8a}{interpolate\+\_\+array\+\_\+bicubic}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&source, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&target, bool endpoint=false, bool pixel\+\_\+centered=true)
-\item 
+\begin{DoxyCompactList}\small\item\em Resample an array to a target array using bicubic interpolation. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_aa3322e388ba870c9d6881082da2fd800}{interpolate\+\_\+array\+\_\+bicubic}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&source, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&target, const glm\+::vec4 \&bbox\+\_\+source, const glm\+::vec4 \&bbox\+\_\+target, bool endpoint=false, bool pixel\+\_\+centered=true)
-\item 
+\begin{DoxyCompactList}\small\item\em Resample a source array into a target array using bicubic interpolation between two local axis-\/aligned bounding boxes. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a28a6744fc26597330ca8eb9bbc4cd68e}{interpolate\+\_\+array\+\_\+bilinear}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&source, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&target, bool endpoint=false, bool pixel\+\_\+centered=true)
-\item 
+\begin{DoxyCompactList}\small\item\em Resample an array to a target array using bilinear interpolation. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_afda0e8ec3557ce5a30c2f62647f04842}{interpolate\+\_\+array\+\_\+bilinear}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&source, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&target, const glm\+::vec4 \&bbox\+\_\+source, const glm\+::vec4 \&bbox\+\_\+target, bool endpoint=false, bool pixel\+\_\+centered=true)
-\item 
+\begin{DoxyCompactList}\small\item\em Resample a source array into a target array using bilinear interpolation between two local axis-\/aligned bounding boxes. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_ab55e8132857fc52e7ac7947d82c334e1}{interpolate\+\_\+array\+\_\+nearest}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&source, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&target, bool endpoint=false)
-\item 
+\begin{DoxyCompactList}\small\item\em Resample an array to a target array using nearest-\/neighbor interpolation. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a57eeac393011b44f661c27a7b6e2a2b6}{interpolate\+\_\+array\+\_\+nearest}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&source, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&target, const glm\+::vec4 \&bbox\+\_\+source, const glm\+::vec4 \&bbox\+\_\+target, bool endpoint=false)
-\item 
-void \mbox{\hyperlink{namespacehmap_ace2076a7808458f99aeaeec2bc404d6b}{flatten\+\_\+heightmap}} (\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&h\+\_\+source1, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&h\+\_\+source2, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+source1, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+source2, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm)
-\item 
-void \mbox{\hyperlink{namespacehmap_a3dadec4e8aa2c67598a0e158756308c8}{flatten\+\_\+heightmap}} (const std\+::vector$<$ const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \texorpdfstring{$\ast$}{*} $>$ \&h\+\_\+sources, \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&h\+\_\+target, const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \texorpdfstring{$\ast$}{*} $>$ \&t\+\_\+sources, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+target, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm)
-\item 
-void \mbox{\hyperlink{namespacehmap_aab05ca060b3dd80724ff669864c0f4d2}{interpolate\+\_\+heightmap}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&h\+\_\+source, \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&h\+\_\+target, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+source, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+target, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm)
-\item 
+\begin{DoxyCompactList}\small\item\em Resample a source array into a target array using nearest-\/neighbor interpolation between two local axis-\/aligned bounding boxes. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a1489cc458b4e23a36b8c35faa960d358}{resample\+\_\+bicubic\+\_\+warp}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&src, glm\+::ivec2 dst\+\_\+shape, float \mbox{\hyperlink{namespacehmap_a19148ad2a95f7ad5b05161e9a0f0f732}{warp}}=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, std\+::uint32\+\_\+t seed=0)
 \begin{DoxyCompactList}\small\item\em Resample an array to a target shape using cubic B-\/spline interpolation with optional domain noise warping. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_ac933aac4efd0e34ce5189dc31ec8f565}{flatten\+\_\+terrain}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&h\+\_\+source1, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&h\+\_\+source2, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+source1, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+source2, bool bilinear=true)
+\begin{DoxyCompactList}\small\item\em Blend a second terrain array in-\/place onto a base terrain array using their world-\/space coordinate frames. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_aef1dc5b3a25a153ec393f440909854b7}{flatten\+\_\+terrain}} (const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*} $>$ \&h\+\_\+sources, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&h\+\_\+target, const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \texorpdfstring{$\ast$}{*} $>$ \&t\+\_\+sources, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+target, bool bilinear=true)
+\begin{DoxyCompactList}\small\item\em Flatten multiple terrain arrays into a target array using their world-\/space coordinate frames. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a2d426b7bf43a41b14e57cf3662e48402}{interpolate\+\_\+terrain}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&h\+\_\+source, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&h\+\_\+target, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+source, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+target, bool bilinear=true, float fill\+\_\+value=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Project and interpolate a source terrain array onto a target terrain array using their world-\/space coordinate frames. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_ab2ccc1e1c927a48b77dc77df3b37b5c1}{flatten\+\_\+terrain}} (\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&h\+\_\+source1, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&h\+\_\+source2, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+source1, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+source2, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm, bool bilinear=true)
+\begin{DoxyCompactList}\small\item\em Blend a second terrain \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} in-\/place onto a base terrain \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} using their world-\/space coordinate frames. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a3b2cbd269f964223781b492f223baf8b}{flatten\+\_\+terrain}} (const std\+::vector$<$ const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \texorpdfstring{$\ast$}{*} $>$ \&h\+\_\+sources, \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&h\+\_\+target, const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \texorpdfstring{$\ast$}{*} $>$ \&t\+\_\+sources, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+target, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm, bool bilinear=true)
+\begin{DoxyCompactList}\small\item\em Flatten multiple terrain Virtual\+Arrays into a target \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} using their world-\/space coordinate frames. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a3e9d2d127e876b6497c5fefd7893a79e}{interpolate\+\_\+terrain}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&h\+\_\+source, \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&h\+\_\+target, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+source, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&t\+\_\+target, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm, bool bilinear=true, float fill\+\_\+value=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Project and interpolate a source terrain \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} onto a target terrain \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} using their world-\/space coordinate frames. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a6b058e4341f421d058c4d0d408d30654}{get\+\_\+kernel}} (glm\+::ivec2 shape, \mbox{\hyperlink{namespacehmap_a4b6f135c6e81d313ca54ae1efac5f2c9}{Kernel\+Type}} kernel\+\_\+type)
 \begin{DoxyCompactList}\small\item\em Generate a kernel of the specified type. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a44931abadbb5fea3bba9dd59540cf9cb}{biweight}} (glm\+::ivec2 shape)
@@ -22370,54 +22378,134 @@ This function performs 2D interpolation by assigning the value of the nearest po
 {\footnotesize\ttfamily \label{namespacehmap_a9e8b724d238450ef72e9bd083acb9b8a} 
 void hmap\+::interpolate\+\_\+array\+\_\+bicubic (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{source}{, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{target}{, }\item[{bool}]{endpoint}{ = {\ttfamily false}, }\item[{bool}]{pixel\+\_\+centered}{ = {\ttfamily true}}\end{DoxyParamCaption})}
 
+
+
+Resample an array to a target array using bicubic interpolation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & Source array. \\
+\hline
+{\em target} & Target array. \\
+\hline
+{\em endpoint} & Whether the upper domain endpoint is included. \\
+\hline
+{\em pixel\+\_\+centered} & Whether coordinates are pixel-\/centered. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{namespacehmap_aa3322e388ba870c9d6881082da2fd800}\index{hmap@{hmap}!interpolate\_array\_bicubic@{interpolate\_array\_bicubic}}
 \index{interpolate\_array\_bicubic@{interpolate\_array\_bicubic}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{interpolate\_array\_bicubic()}{interpolate\_array\_bicubic()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{namespacehmap_aa3322e388ba870c9d6881082da2fd800} 
 void hmap\+::interpolate\+\_\+array\+\_\+bicubic (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{source}{, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{target}{, }\item[{const glm\+::vec4 \&}]{bbox\+\_\+source}{, }\item[{const glm\+::vec4 \&}]{bbox\+\_\+target}{, }\item[{bool}]{endpoint}{ = {\ttfamily false}, }\item[{bool}]{pixel\+\_\+centered}{ = {\ttfamily true}}\end{DoxyParamCaption})}
 
+
+
+Resample a source array into a target array using bicubic interpolation between two local axis-\/aligned bounding boxes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & Source array. \\
+\hline
+{\em target} & Target array. \\
+\hline
+{\em bbox\+\_\+source} & Source local bounding box \{xmin, xmax, ymin, ymax\}. \\
+\hline
+{\em bbox\+\_\+target} & Target local bounding box \{xmin, xmax, ymin, ymax\}. \\
+\hline
+{\em endpoint} & Whether the upper domain endpoint is included. \\
+\hline
+{\em pixel\+\_\+centered} & Whether coordinates are pixel-\/centered. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{namespacehmap_a28a6744fc26597330ca8eb9bbc4cd68e}\index{hmap@{hmap}!interpolate\_array\_bilinear@{interpolate\_array\_bilinear}}
 \index{interpolate\_array\_bilinear@{interpolate\_array\_bilinear}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{interpolate\_array\_bilinear()}{interpolate\_array\_bilinear()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \label{namespacehmap_a28a6744fc26597330ca8eb9bbc4cd68e} 
 void hmap\+::interpolate\+\_\+array\+\_\+bilinear (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{source}{, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{target}{, }\item[{bool}]{endpoint}{ = {\ttfamily false}, }\item[{bool}]{pixel\+\_\+centered}{ = {\ttfamily true}}\end{DoxyParamCaption})}
 
+
+
+Resample an array to a target array using bilinear interpolation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & Source array. \\
+\hline
+{\em target} & Target array. \\
+\hline
+{\em endpoint} & Whether the upper domain endpoint is included. \\
+\hline
+{\em pixel\+\_\+centered} & Whether coordinates are pixel-\/centered. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{namespacehmap_afda0e8ec3557ce5a30c2f62647f04842}\index{hmap@{hmap}!interpolate\_array\_bilinear@{interpolate\_array\_bilinear}}
 \index{interpolate\_array\_bilinear@{interpolate\_array\_bilinear}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{interpolate\_array\_bilinear()}{interpolate\_array\_bilinear()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{namespacehmap_afda0e8ec3557ce5a30c2f62647f04842} 
 void hmap\+::interpolate\+\_\+array\+\_\+bilinear (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{source}{, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{target}{, }\item[{const glm\+::vec4 \&}]{bbox\+\_\+source}{, }\item[{const glm\+::vec4 \&}]{bbox\+\_\+target}{, }\item[{bool}]{endpoint}{ = {\ttfamily false}, }\item[{bool}]{pixel\+\_\+centered}{ = {\ttfamily true}}\end{DoxyParamCaption})}
 
+
+
+Resample a source array into a target array using bilinear interpolation between two local axis-\/aligned bounding boxes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & Source array. \\
+\hline
+{\em target} & Target array. \\
+\hline
+{\em bbox\+\_\+source} & Source local bounding box \{xmin, xmax, ymin, ymax\}. \\
+\hline
+{\em bbox\+\_\+target} & Target local bounding box \{xmin, xmax, ymin, ymax\}. \\
+\hline
+{\em endpoint} & Whether the upper domain endpoint is included. \\
+\hline
+{\em pixel\+\_\+centered} & Whether coordinates are pixel-\/centered. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{namespacehmap_ab55e8132857fc52e7ac7947d82c334e1}\index{hmap@{hmap}!interpolate\_array\_nearest@{interpolate\_array\_nearest}}
 \index{interpolate\_array\_nearest@{interpolate\_array\_nearest}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{interpolate\_array\_nearest()}{interpolate\_array\_nearest()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \label{namespacehmap_ab55e8132857fc52e7ac7947d82c334e1} 
 void hmap\+::interpolate\+\_\+array\+\_\+nearest (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{source}{, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{target}{, }\item[{bool}]{endpoint}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
+
+
+Resample an array to a target array using nearest-\/neighbor interpolation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & Source array. \\
+\hline
+{\em target} & Target array. \\
+\hline
+{\em endpoint} & Whether the upper domain endpoint is included. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{namespacehmap_a57eeac393011b44f661c27a7b6e2a2b6}\index{hmap@{hmap}!interpolate\_array\_nearest@{interpolate\_array\_nearest}}
 \index{interpolate\_array\_nearest@{interpolate\_array\_nearest}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{interpolate\_array\_nearest()}{interpolate\_array\_nearest()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{namespacehmap_a57eeac393011b44f661c27a7b6e2a2b6} 
 void hmap\+::interpolate\+\_\+array\+\_\+nearest (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{source}{, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{target}{, }\item[{const glm\+::vec4 \&}]{bbox\+\_\+source}{, }\item[{const glm\+::vec4 \&}]{bbox\+\_\+target}{, }\item[{bool}]{endpoint}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
-\Hypertarget{namespacehmap_ace2076a7808458f99aeaeec2bc404d6b}\index{hmap@{hmap}!flatten\_heightmap@{flatten\_heightmap}}
-\index{flatten\_heightmap@{flatten\_heightmap}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{flatten\_heightmap()}{flatten\_heightmap()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_ace2076a7808458f99aeaeec2bc404d6b} 
-void hmap\+::flatten\+\_\+heightmap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{h\+\_\+source1}{, }\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{h\+\_\+source2}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+source1}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+source2}{, }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm}{}\end{DoxyParamCaption})}
 
-\Hypertarget{namespacehmap_a3dadec4e8aa2c67598a0e158756308c8}\index{hmap@{hmap}!flatten\_heightmap@{flatten\_heightmap}}
-\index{flatten\_heightmap@{flatten\_heightmap}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{flatten\_heightmap()}{flatten\_heightmap()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_a3dadec4e8aa2c67598a0e158756308c8} 
-void hmap\+::flatten\+\_\+heightmap (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \texorpdfstring{$\ast$}{*} $>$ \&}]{h\+\_\+sources}{, }\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{h\+\_\+target}{, }\item[{const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \texorpdfstring{$\ast$}{*} $>$ \&}]{t\+\_\+sources}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+target}{, }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm}{}\end{DoxyParamCaption})}
 
-\Hypertarget{namespacehmap_aab05ca060b3dd80724ff669864c0f4d2}\index{hmap@{hmap}!interpolate\_heightmap@{interpolate\_heightmap}}
-\index{interpolate\_heightmap@{interpolate\_heightmap}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{interpolate\_heightmap()}{interpolate\_heightmap()}}
-{\footnotesize\ttfamily \label{namespacehmap_aab05ca060b3dd80724ff669864c0f4d2} 
-void hmap\+::interpolate\+\_\+heightmap (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{h\+\_\+source}{, }\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{h\+\_\+target}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+source}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+target}{, }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm}{}\end{DoxyParamCaption})}
+Resample a source array into a target array using nearest-\/neighbor interpolation between two local axis-\/aligned bounding boxes. 
 
+
+\begin{DoxyParams}{Parameters}
+{\em source} & Source array. \\
+\hline
+{\em target} & Target array. \\
+\hline
+{\em bbox\+\_\+source} & Source local bounding box \{xmin, xmax, ymin, ymax\}. \\
+\hline
+{\em bbox\+\_\+target} & Target local bounding box \{xmin, xmax, ymin, ymax\}. \\
+\hline
+{\em endpoint} & Whether the upper domain endpoint is included. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{namespacehmap_a1489cc458b4e23a36b8c35faa960d358}\index{hmap@{hmap}!resample\_bicubic\_warp@{resample\_bicubic\_warp}}
 \index{resample\_bicubic\_warp@{resample\_bicubic\_warp}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{resample\_bicubic\_warp()}{resample\_bicubic\_warp()}}
@@ -22442,6 +22530,154 @@ Resample an array to a target shape using cubic B-\/spline interpolation with op
 \begin{DoxyReturn}{Returns}
 \doxylink{classhmap_1_1Array}{Array} Resampled (and optionally warped) array. 
 \end{DoxyReturn}
+\Hypertarget{namespacehmap_ac933aac4efd0e34ce5189dc31ec8f565}\index{hmap@{hmap}!flatten\_terrain@{flatten\_terrain}}
+\index{flatten\_terrain@{flatten\_terrain}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{flatten\_terrain()}{flatten\_terrain()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{namespacehmap_ac933aac4efd0e34ce5189dc31ec8f565} 
+void hmap\+::flatten\+\_\+terrain (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{h\+\_\+source1}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{h\+\_\+source2}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+source1}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+source2}{, }\item[{bool}]{bilinear}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+
+
+Blend a second terrain array in-\/place onto a base terrain array using their world-\/space coordinate frames. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h\+\_\+source1} & Base terrain array (modified in-\/place). \\
+\hline
+{\em h\+\_\+source2} & Overlay terrain array. \\
+\hline
+{\em t\+\_\+source1} & World coordinate frame of {\ttfamily h\+\_\+source1}. \\
+\hline
+{\em t\+\_\+source2} & World coordinate frame of {\ttfamily h\+\_\+source2}. \\
+\hline
+{\em bilinear} & Use bilinear interpolation if true, nearest-\/neighbor otherwise. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_aef1dc5b3a25a153ec393f440909854b7}\index{hmap@{hmap}!flatten\_terrain@{flatten\_terrain}}
+\index{flatten\_terrain@{flatten\_terrain}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{flatten\_terrain()}{flatten\_terrain()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{namespacehmap_aef1dc5b3a25a153ec393f440909854b7} 
+void hmap\+::flatten\+\_\+terrain (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*} $>$ \&}]{h\+\_\+sources}{, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{h\+\_\+target}{, }\item[{const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \texorpdfstring{$\ast$}{*} $>$ \&}]{t\+\_\+sources}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+target}{, }\item[{bool}]{bilinear}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+
+
+Flatten multiple terrain arrays into a target array using their world-\/space coordinate frames. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h\+\_\+sources} & Ordered list of source terrain arrays. \\
+\hline
+{\em h\+\_\+target} & Target terrain array. \\
+\hline
+{\em t\+\_\+sources} & World coordinate frames corresponding to {\ttfamily h\+\_\+sources}. \\
+\hline
+{\em t\+\_\+target} & World coordinate frame of {\ttfamily h\+\_\+target}. \\
+\hline
+{\em bilinear} & Use bilinear interpolation if true, nearest-\/neighbor otherwise. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_a2d426b7bf43a41b14e57cf3662e48402}\index{hmap@{hmap}!interpolate\_terrain@{interpolate\_terrain}}
+\index{interpolate\_terrain@{interpolate\_terrain}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{interpolate\_terrain()}{interpolate\_terrain()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a2d426b7bf43a41b14e57cf3662e48402} 
+void hmap\+::interpolate\+\_\+terrain (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{h\+\_\+source}{, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{h\+\_\+target}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+source}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+target}{, }\item[{bool}]{bilinear}{ = {\ttfamily true}, }\item[{float}]{fill\+\_\+value}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption})}
+
+
+
+Project and interpolate a source terrain array onto a target terrain array using their world-\/space coordinate frames. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h\+\_\+source} & Source terrain array. \\
+\hline
+{\em h\+\_\+target} & Target terrain array. \\
+\hline
+{\em t\+\_\+source} & World coordinate frame of {\ttfamily h\+\_\+source}. \\
+\hline
+{\em t\+\_\+target} & World coordinate frame of {\ttfamily h\+\_\+target}. \\
+\hline
+{\em bilinear} & Use bilinear interpolation if true, nearest-\/neighbor otherwise. \\
+\hline
+{\em fill\+\_\+value} & Value assigned to target cells outside {\ttfamily t\+\_\+source}. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_ab2ccc1e1c927a48b77dc77df3b37b5c1}\index{hmap@{hmap}!flatten\_terrain@{flatten\_terrain}}
+\index{flatten\_terrain@{flatten\_terrain}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{flatten\_terrain()}{flatten\_terrain()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{namespacehmap_ab2ccc1e1c927a48b77dc77df3b37b5c1} 
+void hmap\+::flatten\+\_\+terrain (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{h\+\_\+source1}{, }\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{h\+\_\+source2}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+source1}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+source2}{, }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm}{, }\item[{bool}]{bilinear}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+
+
+Blend a second terrain \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} in-\/place onto a base terrain \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} using their world-\/space coordinate frames. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h\+\_\+source1} & Base terrain \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} (modified in-\/place). \\
+\hline
+{\em h\+\_\+source2} & Overlay terrain \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array}. \\
+\hline
+{\em t\+\_\+source1} & World coordinate frame of {\ttfamily h\+\_\+source1}. \\
+\hline
+{\em t\+\_\+source2} & World coordinate frame of {\ttfamily h\+\_\+source2}. \\
+\hline
+{\em cm} & Compute mode controlling tiling and CPU distribution. \\
+\hline
+{\em bilinear} & Use bilinear interpolation if true, nearest-\/neighbor otherwise. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_a3b2cbd269f964223781b492f223baf8b}\index{hmap@{hmap}!flatten\_terrain@{flatten\_terrain}}
+\index{flatten\_terrain@{flatten\_terrain}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{flatten\_terrain()}{flatten\_terrain()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{namespacehmap_a3b2cbd269f964223781b492f223baf8b} 
+void hmap\+::flatten\+\_\+terrain (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \texorpdfstring{$\ast$}{*} $>$ \&}]{h\+\_\+sources}{, }\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{h\+\_\+target}{, }\item[{const std\+::vector$<$ const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \texorpdfstring{$\ast$}{*} $>$ \&}]{t\+\_\+sources}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+target}{, }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm}{, }\item[{bool}]{bilinear}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+
+
+Flatten multiple terrain Virtual\+Arrays into a target \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} using their world-\/space coordinate frames. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h\+\_\+sources} & Ordered list of source terrain Virtual\+Arrays. \\
+\hline
+{\em h\+\_\+target} & Target terrain \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array}. \\
+\hline
+{\em t\+\_\+sources} & World coordinate frames corresponding to {\ttfamily h\+\_\+sources}. \\
+\hline
+{\em t\+\_\+target} & World coordinate frame of {\ttfamily h\+\_\+target}. \\
+\hline
+{\em cm} & Compute mode controlling tiling and CPU distribution. \\
+\hline
+{\em bilinear} & Use bilinear interpolation if true, nearest-\/neighbor otherwise. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_a3e9d2d127e876b6497c5fefd7893a79e}\index{hmap@{hmap}!interpolate\_terrain@{interpolate\_terrain}}
+\index{interpolate\_terrain@{interpolate\_terrain}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{interpolate\_terrain()}{interpolate\_terrain()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a3e9d2d127e876b6497c5fefd7893a79e} 
+void hmap\+::interpolate\+\_\+terrain (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{h\+\_\+source}{, }\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{h\+\_\+target}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+source}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{t\+\_\+target}{, }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm}{, }\item[{bool}]{bilinear}{ = {\ttfamily true}, }\item[{float}]{fill\+\_\+value}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption})}
+
+
+
+Project and interpolate a source terrain \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} onto a target terrain \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} using their world-\/space coordinate frames. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h\+\_\+source} & Source terrain \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array}. \\
+\hline
+{\em h\+\_\+target} & Target terrain \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array}. \\
+\hline
+{\em t\+\_\+source} & World coordinate frame of {\ttfamily h\+\_\+source}. \\
+\hline
+{\em t\+\_\+target} & World coordinate frame of {\ttfamily h\+\_\+target}. \\
+\hline
+{\em cm} & Compute mode controlling tiling and CPU distribution. \\
+\hline
+{\em bilinear} & Use bilinear interpolation if true, nearest-\/neighbor otherwise. \\
+\hline
+{\em fill\+\_\+value} & Value assigned to target cells outside {\ttfamily t\+\_\+source}. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{namespacehmap_a6b058e4341f421d058c4d0d408d30654}\index{hmap@{hmap}!get\_kernel@{get\_kernel}}
 \index{get\_kernel@{get\_kernel}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{get\_kernel()}{get\_kernel()}}

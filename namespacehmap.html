@@ -123,6 +123,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Truncated-Gaussian push operation, the elementary deformation used by <a class="el" href="#abec90e80c5d42318a7aadf6dd1016fec">sls_deformation</a>.  <a href="structhmap_1_1GaussianPush.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ColorAdjust" id="r_ColorAdjust"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap_1_1ColorAdjust.html">ColorAdjust</a></td></tr>
 <tr class="memitem:TerrainTextureParams" id="r_TerrainTextureParams"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap_1_1TerrainTextureParams.html">TerrainTextureParams</a></td></tr>
+<tr class="memitem:AffineTransform2D" id="r_AffineTransform2D"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap_1_1AffineTransform2D.html">AffineTransform2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lightweight 2D affine transformation mapping (x, y) -&gt; (ax*x + bx*y + cx, ay*x + by*y + cy).  <a href="structhmap_1_1AffineTransform2D.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CoordFrame" id="r_CoordFrame"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a></td></tr>
 <tr class="memitem:MiseParams" id="r_MiseParams"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap_1_1MiseParams.html">MiseParams</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameters for the MISE (Multiscale Implicit Stream-power Erosion) solver.  <a href="structhmap_1_1MiseParams.html#details">More...</a><br /></td></tr>
@@ -1572,16 +1574,31 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
 <tr class="memitem:a7f56b267f543e34806bfd334272f7392" id="r_a7f56b267f543e34806bfd334272f7392"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f56b267f543e34806bfd334272f7392">interpolate2d_nni</a> (glm::ivec2 shape, const std::vector&lt; float &gt; &amp;x, const std::vector&lt; float &gt; &amp;y, const std::vector&lt; float &gt; &amp;values, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y=nullptr, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
 <tr class="memdesc:a7f56b267f543e34806bfd334272f7392"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D interpolation using the Natural <a class="el" href="structhmap_1_1Neighbor.html" title="Graph neighbor information for adjacency representation.">Neighbor</a> Interpolation method.  <br /></td></tr>
 <tr class="memitem:a9e8b724d238450ef72e9bd083acb9b8a" id="r_a9e8b724d238450ef72e9bd083acb9b8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e8b724d238450ef72e9bd083acb9b8a">interpolate_array_bicubic</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;source, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;target, bool endpoint=false, bool pixel_centered=true)</td></tr>
+<tr class="memdesc:a9e8b724d238450ef72e9bd083acb9b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resample an array to a target array using bicubic interpolation.  <br /></td></tr>
 <tr class="memitem:aa3322e388ba870c9d6881082da2fd800" id="r_aa3322e388ba870c9d6881082da2fd800"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3322e388ba870c9d6881082da2fd800">interpolate_array_bicubic</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;source, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;target, const glm::vec4 &amp;bbox_source, const glm::vec4 &amp;bbox_target, bool endpoint=false, bool pixel_centered=true)</td></tr>
+<tr class="memdesc:aa3322e388ba870c9d6881082da2fd800"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resample a source array into a target array using bicubic interpolation between two local axis-aligned bounding boxes.  <br /></td></tr>
 <tr class="memitem:a28a6744fc26597330ca8eb9bbc4cd68e" id="r_a28a6744fc26597330ca8eb9bbc4cd68e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28a6744fc26597330ca8eb9bbc4cd68e">interpolate_array_bilinear</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;source, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;target, bool endpoint=false, bool pixel_centered=true)</td></tr>
+<tr class="memdesc:a28a6744fc26597330ca8eb9bbc4cd68e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resample an array to a target array using bilinear interpolation.  <br /></td></tr>
 <tr class="memitem:afda0e8ec3557ce5a30c2f62647f04842" id="r_afda0e8ec3557ce5a30c2f62647f04842"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afda0e8ec3557ce5a30c2f62647f04842">interpolate_array_bilinear</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;source, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;target, const glm::vec4 &amp;bbox_source, const glm::vec4 &amp;bbox_target, bool endpoint=false, bool pixel_centered=true)</td></tr>
+<tr class="memdesc:afda0e8ec3557ce5a30c2f62647f04842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resample a source array into a target array using bilinear interpolation between two local axis-aligned bounding boxes.  <br /></td></tr>
 <tr class="memitem:ab55e8132857fc52e7ac7947d82c334e1" id="r_ab55e8132857fc52e7ac7947d82c334e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab55e8132857fc52e7ac7947d82c334e1">interpolate_array_nearest</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;source, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;target, bool endpoint=false)</td></tr>
+<tr class="memdesc:ab55e8132857fc52e7ac7947d82c334e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resample an array to a target array using nearest-neighbor interpolation.  <br /></td></tr>
 <tr class="memitem:a57eeac393011b44f661c27a7b6e2a2b6" id="r_a57eeac393011b44f661c27a7b6e2a2b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57eeac393011b44f661c27a7b6e2a2b6">interpolate_array_nearest</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;source, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;target, const glm::vec4 &amp;bbox_source, const glm::vec4 &amp;bbox_target, bool endpoint=false)</td></tr>
-<tr class="memitem:ace2076a7808458f99aeaeec2bc404d6b" id="r_ace2076a7808458f99aeaeec2bc404d6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace2076a7808458f99aeaeec2bc404d6b">flatten_heightmap</a> (<a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;h_source1, const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;h_source2, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_source1, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_source2, const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;cm)</td></tr>
-<tr class="memitem:a3dadec4e8aa2c67598a0e158756308c8" id="r_a3dadec4e8aa2c67598a0e158756308c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3dadec4e8aa2c67598a0e158756308c8">flatten_heightmap</a> (const std::vector&lt; const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> * &gt; &amp;h_sources, <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;h_target, const std::vector&lt; const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> * &gt; &amp;t_sources, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_target, const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;cm)</td></tr>
-<tr class="memitem:aab05ca060b3dd80724ff669864c0f4d2" id="r_aab05ca060b3dd80724ff669864c0f4d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab05ca060b3dd80724ff669864c0f4d2">interpolate_heightmap</a> (const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;h_source, <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;h_target, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_source, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_target, const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;cm)</td></tr>
+<tr class="memdesc:a57eeac393011b44f661c27a7b6e2a2b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resample a source array into a target array using nearest-neighbor interpolation between two local axis-aligned bounding boxes.  <br /></td></tr>
 <tr class="memitem:a1489cc458b4e23a36b8c35faa960d358" id="r_a1489cc458b4e23a36b8c35faa960d358"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1489cc458b4e23a36b8c35faa960d358">resample_bicubic_warp</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;src, glm::ivec2 dst_shape, float <a class="el" href="#a19148ad2a95f7ad5b05161e9a0f0f732">warp</a>=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, std::uint32_t seed=0)</td></tr>
 <tr class="memdesc:a1489cc458b4e23a36b8c35faa960d358"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resample an array to a target shape using cubic B-spline interpolation with optional domain noise warping.  <br /></td></tr>
+<tr class="memitem:ac933aac4efd0e34ce5189dc31ec8f565" id="r_ac933aac4efd0e34ce5189dc31ec8f565"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac933aac4efd0e34ce5189dc31ec8f565">flatten_terrain</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;h_source1, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;h_source2, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_source1, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_source2, bool bilinear=true)</td></tr>
+<tr class="memdesc:ac933aac4efd0e34ce5189dc31ec8f565"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blend a second terrain array in-place onto a base terrain array using their world-space coordinate frames.  <br /></td></tr>
+<tr class="memitem:aef1dc5b3a25a153ec393f440909854b7" id="r_aef1dc5b3a25a153ec393f440909854b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef1dc5b3a25a153ec393f440909854b7">flatten_terrain</a> (const std::vector&lt; const <a class="el" href="classhmap_1_1Array.html">Array</a> * &gt; &amp;h_sources, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;h_target, const std::vector&lt; const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> * &gt; &amp;t_sources, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_target, bool bilinear=true)</td></tr>
+<tr class="memdesc:aef1dc5b3a25a153ec393f440909854b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flatten multiple terrain arrays into a target array using their world-space coordinate frames.  <br /></td></tr>
+<tr class="memitem:a2d426b7bf43a41b14e57cf3662e48402" id="r_a2d426b7bf43a41b14e57cf3662e48402"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d426b7bf43a41b14e57cf3662e48402">interpolate_terrain</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;h_source, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;h_target, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_source, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_target, bool bilinear=true, float fill_value=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
+<tr class="memdesc:a2d426b7bf43a41b14e57cf3662e48402"><td class="mdescLeft">&#160;</td><td class="mdescRight">Project and interpolate a source terrain array onto a target terrain array using their world-space coordinate frames.  <br /></td></tr>
+<tr class="memitem:ab2ccc1e1c927a48b77dc77df3b37b5c1" id="r_ab2ccc1e1c927a48b77dc77df3b37b5c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2ccc1e1c927a48b77dc77df3b37b5c1">flatten_terrain</a> (<a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;h_source1, const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;h_source2, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_source1, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_source2, const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;cm, bool bilinear=true)</td></tr>
+<tr class="memdesc:ab2ccc1e1c927a48b77dc77df3b37b5c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blend a second terrain <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> in-place onto a base terrain <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> using their world-space coordinate frames.  <br /></td></tr>
+<tr class="memitem:a3b2cbd269f964223781b492f223baf8b" id="r_a3b2cbd269f964223781b492f223baf8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b2cbd269f964223781b492f223baf8b">flatten_terrain</a> (const std::vector&lt; const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> * &gt; &amp;h_sources, <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;h_target, const std::vector&lt; const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> * &gt; &amp;t_sources, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_target, const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;cm, bool bilinear=true)</td></tr>
+<tr class="memdesc:a3b2cbd269f964223781b492f223baf8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flatten multiple terrain VirtualArrays into a target <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> using their world-space coordinate frames.  <br /></td></tr>
+<tr class="memitem:a3e9d2d127e876b6497c5fefd7893a79e" id="r_a3e9d2d127e876b6497c5fefd7893a79e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e9d2d127e876b6497c5fefd7893a79e">interpolate_terrain</a> (const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;h_source, <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;h_target, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_source, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;t_target, const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;cm, bool bilinear=true, float fill_value=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
+<tr class="memdesc:a3e9d2d127e876b6497c5fefd7893a79e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Project and interpolate a source terrain <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> onto a target terrain <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> using their world-space coordinate frames.  <br /></td></tr>
 <tr class="memitem:a6b058e4341f421d058c4d0d408d30654" id="r_a6b058e4341f421d058c4d0d408d30654"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b058e4341f421d058c4d0d408d30654">get_kernel</a> (glm::ivec2 shape, <a class="el" href="#a4b6f135c6e81d313ca54ae1efac5f2c9">KernelType</a> kernel_type)</td></tr>
 <tr class="memdesc:a6b058e4341f421d058c4d0d408d30654"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a kernel of the specified type.  <br /></td></tr>
 <tr class="memitem:a44931abadbb5fea3bba9dd59540cf9cb" id="r_a44931abadbb5fea3bba9dd59540cf9cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44931abadbb5fea3bba9dd59540cf9cb">biweight</a> (glm::ivec2 shape)</td></tr>
@@ -32589,6 +32606,17 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
       </table>
 </div><div class="memdoc">
 
+<p>Resample an array to a target array using bicubic interpolation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>Source array. </td></tr>
+    <tr><td class="paramname">target</td><td>Target array. </td></tr>
+    <tr><td class="paramname">endpoint</td><td>Whether the upper domain endpoint is included. </td></tr>
+    <tr><td class="paramname">pixel_centered</td><td>Whether coordinates are pixel-centered. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="aa3322e388ba870c9d6881082da2fd800" name="aa3322e388ba870c9d6881082da2fd800"></a>
@@ -32630,6 +32658,19 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
       </table>
 </div><div class="memdoc">
 
+<p>Resample a source array into a target array using bicubic interpolation between two local axis-aligned bounding boxes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>Source array. </td></tr>
+    <tr><td class="paramname">target</td><td>Target array. </td></tr>
+    <tr><td class="paramname">bbox_source</td><td>Source local bounding box {xmin, xmax, ymin, ymax}. </td></tr>
+    <tr><td class="paramname">bbox_target</td><td>Target local bounding box {xmin, xmax, ymin, ymax}. </td></tr>
+    <tr><td class="paramname">endpoint</td><td>Whether the upper domain endpoint is included. </td></tr>
+    <tr><td class="paramname">pixel_centered</td><td>Whether coordinates are pixel-centered. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a28a6744fc26597330ca8eb9bbc4cd68e" name="a28a6744fc26597330ca8eb9bbc4cd68e"></a>
@@ -32660,6 +32701,17 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Resample an array to a target array using bilinear interpolation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>Source array. </td></tr>
+    <tr><td class="paramname">target</td><td>Target array. </td></tr>
+    <tr><td class="paramname">endpoint</td><td>Whether the upper domain endpoint is included. </td></tr>
+    <tr><td class="paramname">pixel_centered</td><td>Whether coordinates are pixel-centered. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -32702,6 +32754,19 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
       </table>
 </div><div class="memdoc">
 
+<p>Resample a source array into a target array using bilinear interpolation between two local axis-aligned bounding boxes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>Source array. </td></tr>
+    <tr><td class="paramname">target</td><td>Target array. </td></tr>
+    <tr><td class="paramname">bbox_source</td><td>Source local bounding box {xmin, xmax, ymin, ymax}. </td></tr>
+    <tr><td class="paramname">bbox_target</td><td>Target local bounding box {xmin, xmax, ymin, ymax}. </td></tr>
+    <tr><td class="paramname">endpoint</td><td>Whether the upper domain endpoint is included. </td></tr>
+    <tr><td class="paramname">pixel_centered</td><td>Whether coordinates are pixel-centered. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="ab55e8132857fc52e7ac7947d82c334e1" name="ab55e8132857fc52e7ac7947d82c334e1"></a>
@@ -32727,6 +32792,16 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Resample an array to a target array using nearest-neighbor interpolation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>Source array. </td></tr>
+    <tr><td class="paramname">target</td><td>Target array. </td></tr>
+    <tr><td class="paramname">endpoint</td><td>Whether the upper domain endpoint is included. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -32764,113 +32839,17 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="ace2076a7808458f99aeaeec2bc404d6b" name="ace2076a7808458f99aeaeec2bc404d6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace2076a7808458f99aeaeec2bc404d6b">&#9670;&#160;</a></span>flatten_heightmap() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::flatten_heightmap </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_source1</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_source2</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_source1</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_source2</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cm</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3dadec4e8aa2c67598a0e158756308c8" name="a3dadec4e8aa2c67598a0e158756308c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3dadec4e8aa2c67598a0e158756308c8">&#9670;&#160;</a></span>flatten_heightmap() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::flatten_heightmap </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> * &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>h_sources</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_target</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> * &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>t_sources</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_target</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cm</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aab05ca060b3dd80724ff669864c0f4d2" name="aab05ca060b3dd80724ff669864c0f4d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab05ca060b3dd80724ff669864c0f4d2">&#9670;&#160;</a></span>interpolate_heightmap()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::interpolate_heightmap </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_source</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_target</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_source</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_target</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cm</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Resample a source array into a target array using nearest-neighbor interpolation between two local axis-aligned bounding boxes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>Source array. </td></tr>
+    <tr><td class="paramname">target</td><td>Target array. </td></tr>
+    <tr><td class="paramname">bbox_source</td><td>Source local bounding box {xmin, xmax, ymin, ymax}. </td></tr>
+    <tr><td class="paramname">bbox_target</td><td>Target local bounding box {xmin, xmax, ymin, ymax}. </td></tr>
+    <tr><td class="paramname">endpoint</td><td>Whether the upper domain endpoint is included. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -32914,6 +32893,324 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> Resampled (and optionally warped) array. </dd></dl>
+
+</div>
+</div>
+<a id="ac933aac4efd0e34ce5189dc31ec8f565" name="ac933aac4efd0e34ce5189dc31ec8f565"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac933aac4efd0e34ce5189dc31ec8f565">&#9670;&#160;</a></span>flatten_terrain() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::flatten_terrain </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_source1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_source2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_source1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_source2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>bilinear</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Blend a second terrain array in-place onto a base terrain array using their world-space coordinate frames. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">h_source1</td><td>Base terrain array (modified in-place). </td></tr>
+    <tr><td class="paramname">h_source2</td><td>Overlay terrain array. </td></tr>
+    <tr><td class="paramname">t_source1</td><td>World coordinate frame of <code class="param">h_source1</code>. </td></tr>
+    <tr><td class="paramname">t_source2</td><td>World coordinate frame of <code class="param">h_source2</code>. </td></tr>
+    <tr><td class="paramname">bilinear</td><td>Use bilinear interpolation if true, nearest-neighbor otherwise. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aef1dc5b3a25a153ec393f440909854b7" name="aef1dc5b3a25a153ec393f440909854b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef1dc5b3a25a153ec393f440909854b7">&#9670;&#160;</a></span>flatten_terrain() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::flatten_terrain </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; const <a class="el" href="classhmap_1_1Array.html">Array</a> * &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>h_sources</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> * &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>t_sources</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>bilinear</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flatten multiple terrain arrays into a target array using their world-space coordinate frames. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">h_sources</td><td>Ordered list of source terrain arrays. </td></tr>
+    <tr><td class="paramname">h_target</td><td>Target terrain array. </td></tr>
+    <tr><td class="paramname">t_sources</td><td>World coordinate frames corresponding to <code class="param">h_sources</code>. </td></tr>
+    <tr><td class="paramname">t_target</td><td>World coordinate frame of <code class="param">h_target</code>. </td></tr>
+    <tr><td class="paramname">bilinear</td><td>Use bilinear interpolation if true, nearest-neighbor otherwise. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2d426b7bf43a41b14e57cf3662e48402" name="a2d426b7bf43a41b14e57cf3662e48402"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d426b7bf43a41b14e57cf3662e48402">&#9670;&#160;</a></span>interpolate_terrain() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::interpolate_terrain </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_source</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_source</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>bilinear</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>fill_value</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Project and interpolate a source terrain array onto a target terrain array using their world-space coordinate frames. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">h_source</td><td>Source terrain array. </td></tr>
+    <tr><td class="paramname">h_target</td><td>Target terrain array. </td></tr>
+    <tr><td class="paramname">t_source</td><td>World coordinate frame of <code class="param">h_source</code>. </td></tr>
+    <tr><td class="paramname">t_target</td><td>World coordinate frame of <code class="param">h_target</code>. </td></tr>
+    <tr><td class="paramname">bilinear</td><td>Use bilinear interpolation if true, nearest-neighbor otherwise. </td></tr>
+    <tr><td class="paramname">fill_value</td><td>Value assigned to target cells outside <code class="param">t_source</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab2ccc1e1c927a48b77dc77df3b37b5c1" name="ab2ccc1e1c927a48b77dc77df3b37b5c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2ccc1e1c927a48b77dc77df3b37b5c1">&#9670;&#160;</a></span>flatten_terrain() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::flatten_terrain </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_source1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_source2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_source1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_source2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cm</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>bilinear</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Blend a second terrain <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> in-place onto a base terrain <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> using their world-space coordinate frames. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">h_source1</td><td>Base terrain <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> (modified in-place). </td></tr>
+    <tr><td class="paramname">h_source2</td><td>Overlay terrain <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a>. </td></tr>
+    <tr><td class="paramname">t_source1</td><td>World coordinate frame of <code class="param">h_source1</code>. </td></tr>
+    <tr><td class="paramname">t_source2</td><td>World coordinate frame of <code class="param">h_source2</code>. </td></tr>
+    <tr><td class="paramname">cm</td><td>Compute mode controlling tiling and CPU distribution. </td></tr>
+    <tr><td class="paramname">bilinear</td><td>Use bilinear interpolation if true, nearest-neighbor otherwise. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3b2cbd269f964223781b492f223baf8b" name="a3b2cbd269f964223781b492f223baf8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b2cbd269f964223781b492f223baf8b">&#9670;&#160;</a></span>flatten_terrain() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::flatten_terrain </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> * &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>h_sources</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> * &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>t_sources</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cm</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>bilinear</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flatten multiple terrain VirtualArrays into a target <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> using their world-space coordinate frames. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">h_sources</td><td>Ordered list of source terrain VirtualArrays. </td></tr>
+    <tr><td class="paramname">h_target</td><td>Target terrain <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a>. </td></tr>
+    <tr><td class="paramname">t_sources</td><td>World coordinate frames corresponding to <code class="param">h_sources</code>. </td></tr>
+    <tr><td class="paramname">t_target</td><td>World coordinate frame of <code class="param">h_target</code>. </td></tr>
+    <tr><td class="paramname">cm</td><td>Compute mode controlling tiling and CPU distribution. </td></tr>
+    <tr><td class="paramname">bilinear</td><td>Use bilinear interpolation if true, nearest-neighbor otherwise. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3e9d2d127e876b6497c5fefd7893a79e" name="a3e9d2d127e876b6497c5fefd7893a79e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e9d2d127e876b6497c5fefd7893a79e">&#9670;&#160;</a></span>interpolate_terrain() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::interpolate_terrain </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_source</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>h_target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_source</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t_target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cm</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>bilinear</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>fill_value</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Project and interpolate a source terrain <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> onto a target terrain <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> using their world-space coordinate frames. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">h_source</td><td>Source terrain <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a>. </td></tr>
+    <tr><td class="paramname">h_target</td><td>Target terrain <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a>. </td></tr>
+    <tr><td class="paramname">t_source</td><td>World coordinate frame of <code class="param">h_source</code>. </td></tr>
+    <tr><td class="paramname">t_target</td><td>World coordinate frame of <code class="param">h_target</code>. </td></tr>
+    <tr><td class="paramname">cm</td><td>Compute mode controlling tiling and CPU distribution. </td></tr>
+    <tr><td class="paramname">bilinear</td><td>Use bilinear interpolation if true, nearest-neighbor otherwise. </td></tr>
+    <tr><td class="paramname">fill_value</td><td>Value assigned to target cells outside <code class="param">t_source</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

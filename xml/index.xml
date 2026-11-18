@@ -13,6 +13,15 @@
     <member refid="structhmap_1_1AABB2D_1a44650788b47dba658129e61c9c253d65" kind="function"><name>center</name></member>
     <member refid="structhmap_1_1AABB2D_1a9838e3e84603ed143bdb9cc662a287a4" kind="function"><name>extent</name></member>
   </compound>
+  <compound refid="structhmap_1_1AffineTransform2D" kind="struct"><name>hmap::AffineTransform2D</name>
+    <member refid="structhmap_1_1AffineTransform2D_1af0e4c5b5bffa4f6a3f4ff8b746e9394e" kind="variable"><name>ax</name></member>
+    <member refid="structhmap_1_1AffineTransform2D_1a4fd538c2ae9fdff12a0090197210d4ca" kind="variable"><name>bx</name></member>
+    <member refid="structhmap_1_1AffineTransform2D_1a2dbdf74c170cc900b905b3a0f43e7114" kind="variable"><name>cx</name></member>
+    <member refid="structhmap_1_1AffineTransform2D_1aee88f7d6309d07001cecdda29cb1e4e0" kind="variable"><name>ay</name></member>
+    <member refid="structhmap_1_1AffineTransform2D_1aec52985aaf0423c3b2b0224ad7f6b210" kind="variable"><name>by</name></member>
+    <member refid="structhmap_1_1AffineTransform2D_1a2388d285b5af7faacd16cb9c47273434" kind="variable"><name>cy</name></member>
+    <member refid="structhmap_1_1AffineTransform2D_1ac10703f011d6834454f578cee6d70dd0" kind="function"><name>apply</name></member>
+  </compound>
   <compound refid="classhmap_1_1Array" kind="class"><name>hmap::Array</name>
     <member refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kind="variable"><name>shape</name></member>
     <member refid="classhmap_1_1Array_1af586ddce153ac93df48a6d26609d7264" kind="variable"><name>vector</name></member>
@@ -331,12 +340,16 @@
     <member refid="classhmap_1_1CoordFrame_1a6666eb25c743ed5c2f07cc8f12dbf052" kind="function"><name>set_size</name></member>
     <member refid="classhmap_1_1CoordFrame_1a309642c71a4058665a48427b0c9248fc" kind="function"><name>set_rotation_angle</name></member>
     <member refid="classhmap_1_1CoordFrame_1a8d816754189a8244628bd4c6eefaf09c" kind="function"><name>compute_bounding_box</name></member>
-    <member refid="classhmap_1_1CoordFrame_1a5187c7f902c93fb4f750fb022d3b19b7" kind="function"><name>get_heightmap_value_bilinear</name></member>
+    <member refid="classhmap_1_1CoordFrame_1a6c80292ee841eb15b3725585139bc9e3" kind="function"><name>intersects</name></member>
     <member refid="classhmap_1_1CoordFrame_1a712f76df08417fcffc44b704e4ddd1be" kind="function"><name>is_point_within</name></member>
+    <member refid="classhmap_1_1CoordFrame_1ad29d7ef68c886538319903bef96d5a3d" kind="function"><name>is_unit_point_within</name></member>
+    <member refid="classhmap_1_1CoordFrame_1a843eb08808abe3a096d1b58e461f68d7" kind="function"><name>compute_relative_transform</name></member>
     <member refid="classhmap_1_1CoordFrame_1a3c9a2d05acd75d7dd6117263861d3cff" kind="function"><name>map_to_global_coords</name></member>
     <member refid="classhmap_1_1CoordFrame_1aeac43550d5345f7d1b16a469b906fefb" kind="function"><name>map_to_relative_coords</name></member>
+    <member refid="classhmap_1_1CoordFrame_1adff56b9f76f008e28fd9de6ddf02e96f" kind="function"><name>map_to_relative_coords</name></member>
     <member refid="classhmap_1_1CoordFrame_1af1f76997d4d33cc1cc1e63ffb1ca3ebd" kind="function"><name>normalized_distance_to_edges</name></member>
     <member refid="classhmap_1_1CoordFrame_1ab1c8fa8ed0244f4a54759253b629255c" kind="function"><name>normalized_shape_factor</name></member>
+    <member refid="classhmap_1_1CoordFrame_1a79df20e43ce62599f2cfb86b7adc12ce" kind="function"><name>normalized_shape_factor_rel</name></member>
   </compound>
   <compound refid="classhmap_1_1CraterFunction" kind="class"><name>hmap::CraterFunction</name>
     <member refid="classhmap_1_1CraterFunction_1adae66715438224e2baf42c710132a856" kind="variable"><name>radius</name></member>
@@ -2612,10 +2625,13 @@
     <member refid="namespacehmap_1afda0e8ec3557ce5a30c2f62647f04842" kind="function"><name>interpolate_array_bilinear</name></member>
     <member refid="namespacehmap_1ab55e8132857fc52e7ac7947d82c334e1" kind="function"><name>interpolate_array_nearest</name></member>
     <member refid="namespacehmap_1a57eeac393011b44f661c27a7b6e2a2b6" kind="function"><name>interpolate_array_nearest</name></member>
-    <member refid="namespacehmap_1ace2076a7808458f99aeaeec2bc404d6b" kind="function"><name>flatten_heightmap</name></member>
-    <member refid="namespacehmap_1a3dadec4e8aa2c67598a0e158756308c8" kind="function"><name>flatten_heightmap</name></member>
-    <member refid="namespacehmap_1aab05ca060b3dd80724ff669864c0f4d2" kind="function"><name>interpolate_heightmap</name></member>
     <member refid="namespacehmap_1a1489cc458b4e23a36b8c35faa960d358" kind="function"><name>resample_bicubic_warp</name></member>
+    <member refid="namespacehmap_1ac933aac4efd0e34ce5189dc31ec8f565" kind="function"><name>flatten_terrain</name></member>
+    <member refid="namespacehmap_1aef1dc5b3a25a153ec393f440909854b7" kind="function"><name>flatten_terrain</name></member>
+    <member refid="namespacehmap_1a2d426b7bf43a41b14e57cf3662e48402" kind="function"><name>interpolate_terrain</name></member>
+    <member refid="namespacehmap_1ab2ccc1e1c927a48b77dc77df3b37b5c1" kind="function"><name>flatten_terrain</name></member>
+    <member refid="namespacehmap_1a3b2cbd269f964223781b492f223baf8b" kind="function"><name>flatten_terrain</name></member>
+    <member refid="namespacehmap_1a3e9d2d127e876b6497c5fefd7893a79e" kind="function"><name>interpolate_terrain</name></member>
     <member refid="namespacehmap_1a6b058e4341f421d058c4d0d408d30654" kind="function"><name>get_kernel</name></member>
     <member refid="namespacehmap_1a44931abadbb5fea3bba9dd59540cf9cb" kind="function"><name>biweight</name></member>
     <member refid="namespacehmap_1abc5852a4cae426341235d60a04964fc1" kind="function"><name>blackman</name></member>
@@ -3069,6 +3085,8 @@
   </compound>
   <compound refid="namespacehmap_1_1_0d017076073275333351254352052176234225226063341176" kind="namespace"><name>hmap::@017076073275333351254352052176234225226063341176</name>
   </compound>
+  <compound refid="namespacehmap_1_1_0d053042361142245167015050135045257152377332223317" kind="namespace"><name>hmap::@053042361142245167015050135045257152377332223317</name>
+  </compound>
   <compound refid="namespacehmap_1_1_0d065152075152164273333350045373104266104054350073" kind="namespace"><name>hmap::@065152075152164273333350045373104266104054350073</name>
   </compound>
   <compound refid="namespacehmap_1_1_0d125033224043103213263030000115032113353304016031" kind="namespace"><name>hmap::@125033224043103213263030000115032113353304016031</name>
@@ -3087,6 +3105,8 @@
   <compound refid="namespacehmap_1_1_0d217045012315251003113132325072234217066032033014" kind="namespace"><name>hmap::@217045012315251003113132325072234217066032033014</name>
   </compound>
   <compound refid="namespacehmap_1_1_0d242217015250311237016110102033230377221142112023" kind="namespace"><name>hmap::@242217015250311237016110102033230377221142112023</name>
+  </compound>
+  <compound refid="namespacehmap_1_1_0d250012231040105224317207240346266040307347040075" kind="namespace"><name>hmap::@250012231040105224317207240346266040307347040075</name>
   </compound>
   <compound refid="namespacehmap_1_1_0d262252202325052162142026244371052135321125254062" kind="namespace"><name>hmap::@262252202325052162142026244371052135321125254062</name>
   </compound>
@@ -3618,6 +3638,8 @@
   </compound>
   <compound refid="interpolate__curve_8hpp" kind="file"><name>interpolate_curve.hpp</name>
   </compound>
+  <compound refid="interpolate__terrain_8hpp" kind="file"><name>interpolate_terrain.hpp</name>
+  </compound>
   <compound refid="kernels_8hpp" kind="file"><name>kernels.hpp</name>
   </compound>
   <compound refid="local__metrics_8hpp" kind="file"><name>local_metrics.hpp</name>
@@ -4101,7 +4123,7 @@
   </compound>
   <compound refid="interpolate__curve_8cpp" kind="file"><name>interpolate_curve.cpp</name>
   </compound>
-  <compound refid="interpolate__heightmap__virtual__array_8cpp" kind="file"><name>interpolate_heightmap_virtual_array.cpp</name>
+  <compound refid="interpolate__terrain_8cpp" kind="file"><name>interpolate_terrain.cpp</name>
   </compound>
   <compound refid="natural__neighbor__interpolator_8cpp" kind="file"><name>natural_neighbor_interpolator.cpp</name>
   </compound>
@@ -4551,6 +4573,12 @@
     <member refid="test__convolution__scaling_8cpp_1a072356e877b58a1c0a9d10abde9680b4" kind="function"><name>TEST</name></member>
     <member refid="test__convolution__scaling_8cpp_1ab84810db0c8330909682edbc545f6df1" kind="function"><name>TEST</name></member>
     <member refid="test__convolution__scaling_8cpp_1a9fd7e6b8fdcedbcc557303f4fae731ef" kind="function"><name>TEST</name></member>
+  </compound>
+  <compound refid="test__coord__frame_8cpp" kind="file"><name>test_coord_frame.cpp</name>
+    <member refid="test__coord__frame_8cpp_1aa0f3dcb92d4b8d64472bc023da651c72" kind="function"><name>TEST</name></member>
+    <member refid="test__coord__frame_8cpp_1a55755902effde5b0b7660b57d03550af" kind="function"><name>TEST</name></member>
+    <member refid="test__coord__frame_8cpp_1a3ae6222df92a842f08b2eaef0280fbd7" kind="function"><name>TEST</name></member>
+    <member refid="test__coord__frame_8cpp_1a233617a733004f1d4abe6ab3483ccb1c" kind="function"><name>TEST</name></member>
   </compound>
   <compound refid="test__decimate__vw_8cpp" kind="file"><name>test_decimate_vw.cpp</name>
     <member refid="test__decimate__vw_8cpp_1af6771c6e6f7535a7cfe4ec2fba540217" kind="function"><name>generate_line</name></member>

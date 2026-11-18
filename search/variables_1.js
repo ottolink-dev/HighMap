@@ -7,5 +7,7 @@ var searchData=
   ['bbox_5fdx_4',['bbox_dx',['../structhmap_1_1ForestScaleSampler.html#a5b52199da1105ede4c35127216826394',1,'hmap::ForestScaleSampler']]],
   ['bbox_5fdy_5',['bbox_dy',['../structhmap_1_1ForestScaleSampler.html#a97788d3f9626dafe95907209d15f56b4',1,'hmap::ForestScaleSampler']]],
   ['bed_5fshear_6',['bed_shear',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a95ca00549157d870b06c62d10efc65e2',1,'hmap::gpu::McDonaldParams::PhysicalParams']]],
-  ['border_5fmargin_7',['border_margin',['../structhmap_1_1PoiGenerationOptions.html#a020d35a64ca1d7e39a196a75d9ed7a63',1,'hmap::PoiGenerationOptions']]]
+  ['border_5fmargin_7',['border_margin',['../structhmap_1_1PoiGenerationOptions.html#a020d35a64ca1d7e39a196a75d9ed7a63',1,'hmap::PoiGenerationOptions']]],
+  ['bx_8',['bx',['../structhmap_1_1AffineTransform2D.html#a4fd538c2ae9fdff12a0090197210d4ca',1,'hmap::AffineTransform2D']]],
+  ['by_9',['by',['../structhmap_1_1AffineTransform2D.html#aec52985aaf0423c3b2b0224ad7f6b210',1,'hmap::AffineTransform2D']]]
 ];

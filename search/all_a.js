@@ -97,5 +97,7 @@ var searchData=
   ['bvh2d_94',['BVH2D',['../classhmap_1_1BVH2D.html',1,'hmap::BVH2D'],['../classhmap_1_1BVH2D.html#ad86e8787d4bad496f7496a5e6be79761',1,'hmap::BVH2D::BVH2D()=default'],['../classhmap_1_1BVH2D.html#a7cc7f3cf05bc288ee0dfe9de8775cfb7',1,'hmap::BVH2D::BVH2D(const std::vector&lt; Segment2D &gt; &amp;segments, float padding=0.f)'],['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md74',1,'Performance Analysis: GPU Brute Force vs CPU BVH2D']]],
   ['bvh2d_20acceleration_20for_20bézier_20curves_95',['BVH2D Acceleration for Bézier Curves',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md72',1,'']]],
   ['bvh2d_20spatial_20indexing_20for_20path_20sdf_20computation_96',['BVH2D Spatial Indexing for Path SDF Computation',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html',1,'']]],
-  ['bvh2d_5fpath_5fsdf_2emd_97',['bvh2d_path_sdf.md',['../bvh2d__path__sdf_8md.html',1,'']]]
+  ['bvh2d_5fpath_5fsdf_2emd_97',['bvh2d_path_sdf.md',['../bvh2d__path__sdf_8md.html',1,'']]],
+  ['bx_98',['bx',['../structhmap_1_1AffineTransform2D.html#a4fd538c2ae9fdff12a0090197210d4ca',1,'hmap::AffineTransform2D']]],
+  ['by_99',['by',['../structhmap_1_1AffineTransform2D.html#aec52985aaf0423c3b2b0224ad7f6b210',1,'hmap::AffineTransform2D']]]
 ];

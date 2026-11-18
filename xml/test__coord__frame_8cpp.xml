@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="test__coord__frame_8cpp" kind="file" language="C++">
+    <compoundname>test_coord_frame.cpp</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="test__coord__frame_8cpp_1aa0f3dcb92d4b8d64472bc023da651c72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(CoordFrameTest, TransformAndIntersection)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>CoordFrameTest</type>
+        </param>
+        <param>
+          <type>TransformAndIntersection</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_coord_frame.cpp" line="10" column="1" bodyfile="tests/src/test_coord_frame.cpp" bodystart="10" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="test__coord__frame_8cpp_1a55755902effde5b0b7660b57d03550af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(CoordFrameTest, ArrayIdentityPreservation)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>CoordFrameTest</type>
+        </param>
+        <param>
+          <type>ArrayIdentityPreservation</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_coord_frame.cpp" line="27" column="1" bodyfile="tests/src/test_coord_frame.cpp" bodystart="27" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="test__coord__frame_8cpp_1a3ae6222df92a842f08b2eaef0280fbd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(CoordFrameTest, VirtualArrayModesAndStreaming)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>CoordFrameTest</type>
+        </param>
+        <param>
+          <type>VirtualArrayModesAndStreaming</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_coord_frame.cpp" line="45" column="1" bodyfile="tests/src/test_coord_frame.cpp" bodystart="45" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="test__coord__frame_8cpp_1a233617a733004f1d4abe6ab3483ccb1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TEST</definition>
+        <argsstring>(CoordFrameTest, FlattenHeightmapInPlace)</argsstring>
+        <name>TEST</name>
+        <param>
+          <type>CoordFrameTest</type>
+        </param>
+        <param>
+          <type>FlattenHeightmapInPlace</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="tests/src/test_coord_frame.cpp" line="98" column="1" bodyfile="tests/src/test_coord_frame.cpp" bodystart="98" bodyend="118"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="array_8hpp" kindref="compound">highmap/array.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="coord__frame_8hpp" kindref="compound">highmap/coord_frame.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="interpolate__terrain_8hpp" kindref="compound">highmap/interpolate/interpolate_terrain.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="virtual__array_2virtual__array_8hpp" kindref="compound">highmap/virtual_array/virtual_array.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref>;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><ref refid="test__coord__frame_8cpp_1aa0f3dcb92d4b8d64472bc023da651c72" kindref="member">TEST</ref>(CoordFrameTest,<sp/>TransformAndIntersection)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref><sp/>f1({0.f,<sp/>0.f},<sp/>{10.f,<sp/>10.f},<sp/>0.f);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref><sp/>f2({5.f,<sp/>5.f},<sp/>{10.f,<sp/>10.f},<sp/>45.f);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref><sp/>f3({100.f,<sp/>100.f},<sp/>{10.f,<sp/>10.f},<sp/>0.f);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(f1.intersects(f2));</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>EXPECT_FALSE(f1.intersects(f3));</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>rel<sp/>=<sp/>f1.map_to_relative_coords(f2,<sp/>0.5f,<sp/>0.5f);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>g1<sp/>=<sp/>f1.map_to_global_coords(0.5f,<sp/>0.5f);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>rel_expected<sp/>=<sp/>f2.map_to_relative_coords(g1.x,<sp/>g1.y);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(rel.x,<sp/>rel_expected.x,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(rel.y,<sp/>rel_expected.y,<sp/>1e-5f);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><ref refid="test__coord__frame_8cpp_1aa0f3dcb92d4b8d64472bc023da651c72" kindref="member">TEST</ref>(CoordFrameTest,<sp/>ArrayIdentityPreservation)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape{32,<sp/>24};</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>src(shape);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>shape.y;<sp/>++j)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>shape.x;<sp/>++i)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>src(i,<sp/>j)<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(i<sp/>*<sp/>3<sp/>+<sp/>j<sp/>*<sp/>7);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref><sp/>frame({10.f,<sp/>-5.f},<sp/>{50.f,<sp/>30.f},<sp/>27.f);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>dst(shape);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a2d426b7bf43a41b14e57cf3662e48402" kindref="member">interpolate_terrain</ref>(src,<sp/>dst,<sp/>frame,<sp/>frame,<sp/></highlight><highlight class="comment">/*bilinear=*/</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>shape.y;<sp/>++j)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>shape.x;<sp/>++i)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_NEAR(dst(i,<sp/>j),<sp/>src(i,<sp/>j),<sp/>1e-4f);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><ref refid="test__coord__frame_8cpp_1aa0f3dcb92d4b8d64472bc023da651c72" kindref="member">TEST</ref>(CoordFrameTest,<sp/>VirtualArrayModesAndStreaming)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape{64,<sp/>64};</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>tile_shape{16,<sp/>16};</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>src_arr(shape);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>shape.y;<sp/>++j)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>shape.x;<sp/>++i)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>src_arr(i,<sp/>j)<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(i<sp/>+<sp/>2<sp/>*<sp/>j);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref><sp/>t_src({0.f,<sp/>0.f},<sp/>{100.f,<sp/>100.f},<sp/>0.f);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref><sp/>t_dst({25.f,<sp/>25.f},<sp/>{50.f,<sp/>50.f},<sp/>15.f);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>ref_dst(shape);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a2d426b7bf43a41b14e57cf3662e48402" kindref="member">interpolate_terrain</ref>(src_arr,<sp/>ref_dst,<sp/>t_src,<sp/>t_dst,<sp/></highlight><highlight class="comment">/*bilinear=*/</highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/>-1.f);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>mode<sp/>:<sp/>{<ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5ad610a3b158cd10452fc144bda389aa19" kindref="member">ForEachMode::VA_SEQUENTIAL</ref>,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5" kindref="member">ForEachMode::VA_DISTRIBUTED</ref>,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5afd32b1bf1363b0e44143bda30f00cffa" kindref="member">ForEachMode::VA_SINGLE_ARRAY</ref>})</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6e" kindref="member">StorageMode</ref><sp/>storage<sp/>=<sp/>(mode<sp/>==<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5ad610a3b158cd10452fc144bda389aa19" kindref="member">ForEachMode::VA_SEQUENTIAL</ref>)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eaeb3679afb692a171a18afd9971d27e3a" kindref="member">StorageMode::VA_DISK_LRU_STREAM</ref></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6e" kindref="member">StorageMode</ref>::<ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">VA_RAM</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/>cm{.mode<sp/>=<sp/>mode};</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>va_src(shape,<sp/>tile_shape,<sp/>halo,<sp/>storage);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>va_src.from_array(src_arr,<sp/>cm);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>va_dst(shape,<sp/>tile_shape,<sp/>halo,<sp/>storage);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a2d426b7bf43a41b14e57cf3662e48402" kindref="member">interpolate_terrain</ref>(va_src,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>va_dst,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t_src,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t_dst,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cm,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*bilinear=*/</highlight><highlight class="keyword">true</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-1.f);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(storage<sp/>==<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eaeb3679afb692a171a18afd9971d27e3a" kindref="member">StorageMode::VA_DISK_LRU_STREAM</ref>)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_EQ(va_src.live_tile_count(),<sp/>0u);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_EQ(va_dst.live_tile_count(),<sp/>0u);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>dst_arr<sp/>=<sp/>va_dst.to_array(cm);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>shape.y;<sp/>++j)</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>shape.x;<sp/>++i)</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EXPECT_NEAR(dst_arr(i,<sp/>j),<sp/>ref_dst(i,<sp/>j),<sp/>1e-3f)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Mismatch<sp/>at<sp/>(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>i<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>j<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;)<sp/>in<sp/>mode<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/><ref refid="namespacehmap_1af51191620f4e1671658a1d677e9291de" kindref="member">to_string</ref>(mode);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><ref refid="test__coord__frame_8cpp_1aa0f3dcb92d4b8d64472bc023da651c72" kindref="member">TEST</ref>(CoordFrameTest,<sp/>FlattenHeightmapInPlace)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/>shape{32,<sp/>32};</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/>tile_shape{16,<sp/>16};</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/>cm{.mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5" kindref="member">ForEachMode::VA_DISTRIBUTED</ref>};</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>va1(shape,<sp/>tile_shape,<sp/>2,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/>va2(shape,<sp/>tile_shape,<sp/>2,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>va1.fill(1.0f,<sp/>cm);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/>va2.fill(5.0f,<sp/>cm);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref><sp/>t1({0.f,<sp/>0.f},<sp/>{10.f,<sp/>10.f},<sp/>0.f);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref><sp/>t2({2.f,<sp/>2.f},<sp/>{6.f,<sp/>6.f},<sp/>0.f);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac933aac4efd0e34ce5189dc31ec8f565" kindref="member">flatten_terrain</ref>(va1,<sp/>va2,<sp/>t1,<sp/>t2,<sp/>cm);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>out<sp/>=<sp/>va1.to_array(cm);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Outside<sp/>t2<sp/>remains<sp/>1.0,<sp/>center<sp/>of<sp/>t2<sp/>blends<sp/>toward<sp/>5.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>EXPECT_FLOAT_EQ(out(0,<sp/>0),<sp/>1.0f);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(out(16,<sp/>16),<sp/>5.0f,<sp/>0.1f);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="tests/src/test_coord_frame.cpp"/>
+  </compounddef>
+</doxygen>

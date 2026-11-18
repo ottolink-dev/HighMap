@@ -20,6 +20,7 @@ var dir_171063ca2b6d8df6d9147a9ad3041fe6 =
     [ "test_compute_mode_matrix.cpp", "test__compute__mode__matrix_8cpp.html", "test__compute__mode__matrix_8cpp" ],
     [ "test_connected_components.cpp", "test__connected__components_8cpp.html", "test__connected__components_8cpp" ],
     [ "test_convolution_scaling.cpp", "test__convolution__scaling_8cpp.html", "test__convolution__scaling_8cpp" ],
+    [ "test_coord_frame.cpp", "test__coord__frame_8cpp.html", "test__coord__frame_8cpp" ],
     [ "test_decimate_vw.cpp", "test__decimate__vw_8cpp.html", "test__decimate__vw_8cpp" ],
     [ "test_distance_shaper.cpp", "test__distance__shaper_8cpp.html", "test__distance__shaper_8cpp" ],
     [ "test_distance_transform.cpp", "test__distance__transform_8cpp.html", "test__distance__transform_8cpp" ],

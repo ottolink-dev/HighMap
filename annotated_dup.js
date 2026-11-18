@@ -21,6 +21,7 @@ var annotated_dup =
       [ "GaussianPush", "structhmap_1_1GaussianPush.html", "structhmap_1_1GaussianPush" ],
       [ "ColorAdjust", "structhmap_1_1ColorAdjust.html", "structhmap_1_1ColorAdjust" ],
       [ "TerrainTextureParams", "structhmap_1_1TerrainTextureParams.html", "structhmap_1_1TerrainTextureParams" ],
+      [ "AffineTransform2D", "structhmap_1_1AffineTransform2D.html", "structhmap_1_1AffineTransform2D" ],
       [ "CoordFrame", "classhmap_1_1CoordFrame.html", "classhmap_1_1CoordFrame" ],
       [ "MiseParams", "structhmap_1_1MiseParams.html", "structhmap_1_1MiseParams" ],
       [ "BigTiffWriter", "classhmap_1_1BigTiffWriter.html", "classhmap_1_1BigTiffWriter" ],

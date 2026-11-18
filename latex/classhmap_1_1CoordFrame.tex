@@ -25,17 +25,25 @@ void \mbox{\hyperlink{classhmap_1_1CoordFrame_a309642c71a4058665a48427b0c9248fc}
 \item 
 glm\+::vec4 \mbox{\hyperlink{classhmap_1_1CoordFrame_a8d816754189a8244628bd4c6eefaf09c}{compute\+\_\+bounding\+\_\+box}} () const
 \item 
-float \mbox{\hyperlink{classhmap_1_1CoordFrame_a5187c7f902c93fb4f750fb022d3b19b7}{get\+\_\+heightmap\+\_\+value\+\_\+bilinear}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&h, float gx, float gy, float fill\+\_\+value=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}) const
+bool \mbox{\hyperlink{classhmap_1_1CoordFrame_a6c80292ee841eb15b3725585139bc9e3}{intersects}} (const \mbox{\hyperlink{classhmap_1_1CoordFrame_ab015ceb2231eee4beeee57ee07bb19f3}{Coord\+Frame}} \&other) const
 \item 
 bool \mbox{\hyperlink{classhmap_1_1CoordFrame_a712f76df08417fcffc44b704e4ddd1be}{is\+\_\+point\+\_\+within}} (float gx, float gy) const
+\item 
+bool \mbox{\hyperlink{classhmap_1_1CoordFrame_ad29d7ef68c886538319903bef96d5a3d}{is\+\_\+unit\+\_\+point\+\_\+within}} (float rx, float ry) const
+\item 
+\mbox{\hyperlink{structhmap_1_1AffineTransform2D}{Affine\+Transform2D}} \mbox{\hyperlink{classhmap_1_1CoordFrame_a843eb08808abe3a096d1b58e461f68d7}{compute\+\_\+relative\+\_\+transform}} (const \mbox{\hyperlink{classhmap_1_1CoordFrame_ab015ceb2231eee4beeee57ee07bb19f3}{Coord\+Frame}} \&other) const
 \item 
 glm\+::vec2 \mbox{\hyperlink{classhmap_1_1CoordFrame_a3c9a2d05acd75d7dd6117263861d3cff}{map\+\_\+to\+\_\+global\+\_\+coords}} (float rx, float ry) const
 \item 
 glm\+::vec2 \mbox{\hyperlink{classhmap_1_1CoordFrame_aeac43550d5345f7d1b16a469b906fefb}{map\+\_\+to\+\_\+relative\+\_\+coords}} (float gx, float gy) const
 \item 
+glm\+::vec2 \mbox{\hyperlink{classhmap_1_1CoordFrame_adff56b9f76f008e28fd9de6ddf02e96f}{map\+\_\+to\+\_\+relative\+\_\+coords}} (const \mbox{\hyperlink{classhmap_1_1CoordFrame_ab015ceb2231eee4beeee57ee07bb19f3}{Coord\+Frame}} \&other, float rx, float ry) const
+\item 
 float \mbox{\hyperlink{classhmap_1_1CoordFrame_af1f76997d4d33cc1cc1e63ffb1ca3ebd}{normalized\+\_\+distance\+\_\+to\+\_\+edges}} (float gx, float gy) const
 \item 
 float \mbox{\hyperlink{classhmap_1_1CoordFrame_ab1c8fa8ed0244f4a54759253b629255c}{normalized\+\_\+shape\+\_\+factor}} (float gx, float gy) const
+\item 
+float \mbox{\hyperlink{classhmap_1_1CoordFrame_a79df20e43ce62599f2cfb86b7adc12ce}{normalized\+\_\+shape\+\_\+factor\+\_\+rel}} (float rx, float ry) const
 \end{DoxyCompactItemize}
 
 
@@ -63,13 +71,13 @@ hmap\+::\+Coord\+Frame\+::\+Coord\+Frame (\begin{DoxyParamCaption}\item[{glm\+::
 \index{get\_origin@{get\_origin}!hmap::CoordFrame@{hmap::CoordFrame}}
 \doxysubsubsection{\texorpdfstring{get\_origin()}{get\_origin()}}
 {\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_aafb7aff2dd90eba7aa198a3a7bdb6ccb} 
-glm\+::vec2 hmap\+::\+Coord\+Frame\+::get\+\_\+origin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+glm\+::vec2 hmap\+::\+Coord\+Frame\+::get\+\_\+origin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 \Hypertarget{classhmap_1_1CoordFrame_a8971f4090cb5cd1e9ff0ac1f0e1f06cd}\index{hmap::CoordFrame@{hmap::CoordFrame}!get\_size@{get\_size}}
 \index{get\_size@{get\_size}!hmap::CoordFrame@{hmap::CoordFrame}}
 \doxysubsubsection{\texorpdfstring{get\_size()}{get\_size()}}
 {\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_a8971f4090cb5cd1e9ff0ac1f0e1f06cd} 
-glm\+::vec2 hmap\+::\+Coord\+Frame\+::get\+\_\+size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+glm\+::vec2 hmap\+::\+Coord\+Frame\+::get\+\_\+size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 \Hypertarget{classhmap_1_1CoordFrame_aebce63606ddca495d41de463cafb33bd}\index{hmap::CoordFrame@{hmap::CoordFrame}!get\_rotation\_angle@{get\_rotation\_angle}}
 \index{get\_rotation\_angle@{get\_rotation\_angle}!hmap::CoordFrame@{hmap::CoordFrame}}
@@ -81,13 +89,13 @@ float hmap\+::\+Coord\+Frame\+::get\+\_\+rotation\+\_\+angle (\begin{DoxyParamCa
 \index{set\_origin@{set\_origin}!hmap::CoordFrame@{hmap::CoordFrame}}
 \doxysubsubsection{\texorpdfstring{set\_origin()}{set\_origin()}}
 {\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_a222b1c7967bcff3c088d2c210dd15036} 
-void hmap\+::\+Coord\+Frame\+::set\+\_\+origin (\begin{DoxyParamCaption}\item[{glm\+::vec2}]{new\+\_\+origin}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void hmap\+::\+Coord\+Frame\+::set\+\_\+origin (\begin{DoxyParamCaption}\item[{glm\+::vec2}]{new\+\_\+origin}{}\end{DoxyParamCaption})}
 
 \Hypertarget{classhmap_1_1CoordFrame_a6666eb25c743ed5c2f07cc8f12dbf052}\index{hmap::CoordFrame@{hmap::CoordFrame}!set\_size@{set\_size}}
 \index{set\_size@{set\_size}!hmap::CoordFrame@{hmap::CoordFrame}}
 \doxysubsubsection{\texorpdfstring{set\_size()}{set\_size()}}
 {\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_a6666eb25c743ed5c2f07cc8f12dbf052} 
-void hmap\+::\+Coord\+Frame\+::set\+\_\+size (\begin{DoxyParamCaption}\item[{glm\+::vec2}]{new\+\_\+size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void hmap\+::\+Coord\+Frame\+::set\+\_\+size (\begin{DoxyParamCaption}\item[{glm\+::vec2}]{new\+\_\+size}{}\end{DoxyParamCaption})}
 
 \Hypertarget{classhmap_1_1CoordFrame_a309642c71a4058665a48427b0c9248fc}\index{hmap::CoordFrame@{hmap::CoordFrame}!set\_rotation\_angle@{set\_rotation\_angle}}
 \index{set\_rotation\_angle@{set\_rotation\_angle}!hmap::CoordFrame@{hmap::CoordFrame}}
@@ -101,17 +109,29 @@ void hmap\+::\+Coord\+Frame\+::set\+\_\+rotation\+\_\+angle (\begin{DoxyParamCap
 {\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_a8d816754189a8244628bd4c6eefaf09c} 
 glm\+::vec4 hmap\+::\+Coord\+Frame\+::compute\+\_\+bounding\+\_\+box (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
-\Hypertarget{classhmap_1_1CoordFrame_a5187c7f902c93fb4f750fb022d3b19b7}\index{hmap::CoordFrame@{hmap::CoordFrame}!get\_heightmap\_value\_bilinear@{get\_heightmap\_value\_bilinear}}
-\index{get\_heightmap\_value\_bilinear@{get\_heightmap\_value\_bilinear}!hmap::CoordFrame@{hmap::CoordFrame}}
-\doxysubsubsection{\texorpdfstring{get\_heightmap\_value\_bilinear()}{get\_heightmap\_value\_bilinear()}}
-{\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_a5187c7f902c93fb4f750fb022d3b19b7} 
-float hmap\+::\+Coord\+Frame\+::get\+\_\+heightmap\+\_\+value\+\_\+bilinear (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{h}{, }\item[{float}]{gx}{, }\item[{float}]{gy}{, }\item[{float}]{fill\+\_\+value}{ = {\ttfamily 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption}) const}
+\Hypertarget{classhmap_1_1CoordFrame_a6c80292ee841eb15b3725585139bc9e3}\index{hmap::CoordFrame@{hmap::CoordFrame}!intersects@{intersects}}
+\index{intersects@{intersects}!hmap::CoordFrame@{hmap::CoordFrame}}
+\doxysubsubsection{\texorpdfstring{intersects()}{intersects()}}
+{\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_a6c80292ee841eb15b3725585139bc9e3} 
+bool hmap\+::\+Coord\+Frame\+::intersects (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame_ab015ceb2231eee4beeee57ee07bb19f3}{Coord\+Frame}} \&}]{other}{}\end{DoxyParamCaption}) const}
 
 \Hypertarget{classhmap_1_1CoordFrame_a712f76df08417fcffc44b704e4ddd1be}\index{hmap::CoordFrame@{hmap::CoordFrame}!is\_point\_within@{is\_point\_within}}
 \index{is\_point\_within@{is\_point\_within}!hmap::CoordFrame@{hmap::CoordFrame}}
 \doxysubsubsection{\texorpdfstring{is\_point\_within()}{is\_point\_within()}}
 {\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_a712f76df08417fcffc44b704e4ddd1be} 
 bool hmap\+::\+Coord\+Frame\+::is\+\_\+point\+\_\+within (\begin{DoxyParamCaption}\item[{float}]{gx}{, }\item[{float}]{gy}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{classhmap_1_1CoordFrame_ad29d7ef68c886538319903bef96d5a3d}\index{hmap::CoordFrame@{hmap::CoordFrame}!is\_unit\_point\_within@{is\_unit\_point\_within}}
+\index{is\_unit\_point\_within@{is\_unit\_point\_within}!hmap::CoordFrame@{hmap::CoordFrame}}
+\doxysubsubsection{\texorpdfstring{is\_unit\_point\_within()}{is\_unit\_point\_within()}}
+{\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_ad29d7ef68c886538319903bef96d5a3d} 
+bool hmap\+::\+Coord\+Frame\+::is\+\_\+unit\+\_\+point\+\_\+within (\begin{DoxyParamCaption}\item[{float}]{rx}{, }\item[{float}]{ry}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{classhmap_1_1CoordFrame_a843eb08808abe3a096d1b58e461f68d7}\index{hmap::CoordFrame@{hmap::CoordFrame}!compute\_relative\_transform@{compute\_relative\_transform}}
+\index{compute\_relative\_transform@{compute\_relative\_transform}!hmap::CoordFrame@{hmap::CoordFrame}}
+\doxysubsubsection{\texorpdfstring{compute\_relative\_transform()}{compute\_relative\_transform()}}
+{\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_a843eb08808abe3a096d1b58e461f68d7} 
+\mbox{\hyperlink{structhmap_1_1AffineTransform2D}{Affine\+Transform2D}} hmap\+::\+Coord\+Frame\+::compute\+\_\+relative\+\_\+transform (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame_ab015ceb2231eee4beeee57ee07bb19f3}{Coord\+Frame}} \&}]{other}{}\end{DoxyParamCaption}) const}
 
 \Hypertarget{classhmap_1_1CoordFrame_a3c9a2d05acd75d7dd6117263861d3cff}\index{hmap::CoordFrame@{hmap::CoordFrame}!map\_to\_global\_coords@{map\_to\_global\_coords}}
 \index{map\_to\_global\_coords@{map\_to\_global\_coords}!hmap::CoordFrame@{hmap::CoordFrame}}
@@ -121,9 +141,15 @@ glm\+::vec2 hmap\+::\+Coord\+Frame\+::map\+\_\+to\+\_\+global\+\_\+coords (\begi
 
 \Hypertarget{classhmap_1_1CoordFrame_aeac43550d5345f7d1b16a469b906fefb}\index{hmap::CoordFrame@{hmap::CoordFrame}!map\_to\_relative\_coords@{map\_to\_relative\_coords}}
 \index{map\_to\_relative\_coords@{map\_to\_relative\_coords}!hmap::CoordFrame@{hmap::CoordFrame}}
-\doxysubsubsection{\texorpdfstring{map\_to\_relative\_coords()}{map\_to\_relative\_coords()}}
+\doxysubsubsection{\texorpdfstring{map\_to\_relative\_coords()}{map\_to\_relative\_coords()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_aeac43550d5345f7d1b16a469b906fefb} 
 glm\+::vec2 hmap\+::\+Coord\+Frame\+::map\+\_\+to\+\_\+relative\+\_\+coords (\begin{DoxyParamCaption}\item[{float}]{gx}{, }\item[{float}]{gy}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{classhmap_1_1CoordFrame_adff56b9f76f008e28fd9de6ddf02e96f}\index{hmap::CoordFrame@{hmap::CoordFrame}!map\_to\_relative\_coords@{map\_to\_relative\_coords}}
+\index{map\_to\_relative\_coords@{map\_to\_relative\_coords}!hmap::CoordFrame@{hmap::CoordFrame}}
+\doxysubsubsection{\texorpdfstring{map\_to\_relative\_coords()}{map\_to\_relative\_coords()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_adff56b9f76f008e28fd9de6ddf02e96f} 
+glm\+::vec2 hmap\+::\+Coord\+Frame\+::map\+\_\+to\+\_\+relative\+\_\+coords (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame_ab015ceb2231eee4beeee57ee07bb19f3}{Coord\+Frame}} \&}]{other}{, }\item[{float}]{rx}{, }\item[{float}]{ry}{}\end{DoxyParamCaption}) const}
 
 \Hypertarget{classhmap_1_1CoordFrame_af1f76997d4d33cc1cc1e63ffb1ca3ebd}\index{hmap::CoordFrame@{hmap::CoordFrame}!normalized\_distance\_to\_edges@{normalized\_distance\_to\_edges}}
 \index{normalized\_distance\_to\_edges@{normalized\_distance\_to\_edges}!hmap::CoordFrame@{hmap::CoordFrame}}
@@ -136,6 +162,12 @@ float hmap\+::\+Coord\+Frame\+::normalized\+\_\+distance\+\_\+to\+\_\+edges (\be
 \doxysubsubsection{\texorpdfstring{normalized\_shape\_factor()}{normalized\_shape\_factor()}}
 {\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_ab1c8fa8ed0244f4a54759253b629255c} 
 float hmap\+::\+Coord\+Frame\+::normalized\+\_\+shape\+\_\+factor (\begin{DoxyParamCaption}\item[{float}]{gx}{, }\item[{float}]{gy}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{classhmap_1_1CoordFrame_a79df20e43ce62599f2cfb86b7adc12ce}\index{hmap::CoordFrame@{hmap::CoordFrame}!normalized\_shape\_factor\_rel@{normalized\_shape\_factor\_rel}}
+\index{normalized\_shape\_factor\_rel@{normalized\_shape\_factor\_rel}!hmap::CoordFrame@{hmap::CoordFrame}}
+\doxysubsubsection{\texorpdfstring{normalized\_shape\_factor\_rel()}{normalized\_shape\_factor\_rel()}}
+{\footnotesize\ttfamily \label{classhmap_1_1CoordFrame_a79df20e43ce62599f2cfb86b7adc12ce} 
+float hmap\+::\+Coord\+Frame\+::normalized\+\_\+shape\+\_\+factor\+\_\+rel (\begin{DoxyParamCaption}\item[{float}]{rx}{, }\item[{float}]{ry}{}\end{DoxyParamCaption}) const}
 
 
 

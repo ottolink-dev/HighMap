@@ -15,7 +15,7 @@ var searchData=
   ['manhattan_12',['MANHATTAN',['../namespacehmap.html#a670f50d6c08ecd639d42db9c75a5273aad250b63dea876f47d2b0dab1edf01b63',1,'hmap']]],
   ['map_13',['map',['../structhmap_1_1SpeciesLookup.html#a7e23964d24d7f40a71e0471a6329f21a',1,'hmap::SpeciesLookup']]],
   ['map_5fto_5fglobal_5fcoords_14',['map_to_global_coords',['../classhmap_1_1CoordFrame.html#a3c9a2d05acd75d7dd6117263861d3cff',1,'hmap::CoordFrame']]],
-  ['map_5fto_5frelative_5fcoords_15',['map_to_relative_coords',['../classhmap_1_1CoordFrame.html#aeac43550d5345f7d1b16a469b906fefb',1,'hmap::CoordFrame']]],
+  ['map_5fto_5frelative_5fcoords_15',['map_to_relative_coords',['../classhmap_1_1CoordFrame.html#aeac43550d5345f7d1b16a469b906fefb',1,'hmap::CoordFrame::map_to_relative_coords(float gx, float gy) const'],['../classhmap_1_1CoordFrame.html#adff56b9f76f008e28fd9de6ddf02e96f',1,'hmap::CoordFrame::map_to_relative_coords(const CoordFrame &amp;other, float rx, float ry) const']]],
   ['maps_16',['Erosion Difference Maps',['../md_docs_2content_2dev_2hydraulic__comparison.html#autotoc_md18',1,'']]],
   ['mass_20preserving_20thermal_20erosion_20thermal_5fconserve_17',['2. Mass-Preserving Thermal Erosion (&lt;span class=&quot;tt&quot;&gt;thermal_conserve&lt;/span&gt;)',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md101',1,'']]],
   ['mat_18',['Mat',['../structhmap_1_1Mat.html',1,'hmap::Mat&lt; T &gt;'],['../structhmap_1_1Mat.html#aa469721a9114946e5346e95029a5f5dd',1,'hmap::Mat::Mat()=default'],['../structhmap_1_1Mat.html#a6a0451aafcbc5205d7f6bbe534092a9a',1,'hmap::Mat::Mat(glm::ivec2 shape)'],['../structhmap_1_1Mat.html#a83bf076cc0c3e6dd8911e05a2b95592e',1,'hmap::Mat::Mat(glm::ivec2 shape, T value)']]],

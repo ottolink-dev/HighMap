@@ -28,6 +28,7 @@ var searchData=
   ['normalized_25',['normalized',['../namespacehmap.html#a3d6212896d8cd828bd5bd827d24a0344',1,'hmap']]],
   ['normalized_5fdistance_5fto_5fedges_26',['normalized_distance_to_edges',['../classhmap_1_1CoordFrame.html#af1f76997d4d33cc1cc1e63ffb1ca3ebd',1,'hmap::CoordFrame']]],
   ['normalized_5fshape_5ffactor_27',['normalized_shape_factor',['../classhmap_1_1CoordFrame.html#ab1c8fa8ed0244f4a54759253b629255c',1,'hmap::CoordFrame']]],
-  ['num_5fchannels_28',['num_channels',['../classhmap_1_1Texture.html#a3d94e8bea60fdb4d2cd505f67f60e2c4',1,'hmap::Texture']]],
-  ['num_5fedges_29',['num_edges',['../classhmap_1_1Graph.html#a99a6f2b1940db4c49cbf51dcb592a198',1,'hmap::Graph']]]
+  ['normalized_5fshape_5ffactor_5frel_28',['normalized_shape_factor_rel',['../classhmap_1_1CoordFrame.html#a79df20e43ce62599f2cfb86b7adc12ce',1,'hmap::CoordFrame']]],
+  ['num_5fchannels_29',['num_channels',['../classhmap_1_1Texture.html#a3d94e8bea60fdb4d2cd505f67f60e2c4',1,'hmap::Texture']]],
+  ['num_5fedges_30',['num_edges',['../classhmap_1_1Graph.html#a99a6f2b1940db4c49cbf51dcb592a198',1,'hmap::Graph']]]
 ];

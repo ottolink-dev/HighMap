@@ -11,7 +11,7 @@ var searchData=
   ['make_5funique_5ftemp_5fdir_8',['make_unique_temp_dir',['../namespacehmap.html#a0a506d871b395e49e6175499dfa1e903',1,'hmap']]],
   ['make_5fxy_5ffunction_5ffrom_5farray_9',['make_xy_function_from_array',['../namespacehmap.html#a84ca1f41de32e4beacb10787127b4b8a',1,'hmap']]],
   ['map_5fto_5fglobal_5fcoords_10',['map_to_global_coords',['../classhmap_1_1CoordFrame.html#a3c9a2d05acd75d7dd6117263861d3cff',1,'hmap::CoordFrame']]],
-  ['map_5fto_5frelative_5fcoords_11',['map_to_relative_coords',['../classhmap_1_1CoordFrame.html#aeac43550d5345f7d1b16a469b906fefb',1,'hmap::CoordFrame']]],
+  ['map_5fto_5frelative_5fcoords_11',['map_to_relative_coords',['../classhmap_1_1CoordFrame.html#aeac43550d5345f7d1b16a469b906fefb',1,'hmap::CoordFrame::map_to_relative_coords(float gx, float gy) const'],['../classhmap_1_1CoordFrame.html#adff56b9f76f008e28fd9de6ddf02e96f',1,'hmap::CoordFrame::map_to_relative_coords(const CoordFrame &amp;other, float rx, float ry) const']]],
   ['mat_12',['Mat',['../structhmap_1_1Mat.html#aa469721a9114946e5346e95029a5f5dd',1,'hmap::Mat::Mat()=default'],['../structhmap_1_1Mat.html#a6a0451aafcbc5205d7f6bbe534092a9a',1,'hmap::Mat::Mat(glm::ivec2 shape)'],['../structhmap_1_1Mat.html#a83bf076cc0c3e6dd8911e05a2b95592e',1,'hmap::Mat::Mat(glm::ivec2 shape, T value)']]],
   ['match_5fhistogram_13',['match_histogram',['../namespacehmap.html#a8afd3d81a238c8a5d10059b3a029554e',1,'hmap']]],
   ['max_14',['max',['../classhmap_1_1Array.html#afdba5b214c8378e78db1978188676703',1,'hmap::Array::max()'],['../classhmap_1_1Texture.html#a85b55025bed0bf39d40426964a609692',1,'hmap::Texture::max()'],['../structhmap_1_1VirtualArray.html#a95ef87e8953451eb40d8b8e43e09f051',1,'hmap::VirtualArray::max()']]],

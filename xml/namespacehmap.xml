@@ -12,6 +12,7 @@
     <innerclass refid="structhmap_1_1GaussianPush" prot="public">hmap::GaussianPush</innerclass>
     <innerclass refid="structhmap_1_1ColorAdjust" prot="public">hmap::ColorAdjust</innerclass>
     <innerclass refid="structhmap_1_1TerrainTextureParams" prot="public">hmap::TerrainTextureParams</innerclass>
+    <innerclass refid="structhmap_1_1AffineTransform2D" prot="public">hmap::AffineTransform2D</innerclass>
     <innerclass refid="classhmap_1_1CoordFrame" prot="public">hmap::CoordFrame</innerclass>
     <innerclass refid="structhmap_1_1MiseParams" prot="public">hmap::MiseParams</innerclass>
     <innerclass refid="classhmap_1_1BigTiffWriter" prot="public">hmap::BigTiffWriter</innerclass>
@@ -41492,12 +41493,47 @@ The output path consists of:<itemizedlist>
           <defval>true</defval>
         </param>
         <briefdescription>
+<para>Resample an array to a target array using bicubic interpolation. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>endpoint</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether the upper domain endpoint is included. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pixel_centered</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether coordinates are pixel-centered. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="26" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="26" bodyend="40" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="23" declcolumn="6"/>
+        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="29" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="29" bodyend="43" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="26" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aa3322e388ba870c9d6881082da2fd800" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -41532,12 +41568,63 @@ The output path consists of:<itemizedlist>
           <defval>true</defval>
         </param>
         <briefdescription>
+<para>Resample a source array into a target array using bicubic interpolation between two local axis-aligned bounding boxes. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox_source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source local bounding box {xmin, xmax, ymin, ymax}. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox_target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target local bounding box {xmin, xmax, ymin, ymax}. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>endpoint</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether the upper domain endpoint is included. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pixel_centered</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether coordinates are pixel-centered. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="42" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="42" bodyend="117" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="28" declcolumn="6"/>
+        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="45" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="45" bodyend="120" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="42" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a28a6744fc26597330ca8eb9bbc4cd68e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -41564,12 +41651,47 @@ The output path consists of:<itemizedlist>
           <defval>true</defval>
         </param>
         <briefdescription>
+<para>Resample an array to a target array using bilinear interpolation. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>endpoint</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether the upper domain endpoint is included. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pixel_centered</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether coordinates are pixel-centered. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="119" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="119" bodyend="133" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="35" declcolumn="6"/>
+        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="122" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="122" bodyend="136" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="57" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1afda0e8ec3557ce5a30c2f62647f04842" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -41604,12 +41726,63 @@ The output path consists of:<itemizedlist>
           <defval>true</defval>
         </param>
         <briefdescription>
+<para>Resample a source array into a target array using bilinear interpolation between two local axis-aligned bounding boxes. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox_source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source local bounding box {xmin, xmax, ymin, ymax}. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox_target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target local bounding box {xmin, xmax, ymin, ymax}. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>endpoint</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether the upper domain endpoint is included. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pixel_centered</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether coordinates are pixel-centered. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="135" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="135" bodyend="200" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="40" declcolumn="6"/>
+        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="138" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="138" bodyend="203" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="73" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ab55e8132857fc52e7ac7947d82c334e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -41631,12 +41804,39 @@ The output path consists of:<itemizedlist>
           <defval>false</defval>
         </param>
         <briefdescription>
+<para>Resample an array to a target array using nearest-neighbor interpolation. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>endpoint</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether the upper domain endpoint is included. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="202" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="202" bodyend="210" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="47" declcolumn="6"/>
+        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="205" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="205" bodyend="213" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="88" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a57eeac393011b44f661c27a7b6e2a2b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -41666,114 +41866,55 @@ The output path consists of:<itemizedlist>
           <defval>false</defval>
         </param>
         <briefdescription>
+<para>Resample a source array into a target array using nearest-neighbor interpolation between two local axis-aligned bounding boxes. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox_source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source local bounding box {xmin, xmax, ymin, ymax}. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox_target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target local bounding box {xmin, xmax, ymin, ymax}. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>endpoint</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether the upper domain endpoint is included. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="212" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="212" bodyend="245" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="51" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1ace2076a7808458f99aeaeec2bc404d6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::flatten_heightmap</definition>
-        <argsstring>(VirtualArray &amp;h_source1, const VirtualArray &amp;h_source2, const CoordFrame &amp;t_source1, const CoordFrame &amp;t_source2, const ComputeMode &amp;cm)</argsstring>
-        <name>flatten_heightmap</name>
-        <qualifiedname>hmap::flatten_heightmap</qualifiedname>
-        <param>
-          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
-          <declname>h_source1</declname>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
-          <declname>h_source2</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
-          <declname>t_source1</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
-          <declname>t_source2</declname>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
-          <declname>cm</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_heightmap_virtual_array.cpp" line="21" column="6" bodyfile="HighMap/src/interpolate/interpolate_heightmap_virtual_array.cpp" bodystart="21" bodyend="60" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="59" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a3dadec4e8aa2c67598a0e158756308c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::flatten_heightmap</definition>
-        <argsstring>(const std::vector&lt; const VirtualArray * &gt; &amp;h_sources, VirtualArray &amp;h_target, const std::vector&lt; const CoordFrame * &gt; &amp;t_sources, const CoordFrame &amp;t_target, const ComputeMode &amp;cm)</argsstring>
-        <name>flatten_heightmap</name>
-        <qualifiedname>hmap::flatten_heightmap</qualifiedname>
-        <param>
-          <type>const std::vector&lt; const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> * &gt; &amp;</type>
-          <declname>h_sources</declname>
-        </param>
-        <param>
-          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
-          <declname>h_target</declname>
-        </param>
-        <param>
-          <type>const std::vector&lt; const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> * &gt; &amp;</type>
-          <declname>t_sources</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
-          <declname>t_target</declname>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
-          <declname>cm</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_heightmap_virtual_array.cpp" line="62" column="6" bodyfile="HighMap/src/interpolate/interpolate_heightmap_virtual_array.cpp" bodystart="62" bodyend="89" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="65" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1aab05ca060b3dd80724ff669864c0f4d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::interpolate_heightmap</definition>
-        <argsstring>(const VirtualArray &amp;h_source, VirtualArray &amp;h_target, const CoordFrame &amp;t_source, const CoordFrame &amp;t_target, const ComputeMode &amp;cm)</argsstring>
-        <name>interpolate_heightmap</name>
-        <qualifiedname>hmap::interpolate_heightmap</qualifiedname>
-        <param>
-          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
-          <declname>h_source</declname>
-        </param>
-        <param>
-          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
-          <declname>h_target</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
-          <declname>t_source</declname>
-        </param>
-        <param>
-          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
-          <declname>t_target</declname>
-        </param>
-        <param>
-          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
-          <declname>cm</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_heightmap_virtual_array.cpp" line="91" column="6" bodyfile="HighMap/src/interpolate/interpolate_heightmap_virtual_array.cpp" bodystart="91" bodyend="110" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="71" declcolumn="6"/>
+        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="215" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="215" bodyend="248" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="102" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a1489cc458b4e23a36b8c35faa960d358" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -41842,7 +41983,537 @@ The output path consists of:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="247" column="7" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="247" bodyend="305" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="87" declcolumn="7"/>
+        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="250" column="7" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="250" bodyend="308" declfile="HighMap/include/highmap/interpolate/interpolate_array.hpp" declline="118" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ac933aac4efd0e34ce5189dc31ec8f565" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::flatten_terrain</definition>
+        <argsstring>(Array &amp;h_source1, const Array &amp;h_source2, const CoordFrame &amp;t_source1, const CoordFrame &amp;t_source2, bool bilinear=true)</argsstring>
+        <name>flatten_terrain</name>
+        <qualifiedname>hmap::flatten_terrain</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>h_source1</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>h_source2</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>t_source1</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>t_source2</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bilinear</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Blend a second terrain array in-place onto a base terrain array using their world-space coordinate frames. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>h_source1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base terrain array (modified in-place). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>h_source2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Overlay terrain array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_source1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>World coordinate frame of <computeroutput>h_source1</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_source2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>World coordinate frame of <computeroutput>h_source2</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bilinear</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Use bilinear interpolation if true, nearest-neighbor otherwise. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="388" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="388" bodyend="427" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="37" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1aef1dc5b3a25a153ec393f440909854b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::flatten_terrain</definition>
+        <argsstring>(const std::vector&lt; const Array * &gt; &amp;h_sources, Array &amp;h_target, const std::vector&lt; const CoordFrame * &gt; &amp;t_sources, const CoordFrame &amp;t_target, bool bilinear=true)</argsstring>
+        <name>flatten_terrain</name>
+        <qualifiedname>hmap::flatten_terrain</qualifiedname>
+        <param>
+          <type>const std::vector&lt; const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> * &gt; &amp;</type>
+          <declname>h_sources</declname>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>h_target</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> * &gt; &amp;</type>
+          <declname>t_sources</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>t_target</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bilinear</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Flatten multiple terrain arrays into a target array using their world-space coordinate frames. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>h_sources</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Ordered list of source terrain arrays. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>h_target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target terrain array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_sources</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>World coordinate frames corresponding to <computeroutput>h_sources</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>World coordinate frame of <computeroutput>h_target</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bilinear</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Use bilinear interpolation if true, nearest-neighbor otherwise. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="429" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="429" bodyend="453" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="54" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a2d426b7bf43a41b14e57cf3662e48402" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::interpolate_terrain</definition>
+        <argsstring>(const Array &amp;h_source, Array &amp;h_target, const CoordFrame &amp;t_source, const CoordFrame &amp;t_target, bool bilinear=true, float fill_value=0.f)</argsstring>
+        <name>interpolate_terrain</name>
+        <qualifiedname>hmap::interpolate_terrain</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>h_source</declname>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>h_target</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>t_source</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>t_target</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bilinear</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>fill_value</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+<para>Project and interpolate a source terrain array onto a target terrain array using their world-space coordinate frames. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>h_source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source terrain array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>h_target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target terrain array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>World coordinate frame of <computeroutput>h_source</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>World coordinate frame of <computeroutput>h_target</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bilinear</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Use bilinear interpolation if true, nearest-neighbor otherwise. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fill_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value assigned to target cells outside <computeroutput>t_source</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/interpolate/interpolate_array.cpp" line="343" column="6" bodyfile="HighMap/src/interpolate/interpolate_array.cpp" bodystart="343" bodyend="386" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="72" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ab2ccc1e1c927a48b77dc77df3b37b5c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::flatten_terrain</definition>
+        <argsstring>(VirtualArray &amp;h_source1, const VirtualArray &amp;h_source2, const CoordFrame &amp;t_source1, const CoordFrame &amp;t_source2, const ComputeMode &amp;cm, bool bilinear=true)</argsstring>
+        <name>flatten_terrain</name>
+        <qualifiedname>hmap::flatten_terrain</qualifiedname>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>h_source1</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>h_source2</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>t_source1</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>t_source2</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bilinear</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Blend a second terrain <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> in-place onto a base terrain <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> using their world-space coordinate frames. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>h_source1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base terrain <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> (modified in-place). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>h_source2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Overlay terrain <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_source1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>World coordinate frame of <computeroutput>h_source1</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_source2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>World coordinate frame of <computeroutput>h_source2</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Compute mode controlling tiling and CPU distribution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bilinear</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Use bilinear interpolation if true, nearest-neighbor otherwise. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/interpolate/interpolate_terrain.cpp" line="170" column="6" bodyfile="HighMap/src/interpolate/interpolate_terrain.cpp" bodystart="170" bodyend="227" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="93" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a3b2cbd269f964223781b492f223baf8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::flatten_terrain</definition>
+        <argsstring>(const std::vector&lt; const VirtualArray * &gt; &amp;h_sources, VirtualArray &amp;h_target, const std::vector&lt; const CoordFrame * &gt; &amp;t_sources, const CoordFrame &amp;t_target, const ComputeMode &amp;cm, bool bilinear=true)</argsstring>
+        <name>flatten_terrain</name>
+        <qualifiedname>hmap::flatten_terrain</qualifiedname>
+        <param>
+          <type>const std::vector&lt; const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> * &gt; &amp;</type>
+          <declname>h_sources</declname>
+        </param>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>h_target</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> * &gt; &amp;</type>
+          <declname>t_sources</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>t_target</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bilinear</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Flatten multiple terrain VirtualArrays into a target <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> using their world-space coordinate frames. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>h_sources</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Ordered list of source terrain VirtualArrays. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>h_target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target terrain <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_sources</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>World coordinate frames corresponding to <computeroutput>h_sources</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>World coordinate frame of <computeroutput>h_target</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Compute mode controlling tiling and CPU distribution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bilinear</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Use bilinear interpolation if true, nearest-neighbor otherwise. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/interpolate/interpolate_terrain.cpp" line="229" column="6" bodyfile="HighMap/src/interpolate/interpolate_terrain.cpp" bodystart="229" bodyend="263" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="112" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a3e9d2d127e876b6497c5fefd7893a79e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::interpolate_terrain</definition>
+        <argsstring>(const VirtualArray &amp;h_source, VirtualArray &amp;h_target, const CoordFrame &amp;t_source, const CoordFrame &amp;t_target, const ComputeMode &amp;cm, bool bilinear=true, float fill_value=0.f)</argsstring>
+        <name>interpolate_terrain</name>
+        <qualifiedname>hmap::interpolate_terrain</qualifiedname>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>h_source</declname>
+        </param>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>h_target</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>t_source</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>t_target</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bilinear</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>fill_value</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+<para>Project and interpolate a source terrain <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> onto a target terrain <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> using their world-space coordinate frames. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>h_source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source terrain <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>h_target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target terrain <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>World coordinate frame of <computeroutput>h_source</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>World coordinate frame of <computeroutput>h_target</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Compute mode controlling tiling and CPU distribution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bilinear</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Use bilinear interpolation if true, nearest-neighbor otherwise. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fill_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value assigned to target cells outside <computeroutput>t_source</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/interpolate/interpolate_terrain.cpp" line="265" column="6" bodyfile="HighMap/src/interpolate/interpolate_terrain.cpp" bodystart="265" bodyend="326" declfile="HighMap/include/highmap/interpolate/interpolate_terrain.hpp" declline="132" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a6b058e4341f421d058c4d0d408d30654" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

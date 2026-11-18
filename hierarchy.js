@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "hmap::AABB2D", "structhmap_1_1AABB2D.html", null ],
+    [ "hmap::AffineTransform2D", "structhmap_1_1AffineTransform2D.html", null ],
     [ "hmap::Array", "classhmap_1_1Array.html", null ],
     [ "hmap::ArrayFunction", "classhmap_1_1ArrayFunction.html", null ],
     [ "hmap::AssertResults", "structhmap_1_1AssertResults.html", null ],

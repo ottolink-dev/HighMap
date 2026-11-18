@@ -57,10 +57,11 @@ var searchData=
   ['normalized_54',['normalized',['../namespacehmap.html#a3d6212896d8cd828bd5bd827d24a0344',1,'hmap']]],
   ['normalized_5fdistance_5fto_5fedges_55',['normalized_distance_to_edges',['../classhmap_1_1CoordFrame.html#af1f76997d4d33cc1cc1e63ffb1ca3ebd',1,'hmap::CoordFrame']]],
   ['normalized_5fshape_5ffactor_56',['normalized_shape_factor',['../classhmap_1_1CoordFrame.html#ab1c8fa8ed0244f4a54759253b629255c',1,'hmap::CoordFrame']]],
-  ['normalmapblendingmethod_57',['NormalMapBlendingMethod',['../namespacehmap.html#abc952321c99ec11d60b4037e3d27db9b',1,'hmap']]],
-  ['null_5fcell_58',['null_cell',['../classhmap_1_1DrainageBasinCellBased.html#ad576fdd4931b25ab57bec6eeca32204b',1,'hmap::DrainageBasinCellBased']]],
-  ['num_5fchannels_59',['num_channels',['../classhmap_1_1Texture.html#a3d94e8bea60fdb4d2cd505f67f60e2c4',1,'hmap::Texture']]],
-  ['num_5fedges_60',['num_edges',['../classhmap_1_1Graph.html#a99a6f2b1940db4c49cbf51dcb592a198',1,'hmap::Graph']]],
-  ['numerical_20stability_20and_20parity_20fixes_20on_20gpu_61',['Numerical Stability and Parity Fixes on GPU',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md76',1,'']]],
-  ['nx_62',['Relationship: talus = slope / nx',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md133',1,'']]]
+  ['normalized_5fshape_5ffactor_5frel_57',['normalized_shape_factor_rel',['../classhmap_1_1CoordFrame.html#a79df20e43ce62599f2cfb86b7adc12ce',1,'hmap::CoordFrame']]],
+  ['normalmapblendingmethod_58',['NormalMapBlendingMethod',['../namespacehmap.html#abc952321c99ec11d60b4037e3d27db9b',1,'hmap']]],
+  ['null_5fcell_59',['null_cell',['../classhmap_1_1DrainageBasinCellBased.html#ad576fdd4931b25ab57bec6eeca32204b',1,'hmap::DrainageBasinCellBased']]],
+  ['num_5fchannels_60',['num_channels',['../classhmap_1_1Texture.html#a3d94e8bea60fdb4d2cd505f67f60e2c4',1,'hmap::Texture']]],
+  ['num_5fedges_61',['num_edges',['../classhmap_1_1Graph.html#a99a6f2b1940db4c49cbf51dcb592a198',1,'hmap::Graph']]],
+  ['numerical_20stability_20and_20parity_20fixes_20on_20gpu_62',['Numerical Stability and Parity Fixes on GPU',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md76',1,'']]],
+  ['nx_63',['Relationship: talus = slope / nx',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md133',1,'']]]
 ];
