@@ -116,3 +116,32 @@ TEST(CoordFrameTest, FlattenHeightmapInPlace)
   EXPECT_FLOAT_EQ(out(0, 0), 1.0f);
   EXPECT_NEAR(out(16, 16), 5.0f, 0.1f);
 }
+
+TEST(CoordFrameTest, InterpolateTerrainFillMask)
+{
+  glm::ivec2 shape{32, 32};
+  glm::ivec2 tile_shape{16, 16};
+  CoordFrame t_src({0.f, 0.f}, {10.f, 10.f}, 0.f);
+  CoordFrame t_dst({5.f, 5.f}, {10.f, 10.f}, 0.f);
+
+  Array src_arr(shape, 2.0f);
+  Array dst_arr(shape);
+  Array mask_arr;
+  interpolate_terrain(src_arr, dst_arr, t_src, t_dst, true, -1.f, &mask_arr);
+
+  EXPECT_EQ(mask_arr.shape, shape);
+  EXPECT_FLOAT_EQ(mask_arr(0, 0), 0.f);   // inside t_src
+  EXPECT_FLOAT_EQ(mask_arr(31, 31), 1.f); // outside t_src
+
+  ComputeMode  cm{.mode = ForEachMode::VA_DISTRIBUTED};
+  VirtualArray va_src(shape, tile_shape, 2, StorageMode::VA_RAM);
+  VirtualArray va_dst(shape, tile_shape, 2, StorageMode::VA_RAM);
+  VirtualArray va_mask(shape, tile_shape, 2, StorageMode::VA_RAM);
+  va_src.fill(2.0f, cm);
+
+  interpolate_terrain(va_src, va_dst, t_src, t_dst, cm, true, -1.f, &va_mask);
+
+  Array va_mask_arr = va_mask.to_array(cm);
+  EXPECT_FLOAT_EQ(va_mask_arr(0, 0), 0.f);
+  EXPECT_FLOAT_EQ(va_mask_arr(31, 31), 1.f);
+}

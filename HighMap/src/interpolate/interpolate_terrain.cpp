@@ -268,13 +268,15 @@ void interpolate_terrain(const VirtualArray &h_source,
                          const CoordFrame   &t_target,
                          const ComputeMode  &cm,
                          bool                bilinear,
-                         float               fill_value)
+                         float               fill_value,
+                         VirtualArray       *p_mask)
 {
   if (h_source.empty() || h_target.empty()) return;
 
   if (!t_target.intersects(t_source))
   {
     h_target.fill(fill_value, cm);
+    if (p_mask) p_mask->fill(1.f, cm);
     return;
   }
 
@@ -286,8 +288,13 @@ void interpolate_terrain(const VirtualArray &h_source,
                                        ? (1.f / static_cast<float>(h_target.shape.y - 1))
                                        : 0.f;
 
-  auto lambda = [&](Array &tile, const TileRegion &region)
+  auto lambda = [&](const std::vector<const Array *> &,
+                    std::vector<Array *> &out,
+                    const TileRegion     &region)
   {
+    Array &tile = *out[0];
+    Array *p_mask_tile = p_mask ? out[1] : nullptr;
+
     SourcePatch patch = assemble_source_patch(h_source,
                                               h_target.shape,
                                               region,
@@ -295,6 +302,7 @@ void interpolate_terrain(const VirtualArray &h_source,
     if (!patch.valid)
     {
       tile = fill_value;
+      if (p_mask_tile) *p_mask_tile = 1.f;
       return;
     }
 
@@ -312,9 +320,15 @@ void interpolate_terrain(const VirtualArray &h_source,
       for (int i = 0; i < region.shape.x; ++i)
       {
         if (t_source.is_unit_point_within(us, vs))
+        {
           tile(i, j) = sample_patch(patch, h_source.shape, us, vs, bilinear);
+          if (p_mask_tile) (*p_mask_tile)(i, j) = 0.f;
+        }
         else
+        {
           tile(i, j) = fill_value;
+          if (p_mask_tile) (*p_mask_tile)(i, j) = 1.f;
+        }
 
         us += dus;
         vs += dvs;
@@ -322,7 +336,10 @@ void interpolate_terrain(const VirtualArray &h_source,
     }
   };
 
-  for_each_tile(h_target, lambda, cm);
+  std::vector<VirtualArray *> outputs = {&h_target};
+  if (p_mask) outputs.push_back(p_mask);
+
+  for_each_tile({}, outputs, lambda, cm);
 }
 
 } // namespace hmap

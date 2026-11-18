@@ -68,13 +68,16 @@ void flatten_terrain(const std::vector<const Array *>      &h_sources,
  * @param bilinear   Use bilinear interpolation if true, nearest-neighbor
  *                   otherwise.
  * @param fill_value Value assigned to target cells outside @p t_source.
+ * @param p_mask     Optional output mask (1.f where @p fill_value was used, 0.f
+ *                   where interpolated).
  */
 void interpolate_terrain(const Array      &h_source,
                          Array            &h_target,
                          const CoordFrame &t_source,
                          const CoordFrame &t_target,
                          bool              bilinear = true,
-                         float             fill_value = 0.f);
+                         float             fill_value = 0.f,
+                         Array            *p_mask = nullptr);
 
 // --- VirtualArray -> VirtualArray (world space via CoordFrame)
 
@@ -128,6 +131,8 @@ void flatten_terrain(const std::vector<const VirtualArray *> &h_sources,
  * @param bilinear   Use bilinear interpolation if true, nearest-neighbor
  *                   otherwise.
  * @param fill_value Value assigned to target cells outside @p t_source.
+ * @param p_mask     Optional output mask (1.f where @p fill_value was used, 0.f
+ *                   where interpolated).
  */
 void interpolate_terrain(const VirtualArray &h_source,
                          VirtualArray       &h_target,
@@ -135,6 +140,7 @@ void interpolate_terrain(const VirtualArray &h_source,
                          const CoordFrame   &t_target,
                          const ComputeMode  &cm,
                          bool                bilinear = true,
-                         float               fill_value = 0.f);
+                         float               fill_value = 0.f,
+                         VirtualArray       *p_mask = nullptr);
 
 } // namespace hmap
