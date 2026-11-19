@@ -405,10 +405,16 @@ std::vector<Array> advection_particle(
   run.write_buffer("out");
   run.write_buffer("count");
 
-  run.execute(nparticles);
+  // a zero-sized NDRange is an error on OpenCL < 2.1 (CL_INVALID_GLOBAL_WORK_
+  // SIZE on macOS), e.g. with particle_density = 0: skip the launch, cells
+  // with no particle hit keep their input value below
+  if (nparticles > 0)
+  {
+    run.execute(nparticles);
 
-  run.read_buffer("out");
-  run.read_buffer("count");
+    run.read_buffer("out");
+    run.read_buffer("count");
+  }
 
   // Deconcatenate results and do post-processing for each field
   std::vector<Array> out_fields;
