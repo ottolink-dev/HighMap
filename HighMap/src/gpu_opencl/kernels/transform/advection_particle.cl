@@ -6,7 +6,7 @@ void kernel advection_particle(global float *field,
                                global float *dx,
                                global float *dy,
                                global float *out,
-                               global float *count,
+                               global int   *count,
                                global float *advection_mask,
                                const int     nx,
                                const int     ny,
@@ -104,9 +104,9 @@ void kernel advection_particle(global float *field,
     for (int f = 0; f < num_f; ++f)
     {
       val[f] = lerp(field[f * stride + idx], val[f], value_persistence);
-      out[f * stride + idx] += val[f];
+      atomic_add_float(&out[f * stride + idx], val[f]);
     }
-    count[idx] += 1.f;
+    atomic_inc(&count[idx]);
   }
 }
 )""

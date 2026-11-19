@@ -379,13 +379,13 @@ std::vector<Array> advection_particle(
   }
 
   std::vector<float> concat_out(num_fields * stride, 0.f);
-  Array              count(shape);
+  std::vector<int>   count(stride, 0);
 
   run.bind_buffer<float>("advected_field", concat_advected_field);
   run.bind_buffer<float>("dx", dx.vector);
   run.bind_buffer<float>("dy", dy.vector);
   run.bind_buffer<float>("out", concat_out);
-  run.bind_buffer<float>("count", count.vector);
+  run.bind_buffer<int>("count", count);
   helper_bind_optional_buffer(run, "advection_mask", p_advection_mask);
 
   run.bind_arguments(shape.x,
@@ -431,11 +431,12 @@ std::vector<Array> advection_particle(
     for (int j = 0; j < shape.y; ++j)
       for (int i = 0; i < shape.x; ++i)
       {
-        int offset = f_offset + (j * shape.x + i);
-        if (count(i, j))
+        int idx = j * shape.x + i;
+        int offset = f_offset + idx;
+        if (count[idx] > 0)
         {
           float val = concat_out[offset] + advected_field(i, j);
-          val /= (count(i, j) + 1.f);
+          val /= (static_cast<float>(count[idx]) + 1.f);
           out(i, j) = std::clamp(val, 0.f, 1.f);
         }
         else
