@@ -35,6 +35,7 @@ std::vector<glm::vec3> get_colormap_data(int cmap)
   case Cmap::JET: return helper_tov3(CMAP_JET);
   case Cmap::MAGMA: return helper_tov3(CMAP_MAGMA);
   case Cmap::NIPY_SPECTRAL: return helper_tov3(CMAP_NIPY_SPECTRAL);
+  case Cmap::RAINBOW_DEM: return helper_tov3(CMAP_RAINBOW_DEM);
   case Cmap::SEISMIC: return helper_tov3(CMAP_SEISMIC);
   case Cmap::TERRAIN: return helper_tov3(CMAP_TERRAIN);
   case Cmap::TURBO: return helper_tov3(CMAP_TURBO);

@@ -88,6 +88,7 @@ enum Cmap : int
   JET,
   MAGMA,
   NIPY_SPECTRAL,
+  RAINBOW_DEM,
   SEISMIC,
   TERRAIN,
   TURBO,
@@ -119,6 +120,7 @@ static std::map<Cmap, std::string> cmap_as_string = {
     {JET, "jet"},
     {MAGMA, "magma"},
     {NIPY_SPECTRAL, "nipy_spectral"},
+    {RAINBOW_DEM, "rainbow_dem"},
     {SEISMIC, "seismic"},
     {TERRAIN, "terrain"},
     {TURBO, "turbo"},
@@ -339,6 +341,17 @@ static std::map<Cmap, std::string> cmap_as_string = {
       {0.647f, 0.858f, 0.210f},                                                \
       {0.825f, 0.885f, 0.106f},                                                \
       {0.993f, 0.906f, 0.144f},                                                \
+  }
+
+#define CMAP_RAINBOW_DEM                                                       \
+  {                                                                            \
+      {0.561f, 0.004f, 0.427f},                                                \
+      {0.004f, 0.043f, 1.000f},                                                \
+      {0.004f, 0.980f, 1.000f},                                                \
+      {0.125f, 1.000f, 0.000f},                                                \
+      {0.996f, 0.941f, 0.004f},                                                \
+      {1.000f, 0.059f, 0.008f},                                                \
+      {0.408f, 0.000f, 0.000f},                                                \
   }
 
 #define CMAP_WHITE_UNIFORM                                                     \
