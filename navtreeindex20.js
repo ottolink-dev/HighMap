@@ -1,5 +1,6 @@
 var NAVTREEINDEX20 =
 {
+"structhmap_1_1ScatterSeedingOptions.html#a499f2b3a506399dbafbb7a1d9f5846f6":[15,0,0,89,0],
 "structhmap_1_1ScatterSeedingOptions.html#a499f2b3a506399dbafbb7a1d9f5846f6":[16,0,0,87,0],
 "structhmap_1_1ScatterSeedingOptions.html#aa975b7b253306791b0938e70a912830c":[15,0,0,89,2],
 "structhmap_1_1ScatterSeedingOptions.html#aa975b7b253306791b0938e70a912830c":[16,0,0,87,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX20 =
 "structhmap_1_1TileRegion.html#a9c49add411fe1d63bdc173f330d09958":[15,0,0,98,9],
 "structhmap_1_1TileRegion.html#a9c49add411fe1d63bdc173f330d09958":[16,0,0,96,9],
 "structhmap_1_1TileRegion.html#a9e81acf1b7ee007c8093d7bd3a5c98d8":[15,0,0,98,12],
-"structhmap_1_1TileRegion.html#a9e81acf1b7ee007c8093d7bd3a5c98d8":[16,0,0,96,12],
-"structhmap_1_1TileRegion.html#ab27aa2f4836f3b30b12b3e48297292a6":[15,0,0,98,5]
+"structhmap_1_1TileRegion.html#a9e81acf1b7ee007c8093d7bd3a5c98d8":[16,0,0,96,12]
 };

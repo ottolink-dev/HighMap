@@ -194,6 +194,7 @@ var namespacehmap =
       [ "JET", "namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced", null ],
       [ "MAGMA", "namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a744ead0b170889e33126895264f1af2c", null ],
       [ "NIPY_SPECTRAL", "namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369ae91cb25d4df330517ac69b5f0f2c3e0c", null ],
+      [ "RAINBOW_DEM", "namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a306c1fd6ccb7dc8faf330b7d60d81ac1", null ],
       [ "SEISMIC", "namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a33b23b52304fbaecc91bdc4090afbd20", null ],
       [ "TERRAIN", "namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9", null ],
       [ "TURBO", "namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a555dbf2f8e5b83b9117850a8938e65f9", null ],
