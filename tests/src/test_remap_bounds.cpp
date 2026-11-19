@@ -4,11 +4,11 @@
 #include <cmath>
 #include <random>
 
-#include <gtest/gtest.h>
-
 #include "highmap/array.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/range.hpp"
+
+#include <gtest/gtest.h>
 
 using namespace hmap;
 
