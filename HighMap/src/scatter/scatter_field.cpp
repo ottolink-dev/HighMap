@@ -1216,9 +1216,12 @@ Array ScatterField::to_density_map(glm::ivec2              shape,
 {
   if (!validate_shape(shape)) return Array();
 
-  const glm::vec4 &bbox = region.bbox;
-  float            dx = bbox.y - bbox.x;
-  float            dy = bbox.w - bbox.z;
+  const glm::vec4 bbox = (region.bbox.y - region.bbox.x > 1e-9f &&
+                          region.bbox.w - region.bbox.z > 1e-9f)
+                             ? region.bbox
+                             : glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+  float           dx = bbox.y - bbox.x;
+  float           dy = bbox.w - bbox.z;
   if (std::abs(dx) < 1e-9f || std::abs(dy) < 1e-9f) return Array(shape, 0.0f);
 
   // --- Determine effective Gaussian sigma (in world coordinates)

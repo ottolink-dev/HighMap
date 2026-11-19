@@ -206,48 +206,48 @@ Array flow_accumulation_dinf(const Array      &z,
     delta_acc = Array(shape, 0.f);
     delta_ptr = delta_acc.vector.data();
 
-    // Western halo cells (incoming from West)
+    // Western halo boundary adjacent to core (incoming from West)
     if (h_w > 0)
     {
-      for (int j = 0; j < ny; ++j)
-        for (int i = 0; i < h_w; ++i)
-        {
-          float diff = facc(i, j) - prev_facc(i, j);
-          if (diff > 1e-4f) delta_acc(i, j) = diff;
-        }
+      const int i = h_w - 1;
+      for (int j = h_s; j < ny - h_n; ++j)
+      {
+        float diff = facc(i, j) - prev_facc(i, j);
+        if (diff > 1e-4f) delta_acc(i, j) = diff;
+      }
     }
 
-    // Eastern halo cells (incoming from East)
+    // Eastern halo boundary adjacent to core (incoming from East)
     if (h_e > 0)
     {
-      for (int j = 0; j < ny; ++j)
-        for (int i = nx - h_e; i < nx; ++i)
-        {
-          float diff = facc(i, j) - prev_facc(i, j);
-          if (diff > 1e-4f) delta_acc(i, j) = diff;
-        }
+      const int i = nx - h_e;
+      for (int j = h_s; j < ny - h_n; ++j)
+      {
+        float diff = facc(i, j) - prev_facc(i, j);
+        if (diff > 1e-4f) delta_acc(i, j) = diff;
+      }
     }
 
-    // Southern halo cells (incoming from South)
+    // Southern halo boundary adjacent to core (incoming from South)
     if (h_s > 0)
     {
-      for (int j = 0; j < h_s; ++j)
-        for (int i = 0; i < nx; ++i)
-        {
-          float diff = facc(i, j) - prev_facc(i, j);
-          if (diff > 1e-4f) delta_acc(i, j) = diff;
-        }
+      const int j = h_s - 1;
+      for (int i = std::max(0, h_w - 1); i < std::min(nx, nx - h_e + 1); ++i)
+      {
+        float diff = facc(i, j) - prev_facc(i, j);
+        if (diff > 1e-4f) delta_acc(i, j) = diff;
+      }
     }
 
-    // Northern halo cells (incoming from North)
+    // Northern halo boundary adjacent to core (incoming from North)
     if (h_n > 0)
     {
-      for (int j = ny - h_n; j < ny; ++j)
-        for (int i = 0; i < nx; ++i)
-        {
-          float diff = facc(i, j) - prev_facc(i, j);
-          if (diff > 1e-4f) delta_acc(i, j) = diff;
-        }
+      const int j = ny - h_n;
+      for (int i = std::max(0, h_w - 1); i < std::min(nx, nx - h_e + 1); ++i)
+      {
+        float diff = facc(i, j) - prev_facc(i, j);
+        if (diff > 1e-4f) delta_acc(i, j) = diff;
+      }
     }
   }
 

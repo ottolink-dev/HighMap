@@ -55,7 +55,7 @@ float eval_base_noise(const int    noise_id,
   }
   else if (noise_id == 11)
   {
-    return base_worley_double(pos, seed, 0.f, 2.f, period);
+    return base_worley_double(pos, seed, 0.5f, 0.f, period);
   }
   else if (noise_id == 12)
   {

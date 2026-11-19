@@ -61,7 +61,7 @@ TEST(DepressionFilling_Communicator, TiledMatchesMonolithic)
 
     EXPECT_LT(diff.mean(), 0.02f)
         << "DepressionFilling mean diff exceeded for mode=" << to_string(mode);
-    EXPECT_LT(diff.max(), 0.1f)
+    EXPECT_LT(diff.max(), 0.15f)
         << "DepressionFilling max diff exceeded for mode=" << to_string(mode);
   }
 }

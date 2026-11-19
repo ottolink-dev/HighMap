@@ -209,7 +209,7 @@ float base_worley_double(const float2 p,
                          const int2   period)
 {
   float v1 = base_worley(p, seed, period);
-  float v2 = base_worley(p * k, seed + 1u, period);
+  float v2 = base_worley(p * 2.f, seed + 1u, period);
   return max(ratio * v1, (1.f - ratio) * v2);
 }
 
