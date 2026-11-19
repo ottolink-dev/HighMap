@@ -77,6 +77,7 @@ void recast_cliff(Array            &array,
   float omega = 2.f / (1.f + std::sqrt(std::max(0.f, 1.f - rho_sor * rho_sor)));
 
   Array array_out = array;
+  float mean_before = array.mean();
 
   const int batch_size = (comm.size() > 1 && sync_interval > 0) ? sync_interval
                                                                 : iterations;
@@ -113,9 +114,15 @@ void recast_cliff(Array            &array,
 
     if (it_end < iterations)
     {
+      // preserve mean elevation
+      array_out += mean_before - array_out.mean();
+
       comm.sync_overlap_buffers(array_out, region, SyncOperation::SmoothBlend);
     }
   }
+
+  // preserve mean elevation
+  array_out += mean_before - array_out.mean();
 
   comm.sync_overlap_buffers(array_out, region, SyncOperation::SmoothBlend);
 
@@ -332,6 +339,7 @@ void recast_cliff_directional(Array            &array,
   float omega = 2.f / (1.f + std::sqrt(std::max(0.f, 1.f - rho_sor * rho_sor)));
 
   Array array_out = array;
+  float mean_before = array.mean();
 
   const int batch_size = (comm.size() > 1 && sync_interval > 0) ? sync_interval
                                                                 : iterations;
@@ -368,9 +376,15 @@ void recast_cliff_directional(Array            &array,
 
     if (it_end < iterations)
     {
+      // preserve mean elevation
+      array_out += mean_before - array_out.mean();
+
       comm.sync_overlap_buffers(array_out, region, SyncOperation::SmoothBlend);
     }
   }
+
+  // preserve mean elevation
+  array_out += mean_before - array_out.mean();
 
   comm.sync_overlap_buffers(array_out, region, SyncOperation::SmoothBlend);
 
