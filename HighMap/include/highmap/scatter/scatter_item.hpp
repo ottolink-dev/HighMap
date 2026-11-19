@@ -29,7 +29,7 @@ class ScatterItem
 {
 public:
   glm::vec3 position = {0.f, 0.f, 0.f};       ///< 3D spatial position (x, y, elevation z).
-  uint32_t class_id = 0;                      ///< Unique category/class identifier (species, rock type, prop class).
+  uint32_t  class_id = 0;                     ///< Unique category/class identifier (species, rock type, prop class).
   float radius = HMAP_DEFAULT_SCATTER_RADIUS; ///< Characteristic radius.
 
   // ==========================================================================

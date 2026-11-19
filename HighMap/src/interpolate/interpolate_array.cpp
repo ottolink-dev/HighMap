@@ -345,13 +345,17 @@ void interpolate_terrain(const Array      &h_source,
                          const CoordFrame &t_source,
                          const CoordFrame &t_target,
                          bool              bilinear,
-                         float             fill_value)
+                         float             fill_value,
+                         Array            *p_mask)
 {
   if (!validate_non_empty(h_source) || !validate_non_empty(h_target)) return;
+
+  if (p_mask) *p_mask = Array(h_target.shape, 0.f);
 
   if (!t_target.intersects(t_source))
   {
     h_target = fill_value;
+    if (p_mask) *p_mask = 1.f;
     return;
   }
 
@@ -375,9 +379,15 @@ void interpolate_terrain(const Array      &h_source,
     for (int i = 0; i < h_target.shape.x; ++i)
     {
       if (t_source.is_unit_point_within(us, vs))
+      {
         h_target(i, j) = sample_array_rel(h_source, us, vs, bilinear);
+        if (p_mask) (*p_mask)(i, j) = 0.f;
+      }
       else
+      {
         h_target(i, j) = fill_value;
+        if (p_mask) (*p_mask)(i, j) = 1.f;
+      }
 
       us += dus;
       vs += dvs;
