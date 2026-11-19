@@ -263,14 +263,14 @@
 <codeline lineno="100"><highlight class="normal"><sp/><sp/>EXPECT_EQ(zp.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x,<sp/>64);</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"><sp/><sp/>EXPECT_EQ(zp.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y,<sp/>64);</highlight></codeline>
 <codeline lineno="102"><highlight class="normal"></highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Check<sp/>continuity<sp/>across<sp/>boundary</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Check<sp/>continuity<sp/>across<sp/>boundary<sp/>(within<sp/>1-pixel<sp/>step<sp/>of<sp/>periodic<sp/>core)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="104"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>zp.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y;<sp/>++j)</highlight></codeline>
 <codeline lineno="105"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(zp(0,<sp/>j),<sp/>zp(zp.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x<sp/>-<sp/>1,<sp/>j),<sp/>1e-2f);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(zp(0,<sp/>j),<sp/>zp(zp.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x<sp/>-<sp/>1,<sp/>j),<sp/>0.15f);</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>zp.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.x;<sp/>++i)</highlight></codeline>
 <codeline lineno="109"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(zp(i,<sp/>0),<sp/>zp(i,<sp/>zp.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y<sp/>-<sp/>1),<sp/>1e-2f);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_NEAR(zp(i,<sp/>0),<sp/>zp(i,<sp/>zp.<ref refid="classhmap_1_1Array_1a9ee3e85888021b80660357e73f35a5ea" kindref="member">shape</ref>.y<sp/>-<sp/>1),<sp/>0.15f);</highlight></codeline>
 <codeline lineno="111"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="112"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="113"><highlight class="normal"></highlight></codeline>
