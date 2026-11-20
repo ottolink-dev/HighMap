@@ -177,3 +177,156 @@ TEST(Blending, BlendPowerLaw)
   Array res_vec1 = blend_power_law(arrays, 1.0f);
   EXPECT_NEAR(res_vec1(0, 0), 6.2f, 1e-5f);
 }
+
+TEST(Blending, BlendTerrainsNonOverlapping)
+{
+  Array      lower(glm::ivec2(8, 8), 1.0f);
+  Array      upper(glm::ivec2(8, 8), 5.0f);
+  CoordFrame frame_lower({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+  CoordFrame frame_upper({2.0f, 2.0f}, {1.0f, 1.0f}, 0.0f);
+
+  blend_terrains(lower,
+                 frame_lower,
+                 upper,
+                 frame_upper,
+                 TerrainBlendMode::TBM_ADD);
+
+  for (int j = 0; j < lower.shape.y; ++j)
+    for (int i = 0; i < lower.shape.x; ++i)
+      EXPECT_NEAR(lower(i, j), 1.0f, 1e-5f);
+}
+
+TEST(Blending, BlendTerrainsBasicModes)
+{
+  CoordFrame frame_lower({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+  CoordFrame frame_upper({0.6f, 0.6f}, {0.4f, 0.4f}, 0.0f);
+  Array      upper(glm::ivec2(5, 5), 4.0f);
+
+  {
+    Array lower(glm::ivec2(5, 5), 2.0f);
+    blend_terrains(lower,
+                   frame_lower,
+                   upper,
+                   frame_upper,
+                   TerrainBlendMode::TBM_ADD);
+    EXPECT_NEAR(lower(0, 0), 2.0f, 1e-5f);
+    EXPECT_NEAR(lower(4, 4), 6.0f, 1e-5f);
+  }
+
+  {
+    Array lower(glm::ivec2(5, 5), 2.0f);
+    blend_terrains(lower,
+                   frame_lower,
+                   upper,
+                   frame_upper,
+                   TerrainBlendMode::TBM_SUBTRACT);
+    EXPECT_NEAR(lower(0, 0), 2.0f, 1e-5f);
+    EXPECT_NEAR(lower(4, 4), -2.0f, 1e-5f);
+  }
+
+  {
+    Array lower(glm::ivec2(5, 5), 2.0f);
+    blend_terrains(lower,
+                   frame_lower,
+                   upper,
+                   frame_upper,
+                   TerrainBlendMode::TBM_AVERAGE);
+    EXPECT_NEAR(lower(0, 0), 2.0f, 1e-5f);
+    EXPECT_NEAR(lower(4, 4), 3.0f, 1e-5f);
+  }
+
+  {
+    Array lower(glm::ivec2(5, 5), 2.0f);
+    blend_terrains(lower,
+                   frame_lower,
+                   upper,
+                   frame_upper,
+                   TerrainBlendMode::TBM_MAX);
+    EXPECT_NEAR(lower(4, 4), 4.0f, 1e-5f);
+  }
+
+  {
+    Array lower(glm::ivec2(5, 5), 2.0f);
+    blend_terrains(lower,
+                   frame_lower,
+                   upper,
+                   frame_upper,
+                   TerrainBlendMode::TBM_MIN);
+    EXPECT_NEAR(lower(4, 4), 2.0f, 1e-5f);
+  }
+
+  {
+    Array lower(glm::ivec2(5, 5), 2.0f);
+    blend_terrains(lower,
+                   frame_lower,
+                   upper,
+                   frame_upper,
+                   TerrainBlendMode::TBM_MAX_SMOOTH,
+                   5.0f);
+    EXPECT_GT(lower(4, 4), 4.0f);
+  }
+
+  {
+    Array lower(glm::ivec2(5, 5), 2.0f);
+    blend_terrains(lower,
+                   frame_lower,
+                   upper,
+                   frame_upper,
+                   TerrainBlendMode::TBM_MIN_SMOOTH,
+                   5.0f);
+    EXPECT_LT(lower(4, 4), 2.0f);
+  }
+}
+
+TEST(Blending, BlendTerrainsDistance)
+{
+  Array      lower(glm::ivec2(9, 9), 0.0f);
+  Array      upper(glm::ivec2(9, 9), 1.0f);
+  CoordFrame frame_lower({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+  CoordFrame frame_upper({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+
+  blend_terrains(lower,
+                 frame_lower,
+                 upper,
+                 frame_upper,
+                 TerrainBlendMode::TBM_DISTANCE,
+                 0.25f);
+
+  // Edge should remain lower (0.0), center should be upper (1.0)
+  EXPECT_NEAR(lower(0, 4), 0.0f, 1e-5f);
+  EXPECT_NEAR(lower(4, 4), 1.0f, 1e-5f);
+  EXPECT_GT(lower(1, 4), 0.0f);
+  EXPECT_LT(lower(1, 4), 1.0f);
+}
+
+TEST(Blending, BlendTerrainsVirtualArrayConsistency)
+{
+  const glm::ivec2 shape(16, 16);
+  const glm::ivec2 tile_shape(8, 8);
+  CoordFrame       frame_lower({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+  CoordFrame       frame_upper({0.25f, 0.25f}, {0.6f, 0.6f}, 0.3f);
+
+  Array lower_arr(shape, 1.0f);
+  Array upper_arr(shape, 3.0f);
+
+  VirtualArray lower_va(shape, tile_shape, 0, StorageMode::VA_RAM);
+  lower_va.from_array(lower_arr, ComputeMode{});
+  VirtualArray upper_va(shape, tile_shape, 0, StorageMode::VA_RAM);
+  upper_va.from_array(upper_arr, ComputeMode{});
+
+  blend_terrains(lower_arr,
+                 frame_lower,
+                 upper_arr,
+                 frame_upper,
+                 TerrainBlendMode::TBM_DISTANCE,
+                 0.2f);
+  blend_terrains(lower_va,
+                 frame_lower,
+                 upper_va,
+                 frame_upper,
+                 TerrainBlendMode::TBM_DISTANCE,
+                 0.2f);
+
+  Array va_result = lower_va.to_array(ComputeMode{});
+  EXPECT_TRUE(assert_almost_equal(lower_arr, va_result, 1e-4f));
+}
