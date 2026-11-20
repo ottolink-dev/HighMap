@@ -1,178 +1,68 @@
 /* Copyright (c) 2023 Otto Link. Distributed under the terms of the GNU General
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
+#include <algorithm>
 #include <cmath>
 #include <filesystem>
 #include <string>
-#include <vector>
+
+#include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
 #include "highmap/colormaps.hpp"
 #include "highmap/export/image.hpp"
-#include "highmap/filters.hpp"
 #include "highmap/internal/string_utils.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/logger.hpp"
 #include "highmap/math/core.hpp"
-#include "highmap/operator.hpp"
-#include "highmap/range.hpp"
 #include "highmap/transform.hpp"
 
 namespace hmap
 {
 
-//----------------------------------------------------------------------
-// Helpers
-//----------------------------------------------------------------------
-
-void helper_smooth_corners(Array     &cubemap,
-                           int        noverlap,
-                           int        ir,
-                           glm::ivec4 idx_front,
-                           glm::ivec4 idx_back)
+namespace
 {
-  Array mask(cubemap.shape);
 
-  // horizontal
-  for (int r = -noverlap + 1; r < noverlap; r++)
-  {
-    mask(idx_front.x + r, idx_front.z) = 1.f;
-    mask(idx_front.x + r, idx_front.w) = 1.f;
-    mask(idx_front.y + r, idx_front.z) = 1.f;
-    mask(idx_front.y + r, idx_front.w) = 1.f;
-  }
+struct CubemapFace
+{
+  glm::vec3 n;
+  glm::vec3 t;
+  glm::vec3 b;
+  int       i0;
+  int       j0;
+};
 
-  smooth_cpulse(mask, 2 * ir);
-  remap(mask);
-  smooth_cpulse(cubemap, ir, &mask);
+inline float pou_weight(float t, float overlap)
+{
+  float a = std::abs(t);
+  float inner = 1.f - overlap;
+  float outer = 1.f + overlap;
 
-  // vertical
-  mask = 0.f;
-  for (int r = -noverlap + 1; r < noverlap; r++)
-  {
-    mask(idx_front.x, idx_front.z + r) = 1.f;
-    mask(idx_front.y, idx_front.z + r) = 1.f;
-    mask(idx_front.x, idx_front.w + r) = 1.f;
-    mask(idx_front.y, idx_front.w + r) = 1.f;
+  if (a <= inner) return 1.f;
+  if (a >= outer) return 0.f;
 
-    mask(idx_back.x, idx_back.z + r) = 1.f;
-    mask(idx_back.x, idx_back.w + r) = 1.f;
-  }
-
-  smooth_cpulse(mask, 2 * ir);
-  remap(mask);
-  smooth_cpulse(cubemap, ir, &mask);
+  float s = (a - inner) / (outer - inner);
+  return 1.f - smoothstep3(s);
 }
 
-void helper_get_rtheta_stretch(int    i,
-                               int    j,
-                               int    ic,
-                               int    jc,
-                               int    nradius,
-                               float &radius,
-                               float &theta,
-                               int    config)
+inline float sample_bilinear(const Array &arr, float x, float y)
 {
-  radius = std::hypot(i - ic, j - jc) / static_cast<float>(nradius);
-  theta = std::atan2(j - jc, i - ic);
+  int   x0 = std::clamp(static_cast<int>(std::floor(x)), 0, arr.shape.x - 2);
+  int   y0 = std::clamp(static_cast<int>(std::floor(y)), 0, arr.shape.y - 2);
+  float dx = x - static_cast<float>(x0);
+  float dy = y - static_cast<float>(y0);
 
-  if (config == 0)
-    theta += 0.5f * M_PI;
-  else if (config == 1)
-    theta = theta < -0.5f * M_PI ? 2.f * M_PI + theta : theta;
-  else if (config == 2)
-    theta = theta < 0.5f * M_PI ? theta + M_PI : -1.f;
-  else if (config == 3)
-  {
-    theta -= 0.5f * M_PI;
-    theta = theta < -0.5f * M_PI ? 2.f * M_PI + theta : theta;
-  }
+  float v00 = arr(x0, y0);
+  float v10 = arr(x0 + 1, y0);
+  float v01 = arr(x0, y0 + 1);
+  float v11 = arr(x0 + 1, y0 + 1);
 
-  theta *= 4.f / 3.f;
+  float v0 = v00 + dx * (v10 - v00);
+  float v1 = v01 + dx * (v11 - v01);
+  return v0 + dy * (v1 - v0);
 }
 
-float helper_get_distance_polar(float r1, float theta1, float r2, float theta2)
-{
-  return std::sqrt(r1 * r1 + r2 * r2 -
-                   2.f * r1 * r2 * std::cos(theta1 - theta2));
-}
-
-void helper_smooth_triple_corner(Array &zfull,
-                                 int    ic,
-                                 int    jc,
-                                 int    noverlap,
-                                 int    ir,
-                                 int    config)
-{
-  hmap::log::trace("triple corner smoothing");
-
-  int nradius = static_cast<int>(1.5f * noverlap);
-
-  for (int p = -nradius; p < nradius + 1; p++)
-    for (int q = -nradius; q < nradius + 1; q++)
-    {
-      int i = ic + p;
-      int j = jc + q;
-
-      float radius, theta;
-      helper_get_rtheta_stretch(i, j, ic, jc, nradius, radius, theta, config);
-
-      if (theta >= 0.f && radius <= 1.f)
-      {
-        // average
-        float sum = 0.f;
-        float count = 0;
-
-        for (int r = -nradius; r < nradius + 1; r++)
-          for (int s = -nradius; s < nradius + 1; s++)
-          {
-            float radius_avg, theta_avg;
-
-            helper_get_rtheta_stretch(i + r,
-                                      j + s,
-                                      ic,
-                                      jc,
-                                      nradius,
-                                      radius_avg,
-                                      theta_avg,
-                                      config);
-
-            if (theta_avg >= 0.f)
-            {
-
-              float dist = helper_get_distance_polar(radius,
-                                                     theta,
-                                                     radius_avg,
-                                                     theta_avg);
-
-              float dist_relative = (float)nradius * dist / (float)ir;
-
-              if (dist_relative < 1.f)
-              {
-                sum += (1.f - dist_relative) * zfull(i + r, j + s);
-                count += (1.f - dist_relative);
-              }
-            }
-          }
-
-        float rlim = 0.6f;
-        float amp = radius < rlim ? 1.f : (radius - 1.f) / (rlim - 1.f);
-        amp = smoothstep3(amp);
-
-        float cexp = 1.f;
-        amp *= std::exp(-cexp * theta * theta) +
-               std::exp(-cexp * (theta - 0.666f * M_PI) *
-                        (theta - 0.666f * M_PI)) +
-               std::exp(-cexp * (theta - 1.333f * M_PI) *
-                        (theta - 1.333f * M_PI)) +
-               std::exp(-cexp * (theta - 2.f * M_PI) * (theta - 2.f * M_PI));
-
-        zfull(i, j) = amp * sum / count + (1.f - amp) * zfull(i, j);
-        // zfull(i, j) = theta;
-        // zfull(i, j) = amp;
-      }
-    }
-}
+} // namespace
 
 //----------------------------------------------------------------------
 // Main operator
@@ -182,7 +72,7 @@ void export_as_cubemap(const std::string &fname,
                        const Array       &z,
                        int                cubemap_resolution,
                        float              overlap,
-                       int                ir,
+                       int /* ir */,
                        Cmap               cmap,
                        bool               splitted,
                        Array             *p_cubemap)
@@ -190,315 +80,128 @@ void export_as_cubemap(const std::string &fname,
   if (!validate_non_empty(z)) return;
   if (!validate_cmap(cmap)) return;
 
-  // shape of individual texture of the cubemap (work with square
-  // arrays to simplify and fasten things...)
-  glm::ivec2 cm_shape(cubemap_resolution, cubemap_resolution);
+  const int        res = cubemap_resolution;
+  const glm::ivec2 cm_shape(res, res);
+  const int        noverlap = static_cast<int>(overlap * res);
 
-  int noverlap = static_cast<int>(overlap * cubemap_resolution);
-
-  hmap::log::trace("cubemap_resolution: {}", cubemap_resolution);
+  hmap::log::trace("cubemap_resolution: {}", res);
   hmap::log::trace("noverlap: {}", noverlap);
   hmap::log::trace("overlap: {}", overlap);
 
-  // rebuild a larger arrays with buffer arrays and the proper
-  // shape. In this array must fit 4 arrays + their buffers in the
-  // width and 4 array + their buffers in the height
+  glm::ivec2 work_shape(4 * res + 2 * noverlap, 3 * res + 2 * noverlap);
+  Array      zfull = z.resample_to_shape_bicubic(work_shape);
 
-  glm::ivec2 work_shape(4 * cm_shape.x + 2 * noverlap,
-                        3 * cm_shape.y + 2 * noverlap);
+  // face order: 0=right, 1=left, 2=top, 3=bottom, 4=front, 5=back
+  const CubemapFace faces[6] = {
+      {{1.f, 0.f, 0.f},
+       {0.f, 0.f, -1.f},
+       {0.f, 1.f, 0.f},
+       noverlap + 2 * res,
+       noverlap + res}, // right
+      {{-1.f, 0.f, 0.f},
+       {0.f, 0.f, 1.f},
+       {0.f, 1.f, 0.f},
+       noverlap,
+       noverlap + res}, // left
+      {{0.f, 1.f, 0.f},
+       {1.f, 0.f, 0.f},
+       {0.f, 0.f, -1.f},
+       noverlap + res,
+       noverlap + 2 * res}, // top
+      {{0.f, -1.f, 0.f},
+       {1.f, 0.f, 0.f},
+       {0.f, 0.f, 1.f},
+       noverlap + res,
+       noverlap}, // bottom
+      {{0.f, 0.f, 1.f},
+       {1.f, 0.f, 0.f},
+       {0.f, 1.f, 0.f},
+       noverlap + res,
+       noverlap + res}, // front
+      {{0.f, 0.f, -1.f},
+       {-1.f, 0.f, 0.f},
+       {0.f, 1.f, 0.f},
+       noverlap + 3 * res,
+       noverlap + res}, // back
+  };
 
-  Array zfull = z.resample_to_shape_bicubic(work_shape);
+  Array out_faces[6] = {
+      Array(cm_shape),
+      Array(cm_shape),
+      Array(cm_shape),
+      Array(cm_shape),
+      Array(cm_shape),
+      Array(cm_shape),
+  };
 
-  // zfull.to_png("out0.png", Cmap::TERRAIN, true); // DBG
+  const float inv_res_m1 = res > 1 ? 2.f / static_cast<float>(res - 1) : 0.f;
+  const float half_res = 0.5f * static_cast<float>(res);
 
-  // extract six arrays from the cubemap
-  Array z_left(cm_shape);
-  Array z_right(cm_shape);
-  Array z_top(cm_shape);
-  Array z_bottom(cm_shape);
-  Array z_front(cm_shape);
-  Array z_back(cm_shape);
-
-  // define indices of the bottom-left cell of each map
-  int i_left = noverlap;
-  int j_left = noverlap + cm_shape.y;
-
-  int i_front = noverlap + cm_shape.x;
-  int j_front = j_left;
-
-  int i_right = noverlap + 2 * cm_shape.x;
-  int j_right = j_left;
-
-  int i_back = noverlap + 3 * cm_shape.x;
-  int j_back = j_left;
-
-  int i_bottom = i_front;
-  int j_bottom = noverlap;
-
-  int i_top = i_front;
-  int j_top = noverlap + 2 * cm_shape.y;
-
-  glm::ivec4 idx_left(i_left, i_left + cm_shape.x, j_left, j_left + cm_shape.y);
-
-  glm::ivec4 idx_right(i_right,
-                       i_right + cm_shape.x,
-                       j_right,
-                       j_right + cm_shape.y);
-
-  glm::ivec4 idx_top(i_top, i_top + cm_shape.x, j_top, j_top + cm_shape.y);
-
-  glm::ivec4 idx_bottom(i_bottom,
-                        i_bottom + cm_shape.x,
-                        j_bottom,
-                        j_bottom + cm_shape.y);
-
-  glm::ivec4 idx_front(i_front,
-                       i_front + cm_shape.x,
-                       j_front,
-                       j_front + cm_shape.y);
-
-  glm::ivec4 idx_back(i_back, i_back + cm_shape.x, j_back, j_back + cm_shape.y);
-
-  // --- enforce continuity
-
-  hmap::log::trace("enforce base continuity");
-
-  // coefficient to smooth the transition
-  std::vector<float> t = linspace(0.f, 0.5f, noverlap, true);
-
-  for (auto &v : t)
-    v = 0.5f * smoothstep3(2.f * v);
-
-  Array zfull_bckp;
-
-  zfull_bckp = zfull;
-
-  if (true)
+  // 3D partition-of-unity blending: h(p) depends only on the 3D cube point p,
+  // guaranteeing C1/C2 continuity across all 12 edges and 8 triple-corners.
+  for (int f = 0; f < 6; f++)
   {
-    // left/back
-    for (int k = 0; k < cubemap_resolution; k++)
-      for (int r = 0; r < noverlap; r++)
+    const CubemapFace &face = faces[f];
+    Array             &out = out_faces[f];
+
+    for (int j = 0; j < res; j++)
+    {
+      float v = -1.f + static_cast<float>(j) * inv_res_m1;
+
+      for (int i = 0; i < res; i++)
       {
-        zfull(idx_left.x + r,
-              idx_left.z + k) = (0.5f + t[r]) *
-                                    zfull_bckp(idx_left.x + r, idx_left.z + k) +
-                                (0.5f - t[r]) *
-                                    zfull_bckp(idx_back.y + r, idx_back.z + k);
+        float     u = -1.f + static_cast<float>(i) * inv_res_m1;
+        glm::vec3 p = face.n + u * face.t + v * face.b;
 
-        zfull(idx_back.x + cm_shape.x - r,
-              idx_left.z + k) = (0.5f + t[r]) *
-                                    zfull(idx_back.x + cm_shape.x - r,
-                                          idx_left.z + k) +
-                                (0.5f - t[r]) *
-                                    zfull_bckp(idx_left.x - r, idx_left.z + k);
+        float sum = 0.f;
+        float wsum = 0.f;
+
+        for (int g = 0; g < 6; g++)
+        {
+          const CubemapFace &cand = faces[g];
+          float              pn = glm::dot(p, cand.n);
+
+          if (pn <= 0.f) continue;
+
+          float inv_pn = 1.f / pn;
+          float ug = glm::dot(p, cand.t) * inv_pn;
+          float vg = glm::dot(p, cand.b) * inv_pn;
+
+          float w = pou_weight(ug, overlap) * pou_weight(vg, overlap);
+          if (w > 0.f)
+          {
+            float sx = static_cast<float>(cand.i0) + (ug + 1.f) * half_res;
+            float sy = static_cast<float>(cand.j0) + (vg + 1.f) * half_res;
+            sum += w * sample_bilinear(zfull, sx, sy);
+            wsum += w;
+          }
+        }
+
+        out(i, j) = sum / wsum;
       }
-    zfull_bckp = zfull;
-
-    // bottom low/back low
-    for (int k = 0; k < cubemap_resolution; k++)
-      for (int r = 0; r < noverlap; r++)
-      {
-        zfull(idx_bottom.x + k,
-              idx_bottom.z + r) = (0.5f + t[r]) * zfull_bckp(idx_bottom.x + k,
-                                                             idx_bottom.z + r) +
-                                  (0.5f - t[r]) * zfull_bckp(idx_back.y - k,
-                                                             idx_back.z - r);
-
-        zfull(idx_back.x + k,
-              idx_back.z + r) = (0.5f + t[r]) *
-                                    zfull_bckp(idx_back.x + k, idx_back.z + r) +
-                                (0.5f - t[r]) * zfull_bckp(idx_bottom.y - k,
-                                                           idx_bottom.z - r);
-      }
-    zfull_bckp = zfull;
-
-    // top high/back high
-    for (int k = 0; k < cubemap_resolution; k++)
-      for (int r = 0; r < noverlap; r++)
-      {
-        zfull(idx_top.x + k,
-              idx_top.w - r) = (0.5f + t[r]) *
-                                   zfull_bckp(idx_top.x + k, idx_top.w - r) +
-                               (0.5f - t[r]) *
-                                   zfull_bckp(idx_back.y - k, idx_back.w + r);
-
-        // zfull(idx_top.x + k,
-        //       idx_top.w - r) =zfull_bckp(idx_back.y - k, idx_back.w + r);
-
-        zfull(idx_back.x + k,
-              idx_back.w - r) = (0.5f + t[r]) *
-                                    zfull_bckp(idx_back.x + k, idx_back.w - r) +
-                                (0.5f - t[r]) *
-                                    zfull_bckp(idx_top.y - k, idx_top.w + r);
-      }
-    zfull_bckp = zfull;
-
-    for (int k = 0; k < cubemap_resolution; k++)
-      for (int r = 0; r < noverlap; r++)
-      {
-        // left/top
-        zfull(idx_left.x + k,
-              idx_left.w - r) = (0.5f + t[r]) *
-                                    zfull_bckp(idx_left.x + k, idx_left.w - r) +
-                                (0.5f - t[r]) *
-                                    zfull_bckp(idx_top.x - r, idx_top.w - k);
-
-        zfull(idx_top.x + r,
-              idx_top.z + k) = (0.5f + t[r]) *
-                                   zfull_bckp(idx_top.x + r, idx_top.z + k) +
-                               (0.5f - t[r]) *
-                                   zfull_bckp(idx_left.y - k, idx_left.w + r);
-
-        // left/bottom
-        zfull(idx_left.x + k,
-              idx_left.z + r) = (0.5f + t[r]) *
-                                    zfull_bckp(idx_left.x + k, idx_left.z + r) +
-                                (0.5f - t[r]) * zfull_bckp(idx_bottom.x - r,
-                                                           idx_bottom.z + k);
-
-        zfull(idx_bottom.x + r,
-              idx_bottom.z + k) = (0.5f + t[r]) * zfull_bckp(idx_bottom.x + r,
-                                                             idx_bottom.z + k) +
-                                  (0.5f - t[r]) * zfull_bckp(idx_left.x + k,
-                                                             idx_left.z - r);
-
-        // top/right
-        zfull(idx_right.x + k,
-              idx_right.w - r) = (0.5f + t[r]) * zfull_bckp(idx_right.x + k,
-                                                            idx_right.w - r) +
-                                 (0.5f - t[r]) *
-                                     zfull_bckp(idx_top.y + r, idx_top.z + k);
-
-        zfull(idx_top.y - r,
-              idx_top.z + k) = (0.5f + t[r]) *
-                                   zfull_bckp(idx_top.y - r, idx_top.z + k) +
-                               (0.5f - t[r]) *
-                                   zfull_bckp(idx_right.x + k, idx_right.w + r);
-
-        // right/bottom
-        zfull(idx_right.x + k,
-              idx_right.z + r) = (0.5f + t[r]) * zfull_bckp(idx_right.x + k,
-                                                            idx_right.z + r) +
-                                 (0.5f - t[r]) * zfull_bckp(idx_bottom.y + r,
-                                                            idx_bottom.w - k);
-
-        zfull(idx_bottom.y - r,
-              idx_bottom.z + k) = (0.5f + t[r]) * zfull_bckp(idx_bottom.y - r,
-                                                             idx_bottom.z + k) +
-                                  (0.5f - t[r]) * zfull_bckp(idx_right.y - k,
-                                                             idx_right.z - r);
-      }
+    }
   }
 
-  // --- triple corners
+  const Array &z_right = out_faces[0];
+  const Array &z_left = out_faces[1];
+  const Array &z_top = out_faces[2];
+  const Array &z_bottom = out_faces[3];
+  const Array &z_front = out_faces[4];
+  const Array &z_back = out_faces[5];
 
-  hmap::log::trace("triple corners: 1 to 4");
-
-  helper_smooth_triple_corner(zfull,
-                              idx_front.x - 1,
-                              idx_front.z,
-                              noverlap,
-                              ir,
-                              0);
-  helper_smooth_triple_corner(zfull, idx_front.y, idx_front.z, noverlap, ir, 1);
-  helper_smooth_triple_corner(zfull,
-                              idx_front.x - 1,
-                              idx_front.w,
-                              noverlap,
-                              ir,
-                              2);
-  helper_smooth_triple_corner(zfull, idx_front.y, idx_front.w, noverlap, ir, 3);
-
-  // zfull.to_png("cubemap3.png", Cmap::TERRAIN, false);
-
-  hmap::log::trace("triple corners: 5 to 8");
-
-  hmap::log::trace("reorganize array");
-
-  // put the back in the center of the cubemap
-
-  // extract base data
-  z_left = zfull.extract_slice(idx_left);
-  z_right = zfull.extract_slice(idx_right);
-  z_top = zfull.extract_slice(idx_top);
-  z_bottom = zfull.extract_slice(idx_bottom);
-  z_front = zfull.extract_slice(idx_front);
-  z_back = zfull.extract_slice(idx_back);
-
-  zfull_bckp = 0.f;
-
-  zfull_bckp.set_slice(idx_front, z_back);
-  zfull_bckp.set_slice(idx_back, z_front);
-  zfull_bckp.set_slice(idx_left, z_right);
-  zfull_bckp.set_slice(idx_right, z_left);
-
-  rot180(z_top);
-  zfull_bckp.set_slice(idx_top, z_top);
-
-  rot180(z_bottom);
-  zfull_bckp.set_slice(idx_bottom, z_bottom);
-
-  helper_smooth_triple_corner(zfull_bckp,
-                              idx_front.x - 1,
-                              idx_front.z,
-                              noverlap,
-                              ir,
-                              0);
-  helper_smooth_triple_corner(zfull_bckp,
-                              idx_front.y,
-                              idx_front.z,
-                              noverlap,
-                              ir,
-                              1);
-  helper_smooth_triple_corner(zfull_bckp,
-                              idx_front.x - 1,
-                              idx_front.w,
-                              noverlap,
-                              ir,
-                              2);
-  helper_smooth_triple_corner(zfull_bckp,
-                              idx_front.y,
-                              idx_front.w,
-                              noverlap,
-                              ir,
-                              3);
-
-  // send back to orignal positions
-  z_left = zfull_bckp.extract_slice(idx_left);
-  z_right = zfull_bckp.extract_slice(idx_right);
-  z_top = zfull_bckp.extract_slice(idx_top);
-  z_bottom = zfull_bckp.extract_slice(idx_bottom);
-  z_front = zfull_bckp.extract_slice(idx_front);
-  z_back = zfull_bckp.extract_slice(idx_back);
-
-  zfull = 0.f;
-  zfull.set_slice(idx_front, z_back);
-  zfull.set_slice(idx_back, z_front);
-  zfull.set_slice(idx_left, z_right);
-  zfull.set_slice(idx_right, z_left);
-
-  rot180(z_top);
-  zfull.set_slice(idx_top, z_top);
-
-  rot180(z_bottom);
-  zfull.set_slice(idx_bottom, z_bottom);
-
-  // --- extract maps
-
-  hmap::log::trace("extract map");
-
-  // return cubemap array if requested
-  if (p_cubemap) *p_cubemap = zfull;
+  if (p_cubemap)
+  {
+    *p_cubemap = Array(glm::ivec2(4 * res, 3 * res));
+    p_cubemap->set_slice(glm::ivec4(0, res, res, 2 * res), z_left);
+    p_cubemap->set_slice(glm::ivec4(res, 2 * res, res, 2 * res), z_front);
+    p_cubemap->set_slice(glm::ivec4(2 * res, 3 * res, res, 2 * res), z_right);
+    p_cubemap->set_slice(glm::ivec4(3 * res, 4 * res, res, 2 * res), z_back);
+    p_cubemap->set_slice(glm::ivec4(res, 2 * res, 0, res), z_bottom);
+    p_cubemap->set_slice(glm::ivec4(res, 2 * res, 2 * res, 3 * res), z_top);
+  }
 
   if (splitted)
   {
-    z_left = zfull.extract_slice(idx_left);
-    z_right = zfull.extract_slice(idx_right);
-    z_top = zfull.extract_slice(idx_top);
-    z_bottom = zfull.extract_slice(idx_bottom);
-    z_front = zfull.extract_slice(idx_front);
-    z_back = zfull.extract_slice(idx_back);
-
     std::filesystem::path path(fname);
 
     z_right.to_png(add_filename_suffix(path, "_00_right").string(), cmap);
@@ -510,12 +213,14 @@ void export_as_cubemap(const std::string &fname,
   }
   else
   {
-    // remove buffers
-    zfull = zfull.extract_slice(glm::ivec4(noverlap,
-                                           zfull.shape.x - noverlap,
-                                           noverlap,
-                                           zfull.shape.y - noverlap));
-    zfull.to_png(fname, cmap, false);
+    Array cross(glm::ivec2(4 * res, 3 * res));
+    cross.set_slice(glm::ivec4(0, res, res, 2 * res), z_left);
+    cross.set_slice(glm::ivec4(res, 2 * res, res, 2 * res), z_front);
+    cross.set_slice(glm::ivec4(2 * res, 3 * res, res, 2 * res), z_right);
+    cross.set_slice(glm::ivec4(3 * res, 4 * res, res, 2 * res), z_back);
+    cross.set_slice(glm::ivec4(res, 2 * res, 0, res), z_bottom);
+    cross.set_slice(glm::ivec4(res, 2 * res, 2 * res, 3 * res), z_top);
+    cross.to_png(fname, cmap, false);
   }
 }
 
