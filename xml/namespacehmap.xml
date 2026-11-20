@@ -16115,11 +16115,23 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
 <codeline><highlight class="normal"><sp/><sp/>glm::vec2<sp/><sp/>res<sp/>=<sp/>{4.f,<sp/>4.f};</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>0;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1a769716b7ef90dc3a2f3aca4186d973f0" kindref="member">hmap::noise_ridged</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,<sp/>shape,<sp/>res,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1a8ab34d5f894ffd1ee8723774dc7dbfd8" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,<sp/>shape,<sp/>res,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(z);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8a85dd8e3a7211f2c2440038d6a10ce8" kindref="member">hmap::hydraulic_stream</ref>(z,<sp/>&amp;z,<sp/>0.05f,<sp/>4.f<sp/>/<sp/>shape.x);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a7b0c1711fe9d99ae8bb573e099ddd5c8" kindref="member">hmap::hydraulic_mise</ref>(z);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ad880e48991b3beda92660d62c2bb0294" kindref="member">hmap::export_as_cubemap</ref>(</highlight><highlight class="stringliteral">&quot;ex_export_as_cubemap.png&quot;</highlight><highlight class="normal">,<sp/>z);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cubemap_resolution<sp/>=<sp/>shape.x<sp/>/<sp/>4;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>overlap<sp/>=<sp/>0.25f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ir<sp/>=<sp/>16;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369" kindref="member">hmap::Cmap</ref><sp/>cmap<sp/>=<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9" kindref="member">hmap::Cmap::TERRAIN</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>splitted<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ad880e48991b3beda92660d62c2bb0294" kindref="member">hmap::export_as_cubemap</ref>(</highlight><highlight class="stringliteral">&quot;ex_export_as_cubemap.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cubemap_resolution,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>overlap,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ir,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cmap,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>splitted);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
 <para><bold>Result</bold> <image type="html" name="ex_export_as_cubemap.png"></image>
@@ -16127,7 +16139,7 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/export/export_as_cubemap.cpp" line="181" column="6" bodyfile="HighMap/src/export/export_as_cubemap.cpp" bodystart="181" bodyend="520" declfile="HighMap/include/highmap/export/image.hpp" declline="97" declcolumn="6"/>
+        <location file="HighMap/src/export/export_as_cubemap.cpp" line="71" column="6" bodyfile="HighMap/src/export/export_as_cubemap.cpp" bodystart="71" bodyend="225" declfile="HighMap/include/highmap/export/image.hpp" declline="97" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -77860,154 +77872,6 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/src/erosion/thermal_schott.cpp" line="92" column="6" bodyfile="HighMap/src/erosion/thermal_schott.cpp" bodystart="92" bodyend="109"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1ab72874a8c8c2a5f78b824ef21b35f9e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::helper_smooth_corners</definition>
-        <argsstring>(Array &amp;cubemap, int noverlap, int ir, glm::ivec4 idx_front, glm::ivec4 idx_back)</argsstring>
-        <name>helper_smooth_corners</name>
-        <qualifiedname>hmap::helper_smooth_corners</qualifiedname>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>cubemap</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>noverlap</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>ir</declname>
-        </param>
-        <param>
-          <type>glm::ivec4</type>
-          <declname>idx_front</declname>
-        </param>
-        <param>
-          <type>glm::ivec4</type>
-          <declname>idx_back</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/export/export_as_cubemap.cpp" line="28" column="6" bodyfile="HighMap/src/export/export_as_cubemap.cpp" bodystart="28" bodyend="65"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a9bab94bd2d87290be7f4fde49095b311" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::helper_get_rtheta_stretch</definition>
-        <argsstring>(int i, int j, int ic, int jc, int nradius, float &amp;radius, float &amp;theta, int config)</argsstring>
-        <name>helper_get_rtheta_stretch</name>
-        <qualifiedname>hmap::helper_get_rtheta_stretch</qualifiedname>
-        <param>
-          <type>int</type>
-          <declname>i</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>j</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>ic</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>jc</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>nradius</declname>
-        </param>
-        <param>
-          <type>float &amp;</type>
-          <declname>radius</declname>
-        </param>
-        <param>
-          <type>float &amp;</type>
-          <declname>theta</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>config</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/export/export_as_cubemap.cpp" line="67" column="6" bodyfile="HighMap/src/export/export_as_cubemap.cpp" bodystart="67" bodyend="92"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1acc54c794223302fc298eeeb563a27d0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>float</type>
-        <definition>float hmap::helper_get_distance_polar</definition>
-        <argsstring>(float r1, float theta1, float r2, float theta2)</argsstring>
-        <name>helper_get_distance_polar</name>
-        <qualifiedname>hmap::helper_get_distance_polar</qualifiedname>
-        <param>
-          <type>float</type>
-          <declname>r1</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>theta1</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>r2</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>theta2</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/export/export_as_cubemap.cpp" line="94" column="7" bodyfile="HighMap/src/export/export_as_cubemap.cpp" bodystart="94" bodyend="98"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a44e4240c5e7a9cfd46de3c27562ed201" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void hmap::helper_smooth_triple_corner</definition>
-        <argsstring>(Array &amp;zfull, int ic, int jc, int noverlap, int ir, int config)</argsstring>
-        <name>helper_smooth_triple_corner</name>
-        <qualifiedname>hmap::helper_smooth_triple_corner</qualifiedname>
-        <param>
-          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>zfull</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>ic</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>jc</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>noverlap</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>ir</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>config</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/export/export_as_cubemap.cpp" line="100" column="6" bodyfile="HighMap/src/export/export_as_cubemap.cpp" bodystart="100" bodyend="175"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac56df1dc268d53f122abc88ae8f9b124" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>

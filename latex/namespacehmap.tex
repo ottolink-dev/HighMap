@@ -2372,14 +2372,6 @@ void \mbox{\hyperlink{namespacehmap_a242e8cd55310e967e93d609cdd5a2ae7}{thermal\+
 \item 
 void \mbox{\hyperlink{namespacehmap_ac93b43769361236ba4726a43fa5d9546}{thermal\+\_\+schott}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, const float talus, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask, int iterations, float intensity)
 \item 
-void \mbox{\hyperlink{namespacehmap_ab72874a8c8c2a5f78b824ef21b35f9e4}{helper\+\_\+smooth\+\_\+corners}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&cubemap, int noverlap, int ir, glm\+::ivec4 idx\+\_\+front, glm\+::ivec4 idx\+\_\+back)
-\item 
-void \mbox{\hyperlink{namespacehmap_a9bab94bd2d87290be7f4fde49095b311}{helper\+\_\+get\+\_\+rtheta\+\_\+stretch}} (int i, int j, int ic, int jc, int nradius, float \&radius, float \&theta, int config)
-\item 
-float \mbox{\hyperlink{namespacehmap_acc54c794223302fc298eeeb563a27d0e}{helper\+\_\+get\+\_\+distance\+\_\+polar}} (float r1, float theta1, float r2, float theta2)
-\item 
-void \mbox{\hyperlink{namespacehmap_a44e4240c5e7a9cfd46de3c27562ed201}{helper\+\_\+smooth\+\_\+triple\+\_\+corner}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&zfull, int ic, int jc, int noverlap, int ir, int config)
-\item 
 void \mbox{\hyperlink{namespacehmap_ac56df1dc268d53f122abc88ae8f9b124}{helper\+\_\+build\+\_\+mesh\+\_\+masked}} (ai\+Mesh \texorpdfstring{$\ast$}{*}p\+\_\+mesh, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&mask, float elevation\+\_\+scaling, bool fit\+\_\+boundaries)
 \item 
 void \mbox{\hyperlink{namespacehmap_aec2b0c4bc7a299e0506e3568715c38a8}{helper\+\_\+build\+\_\+mesh}} (ai\+Mesh \texorpdfstring{$\ast$}{*}p\+\_\+mesh, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, \mbox{\hyperlink{namespacehmap_ac81a92060b89699c4eb9826495d87250}{Mesh\+Type}} mesh\+\_\+type, float elevation\+\_\+scaling, float max\+\_\+error, bool fit\+\_\+boundaries)
@@ -9738,11 +9730,23 @@ The generated cubemap maintains continuity between faces, adjusting values at ov
 \DoxyCodeLine{\ \ glm::vec2\ \ res\ =\ \{4.f,\ 4.f\};}
 \DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ seed\ =\ 0;}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\ =\ \mbox{\hyperlink{namespacehmap_a769716b7ef90dc3a2f3aca4186d973f0}{hmap::noise\_ridged}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ shape,\ res,\ seed);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\ =\ \mbox{\hyperlink{namespacehmap_a8ab34d5f894ffd1ee8723774dc7dbfd8}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ shape,\ res,\ seed);}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a262e6495cb2d02598f36a2b46114b2b4}{hmap::remap}}(z);}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a8a85dd8e3a7211f2c2440038d6a10ce8}{hmap::hydraulic\_stream}}(z,\ \&z,\ 0.05f,\ 4.f\ /\ shape.x);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a7b0c1711fe9d99ae8bb573e099ddd5c8}{hmap::hydraulic\_mise}}(z);}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ad880e48991b3beda92660d62c2bb0294}{hmap::export\_as\_cubemap}}(\textcolor{stringliteral}{"{}ex\_export\_as\_cubemap.png"{}},\ z);}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ cubemap\_resolution\ =\ shape.x\ /\ 4;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ overlap\ =\ 0.25f;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ ir\ =\ 16;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369}{hmap::Cmap}}\ cmap\ =\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9}{hmap::Cmap::TERRAIN}};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ splitted\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ad880e48991b3beda92660d62c2bb0294}{hmap::export\_as\_cubemap}}(\textcolor{stringliteral}{"{}ex\_export\_as\_cubemap.png"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ z,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cubemap\_resolution,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ overlap,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ir,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cmap,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ splitted);}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}
@@ -39756,30 +39760,6 @@ void hmap\+::thermal\+\_\+schott (\begin{DoxyParamCaption}\item[{\mbox{\hyperlin
 \doxysubsubsection{\texorpdfstring{thermal\_schott()}{thermal\_schott()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
 {\footnotesize\ttfamily \label{namespacehmap_ac93b43769361236ba4726a43fa5d9546} 
 void hmap\+::thermal\+\_\+schott (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z}{, }\item[{const float}]{talus}{, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+mask}{, }\item[{int}]{iterations}{, }\item[{float}]{intensity}{}\end{DoxyParamCaption})}
-
-\Hypertarget{namespacehmap_ab72874a8c8c2a5f78b824ef21b35f9e4}\index{hmap@{hmap}!helper\_smooth\_corners@{helper\_smooth\_corners}}
-\index{helper\_smooth\_corners@{helper\_smooth\_corners}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{helper\_smooth\_corners()}{helper\_smooth\_corners()}}
-{\footnotesize\ttfamily \label{namespacehmap_ab72874a8c8c2a5f78b824ef21b35f9e4} 
-void hmap\+::helper\+\_\+smooth\+\_\+corners (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{cubemap}{, }\item[{int}]{noverlap}{, }\item[{int}]{ir}{, }\item[{glm\+::ivec4}]{idx\+\_\+front}{, }\item[{glm\+::ivec4}]{idx\+\_\+back}{}\end{DoxyParamCaption})}
-
-\Hypertarget{namespacehmap_a9bab94bd2d87290be7f4fde49095b311}\index{hmap@{hmap}!helper\_get\_rtheta\_stretch@{helper\_get\_rtheta\_stretch}}
-\index{helper\_get\_rtheta\_stretch@{helper\_get\_rtheta\_stretch}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{helper\_get\_rtheta\_stretch()}{helper\_get\_rtheta\_stretch()}}
-{\footnotesize\ttfamily \label{namespacehmap_a9bab94bd2d87290be7f4fde49095b311} 
-void hmap\+::helper\+\_\+get\+\_\+rtheta\+\_\+stretch (\begin{DoxyParamCaption}\item[{int}]{i}{, }\item[{int}]{j}{, }\item[{int}]{ic}{, }\item[{int}]{jc}{, }\item[{int}]{nradius}{, }\item[{float \&}]{radius}{, }\item[{float \&}]{theta}{, }\item[{int}]{config}{}\end{DoxyParamCaption})}
-
-\Hypertarget{namespacehmap_acc54c794223302fc298eeeb563a27d0e}\index{hmap@{hmap}!helper\_get\_distance\_polar@{helper\_get\_distance\_polar}}
-\index{helper\_get\_distance\_polar@{helper\_get\_distance\_polar}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{helper\_get\_distance\_polar()}{helper\_get\_distance\_polar()}}
-{\footnotesize\ttfamily \label{namespacehmap_acc54c794223302fc298eeeb563a27d0e} 
-float hmap\+::helper\+\_\+get\+\_\+distance\+\_\+polar (\begin{DoxyParamCaption}\item[{float}]{r1}{, }\item[{float}]{theta1}{, }\item[{float}]{r2}{, }\item[{float}]{theta2}{}\end{DoxyParamCaption})}
-
-\Hypertarget{namespacehmap_a44e4240c5e7a9cfd46de3c27562ed201}\index{hmap@{hmap}!helper\_smooth\_triple\_corner@{helper\_smooth\_triple\_corner}}
-\index{helper\_smooth\_triple\_corner@{helper\_smooth\_triple\_corner}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{helper\_smooth\_triple\_corner()}{helper\_smooth\_triple\_corner()}}
-{\footnotesize\ttfamily \label{namespacehmap_a44e4240c5e7a9cfd46de3c27562ed201} 
-void hmap\+::helper\+\_\+smooth\+\_\+triple\+\_\+corner (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{zfull}{, }\item[{int}]{ic}{, }\item[{int}]{jc}{, }\item[{int}]{noverlap}{, }\item[{int}]{ir}{, }\item[{int}]{config}{}\end{DoxyParamCaption})}
 
 \Hypertarget{namespacehmap_ac56df1dc268d53f122abc88ae8f9b124}\index{hmap@{hmap}!helper\_build\_mesh\_masked@{helper\_build\_mesh\_masked}}
 \index{helper\_build\_mesh\_masked@{helper\_build\_mesh\_masked}!hmap@{hmap}}

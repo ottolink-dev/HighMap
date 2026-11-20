@@ -1,9 +1,5 @@
 var NAVTREEINDEX19 =
 {
-"structhmap_1_1InteractionMatrix.html#a7c486745d36fc7e001b88d6d0f3ae1fe":[15,0,0,109,7],
-"structhmap_1_1InteractionMatrix.html#a7c486745d36fc7e001b88d6d0f3ae1fe":[16,0,0,107,7],
-"structhmap_1_1InteractionMatrix.html#aa66fb98eb4a53c6d6a0539aae4fbe1fe":[15,0,0,109,5],
-"structhmap_1_1InteractionMatrix.html#aa66fb98eb4a53c6d6a0539aae4fbe1fe":[16,0,0,107,5],
 "structhmap_1_1InteractionMatrix.html#aaa44f8ba46b2b974d4040d709168346f":[15,0,0,109,2],
 "structhmap_1_1InteractionMatrix.html#aaa44f8ba46b2b974d4040d709168346f":[16,0,0,107,2],
 "structhmap_1_1KDTree_1_1Impl.html":[15,0,0,71,0],
@@ -249,5 +245,9 @@ var NAVTREEINDEX19 =
 "structhmap_1_1RockSimulationOptions.html#ab9cce4b9b260297d0d4274fbdf4722d4":[15,0,0,117,7],
 "structhmap_1_1RockSimulationOptions.html#ab9cce4b9b260297d0d4274fbdf4722d4":[16,0,0,115,7],
 "structhmap_1_1RockSimulationOptions.html#aec5bedc2bdcbe70013a940b07089a166":[15,0,0,117,1],
-"structhmap_1_1RockSimulationOptions.html#aec5bedc2bdcbe70013a940b07089a166":[16,0,0,115,1]
+"structhmap_1_1RockSimulationOptions.html#aec5bedc2bdcbe70013a940b07089a166":[16,0,0,115,1],
+"structhmap_1_1ScatterSeedingOptions.html":[15,0,0,89],
+"structhmap_1_1ScatterSeedingOptions.html":[16,0,0,87],
+"structhmap_1_1ScatterSeedingOptions.html#a08a3b22d785e8b8cac2dadfd1b33cf1c":[15,0,0,89,1],
+"structhmap_1_1ScatterSeedingOptions.html#a08a3b22d785e8b8cac2dadfd1b33cf1c":[16,0,0,87,1]
 };
