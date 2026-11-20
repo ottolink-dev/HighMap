@@ -51,6 +51,7 @@
 #include "highmap/terrain_tri_mesh.hpp"
 #include "highmap/texture.hpp"
 #include "highmap/transform.hpp"
+#include "highmap/transform/terrain_alignment.hpp"
 #include "highmap/vectors.hpp"
 #include "highmap/virtual_array.hpp"
 #include "highmap/world/flora.hpp"

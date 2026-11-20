@@ -50,7 +50,23 @@ int main(void)
                        hmap::TerrainBlendMode::TBM_DISTANCE,
                        0.2f);
 
-  hmap::export_banner_png("ex_blend_terrains0.png",
-                          {lower, z_add, z_max, z_max_smooth, z_dist},
-                          hmap::Cmap::TERRAIN);
+  hmap::Array upper_aligned = upper;
+  hmap::align_terrains(lower,
+                       frame_lower,
+                       upper_aligned,
+                       frame_upper,
+                       hmap::TerrainAlignMode::TAM_PLANE);
+
+  hmap::Array z_aligned_dist = lower;
+  hmap::blend_terrains(z_aligned_dist,
+                       frame_lower,
+                       upper_aligned,
+                       frame_upper,
+                       hmap::TerrainBlendMode::TBM_DISTANCE,
+                       0.2f);
+
+  hmap::export_banner_png(
+      "ex_blend_terrains0.png",
+      {lower, z_add, z_max, z_max_smooth, z_dist, z_aligned_dist},
+      hmap::Cmap::TERRAIN);
 }

@@ -1,6 +1,7 @@
 #include "highmap/blending.hpp"
 #include "highmap/internal/assert.hpp"
 #include "highmap/primitives.hpp"
+#include "highmap/transform/terrain_alignment.hpp"
 
 #include <gtest/gtest.h>
 
@@ -329,4 +330,116 @@ TEST(Blending, BlendTerrainsVirtualArrayConsistency)
 
   Array va_result = lower_va.to_array(ComputeMode{});
   EXPECT_TRUE(assert_almost_equal(lower_arr, va_result, 1e-4f));
+}
+
+TEST(Blending, AlignTerrainsOffset)
+{
+  CoordFrame frame_lower({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+  CoordFrame frame_upper({0.25f, 0.25f}, {0.5f, 0.5f}, 0.0f);
+
+  Array lower(glm::ivec2(16, 16), 3.5f);
+  Array upper(glm::ivec2(8, 8), 1.0f);
+
+  align_terrains(lower,
+                 frame_lower,
+                 upper,
+                 frame_upper,
+                 TerrainAlignMode::TAM_OFFSET);
+
+  for (int j = 0; j < upper.shape.y; ++j)
+    for (int i = 0; i < upper.shape.x; ++i)
+      EXPECT_NEAR(upper(i, j), 3.5f, 1e-4f);
+}
+
+TEST(Blending, AlignTerrainsPlane)
+{
+  CoordFrame frame_lower({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+  CoordFrame frame_upper({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+
+  const int nx = 17;
+  const int ny = 17;
+  Array     lower(glm::ivec2(nx, ny), 0.0f);
+  Array     upper(glm::ivec2(nx, ny), 0.0f);
+
+  for (int j = 0; j < ny; ++j)
+  {
+    float y = float(j) / float(ny - 1);
+    for (int i = 0; i < nx; ++i)
+    {
+      float x = float(i) / float(nx - 1);
+      lower(i, j) = 1.0f + 2.0f * x - 1.5f * y;
+      upper(i, j) = 0.0f;
+    }
+  }
+
+  align_terrains(lower,
+                 frame_lower,
+                 upper,
+                 frame_upper,
+                 TerrainAlignMode::TAM_PLANE);
+
+  EXPECT_TRUE(assert_almost_equal(lower, upper, 1e-4f));
+}
+
+TEST(Blending, AlignTerrainsRobustOutliers)
+{
+  CoordFrame frame_lower({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+  CoordFrame frame_upper({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+
+  Array lower(glm::ivec2(16, 16), 2.0f);
+  Array upper(glm::ivec2(16, 16), 0.0f);
+
+  // Inject a strong outlier spike
+  lower(8, 8) = 100.0f;
+
+  TerrainAlignment l2_fit = compute_terrain_alignment(
+      lower,
+      frame_lower,
+      upper,
+      frame_upper,
+      TerrainAlignMode::TAM_OFFSET);
+  TerrainAlignment robust_fit = compute_terrain_alignment(
+      lower,
+      frame_lower,
+      upper,
+      frame_upper,
+      TerrainAlignMode::TAM_ROBUST_OFFSET,
+      0.1f,
+      20);
+
+  EXPECT_GT(l2_fit.offset, 2.3f);
+  EXPECT_NEAR(robust_fit.offset, 2.0f, 0.05f);
+}
+
+TEST(Blending, AlignTerrainsVirtualArrayConsistency)
+{
+  const glm::ivec2 shape(16, 16);
+  const glm::ivec2 tile_shape(8, 8);
+  CoordFrame       frame_lower({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+  CoordFrame       frame_upper({0.2f, 0.2f}, {0.6f, 0.6f}, 0.0f);
+
+  Array lower_arr(shape, 0.0f);
+  Array upper_arr(shape, 1.0f);
+  for (int j = 0; j < shape.y; ++j)
+    for (int i = 0; i < shape.x; ++i)
+      lower_arr(i, j) = 2.0f + 0.5f * float(i) / float(shape.x - 1);
+
+  VirtualArray lower_va(shape, tile_shape, 0, StorageMode::VA_RAM);
+  lower_va.from_array(lower_arr, ComputeMode{});
+  VirtualArray upper_va(shape, tile_shape, 0, StorageMode::VA_RAM);
+  upper_va.from_array(upper_arr, ComputeMode{});
+
+  align_terrains(lower_arr,
+                 frame_lower,
+                 upper_arr,
+                 frame_upper,
+                 TerrainAlignMode::TAM_PLANE);
+  align_terrains(lower_va,
+                 frame_lower,
+                 upper_va,
+                 frame_upper,
+                 TerrainAlignMode::TAM_PLANE);
+
+  Array va_result = upper_va.to_array(ComputeMode{});
+  EXPECT_TRUE(assert_almost_equal(upper_arr, va_result, 1e-3f));
 }
