@@ -1,5 +1,6 @@
 var NAVTREEINDEX9 =
 {
+"dir_28d1f6f5761f5c8b206221dff91b5473.html":[17,0,1,1,39],
 "dir_3ac847f4021104230d4ba908bbe770ed.html":[17,0,1,1,44,2],
 "dir_3bc85fd9086f4b2a437782af9c422553.html":[17,0,1,1,12],
 "dir_3c4172100491f31b556c8f9a4d709dfc.html":[17,0,1,1,17],
@@ -248,6 +249,5 @@ var NAVTREEINDEX9 =
 "geometry_8hpp.html":[17,0,1,0,0,30],
 "geometry_8hpp_source.html":[17,0,1,0,0,30],
 "geomorphons_8cpp.html":[17,0,1,1,13,1],
-"get__colormap__data_8cpp.html":[17,0,1,1,7,0],
-"globals.html":[17,1,0]
+"get__colormap__data_8cpp.html":[17,0,1,1,7,0]
 };

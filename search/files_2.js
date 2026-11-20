@@ -39,8 +39,9 @@ var searchData=
   ['core_2ehpp_36',['core.hpp',['../core_8hpp.html',1,'']]],
   ['core_5fconcepts_2emd_37',['core_concepts.md',['../core__concepts_8md.html',1,'']]],
   ['crater_2ecpp_38',['crater.cpp',['../crater_8cpp.html',1,'']]],
-  ['curvature_2ecpp_39',['curvature.cpp',['../curvature_8cpp.html',1,'']]],
-  ['curvature_2ehpp_40',['curvature.hpp',['../curvature_8hpp.html',1,'']]],
-  ['curvature_5fgpu_2ecpp_41',['curvature_gpu.cpp',['../curvature__gpu_8cpp.html',1,'']]],
-  ['curvature_5fquadric_2ecpp_42',['curvature_quadric.cpp',['../curvature__quadric_8cpp.html',1,'']]]
+  ['crater_5ffield_2ecpp_39',['crater_field.cpp',['../crater__field_8cpp.html',1,'']]],
+  ['curvature_2ecpp_40',['curvature.cpp',['../curvature_8cpp.html',1,'']]],
+  ['curvature_2ehpp_41',['curvature.hpp',['../curvature_8hpp.html',1,'']]],
+  ['curvature_5fgpu_2ecpp_42',['curvature_gpu.cpp',['../curvature__gpu_8cpp.html',1,'']]],
+  ['curvature_5fquadric_2ecpp_43',['curvature_quadric.cpp',['../curvature__quadric_8cpp.html',1,'']]]
 ];

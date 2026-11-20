@@ -1,5 +1,9 @@
 var NAVTREEINDEX17 =
 {
+"namespacehmap_1_1log.html#a2b618829e9c711302f726a3ec3f4ff49":[15,0,0,3,4],
+"namespacehmap_1_1log.html#a36d8700c12247f686c8e1ad94373982c":[15,0,0,3,6],
+"namespacehmap_1_1log.html#a3a3741c6a7b48b99a364a007eb439c7d":[15,0,0,3,18],
+"namespacehmap_1_1log.html#a43782590e21495ec926bacfe499b7aa2":[15,0,0,3,21],
 "namespacehmap_1_1log.html#a46c31684b8b76befafe1190b8497459f":[15,0,0,3,16],
 "namespacehmap_1_1log.html#a4f92a29ba2ab22266f27616c2ed87f4b":[15,0,0,3,11],
 "namespacehmap_1_1log.html#a5a99752b3c92d91e0b975fa10ac8c8f7":[15,0,0,3,20],
@@ -160,7 +164,7 @@ var NAVTREEINDEX17 =
 "phasor_8cpp.html":[17,0,1,1,28,0,5],
 "phasor__profile__function_8cpp.html":[17,0,1,1,24,4],
 "pick__boundary__cell_8cpp.html":[17,0,1,1,4,1],
-"plates_8cpp.html":[17,0,1,1,28,2,11],
+"plates_8cpp.html":[17,0,1,1,28,2,12],
 "poi_8cpp.html":[17,0,1,1,13,3],
 "poi_8hpp.html":[17,0,1,0,0,2,0],
 "poi_8hpp_source.html":[17,0,1,0,0,2,0],
@@ -199,7 +203,7 @@ var NAVTREEINDEX17 =
 "reverse__midpoint_8cpp.html":[17,0,1,1,2,4],
 "ridge__accentuate_8cpp.html":[17,0,1,1,14,15],
 "ridgelines_8cpp.html":[17,0,1,1,2,5],
-"rift_8cpp.html":[17,0,1,1,28,2,12],
+"rift_8cpp.html":[17,0,1,1,28,2,13],
 "rifts__gpu_8cpp.html":[17,0,1,1,11,25],
 "roads_8hpp.html":[17,0,1,0,0,14,3],
 "roads_8hpp_source.html":[17,0,1,0,0,14,3],
@@ -245,9 +249,5 @@ var NAVTREEINDEX17 =
 "select__soil__weathered_8cpp.html":[17,0,1,1,33,3],
 "selector_8cpp.html":[17,0,1,1,33,4],
 "selector_8hpp.html":[17,0,1,0,0,47],
-"selector_8hpp_source.html":[17,0,1,0,0,47],
-"selector__gpu_8cpp.html":[17,0,1,1,33,5],
-"set__borders_8cpp.html":[17,0,1,1,4,2],
-"shadows_8cpp.html":[17,0,1,1,34,0],
-"shadows_8hpp.html":[17,0,1,0,0,48]
+"selector_8hpp_source.html":[17,0,1,0,0,47]
 };

@@ -60503,7 +60503,587 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/geo/crater.cpp" line="67" column="7" bodyfile="HighMap/src/primitives/geo/crater.cpp" bodystart="67" bodyend="169" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="140" declcolumn="7"/>
+        <location file="HighMap/src/primitives/geo/crater.cpp" line="126" column="7" bodyfile="HighMap/src/primitives/geo/crater.cpp" bodystart="126" bodyend="208" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="140" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a49317a9fcccc6ccfa7077dbb21e561ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::crater_field</definition>
+        <argsstring>(glm::ivec2 shape, const std::vector&lt; glm::vec2 &gt; &amp;centers, const std::vector&lt; float &gt; &amp;radii, float angle=30.f, float inner_depth=0.5f, float inner_exp=3.f, float lip_height=0.1f, float lip_extent=0.25f, float lip_exp=2.f, float asym_ratio=0.8f, float central_peak_height=0.05f, float central_peak_extent=0.4f, int n_terraces=0, float terrace_extent=0.1f, float terrace_exp=2.f, float terrace_persistence=0.5f, const Array *p_noise_r=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, Array *p_crater_mask=nullptr, Array *p_inner_crater_mask=nullptr)</argsstring>
+        <name>crater_field</name>
+        <qualifiedname>hmap::crater_field</qualifiedname>
+        <param>
+          <type>glm::ivec2</type>
+          <declname>shape</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; glm::vec2 &gt; &amp;</type>
+          <declname>centers</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>radii</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>angle</declname>
+          <defval>30.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>inner_depth</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>inner_exp</declname>
+          <defval>3.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lip_height</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lip_extent</declname>
+          <defval>0.25<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lip_exp</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>asym_ratio</declname>
+          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>central_peak_height</declname>
+          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>central_peak_extent</declname>
+          <defval>0.4<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_terraces</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>terrace_extent</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>terrace_exp</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>terrace_persistence</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_noise_r</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_crater_mask</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_inner_crater_mask</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Generate a field of procedural impact craters from explicit centers and radii. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Uses a KD-tree over crater centers to evaluate only nearby craters per pixel, and scales cavity depth, lip height, and central peak height proportionally to each crater&apos;s radius.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>shape</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output array shape. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>centers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Crater center positions in world coordinates. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>radii</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Crater radii corresponding to <computeroutput>centers</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Main asymmetry orientation angle in degrees. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>inner_depth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Depth-to-radius ratio of the crater cavity. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>inner_exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exponent controlling the inner profile shape. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lip_height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Rim height-to-radius ratio. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lip_extent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Extent of the outer rim. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lip_exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exponent controlling rim falloff. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>asym_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Asymmetry factor applied along the main direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>central_peak_height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Central peak height-to-radius ratio. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>central_peak_extent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Radius of the central peak region. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n_terraces</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of inner terraces. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>terrace_extent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrace spacing factor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>terrace_exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrace profile exponent. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>terrace_persistence</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrace amplitude decay factor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_noise_r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional radial noise distortion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box coordinates. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_crater_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output crater mask. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_inner_crater_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output inner crater mask. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Generated crater field heightmap. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/primitives/geo/crater_field.cpp" line="39" column="7" bodyfile="HighMap/src/primitives/geo/crater_field.cpp" bodystart="39" bodyend="182" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="192" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a2a3c3a7ebaa7645e204fcee97dcb0332" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::crater_field</definition>
+        <argsstring>(glm::ivec2 shape, uint seed, int n_craters, float r_min=0.02f, float r_max=0.2f, float angle=30.f, float inner_depth=0.5f, float inner_exp=3.f, float lip_height=0.1f, float lip_extent=0.25f, float lip_exp=2.f, float asym_ratio=0.8f, float central_peak_height=0.05f, float central_peak_extent=0.4f, int n_terraces=0, float terrace_extent=0.1f, float terrace_exp=2.f, float terrace_persistence=0.5f, const Array *p_noise_r=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, Array *p_crater_mask=nullptr, Array *p_inner_crater_mask=nullptr)</argsstring>
+        <name>crater_field</name>
+        <qualifiedname>hmap::crater_field</qualifiedname>
+        <param>
+          <type>glm::ivec2</type>
+          <declname>shape</declname>
+        </param>
+        <param>
+          <type>uint</type>
+          <declname>seed</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_craters</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>r_min</declname>
+          <defval>0.02<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>r_max</declname>
+          <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>angle</declname>
+          <defval>30.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>inner_depth</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>inner_exp</declname>
+          <defval>3.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lip_height</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lip_extent</declname>
+          <defval>0.25<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lip_exp</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>asym_ratio</declname>
+          <defval>0.8<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>central_peak_height</declname>
+          <defval>0.05<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>central_peak_extent</declname>
+          <defval>0.4<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_terraces</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>terrace_extent</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>terrace_exp</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>terrace_persistence</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_noise_r</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_crater_mask</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_inner_crater_mask</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Generate a field of randomly distributed procedural impact craters. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Randomly samples crater centers within the unit square <computeroutput>[0, 1] x [0, 1]</computeroutput> and radii in [<computeroutput>r_min</computeroutput>, <computeroutput>r_max</computeroutput>] using <computeroutput>seed</computeroutput>, then delegates to the explicit-input <ref refid="namespacehmap_1a49317a9fcccc6ccfa7077dbb21e561ae" kindref="member">crater_field</ref> overload.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>shape</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output array shape. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random number generator seed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n_craters</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of craters to generate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>r_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum crater radius. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>r_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum crater radius. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Main asymmetry orientation angle in degrees. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>inner_depth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Depth-to-radius ratio of the crater cavity. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>inner_exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exponent controlling the inner profile shape. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lip_height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Rim height-to-radius ratio. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lip_extent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Extent of the outer rim. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lip_exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exponent controlling rim falloff. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>asym_ratio</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Asymmetry factor applied along the main direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>central_peak_height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Central peak height-to-radius ratio. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>central_peak_extent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Radius of the central peak region. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n_terraces</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of inner terraces. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>terrace_extent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrace spacing factor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>terrace_exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrace profile exponent. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>terrace_persistence</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terrace amplitude decay factor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_noise_r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional radial noise distortion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounding box coordinates. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_crater_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output crater mask. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_inner_crater_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional output inner crater mask. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Generated crater field heightmap. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/primitives/geo/crater_field.cpp" line="184" column="7" bodyfile="HighMap/src/primitives/geo/crater_field.cpp" bodystart="184" bodyend="269" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="245" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8f68239db7ea7bdf2177e0290f4fd250" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -60724,7 +61304,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/geo/island.cpp" line="25" column="7" bodyfile="HighMap/src/primitives/geo/island.cpp" bodystart="25" bodyend="69" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="189" declcolumn="7"/>
+        <location file="HighMap/src/primitives/geo/island.cpp" line="25" column="7" bodyfile="HighMap/src/primitives/geo/island.cpp" bodystart="25" bodyend="69" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="296" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a1b24d28eff3fda2f950daa821441760c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -60978,7 +61558,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/geo/island_chain.cpp" line="22" column="7" bodyfile="HighMap/src/primitives/geo/island_chain.cpp" bodystart="22" bodyend="125" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="238" declcolumn="7"/>
+        <location file="HighMap/src/primitives/geo/island_chain.cpp" line="22" column="7" bodyfile="HighMap/src/primitives/geo/island_chain.cpp" bodystart="22" bodyend="125" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="345" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a0da433ef9eb80cc11084bd3adbe75051" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -61288,7 +61868,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/geo/rift.cpp" line="18" column="7" bodyfile="HighMap/src/primitives/geo/rift.cpp" bodystart="18" bodyend="125" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="293" declcolumn="7"/>
+        <location file="HighMap/src/primitives/geo/rift.cpp" line="18" column="7" bodyfile="HighMap/src/primitives/geo/rift.cpp" bodystart="18" bodyend="125" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="400" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a00a0ccdfd693f9da70f172169b7f36a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -61579,7 +62159,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/geo/valley_head.cpp" line="16" column="7" bodyfile="HighMap/src/primitives/geo/valley_head.cpp" bodystart="16" bodyend="118" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="347" declcolumn="7"/>
+        <location file="HighMap/src/primitives/geo/valley_head.cpp" line="16" column="7" bodyfile="HighMap/src/primitives/geo/valley_head.cpp" bodystart="16" bodyend="118" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="454" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5db6d20fe4a5e243dc67a713cb3ac419" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -78005,6 +78585,88 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/src/primitives/geo/crater.cpp" line="18" column="7" bodyfile="HighMap/src/primitives/geo/crater.cpp" bodystart="18" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a5b2d0ee0d1e8c28cf6ff39fc2b54433b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float hmap::helper_crater_profile</definition>
+        <argsstring>(float r, float dx, float dy, float alpha, float ap, float am, float inner_depth, float inner_exp, float lip_height, float lip_extent, float lip_exp, float central_peak_height, float central_peak_extent, int n_terraces, float terrace_extent, float terrace_exp, float terrace_persistence)</argsstring>
+        <name>helper_crater_profile</name>
+        <qualifiedname>hmap::helper_crater_profile</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>dx</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>dy</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>ap</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>am</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>inner_depth</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>inner_exp</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lip_height</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lip_extent</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lip_exp</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>central_peak_height</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>central_peak_extent</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_terraces</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>terrace_extent</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>terrace_exp</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>terrace_persistence</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/primitives/geo/crater.cpp" line="67" column="7" bodyfile="HighMap/src/primitives/geo/crater.cpp" bodystart="67" bodyend="124" declfile="HighMap/src/primitives/geo/crater_field.cpp" declline="21" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ac1c18c8a45119cc1d8bfa4daf4d35c06" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>cv::Scalar</type>

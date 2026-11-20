@@ -4,6 +4,8 @@ var geo_8hpp =
     [ "hmap::caldera", "namespacehmap.html#aaa2b720ef7b261b4eb2f1e89838a538e", null ],
     [ "hmap::circus", "namespacehmap.html#aeeb81bcbca7fdd49fafe7090a9abc765", null ],
     [ "hmap::crater", "namespacehmap.html#a2651fce70d267d4e115873dce4749ce1", null ],
+    [ "hmap::crater_field", "namespacehmap.html#a49317a9fcccc6ccfa7077dbb21e561ae", null ],
+    [ "hmap::crater_field", "namespacehmap.html#a2a3c3a7ebaa7645e204fcee97dcb0332", null ],
     [ "hmap::island_land_mask", "namespacehmap.html#a8f68239db7ea7bdf2177e0290f4fd250", null ],
     [ "hmap::island_chain_land_mask", "namespacehmap.html#a1b24d28eff3fda2f950daa821441760c", null ],
     [ "hmap::rift", "namespacehmap.html#a0da433ef9eb80cc11084bd3adbe75051", null ],
