@@ -73,9 +73,9 @@ void export_as_cubemap(const std::string &fname,
                        int                cubemap_resolution,
                        float              overlap,
                        int /* ir */,
-                       Cmap               cmap,
-                       bool               splitted,
-                       Array             *p_cubemap)
+                       Cmap   cmap,
+                       bool   splitted,
+                       Array *p_cubemap)
 {
   if (!validate_non_empty(z)) return;
   if (!validate_cmap(cmap)) return;
@@ -136,6 +136,46 @@ void export_as_cubemap(const std::string &fname,
 
   const float inv_res_m1 = res > 1 ? 2.f / static_cast<float>(res - 1) : 0.f;
   const float half_res = 0.5f * static_cast<float>(res);
+  const float tau = 1.f / (1.f + overlap);
+
+  // precompute 1D coordinates and self-weights
+  std::vector<float> coord(res);
+  std::vector<float> w_self(res);
+  for (int k = 0; k < res; k++)
+  {
+    coord[k] = -1.f + static_cast<float>(k) * inv_res_m1;
+    w_self[k] = pou_weight(coord[k], overlap);
+  }
+
+  // adjacent face indices: {+t, -t, +b, -b}
+  const int neighbors[6][4] = {
+      {5, 4, 2, 3}, // right
+      {4, 5, 2, 3}, // left
+      {0, 1, 5, 4}, // top
+      {0, 1, 4, 5}, // bottom
+      {0, 1, 2, 3}, // front
+      {1, 0, 2, 3}, // back
+  };
+
+  auto accumulate_face =
+      [&](const CubemapFace &cand, const glm::vec3 &p, float &sum, float &wsum)
+  {
+    float pn = glm::dot(p, cand.n);
+    if (pn <= 0.f) return;
+
+    float inv_pn = 1.f / pn;
+    float ug = glm::dot(p, cand.t) * inv_pn;
+    float vg = glm::dot(p, cand.b) * inv_pn;
+
+    float w = pou_weight(ug, overlap) * pou_weight(vg, overlap);
+    if (w > 0.f)
+    {
+      float sx = static_cast<float>(cand.i0) + (ug + 1.f) * half_res;
+      float sy = static_cast<float>(cand.j0) + (vg + 1.f) * half_res;
+      sum += w * sample_bilinear(zfull, sx, sy);
+      wsum += w;
+    }
+  };
 
   // 3D partition-of-unity blending: h(p) depends only on the 3D cube point p,
   // guaranteeing C1/C2 continuity across all 12 edges and 8 triple-corners.
@@ -146,36 +186,35 @@ void export_as_cubemap(const std::string &fname,
 
     for (int j = 0; j < res; j++)
     {
-      float v = -1.f + static_cast<float>(j) * inv_res_m1;
+      float v = coord[j];
+      float wv = w_self[j];
+      bool  v_border = std::abs(v) > tau;
+      int   nb_v = v > 0.f ? neighbors[f][2] : neighbors[f][3];
 
       for (int i = 0; i < res; i++)
       {
-        float     u = -1.f + static_cast<float>(i) * inv_res_m1;
-        glm::vec3 p = face.n + u * face.t + v * face.b;
+        float u = coord[i];
+        float sx0 = static_cast<float>(face.i0) + (u + 1.f) * half_res;
+        float sy0 = static_cast<float>(face.j0) + (v + 1.f) * half_res;
+        float val0 = sample_bilinear(zfull, sx0, sy0);
 
-        float sum = 0.f;
-        float wsum = 0.f;
-
-        for (int g = 0; g < 6; g++)
+        bool u_border = std::abs(u) > tau;
+        if (!u_border && !v_border)
         {
-          const CubemapFace &cand = faces[g];
-          float              pn = glm::dot(p, cand.n);
-
-          if (pn <= 0.f) continue;
-
-          float inv_pn = 1.f / pn;
-          float ug = glm::dot(p, cand.t) * inv_pn;
-          float vg = glm::dot(p, cand.b) * inv_pn;
-
-          float w = pou_weight(ug, overlap) * pou_weight(vg, overlap);
-          if (w > 0.f)
-          {
-            float sx = static_cast<float>(cand.i0) + (ug + 1.f) * half_res;
-            float sy = static_cast<float>(cand.j0) + (vg + 1.f) * half_res;
-            sum += w * sample_bilinear(zfull, sx, sy);
-            wsum += w;
-          }
+          out(i, j) = val0;
+          continue;
         }
+
+        glm::vec3 p = face.n + u * face.t + v * face.b;
+        float     wsum = w_self[i] * wv;
+        float     sum = wsum * val0;
+
+        if (u_border)
+        {
+          int nb_u = u > 0.f ? neighbors[f][0] : neighbors[f][1];
+          accumulate_face(faces[nb_u], p, sum, wsum);
+        }
+        if (v_border) accumulate_face(faces[nb_v], p, sum, wsum);
 
         out(i, j) = sum / wsum;
       }
@@ -189,15 +228,18 @@ void export_as_cubemap(const std::string &fname,
   const Array &z_front = out_faces[4];
   const Array &z_back = out_faces[5];
 
-  if (p_cubemap)
+  if (p_cubemap || !splitted)
   {
-    *p_cubemap = Array(glm::ivec2(4 * res, 3 * res));
-    p_cubemap->set_slice(glm::ivec4(0, res, res, 2 * res), z_left);
-    p_cubemap->set_slice(glm::ivec4(res, 2 * res, res, 2 * res), z_front);
-    p_cubemap->set_slice(glm::ivec4(2 * res, 3 * res, res, 2 * res), z_right);
-    p_cubemap->set_slice(glm::ivec4(3 * res, 4 * res, res, 2 * res), z_back);
-    p_cubemap->set_slice(glm::ivec4(res, 2 * res, 0, res), z_bottom);
-    p_cubemap->set_slice(glm::ivec4(res, 2 * res, 2 * res, 3 * res), z_top);
+    Array cross(glm::ivec2(4 * res, 3 * res));
+    cross.set_slice(glm::ivec4(0, res, res, 2 * res), z_left);
+    cross.set_slice(glm::ivec4(res, 2 * res, res, 2 * res), z_front);
+    cross.set_slice(glm::ivec4(2 * res, 3 * res, res, 2 * res), z_right);
+    cross.set_slice(glm::ivec4(3 * res, 4 * res, res, 2 * res), z_back);
+    cross.set_slice(glm::ivec4(res, 2 * res, 0, res), z_bottom);
+    cross.set_slice(glm::ivec4(res, 2 * res, 2 * res, 3 * res), z_top);
+
+    if (p_cubemap) *p_cubemap = cross;
+    if (!splitted) cross.to_png(fname, cmap, false);
   }
 
   if (splitted)
@@ -210,17 +252,6 @@ void export_as_cubemap(const std::string &fname,
     z_bottom.to_png(add_filename_suffix(path, "_03_bottom").string(), cmap);
     z_front.to_png(add_filename_suffix(path, "_04_front").string(), cmap);
     z_back.to_png(add_filename_suffix(path, "_05_back").string(), cmap);
-  }
-  else
-  {
-    Array cross(glm::ivec2(4 * res, 3 * res));
-    cross.set_slice(glm::ivec4(0, res, res, 2 * res), z_left);
-    cross.set_slice(glm::ivec4(res, 2 * res, res, 2 * res), z_front);
-    cross.set_slice(glm::ivec4(2 * res, 3 * res, res, 2 * res), z_right);
-    cross.set_slice(glm::ivec4(3 * res, 4 * res, res, 2 * res), z_back);
-    cross.set_slice(glm::ivec4(res, 2 * res, 0, res), z_bottom);
-    cross.set_slice(glm::ivec4(res, 2 * res, 2 * res, 3 * res), z_top);
-    cross.to_png(fname, cmap, false);
   }
 }
 
