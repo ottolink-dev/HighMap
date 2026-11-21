@@ -60517,10 +60517,10 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </inbodydescription>
         <location file="HighMap/src/primitives/geo/crater.cpp" line="126" column="7" bodyfile="HighMap/src/primitives/geo/crater.cpp" bodystart="126" bodyend="208" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="140" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a49317a9fcccc6ccfa7077dbb21e561ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a3b2266d6765b8254875ed982d99d7dde" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::crater_field</definition>
-        <argsstring>(glm::ivec2 shape, const std::vector&lt; glm::vec2 &gt; &amp;centers, const std::vector&lt; float &gt; &amp;radii, float angle=30.f, float inner_depth=0.5f, float inner_exp=3.f, float lip_height=0.1f, float lip_extent=0.25f, float lip_exp=2.f, float asym_ratio=0.8f, float central_peak_height=0.05f, float central_peak_extent=0.4f, int n_terraces=0, float terrace_extent=0.1f, float terrace_exp=2.f, float terrace_persistence=0.5f, const Array *p_noise_r=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, Array *p_crater_mask=nullptr, Array *p_inner_crater_mask=nullptr)</argsstring>
+        <argsstring>(glm::ivec2 shape, const std::vector&lt; glm::vec2 &gt; &amp;centers, const std::vector&lt; float &gt; &amp;radii, float angle=30.f, float inner_depth=0.5f, float inner_exp=3.f, float lip_height=0.1f, float lip_extent=0.25f, float lip_exp=2.f, float asym_ratio=0.8f, float central_peak_height=0.05f, float central_peak_extent=0.4f, int n_terraces=0, float terrace_extent=0.1f, float terrace_exp=2.f, float terrace_persistence=0.5f, const Array *p_noise_r=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, Array *p_crater_mask=nullptr, Array *p_inner_crater_mask=nullptr, bool scale_elevation_with_radius=true)</argsstring>
         <name>crater_field</name>
         <qualifiedname>hmap::crater_field</qualifiedname>
         <param>
@@ -60619,6 +60619,11 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
           <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
           <declname>p_inner_crater_mask</declname>
           <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>scale_elevation_with_radius</declname>
+          <defval>true</defval>
         </param>
         <briefdescription>
 <para>Generate a field of procedural impact craters from explicit centers and radii. </para>
@@ -60792,12 +60797,12 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/geo/crater_field.cpp" line="39" column="7" bodyfile="HighMap/src/primitives/geo/crater_field.cpp" bodystart="39" bodyend="182" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="192" declcolumn="7"/>
+        <location file="HighMap/src/primitives/geo/crater_field.cpp" line="39" column="7" bodyfile="HighMap/src/primitives/geo/crater_field.cpp" bodystart="39" bodyend="192" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="192" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a2a3c3a7ebaa7645e204fcee97dcb0332" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1ae3b6555a1e4e18e9d91d578d7a88a294" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::crater_field</definition>
-        <argsstring>(glm::ivec2 shape, uint seed, int n_craters, float r_min=0.02f, float r_max=0.2f, float angle=30.f, float inner_depth=0.5f, float inner_exp=3.f, float lip_height=0.1f, float lip_extent=0.25f, float lip_exp=2.f, float asym_ratio=0.8f, float central_peak_height=0.05f, float central_peak_extent=0.4f, int n_terraces=0, float terrace_extent=0.1f, float terrace_exp=2.f, float terrace_persistence=0.5f, const Array *p_noise_r=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, Array *p_crater_mask=nullptr, Array *p_inner_crater_mask=nullptr)</argsstring>
+        <argsstring>(glm::ivec2 shape, uint seed, int n_craters, float r_min=0.02f, float r_max=0.2f, float angle=30.f, float inner_depth=0.5f, float inner_exp=3.f, float lip_height=0.1f, float lip_extent=0.25f, float lip_exp=2.f, float asym_ratio=0.8f, float central_peak_height=0.05f, float central_peak_extent=0.4f, int n_terraces=0, float terrace_extent=0.1f, float terrace_exp=2.f, float terrace_persistence=0.5f, const Array *p_noise_r=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, Array *p_crater_mask=nullptr, Array *p_inner_crater_mask=nullptr, bool scale_elevation_with_radius=true)</argsstring>
         <name>crater_field</name>
         <qualifiedname>hmap::crater_field</qualifiedname>
         <param>
@@ -60907,11 +60912,16 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
           <declname>p_inner_crater_mask</declname>
           <defval>nullptr</defval>
         </param>
+        <param>
+          <type>bool</type>
+          <declname>scale_elevation_with_radius</declname>
+          <defval>true</defval>
+        </param>
         <briefdescription>
 <para>Generate a field of randomly distributed procedural impact craters. </para>
         </briefdescription>
         <detaileddescription>
-<para>Randomly samples crater centers within the unit square <computeroutput>[0, 1] x [0, 1]</computeroutput> and radii in [<computeroutput>r_min</computeroutput>, <computeroutput>r_max</computeroutput>] using <computeroutput>seed</computeroutput>, then delegates to the explicit-input <ref refid="namespacehmap_1a49317a9fcccc6ccfa7077dbb21e561ae" kindref="member">crater_field</ref> overload.</para>
+<para>Randomly samples crater centers within the unit square <computeroutput>[0, 1] x [0, 1]</computeroutput> and radii in [<computeroutput>r_min</computeroutput>, <computeroutput>r_max</computeroutput>] using <computeroutput>seed</computeroutput>, then delegates to the explicit-input <ref refid="namespacehmap_1a3b2266d6765b8254875ed982d99d7dde" kindref="member">crater_field</ref> overload.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>shape</parametername>
@@ -61095,7 +61105,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/geo/crater_field.cpp" line="184" column="7" bodyfile="HighMap/src/primitives/geo/crater_field.cpp" bodystart="184" bodyend="269" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="245" declcolumn="7"/>
+        <location file="HighMap/src/primitives/geo/crater_field.cpp" line="194" column="7" bodyfile="HighMap/src/primitives/geo/crater_field.cpp" bodystart="194" bodyend="281" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="246" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8f68239db7ea7bdf2177e0290f4fd250" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -61316,7 +61326,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/geo/island.cpp" line="25" column="7" bodyfile="HighMap/src/primitives/geo/island.cpp" bodystart="25" bodyend="69" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="296" declcolumn="7"/>
+        <location file="HighMap/src/primitives/geo/island.cpp" line="25" column="7" bodyfile="HighMap/src/primitives/geo/island.cpp" bodystart="25" bodyend="69" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="298" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a1b24d28eff3fda2f950daa821441760c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -61570,7 +61580,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/geo/island_chain.cpp" line="22" column="7" bodyfile="HighMap/src/primitives/geo/island_chain.cpp" bodystart="22" bodyend="125" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="345" declcolumn="7"/>
+        <location file="HighMap/src/primitives/geo/island_chain.cpp" line="22" column="7" bodyfile="HighMap/src/primitives/geo/island_chain.cpp" bodystart="22" bodyend="125" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="347" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a0da433ef9eb80cc11084bd3adbe75051" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -61880,7 +61890,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/geo/rift.cpp" line="18" column="7" bodyfile="HighMap/src/primitives/geo/rift.cpp" bodystart="18" bodyend="125" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="400" declcolumn="7"/>
+        <location file="HighMap/src/primitives/geo/rift.cpp" line="18" column="7" bodyfile="HighMap/src/primitives/geo/rift.cpp" bodystart="18" bodyend="125" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="402" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a00a0ccdfd693f9da70f172169b7f36a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -62171,7 +62181,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/geo/valley_head.cpp" line="16" column="7" bodyfile="HighMap/src/primitives/geo/valley_head.cpp" bodystart="16" bodyend="118" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="454" declcolumn="7"/>
+        <location file="HighMap/src/primitives/geo/valley_head.cpp" line="16" column="7" bodyfile="HighMap/src/primitives/geo/valley_head.cpp" bodystart="16" bodyend="118" declfile="HighMap/include/highmap/primitives/geo.hpp" declline="456" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5db6d20fe4a5e243dc67a713cb3ac419" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
