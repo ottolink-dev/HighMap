@@ -58,10 +58,8 @@ Array crater_field(glm::ivec2                    shape,
                    Array                        *p_inner_crater_mask,
                    bool                          scale_elevation_with_radius)
 {
-  if (!validate_shape(shape))
-    return Array();
-  if (p_noise_r && !validate_same_shape(shape, *p_noise_r))
-    return Array(shape);
+  if (!validate_shape(shape)) return Array();
+  if (p_noise_r && !validate_same_shape(shape, *p_noise_r)) return Array(shape);
 
   Array z(shape);
   Array crater_mask(shape, 0.f);
@@ -79,8 +77,7 @@ Array crater_field(glm::ivec2                    shape,
   {
     hmap::log::warn("crater_field: no craters provided, returning empty field");
 
-    if (p_crater_mask)
-      *p_crater_mask = std::move(crater_mask);
+    if (p_crater_mask) *p_crater_mask = std::move(crater_mask);
     if (p_inner_crater_mask)
       *p_inner_crater_mask = std::move(inner_crater_mask);
     return z;
@@ -107,6 +104,55 @@ Array crater_field(glm::ivec2                    shape,
   const float max_lip_scale = 1.f + std::max(ap, 1.f) * lip_extent;
   const float max_influence_radius = max_radius * max_lip_scale;
 
+  // --- Precompute sequential local reference elevation at each crater center
+
+  std::vector<float> z_ref(n_craters, 0.f);
+
+  for (size_t k = 0; k < n_craters; k++)
+  {
+    for (size_t m = 0; m < k; m++)
+    {
+      const float radius_m = radii[m];
+      if (radius_m <= 0.f) continue;
+
+      const float dx = centers[k].x - centers[m].x;
+      const float dy = centers[k].y - centers[m].y;
+      const float r = std::sqrt(dx * dx + dy * dy) / radius_m;
+
+      if (r >= max_lip_scale) continue;
+
+      float local_mask = 1.f;
+      if (r >= 1.f)
+      {
+        float rm = std::min(1.f, (r - 1.f) / lip_extent);
+        local_mask = 1.f - smoothstep3(rm);
+      }
+
+      const float elev_scale = scale_elevation_with_radius ? radius_m : 1.f;
+
+      const float val = helper_crater_profile(r,
+                                              dx,
+                                              dy,
+                                              alpha,
+                                              ap,
+                                              am,
+                                              inner_depth * elev_scale,
+                                              inner_exp,
+                                              lip_height * elev_scale,
+                                              lip_extent,
+                                              lip_exp,
+                                              central_peak_height * elev_scale,
+                                              central_peak_extent,
+                                              n_terraces,
+                                              terrace_extent,
+                                              terrace_exp,
+                                              terrace_persistence);
+
+      z_ref[k] = lerp(z_ref[k], z_ref[m], local_mask);
+      z_ref[k] += local_mask * val;
+    }
+  }
+
   // --- Grid
 
   bool               endpoint = false;
@@ -118,8 +164,7 @@ Array crater_field(glm::ivec2                    shape,
     {
       auto candidates = tree.radius_search(x[i], y[j], max_influence_radius);
 
-      if (candidates.empty())
-        continue;
+      if (candidates.empty()) continue;
 
       // sort by crater index to apply impacts sequentially
       std::sort(candidates.begin(),
@@ -131,16 +176,14 @@ Array crater_field(glm::ivec2                    shape,
       for (const auto &[k, dist_sq] : candidates)
       {
         const float radius = radii[k];
-        if (radius <= 0.f)
-          continue;
+        if (radius <= 0.f) continue;
 
         float dx = x[i] - centers[k].x;
         float dy = y[j] - centers[k].y;
         float r = dr + std::sqrt(dist_sq) / radius;
         r = std::max(r, 0.f);
 
-        if (r >= max_lip_scale)
-          continue;
+        if (r >= max_lip_scale) continue;
 
         // update masks
         float local_mask = 1.f;
@@ -179,14 +222,13 @@ Array crater_field(glm::ivec2                    shape,
                                           terrace_exp,
                                           terrace_persistence);
 
-        z(i, j) = lerp(z(i, j), val, local_mask);
+        z(i, j) = lerp(z(i, j), z_ref[k], local_mask);
+        z(i, j) += local_mask * val;
       }
     }
 
-  if (p_crater_mask)
-    *p_crater_mask = std::move(crater_mask);
-  if (p_inner_crater_mask)
-    *p_inner_crater_mask = std::move(inner_crater_mask);
+  if (p_crater_mask) *p_crater_mask = std::move(crater_mask);
+  if (p_inner_crater_mask) *p_inner_crater_mask = std::move(inner_crater_mask);
 
   return z;
 }
