@@ -55,10 +55,13 @@ Array crater_field(glm::ivec2                    shape,
                    const Array                  *p_noise_r,
                    glm::vec4                     bbox,
                    Array                        *p_crater_mask,
-                   Array                        *p_inner_crater_mask)
+                   Array                        *p_inner_crater_mask,
+                   bool                          scale_elevation_with_radius)
 {
-  if (!validate_shape(shape)) return Array();
-  if (p_noise_r && !validate_same_shape(shape, *p_noise_r)) return Array(shape);
+  if (!validate_shape(shape))
+    return Array();
+  if (p_noise_r && !validate_same_shape(shape, *p_noise_r))
+    return Array(shape);
 
   Array z(shape);
   Array crater_mask(shape, 0.f);
@@ -76,7 +79,8 @@ Array crater_field(glm::ivec2                    shape,
   {
     hmap::log::warn("crater_field: no craters provided, returning empty field");
 
-    if (p_crater_mask) *p_crater_mask = std::move(crater_mask);
+    if (p_crater_mask)
+      *p_crater_mask = std::move(crater_mask);
     if (p_inner_crater_mask)
       *p_inner_crater_mask = std::move(inner_crater_mask);
     return z;
@@ -114,7 +118,8 @@ Array crater_field(glm::ivec2                    shape,
     {
       auto candidates = tree.radius_search(x[i], y[j], max_influence_radius);
 
-      if (candidates.empty()) continue;
+      if (candidates.empty())
+        continue;
 
       // sort by crater index to apply impacts sequentially
       std::sort(candidates.begin(),
@@ -126,14 +131,16 @@ Array crater_field(glm::ivec2                    shape,
       for (const auto &[k, dist_sq] : candidates)
       {
         const float radius = radii[k];
-        if (radius <= 0.f) continue;
+        if (radius <= 0.f)
+          continue;
 
         float dx = x[i] - centers[k].x;
         float dy = y[j] - centers[k].y;
         float r = dr + std::sqrt(dist_sq) / radius;
         r = std::max(r, 0.f);
 
-        if (r >= max_lip_scale) continue;
+        if (r >= max_lip_scale)
+          continue;
 
         // update masks
         float local_mask = 1.f;
@@ -152,19 +159,20 @@ Array crater_field(glm::ivec2                    shape,
           crater_mask(i, j) = std::max(crater_mask(i, j), local_mask);
         }
 
-        // scale vertical parameters by crater radius
+        const float elev_scale = scale_elevation_with_radius ? radius : 1.f;
+
         float val = helper_crater_profile(r,
                                           dx,
                                           dy,
                                           alpha,
                                           ap,
                                           am,
-                                          inner_depth * radius,
+                                          inner_depth * elev_scale,
                                           inner_exp,
-                                          lip_height * radius,
+                                          lip_height * elev_scale,
                                           lip_extent,
                                           lip_exp,
-                                          central_peak_height * radius,
+                                          central_peak_height * elev_scale,
                                           central_peak_extent,
                                           n_terraces,
                                           terrace_extent,
@@ -175,8 +183,10 @@ Array crater_field(glm::ivec2                    shape,
       }
     }
 
-  if (p_crater_mask) *p_crater_mask = std::move(crater_mask);
-  if (p_inner_crater_mask) *p_inner_crater_mask = std::move(inner_crater_mask);
+  if (p_crater_mask)
+    *p_crater_mask = std::move(crater_mask);
+  if (p_inner_crater_mask)
+    *p_inner_crater_mask = std::move(inner_crater_mask);
 
   return z;
 }
@@ -202,7 +212,8 @@ Array crater_field(glm::ivec2   shape,
                    const Array *p_noise_r,
                    glm::vec4    bbox,
                    Array       *p_crater_mask,
-                   Array       *p_inner_crater_mask)
+                   Array       *p_inner_crater_mask,
+                   bool         scale_elevation_with_radius)
 {
   if (n_craters <= 0)
   {
@@ -265,7 +276,8 @@ Array crater_field(glm::ivec2   shape,
                       p_noise_r,
                       bbox,
                       p_crater_mask,
-                      p_inner_crater_mask);
+                      p_inner_crater_mask,
+                      scale_elevation_with_radius);
 }
 
 } // namespace hmap

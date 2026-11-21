@@ -208,7 +208,8 @@ Array crater_field(glm::ivec2                    shape,
                    const Array                  *p_noise_r = nullptr,
                    glm::vec4                     bbox = {0.f, 1.f, 0.f, 1.f},
                    Array                        *p_crater_mask = nullptr,
-                   Array                        *p_inner_crater_mask = nullptr);
+                   Array                        *p_inner_crater_mask = nullptr,
+                   bool                          scale_elevation_with_radius = true);
 
 /**
  * @brief Generate a field of randomly distributed procedural impact craters.
@@ -263,7 +264,8 @@ Array crater_field(glm::ivec2   shape,
                    const Array *p_noise_r = nullptr,
                    glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
                    Array       *p_crater_mask = nullptr,
-                   Array       *p_inner_crater_mask = nullptr);
+                   Array       *p_inner_crater_mask = nullptr,
+                   bool         scale_elevation_with_radius = true);
 
 /**
  * @brief Generates a 2D island mask by perturbing a radial boundary with noise.
