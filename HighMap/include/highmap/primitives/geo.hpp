@@ -159,6 +159,115 @@ Array crater(glm::ivec2   shape,
              Array       *p_inner_crater_mask = nullptr);
 
 /**
+ * @brief Generate a field of procedural impact craters from explicit centers
+ *        and radii.
+ *
+ * Uses a KD-tree over crater centers to evaluate only nearby craters per
+ * pixel, and scales cavity depth, lip height, and central peak height
+ * proportionally to each crater's radius.
+ *
+ * @param  shape               Output array shape.
+ * @param  centers             Crater center positions in world coordinates.
+ * @param  radii               Crater radii corresponding to @p centers.
+ * @param  angle               Main asymmetry orientation angle in degrees.
+ * @param  inner_depth         Depth-to-radius ratio of the crater cavity.
+ * @param  inner_exp           Exponent controlling the inner profile shape.
+ * @param  lip_height          Rim height-to-radius ratio.
+ * @param  lip_extent          Extent of the outer rim.
+ * @param  lip_exp             Exponent controlling rim falloff.
+ * @param  asym_ratio          Asymmetry factor applied along the main
+ *                             direction.
+ * @param  central_peak_height Central peak height-to-radius ratio.
+ * @param  central_peak_extent Radius of the central peak region.
+ * @param  n_terraces          Number of inner terraces.
+ * @param  terrace_extent      Terrace spacing factor.
+ * @param  terrace_exp         Terrace profile exponent.
+ * @param  terrace_persistence Terrace amplitude decay factor.
+ * @param  p_noise_r           Optional radial noise distortion.
+ * @param  bbox                Bounding box coordinates.
+ * @param  p_crater_mask       Optional output crater mask.
+ * @param  p_inner_crater_mask Optional output inner crater mask.
+ * @return                     Generated crater field heightmap.
+ */
+Array crater_field(glm::ivec2                    shape,
+                   const std::vector<glm::vec2> &centers,
+                   const std::vector<float>     &radii,
+                   float                         angle = 30.f,
+                   float                         inner_depth = 0.5f,
+                   float                         inner_exp = 3.f,
+                   float                         lip_height = 0.1f,
+                   float                         lip_extent = 0.25f,
+                   float                         lip_exp = 2.f,
+                   float                         asym_ratio = 0.8f,
+                   float                         central_peak_height = 0.05f,
+                   float                         central_peak_extent = 0.4f,
+                   int                           n_terraces = 0,
+                   float                         terrace_extent = 0.1f,
+                   float                         terrace_exp = 2.f,
+                   float                         terrace_persistence = 0.5f,
+                   const Array                  *p_noise_r = nullptr,
+                   glm::vec4                     bbox = {0.f, 1.f, 0.f, 1.f},
+                   Array                        *p_crater_mask = nullptr,
+                   Array                        *p_inner_crater_mask = nullptr,
+                   bool                          scale_elevation_with_radius = true);
+
+/**
+ * @brief Generate a field of randomly distributed procedural impact craters.
+ *
+ * Randomly samples crater centers within the unit square `[0, 1] x [0, 1]`
+ * and radii in [@p r_min, @p r_max] using @p seed, then delegates to the
+ * explicit-input @ref crater_field overload.
+ *
+ * @param  shape               Output array shape.
+ * @param  seed                Random number generator seed.
+ * @param  n_craters           Number of craters to generate.
+ * @param  r_min               Minimum crater radius.
+ * @param  r_max               Maximum crater radius.
+ * @param  angle               Main asymmetry orientation angle in degrees.
+ * @param  inner_depth         Depth-to-radius ratio of the crater cavity.
+ * @param  inner_exp           Exponent controlling the inner profile shape.
+ * @param  lip_height          Rim height-to-radius ratio.
+ * @param  lip_extent          Extent of the outer rim.
+ * @param  lip_exp             Exponent controlling rim falloff.
+ * @param  asym_ratio          Asymmetry factor applied along the main
+ *                             direction.
+ * @param  central_peak_height Central peak height-to-radius ratio.
+ * @param  central_peak_extent Radius of the central peak region.
+ * @param  n_terraces          Number of inner terraces.
+ * @param  terrace_extent      Terrace spacing factor.
+ * @param  terrace_exp         Terrace profile exponent.
+ * @param  terrace_persistence Terrace amplitude decay factor.
+ * @param  p_noise_r           Optional radial noise distortion.
+ * @param  bbox                Bounding box coordinates.
+ * @param  p_crater_mask       Optional output crater mask.
+ * @param  p_inner_crater_mask Optional output inner crater mask.
+ * @return                     Generated crater field heightmap.
+ */
+Array crater_field(glm::ivec2   shape,
+                   uint         seed,
+                   int          n_craters,
+                   float        r_min = 0.02f,
+                   float        r_max = 0.2f,
+                   float        angle = 30.f,
+                   float        inner_depth = 0.5f,
+                   float        inner_exp = 3.f,
+                   float        lip_height = 0.1f,
+                   float        lip_extent = 0.25f,
+                   float        lip_exp = 2.f,
+                   float        asym_ratio = 0.8f,
+                   float        central_peak_height = 0.05f,
+                   float        central_peak_extent = 0.4f,
+                   int          n_terraces = 0,
+                   float        terrace_extent = 0.1f,
+                   float        terrace_exp = 2.f,
+                   float        terrace_persistence = 0.5f,
+                   const Array *p_noise_r = nullptr,
+                   glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
+                   Array       *p_crater_mask = nullptr,
+                   Array       *p_inner_crater_mask = nullptr,
+                   bool         scale_elevation_with_radius = true);
+
+/**
  * @brief Generates a 2D island mask by perturbing a radial boundary with noise.
  *
  * Creates a binary mask of a single connected island using radial distance from

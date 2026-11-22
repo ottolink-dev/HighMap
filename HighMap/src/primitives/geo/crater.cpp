@@ -64,6 +64,65 @@ float helper_crater_radial_function(float r,
   return lip_height * std::pow(v, lip_exp);
 }
 
+float helper_crater_profile(float r,
+                            float dx,
+                            float dy,
+                            float alpha,
+                            float ap,
+                            float am,
+                            float inner_depth,
+                            float inner_exp,
+                            float lip_height,
+                            float lip_extent,
+                            float lip_exp,
+                            float central_peak_height,
+                            float central_peak_extent,
+                            int   n_terraces,
+                            float terrace_extent,
+                            float terrace_exp,
+                            float terrace_persistence)
+{
+  float vp = helper_crater_radial_function(r,
+                                           inner_depth,
+                                           std::max(1.f, ap * inner_exp),
+                                           ap * lip_height,
+                                           ap * lip_extent,
+                                           lip_exp,
+                                           n_terraces,
+                                           ap * terrace_extent,
+                                           terrace_exp,
+                                           terrace_persistence);
+
+  float vm = helper_crater_radial_function(r,
+                                           inner_depth,
+                                           std::max(1.f, am * inner_exp),
+                                           am * lip_height,
+                                           lip_extent,
+                                           lip_exp,
+                                           n_terraces,
+                                           terrace_extent,
+                                           terrace_exp,
+                                           terrace_persistence);
+
+  // polar angle w/ respect to main direction (wrapped to [-pi, pi])
+  float theta = std::atan2(dy, dx) - alpha;
+
+  // remap angle to [0..1] and use it as a blending factor
+  theta = std::atan2(std::sin(theta), std::cos(theta));
+  float t = 0.5f * (1.f - std::cos(theta));
+  float val = lerp(vp, vm, t);
+
+  // --- Add central peak
+
+  if (central_peak_height != 0.f && r <= central_peak_extent)
+  {
+    float v = smoothstep3(1.f - r / central_peak_extent);
+    val += v * central_peak_height;
+  }
+
+  return val;
+}
+
 Array crater(glm::ivec2   shape,
              float        radius,
              glm::vec2    center,
@@ -123,43 +182,23 @@ Array crater(glm::ivec2   shape,
 
       // --- Main profile
 
-      float vp = helper_crater_radial_function(r,
-                                               inner_depth,
-                                               std::max(1.f, ap * inner_exp),
-                                               ap * lip_height,
-                                               ap * lip_extent,
-                                               lip_exp,
-                                               n_terraces,
-                                               ap * terrace_extent,
-                                               terrace_exp,
-                                               terrace_persistence);
-
-      float vm = helper_crater_radial_function(r,
-                                               inner_depth,
-                                               std::max(1.f, am * inner_exp),
-                                               am * lip_height,
-                                               lip_extent,
-                                               lip_exp,
-                                               n_terraces,
-                                               terrace_extent,
-                                               terrace_exp,
-                                               terrace_persistence);
-
-      // polar angle w/ respect to main direction (wrapped to [-pi, pi])
-      float theta = std::atan2(dy, dx) - alpha;
-
-      // remap angle to [0..1] and use it as a blending factor
-      theta = std::atan2(std::sin(theta), std::cos(theta));
-      float t = 0.5f * (1.f - std::cos(theta));
-      z(i, j) = lerp(vp, vm, t);
-
-      // --- Add central peak
-
-      if (central_peak_height != 0.f && r <= central_peak_extent)
-      {
-        float v = smoothstep3(1.f - r / central_peak_extent);
-        z(i, j) += v * central_peak_height;
-      }
+      z(i, j) = helper_crater_profile(r,
+                                      dx,
+                                      dy,
+                                      alpha,
+                                      ap,
+                                      am,
+                                      inner_depth,
+                                      inner_exp,
+                                      lip_height,
+                                      lip_extent,
+                                      lip_exp,
+                                      central_peak_height,
+                                      central_peak_extent,
+                                      n_terraces,
+                                      terrace_extent,
+                                      terrace_exp,
+                                      terrace_persistence);
     }
 
   if (p_crater_mask) *p_crater_mask = std::move(crater_mask);

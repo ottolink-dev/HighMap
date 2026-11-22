@@ -1,0 +1,2 @@
+add_executable(ex_crater_field ex_crater_field.cpp)
+target_link_libraries(ex_crater_field highmap)
