@@ -440,32 +440,85 @@ Array VirtualArray::to_array(const glm::ivec2  &array_shape,
 
   Array array(array_shape);
 
+  if (array_shape == this->shape)
+  {
+    auto lambda = [&array, this](const Array &tile, const TileRegion &region)
+    {
+      const glm::ivec2  ij0 = this->tile_region_global_indices(region);
+      const glm::ivec4 &b = region.halo;
+
+      // iterate only inner tile cells
+      for (int j = b.z; j < region.shape.y - b.w; ++j)
+        for (int i = b.x; i < region.shape.x - b.y; ++i)
+          array(ij0.x + i, ij0.y + j) = tile(i, j);
+    };
+
+    for_each_tile(*this, lambda, cm);
+    return array;
+  }
+
   auto lambda = [&array, this](const Array &tile, const TileRegion &region)
   {
-    const float rx = float(array.shape.x - 1) / float(this->shape.x - 1);
-    const float ry = float(array.shape.y - 1) / float(this->shape.y - 1);
-
     const glm::ivec2  ij0 = this->tile_region_global_indices(region);
     const glm::ivec4 &b = region.halo;
 
-    // iterate only inner tile cells
-    for (int j = b.z; j < region.shape.y - b.w; ++j)
-      for (int i = b.x; i < region.shape.x - b.y; ++i)
+    // global inner-tile bounds in source space
+    const int x0 = ij0.x + b.x;
+    const int x1 = ij0.x + region.shape.x - b.y;
+    const int y0 = ij0.y + b.z;
+    const int y1 = ij0.y + region.shape.y - b.w;
+
+    const float rx = (array.shape.x > 1)
+                         ? float(this->shape.x - 1) / float(array.shape.x - 1)
+                         : 0.f;
+    const float ry = (array.shape.y > 1)
+                         ? float(this->shape.y - 1) / float(array.shape.y - 1)
+                         : 0.f;
+
+    // destination index range whose source coordinates fall in [x0, x1) x [y0,
+    // y1)
+    int ig0 = (rx > 0.f) ? int(std::ceil(float(x0) / rx)) : 0;
+    int ig1 = (rx > 0.f) ? int(std::ceil(float(x1) / rx)) : array.shape.x;
+    int jg0 = (ry > 0.f) ? int(std::ceil(float(y0) / ry)) : 0;
+    int jg1 = (ry > 0.f) ? int(std::ceil(float(y1) / ry)) : array.shape.y;
+
+    ig0 = std::clamp(ig0, 0, array.shape.x);
+    ig1 = std::clamp(ig1, 0, array.shape.x);
+    jg0 = std::clamp(jg0, 0, array.shape.y);
+    jg1 = std::clamp(jg1, 0, array.shape.y);
+
+    // include the last source pixel in the last tile
+    if (x1 == this->shape.x) ig1 = array.shape.x;
+    if (y1 == this->shape.y) jg1 = array.shape.y;
+
+    for (int jg = jg0; jg < jg1; ++jg)
+    {
+      const float ys = std::clamp(float(jg) * ry - float(ij0.y),
+                                  0.f,
+                                  float(region.shape.y - 1));
+      const int   j_lo = int(std::floor(ys));
+      const int   j_hi = std::min(j_lo + 1, region.shape.y - 1);
+      const float ty = ys - float(j_lo);
+
+      for (int ig = ig0; ig < ig1; ++ig)
       {
-        // source pixel center (global VA space)
-        const float xs = float(ij0.x + i) + 0.5f;
-        const float ys = float(ij0.y + j) + 0.5f;
+        const float xs = std::clamp(float(ig) * rx - float(ij0.x),
+                                    0.f,
+                                    float(region.shape.x - 1));
+        const int   i_lo = int(std::floor(xs));
+        const int   i_hi = std::min(i_lo + 1, region.shape.x - 1);
+        const float tx = xs - float(i_lo);
 
-        // destination pixel index
-        int ig = int(std::floor(xs * rx));
-        int jg = int(std::floor(ys * ry));
+        const float v00 = tile(i_lo, j_lo);
+        const float v10 = tile(i_hi, j_lo);
+        const float v01 = tile(i_lo, j_hi);
+        const float v11 = tile(i_hi, j_hi);
 
-        // clamp
-        ig = std::clamp(ig, 0, array.shape.x - 1);
-        jg = std::clamp(jg, 0, array.shape.y - 1);
-
-        array(ig, jg) = tile(i, j);
+        const float v0 = v00 + tx * (v10 - v00);
+        const float v1 = v01 + tx * (v11 - v01);
+        array(ig, jg) = v0 + ty * (v1 - v0);
       }
+    }
   };
 
   for_each_tile(*this, lambda, cm);
