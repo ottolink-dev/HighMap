@@ -1,5 +1,6 @@
 var NAVTREEINDEX24 =
 {
+"test__local__metrics_8cpp.html":[17,0,2,0,51],
 "test__local__metrics_8cpp.html#a0b1bda746d5ae108d97ea57262d853b6":[17,0,2,0,51,1],
 "test__local__metrics_8cpp.html#a26f2daeead299a5010e8635b1a4f0feb":[17,0,2,0,51,4],
 "test__local__metrics_8cpp.html#a2b1db71f733c3947c5f9ed15b9e9c089":[17,0,2,0,51,9],
@@ -248,6 +249,5 @@ var NAVTREEINDEX24 =
 "test__remap__bounds_8cpp.html#adeb481a51511743da8a8b7df80061753":[17,0,2,0,73,0],
 "test__remove__endpoints_8cpp.html":[17,0,2,0,74],
 "test__remove__endpoints_8cpp.html#a0f36849cc78680734cb656875022354d":[17,0,2,0,74,4],
-"test__remove__endpoints_8cpp.html#a1309f0c15bff809b42d6924b70727687":[17,0,2,0,74,0],
-"test__remove__endpoints_8cpp.html#a16b5264cad1ba687791ad75f7310b634":[17,0,2,0,74,6]
+"test__remove__endpoints_8cpp.html#a1309f0c15bff809b42d6924b70727687":[17,0,2,0,74,0]
 };

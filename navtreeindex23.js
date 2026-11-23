@@ -158,6 +158,7 @@ var NAVTREEINDEX23 =
 "test__gpu__cpu_8cpp.html#a061b2e2e43db8540c2f41ba1948caf3c":[17,0,2,0,40,2],
 "test__gpu__cpu_8cpp.html#a32cb0e93ddc2c232fcc917df035030e5":[17,0,2,0,40,5],
 "test__gpu__cpu_8cpp.html#a4ec9635e40bf33405c73878b1aea0497":[17,0,2,0,40,4],
+"test__gpu__cpu_8cpp.html#a6bd81817caa0d999abe9caec8aec2ae8":[17,0,2,0,40,7],
 "test__gpu__cpu_8cpp.html#a76ab52580641281ea9fbecc3ad4a0bc5":[17,0,2,0,40,6],
 "test__gpu__cpu_8cpp.html#ab68ec3acee0ee4fccee1960479be5e77":[17,0,2,0,40,1],
 "test__gpu__cpu_8cpp.html#ad972008e159a6b74d51d30ac0995127b":[17,0,2,0,40,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX23 =
 "test__level__set__curvature_8cpp.html#a82268c104b7b683f3650074c20a627a3":[17,0,2,0,50,2],
 "test__level__set__curvature_8cpp.html#a9d7da322c17061eff2294d744436f9d7":[17,0,2,0,50,4],
 "test__level__set__curvature_8cpp.html#ab01a301021301cc4e9d15ad8b0487b31":[17,0,2,0,50,1],
-"test__level__set__curvature_8cpp.html#ad6d3e4de8e47ce42a5cfcb66929ae252":[17,0,2,0,50,5],
-"test__local__metrics_8cpp.html":[17,0,2,0,51]
+"test__level__set__curvature_8cpp.html#ad6d3e4de8e47ce42a5cfcb66929ae252":[17,0,2,0,50,5]
 };

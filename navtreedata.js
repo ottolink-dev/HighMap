@@ -240,9 +240,9 @@ var NAVTREEINDEX =
 "structhmap_1_1TerrainTriMesh_1_1Triangle.html#a72041b394e1504aeb471f56c86322ae6",
 "sync__overlap__buffers_8cpp.html",
 "test__elevation__from__sparse__constraints_8cpp.html#a435f98060d7d27d31175bcf2658945c2",
-"test__local__metrics_8cpp.html#a0b1bda746d5ae108d97ea57262d853b6",
-"test__remove__endpoints_8cpp.html#a58948a3adb790568927bd008361edbe9",
-"test__virtual__texture_8cpp.html#a7bb6182dc01ee1934135f472346d6aee"
+"test__local__metrics_8cpp.html",
+"test__remove__endpoints_8cpp.html#a16b5264cad1ba687791ad75f7310b634",
+"test__virtual__texture_8cpp.html#a6a684795a5cdb9182ffc190ed1b3ae12"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
