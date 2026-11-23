@@ -245,3 +245,37 @@ TEST(GpuCpu, NoiseFbm)
         << "Mismatch for FBM NoiseType " << static_cast<int>(type);
   }
 }
+
+TEST(GpuCpu, CurvatureQuadric)
+{
+  const float tol = 1e-4f;
+  Array       z = helper_generate_array();
+
+  std::vector<CurvatureType> types = {
+      CurvatureType::CT_MIN,
+      CurvatureType::CT_MAX,
+      CurvatureType::CT_MEAN,
+      CurvatureType::CT_GAUSSIAN,
+      CurvatureType::CT_PROFILE,
+      CurvatureType::CT_CONTOUR,
+      CurvatureType::CT_TANGENTIAL,
+      CurvatureType::CT_ACCUMULATION,
+      CurvatureType::CT_SHAPE_INDEX,
+      CurvatureType::CT_UNSPHERICITY,
+      CurvatureType::CT_RING,
+      CurvatureType::CT_ROTOR,
+  };
+
+  for (int ir : {0, 2})
+  {
+    for (const auto type : types)
+    {
+      Array zc = curvature_quadric(z, ir, type);
+      Array zg = gpu::curvature_quadric(z, ir, type, false);
+
+      EXPECT_TRUE(assert_almost_equal(zc, zg, tol))
+          << "Mismatch for CurvatureType " << static_cast<int>(type)
+          << " with ir = " << ir;
+    }
+  }
+}

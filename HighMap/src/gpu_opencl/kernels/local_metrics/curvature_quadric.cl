@@ -60,19 +60,24 @@ void kernel curvature_quadric(read_only image2d_t  img_in,
     switch (curv_type)
     {
     case 0: // MIN
-      val = (zc == 0.f) ? 0.f
-                        : ((1.f + zy * zy) * zxx - 2.f * zxy * zx * zy +
-                           (1.f + zx * zx) * zyy) /
-                              (2.f * sqrt(q));
+    {
+      float H = ((1.f + zy * zy) * zxx - 2.f * zxy * zx * zy +
+                 (1.f + zx * zx) * zyy) /
+                (2.f * sqrt(q));
+      float K = (zxx * zyy - zxy * zxy) / (q * q);
+      val = H - sqrt(fmax(H * H - K, 0.f));
       break;
+    }
 
     case 1: // MAX
-      val = (zc == 0.f)
-                ? 0.f
-                : ((1.f + zy * zy) * zxx - 2.f * zxy * zx * zy +
-                   (1.f + zx * zx) * zyy) /
-                      (2.f * sqrt(q)); // same base; post-processed if needed
+    {
+      float H = ((1.f + zy * zy) * zxx - 2.f * zxy * zx * zy +
+                 (1.f + zx * zx) * zyy) /
+                (2.f * sqrt(q));
+      float K = (zxx * zyy - zxy * zxy) / (q * q);
+      val = H + sqrt(fmax(H * H - K, 0.f));
       break;
+    }
 
     case 2: // MEAN
       val = ((1.f + zy * zy) * zxx - 2.f * zxy * zx * zy +
