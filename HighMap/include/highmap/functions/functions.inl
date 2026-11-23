@@ -318,7 +318,9 @@ FbmSlopeFunction<BaseFn>::FbmSlopeFunction(BaseFn base,
                                            float  lacunarity,
                                            float  gradient_scale,
                                            float  slope_power,
-                                           float  octave_blend)
+                                           float  octave_blend,
+                                           float  bias_angle,
+                                           float  bias_strength)
     : GenericFractalFunction<BaseFn>(std::move(base),
                                      octaves,
                                      weight,
@@ -328,6 +330,7 @@ FbmSlopeFunction<BaseFn>::FbmSlopeFunction(BaseFn base,
       slope_power(slope_power),
       octave_blend(octave_blend)
 {
+  this->set_bias(bias_angle, bias_strength);
 }
 
 template <typename BaseFn>
@@ -364,6 +367,15 @@ float FbmSlopeFunction<BaseFn>::operator()(float x,
     float gs = this->gradient_scale * grad_norm;
     float gs_p = std::pow(gs, this->slope_power);
     float w_slope = gs_p / (1.f + gs_p);
+
+    if (this->bias_strength > 0.f && grad_norm > 1e-6f)
+    {
+      float cos_align = (dx_sum * this->bias_cos + dy_sum * this->bias_sin) /
+                        grad_norm;
+      float w_dir = (1.f - this->bias_strength) +
+                    this->bias_strength * 0.5f * (cos_align + 1.f);
+      w_slope *= w_dir;
+    }
 
     // low octaves form smooth hills everywhere; high octaves are slope-masked
     float alpha = 1.f - std::exp(-this->octave_blend * static_cast<float>(k));

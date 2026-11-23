@@ -279,3 +279,99 @@ TEST(GpuCpu, CurvatureQuadric)
     }
   }
 }
+
+TEST(GpuCpu, NoiseSlope)
+{
+  const glm::ivec2 shape = {64, 64};
+  const glm::vec2  kw = {4.f, 4.f};
+  const uint       seed = 42;
+  const int        octaves = 6;
+  const float      weight = 0.7f;
+  const float      persistence = 0.5f;
+  const float      lacunarity = 2.f;
+  const float      gradient_scale = 0.5f;
+  const float      slope_power = 2.f;
+  const float      octave_blend = 0.5f;
+  const float      tol = 1e-4f;
+
+  // isotropic
+  {
+    Array zc = noise_slope(NoiseType::PERLIN,
+                           shape,
+                           kw,
+                           seed,
+                           octaves,
+                           weight,
+                           persistence,
+                           lacunarity,
+                           gradient_scale,
+                           slope_power,
+                           octave_blend);
+    Array zg = gpu::noise_slope(NoiseType::PERLIN,
+                                shape,
+                                kw,
+                                seed,
+                                octaves,
+                                weight,
+                                persistence,
+                                lacunarity,
+                                gradient_scale,
+                                slope_power,
+                                octave_blend);
+
+    EXPECT_TRUE(assert_almost_equal(zc, zg, tol));
+  }
+
+  // directional bias + stretching
+  {
+    const float bias_angle = 45.f;
+    const float bias_strength = 0.8f;
+    const float angle = 30.f;
+    const float stretch = 2.f;
+    const float stretch_decay = 0.2f;
+
+    Array zc = noise_slope(NoiseType::PERLIN,
+                           shape,
+                           kw,
+                           seed,
+                           octaves,
+                           weight,
+                           persistence,
+                           lacunarity,
+                           gradient_scale,
+                           slope_power,
+                           octave_blend,
+                           bias_angle,
+                           bias_strength,
+                           nullptr,
+                           nullptr,
+                           nullptr,
+                           {0.f, 1.f, 0.f, 1.f},
+                           angle,
+                           stretch,
+                           stretch_decay);
+    Array zg = gpu::noise_slope(NoiseType::PERLIN,
+                                shape,
+                                kw,
+                                seed,
+                                octaves,
+                                weight,
+                                persistence,
+                                lacunarity,
+                                gradient_scale,
+                                slope_power,
+                                octave_blend,
+                                bias_angle,
+                                bias_strength,
+                                nullptr,
+                                nullptr,
+                                nullptr,
+                                {0.f, 1.f, 0.f, 1.f},
+                                {0, 0},
+                                angle,
+                                stretch,
+                                stretch_decay);
+
+    EXPECT_TRUE(assert_almost_equal(zc, zg, tol));
+  }
+}

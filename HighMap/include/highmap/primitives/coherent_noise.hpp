@@ -540,14 +540,15 @@ Array noise_ridged(NoiseType     noise_type,
  * @param  slope_power          Exponent controlling slope transition sharpness.
  * @param  octave_blend         Rate at which higher octaves become
  *                              slope-masked.
+ * @param  bias_angle           Preferred slope direction angle in degrees.
+ * @param  bias_strength        Directional bias strength in [0, 1].
  * @param  p_ctrl_param         Reference to the control parameter array (acts
  *                              as a multiplier for the weight parameter).
  * @param  p_noise_x, p_noise_y Reference to the input noise arrays.
  * @param  bbox                 Domain bounding box.
  * @param  angle                Stretching direction angle in degrees.
  * @param  stretch              Stretching factor along the direction.
- * @param  stretch_decay        Progressive decay of stretching across
- *                              octaves.
+ * @param  stretch_decay        Progressive decay of stretching across octaves.
  * @return                      Array Fractal noise.
  */
 Array noise_slope(NoiseType     noise_type,
@@ -561,6 +562,8 @@ Array noise_slope(NoiseType     noise_type,
                   float         gradient_scale = 0.5f,
                   float         slope_power = 2.f,
                   float         octave_blend = 0.5f,
+                  float         bias_angle = 0.f,
+                  float         bias_strength = 0.f,
                   const Array  *p_ctrl_param = nullptr,
                   const Array  *p_noise_x = nullptr,
                   const Array  *p_noise_y = nullptr,
@@ -896,6 +899,30 @@ Array noise_fbm(NoiseType     noise_type,
                 float         angle = 0.f,
                 float         stretch = 1.f,
                 float         stretch_decay = 0.f);
+
+/*! @brief See hmap::noise_slope. @p period sets the tiling period in lattice
+   cells for the base octave. */
+Array noise_slope(NoiseType     noise_type,
+                  glm::ivec2    shape,
+                  glm::vec2     kw,
+                  std::uint32_t seed,
+                  int           octaves = 8,
+                  float         weight = 0.7f,
+                  float         persistence = 0.5f,
+                  float         lacunarity = 2.f,
+                  float         gradient_scale = 0.5f,
+                  float         slope_power = 2.f,
+                  float         octave_blend = 0.5f,
+                  float         bias_angle = 0.f,
+                  float         bias_strength = 0.f,
+                  const Array  *p_ctrl_param = nullptr,
+                  const Array  *p_noise_x = nullptr,
+                  const Array  *p_noise_y = nullptr,
+                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                  glm::ivec2    period = {0, 0},
+                  float         angle = 0.f,
+                  float         stretch = 1.f,
+                  float         stretch_decay = 0.f);
 
 /**
  * @brief Generates a procedural phasor-based pattern.

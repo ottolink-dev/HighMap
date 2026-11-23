@@ -274,4 +274,114 @@ void kernel noise_fbm(global float *output,
     output[index] = 0.f;
   }
 }
+
+void kernel noise_slope(global float *output,
+                        global float *ctrl_param,
+                        global float *noise_x,
+                        global float *noise_y,
+                        const int     nx,
+                        const int     ny,
+                        const int     noise_id,
+                        float         kx,
+                        float         ky,
+                        const uint    seed,
+                        const int     octaves,
+                        const float   weight,
+                        const float   persistence,
+                        const float   lacunarity,
+                        const float   gradient_scale,
+                        const float   slope_power,
+                        const float   octave_blend,
+                        const float   bias_angle,
+                        const float   bias_strength,
+                        const int     has_ctrl_param,
+                        const int     has_noise_x,
+                        const int     has_noise_y,
+                        const int     period_x,
+                        const int     period_y,
+                        const float4  bbox,
+                        const float   angle,
+                        const float   stretch,
+                        const float   stretch_decay)
+{
+  int2 g = {get_global_id(0), get_global_id(1)};
+
+  if (g.x >= nx || g.y >= ny) return;
+
+  int index = linear_index(g.x, g.y, nx);
+
+  float ct = has_ctrl_param > 0 ? ctrl_param[index] : 1.f;
+  float dx_in = has_noise_x > 0 ? noise_x[index] : 0.f;
+  float dy_in = has_noise_y > 0 ? noise_y[index] : 0.f;
+
+  int2   period = {period_x, period_y};
+  float  new_weight = (1.f - ct) + ct * weight;
+  float2 pos = g_to_xy(g, nx, ny, kx, ky, dx_in, dy_in, bbox);
+
+  float theta = angle * 0.017453292519943295f;
+  float cos_a = cos(theta);
+  float sin_a = sin(theta);
+  float decay_base = 1.f - clamp(stretch_decay, 0.f, 1.f);
+
+  float bias_theta = bias_angle * 0.017453292519943295f;
+  float bias_cos = cos(bias_theta);
+  float bias_sin = sin(bias_theta);
+  float clamped_bias = clamp(bias_strength, 0.f, 1.f);
+
+  const float eps = 0.001f;
+  float2      eps_x = {eps * kx, 0.f};
+  float2      eps_y = {0.f, eps * ky};
+
+  float sum = 0.f;
+  float amp = 0.6f;
+  float nf = 1.f;
+  float dx_sum = 0.f;
+  float dy_sum = 0.f;
+  int2  per = period;
+
+  for (int k = 0; k < octaves; k++)
+  {
+    float2 p_s = pos * nf;
+    if (stretch != 1.f)
+    {
+      float stretch_k = 1.f + (stretch - 1.f) * pow(decay_base, (float)k);
+      p_s = apply_stretch(p_s, cos_a, sin_a, stretch_k);
+    }
+
+    float value = eval_base_noise(noise_id, p_s, seed, per);
+    float dkx = (eval_base_noise(noise_id, p_s + eps_x, seed, per) -
+                 eval_base_noise(noise_id, p_s - eps_x, seed, per)) /
+                (2.f * eps);
+    float dky = (eval_base_noise(noise_id, p_s + eps_y, seed, per) -
+                 eval_base_noise(noise_id, p_s - eps_y, seed, per)) /
+                (2.f * eps);
+
+    dx_sum += amp * dkx;
+    dy_sum += amp * dky;
+
+    float grad_norm = sqrt(dx_sum * dx_sum + dy_sum * dy_sum);
+    float gs = gradient_scale * grad_norm;
+    float gs_p = pow(gs, slope_power);
+    float w_slope = gs_p / (1.f + gs_p);
+
+    if (clamped_bias > 0.f && grad_norm > 1e-6f)
+    {
+      float cos_align = (dx_sum * bias_cos + dy_sum * bias_sin) / grad_norm;
+      float w_dir = (1.f - clamped_bias) +
+                    clamped_bias * 0.5f * (cos_align + 1.f);
+      w_slope *= w_dir;
+    }
+
+    float alpha = 1.f - exp(-octave_blend * (float)k);
+    float w_octave = (1.f - alpha) + alpha * w_slope;
+
+    sum += value * amp * w_octave;
+    amp *= (1.f - new_weight) + new_weight * min(value + 1.f, 2.f) * 0.5f;
+    amp *= persistence;
+    nf *= lacunarity;
+    per = scale_period(per, lacunarity);
+  }
+
+  output[index] = sum;
+}
 )""

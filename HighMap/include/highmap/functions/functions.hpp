@@ -1719,6 +1719,8 @@ public:
    * @param gradient_scale Gradient scale influence.
    * @param slope_power    Exponent controlling slope transition sharpness.
    * @param octave_blend   Rate at which higher octaves become slope-masked.
+   * @param bias_angle     Preferred slope direction angle in degrees.
+   * @param bias_strength  Directional bias strength in [0, 1].
    */
   FbmSlopeFunction(BaseFn base,
                    int    octaves,
@@ -1727,7 +1729,24 @@ public:
                    float  lacunarity,
                    float  gradient_scale,
                    float  slope_power,
-                   float  octave_blend);
+                   float  octave_blend,
+                   float  bias_angle = 0.f,
+                   float  bias_strength = 0.f);
+
+  /**
+   * @brief Set the directional bias.
+   *
+   * @param new_bias_angle    Preferred slope direction angle in degrees.
+   * @param new_bias_strength Directional bias strength in [0, 1].
+   */
+  void set_bias(float new_bias_angle, float new_bias_strength)
+  {
+    this->bias_angle = new_bias_angle;
+    this->bias_strength = std::clamp(new_bias_strength, 0.f, 1.f);
+    float theta = new_bias_angle * 3.14159265358979323846f / 180.f;
+    this->bias_cos = std::cos(theta);
+    this->bias_sin = std::sin(theta);
+  }
 
   /**
    * @brief Set the gradient scale.
@@ -1760,9 +1779,13 @@ public:
   }
 
 protected:
-  float gradient_scale; ///< Gradient scale influence.
-  float slope_power;    ///< Exponent controlling slope transition sharpness.
-  float octave_blend;   ///< Rate at which higher octaves become slope-masked.
+  float gradient_scale;      ///< Gradient scale influence.
+  float slope_power;         ///< Exponent controlling slope transition sharpness.
+  float octave_blend;        ///< Rate at which higher octaves become slope-masked.
+  float bias_angle = 0.f;    ///< Preferred slope direction angle in degrees.
+  float bias_strength = 0.f; ///< Directional bias strength in [0, 1].
+  float bias_cos = 1.f;      ///< Cosine of directional bias angle.
+  float bias_sin = 0.f;      ///< Sine of directional bias angle.
 };
 
 /**

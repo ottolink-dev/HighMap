@@ -677,6 +677,77 @@ Array noise_fbm(NoiseType     noise_type,
   return array;
 }
 
+Array noise_slope(NoiseType     noise_type,
+                  glm::ivec2    shape,
+                  glm::vec2     kw,
+                  std::uint32_t seed,
+                  int           octaves,
+                  float         weight,
+                  float         persistence,
+                  float         lacunarity,
+                  float         gradient_scale,
+                  float         slope_power,
+                  float         octave_blend,
+                  float         bias_angle,
+                  float         bias_strength,
+                  const Array  *p_ctrl_param,
+                  const Array  *p_noise_x,
+                  const Array  *p_noise_y,
+                  glm::vec4     bbox,
+                  glm::ivec2    period,
+                  float         angle,
+                  float         stretch,
+                  float         stretch_decay)
+{
+  if (!validate_shape(shape)) return Array();
+  if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
+    return Array(shape);
+  if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
+  if (p_noise_y && !validate_same_shape(shape, *p_noise_y)) return Array(shape);
+
+  Array array(shape);
+
+  int noise_id = static_cast<int>(noise_type);
+
+  auto run = clwrapper::Run("noise_slope");
+
+  run.bind_buffer<float>("array", array.vector);
+  helper_bind_optional_buffer(run, "ctrl_param", p_ctrl_param);
+  helper_bind_optional_buffer(run, "noise_x", p_noise_x);
+  helper_bind_optional_buffer(run, "noise_y", p_noise_y);
+
+  run.bind_arguments(array.shape.x,
+                     array.shape.y,
+                     noise_id,
+                     kw.x,
+                     kw.y,
+                     seed,
+                     octaves,
+                     weight,
+                     persistence,
+                     lacunarity,
+                     gradient_scale,
+                     slope_power,
+                     octave_blend,
+                     bias_angle,
+                     bias_strength,
+                     p_ctrl_param ? 1 : 0,
+                     p_noise_x ? 1 : 0,
+                     p_noise_y ? 1 : 0,
+                     period.x,
+                     period.y,
+                     bbox,
+                     angle,
+                     stretch,
+                     stretch_decay);
+
+  run.write_buffer("array");
+  run.execute({array.shape.x, array.shape.y});
+  run.read_buffer("array");
+
+  return array;
+}
+
 Array polygon_field(glm::ivec2    shape,
                     glm::vec2     kw,
                     std::uint32_t seed,
