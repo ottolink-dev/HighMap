@@ -522,6 +522,54 @@ Array noise_ridged(NoiseType     noise_type,
                    float         stretch_decay = 0.f);
 
 /**
+ * @brief Return an array filled with slope-weighted coherence fbm noise.
+ *
+ * Modulates higher-octave amplitude by the accumulated low-frequency gradient
+ * norm so that flat areas remain smooth while steep slopes develop rugosity.
+ *
+ * @param  noise_type           Noise type.
+ * @param  shape                Array shape.
+ * @param  kw                   Noise wavenumbers {kx, ky} for each directions.
+ * @param  seed                 Random seed number.
+ * @param  octaves              Number of octaves.
+ * @param  weight               Octave weighting.
+ * @param  persistence          Octave persistence.
+ * @param  lacunarity           Defines the wavenumber ratio between each
+ *                              octaves.
+ * @param  gradient_scale       Gradient scale influence.
+ * @param  slope_power          Exponent controlling slope transition sharpness.
+ * @param  octave_blend         Rate at which higher octaves become
+ *                              slope-masked.
+ * @param  p_ctrl_param         Reference to the control parameter array (acts
+ *                              as a multiplier for the weight parameter).
+ * @param  p_noise_x, p_noise_y Reference to the input noise arrays.
+ * @param  bbox                 Domain bounding box.
+ * @param  angle                Stretching direction angle in degrees.
+ * @param  stretch              Stretching factor along the direction.
+ * @param  stretch_decay        Progressive decay of stretching across
+ *                              octaves.
+ * @return                      Array Fractal noise.
+ */
+Array noise_slope(NoiseType     noise_type,
+                  glm::ivec2    shape,
+                  glm::vec2     kw,
+                  std::uint32_t seed,
+                  int           octaves = 8,
+                  float         weight = 0.7f,
+                  float         persistence = 0.5f,
+                  float         lacunarity = 2.f,
+                  float         gradient_scale = 0.5f,
+                  float         slope_power = 2.f,
+                  float         octave_blend = 0.5f,
+                  const Array  *p_ctrl_param = nullptr,
+                  const Array  *p_noise_x = nullptr,
+                  const Array  *p_noise_y = nullptr,
+                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                  float         angle = 0.f,
+                  float         stretch = 1.f,
+                  float         stretch_decay = 0.f);
+
+/**
  * @brief Return an array filled with coherence fbm swiss noise.
  *
  * @param  noise_type           Noise type.

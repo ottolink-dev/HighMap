@@ -1696,6 +1696,76 @@ protected:
 };
 
 /**
+ * @class FbmSlopeFunction
+ * @brief Slope-weighted FBM layering function class.
+ *
+ * Modulates higher-octave amplitude by the accumulated low-frequency gradient
+ * norm so that flat areas remain smooth while steep slopes develop rugosity.
+ */
+template <typename BaseFn>
+class FbmSlopeFunction : public GenericFractalFunction<BaseFn>
+{
+public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
+  /**
+   * @brief Construct a new Fbm Slope Function object.
+   *
+   * @param base           Base noise function.
+   * @param octaves        Number of octaves.
+   * @param weight         Octave weighting.
+   * @param persistence    Octave persistence.
+   * @param lacunarity     Defines the wavenumber ratio between each octave.
+   * @param gradient_scale Gradient scale influence.
+   * @param slope_power    Exponent controlling slope transition sharpness.
+   * @param octave_blend   Rate at which higher octaves become slope-masked.
+   */
+  FbmSlopeFunction(BaseFn base,
+                   int    octaves,
+                   float  weight,
+                   float  persistence,
+                   float  lacunarity,
+                   float  gradient_scale,
+                   float  slope_power,
+                   float  octave_blend);
+
+  /**
+   * @brief Set the gradient scale.
+   *
+   * @param new_gradient_scale New gradient scale.
+   */
+  void set_gradient_scale(float new_gradient_scale)
+  {
+    this->gradient_scale = new_gradient_scale;
+  }
+
+  /**
+   * @brief Set the slope power.
+   *
+   * @param new_slope_power New slope power.
+   */
+  void set_slope_power(float new_slope_power)
+  {
+    this->slope_power = new_slope_power;
+  }
+
+  /**
+   * @brief Set the octave blend rate.
+   *
+   * @param new_octave_blend New octave blend rate.
+   */
+  void set_octave_blend(float new_octave_blend)
+  {
+    this->octave_blend = new_octave_blend;
+  }
+
+protected:
+  float gradient_scale; ///< Gradient scale influence.
+  float slope_power;    ///< Exponent controlling slope transition sharpness.
+  float octave_blend;   ///< Rate at which higher octaves become slope-masked.
+};
+
+/**
  * @class FbmSwissFunction
  * @brief Swiss layering function class.
  */

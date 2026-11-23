@@ -1,0 +1,2 @@
+add_executable(ex_noise_slope ex_noise_slope.cpp)
+target_link_libraries(ex_noise_slope highmap)

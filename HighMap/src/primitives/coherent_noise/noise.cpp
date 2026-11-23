@@ -365,6 +365,59 @@ Array noise_ridged(NoiseType     noise_type,
   return array;
 }
 
+Array noise_slope(NoiseType     noise_type,
+                  glm::ivec2    shape,
+                  glm::vec2     kw,
+                  std::uint32_t seed,
+                  int           octaves,
+                  float         weight,
+                  float         persistence,
+                  float         lacunarity,
+                  float         gradient_scale,
+                  float         slope_power,
+                  float         octave_blend,
+                  const Array  *p_ctrl_param,
+                  const Array  *p_noise_x,
+                  const Array  *p_noise_y,
+                  glm::vec4     bbox,
+                  float         angle,
+                  float         stretch,
+                  float         stretch_decay)
+{
+  if (!validate_shape(shape)) return Array();
+  if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
+    return Array(shape);
+  if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
+  if (p_noise_y && !validate_same_shape(shape, *p_noise_y)) return Array(shape);
+
+  Array array = Array(shape);
+
+  with_noise_function(noise_type,
+                      kw,
+                      seed,
+                      [&](const auto &base_fn)
+                      {
+                        hmap::FbmSlopeFunction f = hmap::FbmSlopeFunction(
+                            base_fn,
+                            octaves,
+                            weight,
+                            persistence,
+                            lacunarity,
+                            gradient_scale,
+                            slope_power,
+                            octave_blend);
+                        f.set_stretch(angle, stretch, stretch_decay);
+                        fill_array_using_xy_function(array,
+                                                     bbox,
+                                                     p_ctrl_param,
+                                                     p_noise_x,
+                                                     p_noise_y,
+                                                     nullptr,
+                                                     f);
+                      });
+  return array;
+}
+
 Array noise_swiss(NoiseType     noise_type,
                   glm::ivec2    shape,
                   glm::vec2     kw,
