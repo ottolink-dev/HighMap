@@ -1,0 +1,2 @@
+add_executable(ex_blend_terrains ex_blend_terrains.cpp)
+target_link_libraries(ex_blend_terrains highmap)
