@@ -31,9 +31,14 @@ float blend_value(float            lower_val,
 
   case TerrainBlendMode::TBM_DISTANCE:
   {
-    float d = std::min({rx_upper, 1.f - rx_upper, ry_upper, 1.f - ry_upper});
-    float w = param > 0.f ? smoothstep3(std::clamp(d / param, 0.f, 1.f)) : 1.f;
-    return lerp(lower_val, upper_val, w);
+    if (param <= 0.f)
+      return upper_val;
+
+    float dx = std::min(rx_upper, 1.f - rx_upper);
+    float dy = std::min(ry_upper, 1.f - ry_upper);
+    float wx = smoothstep5(std::clamp(dx / param, 0.f, 1.f));
+    float wy = smoothstep5(std::clamp(dy / param, 0.f, 1.f));
+    return lerp(lower_val, upper_val, wx * wy);
   }
 
   case TerrainBlendMode::TBM_MAX: return std::max(lower_val, upper_val);
