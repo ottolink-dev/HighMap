@@ -1,6 +1,7 @@
 #include "highmap/blending.hpp"
 #include "highmap/internal/assert.hpp"
 #include "highmap/primitives.hpp"
+#include "highmap/range.hpp"
 #include "highmap/transform/terrain_alignment.hpp"
 
 #include <gtest/gtest.h>
@@ -442,4 +443,166 @@ TEST(Blending, AlignTerrainsVirtualArrayConsistency)
 
   Array va_result = upper_va.to_array(ComputeMode{});
   EXPECT_TRUE(assert_almost_equal(upper_arr, va_result, 1e-3f));
+}
+
+TEST(Blending, BlendTerrainsHeightAndSlope)
+{
+  const glm::ivec2 shape(32, 32);
+  const glm::ivec2 tile_shape(16, 16);
+  CoordFrame       frame_lower({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+  CoordFrame       frame_upper({0.2f, 0.2f}, {0.6f, 0.6f}, 0.0f);
+
+  Array lower_arr = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 1);
+  Array upper_arr = noise_fbm(NoiseType::PERLIN, {16, 16}, {4.f, 4.f}, 2);
+  remap(lower_arr, 0.f, 0.4f);
+  remap(upper_arr, 0.3f, 1.0f);
+
+  // Height-aware: Array vs VirtualArray consistency
+  Array        h_arr = lower_arr;
+  VirtualArray h_va(shape, tile_shape, 2, StorageMode::VA_RAM);
+  h_va.from_array(lower_arr, ComputeMode{});
+  VirtualArray upper_va({16, 16}, {8, 8}, 2, StorageMode::VA_RAM);
+  upper_va.from_array(upper_arr, ComputeMode{});
+
+  blend_terrains(h_arr,
+                 frame_lower,
+                 upper_arr,
+                 frame_upper,
+                 TerrainBlendMode::TBM_HEIGHT,
+                 0.2f);
+  blend_terrains(h_va,
+                 frame_lower,
+                 upper_va,
+                 frame_upper,
+                 TerrainBlendMode::TBM_HEIGHT,
+                 0.2f);
+
+  Array h_va_res = h_va.to_array(ComputeMode{});
+  EXPECT_TRUE(assert_almost_equal(h_arr, h_va_res, 1e-3f));
+
+  // Slope-aware: runs cleanly on both Array and VirtualArray
+  Array        s_arr = lower_arr;
+  VirtualArray s_va(shape, tile_shape, 2, StorageMode::VA_RAM);
+  s_va.from_array(lower_arr, ComputeMode{});
+
+  blend_terrains_slope(s_arr,
+                       frame_lower,
+                       upper_arr,
+                       frame_upper,
+                       0.2f,
+                       0.1f,
+                       2);
+  blend_terrains_slope(s_va,
+                       frame_lower,
+                       upper_va,
+                       frame_upper,
+                       0.2f,
+                       0.1f,
+                       2,
+                       ComputeMode{.mode = ForEachMode::VA_DISTRIBUTED});
+
+  Array s_va_res = s_va.to_array(ComputeMode{});
+  EXPECT_EQ(s_va_res.shape.x, shape.x);
+  EXPECT_EQ(s_va_res.shape.y, shape.y);
+}
+
+TEST(Blending, BlendTerrainsSeamlessAndMultiscale)
+{
+  const glm::ivec2 shape(32, 32);
+  const glm::ivec2 tile_shape(16, 16);
+  CoordFrame       frame_lower({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+  CoordFrame       frame_upper({0.25f, 0.25f}, {0.5f, 0.5f}, 10.0f);
+
+  Array lower_arr(shape, 1.0f);
+  Array upper_arr(glm::ivec2(16, 16), 5.0f);
+
+  VirtualArray lower_va(shape, tile_shape, 2, StorageMode::VA_RAM);
+  lower_va.from_array(lower_arr, ComputeMode{});
+  VirtualArray upper_va({16, 16}, {8, 8}, 2, StorageMode::VA_RAM);
+  upper_va.from_array(upper_arr, ComputeMode{});
+
+  // Seamless: constant upper (5.0) onto constant lower (1.0) -> phi = -4.0,
+  // so result stays 1.0 everywhere
+  Array        seam_arr = lower_arr;
+  VirtualArray seam_va(shape, tile_shape, 2, StorageMode::VA_RAM);
+  seam_va.from_array(lower_arr, ComputeMode{});
+
+  blend_terrains(seam_arr,
+                 frame_lower,
+                 upper_arr,
+                 frame_upper,
+                 TerrainBlendMode::TBM_SEAMLESS,
+                 0.2f);
+  blend_terrains(seam_va,
+                 frame_lower,
+                 upper_va,
+                 frame_upper,
+                 TerrainBlendMode::TBM_SEAMLESS,
+                 0.2f);
+
+  Array seam_va_res = seam_va.to_array(ComputeMode{});
+  EXPECT_TRUE(assert_almost_equal(seam_arr, lower_arr, 1e-3f));
+  EXPECT_TRUE(assert_almost_equal(seam_arr, seam_va_res, 1e-3f));
+
+  // Multiscale: runs cleanly on Array and VirtualArray
+  Array        ms_arr = lower_arr;
+  VirtualArray ms_va(shape, tile_shape, 2, StorageMode::VA_RAM);
+  ms_va.from_array(lower_arr, ComputeMode{});
+
+  blend_terrains_multiscale(ms_arr, frame_lower, upper_arr, frame_upper, 0.25f);
+  blend_terrains_multiscale(ms_va,
+                            frame_lower,
+                            upper_va,
+                            frame_upper,
+                            0.25f,
+                            3,
+                            16,
+                            1.f,
+                            32,
+                            ComputeMode{.mode = ForEachMode::VA_DISTRIBUTED});
+
+  Array ms_va_res = ms_va.to_array(ComputeMode{});
+  EXPECT_NEAR(ms_arr(0, 0), 1.0f, 1e-4f);
+  EXPECT_NEAR(ms_va_res(0, 0), 1.0f, 1e-4f);
+}
+
+TEST(Blending, BlendTerrainsPoisson)
+{
+  const glm::ivec2 shape(32, 32);
+  const glm::ivec2 tile_shape(16, 16);
+  CoordFrame       frame_lower({0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f);
+  CoordFrame       frame_upper({0.25f, 0.25f}, {0.5f, 0.5f}, 0.0f);
+
+  Array lower_arr(shape, 1.0f);
+  Array upper_arr(glm::ivec2(16, 16), 5.0f);
+
+  // Constant upper (5.0) onto constant lower (1.0) with Dirichlet boundary
+  // conditions must converge to 1.0 everywhere
+  Array p_arr = lower_arr;
+  blend_terrains_poisson(p_arr,
+                         frame_lower,
+                         upper_arr,
+                         frame_upper,
+                         300,
+                         0.f,
+                         false);
+  EXPECT_TRUE(assert_almost_equal(p_arr, lower_arr, 1e-2f));
+
+  VirtualArray p_va(shape, tile_shape, 2, StorageMode::VA_RAM);
+  p_va.from_array(lower_arr, ComputeMode{});
+  VirtualArray upper_va({16, 16}, {8, 8}, 2, StorageMode::VA_RAM);
+  upper_va.from_array(upper_arr, ComputeMode{});
+
+  blend_terrains_poisson(p_va,
+                         frame_lower,
+                         upper_va,
+                         frame_upper,
+                         200,
+                         0.f,
+                         false,
+                         32,
+                         25,
+                         ComputeMode{.mode = ForEachMode::VA_DISTRIBUTED});
+  Array p_va_res = p_va.to_array(ComputeMode{});
+  EXPECT_TRUE(assert_almost_equal(p_va_res, lower_arr, 1e-2f));
 }
