@@ -66,6 +66,7 @@ var annotated_dup =
       [ "FbmJordanFunction", "classhmap_1_1FbmJordanFunction.html", "classhmap_1_1FbmJordanFunction" ],
       [ "FbmPingpongFunction", "classhmap_1_1FbmPingpongFunction.html", "classhmap_1_1FbmPingpongFunction" ],
       [ "FbmRidgedFunction", "classhmap_1_1FbmRidgedFunction.html", "classhmap_1_1FbmRidgedFunction" ],
+      [ "FbmSlopeFunction", "classhmap_1_1FbmSlopeFunction.html", "classhmap_1_1FbmSlopeFunction" ],
       [ "FbmSwissFunction", "classhmap_1_1FbmSwissFunction.html", "classhmap_1_1FbmSwissFunction" ],
       [ "FieldFunction", "classhmap_1_1FieldFunction.html", "classhmap_1_1FieldFunction" ],
       [ "AABB2D", "structhmap_1_1AABB2D.html", "structhmap_1_1AABB2D" ],

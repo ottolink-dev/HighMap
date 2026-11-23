@@ -913,82 +913,133 @@
 \DoxyCodeLine{01695\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmRidgedFunction_ac82951229fe7665d66205a5d495b4ba3}{k\_smoothing}};\ }
 \DoxyCodeLine{01696\ \};}
 \DoxyCodeLine{01697\ }
-\DoxyCodeLine{01702\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BaseFn>}
-\DoxyCodeLine{01703\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a92bd6b3c16531bcea7050137977b6659}{FbmSwissFunction}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3ba0ccbb38680ae214c3a8317ee19d54}{GenericFractalFunction}}<BaseFn>}
-\DoxyCodeLine{01704\ \{}
-\DoxyCodeLine{01705\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{01706\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_af284a9c2c090cef45a98301fe7662168}{operator()}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ ctrl\_param\ =\ 0.f)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{01707\ }
-\DoxyCodeLine{01718\ \ \ \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a92bd6b3c16531bcea7050137977b6659}{FbmSwissFunction}}(BaseFn\ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a35d80bb49712ecbc404a03d6595b695b}{base}},}
-\DoxyCodeLine{01719\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_ac47ecc78a6804d4f65c48ec2e296bdde}{octaves}},}
-\DoxyCodeLine{01720\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a8de993ee56b49ddaf6b65921e0a549d6}{weight}},}
-\DoxyCodeLine{01721\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3fc0cf807c3afdaecaa8e884ba7ff267}{persistence}},}
-\DoxyCodeLine{01722\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a43e43f87666318f3fe55946df38c43db}{lacunarity}},}
-\DoxyCodeLine{01723\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a0fe31963ad253083b0f250971344a912}{warp\_scale}});}
-\DoxyCodeLine{01724\ }
-\DoxyCodeLine{01730\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a0c30cb389f852afa4b495f185fec7593}{set\_warp\_scale}}(\textcolor{keywordtype}{float}\ new\_warp\_scale)}
-\DoxyCodeLine{01731\ \ \ \{}
-\DoxyCodeLine{01732\ \ \ \ \ this-\/>warp\_scale\ =\ new\_warp\_scale;}
-\DoxyCodeLine{01733\ \ \ \ \ this-\/>\mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a3274544c9fb3bb29a61cb8235f0681bd}{warp\_scale\_normalized}}\ =\ new\_warp\_scale\ /\ this-\/>\mbox{\hyperlink{classhmap_1_1NoiseFunction_a332703b9642cf219cb6d6e91488648cf}{kw}}.x;}
-\DoxyCodeLine{01734\ \ \ \}}
+\DoxyCodeLine{01705\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BaseFn>}
+\DoxyCodeLine{01706\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a29d96a433c8cde355d45a6acf256d85b}{FbmSlopeFunction}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3ba0ccbb38680ae214c3a8317ee19d54}{GenericFractalFunction}}<BaseFn>}
+\DoxyCodeLine{01707\ \{}
+\DoxyCodeLine{01708\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{01709\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_ad58d3fb18c45363a7658623230e4aad1}{operator()}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ ctrl\_param\ =\ 0.f)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{01710\ }
+\DoxyCodeLine{01725\ \ \ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a29d96a433c8cde355d45a6acf256d85b}{FbmSlopeFunction}}(BaseFn\ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a35d80bb49712ecbc404a03d6595b695b}{base}},}
+\DoxyCodeLine{01726\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_ac47ecc78a6804d4f65c48ec2e296bdde}{octaves}},}
+\DoxyCodeLine{01727\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a8de993ee56b49ddaf6b65921e0a549d6}{weight}},}
+\DoxyCodeLine{01728\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3fc0cf807c3afdaecaa8e884ba7ff267}{persistence}},}
+\DoxyCodeLine{01729\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a43e43f87666318f3fe55946df38c43db}{lacunarity}},}
+\DoxyCodeLine{01730\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a6211081174880b9a13cf75cd5e3c0bd7}{gradient\_scale}},}
+\DoxyCodeLine{01731\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_aeb5ee7f98a26bb619a9c269884343e25}{slope\_power}},}
+\DoxyCodeLine{01732\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_af9d16a0d8d23a8d17a286b2e959e32ab}{octave\_blend}},}
+\DoxyCodeLine{01733\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a2b32ad3f18ceaac9683275fd6121d56d}{bias\_angle}}\ =\ 0.f,}
+\DoxyCodeLine{01734\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a7834179863d11ed69457ec12264eacef}{bias\_strength}}\ =\ 0.f);}
 \DoxyCodeLine{01735\ }
-\DoxyCodeLine{01736\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{01737\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a0fe31963ad253083b0f250971344a912}{warp\_scale}};\ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{01738\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a3274544c9fb3bb29a61cb8235f0681bd}{warp\_scale\_normalized}};\ }
-\DoxyCodeLine{01739\ \};}
-\DoxyCodeLine{01740\ }
-\DoxyCodeLine{01741\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{01742\ \textcolor{comment}{//\ Field\ functions}}
-\DoxyCodeLine{01743\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{01744\ }
-\DoxyCodeLine{01749\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BaseFn>\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1FieldFunction_a17613f0a81c1605e901170bf5224afbc}{FieldFunction}}}
-\DoxyCodeLine{01750\ \{}
-\DoxyCodeLine{01751\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{01752\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FieldFunction_ade90ddbe3829e67f73b6e40ecc757771}{operator()}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ ctrl\_param\ =\ 0.f)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{01753\ }
-\DoxyCodeLine{01759\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a17613f0a81c1605e901170bf5224afbc}{FieldFunction}}(BaseFn\ base);}
+\DoxyCodeLine{01742\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a37829841e15d041b7ba94c7dd81c827d}{set\_bias}}(\textcolor{keywordtype}{float}\ new\_bias\_angle,\ \textcolor{keywordtype}{float}\ new\_bias\_strength)}
+\DoxyCodeLine{01743\ \ \ \{}
+\DoxyCodeLine{01744\ \ \ \ \ this-\/>\mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a2b32ad3f18ceaac9683275fd6121d56d}{bias\_angle}}\ =\ new\_bias\_angle;}
+\DoxyCodeLine{01745\ \ \ \ \ this-\/>\mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a7834179863d11ed69457ec12264eacef}{bias\_strength}}\ =\ std::clamp(new\_bias\_strength,\ 0.f,\ 1.f);}
+\DoxyCodeLine{01746\ \ \ \ \ \textcolor{keywordtype}{float}\ theta\ =\ new\_bias\_angle\ *\ 3.14159265358979323846f\ /\ 180.f;}
+\DoxyCodeLine{01747\ \ \ \ \ this-\/>\mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a1cda80f0872df861eed67d8e129308cd}{bias\_cos}}\ =\ std::cos(theta);}
+\DoxyCodeLine{01748\ \ \ \ \ this-\/>\mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_aafa73fd45e67f66facaa42c3fe5b66f4}{bias\_sin}}\ =\ std::sin(theta);}
+\DoxyCodeLine{01749\ \ \ \}}
+\DoxyCodeLine{01750\ }
+\DoxyCodeLine{01756\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a36bc37be318119dde2ae3e5a2de1255d}{set\_gradient\_scale}}(\textcolor{keywordtype}{float}\ new\_gradient\_scale)}
+\DoxyCodeLine{01757\ \ \ \{}
+\DoxyCodeLine{01758\ \ \ \ \ this-\/>gradient\_scale\ =\ new\_gradient\_scale;}
+\DoxyCodeLine{01759\ \ \ \}}
 \DoxyCodeLine{01760\ }
-\DoxyCodeLine{01773\ \ \ \mbox{\hyperlink{classhmap_1_1FieldFunction_a17613f0a81c1605e901170bf5224afbc}{FieldFunction}}(BaseFn\ \ \ \ \ \ \ \ \ \ \ \ \ base,}
-\DoxyCodeLine{01774\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1FieldFunction_aa2a892fad7a1b6eb483494a167ccaae7}{xr}},}
-\DoxyCodeLine{01775\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a50cd153f7cb127115a87a365899f54b7}{yr}},}
-\DoxyCodeLine{01776\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a7a0dfd12b2af034622d8a7b93a76a40b}{zr}});}
-\DoxyCodeLine{01777\ }
-\DoxyCodeLine{01783\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a959baebb83ae5b5a28155977cb1a0fc7}{set\_xr}}(std::vector<float>\ new\_xr)}
-\DoxyCodeLine{01784\ \ \ \{}
-\DoxyCodeLine{01785\ \ \ \ \ this-\/>xr\ =\ new\_xr;}
-\DoxyCodeLine{01786\ \ \ \}}
-\DoxyCodeLine{01787\ }
-\DoxyCodeLine{01793\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a189b2d18cc74249c3c3184186cf9fa49}{set\_yr}}(std::vector<float>\ new\_yr)}
-\DoxyCodeLine{01794\ \ \ \{}
-\DoxyCodeLine{01795\ \ \ \ \ this-\/>yr\ =\ new\_yr;}
-\DoxyCodeLine{01796\ \ \ \}}
-\DoxyCodeLine{01797\ }
-\DoxyCodeLine{01804\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a6be35e9ce09ffc09d2901a4c3f847c90}{set\_zr}}(std::vector<float>\ new\_zr)}
-\DoxyCodeLine{01805\ \ \ \{}
-\DoxyCodeLine{01806\ \ \ \ \ this-\/>zr\ =\ new\_zr;}
-\DoxyCodeLine{01807\ \ \ \}}
-\DoxyCodeLine{01808\ }
-\DoxyCodeLine{01809\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{01810\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1FieldFunction_aa2a892fad7a1b6eb483494a167ccaae7}{xr}};\ }
-\DoxyCodeLine{01812\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a50cd153f7cb127115a87a365899f54b7}{yr}};\ }
-\DoxyCodeLine{01814\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a7a0dfd12b2af034622d8a7b93a76a40b}{zr}};\ }
-\DoxyCodeLine{01816\ }
-\DoxyCodeLine{01817\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{01818\ \ \ BaseFn\ base;\ }
-\DoxyCodeLine{01819\ \};}
-\DoxyCodeLine{01820\ }
-\DoxyCodeLine{01821\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{01822\ \textcolor{comment}{//\ Helpers}}
-\DoxyCodeLine{01823\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{01824\ }
-\DoxyCodeLine{01835\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Fn>}
-\DoxyCodeLine{01836\ \textcolor{keyword}{decltype}(\textcolor{keyword}{auto})\ \mbox{\hyperlink{namespacehmap_affd2220de085a60e3052a80a376e0c47}{with\_noise\_function}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195}{NoiseType}}\ \ \ \ \ noise\_type,}
-\DoxyCodeLine{01837\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glm::vec2\ \ \ \ \ kw,}
-\DoxyCodeLine{01838\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::uint32\_t\ seed,}
-\DoxyCodeLine{01839\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Fn\ \ \ \ \ \ \ \ \ \ \&\&fn);}
-\DoxyCodeLine{01840\ }
-\DoxyCodeLine{01841\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
-\DoxyCodeLine{01842\ }
-\DoxyCodeLine{01843\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{functions_8inl}{highmap/functions/functions.inl}}"{}}}
+\DoxyCodeLine{01766\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_ada216afb23a257a87927cd1253adc685}{set\_slope\_power}}(\textcolor{keywordtype}{float}\ new\_slope\_power)}
+\DoxyCodeLine{01767\ \ \ \{}
+\DoxyCodeLine{01768\ \ \ \ \ this-\/>slope\_power\ =\ new\_slope\_power;}
+\DoxyCodeLine{01769\ \ \ \}}
+\DoxyCodeLine{01770\ }
+\DoxyCodeLine{01776\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a4ecf3522e5a568dfce00861a19014f5d}{set\_octave\_blend}}(\textcolor{keywordtype}{float}\ new\_octave\_blend)}
+\DoxyCodeLine{01777\ \ \ \{}
+\DoxyCodeLine{01778\ \ \ \ \ this-\/>octave\_blend\ =\ new\_octave\_blend;}
+\DoxyCodeLine{01779\ \ \ \}}
+\DoxyCodeLine{01780\ }
+\DoxyCodeLine{01781\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{01782\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a6211081174880b9a13cf75cd5e3c0bd7}{gradient\_scale}};\ \ \ \ \ \ }
+\DoxyCodeLine{01783\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_aeb5ee7f98a26bb619a9c269884343e25}{slope\_power}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01784\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_af9d16a0d8d23a8d17a286b2e959e32ab}{octave\_blend}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01785\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a2b32ad3f18ceaac9683275fd6121d56d}{bias\_angle}}\ =\ 0.f;\ \ \ \ }
+\DoxyCodeLine{01786\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a7834179863d11ed69457ec12264eacef}{bias\_strength}}\ =\ 0.f;\ }
+\DoxyCodeLine{01787\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_a1cda80f0872df861eed67d8e129308cd}{bias\_cos}}\ =\ 1.f;\ \ \ \ \ \ }
+\DoxyCodeLine{01788\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSlopeFunction_aafa73fd45e67f66facaa42c3fe5b66f4}{bias\_sin}}\ =\ 0.f;\ \ \ \ \ \ }
+\DoxyCodeLine{01789\ \};}
+\DoxyCodeLine{01790\ }
+\DoxyCodeLine{01795\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BaseFn>}
+\DoxyCodeLine{01796\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a92bd6b3c16531bcea7050137977b6659}{FbmSwissFunction}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3ba0ccbb38680ae214c3a8317ee19d54}{GenericFractalFunction}}<BaseFn>}
+\DoxyCodeLine{01797\ \{}
+\DoxyCodeLine{01798\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{01799\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_af284a9c2c090cef45a98301fe7662168}{operator()}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ ctrl\_param\ =\ 0.f)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{01800\ }
+\DoxyCodeLine{01811\ \ \ \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a92bd6b3c16531bcea7050137977b6659}{FbmSwissFunction}}(BaseFn\ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a35d80bb49712ecbc404a03d6595b695b}{base}},}
+\DoxyCodeLine{01812\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_ac47ecc78a6804d4f65c48ec2e296bdde}{octaves}},}
+\DoxyCodeLine{01813\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a8de993ee56b49ddaf6b65921e0a549d6}{weight}},}
+\DoxyCodeLine{01814\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a3fc0cf807c3afdaecaa8e884ba7ff267}{persistence}},}
+\DoxyCodeLine{01815\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1GenericFractalFunction_a43e43f87666318f3fe55946df38c43db}{lacunarity}},}
+\DoxyCodeLine{01816\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a0fe31963ad253083b0f250971344a912}{warp\_scale}});}
+\DoxyCodeLine{01817\ }
+\DoxyCodeLine{01823\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a0c30cb389f852afa4b495f185fec7593}{set\_warp\_scale}}(\textcolor{keywordtype}{float}\ new\_warp\_scale)}
+\DoxyCodeLine{01824\ \ \ \{}
+\DoxyCodeLine{01825\ \ \ \ \ this-\/>warp\_scale\ =\ new\_warp\_scale;}
+\DoxyCodeLine{01826\ \ \ \ \ this-\/>\mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a3274544c9fb3bb29a61cb8235f0681bd}{warp\_scale\_normalized}}\ =\ new\_warp\_scale\ /\ this-\/>\mbox{\hyperlink{classhmap_1_1NoiseFunction_a332703b9642cf219cb6d6e91488648cf}{kw}}.x;}
+\DoxyCodeLine{01827\ \ \ \}}
+\DoxyCodeLine{01828\ }
+\DoxyCodeLine{01829\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{01830\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a0fe31963ad253083b0f250971344a912}{warp\_scale}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01831\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FbmSwissFunction_a3274544c9fb3bb29a61cb8235f0681bd}{warp\_scale\_normalized}};\ }
+\DoxyCodeLine{01832\ \};}
+\DoxyCodeLine{01833\ }
+\DoxyCodeLine{01834\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01835\ \textcolor{comment}{//\ Field\ functions}}
+\DoxyCodeLine{01836\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01837\ }
+\DoxyCodeLine{01842\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BaseFn>\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classhmap_1_1FieldFunction_a17613f0a81c1605e901170bf5224afbc}{FieldFunction}}}
+\DoxyCodeLine{01843\ \{}
+\DoxyCodeLine{01844\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{01845\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classhmap_1_1FieldFunction_ade90ddbe3829e67f73b6e40ecc757771}{operator()}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ ctrl\_param\ =\ 0.f)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{01846\ }
+\DoxyCodeLine{01852\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a17613f0a81c1605e901170bf5224afbc}{FieldFunction}}(BaseFn\ base);}
+\DoxyCodeLine{01853\ }
+\DoxyCodeLine{01866\ \ \ \mbox{\hyperlink{classhmap_1_1FieldFunction_a17613f0a81c1605e901170bf5224afbc}{FieldFunction}}(BaseFn\ \ \ \ \ \ \ \ \ \ \ \ \ base,}
+\DoxyCodeLine{01867\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1FieldFunction_aa2a892fad7a1b6eb483494a167ccaae7}{xr}},}
+\DoxyCodeLine{01868\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a50cd153f7cb127115a87a365899f54b7}{yr}},}
+\DoxyCodeLine{01869\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a7a0dfd12b2af034622d8a7b93a76a40b}{zr}});}
+\DoxyCodeLine{01870\ }
+\DoxyCodeLine{01876\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a959baebb83ae5b5a28155977cb1a0fc7}{set\_xr}}(std::vector<float>\ new\_xr)}
+\DoxyCodeLine{01877\ \ \ \{}
+\DoxyCodeLine{01878\ \ \ \ \ this-\/>xr\ =\ new\_xr;}
+\DoxyCodeLine{01879\ \ \ \}}
+\DoxyCodeLine{01880\ }
+\DoxyCodeLine{01886\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a189b2d18cc74249c3c3184186cf9fa49}{set\_yr}}(std::vector<float>\ new\_yr)}
+\DoxyCodeLine{01887\ \ \ \{}
+\DoxyCodeLine{01888\ \ \ \ \ this-\/>yr\ =\ new\_yr;}
+\DoxyCodeLine{01889\ \ \ \}}
+\DoxyCodeLine{01890\ }
+\DoxyCodeLine{01897\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a6be35e9ce09ffc09d2901a4c3f847c90}{set\_zr}}(std::vector<float>\ new\_zr)}
+\DoxyCodeLine{01898\ \ \ \{}
+\DoxyCodeLine{01899\ \ \ \ \ this-\/>zr\ =\ new\_zr;}
+\DoxyCodeLine{01900\ \ \ \}}
+\DoxyCodeLine{01901\ }
+\DoxyCodeLine{01902\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{01903\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1FieldFunction_aa2a892fad7a1b6eb483494a167ccaae7}{xr}};\ }
+\DoxyCodeLine{01905\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a50cd153f7cb127115a87a365899f54b7}{yr}};\ }
+\DoxyCodeLine{01907\ \ \ std::vector<float>\ \mbox{\hyperlink{classhmap_1_1FieldFunction_a7a0dfd12b2af034622d8a7b93a76a40b}{zr}};\ }
+\DoxyCodeLine{01909\ }
+\DoxyCodeLine{01910\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{01911\ \ \ BaseFn\ base;\ }
+\DoxyCodeLine{01912\ \};}
+\DoxyCodeLine{01913\ }
+\DoxyCodeLine{01914\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01915\ \textcolor{comment}{//\ Helpers}}
+\DoxyCodeLine{01916\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01917\ }
+\DoxyCodeLine{01928\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Fn>}
+\DoxyCodeLine{01929\ \textcolor{keyword}{decltype}(\textcolor{keyword}{auto})\ \mbox{\hyperlink{namespacehmap_affd2220de085a60e3052a80a376e0c47}{with\_noise\_function}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195}{NoiseType}}\ \ \ \ \ noise\_type,}
+\DoxyCodeLine{01930\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glm::vec2\ \ \ \ \ kw,}
+\DoxyCodeLine{01931\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::uint32\_t\ seed,}
+\DoxyCodeLine{01932\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Fn\ \ \ \ \ \ \ \ \ \ \&\&fn);}
+\DoxyCodeLine{01933\ }
+\DoxyCodeLine{01934\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+\DoxyCodeLine{01935\ }
+\DoxyCodeLine{01936\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{functions_8inl}{highmap/functions/functions.inl}}"{}}}
 
 \end{DoxyCode}

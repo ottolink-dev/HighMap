@@ -57,6 +57,7 @@
     <innerclass refid="classhmap_1_1FbmJordanFunction" prot="public">hmap::FbmJordanFunction</innerclass>
     <innerclass refid="classhmap_1_1FbmPingpongFunction" prot="public">hmap::FbmPingpongFunction</innerclass>
     <innerclass refid="classhmap_1_1FbmRidgedFunction" prot="public">hmap::FbmRidgedFunction</innerclass>
+    <innerclass refid="classhmap_1_1FbmSlopeFunction" prot="public">hmap::FbmSlopeFunction</innerclass>
     <innerclass refid="classhmap_1_1FbmSwissFunction" prot="public">hmap::FbmSwissFunction</innerclass>
     <innerclass refid="classhmap_1_1FieldFunction" prot="public">hmap::FieldFunction</innerclass>
     <innerclass refid="structhmap_1_1AABB2D" prot="public">hmap::AABB2D</innerclass>
@@ -27321,7 +27322,7 @@ This function:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/functions/functions.inl" line="411" column="10" bodyfile="HighMap/include/highmap/functions/functions.inl" bodystart="411" bodyend="435" declfile="HighMap/include/highmap/functions/functions.hpp" declline="1836" declcolumn="10"/>
+        <location file="HighMap/include/highmap/functions/functions.inl" line="493" column="10" bodyfile="HighMap/include/highmap/functions/functions.inl" bodystart="493" bodyend="517" declfile="HighMap/include/highmap/functions/functions.hpp" declline="1929" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a2eb54fb6e51f35573926f9255bcd00e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -56105,6 +56106,275 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </inbodydescription>
         <location file="HighMap/src/primitives/coherent_noise/noise.cpp" line="319" column="7" bodyfile="HighMap/src/primitives/coherent_noise/noise.cpp" bodystart="319" bodyend="366" declfile="HighMap/include/highmap/primitives/coherent_noise.hpp" declline="507" declcolumn="7"/>
       </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a2fa33220d122e7a14827132af7d10442" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
+        <definition>Array hmap::noise_slope</definition>
+        <argsstring>(NoiseType noise_type, glm::ivec2 shape, glm::vec2 kw, std::uint32_t seed, int octaves=8, float weight=0.7f, float persistence=0.5f, float lacunarity=2.f, float gradient_scale=0.5f, float slope_power=2.f, float octave_blend=0.5f, float bias_angle=0.f, float bias_strength=0.f, const Array *p_ctrl_param=nullptr, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, float angle=0.f, float stretch=1.f, float stretch_decay=0.f)</argsstring>
+        <name>noise_slope</name>
+        <qualifiedname>hmap::noise_slope</qualifiedname>
+        <param>
+          <type><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195" kindref="member">NoiseType</ref></type>
+          <declname>noise_type</declname>
+        </param>
+        <param>
+          <type>glm::ivec2</type>
+          <declname>shape</declname>
+        </param>
+        <param>
+          <type>glm::vec2</type>
+          <declname>kw</declname>
+        </param>
+        <param>
+          <type>std::uint32_t</type>
+          <declname>seed</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>octaves</declname>
+          <defval>8</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>weight</declname>
+          <defval>0.7<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>persistence</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lacunarity</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gradient_scale</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>slope_power</declname>
+          <defval>2.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>octave_blend</declname>
+          <defval>0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>bias_angle</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>bias_strength</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_ctrl_param</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_noise_x</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> *</type>
+          <declname>p_noise_y</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>glm::vec4</type>
+          <declname>bbox</declname>
+          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>angle</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>stretch</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>stretch_decay</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+<para>Return an array filled with slope-weighted coherence fbm noise. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Modulates higher-octave amplitude by the accumulated low-frequency gradient norm so that flat areas remain smooth while steep slopes develop rugosity.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>noise_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Noise type. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shape</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> shape. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>kw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Noise wavenumbers {kx, ky} for each directions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random seed number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>octaves</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of octaves. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Octave weighting. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>persistence</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Octave persistence. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lacunarity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Defines the wavenumber ratio between each octaves. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gradient_scale</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Gradient scale influence. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>slope_power</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exponent controlling slope transition sharpness. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>octave_blend</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Rate at which higher octaves become slope-masked. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bias_angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Preferred slope direction angle in degrees. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bias_strength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Directional bias strength in [0, 1]. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_ctrl_param</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference to the control parameter array (acts as a multiplier for the weight parameter). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_noise_x</parametername>
+<parametername>p_noise_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference to the input noise arrays. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Domain bounding box. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Stretching direction angle in degrees. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>stretch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Stretching factor along the direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>stretch_decay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Progressive decay of stretching across octaves. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> Fractal noise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/primitives/coherent_noise/noise.cpp" line="368" column="7" bodyfile="HighMap/src/primitives/coherent_noise/noise.cpp" bodystart="368" bodyend="423" declfile="HighMap/include/highmap/primitives/coherent_noise.hpp" declline="554" declcolumn="7"/>
+      </memberdef>
       <memberdef kind="function" id="namespacehmap_1a64192c9ccb27d04faf4229ddf7ddc882" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::noise_swiss</definition>
@@ -56484,7 +56754,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/coherent_noise/noise.cpp" line="368" column="7" bodyfile="HighMap/src/primitives/coherent_noise/noise.cpp" bodystart="368" bodyend="415" declfile="HighMap/include/highmap/primitives/coherent_noise.hpp" declline="556" declcolumn="7"/>
+        <location file="HighMap/src/primitives/coherent_noise/noise.cpp" line="425" column="7" bodyfile="HighMap/src/primitives/coherent_noise/noise.cpp" bodystart="425" bodyend="472" declfile="HighMap/include/highmap/primitives/coherent_noise.hpp" declline="607" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8a1798b7ade14956ecd1d8fb10fb26c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -56642,7 +56912,7 @@ The kernel is truncated to ensure it fits within the bounds of the array. After 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/primitives/coherent_noise/worley.cpp" line="16" column="7" bodyfile="HighMap/src/primitives/coherent_noise/worley.cpp" bodystart="16" bodyend="43" declfile="HighMap/include/highmap/primitives/coherent_noise.hpp" declline="596" declcolumn="7"/>
+        <location file="HighMap/src/primitives/coherent_noise/worley.cpp" line="16" column="7" bodyfile="HighMap/src/primitives/coherent_noise/worley.cpp" bodystart="16" bodyend="43" declfile="HighMap/include/highmap/primitives/coherent_noise.hpp" declline="647" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1aac2bd27e550ca991c67d8df2df6f0999" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

@@ -13,6 +13,7 @@ var primitives__gpu_8cpp =
     [ "hmap::gpu::mountain_range_radial", "namespacehmap_1_1gpu.html#a657d52dc062f617c6917e80a4ac81186", null ],
     [ "hmap::gpu::noise", "namespacehmap_1_1gpu.html#a3c7a4256734d265b87e3accbfd39727e", null ],
     [ "hmap::gpu::noise_fbm", "namespacehmap_1_1gpu.html#a4f660160933870fa819d10478c598c99", null ],
+    [ "hmap::gpu::noise_slope", "namespacehmap_1_1gpu.html#a791eba57320cfc613751edd49adc9adc", null ],
     [ "hmap::gpu::polygon_field", "namespacehmap_1_1gpu.html#a0b06b24568140dc46bacb4132cd35e4a", null ],
     [ "hmap::gpu::polygon_field_fbm", "namespacehmap_1_1gpu.html#aee6519a166ee8c8b772dc284ee0ab05e", null ],
     [ "hmap::gpu::vorolines", "namespacehmap_1_1gpu.html#ab8fa77cdf2f8b6a4163b761467895c9c", null ],

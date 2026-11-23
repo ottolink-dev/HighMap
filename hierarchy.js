@@ -80,6 +80,7 @@ var hierarchy =
         [ "hmap::FbmJordanFunction< BaseFn >", "classhmap_1_1FbmJordanFunction.html", null ],
         [ "hmap::FbmPingpongFunction< BaseFn >", "classhmap_1_1FbmPingpongFunction.html", null ],
         [ "hmap::FbmRidgedFunction< BaseFn >", "classhmap_1_1FbmRidgedFunction.html", null ],
+        [ "hmap::FbmSlopeFunction< BaseFn >", "classhmap_1_1FbmSlopeFunction.html", null ],
         [ "hmap::FbmSwissFunction< BaseFn >", "classhmap_1_1FbmSwissFunction.html", null ]
       ] ],
       [ "hmap::ParberryFunction", "classhmap_1_1ParberryFunction.html", null ],

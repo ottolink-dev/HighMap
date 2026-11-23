@@ -35,6 +35,7 @@ var functions_2functions_8hpp =
     [ "hmap::FbmJordanFunction&lt; BaseFn &gt;", "classhmap_1_1FbmJordanFunction.html", "classhmap_1_1FbmJordanFunction" ],
     [ "hmap::FbmPingpongFunction&lt; BaseFn &gt;", "classhmap_1_1FbmPingpongFunction.html", "classhmap_1_1FbmPingpongFunction" ],
     [ "hmap::FbmRidgedFunction&lt; BaseFn &gt;", "classhmap_1_1FbmRidgedFunction.html", "classhmap_1_1FbmRidgedFunction" ],
+    [ "hmap::FbmSlopeFunction&lt; BaseFn &gt;", "classhmap_1_1FbmSlopeFunction.html", "classhmap_1_1FbmSlopeFunction" ],
     [ "hmap::FbmSwissFunction&lt; BaseFn &gt;", "classhmap_1_1FbmSwissFunction.html", "classhmap_1_1FbmSwissFunction" ],
     [ "hmap::FieldFunction&lt; BaseFn &gt;", "classhmap_1_1FieldFunction.html", "classhmap_1_1FieldFunction" ],
     [ "hmap::NoiseType", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195", [

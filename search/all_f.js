@@ -163,7 +163,7 @@ var searchData=
   ['gradient_5fnorm_5fprewitt_160',['gradient_norm_prewitt',['../namespacehmap.html#ab02a5e564763a35cd3baa727b825db4a',1,'hmap']]],
   ['gradient_5fnorm_5fscharr_161',['gradient_norm_scharr',['../namespacehmap.html#a522e28e6f997165bb492aa68327556d9',1,'hmap']]],
   ['gradient_5fnorm_5fsobel_162',['gradient_norm_sobel',['../namespacehmap.html#ad0956aa203f9962dba258a91543d2969',1,'hmap']]],
-  ['gradient_5fscale_163',['gradient_scale',['../classhmap_1_1FbmIqFunction.html#aef5a7ca0f98520a57de8c058849630c7',1,'hmap::FbmIqFunction']]],
+  ['gradient_5fscale_163',['gradient_scale',['../classhmap_1_1FbmIqFunction.html#aef5a7ca0f98520a57de8c058849630c7',1,'hmap::FbmIqFunction::gradient_scale'],['../classhmap_1_1FbmSlopeFunction.html#a6211081174880b9a13cf75cd5e3c0bd7',1,'hmap::FbmSlopeFunction::gradient_scale']]],
   ['gradient_5ftalus_164',['gradient_talus',['../namespacehmap.html#a618fb6d396a832c3dd1f053bfd27eed4',1,'hmap::gradient_talus(const Array &amp;array)'],['../namespacehmap.html#aba851d370796b7b6654e681339561eb2',1,'hmap::gradient_talus(const Array &amp;array, Array &amp;talus)']]],
   ['gradient_5fx_165',['gradient_x',['../namespacehmap.html#a11d438a3f643427c957d160b7c1a04de',1,'hmap::gradient_x(const Array &amp;array)'],['../namespacehmap.html#a11c1600c2d67387c1b037fadcca9a069',1,'hmap::gradient_x(const Array &amp;array, Array &amp;dx)']]],
   ['gradient_5fy_166',['gradient_y',['../namespacehmap.html#a8dbef7ccc1936646831eb5a24db58d81',1,'hmap::gradient_y(const Array &amp;array)'],['../namespacehmap.html#a6032811e40d11b8957dc48d98711acf9',1,'hmap::gradient_y(const Array &amp;array, Array &amp;dy)']]],

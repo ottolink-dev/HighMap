@@ -7,5 +7,6 @@ var noise_8cpp =
     [ "hmap::noise_parberry", "namespacehmap.html#a7ca3d3d7661acab3106ed717f27c54d3", null ],
     [ "hmap::noise_pingpong", "namespacehmap.html#a90f4ff376a07639dd34d03b4f3eadeb4", null ],
     [ "hmap::noise_ridged", "namespacehmap.html#a769716b7ef90dc3a2f3aca4186d973f0", null ],
+    [ "hmap::noise_slope", "namespacehmap.html#a2fa33220d122e7a14827132af7d10442", null ],
     [ "hmap::noise_swiss", "namespacehmap.html#a64192c9ccb27d04faf4229ddf7ddc882", null ]
 ];

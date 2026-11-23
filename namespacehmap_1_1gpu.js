@@ -237,6 +237,7 @@ var namespacehmap_1_1gpu =
     [ "gavoronoise", "namespacehmap_1_1gpu.html#a2cb18e9216f90a158c435e30f84488e4", null ],
     [ "noise", "namespacehmap_1_1gpu.html#a3c7a4256734d265b87e3accbfd39727e", null ],
     [ "noise_fbm", "namespacehmap_1_1gpu.html#a4f660160933870fa819d10478c598c99", null ],
+    [ "noise_slope", "namespacehmap_1_1gpu.html#a791eba57320cfc613751edd49adc9adc", null ],
     [ "phasor", "namespacehmap_1_1gpu.html#a0916ece997b5f5586e3d07f2e0541ab4", null ],
     [ "phasor_fbm", "namespacehmap_1_1gpu.html#a281b162da8e83f252eee2c15cc644f09", null ],
     [ "vorolines", "namespacehmap_1_1gpu.html#ab8fa77cdf2f8b6a4163b761467895c9c", null ],

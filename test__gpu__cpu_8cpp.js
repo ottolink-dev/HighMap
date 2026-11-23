@@ -7,5 +7,6 @@ var test__gpu__cpu_8cpp =
     [ "TEST", "test__gpu__cpu_8cpp.html#a4ec9635e40bf33405c73878b1aea0497", null ],
     [ "TEST", "test__gpu__cpu_8cpp.html#a32cb0e93ddc2c232fcc917df035030e5", null ],
     [ "TEST", "test__gpu__cpu_8cpp.html#a76ab52580641281ea9fbecc3ad4a0bc5", null ],
-    [ "TEST", "test__gpu__cpu_8cpp.html#a6bd81817caa0d999abe9caec8aec2ae8", null ]
+    [ "TEST", "test__gpu__cpu_8cpp.html#a6bd81817caa0d999abe9caec8aec2ae8", null ],
+    [ "TEST", "test__gpu__cpu_8cpp.html#aeb7c6d5a947cdca7495b44b3af2ff5df", null ]
 ];
