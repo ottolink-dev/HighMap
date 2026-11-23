@@ -253,6 +253,13 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
+        <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0ac27c8fcd3503d295dde4a3e6a4fbc548" prot="public">
+          <name>TBM_HEIGHT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0a8a411c0ca7ca60f61e5b68328730b89e" prot="public">
           <name>TBM_MAX</name>
           <briefdescription>
@@ -281,6 +288,34 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
+        <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0a75f1436861290cff2a34574b0bce6982" prot="public">
+          <name>TBM_MULTISCALE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0a0cf07030a486ffa920428376bc461254" prot="public">
+          <name>TBM_POISSON</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0a809e2f4376d1b9337444565333e4cf10" prot="public">
+          <name>TBM_SEAMLESS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0a39b49d9dce8e5ad0369f6fbca352f697" prot="public">
+          <name>TBM_SLOPE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0ad448d932fc47a9789fbd80f8fa23221e" prot="public">
           <name>TBM_SUBTRACT</name>
           <briefdescription>
@@ -295,7 +330,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/blending/terrain_blending.hpp" line="16" column="1" bodyfile="HighMap/include/highmap/blending/terrain_blending.hpp" bodystart="17" bodyend="26"/>
+        <location file="HighMap/include/highmap/blending/terrain_blending.hpp" line="16" column="1" bodyfile="HighMap/include/highmap/blending/terrain_blending.hpp" bodystart="17" bodyend="31"/>
       </memberdef>
       <memberdef kind="enum" id="namespacehmap_1a41f6f4d40b566b87f78344d9efe71c71" prot="public" static="no" strong="no">
         <type>int</type>
@@ -5941,7 +5976,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/blending/terrain_blending.cpp" line="75" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="75" bodyend="112" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="41" declcolumn="6"/>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="292" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="292" bodyend="360" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="46" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a897f3415a58d67f4ca224cc3951291d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6044,7 +6079,507 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/blending/terrain_blending.cpp" line="114" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="114" bodyend="168" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="62" declcolumn="6"/>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="362" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="362" bodyend="479" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="67" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a56e0b162ac56a3562289451f56235acf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::blend_terrains_height</definition>
+        <argsstring>(Array &amp;lower, const CoordFrame &amp;frame_lower, const Array &amp;upper, const CoordFrame &amp;frame_upper, float feather_width=0.2f, float height_offset=0.f, float height_range=0.2f)</argsstring>
+        <name>blend_terrains_height</name>
+        <qualifiedname>hmap::blend_terrains_height</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>feather_width</declname>
+          <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>height_offset</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>height_range</declname>
+          <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+<para>Height-aware terrain blending for <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> inputs. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="481" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="481" bodyend="526" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="78" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a50cdab19da90fa33f8377b2d55f2fac0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::blend_terrains_height</definition>
+        <argsstring>(VirtualArray &amp;lower, const CoordFrame &amp;frame_lower, const VirtualArray &amp;upper, const CoordFrame &amp;frame_upper, float feather_width=0.2f, float height_offset=0.f, float height_range=0.2f, const ComputeMode &amp;cm=ComputeMode{})</argsstring>
+        <name>blend_terrains_height</name>
+        <qualifiedname>hmap::blend_terrains_height</qualifiedname>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>feather_width</declname>
+          <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>height_offset</declname>
+          <defval>0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>height_range</declname>
+          <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+          <defval><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref>{}</defval>
+        </param>
+        <briefdescription>
+<para>Height-aware terrain blending for <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> inputs. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="528" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="528" bodyend="587" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="89" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ac93f258a69626ca7d153619662ca8156" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::blend_terrains_multiscale</definition>
+        <argsstring>(Array &amp;lower, const CoordFrame &amp;frame_lower, const Array &amp;upper, const CoordFrame &amp;frame_upper, float feather_width=0.25f, int n_levels=3, int base_radius=16, float detail_gain=1.f)</argsstring>
+        <name>blend_terrains_multiscale</name>
+        <qualifiedname>hmap::blend_terrains_multiscale</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>feather_width</declname>
+          <defval>0.25<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_levels</declname>
+          <defval>3</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>base_radius</declname>
+          <defval>16</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>detail_gain</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+<para>Multiscale (frequency-band) terrain blending for <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> inputs. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="589" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="589" bodyend="700" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="101" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a180bb1ad68aea900e09c40ee819656ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::blend_terrains_multiscale</definition>
+        <argsstring>(VirtualArray &amp;lower, const CoordFrame &amp;frame_lower, const VirtualArray &amp;upper, const CoordFrame &amp;frame_upper, float feather_width=0.25f, int n_levels=3, int base_radius=16, float detail_gain=1.f, int coarse_size=128, const ComputeMode &amp;cm=ComputeMode{})</argsstring>
+        <name>blend_terrains_multiscale</name>
+        <qualifiedname>hmap::blend_terrains_multiscale</qualifiedname>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>feather_width</declname>
+          <defval>0.25<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_levels</declname>
+          <defval>3</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>base_radius</declname>
+          <defval>16</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>detail_gain</declname>
+          <defval>1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>coarse_size</declname>
+          <defval>128</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+          <defval><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref>{}</defval>
+        </param>
+        <briefdescription>
+<para>Multiscale (frequency-band) terrain blending for <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> inputs using a coarse global proxy for low-frequency bands and tile-local detail blending with halo synchronization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="702" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="702" bodyend="855" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="115" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a2255347aa459b40118a75ef3597921d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::blend_terrains_poisson</definition>
+        <argsstring>(Array &amp;lower, const CoordFrame &amp;frame_lower, const Array &amp;upper, const CoordFrame &amp;frame_upper, int iterations=400, float feather_width=0.15f, bool mixed_gradients=true)</argsstring>
+        <name>blend_terrains_poisson</name>
+        <qualifiedname>hmap::blend_terrains_poisson</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>iterations</declname>
+          <defval>400</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>feather_width</declname>
+          <defval>0.15<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>mixed_gradients</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Poisson / gradient-domain terrain blending for <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> inputs. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="857" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="857" bodyend="921" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="129" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a1343b4c91251d7ec56a8adb6715c2817" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::blend_terrains_poisson</definition>
+        <argsstring>(VirtualArray &amp;lower, const CoordFrame &amp;frame_lower, const VirtualArray &amp;upper, const CoordFrame &amp;frame_upper, int iterations=400, float feather_width=0.15f, bool mixed_gradients=true, int coarse_size=128, int sync_interval=25, const ComputeMode &amp;cm=ComputeMode{})</argsstring>
+        <name>blend_terrains_poisson</name>
+        <qualifiedname>hmap::blend_terrains_poisson</qualifiedname>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>iterations</declname>
+          <defval>400</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>feather_width</declname>
+          <defval>0.15<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>mixed_gradients</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>coarse_size</declname>
+          <defval>128</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sync_interval</declname>
+          <defval>25</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+          <defval><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref>{}</defval>
+        </param>
+        <briefdescription>
+<para>Poisson / gradient-domain terrain blending for <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> inputs using a two-level coarse-proxy + tile-local Red-Black SOR solver with halo synchronization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="923" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="923" bodyend="1105" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="142" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a52c184e960867f53be94332bac3ae2d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::blend_terrains_seamless</definition>
+        <argsstring>(Array &amp;lower, const CoordFrame &amp;frame_lower, const Array &amp;upper, const CoordFrame &amp;frame_upper, float feather_width=0.2f, int boundary_samples=64)</argsstring>
+        <name>blend_terrains_seamless</name>
+        <qualifiedname>hmap::blend_terrains_seamless</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>feather_width</declname>
+          <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>boundary_samples</declname>
+          <defval>64</defval>
+        </param>
+        <briefdescription>
+<para>Seamless boundary blending (harmonic MVC membrane) for <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> inputs. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="1107" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="1107" bodyend="1152" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="156" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1abf36e4b40fdd778388df5f78e185a196" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::blend_terrains_seamless</definition>
+        <argsstring>(VirtualArray &amp;lower, const CoordFrame &amp;frame_lower, const VirtualArray &amp;upper, const CoordFrame &amp;frame_upper, float feather_width=0.2f, int boundary_samples=64, const ComputeMode &amp;cm=ComputeMode{})</argsstring>
+        <name>blend_terrains_seamless</name>
+        <qualifiedname>hmap::blend_terrains_seamless</qualifiedname>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>feather_width</declname>
+          <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>boundary_samples</declname>
+          <defval>64</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+          <defval><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref>{}</defval>
+        </param>
+        <briefdescription>
+<para>Seamless boundary blending (harmonic MVC membrane) for <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> inputs. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="1154" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="1154" bodyend="1228" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="167" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a38d5efbf45f614374abf9f7fde25e428" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::blend_terrains_slope</definition>
+        <argsstring>(Array &amp;lower, const CoordFrame &amp;frame_lower, const Array &amp;upper, const CoordFrame &amp;frame_upper, float feather_width=0.2f, float slope_scale=0.1f, int ir_slope=2)</argsstring>
+        <name>blend_terrains_slope</name>
+        <qualifiedname>hmap::blend_terrains_slope</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>feather_width</declname>
+          <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>slope_scale</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ir_slope</declname>
+          <defval>2</defval>
+        </param>
+        <briefdescription>
+<para>Slope-aware terrain blending for <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> inputs. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="1230" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="1230" bodyend="1301" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="178" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a26bb60dab8e168ee50960911d0259ff3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::blend_terrains_slope</definition>
+        <argsstring>(VirtualArray &amp;lower, const CoordFrame &amp;frame_lower, const VirtualArray &amp;upper, const CoordFrame &amp;frame_upper, float feather_width=0.2f, float slope_scale=0.1f, int ir_slope=2, const ComputeMode &amp;cm=ComputeMode{})</argsstring>
+        <name>blend_terrains_slope</name>
+        <qualifiedname>hmap::blend_terrains_slope</qualifiedname>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>feather_width</declname>
+          <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>slope_scale</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ir_slope</declname>
+          <defval>2</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+          <defval><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref>{}</defval>
+        </param>
+        <briefdescription>
+<para>Slope-aware terrain blending for <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> inputs. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="1303" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="1303" bodyend="1396" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="189" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a1e4edcaea744a4a364839905693ee9e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>

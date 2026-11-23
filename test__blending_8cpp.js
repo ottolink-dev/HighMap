@@ -15,5 +15,8 @@ var test__blending_8cpp =
     [ "TEST", "test__blending_8cpp.html#adcfe4346aede60c92ca60f2b7a88376a", null ],
     [ "TEST", "test__blending_8cpp.html#a794068034a7657afe3437e235b10eaef", null ],
     [ "TEST", "test__blending_8cpp.html#a57d4414826f3eac97b361ab0d997e1dc", null ],
-    [ "TEST", "test__blending_8cpp.html#a47f74d5eae4b208d59fe3c8d8e27a798", null ]
+    [ "TEST", "test__blending_8cpp.html#a47f74d5eae4b208d59fe3c8d8e27a798", null ],
+    [ "TEST", "test__blending_8cpp.html#ac8e82034a39e6841a56faea5abaf8b6e", null ],
+    [ "TEST", "test__blending_8cpp.html#ab5084afe31ee72d4373c3ce160b3a04f", null ],
+    [ "TEST", "test__blending_8cpp.html#a88ef1b1891eb24d6441a759bed1e002f", null ]
 ];
