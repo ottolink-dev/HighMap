@@ -12,10 +12,11 @@ var searchData=
   ['architecture_2emd_9',['architecture.md',['../architecture_8md.html',1,'']]],
   ['array_2ecpp_10',['array.cpp',['../array_8cpp.html',1,'']]],
   ['array_2ehpp_11',['array.hpp',['../array_8hpp.html',1,'(Global Namespace)'],['../math_2array_8hpp.html',1,'(Global Namespace)']]],
-  ['array_5ffunctions_2ecpp_12',['array_functions.cpp',['../array__functions_8cpp.html',1,'']]],
-  ['assert_2ecpp_13',['assert.cpp',['../assert_8cpp.html',1,'']]],
-  ['assert_2ehpp_14',['assert.hpp',['../assert_8hpp.html',1,'']]],
-  ['asset_2ehpp_15',['asset.hpp',['../asset_8hpp.html',1,'']]],
-  ['authoring_2ehpp_16',['authoring.hpp',['../authoring_8hpp.html',1,'']]],
-  ['autocorr_5flength_5fscale_2ecpp_17',['autocorr_length_scale.cpp',['../autocorr__length__scale_8cpp.html',1,'']]]
+  ['array_5fblending_2ehpp_12',['array_blending.hpp',['../array__blending_8hpp.html',1,'']]],
+  ['array_5ffunctions_2ecpp_13',['array_functions.cpp',['../array__functions_8cpp.html',1,'']]],
+  ['assert_2ecpp_14',['assert.cpp',['../assert_8cpp.html',1,'']]],
+  ['assert_2ehpp_15',['assert.hpp',['../assert_8hpp.html',1,'']]],
+  ['asset_2ehpp_16',['asset.hpp',['../asset_8hpp.html',1,'']]],
+  ['authoring_2ehpp_17',['authoring.hpp',['../authoring_8hpp.html',1,'']]],
+  ['autocorr_5flength_5fscale_2ecpp_18',['autocorr_length_scale.cpp',['../autocorr__length__scale_8cpp.html',1,'']]]
 ];

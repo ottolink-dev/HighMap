@@ -1,4 +1,4 @@
-var blending_8hpp =
+var array__blending_8hpp =
 [
     [ "hmap::blend_exclusion", "namespacehmap.html#aafb76d7961d1655fdc07422982357588", null ],
     [ "hmap::blend_gradients", "namespacehmap.html#af91a60a9fcbed7e38f53df57631a5298", null ],

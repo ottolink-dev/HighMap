@@ -98,6 +98,7 @@ var annotated_dup =
       [ "ScatterSeedingOptions", "structhmap_1_1ScatterSeedingOptions.html", "structhmap_1_1ScatterSeedingOptions" ],
       [ "TerrainTriMesh", "classhmap_1_1TerrainTriMesh.html", "classhmap_1_1TerrainTriMesh" ],
       [ "Texture", "classhmap_1_1Texture.html", "classhmap_1_1Texture" ],
+      [ "TerrainAlignment", "structhmap_1_1TerrainAlignment.html", "structhmap_1_1TerrainAlignment" ],
       [ "ICommunicator", "classhmap_1_1ICommunicator.html", "classhmap_1_1ICommunicator" ],
       [ "SingleArrayComm", "classhmap_1_1SingleArrayComm.html", "classhmap_1_1SingleArrayComm" ],
       [ "SequentialTileComm", "classhmap_1_1SequentialTileComm.html", "classhmap_1_1SequentialTileComm" ],

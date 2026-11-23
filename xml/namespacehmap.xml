@@ -89,6 +89,7 @@
     <innerclass refid="structhmap_1_1ScatterSeedingOptions" prot="public">hmap::ScatterSeedingOptions</innerclass>
     <innerclass refid="classhmap_1_1TerrainTriMesh" prot="public">hmap::TerrainTriMesh</innerclass>
     <innerclass refid="classhmap_1_1Texture" prot="public">hmap::Texture</innerclass>
+    <innerclass refid="structhmap_1_1TerrainAlignment" prot="public">hmap::TerrainAlignment</innerclass>
     <innerclass refid="classhmap_1_1ICommunicator" prot="public">hmap::ICommunicator</innerclass>
     <innerclass refid="classhmap_1_1SingleArrayComm" prot="public">hmap::SingleArrayComm</innerclass>
     <innerclass refid="classhmap_1_1SequentialTileComm" prot="public">hmap::SequentialTileComm</innerclass>
@@ -226,6 +227,75 @@
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/include/highmap/authoring.hpp" line="31" column="1" bodyfile="HighMap/include/highmap/authoring.hpp" bodystart="32" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="enum" id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0" prot="public" static="no" strong="yes">
+        <type>int</type>
+        <name>TerrainBlendMode</name>
+        <qualifiedname>hmap::TerrainBlendMode</qualifiedname>
+        <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0a0d9da31f77b78ff5cfd0e883e4960806" prot="public">
+          <name>TBM_ADD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0a41d0f0e0bf010f05aefd67c6a6565bc7" prot="public">
+          <name>TBM_AVERAGE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0a6415ce9cb10e48a6f4c3a7e7c2094238" prot="public">
+          <name>TBM_DISTANCE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0a8a411c0ca7ca60f61e5b68328730b89e" prot="public">
+          <name>TBM_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0a129ba32b49390c8d8ab0b92deb55b04d" prot="public">
+          <name>TBM_MAX_SMOOTH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0a0c0eea5b3041211f269f6dfd85191864" prot="public">
+          <name>TBM_MIN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0a55c0d9d45b2993e1b01bfa46ad4dbe4b" prot="public">
+          <name>TBM_MIN_SMOOTH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0ad448d932fc47a9789fbd80f8fa23221e" prot="public">
+          <name>TBM_SUBTRACT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Blending modes for combining terrains with <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> transforms. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/blending/terrain_blending.hpp" line="16" column="1" bodyfile="HighMap/include/highmap/blending/terrain_blending.hpp" bodystart="17" bodyend="26"/>
       </memberdef>
       <memberdef kind="enum" id="namespacehmap_1a41f6f4d40b566b87f78344d9efe71c71" prot="public" static="no" strong="no">
         <type>int</type>
@@ -2389,6 +2459,47 @@
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/include/highmap/transform.hpp" line="37" column="1" bodyfile="HighMap/include/highmap/transform.hpp" bodystart="38" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="enum" id="namespacehmap_1a4280f8e4c700035e86e390420de7751d" prot="public" static="no" strong="yes">
+        <type>int</type>
+        <name>TerrainAlignMode</name>
+        <qualifiedname>hmap::TerrainAlignMode</qualifiedname>
+        <enumvalue id="namespacehmap_1a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090" prot="public">
+          <name>TAM_OFFSET</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7" prot="public">
+          <name>TAM_PLANE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64" prot="public">
+          <name>TAM_ROBUST_OFFSET</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716" prot="public">
+          <name>TAM_ROBUST_PLANE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Alignment modes for fitting an upper terrain to a lower terrain. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/include/highmap/transform/terrain_alignment.hpp" line="16" column="1" bodyfile="HighMap/include/highmap/transform/terrain_alignment.hpp" bodystart="17" bodyend="22"/>
       </memberdef>
       <memberdef kind="enum" id="namespacehmap_1a53ddf39f16d1bda499b7fce512478e9f" prot="public" static="no" strong="yes">
         <type>uint8_t</type>
@@ -5199,7 +5310,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/blending/blending.cpp" line="23" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="23" bodyend="31" declfile="HighMap/include/highmap/blending.hpp" declline="54" declcolumn="7"/>
+        <location file="HighMap/src/blending/blending.cpp" line="23" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="23" bodyend="31" declfile="HighMap/include/highmap/blending/array_blending.hpp" declline="54" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1af91a60a9fcbed7e38f53df57631a5298" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -5256,7 +5367,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/blending/blending.cpp" line="33" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="33" bodyend="48" declfile="HighMap/include/highmap/blending.hpp" declline="68" declcolumn="7"/>
+        <location file="HighMap/src/blending/blending.cpp" line="33" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="33" bodyend="48" declfile="HighMap/include/highmap/blending/array_blending.hpp" declline="68" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a183cf8de980d1886130cac97fd41bcc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -5302,7 +5413,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/blending/blending.cpp" line="50" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="50" bodyend="66" declfile="HighMap/include/highmap/blending.hpp" declline="85" declcolumn="7"/>
+        <location file="HighMap/src/blending/blending.cpp" line="50" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="50" bodyend="66" declfile="HighMap/include/highmap/blending/array_blending.hpp" declline="85" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a3d311d682d431e21c6d7063539a0db8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -5350,7 +5461,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/blending/blending.cpp" line="68" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="68" bodyend="84" declfile="HighMap/include/highmap/blending.hpp" declline="103" declcolumn="7"/>
+        <location file="HighMap/src/blending/blending.cpp" line="68" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="68" bodyend="84" declfile="HighMap/include/highmap/blending/array_blending.hpp" declline="103" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a91e52ae1178d54931a1729a2368a31f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -5398,7 +5509,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/blending/blending.cpp" line="86" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="86" bodyend="95" declfile="HighMap/include/highmap/blending.hpp" declline="124" declcolumn="7"/>
+        <location file="HighMap/src/blending/blending.cpp" line="86" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="86" bodyend="95" declfile="HighMap/include/highmap/blending/array_blending.hpp" declline="124" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a85fd747437fd49e0fcfb770ad5f5851e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -5489,7 +5600,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/blending/blending.cpp" line="97" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="97" bodyend="129" declfile="HighMap/include/highmap/blending.hpp" declline="149" declcolumn="7"/>
+        <location file="HighMap/src/blending/blending.cpp" line="97" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="97" bodyend="129" declfile="HighMap/include/highmap/blending/array_blending.hpp" declline="149" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a01201c510915f9f10f26595c79a1220b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -5545,7 +5656,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/blending/blending.cpp" line="131" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="131" bodyend="134" declfile="HighMap/include/highmap/blending.hpp" declline="160" declcolumn="7"/>
+        <location file="HighMap/src/blending/blending.cpp" line="131" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="131" bodyend="134" declfile="HighMap/include/highmap/blending/array_blending.hpp" declline="160" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1ad1e91583a5c176014ed3720f0eb5a321" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -5628,7 +5739,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/blending/blending.cpp" line="136" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="136" bodyend="186" declfile="HighMap/include/highmap/blending.hpp" declline="183" declcolumn="7"/>
+        <location file="HighMap/src/blending/blending.cpp" line="136" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="136" bodyend="186" declfile="HighMap/include/highmap/blending/array_blending.hpp" declline="183" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a6786fe2ccf9bd2ceb294927c88bd898d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -5740,7 +5851,200 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/blending/blending.cpp" line="188" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="188" bodyend="214" declfile="HighMap/include/highmap/blending.hpp" declline="216" declcolumn="7"/>
+        <location file="HighMap/src/blending/blending.cpp" line="188" column="7" bodyfile="HighMap/src/blending/blending.cpp" bodystart="188" bodyend="214" declfile="HighMap/include/highmap/blending/array_blending.hpp" declline="216" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a0c3592da4cdaf841477aca304315da0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::blend_terrains</definition>
+        <argsstring>(Array &amp;lower, const CoordFrame &amp;frame_lower, const Array &amp;upper, const CoordFrame &amp;frame_upper, TerrainBlendMode mode, float param=0.2f)</argsstring>
+        <name>blend_terrains</name>
+        <qualifiedname>hmap::blend_terrains</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0" kindref="member">TerrainBlendMode</ref></type>
+          <declname>mode</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>param</declname>
+          <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <briefdescription>
+<para>Blend an upper terrain onto a lower terrain in-place, taking their <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> transforms into account. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lower</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower (base) terrain array, modified in-place. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frame_lower</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Coordinate frame of the lower terrain. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>upper</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Upper (overlay) terrain array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frame_upper</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Coordinate frame of the upper terrain. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Blending mode. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>param</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mode-specific parameter (smoothness k for MIN_SMOOTH / MAX_SMOOTH, normalized feathering width in (0, 0.5] for DISTANCE). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="75" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="75" bodyend="112" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="41" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a897f3415a58d67f4ca224cc3951291d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::blend_terrains</definition>
+        <argsstring>(VirtualArray &amp;lower, const CoordFrame &amp;frame_lower, const VirtualArray &amp;upper, const CoordFrame &amp;frame_upper, TerrainBlendMode mode, float param=0.2f, const ComputeMode &amp;cm=ComputeMode{})</argsstring>
+        <name>blend_terrains</name>
+        <qualifiedname>hmap::blend_terrains</qualifiedname>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a3af2421e6a2d6c2f83cd7a89fd6d76e0" kindref="member">TerrainBlendMode</ref></type>
+          <declname>mode</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>param</declname>
+          <defval>0.2<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+          <defval><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref>{}</defval>
+        </param>
+        <briefdescription>
+<para>Blend an upper <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> terrain onto a lower <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> terrain in-place, taking their <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> transforms into account. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lower</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower (base) <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref>, modified in-place. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frame_lower</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Coordinate frame of the lower terrain. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>upper</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Upper (overlay) <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frame_upper</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Coordinate frame of the upper terrain. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Blending mode. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>param</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mode-specific parameter (smoothness k for MIN_SMOOTH / MAX_SMOOTH, normalized feathering width in (0, 0.5] for DISTANCE). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Compute mode for tile execution. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/blending/terrain_blending.cpp" line="114" column="6" bodyfile="HighMap/src/blending/terrain_blending.cpp" bodystart="114" bodyend="168" declfile="HighMap/include/highmap/blending/terrain_blending.hpp" declline="62" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a1e4edcaea744a4a364839905693ee9e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -73195,6 +73499,252 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         <inbodydescription>
         </inbodydescription>
         <location file="HighMap/src/transform/transform.cpp" line="350" column="7" bodyfile="HighMap/src/transform/transform.cpp" bodystart="350" bodyend="385" declfile="HighMap/include/highmap/transform.hpp" declline="500" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1af45ab826099a96280cbe8701f58742a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structhmap_1_1TerrainAlignment" kindref="compound">TerrainAlignment</ref></type>
+        <definition>TerrainAlignment hmap::compute_terrain_alignment</definition>
+        <argsstring>(const Array &amp;lower, const CoordFrame &amp;frame_lower, const Array &amp;upper, const CoordFrame &amp;frame_upper, TerrainAlignMode mode, float huber_delta=0.1f, int max_iterations=10)</argsstring>
+        <name>compute_terrain_alignment</name>
+        <qualifiedname>hmap::compute_terrain_alignment</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a4280f8e4c700035e86e390420de7751d" kindref="member">TerrainAlignMode</ref></type>
+          <declname>mode</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>huber_delta</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>max_iterations</declname>
+          <defval>10</defval>
+        </param>
+        <briefdescription>
+<para>Compute alignment parameters to fit <computeroutput>upper</computeroutput> to <computeroutput>lower</computeroutput> over their common valid area. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/transform/terrain_alignment.cpp" line="116" column="18" bodyfile="HighMap/src/transform/terrain_alignment.cpp" bodystart="116" bodyend="184" declfile="HighMap/include/highmap/transform/terrain_alignment.hpp" declline="38" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1ae75d2dda9b3122234fb87505b87284d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structhmap_1_1TerrainAlignment" kindref="compound">TerrainAlignment</ref></type>
+        <definition>TerrainAlignment hmap::compute_terrain_alignment</definition>
+        <argsstring>(const VirtualArray &amp;lower, const CoordFrame &amp;frame_lower, const VirtualArray &amp;upper, const CoordFrame &amp;frame_upper, TerrainAlignMode mode, float huber_delta=0.1f, int max_iterations=10, int coarse_size=128)</argsstring>
+        <name>compute_terrain_alignment</name>
+        <qualifiedname>hmap::compute_terrain_alignment</qualifiedname>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a4280f8e4c700035e86e390420de7751d" kindref="member">TerrainAlignMode</ref></type>
+          <declname>mode</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>huber_delta</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>max_iterations</declname>
+          <defval>10</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>coarse_size</declname>
+          <defval>128</defval>
+        </param>
+        <briefdescription>
+<para>Compute alignment parameters for <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> inputs using a coarse <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> representation. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/transform/terrain_alignment.cpp" line="186" column="18" bodyfile="HighMap/src/transform/terrain_alignment.cpp" bodystart="186" bodyend="214" declfile="HighMap/include/highmap/transform/terrain_alignment.hpp" declline="50" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1aa43bd69cf1ee61e1e19d6119d9718930" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::apply_terrain_alignment</definition>
+        <argsstring>(Array &amp;upper, const TerrainAlignment &amp;alignment)</argsstring>
+        <name>apply_terrain_alignment</name>
+        <qualifiedname>hmap::apply_terrain_alignment</qualifiedname>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1TerrainAlignment" kindref="compound">TerrainAlignment</ref> &amp;</type>
+          <declname>alignment</declname>
+        </param>
+        <briefdescription>
+<para>Apply precomputed alignment parameters to an <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> in-place. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/transform/terrain_alignment.cpp" line="216" column="6" bodyfile="HighMap/src/transform/terrain_alignment.cpp" bodystart="216" bodyend="232" declfile="HighMap/include/highmap/transform/terrain_alignment.hpp" declline="62" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a2ae51429a580d3d78f51abddf5cc0c71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::apply_terrain_alignment</definition>
+        <argsstring>(VirtualArray &amp;upper, const TerrainAlignment &amp;alignment, const ComputeMode &amp;cm=ComputeMode{})</argsstring>
+        <name>apply_terrain_alignment</name>
+        <qualifiedname>hmap::apply_terrain_alignment</qualifiedname>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1TerrainAlignment" kindref="compound">TerrainAlignment</ref> &amp;</type>
+          <declname>alignment</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+          <defval><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref>{}</defval>
+        </param>
+        <briefdescription>
+<para>Apply precomputed alignment parameters to a <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> in-place. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/transform/terrain_alignment.cpp" line="234" column="6" bodyfile="HighMap/src/transform/terrain_alignment.cpp" bodystart="234" bodyend="260" declfile="HighMap/include/highmap/transform/terrain_alignment.hpp" declline="68" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a4a65286bf3ab852931bd679f8c8fd768" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::align_terrains</definition>
+        <argsstring>(const Array &amp;lower, const CoordFrame &amp;frame_lower, Array &amp;upper, const CoordFrame &amp;frame_upper, TerrainAlignMode mode, float huber_delta=0.1f, int max_iterations=10)</argsstring>
+        <name>align_terrains</name>
+        <qualifiedname>hmap::align_terrains</qualifiedname>
+        <param>
+          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a4280f8e4c700035e86e390420de7751d" kindref="member">TerrainAlignMode</ref></type>
+          <declname>mode</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>huber_delta</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>max_iterations</declname>
+          <defval>10</defval>
+        </param>
+        <briefdescription>
+<para>Align <computeroutput>upper</computeroutput> to <computeroutput>lower</computeroutput> in-place over their common valid area. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/transform/terrain_alignment.cpp" line="262" column="6" bodyfile="HighMap/src/transform/terrain_alignment.cpp" bodystart="262" bodyend="278" declfile="HighMap/include/highmap/transform/terrain_alignment.hpp" declline="75" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehmap_1a4aa4a8c501853bc424424d586d52f24a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hmap::align_terrains</definition>
+        <argsstring>(const VirtualArray &amp;lower, const CoordFrame &amp;frame_lower, VirtualArray &amp;upper, const CoordFrame &amp;frame_upper, TerrainAlignMode mode, float huber_delta=0.1f, int max_iterations=10, int coarse_size=128, const ComputeMode &amp;cm=ComputeMode{})</argsstring>
+        <name>align_terrains</name>
+        <qualifiedname>hmap::align_terrains</qualifiedname>
+        <param>
+          <type>const <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_lower</declname>
+        </param>
+        <param>
+          <type><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> &amp;</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classhmap_1_1CoordFrame" kindref="compound">CoordFrame</ref> &amp;</type>
+          <declname>frame_upper</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehmap_1a4280f8e4c700035e86e390420de7751d" kindref="member">TerrainAlignMode</ref></type>
+          <declname>mode</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>huber_delta</declname>
+          <defval>0.1<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>max_iterations</declname>
+          <defval>10</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>coarse_size</declname>
+          <defval>128</defval>
+        </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref> &amp;</type>
+          <declname>cm</declname>
+          <defval><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref>{}</defval>
+        </param>
+        <briefdescription>
+<para>Align <computeroutput>upper</computeroutput> <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> to <computeroutput>lower</computeroutput> <ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref> in-place. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="HighMap/src/transform/terrain_alignment.cpp" line="280" column="6" bodyfile="HighMap/src/transform/terrain_alignment.cpp" bodystart="280" bodyend="299" declfile="HighMap/include/highmap/transform/terrain_alignment.hpp" declline="86" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a8be122241fa42b0f6a7ef67106391780" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; size_t &gt;</type>

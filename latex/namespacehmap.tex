@@ -190,6 +190,8 @@ class \mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}}
 \begin{DoxyCompactList}\small\item\em \doxylink{structhmap_1_1TerrainTriMesh_1_1Triangle}{Triangle} mesh representation of a terrain surface. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1Texture}{Texture}}
 \begin{DoxyCompactList}\small\item\em A class to represent a multi-\/channel texture using planar \doxylink{classhmap_1_1Array}{hmap\+::\+Array} storage. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}}
+\begin{DoxyCompactList}\small\item\em Elevation offset and tilt parameters for aligning an upper terrain. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}
 \begin{DoxyCompactList}\small\item\em Abstract communicator interface providing MPI-\/style collective directives. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classhmap_1_1SingleArrayComm}{Single\+Array\+Comm}}
@@ -268,6 +270,18 @@ enum \mbox{\hyperlink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2}{Deformati
 , \mbox{\hyperlink{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2a7e9c666cdfeb7b317902253fda25e978}{BELOW}}
  \}
 \begin{DoxyCompactList}\small\item\em Penalty type of a deformation constraint (see Deformation\+Constraint). \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0}{Terrain\+Blend\+Mode}} \+: int \{ \newline
+\mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a0d9da31f77b78ff5cfd0e883e4960806}{TBM\+\_\+\+ADD}}
+, \mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a41d0f0e0bf010f05aefd67c6a6565bc7}{TBM\+\_\+\+AVERAGE}}
+, \mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a6415ce9cb10e48a6f4c3a7e7c2094238}{TBM\+\_\+\+DISTANCE}}
+, \mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a8a411c0ca7ca60f61e5b68328730b89e}{TBM\+\_\+\+MAX}}
+, \newline
+\mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a129ba32b49390c8d8ab0b92deb55b04d}{TBM\+\_\+\+MAX\+\_\+\+SMOOTH}}
+, \mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a0c0eea5b3041211f269f6dfd85191864}{TBM\+\_\+\+MIN}}
+, \mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a55c0d9d45b2993e1b01bfa46ad4dbe4b}{TBM\+\_\+\+MIN\+\_\+\+SMOOTH}}
+, \mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0ad448d932fc47a9789fbd80f8fa23221e}{TBM\+\_\+\+SUBTRACT}}
+ \}
+\begin{DoxyCompactList}\small\item\em Blending modes for combining terrains with Coord\+Frame transforms. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{namespacehmap_a41f6f4d40b566b87f78344d9efe71c71}{Periodicity\+Type}} \+: int \{ \mbox{\hyperlink{namespacehmap_a41f6f4d40b566b87f78344d9efe71c71a0676aefdc33468b2c6e93b2005b3ee9f}{PERIODICITY\+\_\+X}}
 , \mbox{\hyperlink{namespacehmap_a41f6f4d40b566b87f78344d9efe71c71ae51f7482e4aaf0f953891d46f573d88b}{PERIODICITY\+\_\+Y}}
 , \mbox{\hyperlink{namespacehmap_a41f6f4d40b566b87f78344d9efe71c71a012eb1993ac3ba0b9182904366713cf3}{PERIODICITY\+\_\+\+XY}}
@@ -606,6 +620,12 @@ enum \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455}{Symmetry\
 , \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351}{SYMMETRY\+\_\+\+ROT180}}
  \}
 \begin{DoxyCompactList}\small\item\em Describes the symmetry operation to apply to an array. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} \+: int \{ \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090}{TAM\+\_\+\+OFFSET}}
+, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7}{TAM\+\_\+\+PLANE}}
+, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64}{TAM\+\_\+\+ROBUST\+\_\+\+OFFSET}}
+, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716}{TAM\+\_\+\+ROBUST\+\_\+\+PLANE}}
+ \}
+\begin{DoxyCompactList}\small\item\em Alignment modes for fitting an upper terrain to a lower terrain. \end{DoxyCompactList}\item 
 enum class \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{Reduce\+Op}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9fa78d811e98514cd165dda532286610fd2}{Min}}
 , \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9fa6a061313d22e51e0f25b7cd4dc065233}{Max}}
 , \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5}{Sum}}
@@ -694,6 +714,10 @@ void \mbox{\hyperlink{namespacehmap_a127e7abc79d661d10705158a312c550c}{apply\+\_
 \begin{DoxyCompactList}\small\item\em Return the mixing of a set of arrays based on a parameter {\ttfamily t}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a6786fe2ccf9bd2ceb294927c88bd898d}{transfer}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&source, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&target, int ir, float amplitude, bool target\+\_\+prefiltering=false)
 \begin{DoxyCompactList}\small\item\em Transfers spatial details from a source array onto a target array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a0c3592da4cdaf841477aca304315da0e}{blend\+\_\+terrains}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0}{Terrain\+Blend\+Mode}} mode, float param=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Blend an upper terrain onto a lower terrain in-\/place, taking their \doxylink{classhmap_1_1CoordFrame}{Coord\+Frame} transforms into account. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a897f3415a58d67f4ca224cc3951291d1}{blend\+\_\+terrains}} (\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0}{Terrain\+Blend\+Mode}} mode, float param=0.\+2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm=\mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}}\{\})
+\begin{DoxyCompactList}\small\item\em Blend an upper \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} terrain onto a lower \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} terrain in-\/place, taking their \doxylink{classhmap_1_1CoordFrame}{Coord\+Frame} transforms into account. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a1e4edcaea744a4a364839905693ee9e3}{extrapolate\+\_\+borders}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int nbuffer=1, float sigma=0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, float vmin=-\/FLT\+\_\+\+MAX)
 \begin{DoxyCompactList}\small\item\em Performs linear extrapolation of values at the borders of an array (e.\+g., {\ttfamily i = 0}, {\ttfamily j = 0}, etc.) based on the inner values of the array. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a9dd09c08e06c1144910d3fa30250643c}{falloff}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float strength=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, \mbox{\hyperlink{namespacehmap_a670f50d6c08ecd639d42db9c75a5273a}{Distance\+Function}} dist\+\_\+fct=\mbox{\hyperlink{namespacehmap_a670f50d6c08ecd639d42db9c75a5273aab5937b3ae1efaa098f517fe7c761b781}{Distance\+Function\+::\+EUCLIDIAN}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
@@ -2250,6 +2274,18 @@ void \mbox{\hyperlink{namespacehmap_a2dba417aca5a0dcd02509617939d741b}{warp\+\_\
 \begin{DoxyCompactList}\small\item\em Apply a warping effect following the downward local gradient direction (deflate/inflate effect) with a mask. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}{zoom}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float zoom\+\_\+factor, bool periodic=false, glm\+::vec2 center=\{0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
 \begin{DoxyCompactList}\small\item\em Applies a zoom effect to a 2D array with an adjustable center. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \mbox{\hyperlink{namespacehmap_af45ab826099a96280cbe8701f58742a9}{compute\+\_\+terrain\+\_\+alignment}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} mode, float huber\+\_\+delta=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+iterations=10)
+\begin{DoxyCompactList}\small\item\em Compute alignment parameters to fit {\ttfamily upper} to {\ttfamily lower} over their common valid area. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \mbox{\hyperlink{namespacehmap_ae75d2dda9b3122234fb87505b87284d1}{compute\+\_\+terrain\+\_\+alignment}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} mode, float huber\+\_\+delta=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+iterations=10, int coarse\+\_\+size=128)
+\begin{DoxyCompactList}\small\item\em Compute alignment parameters for \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} inputs using a coarse \doxylink{classhmap_1_1Array}{Array} representation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_aa43bd69cf1ee61e1e19d6119d9718930}{apply\+\_\+terrain\+\_\+alignment}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&upper, const \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \&alignment)
+\begin{DoxyCompactList}\small\item\em Apply precomputed alignment parameters to an \doxylink{classhmap_1_1Array}{Array} in-\/place. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a2ae51429a580d3d78f51abddf5cc0c71}{apply\+\_\+terrain\+\_\+alignment}} (\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&upper, const \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \&alignment, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm=\mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}}\{\})
+\begin{DoxyCompactList}\small\item\em Apply precomputed alignment parameters to a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} in-\/place. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a4a65286bf3ab852931bd679f8c8fd768}{align\+\_\+terrains}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} mode, float huber\+\_\+delta=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+iterations=10)
+\begin{DoxyCompactList}\small\item\em Align {\ttfamily upper} to {\ttfamily lower} in-\/place over their common valid area. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a4aa4a8c501853bc424424d586d52f24a}{align\+\_\+terrains}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} mode, float huber\+\_\+delta=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+iterations=10, int coarse\+\_\+size=128, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm=\mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}}\{\})
+\begin{DoxyCompactList}\small\item\em Align {\ttfamily upper} \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} to {\ttfamily lower} \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} in-\/place. \end{DoxyCompactList}\item 
 std\+::vector$<$ size\+\_\+t $>$ \mbox{\hyperlink{namespacehmap_a8be122241fa42b0f6a7ef67106391780}{argsort}} (const std\+::vector$<$ float $>$ \&v)
 \begin{DoxyCompactList}\small\item\em Returns the indices that would sort the vector. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{namespacehmap_a9f89bb49dba35b60582df3749d8524b8}{compute\+\_\+median}} (std\+::vector$<$ float $>$ values)
@@ -2521,6 +2557,50 @@ ABOVE&penalize only heights below the target (target acts as a floor) \\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{BELOW@{BELOW}!hmap@{hmap}}\index{hmap@{hmap}!BELOW@{BELOW}}}\Hypertarget{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2a7e9c666cdfeb7b317902253fda25e978}\label{namespacehmap_aaa31d3f4691447f824bf7ca1e88897a2a7e9c666cdfeb7b317902253fda25e978} 
 BELOW&penalize only heights above the target (target acts as a ceiling) \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0}\index{hmap@{hmap}!TerrainBlendMode@{TerrainBlendMode}}
+\index{TerrainBlendMode@{TerrainBlendMode}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{TerrainBlendMode}{TerrainBlendMode}}
+{\footnotesize\ttfamily \label{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0} 
+enum class \mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0}{hmap\+::\+Terrain\+Blend\+Mode}} \+: int\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Blending modes for combining terrains with \doxylink{classhmap_1_1CoordFrame}{Coord\+Frame} transforms. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TBM\_ADD@{TBM\_ADD}!hmap@{hmap}}\index{hmap@{hmap}!TBM\_ADD@{TBM\_ADD}}}\Hypertarget{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a0d9da31f77b78ff5cfd0e883e4960806}\label{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a0d9da31f77b78ff5cfd0e883e4960806} 
+TBM\+\_\+\+ADD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TBM\_AVERAGE@{TBM\_AVERAGE}!hmap@{hmap}}\index{hmap@{hmap}!TBM\_AVERAGE@{TBM\_AVERAGE}}}\Hypertarget{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a41d0f0e0bf010f05aefd67c6a6565bc7}\label{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a41d0f0e0bf010f05aefd67c6a6565bc7} 
+TBM\+\_\+\+AVERAGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TBM\_DISTANCE@{TBM\_DISTANCE}!hmap@{hmap}}\index{hmap@{hmap}!TBM\_DISTANCE@{TBM\_DISTANCE}}}\Hypertarget{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a6415ce9cb10e48a6f4c3a7e7c2094238}\label{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a6415ce9cb10e48a6f4c3a7e7c2094238} 
+TBM\+\_\+\+DISTANCE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TBM\_MAX@{TBM\_MAX}!hmap@{hmap}}\index{hmap@{hmap}!TBM\_MAX@{TBM\_MAX}}}\Hypertarget{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a8a411c0ca7ca60f61e5b68328730b89e}\label{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a8a411c0ca7ca60f61e5b68328730b89e} 
+TBM\+\_\+\+MAX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TBM\_MAX\_SMOOTH@{TBM\_MAX\_SMOOTH}!hmap@{hmap}}\index{hmap@{hmap}!TBM\_MAX\_SMOOTH@{TBM\_MAX\_SMOOTH}}}\Hypertarget{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a129ba32b49390c8d8ab0b92deb55b04d}\label{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a129ba32b49390c8d8ab0b92deb55b04d} 
+TBM\+\_\+\+MAX\+\_\+\+SMOOTH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TBM\_MIN@{TBM\_MIN}!hmap@{hmap}}\index{hmap@{hmap}!TBM\_MIN@{TBM\_MIN}}}\Hypertarget{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a0c0eea5b3041211f269f6dfd85191864}\label{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a0c0eea5b3041211f269f6dfd85191864} 
+TBM\+\_\+\+MIN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TBM\_MIN\_SMOOTH@{TBM\_MIN\_SMOOTH}!hmap@{hmap}}\index{hmap@{hmap}!TBM\_MIN\_SMOOTH@{TBM\_MIN\_SMOOTH}}}\Hypertarget{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a55c0d9d45b2993e1b01bfa46ad4dbe4b}\label{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0a55c0d9d45b2993e1b01bfa46ad4dbe4b} 
+TBM\+\_\+\+MIN\+\_\+\+SMOOTH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TBM\_SUBTRACT@{TBM\_SUBTRACT}!hmap@{hmap}}\index{hmap@{hmap}!TBM\_SUBTRACT@{TBM\_SUBTRACT}}}\Hypertarget{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0ad448d932fc47a9789fbd80f8fa23221e}\label{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0ad448d932fc47a9789fbd80f8fa23221e} 
+TBM\+\_\+\+SUBTRACT&\\
 \hline
 
 \end{DoxyEnumFields}
@@ -3814,6 +3894,34 @@ SYMMETRY\+\_\+\+XY&4-\/quadrant symmetric average across both X and Y. \\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYMMETRY\_ROT180@{SYMMETRY\_ROT180}!hmap@{hmap}}\index{hmap@{hmap}!SYMMETRY\_ROT180@{SYMMETRY\_ROT180}}}\Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351}\label{namespacehmap_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351} 
 SYMMETRY\+\_\+\+ROT180&180-\/degree rotational symmetry around center. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751d}\index{hmap@{hmap}!TerrainAlignMode@{TerrainAlignMode}}
+\index{TerrainAlignMode@{TerrainAlignMode}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{TerrainAlignMode}{TerrainAlignMode}}
+{\footnotesize\ttfamily \label{namespacehmap_a4280f8e4c700035e86e390420de7751d} 
+enum class \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{hmap\+::\+Terrain\+Align\+Mode}} \+: int\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Alignment modes for fitting an upper terrain to a lower terrain. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TAM\_OFFSET@{TAM\_OFFSET}!hmap@{hmap}}\index{hmap@{hmap}!TAM\_OFFSET@{TAM\_OFFSET}}}\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090}\label{namespacehmap_a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090} 
+TAM\+\_\+\+OFFSET&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TAM\_PLANE@{TAM\_PLANE}!hmap@{hmap}}\index{hmap@{hmap}!TAM\_PLANE@{TAM\_PLANE}}}\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7}\label{namespacehmap_a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7} 
+TAM\+\_\+\+PLANE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TAM\_ROBUST\_OFFSET@{TAM\_ROBUST\_OFFSET}!hmap@{hmap}}\index{hmap@{hmap}!TAM\_ROBUST\_OFFSET@{TAM\_ROBUST\_OFFSET}}}\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64}\label{namespacehmap_a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64} 
+TAM\+\_\+\+ROBUST\+\_\+\+OFFSET&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TAM\_ROBUST\_PLANE@{TAM\_ROBUST\_PLANE}!hmap@{hmap}}\index{hmap@{hmap}!TAM\_ROBUST\_PLANE@{TAM\_ROBUST\_PLANE}}}\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716}\label{namespacehmap_a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716} 
+TAM\+\_\+\+ROBUST\+\_\+\+PLANE&\\
 \hline
 
 \end{DoxyEnumFields}
@@ -5488,7 +5596,59 @@ A new \doxylink{classhmap_1_1Array}{Array} containing the target data enhanced b
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a1e4edcaea744a4a364839905693ee9e3}\index{hmap@{hmap}!extrapolate\_borders@{extrapolate\_borders}}
+{\bfseries{Result}}  \Hypertarget{namespacehmap_a0c3592da4cdaf841477aca304315da0e}\index{hmap@{hmap}!blend\_terrains@{blend\_terrains}}
+\index{blend\_terrains@{blend\_terrains}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{blend\_terrains()}{blend\_terrains()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a0c3592da4cdaf841477aca304315da0e} 
+void hmap\+::blend\+\_\+terrains (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0}{Terrain\+Blend\+Mode}}}]{mode}{, }\item[{float}]{param}{ = {\ttfamily 0.2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}}\end{DoxyParamCaption})}
+
+
+
+Blend an upper terrain onto a lower terrain in-\/place, taking their \doxylink{classhmap_1_1CoordFrame}{Coord\+Frame} transforms into account. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lower} & Lower (base) terrain array, modified in-\/place. \\
+\hline
+{\em frame\+\_\+lower} & Coordinate frame of the lower terrain. \\
+\hline
+{\em upper} & Upper (overlay) terrain array. \\
+\hline
+{\em frame\+\_\+upper} & Coordinate frame of the upper terrain. \\
+\hline
+{\em mode} & Blending mode. \\
+\hline
+{\em param} & Mode-\/specific parameter (smoothness k for MIN\+\_\+\+SMOOTH / MAX\+\_\+\+SMOOTH, normalized feathering width in (0, 0.\+5\mbox{]} for DISTANCE). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_a897f3415a58d67f4ca224cc3951291d1}\index{hmap@{hmap}!blend\_terrains@{blend\_terrains}}
+\index{blend\_terrains@{blend\_terrains}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{blend\_terrains()}{blend\_terrains()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a897f3415a58d67f4ca224cc3951291d1} 
+void hmap\+::blend\+\_\+terrains (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a3af2421e6a2d6c2f83cd7a89fd6d76e0}{Terrain\+Blend\+Mode}}}]{mode}{, }\item[{float}]{param}{ = {\ttfamily 0.2\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm}{ = {\ttfamily \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}}\{\}}}\end{DoxyParamCaption})}
+
+
+
+Blend an upper \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} terrain onto a lower \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} terrain in-\/place, taking their \doxylink{classhmap_1_1CoordFrame}{Coord\+Frame} transforms into account. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lower} & Lower (base) \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array}, modified in-\/place. \\
+\hline
+{\em frame\+\_\+lower} & Coordinate frame of the lower terrain. \\
+\hline
+{\em upper} & Upper (overlay) \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array}. \\
+\hline
+{\em frame\+\_\+upper} & Coordinate frame of the upper terrain. \\
+\hline
+{\em mode} & Blending mode. \\
+\hline
+{\em param} & Mode-\/specific parameter (smoothness k for MIN\+\_\+\+SMOOTH / MAX\+\_\+\+SMOOTH, normalized feathering width in (0, 0.\+5\mbox{]} for DISTANCE). \\
+\hline
+{\em cm} & Compute mode for tile execution. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_a1e4edcaea744a4a364839905693ee9e3}\index{hmap@{hmap}!extrapolate\_borders@{extrapolate\_borders}}
 \index{extrapolate\_borders@{extrapolate\_borders}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{extrapolate\_borders()}{extrapolate\_borders()}}
 {\footnotesize\ttfamily \label{namespacehmap_a1e4edcaea744a4a364839905693ee9e3} 
@@ -37879,7 +38039,67 @@ A new 2D array that is the result of applying the zoom effect to the input {\ttf
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a8be122241fa42b0f6a7ef67106391780}\index{hmap@{hmap}!argsort@{argsort}}
+{\bfseries{Result}}  \Hypertarget{namespacehmap_af45ab826099a96280cbe8701f58742a9}\index{hmap@{hmap}!compute\_terrain\_alignment@{compute\_terrain\_alignment}}
+\index{compute\_terrain\_alignment@{compute\_terrain\_alignment}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{compute\_terrain\_alignment()}{compute\_terrain\_alignment()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_af45ab826099a96280cbe8701f58742a9} 
+\mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} hmap\+::compute\+\_\+terrain\+\_\+alignment (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}}}]{mode}{, }\item[{float}]{huber\+\_\+delta}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{max\+\_\+iterations}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
+
+
+
+Compute alignment parameters to fit {\ttfamily upper} to {\ttfamily lower} over their common valid area. 
+
+\Hypertarget{namespacehmap_ae75d2dda9b3122234fb87505b87284d1}\index{hmap@{hmap}!compute\_terrain\_alignment@{compute\_terrain\_alignment}}
+\index{compute\_terrain\_alignment@{compute\_terrain\_alignment}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{compute\_terrain\_alignment()}{compute\_terrain\_alignment()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_ae75d2dda9b3122234fb87505b87284d1} 
+\mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} hmap\+::compute\+\_\+terrain\+\_\+alignment (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}}}]{mode}{, }\item[{float}]{huber\+\_\+delta}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{max\+\_\+iterations}{ = {\ttfamily 10}, }\item[{int}]{coarse\+\_\+size}{ = {\ttfamily 128}}\end{DoxyParamCaption})}
+
+
+
+Compute alignment parameters for \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} inputs using a coarse \doxylink{classhmap_1_1Array}{Array} representation. 
+
+\Hypertarget{namespacehmap_aa43bd69cf1ee61e1e19d6119d9718930}\index{hmap@{hmap}!apply\_terrain\_alignment@{apply\_terrain\_alignment}}
+\index{apply\_terrain\_alignment@{apply\_terrain\_alignment}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{apply\_terrain\_alignment()}{apply\_terrain\_alignment()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_aa43bd69cf1ee61e1e19d6119d9718930} 
+void hmap\+::apply\+\_\+terrain\+\_\+alignment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \&}]{alignment}{}\end{DoxyParamCaption})}
+
+
+
+Apply precomputed alignment parameters to an \doxylink{classhmap_1_1Array}{Array} in-\/place. 
+
+\Hypertarget{namespacehmap_a2ae51429a580d3d78f51abddf5cc0c71}\index{hmap@{hmap}!apply\_terrain\_alignment@{apply\_terrain\_alignment}}
+\index{apply\_terrain\_alignment@{apply\_terrain\_alignment}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{apply\_terrain\_alignment()}{apply\_terrain\_alignment()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a2ae51429a580d3d78f51abddf5cc0c71} 
+void hmap\+::apply\+\_\+terrain\+\_\+alignment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \&}]{alignment}{, }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm}{ = {\ttfamily \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}}\{\}}}\end{DoxyParamCaption})}
+
+
+
+Apply precomputed alignment parameters to a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} in-\/place. 
+
+\Hypertarget{namespacehmap_a4a65286bf3ab852931bd679f8c8fd768}\index{hmap@{hmap}!align\_terrains@{align\_terrains}}
+\index{align\_terrains@{align\_terrains}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{align\_terrains()}{align\_terrains()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a4a65286bf3ab852931bd679f8c8fd768} 
+void hmap\+::align\+\_\+terrains (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}}}]{mode}{, }\item[{float}]{huber\+\_\+delta}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{max\+\_\+iterations}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
+
+
+
+Align {\ttfamily upper} to {\ttfamily lower} in-\/place over their common valid area. 
+
+\Hypertarget{namespacehmap_a4aa4a8c501853bc424424d586d52f24a}\index{hmap@{hmap}!align\_terrains@{align\_terrains}}
+\index{align\_terrains@{align\_terrains}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{align\_terrains()}{align\_terrains()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a4aa4a8c501853bc424424d586d52f24a} 
+void hmap\+::align\+\_\+terrains (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}}}]{mode}{, }\item[{float}]{huber\+\_\+delta}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{max\+\_\+iterations}{ = {\ttfamily 10}, }\item[{int}]{coarse\+\_\+size}{ = {\ttfamily 128}, }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm}{ = {\ttfamily \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}}\{\}}}\end{DoxyParamCaption})}
+
+
+
+Align {\ttfamily upper} \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} to {\ttfamily lower} \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} in-\/place. 
+
+\Hypertarget{namespacehmap_a8be122241fa42b0f6a7ef67106391780}\index{hmap@{hmap}!argsort@{argsort}}
 \index{argsort@{argsort}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{argsort()}{argsort()}}
 {\footnotesize\ttfamily \label{namespacehmap_a8be122241fa42b0f6a7ef67106391780} 

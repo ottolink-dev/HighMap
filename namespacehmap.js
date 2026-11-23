@@ -115,6 +115,7 @@ var namespacehmap =
     [ "ScatterSeedingOptions", "structhmap_1_1ScatterSeedingOptions.html", "structhmap_1_1ScatterSeedingOptions" ],
     [ "TerrainTriMesh", "classhmap_1_1TerrainTriMesh.html", "classhmap_1_1TerrainTriMesh" ],
     [ "Texture", "classhmap_1_1Texture.html", "classhmap_1_1Texture" ],
+    [ "TerrainAlignment", "structhmap_1_1TerrainAlignment.html", "structhmap_1_1TerrainAlignment" ],
     [ "ICommunicator", "classhmap_1_1ICommunicator.html", "classhmap_1_1ICommunicator" ],
     [ "SingleArrayComm", "classhmap_1_1SingleArrayComm.html", "classhmap_1_1SingleArrayComm" ],
     [ "SequentialTileComm", "classhmap_1_1SequentialTileComm.html", "classhmap_1_1SequentialTileComm" ],
@@ -156,6 +157,16 @@ var namespacehmap =
       [ "MATCH", "namespacehmap.html#aaa31d3f4691447f824bf7ca1e88897a2aa5529116b7eb6406ffb42de58ae3314d", null ],
       [ "ABOVE", "namespacehmap.html#aaa31d3f4691447f824bf7ca1e88897a2a4a4ff914bd69d6b43e40b58f08627a3e", null ],
       [ "BELOW", "namespacehmap.html#aaa31d3f4691447f824bf7ca1e88897a2a7e9c666cdfeb7b317902253fda25e978", null ]
+    ] ],
+    [ "TerrainBlendMode", "namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0", [
+      [ "TBM_ADD", "namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a0d9da31f77b78ff5cfd0e883e4960806", null ],
+      [ "TBM_AVERAGE", "namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a41d0f0e0bf010f05aefd67c6a6565bc7", null ],
+      [ "TBM_DISTANCE", "namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a6415ce9cb10e48a6f4c3a7e7c2094238", null ],
+      [ "TBM_MAX", "namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a8a411c0ca7ca60f61e5b68328730b89e", null ],
+      [ "TBM_MAX_SMOOTH", "namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a129ba32b49390c8d8ab0b92deb55b04d", null ],
+      [ "TBM_MIN", "namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a0c0eea5b3041211f269f6dfd85191864", null ],
+      [ "TBM_MIN_SMOOTH", "namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a55c0d9d45b2993e1b01bfa46ad4dbe4b", null ],
+      [ "TBM_SUBTRACT", "namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0ad448d932fc47a9789fbd80f8fa23221e", null ]
     ] ],
     [ "PeriodicityType", "namespacehmap.html#a41f6f4d40b566b87f78344d9efe71c71", [
       [ "PERIODICITY_X", "namespacehmap.html#a41f6f4d40b566b87f78344d9efe71c71a0676aefdc33468b2c6e93b2005b3ee9f", null ],
@@ -446,6 +457,12 @@ var namespacehmap =
       [ "SYMMETRY_XY", "namespacehmap.html#a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e", null ],
       [ "SYMMETRY_ROT180", "namespacehmap.html#a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351", null ]
     ] ],
+    [ "TerrainAlignMode", "namespacehmap.html#a4280f8e4c700035e86e390420de7751d", [
+      [ "TAM_OFFSET", "namespacehmap.html#a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090", null ],
+      [ "TAM_PLANE", "namespacehmap.html#a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7", null ],
+      [ "TAM_ROBUST_OFFSET", "namespacehmap.html#a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64", null ],
+      [ "TAM_ROBUST_PLANE", "namespacehmap.html#a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716", null ]
+    ] ],
     [ "ReduceOp", "namespacehmap.html#a53ddf39f16d1bda499b7fce512478e9f", [
       [ "Min", "namespacehmap.html#a53ddf39f16d1bda499b7fce512478e9fa78d811e98514cd165dda532286610fd2", null ],
       [ "Max", "namespacehmap.html#a53ddf39f16d1bda499b7fce512478e9fa6a061313d22e51e0f25b7cd4dc065233", null ],
@@ -500,6 +517,8 @@ var namespacehmap =
     [ "blend_power_law", "namespacehmap.html#a01201c510915f9f10f26595c79a1220b", null ],
     [ "mixer", "namespacehmap.html#ad1e91583a5c176014ed3720f0eb5a321", null ],
     [ "transfer", "namespacehmap.html#a6786fe2ccf9bd2ceb294927c88bd898d", null ],
+    [ "blend_terrains", "namespacehmap.html#a0c3592da4cdaf841477aca304315da0e", null ],
+    [ "blend_terrains", "namespacehmap.html#a897f3415a58d67f4ca224cc3951291d1", null ],
     [ "extrapolate_borders", "namespacehmap.html#a1e4edcaea744a4a364839905693ee9e3", null ],
     [ "falloff", "namespacehmap.html#a9dd09c08e06c1144910d3fa30250643c", null ],
     [ "fill_borders", "namespacehmap.html#a072f0c93c6e3e5e0f8f88c760850dce8", null ],
@@ -1277,6 +1296,12 @@ var namespacehmap =
     [ "warp_downslope", "namespacehmap.html#a5d5baa80ff76a31a24e3b348edb0520a", null ],
     [ "warp_downslope", "namespacehmap.html#a2dba417aca5a0dcd02509617939d741b", null ],
     [ "zoom", "namespacehmap.html#a2a16f2f687640ad47e3252d3350620f9", null ],
+    [ "compute_terrain_alignment", "namespacehmap.html#af45ab826099a96280cbe8701f58742a9", null ],
+    [ "compute_terrain_alignment", "namespacehmap.html#ae75d2dda9b3122234fb87505b87284d1", null ],
+    [ "apply_terrain_alignment", "namespacehmap.html#aa43bd69cf1ee61e1e19d6119d9718930", null ],
+    [ "apply_terrain_alignment", "namespacehmap.html#a2ae51429a580d3d78f51abddf5cc0c71", null ],
+    [ "align_terrains", "namespacehmap.html#a4a65286bf3ab852931bd679f8c8fd768", null ],
+    [ "align_terrains", "namespacehmap.html#a4aa4a8c501853bc424424d586d52f24a", null ],
     [ "argsort", "namespacehmap.html#a8be122241fa42b0f6a7ef67106391780", null ],
     [ "compute_median", "namespacehmap.html#a9f89bb49dba35b60582df3749d8524b8", null ],
     [ "find_sign_changes", "namespacehmap.html#a03345527b3df79e1825d2f91d776ba35", null ],

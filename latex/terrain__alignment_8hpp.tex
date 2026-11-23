@@ -1,0 +1,36 @@
+\doxysection{High\+Map/include/highmap/transform/terrain\+\_\+alignment.hpp File Reference}
+\hypertarget{terrain__alignment_8hpp}{}\label{terrain__alignment_8hpp}\index{HighMap/include/highmap/transform/terrain\_alignment.hpp@{HighMap/include/highmap/transform/terrain\_alignment.hpp}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{hmap\+::\+Terrain\+Alignment}}
+\begin{DoxyCompactList}\small\item\em Elevation offset and tilt parameters for aligning an upper terrain. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacehmap}{hmap}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{hmap\+::\+Terrain\+Align\+Mode}} \+: int \{ \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090}{hmap\+::\+TAM\+\_\+\+OFFSET}}
+, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7}{hmap\+::\+TAM\+\_\+\+PLANE}}
+, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64}{hmap\+::\+TAM\+\_\+\+ROBUST\+\_\+\+OFFSET}}
+, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716}{hmap\+::\+TAM\+\_\+\+ROBUST\+\_\+\+PLANE}}
+ \}
+\begin{DoxyCompactList}\small\item\em Alignment modes for fitting an upper terrain to a lower terrain. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \mbox{\hyperlink{namespacehmap_af45ab826099a96280cbe8701f58742a9}{hmap\+::compute\+\_\+terrain\+\_\+alignment}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} mode, float huber\+\_\+delta=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+iterations=10)
+\begin{DoxyCompactList}\small\item\em Compute alignment parameters to fit {\ttfamily upper} to {\ttfamily lower} over their common valid area. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \mbox{\hyperlink{namespacehmap_ae75d2dda9b3122234fb87505b87284d1}{hmap\+::compute\+\_\+terrain\+\_\+alignment}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} mode, float huber\+\_\+delta=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+iterations=10, int coarse\+\_\+size=128)
+\begin{DoxyCompactList}\small\item\em Compute alignment parameters for \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} inputs using a coarse \doxylink{classhmap_1_1Array}{Array} representation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_aa43bd69cf1ee61e1e19d6119d9718930}{hmap\+::apply\+\_\+terrain\+\_\+alignment}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&upper, const \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \&alignment)
+\begin{DoxyCompactList}\small\item\em Apply precomputed alignment parameters to an \doxylink{classhmap_1_1Array}{Array} in-\/place. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a2ae51429a580d3d78f51abddf5cc0c71}{hmap\+::apply\+\_\+terrain\+\_\+alignment}} (\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&upper, const \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \&alignment, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm=\mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}}\{\})
+\begin{DoxyCompactList}\small\item\em Apply precomputed alignment parameters to a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} in-\/place. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a4a65286bf3ab852931bd679f8c8fd768}{hmap\+::align\+\_\+terrains}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} mode, float huber\+\_\+delta=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+iterations=10)
+\begin{DoxyCompactList}\small\item\em Align {\ttfamily upper} to {\ttfamily lower} in-\/place over their common valid area. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a4aa4a8c501853bc424424d586d52f24a}{hmap\+::align\+\_\+terrains}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} mode, float huber\+\_\+delta=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+iterations=10, int coarse\+\_\+size=128, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm=\mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}}\{\})
+\begin{DoxyCompactList}\small\item\em Align {\ttfamily upper} \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} to {\ttfamily lower} \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} in-\/place. \end{DoxyCompactList}\end{DoxyCompactItemize}

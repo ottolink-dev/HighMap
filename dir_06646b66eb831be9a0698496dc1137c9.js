@@ -1,5 +1,6 @@
 var dir_06646b66eb831be9a0698496dc1137c9 =
 [
+    [ "blending", "dir_8ae9ffb3f882205f36616013a4eb6ed5.html", "dir_8ae9ffb3f882205f36616013a4eb6ed5" ],
     [ "erosion", "dir_1996643133fe3e10fa0b8aa245e991d6.html", "dir_1996643133fe3e10fa0b8aa245e991d6" ],
     [ "export", "dir_07f2faa4e22ffdd0f0e180fc1afb0d60.html", "dir_07f2faa4e22ffdd0f0e180fc1afb0d60" ],
     [ "features", "dir_0d4f851cc771b6338f6480385c8c76aa.html", "dir_0d4f851cc771b6338f6480385c8c76aa" ],
@@ -13,12 +14,13 @@ var dir_06646b66eb831be9a0698496dc1137c9 =
     [ "operator", "dir_db6d48ee5b4637e4c9eb64f07b05a2c3.html", "dir_db6d48ee5b4637e4c9eb64f07b05a2c3" ],
     [ "primitives", "dir_1a98231a3a7703aece9d92406c51e7de.html", "dir_1a98231a3a7703aece9d92406c51e7de" ],
     [ "scatter", "dir_bd67ceb54cf8bdad171aa5d690d695af.html", "dir_bd67ceb54cf8bdad171aa5d690d695af" ],
+    [ "transform", "dir_08d5af6327a33e9b63a01acc871a7ce5.html", "dir_08d5af6327a33e9b63a01acc871a7ce5" ],
     [ "virtual_array", "dir_1df01a04ff01c9992bc6f53b8b3cc25e.html", "dir_1df01a04ff01c9992bc6f53b8b3cc25e" ],
     [ "world", "dir_3d63922ac228722201bd318c24ef9882.html", "dir_3d63922ac228722201bd318c24ef9882" ],
     [ "algebra.hpp", "algebra_8hpp.html", "algebra_8hpp" ],
     [ "array.hpp", "array_8hpp.html", "array_8hpp" ],
     [ "authoring.hpp", "authoring_8hpp.html", "authoring_8hpp" ],
-    [ "blending.hpp", "blending_8hpp.html", "blending_8hpp" ],
+    [ "blending.hpp", "blending_8hpp.html", null ],
     [ "boundary.hpp", "boundary_8hpp.html", "boundary_8hpp" ],
     [ "carving.hpp", "carving_8hpp.html", "carving_8hpp" ],
     [ "colorize.hpp", "colorize_8hpp.html", "colorize_8hpp" ],

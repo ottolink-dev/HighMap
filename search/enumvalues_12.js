@@ -1,9 +1,21 @@
 var searchData=
 [
-  ['terrain_0',['TERRAIN',['../namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9',1,'hmap']]],
-  ['trace_1',['Trace',['../namespacehmap_1_1log_1_1detail.html#af3c0cdbd7ebc57f0a2d879d475f55cb9add4ec0ac4e58f7c32a01244ae91150b1',1,'hmap::log::detail']]],
-  ['tri_2',['TRI',['../namespacehmap.html#ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14',1,'hmap']]],
-  ['tri_5foptimized_3',['TRI_OPTIMIZED',['../namespacehmap.html#ac81a92060b89699c4eb9826495d87250a64d964458b2812e59ec68af2ee53a8ae',1,'hmap']]],
-  ['tricube_4',['TRICUBE',['../namespacehmap.html#a4b6f135c6e81d313ca54ae1efac5f2c9abd845bef8f2959d8d9e7355aa9c44d86',1,'hmap']]],
-  ['turbo_5',['TURBO',['../namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a555dbf2f8e5b83b9117850a8938e65f9',1,'hmap']]]
+  ['tam_5foffset_0',['TAM_OFFSET',['../namespacehmap.html#a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090',1,'hmap']]],
+  ['tam_5fplane_1',['TAM_PLANE',['../namespacehmap.html#a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7',1,'hmap']]],
+  ['tam_5frobust_5foffset_2',['TAM_ROBUST_OFFSET',['../namespacehmap.html#a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64',1,'hmap']]],
+  ['tam_5frobust_5fplane_3',['TAM_ROBUST_PLANE',['../namespacehmap.html#a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716',1,'hmap']]],
+  ['tbm_5fadd_4',['TBM_ADD',['../namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a0d9da31f77b78ff5cfd0e883e4960806',1,'hmap']]],
+  ['tbm_5faverage_5',['TBM_AVERAGE',['../namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a41d0f0e0bf010f05aefd67c6a6565bc7',1,'hmap']]],
+  ['tbm_5fdistance_6',['TBM_DISTANCE',['../namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a6415ce9cb10e48a6f4c3a7e7c2094238',1,'hmap']]],
+  ['tbm_5fmax_7',['TBM_MAX',['../namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a8a411c0ca7ca60f61e5b68328730b89e',1,'hmap']]],
+  ['tbm_5fmax_5fsmooth_8',['TBM_MAX_SMOOTH',['../namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a129ba32b49390c8d8ab0b92deb55b04d',1,'hmap']]],
+  ['tbm_5fmin_9',['TBM_MIN',['../namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a0c0eea5b3041211f269f6dfd85191864',1,'hmap']]],
+  ['tbm_5fmin_5fsmooth_10',['TBM_MIN_SMOOTH',['../namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0a55c0d9d45b2993e1b01bfa46ad4dbe4b',1,'hmap']]],
+  ['tbm_5fsubtract_11',['TBM_SUBTRACT',['../namespacehmap.html#a3af2421e6a2d6c2f83cd7a89fd6d76e0ad448d932fc47a9789fbd80f8fa23221e',1,'hmap']]],
+  ['terrain_12',['TERRAIN',['../namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9',1,'hmap']]],
+  ['trace_13',['Trace',['../namespacehmap_1_1log_1_1detail.html#af3c0cdbd7ebc57f0a2d879d475f55cb9add4ec0ac4e58f7c32a01244ae91150b1',1,'hmap::log::detail']]],
+  ['tri_14',['TRI',['../namespacehmap.html#ac81a92060b89699c4eb9826495d87250a68dced9d7f19cbd741feae05ad17ca14',1,'hmap']]],
+  ['tri_5foptimized_15',['TRI_OPTIMIZED',['../namespacehmap.html#ac81a92060b89699c4eb9826495d87250a64d964458b2812e59ec68af2ee53a8ae',1,'hmap']]],
+  ['tricube_16',['TRICUBE',['../namespacehmap.html#a4b6f135c6e81d313ca54ae1efac5f2c9abd845bef8f2959d8d9e7355aa9c44d86',1,'hmap']]],
+  ['turbo_17',['TURBO',['../namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a555dbf2f8e5b83b9117850a8938e65f9',1,'hmap']]]
 ];
