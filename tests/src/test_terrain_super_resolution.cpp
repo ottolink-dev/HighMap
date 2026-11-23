@@ -3,9 +3,14 @@
 #include <cstddef>
 #include <cstdint>
 
+#include "highmap/blending.hpp"
+#include "highmap/coord_frame.hpp"
+#include "highmap/filters.hpp"
+#include "highmap/internal/assert.hpp"
 #include "highmap/primitives.hpp"
 #include "highmap/range.hpp"
 #include "highmap/synthesis.hpp"
+#include "highmap/virtual_array.hpp"
 
 #include <gtest/gtest.h>
 
@@ -180,4 +185,265 @@ TEST(TerrainSuperResolution, GenericRunIsFiniteAndDeterministic)
 
   EXPECT_EQ(n_not_finite, 0u);
   EXPECT_EQ(n_different, 0u);
+}
+
+TEST(TransferTerrainFeatures, PreservesMacroShapeAndAddsDetail)
+{
+  const glm::ivec2 shape(64, 64);
+  CoordFrame       frame_target({0.f, 0.f}, {1.f, 1.f}, 0.f);
+  CoordFrame       frame_source({5.f, 5.f}, {1.f, 1.f}, 0.f);
+
+  Array target_base = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 10, 2);
+  remap(target_base, 0.f, 1.f);
+
+  Array source = noise_fbm(NoiseType::PERLIN, shape, {8.f, 8.f}, 20, 6);
+  remap(source, 0.f, 1.f);
+
+  Array target = target_base;
+  transfer_terrain_features(target,
+                            frame_target,
+                            source,
+                            frame_source,
+                            8,
+                            0.5f,
+                            false,
+                            2,
+                            8,
+                            4,
+                            4,
+                            2,
+                            256,
+                            1);
+
+  // target must have been modified with high-frequency details
+  EXPECT_FALSE(assert_almost_equal(target, target_base, 1e-4f));
+
+  // large-scale low-pass structure must be preserved
+  Array low_before = target_base;
+  Array low_after = target;
+  smooth_cpulse(low_before, 8);
+  smooth_cpulse(low_after, 8);
+
+  EXPECT_LT(max_abs_diff_interior(low_before, low_after, 8), 0.05f);
+}
+
+TEST(TransferTerrainFeatures, IgnoresOriginAndAccountsForCoordFrameScale)
+{
+  const glm::ivec2 shape(64, 64);
+  CoordFrame       frame_target({0.f, 0.f}, {1.f, 1.f}, 0.f);
+  CoordFrame       frame_src_a({0.f, 0.f}, {1.f, 1.f}, 0.f);
+  CoordFrame       frame_src_b({10.f, -7.f}, {1.f, 1.f}, 45.f);
+  CoordFrame       frame_src_scaled({0.f, 0.f}, {0.5f, 0.5f}, 0.f);
+
+  Array base = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 1, 2);
+  Array source = noise_fbm(NoiseType::PERLIN, shape, {8.f, 8.f}, 2, 5);
+
+  Array out_a = base;
+  transfer_terrain_features(out_a,
+                            frame_target,
+                            source,
+                            frame_src_a,
+                            8,
+                            1.f,
+                            false,
+                            2,
+                            8,
+                            4,
+                            4,
+                            2);
+
+  Array out_b = base;
+  transfer_terrain_features(out_b,
+                            frame_target,
+                            source,
+                            frame_src_b,
+                            8,
+                            1.f,
+                            false,
+                            2,
+                            8,
+                            4,
+                            4,
+                            2);
+
+  // spatial position / origin does not affect exemplar transfer
+  EXPECT_TRUE(assert_almost_equal(out_a, out_b, 1e-6f));
+
+  Array out_scaled = base;
+  transfer_terrain_features(out_scaled,
+                            frame_target,
+                            source,
+                            frame_src_scaled,
+                            8,
+                            1.f,
+                            false,
+                            2,
+                            8,
+                            4,
+                            4,
+                            2);
+
+  // different CoordFrame physical size changes the transferred feature scale
+  EXPECT_FALSE(assert_almost_equal(out_a, out_scaled, 1e-4f));
+}
+
+TEST(TransferTerrainFeatures, MultiSourceWeightsAndBoundedDictionary)
+{
+  const glm::ivec2 shape(64, 64);
+  CoordFrame       frame_target({0.f, 0.f}, {1.f, 1.f}, 0.f);
+  CoordFrame       frame_s1({0.f, 0.f}, {1.f, 1.f}, 0.f);
+  CoordFrame       frame_s2({0.f, 0.f}, {1.f, 1.f}, 0.f);
+
+  Array base = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 3, 2);
+  Array src1 = noise_fbm(NoiseType::PERLIN, shape, {6.f, 6.f}, 4, 5);
+  Array src2 = noise_fbm(NoiseType::PERLIN, shape, {10.f, 10.f}, 5, 5);
+
+  Array out_single = base;
+  transfer_terrain_features(out_single,
+                            frame_target,
+                            {&src1},
+                            {&frame_s1},
+                            8,
+                            1.f,
+                            false,
+                            {1.f},
+                            2,
+                            8,
+                            4,
+                            4,
+                            2,
+                            512,
+                            42);
+
+  Array out_zero_second = base;
+  transfer_terrain_features(out_zero_second,
+                            frame_target,
+                            {&src1, &src2},
+                            {&frame_s1, &frame_s2},
+                            8,
+                            1.f,
+                            false,
+                            {1.f, 0.f},
+                            2,
+                            8,
+                            4,
+                            4,
+                            2,
+                            512,
+                            42);
+
+  // source with weight 0 is skipped
+  EXPECT_TRUE(assert_almost_equal(out_single, out_zero_second, 1e-6f));
+
+  // small max_atoms reservoir sampling is deterministic for the same seed
+  Array out_cap1 = base;
+  Array out_cap2 = base;
+
+  transfer_terrain_features(out_cap1,
+                            frame_target,
+                            {&src1, &src2},
+                            {&frame_s1, &frame_s2},
+                            8,
+                            1.f,
+                            false,
+                            {1.f, 0.5f},
+                            2,
+                            8,
+                            2,
+                            4,
+                            2,
+                            10,
+                            99);
+
+  transfer_terrain_features(out_cap2,
+                            frame_target,
+                            {&src1, &src2},
+                            {&frame_s1, &frame_s2},
+                            8,
+                            1.f,
+                            false,
+                            {1.f, 0.5f},
+                            2,
+                            8,
+                            2,
+                            4,
+                            2,
+                            10,
+                            99);
+
+  EXPECT_TRUE(assert_almost_equal(out_cap1, out_cap2, 1e-6f));
+}
+
+TEST(TransferTerrainFeatures, VirtualArrayConsistencyAndTiling)
+{
+  const glm::ivec2 shape(64, 64);
+  const glm::ivec2 tile_shape(32, 32);
+  CoordFrame       frame_target({0.f, 0.f}, {1.f, 1.f}, 0.f);
+  CoordFrame       frame_source({0.f, 0.f}, {1.f, 1.f}, 0.f);
+
+  Array base = noise_fbm(NoiseType::PERLIN, shape, {2.f, 2.f}, 7, 2);
+  Array source = noise_fbm(NoiseType::PERLIN, shape, {8.f, 8.f}, 8, 5);
+
+  Array out_arr = base;
+  transfer_terrain_features(out_arr,
+                            frame_target,
+                            source,
+                            frame_source,
+                            4,
+                            0.5f,
+                            false,
+                            2,
+                            8,
+                            4,
+                            4,
+                            2);
+
+  // single-tile / VA_SINGLE_ARRAY matches Array exactly
+  VirtualArray target_va_single(shape, shape, 0, StorageMode::VA_RAM);
+  target_va_single.from_array(base, ComputeMode{});
+  VirtualArray source_va(shape, tile_shape, 0, StorageMode::VA_RAM);
+  source_va.from_array(source, ComputeMode{});
+
+  transfer_terrain_features(target_va_single,
+                            frame_target,
+                            source_va,
+                            frame_source,
+                            4,
+                            0.5f,
+                            false,
+                            2,
+                            8,
+                            4,
+                            4,
+                            2,
+                            1024,
+                            0,
+                            ComputeMode{.mode = ForEachMode::VA_SINGLE_ARRAY});
+
+  Array res_single = target_va_single.to_array(ComputeMode{});
+  EXPECT_TRUE(assert_almost_equal(out_arr, res_single, 1e-5f));
+
+  // multi-tile VA with halo synchronization in distributed mode
+  VirtualArray target_va_tiled(shape, tile_shape, 4, StorageMode::VA_RAM);
+  target_va_tiled.from_array(base, ComputeMode{});
+
+  transfer_terrain_features(target_va_tiled,
+                            frame_target,
+                            source_va,
+                            frame_source,
+                            4,
+                            0.5f,
+                            false,
+                            2,
+                            8,
+                            4,
+                            4,
+                            2,
+                            1024,
+                            0,
+                            ComputeMode{.mode = ForEachMode::VA_DISTRIBUTED});
+
+  Array res_tiled = target_va_tiled.to_array(ComputeMode{});
+  EXPECT_EQ(res_tiled.shape, shape);
+  EXPECT_FALSE(assert_almost_equal(res_tiled, base, 1e-4f));
 }

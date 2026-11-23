@@ -195,4 +195,119 @@ void blend_terrains_slope(VirtualArray       &lower,
                           int                 ir_slope = 2,
                           const ComputeMode  &cm = ComputeMode{});
 
+/**
+ * @brief Transfer fine-scale terrain features from multiple source exemplar
+ * layers onto a target terrain in-place, accounting for each layer's spatial
+ * scale via its CoordFrame.
+ *
+ * Source layers are treated purely as feature exemplars (without spatial
+ * alignment). Each source is scale-matched so its pixel resolution corresponds
+ * to the target's physical cell size (`CoordFrame::get_size() / shape`), and
+ * contributes atoms to a memory-bounded sparse-coding patch dictionary
+ * (`max_atoms`). High-resolution features are synthesized across the entire
+ * target terrain and integrated via high-pass detail transfer (`transfer`),
+ * preserving the target's large-scale shape and elevation structure.
+ *
+ * @param target              Target terrain array, modified in-place.
+ * @param frame_target        Coordinate frame of the target terrain.
+ * @param sources             Source terrain exemplar arrays.
+ * @param frames_source       Coordinate frames of the source terrains.
+ * @param ir                  Smoothing radius (in target pixels) separating
+ *                            large-scale structure from transferred details.
+ * @param amplitude           Global amplitude scaling for transferred details.
+ * @param target_prefiltering If true, smooth the target with radius @p ir
+ *                            before adding transferred features.
+ * @param source_weights      Optional per-source feature amplitude weights
+ *                            (defaults to 1.0 for each source if empty).
+ * @param factor              Super-resolution factor (>= 1).
+ * @param patch_size          Low-resolution square patch size (>= 2).
+ * @param analysis_stride     Patch extraction stride on downsampled sources.
+ * @param synthesis_stride    Patch synthesis stride on downsampled target.
+ * @param sparsity            Maximum atoms per patch in OMP encoding (>= 1).
+ * @param max_atoms           Maximum total dictionary atoms across all sources.
+ * @param seed                Random seed for reservoir sampling when candidate
+ *                            patches exceed @p max_atoms.
+ */
+void transfer_terrain_features(
+    Array                                 &target,
+    const CoordFrame                      &frame_target,
+    const std::vector<const Array *>      &sources,
+    const std::vector<const CoordFrame *> &frames_source,
+    int                                    ir = 16,
+    float                                  amplitude = 1.f,
+    bool                                   target_prefiltering = false,
+    const std::vector<float>              &source_weights = {},
+    int                                    factor = 4,
+    int                                    patch_size = 8,
+    int                                    analysis_stride = 4,
+    int                                    synthesis_stride = 4,
+    int                                    sparsity = 3,
+    int                                    max_atoms = 1024,
+    std::uint32_t                          seed = 0);
+
+/**
+ * @brief Single-source convenience overload of transfer_terrain_features for
+ * Array inputs.
+ */
+void transfer_terrain_features(Array            &target,
+                               const CoordFrame &frame_target,
+                               const Array      &source,
+                               const CoordFrame &frame_source,
+                               int               ir = 16,
+                               float             amplitude = 1.f,
+                               bool              target_prefiltering = false,
+                               int               factor = 4,
+                               int               patch_size = 8,
+                               int               analysis_stride = 4,
+                               int               synthesis_stride = 4,
+                               int               sparsity = 3,
+                               int               max_atoms = 1024,
+                               std::uint32_t     seed = 0);
+
+/**
+ * @brief Transfer fine-scale terrain features from multiple VirtualArray
+ * source exemplar layers onto a target VirtualArray terrain in-place.
+ *
+ * Sources are streamed tile-by-tile to build a memory-bounded patch dictionary
+ * (`max_atoms`), and target tiles are synthesized and detail-transferred
+ * cooperatively with overlap synchronization via `ICommunicator`.
+ */
+void transfer_terrain_features(
+    VirtualArray                            &target,
+    const CoordFrame                        &frame_target,
+    const std::vector<const VirtualArray *> &sources,
+    const std::vector<const CoordFrame *>   &frames_source,
+    int                                      ir = 16,
+    float                                    amplitude = 1.f,
+    bool                                     target_prefiltering = false,
+    const std::vector<float>                &source_weights = {},
+    int                                      factor = 4,
+    int                                      patch_size = 8,
+    int                                      analysis_stride = 4,
+    int                                      synthesis_stride = 4,
+    int                                      sparsity = 3,
+    int                                      max_atoms = 1024,
+    std::uint32_t                            seed = 0,
+    const ComputeMode                       &cm = ComputeMode{});
+
+/**
+ * @brief Single-source convenience overload of transfer_terrain_features for
+ * VirtualArray inputs.
+ */
+void transfer_terrain_features(VirtualArray       &target,
+                               const CoordFrame   &frame_target,
+                               const VirtualArray &source,
+                               const CoordFrame   &frame_source,
+                               int                 ir = 16,
+                               float               amplitude = 1.f,
+                               bool                target_prefiltering = false,
+                               int                 factor = 4,
+                               int                 patch_size = 8,
+                               int                 analysis_stride = 4,
+                               int                 synthesis_stride = 4,
+                               int                 sparsity = 3,
+                               int                 max_atoms = 1024,
+                               std::uint32_t       seed = 0,
+                               const ComputeMode  &cm = ComputeMode{});
+
 } // namespace hmap
