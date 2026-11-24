@@ -698,6 +698,12 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#ad9d7f866e3a5140ed694e502c1db44aeaf15cebde3e8fe2d5c3633e5d118d423c">NM_ROBUST</a>
  }</td></tr>
 <tr class="memdesc:ad9d7f866e3a5140ed694e502c1db44ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalization methods.  <a href="#ad9d7f866e3a5140ed694e502c1db44ae">More...</a><br /></td></tr>
+<tr class="memitem:a4280f8e4c700035e86e390420de7751d" id="r_a4280f8e4c700035e86e390420de7751d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4280f8e4c700035e86e390420de7751d">TerrainAlignMode</a> : int { <a class="el" href="#a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090">TAM_OFFSET</a>
+, <a class="el" href="#a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7">TAM_PLANE</a>
+, <a class="el" href="#a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64">TAM_ROBUST_OFFSET</a>
+, <a class="el" href="#a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716">TAM_ROBUST_PLANE</a>
+ }</td></tr>
+<tr class="memdesc:a4280f8e4c700035e86e390420de7751d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alignment modes for fitting an upper terrain to a lower terrain.  <a href="#a4280f8e4c700035e86e390420de7751d">More...</a><br /></td></tr>
 <tr class="memitem:a869e8b1294539de116023ed41279c455" id="r_a869e8b1294539de116023ed41279c455"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a869e8b1294539de116023ed41279c455">SymmetryType</a> : int { <br />
 &#160;&#160;<a class="el" href="#a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85">SYMMETRY_LEFT_TO_RIGHT</a>
 , <a class="el" href="#a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f">SYMMETRY_RIGHT_TO_LEFT</a>
@@ -711,12 +717,6 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:a869e8b1294539de116023ed41279c455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Describes the symmetry operation to apply to an array.  <a href="#a869e8b1294539de116023ed41279c455">More...</a><br /></td></tr>
-<tr class="memitem:a4280f8e4c700035e86e390420de7751d" id="r_a4280f8e4c700035e86e390420de7751d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4280f8e4c700035e86e390420de7751d">TerrainAlignMode</a> : int { <a class="el" href="#a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090">TAM_OFFSET</a>
-, <a class="el" href="#a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7">TAM_PLANE</a>
-, <a class="el" href="#a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64">TAM_ROBUST_OFFSET</a>
-, <a class="el" href="#a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716">TAM_ROBUST_PLANE</a>
- }</td></tr>
-<tr class="memdesc:a4280f8e4c700035e86e390420de7751d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alignment modes for fitting an upper terrain to a lower terrain.  <a href="#a4280f8e4c700035e86e390420de7751d">More...</a><br /></td></tr>
 <tr class="memitem:a53ddf39f16d1bda499b7fce512478e9f" id="r_a53ddf39f16d1bda499b7fce512478e9f"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53ddf39f16d1bda499b7fce512478e9f">ReduceOp</a> : uint8_t { <a class="el" href="#a53ddf39f16d1bda499b7fce512478e9fa78d811e98514cd165dda532286610fd2">Min</a>
 , <a class="el" href="#a53ddf39f16d1bda499b7fce512478e9fa6a061313d22e51e0f25b7cd4dc065233">Max</a>
 , <a class="el" href="#a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5">Sum</a>
@@ -2299,56 +2299,6 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
 <tr class="memdesc:af9fdabd692817be603ff5c44e68ea619"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a terrain mesh from a heightmap.  <br /></td></tr>
 <tr class="memitem:a5078af3eb73fb47ab1aad6cc872ab29a" id="r_a5078af3eb73fb47ab1aad6cc872ab29a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1TerrainTriMesh.html">TerrainTriMesh</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5078af3eb73fb47ab1aad6cc872ab29a">generate_terrain_tri_mesh_from_heightmap_random</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, int control_points_count, std::uint32_t seed)</td></tr>
 <tr class="memdesc:a5078af3eb73fb47ab1aad6cc872ab29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a random terrain mesh from a heightmap.  <br /></td></tr>
-<tr class="memitem:a19dec938e688ef4b73cf27ff3934043b" id="r_a19dec938e688ef4b73cf27ff3934043b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19dec938e688ef4b73cf27ff3934043b">flip_lr</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array)</td></tr>
-<tr class="memdesc:a19dec938e688ef4b73cf27ff3934043b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flip the array horizontally (left/right).  <br /></td></tr>
-<tr class="memitem:afda98f22fc66ebb9e1e48008f3f1a34c" id="r_afda98f22fc66ebb9e1e48008f3f1a34c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afda98f22fc66ebb9e1e48008f3f1a34c">flip_lr</a> (<a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture)</td></tr>
-<tr class="memdesc:afda98f22fc66ebb9e1e48008f3f1a34c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flip the texture horizontally (left/right).  <br /></td></tr>
-<tr class="memitem:a2c304fc0d8cefe164e3070c885b43aaa" id="r_a2c304fc0d8cefe164e3070c885b43aaa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c304fc0d8cefe164e3070c885b43aaa">flip_ud</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array)</td></tr>
-<tr class="memdesc:a2c304fc0d8cefe164e3070c885b43aaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flip the array vertically (up/down).  <br /></td></tr>
-<tr class="memitem:a5a5ea9447876f3a080ab03cdd636e49a" id="r_a5a5ea9447876f3a080ab03cdd636e49a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a5ea9447876f3a080ab03cdd636e49a">flip_ud</a> (<a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture)</td></tr>
-<tr class="memdesc:a5a5ea9447876f3a080ab03cdd636e49a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flip the texture vertically (up/down).  <br /></td></tr>
-<tr class="memitem:af9ae05bbdab06ce61f1385ef4231d03b" id="r_af9ae05bbdab06ce61f1385ef4231d03b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9ae05bbdab06ce61f1385ef4231d03b">radial_displacement_to_xy</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;dr, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;dx, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;dy, float smoothing=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, glm::vec2 center={0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
-<tr class="memdesc:af9ae05bbdab06ce61f1385ef4231d03b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpret the input array <span class="tt">dr</span> as a radial displacement and convert it to a pair of displacements <span class="tt">dx</span> and <span class="tt">dy</span> in cartesian coordinates.  <br /></td></tr>
-<tr class="memitem:a5a621a9b245b5f9a4c9e5aa3ba3bbee0" id="r_a5a621a9b245b5f9a4c9e5aa3ba3bbee0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a621a9b245b5f9a4c9e5aa3ba3bbee0">rot180</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array)</td></tr>
-<tr class="memdesc:a5a621a9b245b5f9a4c9e5aa3ba3bbee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the array by 180 degrees.  <br /></td></tr>
-<tr class="memitem:a8a5ff34f817dd9993eb2dc1df44373e5" id="r_a8a5ff34f817dd9993eb2dc1df44373e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a5ff34f817dd9993eb2dc1df44373e5">rot180</a> (<a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture)</td></tr>
-<tr class="memdesc:a8a5ff34f817dd9993eb2dc1df44373e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the texture by 180 degrees.  <br /></td></tr>
-<tr class="memitem:a836dbf6645c0e60bd887d6f14210b9d3" id="r_a836dbf6645c0e60bd887d6f14210b9d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a836dbf6645c0e60bd887d6f14210b9d3">rot270</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array)</td></tr>
-<tr class="memdesc:a836dbf6645c0e60bd887d6f14210b9d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the array by 270 degrees.  <br /></td></tr>
-<tr class="memitem:a078f509a586adcdf1ff75eb828d7ceb5" id="r_a078f509a586adcdf1ff75eb828d7ceb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a078f509a586adcdf1ff75eb828d7ceb5">rot270</a> (<a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture)</td></tr>
-<tr class="memdesc:a078f509a586adcdf1ff75eb828d7ceb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the texture by 270 degrees counterclockwise.  <br /></td></tr>
-<tr class="memitem:ab2362d8dcac398c859dd4ec37214af01" id="r_ab2362d8dcac398c859dd4ec37214af01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2362d8dcac398c859dd4ec37214af01">rot90</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array)</td></tr>
-<tr class="memdesc:ab2362d8dcac398c859dd4ec37214af01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the array by 90 degrees.  <br /></td></tr>
-<tr class="memitem:a7d27d0392fb6850a212bee00cb58700c" id="r_a7d27d0392fb6850a212bee00cb58700c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d27d0392fb6850a212bee00cb58700c">rot90</a> (<a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture)</td></tr>
-<tr class="memdesc:a7d27d0392fb6850a212bee00cb58700c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the texture by 90 degrees counterclockwise.  <br /></td></tr>
-<tr class="memitem:a888dcfe5adb36448366400f04efcde04" id="r_a888dcfe5adb36448366400f04efcde04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a888dcfe5adb36448366400f04efcde04">rotate</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, float <a class="el" href="#aac71bb6c14edc17967957f7918acdbdd">angle</a>, bool zoom_in=true, bool zero_padding=false)</td></tr>
-<tr class="memdesc:a888dcfe5adb36448366400f04efcde04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the array by a specified angle.  <br /></td></tr>
-<tr class="memitem:ad2d28babba03ed11cf115ab08009de64" id="r_ad2d28babba03ed11cf115ab08009de64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2d28babba03ed11cf115ab08009de64">rotate_displacement</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;delta, float <a class="el" href="#aac71bb6c14edc17967957f7918acdbdd">angle</a>, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;dx, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;dy)</td></tr>
-<tr class="memdesc:ad2d28babba03ed11cf115ab08009de64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotates a scalar displacement field into directional X and Y components.  <br /></td></tr>
-<tr class="memitem:a66ec69d0e52dd23350bed20dbbcb0d08" id="r_a66ec69d0e52dd23350bed20dbbcb0d08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66ec69d0e52dd23350bed20dbbcb0d08">scale_uv</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, glm::vec2 uv_scale)</td></tr>
-<tr class="memdesc:a66ec69d0e52dd23350bed20dbbcb0d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale the array in UV space with wrapping boundary.  <br /></td></tr>
-<tr class="memitem:aa6e0ddb5fd3b76e1ba7f18d8c4a45549" id="r_aa6e0ddb5fd3b76e1ba7f18d8c4a45549"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6e0ddb5fd3b76e1ba7f18d8c4a45549">scale_uv</a> (<a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture, glm::vec2 uv_scale)</td></tr>
-<tr class="memdesc:aa6e0ddb5fd3b76e1ba7f18d8c4a45549"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale the texture in UV space with wrapping boundary.  <br /></td></tr>
-<tr class="memitem:a470d6335083e8263faaae05087078ffe" id="r_a470d6335083e8263faaae05087078ffe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a470d6335083e8263faaae05087078ffe">symmetrize</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, <a class="el" href="#a869e8b1294539de116023ed41279c455">SymmetryType</a> symmetry_type=<a class="el" href="#a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85">SymmetryType::SYMMETRY_LEFT_TO_RIGHT</a>, bool flatten_center=false, float flatten_radius=0.05<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
-<tr class="memdesc:a470d6335083e8263faaae05087078ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enforces geometric symmetry on an array.  <br /></td></tr>
-<tr class="memitem:a6e52fd8e2580523aae968d76461c30b8" id="r_a6e52fd8e2580523aae968d76461c30b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e52fd8e2580523aae968d76461c30b8">translate</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, float dx, float dy, bool periodic=false, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y=nullptr, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
-<tr class="memdesc:a6e52fd8e2580523aae968d76461c30b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translates a 2D array by a specified amount along the x and y axes.  <br /></td></tr>
-<tr class="memitem:a9b059a298d27843519baa3b6bfe291cd" id="r_a9b059a298d27843519baa3b6bfe291cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b059a298d27843519baa3b6bfe291cd">transpose</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array)</td></tr>
-<tr class="memdesc:a9b059a298d27843519baa3b6bfe291cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the transposed array.  <br /></td></tr>
-<tr class="memitem:aa8ffb5a748ba6524f2b121c62819e892" id="r_aa8ffb5a748ba6524f2b121c62819e892"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Texture.html">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8ffb5a748ba6524f2b121c62819e892">transpose</a> (const <a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture)</td></tr>
-<tr class="memdesc:aa8ffb5a748ba6524f2b121c62819e892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the transposed texture.  <br /></td></tr>
-<tr class="memitem:a19148ad2a95f7ad5b05161e9a0f0f732" id="r_a19148ad2a95f7ad5b05161e9a0f0f732"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19148ad2a95f7ad5b05161e9a0f0f732">warp</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_dx, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_dy)</td></tr>
-<tr class="memdesc:a19148ad2a95f7ad5b05161e9a0f0f732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a warping effect to the array.  <br /></td></tr>
-<tr class="memitem:accbbc6e5bedf98c7a7fa85fbe364194e" id="r_accbbc6e5bedf98c7a7fa85fbe364194e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accbbc6e5bedf98c7a7fa85fbe364194e">warp_directional</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, float <a class="el" href="#aac71bb6c14edc17967957f7918acdbdd">angle</a>, float amount=0.02<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int ir=4, bool reverse=false)</td></tr>
-<tr class="memdesc:accbbc6e5bedf98c7a7fa85fbe364194e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a warping effect following the downward local gradient direction (deflate/inflate effect).  <br /></td></tr>
-<tr class="memitem:a6b780e74228ec5cca45602eb19b8975c" id="r_a6b780e74228ec5cca45602eb19b8975c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b780e74228ec5cca45602eb19b8975c">warp_directional</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, float <a class="el" href="#aac71bb6c14edc17967957f7918acdbdd">angle</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_mask, float amount=0.02<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int ir=4, bool reverse=false)</td></tr>
-<tr class="memdesc:a6b780e74228ec5cca45602eb19b8975c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a warping effect following the downward local gradient direction (deflate/inflate effect) with a mask.  <br /></td></tr>
-<tr class="memitem:a5d5baa80ff76a31a24e3b348edb0520a" id="r_a5d5baa80ff76a31a24e3b348edb0520a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d5baa80ff76a31a24e3b348edb0520a">warp_downslope</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, float amount=0.02<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int ir=4, bool reverse=false)</td></tr>
-<tr class="memdesc:a5d5baa80ff76a31a24e3b348edb0520a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a warping effect following the downward local gradient direction (deflate/inflate effect).  <br /></td></tr>
-<tr class="memitem:a2dba417aca5a0dcd02509617939d741b" id="r_a2dba417aca5a0dcd02509617939d741b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2dba417aca5a0dcd02509617939d741b">warp_downslope</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_mask, float amount=0.02<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int ir=4, bool reverse=false)</td></tr>
-<tr class="memdesc:a2dba417aca5a0dcd02509617939d741b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a warping effect following the downward local gradient direction (deflate/inflate effect) with a mask.  <br /></td></tr>
-<tr class="memitem:a2a16f2f687640ad47e3252d3350620f9" id="r_a2a16f2f687640ad47e3252d3350620f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a16f2f687640ad47e3252d3350620f9">zoom</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, float zoom_factor, bool periodic=false, glm::vec2 center={0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y=nullptr, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
-<tr class="memdesc:a2a16f2f687640ad47e3252d3350620f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a zoom effect to a 2D array with an adjustable center.  <br /></td></tr>
 <tr class="memitem:af45ab826099a96280cbe8701f58742a9" id="r_af45ab826099a96280cbe8701f58742a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structhmap_1_1TerrainAlignment.html">TerrainAlignment</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af45ab826099a96280cbe8701f58742a9">compute_terrain_alignment</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;lower, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;frame_lower, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;upper, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;frame_upper, <a class="el" href="#a4280f8e4c700035e86e390420de7751d">TerrainAlignMode</a> mode, float huber_delta=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int max_iterations=10)</td></tr>
 <tr class="memdesc:af45ab826099a96280cbe8701f58742a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute alignment parameters to fit <code class="param">upper</code> to <code class="param">lower</code> over their common valid area.  <br /></td></tr>
 <tr class="memitem:ae75d2dda9b3122234fb87505b87284d1" id="r_ae75d2dda9b3122234fb87505b87284d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structhmap_1_1TerrainAlignment.html">TerrainAlignment</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae75d2dda9b3122234fb87505b87284d1">compute_terrain_alignment</a> (const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;lower, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;frame_lower, const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;upper, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;frame_upper, <a class="el" href="#a4280f8e4c700035e86e390420de7751d">TerrainAlignMode</a> mode, float huber_delta=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int max_iterations=10, int coarse_size=128)</td></tr>
@@ -2361,6 +2311,56 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
 <tr class="memdesc:a4a65286bf3ab852931bd679f8c8fd768"><td class="mdescLeft">&#160;</td><td class="mdescRight">Align <code class="param">upper</code> to <code class="param">lower</code> in-place over their common valid area.  <br /></td></tr>
 <tr class="memitem:a4aa4a8c501853bc424424d586d52f24a" id="r_a4aa4a8c501853bc424424d586d52f24a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4aa4a8c501853bc424424d586d52f24a">align_terrains</a> (const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;lower, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;frame_lower, <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;upper, const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;frame_upper, <a class="el" href="#a4280f8e4c700035e86e390420de7751d">TerrainAlignMode</a> mode, float huber_delta=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int max_iterations=10, int coarse_size=128, const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;cm=<a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a>{})</td></tr>
 <tr class="memdesc:a4aa4a8c501853bc424424d586d52f24a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Align <code class="param">upper</code> <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> to <code class="param">lower</code> <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> in-place.  <br /></td></tr>
+<tr class="memitem:afda98f22fc66ebb9e1e48008f3f1a34c" id="r_afda98f22fc66ebb9e1e48008f3f1a34c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afda98f22fc66ebb9e1e48008f3f1a34c">flip_lr</a> (<a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture)</td></tr>
+<tr class="memdesc:afda98f22fc66ebb9e1e48008f3f1a34c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flip the texture horizontally (left/right).  <br /></td></tr>
+<tr class="memitem:a5a5ea9447876f3a080ab03cdd636e49a" id="r_a5a5ea9447876f3a080ab03cdd636e49a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a5ea9447876f3a080ab03cdd636e49a">flip_ud</a> (<a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture)</td></tr>
+<tr class="memdesc:a5a5ea9447876f3a080ab03cdd636e49a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flip the texture vertically (up/down).  <br /></td></tr>
+<tr class="memitem:a8a5ff34f817dd9993eb2dc1df44373e5" id="r_a8a5ff34f817dd9993eb2dc1df44373e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a5ff34f817dd9993eb2dc1df44373e5">rot180</a> (<a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture)</td></tr>
+<tr class="memdesc:a8a5ff34f817dd9993eb2dc1df44373e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the texture by 180 degrees.  <br /></td></tr>
+<tr class="memitem:a078f509a586adcdf1ff75eb828d7ceb5" id="r_a078f509a586adcdf1ff75eb828d7ceb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a078f509a586adcdf1ff75eb828d7ceb5">rot270</a> (<a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture)</td></tr>
+<tr class="memdesc:a078f509a586adcdf1ff75eb828d7ceb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the texture by 270 degrees counterclockwise.  <br /></td></tr>
+<tr class="memitem:a7d27d0392fb6850a212bee00cb58700c" id="r_a7d27d0392fb6850a212bee00cb58700c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d27d0392fb6850a212bee00cb58700c">rot90</a> (<a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture)</td></tr>
+<tr class="memdesc:a7d27d0392fb6850a212bee00cb58700c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the texture by 90 degrees counterclockwise.  <br /></td></tr>
+<tr class="memitem:aa6e0ddb5fd3b76e1ba7f18d8c4a45549" id="r_aa6e0ddb5fd3b76e1ba7f18d8c4a45549"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6e0ddb5fd3b76e1ba7f18d8c4a45549">scale_uv</a> (<a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture, glm::vec2 uv_scale)</td></tr>
+<tr class="memdesc:aa6e0ddb5fd3b76e1ba7f18d8c4a45549"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale the texture in UV space with wrapping boundary.  <br /></td></tr>
+<tr class="memitem:aa8ffb5a748ba6524f2b121c62819e892" id="r_aa8ffb5a748ba6524f2b121c62819e892"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Texture.html">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8ffb5a748ba6524f2b121c62819e892">transpose</a> (const <a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;texture)</td></tr>
+<tr class="memdesc:aa8ffb5a748ba6524f2b121c62819e892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the transposed texture.  <br /></td></tr>
+<tr class="memitem:a19dec938e688ef4b73cf27ff3934043b" id="r_a19dec938e688ef4b73cf27ff3934043b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19dec938e688ef4b73cf27ff3934043b">flip_lr</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array)</td></tr>
+<tr class="memdesc:a19dec938e688ef4b73cf27ff3934043b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flip the array horizontally (left/right).  <br /></td></tr>
+<tr class="memitem:a2c304fc0d8cefe164e3070c885b43aaa" id="r_a2c304fc0d8cefe164e3070c885b43aaa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c304fc0d8cefe164e3070c885b43aaa">flip_ud</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array)</td></tr>
+<tr class="memdesc:a2c304fc0d8cefe164e3070c885b43aaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flip the array vertically (up/down).  <br /></td></tr>
+<tr class="memitem:af9ae05bbdab06ce61f1385ef4231d03b" id="r_af9ae05bbdab06ce61f1385ef4231d03b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9ae05bbdab06ce61f1385ef4231d03b">radial_displacement_to_xy</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;dr, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;dx, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;dy, float smoothing=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, glm::vec2 center={0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
+<tr class="memdesc:af9ae05bbdab06ce61f1385ef4231d03b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpret the input array <span class="tt">dr</span> as a radial displacement and convert it to a pair of displacements <span class="tt">dx</span> and <span class="tt">dy</span> in cartesian coordinates.  <br /></td></tr>
+<tr class="memitem:a5a621a9b245b5f9a4c9e5aa3ba3bbee0" id="r_a5a621a9b245b5f9a4c9e5aa3ba3bbee0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a621a9b245b5f9a4c9e5aa3ba3bbee0">rot180</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array)</td></tr>
+<tr class="memdesc:a5a621a9b245b5f9a4c9e5aa3ba3bbee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the array by 180 degrees.  <br /></td></tr>
+<tr class="memitem:a836dbf6645c0e60bd887d6f14210b9d3" id="r_a836dbf6645c0e60bd887d6f14210b9d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a836dbf6645c0e60bd887d6f14210b9d3">rot270</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array)</td></tr>
+<tr class="memdesc:a836dbf6645c0e60bd887d6f14210b9d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the array by 270 degrees.  <br /></td></tr>
+<tr class="memitem:ab2362d8dcac398c859dd4ec37214af01" id="r_ab2362d8dcac398c859dd4ec37214af01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2362d8dcac398c859dd4ec37214af01">rot90</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array)</td></tr>
+<tr class="memdesc:ab2362d8dcac398c859dd4ec37214af01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the array by 90 degrees.  <br /></td></tr>
+<tr class="memitem:a888dcfe5adb36448366400f04efcde04" id="r_a888dcfe5adb36448366400f04efcde04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a888dcfe5adb36448366400f04efcde04">rotate</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, float <a class="el" href="#aac71bb6c14edc17967957f7918acdbdd">angle</a>, bool zoom_in=true, bool zero_padding=false)</td></tr>
+<tr class="memdesc:a888dcfe5adb36448366400f04efcde04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the array by a specified angle.  <br /></td></tr>
+<tr class="memitem:ad2d28babba03ed11cf115ab08009de64" id="r_ad2d28babba03ed11cf115ab08009de64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2d28babba03ed11cf115ab08009de64">rotate_displacement</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;delta, float <a class="el" href="#aac71bb6c14edc17967957f7918acdbdd">angle</a>, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;dx, <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;dy)</td></tr>
+<tr class="memdesc:ad2d28babba03ed11cf115ab08009de64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotates a scalar displacement field into directional X and Y components.  <br /></td></tr>
+<tr class="memitem:a66ec69d0e52dd23350bed20dbbcb0d08" id="r_a66ec69d0e52dd23350bed20dbbcb0d08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66ec69d0e52dd23350bed20dbbcb0d08">scale_uv</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, glm::vec2 uv_scale)</td></tr>
+<tr class="memdesc:a66ec69d0e52dd23350bed20dbbcb0d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale the array in UV space with wrapping boundary.  <br /></td></tr>
+<tr class="memitem:a470d6335083e8263faaae05087078ffe" id="r_a470d6335083e8263faaae05087078ffe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a470d6335083e8263faaae05087078ffe">symmetrize</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, <a class="el" href="#a869e8b1294539de116023ed41279c455">SymmetryType</a> symmetry_type=<a class="el" href="#a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85">SymmetryType::SYMMETRY_LEFT_TO_RIGHT</a>, bool flatten_center=false, float flatten_radius=0.05<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
+<tr class="memdesc:a470d6335083e8263faaae05087078ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enforces geometric symmetry on an array.  <br /></td></tr>
+<tr class="memitem:a6e52fd8e2580523aae968d76461c30b8" id="r_a6e52fd8e2580523aae968d76461c30b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e52fd8e2580523aae968d76461c30b8">translate</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, float dx, float dy, bool periodic=false, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y=nullptr, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
+<tr class="memdesc:a6e52fd8e2580523aae968d76461c30b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translates a 2D array by a specified amount along the x and y axes.  <br /></td></tr>
+<tr class="memitem:a9b059a298d27843519baa3b6bfe291cd" id="r_a9b059a298d27843519baa3b6bfe291cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b059a298d27843519baa3b6bfe291cd">transpose</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array)</td></tr>
+<tr class="memdesc:a9b059a298d27843519baa3b6bfe291cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the transposed array.  <br /></td></tr>
+<tr class="memitem:a2a16f2f687640ad47e3252d3350620f9" id="r_a2a16f2f687640ad47e3252d3350620f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a16f2f687640ad47e3252d3350620f9">zoom</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, float zoom_factor, bool periodic=false, glm::vec2 center={0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y=nullptr, glm::vec4 bbox={0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, 1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>})</td></tr>
+<tr class="memdesc:a2a16f2f687640ad47e3252d3350620f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a zoom effect to a 2D array with an adjustable center.  <br /></td></tr>
+<tr class="memitem:a19148ad2a95f7ad5b05161e9a0f0f732" id="r_a19148ad2a95f7ad5b05161e9a0f0f732"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19148ad2a95f7ad5b05161e9a0f0f732">warp</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_dx, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_dy)</td></tr>
+<tr class="memdesc:a19148ad2a95f7ad5b05161e9a0f0f732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a warping effect to the array.  <br /></td></tr>
+<tr class="memitem:accbbc6e5bedf98c7a7fa85fbe364194e" id="r_accbbc6e5bedf98c7a7fa85fbe364194e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accbbc6e5bedf98c7a7fa85fbe364194e">warp_directional</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, float <a class="el" href="#aac71bb6c14edc17967957f7918acdbdd">angle</a>, float amount=0.02<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int ir=4, bool reverse=false)</td></tr>
+<tr class="memdesc:accbbc6e5bedf98c7a7fa85fbe364194e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a warping effect following the downward local gradient direction (deflate/inflate effect).  <br /></td></tr>
+<tr class="memitem:a6b780e74228ec5cca45602eb19b8975c" id="r_a6b780e74228ec5cca45602eb19b8975c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b780e74228ec5cca45602eb19b8975c">warp_directional</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, float <a class="el" href="#aac71bb6c14edc17967957f7918acdbdd">angle</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_mask, float amount=0.02<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int ir=4, bool reverse=false)</td></tr>
+<tr class="memdesc:a6b780e74228ec5cca45602eb19b8975c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a warping effect following the downward local gradient direction (deflate/inflate effect) with a mask.  <br /></td></tr>
+<tr class="memitem:a5d5baa80ff76a31a24e3b348edb0520a" id="r_a5d5baa80ff76a31a24e3b348edb0520a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d5baa80ff76a31a24e3b348edb0520a">warp_downslope</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, float amount=0.02<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int ir=4, bool reverse=false)</td></tr>
+<tr class="memdesc:a5d5baa80ff76a31a24e3b348edb0520a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a warping effect following the downward local gradient direction (deflate/inflate effect).  <br /></td></tr>
+<tr class="memitem:a2dba417aca5a0dcd02509617939d741b" id="r_a2dba417aca5a0dcd02509617939d741b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2dba417aca5a0dcd02509617939d741b">warp_downslope</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;array, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_mask, float amount=0.02<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int ir=4, bool reverse=false)</td></tr>
+<tr class="memdesc:a2dba417aca5a0dcd02509617939d741b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a warping effect following the downward local gradient direction (deflate/inflate effect) with a mask.  <br /></td></tr>
 <tr class="memitem:a8be122241fa42b0f6a7ef67106391780" id="r_a8be122241fa42b0f6a7ef67106391780"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8be122241fa42b0f6a7ef67106391780">argsort</a> (const std::vector&lt; float &gt; &amp;v)</td></tr>
 <tr class="memdesc:a8be122241fa42b0f6a7ef67106391780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the indices that would sort the vector.  <br /></td></tr>
 <tr class="memitem:a9f89bb49dba35b60582df3749d8524b8" id="r_a9f89bb49dba35b60582df3749d8524b8"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f89bb49dba35b60582df3749d8524b8">compute_median</a> (std::vector&lt; float &gt; values)</td></tr>
@@ -3653,6 +3653,36 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
 
 </div>
 </div>
+<a id="a4280f8e4c700035e86e390420de7751d" name="a4280f8e4c700035e86e390420de7751d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4280f8e4c700035e86e390420de7751d">&#9670;&#160;</a></span>TerrainAlignMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a4280f8e4c700035e86e390420de7751d">hmap::TerrainAlignMode</a> : int</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Alignment modes for fitting an upper terrain to a lower terrain. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090" name="a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090"></a>TAM_OFFSET&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7" name="a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7"></a>TAM_PLANE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64" name="a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64"></a>TAM_ROBUST_OFFSET&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716" name="a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716"></a>TAM_ROBUST_PLANE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a869e8b1294539de116023ed41279c455" name="a869e8b1294539de116023ed41279c455"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a869e8b1294539de116023ed41279c455">&#9670;&#160;</a></span>SymmetryType</h2>
 
@@ -3683,36 +3713,6 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
 </td></tr>
 <tr><td class="fieldname"><a id="a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351" name="a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351"></a>SYMMETRY_ROT180&#160;</td><td class="fielddoc"><p>180-degree rotational symmetry around center. </p>
 </td></tr>
-</table>
-
-</div>
-</div>
-<a id="a4280f8e4c700035e86e390420de7751d" name="a4280f8e4c700035e86e390420de7751d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4280f8e4c700035e86e390420de7751d">&#9670;&#160;</a></span>TerrainAlignMode</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum class <a class="el" href="#a4280f8e4c700035e86e390420de7751d">hmap::TerrainAlignMode</a> : int</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Alignment modes for fitting an upper terrain to a lower terrain. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090" name="a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090"></a>TAM_OFFSET&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7" name="a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7"></a>TAM_PLANE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64" name="a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64"></a>TAM_ROBUST_OFFSET&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716" name="a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716"></a>TAM_ROBUST_PLANE&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -54395,14 +54395,14 @@ off" values that fall below the threshold, which can be useful for filtering out
 <div class="line">      <span class="keyword">true</span>);</div>
 <div class="line">}</div>
 <div class="ttc" id="anamespacehmap_html_a05c0228a6331234d1f415b8562b1dd4c"><div class="ttname"><a href="#a05c0228a6331234d1f415b8562b1dd4c">hmap::loose_symmetry</a></div><div class="ttdeci">Array loose_symmetry(const Array &amp;array, SymmetryType symmetry_type=SymmetryType::SYMMETRY_LEFT_TO_RIGHT, float strength=1.f, int factor=4, int patch_size=16, int analysis_stride=2, int synthesis_stride=8, int sparsity=1, bool flatten_center=false, float flatten_radius=0.05f)</div><div class="ttdoc">Synthesize a heightmap with natural, approximate symmetry using exemplar-based super-resolution.</div><div class="ttdef"><b>Definition</b> loose_symmetry.cpp:39</div></div>
-<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a3ddaa2a956cc883b21be2299aaf5b9e6"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a3ddaa2a956cc883b21be2299aaf5b9e6">hmap::SYMMETRY_TOP_TO_BOTTOM</a></div><div class="ttdeci">@ SYMMETRY_TOP_TO_BOTTOM</div><div class="ttdoc">Mirror top half onto bottom half.</div><div class="ttdef"><b>Definition</b> transform.hpp:41</div></div>
-<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85">hmap::SYMMETRY_LEFT_TO_RIGHT</a></div><div class="ttdeci">@ SYMMETRY_LEFT_TO_RIGHT</div><div class="ttdoc">Mirror left half onto right half.</div><div class="ttdef"><b>Definition</b> transform.hpp:39</div></div>
-<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f">hmap::SYMMETRY_RIGHT_TO_LEFT</a></div><div class="ttdeci">@ SYMMETRY_RIGHT_TO_LEFT</div><div class="ttdoc">Mirror right half onto left half.</div><div class="ttdef"><b>Definition</b> transform.hpp:40</div></div>
-<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a8517750a37931564bdebfecc33af5f8a"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a8517750a37931564bdebfecc33af5f8a">hmap::SYMMETRY_Y</a></div><div class="ttdeci">@ SYMMETRY_Y</div><div class="ttdoc">Symmetric average across horizontal axis.</div><div class="ttdef"><b>Definition</b> transform.hpp:44</div></div>
-<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351">hmap::SYMMETRY_ROT180</a></div><div class="ttdeci">@ SYMMETRY_ROT180</div><div class="ttdoc">180-degree rotational symmetry around center.</div><div class="ttdef"><b>Definition</b> transform.hpp:46</div></div>
-<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a920e2b98c2ac5a04a409d80e07987845"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a920e2b98c2ac5a04a409d80e07987845">hmap::SYMMETRY_X</a></div><div class="ttdeci">@ SYMMETRY_X</div><div class="ttdoc">Symmetric average across vertical axis.</div><div class="ttdef"><b>Definition</b> transform.hpp:43</div></div>
-<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad">hmap::SYMMETRY_BOTTOM_TO_TOP</a></div><div class="ttdeci">@ SYMMETRY_BOTTOM_TO_TOP</div><div class="ttdoc">Mirror bottom half onto top half.</div><div class="ttdef"><b>Definition</b> transform.hpp:42</div></div>
-<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e">hmap::SYMMETRY_XY</a></div><div class="ttdeci">@ SYMMETRY_XY</div><div class="ttdoc">4-quadrant symmetric average across both X and Y.</div><div class="ttdef"><b>Definition</b> transform.hpp:45</div></div>
+<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a3ddaa2a956cc883b21be2299aaf5b9e6"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a3ddaa2a956cc883b21be2299aaf5b9e6">hmap::SYMMETRY_TOP_TO_BOTTOM</a></div><div class="ttdeci">@ SYMMETRY_TOP_TO_BOTTOM</div><div class="ttdoc">Mirror top half onto bottom half.</div><div class="ttdef"><b>Definition</b> transform.hpp:30</div></div>
+<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85">hmap::SYMMETRY_LEFT_TO_RIGHT</a></div><div class="ttdeci">@ SYMMETRY_LEFT_TO_RIGHT</div><div class="ttdoc">Mirror left half onto right half.</div><div class="ttdef"><b>Definition</b> transform.hpp:28</div></div>
+<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f">hmap::SYMMETRY_RIGHT_TO_LEFT</a></div><div class="ttdeci">@ SYMMETRY_RIGHT_TO_LEFT</div><div class="ttdoc">Mirror right half onto left half.</div><div class="ttdef"><b>Definition</b> transform.hpp:29</div></div>
+<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a8517750a37931564bdebfecc33af5f8a"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a8517750a37931564bdebfecc33af5f8a">hmap::SYMMETRY_Y</a></div><div class="ttdeci">@ SYMMETRY_Y</div><div class="ttdoc">Symmetric average across horizontal axis.</div><div class="ttdef"><b>Definition</b> transform.hpp:33</div></div>
+<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351">hmap::SYMMETRY_ROT180</a></div><div class="ttdeci">@ SYMMETRY_ROT180</div><div class="ttdoc">180-degree rotational symmetry around center.</div><div class="ttdef"><b>Definition</b> transform.hpp:35</div></div>
+<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a920e2b98c2ac5a04a409d80e07987845"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a920e2b98c2ac5a04a409d80e07987845">hmap::SYMMETRY_X</a></div><div class="ttdeci">@ SYMMETRY_X</div><div class="ttdoc">Symmetric average across vertical axis.</div><div class="ttdef"><b>Definition</b> transform.hpp:32</div></div>
+<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad">hmap::SYMMETRY_BOTTOM_TO_TOP</a></div><div class="ttdeci">@ SYMMETRY_BOTTOM_TO_TOP</div><div class="ttdoc">Mirror bottom half onto top half.</div><div class="ttdef"><b>Definition</b> transform.hpp:31</div></div>
+<div class="ttc" id="anamespacehmap_html_a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e"><div class="ttname"><a href="#a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e">hmap::SYMMETRY_XY</a></div><div class="ttdeci">@ SYMMETRY_XY</div><div class="ttdoc">4-quadrant symmetric average across both X and Y.</div><div class="ttdef"><b>Definition</b> transform.hpp:34</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_loose_symmetry.png" alt=""/>
 </div>
@@ -55570,8 +55570,447 @@ factor)^2</span>: large exemplars with small <span class="tt">analysis_stride</s
 
 </div>
 </div>
+<a id="af45ab826099a96280cbe8701f58742a9" name="af45ab826099a96280cbe8701f58742a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af45ab826099a96280cbe8701f58742a9">&#9670;&#160;</a></span>compute_terrain_alignment() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmap_1_1TerrainAlignment.html">TerrainAlignment</a> hmap::compute_terrain_alignment </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lower</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_lower</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>upper</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_upper</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a4280f8e4c700035e86e390420de7751d">TerrainAlignMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>huber_delta</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max_iterations</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute alignment parameters to fit <code class="param">upper</code> to <code class="param">lower</code> over their common valid area. </p>
+
+</div>
+</div>
+<a id="ae75d2dda9b3122234fb87505b87284d1" name="ae75d2dda9b3122234fb87505b87284d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae75d2dda9b3122234fb87505b87284d1">&#9670;&#160;</a></span>compute_terrain_alignment() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmap_1_1TerrainAlignment.html">TerrainAlignment</a> hmap::compute_terrain_alignment </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lower</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_lower</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>upper</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_upper</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a4280f8e4c700035e86e390420de7751d">TerrainAlignMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>huber_delta</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max_iterations</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>coarse_size</em></span><span class="paramdefsep"> = </span><span class="paramdefval">128</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute alignment parameters for <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> inputs using a coarse <a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> representation. </p>
+
+</div>
+</div>
+<a id="aa43bd69cf1ee61e1e19d6119d9718930" name="aa43bd69cf1ee61e1e19d6119d9718930"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa43bd69cf1ee61e1e19d6119d9718930">&#9670;&#160;</a></span>apply_terrain_alignment() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::apply_terrain_alignment </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>upper</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1TerrainAlignment.html">TerrainAlignment</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>alignment</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Apply precomputed alignment parameters to an <a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> in-place. </p>
+
+</div>
+</div>
+<a id="a2ae51429a580d3d78f51abddf5cc0c71" name="a2ae51429a580d3d78f51abddf5cc0c71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ae51429a580d3d78f51abddf5cc0c71">&#9670;&#160;</a></span>apply_terrain_alignment() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::apply_terrain_alignment </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>upper</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1TerrainAlignment.html">TerrainAlignment</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>alignment</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cm</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a>{}</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Apply precomputed alignment parameters to a <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> in-place. </p>
+
+</div>
+</div>
+<a id="a4a65286bf3ab852931bd679f8c8fd768" name="a4a65286bf3ab852931bd679f8c8fd768"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a65286bf3ab852931bd679f8c8fd768">&#9670;&#160;</a></span>align_terrains() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::align_terrains </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lower</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_lower</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>upper</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_upper</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a4280f8e4c700035e86e390420de7751d">TerrainAlignMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>huber_delta</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max_iterations</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Align <code class="param">upper</code> to <code class="param">lower</code> in-place over their common valid area. </p>
+
+</div>
+</div>
+<a id="a4aa4a8c501853bc424424d586d52f24a" name="a4aa4a8c501853bc424424d586d52f24a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aa4a8c501853bc424424d586d52f24a">&#9670;&#160;</a></span>align_terrains() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::align_terrains </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lower</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_lower</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>upper</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_upper</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a4280f8e4c700035e86e390420de7751d">TerrainAlignMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>huber_delta</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max_iterations</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>coarse_size</em></span><span class="paramdefsep"> = </span><span class="paramdefval">128</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cm</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a>{}</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Align <code class="param">upper</code> <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> to <code class="param">lower</code> <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> in-place. </p>
+
+</div>
+</div>
+<a id="afda98f22fc66ebb9e1e48008f3f1a34c" name="afda98f22fc66ebb9e1e48008f3f1a34c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afda98f22fc66ebb9e1e48008f3f1a34c">&#9670;&#160;</a></span>flip_lr() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::flip_lr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flip the texture horizontally (left/right). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>Input texture to be flipped. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5a5ea9447876f3a080ab03cdd636e49a" name="a5a5ea9447876f3a080ab03cdd636e49a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a5ea9447876f3a080ab03cdd636e49a">&#9670;&#160;</a></span>flip_ud() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::flip_ud </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flip the texture vertically (up/down). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>Input texture to be flipped. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8a5ff34f817dd9993eb2dc1df44373e5" name="a8a5ff34f817dd9993eb2dc1df44373e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a5ff34f817dd9993eb2dc1df44373e5">&#9670;&#160;</a></span>rot180() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::rot180 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rotate the texture by 180 degrees. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>Input texture to be rotated. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a078f509a586adcdf1ff75eb828d7ceb5" name="a078f509a586adcdf1ff75eb828d7ceb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a078f509a586adcdf1ff75eb828d7ceb5">&#9670;&#160;</a></span>rot270() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::rot270 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rotate the texture by 270 degrees counterclockwise. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>Input texture to be rotated. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7d27d0392fb6850a212bee00cb58700c" name="a7d27d0392fb6850a212bee00cb58700c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d27d0392fb6850a212bee00cb58700c">&#9670;&#160;</a></span>rot90() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::rot90 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rotate the texture by 90 degrees counterclockwise. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>Input texture to be rotated. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa6e0ddb5fd3b76e1ba7f18d8c4a45549" name="aa6e0ddb5fd3b76e1ba7f18d8c4a45549"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6e0ddb5fd3b76e1ba7f18d8c4a45549">&#9670;&#160;</a></span>scale_uv() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmap::scale_uv </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec2</td>          <td class="paramname"><span class="paramname"><em>uv_scale</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Scale the texture in UV space with wrapping boundary. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>Input texture to be scaled. </td></tr>
+    <tr><td class="paramname">uv_scale</td><td>Scaling factors for U and V dimensions. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa8ffb5a748ba6524f2b121c62819e892" name="aa8ffb5a748ba6524f2b121c62819e892"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8ffb5a748ba6524f2b121c62819e892">&#9670;&#160;</a></span>transpose() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1Texture.html">Texture</a> hmap::transpose </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the transposed texture. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>Input texture to be transposed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Texture.html" title="A class to represent a multi-channel texture using planar hmap::Array storage.">Texture</a> The transposed texture. </dd></dl>
+
+</div>
+</div>
 <a id="a19dec938e688ef4b73cf27ff3934043b" name="a19dec938e688ef4b73cf27ff3934043b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19dec938e688ef4b73cf27ff3934043b">&#9670;&#160;</a></span>flip_lr() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a19dec938e688ef4b73cf27ff3934043b">&#9670;&#160;</a></span>flip_lr() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -55604,48 +56043,23 @@ factor)^2</span>: large exemplars with small <span class="tt">analysis_stride</s
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z = <a class="code hl_function" href="#a8ab34d5f894ffd1ee8723774dc7dbfd8">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>, shape, res, seed);</div>
 <div class="line"> </div>
 <div class="line">  <span class="keyword">auto</span> z1 = z;</div>
-<div class="line">  <a class="code hl_function" href="#a19dec938e688ef4b73cf27ff3934043b">hmap::flip_lr</a>(z1);</div>
+<div class="line">  <a class="code hl_function" href="#afda98f22fc66ebb9e1e48008f3f1a34c">hmap::flip_lr</a>(z1);</div>
 <div class="line"> </div>
 <div class="line">  <span class="keyword">auto</span> z2 = z;</div>
-<div class="line">  <a class="code hl_function" href="#a2c304fc0d8cefe164e3070c885b43aaa">hmap::flip_ud</a>(z2);</div>
+<div class="line">  <a class="code hl_function" href="#a5a5ea9447876f3a080ab03cdd636e49a">hmap::flip_ud</a>(z2);</div>
 <div class="line"> </div>
 <div class="line">  <a class="code hl_function" href="#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_flip_ud.png&quot;</span>, {z, z1, z2}, <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492">hmap::Cmap::VIRIDIS</a>);</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_html_a19dec938e688ef4b73cf27ff3934043b"><div class="ttname"><a href="#a19dec938e688ef4b73cf27ff3934043b">hmap::flip_lr</a></div><div class="ttdeci">void flip_lr(Array &amp;array)</div><div class="ttdoc">Flip the array horizontally (left/right).</div><div class="ttdef"><b>Definition</b> transform.cpp:23</div></div>
-<div class="ttc" id="anamespacehmap_html_a2c304fc0d8cefe164e3070c885b43aaa"><div class="ttname"><a href="#a2c304fc0d8cefe164e3070c885b43aaa">hmap::flip_ud</a></div><div class="ttdeci">void flip_ud(Array &amp;array)</div><div class="ttdoc">Flip the array vertically (up/down).</div><div class="ttdef"><b>Definition</b> transform.cpp:32</div></div>
+<div class="ttc" id="anamespacehmap_html_a5a5ea9447876f3a080ab03cdd636e49a"><div class="ttname"><a href="#a5a5ea9447876f3a080ab03cdd636e49a">hmap::flip_ud</a></div><div class="ttdeci">void flip_ud(Texture &amp;texture)</div><div class="ttdoc">Flip the texture vertically (up/down).</div><div class="ttdef"><b>Definition</b> texture_transform.cpp:25</div></div>
+<div class="ttc" id="anamespacehmap_html_afda98f22fc66ebb9e1e48008f3f1a34c"><div class="ttname"><a href="#afda98f22fc66ebb9e1e48008f3f1a34c">hmap::flip_lr</a></div><div class="ttdeci">void flip_lr(Texture &amp;texture)</div><div class="ttdoc">Flip the texture horizontally (left/right).</div><div class="ttdef"><b>Definition</b> texture_transform.cpp:15</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_flip_ud.png" alt=""/>
 </div>
  
 </div>
 </div>
-<a id="afda98f22fc66ebb9e1e48008f3f1a34c" name="afda98f22fc66ebb9e1e48008f3f1a34c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afda98f22fc66ebb9e1e48008f3f1a34c">&#9670;&#160;</a></span>flip_lr() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::flip_lr </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Flip the texture horizontally (left/right). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td>Input texture to be flipped. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a2c304fc0d8cefe164e3070c885b43aaa" name="a2c304fc0d8cefe164e3070c885b43aaa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c304fc0d8cefe164e3070c885b43aaa">&#9670;&#160;</a></span>flip_ud() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c304fc0d8cefe164e3070c885b43aaa">&#9670;&#160;</a></span>flip_ud() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -55678,10 +56092,10 @@ factor)^2</span>: large exemplars with small <span class="tt">analysis_stride</s
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z = <a class="code hl_function" href="#a8ab34d5f894ffd1ee8723774dc7dbfd8">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>, shape, res, seed);</div>
 <div class="line"> </div>
 <div class="line">  <span class="keyword">auto</span> z1 = z;</div>
-<div class="line">  <a class="code hl_function" href="#a19dec938e688ef4b73cf27ff3934043b">hmap::flip_lr</a>(z1);</div>
+<div class="line">  <a class="code hl_function" href="#afda98f22fc66ebb9e1e48008f3f1a34c">hmap::flip_lr</a>(z1);</div>
 <div class="line"> </div>
 <div class="line">  <span class="keyword">auto</span> z2 = z;</div>
-<div class="line">  <a class="code hl_function" href="#a2c304fc0d8cefe164e3070c885b43aaa">hmap::flip_ud</a>(z2);</div>
+<div class="line">  <a class="code hl_function" href="#a5a5ea9447876f3a080ab03cdd636e49a">hmap::flip_ud</a>(z2);</div>
 <div class="line"> </div>
 <div class="line">  <a class="code hl_function" href="#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_flip_ud.png&quot;</span>, {z, z1, z2}, <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492">hmap::Cmap::VIRIDIS</a>);</div>
 <div class="line">}</div>
@@ -55689,31 +56103,6 @@ factor)^2</span>: large exemplars with small <span class="tt">analysis_stride</s
 <img src="ex_flip_ud.png" alt=""/>
 </div>
  
-</div>
-</div>
-<a id="a5a5ea9447876f3a080ab03cdd636e49a" name="a5a5ea9447876f3a080ab03cdd636e49a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a5ea9447876f3a080ab03cdd636e49a">&#9670;&#160;</a></span>flip_ud() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::flip_ud </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Flip the texture vertically (up/down). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td>Input texture to be flipped. </td></tr>
-  </table>
-  </dd>
-</dl>
-
 </div>
 </div>
 <a id="af9ae05bbdab06ce61f1385ef4231d03b" name="af9ae05bbdab06ce61f1385ef4231d03b"></a>
@@ -55792,7 +56181,7 @@ factor)^2</span>: large exemplars with small <span class="tt">analysis_stride</s
 </div>
 </div>
 <a id="a5a621a9b245b5f9a4c9e5aa3ba3bbee0" name="a5a621a9b245b5f9a4c9e5aa3ba3bbee0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a621a9b245b5f9a4c9e5aa3ba3bbee0">&#9670;&#160;</a></span>rot180() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a621a9b245b5f9a4c9e5aa3ba3bbee0">&#9670;&#160;</a></span>rot180() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -55817,33 +56206,8 @@ factor)^2</span>: large exemplars with small <span class="tt">analysis_stride</s
 
 </div>
 </div>
-<a id="a8a5ff34f817dd9993eb2dc1df44373e5" name="a8a5ff34f817dd9993eb2dc1df44373e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a5ff34f817dd9993eb2dc1df44373e5">&#9670;&#160;</a></span>rot180() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::rot180 </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Rotate the texture by 180 degrees. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td>Input texture to be rotated. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a836dbf6645c0e60bd887d6f14210b9d3" name="a836dbf6645c0e60bd887d6f14210b9d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a836dbf6645c0e60bd887d6f14210b9d3">&#9670;&#160;</a></span>rot270() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a836dbf6645c0e60bd887d6f14210b9d3">&#9670;&#160;</a></span>rot270() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -55868,33 +56232,8 @@ factor)^2</span>: large exemplars with small <span class="tt">analysis_stride</s
 
 </div>
 </div>
-<a id="a078f509a586adcdf1ff75eb828d7ceb5" name="a078f509a586adcdf1ff75eb828d7ceb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a078f509a586adcdf1ff75eb828d7ceb5">&#9670;&#160;</a></span>rot270() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::rot270 </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Rotate the texture by 270 degrees counterclockwise. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td>Input texture to be rotated. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="ab2362d8dcac398c859dd4ec37214af01" name="ab2362d8dcac398c859dd4ec37214af01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2362d8dcac398c859dd4ec37214af01">&#9670;&#160;</a></span>rot90() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2362d8dcac398c859dd4ec37214af01">&#9670;&#160;</a></span>rot90() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -55927,40 +56266,15 @@ factor)^2</span>: large exemplars with small <span class="tt">analysis_stride</s
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z = <a class="code hl_function" href="#a8ab34d5f894ffd1ee8723774dc7dbfd8">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>, shape, res, seed);</div>
 <div class="line"> </div>
 <div class="line">  <span class="keyword">auto</span> z1 = z;</div>
-<div class="line">  <a class="code hl_function" href="#ab2362d8dcac398c859dd4ec37214af01">hmap::rot90</a>(z1);</div>
+<div class="line">  <a class="code hl_function" href="#a7d27d0392fb6850a212bee00cb58700c">hmap::rot90</a>(z1);</div>
 <div class="line"> </div>
 <div class="line">  <a class="code hl_function" href="#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_rot90.png&quot;</span>, {z, z1}, <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143">hmap::Cmap::INFERNO</a>);</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_html_ab2362d8dcac398c859dd4ec37214af01"><div class="ttname"><a href="#ab2362d8dcac398c859dd4ec37214af01">hmap::rot90</a></div><div class="ttdeci">void rot90(Array &amp;array)</div><div class="ttdoc">Rotate the array by 90 degrees.</div><div class="ttdef"><b>Definition</b> transform.cpp:86</div></div>
+<div class="ttc" id="anamespacehmap_html_a7d27d0392fb6850a212bee00cb58700c"><div class="ttname"><a href="#a7d27d0392fb6850a212bee00cb58700c">hmap::rot90</a></div><div class="ttdeci">void rot90(Texture &amp;texture)</div><div class="ttdoc">Rotate the texture by 90 degrees counterclockwise.</div><div class="ttdef"><b>Definition</b> texture_transform.cpp:35</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_rot90.png" alt=""/>
 </div>
  
-</div>
-</div>
-<a id="a7d27d0392fb6850a212bee00cb58700c" name="a7d27d0392fb6850a212bee00cb58700c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d27d0392fb6850a212bee00cb58700c">&#9670;&#160;</a></span>rot90() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::rot90 </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Rotate the texture by 90 degrees counterclockwise. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td>Input texture to be rotated. </td></tr>
-  </table>
-  </dd>
-</dl>
-
 </div>
 </div>
 <a id="a888dcfe5adb36448366400f04efcde04" name="a888dcfe5adb36448366400f04efcde04"></a>
@@ -56078,7 +56392,7 @@ factor)^2</span>: large exemplars with small <span class="tt">analysis_stride</s
 </div>
 </div>
 <a id="a66ec69d0e52dd23350bed20dbbcb0d08" name="a66ec69d0e52dd23350bed20dbbcb0d08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66ec69d0e52dd23350bed20dbbcb0d08">&#9670;&#160;</a></span>scale_uv() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a66ec69d0e52dd23350bed20dbbcb0d08">&#9670;&#160;</a></span>scale_uv() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -56100,36 +56414,6 @@ factor)^2</span>: large exemplars with small <span class="tt">analysis_stride</s
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">array</td><td>Input array to be scaled. </td></tr>
-    <tr><td class="paramname">uv_scale</td><td>Scaling factors for U and V dimensions. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aa6e0ddb5fd3b76e1ba7f18d8c4a45549" name="aa6e0ddb5fd3b76e1ba7f18d8c4a45549"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6e0ddb5fd3b76e1ba7f18d8c4a45549">&#9670;&#160;</a></span>scale_uv() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::scale_uv </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec2</td>          <td class="paramname"><span class="paramname"><em>uv_scale</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Scale the texture in UV space with wrapping boundary. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td>Input texture to be scaled. </td></tr>
     <tr><td class="paramname">uv_scale</td><td>Scaling factors for U and V dimensions. </td></tr>
   </table>
   </dd>
@@ -56262,7 +56546,7 @@ factor)^2</span>: large exemplars with small <span class="tt">analysis_stride</s
 </div>
 </div>
 <a id="a9b059a298d27843519baa3b6bfe291cd" name="a9b059a298d27843519baa3b6bfe291cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b059a298d27843519baa3b6bfe291cd">&#9670;&#160;</a></span>transpose() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b059a298d27843519baa3b6bfe291cd">&#9670;&#160;</a></span>transpose() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -56288,30 +56572,91 @@ factor)^2</span>: large exemplars with small <span class="tt">analysis_stride</s
 
 </div>
 </div>
-<a id="aa8ffb5a748ba6524f2b121c62819e892" name="aa8ffb5a748ba6524f2b121c62819e892"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8ffb5a748ba6524f2b121c62819e892">&#9670;&#160;</a></span>transpose() <span class="overload">[2/2]</span></h2>
+<a id="a2a16f2f687640ad47e3252d3350620f9" name="a2a16f2f687640ad47e3252d3350620f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a16f2f687640ad47e3252d3350620f9">&#9670;&#160;</a></span>zoom()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classhmap_1_1Texture.html">Texture</a> hmap::transpose </td>
+          <td class="memname"><a class="el" href="classhmap_1_1Array.html">Array</a> hmap::zoom </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1Texture.html">Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>zoom_factor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>periodic</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec2</td>          <td class="paramname"><span class="paramname"><em>center</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> *</td>          <td class="paramname"><span class="paramname"><em>p_noise_x</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> *</td>          <td class="paramname"><span class="paramname"><em>p_noise_y</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec4</td>          <td class="paramname"><span class="paramname"><em>bbox</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Return the transposed texture. </p>
+<p>Applies a zoom effect to a 2D array with an adjustable center. </p>
+<p>This function scales the input 2D array by a specified zoom factor, effectively resizing the array's contents. The zoom operation is centered around a specified point within the array, allowing for flexible zooming behavior. The function supports both periodic boundary conditions, where the array wraps around, and non-periodic conditions, where areas outside the original array bounds are filled with zeros.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">texture</td><td>Input texture to be transposed. </td></tr>
+    <tr><td class="paramname">array</td><td>The input 2D array to be zoomed. This array remains unmodified. </td></tr>
+    <tr><td class="paramname">zoom_factor</td><td>The factor by which to zoom the array. A value greater than 1 enlarges the contents, while a value between 0 and 1 reduces them. </td></tr>
+    <tr><td class="paramname">periodic</td><td>If set to <span class="tt">true</span>, the zoom is periodic, meaning that elements moving out of the array bounds due to the zoom reappear on the opposite side. If <span class="tt">false</span>, areas outside the original array bounds are filled with zeros. The default is <span class="tt">false</span>. </td></tr>
+    <tr><td class="paramname">center</td><td>The center of the zoom operation, specified as a <span class="tt">glm::vec2</span> with coordinates in the range [0, 1], where {0.5f, 0.5f} represents the center of the array. The default center is {0.5f, 0.5f}. </td></tr>
+    <tr><td class="paramname">p_noise_x</td><td>Optional pointer to a 2D array that contains x-direction noise to be added during the zoom operation. If provided, the noise values are applied to the x-coordinates of the zoomed array on a per-element basis. </td></tr>
+    <tr><td class="paramname">p_noise_y</td><td>Optional pointer to a 2D array that contains y-direction noise to be added during the zoom operation. If provided, the noise values are applied to the y-coordinates of the zoomed array on a per-element basis. </td></tr>
+    <tr><td class="paramname">bbox</td><td>Domain bounding box.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Texture.html" title="A class to represent a multi-channel texture using planar hmap::Array storage.">Texture</a> The transposed texture. </dd></dl>
-
+<dl class="section return"><dt>Returns</dt><dd>A new 2D array that is the result of applying the zoom effect to the input <span class="tt">array</span> by the specified <span class="tt">zoom_factor</span> and centered at the specified <span class="tt">center</span>.</dd></dl>
+<p><b>Example</b> </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="highmap_8hpp.html">highmap.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
+<div class="line">{</div>
+<div class="line">  glm::ivec2 shape = {256, 256};</div>
+<div class="line">  glm::vec2  res = {4.f, 4.f};</div>
+<div class="line">  <span class="keywordtype">int</span>        seed = 1;</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z = <a class="code hl_function" href="#a8ab34d5f894ffd1ee8723774dc7dbfd8">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>, shape, res, seed);</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordtype">float</span>     <a class="code hl_function" href="#a2a16f2f687640ad47e3252d3350620f9">zoom</a> = 2.f;</div>
+<div class="line">  glm::vec2 center = {0.25f, 0.f};</div>
+<div class="line"> </div>
+<div class="line">  <span class="keyword">auto</span> z1 = <a class="code hl_function" href="#a2a16f2f687640ad47e3252d3350620f9">hmap::zoom</a>(z, zoom);</div>
+<div class="line">  <span class="keyword">auto</span> z2 = <a class="code hl_function" href="#a2a16f2f687640ad47e3252d3350620f9">hmap::zoom</a>(z, zoom, <span class="keyword">false</span>, center); <span class="comment">// false for not periodic</span></div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// to avoid: zoom &lt; 1.f, w/ periodic boundaries</span></div>
+<div class="line">  <span class="keyword">auto</span> z3 = <a class="code hl_function" href="#a2a16f2f687640ad47e3252d3350620f9">hmap::zoom</a>(z, 0.5f, <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">  <a class="code hl_function" href="#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_zoom.png&quot;</span>, {z, z1, z2, z3}, <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a744ead0b170889e33126895264f1af2c">hmap::Cmap::MAGMA</a>);</div>
+<div class="line">}</div>
+<div class="ttc" id="anamespacehmap_html_a2a16f2f687640ad47e3252d3350620f9"><div class="ttname"><a href="#a2a16f2f687640ad47e3252d3350620f9">hmap::zoom</a></div><div class="ttdeci">Array zoom(const Array &amp;array, float zoom_factor, bool periodic=false, glm::vec2 center={0.5f, 0.5f}, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Applies a zoom effect to a 2D array with an adjustable center.</div><div class="ttdef"><b>Definition</b> transform.cpp:350</div></div>
+</div><!-- fragment --><p><b>Result</b> </p><div class="image">
+<img src="ex_zoom.png" alt=""/>
+</div>
+ 
 </div>
 </div>
 <a id="a19148ad2a95f7ad5b05161e9a0f0f732" name="a19148ad2a95f7ad5b05161e9a0f0f732"></a>
@@ -56675,351 +57020,6 @@ factor)^2</span>: large exemplars with small <span class="tt">analysis_stride</s
 <img src="ex_warp_downslope.png" alt=""/>
 </div>
 <p> This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
-
-</div>
-</div>
-<a id="a2a16f2f687640ad47e3252d3350620f9" name="a2a16f2f687640ad47e3252d3350620f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a16f2f687640ad47e3252d3350620f9">&#9670;&#160;</a></span>zoom()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classhmap_1_1Array.html">Array</a> hmap::zoom </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>zoom_factor</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>periodic</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec2</td>          <td class="paramname"><span class="paramname"><em>center</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> *</td>          <td class="paramname"><span class="paramname"><em>p_noise_x</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> *</td>          <td class="paramname"><span class="paramname"><em>p_noise_y</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec4</td>          <td class="paramname"><span class="paramname"><em>bbox</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>,&#160;1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>}</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Applies a zoom effect to a 2D array with an adjustable center. </p>
-<p>This function scales the input 2D array by a specified zoom factor, effectively resizing the array's contents. The zoom operation is centered around a specified point within the array, allowing for flexible zooming behavior. The function supports both periodic boundary conditions, where the array wraps around, and non-periodic conditions, where areas outside the original array bounds are filled with zeros.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">array</td><td>The input 2D array to be zoomed. This array remains unmodified. </td></tr>
-    <tr><td class="paramname">zoom_factor</td><td>The factor by which to zoom the array. A value greater than 1 enlarges the contents, while a value between 0 and 1 reduces them. </td></tr>
-    <tr><td class="paramname">periodic</td><td>If set to <span class="tt">true</span>, the zoom is periodic, meaning that elements moving out of the array bounds due to the zoom reappear on the opposite side. If <span class="tt">false</span>, areas outside the original array bounds are filled with zeros. The default is <span class="tt">false</span>. </td></tr>
-    <tr><td class="paramname">center</td><td>The center of the zoom operation, specified as a <span class="tt">glm::vec2</span> with coordinates in the range [0, 1], where {0.5f, 0.5f} represents the center of the array. The default center is {0.5f, 0.5f}. </td></tr>
-    <tr><td class="paramname">p_noise_x</td><td>Optional pointer to a 2D array that contains x-direction noise to be added during the zoom operation. If provided, the noise values are applied to the x-coordinates of the zoomed array on a per-element basis. </td></tr>
-    <tr><td class="paramname">p_noise_y</td><td>Optional pointer to a 2D array that contains y-direction noise to be added during the zoom operation. If provided, the noise values are applied to the y-coordinates of the zoomed array on a per-element basis. </td></tr>
-    <tr><td class="paramname">bbox</td><td>Domain bounding box.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A new 2D array that is the result of applying the zoom effect to the input <span class="tt">array</span> by the specified <span class="tt">zoom_factor</span> and centered at the specified <span class="tt">center</span>.</dd></dl>
-<p><b>Example</b> </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="highmap_8hpp.html">highmap.hpp</a>&quot;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">void</span>)</div>
-<div class="line">{</div>
-<div class="line">  glm::ivec2 shape = {256, 256};</div>
-<div class="line">  glm::vec2  res = {4.f, 4.f};</div>
-<div class="line">  <span class="keywordtype">int</span>        seed = 1;</div>
-<div class="line"> </div>
-<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z = <a class="code hl_function" href="#a8ab34d5f894ffd1ee8723774dc7dbfd8">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>, shape, res, seed);</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordtype">float</span>     <a class="code hl_function" href="#a2a16f2f687640ad47e3252d3350620f9">zoom</a> = 2.f;</div>
-<div class="line">  glm::vec2 center = {0.25f, 0.f};</div>
-<div class="line"> </div>
-<div class="line">  <span class="keyword">auto</span> z1 = <a class="code hl_function" href="#a2a16f2f687640ad47e3252d3350620f9">hmap::zoom</a>(z, zoom);</div>
-<div class="line">  <span class="keyword">auto</span> z2 = <a class="code hl_function" href="#a2a16f2f687640ad47e3252d3350620f9">hmap::zoom</a>(z, zoom, <span class="keyword">false</span>, center); <span class="comment">// false for not periodic</span></div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">// to avoid: zoom &lt; 1.f, w/ periodic boundaries</span></div>
-<div class="line">  <span class="keyword">auto</span> z3 = <a class="code hl_function" href="#a2a16f2f687640ad47e3252d3350620f9">hmap::zoom</a>(z, 0.5f, <span class="keyword">true</span>);</div>
-<div class="line"> </div>
-<div class="line">  <a class="code hl_function" href="#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_zoom.png&quot;</span>, {z, z1, z2, z3}, <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a744ead0b170889e33126895264f1af2c">hmap::Cmap::MAGMA</a>);</div>
-<div class="line">}</div>
-<div class="ttc" id="anamespacehmap_html_a2a16f2f687640ad47e3252d3350620f9"><div class="ttname"><a href="#a2a16f2f687640ad47e3252d3350620f9">hmap::zoom</a></div><div class="ttdeci">Array zoom(const Array &amp;array, float zoom_factor, bool periodic=false, glm::vec2 center={0.5f, 0.5f}, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f})</div><div class="ttdoc">Applies a zoom effect to a 2D array with an adjustable center.</div><div class="ttdef"><b>Definition</b> transform.cpp:350</div></div>
-</div><!-- fragment --><p><b>Result</b> </p><div class="image">
-<img src="ex_zoom.png" alt=""/>
-</div>
- 
-</div>
-</div>
-<a id="af45ab826099a96280cbe8701f58742a9" name="af45ab826099a96280cbe8701f58742a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af45ab826099a96280cbe8701f58742a9">&#9670;&#160;</a></span>compute_terrain_alignment() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structhmap_1_1TerrainAlignment.html">TerrainAlignment</a> hmap::compute_terrain_alignment </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lower</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_lower</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>upper</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_upper</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="#a4280f8e4c700035e86e390420de7751d">TerrainAlignMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>huber_delta</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max_iterations</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Compute alignment parameters to fit <code class="param">upper</code> to <code class="param">lower</code> over their common valid area. </p>
-
-</div>
-</div>
-<a id="ae75d2dda9b3122234fb87505b87284d1" name="ae75d2dda9b3122234fb87505b87284d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae75d2dda9b3122234fb87505b87284d1">&#9670;&#160;</a></span>compute_terrain_alignment() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structhmap_1_1TerrainAlignment.html">TerrainAlignment</a> hmap::compute_terrain_alignment </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lower</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_lower</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>upper</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_upper</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="#a4280f8e4c700035e86e390420de7751d">TerrainAlignMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>huber_delta</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max_iterations</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>coarse_size</em></span><span class="paramdefsep"> = </span><span class="paramdefval">128</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Compute alignment parameters for <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> inputs using a coarse <a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> representation. </p>
-
-</div>
-</div>
-<a id="aa43bd69cf1ee61e1e19d6119d9718930" name="aa43bd69cf1ee61e1e19d6119d9718930"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa43bd69cf1ee61e1e19d6119d9718930">&#9670;&#160;</a></span>apply_terrain_alignment() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::apply_terrain_alignment </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>upper</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1TerrainAlignment.html">TerrainAlignment</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>alignment</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Apply precomputed alignment parameters to an <a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> in-place. </p>
-
-</div>
-</div>
-<a id="a2ae51429a580d3d78f51abddf5cc0c71" name="a2ae51429a580d3d78f51abddf5cc0c71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ae51429a580d3d78f51abddf5cc0c71">&#9670;&#160;</a></span>apply_terrain_alignment() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::apply_terrain_alignment </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>upper</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1TerrainAlignment.html">TerrainAlignment</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>alignment</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cm</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a>{}</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Apply precomputed alignment parameters to a <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> in-place. </p>
-
-</div>
-</div>
-<a id="a4a65286bf3ab852931bd679f8c8fd768" name="a4a65286bf3ab852931bd679f8c8fd768"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a65286bf3ab852931bd679f8c8fd768">&#9670;&#160;</a></span>align_terrains() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::align_terrains </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lower</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_lower</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>upper</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_upper</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="#a4280f8e4c700035e86e390420de7751d">TerrainAlignMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>huber_delta</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max_iterations</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Align <code class="param">upper</code> to <code class="param">lower</code> in-place over their common valid area. </p>
-
-</div>
-</div>
-<a id="a4aa4a8c501853bc424424d586d52f24a" name="a4aa4a8c501853bc424424d586d52f24a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4aa4a8c501853bc424424d586d52f24a">&#9670;&#160;</a></span>align_terrains() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmap::align_terrains </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lower</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_lower</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>upper</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmap_1_1CoordFrame.html">CoordFrame</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frame_upper</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="#a4280f8e4c700035e86e390420de7751d">TerrainAlignMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>huber_delta</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max_iterations</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>coarse_size</em></span><span class="paramdefsep"> = </span><span class="paramdefval">128</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cm</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="structhmap_1_1ComputeMode.html">ComputeMode</a>{}</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Align <code class="param">upper</code> <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> to <code class="param">lower</code> <a class="el" href="structhmap_1_1VirtualArray.html">VirtualArray</a> in-place. </p>
 
 </div>
 </div>

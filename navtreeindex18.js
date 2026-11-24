@@ -1,5 +1,7 @@
 var NAVTREEINDEX18 =
 {
+"primitives_8hpp_source.html":[17,0,1,0,0,43],
+"primitives__gpu_8cpp.html":[17,0,1,1,28,0,6],
 "print__array_8cpp.html":[17,0,1,1,20,2],
 "profiles_8hpp.html":[17,0,1,0,0,9,6],
 "profiles_8hpp_source.html":[17,0,1,0,0,9,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX18 =
 "structhmap_1_1ForestScaleSampler.html#a97788d3f9626dafe95907209d15f56b4":[16,0,0,110,6],
 "structhmap_1_1ForestScaleSampler.html#ab0f487da4890a5e22f38a55b41003bb6":[15,0,0,112,7],
 "structhmap_1_1ForestScaleSampler.html#ab0f487da4890a5e22f38a55b41003bb6":[16,0,0,110,7],
-"structhmap_1_1ForestScaleSampler.html#ad4f8dd5bb78fd7cd1013c61a13cc8f04":[15,0,0,112,2],
-"structhmap_1_1ForestScaleSampler.html#ad4f8dd5bb78fd7cd1013c61a13cc8f04":[16,0,0,110,2],
-"structhmap_1_1ForestScaleSampler.html#ae74f404036eca9f6613ab9b148a4661a":[15,0,0,112,1]
+"structhmap_1_1ForestScaleSampler.html#ad4f8dd5bb78fd7cd1013c61a13cc8f04":[15,0,0,112,2]
 };

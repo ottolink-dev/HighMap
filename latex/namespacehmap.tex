@@ -617,6 +617,12 @@ enum \mbox{\hyperlink{namespacehmap_ad9d7f866e3a5140ed694e502c1db44ae}{Normaliza
 , \mbox{\hyperlink{namespacehmap_ad9d7f866e3a5140ed694e502c1db44aeaf15cebde3e8fe2d5c3633e5d118d423c}{NM\+\_\+\+ROBUST}}
  \}
 \begin{DoxyCompactList}\small\item\em Normalization methods. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} \+: int \{ \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090}{TAM\+\_\+\+OFFSET}}
+, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7}{TAM\+\_\+\+PLANE}}
+, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64}{TAM\+\_\+\+ROBUST\+\_\+\+OFFSET}}
+, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716}{TAM\+\_\+\+ROBUST\+\_\+\+PLANE}}
+ \}
+\begin{DoxyCompactList}\small\item\em Alignment modes for fitting an upper terrain to a lower terrain. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455}{Symmetry\+Type}} \+: int \{ \newline
 \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85}{SYMMETRY\+\_\+\+LEFT\+\_\+\+TO\+\_\+\+RIGHT}}
 , \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f}{SYMMETRY\+\_\+\+RIGHT\+\_\+\+TO\+\_\+\+LEFT}}
@@ -629,12 +635,6 @@ enum \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455}{Symmetry\
 , \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351}{SYMMETRY\+\_\+\+ROT180}}
  \}
 \begin{DoxyCompactList}\small\item\em Describes the symmetry operation to apply to an array. \end{DoxyCompactList}\item 
-enum class \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} \+: int \{ \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090}{TAM\+\_\+\+OFFSET}}
-, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7}{TAM\+\_\+\+PLANE}}
-, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64}{TAM\+\_\+\+ROBUST\+\_\+\+OFFSET}}
-, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716}{TAM\+\_\+\+ROBUST\+\_\+\+PLANE}}
- \}
-\begin{DoxyCompactList}\small\item\em Alignment modes for fitting an upper terrain to a lower terrain. \end{DoxyCompactList}\item 
 enum class \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9f}{Reduce\+Op}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9fa78d811e98514cd165dda532286610fd2}{Min}}
 , \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9fa6a061313d22e51e0f25b7cd4dc065233}{Max}}
 , \mbox{\hyperlink{namespacehmap_a53ddf39f16d1bda499b7fce512478e9faa0ec87054b5e5b7847d0d8780a01a3d5}{Sum}}
@@ -2255,56 +2255,6 @@ std\+::vector$<$ float $>$ \mbox{\hyperlink{namespacehmap_aad6a39e70bf2ff70f8367
 \begin{DoxyCompactList}\small\item\em Generate a terrain mesh from a heightmap. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \mbox{\hyperlink{namespacehmap_a5078af3eb73fb47ab1aad6cc872ab29a}{generate\+\_\+terrain\+\_\+tri\+\_\+mesh\+\_\+from\+\_\+heightmap\+\_\+random}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int control\+\_\+points\+\_\+count, std\+::uint32\+\_\+t seed)
 \begin{DoxyCompactList}\small\item\em Generate a random terrain mesh from a heightmap. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a19dec938e688ef4b73cf27ff3934043b}{flip\+\_\+lr}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
-\begin{DoxyCompactList}\small\item\em Flip the array horizontally (left/right). \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_afda98f22fc66ebb9e1e48008f3f1a34c}{flip\+\_\+lr}} (\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture)
-\begin{DoxyCompactList}\small\item\em Flip the texture horizontally (left/right). \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a2c304fc0d8cefe164e3070c885b43aaa}{flip\+\_\+ud}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
-\begin{DoxyCompactList}\small\item\em Flip the array vertically (up/down). \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a5a5ea9447876f3a080ab03cdd636e49a}{flip\+\_\+ud}} (\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture)
-\begin{DoxyCompactList}\small\item\em Flip the texture vertically (up/down). \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_af9ae05bbdab06ce61f1385ef4231d03b}{radial\+\_\+displacement\+\_\+to\+\_\+xy}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dx, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dy, float smoothing=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, glm\+::vec2 center=\{0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
-\begin{DoxyCompactList}\small\item\em Interpret the input array {\ttfamily dr} as a radial displacement and convert it to a pair of displacements {\ttfamily dx} and {\ttfamily dy} in cartesian coordinates. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a5a621a9b245b5f9a4c9e5aa3ba3bbee0}{rot180}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
-\begin{DoxyCompactList}\small\item\em Rotate the array by 180 degrees. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a8a5ff34f817dd9993eb2dc1df44373e5}{rot180}} (\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture)
-\begin{DoxyCompactList}\small\item\em Rotate the texture by 180 degrees. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a836dbf6645c0e60bd887d6f14210b9d3}{rot270}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
-\begin{DoxyCompactList}\small\item\em Rotate the array by 270 degrees. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a078f509a586adcdf1ff75eb828d7ceb5}{rot270}} (\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture)
-\begin{DoxyCompactList}\small\item\em Rotate the texture by 270 degrees counterclockwise. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_ab2362d8dcac398c859dd4ec37214af01}{rot90}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
-\begin{DoxyCompactList}\small\item\em Rotate the array by 90 degrees. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a7d27d0392fb6850a212bee00cb58700c}{rot90}} (\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture)
-\begin{DoxyCompactList}\small\item\em Rotate the texture by 90 degrees counterclockwise. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a888dcfe5adb36448366400f04efcde04}{rotate}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}, bool zoom\+\_\+in=true, bool zero\+\_\+padding=false)
-\begin{DoxyCompactList}\small\item\em Rotate the array by a specified angle. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_ad2d28babba03ed11cf115ab08009de64}{rotate\+\_\+displacement}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&delta, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dx, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dy)
-\begin{DoxyCompactList}\small\item\em Rotates a scalar displacement field into directional X and Y components. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a66ec69d0e52dd23350bed20dbbcb0d08}{scale\+\_\+uv}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec2 uv\+\_\+scale)
-\begin{DoxyCompactList}\small\item\em Scale the array in UV space with wrapping boundary. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_aa6e0ddb5fd3b76e1ba7f18d8c4a45549}{scale\+\_\+uv}} (\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture, glm\+::vec2 uv\+\_\+scale)
-\begin{DoxyCompactList}\small\item\em Scale the texture in UV space with wrapping boundary. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a470d6335083e8263faaae05087078ffe}{symmetrize}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455}{Symmetry\+Type}} symmetry\+\_\+type=\mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85}{Symmetry\+Type\+::\+SYMMETRY\+\_\+\+LEFT\+\_\+\+TO\+\_\+\+RIGHT}}, bool flatten\+\_\+center=false, float flatten\+\_\+radius=0.\+05\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
-\begin{DoxyCompactList}\small\item\em Enforces geometric symmetry on an array. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a6e52fd8e2580523aae968d76461c30b8}{translate}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float dx, float dy, bool periodic=false, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
-\begin{DoxyCompactList}\small\item\em Translates a 2D array by a specified amount along the x and y axes. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a9b059a298d27843519baa3b6bfe291cd}{transpose}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
-\begin{DoxyCompactList}\small\item\em Return the transposed array. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \mbox{\hyperlink{namespacehmap_aa8ffb5a748ba6524f2b121c62819e892}{transpose}} (const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture)
-\begin{DoxyCompactList}\small\item\em Return the transposed texture. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a19148ad2a95f7ad5b05161e9a0f0f732}{warp}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+dx, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+dy)
-\begin{DoxyCompactList}\small\item\em Apply a warping effect to the array. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_accbbc6e5bedf98c7a7fa85fbe364194e}{warp\+\_\+directional}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}, float amount=0.\+02\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int ir=4, bool reverse=false)
-\begin{DoxyCompactList}\small\item\em Apply a warping effect following the downward local gradient direction (deflate/inflate effect). \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a6b780e74228ec5cca45602eb19b8975c}{warp\+\_\+directional}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask, float amount=0.\+02\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int ir=4, bool reverse=false)
-\begin{DoxyCompactList}\small\item\em Apply a warping effect following the downward local gradient direction (deflate/inflate effect) with a mask. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a5d5baa80ff76a31a24e3b348edb0520a}{warp\+\_\+downslope}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float amount=0.\+02\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int ir=4, bool reverse=false)
-\begin{DoxyCompactList}\small\item\em Apply a warping effect following the downward local gradient direction (deflate/inflate effect). \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacehmap_a2dba417aca5a0dcd02509617939d741b}{warp\+\_\+downslope}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask, float amount=0.\+02\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int ir=4, bool reverse=false)
-\begin{DoxyCompactList}\small\item\em Apply a warping effect following the downward local gradient direction (deflate/inflate effect) with a mask. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}{zoom}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float zoom\+\_\+factor, bool periodic=false, glm\+::vec2 center=\{0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
-\begin{DoxyCompactList}\small\item\em Applies a zoom effect to a 2D array with an adjustable center. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \mbox{\hyperlink{namespacehmap_af45ab826099a96280cbe8701f58742a9}{compute\+\_\+terrain\+\_\+alignment}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} mode, float huber\+\_\+delta=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+iterations=10)
 \begin{DoxyCompactList}\small\item\em Compute alignment parameters to fit {\ttfamily upper} to {\ttfamily lower} over their common valid area. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \mbox{\hyperlink{namespacehmap_ae75d2dda9b3122234fb87505b87284d1}{compute\+\_\+terrain\+\_\+alignment}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} mode, float huber\+\_\+delta=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+iterations=10, int coarse\+\_\+size=128)
@@ -2317,6 +2267,56 @@ void \mbox{\hyperlink{namespacehmap_a4a65286bf3ab852931bd679f8c8fd768}{align\+\_
 \begin{DoxyCompactList}\small\item\em Align {\ttfamily upper} to {\ttfamily lower} in-\/place over their common valid area. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacehmap_a4aa4a8c501853bc424424d586d52f24a}{align\+\_\+terrains}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} mode, float huber\+\_\+delta=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+iterations=10, int coarse\+\_\+size=128, const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&cm=\mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}}\{\})
 \begin{DoxyCompactList}\small\item\em Align {\ttfamily upper} \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} to {\ttfamily lower} \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} in-\/place. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_afda98f22fc66ebb9e1e48008f3f1a34c}{flip\+\_\+lr}} (\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture)
+\begin{DoxyCompactList}\small\item\em Flip the texture horizontally (left/right). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a5a5ea9447876f3a080ab03cdd636e49a}{flip\+\_\+ud}} (\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture)
+\begin{DoxyCompactList}\small\item\em Flip the texture vertically (up/down). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a8a5ff34f817dd9993eb2dc1df44373e5}{rot180}} (\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture)
+\begin{DoxyCompactList}\small\item\em Rotate the texture by 180 degrees. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a078f509a586adcdf1ff75eb828d7ceb5}{rot270}} (\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture)
+\begin{DoxyCompactList}\small\item\em Rotate the texture by 270 degrees counterclockwise. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a7d27d0392fb6850a212bee00cb58700c}{rot90}} (\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture)
+\begin{DoxyCompactList}\small\item\em Rotate the texture by 90 degrees counterclockwise. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_aa6e0ddb5fd3b76e1ba7f18d8c4a45549}{scale\+\_\+uv}} (\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture, glm\+::vec2 uv\+\_\+scale)
+\begin{DoxyCompactList}\small\item\em Scale the texture in UV space with wrapping boundary. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \mbox{\hyperlink{namespacehmap_aa8ffb5a748ba6524f2b121c62819e892}{transpose}} (const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&texture)
+\begin{DoxyCompactList}\small\item\em Return the transposed texture. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a19dec938e688ef4b73cf27ff3934043b}{flip\+\_\+lr}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Flip the array horizontally (left/right). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a2c304fc0d8cefe164e3070c885b43aaa}{flip\+\_\+ud}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Flip the array vertically (up/down). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_af9ae05bbdab06ce61f1385ef4231d03b}{radial\+\_\+displacement\+\_\+to\+\_\+xy}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dx, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dy, float smoothing=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, glm\+::vec2 center=\{0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Interpret the input array {\ttfamily dr} as a radial displacement and convert it to a pair of displacements {\ttfamily dx} and {\ttfamily dy} in cartesian coordinates. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a5a621a9b245b5f9a4c9e5aa3ba3bbee0}{rot180}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Rotate the array by 180 degrees. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a836dbf6645c0e60bd887d6f14210b9d3}{rot270}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Rotate the array by 270 degrees. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_ab2362d8dcac398c859dd4ec37214af01}{rot90}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Rotate the array by 90 degrees. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a888dcfe5adb36448366400f04efcde04}{rotate}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}, bool zoom\+\_\+in=true, bool zero\+\_\+padding=false)
+\begin{DoxyCompactList}\small\item\em Rotate the array by a specified angle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_ad2d28babba03ed11cf115ab08009de64}{rotate\+\_\+displacement}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&delta, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dx, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dy)
+\begin{DoxyCompactList}\small\item\em Rotates a scalar displacement field into directional X and Y components. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a66ec69d0e52dd23350bed20dbbcb0d08}{scale\+\_\+uv}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec2 uv\+\_\+scale)
+\begin{DoxyCompactList}\small\item\em Scale the array in UV space with wrapping boundary. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a470d6335083e8263faaae05087078ffe}{symmetrize}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455}{Symmetry\+Type}} symmetry\+\_\+type=\mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85}{Symmetry\+Type\+::\+SYMMETRY\+\_\+\+LEFT\+\_\+\+TO\+\_\+\+RIGHT}}, bool flatten\+\_\+center=false, float flatten\+\_\+radius=0.\+05\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Enforces geometric symmetry on an array. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a6e52fd8e2580523aae968d76461c30b8}{translate}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float dx, float dy, bool periodic=false, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Translates a 2D array by a specified amount along the x and y axes. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a9b059a298d27843519baa3b6bfe291cd}{transpose}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Return the transposed array. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}{zoom}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float zoom\+\_\+factor, bool periodic=false, glm\+::vec2 center=\{0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Applies a zoom effect to a 2D array with an adjustable center. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a19148ad2a95f7ad5b05161e9a0f0f732}{warp}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+dx, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+dy)
+\begin{DoxyCompactList}\small\item\em Apply a warping effect to the array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_accbbc6e5bedf98c7a7fa85fbe364194e}{warp\+\_\+directional}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}, float amount=0.\+02\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int ir=4, bool reverse=false)
+\begin{DoxyCompactList}\small\item\em Apply a warping effect following the downward local gradient direction (deflate/inflate effect). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a6b780e74228ec5cca45602eb19b8975c}{warp\+\_\+directional}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask, float amount=0.\+02\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int ir=4, bool reverse=false)
+\begin{DoxyCompactList}\small\item\em Apply a warping effect following the downward local gradient direction (deflate/inflate effect) with a mask. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a5d5baa80ff76a31a24e3b348edb0520a}{warp\+\_\+downslope}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float amount=0.\+02\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int ir=4, bool reverse=false)
+\begin{DoxyCompactList}\small\item\em Apply a warping effect following the downward local gradient direction (deflate/inflate effect). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a2dba417aca5a0dcd02509617939d741b}{warp\+\_\+downslope}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+mask, float amount=0.\+02\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int ir=4, bool reverse=false)
+\begin{DoxyCompactList}\small\item\em Apply a warping effect following the downward local gradient direction (deflate/inflate effect) with a mask. \end{DoxyCompactList}\item 
 std\+::vector$<$ size\+\_\+t $>$ \mbox{\hyperlink{namespacehmap_a8be122241fa42b0f6a7ef67106391780}{argsort}} (const std\+::vector$<$ float $>$ \&v)
 \begin{DoxyCompactList}\small\item\em Returns the indices that would sort the vector. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{namespacehmap_a9f89bb49dba35b60582df3749d8524b8}{compute\+\_\+median}} (std\+::vector$<$ float $>$ values)
@@ -3904,6 +3904,34 @@ NM\+\_\+\+ROBUST&\\
 \hline
 
 \end{DoxyEnumFields}
+\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751d}\index{hmap@{hmap}!TerrainAlignMode@{TerrainAlignMode}}
+\index{TerrainAlignMode@{TerrainAlignMode}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{TerrainAlignMode}{TerrainAlignMode}}
+{\footnotesize\ttfamily \label{namespacehmap_a4280f8e4c700035e86e390420de7751d} 
+enum class \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{hmap\+::\+Terrain\+Align\+Mode}} \+: int\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Alignment modes for fitting an upper terrain to a lower terrain. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TAM\_OFFSET@{TAM\_OFFSET}!hmap@{hmap}}\index{hmap@{hmap}!TAM\_OFFSET@{TAM\_OFFSET}}}\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090}\label{namespacehmap_a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090} 
+TAM\+\_\+\+OFFSET&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TAM\_PLANE@{TAM\_PLANE}!hmap@{hmap}}\index{hmap@{hmap}!TAM\_PLANE@{TAM\_PLANE}}}\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7}\label{namespacehmap_a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7} 
+TAM\+\_\+\+PLANE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TAM\_ROBUST\_OFFSET@{TAM\_ROBUST\_OFFSET}!hmap@{hmap}}\index{hmap@{hmap}!TAM\_ROBUST\_OFFSET@{TAM\_ROBUST\_OFFSET}}}\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64}\label{namespacehmap_a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64} 
+TAM\+\_\+\+ROBUST\+\_\+\+OFFSET&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TAM\_ROBUST\_PLANE@{TAM\_ROBUST\_PLANE}!hmap@{hmap}}\index{hmap@{hmap}!TAM\_ROBUST\_PLANE@{TAM\_ROBUST\_PLANE}}}\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716}\label{namespacehmap_a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716} 
+TAM\+\_\+\+ROBUST\+\_\+\+PLANE&\\
+\hline
+
+\end{DoxyEnumFields}
 \Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455}\index{hmap@{hmap}!SymmetryType@{SymmetryType}}
 \index{SymmetryType@{SymmetryType}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{SymmetryType}{SymmetryType}}
@@ -3945,34 +3973,6 @@ SYMMETRY\+\_\+\+XY&4-\/quadrant symmetric average across both X and Y. \\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYMMETRY\_ROT180@{SYMMETRY\_ROT180}!hmap@{hmap}}\index{hmap@{hmap}!SYMMETRY\_ROT180@{SYMMETRY\_ROT180}}}\Hypertarget{namespacehmap_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351}\label{namespacehmap_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351} 
 SYMMETRY\+\_\+\+ROT180&180-\/degree rotational symmetry around center. \\
-\hline
-
-\end{DoxyEnumFields}
-\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751d}\index{hmap@{hmap}!TerrainAlignMode@{TerrainAlignMode}}
-\index{TerrainAlignMode@{TerrainAlignMode}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{TerrainAlignMode}{TerrainAlignMode}}
-{\footnotesize\ttfamily \label{namespacehmap_a4280f8e4c700035e86e390420de7751d} 
-enum class \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{hmap\+::\+Terrain\+Align\+Mode}} \+: int\hspace{0.3cm}{\ttfamily [strong]}}
-
-
-
-Alignment modes for fitting an upper terrain to a lower terrain. 
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TAM\_OFFSET@{TAM\_OFFSET}!hmap@{hmap}}\index{hmap@{hmap}!TAM\_OFFSET@{TAM\_OFFSET}}}\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090}\label{namespacehmap_a4280f8e4c700035e86e390420de7751dabbb4cc47a3edc8cfe6f4e1f96dcaf090} 
-TAM\+\_\+\+OFFSET&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TAM\_PLANE@{TAM\_PLANE}!hmap@{hmap}}\index{hmap@{hmap}!TAM\_PLANE@{TAM\_PLANE}}}\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7}\label{namespacehmap_a4280f8e4c700035e86e390420de7751da9804b1d0853c726915d4500ecd8a7af7} 
-TAM\+\_\+\+PLANE&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TAM\_ROBUST\_OFFSET@{TAM\_ROBUST\_OFFSET}!hmap@{hmap}}\index{hmap@{hmap}!TAM\_ROBUST\_OFFSET@{TAM\_ROBUST\_OFFSET}}}\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64}\label{namespacehmap_a4280f8e4c700035e86e390420de7751dac92b9c7df66d59c1e19b37983ae5fd64} 
-TAM\+\_\+\+ROBUST\+\_\+\+OFFSET&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TAM\_ROBUST\_PLANE@{TAM\_ROBUST\_PLANE}!hmap@{hmap}}\index{hmap@{hmap}!TAM\_ROBUST\_PLANE@{TAM\_ROBUST\_PLANE}}}\Hypertarget{namespacehmap_a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716}\label{namespacehmap_a4280f8e4c700035e86e390420de7751da2ec31d52df834409136f6e55a5cde716} 
-TAM\+\_\+\+ROBUST\+\_\+\+PLANE&\\
 \hline
 
 \end{DoxyEnumFields}
@@ -37423,9 +37423,179 @@ Generate a terrain mesh from a heightmap.
 
 Generate a random terrain mesh from a heightmap. 
 
-\Hypertarget{namespacehmap_a19dec938e688ef4b73cf27ff3934043b}\index{hmap@{hmap}!flip\_lr@{flip\_lr}}
+\Hypertarget{namespacehmap_af45ab826099a96280cbe8701f58742a9}\index{hmap@{hmap}!compute\_terrain\_alignment@{compute\_terrain\_alignment}}
+\index{compute\_terrain\_alignment@{compute\_terrain\_alignment}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{compute\_terrain\_alignment()}{compute\_terrain\_alignment()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_af45ab826099a96280cbe8701f58742a9} 
+\mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} hmap\+::compute\+\_\+terrain\+\_\+alignment (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}}}]{mode}{, }\item[{float}]{huber\+\_\+delta}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{max\+\_\+iterations}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
+
+
+
+Compute alignment parameters to fit {\ttfamily upper} to {\ttfamily lower} over their common valid area. 
+
+\Hypertarget{namespacehmap_ae75d2dda9b3122234fb87505b87284d1}\index{hmap@{hmap}!compute\_terrain\_alignment@{compute\_terrain\_alignment}}
+\index{compute\_terrain\_alignment@{compute\_terrain\_alignment}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{compute\_terrain\_alignment()}{compute\_terrain\_alignment()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_ae75d2dda9b3122234fb87505b87284d1} 
+\mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} hmap\+::compute\+\_\+terrain\+\_\+alignment (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}}}]{mode}{, }\item[{float}]{huber\+\_\+delta}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{max\+\_\+iterations}{ = {\ttfamily 10}, }\item[{int}]{coarse\+\_\+size}{ = {\ttfamily 128}}\end{DoxyParamCaption})}
+
+
+
+Compute alignment parameters for \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} inputs using a coarse \doxylink{classhmap_1_1Array}{Array} representation. 
+
+\Hypertarget{namespacehmap_aa43bd69cf1ee61e1e19d6119d9718930}\index{hmap@{hmap}!apply\_terrain\_alignment@{apply\_terrain\_alignment}}
+\index{apply\_terrain\_alignment@{apply\_terrain\_alignment}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{apply\_terrain\_alignment()}{apply\_terrain\_alignment()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_aa43bd69cf1ee61e1e19d6119d9718930} 
+void hmap\+::apply\+\_\+terrain\+\_\+alignment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \&}]{alignment}{}\end{DoxyParamCaption})}
+
+
+
+Apply precomputed alignment parameters to an \doxylink{classhmap_1_1Array}{Array} in-\/place. 
+
+\Hypertarget{namespacehmap_a2ae51429a580d3d78f51abddf5cc0c71}\index{hmap@{hmap}!apply\_terrain\_alignment@{apply\_terrain\_alignment}}
+\index{apply\_terrain\_alignment@{apply\_terrain\_alignment}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{apply\_terrain\_alignment()}{apply\_terrain\_alignment()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a2ae51429a580d3d78f51abddf5cc0c71} 
+void hmap\+::apply\+\_\+terrain\+\_\+alignment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \&}]{alignment}{, }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm}{ = {\ttfamily \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}}\{\}}}\end{DoxyParamCaption})}
+
+
+
+Apply precomputed alignment parameters to a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} in-\/place. 
+
+\Hypertarget{namespacehmap_a4a65286bf3ab852931bd679f8c8fd768}\index{hmap@{hmap}!align\_terrains@{align\_terrains}}
+\index{align\_terrains@{align\_terrains}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{align\_terrains()}{align\_terrains()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a4a65286bf3ab852931bd679f8c8fd768} 
+void hmap\+::align\+\_\+terrains (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}}}]{mode}{, }\item[{float}]{huber\+\_\+delta}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{max\+\_\+iterations}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
+
+
+
+Align {\ttfamily upper} to {\ttfamily lower} in-\/place over their common valid area. 
+
+\Hypertarget{namespacehmap_a4aa4a8c501853bc424424d586d52f24a}\index{hmap@{hmap}!align\_terrains@{align\_terrains}}
+\index{align\_terrains@{align\_terrains}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{align\_terrains()}{align\_terrains()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a4aa4a8c501853bc424424d586d52f24a} 
+void hmap\+::align\+\_\+terrains (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}}}]{mode}{, }\item[{float}]{huber\+\_\+delta}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{max\+\_\+iterations}{ = {\ttfamily 10}, }\item[{int}]{coarse\+\_\+size}{ = {\ttfamily 128}, }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm}{ = {\ttfamily \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}}\{\}}}\end{DoxyParamCaption})}
+
+
+
+Align {\ttfamily upper} \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} to {\ttfamily lower} \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} in-\/place. 
+
+\Hypertarget{namespacehmap_afda98f22fc66ebb9e1e48008f3f1a34c}\index{hmap@{hmap}!flip\_lr@{flip\_lr}}
 \index{flip\_lr@{flip\_lr}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{flip\_lr()}{flip\_lr()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_afda98f22fc66ebb9e1e48008f3f1a34c} 
+void hmap\+::flip\+\_\+lr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})}
+
+
+
+Flip the texture horizontally (left/right). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em texture} & Input texture to be flipped. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_a5a5ea9447876f3a080ab03cdd636e49a}\index{hmap@{hmap}!flip\_ud@{flip\_ud}}
+\index{flip\_ud@{flip\_ud}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{flip\_ud()}{flip\_ud()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a5a5ea9447876f3a080ab03cdd636e49a} 
+void hmap\+::flip\+\_\+ud (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})}
+
+
+
+Flip the texture vertically (up/down). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em texture} & Input texture to be flipped. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_a8a5ff34f817dd9993eb2dc1df44373e5}\index{hmap@{hmap}!rot180@{rot180}}
+\index{rot180@{rot180}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{rot180()}{rot180()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a8a5ff34f817dd9993eb2dc1df44373e5} 
+void hmap\+::rot180 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})}
+
+
+
+Rotate the texture by 180 degrees. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em texture} & Input texture to be rotated. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_a078f509a586adcdf1ff75eb828d7ceb5}\index{hmap@{hmap}!rot270@{rot270}}
+\index{rot270@{rot270}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{rot270()}{rot270()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a078f509a586adcdf1ff75eb828d7ceb5} 
+void hmap\+::rot270 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})}
+
+
+
+Rotate the texture by 270 degrees counterclockwise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em texture} & Input texture to be rotated. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_a7d27d0392fb6850a212bee00cb58700c}\index{hmap@{hmap}!rot90@{rot90}}
+\index{rot90@{rot90}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{rot90()}{rot90()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_a7d27d0392fb6850a212bee00cb58700c} 
+void hmap\+::rot90 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})}
+
+
+
+Rotate the texture by 90 degrees counterclockwise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em texture} & Input texture to be rotated. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_aa6e0ddb5fd3b76e1ba7f18d8c4a45549}\index{hmap@{hmap}!scale\_uv@{scale\_uv}}
+\index{scale\_uv@{scale\_uv}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{scale\_uv()}{scale\_uv()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_aa6e0ddb5fd3b76e1ba7f18d8c4a45549} 
+void hmap\+::scale\+\_\+uv (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{, }\item[{glm\+::vec2}]{uv\+\_\+scale}{}\end{DoxyParamCaption})}
+
+
+
+Scale the texture in UV space with wrapping boundary. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em texture} & Input texture to be scaled. \\
+\hline
+{\em uv\+\_\+scale} & Scaling factors for U and V dimensions. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacehmap_aa8ffb5a748ba6524f2b121c62819e892}\index{hmap@{hmap}!transpose@{transpose}}
+\index{transpose@{transpose}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{transpose()}{transpose()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacehmap_aa8ffb5a748ba6524f2b121c62819e892} 
+\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} hmap\+::transpose (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})}
+
+
+
+Return the transposed texture. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em texture} & Input texture to be transposed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classhmap_1_1Texture}{Texture} The transposed texture. 
+\end{DoxyReturn}
+\Hypertarget{namespacehmap_a19dec938e688ef4b73cf27ff3934043b}\index{hmap@{hmap}!flip\_lr@{flip\_lr}}
+\index{flip\_lr@{flip\_lr}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{flip\_lr()}{flip\_lr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{namespacehmap_a19dec938e688ef4b73cf27ff3934043b} 
 void hmap\+::flip\+\_\+lr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{}\end{DoxyParamCaption})}
 
@@ -37453,10 +37623,10 @@ This function flips the input array along the vertical axis, resulting in a left
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\ =\ \mbox{\hyperlink{namespacehmap_a8ab34d5f894ffd1ee8723774dc7dbfd8}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ shape,\ res,\ seed);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z1\ =\ z;}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a19dec938e688ef4b73cf27ff3934043b}{hmap::flip\_lr}}(z1);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_afda98f22fc66ebb9e1e48008f3f1a34c}{hmap::flip\_lr}}(z1);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z2\ =\ z;}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a2c304fc0d8cefe164e3070c885b43aaa}{hmap::flip\_ud}}(z2);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a5a5ea9447876f3a080ab03cdd636e49a}{hmap::flip\_ud}}(z2);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_flip\_ud.png"{}},\ \{z,\ z1,\ z2\},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492}{hmap::Cmap::VIRIDIS}});}
 \DoxyCodeLine{\}}
@@ -37464,24 +37634,9 @@ This function flips the input array along the vertical axis, resulting in a left
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_afda98f22fc66ebb9e1e48008f3f1a34c}\index{hmap@{hmap}!flip\_lr@{flip\_lr}}
-\index{flip\_lr@{flip\_lr}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{flip\_lr()}{flip\_lr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_afda98f22fc66ebb9e1e48008f3f1a34c} 
-void hmap\+::flip\+\_\+lr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})}
-
-
-
-Flip the texture horizontally (left/right). 
-
-
-\begin{DoxyParams}{Parameters}
-{\em texture} & Input texture to be flipped. \\
-\hline
-\end{DoxyParams}
-\Hypertarget{namespacehmap_a2c304fc0d8cefe164e3070c885b43aaa}\index{hmap@{hmap}!flip\_ud@{flip\_ud}}
+{\bfseries{Result}}  \Hypertarget{namespacehmap_a2c304fc0d8cefe164e3070c885b43aaa}\index{hmap@{hmap}!flip\_ud@{flip\_ud}}
 \index{flip\_ud@{flip\_ud}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{flip\_ud()}{flip\_ud()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{flip\_ud()}{flip\_ud()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{namespacehmap_a2c304fc0d8cefe164e3070c885b43aaa} 
 void hmap\+::flip\+\_\+ud (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{}\end{DoxyParamCaption})}
 
@@ -37509,10 +37664,10 @@ This function flips the input array along the horizontal axis, resulting in an u
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\ =\ \mbox{\hyperlink{namespacehmap_a8ab34d5f894ffd1ee8723774dc7dbfd8}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ shape,\ res,\ seed);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z1\ =\ z;}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a19dec938e688ef4b73cf27ff3934043b}{hmap::flip\_lr}}(z1);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_afda98f22fc66ebb9e1e48008f3f1a34c}{hmap::flip\_lr}}(z1);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z2\ =\ z;}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a2c304fc0d8cefe164e3070c885b43aaa}{hmap::flip\_ud}}(z2);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a5a5ea9447876f3a080ab03cdd636e49a}{hmap::flip\_ud}}(z2);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_flip\_ud.png"{}},\ \{z,\ z1,\ z2\},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a0741a9943ed0e5c50042ef82d4d55492}{hmap::Cmap::VIRIDIS}});}
 \DoxyCodeLine{\}}
@@ -37520,22 +37675,7 @@ This function flips the input array along the horizontal axis, resulting in an u
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a5a5ea9447876f3a080ab03cdd636e49a}\index{hmap@{hmap}!flip\_ud@{flip\_ud}}
-\index{flip\_ud@{flip\_ud}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{flip\_ud()}{flip\_ud()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_a5a5ea9447876f3a080ab03cdd636e49a} 
-void hmap\+::flip\+\_\+ud (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})}
-
-
-
-Flip the texture vertically (up/down). 
-
-
-\begin{DoxyParams}{Parameters}
-{\em texture} & Input texture to be flipped. \\
-\hline
-\end{DoxyParams}
-\Hypertarget{namespacehmap_af9ae05bbdab06ce61f1385ef4231d03b}\index{hmap@{hmap}!radial\_displacement\_to\_xy@{radial\_displacement\_to\_xy}}
+{\bfseries{Result}}  \Hypertarget{namespacehmap_af9ae05bbdab06ce61f1385ef4231d03b}\index{hmap@{hmap}!radial\_displacement\_to\_xy@{radial\_displacement\_to\_xy}}
 \index{radial\_displacement\_to\_xy@{radial\_displacement\_to\_xy}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{radial\_displacement\_to\_xy()}{radial\_displacement\_to\_xy()}}
 {\footnotesize\ttfamily \label{namespacehmap_af9ae05bbdab06ce61f1385ef4231d03b} 
@@ -37585,7 +37725,7 @@ Interpret the input array {\ttfamily dr} as a radial displacement and convert it
 
 {\bfseries{Result}}  \Hypertarget{namespacehmap_a5a621a9b245b5f9a4c9e5aa3ba3bbee0}\index{hmap@{hmap}!rot180@{rot180}}
 \index{rot180@{rot180}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{rot180()}{rot180()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{rot180()}{rot180()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{namespacehmap_a5a621a9b245b5f9a4c9e5aa3ba3bbee0} 
 void hmap\+::rot180 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{}\end{DoxyParamCaption})}
 
@@ -37600,24 +37740,9 @@ This function rotates the input array by 180 degrees in the counterclockwise dir
 {\em array} & Input array to be rotated by 180 degrees. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{namespacehmap_a8a5ff34f817dd9993eb2dc1df44373e5}\index{hmap@{hmap}!rot180@{rot180}}
-\index{rot180@{rot180}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{rot180()}{rot180()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_a8a5ff34f817dd9993eb2dc1df44373e5} 
-void hmap\+::rot180 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})}
-
-
-
-Rotate the texture by 180 degrees. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em texture} & Input texture to be rotated. \\
-\hline
-\end{DoxyParams}
 \Hypertarget{namespacehmap_a836dbf6645c0e60bd887d6f14210b9d3}\index{hmap@{hmap}!rot270@{rot270}}
 \index{rot270@{rot270}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{rot270()}{rot270()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{rot270()}{rot270()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{namespacehmap_a836dbf6645c0e60bd887d6f14210b9d3} 
 void hmap\+::rot270 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{}\end{DoxyParamCaption})}
 
@@ -37632,24 +37757,9 @@ This function rotates the input array by 270 degrees in the counterclockwise dir
 {\em array} & Input array to be rotated by 270 degrees. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{namespacehmap_a078f509a586adcdf1ff75eb828d7ceb5}\index{hmap@{hmap}!rot270@{rot270}}
-\index{rot270@{rot270}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{rot270()}{rot270()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_a078f509a586adcdf1ff75eb828d7ceb5} 
-void hmap\+::rot270 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})}
-
-
-
-Rotate the texture by 270 degrees counterclockwise. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em texture} & Input texture to be rotated. \\
-\hline
-\end{DoxyParams}
 \Hypertarget{namespacehmap_ab2362d8dcac398c859dd4ec37214af01}\index{hmap@{hmap}!rot90@{rot90}}
 \index{rot90@{rot90}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{rot90()}{rot90()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{rot90()}{rot90()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{namespacehmap_ab2362d8dcac398c859dd4ec37214af01} 
 void hmap\+::rot90 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{}\end{DoxyParamCaption})}
 
@@ -37677,7 +37787,7 @@ This function rotates the input array by 90 degrees in the counterclockwise dire
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\ =\ \mbox{\hyperlink{namespacehmap_a8ab34d5f894ffd1ee8723774dc7dbfd8}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ shape,\ res,\ seed);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z1\ =\ z;}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ab2362d8dcac398c859dd4ec37214af01}{hmap::rot90}}(z1);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_a7d27d0392fb6850a212bee00cb58700c}{hmap::rot90}}(z1);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_rot90.png"{}},\ \{z,\ z1\},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143}{hmap::Cmap::INFERNO}});}
 \DoxyCodeLine{\}}
@@ -37685,22 +37795,7 @@ This function rotates the input array by 90 degrees in the counterclockwise dire
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  \Hypertarget{namespacehmap_a7d27d0392fb6850a212bee00cb58700c}\index{hmap@{hmap}!rot90@{rot90}}
-\index{rot90@{rot90}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{rot90()}{rot90()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_a7d27d0392fb6850a212bee00cb58700c} 
-void hmap\+::rot90 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})}
-
-
-
-Rotate the texture by 90 degrees counterclockwise. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em texture} & Input texture to be rotated. \\
-\hline
-\end{DoxyParams}
-\Hypertarget{namespacehmap_a888dcfe5adb36448366400f04efcde04}\index{hmap@{hmap}!rotate@{rotate}}
+{\bfseries{Result}}  \Hypertarget{namespacehmap_a888dcfe5adb36448366400f04efcde04}\index{hmap@{hmap}!rotate@{rotate}}
 \index{rotate@{rotate}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{rotate()}{rotate()}}
 {\footnotesize\ttfamily \label{namespacehmap_a888dcfe5adb36448366400f04efcde04} 
@@ -37777,7 +37872,7 @@ This function converts a scalar displacement map into two directional components
 \end{DoxyParams}
 \Hypertarget{namespacehmap_a66ec69d0e52dd23350bed20dbbcb0d08}\index{hmap@{hmap}!scale\_uv@{scale\_uv}}
 \index{scale\_uv@{scale\_uv}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{scale\_uv()}{scale\_uv()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{scale\_uv()}{scale\_uv()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{namespacehmap_a66ec69d0e52dd23350bed20dbbcb0d08} 
 void hmap\+::scale\+\_\+uv (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{, }\item[{glm\+::vec2}]{uv\+\_\+scale}{}\end{DoxyParamCaption})}
 
@@ -37788,23 +37883,6 @@ Scale the array in UV space with wrapping boundary.
 
 \begin{DoxyParams}{Parameters}
 {\em array} & Input array to be scaled. \\
-\hline
-{\em uv\+\_\+scale} & Scaling factors for U and V dimensions. \\
-\hline
-\end{DoxyParams}
-\Hypertarget{namespacehmap_aa6e0ddb5fd3b76e1ba7f18d8c4a45549}\index{hmap@{hmap}!scale\_uv@{scale\_uv}}
-\index{scale\_uv@{scale\_uv}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{scale\_uv()}{scale\_uv()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_aa6e0ddb5fd3b76e1ba7f18d8c4a45549} 
-void hmap\+::scale\+\_\+uv (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{, }\item[{glm\+::vec2}]{uv\+\_\+scale}{}\end{DoxyParamCaption})}
-
-
-
-Scale the texture in UV space with wrapping boundary. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em texture} & Input texture to be scaled. \\
 \hline
 {\em uv\+\_\+scale} & Scaling factors for U and V dimensions. \\
 \hline
@@ -37889,7 +37967,7 @@ A new 2D array that is the result of translating the input {\ttfamily array} by 
 
 {\bfseries{Result}}  \Hypertarget{namespacehmap_a9b059a298d27843519baa3b6bfe291cd}\index{hmap@{hmap}!transpose@{transpose}}
 \index{transpose@{transpose}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{transpose()}{transpose()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{transpose()}{transpose()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{namespacehmap_a9b059a298d27843519baa3b6bfe291cd} 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::transpose (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{}\end{DoxyParamCaption})}
 
@@ -37907,25 +37985,66 @@ This function returns a new array that is the transpose of the input array. The 
 \begin{DoxyReturn}{Returns}
 \doxylink{classhmap_1_1Array}{Array} The transposed array. 
 \end{DoxyReturn}
-\Hypertarget{namespacehmap_aa8ffb5a748ba6524f2b121c62819e892}\index{hmap@{hmap}!transpose@{transpose}}
-\index{transpose@{transpose}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{transpose()}{transpose()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_aa8ffb5a748ba6524f2b121c62819e892} 
-\mbox{\hyperlink{classhmap_1_1Texture}{Texture}} hmap\+::transpose (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Texture}{Texture}} \&}]{texture}{}\end{DoxyParamCaption})}
+\Hypertarget{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}\index{hmap@{hmap}!zoom@{zoom}}
+\index{zoom@{zoom}!hmap@{hmap}}
+\doxysubsubsection{\texorpdfstring{zoom()}{zoom()}}
+{\footnotesize\ttfamily \label{namespacehmap_a2a16f2f687640ad47e3252d3350620f9} 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::zoom (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{, }\item[{float}]{zoom\+\_\+factor}{, }\item[{bool}]{periodic}{ = {\ttfamily false}, }\item[{glm\+::vec2}]{center}{ = {\ttfamily \{0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}}, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+x}{ = {\ttfamily nullptr}, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+y}{ = {\ttfamily nullptr}, }\item[{glm\+::vec4}]{bbox}{ = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}}}\end{DoxyParamCaption})}
 
 
 
-Return the transposed texture. 
+Applies a zoom effect to a 2D array with an adjustable center. 
+
+This function scales the input 2D array by a specified zoom factor, effectively resizing the array\textquotesingle{}s contents. The zoom operation is centered around a specified point within the array, allowing for flexible zooming behavior. The function supports both periodic boundary conditions, where the array wraps around, and non-\/periodic conditions, where areas outside the original array bounds are filled with zeros.
 
 
 \begin{DoxyParams}{Parameters}
-{\em texture} & Input texture to be transposed. \\
+{\em array} & The input 2D array to be zoomed. This array remains unmodified. \\
+\hline
+{\em zoom\+\_\+factor} & The factor by which to zoom the array. A value greater than 1 enlarges the contents, while a value between 0 and 1 reduces them. \\
+\hline
+{\em periodic} & If set to {\ttfamily true}, the zoom is periodic, meaning that elements moving out of the array bounds due to the zoom reappear on the opposite side. If {\ttfamily false}, areas outside the original array bounds are filled with zeros. The default is {\ttfamily false}. \\
+\hline
+{\em center} & The center of the zoom operation, specified as a {\ttfamily glm\+::vec2} with coordinates in the range \mbox{[}0, 1\mbox{]}, where \{0.\+5f, 0.\+5f\} represents the center of the array. The default center is \{0.\+5f, 0.\+5f\}. \\
+\hline
+{\em p\+\_\+noise\+\_\+x} & Optional pointer to a 2D array that contains x-\/direction noise to be added during the zoom operation. If provided, the noise values are applied to the x-\/coordinates of the zoomed array on a per-\/element basis. \\
+\hline
+{\em p\+\_\+noise\+\_\+y} & Optional pointer to a 2D array that contains y-\/direction noise to be added during the zoom operation. If provided, the noise values are applied to the y-\/coordinates of the zoomed array on a per-\/element basis. \\
+\hline
+{\em bbox} & Domain bounding box.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-\doxylink{classhmap_1_1Texture}{Texture} The transposed texture. 
+A new 2D array that is the result of applying the zoom effect to the input {\ttfamily array} by the specified {\ttfamily zoom\+\_\+factor} and centered at the specified {\ttfamily center}.
 \end{DoxyReturn}
-\Hypertarget{namespacehmap_a19148ad2a95f7ad5b05161e9a0f0f732}\index{hmap@{hmap}!warp@{warp}}
+{\bfseries{Example}} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ glm::ivec2\ shape\ =\ \{256,\ 256\};}
+\DoxyCodeLine{\ \ glm::vec2\ \ res\ =\ \{4.f,\ 4.f\};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ seed\ =\ 1;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\ =\ \mbox{\hyperlink{namespacehmap_a8ab34d5f894ffd1ee8723774dc7dbfd8}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ shape,\ res,\ seed);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{float}\ \ \ \ \ \mbox{\hyperlink{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}{zoom}}\ =\ 2.f;}
+\DoxyCodeLine{\ \ glm::vec2\ center\ =\ \{0.25f,\ 0.f\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z1\ =\ \mbox{\hyperlink{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}{hmap::zoom}}(z,\ zoom);}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z2\ =\ \mbox{\hyperlink{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}{hmap::zoom}}(z,\ zoom,\ \textcolor{keyword}{false},\ center);\ \textcolor{comment}{//\ false\ for\ not\ periodic}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ to\ avoid:\ zoom\ <\ 1.f,\ w/\ periodic\ boundaries}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z3\ =\ \mbox{\hyperlink{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}{hmap::zoom}}(z,\ 0.5f,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_zoom.png"{}},\ \{z,\ z1,\ z2,\ z3\},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a744ead0b170889e33126895264f1af2c}{hmap::Cmap::MAGMA}});}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+{\bfseries{Result}}  \Hypertarget{namespacehmap_a19148ad2a95f7ad5b05161e9a0f0f732}\index{hmap@{hmap}!warp@{warp}}
 \index{warp@{warp}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{warp()}{warp()}}
 {\footnotesize\ttfamily \label{namespacehmap_a19148ad2a95f7ad5b05161e9a0f0f732} 
@@ -38187,126 +38306,7 @@ This overloaded function applies a warping effect to the input array based on th
 \end{DoxyCodeInclude}
 
 
-{\bfseries{Result}}  This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. \Hypertarget{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}\index{hmap@{hmap}!zoom@{zoom}}
-\index{zoom@{zoom}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{zoom()}{zoom()}}
-{\footnotesize\ttfamily \label{namespacehmap_a2a16f2f687640ad47e3252d3350620f9} 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} hmap\+::zoom (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{array}{, }\item[{float}]{zoom\+\_\+factor}{, }\item[{bool}]{periodic}{ = {\ttfamily false}, }\item[{glm\+::vec2}]{center}{ = {\ttfamily \{0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}}, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+x}{ = {\ttfamily nullptr}, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+noise\+\_\+y}{ = {\ttfamily nullptr}, }\item[{glm\+::vec4}]{bbox}{ = {\ttfamily \{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},~1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}}}\end{DoxyParamCaption})}
-
-
-
-Applies a zoom effect to a 2D array with an adjustable center. 
-
-This function scales the input 2D array by a specified zoom factor, effectively resizing the array\textquotesingle{}s contents. The zoom operation is centered around a specified point within the array, allowing for flexible zooming behavior. The function supports both periodic boundary conditions, where the array wraps around, and non-\/periodic conditions, where areas outside the original array bounds are filled with zeros.
-
-
-\begin{DoxyParams}{Parameters}
-{\em array} & The input 2D array to be zoomed. This array remains unmodified. \\
-\hline
-{\em zoom\+\_\+factor} & The factor by which to zoom the array. A value greater than 1 enlarges the contents, while a value between 0 and 1 reduces them. \\
-\hline
-{\em periodic} & If set to {\ttfamily true}, the zoom is periodic, meaning that elements moving out of the array bounds due to the zoom reappear on the opposite side. If {\ttfamily false}, areas outside the original array bounds are filled with zeros. The default is {\ttfamily false}. \\
-\hline
-{\em center} & The center of the zoom operation, specified as a {\ttfamily glm\+::vec2} with coordinates in the range \mbox{[}0, 1\mbox{]}, where \{0.\+5f, 0.\+5f\} represents the center of the array. The default center is \{0.\+5f, 0.\+5f\}. \\
-\hline
-{\em p\+\_\+noise\+\_\+x} & Optional pointer to a 2D array that contains x-\/direction noise to be added during the zoom operation. If provided, the noise values are applied to the x-\/coordinates of the zoomed array on a per-\/element basis. \\
-\hline
-{\em p\+\_\+noise\+\_\+y} & Optional pointer to a 2D array that contains y-\/direction noise to be added during the zoom operation. If provided, the noise values are applied to the y-\/coordinates of the zoomed array on a per-\/element basis. \\
-\hline
-{\em bbox} & Domain bounding box.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-A new 2D array that is the result of applying the zoom effect to the input {\ttfamily array} by the specified {\ttfamily zoom\+\_\+factor} and centered at the specified {\ttfamily center}.
-\end{DoxyReturn}
-{\bfseries{Example}} 
-\begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{highmap_8hpp}{highmap.hpp}}"{}}}
-\DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ glm::ivec2\ shape\ =\ \{256,\ 256\};}
-\DoxyCodeLine{\ \ glm::vec2\ \ res\ =\ \{4.f,\ 4.f\};}
-\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ seed\ =\ 1;}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1Array}{hmap::Array}}\ z\ =\ \mbox{\hyperlink{namespacehmap_a8ab34d5f894ffd1ee8723774dc7dbfd8}{hmap::noise\_fbm}}(\mbox{\hyperlink{namespacehmap_ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581}{hmap::NoiseType::PERLIN}},\ shape,\ res,\ seed);}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{keywordtype}{float}\ \ \ \ \ \mbox{\hyperlink{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}{zoom}}\ =\ 2.f;}
-\DoxyCodeLine{\ \ glm::vec2\ center\ =\ \{0.25f,\ 0.f\};}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z1\ =\ \mbox{\hyperlink{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}{hmap::zoom}}(z,\ zoom);}
-\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z2\ =\ \mbox{\hyperlink{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}{hmap::zoom}}(z,\ zoom,\ \textcolor{keyword}{false},\ center);\ \textcolor{comment}{//\ false\ for\ not\ periodic}}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{comment}{//\ to\ avoid:\ zoom\ <\ 1.f,\ w/\ periodic\ boundaries}}
-\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ z3\ =\ \mbox{\hyperlink{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}{hmap::zoom}}(z,\ 0.5f,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{namespacehmap_ac2452e568959bc21c9b7b09202e5977a}{hmap::export\_banner\_png}}(\textcolor{stringliteral}{"{}ex\_zoom.png"{}},\ \{z,\ z1,\ z2,\ z3\},\ \mbox{\hyperlink{namespacehmap_ac70fe3cbb32e0340d5dd3e15cdcf9369a744ead0b170889e33126895264f1af2c}{hmap::Cmap::MAGMA}});}
-\DoxyCodeLine{\}}
-
-\end{DoxyCodeInclude}
-
-
-{\bfseries{Result}}  \Hypertarget{namespacehmap_af45ab826099a96280cbe8701f58742a9}\index{hmap@{hmap}!compute\_terrain\_alignment@{compute\_terrain\_alignment}}
-\index{compute\_terrain\_alignment@{compute\_terrain\_alignment}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{compute\_terrain\_alignment()}{compute\_terrain\_alignment()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_af45ab826099a96280cbe8701f58742a9} 
-\mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} hmap\+::compute\+\_\+terrain\+\_\+alignment (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}}}]{mode}{, }\item[{float}]{huber\+\_\+delta}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{max\+\_\+iterations}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
-
-
-
-Compute alignment parameters to fit {\ttfamily upper} to {\ttfamily lower} over their common valid area. 
-
-\Hypertarget{namespacehmap_ae75d2dda9b3122234fb87505b87284d1}\index{hmap@{hmap}!compute\_terrain\_alignment@{compute\_terrain\_alignment}}
-\index{compute\_terrain\_alignment@{compute\_terrain\_alignment}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{compute\_terrain\_alignment()}{compute\_terrain\_alignment()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_ae75d2dda9b3122234fb87505b87284d1} 
-\mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} hmap\+::compute\+\_\+terrain\+\_\+alignment (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}}}]{mode}{, }\item[{float}]{huber\+\_\+delta}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{max\+\_\+iterations}{ = {\ttfamily 10}, }\item[{int}]{coarse\+\_\+size}{ = {\ttfamily 128}}\end{DoxyParamCaption})}
-
-
-
-Compute alignment parameters for \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} inputs using a coarse \doxylink{classhmap_1_1Array}{Array} representation. 
-
-\Hypertarget{namespacehmap_aa43bd69cf1ee61e1e19d6119d9718930}\index{hmap@{hmap}!apply\_terrain\_alignment@{apply\_terrain\_alignment}}
-\index{apply\_terrain\_alignment@{apply\_terrain\_alignment}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{apply\_terrain\_alignment()}{apply\_terrain\_alignment()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_aa43bd69cf1ee61e1e19d6119d9718930} 
-void hmap\+::apply\+\_\+terrain\+\_\+alignment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \&}]{alignment}{}\end{DoxyParamCaption})}
-
-
-
-Apply precomputed alignment parameters to an \doxylink{classhmap_1_1Array}{Array} in-\/place. 
-
-\Hypertarget{namespacehmap_a2ae51429a580d3d78f51abddf5cc0c71}\index{hmap@{hmap}!apply\_terrain\_alignment@{apply\_terrain\_alignment}}
-\index{apply\_terrain\_alignment@{apply\_terrain\_alignment}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{apply\_terrain\_alignment()}{apply\_terrain\_alignment()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_a2ae51429a580d3d78f51abddf5cc0c71} 
-void hmap\+::apply\+\_\+terrain\+\_\+alignment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \&}]{alignment}{, }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm}{ = {\ttfamily \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}}\{\}}}\end{DoxyParamCaption})}
-
-
-
-Apply precomputed alignment parameters to a \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} in-\/place. 
-
-\Hypertarget{namespacehmap_a4a65286bf3ab852931bd679f8c8fd768}\index{hmap@{hmap}!align\_terrains@{align\_terrains}}
-\index{align\_terrains@{align\_terrains}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{align\_terrains()}{align\_terrains()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_a4a65286bf3ab852931bd679f8c8fd768} 
-void hmap\+::align\+\_\+terrains (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}}}]{mode}{, }\item[{float}]{huber\+\_\+delta}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{max\+\_\+iterations}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
-
-
-
-Align {\ttfamily upper} to {\ttfamily lower} in-\/place over their common valid area. 
-
-\Hypertarget{namespacehmap_a4aa4a8c501853bc424424d586d52f24a}\index{hmap@{hmap}!align\_terrains@{align\_terrains}}
-\index{align\_terrains@{align\_terrains}!hmap@{hmap}}
-\doxysubsubsection{\texorpdfstring{align\_terrains()}{align\_terrains()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{namespacehmap_a4aa4a8c501853bc424424d586d52f24a} 
-void hmap\+::align\+\_\+terrains (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{lower}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+lower}{, }\item[{\mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&}]{upper}{, }\item[{const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&}]{frame\+\_\+upper}{, }\item[{\mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}}}]{mode}{, }\item[{float}]{huber\+\_\+delta}{ = {\ttfamily 0.1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}, }\item[{int}]{max\+\_\+iterations}{ = {\ttfamily 10}, }\item[{int}]{coarse\+\_\+size}{ = {\ttfamily 128}, }\item[{const \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}} \&}]{cm}{ = {\ttfamily \mbox{\hyperlink{structhmap_1_1ComputeMode}{Compute\+Mode}}\{\}}}\end{DoxyParamCaption})}
-
-
-
-Align {\ttfamily upper} \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} to {\ttfamily lower} \doxylink{structhmap_1_1VirtualArray}{Virtual\+Array} in-\/place. 
-
-\Hypertarget{namespacehmap_a8be122241fa42b0f6a7ef67106391780}\index{hmap@{hmap}!argsort@{argsort}}
+{\bfseries{Result}}  This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. \Hypertarget{namespacehmap_a8be122241fa42b0f6a7ef67106391780}\index{hmap@{hmap}!argsort@{argsort}}
 \index{argsort@{argsort}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{argsort()}{argsort()}}
 {\footnotesize\ttfamily \label{namespacehmap_a8be122241fa42b0f6a7ef67106391780} 

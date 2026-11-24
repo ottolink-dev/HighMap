@@ -1,0 +1,71 @@
+\doxysection{High\+Map/include/highmap/transform/transform.hpp File Reference}
+\hypertarget{transform_2transform_8hpp}{}\label{transform_2transform_8hpp}\index{HighMap/include/highmap/transform/transform.hpp@{HighMap/include/highmap/transform/transform.hpp}}
+
+
+Header file for array transformation functions including rotation, flipping, symmetry, translation, transposition, and zooming.  
+
+
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacehmap}{hmap}}
+\item 
+namespace \mbox{\hyperlink{namespacehmap_1_1gpu}{hmap\+::gpu}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455}{hmap\+::\+Symmetry\+Type}} \+: int \{ \newline
+\mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85}{hmap\+::\+SYMMETRY\+\_\+\+LEFT\+\_\+\+TO\+\_\+\+RIGHT}}
+, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79bd3fb1217eb11add9672f23ff1df8f}{hmap\+::\+SYMMETRY\+\_\+\+RIGHT\+\_\+\+TO\+\_\+\+LEFT}}
+, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a3ddaa2a956cc883b21be2299aaf5b9e6}{hmap\+::\+SYMMETRY\+\_\+\+TOP\+\_\+\+TO\+\_\+\+BOTTOM}}
+, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a9838d1f0cb8214f36e0494dfff4321ad}{hmap\+::\+SYMMETRY\+\_\+\+BOTTOM\+\_\+\+TO\+\_\+\+TOP}}
+, \newline
+\mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a920e2b98c2ac5a04a409d80e07987845}{hmap\+::\+SYMMETRY\+\_\+X}}
+, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a8517750a37931564bdebfecc33af5f8a}{hmap\+::\+SYMMETRY\+\_\+Y}}
+, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455ac1f9f27825b462b902bbcef39630b38e}{hmap\+::\+SYMMETRY\+\_\+\+XY}}
+, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a917f58102d0ebf74aec03c618461d351}{hmap\+::\+SYMMETRY\+\_\+\+ROT180}}
+ \}
+\begin{DoxyCompactList}\small\item\em Describes the symmetry operation to apply to an array. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacehmap_a19dec938e688ef4b73cf27ff3934043b}{hmap\+::flip\+\_\+lr}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Flip the array horizontally (left/right). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a2c304fc0d8cefe164e3070c885b43aaa}{hmap\+::flip\+\_\+ud}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Flip the array vertically (up/down). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_af9ae05bbdab06ce61f1385ef4231d03b}{hmap\+::radial\+\_\+displacement\+\_\+to\+\_\+xy}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dr, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dx, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dy, float smoothing=1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, glm\+::vec2 center=\{0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Interpret the input array {\ttfamily dr} as a radial displacement and convert it to a pair of displacements {\ttfamily dx} and {\ttfamily dy} in cartesian coordinates. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a5a621a9b245b5f9a4c9e5aa3ba3bbee0}{hmap\+::rot180}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Rotate the array by 180 degrees. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a836dbf6645c0e60bd887d6f14210b9d3}{hmap\+::rot270}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Rotate the array by 270 degrees. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_ab2362d8dcac398c859dd4ec37214af01}{hmap\+::rot90}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Rotate the array by 90 degrees. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a888dcfe5adb36448366400f04efcde04}{hmap\+::rotate}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}, bool zoom\+\_\+in=true, bool zero\+\_\+padding=false)
+\begin{DoxyCompactList}\small\item\em Rotate the array by a specified angle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_ad2d28babba03ed11cf115ab08009de64}{hmap\+::rotate\+\_\+displacement}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&delta, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dx, \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&dy)
+\begin{DoxyCompactList}\small\item\em Rotates a scalar displacement field into directional X and Y components. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_a66ec69d0e52dd23350bed20dbbcb0d08}{hmap\+::scale\+\_\+uv}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, glm\+::vec2 uv\+\_\+scale)
+\begin{DoxyCompactList}\small\item\em Scale the array in UV space with wrapping boundary. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a470d6335083e8263faaae05087078ffe}{hmap\+::symmetrize}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, \mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455}{Symmetry\+Type}} symmetry\+\_\+type=\mbox{\hyperlink{namespacehmap_a869e8b1294539de116023ed41279c455a79b52a82baf26f55507020fab0b24e85}{Symmetry\+Type\+::\+SYMMETRY\+\_\+\+LEFT\+\_\+\+TO\+\_\+\+RIGHT}}, bool flatten\+\_\+center=false, float flatten\+\_\+radius=0.\+05\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})
+\begin{DoxyCompactList}\small\item\em Enforces geometric symmetry on an array. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a6e52fd8e2580523aae968d76461c30b8}{hmap\+::translate}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float dx, float dy, bool periodic=false, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Translates a 2D array by a specified amount along the x and y axes. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a9b059a298d27843519baa3b6bfe291cd}{hmap\+::transpose}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array)
+\begin{DoxyCompactList}\small\item\em Return the transposed array. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a2a16f2f687640ad47e3252d3350620f9}{hmap\+::zoom}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float zoom\+\_\+factor, bool periodic=false, glm\+::vec2 center=\{0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\+5\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\}, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+x=nullptr, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \texorpdfstring{$\ast$}{*}p\+\_\+noise\+\_\+y=nullptr, glm\+::vec4 bbox=\{0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\})
+\begin{DoxyCompactList}\small\item\em Applies a zoom effect to a 2D array with an adjustable center. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacehmap_1_1gpu_aab128e15988875b5d350d6f156612aa5}{hmap\+::gpu\+::rotate}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, float \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}, bool zoom\+\_\+in=true)
+\begin{DoxyCompactList}\small\item\em See \doxylink{namespacehmap_a888dcfe5adb36448366400f04efcde04}{hmap\+::rotate}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for array transformation functions including rotation, flipping, symmetry, translation, transposition, and zooming. 
+
+\begin{DoxyAuthor}{Author}
+Otto Link (\href{mailto:otto.link.bv@gmail.com}{\texttt{otto.\+link.\+bv@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2023 Otto Link 
+\end{DoxyCopyright}

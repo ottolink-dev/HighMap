@@ -1,5 +1,7 @@
 var NAVTREEINDEX5 =
 {
+"classhmap_1_1OpenEXRWriter.html#a6017e271fbf0e59b4ad5ecbfab3aab15":[16,0,0,20,7],
+"classhmap_1_1OpenEXRWriter.html#a62bf73e43712e7e3ce7fa00b1ce55bd8":[15,0,0,22,8],
 "classhmap_1_1OpenEXRWriter.html#a62bf73e43712e7e3ce7fa00b1ce55bd8":[16,0,0,20,8],
 "classhmap_1_1OpenEXRWriter.html#a759aac76b0d93b9dad417f45b9f29116":[15,0,0,22,4],
 "classhmap_1_1OpenEXRWriter.html#a759aac76b0d93b9dad417f45b9f29116":[16,0,0,20,4],
@@ -247,7 +249,5 @@ var NAVTREEINDEX5 =
 "classhmap_1_1RectangleFunction.html#a8cf0d110a7ba2aeaa635826757170bc7":[16,0,0,30,7],
 "classhmap_1_1RectangleFunction.html#a9ca3d0221d611a6ebcabcc5beec173a1":[15,0,0,32,5],
 "classhmap_1_1RectangleFunction.html#a9ca3d0221d611a6ebcabcc5beec173a1":[16,0,0,30,5],
-"classhmap_1_1RectangleFunction.html#aa59e5ca6cb37e340760797082cbada86":[15,0,0,32,0],
-"classhmap_1_1RectangleFunction.html#aa59e5ca6cb37e340760797082cbada86":[16,0,0,30,0],
-"classhmap_1_1RiftFunction.html":[15,0,0,33]
+"classhmap_1_1RectangleFunction.html#aa59e5ca6cb37e340760797082cbada86":[15,0,0,32,0]
 };

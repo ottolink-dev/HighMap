@@ -1,5 +1,7 @@
 var NAVTREEINDEX19 =
 {
+"structhmap_1_1ForestScaleSampler.html#ad4f8dd5bb78fd7cd1013c61a13cc8f04":[16,0,0,110,2],
+"structhmap_1_1ForestScaleSampler.html#ae74f404036eca9f6613ab9b148a4661a":[15,0,0,112,1],
 "structhmap_1_1ForestScaleSampler.html#ae74f404036eca9f6613ab9b148a4661a":[16,0,0,110,1],
 "structhmap_1_1ForestSeedingOptions.html":[15,0,0,114],
 "structhmap_1_1ForestSeedingOptions.html":[16,0,0,112],
@@ -247,7 +249,5 @@ var NAVTREEINDEX19 =
 "structhmap_1_1PointOfInterest.html#aec44c1484804a70b37aafa3581a65b9f":[16,0,0,21,2],
 "structhmap_1_1PointOfInterest.html#afa3e1b7b4d54ae7e73d9167eacd48589":[15,0,0,23,3],
 "structhmap_1_1PointOfInterest.html#afa3e1b7b4d54ae7e73d9167eacd48589":[16,0,0,21,3],
-"structhmap_1_1Recorder.html":[15,0,0,78],
-"structhmap_1_1Recorder.html":[16,0,0,76],
-"structhmap_1_1Recorder.html#a0ec174294138be0e1d677a7c33011959":[15,0,0,78,6]
+"structhmap_1_1Recorder.html":[15,0,0,78]
 };

@@ -1,5 +1,7 @@
 var NAVTREEINDEX6 =
 {
+"classhmap_1_1RectangleFunction.html#aa59e5ca6cb37e340760797082cbada86":[16,0,0,30,0],
+"classhmap_1_1RiftFunction.html":[15,0,0,33],
 "classhmap_1_1RiftFunction.html":[16,0,0,31],
 "classhmap_1_1RiftFunction.html#a056a341d81791505ea6c270c95bd86ae":[15,0,0,33,6],
 "classhmap_1_1RiftFunction.html#a056a341d81791505ea6c270c95bd86ae":[16,0,0,31,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX6 =
 "classhmap_1_1SingleArrayComm.html#a11afd290007a8fd5a97715ca11cb11f0":[16,0,0,93,5],
 "classhmap_1_1SingleArrayComm.html#a22198d1de124dd4af05deb3adf837c2d":[15,0,0,95,1],
 "classhmap_1_1SingleArrayComm.html#a22198d1de124dd4af05deb3adf837c2d":[16,0,0,93,1],
-"classhmap_1_1SingleArrayComm.html#a35cf0db66b5f7f9ec806fb53bb3410fa":[15,0,0,95,2],
-"classhmap_1_1SingleArrayComm.html#a35cf0db66b5f7f9ec806fb53bb3410fa":[16,0,0,93,2],
-"classhmap_1_1SingleArrayComm.html#a6bfce55e7447ae82be7d37487177d181":[15,0,0,95,3]
+"classhmap_1_1SingleArrayComm.html#a35cf0db66b5f7f9ec806fb53bb3410fa":[15,0,0,95,2]
 };

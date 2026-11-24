@@ -1,5 +1,7 @@
 var NAVTREEINDEX8 =
 {
+"classhmap_1_1ValueCubicNoiseFunction.html#a050d747aef3a9313ee0ed11622d1ea19":[16,0,0,47,1],
+"classhmap_1_1ValueCubicNoiseFunction.html#a14c03cd8eba2d756855b29b0d7513a9c":[15,0,0,49,2],
 "classhmap_1_1ValueCubicNoiseFunction.html#a14c03cd8eba2d756855b29b0d7513a9c":[16,0,0,47,2],
 "classhmap_1_1ValueCubicNoiseFunction.html#ae052e4fef4ca1598c7b5fa926c5c95a5":[15,0,0,49,0],
 "classhmap_1_1ValueCubicNoiseFunction.html#ae052e4fef4ca1598c7b5fa926c5c95a5":[16,0,0,47,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX8 =
 "dendry__array__control__function_8cpp.html":[17,0,1,1,28,0,1],
 "dendry__array__control__function_8hpp.html":[17,0,1,0,0,12,1],
 "dendry__array__control__function_8hpp_source.html":[17,0,1,0,0,12,1],
-"deposition_8cpp.html":[17,0,1,1,11,3],
-"deposition__fill__holes_8cpp.html":[17,0,1,1,11,4],
-"deprecated_8hpp.html":[17,0,1,0,0,1,2]
+"deposition_8cpp.html":[17,0,1,1,11,3]
 };

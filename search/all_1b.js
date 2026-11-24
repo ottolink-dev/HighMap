@@ -16,7 +16,7 @@ var searchData=
   ['scale_5famp0_13',['scale_amp0',['../classhmap_1_1GenericFractalFunction.html#a7357b5a2c0eae7e5378e19d3b423d2fe',1,'hmap::GenericFractalFunction']]],
   ['scale_5farray_14',['scale_array',['../structhmap_1_1ForestScaleSampler.html#ad4f8dd5bb78fd7cd1013c61a13cc8f04',1,'hmap::ForestScaleSampler']]],
   ['scale_5fradius_15',['scale_radius',['../structhmap_1_1PoiGenerationOptions.html#a4a45da9f7a9133406b90de3e9ab2dfa5',1,'hmap::PoiGenerationOptions']]],
-  ['scale_5fuv_16',['scale_uv',['../namespacehmap.html#a66ec69d0e52dd23350bed20dbbcb0d08',1,'hmap::scale_uv(Array &amp;array, glm::vec2 uv_scale)'],['../namespacehmap.html#aa6e0ddb5fd3b76e1ba7f18d8c4a45549',1,'hmap::scale_uv(Texture &amp;texture, glm::vec2 uv_scale)']]],
+  ['scale_5fuv_16',['scale_uv',['../namespacehmap.html#aa6e0ddb5fd3b76e1ba7f18d8c4a45549',1,'hmap::scale_uv(Texture &amp;texture, glm::vec2 uv_scale)'],['../namespacehmap.html#a66ec69d0e52dd23350bed20dbbcb0d08',1,'hmap::scale_uv(Array &amp;array, glm::vec2 uv_scale)']]],
   ['scan_5fmask_17',['scan_mask',['../namespacehmap.html#a6c6abf2b8bd3161610e273ef97ee4771',1,'hmap']]],
   ['scatter_20architecture_3a_20scatterfield_20forest_20and_20rockfield_18',['Scatter Architecture: ScatterField, Forest, and RockField',['../md_docs_2content_2dev_2scatter__field.html',1,'']]],
   ['scatter_2ehpp_19',['scatter.hpp',['../scatter_8hpp.html',1,'']]],
