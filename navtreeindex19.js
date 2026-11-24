@@ -1,5 +1,17 @@
 var NAVTREEINDEX19 =
 {
+"structhmap_1_1ForestScaleSampler.html#a1df5b468312e12c0231a886268158907":[16,0,0,110,4],
+"structhmap_1_1ForestScaleSampler.html#a5b52199da1105ede4c35127216826394":[15,0,0,112,5],
+"structhmap_1_1ForestScaleSampler.html#a5b52199da1105ede4c35127216826394":[16,0,0,110,5],
+"structhmap_1_1ForestScaleSampler.html#a718cd251deebe40bffad00d2caa2d444":[15,0,0,112,0],
+"structhmap_1_1ForestScaleSampler.html#a718cd251deebe40bffad00d2caa2d444":[16,0,0,110,0],
+"structhmap_1_1ForestScaleSampler.html#a89e004d7e12902c4efe1068997311f62":[15,0,0,112,3],
+"structhmap_1_1ForestScaleSampler.html#a89e004d7e12902c4efe1068997311f62":[16,0,0,110,3],
+"structhmap_1_1ForestScaleSampler.html#a97788d3f9626dafe95907209d15f56b4":[15,0,0,112,6],
+"structhmap_1_1ForestScaleSampler.html#a97788d3f9626dafe95907209d15f56b4":[16,0,0,110,6],
+"structhmap_1_1ForestScaleSampler.html#ab0f487da4890a5e22f38a55b41003bb6":[15,0,0,112,7],
+"structhmap_1_1ForestScaleSampler.html#ab0f487da4890a5e22f38a55b41003bb6":[16,0,0,110,7],
+"structhmap_1_1ForestScaleSampler.html#ad4f8dd5bb78fd7cd1013c61a13cc8f04":[15,0,0,112,2],
 "structhmap_1_1ForestScaleSampler.html#ad4f8dd5bb78fd7cd1013c61a13cc8f04":[16,0,0,110,2],
 "structhmap_1_1ForestScaleSampler.html#ae74f404036eca9f6613ab9b148a4661a":[15,0,0,112,1],
 "structhmap_1_1ForestScaleSampler.html#ae74f404036eca9f6613ab9b148a4661a":[16,0,0,110,1],
@@ -237,17 +249,5 @@ var NAVTREEINDEX19 =
 "structhmap_1_1PoiGenerationOptions.html#affb1fa86633ea1d324e9a571bc04edeb":[16,0,0,22,9],
 "structhmap_1_1PointOfInterest.html":[15,0,0,23],
 "structhmap_1_1PointOfInterest.html":[16,0,0,21],
-"structhmap_1_1PointOfInterest.html#a0eeafbeaa78b2a4c6cef90e59702f48b":[15,0,0,23,5],
-"structhmap_1_1PointOfInterest.html#a0eeafbeaa78b2a4c6cef90e59702f48b":[16,0,0,21,5],
-"structhmap_1_1PointOfInterest.html#a15c6c48b35856d881f6347a8e08f6acc":[15,0,0,23,4],
-"structhmap_1_1PointOfInterest.html#a15c6c48b35856d881f6347a8e08f6acc":[16,0,0,21,4],
-"structhmap_1_1PointOfInterest.html#a28da68e23f1f6a0d7807bbd392f81555":[15,0,0,23,1],
-"structhmap_1_1PointOfInterest.html#a28da68e23f1f6a0d7807bbd392f81555":[16,0,0,21,1],
-"structhmap_1_1PointOfInterest.html#a7a4955625ad519be4d0072984552ed60":[15,0,0,23,0],
-"structhmap_1_1PointOfInterest.html#a7a4955625ad519be4d0072984552ed60":[16,0,0,21,0],
-"structhmap_1_1PointOfInterest.html#aec44c1484804a70b37aafa3581a65b9f":[15,0,0,23,2],
-"structhmap_1_1PointOfInterest.html#aec44c1484804a70b37aafa3581a65b9f":[16,0,0,21,2],
-"structhmap_1_1PointOfInterest.html#afa3e1b7b4d54ae7e73d9167eacd48589":[15,0,0,23,3],
-"structhmap_1_1PointOfInterest.html#afa3e1b7b4d54ae7e73d9167eacd48589":[16,0,0,21,3],
-"structhmap_1_1Recorder.html":[15,0,0,78]
+"structhmap_1_1PointOfInterest.html#a0eeafbeaa78b2a4c6cef90e59702f48b":[15,0,0,23,5]
 };

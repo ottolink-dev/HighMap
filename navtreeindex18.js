@@ -1,5 +1,17 @@
 var NAVTREEINDEX18 =
 {
+"point_8hpp_source.html":[17,0,1,0,0,5,8],
+"point__sampling_8cpp.html":[17,0,1,1,16,12],
+"point__sampling_8hpp.html":[17,0,1,0,0,5,9],
+"point__sampling_8hpp_source.html":[17,0,1,0,0,5,9],
+"points_8cpp.html":[17,0,1,1,16,13],
+"polar__shape_8cpp.html":[17,0,1,1,28,1,4],
+"primitives_2functions_8hpp.html":[17,0,1,0,0,12,2],
+"primitives_2functions_8hpp_source.html":[17,0,1,0,0,12,2],
+"primitives_2random_8hpp.html":[17,0,1,0,0,12,4],
+"primitives_2random_8hpp_source.html":[17,0,1,0,0,12,4],
+"primitives_8cpp.html":[17,0,1,1,28,1,5],
+"primitives_8hpp.html":[17,0,1,0,0,43],
 "primitives_8hpp_source.html":[17,0,1,0,0,43],
 "primitives__gpu_8cpp.html":[17,0,1,1,28,0,6],
 "print__array_8cpp.html":[17,0,1,1,20,2],
@@ -237,17 +249,5 @@ var NAVTREEINDEX18 =
 "structhmap_1_1Edge.html#a98358a23447279dde010430f00e4d139":[16,0,0,66,1],
 "structhmap_1_1ForestScaleSampler.html":[15,0,0,112],
 "structhmap_1_1ForestScaleSampler.html":[16,0,0,110],
-"structhmap_1_1ForestScaleSampler.html#a1df5b468312e12c0231a886268158907":[15,0,0,112,4],
-"structhmap_1_1ForestScaleSampler.html#a1df5b468312e12c0231a886268158907":[16,0,0,110,4],
-"structhmap_1_1ForestScaleSampler.html#a5b52199da1105ede4c35127216826394":[15,0,0,112,5],
-"structhmap_1_1ForestScaleSampler.html#a5b52199da1105ede4c35127216826394":[16,0,0,110,5],
-"structhmap_1_1ForestScaleSampler.html#a718cd251deebe40bffad00d2caa2d444":[15,0,0,112,0],
-"structhmap_1_1ForestScaleSampler.html#a718cd251deebe40bffad00d2caa2d444":[16,0,0,110,0],
-"structhmap_1_1ForestScaleSampler.html#a89e004d7e12902c4efe1068997311f62":[15,0,0,112,3],
-"structhmap_1_1ForestScaleSampler.html#a89e004d7e12902c4efe1068997311f62":[16,0,0,110,3],
-"structhmap_1_1ForestScaleSampler.html#a97788d3f9626dafe95907209d15f56b4":[15,0,0,112,6],
-"structhmap_1_1ForestScaleSampler.html#a97788d3f9626dafe95907209d15f56b4":[16,0,0,110,6],
-"structhmap_1_1ForestScaleSampler.html#ab0f487da4890a5e22f38a55b41003bb6":[15,0,0,112,7],
-"structhmap_1_1ForestScaleSampler.html#ab0f487da4890a5e22f38a55b41003bb6":[16,0,0,110,7],
-"structhmap_1_1ForestScaleSampler.html#ad4f8dd5bb78fd7cd1013c61a13cc8f04":[15,0,0,112,2]
+"structhmap_1_1ForestScaleSampler.html#a1df5b468312e12c0231a886268158907":[15,0,0,112,4]
 };

@@ -1,5 +1,17 @@
 var NAVTREEINDEX20 =
 {
+"structhmap_1_1PointOfInterest.html#a0eeafbeaa78b2a4c6cef90e59702f48b":[16,0,0,21,5],
+"structhmap_1_1PointOfInterest.html#a15c6c48b35856d881f6347a8e08f6acc":[15,0,0,23,4],
+"structhmap_1_1PointOfInterest.html#a15c6c48b35856d881f6347a8e08f6acc":[16,0,0,21,4],
+"structhmap_1_1PointOfInterest.html#a28da68e23f1f6a0d7807bbd392f81555":[15,0,0,23,1],
+"structhmap_1_1PointOfInterest.html#a28da68e23f1f6a0d7807bbd392f81555":[16,0,0,21,1],
+"structhmap_1_1PointOfInterest.html#a7a4955625ad519be4d0072984552ed60":[15,0,0,23,0],
+"structhmap_1_1PointOfInterest.html#a7a4955625ad519be4d0072984552ed60":[16,0,0,21,0],
+"structhmap_1_1PointOfInterest.html#aec44c1484804a70b37aafa3581a65b9f":[15,0,0,23,2],
+"structhmap_1_1PointOfInterest.html#aec44c1484804a70b37aafa3581a65b9f":[16,0,0,21,2],
+"structhmap_1_1PointOfInterest.html#afa3e1b7b4d54ae7e73d9167eacd48589":[15,0,0,23,3],
+"structhmap_1_1PointOfInterest.html#afa3e1b7b4d54ae7e73d9167eacd48589":[16,0,0,21,3],
+"structhmap_1_1Recorder.html":[15,0,0,78],
 "structhmap_1_1Recorder.html":[16,0,0,76],
 "structhmap_1_1Recorder.html#a0ec174294138be0e1d677a7c33011959":[15,0,0,78,6],
 "structhmap_1_1Recorder.html#a0ec174294138be0e1d677a7c33011959":[16,0,0,76,6],
@@ -237,17 +249,5 @@ var NAVTREEINDEX20 =
 "structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html":[16,0,0,89,7],
 "structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a1232bf5b364db44d55bf012e29066c3d":[15,0,0,91,7,5],
 "structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a1232bf5b364db44d55bf012e29066c3d":[16,0,0,89,7,5],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a1561cc505f3a15c4b819bb1a13f0bd83":[15,0,0,91,7,7],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a1561cc505f3a15c4b819bb1a13f0bd83":[16,0,0,89,7,7],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a273ae8b085bc1309827cb47afdc2ea9a":[15,0,0,91,7,0],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a273ae8b085bc1309827cb47afdc2ea9a":[16,0,0,89,7,0],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a273ae8b085bc1309827cb47afdc2ea9aa3db07082ff51d740670b0f24f3a1cb79":[15,0,0,91,7,0,1],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a273ae8b085bc1309827cb47afdc2ea9aa3db07082ff51d740670b0f24f3a1cb79":[16,0,0,89,7,0,1],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a273ae8b085bc1309827cb47afdc2ea9aaa0127f42b58ed1e4feff9b17a290ded7":[15,0,0,91,7,0,0],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a273ae8b085bc1309827cb47afdc2ea9aaa0127f42b58ed1e4feff9b17a290ded7":[16,0,0,89,7,0,0],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a273ae8b085bc1309827cb47afdc2ea9aab372763954316f3e914ee39ce92124ef":[15,0,0,91,7,0,2],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a273ae8b085bc1309827cb47afdc2ea9aab372763954316f3e914ee39ce92124ef":[16,0,0,89,7,0,2],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a51a7a21b3029516eb39be45b2d8b15f1":[15,0,0,91,7,4],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a51a7a21b3029516eb39be45b2d8b15f1":[16,0,0,89,7,4],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a9ac96f45efe81174ad5f2af359b2c9a8":[15,0,0,91,7,6]
+"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a1561cc505f3a15c4b819bb1a13f0bd83":[15,0,0,91,7,7]
 };

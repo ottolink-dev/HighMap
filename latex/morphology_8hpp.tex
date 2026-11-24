@@ -36,6 +36,22 @@ enum \mbox{\hyperlink{namespacehmap_a321149eda3417aa485a010c31267818c}{hmap\+::\
 , \mbox{\hyperlink{namespacehmap_a321149eda3417aa485a010c31267818cae6ea35f492be86e8686ddcf0440aebba}{hmap\+::\+MO\+\_\+\+CLOSING\+\_\+\+BY\+\_\+\+RECONSTRUCTION}}
 , \mbox{\hyperlink{namespacehmap_a321149eda3417aa485a010c31267818caa6a0098d7d9f4eaae196f3f721464806}{hmap\+::\+MO\+\_\+\+OPENING\+\_\+\+BY\+\_\+\+RECONSTRUCTION}}
  \}
+\begin{DoxyCompactList}\small\item\em Types of base morphology operators. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{namespacehmap_1_1gpu_a52a5313f04d6f478ca97c601722c8524}{hmap\+::gpu\+::\+Morphology\+Operation}} \+: int \{ \newline
+\mbox{\hyperlink{namespacehmap_1_1gpu_a52a5313f04d6f478ca97c601722c8524a85974c420302511f55e4508faf24b0e0}{hmap\+::gpu\+::\+MO\+\_\+\+BORDER}}
+, \mbox{\hyperlink{namespacehmap_1_1gpu_a52a5313f04d6f478ca97c601722c8524af933afdfc99c4f8e5e84358523213569}{hmap\+::gpu\+::\+MO\+\_\+\+CLOSING}}
+, \mbox{\hyperlink{namespacehmap_1_1gpu_a52a5313f04d6f478ca97c601722c8524af70471053657b11e98215522c43d5d88}{hmap\+::gpu\+::\+MO\+\_\+\+DILATION}}
+, \mbox{\hyperlink{namespacehmap_1_1gpu_a52a5313f04d6f478ca97c601722c8524aca82576382d7a0cfbb45d565df648fdb}{hmap\+::gpu\+::\+MO\+\_\+\+EROSION}}
+, \newline
+\mbox{\hyperlink{namespacehmap_1_1gpu_a52a5313f04d6f478ca97c601722c8524a58b48009144fcbb385c9e810856d11ed}{hmap\+::gpu\+::\+MO\+\_\+\+OPENING}}
+, \mbox{\hyperlink{namespacehmap_1_1gpu_a52a5313f04d6f478ca97c601722c8524a7b1e3164a00ba334e24481cbfde31656}{hmap\+::gpu\+::\+MO\+\_\+\+BLACK\+\_\+\+HAT}}
+, \mbox{\hyperlink{namespacehmap_1_1gpu_a52a5313f04d6f478ca97c601722c8524a0f05410be8b31c8f9b33a866983e1133}{hmap\+::gpu\+::\+MO\+\_\+\+TOP\+\_\+\+HAT}}
+, \mbox{\hyperlink{namespacehmap_1_1gpu_a52a5313f04d6f478ca97c601722c8524a4f9039194ac974b7b868a2f09576ca2f}{hmap\+::gpu\+::\+MO\+\_\+\+GRADIENT}}
+, \newline
+\mbox{\hyperlink{namespacehmap_1_1gpu_a52a5313f04d6f478ca97c601722c8524a52615d07ce734b27abf913fd568b3b5f}{hmap\+::gpu\+::\+MO\+\_\+\+LAPLACIAN}}
+, \mbox{\hyperlink{namespacehmap_1_1gpu_a52a5313f04d6f478ca97c601722c8524ae3ea7435d6983bfaad057a6d2b4b2cbd}{hmap\+::gpu\+::\+MO\+\_\+\+CLOSING\+\_\+\+BY\+\_\+\+RECONSTRUCTION}}
+, \mbox{\hyperlink{namespacehmap_1_1gpu_a52a5313f04d6f478ca97c601722c8524abedc792af6bf0d76c43487cb47e47992}{hmap\+::gpu\+::\+MO\+\_\+\+OPENING\+\_\+\+BY\+\_\+\+RECONSTRUCTION}}
+ \}
 \begin{DoxyCompactList}\small\item\em Types of base morphology operators. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -98,6 +114,8 @@ void \mbox{\hyperlink{namespacehmap_adff494af7c8bf4db7f3e6fddd3261793}{hmap\+::f
 \begin{DoxyCompactList}\small\item\em Computes a signed distance transform using curvature sign. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a11ddd5ab1aa625db9419d9b65c0eaa64}{hmap\+::skeleton}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, bool zero\+\_\+at\+\_\+borders=true)
 \begin{DoxyCompactList}\small\item\em Computes the skeleton of a binary image using the Zhang-\/\+Suen skeletonization algorithm. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a0df2e693c1919b3f59ee98df040ff489}{hmap\+::morphological\+\_\+operators}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int ir, \mbox{\hyperlink{namespacehmap_a321149eda3417aa485a010c31267818c}{Morphology\+Operation}} operation, \mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1}{Min\+Max\+Kernel}} kernel\+\_\+type=\mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a290d4b81f4e2b47d86fd1b0170e9aab7}{Min\+Max\+Kernel\+::\+DISK}})
+\begin{DoxyCompactList}\small\item\em Apply a morphological operation to the input array using a square kernel. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_1_1gpu_a06a37576327ff4cb06746711dbdfa0de}{hmap\+::gpu\+::border}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int ir, \mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1}{Min\+Max\+Kernel}} kernel\+\_\+type=\mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a290d4b81f4e2b47d86fd1b0170e9aab7}{Min\+Max\+Kernel\+::\+DISK}})
 \begin{DoxyCompactList}\small\item\em See \doxylink{namespacehmap_af80bcff234bf1482cf26896b9d21d270}{hmap\+::border}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_1_1gpu_ae87241d6c556abd06c6b977f45f48a3f}{hmap\+::gpu\+::closing}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int ir, \mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1}{Min\+Max\+Kernel}} kernel\+\_\+type=\mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a290d4b81f4e2b47d86fd1b0170e9aab7}{Min\+Max\+Kernel\+::\+DISK}})
@@ -140,10 +158,8 @@ void \mbox{\hyperlink{namespacehmap_adff494af7c8bf4db7f3e6fddd3261793}{hmap\+::f
 \begin{DoxyCompactList}\small\item\em See \doxylink{namespacehmap_ad4ab7bb38b3ea37fa912190251c1ed76}{hmap\+::signed\+\_\+distance\+\_\+transform}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_1_1gpu_a5287e8c6a324fa91bea6c7bf98aacd68}{hmap\+::gpu\+::skeleton}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, bool zero\+\_\+at\+\_\+borders=true)
 \begin{DoxyCompactList}\small\item\em See \doxylink{namespacehmap_a3bf018295d3d90631e606c005059af3e}{hmap\+::skeleton}. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_a0df2e693c1919b3f59ee98df040ff489}{hmap\+::morphological\+\_\+operators}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int ir, \mbox{\hyperlink{namespacehmap_a321149eda3417aa485a010c31267818c}{Morphology\+Operation}} operation, \mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1}{Min\+Max\+Kernel}} kernel\+\_\+type=\mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a290d4b81f4e2b47d86fd1b0170e9aab7}{Min\+Max\+Kernel\+::\+DISK}})
-\begin{DoxyCompactList}\small\item\em Apply a morphological operation to the input array using a square kernel. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_1_1gpu_a15cc695501488300f5c2c939c9c9ee8d}{hmap\+::gpu\+::morphological\+\_\+operators}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int ir, \mbox{\hyperlink{namespacehmap_a321149eda3417aa485a010c31267818c}{Morphology\+Operation}} operation, \mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1}{Min\+Max\+Kernel}} kernel\+\_\+type=\mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a290d4b81f4e2b47d86fd1b0170e9aab7}{Min\+Max\+Kernel\+::\+DISK}})
-\begin{DoxyCompactList}\small\item\em See \doxylink{namespacehmap_a0df2e693c1919b3f59ee98df040ff489}{hmap\+::morphological\+\_\+operators}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\hyperlink{classhmap_1_1Array}{Array}} \mbox{\hyperlink{namespacehmap_1_1gpu_a15cc695501488300f5c2c939c9c9ee8d}{hmap\+::gpu\+::morphological\+\_\+operators}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&array, int ir, \mbox{\hyperlink{namespacehmap_1_1gpu_a52a5313f04d6f478ca97c601722c8524}{Morphology\+Operation}} operation, \mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1}{Min\+Max\+Kernel}} kernel\+\_\+type=\mbox{\hyperlink{namespacehmap_a2ff2761f87976a24c39df7b6509576f1a290d4b81f4e2b47d86fd1b0170e9aab7}{Min\+Max\+Kernel\+::\+DISK}})
+\begin{DoxyCompactList}\small\item\em Apply a morphological operation to the input array using a square kernel. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

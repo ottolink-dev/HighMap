@@ -914,77 +914,73 @@ $(function(){initNavTree('filters_8hpp_source.html','',''); });
 <div class="line"><a id="l02966" name="l02966"></a><span class="lineno"> 2966</span>                         <span class="keywordtype">int</span>                       ir_min,</div>
 <div class="line"><a id="l02967" name="l02967"></a><span class="lineno"> 2967</span>                         <span class="keywordtype">int</span>                       ir_max,</div>
 <div class="line"><a id="l02968" name="l02968"></a><span class="lineno"> 2968</span>                         <span class="keyword">const</span> Array              *p_mask);</div>
-<div class="line"><a id="l02969" name="l02969"></a><span class="lineno"> 2969</span>} <span class="comment">// namespace hmap::gpu</span></div>
-<div class="line"><a id="l02970" name="l02970"></a><span class="lineno"> 2970</span> </div>
-<div class="line"><a id="l02971" name="l02971"></a><span class="lineno"> 2971</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmap_1_1gpu.html">hmap::gpu</a></div>
-<div class="line"><a id="l02972" name="l02972"></a><span class="lineno"> 2972</span>{</div>
-<div class="line"><a id="l02973" name="l02973"></a><span class="lineno"> 2973</span></div>
-<div class="line"><a id="l02999" name="l02999"></a><span class="lineno"> 2999</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa51712f5cbff96e7704de3813cfa3435">voronoi_shrink</a>(<span class="keyword">const</span> Array  &amp;array,</div>
-<div class="line"><a id="l03000" name="l03000"></a><span class="lineno"> 3000</span>                     glm::vec2     kw,</div>
-<div class="line"><a id="l03001" name="l03001"></a><span class="lineno"> 3001</span>                     <span class="keywordtype">float</span>         shrink_factor = 0.8f,</div>
-<div class="line"><a id="l03002" name="l03002"></a><span class="lineno"> 3002</span>                     <span class="keywordtype">float</span>         fill_value = 0.f,</div>
-<div class="line"><a id="l03003" name="l03003"></a><span class="lineno"> 3003</span>                     std::uint32_t seed = 0,</div>
-<div class="line"><a id="l03004" name="l03004"></a><span class="lineno"> 3004</span>                     glm::vec2     jitter = {0.5f, 0.5f},</div>
-<div class="line"><a id="l03005" name="l03005"></a><span class="lineno"> 3005</span>                     <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 0.f,</div>
-<div class="line"><a id="l03006" name="l03006"></a><span class="lineno"> 3006</span>                     <span class="keyword">const</span> Array  *p_mask = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03007" name="l03007"></a><span class="lineno"> 3007</span>                     <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03008" name="l03008"></a><span class="lineno"> 3008</span>                     <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03009" name="l03009"></a><span class="lineno"> 3009</span>                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l03010" name="l03010"></a><span class="lineno"> 3010</span></div>
-<div class="line"><a id="l03034" name="l03034"></a><span class="lineno"> 3034</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa51712f5cbff96e7704de3813cfa3435">voronoi_shrink</a>(<span class="keyword">const</span> Array  &amp;array,</div>
-<div class="line"><a id="l03035" name="l03035"></a><span class="lineno"> 3035</span>                     <span class="keywordtype">float</span>         kw,</div>
-<div class="line"><a id="l03036" name="l03036"></a><span class="lineno"> 3036</span>                     <span class="keywordtype">float</span>         shrink_factor = 0.8f,</div>
-<div class="line"><a id="l03037" name="l03037"></a><span class="lineno"> 3037</span>                     <span class="keywordtype">float</span>         fill_value = 0.f,</div>
-<div class="line"><a id="l03038" name="l03038"></a><span class="lineno"> 3038</span>                     std::uint32_t seed = 0,</div>
-<div class="line"><a id="l03039" name="l03039"></a><span class="lineno"> 3039</span>                     glm::vec2     jitter = {0.5f, 0.5f},</div>
-<div class="line"><a id="l03040" name="l03040"></a><span class="lineno"> 3040</span>                     <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 0.f,</div>
-<div class="line"><a id="l03041" name="l03041"></a><span class="lineno"> 3041</span>                     <span class="keyword">const</span> Array  *p_mask = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03042" name="l03042"></a><span class="lineno"> 3042</span>                     <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03043" name="l03043"></a><span class="lineno"> 3043</span>                     <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03044" name="l03044"></a><span class="lineno"> 3044</span>                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l03045" name="l03045"></a><span class="lineno"> 3045</span></div>
-<div class="line"><a id="l03062" name="l03062"></a><span class="lineno"> 3062</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa51712f5cbff96e7704de3813cfa3435">voronoi_shrink</a>(<span class="keyword">const</span> Array &amp;array,</div>
-<div class="line"><a id="l03063" name="l03063"></a><span class="lineno"> 3063</span>                     <span class="keyword">const</span> Cloud &amp;cloud,</div>
-<div class="line"><a id="l03064" name="l03064"></a><span class="lineno"> 3064</span>                     <span class="keywordtype">float</span>        shrink_factor = 0.8f,</div>
-<div class="line"><a id="l03065" name="l03065"></a><span class="lineno"> 3065</span>                     <span class="keywordtype">float</span>        fill_value = 0.f,</div>
-<div class="line"><a id="l03066" name="l03066"></a><span class="lineno"> 3066</span>                     <span class="keyword">const</span> Array *p_mask = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03067" name="l03067"></a><span class="lineno"> 3067</span>                     <span class="keyword">const</span> Array *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03068" name="l03068"></a><span class="lineno"> 3068</span>                     <span class="keyword">const</span> Array *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03069" name="l03069"></a><span class="lineno"> 3069</span>                     glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l03070" name="l03070"></a><span class="lineno"> 3070</span></div>
-<div class="line"><a id="l03089" name="l03089"></a><span class="lineno"> 3089</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa51712f5cbff96e7704de3813cfa3435">voronoi_shrink</a>(<span class="keyword">const</span> Array              &amp;array,</div>
-<div class="line"><a id="l03090" name="l03090"></a><span class="lineno"> 3090</span>                     <span class="keyword">const</span> std::vector&lt;Point&gt; &amp;points,</div>
-<div class="line"><a id="l03091" name="l03091"></a><span class="lineno"> 3091</span>                     <span class="keywordtype">float</span>                     shrink_factor = 0.8f,</div>
-<div class="line"><a id="l03092" name="l03092"></a><span class="lineno"> 3092</span>                     <span class="keywordtype">float</span>                     fill_value = 0.f,</div>
-<div class="line"><a id="l03093" name="l03093"></a><span class="lineno"> 3093</span>                     <span class="keyword">const</span> Array              *p_mask = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03094" name="l03094"></a><span class="lineno"> 3094</span>                     <span class="keyword">const</span> Array              *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03095" name="l03095"></a><span class="lineno"> 3095</span>                     <span class="keyword">const</span> Array              *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03096" name="l03096"></a><span class="lineno"> 3096</span>                     glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l03097" name="l03097"></a><span class="lineno"> 3097</span></div>
-<div class="line"><a id="l03117" name="l03117"></a><span class="lineno"> 3117</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa51712f5cbff96e7704de3813cfa3435">voronoi_shrink</a>(<span class="keyword">const</span> Array                  &amp;array,</div>
-<div class="line"><a id="l03118" name="l03118"></a><span class="lineno"> 3118</span>                     <span class="keyword">const</span> std::vector&lt;glm::vec2&gt; &amp;points,</div>
-<div class="line"><a id="l03119" name="l03119"></a><span class="lineno"> 3119</span>                     <span class="keywordtype">float</span>                         shrink_factor = 0.8f,</div>
-<div class="line"><a id="l03120" name="l03120"></a><span class="lineno"> 3120</span>                     <span class="keywordtype">float</span>                         fill_value = 0.f,</div>
-<div class="line"><a id="l03121" name="l03121"></a><span class="lineno"> 3121</span>                     <span class="keyword">const</span> Array                  *p_mask = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03122" name="l03122"></a><span class="lineno"> 3122</span>                     <span class="keyword">const</span> Array                  *p_noise_x = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03123" name="l03123"></a><span class="lineno"> 3123</span>                     <span class="keyword">const</span> Array                  *p_noise_y = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l03124" name="l03124"></a><span class="lineno"> 3124</span>                     glm::vec4                     bbox = {0.f, 1.f, 0.f, 1.f});</div>
-<div class="line"><a id="l03125" name="l03125"></a><span class="lineno"> 3125</span> </div>
-<div class="line"><a id="l03126" name="l03126"></a><span class="lineno"> 3126</span>} <span class="comment">// namespace hmap::gpu</span></div>
-<div class="line"><a id="l03127" name="l03127"></a><span class="lineno"> 3127</span> </div>
-<div class="line"><a id="l03128" name="l03128"></a><span class="lineno"> 3128</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmap_1_1va.html">hmap::va</a></div>
-<div class="line"><a id="l03129" name="l03129"></a><span class="lineno"> 3129</span>{</div>
-<div class="line"><a id="l03130" name="l03130"></a><span class="lineno"> 3130</span></div>
-<div class="line"><a id="l03132" name="l03132"></a><span class="lineno"> 3132</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespacehmap_1_1va.html#aec2c193932c4d5d1fe00d09b81e243d8">smooth_cpulse</a>(VirtualArray       &amp;array,</div>
-<div class="line"><a id="l03133" name="l03133"></a><span class="lineno"> 3133</span>                   <span class="keywordtype">int</span>                 ir,</div>
-<div class="line"><a id="l03134" name="l03134"></a><span class="lineno"> 3134</span>                   <span class="keyword">const</span> VirtualArray *p_mask,</div>
-<div class="line"><a id="l03135" name="l03135"></a><span class="lineno"> 3135</span>                   <span class="keyword">const</span> ComputeMode  &amp;cm);</div>
-<div class="line"><a id="l03136" name="l03136"></a><span class="lineno"> 3136</span></div>
-<div class="line"><a id="l03138" name="l03138"></a><span class="lineno"> 3138</span>VirtualArray <a class="code hl_function" href="namespacehmap_1_1va.html#aec2c193932c4d5d1fe00d09b81e243d8">smooth_cpulse</a>(<span class="keyword">const</span> VirtualArray &amp;array,</div>
-<div class="line"><a id="l03139" name="l03139"></a><span class="lineno"> 3139</span>                           <span class="keywordtype">int</span>                 ir,</div>
-<div class="line"><a id="l03140" name="l03140"></a><span class="lineno"> 3140</span>                           <span class="keyword">const</span> VirtualArray *p_mask,</div>
-<div class="line"><a id="l03141" name="l03141"></a><span class="lineno"> 3141</span>                           <span class="keyword">const</span> ComputeMode  &amp;cm);</div>
-<div class="line"><a id="l03142" name="l03142"></a><span class="lineno"> 3142</span>} <span class="comment">// namespace hmap::va</span></div>
+<div class="line"><a id="l02969" name="l02969"></a><span class="lineno"> 2969</span></div>
+<div class="line"><a id="l02995" name="l02995"></a><span class="lineno"> 2995</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa51712f5cbff96e7704de3813cfa3435">voronoi_shrink</a>(<span class="keyword">const</span> Array  &amp;array,</div>
+<div class="line"><a id="l02996" name="l02996"></a><span class="lineno"> 2996</span>                     glm::vec2     kw,</div>
+<div class="line"><a id="l02997" name="l02997"></a><span class="lineno"> 2997</span>                     <span class="keywordtype">float</span>         shrink_factor = 0.8f,</div>
+<div class="line"><a id="l02998" name="l02998"></a><span class="lineno"> 2998</span>                     <span class="keywordtype">float</span>         fill_value = 0.f,</div>
+<div class="line"><a id="l02999" name="l02999"></a><span class="lineno"> 2999</span>                     std::uint32_t seed = 0,</div>
+<div class="line"><a id="l03000" name="l03000"></a><span class="lineno"> 3000</span>                     glm::vec2     jitter = {0.5f, 0.5f},</div>
+<div class="line"><a id="l03001" name="l03001"></a><span class="lineno"> 3001</span>                     <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 0.f,</div>
+<div class="line"><a id="l03002" name="l03002"></a><span class="lineno"> 3002</span>                     <span class="keyword">const</span> Array  *p_mask = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03003" name="l03003"></a><span class="lineno"> 3003</span>                     <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03004" name="l03004"></a><span class="lineno"> 3004</span>                     <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03005" name="l03005"></a><span class="lineno"> 3005</span>                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l03006" name="l03006"></a><span class="lineno"> 3006</span></div>
+<div class="line"><a id="l03030" name="l03030"></a><span class="lineno"> 3030</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa51712f5cbff96e7704de3813cfa3435">voronoi_shrink</a>(<span class="keyword">const</span> Array  &amp;array,</div>
+<div class="line"><a id="l03031" name="l03031"></a><span class="lineno"> 3031</span>                     <span class="keywordtype">float</span>         kw,</div>
+<div class="line"><a id="l03032" name="l03032"></a><span class="lineno"> 3032</span>                     <span class="keywordtype">float</span>         shrink_factor = 0.8f,</div>
+<div class="line"><a id="l03033" name="l03033"></a><span class="lineno"> 3033</span>                     <span class="keywordtype">float</span>         fill_value = 0.f,</div>
+<div class="line"><a id="l03034" name="l03034"></a><span class="lineno"> 3034</span>                     std::uint32_t seed = 0,</div>
+<div class="line"><a id="l03035" name="l03035"></a><span class="lineno"> 3035</span>                     glm::vec2     jitter = {0.5f, 0.5f},</div>
+<div class="line"><a id="l03036" name="l03036"></a><span class="lineno"> 3036</span>                     <span class="keywordtype">float</span>         <a class="code hl_function" href="namespacehmap.html#aac71bb6c14edc17967957f7918acdbdd">angle</a> = 0.f,</div>
+<div class="line"><a id="l03037" name="l03037"></a><span class="lineno"> 3037</span>                     <span class="keyword">const</span> Array  *p_mask = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03038" name="l03038"></a><span class="lineno"> 3038</span>                     <span class="keyword">const</span> Array  *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03039" name="l03039"></a><span class="lineno"> 3039</span>                     <span class="keyword">const</span> Array  *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03040" name="l03040"></a><span class="lineno"> 3040</span>                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l03041" name="l03041"></a><span class="lineno"> 3041</span></div>
+<div class="line"><a id="l03058" name="l03058"></a><span class="lineno"> 3058</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa51712f5cbff96e7704de3813cfa3435">voronoi_shrink</a>(<span class="keyword">const</span> Array &amp;array,</div>
+<div class="line"><a id="l03059" name="l03059"></a><span class="lineno"> 3059</span>                     <span class="keyword">const</span> Cloud &amp;cloud,</div>
+<div class="line"><a id="l03060" name="l03060"></a><span class="lineno"> 3060</span>                     <span class="keywordtype">float</span>        shrink_factor = 0.8f,</div>
+<div class="line"><a id="l03061" name="l03061"></a><span class="lineno"> 3061</span>                     <span class="keywordtype">float</span>        fill_value = 0.f,</div>
+<div class="line"><a id="l03062" name="l03062"></a><span class="lineno"> 3062</span>                     <span class="keyword">const</span> Array *p_mask = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03063" name="l03063"></a><span class="lineno"> 3063</span>                     <span class="keyword">const</span> Array *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03064" name="l03064"></a><span class="lineno"> 3064</span>                     <span class="keyword">const</span> Array *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03065" name="l03065"></a><span class="lineno"> 3065</span>                     glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l03066" name="l03066"></a><span class="lineno"> 3066</span></div>
+<div class="line"><a id="l03085" name="l03085"></a><span class="lineno"> 3085</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa51712f5cbff96e7704de3813cfa3435">voronoi_shrink</a>(<span class="keyword">const</span> Array              &amp;array,</div>
+<div class="line"><a id="l03086" name="l03086"></a><span class="lineno"> 3086</span>                     <span class="keyword">const</span> std::vector&lt;Point&gt; &amp;points,</div>
+<div class="line"><a id="l03087" name="l03087"></a><span class="lineno"> 3087</span>                     <span class="keywordtype">float</span>                     shrink_factor = 0.8f,</div>
+<div class="line"><a id="l03088" name="l03088"></a><span class="lineno"> 3088</span>                     <span class="keywordtype">float</span>                     fill_value = 0.f,</div>
+<div class="line"><a id="l03089" name="l03089"></a><span class="lineno"> 3089</span>                     <span class="keyword">const</span> Array              *p_mask = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03090" name="l03090"></a><span class="lineno"> 3090</span>                     <span class="keyword">const</span> Array              *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03091" name="l03091"></a><span class="lineno"> 3091</span>                     <span class="keyword">const</span> Array              *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03092" name="l03092"></a><span class="lineno"> 3092</span>                     glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l03093" name="l03093"></a><span class="lineno"> 3093</span></div>
+<div class="line"><a id="l03113" name="l03113"></a><span class="lineno"> 3113</span>Array <a class="code hl_function" href="namespacehmap_1_1gpu.html#aa51712f5cbff96e7704de3813cfa3435">voronoi_shrink</a>(<span class="keyword">const</span> Array                  &amp;array,</div>
+<div class="line"><a id="l03114" name="l03114"></a><span class="lineno"> 3114</span>                     <span class="keyword">const</span> std::vector&lt;glm::vec2&gt; &amp;points,</div>
+<div class="line"><a id="l03115" name="l03115"></a><span class="lineno"> 3115</span>                     <span class="keywordtype">float</span>                         shrink_factor = 0.8f,</div>
+<div class="line"><a id="l03116" name="l03116"></a><span class="lineno"> 3116</span>                     <span class="keywordtype">float</span>                         fill_value = 0.f,</div>
+<div class="line"><a id="l03117" name="l03117"></a><span class="lineno"> 3117</span>                     <span class="keyword">const</span> Array                  *p_mask = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03118" name="l03118"></a><span class="lineno"> 3118</span>                     <span class="keyword">const</span> Array                  *p_noise_x = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03119" name="l03119"></a><span class="lineno"> 3119</span>                     <span class="keyword">const</span> Array                  *p_noise_y = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l03120" name="l03120"></a><span class="lineno"> 3120</span>                     glm::vec4                     bbox = {0.f, 1.f, 0.f, 1.f});</div>
+<div class="line"><a id="l03121" name="l03121"></a><span class="lineno"> 3121</span> </div>
+<div class="line"><a id="l03122" name="l03122"></a><span class="lineno"> 3122</span>} <span class="comment">// namespace hmap::gpu</span></div>
+<div class="line"><a id="l03123" name="l03123"></a><span class="lineno"> 3123</span> </div>
+<div class="line"><a id="l03124" name="l03124"></a><span class="lineno"> 3124</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmap_1_1va.html">hmap::va</a></div>
+<div class="line"><a id="l03125" name="l03125"></a><span class="lineno"> 3125</span>{</div>
+<div class="line"><a id="l03126" name="l03126"></a><span class="lineno"> 3126</span></div>
+<div class="line"><a id="l03128" name="l03128"></a><span class="lineno"> 3128</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespacehmap_1_1va.html#aec2c193932c4d5d1fe00d09b81e243d8">smooth_cpulse</a>(VirtualArray       &amp;array,</div>
+<div class="line"><a id="l03129" name="l03129"></a><span class="lineno"> 3129</span>                   <span class="keywordtype">int</span>                 ir,</div>
+<div class="line"><a id="l03130" name="l03130"></a><span class="lineno"> 3130</span>                   <span class="keyword">const</span> VirtualArray *p_mask,</div>
+<div class="line"><a id="l03131" name="l03131"></a><span class="lineno"> 3131</span>                   <span class="keyword">const</span> ComputeMode  &amp;cm);</div>
+<div class="line"><a id="l03132" name="l03132"></a><span class="lineno"> 3132</span></div>
+<div class="line"><a id="l03134" name="l03134"></a><span class="lineno"> 3134</span>VirtualArray <a class="code hl_function" href="namespacehmap_1_1va.html#aec2c193932c4d5d1fe00d09b81e243d8">smooth_cpulse</a>(<span class="keyword">const</span> VirtualArray &amp;array,</div>
+<div class="line"><a id="l03135" name="l03135"></a><span class="lineno"> 3135</span>                           <span class="keywordtype">int</span>                 ir,</div>
+<div class="line"><a id="l03136" name="l03136"></a><span class="lineno"> 3136</span>                           <span class="keyword">const</span> VirtualArray *p_mask,</div>
+<div class="line"><a id="l03137" name="l03137"></a><span class="lineno"> 3137</span>                           <span class="keyword">const</span> ComputeMode  &amp;cm);</div>
+<div class="line"><a id="l03138" name="l03138"></a><span class="lineno"> 3138</span>} <span class="comment">// namespace hmap::va</span></div>
 <div class="ttc" id="aarray_8hpp_html"><div class="ttname"><a href="array_8hpp.html">array.hpp</a></div><div class="ttdoc">Declaration of the Array class for 2D floating-point arrays with various mathematical operations and ...</div></div>
 <div class="ttc" id="aclasshmap_1_1Array_html"><div class="ttname"><a href="classhmap_1_1Array.html">hmap::Array</a></div><div class="ttdoc">Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.</div><div class="ttdef"><b>Definition</b> array.hpp:33</div></div>
 <div class="ttc" id="aclasshmap_1_1Cloud_html"><div class="ttname"><a href="classhmap_1_1Cloud.html">hmap::Cloud</a></div><div class="ttdoc">Represents a collection of unordered points in 2D space.</div><div class="ttdef"><b>Definition</b> cloud.hpp:61</div></div>

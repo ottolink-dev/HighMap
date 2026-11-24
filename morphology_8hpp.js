@@ -19,6 +19,19 @@ var morphology_8hpp =
       [ "hmap::MO_CLOSING_BY_RECONSTRUCTION", "namespacehmap.html#a321149eda3417aa485a010c31267818cae6ea35f492be86e8686ddcf0440aebba", null ],
       [ "hmap::MO_OPENING_BY_RECONSTRUCTION", "namespacehmap.html#a321149eda3417aa485a010c31267818caa6a0098d7d9f4eaae196f3f721464806", null ]
     ] ],
+    [ "hmap::gpu::MorphologyOperation", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524", [
+      [ "hmap::gpu::MO_BORDER", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524a85974c420302511f55e4508faf24b0e0", null ],
+      [ "hmap::gpu::MO_CLOSING", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524af933afdfc99c4f8e5e84358523213569", null ],
+      [ "hmap::gpu::MO_DILATION", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524af70471053657b11e98215522c43d5d88", null ],
+      [ "hmap::gpu::MO_EROSION", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524aca82576382d7a0cfbb45d565df648fdb", null ],
+      [ "hmap::gpu::MO_OPENING", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524a58b48009144fcbb385c9e810856d11ed", null ],
+      [ "hmap::gpu::MO_BLACK_HAT", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524a7b1e3164a00ba334e24481cbfde31656", null ],
+      [ "hmap::gpu::MO_TOP_HAT", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524a0f05410be8b31c8f9b33a866983e1133", null ],
+      [ "hmap::gpu::MO_GRADIENT", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524a4f9039194ac974b7b868a2f09576ca2f", null ],
+      [ "hmap::gpu::MO_LAPLACIAN", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524a52615d07ce734b27abf913fd568b3b5f", null ],
+      [ "hmap::gpu::MO_CLOSING_BY_RECONSTRUCTION", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524ae3ea7435d6983bfaad057a6d2b4b2cbd", null ],
+      [ "hmap::gpu::MO_OPENING_BY_RECONSTRUCTION", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524abedc792af6bf0d76c43487cb47e47992", null ]
+    ] ],
     [ "hmap::area_remove", "namespacehmap.html#ad5e2af6d9a9f26690998f2c26865444a", null ],
     [ "hmap::border", "namespacehmap.html#af80bcff234bf1482cf26896b9d21d270", null ],
     [ "hmap::closing", "namespacehmap.html#a889405ce11be91e33cc80ca4dbd192b0", null ],
@@ -48,6 +61,7 @@ var morphology_8hpp =
     [ "hmap::signed_curvature_from_distance", "namespacehmap.html#ac56515202b30368216c7324b819cc838", null ],
     [ "hmap::signed_distance_transform", "namespacehmap.html#ad4ab7bb38b3ea37fa912190251c1ed76", null ],
     [ "hmap::skeleton", "namespacehmap.html#a11ddd5ab1aa625db9419d9b65c0eaa64", null ],
+    [ "hmap::morphological_operators", "namespacehmap.html#a0df2e693c1919b3f59ee98df040ff489", null ],
     [ "hmap::gpu::border", "namespacehmap_1_1gpu.html#a06a37576327ff4cb06746711dbdfa0de", null ],
     [ "hmap::gpu::closing", "namespacehmap_1_1gpu.html#ae87241d6c556abd06c6b977f45f48a3f", null ],
     [ "hmap::gpu::closing_by_reconstruction", "namespacehmap_1_1gpu.html#aa6af85d0d97b84f5112ce63b8ea2e46a", null ],
@@ -69,6 +83,5 @@ var morphology_8hpp =
     [ "hmap::gpu::signed_curvature_from_distance", "namespacehmap_1_1gpu.html#afffb85b7bc6b9884cd00254c122da8e6", null ],
     [ "hmap::gpu::signed_distance_transform", "namespacehmap_1_1gpu.html#a76cfd96b971a288964561449d83e21aa", null ],
     [ "hmap::gpu::skeleton", "namespacehmap_1_1gpu.html#a5287e8c6a324fa91bea6c7bf98aacd68", null ],
-    [ "hmap::morphological_operators", "namespacehmap.html#a0df2e693c1919b3f59ee98df040ff489", null ],
     [ "hmap::gpu::morphological_operators", "namespacehmap_1_1gpu.html#a15cc695501488300f5c2c939c9c9ee8d", null ]
 ];

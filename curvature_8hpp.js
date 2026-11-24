@@ -15,7 +15,7 @@ var curvature_8hpp =
       [ "hmap::CT_ROTOR", "namespacehmap.html#ad4d5e191ca7dd12e389c842188bde88aae43a8928c7c1f96f56419e4d4197ec12", null ]
     ] ],
     [ "hmap::level_set_curvature", "namespacehmap.html#aa1f2e119a09d246fe0cf27e859ddb2e6", null ],
-    [ "hmap::gpu::level_set_curvature", "namespacehmap_1_1gpu.html#a125118b55d309727ff0b46d686fd3829", null ],
     [ "hmap::curvature_quadric", "namespacehmap.html#a4e2b7df70a18f94ad7f4d7cd934ec767", null ],
+    [ "hmap::gpu::level_set_curvature", "namespacehmap_1_1gpu.html#a125118b55d309727ff0b46d686fd3829", null ],
     [ "hmap::gpu::curvature_quadric", "namespacehmap_1_1gpu.html#a7bfb7fecab3f34a73a57d7907c3ace7d", null ]
 ];
