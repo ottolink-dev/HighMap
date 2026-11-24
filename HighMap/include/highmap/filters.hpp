@@ -2966,10 +2966,6 @@ Array spectral_equalizer(const Array              &array,
                          int                       ir_min,
                          int                       ir_max,
                          const Array              *p_mask);
-} // namespace hmap::gpu
-
-namespace hmap::gpu
-{
 
 /**
  * @brief Apply a Voronoi shrinker filter to an input heightmap.

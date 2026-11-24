@@ -27,23 +27,6 @@ namespace hmap
  */
 Array level_set_curvature(const Array &array, int prefilter_ir);
 
-} // namespace hmap
-
-namespace hmap::gpu
-{
-
-/*! @brief See hmap::level_set_curvature */
-Array level_set_curvature(const Array &array, int prefilter_ir);
-
-} // namespace hmap::gpu
-
-// ==========================================================================
-//  Wrapper
-// ==========================================================================
-
-namespace hmap
-{
-
 /**
  * \brief Types of curvature measures.
  *
@@ -94,6 +77,9 @@ Array curvature_quadric(const Array &z, int ir, CurvatureType curvature_type);
 
 namespace hmap::gpu
 {
+
+/*! @brief See hmap::level_set_curvature */
+Array level_set_curvature(const Array &array, int prefilter_ir);
 
 /*! @brief See hmap::curvature_quadric */
 Array curvature_quadric(const Array  &z,
