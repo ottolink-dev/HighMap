@@ -160,11 +160,11 @@ Array crater(glm::ivec2   shape,
 
 /**
  * @brief Generate a field of procedural impact craters from explicit centers
- *        and radii.
+ * and radii.
  *
- * Uses a KD-tree over crater centers to evaluate only nearby craters per
- * pixel, and scales cavity depth, lip height, and central peak height
- * proportionally to each crater's radius.
+ * Uses a KD-tree over crater centers to evaluate only nearby craters per pixel,
+ * and scales cavity depth, lip height, and central peak height proportionally
+ * to each crater's radius.
  *
  * @param  shape               Output array shape.
  * @param  centers             Crater center positions in world coordinates.
@@ -209,7 +209,7 @@ Array crater_field(glm::ivec2                    shape,
                    glm::vec4                     bbox = {0.f, 1.f, 0.f, 1.f},
                    Array                        *p_crater_mask = nullptr,
                    Array                        *p_inner_crater_mask = nullptr,
-                   bool                          scale_elevation_with_radius = true);
+                   bool scale_elevation_with_radius = true);
 
 /**
  * @brief Generate a field of randomly distributed procedural impact craters.
