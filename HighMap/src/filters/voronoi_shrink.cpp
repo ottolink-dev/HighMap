@@ -28,7 +28,7 @@ Array voronoi_shrink(const Array  &array,
                      const Array  *p_mask,
                      const Array  *p_noise_x,
                      const Array  *p_noise_y,
-                     glm::vec4     bbox)
+                     const UvRect &uv_rect)
 {
   if (!validate_non_empty(array)) return Array();
   if (p_mask && !validate_same_shape(array, *p_mask)) return Array(array.shape);
@@ -61,7 +61,7 @@ Array voronoi_shrink(const Array  &array,
                      p_mask ? 1 : 0,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_imagef("in");
   run.execute({shape.x, shape.y});
@@ -80,7 +80,7 @@ Array voronoi_shrink(const Array  &array,
                      const Array  *p_mask,
                      const Array  *p_noise_x,
                      const Array  *p_noise_y,
-                     glm::vec4     bbox)
+                     const UvRect &uv_rect)
 {
   return voronoi_shrink(array,
                         {kw, kw},
@@ -92,17 +92,17 @@ Array voronoi_shrink(const Array  &array,
                         p_mask,
                         p_noise_x,
                         p_noise_y,
-                        bbox);
+                        uv_rect);
 }
 
-Array voronoi_shrink(const Array &array,
-                     const Cloud &cloud,
-                     float        shrink_factor,
-                     float        fill_value,
-                     const Array *p_mask,
-                     const Array *p_noise_x,
-                     const Array *p_noise_y,
-                     glm::vec4    bbox)
+Array voronoi_shrink(const Array  &array,
+                     const Cloud  &cloud,
+                     float         shrink_factor,
+                     float         fill_value,
+                     const Array  *p_mask,
+                     const Array  *p_noise_x,
+                     const Array  *p_noise_y,
+                     const UvRect &uv_rect)
 {
   if (!validate_non_empty(array)) return Array();
   if (cloud.empty()) return Array(array.shape);
@@ -137,7 +137,7 @@ Array voronoi_shrink(const Array &array,
                      p_mask ? 1 : 0,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_imagef("in");
   run.write_buffer("xp");
@@ -157,7 +157,7 @@ Array voronoi_shrink(const Array              &array,
                      const Array              *p_mask,
                      const Array              *p_noise_x,
                      const Array              *p_noise_y,
-                     glm::vec4                 bbox)
+                     const UvRect             &uv_rect)
 {
   return voronoi_shrink(array,
                         Cloud(points),
@@ -166,7 +166,7 @@ Array voronoi_shrink(const Array              &array,
                         p_mask,
                         p_noise_x,
                         p_noise_y,
-                        bbox);
+                        uv_rect);
 }
 
 Array voronoi_shrink(const Array                  &array,
@@ -176,7 +176,7 @@ Array voronoi_shrink(const Array                  &array,
                      const Array                  *p_mask,
                      const Array                  *p_noise_x,
                      const Array                  *p_noise_y,
-                     glm::vec4                     bbox)
+                     const UvRect                 &uv_rect)
 {
   std::vector<Point> pts;
   pts.reserve(points.size());
@@ -192,7 +192,7 @@ Array voronoi_shrink(const Array                  &array,
                         p_mask,
                         p_noise_x,
                         p_noise_y,
-                        bbox);
+                        uv_rect);
 }
 
 } // namespace hmap::gpu

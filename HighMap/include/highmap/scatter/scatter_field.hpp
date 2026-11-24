@@ -260,7 +260,7 @@ public:
                          float            r_max = 2e-3f,
                          uint32_t         class_id = 0,
                          uint32_t         seed = 0,
-                         const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+                         const UvRect &uv_rect = {0.f, 1.f, 0.f, 1.f});
 
   /**
    * @brief Resolves overlapping items by discarding smaller items in collision.
@@ -294,7 +294,7 @@ public:
   void prune_density(const Array     &density_mask,
                      float            target_ratio = 0.8f,
                      uint32_t         seed = 0,
-                     const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = {0.f, 1.f, 0.f, 1.f});
 
   /**
    * @brief Relaxes/regularizes item positions using k-nearest neighbor
@@ -373,7 +373,7 @@ public:
    * @param bbox      Bounding box defining the domain of the elevation array.
    */
   void set_elevation_from_terrain(const Array     &elevation,
-                                  const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+                                  const UvRect &uv_rect = {0.f, 1.f, 0.f, 1.f});
 
   /**
    * @brief Randomly shuffles class identifiers between neighboring items.
@@ -442,7 +442,7 @@ public:
                      std::optional<uint32_t> class_id = std::nullopt,
                      Array                  *p_rock_map = nullptr,
                      uint32_t                seed = 0,
-                     glm::vec4               bbox = {0.f, 1.f, 0.f, 1.f}) const;
+                     const UvRect &uv_rect = UvRect::unit()) const;
 
   /**
    * @brief Exports the items to a CSV file (x, y, z, class_id, radius).
@@ -463,7 +463,7 @@ public:
    */
   std::vector<uint8_t> to_img_8bit(glm::ivec2   shape,
                                    const Array &background = {},
-                                   glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
+                                   const UvRect &uv_rect = UvRect::unit(),
                                    bool         flip_y = false) const;
 
   /**
@@ -484,7 +484,7 @@ public:
   void to_png(const std::string &fname,
               glm::ivec2         shape,
               const Array       &background = {},
-              glm::vec4          bbox = {0.f, 1.f, 0.f, 1.f}) const;
+              const UvRect &uv_rect = UvRect::unit()) const;
 
   /**
    * @brief Returns a multi-line formatted summary string of the scatter field.
@@ -553,6 +553,6 @@ Array scatter_field_to_heightmap(
     std::optional<uint32_t> class_id = std::nullopt,
     Array                  *p_rock_map = nullptr,
     uint32_t                seed = 0,
-    glm::vec4               bbox = {0.f, 1.f, 0.f, 1.f});
+    const UvRect &uv_rect = UvRect::unit());
 
 } // namespace hmap

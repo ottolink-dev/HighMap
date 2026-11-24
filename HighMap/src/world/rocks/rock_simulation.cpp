@@ -70,9 +70,9 @@ RockField simulate_rock_trajectories(const RockField &rocks,
     return rocks;
   }
 
-  int        num_rocks = static_cast<int>(rocks.size());
-  glm::ivec2 shape = elevation.shape;
-  glm::vec4  bbox = options.bbox;
+  int           num_rocks = static_cast<int>(rocks.size());
+  glm::ivec2    shape = elevation.shape;
+  const BBox2D &bbox = options.bbox;
 
   // --- Prepare GPU Rock Buffers (SoA / Aligned Structs)
 
@@ -92,8 +92,8 @@ RockField simulate_rock_trajectories(const RockField &rocks,
     float z_pos = item.position.z;
     if (std::abs(z_pos) < 1e-5f)
     {
-      float u = (item.position.x - bbox.x) / (bbox.y - bbox.x);
-      float v = (item.position.y - bbox.z) / (bbox.w - bbox.z);
+      float u = (item.position.x - bbox.min.x) / (bbox.max.x - bbox.min.x);
+      float v = (item.position.y - bbox.min.y) / (bbox.max.y - bbox.min.y);
       float fx = std::clamp(u * (shape.x - 1),
                             0.0f,
                             static_cast<float>(shape.x - 1));
@@ -155,8 +155,8 @@ RockField simulate_rock_trajectories(const RockField &rocks,
 
   // --- OpenCL Simulation Run Dispatch
   // Configure spatial hash grid based on domain bbox and rock radii
-  float dom_w = bbox.y - bbox.x;
-  float dom_h = bbox.w - bbox.z;
+  float dom_w = bbox.max.x - bbox.min.x;
+  float dom_h = bbox.max.y - bbox.min.y;
   float cell_size = std::max(2.0f * max_radius, 1e-4f);
 
   int   grid_cells_x = std::clamp(static_cast<int>(dom_w / cell_size), 4, 512);

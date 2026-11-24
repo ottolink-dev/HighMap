@@ -318,7 +318,7 @@ public:
    * @param color_by_edge_weight Color lines by edge weight if true.
    */
   void to_array(Array    &array,
-                glm::vec4 bbox,
+                const BBox2D &bbox,
                 bool      color_by_edge_weight = true) const;
 
   /**
@@ -332,7 +332,7 @@ public:
    * @param persistence Octave persistence.
    */
   void to_array_fractalize(Array        &array,
-                           glm::vec4     bbox,
+                           const BBox2D &bbox,
                            int           iterations,
                            std::uint32_t seed,
                            float         sigma = 0.3f,
@@ -350,10 +350,10 @@ public:
    * @return            Array SDF array.
    */
   Array to_array_sdf(glm::ivec2 shape,
-                     glm::vec4  bbox,
+                     const BBox2D &bbox,
                      Array     *p_noise_x = nullptr,
                      Array     *p_noise_y = nullptr,
-                     glm::vec4  bbox_array = {0.f, 1.f, 0.f, 1.f}) const;
+                     const BBox2D &bbox_array = BBox2D{}) const;
 
   /**
    * @brief Export graph data to CSV files.

@@ -89,7 +89,7 @@ void radial_displacement_to_xy(const Array &dr,
                                Array       &dy,
                                float        smoothing = 1.f,
                                glm::vec2    center = {0.5f, 0.5f},
-                               glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                               const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Rotate the array by 180 degrees.
@@ -237,7 +237,7 @@ Array translate(const Array &array,
                 bool         periodic = false,
                 const Array *p_noise_x = nullptr,
                 const Array *p_noise_y = nullptr,
-                glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return the transposed array.
@@ -303,7 +303,7 @@ Array zoom(const Array &array,
            glm::vec2    center = {0.5f, 0.5f},
            const Array *p_noise_x = nullptr,
            const Array *p_noise_y = nullptr,
-           glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+           const UvRect &uv_rect = UvRect::unit());
 
 } // namespace hmap
 

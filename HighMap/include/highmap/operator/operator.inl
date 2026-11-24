@@ -12,7 +12,7 @@ namespace hmap
 
 template <typename Fn>
 void fill_array_using_xy_function(Array       &array,
-                                  glm::vec4    bbox,
+                                  const UvRect &uv_rect,
                                   const Array *p_ctrl_param,
                                   const Array *p_noise_x,
                                   const Array *p_noise_y,
@@ -27,7 +27,7 @@ void fill_array_using_xy_function(Array       &array,
 
   glm::ivec2         shape = array.shape;
   std::vector<float> x, y;
-  grid_xy_vector(x, y, shape, bbox, false);
+  grid_xy_vector(x, y, shape, uv_rect, false);
 
   Array ctrl_array = p_ctrl_param == nullptr ? Array(shape, 1.f)
                                              : *p_ctrl_param;
@@ -105,7 +105,7 @@ void fill_array_using_xy_function(Array       &array,
 
 template <typename Fn>
 void fill_array_using_xy_function(Array       &array,
-                                  glm::vec4    bbox,
+                                  const UvRect &uv_rect,
                                   const Array *p_ctrl_param,
                                   const Array *p_noise_x,
                                   const Array *p_noise_y,
@@ -125,7 +125,7 @@ void fill_array_using_xy_function(Array       &array,
   Array      array_sub = Array(shape_sub);
 
   std::vector<float> x, y;
-  grid_xy_vector(x, y, shape, bbox, false);
+  grid_xy_vector(x, y, shape, uv_rect, false);
 
   Array ctrl_array = p_ctrl_param == nullptr ? Array(shape, 1.f)
                                              : *p_ctrl_param;

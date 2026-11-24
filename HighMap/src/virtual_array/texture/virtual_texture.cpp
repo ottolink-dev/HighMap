@@ -23,34 +23,17 @@ namespace hmap
 {
 
 VirtualTexture::VirtualTexture(glm::ivec2                   shape,
-                               glm::vec4                    bbox,
                                glm::ivec2                   tile_shape,
                                int                          halo,
                                int                          channels,
                                std::unique_ptr<TileStorage> storage_proto)
-    : shape(shape), bbox(bbox), tile_shape(tile_shape), halo(halo)
+    : shape(shape), tile_shape(tile_shape), halo(halo)
 {
   arrays.reserve(channels);
 
   for (int c = 0; c < channels; ++c)
   {
-    arrays.emplace_back(shape, bbox, tile_shape, halo, storage_proto->clone());
-  }
-}
-
-VirtualTexture::VirtualTexture(glm::ivec2  shape,
-                               glm::vec4   bbox,
-                               glm::ivec2  tile_shape,
-                               int         halo,
-                               int         channels,
-                               StorageMode storage_mode)
-    : shape(shape), bbox(bbox), tile_shape(tile_shape), halo(halo)
-{
-  arrays.reserve(channels);
-
-  for (int c = 0; c < channels; ++c)
-  {
-    arrays.emplace_back(shape, bbox, tile_shape, halo, storage_mode);
+    arrays.emplace_back(shape, tile_shape, halo, storage_proto->clone());
   }
 }
 
@@ -59,16 +42,13 @@ VirtualTexture::VirtualTexture(glm::ivec2  shape,
                                int         halo,
                                int         channels,
                                StorageMode storage_mode)
-    : shape(shape),
-      bbox({0.f, 1.f, 0.f, 1.f}),
-      tile_shape(tile_shape),
-      halo(halo)
+    : shape(shape), tile_shape(tile_shape), halo(halo)
 {
   arrays.reserve(channels);
 
   for (int c = 0; c < channels; ++c)
   {
-    arrays.emplace_back(shape, bbox, tile_shape, halo, storage_mode);
+    arrays.emplace_back(shape, tile_shape, halo, storage_mode);
   }
 }
 
@@ -113,7 +93,6 @@ void VirtualTexture::copy_from(VirtualTexture &src, const ComputeMode &cm)
   if (this == &src) return;
 
   shape = src.shape;
-  bbox = src.bbox;
   tile_shape = src.tile_shape;
   halo = src.halo;
 

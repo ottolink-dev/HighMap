@@ -18,7 +18,6 @@ TEST(VirtualArrayTest, ConstructionAndProperties)
   VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
 
   EXPECT_EQ(va.shape, shape);
-  EXPECT_EQ(va.bbox, bbox);
   EXPECT_EQ(va.tile_shape, tile_shape);
   EXPECT_EQ(va.halo, halo);
 

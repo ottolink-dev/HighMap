@@ -187,7 +187,7 @@ class BVH2DBezier
 public:
   struct Node
   {
-    AABB2D   bbox;
+    AABB2D   uv_rect;
     int32_t  left{-1};
     int32_t  right{-1};
     uint32_t curve_start{0};
@@ -252,7 +252,7 @@ private:
       centroid_bbox.expand(centroid);
     }
 
-    node.bbox = node_bbox;
+    node.uv_rect = node_bbox;
 
     if (count <= 4)
     {
@@ -325,7 +325,7 @@ float query_nearest_bezier_dist_sq_bvh(const BVH2DBezier &bvh,
   StackEntry stack[64];
   int        stack_ptr = 0;
 
-  stack[stack_ptr++] = {0, aabb_distance_sq(p, nodes[0].bbox)};
+  stack[stack_ptr++] = {0, aabb_distance_sq(p, nodes[0].uv_rect)};
 
   while (stack_ptr > 0)
   {
@@ -343,8 +343,8 @@ float query_nearest_bezier_dist_sq_bvh(const BVH2DBezier &bvh,
     }
     else
     {
-      float d_left = aabb_distance_sq(p, nodes[node.left].bbox);
-      float d_right = aabb_distance_sq(p, nodes[node.right].bbox);
+      float d_left = aabb_distance_sq(p, nodes[node.left].uv_rect);
+      float d_right = aabb_distance_sq(p, nodes[node.right].uv_rect);
 
       if (d_left < d_right)
       {
@@ -364,28 +364,32 @@ float query_nearest_bezier_dist_sq_bvh(const BVH2DBezier &bvh,
 
 } // namespace
 
-Array sdf_2d_polyline_bezier(const Path  &path,
-                             glm::ivec2   shape,
-                             glm::vec4    bbox,
-                             const Array *p_noise_x,
-                             const Array *p_noise_y,
-                             bool         use_bvh)
+Array sdf_2d_polyline_bezier(const Path   &path,
+                             glm::ivec2    shape,
+                             const UvRect &uv_rect,
+                             const Array  *p_noise_x,
+                             const Array  *p_noise_y,
+                             bool          use_bvh)
 {
   if (use_bvh)
-    return sdf_2d_polyline_bezier_bvh(path, shape, bbox, p_noise_x, p_noise_y);
+    return sdf_2d_polyline_bezier_bvh(path,
+                                      shape,
+                                      uv_rect,
+                                      p_noise_x,
+                                      p_noise_y);
 
   return sdf_2d_polyline_bezier_brute_force(path,
                                             shape,
-                                            bbox,
+                                            uv_rect,
                                             p_noise_x,
                                             p_noise_y);
 }
 
-Array sdf_2d_polyline_bezier_brute_force(const Path  &path,
-                                         glm::ivec2   shape,
-                                         glm::vec4    bbox,
-                                         const Array *p_noise_x,
-                                         const Array *p_noise_y)
+Array sdf_2d_polyline_bezier_brute_force(const Path   &path,
+                                         glm::ivec2    shape,
+                                         const UvRect &uv_rect,
+                                         const Array  *p_noise_x,
+                                         const Array  *p_noise_y)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
@@ -405,7 +409,7 @@ Array sdf_2d_polyline_bezier_brute_force(const Path  &path,
   // array cell coordinates
   std::vector<float> xg(shape.x);
   std::vector<float> yg(shape.y);
-  grid_xy_vector(xg, yg, shape, bbox, false);
+  grid_xy_vector(xg, yg, shape, uv_rect, false);
 
   const bool is_closed = path.is_closed();
 
@@ -438,11 +442,11 @@ Array sdf_2d_polyline_bezier_brute_force(const Path  &path,
   return sdf2;
 }
 
-Array sdf_2d_polyline_bezier_bvh(const Path  &path,
-                                 glm::ivec2   shape,
-                                 glm::vec4    bbox,
-                                 const Array *p_noise_x,
-                                 const Array *p_noise_y)
+Array sdf_2d_polyline_bezier_bvh(const Path   &path,
+                                 glm::ivec2    shape,
+                                 const UvRect &uv_rect,
+                                 const Array  *p_noise_x,
+                                 const Array  *p_noise_y)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
@@ -464,7 +468,7 @@ Array sdf_2d_polyline_bezier_bvh(const Path  &path,
   // array cell coordinates
   std::vector<float> xg(shape.x);
   std::vector<float> yg(shape.y);
-  grid_xy_vector(xg, yg, shape, bbox, false);
+  grid_xy_vector(xg, yg, shape, uv_rect, false);
 
   const bool is_closed = path.is_closed();
 

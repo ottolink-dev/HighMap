@@ -17,7 +17,7 @@ Array interpolate2d_delaunay(glm::ivec2                shape,
                              const std::vector<float> &values,
                              const Array              *p_noise_x,
                              const Array              *p_noise_y,
-                             glm::vec4                 bbox,
+                             const UvRect             &uv_rect,
                              float                     fill_value)
 {
   if (!validate_shape(shape)) return Array();
@@ -32,7 +32,7 @@ Array interpolate2d_delaunay(glm::ivec2                shape,
 
   // grid interpolation
   std::vector<float> xg, yg;
-  grid_xy_vector(xg, yg, shape, bbox, false);
+  grid_xy_vector(xg, yg, shape, uv_rect, false);
 
   Array out(shape);
 

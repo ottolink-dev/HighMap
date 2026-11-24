@@ -133,7 +133,7 @@ std::string Forest::to_string() const
   std::ostringstream ss;
   ss.imbue(std::locale("C"));
 
-  glm::vec4 bbox = get_bbox();
+  const BBox2D &bbox = get_bbox();
 
   // count trees and collect average radius per species
   std::map<uint32_t, size_t> species_counts;
@@ -148,8 +148,8 @@ std::string Forest::to_string() const
   ss << "--------------------------------\n";
   ss << " total trees : " << items.size() << "\n";
   ss << " species count : " << species_counts.size() << "\n";
-  ss << " bbox : {" << bbox.x << ", " << bbox.y << ", " << bbox.z << ", "
-     << bbox.w << "}\n";
+  ss << " bbox : {" << bbox.min.x << ", " << bbox.max.x << ", " << bbox.min.y
+     << ", " << bbox.max.y << "}\n";
 
   if (!species_counts.empty())
   {

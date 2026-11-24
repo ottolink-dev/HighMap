@@ -435,7 +435,7 @@ void blend_terrains(VirtualArray       &lower,
   const AffineTransform2D xform = frame_lower.compute_relative_transform(
       frame_upper);
 
-  const glm::vec4 upper_bbox = upper.bbox;
+  const glm::vec4 upper_bbox = {0.f, 1.f, 0.f, 1.f};
   const float     upper_dx = upper_bbox.y - upper_bbox.x;
   const float     upper_dy = upper_bbox.w - upper_bbox.z;
 
@@ -539,7 +539,7 @@ void blend_terrains_height(VirtualArray       &lower,
   const AffineTransform2D xform = frame_lower.compute_relative_transform(
       frame_upper);
 
-  const glm::vec4 upper_bbox = upper.bbox;
+  const glm::vec4 upper_bbox = {0.f, 1.f, 0.f, 1.f};
   const float     upper_dx = upper_bbox.y - upper_bbox.x;
   const float     upper_dy = upper_bbox.w - upper_bbox.z;
 
@@ -757,7 +757,7 @@ void blend_terrains_multiscale(VirtualArray       &lower,
   smooth_cpulse(upper_base_coarse, coarse_radius);
 
   // Level 2: tile-local detail blending + halo sync
-  const glm::vec4 upper_bbox = upper.bbox;
+  const glm::vec4 upper_bbox = {0.f, 1.f, 0.f, 1.f};
   const float     upper_dx = upper_bbox.y - upper_bbox.x;
   const float     upper_dy = upper_bbox.w - upper_bbox.z;
 
@@ -995,7 +995,7 @@ void blend_terrains_poisson(VirtualArray       &lower,
                                  omega_c);
 
   // Level 2: tile-local Red-Black SOR refinement with halo sync
-  const glm::vec4 upper_bbox = upper.bbox;
+  const glm::vec4 upper_bbox = {0.f, 1.f, 0.f, 1.f};
   const float     upper_dx = upper_bbox.y - upper_bbox.x;
   const float     upper_dy = upper_bbox.w - upper_bbox.z;
 
@@ -1161,11 +1161,11 @@ void blend_terrains_seamless(VirtualArray       &lower,
 {
   if (!frame_lower.intersects(frame_upper)) return;
 
-  const glm::vec4 lower_bbox = lower.bbox;
+  const glm::vec4 lower_bbox = {0.f, 1.f, 0.f, 1.f};
   const float     lower_dx = lower_bbox.y - lower_bbox.x;
   const float     lower_dy = lower_bbox.w - lower_bbox.z;
 
-  const glm::vec4 upper_bbox = upper.bbox;
+  const glm::vec4 upper_bbox = {0.f, 1.f, 0.f, 1.f};
   const float     upper_dx = upper_bbox.y - upper_bbox.x;
   const float     upper_dy = upper_bbox.w - upper_bbox.z;
 
@@ -1314,7 +1314,7 @@ void blend_terrains_slope(VirtualArray       &lower,
   const AffineTransform2D xform = frame_lower.compute_relative_transform(
       frame_upper);
 
-  const glm::vec4 upper_bbox = upper.bbox;
+  const glm::vec4 upper_bbox = {0.f, 1.f, 0.f, 1.f};
   const float     upper_dx = upper_bbox.y - upper_bbox.x;
   const float     upper_dy = upper_bbox.w - upper_bbox.z;
 

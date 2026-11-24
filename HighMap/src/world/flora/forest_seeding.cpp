@@ -163,8 +163,8 @@ Forest seed_forest_clusters(size_t                      species_count,
       !validate_non_empty(density))
     return Forest();
 
-  float width = options.bbox.y - options.bbox.x;
-  float height = options.bbox.w - options.bbox.z;
+  float width = options.bbox.max.x - options.bbox.min.x;
+  float height = options.bbox.max.y - options.bbox.min.y;
   if (width <= 1e-7f || height <= 1e-7f) return Forest();
 
   // --- Modulate Density by Exclusion Map
@@ -305,8 +305,8 @@ Forest seed_forest_kmeans(size_t                      species_count,
   if (species_count == 0 || tree_count == 0 || !validate_non_empty(density))
     return Forest();
 
-  float width = options.bbox.y - options.bbox.x;
-  float height = options.bbox.w - options.bbox.z;
+  float width = options.bbox.max.x - options.bbox.min.x;
+  float height = options.bbox.max.y - options.bbox.min.y;
   if (width <= 1e-7f || height <= 1e-7f) return Forest();
 
   // --- Modulate Density by Exclusion Map

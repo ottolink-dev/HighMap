@@ -24,7 +24,7 @@ Array badlands(glm::ivec2    shape,
                float         base_noise_amp,
                const Array  *p_noise_x,
                const Array  *p_noise_y,
-               glm::vec4     bbox)
+               const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -46,7 +46,7 @@ Array badlands(glm::ivec2    shape,
                                                 nullptr,
                                                 p_noise_x,
                                                 p_noise_y,
-                                                bbox);
+                                                uv_rect);
 
   Array dx = noise * std::cos(alpha);
   Array dy = noise * std::sin(alpha);
@@ -70,7 +70,7 @@ Array badlands(glm::ivec2    shape,
                               nullptr,
                               &dx,
                               &dy,
-                              bbox);
+                              uv_rect);
 
   return voronoi;
 }

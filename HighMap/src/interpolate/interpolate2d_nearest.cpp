@@ -17,7 +17,7 @@ Array interpolate2d_nearest(glm::ivec2                shape,
                             const std::vector<float> &values,
                             const Array              *p_noise_x,
                             const Array              *p_noise_y,
-                            glm::vec4                 bbox)
+                            const UvRect             &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (!validate_min_size(x, 2, "Point coordinates x") || x.size() != y.size() ||
@@ -31,7 +31,7 @@ Array interpolate2d_nearest(glm::ivec2                shape,
 
   // interpolation base grid
   std::vector<float> xg, yg;
-  grid_xy_vector(xg, yg, shape, bbox, /* endpoint */ false);
+  grid_xy_vector(xg, yg, shape, uv_rect, /* endpoint */ false);
 
   // interpolate
   Array out(shape);

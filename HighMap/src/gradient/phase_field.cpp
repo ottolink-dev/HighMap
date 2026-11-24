@@ -59,7 +59,7 @@ Array phase_field(const Array     &array,
                   const Array     *p_noise_y,
                   Array           *p_modulus,
                   Array           *p_angle_jump_mask,
-                  glm::vec4        bbox)
+                  const UvRect    &uv_rect)
 {
   if (!validate_non_empty(array)) return Array();
   if (p_ctrl_param && !validate_same_shape(array, *p_ctrl_param))
@@ -108,7 +108,7 @@ Array phase_field(const Array     &array,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
                      p_modulus ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_buffer("angle");
   run.write_buffer("phase");
@@ -133,7 +133,7 @@ Array phase_field(const Array     &array,
                   const Array     *p_noise_y,
                   Array           *p_modulus,
                   Array           *p_angle_jump_mask,
-                  glm::vec4        bbox)
+                  const UvRect    &uv_rect)
 {
   if (!validate_non_empty(array)) return Array();
   if (p_ctrl_param && !validate_same_shape(array, *p_ctrl_param))
@@ -159,7 +159,7 @@ Array phase_field(const Array     &array,
                      p_noise_y,
                      p_modulus,
                      p_angle_jump_mask,
-                     bbox);
+                     uv_rect);
 }
 
 Array phase_field_angle(const Array     &angle,
@@ -173,7 +173,7 @@ Array phase_field_angle(const Array     &angle,
                         const Array     *p_noise_y,
                         Array           *p_modulus,
                         Array           *p_angle_jump_mask,
-                        glm::vec4        bbox)
+                        const UvRect    &uv_rect)
 {
   if (!validate_non_empty(angle)) return Array();
   if (p_ctrl_param && !validate_same_shape(angle, *p_ctrl_param))
@@ -214,7 +214,7 @@ Array phase_field_angle(const Array     &angle,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
                      p_modulus ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_buffer("angle");
   run.write_buffer("phase");

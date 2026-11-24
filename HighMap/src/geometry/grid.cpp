@@ -29,15 +29,15 @@ int convert_length_to_pixel(float x,
 void expand_points_domain(std::vector<float> &x,
                           std::vector<float> &y,
                           std::vector<float> &value,
-                          glm::vec4           bbox)
+                          const BBox2D       &bbox)
 {
   size_t n = x.size();
   x.resize(9 * n);
   y.resize(9 * n);
   value.resize(9 * n);
 
-  float lx = bbox.y - bbox.x;
-  float ly = bbox.w - bbox.z;
+  float lx = bbox.max.x - bbox.min.x;
+  float ly = bbox.max.y - bbox.min.y;
 
   int kshift = 0;
   for (int i = -1; i < 2; i++)
@@ -57,28 +57,34 @@ void expand_points_domain(std::vector<float> &x,
 void expand_points_at_domain_boundaries(std::vector<float> &x,
                                         std::vector<float> &y,
                                         std::vector<float> &value,
-                                        glm::vec4           bbox,
+                                        const BBox2D       &bbox,
                                         float               boundary_value)
 {
   expand_points_domain_corners(x, y, value, bbox, boundary_value);
 
   int npoints = std::max(0, (int)std::sqrt((float)x.size()));
 
-  const std::vector<float> xb = linspace(bbox.x, bbox.y, npoints, false);
-  const std::vector<float> yb = linspace(bbox.z, bbox.w, npoints, false);
+  const std::vector<float> xb = linspace(bbox.min.x,
+                                         bbox.max.x,
+                                         npoints,
+                                         false);
+  const std::vector<float> yb = linspace(bbox.min.y,
+                                         bbox.max.y,
+                                         npoints,
+                                         false);
 
   for (int i = 0; i < npoints; i++)
   {
     x.push_back(xb[i]);
-    y.push_back(bbox.z);
+    y.push_back(bbox.min.y);
 
     x.push_back(xb[i]);
-    y.push_back(bbox.w);
+    y.push_back(bbox.max.y);
 
-    x.push_back(bbox.x);
+    x.push_back(bbox.min.x);
     y.push_back(yb[i]);
 
-    x.push_back(bbox.y);
+    x.push_back(bbox.max.x);
     y.push_back(yb[i]);
 
     value.push_back(boundary_value);
@@ -91,18 +97,18 @@ void expand_points_at_domain_boundaries(std::vector<float> &x,
 void expand_points_domain_corners(std::vector<float> &x,
                                   std::vector<float> &y,
                                   std::vector<float> &value,
-                                  glm::vec4           bbox,
+                                  const BBox2D       &bbox,
                                   float               corner_value)
 {
-  x.push_back(bbox.x);
-  x.push_back(bbox.x);
-  x.push_back(bbox.y);
-  x.push_back(bbox.y);
+  x.push_back(bbox.min.x);
+  x.push_back(bbox.min.x);
+  x.push_back(bbox.max.x);
+  x.push_back(bbox.max.x);
 
-  y.push_back(bbox.z);
-  y.push_back(bbox.w);
-  y.push_back(bbox.z);
-  y.push_back(bbox.w);
+  y.push_back(bbox.min.y);
+  y.push_back(bbox.max.y);
+  y.push_back(bbox.min.y);
+  y.push_back(bbox.max.y);
 
   for (int i = 0; i < 4; i++)
     value.push_back(corner_value);
@@ -129,48 +135,48 @@ void rescale_grid_from_unit_square_to_bbox(std::vector<float> &x,
                                            std::vector<float> &y,
                                            const UvRect       &uv_rect)
 {
-  const glm::vec4 bbox = uv_rect.to_vec4();
-  size_t          nx = x.size();
-  size_t          ny = y.size();
+  const BBox2D bbox = BBox2D::from_vec4(uv_rect.to_vec4());
+  size_t       nx = x.size();
+  size_t       ny = y.size();
 
   if (nx == 1)
   {
-    x[0] = bbox.x;
+    x[0] = bbox.min.x;
   }
   else if (nx > 1)
   {
     for (size_t i = 0; i < nx; ++i)
     {
       float t = (float)i / ((float)nx - 1.f);
-      x[i] = bbox.x + (bbox.y - bbox.x) * t;
+      x[i] = bbox.min.x + (bbox.max.x - bbox.min.x) * t;
     }
   }
 
   if (ny == 1)
   {
-    y[0] = bbox.z;
+    y[0] = bbox.min.y;
   }
   else if (ny > 1)
   {
     for (size_t j = 0; j < ny; ++j)
     {
       float t = (float)j / ((float)ny - 1.f);
-      y[j] = bbox.z + (bbox.w - bbox.z) * t;
+      y[j] = bbox.min.y + (bbox.max.y - bbox.min.y) * t;
     }
   }
 }
 
 void rescale_points_to_unit_square(std::vector<float> &x,
                                    std::vector<float> &y,
-                                   glm::vec4           bbox)
+                                   const BBox2D       &bbox)
 {
-  float lx = bbox.y - bbox.x;
-  float ly = bbox.w - bbox.z;
+  float lx = bbox.max.x - bbox.min.x;
+  float ly = bbox.max.y - bbox.min.y;
 
   if (std::abs(lx) > 1e-9f)
   {
     for (size_t k = 0; k < x.size(); k++)
-      x[k] = (x[k] - bbox.x) / lx;
+      x[k] = (x[k] - bbox.min.x) / lx;
   }
   else
   {
@@ -181,7 +187,7 @@ void rescale_points_to_unit_square(std::vector<float> &x,
   if (std::abs(ly) > 1e-9f)
   {
     for (size_t k = 0; k < y.size(); k++)
-      y[k] = (y[k] - bbox.z) / ly;
+      y[k] = (y[k] - bbox.min.y) / ly;
   }
   else
   {

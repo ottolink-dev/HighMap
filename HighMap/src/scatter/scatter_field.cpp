@@ -306,17 +306,17 @@ void ScatterField::perturb_positions(float dx, float dy, uint32_t seed)
   }
 }
 
-void ScatterField::pack_interstitial(size_t           count,
-                                     const Array     &density,
-                                     float            r_min,
-                                     float            r_max,
-                                     uint32_t         class_id,
-                                     uint32_t         seed,
-                                     const glm::vec4 &bbox)
+void ScatterField::pack_interstitial(size_t        count,
+                                     const Array  &density,
+                                     float         r_min,
+                                     float         r_max,
+                                     uint32_t      class_id,
+                                     uint32_t      seed,
+                                     const UvRect &uv_rect)
 {
   if (count == 0) return;
 
-  glm::vec4 effective_bbox = bbox;
+  glm::vec4 effective_bbox = uv_rect.to_vec4();
   if (std::abs(effective_bbox.y - effective_bbox.x) < 1e-6f)
   {
     effective_bbox = get_bbox();
@@ -602,17 +602,17 @@ void ScatterField::prune_collisions(const ScatterField &other)
   items = std::move(retained);
 }
 
-void ScatterField::prune_density(const Array     &density_mask,
-                                 float            target_ratio,
-                                 uint32_t         seed,
-                                 const glm::vec4 &bbox)
+void ScatterField::prune_density(const Array  &density_mask,
+                                 float         target_ratio,
+                                 uint32_t      seed,
+                                 const UvRect &uv_rect)
 {
   if (!validate_non_empty(density_mask) || items.empty()) return;
 
-  auto is_in_bbox = [](const glm::vec3 &position, const glm::vec4 &b) -> bool
+  auto is_in_bbox = [](const glm::vec3 &position, const UvRect &b) -> bool
   {
-    return position.x >= b.x && position.x <= b.y && position.y >= b.z &&
-           position.y <= b.w;
+    return position.x >= b.u_min && position.x <= b.u_max &&
+           position.y >= b.v_min && position.y <= b.v_max;
   };
 
   // --- Identify Items Inside and Outside the Bounding Box
@@ -622,7 +622,7 @@ void ScatterField::prune_density(const Array     &density_mask,
 
   for (size_t i = 0; i < items.size(); ++i)
   {
-    if (is_in_bbox(items[i].position, bbox))
+    if (is_in_bbox(items[i].position, uv_rect))
     {
       inside_indices.push_back(i);
     }
@@ -639,7 +639,7 @@ void ScatterField::prune_density(const Array     &density_mask,
 
     for (size_t i = 0; i < items.size(); ++i)
     {
-      if (!is_in_bbox(items[i].position, bbox))
+      if (!is_in_bbox(items[i].position, uv_rect))
       {
         retained.push_back(items[i]);
       }
@@ -656,7 +656,8 @@ void ScatterField::prune_density(const Array     &density_mask,
 
   // --- Sample Local Density for Items Inside Bounding Box
 
-  auto         density_fct = make_xy_function_from_array(density_mask, bbox);
+  auto         density_fct = make_xy_function_from_array(density_mask,
+                                                 uv_rect.to_vec4());
   const size_t nb_inside = inside_indices.size();
 
   std::vector<float> sampled_densities(nb_inside);
@@ -1092,20 +1093,20 @@ void ScatterField::resolve_collisions(const ScatterField &other,
   }
 }
 
-void ScatterField::set_elevation_from_terrain(const Array     &elevation,
-                                              const glm::vec4 &bbox)
+void ScatterField::set_elevation_from_terrain(const Array  &elevation,
+                                              const UvRect &uv_rect)
 {
   if (!validate_non_empty(elevation)) return;
 
-  float dx = bbox.y - bbox.x;
-  float dy = bbox.w - bbox.z;
+  float dx = uv_rect.u_max - uv_rect.u_min;
+  float dy = uv_rect.v_max - uv_rect.v_min;
   if (std::abs(dx) < 1e-7f || std::abs(dy) < 1e-7f) return;
 
   for (auto &item : items)
   {
     // scale to unit interval
-    float xn = (item.position.x - bbox.x) / dx;
-    float yn = (item.position.y - bbox.z) / dy;
+    float xn = (item.position.x - uv_rect.u_min) / dx;
+    float yn = (item.position.y - uv_rect.v_min) / dy;
 
     // scale to array shape
     xn *= static_cast<float>(elevation.shape.x - 1);
@@ -1216,13 +1217,13 @@ Array ScatterField::to_density_map(glm::ivec2              shape,
 {
   if (!validate_shape(shape)) return Array();
 
-  const glm::vec4 bbox =
+  const UvRect uv_rect =
       (region.uv_rect.to_vec4().y - region.uv_rect.to_vec4().x > 1e-9f &&
        region.uv_rect.to_vec4().w - region.uv_rect.to_vec4().z > 1e-9f)
           ? region.uv_rect.to_vec4()
           : glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
-  float dx = bbox.y - bbox.x;
-  float dy = bbox.w - bbox.z;
+  float dx = uv_rect.u_max - uv_rect.u_min;
+  float dy = uv_rect.v_max - uv_rect.v_min;
   if (std::abs(dx) < 1e-9f || std::abs(dy) < 1e-9f) return Array(shape, 0.0f);
 
   // --- Determine effective Gaussian sigma (in world coordinates)
@@ -1264,8 +1265,8 @@ Array ScatterField::to_density_map(glm::ivec2              shape,
     }
 
     // Item center in continuous pixel coordinates
-    float u = (item.position.x - bbox.x) / dx;
-    float v = (item.position.y - bbox.z) / dy;
+    float u = (item.position.x - uv_rect.u_min) / dx;
+    float v = (item.position.y - uv_rect.v_min) / dy;
 
     float center_px_x = u * static_cast<float>(shape.x - 1);
     float center_px_y = v * static_cast<float>(shape.y - 1);
@@ -1285,17 +1286,17 @@ Array ScatterField::to_density_map(glm::ivec2              shape,
 
     for (int j = min_j; j <= max_j; ++j)
     {
-      float y_world = bbox.z + (static_cast<float>(j) /
-                                static_cast<float>(shape.y - 1)) *
-                                   dy;
+      float y_world = uv_rect.v_min + (static_cast<float>(j) /
+                                       static_cast<float>(shape.y - 1)) *
+                                          dy;
       float diff_y = y_world - item.position.y;
       float diff_y_sq = diff_y * diff_y;
 
       for (int i = min_i; i <= max_i; ++i)
       {
-        float x_world = bbox.x + (static_cast<float>(i) /
-                                  static_cast<float>(shape.x - 1)) *
-                                     dx;
+        float x_world = uv_rect.u_min + (static_cast<float>(i) /
+                                         static_cast<float>(shape.x - 1)) *
+                                            dx;
         float diff_x = x_world - item.position.x;
         float dist_sq = diff_x * diff_x + diff_y_sq;
 
@@ -1317,7 +1318,7 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
                                  std::optional<uint32_t> class_id,
                                  Array                  *p_rock_map,
                                  uint32_t                seed,
-                                 glm::vec4               bbox) const
+                                 const UvRect           &uv_rect) const
 {
   if (!validate_shape(shape))
   {
@@ -1355,7 +1356,7 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
     run.bind_arguments(num_items,
                        shape.x,
                        shape.y,
-                       bbox,
+                       uv_rect,
                        static_cast<int>(shape_type),
                        height_radius_ratio,
                        seed,
@@ -1383,10 +1384,10 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
   else
   {
     // fallback CPU implementation
-    float xmin = bbox.x;
-    float xmax = bbox.y;
-    float ymin = bbox.z;
-    float ymax = bbox.w;
+    float xmin = uv_rect.u_min;
+    float xmax = uv_rect.u_max;
+    float ymin = uv_rect.v_min;
+    float ymax = uv_rect.v_max;
     float dx_dom = xmax - xmin;
     float dy_dom = ymax - ymin;
     if (dx_dom <= 0.0f || dy_dom <= 0.0f) return heightmap;
@@ -1580,8 +1581,8 @@ Array ScatterField::to_heightmap(glm::ivec2              shape,
 
 static cv::Mat render_scatter_field_mat(const std::vector<ScatterItem> &items,
                                         glm::ivec2                      shape,
-                                        const Array &background,
-                                        glm::vec4    bbox)
+                                        const Array  &background,
+                                        const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return {};
 
@@ -1628,8 +1629,8 @@ static cv::Mat render_scatter_field_mat(const std::vector<ScatterItem> &items,
 
   // --- Draw Scatter Items
 
-  float width = bbox.y - bbox.x;
-  float height = bbox.w - bbox.z;
+  float width = uv_rect.u_max - uv_rect.u_min;
+  float height = uv_rect.v_max - uv_rect.v_min;
   if (width <= 1e-7f) width = 1.0f;
   if (height <= 1e-7f) height = 1.0f;
 
@@ -1639,8 +1640,8 @@ static cv::Mat render_scatter_field_mat(const std::vector<ScatterItem> &items,
 
   for (const auto &item : items)
   {
-    float u = (item.position.x - bbox.x) / width;
-    float v = (item.position.y - bbox.z) / height;
+    float u = (item.position.x - uv_rect.u_min) / width;
+    float v = (item.position.y - uv_rect.v_min) / height;
 
     int px = static_cast<int>(std::round(u * static_cast<float>(shape.x - 1)));
     int py = static_cast<int>(
@@ -1668,12 +1669,12 @@ static cv::Mat render_scatter_field_mat(const std::vector<ScatterItem> &items,
   return img;
 }
 
-std::vector<uint8_t> ScatterField::to_img_8bit(glm::ivec2   shape,
-                                               const Array &background,
-                                               glm::vec4    bbox,
-                                               bool         flip_y) const
+std::vector<uint8_t> ScatterField::to_img_8bit(glm::ivec2    shape,
+                                               const Array  &background,
+                                               const UvRect &uv_rect,
+                                               bool          flip_y) const
 {
-  cv::Mat img = render_scatter_field_mat(items, shape, background, bbox);
+  cv::Mat img = render_scatter_field_mat(items, shape, background, uv_rect);
   if (img.empty()) return {};
 
   if (!flip_y)
@@ -1727,9 +1728,9 @@ void ScatterField::to_ply(const std::string &fname) const
 void ScatterField::to_png(const std::string &fname,
                           glm::ivec2         shape,
                           const Array       &background,
-                          glm::vec4          bbox) const
+                          const UvRect      &uv_rect) const
 {
-  cv::Mat img = render_scatter_field_mat(items, shape, background, bbox);
+  cv::Mat img = render_scatter_field_mat(items, shape, background, uv_rect);
   if (img.empty()) return;
   cv::imwrite(fname, img);
 }
@@ -1739,7 +1740,7 @@ std::string ScatterField::to_string() const
   std::ostringstream ss;
   ss.imbue(std::locale("C"));
 
-  glm::vec4 bbox = get_bbox();
+  const UvRect &uv_rect = get_bbox();
 
   std::map<uint32_t, size_t> class_counts;
   std::map<uint32_t, float>  class_radii_sum;
@@ -1753,8 +1754,8 @@ std::string ScatterField::to_string() const
   ss << "--------------------------------\n";
   ss << " total items : " << items.size() << "\n";
   ss << " class count : " << class_counts.size() << "\n";
-  ss << " bbox : {" << bbox.x << ", " << bbox.y << ", " << bbox.z << ", "
-     << bbox.w << "}\n";
+  ss << " uv_rect : {" << uv_rect.u_min << ", " << uv_rect.u_max << ", "
+     << uv_rect.v_min << ", " << uv_rect.v_max << "}\n";
 
   if (!class_counts.empty())
   {
@@ -1826,10 +1827,10 @@ ScatterField merge_scatter_fields(const std::vector<ScatterField> &fields,
     return {};
   }
 
-  auto is_in_bbox = [](const glm::vec3 &position, const glm::vec4 &bbox) -> bool
+  auto is_in_bbox = [](const glm::vec3 &position, const UvRect &uv_rect) -> bool
   {
-    return position.x >= bbox.x && position.x <= bbox.y &&
-           position.y >= bbox.z && position.y <= bbox.w;
+    return position.x >= uv_rect.u_min && position.x <= uv_rect.u_max &&
+           position.y >= uv_rect.v_min && position.y <= uv_rect.v_max;
   };
 
   ScatterField result;
@@ -1893,7 +1894,7 @@ Array scatter_field_to_heightmap(const ScatterField     &field,
                                  std::optional<uint32_t> class_id,
                                  Array                  *p_rock_map,
                                  uint32_t                seed,
-                                 glm::vec4               bbox)
+                                 const UvRect           &uv_rect)
 {
   return field.to_heightmap(shape,
                             shape_type,
@@ -1901,7 +1902,7 @@ Array scatter_field_to_heightmap(const ScatterField     &field,
                             class_id,
                             p_rock_map,
                             seed,
-                            bbox);
+                            uv_rect);
 }
 
 } // namespace hmap

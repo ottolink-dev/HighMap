@@ -17,11 +17,11 @@
 namespace hmap::gpu
 {
 
-Array sdf_2d_polyline(const Path  &path,
-                      glm::ivec2   shape,
-                      glm::vec4    bbox,
-                      const Array *p_noise_x,
-                      const Array *p_noise_y)
+Array sdf_2d_polyline(const Path   &path,
+                      glm::ivec2    shape,
+                      const UvRect &uv_rect,
+                      const Array  *p_noise_x,
+                      const Array  *p_noise_y)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
@@ -59,7 +59,7 @@ Array sdf_2d_polyline(const Path  &path,
                      (int)xp.size(),
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox,
+                     uv_rect,
                      path.is_closed() ? 1 : 0);
 
   run.write_buffer("xp");
@@ -72,20 +72,20 @@ Array sdf_2d_polyline(const Path  &path,
   return sdf2;
 }
 
-Array path_sdf_to_array(const Path  &path,
-                        glm::ivec2   shape,
-                        glm::vec4    bbox_array,
-                        const Array *p_noise_x,
-                        const Array *p_noise_y)
+Array path_sdf_to_array(const Path   &path,
+                        glm::ivec2    shape,
+                        const UvRect &uv_rect_array,
+                        const Array  *p_noise_x,
+                        const Array  *p_noise_y)
 {
-  return sdf_2d_polyline(path, shape, bbox_array, p_noise_x, p_noise_y);
+  return sdf_2d_polyline(path, shape, uv_rect_array, p_noise_x, p_noise_y);
 }
 
-Array sdf_2d_polyline_bezier(const Path  &path,
-                             glm::ivec2   shape,
-                             glm::vec4    bbox,
-                             const Array *p_noise_x,
-                             const Array *p_noise_y)
+Array sdf_2d_polyline_bezier(const Path   &path,
+                             glm::ivec2    shape,
+                             const UvRect &uv_rect,
+                             const Array  *p_noise_x,
+                             const Array  *p_noise_y)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
@@ -150,7 +150,7 @@ Array sdf_2d_polyline_bezier(const Path  &path,
                      (int)xp.size(),
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox,
+                     uv_rect,
                      path.is_closed() ? 1 : 0);
 
   run.write_buffer("xp");
@@ -163,13 +163,17 @@ Array sdf_2d_polyline_bezier(const Path  &path,
   return sdf2;
 }
 
-Array path_sdf_bezier_to_array(const Path  &path,
-                               glm::ivec2   shape,
-                               glm::vec4    bbox_array,
-                               const Array *p_noise_x,
-                               const Array *p_noise_y)
+Array path_sdf_bezier_to_array(const Path   &path,
+                               glm::ivec2    shape,
+                               const UvRect &uv_rect_array,
+                               const Array  *p_noise_x,
+                               const Array  *p_noise_y)
 {
-  return sdf_2d_polyline_bezier(path, shape, bbox_array, p_noise_x, p_noise_y);
+  return sdf_2d_polyline_bezier(path,
+                                shape,
+                                uv_rect_array,
+                                p_noise_x,
+                                p_noise_y);
 }
 
 } // namespace hmap::gpu

@@ -449,7 +449,7 @@ Array flow_accumulation_dinf_perturbed(
     std::uint32_t  seed,
     float          amp,
     const Array   *p_perturb_scaling = nullptr,
-    glm::vec4      bbox = {0.f, 1.f, 0.f, 1.f},
+    const UvRect &uv_rect = UvRect::unit(),
     int            iterations = 0,
     const UvTile  &region = {},
     ICommunicator &comm = SingleArrayComm::instance());
@@ -871,7 +871,7 @@ Path flow_stream(const TerrainTriMesh    &mesh,
  */
 Array generate_riverbed(const Path &path,
                         glm::ivec2  shape,
-                        glm::vec4   bbox = {0.f, 1.f, 0.f, 1.f},
+                        const UvRect &uv_rect = UvRect::unit(),
                         bool        bezier_smoothing = false,
                         float       depth_start = 0.01f,
                         float       depth_end = 1.f,
@@ -1352,7 +1352,7 @@ Array flow_simulation_viscous(
 /*! @brief See hmap::generate_riverbed */
 Array generate_riverbed(const Path &path,
                         glm::ivec2  shape,
-                        glm::vec4   bbox = {0.f, 1.f, 0.f, 1.f},
+                        const UvRect &uv_rect = UvRect::unit(),
                         bool        bezier_smoothing = false,
                         float       depth_start = 0.01f,
                         float       depth_end = 1.f,

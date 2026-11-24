@@ -30,19 +30,19 @@ namespace hmap
 //  Procedural Rock Placement Functions (Alphabetically Sorted)
 // ============================================================================
 
-Array build_rock_density(const Array &heightmap,
-                         float        max_slope,
-                         float        bulkify_amp,
-                         float        weight_elev,
-                         float        weight_slope,
-                         float        weight_rivers,
-                         float        river_talus_ref,
-                         float        river_clipping_ratio,
-                         const Array &secondary_density,
-                         float        weight_secondary,
-                         const Array &exclusion_mask,
-                         float        exclusion_threshold,
-                         glm::vec4    bbox)
+Array build_rock_density(const Array  &heightmap,
+                         float         max_slope,
+                         float         bulkify_amp,
+                         float         weight_elev,
+                         float         weight_slope,
+                         float         weight_rivers,
+                         float         river_talus_ref,
+                         float         river_clipping_ratio,
+                         const Array  &secondary_density,
+                         float         weight_secondary,
+                         const Array  &exclusion_mask,
+                         float         exclusion_threshold,
+                         const BBox2D &bbox)
 {
   if (!validate_non_empty(heightmap)) return Array();
 
@@ -57,7 +57,7 @@ Array build_rock_density(const Array &heightmap,
                      nullptr,
                      nullptr,
                      {0.5f, 0.5f},
-                     bbox);
+                     UvRect::from_vec4(bbox.to_vec4()));
   }
   else
   {

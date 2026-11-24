@@ -92,24 +92,28 @@ float query_nearest_dist_sq_bvh(const BVH2D &bvh, const glm::vec2 &p)
 
 } // namespace
 
-Array sdf_2d_polyline(const Path  &path,
-                      glm::ivec2   shape,
-                      glm::vec4    bbox,
-                      const Array *p_noise_x,
-                      const Array *p_noise_y,
-                      bool         use_bvh)
+Array sdf_2d_polyline(const Path   &path,
+                      glm::ivec2    shape,
+                      const UvRect &uv_rect,
+                      const Array  *p_noise_x,
+                      const Array  *p_noise_y,
+                      bool          use_bvh)
 {
   if (use_bvh)
-    return sdf_2d_polyline_bvh(path, shape, bbox, p_noise_x, p_noise_y);
+    return sdf_2d_polyline_bvh(path, shape, uv_rect, p_noise_x, p_noise_y);
 
-  return sdf_2d_polyline_brute_force(path, shape, bbox, p_noise_x, p_noise_y);
+  return sdf_2d_polyline_brute_force(path,
+                                     shape,
+                                     uv_rect,
+                                     p_noise_x,
+                                     p_noise_y);
 }
 
-Array sdf_2d_polyline_brute_force(const Path  &path,
-                                  glm::ivec2   shape,
-                                  glm::vec4    bbox,
-                                  const Array *p_noise_x,
-                                  const Array *p_noise_y)
+Array sdf_2d_polyline_brute_force(const Path   &path,
+                                  glm::ivec2    shape,
+                                  const UvRect &uv_rect,
+                                  const Array  *p_noise_x,
+                                  const Array  *p_noise_y)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
@@ -130,7 +134,7 @@ Array sdf_2d_polyline_brute_force(const Path  &path,
   // array cell coordinates
   std::vector<float> xg(shape.x);
   std::vector<float> yg(shape.y);
-  grid_xy_vector(xg, yg, shape, bbox, false);
+  grid_xy_vector(xg, yg, shape, uv_rect, false);
 
   // compute sdf
   for (int j = 0; j < shape.y; ++j)
@@ -160,11 +164,11 @@ Array sdf_2d_polyline_brute_force(const Path  &path,
   return sdf2;
 }
 
-Array sdf_2d_polyline_bvh(const Path  &path,
-                          glm::ivec2   shape,
-                          glm::vec4    bbox,
-                          const Array *p_noise_x,
-                          const Array *p_noise_y)
+Array sdf_2d_polyline_bvh(const Path   &path,
+                          glm::ivec2    shape,
+                          const UvRect &uv_rect,
+                          const Array  *p_noise_x,
+                          const Array  *p_noise_y)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
@@ -199,7 +203,7 @@ Array sdf_2d_polyline_bvh(const Path  &path,
   // array cell coordinates
   std::vector<float> xg(shape.x);
   std::vector<float> yg(shape.y);
-  grid_xy_vector(xg, yg, shape, bbox, false);
+  grid_xy_vector(xg, yg, shape, uv_rect, false);
 
   // compute sdf
 #pragma omp parallel for collapse(2) schedule(static)

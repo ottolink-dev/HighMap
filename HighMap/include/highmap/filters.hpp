@@ -78,7 +78,7 @@ Array bulkify(const Array         &z,
               const Array         *p_noise_x = nullptr,
               const Array         *p_noise_y = nullptr,
               glm::vec2            center = {0.5f, 0.5f},
-              glm::vec4            bbox = {0.f, 1.f, 0.f, 1.f});
+              const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Applies a canyonize filter to a heightmap.
@@ -1395,7 +1395,7 @@ void recast_rocky_slopes(Array        &array,
                          float         kw,
                          float         gamma = 0.5f,
                          const Array  *p_noise = nullptr,
-                         glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                         const UvRect &uv_rect = UvRect::unit());
 
 /// @overload
 void recast_rocky_slopes(Array        &array,
@@ -1407,7 +1407,7 @@ void recast_rocky_slopes(Array        &array,
                          const Array  *p_mask,
                          float         gamma = 0.5f,
                          const Array  *p_noise = nullptr,
-                         glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                         const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Transform heightmap to give a "cliff" like appearance.
@@ -2519,7 +2519,7 @@ Array jagged(const Array  &array,
              const Array  *p_mask = nullptr,
              const Array  *p_noise_x = nullptr,
              const Array  *p_noise_y = nullptr,
-             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+             const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a Voronoi-based jagged bubble dome filter using an isotropic
@@ -2554,7 +2554,7 @@ Array jagged(const Array  &array,
              const Array  *p_mask = nullptr,
              const Array  *p_noise_x = nullptr,
              const Array  *p_noise_y = nullptr,
-             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+             const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a fractal Brownian motion (fBm) version of the Voronoi-based
@@ -2607,7 +2607,7 @@ Array jagged_fbm(const Array  &array,
                  const Array  *p_mask = nullptr,
                  const Array  *p_noise_x = nullptr,
                  const Array  *p_noise_y = nullptr,
-                 glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                 const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a fractal Brownian motion (fBm) version of the Voronoi-based
@@ -2652,7 +2652,7 @@ Array jagged_fbm(const Array  &array,
                  const Array  *p_mask = nullptr,
                  const Array  *p_noise_x = nullptr,
                  const Array  *p_noise_y = nullptr,
-                 glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                 const UvRect &uv_rect = UvRect::unit());
 
 /*! @brief See hmap::laplace */
 void laplace(Array &array, float sigma = 0.2f, int iterations = 3);
@@ -3002,7 +3002,7 @@ Array voronoi_shrink(const Array  &array,
                      const Array  *p_mask = nullptr,
                      const Array  *p_noise_x = nullptr,
                      const Array  *p_noise_y = nullptr,
-                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a Voronoi shrinker filter using an isotropic frequency.
@@ -3037,7 +3037,7 @@ Array voronoi_shrink(const Array  &array,
                      const Array  *p_mask = nullptr,
                      const Array  *p_noise_x = nullptr,
                      const Array  *p_noise_y = nullptr,
-                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a Voronoi shrinker filter using a custom cloud of points.
@@ -3062,7 +3062,7 @@ Array voronoi_shrink(const Array &array,
                      const Array *p_mask = nullptr,
                      const Array *p_noise_x = nullptr,
                      const Array *p_noise_y = nullptr,
-                     glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a Voronoi shrinker filter using a list of Point objects.
@@ -3089,7 +3089,7 @@ Array voronoi_shrink(const Array              &array,
                      const Array              *p_mask = nullptr,
                      const Array              *p_noise_x = nullptr,
                      const Array              *p_noise_y = nullptr,
-                     glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a Voronoi shrinker filter using a list of glm::vec2 coordinates.
@@ -3117,7 +3117,7 @@ Array voronoi_shrink(const Array                  &array,
                      const Array                  *p_mask = nullptr,
                      const Array                  *p_noise_x = nullptr,
                      const Array                  *p_noise_y = nullptr,
-                     glm::vec4                     bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 } // namespace hmap::gpu
 

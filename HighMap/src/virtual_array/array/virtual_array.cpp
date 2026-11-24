@@ -25,12 +25,10 @@ namespace hmap
 {
 
 VirtualArray::VirtualArray(glm::ivec2                   shape,
-                           glm::vec4                    bbox,
                            glm::ivec2                   tile_shape,
                            int                          halo,
                            std::unique_ptr<TileStorage> storage)
     : shape(shape),
-      bbox(bbox),
       tile_shape(tile_shape),
       halo(halo),
       storage(std::move(storage))
@@ -38,23 +36,10 @@ VirtualArray::VirtualArray(glm::ivec2                   shape,
 }
 
 VirtualArray::VirtualArray(glm::ivec2  shape,
-                           glm::vec4   bbox,
                            glm::ivec2  tile_shape,
                            int         halo,
                            StorageMode storage_mode)
-    : shape(shape), bbox(bbox), tile_shape(tile_shape), halo(halo)
-{
-  this->storage = make_storage(this->shape, this->tile_shape, storage_mode);
-}
-
-VirtualArray::VirtualArray(glm::ivec2  shape,
-                           glm::ivec2  tile_shape,
-                           int         halo,
-                           StorageMode storage_mode)
-    : shape(shape),
-      bbox({0.f, 1.f, 0.f, 1.f}),
-      tile_shape(tile_shape),
-      halo(halo)
+    : shape(shape), tile_shape(tile_shape), halo(halo)
 {
   this->storage = make_storage(this->shape, this->tile_shape, storage_mode);
 }
@@ -66,7 +51,6 @@ void VirtualArray::copy_from(const VirtualArray &src,
   if (this == &src) return;
 
   shape = src.shape;
-  bbox = src.bbox;
   tile_shape = src.tile_shape;
   halo = src.halo;
 
@@ -81,7 +65,6 @@ std::unique_ptr<VirtualArray> VirtualArray::clone(const ComputeMode &cm,
   // create empty VA with same geometry
   auto va = std::make_unique<VirtualArray>(
       this->shape,
-      this->bbox,
       this->tile_shape,
       this->halo,
       StorageMode::VA_RAM // temporary, replaced below
@@ -256,11 +239,8 @@ glm::ivec2 VirtualArray::get_max_tiles() const
 
 float VirtualArray::get_bilinear(float x, float y) const
 {
-  float xr = (x - this->bbox.x) / (this->bbox.y - this->bbox.x);
-  float yr = (y - this->bbox.z) / (this->bbox.w - this->bbox.z);
-
-  xr = std::clamp(xr, 0.f, 1.f);
-  yr = std::clamp(yr, 0.f, 1.f);
+  float xr = std::clamp(x, 0.f, 1.f);
+  float yr = std::clamp(y, 0.f, 1.f);
 
   float xi = xr * (this->shape.x - 1.f);
   float yi = yr * (this->shape.y - 1.f);
@@ -299,11 +279,8 @@ float VirtualArray::get_bilinear(float x, float y) const
 
 float VirtualArray::get_nearest(float x, float y) const
 {
-  float xr = (x - this->bbox.x) / (this->bbox.y - this->bbox.x);
-  float yr = (y - this->bbox.z) / (this->bbox.w - this->bbox.z);
-
-  xr = std::clamp(xr, 0.f, 1.f);
-  yr = std::clamp(yr, 0.f, 1.f);
+  float xr = std::clamp(x, 0.f, 1.f);
+  float yr = std::clamp(y, 0.f, 1.f);
 
   int global_i = int(xr * (this->shape.x - 1.f));
   int global_j = int(yr * (this->shape.y - 1.f));
@@ -391,18 +368,12 @@ UvTile VirtualArray::tile_region_from_tile_coords(int tile_x, int tile_y) const
            (tile_y == 0) ? 0 : this->halo,
            (tile_y == ty_max) ? 0 : this->halo};
 
-  float fx1 = this->bbox.x + (this->bbox.y - this->bbox.x) *
-                                 (tile_x * this->tile_shape.x - halo4.x) /
-                                 float(this->shape.x);
-  float fx2 = this->bbox.x + (this->bbox.y - this->bbox.x) *
-                                 (tile_x * this->tile_shape.x + w + halo4.y) /
-                                 float(this->shape.x);
-  float fy1 = this->bbox.z + (this->bbox.w - this->bbox.z) *
-                                 (tile_y * this->tile_shape.y - halo4.z) /
-                                 float(this->shape.y);
-  float fy2 = this->bbox.z + (this->bbox.w - this->bbox.z) *
-                                 (tile_y * this->tile_shape.y + h + halo4.w) /
-                                 float(this->shape.y);
+  float fx1 = (tile_x * this->tile_shape.x - halo4.x) / float(this->shape.x);
+  float fx2 = (tile_x * this->tile_shape.x + w + halo4.y) /
+              float(this->shape.x);
+  float fy1 = (tile_y * this->tile_shape.y - halo4.z) / float(this->shape.y);
+  float fy2 = (tile_y * this->tile_shape.y + h + halo4.w) /
+              float(this->shape.y);
 
   TileKey key = {.tx = tile_x, .ty = tile_y};
 
@@ -417,11 +388,7 @@ UvTile VirtualArray::tile_region_from_tile_coords(int tile_x, int tile_y) const
 
 glm::vec2 VirtualArray::tile_region_global_position(const UvTile &region) const
 {
-  // tile relative position
-  glm::vec2 size = {this->bbox.y - this->bbox.x, this->bbox.w - this->bbox.z};
-  glm::vec2 pos = {(region.uv_rect.u_min - this->bbox.x) / size.x,
-                   (region.uv_rect.v_min - this->bbox.z) / size.y};
-  return pos;
+  return {region.uv_rect.u_min, region.uv_rect.v_min};
 }
 
 glm::ivec2 VirtualArray::tile_region_global_indices(const UvTile &region) const

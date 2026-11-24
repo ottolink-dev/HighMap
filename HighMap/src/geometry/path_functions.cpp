@@ -239,7 +239,7 @@ Path fractalize(const Path   &path,
                 int           orientation,
                 float         persistence,
                 Array        *p_ctrl_array,
-                glm::vec4     bbox,
+                const BBox2D &bbox,
                 bool          bounded)
 {
   if (!validate_min_size(path, 2, "Path points")) return path;
@@ -290,9 +290,10 @@ Path fractalize(const Path   &path,
       float amp = sigma * dis(gen);
 
       if (p_ctrl_array)
-        amp *= p_ctrl_array->get_value_nearest(new_path[k].x,
-                                               new_path[k].y,
-                                               bbox);
+        amp *= p_ctrl_array->get_value_nearest(
+            new_path[k].x,
+            new_path[k].y,
+            UvRect::from_vec4(bbox.to_vec4()));
 
       Point pnew = midpoint(new_path[k], new_path[knext], orientation, amp);
 
@@ -417,74 +418,78 @@ Path meanderize(const Path            &path,
   return bspline(path_wrk, edge_divisions, edm);
 }
 
-Array path_sdf_bezier_to_array(const Path  &path,
-                               glm::ivec2   shape,
-                               glm::vec4    bbox_array,
-                               const Array *p_noise_x,
-                               const Array *p_noise_y,
-                               bool         use_bvh)
+Array path_sdf_bezier_to_array(const Path   &path,
+                               glm::ivec2    shape,
+                               const BBox2D &bbox_array,
+                               const Array  *p_noise_x,
+                               const Array  *p_noise_y,
+                               bool          use_bvh)
 {
   return sdf_2d_polyline_bezier(path,
                                 shape,
-                                bbox_array,
+                                bbox_array.to_vec4(),
                                 p_noise_x,
                                 p_noise_y,
                                 use_bvh);
 }
 
-Array path_sdf_bezier_to_array_brute_force(const Path  &path,
-                                           glm::ivec2   shape,
-                                           glm::vec4    bbox_array,
-                                           const Array *p_noise_x,
-                                           const Array *p_noise_y)
+Array path_sdf_bezier_to_array_brute_force(const Path   &path,
+                                           glm::ivec2    shape,
+                                           const BBox2D &bbox_array,
+                                           const Array  *p_noise_x,
+                                           const Array  *p_noise_y)
 {
   return sdf_2d_polyline_bezier_brute_force(path,
                                             shape,
-                                            bbox_array,
+                                            bbox_array.to_vec4(),
                                             p_noise_x,
                                             p_noise_y);
 }
 
-Array path_sdf_bezier_to_array_bvh(const Path  &path,
-                                   glm::ivec2   shape,
-                                   glm::vec4    bbox_array,
-                                   const Array *p_noise_x,
-                                   const Array *p_noise_y)
+Array path_sdf_bezier_to_array_bvh(const Path   &path,
+                                   glm::ivec2    shape,
+                                   const BBox2D &bbox_array,
+                                   const Array  *p_noise_x,
+                                   const Array  *p_noise_y)
 {
   return sdf_2d_polyline_bezier_bvh(path,
                                     shape,
-                                    bbox_array,
+                                    bbox_array.to_vec4(),
                                     p_noise_x,
                                     p_noise_y);
 }
 
-Array path_sdf_to_array(const Path  &path,
-                        glm::ivec2   shape,
-                        glm::vec4    bbox_array,
-                        const Array *p_noise_x,
-                        const Array *p_noise_y,
-                        bool         use_bvh)
+Array path_sdf_to_array(const Path   &path,
+                        glm::ivec2    shape,
+                        const BBox2D &bbox_array,
+                        const Array  *p_noise_x,
+                        const Array  *p_noise_y,
+                        bool          use_bvh)
 {
   if (use_bvh)
-    return path_sdf_to_array_bvh(path, shape, bbox_array, p_noise_x, p_noise_y);
+    return path_sdf_to_array_bvh(path,
+                                 shape,
+                                 bbox_array.to_vec4(),
+                                 p_noise_x,
+                                 p_noise_y);
 
   return path_sdf_to_array_brute_force(path,
                                        shape,
-                                       bbox_array,
+                                       bbox_array.to_vec4(),
                                        p_noise_x,
                                        p_noise_y);
 }
 
-Array path_sdf_to_array_brute_force(const Path  &path,
-                                    glm::ivec2   shape,
-                                    glm::vec4    bbox_array,
-                                    const Array *p_noise_x,
-                                    const Array *p_noise_y)
+Array path_sdf_to_array_brute_force(const Path   &path,
+                                    glm::ivec2    shape,
+                                    const BBox2D &bbox_array,
+                                    const Array  *p_noise_x,
+                                    const Array  *p_noise_y)
 {
   if (!path.is_closed())
     return sdf_2d_polyline_brute_force(path,
                                        shape,
-                                       bbox_array,
+                                       UvRect::from_vec4(bbox_array.to_vec4()),
                                        p_noise_x,
                                        p_noise_y);
 
@@ -497,7 +502,11 @@ Array path_sdf_to_array_brute_force(const Path  &path,
 
   // array base grid
   std::vector<float> xg, yg;
-  grid_xy_vector(xg, yg, shape, bbox_array, /* endpoint */ false);
+  grid_xy_vector(xg,
+                 yg,
+                 shape,
+                 UvRect::from_vec4(bbox_array.to_vec4()),
+                 /* endpoint */ false);
 
   for (int j = 0; j < shape.y; ++j)
     for (int i = 0; i < shape.x; ++i)
@@ -532,14 +541,18 @@ Array path_sdf_to_array_brute_force(const Path  &path,
   return array;
 }
 
-Array path_sdf_to_array_bvh(const Path  &path,
-                            glm::ivec2   shape,
-                            glm::vec4    bbox_array,
-                            const Array *p_noise_x,
-                            const Array *p_noise_y)
+Array path_sdf_to_array_bvh(const Path   &path,
+                            glm::ivec2    shape,
+                            const BBox2D &bbox_array,
+                            const Array  *p_noise_x,
+                            const Array  *p_noise_y)
 {
   if (!path.is_closed())
-    return sdf_2d_polyline_bvh(path, shape, bbox_array, p_noise_x, p_noise_y);
+    return sdf_2d_polyline_bvh(path,
+                               shape,
+                               UvRect::from_vec4(bbox_array.to_vec4()),
+                               p_noise_x,
+                               p_noise_y);
 
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
@@ -568,7 +581,11 @@ Array path_sdf_to_array_bvh(const Path  &path,
 
   // array base grid
   std::vector<float> xg, yg;
-  grid_xy_vector(xg, yg, shape, bbox_array, /* endpoint */ false);
+  grid_xy_vector(xg,
+                 yg,
+                 shape,
+                 UvRect::from_vec4(bbox_array.to_vec4()),
+                 /* endpoint */ false);
 
   auto aabb_distance_sq = [](const glm::vec2 &p, const AABB2D &box)
   {

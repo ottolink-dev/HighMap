@@ -13,11 +13,11 @@
 namespace hmap
 {
 
-Array checkerboard(glm::ivec2   shape,
-                   glm::vec2    kw,
-                   const Array *p_noise_x,
-                   const Array *p_noise_y,
-                   glm::vec4    bbox)
+Array checkerboard(glm::ivec2    shape,
+                   glm::vec2     kw,
+                   const Array  *p_noise_x,
+                   const Array  *p_noise_y,
+                   const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -32,7 +32,7 @@ Array checkerboard(glm::ivec2   shape,
   };
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                nullptr,
                                p_noise_x,
                                p_noise_y,

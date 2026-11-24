@@ -193,7 +193,7 @@ Array base_elevation(glm::ivec2                             shape,
                      const Array                           *p_noise_x = nullptr,
                      const Array                           *p_noise_y = nullptr,
                      const Array *p_stretching = nullptr,
-                     glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Synthesize a heightmap from sparse closed iso-contours with known
@@ -271,7 +271,7 @@ Array elevation_from_contours(glm::ivec2                shape,
                               float                     peak_ratio = 0.5f,
                               float                     outside_ratio = 1.f,
                               bool                      smoothstep = false,
-                              glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
+                              const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Synthesize a heightmap from a raster of sparse iso-contours with known
@@ -436,11 +436,11 @@ Array ridgelines(glm::ivec2                shape,
                  float                     k_smoothing = 1.f,
                  float                     width = 0.1f,
                  float                     vmin = 0.f,
-                 glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f},
+                 const UvRect &uv_rect = UvRect::unit(),
                  const Array              *p_noise_x = nullptr,
                  const Array              *p_noise_y = nullptr,
                  const Array              *p_stretching = nullptr,
-                 glm::vec4                 bbox_array = {0.f, 1.f, 0.f, 1.f});
+                 const UvRect &uv_rect_array = UvRect::unit());
 
 /**
  * @brief Generate a heightmap based on a set of ridgelines with quadratic
@@ -500,11 +500,11 @@ Array ridgelines_bezier(glm::ivec2                shape,
                         float                     k_smoothing = 1.f,
                         float                     width = 0.1f,
                         float                     vmin = 0.f,
-                        glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f},
+                        const UvRect &uv_rect = UvRect::unit(),
                         const Array              *p_noise_x = nullptr,
                         const Array              *p_noise_y = nullptr,
                         const Array              *p_stretching = nullptr,
-                        glm::vec4 bbox_array = {0.f, 1.f, 0.f, 1.f});
+                        const UvRect &uv_rect_array = UvRect::unit());
 
 /**
  * @brief Deform a heightmap to satisfy a set of constraints using stochastic
@@ -644,6 +644,6 @@ Array stamping(glm::ivec2                shape,
                float                     k_smoothing = 0.1f,
                bool                      kernel_flip = true,
                bool                      kernel_rotate = false,
-               glm::vec4                 bbox_array = {0.f, 1.f, 0.f, 1.f});
+               const UvRect &uv_rect_array = UvRect::unit());
 
 } // namespace hmap

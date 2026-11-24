@@ -15,13 +15,13 @@
 namespace hmap
 {
 
-Array biquad_pulse(glm::ivec2   shape,
-                   float        gain,
-                   const Array *p_ctrl_param,
-                   const Array *p_noise_x,
-                   const Array *p_noise_y,
-                   glm::vec2    center,
-                   glm::vec4    bbox)
+Array biquad_pulse(glm::ivec2    shape,
+                   float         gain,
+                   const Array  *p_ctrl_param,
+                   const Array  *p_noise_x,
+                   const Array  *p_noise_y,
+                   glm::vec2     center,
+                   const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -33,7 +33,7 @@ Array biquad_pulse(glm::ivec2   shape,
   BiquadFunction f = BiquadFunction(gain, center);
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                p_ctrl_param,
                                p_noise_x,
                                p_noise_y,
@@ -42,7 +42,7 @@ Array biquad_pulse(glm::ivec2   shape,
   return array;
 }
 
-Array biquad_pulse_x(glm::ivec2 shape, glm::vec4 bbox)
+Array biquad_pulse_x(glm::ivec2 shape, const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
 
@@ -55,7 +55,7 @@ Array biquad_pulse_x(glm::ivec2 shape, glm::vec4 bbox)
   };
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                nullptr,
                                nullptr,
                                nullptr,
@@ -64,7 +64,7 @@ Array biquad_pulse_x(glm::ivec2 shape, glm::vec4 bbox)
   return array;
 }
 
-Array biquad_pulse_y(glm::ivec2 shape, glm::vec4 bbox)
+Array biquad_pulse_y(glm::ivec2 shape, const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
 
@@ -77,7 +77,7 @@ Array biquad_pulse_y(glm::ivec2 shape, glm::vec4 bbox)
   };
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                nullptr,
                                nullptr,
                                nullptr,
@@ -86,13 +86,13 @@ Array biquad_pulse_y(glm::ivec2 shape, glm::vec4 bbox)
   return array;
 }
 
-Array bump(glm::ivec2   shape,
-           float        gain,
-           const Array *p_ctrl_param,
-           const Array *p_noise_x,
-           const Array *p_noise_y,
-           glm::vec2    center,
-           glm::vec4    bbox)
+Array bump(glm::ivec2    shape,
+           float         gain,
+           const Array  *p_ctrl_param,
+           const Array  *p_noise_x,
+           const Array  *p_noise_y,
+           glm::vec2     center,
+           const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -104,7 +104,7 @@ Array bump(glm::ivec2   shape,
   BumpFunction f = BumpFunction(gain, center);
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                p_ctrl_param,
                                p_noise_x,
                                p_noise_y,
@@ -113,14 +113,14 @@ Array bump(glm::ivec2   shape,
   return array;
 }
 
-Array bump_lorentzian(glm::ivec2   shape,
-                      float        width_factor,
-                      float        radius,
-                      const Array *p_ctrl_param,
-                      const Array *p_noise_x,
-                      const Array *p_noise_y,
-                      glm::vec2    center,
-                      glm::vec4    bbox)
+Array bump_lorentzian(glm::ivec2    shape,
+                      float         width_factor,
+                      float         radius,
+                      const Array  *p_ctrl_param,
+                      const Array  *p_noise_x,
+                      const Array  *p_noise_y,
+                      glm::vec2     center,
+                      const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -149,7 +149,7 @@ Array bump_lorentzian(glm::ivec2   shape,
   };
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                p_ctrl_param,
                                p_noise_x,
                                p_noise_y,
@@ -168,11 +168,11 @@ Array constant(glm::ivec2 shape, float value)
   return array;
 }
 
-Array cubic_pulse(glm::ivec2   shape,
-                  const Array *p_noise_x,
-                  const Array *p_noise_y,
-                  glm::vec2    center,
-                  glm::vec4    bbox)
+Array cubic_pulse(glm::ivec2    shape,
+                  const Array  *p_noise_x,
+                  const Array  *p_noise_y,
+                  glm::vec2     center,
+                  const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -193,7 +193,7 @@ Array cubic_pulse(glm::ivec2   shape,
   };
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                nullptr,
                                p_noise_x,
                                p_noise_y,
@@ -202,14 +202,14 @@ Array cubic_pulse(glm::ivec2   shape,
   return array;
 }
 
-Array disk(glm::ivec2   shape,
-           float        radius,
-           float        slope,
-           const Array *p_ctrl_param,
-           const Array *p_noise_x,
-           const Array *p_noise_y,
-           glm::vec2    center,
-           glm::vec4    bbox)
+Array disk(glm::ivec2    shape,
+           float         radius,
+           float         slope,
+           const Array  *p_ctrl_param,
+           const Array  *p_noise_x,
+           const Array  *p_noise_y,
+           glm::vec2     center,
+           const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -221,7 +221,7 @@ Array disk(glm::ivec2   shape,
   DiskFunction f = DiskFunction(radius, slope, center);
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                p_ctrl_param,
                                p_noise_x,
                                p_noise_y,
@@ -230,13 +230,13 @@ Array disk(glm::ivec2   shape,
   return array;
 }
 
-Array gaussian_pulse(glm::ivec2   shape,
-                     float        sigma,
-                     const Array *p_ctrl_param,
-                     const Array *p_noise_x,
-                     const Array *p_noise_y,
-                     glm::vec2    center,
-                     glm::vec4    bbox)
+Array gaussian_pulse(glm::ivec2    shape,
+                     float         sigma,
+                     const Array  *p_ctrl_param,
+                     const Array  *p_noise_x,
+                     const Array  *p_noise_y,
+                     glm::vec2     center,
+                     const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -248,7 +248,7 @@ Array gaussian_pulse(glm::ivec2   shape,
   GaussianPulseFunction f = GaussianPulseFunction(sigma, center);
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                p_ctrl_param,
                                p_noise_x,
                                p_noise_y,
@@ -257,17 +257,17 @@ Array gaussian_pulse(glm::ivec2   shape,
   return array;
 }
 
-Array paraboloid(glm::ivec2   shape,
-                 float        angle,
-                 float        a,
-                 float        b,
-                 float        v0,
-                 bool         reverse_x,
-                 bool         reverse_y,
-                 const Array *p_noise_x,
-                 const Array *p_noise_y,
-                 glm::vec2    center,
-                 glm::vec4    bbox)
+Array paraboloid(glm::ivec2    shape,
+                 float         angle,
+                 float         a,
+                 float         b,
+                 float         v0,
+                 bool          reverse_x,
+                 bool          reverse_y,
+                 const Array  *p_noise_x,
+                 const Array  *p_noise_y,
+                 glm::vec2     center,
+                 const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -291,7 +291,7 @@ Array paraboloid(glm::ivec2   shape,
   };
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                nullptr,
                                p_noise_x,
                                p_noise_y,
@@ -300,15 +300,15 @@ Array paraboloid(glm::ivec2   shape,
   return array;
 }
 
-Array quad_surface(glm::ivec2   shape,
-                   float        c00,
-                   float        c10,
-                   float        c01,
-                   float        c11,
-                   const Array *p_ctrl_param,
-                   const Array *p_noise_x,
-                   const Array *p_noise_y,
-                   glm::vec4    bbox)
+Array quad_surface(glm::ivec2    shape,
+                   float         c00,
+                   float         c10,
+                   float         c01,
+                   float         c11,
+                   const Array  *p_ctrl_param,
+                   const Array  *p_noise_x,
+                   const Array  *p_noise_y,
+                   const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -320,7 +320,7 @@ Array quad_surface(glm::ivec2   shape,
   QuadSurfaceFunction f = QuadSurfaceFunction(c00, c10, c01, c11);
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                p_ctrl_param,
                                p_noise_x,
                                p_noise_y,
@@ -329,16 +329,16 @@ Array quad_surface(glm::ivec2   shape,
   return array;
 }
 
-Array rectangle(glm::ivec2   shape,
-                float        rx,
-                float        ry,
-                float        angle,
-                float        slope,
-                const Array *p_ctrl_param,
-                const Array *p_noise_x,
-                const Array *p_noise_y,
-                glm::vec2    center,
-                glm::vec4    bbox)
+Array rectangle(glm::ivec2    shape,
+                float         rx,
+                float         ry,
+                float         angle,
+                float         slope,
+                const Array  *p_ctrl_param,
+                const Array  *p_noise_x,
+                const Array  *p_noise_y,
+                glm::vec2     center,
+                const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -350,7 +350,7 @@ Array rectangle(glm::ivec2   shape,
   RectangleFunction f = RectangleFunction(rx, ry, angle, slope, center);
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                p_ctrl_param,
                                p_noise_x,
                                p_noise_y,
@@ -359,14 +359,14 @@ Array rectangle(glm::ivec2   shape,
   return array;
 }
 
-Array slope(glm::ivec2   shape,
-            float        angle,
-            float        slope,
-            const Array *p_ctrl_param,
-            const Array *p_noise_x,
-            const Array *p_noise_y,
-            glm::vec2    center,
-            glm::vec4    bbox)
+Array slope(glm::ivec2    shape,
+            float         angle,
+            float         slope,
+            const Array  *p_ctrl_param,
+            const Array  *p_noise_x,
+            const Array  *p_noise_y,
+            glm::vec2     center,
+            const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -378,7 +378,7 @@ Array slope(glm::ivec2   shape,
   hmap::SlopeFunction f = hmap::SlopeFunction(angle, slope, center);
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                p_ctrl_param,
                                p_noise_x,
                                p_noise_y,
@@ -387,11 +387,11 @@ Array slope(glm::ivec2   shape,
   return array;
 }
 
-Array smooth_cosine(glm::ivec2   shape,
-                    const Array *p_noise_x,
-                    const Array *p_noise_y,
-                    glm::vec2    center,
-                    glm::vec4    bbox)
+Array smooth_cosine(glm::ivec2    shape,
+                    const Array  *p_noise_x,
+                    const Array  *p_noise_y,
+                    glm::vec2     center,
+                    const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -412,7 +412,7 @@ Array smooth_cosine(glm::ivec2   shape,
   };
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                nullptr,
                                p_noise_x,
                                p_noise_y,
@@ -421,14 +421,14 @@ Array smooth_cosine(glm::ivec2   shape,
   return array;
 }
 
-Array step(glm::ivec2   shape,
-           float        angle,
-           float        slope,
-           const Array *p_ctrl_param,
-           const Array *p_noise_x,
-           const Array *p_noise_y,
-           glm::vec2    center,
-           glm::vec4    bbox)
+Array step(glm::ivec2    shape,
+           float         angle,
+           float         slope,
+           const Array  *p_ctrl_param,
+           const Array  *p_noise_x,
+           const Array  *p_noise_y,
+           glm::vec2     center,
+           const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -440,7 +440,7 @@ Array step(glm::ivec2   shape,
   hmap::StepFunction f = hmap::StepFunction(angle, slope, center);
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                p_ctrl_param,
                                p_noise_x,
                                p_noise_y,
@@ -456,7 +456,7 @@ Array get_primitive_base(const PrimitiveType &primitive_type,
                          const Array         *p_noise_x,
                          const Array         *p_noise_y,
                          glm::vec2            center,
-                         glm::vec4            bbox)
+                         const UvRect        &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -471,22 +471,22 @@ Array get_primitive_base(const PrimitiveType &primitive_type,
                         p_noise_x,
                         p_noise_y,
                         center,
-                        bbox);
+                        uv_rect);
     //
   case PrimitiveType::PRIM_BUMP:
-    return bump(shape, 1.f, nullptr, p_noise_x, p_noise_y, center, bbox);
+    return bump(shape, 1.f, nullptr, p_noise_x, p_noise_y, center, uv_rect);
     //
   case PrimitiveType::PRIM_CONE:
-    return cone(shape, 2.f, 1.f, false, center, p_noise_x, p_noise_y, bbox);
+    return cone(shape, 2.f, 1.f, false, center, p_noise_x, p_noise_y, uv_rect);
     //
   case PrimitiveType::PRIM_CONE_SMOOTH:
-    return cone(shape, 2.f, 1.f, true, center, p_noise_x, p_noise_y, bbox);
+    return cone(shape, 2.f, 1.f, true, center, p_noise_x, p_noise_y, uv_rect);
   //
   case PrimitiveType::PRIM_CUBIC_PULSE:
-    return cubic_pulse(shape, p_noise_x, p_noise_y, center, bbox);
+    return cubic_pulse(shape, p_noise_x, p_noise_y, center, uv_rect);
     //
   case PrimitiveType::PRIM_SMOOTH_COSINE:
-    return smooth_cosine(shape, p_noise_x, p_noise_y, center, bbox);
+    return smooth_cosine(shape, p_noise_x, p_noise_y, center, uv_rect);
     //
   default: return Array(shape);
   }

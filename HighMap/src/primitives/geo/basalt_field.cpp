@@ -37,7 +37,7 @@ Array basalt_field(glm::ivec2    shape,
                    float         bias,
                    const Array  *p_noise_x,
                    const Array  *p_noise_y,
-                   glm::vec4     bbox)
+                   const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -64,7 +64,7 @@ Array basalt_field(glm::ivec2    shape,
                               nullptr,
                               p_noise_x,
                               p_noise_y,
-                              bbox);
+                              uv_rect);
     remap(dx, 0.f, large_scale_warp_amp, -1.f, 1.f);
 
     // base
@@ -89,7 +89,7 @@ Array basalt_field(glm::ivec2    shape,
                           nullptr,
                           &dx,
                           &dx,
-                          bbox);
+                          uv_rect);
     remap(z_large, 0.f, 1.f, -0.25, 0.25f);
     z_large = sqrt_safe(z_large);
     gain(z_large, large_scale_gain);
@@ -131,7 +131,7 @@ Array basalt_field(glm::ivec2    shape,
                                 nullptr,
                                 p_noise_x,
                                 p_noise_y,
-                                bbox);
+                                uv_rect);
     dx *= medium_scale_warp_amp;
 
     // base
@@ -153,7 +153,7 @@ Array basalt_field(glm::ivec2    shape,
                            nullptr,
                            &dx,
                            &dx,
-                           bbox);
+                           uv_rect);
 
     // rescale to [0, 1] (roughly)
     z_medium += 0.25f;
@@ -195,7 +195,7 @@ Array basalt_field(glm::ivec2    shape,
                                 nullptr,
                                 p_noise_x,
                                 p_noise_y,
-                                bbox);
+                                uv_rect);
     dx *= medium_scale_warp_amp;
 
     // base
@@ -217,7 +217,7 @@ Array basalt_field(glm::ivec2    shape,
                           nullptr,
                           &dx,
                           &dx,
-                          bbox);
+                          uv_rect);
 
     // rescale to [0, 1] (roughly)
     remap(z_small, 0.f, 1.f, -0.25f, 0.25f);
@@ -256,7 +256,7 @@ Array basalt_field(glm::ivec2    shape,
                                     nullptr,
                                     p_noise_x,
                                     p_noise_y,
-                                    bbox);
+                                    uv_rect);
     remap(rugosity, 0.f, 1.f, -1.f, 1.f);
 
     z += rugosity_amp * rugosity * z;
@@ -281,7 +281,7 @@ Array basalt_field(glm::ivec2    shape,
                                      nullptr,
                                      p_noise_x,
                                      p_noise_y,
-                                     bbox);
+                                     uv_rect);
 
     remap(z_flatten, 0.f, 2.f * large_scale_amp + flatten_amp, -1.f, 1.f);
     z = hmap::minimum_smooth(z, z_flatten, 0.3f);

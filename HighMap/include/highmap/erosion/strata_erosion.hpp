@@ -108,7 +108,7 @@ void rifts(Array           &z,
            const Array     *p_noise_y = nullptr,
            const Array     *p_mask = nullptr,
            const glm::vec2 &center = {0.5f, 0.5f},
-           const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+           const UvRect &uv_rect = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Perform sediment deposition combined with thermal erosion.
@@ -222,7 +222,7 @@ void strata(Array           &z,
             bool             apply_ridge_mask = true,
             float            mask_gamma = 0.4f,
             const Array     *p_mask = nullptr,
-            const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+            const UvRect &uv_rect = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Applies procedural stratified cell displacement to a heightmap.
@@ -245,7 +245,7 @@ void strata_cells(Array        &z,
                   float         occurence_probability = 0.5f,
                   const Array  *p_noise_x = nullptr,
                   const Array  *p_noise_y = nullptr,
-                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                  const UvRect &uv_rect = UvRect::unit());
 
 void strata_cells(Array        &z,
                   glm::vec2     kw,
@@ -260,7 +260,7 @@ void strata_cells(Array        &z,
                   float         occurence_probability = 0.5f,
                   const Array  *p_noise_x = nullptr,
                   const Array  *p_noise_y = nullptr,
-                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                  const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Applies multi-octave (fBm) stratified cell displacement.
@@ -287,7 +287,7 @@ void strata_cells_fbm(Array        &z,
                       float         lacunarity = 2.2f,
                       const Array  *p_noise_x = nullptr,
                       const Array  *p_noise_y = nullptr,
-                      glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                      const UvRect &uv_rect = UvRect::unit());
 
 void strata_cells_fbm(Array        &z,
                       glm::vec2     kw,
@@ -306,7 +306,7 @@ void strata_cells_fbm(Array        &z,
                       float         lacunarity = 2.2f,
                       const Array  *p_noise_x = nullptr,
                       const Array  *p_noise_y = nullptr,
-                      glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                      const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply stratified talus projection along multiple directions.
@@ -348,7 +348,7 @@ void strata_terrace(Array        &z,
                     float         slope = 0.f,
                     float         angle = 0.f,
                     const Array  *p_noise = nullptr,
-                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                    const UvRect &uv_rect = UvRect::unit());
 
 void strata_terrace(Array        &z,
                     float         gamma,
@@ -360,7 +360,7 @@ void strata_terrace(Array        &z,
                     float         slope = 0.f,
                     float         angle = 0.f,
                     const Array  *p_noise = nullptr,
-                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                    const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Fill valleys using thermal scree deposition and height-based blending.

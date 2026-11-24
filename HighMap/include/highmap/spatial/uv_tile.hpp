@@ -91,6 +91,16 @@ struct UvTile
   glm::ivec2  global_to_local(int gx, int gy) const;
   std::string info_string(int indent = 0) const;
 
+  bool is_valid() const
+  {
+    return shape.x > 0 && shape.y > 0;
+  }
+
+  bool is_empty() const
+  {
+    return shape.x <= 0 || shape.y <= 0;
+  }
+
   bool        is_bottom_border() const;
   bool        is_left_border() const;
   bool        is_right_border() const;

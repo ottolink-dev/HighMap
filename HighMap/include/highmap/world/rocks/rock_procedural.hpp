@@ -61,7 +61,7 @@ Array build_rock_density(const Array &heightmap,
                          float        weight_secondary = 1.0f,
                          const Array &exclusion_mask = {},
                          float        exclusion_threshold = 0.f,
-                         glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                         const BBox2D &bbox = BBox2D{});
 
 /**
  * @brief Places rocks procedurally on a terrain, without physical simulation.

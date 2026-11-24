@@ -400,8 +400,7 @@ void SequentialTileComm::sync_overlap_buffers(Array        &local_tile,
 {
   if (this->halo <= 0) return;
 
-  if (region.shape.x > 0 && region.shape.y > 0 &&
-      local_tile.shape != region.shape)
+  if (region.is_valid() && local_tile.shape != region.shape)
   {
     hmap::log::error(
         "sync_overlap_buffers: buffer shape ({}, {}) does not match region "
@@ -423,7 +422,6 @@ void SequentialTileComm::sync_overlap_buffers(Array        &local_tile,
     {
       this->sync_va = std::make_unique<VirtualArray>(
           this->p_ref_va->shape,
-          this->p_ref_va->bbox,
           this->p_ref_va->tile_shape,
           this->p_ref_va->halo,
           StorageMode::VA_DISK_LRU_STREAM);
@@ -886,8 +884,7 @@ void ThreadedTileComm::sync_overlap_buffers(Array        &local_tile,
       {region.halo.x, region.halo.y, region.halo.z, region.halo.w});
   if (halo <= 0) return;
 
-  if (region.shape.x > 0 && region.shape.y > 0 &&
-      local_tile.shape != region.shape)
+  if (region.is_valid() && local_tile.shape != region.shape)
   {
     hmap::log::error(
         "sync_overlap_buffers: buffer shape ({}, {}) does not match region "
@@ -1292,7 +1289,6 @@ void SequentialTileComm::TileProxyComm::sync_overlap_buffers(
   {
     this->parent.sync_va = std::make_unique<VirtualArray>(
         this->parent.p_ref_va->shape,
-        this->parent.p_ref_va->bbox,
         this->parent.p_ref_va->tile_shape,
         this->parent.p_ref_va->halo,
         StorageMode::VA_DISK_LRU_STREAM);

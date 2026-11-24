@@ -23,7 +23,7 @@ Array band(glm::ivec2    shape,
            const Array  *p_noise_r,
            const Array  *p_noise_offset,
            glm::vec2     center,
-           glm::vec4     bbox)
+           const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_r && !validate_same_shape(shape, *p_noise_r)) return Array(shape);
@@ -43,7 +43,7 @@ Array band(glm::ivec2    shape,
   // grid
   bool               endpoint = false;
   std::vector<float> x, y;
-  grid_xy_vector(x, y, shape, bbox, endpoint);
+  grid_xy_vector(x, y, shape, uv_rect, endpoint);
 
   for (int j = 0; j < shape.y; j++)
     for (int i = 0; i < shape.x; i++)

@@ -505,7 +505,7 @@ void single_array_compute(const TileAccess &access, Func &&func, int stride = 1)
 
   // call user operation
   const UvTile va_region = UvTile(TileKey(),
-                                  UvRect::from_vec4(ref_va->bbox),
+                                  UvRect::unit(),
                                   shape_wrk,
                                   {0, 0, 0, 0},
                                   ref_va->shape,

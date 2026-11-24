@@ -19,25 +19,25 @@ namespace hmap::gpu
 
 // helpers
 
-glm::vec4 helper_transform_bbox(const glm::vec4 &bbox_source,
-                                const glm::vec4 &bbox_target)
+glm::vec4 helper_transform_bbox(const UvRect &uv_rect_source,
+                                const UvRect &uv_rect_target)
 {
   // in the OpenCL kernel, the bounding box of the source array is
   // assumed to be a unit square. Shift and rescale the target
   // bounding box according to this hypothesis
-  glm::vec4 bbox_target_mod = bbox_target;
+  UvRect uv_rect_target_mod = uv_rect_target;
 
-  bbox_target_mod.x = (bbox_target_mod.x - bbox_source.x) /
-                      (bbox_source.y - bbox_source.x);
-  bbox_target_mod.y = (bbox_target_mod.y - bbox_source.x) /
-                      (bbox_source.y - bbox_source.x);
+  uv_rect_target_mod.u_min = (uv_rect_target_mod.u_min - uv_rect_source.u_min) /
+                             (uv_rect_source.u_max - uv_rect_source.u_min);
+  uv_rect_target_mod.u_max = (uv_rect_target_mod.u_max - uv_rect_source.u_min) /
+                             (uv_rect_source.u_max - uv_rect_source.u_min);
 
-  bbox_target_mod.z = (bbox_target_mod.z - bbox_source.z) /
-                      (bbox_source.w - bbox_source.z);
-  bbox_target_mod.w = (bbox_target_mod.w - bbox_source.z) /
-                      (bbox_source.w - bbox_source.z);
+  uv_rect_target_mod.v_min = (uv_rect_target_mod.v_min - uv_rect_source.v_min) /
+                             (uv_rect_source.v_max - uv_rect_source.v_min);
+  uv_rect_target_mod.v_max = (uv_rect_target_mod.v_max - uv_rect_source.v_min) /
+                             (uv_rect_source.v_max - uv_rect_source.v_min);
 
-  return bbox_target_mod;
+  return uv_rect_target_mod.to_vec4();
 }
 
 // functions
@@ -46,7 +46,7 @@ void interpolate_array_bicubic(const Array &source, Array &target)
 {
   if (!validate_non_empty(source) || !validate_non_empty(target)) return;
 
-  glm::vec4 bbox(0.f, 1.f, 0.f, 1.f);
+  const UvRect uv_rect = UvRect::unit();
 
   auto run = clwrapper::Run("interpolate_array_bicubic");
 
@@ -61,21 +61,22 @@ void interpolate_array_bicubic(const Array &source, Array &target)
                      source.shape.y,
                      target.shape.x,
                      target.shape.y,
-                     bbox);
+                     uv_rect);
 
   run.execute({target.shape.x, target.shape.y});
 
   run.read_imagef("target");
 }
 
-void interpolate_array_bicubic(const Array     &source,
-                               Array           &target,
-                               const glm::vec4 &bbox_source,
-                               const glm::vec4 &bbox_target)
+void interpolate_array_bicubic(const Array  &source,
+                               Array        &target,
+                               const UvRect &uv_rect_source,
+                               const UvRect &uv_rect_target)
 {
   if (!validate_non_empty(source) || !validate_non_empty(target)) return;
 
-  glm::vec4 bbox_target_mod = helper_transform_bbox(bbox_source, bbox_target);
+  const UvRect &uv_rect_target_mod = helper_transform_bbox(uv_rect_source,
+                                                           uv_rect_target);
 
   // compute
   auto run = clwrapper::Run("interpolate_array_bicubic");
@@ -91,7 +92,7 @@ void interpolate_array_bicubic(const Array     &source,
                      source.shape.y,
                      target.shape.x,
                      target.shape.y,
-                     bbox_target_mod);
+                     uv_rect_target_mod);
 
   run.execute({target.shape.x, target.shape.y});
 
@@ -102,7 +103,7 @@ void interpolate_array_bilinear(const Array &source, Array &target)
 {
   if (!validate_non_empty(source) || !validate_non_empty(target)) return;
 
-  glm::vec4 bbox(0.f, 1.f, 0.f, 1.f);
+  const UvRect uv_rect = UvRect::unit();
 
   auto run = clwrapper::Run("interpolate_array_bilinear");
 
@@ -113,21 +114,22 @@ void interpolate_array_bilinear(const Array &source, Array &target)
                   target.shape.y,
                   true);
 
-  run.bind_arguments(target.shape.x, target.shape.y, bbox);
+  run.bind_arguments(target.shape.x, target.shape.y, uv_rect);
 
   run.execute({target.shape.x, target.shape.y});
 
   run.read_imagef("target");
 }
 
-void interpolate_array_bilinear(const Array     &source,
-                                Array           &target,
-                                const glm::vec4 &bbox_source,
-                                const glm::vec4 &bbox_target)
+void interpolate_array_bilinear(const Array  &source,
+                                Array        &target,
+                                const UvRect &uv_rect_source,
+                                const UvRect &uv_rect_target)
 {
   if (!validate_non_empty(source) || !validate_non_empty(target)) return;
 
-  glm::vec4 bbox_target_mod = helper_transform_bbox(bbox_source, bbox_target);
+  const UvRect &uv_rect_target_mod = helper_transform_bbox(uv_rect_source,
+                                                           uv_rect_target);
 
   // compute
   auto run = clwrapper::Run("interpolate_array_bilinear");
@@ -139,7 +141,7 @@ void interpolate_array_bilinear(const Array     &source,
                   target.shape.y,
                   true);
 
-  run.bind_arguments(target.shape.x, target.shape.y, bbox_target_mod);
+  run.bind_arguments(target.shape.x, target.shape.y, uv_rect_target_mod);
 
   run.execute({target.shape.x, target.shape.y});
 
@@ -174,7 +176,7 @@ void interpolate_array_nearest(const Array &source, Array &target)
 {
   if (!validate_non_empty(source) || !validate_non_empty(target)) return;
 
-  glm::vec4 bbox(0.f, 1.f, 0.f, 1.f);
+  const UvRect uv_rect = UvRect::unit();
 
   auto run = clwrapper::Run("interpolate_array_nearest");
 
@@ -185,21 +187,22 @@ void interpolate_array_nearest(const Array &source, Array &target)
                   target.shape.y,
                   true);
 
-  run.bind_arguments(target.shape.x, target.shape.y, bbox);
+  run.bind_arguments(target.shape.x, target.shape.y, uv_rect);
 
   run.execute({target.shape.x, target.shape.y});
 
   run.read_imagef("target");
 }
 
-void interpolate_array_nearest(const Array     &source,
-                               Array           &target,
-                               const glm::vec4 &bbox_source,
-                               const glm::vec4 &bbox_target)
+void interpolate_array_nearest(const Array  &source,
+                               Array        &target,
+                               const UvRect &uv_rect_source,
+                               const UvRect &uv_rect_target)
 {
   if (!validate_non_empty(source) || !validate_non_empty(target)) return;
 
-  glm::vec4 bbox_target_mod = helper_transform_bbox(bbox_source, bbox_target);
+  const UvRect &uv_rect_target_mod = helper_transform_bbox(uv_rect_source,
+                                                           uv_rect_target);
 
   // compute
   auto run = clwrapper::Run("interpolate_array_nearest");
@@ -211,7 +214,7 @@ void interpolate_array_nearest(const Array     &source,
                   target.shape.y,
                   true);
 
-  run.bind_arguments(target.shape.x, target.shape.y, bbox_target_mod);
+  run.bind_arguments(target.shape.x, target.shape.y, uv_rect_target_mod);
 
   run.execute({target.shape.x, target.shape.y});
 

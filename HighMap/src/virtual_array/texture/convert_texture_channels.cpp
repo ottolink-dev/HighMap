@@ -31,7 +31,6 @@ VirtualTexture convert_texture_channels(const VirtualTexture &src,
 
   // Create destination texture
   VirtualTexture dst(src.shape,
-                     src.bbox,
                      src.tile_shape,
                      src.halo,
                      dst_channels,

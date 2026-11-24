@@ -116,9 +116,9 @@ void RockField::apply_power_law_distribution(const RockDistribution &dist,
                                seed);
 }
 
-void RockField::apply_slope_sorting(const Array     &slope,
-                                    float            sorting_strength,
-                                    const glm::vec4 &bbox)
+void RockField::apply_slope_sorting(const Array  &slope,
+                                    float         sorting_strength,
+                                    const BBox2D &bbox)
 {
   if (items.size() < 2 || !validate_non_empty(slope)) return;
 
@@ -127,7 +127,7 @@ void RockField::apply_slope_sorting(const Array     &slope,
 
   // --- Sample Local Slopes at Rock Positions
 
-  auto               slope_fct = make_xy_function_from_array(slope, bbox);
+  auto slope_fct = make_xy_function_from_array(slope, bbox.to_vec4());
   std::vector<float> sampled_slopes(items.size());
   for (size_t i = 0; i < items.size(); ++i)
   {
@@ -176,7 +176,7 @@ std::string RockField::to_string() const
   std::ostringstream ss;
   ss.imbue(std::locale("C"));
 
-  glm::vec4 bbox = get_bbox();
+  const BBox2D &bbox = get_bbox();
 
   std::map<uint32_t, size_t> rock_counts;
   std::map<uint32_t, float>  rock_radii_sum;
@@ -190,8 +190,8 @@ std::string RockField::to_string() const
   ss << "--------------------------------\n";
   ss << " total rocks : " << items.size() << "\n";
   ss << " rock classes count : " << rock_counts.size() << "\n";
-  ss << " bbox : {" << bbox.x << ", " << bbox.y << ", " << bbox.z << ", "
-     << bbox.w << "}\n";
+  ss << " bbox : {" << bbox.min.x << ", " << bbox.max.x << ", " << bbox.min.y
+     << ", " << bbox.max.y << "}\n";
 
   if (!rock_counts.empty())
   {

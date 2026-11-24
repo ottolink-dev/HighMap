@@ -265,7 +265,7 @@ Array flow_accumulation_dinf_perturbed(const Array   &z,
                                        std::uint32_t  seed,
                                        float          amp,
                                        const Array   *p_perturb_scaling,
-                                       glm::vec4      bbox,
+                                       const UvRect  &uv_rect,
                                        int            iterations,
                                        const UvTile  &region,
                                        ICommunicator &comm)
@@ -277,11 +277,9 @@ Array flow_accumulation_dinf_perturbed(const Array   &z,
   const glm::ivec2 shape = z.shape;
   Array            facc(shape);
 
-  // If a valid region bbox is provided, prefer it for coherent noise across
+  // If a valid region uv_rect is provided, prefer it for coherent noise across
   // tiles
-  glm::vec4 noise_bbox = (region.shape.x > 0 && region.shape.y > 0)
-                             ? region.uv_rect.to_vec4()
-                             : bbox;
+  UvRect noise_bbox = (region.is_valid()) ? region.uv_rect : uv_rect;
 
   for (int n = 0; n < nsamples; ++n)
   {

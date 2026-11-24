@@ -40,7 +40,7 @@ namespace hmap
 
 Cloud::Cloud() = default;
 
-Cloud::Cloud(int npoints, std::uint32_t seed, glm::vec4 bbox)
+Cloud::Cloud(int npoints, std::uint32_t seed, const BBox2D &bbox)
 {
   this->points.resize(npoints);
   this->randomize(seed, bbox);
@@ -82,7 +82,7 @@ Cloud::Cloud(const std::vector<float> &x,
 
 Cloud::Cloud(const std::vector<glm::ivec2> &indices,
              const glm::ivec2              &shape,
-             const glm::vec4               &bbox)
+             const BBox2D                  &bbox)
 {
   this->points.reserve(indices.size());
 
@@ -91,8 +91,8 @@ Cloud::Cloud(const std::vector<glm::ivec2> &indices,
     float x = float(ij.x) / float(shape.x - 1);
     float y = float(ij.y) / float(shape.y - 1);
 
-    x = lerp(bbox.x, bbox.y, x);
-    y = lerp(bbox.z, bbox.w, y);
+    x = lerp(bbox.min.x, bbox.max.x, x);
+    y = lerp(bbox.min.y, bbox.max.y, y);
 
     this->points.emplace_back(x, y, 1.f);
   }
@@ -165,7 +165,7 @@ bool Cloud::from_csv(const std::string &fname)
   return true;
 }
 
-glm::vec4 Cloud::get_bbox() const
+BBox2D Cloud::get_bbox() const
 {
   if (!validate_non_empty(*this, "Cloud points")) return glm::vec4();
 
@@ -182,7 +182,7 @@ glm::vec4 Cloud::get_bbox() const
     ymax = std::max(ymax, p.y);
   }
 
-  return {xmin, xmax, ymin, ymax};
+  return BBox2D({xmin, ymin}, {xmax, ymax});
 }
 
 Point Cloud::get_center() const
@@ -301,11 +301,11 @@ void Cloud::print() const
 {
   std::cout << "Cloud" << std::endl;
 
-  glm::vec4 bbox = this->get_bbox();
-  Point     center = this->get_center();
+  const BBox2D &bbox = this->get_bbox();
+  Point         center = this->get_center();
 
-  std::cout << "  - bounding box: {" << bbox.x << ", " << bbox.y << ", "
-            << bbox.z << ", " << bbox.w << "}" << std::endl;
+  std::cout << "  - bounding box: {" << bbox.min.x << ", " << bbox.max.x << ", "
+            << bbox.min.y << ", " << bbox.max.y << "}" << std::endl;
 
   std::cout << "  - center: {" << center.x << ", " << center.y << "}"
             << std::endl;
@@ -321,7 +321,7 @@ void Cloud::print() const
   }
 }
 
-void Cloud::randomize(std::uint32_t seed, glm::vec4 bbox)
+void Cloud::randomize(std::uint32_t seed, const BBox2D &bbox)
 {
   Cloud cloud_rnd = random_cloud(this->size(),
                                  seed,
@@ -375,7 +375,7 @@ void Cloud::set_values(float new_value)
     p.v = new_value;
 }
 
-void Cloud::set_values_from_array(const Array &array, const glm::vec4 &bbox)
+void Cloud::set_values_from_array(const Array &array, const BBox2D &bbox)
 {
   if (!validate_non_empty(array)) return;
 
@@ -383,15 +383,15 @@ void Cloud::set_values_from_array(const Array &array, const glm::vec4 &bbox)
     p.set_value_from_array(array, bbox);
 }
 
-void Cloud::set_values_from_array(const Array     &array,
-                                  ArraySampling    sampling,
-                                  float            radius,
-                                  const glm::vec4 &bbox)
+void Cloud::set_values_from_array(const Array  &array,
+                                  ArraySampling sampling,
+                                  float         radius,
+                                  const BBox2D &bbox)
 {
   if (!validate_non_empty(array)) return;
 
-  const float dx = bbox.y - bbox.x;
-  const float dy = bbox.w - bbox.z;
+  const float dx = bbox.max.x - bbox.min.x;
+  const float dy = bbox.max.y - bbox.min.y;
 
   if (std::abs(dx) < 1e-7f || std::abs(dy) < 1e-7f) return;
 
@@ -405,7 +405,9 @@ void Cloud::set_values_from_array(const Array     &array,
   for (auto &p : *this)
   {
     // points outside the bbox are left untouched
-    if (p.x < bbox.x || p.x > bbox.y || p.y < bbox.z || p.y > bbox.w) continue;
+    if (p.x < bbox.min.x || p.x > bbox.max.x || p.y < bbox.min.y ||
+        p.y > bbox.max.y)
+      continue;
 
     if (sampling == ArraySampling::AS_POINT || radius <= 0.f)
     {
@@ -415,16 +417,16 @@ void Cloud::set_values_from_array(const Array     &array,
 
     const int i_min = std::max(
         0,
-        int(std::ceil((p.x - radius - bbox.x) / cell_dx)));
+        int(std::ceil((p.x - radius - bbox.min.x) / cell_dx)));
     const int i_max = std::min(
         nx - 1,
-        int(std::floor((p.x + radius - bbox.x) / cell_dx)));
+        int(std::floor((p.x + radius - bbox.min.x) / cell_dx)));
     const int j_min = std::max(
         0,
-        int(std::ceil((p.y - radius - bbox.z) / cell_dy)));
+        int(std::ceil((p.y - radius - bbox.min.y) / cell_dy)));
     const int j_max = std::min(
         ny - 1,
-        int(std::floor((p.y + radius - bbox.z) / cell_dy)));
+        int(std::floor((p.y + radius - bbox.min.y) / cell_dy)));
 
     const float radius_sq = radius * radius;
 
@@ -436,8 +438,8 @@ void Cloud::set_values_from_array(const Array     &array,
     for (int j = j_min; j <= j_max; ++j)
       for (int i = i_min; i <= i_max; ++i)
       {
-        const float ddx = bbox.x + float(i) * cell_dx - p.x;
-        const float ddy = bbox.z + float(j) * cell_dy - p.y;
+        const float ddx = bbox.min.x + float(i) * cell_dx - p.x;
+        const float ddy = bbox.min.y + float(j) * cell_dy - p.y;
 
         if (ddx * ddx + ddy * ddy > radius_sq) continue;
 
@@ -466,7 +468,7 @@ void Cloud::set_values_from_array(const Array     &array,
   }
 }
 
-void Cloud::set_values_from_border_distance(const glm::vec4 &bbox)
+void Cloud::set_values_from_border_distance(const BBox2D &bbox)
 {
   std::array<std::vector<float>, 2> xy = {this->get_x(), this->get_y()};
   std::vector<ps::Point<float, 2>>  points_ps = ps::merge_by_dimension(xy);
@@ -678,43 +680,43 @@ size_t Cloud::size() const
   return this->points.size();
 }
 
-void Cloud::snap_points_to_bounding_box(const glm::vec4 &bbox,
-                                        float            tolerance_ratio)
+void Cloud::snap_points_to_bounding_box(const BBox2D &bbox,
+                                        float         tolerance_ratio)
 {
   if (!validate_non_empty(*this, "Cloud points")) return;
 
   // reference distance based on point density
-  float lx = bbox.y - bbox.x;
-  float ly = bbox.w - bbox.z;
+  float lx = bbox.max.x - bbox.min.x;
+  float ly = bbox.max.y - bbox.min.y;
   float dref = tolerance_ratio * std::sqrt(lx * ly / float(this->size()));
 
   // snap points to border if close enough
   for (auto &p : *this)
   {
-    float dl = std::abs(p.x - bbox.x);
-    float dr = std::abs(p.x - bbox.y);
-    float db = std::abs(p.y - bbox.z);
-    float dt = std::abs(p.y - bbox.w);
+    float dl = std::abs(p.x - bbox.min.x);
+    float dr = std::abs(p.x - bbox.max.x);
+    float db = std::abs(p.y - bbox.min.y);
+    float dt = std::abs(p.y - bbox.max.y);
 
     float dmin = std::min(std::min(dl, dr), std::min(db, dt));
 
     if (dmin > dref) continue;
 
     if (dmin == dl)
-      p.x = bbox.x;
+      p.x = bbox.min.x;
     else if (dmin == dr)
-      p.x = bbox.y;
+      p.x = bbox.max.x;
     else if (dmin == db)
-      p.y = bbox.z;
+      p.y = bbox.min.y;
     else
-      p.y = bbox.w;
+      p.y = bbox.max.y;
   }
 
   // corners
-  glm::vec2 corners[4] = {{bbox.x, bbox.z},
-                          {bbox.y, bbox.z},
-                          {bbox.y, bbox.w},
-                          {bbox.x, bbox.w}};
+  glm::vec2 corners[4] = {{bbox.min.x, bbox.min.y},
+                          {bbox.max.x, bbox.min.y},
+                          {bbox.max.x, bbox.max.y},
+                          {bbox.min.x, bbox.max.y}};
 
   // snap closest point to each corner
   KDTree tree(*this);
@@ -739,20 +741,20 @@ void Cloud::shuffle(float dx, float dy, std::uint32_t seed, float dv)
   }
 }
 
-void Cloud::to_array(Array &array, glm::vec4 bbox) const
+void Cloud::to_array(Array &array, const BBox2D &bbox) const
 {
   if (!validate_non_empty(array)) return;
 
-  float dx = bbox.y - bbox.x;
-  float dy = bbox.w - bbox.z;
+  float dx = bbox.max.x - bbox.min.x;
+  float dy = bbox.max.y - bbox.min.y;
   if (std::abs(dx) < 1e-9f || std::abs(dy) < 1e-9f) return;
 
   int   ni = array.shape.x;
   int   nj = array.shape.y;
   float ai = (ni - 1) / dx;
-  float bi = -bbox.x * (ni - 1) / dx;
+  float bi = -bbox.min.x * (ni - 1) / dx;
   float aj = (nj - 1) / dy;
-  float bj = -bbox.z * (nj - 1) / dy;
+  float bj = -bbox.min.y * (nj - 1) / dy;
 
   for (auto &p : this->points)
   {
@@ -763,7 +765,7 @@ void Cloud::to_array(Array &array, glm::vec4 bbox) const
   }
 }
 
-Array Cloud::to_array(glm::ivec2 shape, glm::vec4 bbox) const
+Array Cloud::to_array(glm::ivec2 shape, const BBox2D &bbox) const
 {
   if (!validate_shape(shape)) return Array();
 
@@ -773,11 +775,11 @@ Array Cloud::to_array(glm::ivec2 shape, glm::vec4 bbox) const
 }
 
 void Cloud::to_array_interp(Array                &array,
-                            glm::vec4             bbox,
+                            const BBox2D         &bbox,
                             InterpolationMethod2D interpolation_method,
                             const Array          *p_noise_x,
                             const Array          *p_noise_y,
-                            glm::vec4             bbox_array) const
+                            const BBox2D         &bbox_array) const
 {
   if (!validate_shape(array.shape)) return;
   if (p_noise_x && !validate_same_shape(array, *p_noise_x)) return;
@@ -787,12 +789,10 @@ void Cloud::to_array_interp(Array                &array,
   std::vector<float> y = this->get_y();
   std::vector<float> v = this->get_values();
 
-  const float     lx = bbox.y - bbox.x;
-  const float     ly = bbox.w - bbox.z;
-  const glm::vec4 bbox_expanded = {bbox.x - lx,
-                                   bbox.y + lx,
-                                   bbox.z - ly,
-                                   bbox.w + ly};
+  const float  lx = bbox.max.x - bbox.min.x;
+  const float  ly = bbox.max.y - bbox.min.y;
+  const BBox2D bbox_expanded({bbox.min.x - lx, bbox.min.y - ly},
+                             {bbox.max.x + lx, bbox.max.y + ly});
   expand_points_domain_corners(x, y, v, bbox_expanded, 0.f);
 
   array = interpolate2d(array.shape,
@@ -802,7 +802,7 @@ void Cloud::to_array_interp(Array                &array,
                         interpolation_method,
                         p_noise_x,
                         p_noise_y,
-                        bbox_array);
+                        UvRect::from_vec4(bbox_array.to_vec4()));
 }
 
 void Cloud::to_csv(const std::string &fname) const
@@ -839,7 +839,7 @@ Graph Cloud::to_graph_delaunay() const
 
 void Cloud::to_png(const std::string &fname,
                    int                cmap,
-                   glm::vec4          bbox,
+                   const BBox2D      &bbox,
                    int                depth,
                    glm::ivec2         shape) const
 {
@@ -889,17 +889,17 @@ Cloud merge_clouds(const std::vector<Cloud> &clouds)
 Cloud random_cloud(size_t                     count,
                    std::uint32_t              seed,
                    const PointSamplingMethod &method,
-                   const glm::vec4           &bbox)
+                   const BBox2D              &bbox)
 {
   auto xy = random_points(count, seed, method, bbox);
   auto v = random_vector(0.f, 1.f, xy[0].size(), ++seed);
   return Cloud(xy[0], xy[1], v);
 }
 
-Cloud random_cloud_density(size_t           count,
-                           const Array     &density,
-                           std::uint32_t    seed,
-                           const glm::vec4 &bbox)
+Cloud random_cloud_density(size_t        count,
+                           const Array  &density,
+                           std::uint32_t seed,
+                           const BBox2D &bbox)
 {
   if (!validate_non_empty(density)) return Cloud();
 
@@ -908,10 +908,10 @@ Cloud random_cloud_density(size_t           count,
   return Cloud(xy[0], xy[1], v);
 }
 
-Cloud random_cloud_inverse_sampling(size_t           count,
-                                    const Array     &density,
-                                    std::uint32_t    seed,
-                                    const glm::vec4 &bbox)
+Cloud random_cloud_inverse_sampling(size_t        count,
+                                    const Array  &density,
+                                    std::uint32_t seed,
+                                    const BBox2D &bbox)
 {
   if (!validate_non_empty(density)) return Cloud();
 
@@ -920,20 +920,20 @@ Cloud random_cloud_inverse_sampling(size_t           count,
   return Cloud(xy[0], xy[1], v);
 }
 
-Cloud random_cloud_distance(float            min_dist,
-                            std::uint32_t    seed,
-                            const glm::vec4 &bbox)
+Cloud random_cloud_distance(float         min_dist,
+                            std::uint32_t seed,
+                            const BBox2D &bbox)
 {
   auto xy = random_points_distance(min_dist, seed, bbox);
   auto v = random_vector(0.f, 1.f, xy[0].size(), ++seed);
   return Cloud(xy[0], xy[1], v);
 }
 
-Cloud random_cloud_distance(float            min_dist,
-                            float            max_dist,
-                            const Array     &density,
-                            std::uint32_t    seed,
-                            const glm::vec4 &bbox)
+Cloud random_cloud_distance(float         min_dist,
+                            float         max_dist,
+                            const Array  &density,
+                            std::uint32_t seed,
+                            const BBox2D &bbox)
 {
   if (!validate_non_empty(density)) return Cloud();
 
@@ -942,11 +942,11 @@ Cloud random_cloud_distance(float            min_dist,
   return Cloud(xy[0], xy[1], v);
 }
 
-Cloud random_cloud_distance_power_law(float            dist_min,
-                                      float            dist_max,
-                                      float            alpha,
-                                      std::uint32_t    seed,
-                                      const glm::vec4 &bbox)
+Cloud random_cloud_distance_power_law(float         dist_min,
+                                      float         dist_max,
+                                      float         alpha,
+                                      std::uint32_t seed,
+                                      const BBox2D &bbox)
 {
   auto xy = random_points_distance_power_law(dist_min,
                                              dist_max,
@@ -957,11 +957,11 @@ Cloud random_cloud_distance_power_law(float            dist_min,
   return Cloud(xy[0], xy[1], v);
 }
 
-Cloud random_cloud_distance_weibull(float            dist_min,
-                                    float            lambda,
-                                    float            k,
-                                    std::uint32_t    seed,
-                                    const glm::vec4 &bbox)
+Cloud random_cloud_distance_weibull(float         dist_min,
+                                    float         lambda,
+                                    float         k,
+                                    std::uint32_t seed,
+                                    const BBox2D &bbox)
 {
   auto xy = random_points_distance_weibull(dist_min, lambda, k, seed, bbox);
   auto v = random_vector(0.f, 1.f, xy[0].size(), ++seed);
@@ -972,7 +972,7 @@ Cloud random_cloud_jittered(size_t           count,
                             const glm::vec2 &jitter_amount,
                             const glm::vec2 &stagger_ratio,
                             std::uint32_t    seed,
-                            const glm::vec4 &bbox)
+                            const BBox2D    &bbox)
 {
   auto xy = random_points_jittered(count,
                                    jitter_amount,

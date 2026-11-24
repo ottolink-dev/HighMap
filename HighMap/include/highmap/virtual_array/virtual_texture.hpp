@@ -31,18 +31,10 @@ public:
   VirtualTexture() = default;
 
   VirtualTexture(glm::ivec2                   shape,
-                 glm::vec4                    bbox,
                  glm::ivec2                   tile_shape,
                  int                          halo,
                  int                          channels,
                  std::unique_ptr<TileStorage> storage_proto);
-
-  VirtualTexture(glm::ivec2  shape,
-                 glm::vec4   bbox,
-                 glm::ivec2  tile_shape,
-                 int         halo,
-                 int         channels,
-                 StorageMode storage_mode);
 
   VirtualTexture(glm::ivec2  shape,
                  glm::ivec2  tile_shape,
@@ -96,7 +88,6 @@ public:
   // --- Members
 
   glm::ivec2 shape;
-  glm::vec4  bbox;
   glm::ivec2 tile_shape;
   int        halo;
 

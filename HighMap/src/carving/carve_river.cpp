@@ -35,7 +35,7 @@ void carve_river(Array        &z,
                  RadialProfile radial_profile,
                  float         radial_profile_parameter,
                  Array        *p_river_mask,
-                 glm::vec4     bbox)
+                 const UvRect &uv_rect)
 {
   if (!validate_non_empty(z)) return;
   if (graph.empty() || graph.num_edges() == 0) return;
@@ -73,8 +73,8 @@ void carve_river(Array        &z,
   }
 
   const glm::ivec2 &shape = z.shape;
-  float             dx = (bbox.y - bbox.x) / float(shape.x);
-  float             dy = (bbox.w - bbox.z) / float(shape.y);
+  float             dx = (uv_rect.u_max - uv_rect.u_min) / float(shape.x);
+  float             dy = (uv_rect.v_max - uv_rect.v_min) / float(shape.y);
 
   // --- 1. Rasterize river bottom elevation and seed mask
   Array z_bed(shape, 0.f);
@@ -83,14 +83,14 @@ void carve_river(Array        &z,
   std::vector<Segment2D> all_segments;
   all_segments.reserve(edges.size());
 
-  float lx = bbox.y - bbox.x;
-  float ly = bbox.w - bbox.z;
+  float lx = uv_rect.u_max - uv_rect.u_min;
+  float ly = uv_rect.v_max - uv_rect.v_min;
   float ppu = std::max(shape.x / lx, shape.y / ly);
 
   float ai = (shape.x - 1) / lx;
-  float bi = -bbox.x * (shape.x - 1) / lx;
+  float bi = -uv_rect.u_min * (shape.x - 1) / lx;
   float aj = (shape.y - 1) / ly;
-  float bj = -bbox.z * (shape.y - 1) / ly;
+  float bj = -uv_rect.v_min * (shape.y - 1) / ly;
 
   for (const auto &edge : edges)
   {
@@ -174,7 +174,10 @@ void carve_river(Array        &z,
   // --- 3. Build BVH for exact network SDF and per-segment width interpolation
   BVH2D bvh(all_segments, max_w);
 
-  AABB2D domain_aabb(bbox.x, bbox.z, bbox.y, bbox.w);
+  AABB2D domain_aabb(uv_rect.u_min,
+                     uv_rect.v_min,
+                     uv_rect.u_max,
+                     uv_rect.v_max);
   if (!bvh.root_bbox().overlaps(domain_aabb)) return;
 
   int tile_size = 32;
@@ -190,11 +193,11 @@ void carve_river(Array        &z,
     int tx = tile_idx % num_tiles_x;
     int ty = tile_idx / num_tiles_x;
 
-    float tile_xmin = bbox.x + float(tx * tile_size) * dx;
-    float tile_xmax = bbox.x +
+    float tile_xmin = uv_rect.u_min + float(tx * tile_size) * dx;
+    float tile_xmax = uv_rect.u_min +
                       float(std::min((tx + 1) * tile_size, shape.x)) * dx;
-    float tile_ymin = bbox.z + float(ty * tile_size) * dy;
-    float tile_ymax = bbox.z +
+    float tile_ymin = uv_rect.v_min + float(ty * tile_size) * dy;
+    float tile_ymax = uv_rect.v_min +
                       float(std::min((ty + 1) * tile_size, shape.y)) * dy;
 
     AABB2D tile_box(tile_xmin, tile_ymin, tile_xmax, tile_ymax);
@@ -208,7 +211,7 @@ void carve_river(Array        &z,
   if (p_river_mask) river_mask = Array(shape, 0.f);
 
   std::vector<float> xg, yg;
-  grid_xy_vector(xg, yg, shape, bbox, false);
+  grid_xy_vector(xg, yg, shape, uv_rect, false);
 
   // --- 4. Merge z_bed with original z using SDF and local width scaling
 #pragma omp parallel for schedule(dynamic, 8)

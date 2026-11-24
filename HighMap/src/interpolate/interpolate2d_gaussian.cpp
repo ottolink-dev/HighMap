@@ -20,7 +20,7 @@ Array interpolate2d_gaussian(glm::ivec2                shape,
                              const std::vector<float> &values,
                              const Array              *p_noise_x,
                              const Array              *p_noise_y,
-                             glm::vec4                 bbox,
+                             const UvRect             &uv_rect,
                              float                     sigma,
                              float                     radius)
 {
@@ -44,7 +44,7 @@ Array interpolate2d_gaussian(glm::ivec2                shape,
 
   // interpolation base grid
   std::vector<float> xg, yg;
-  grid_xy_vector(xg, yg, shape, bbox, /* endpoint */ false);
+  grid_xy_vector(xg, yg, shape, uv_rect, /* endpoint */ false);
 
   // interpolate
   Array       out(shape);
